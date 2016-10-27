@@ -1,6 +1,6 @@
-# SchulCloud
+# SchulCloud - Client
 
-![Travis Status](https://travis-ci.org/schulcloud/schulcloud.svg)
+![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)
 
 # Requirements
 
