@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { browserHistory, hashHistory, Router, Route, Link } from 'react-router'
+import { browserHistory, hashHistory, Router, Route, Link } from 'react-router';
 
 import { Helpers, Containers } from '../../core';
 

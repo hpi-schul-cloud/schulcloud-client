@@ -26,4 +26,4 @@ export default {
 		return modules[key];
 	}
 
-}
+};

@@ -7,7 +7,7 @@ export default {
 	},
 
 	AddStylesheet: ({path, rel = 'stylesheet', type = 'style/css'}) => {
-		<link rel="stylesheet/less" type="text/css" href="styles.less" />
+		// TBI
 	}
 
-}
+};
