@@ -5,7 +5,6 @@
 # Requirements
 
 * node.js
-* mongoDB
 
 ## Setup
 
@@ -15,7 +14,6 @@
 ## Run
 
 1. Go into project folder
-2. run `mongod`
 2. run `npm start`
 
 ## How to name your branch
