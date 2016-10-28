@@ -23,8 +23,8 @@ var config = {
 				loader: 'json'
 			},
 			{
-				test: /\.less$/,
-				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
+				test: /\.(css|scss|sass)$/,
+				loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss-loader!sass-loader')
 			},
 			{
 				test: /\.(eot|svg|ttf|woff|woff2)$/,

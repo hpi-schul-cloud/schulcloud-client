@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router'
 
-require('../styles/header.less');
+require('../styles/header.scss');
 
 class Header extends React.Component {
 
@@ -11,7 +11,13 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<header>Header</header>
+			<header>
+				<span>Header</span>
+				<ul>
+					<li><Link to="/">Home</Link></li>
+					<li><Link to="/login/">Login</Link></li>
+				</ul>
+			</header>
 		);
 	}
 }

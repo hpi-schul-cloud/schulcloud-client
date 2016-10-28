@@ -11,27 +11,59 @@ class LoginForm extends React.Component {
 		}
 	}
 
-	handleEmailChange(e) {
-		this.setState({email: e.target.value});
-	}
+	handleFieldChange(key, event) {
+		let newState = this.state || {};
+		newState[key] = event.target.value;
 
-	handlePasswordChange(e) {
-		this.setState({password: e.target.value});
+		this.setState(newState);
 	}
 
 	handleLogin(e) {
 		this.props.actions.login.bind(this)({
 			email: this.state.email,
-			password: this.state.password
+			password: this.state.password,
+			school: this.state.school || undefined,
+			system: this.state.system || undefined,
 		});
+	}
+
+	getSchoolsUI() {
+		if(!this.props.schools) return '';
+
+		return (
+			<select className="custom-select" onChange={this.handleFieldChange.bind(this, 'school')}>
+				<optgroup label="Schule">
+					<option hidden>Schule auswählen</option>
+					{Object.values(this.props.schools).map((school) => {
+						return (<option key={school._id} value={school._id}>{school.name}</option>);
+					})}
+				</optgroup>
+			</select>
+		);
+	}
+
+	getSystemsUI() {
+		if(!this.props.schools) return '';
+
+		return (
+			<select className="custom-select" onChange={this.handleFieldChange.bind(this, 'system')}>
+				<optgroup label="System">
+					<option hidden>System auswählen</option>
+					{((this.props.schools[this.state.school] || {}).systems || []).map((system) => {
+						return (<option key={system._id} value={system._id}>{system.name}</option>);
+					})}
+				</optgroup>
+			</select>
+		);
 	}
 
 	render() {
 		return (
 			<div className="form-group">
-				<input type="text" placeholder="Email" onChange={this.handleEmailChange.bind(this)} />
-				<input type="password" placeholder="Passwort" onChange={this.handlePasswordChange.bind(this)} />
-				<select><option>Schule 1</option></select>
+				<input type="text" placeholder="Email" onChange={this.handleFieldChange.bind(this, 'email')} />
+				<input type="password" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
+				{this.getSchoolsUI()}
+				{this.getSystemsUI()}
 				<button onClick={this.handleLogin.bind(this)}>Anmelden</button>
 			</div>
 		);
