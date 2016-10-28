@@ -60,8 +60,8 @@ class LoginForm extends React.Component {
 	render() {
 		return (
 			<div className="form-group">
-				<input type="text" placeholder="Email" onChange={this.handleFieldChange.bind(this, 'email')} />
-				<input type="password" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
+				<input type="text" className="form-control form-control-lg" placeholder="Email" onChange={this.handleFieldChange.bind(this, 'email')} />
+				<input type="password" className="form-control form-control-lg" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
 				{this.getSchoolsUI()}
 				{this.getSystemsUI()}
 				<button onClick={this.handleLogin.bind(this)}>Anmelden</button>
