@@ -12,16 +12,16 @@ let routes = {};
 const routeEnter = (nextState, replace) => {
 	const bodyClass = pathToBodyClass(nextState.location.pathname);
 	$('body').addClass(bodyClass);
-}
+};
 
 const routeLeave = (prevState) => {
 	const bodyClass = pathToBodyClass(prevState.location.pathname);
 	$('body').removeClass(bodyClass);
-}
+};
 
 const pathToBodyClass = (pathname) => {
 	return 'route-' + (pathname.split('/')[1].toLowerCase() || 'root');
-}
+};
 
 const addEnterLeaveHandler = (route) => {
 	route.onEnter = routeEnter.bind(this);
@@ -34,7 +34,7 @@ const addEnterLeaveHandler = (route) => {
 	}
 
 	return route;
-}
+};
 
 /* public functions */
 export default {
