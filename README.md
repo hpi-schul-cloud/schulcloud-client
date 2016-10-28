@@ -14,7 +14,9 @@
 ## Run
 
 1. Go into project folder
-2. run `npm start`
+2. run `npm run dev` to build the project
+3. run `npm run startd` 
+4. go to `http://localhost:3100`
 
 ## How to name your branch
 
