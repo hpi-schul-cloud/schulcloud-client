@@ -1,11 +1,11 @@
 import React from 'react';
-import {Link} from 'react-router'
+import { Link } from 'react-router'
 
 import Header from './header';
 import Footer from './footer';
 
-require('../styles/base.less');
-require('../styles/layout.less');
+require('../styles/base.scss');
+require('../styles/layout.scss');
 
 class Layout extends React.Component {
 	constructor(props) {

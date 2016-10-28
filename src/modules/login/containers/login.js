@@ -5,10 +5,27 @@ import {compose} from 'react-komposer';
 import component from '../components/login';
 import actions from '../actions/login';
 
+
+const schools =  {
+	'123': {
+		_id: '123',
+		name:'Schiller-Oberschule',
+		systems: [{
+			_id: '456',
+			name:'Moodle'
+		}]
+	}
+};
+
+
 const composer = (props, onData) => {
-	onData(null, {
-		actions
-	});
+
+	let componentData = {
+		actions,
+		schools
+	};
+
+	onData(null, componentData);
 };
 
 export default compose(composer)(component);

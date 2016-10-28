@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router'
 
-require('../styles/footer.less');
+require('../styles/footer.scss');
 
 class Footer extends React.Component {
 

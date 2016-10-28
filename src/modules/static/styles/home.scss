@@ -1,9 +1,17 @@
-@import '../../../core/styles/colors.less';
+@import '../../../core/styles/colors.scss';
+
+
+.route-root {
+	footer {
+		display:none;
+	}
+}
+
 
 h1 {
 	width:100%;
 	text-align:center;
-	color: @colorHPIRed;
+	color: $colorHPIRed;
 	margin:100px 0px;
 	float: left;
 }
@@ -30,7 +38,7 @@ input {
 
 button {
 	-webkit-appearance: none;
-	background:@colorHPIRed;
+	background:$colorHPIRed;
 	border:none;
 	margin-bottom:10px;
 	float:right;

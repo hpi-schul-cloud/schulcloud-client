@@ -2,7 +2,7 @@ import React from 'react';
 
 import LoginForm from './login_form.jsx';
 
-require('../styles/login.less');
+require('../styles/login.scss');
 
 class Login extends React.Component {
 
