@@ -43,7 +43,7 @@ class LoginForm extends React.Component {
 	}
 
 	getSystemsUI() {
-		if(!this.props.schools) return '';
+		if(!this.props.schools || ((this.props.schools[this.state.school] || {}).systems || []).length < 2) return '';
 
 		return (
 			<select className="custom-select" onChange={this.handleFieldChange.bind(this, 'system')}>
@@ -64,7 +64,7 @@ class LoginForm extends React.Component {
 				<input type="password" className="form-control form-control-lg" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
 				{this.getSchoolsUI()}
 				{this.getSystemsUI()}
-				<button onClick={this.handleLogin.bind(this)}>Anmelden</button>
+				<button className="btn btn-primary" onClick={this.handleLogin.bind(this)}>Anmelden</button>
 			</div>
 		);
 	}

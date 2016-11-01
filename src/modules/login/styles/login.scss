@@ -1,36 +1,31 @@
-@import '../../../core/styles/colors.scss';
+@import '../../core/styles/colors.scss';
 
-h1 {
-	width:100%;
-	text-align:center;
-	color: $colorHPIRed;
-	margin:100px 0px;
-	float: left;
-}
+.route-login {
 
-.form-group {
-	width:400px;
-	position: relative;
-	left:50%;
-	transform: translateX(-50%);
-	float:left;
-}
+	h1 {
+		width:100%;
+		text-align:center;
+		color: $colorHPIRed;
+		margin:100px 0px;
+		float: left;
+	}
 
+	.form-group {
+		width:400px;
+		position: relative;
+		left:50%;
+		transform: translateX(-50%);
+		float:left;
+	}
 
-button {
-	-webkit-appearance: none;
-	background: $colorHPIRed;
-	border:none;
-	margin-bottom:10px;
-	float:right;
-	clear:both;
-	padding:10px 15px;
-	font-size:18px;
-	color:#fff;
-	border-radius:5px;
-}
+	.btn {
+		float:right;
+	}
 
-select {
-	width: 100%;
-	margin-bottom:10px;
+	select, input {
+		width: 100%;
+		margin-bottom:10px;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+	}
+
 }

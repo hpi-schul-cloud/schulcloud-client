@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var BUILD_DIR = path.resolve(__dirname, 'public/');
+var BUILD_DIR = path.resolve(__dirname, 'dist/');
 var APP_DIR = path.resolve(__dirname, 'src/');
 
 var config = {
@@ -29,6 +29,14 @@ var config = {
 			{
 				test: /\.(eot|svg|ttf|woff|woff2)$/,
 				loader: 'file?name=fonts/[name].[ext]'
+			},
+			{
+				test: /\.(jpg|jpeg|png|gif)$/,
+				loader: 'file?name=images/[name].[ext]'
+			},
+			{
+				test: /\.(index.html)$/,
+				loader: 'file?name=[name].[ext]'
 			}
 		]
 	},

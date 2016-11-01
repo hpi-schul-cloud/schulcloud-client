@@ -14,6 +14,18 @@ const schools =  {
 			_id: '456',
 			name:'Moodle'
 		}]
+	},
+	'dsfdsf': {
+		_id: 'dsfdsf',
+		name:'Friedensburg Oberschule',
+		systems: [{
+			_id: 'asdasd',
+			name:'Moodle'
+		},
+		{
+			_id: 'sdfsdf',
+			name:'ITSLearning'
+		}]
 	}
 };
 

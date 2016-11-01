@@ -1,0 +1,18 @@
+@import "../../../static/fonts/ptsans/ptsans.css";
+@import "../../../static/fonts/fontawesome/fontawesome.css";
+@import "colors";
+
+@import "bootstrap/scss/bootstrap";
+@import "fontawesome/font-awesome";
+
+/* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
+
+body {
+	background:$colorBeige;
+}
+
+.text-hero {
+	font-size: 4.5rem;
+	line-height: 5rem;
+	font-weight: 700;
+}

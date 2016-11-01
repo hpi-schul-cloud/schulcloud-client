@@ -6,14 +6,6 @@ import component from '../components/home';
 import actions from '../actions/home';
 
 const composer = (props, onData) => {
-
-
-	/*
-	 get Schools
-	 get Systems
-	 */
-
-
 	onData(null, {
 		actions
 	});
