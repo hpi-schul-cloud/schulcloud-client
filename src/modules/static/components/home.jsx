@@ -1,5 +1,7 @@
 import React from 'react';
 
+import LayoutStatic from '../../static/components/layout';
+
 require('../styles/home.scss');
 
 class Home extends React.Component {
@@ -10,9 +12,26 @@ class Home extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<h1>Schul-Cloud Home</h1>
-			</div>
+			<LayoutStatic>
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-8 offset-sm-2">
+							<h1 className="text-hero">Schul-Cloud Home</h1>
+							<h2>Bla Bla</h2>
+						</div>
+					</div>
+				</div>
+				<section id="features">
+					<div className="container">
+						<div className="row">
+							<div className="col-sm-8 offset-sm-2">
+								<h1 className="text-hero">Schul-Cloud Home</h1>
+								<h2>Bla Bla</h2>
+							</div>
+						</div>
+					</div>
+				</section>
+			</LayoutStatic>
 		);
 	}
 

@@ -1,9 +1,18 @@
 import React from 'react';
-import Containers from './containers';
+import Home from './containers/home';
 
 export default [
 	{
 		name: 'root',
-		component: Containers.Home
+		component: Home,
+		indexRoute: {
+			name: 'home',
+			component: Home
+		},
+		childRoutes: [{
+			name: 'home',
+			path: 'home',
+			component: Home
+		}]
 	}
 ];
