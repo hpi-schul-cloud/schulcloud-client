@@ -1,7 +1,8 @@
 @import '../../core/styles/colors';
 
+
 aside.nav-sidebar {
-	color:#fff;
+	color:#727272;
 	position: fixed;
 	top: 0;
 	bottom: 0;
@@ -9,7 +10,7 @@ aside.nav-sidebar {
 	width: 70px;
 	margin-top: 0;
 	margin-bottom: 0;
-	background-color: #30343e;
+	background-color: #c3c1c1;
 	overflow-y: auto;
 	z-index: 100;
 
@@ -33,11 +34,18 @@ aside.nav-sidebar {
 					float:left;
 					height:60px;
 					line-height:60px;
-					border-bottom:1px solid #252830;
+					border-bottom:1px solid #adadad;
 					cursor: pointer;
+
+					&.active {
+						background: $colorHPIOrange;
+						color:#fff;
+						border-bottom:1px solid transparent;
+					}
 
 					&:hover {
 						background: #434857;
+						color: #fff !important;
 					}
 
 					i.fa {

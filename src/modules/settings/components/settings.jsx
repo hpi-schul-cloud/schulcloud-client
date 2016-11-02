@@ -1,8 +1,9 @@
 import React from 'react';
 
-import LayoutBackend from './layout';
+import LayoutBackend from '../../backend/components/layout';
+import SectionTitle from '../../backend/components/title';
 
-require('../styles/dashboard.scss');
+require('../styles/settings.scss');
 
 class Dashboard extends React.Component {
 
@@ -13,7 +14,8 @@ class Dashboard extends React.Component {
 	render() {
 		const sidebarLinks = [{
 			name: 'Dashboard',
-			icon: 'user'
+			icon: 'user',
+			to: '/dashboard/'
 		},{
 			name: 'Kalender',
 			icon: 'calendar'
@@ -31,12 +33,14 @@ class Dashboard extends React.Component {
 			icon: 'folder-open'
 		},{
 			name: 'Einstellungen',
-			icon: 'gears'
+			icon: 'gears',
+			class: 'active',
+			to: '/settings/'
 		}];
 
 		return (
 			<LayoutBackend sidebarLinks={sidebarLinks}>
-				<h1>Dashboard</h1>
+				<SectionTitle title="Einstellungen" />
 			</LayoutBackend>
 		);
 	}

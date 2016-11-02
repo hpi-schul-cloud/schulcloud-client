@@ -1,0 +1,32 @@
+@import '../../core/styles/colors.scss';
+
+.section-title {
+	width:100%;
+	float:left;
+	padding: 30px 0px 20px;
+	line-height: 1.75rem;
+
+	h4 {
+		color: $colorHPIRed;
+		float:left;
+		margin-bottom: 0px;
+		margin-right:20px;
+		font-weight:bold;
+	}
+
+	.location-info {
+		float:left;
+		color:$colorHPIYellow;
+	}
+
+	.search-wrapper {
+		float:right;
+
+		button {
+			float: right;
+		}
+	}
+
+
+
+}
