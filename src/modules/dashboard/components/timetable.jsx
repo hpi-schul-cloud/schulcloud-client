@@ -64,8 +64,14 @@ class SectionTimetable extends React.Component {
 
 	getTimelineUI() {
 		return (
-			<div className="timeline">
-				<div className="tick">8.00</div>
+			<div>
+				{[8,9,10,11,12,13,14,15,16,17,18,19].map((time) => {
+					return (
+						<div className="col-sm-1">
+							<div className="tick">{time}.00</div>
+						</div>
+					);
+				})}
 			</div>
 		);
 	}
@@ -85,10 +91,8 @@ class SectionTimetable extends React.Component {
 					<div className="row lesson-cards">
 						{this.getCardsUI.bind(this)()}
 					</div>
-					<div className="row">
-						<div className="col-sm-12 no-padding">
-							{this.getTimelineUI.bind(this)()}
-						</div>
+					<div className="row timeline">
+						{this.getTimelineUI.bind(this)()}
 					</div>
 				</div>
 			</section>
