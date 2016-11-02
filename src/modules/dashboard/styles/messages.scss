@@ -1,0 +1,25 @@
+@import '../../core/styles/colors.scss';
+
+.section-messages {
+	width:100%;
+	float:left;
+	border-top:2px solid #696969;
+	padding: 15px 0px 50px;
+	line-height: 1.75rem;
+
+	h5 {
+		color: $colorHPIRed;
+	}
+
+	.messages,
+	.notices {
+		margin: 20px -15px;
+	}
+
+	.avatar {
+		border-radius:50%;
+		height:32px;
+		width:32px;
+		margin-right:10px;
+	}
+}
