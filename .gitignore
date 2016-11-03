@@ -32,3 +32,6 @@ data/
 .idea/
 
 public/
+dist/
+
+deploy.sh
