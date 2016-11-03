@@ -1,0 +1,22 @@
+@import '../../core/styles/colors';
+
+.topbar {
+	text-align: right;
+
+	.avatar {
+		border-radius: 50%;
+		height: 32px;
+		width: 32px;
+		margin-right: 10px;
+	}
+
+	.account-toggle {
+		border:none;
+		padding-left:10px;
+		padding-right:10px;
+	}
+
+	.nav-link {
+		line-height: 30px;
+	}
+}

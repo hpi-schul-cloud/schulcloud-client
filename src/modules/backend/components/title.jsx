@@ -1,5 +1,3 @@
-import React from 'react';
-
 require('../styles/title.scss');
 
 class SectionTitle extends React.Component {

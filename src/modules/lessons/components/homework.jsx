@@ -1,15 +1,11 @@
 
 
-require('../styles/search.scss');
+require('../styles/homework.scss');
 
-class SectionSearch extends React.Component {
+class SectionHomework extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			query: ''
-		}
 	}
 
 	getData() {
@@ -96,75 +92,39 @@ class SectionSearch extends React.Component {
 		];
 	}
 
-
-	setQuery(event) {
-		this.setState({
-			query:event.target.value
-		});
-	}
-
-
-	getSearchFieldUI() {
-		return (
-			<div className="search-wrapper">
-				<div className="input-group input-group-lg">
-					<input type="text" className="form-control search-field" placeholder="Search for..." onChange={this.setQuery.bind(this)} />
-				</div>
-			</div>
-		);
-	}
-
-	getResultsUI() {
-		const query = this.state.query;
-		if(query != 'Biene' && query != 'Bienen' && query != 'biene' && query != 'bienen') {
-			return (
-				<div className="col-sm-12">
-					<div className="alert alert-info" role="alert">
-						<span>Keine Suchergebnisse.</span>
-					</div>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					{this.getData.bind(this)().map((result) => {
-						return (
-							<div className="col-sm-4">
-								<div className="card">
-									<img className="card-img-top" src={result.image} alt="Card image cap" />
-									<div className="card-block">
-										<h4 className="card-title">{result.title}</h4>
-										<p className="card-text">{result.description}</p>
-									</div>
-								</div>
-							</div>
-						);
-					})}
-				</div>
-			);
-
-		}
-	}
-
 	render() {
 		return (
-			<section className="section-search">
+			<section className="section-homework">
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-12 no-padding">
-							<h5>Inhaltssuche</h5>
+							<h5>Hausaufgabe</h5>
 						</div>
 					</div>
 					<div className="row search-bar">
 						<div className="row">
 							<div className="col-sm-12">
-								{this.getSearchFieldUI.bind(this)()}
+								<strong>Arbeitsauftrag</strong>
+
+								<ol>
+									<li>Erläutere kurz was der Imker unter der Varrose versteht.</li>
+									<li>Formuliere Hypothesen, wie du mit Hilfe von Messdaten herausfinden könntest, ob ein Bienenstock von der Varroamilbe befallen ist.</li>
+									<li>Betrachte auf der Homepage von BeeBIT (<a target="_blank" href="http://www.beebit.de">www.beebit.de</a>) folgende zwei Diagramme in zwei verschiedenen Fenstern.<br />
+										Bienenstock: DEU – FKG – 1<br />
+										Zeitraum: 05.07.2016 – 20.07.2016<br />
+										Sensor: Gewicht<br />
+										Bienenstock: AUT – GSC – 1<br />
+										Zeitraum: 01.06.2016 – 14.06.2016<br />
+										Sensor: Gewicht</li>
+									<li>Vergleiche den Verlauf der Diagramme.</li>
+									<li>Einer der Bienenstöcke leidet unter der Varrose. Begründe dabei mit Hilfe der Diagramme, welcher Bienenstock von der Varroamilbe befallen sein müsste.</li>
+								</ol>
 							</div>
 						</div>
 					</div>
-					<div className="row search-results">
-						<div className="row">
-							{this.getResultsUI.bind(this)()}
+					<div className="row">
+						<div className="col-sm-12 no-padding">
+							<button className="btn btn-primary">Online bearbeiten</button> <button className="btn btn-secondary">Herunterladen</button>
 						</div>
 					</div>
 				</div>
@@ -174,4 +134,4 @@ class SectionSearch extends React.Component {
 
 }
 
-export default SectionSearch;
+export default SectionHomework;

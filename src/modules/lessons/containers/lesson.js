@@ -2,8 +2,8 @@
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
 
-import component from '../components/content';
-import actions from '../actions/content';
+import component from '../components/lesson';
+import actions from '../actions/lesson';
 
 const composer = (props, onData) => {
 

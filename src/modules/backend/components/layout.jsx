@@ -1,6 +1,5 @@
-import React from 'react';
-
-import Sidebar from './sidebar.jsx';
+import Sidebar from './sidebar';
+import Topbar from './topbar';
 
 require('../styles/layout.scss');
 
@@ -15,6 +14,8 @@ class LayoutBackend extends React.Component {
 			<div>
 				<Sidebar {...this.props} />
 				<div className="content-wrapper">
+					<Topbar />
+
 					<div className="container-fluid">
 						<div className="row">
 							<div className="col-sm-12">

@@ -32,6 +32,7 @@
 
 		.lesson-card {
 			padding:0px 1px;
+			text-decoration: none !important;
 
 			.card {
 				border:0px;
@@ -41,6 +42,10 @@
 				color: #646464;
 				height:170px;
 				position: relative;
+
+				&:not(.disabled):hover {
+					background:#ddd;
+				}
 
 				.card-title {
 					font-size:1.063rem;

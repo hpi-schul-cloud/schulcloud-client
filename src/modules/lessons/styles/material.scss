@@ -1,0 +1,22 @@
+@import '../../core/styles/colors.scss';
+
+.section-material {
+	width:100%;
+	float:left;
+	border-top:2px solid #696969;
+	padding: 15px 0px 50px;
+	line-height: 1.75rem;
+
+	h5 {
+		color: $colorHPIRed;
+	}
+
+	.card-img-top {
+		max-width:100%;
+		height:auto;
+	}
+
+	.materials .material:nth-child(4n +1) {
+		clear:both;
+	}
+}

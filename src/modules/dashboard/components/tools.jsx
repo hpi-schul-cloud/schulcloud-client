@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 require('../styles/tools.scss');
 

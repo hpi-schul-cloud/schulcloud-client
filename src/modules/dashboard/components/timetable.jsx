@@ -1,4 +1,5 @@
-import React from 'react';
+
+import {Link} from 'react-router';
 
 require('../styles/timetable.scss');
 
@@ -11,33 +12,33 @@ class SectionTimetable extends React.Component {
 	getCardsUI() {
 		return (
 			<div>
-				<div className="col-sm-2 lesson-card">
+				<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
 					<div className="card card-block">
 						<time className="lesson-time">1. + 2. Stunde</time>
 						<h3 className="card-title">Mathematik<br />R 123</h3>
 						<p className="card-text">Bla bla</p>
 					</div>
-				</div>
-				<div className="col-sm-2 lesson-card">
+				</Link>
+				<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
 					<div className="card card-block">
 						<time className="lesson-time">3. + 4. Stunde</time>
 						<h3 className="card-title">Mathematik<br />R 123</h3>
 					</div>
-				</div>
-				<div className="col-sm-2 lesson-card">
+				</Link>
+				<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
 					<div className="card card-block">
 						<time className="lesson-time">5. + 6. Stunde</time>
 						<h3 className="card-title">Mathematik<br />R 123</h3>
 						<p className="card-text">Bla bla</p>
 					</div>
-				</div>
-				<div className="col-sm-2 lesson-card">
+				</Link>
+				<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
 					<div className="card card-block disabled" data-status="fällt aus">
 						<time className="lesson-time">7. + 8. Stunde</time>
 						<h3 className="card-title">Mathematik<br />R 123</h3>
 						<p className="card-text">Bla bla</p>
 					</div>
-				</div>
+				</Link>
 
 			</div>
 		);

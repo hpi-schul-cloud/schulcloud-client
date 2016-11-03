@@ -1,4 +1,4 @@
-import React from 'react';
+
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
 
