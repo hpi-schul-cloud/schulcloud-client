@@ -1,9 +1,12 @@
 import Core from './core';
+
+import Static from './static';
+import Login from './login';
+
 import Backend from './backend';
 import Dashboard from './dashboard';
+import Content from './content';
 import Settings from './settings';
-import Login from './login';
-import Static from './static';
 
 export default {
 	Core,
@@ -11,5 +14,6 @@ export default {
 	Dashboard,
 	Settings,
 	Login,
+	Content,
     Static
 };

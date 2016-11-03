@@ -10,11 +10,37 @@ class Sidebar extends React.Component {
 	}
 
 	render() {
+		const sidebarLinks = [{
+			name: 'Dashboard',
+			icon: 'user',
+			to: '/dashboard/'
+		},{
+			name: 'Kalender',
+			icon: 'calendar'
+		},{
+			name: 'Gruppen',
+			icon: 'group'
+		},{
+			name: 'Materialien',
+			icon: 'pencil'
+		},{
+			name: 'Aufgaben',
+			icon: 'list-ul'
+		},{
+			name: 'Ordner',
+			icon: 'folder-open',
+			to: '/content/'
+		},{
+			name: 'Einstellungen',
+			icon: 'gears',
+			to: '/settings/'
+		}];
+
 		return (
 			<aside className="nav-sidebar">
 				<nav>
 					<ul>
-						{(this.props.sidebarLinks || []).map((link) => {
+						{sidebarLinks.map((link) => {
 							return (
 								<li key={link.name}>
 									<Link className={link.class} to={link.to}>

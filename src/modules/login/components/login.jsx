@@ -14,8 +14,17 @@ class Login extends React.Component {
 	render() {
 		return (
 			<LayoutStatic>
-				<h1>Schul-Cloud</h1>
-				<LoginForm {...this.props} />
+				<div className="container">
+					<div className="row">
+						<div className="col-md-6 offset-md-3">
+							<h3>Schul-Cloud <sup>BETA</sup></h3>
+							<LoginForm {...this.props} />
+						</div>
+					</div>
+				</div>
+
+				<div className="bg-graphic bg-graphic-left"></div>
+				<div className="bg-graphic bg-graphic-right"></div>
 			</LayoutStatic>
 		);
 	}

@@ -16,33 +16,6 @@ class Dashboard extends React.Component {
 	}
 
 	render() {
-		const sidebarLinks = [{
-			name: 'Dashboard',
-			icon: 'user',
-			class: 'active',
-			to: '/dashboard/'
-		},{
-			name: 'Kalender',
-			icon: 'calendar'
-		},{
-			name: 'Gruppen',
-			icon: 'group'
-		},{
-			name: 'Materialien',
-			icon: 'pencil'
-		},{
-			name: 'Aufgaben',
-			icon: 'list-ul'
-		},{
-			name: 'Ordner',
-			icon: 'folder-open'
-		},{
-			name: 'Einstellungen',
-			icon: 'gears',
-			to: '/settings/'
-		}];
-
-
 		const tools = [{
 			label: 'Dashboard',
 			icon: 'user'
@@ -58,21 +31,25 @@ class Dashboard extends React.Component {
 		}];
 
 		const articles = [{
-			label: 'Dashboard',
-			icon: 'user'
+			title: 'Artikel',
+			content: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ',
+			createdAt: 12345678
 		},{
-			label: 'Kalender',
-			icon: 'calendar'
+			title: 'Artikel',
+			content: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ',
+			createdAt: 12345679
 		},{
-			label: 'Gruppen',
-			icon: 'group'
+			title: 'Artikel',
+			content: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ',
+			createdAt: 12345680
 		},{
-			label: 'Video',
-			icon: 'camera'
+			title: 'Artikel',
+			content: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. ',
+			createdAt: 12345681
 		}];
 
 		return (
-			<LayoutBackend sidebarLinks={sidebarLinks}>
+			<LayoutBackend>
 				<SectionTitle title="Dashboard" location="school" />
 				<SectionTimetable />
 				<SectionMessages />
