@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
 		if(!this.props.schools) return '';
 
 		return (
-			<select className="custom-select" onChange={this.handleFieldChange.bind(this, 'school')}>
+			<select className="custom-select form-control" onChange={this.handleFieldChange.bind(this, 'school')}>
 				<optgroup label="Schule">
 					<option hidden>Schule auswählen</option>
 					{Object.values(this.props.schools).map((school) => {
@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
 		if(!this.props.schools || ((this.props.schools[this.state.school] || {}).systems || []).length < 2) return '';
 
 		return (
-			<select className="custom-select" onChange={this.handleFieldChange.bind(this, 'system')}>
+			<select className="custom-select form-control" onChange={this.handleFieldChange.bind(this, 'system')}>
 				<optgroup label="System">
 					<option hidden>System auswählen</option>
 					{((this.props.schools[this.state.school] || {}).systems || []).map((system) => {

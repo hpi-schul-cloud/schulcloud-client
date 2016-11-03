@@ -1,26 +1,15 @@
 @import '../../core/styles/colors.scss';
 
 .route-login {
+	background:$colorBeige;
 
-	&.body {
-		background:$colorBeige;
-	}
-
-
-	h1 {
-		width:100%;
-		text-align:center;
+	h3 {
 		color: $colorHPIRed;
-		margin:100px 0px;
-		float: left;
-	}
-
-	.form-group {
-		width:400px;
-		position: relative;
-		left:50%;
-		transform: translateX(-50%);
 		float:left;
+		width:100%;
+		text-align: center;
+		font-weight:bold;
+		margin:100px 0px;
 	}
 
 	.btn {
@@ -28,9 +17,29 @@
 	}
 
 	select, input {
-		width: 100%;
 		margin-bottom:10px;
-		border: 1px solid rgba(0, 0, 0, 0.3);
+		border: 1px solid rgba(0, 0, 0, 0.15);
+	}
+
+	.bg-graphic {
+		position:absolute;
+		background:no-repeat center center;
+		background-size:contain;
+		z-index:-1;
+		width:300px;
+		height:300px;
+
+		&.bg-graphic-left {
+			left:10%;
+			top:10%;
+			background-image:url(../../../static/images/login-left.png);
+		}
+
+		&.bg-graphic-right {
+			right:10%;
+			top:30%;
+			background-image:url(../../../static/images/login-right.png);
+		}
 	}
 
 }

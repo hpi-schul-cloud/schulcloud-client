@@ -67,7 +67,7 @@ class SectionTimetable extends React.Component {
 			<div>
 				{[8,9,10,11,12,13,14,15,16,17,18,19].map((time) => {
 					return (
-						<div className="col-sm-1">
+						<div className="col-sm-1" key={time}>
 							<div className="tick">{time}.00</div>
 						</div>
 					);

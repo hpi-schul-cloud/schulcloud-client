@@ -10,8 +10,8 @@ class SectionNews extends React.Component {
 
 	getArticleUI(article) {
 		return (
-			<div className="card card-block">
-				<p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+			<div className="card card-block" key={article.createdAt}>
+				<p className="card-text">{article.content}</p>
 				<p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
 			</div>
 		);

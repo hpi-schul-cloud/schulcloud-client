@@ -12,7 +12,7 @@ class Header extends React.Component {
 	render() {
 		return (
 			<header>
-				<div className="container">
+				<div className="container-fluid">
 					<nav className="navbar navbar-light">
 						<Link className="navbar-brand" to="/">Schul-Cloud</Link>
 						<ul className="nav navbar-nav">
