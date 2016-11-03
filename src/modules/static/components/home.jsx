@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 import LayoutStatic from '../../static/components/layout';
 

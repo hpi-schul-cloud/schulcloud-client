@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router';
 
 require('../styles/sidebar.scss');
@@ -14,9 +13,10 @@ class Sidebar extends React.Component {
 			name: 'Dashboard',
 			icon: 'user',
 			to: '/dashboard/'
-		},{
+		}, /*{
 			name: 'Kalender',
-			icon: 'calendar'
+			icon: 'calendar',
+			to: '/lessons/'
 		},{
 			name: 'Gruppen',
 			icon: 'group'
@@ -26,7 +26,8 @@ class Sidebar extends React.Component {
 		},{
 			name: 'Aufgaben',
 			icon: 'list-ul'
-		},{
+		}*/
+			,{
 			name: 'Ordner',
 			icon: 'folder-open',
 			to: '/content/'
@@ -43,7 +44,7 @@ class Sidebar extends React.Component {
 						{sidebarLinks.map((link) => {
 							return (
 								<li key={link.name}>
-									<Link className={link.class} to={link.to}>
+									<Link className={link.class} to={link.to} activeClassName="active">
 										<i className={'fa ' + 'fa-' + link.icon} aria-hidden="true"></i>
 										<span className="">{link.name}</span>
 									</Link>

@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from 'react-router'
 
 require('../styles/header.scss');
@@ -21,9 +20,6 @@ class Header extends React.Component {
 							</li>
 							<li className="nav-item">
 								<Link className="nav-link" to="/login/">Login</Link>
-							</li>
-							<li className="nav-item">
-								<Link className="nav-link" to="/dashboard/">Dashboard</Link>
 							</li>
 						</ul>
 					</nav>

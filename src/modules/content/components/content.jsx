@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';

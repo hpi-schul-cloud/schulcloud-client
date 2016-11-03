@@ -48,7 +48,16 @@ var config = {
 		fs: "empty"
 	},
 	plugins: [
-		new ExtractTextPlugin("styles.css")
+		new ExtractTextPlugin("styles.css"),
+		new webpack.ProvidePlugin({
+			$: "jquery",
+			jquery: "jquery",
+			"window.jQuery": "jquery",
+			jQuery:"jquery",
+			"window.Tether": 'tether',
+			tether: 'tether',
+			'React': 'react'
+		})
 	]
 };
 

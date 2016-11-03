@@ -1,4 +1,4 @@
-import React from 'react';
+
 
 import LoginForm from './login_form.jsx';
 import LayoutStatic from '../../static/components/layout';

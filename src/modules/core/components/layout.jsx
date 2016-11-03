@@ -1,5 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router'
+
+import Bootstrap from '../scripts/bootstrap/bootstrap.min.js'
 
 require('../styles/base.scss');
 require('../styles/layout.scss');
