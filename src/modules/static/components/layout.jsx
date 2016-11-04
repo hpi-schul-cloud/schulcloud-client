@@ -1,4 +1,4 @@
-
+import Layout from '../../core/components/layout';
 
 import Header from './header';
 import Footer from './footer';
@@ -11,13 +11,13 @@ class LayoutStatic extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<Layout {...this.props}>
 				<Header />
 				<div>
 					{this.props.children}
 				</div>
 				<Footer />
-			</div>
+			</Layout>
 		);
 	}
 

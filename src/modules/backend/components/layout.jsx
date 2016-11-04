@@ -1,3 +1,5 @@
+import Layout from '../../core/components/layout';
+
 import Sidebar from './sidebar';
 import Topbar from './topbar';
 
@@ -7,11 +9,13 @@ class LayoutBackend extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		console.log(this.props);
 	}
 
 	render() {
 		return (
-			<div>
+			<Layout {...this.props}>
 				<Sidebar {...this.props} />
 				<div className="content-wrapper">
 					<Topbar />
@@ -24,7 +28,7 @@ class LayoutBackend extends React.Component {
 						</div>
 					</div>
 				</div>
-			</div>
+			</Layout>
 		);
 	}
 

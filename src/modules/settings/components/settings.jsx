@@ -12,34 +12,8 @@ class Dashboard extends React.Component {
 	}
 
 	render() {
-		const sidebarLinks = [{
-			name: 'Dashboard',
-			icon: 'user',
-			to: '/dashboard/'
-		},{
-			name: 'Kalender',
-			icon: 'calendar'
-		},{
-			name: 'Gruppen',
-			icon: 'group'
-		},{
-			name: 'Materialien',
-			icon: 'pencil'
-		},{
-			name: 'Aufgaben',
-			icon: 'list-ul'
-		},{
-			name: 'Ordner',
-			icon: 'folder-open'
-		},{
-			name: 'Einstellungen',
-			icon: 'gears',
-			class: 'active',
-			to: '/settings/'
-		}];
-
 		return (
-			<LayoutBackend sidebarLinks={sidebarLinks}>
+			<LayoutBackend className="route-settings">
 				<SectionTitle title="Einstellungen" />
 			</LayoutBackend>
 		);

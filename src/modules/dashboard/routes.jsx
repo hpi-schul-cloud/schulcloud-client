@@ -5,6 +5,7 @@ export default [
 	{
 		path: '/dashboard/',
 		name: 'dashboard',
+		class: 'dashboard123',
 		component: Dashboard
 	}
 ];
