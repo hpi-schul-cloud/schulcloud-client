@@ -1,6 +1,139 @@
 import {Link} from 'react-router';
 
+import LessonCard from './lessonCard';
+
 require('../styles/table.scss');
+
+const mockWeekdays = {
+	Montag: [{
+		id: 1,
+		lessonTime: '1. +  2.',
+		title: 'Mathematik',
+		room: 'R 101',
+		description: ''
+	},
+	{
+		id: 2,
+		lessonTime: '3. +  4.',
+		title: 'Biologie',
+		room: 'R 404',
+		description: ''
+	},
+	{
+		id: 3,
+		lessonTime: '5. +  6.',
+		title: 'Deutsch',
+		room: 'R 402',
+		description: '',
+		disabled: true
+	}],
+	Dienstag: [{
+		id: 1,
+		lessonTime: '1. +  2.',
+		title: 'Mathematik',
+		room: 'R 123',
+		description: ''
+	},
+	{
+		id: 2,
+		lessonTime: '3. +  4.',
+		title: 'Erdkunde',
+		room: 'R 200',
+		description: ''
+	},
+	{
+		id: 3,
+		lessonTime: '5. +  6.',
+		title: 'Sport',
+		room: 'Sporthalle',
+		description: ''
+	},
+	{
+		id: 4,
+		lessonTime: '7. +  8.',
+		title: 'Mathe',
+		room: 'R 101',
+		description: ''
+	}],
+	Mittwoch: [{
+		id: 1,
+		lessonTime: '1. +  2.',
+		title: 'Mathematik',
+		room: 'R 101',
+		description: ''
+	},
+	{
+		id: 2,
+		lessonTime: '3. +  4.',
+		title: 'Religion',
+		room: 'R 606',
+		description: ''
+	},
+	{
+		id: 3,
+		lessonTime: '5. +  6.',
+		title: 'Physik',
+		room: 'R 13',
+		description: ''
+	}],
+	Donnerstag: [{
+		id: 1,
+		lessonTime: '1. +  2.',
+		title: 'Chemie',
+		room: 'R 17',
+		description: '',
+		disabled: true
+	},
+	{
+		id: 2,
+		lessonTime: '3. +  4.',
+		title: 'Englisch',
+		room: 'R 007',
+		description: ''
+	},
+	{
+		id: 3,
+		lessonTime: '5. +  6.',
+		title: 'Sport',
+		room: 'Sporthalle',
+		description: ''
+	}],
+	Freitag: [{
+		id: 1,
+		lessonTime: '1. +  2.',
+		title: 'Deutsch',
+		room: 'R 17',
+		description: ''
+	},
+	{
+		id: 2,
+		lessonTime: '3. +  4.',
+		title: 'Englisch',
+		room: 'R 007',
+		description: ''
+	},
+	{
+		id: 3,
+		lessonTime: '5. +  6.',
+		title: 'Mathe',
+		room: 'R 101',
+		description: ''
+	},
+	{
+		id: 4,
+		lessonTime: '7. +  8.',
+		title: 'Mathe',
+		room: 'R 101',
+		description: ''
+	},
+	{
+		id: 5,
+		lessonTime: 'Nachmittag',
+		title: 'Hortbetreuung',
+		room: 'R 999',
+		description: ''
+	}]
+};
 
 class SectionTable extends React.Component {
 
@@ -12,37 +145,14 @@ class SectionTable extends React.Component {
 
 
 		getCardsUI() {
+			var weekdayLessons = mockWeekdays[this.props.weekday];
 			return (
 				<div>
 					<h4>{ this.props.weekday }</h4>
-					<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
-						<div className="card card-block">
-							<time className="lesson-time">1. + 2. Stunde</time>
-							<h3 className="card-title">Mathematik<br />R 123</h3>
-							<p className="card-text">description</p>
-						</div>
-					</Link>
-					<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
-						<div className="card card-block">
-							<time className="lesson-time">3. + 4. Stunde</time>
-							<h3 className="card-title">Mathematik<br />R 123</h3>
-						</div>
-					</Link>
-					<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
-						<div className="card card-block">
-							<time className="lesson-time">5. + 6. Stunde</time>
-							<h3 className="card-title">Mathematik<br />R 123</h3>
-							<p className="card-text">description</p>
-						</div>
-					</Link>
-					<Link className="col-sm-2 lesson-card" to="/lessons/s52ruf6wst">
-						<div className="card card-block disabled" data-status="fällt aus">
-							<time className="lesson-time">7. + 8. Stunde</time>
-							<h3 className="card-title">Mathematik<br />R 123</h3>
-							<p className="card-text">description</p>
-						</div>
-					</Link>
-
+					{ weekdayLessons.map((lesson) => {
+							return <LessonCard key={lesson.id} lesson={lesson} />;
+						})
+					}
 				</div>
 			);
 		}
