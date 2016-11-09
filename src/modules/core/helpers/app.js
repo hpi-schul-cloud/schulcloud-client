@@ -71,6 +71,8 @@ export default class App {
 			return route;
 		});
 
+		this.__initialized = true;
+
 		return (
 			<Router
 				history={browserHistory}
@@ -82,8 +84,6 @@ export default class App {
 				}}
 			/>
 		);
-
-		this.__initialized = true;
 	}
 
 	_checkForInit() {
