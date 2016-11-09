@@ -39,7 +39,6 @@ class SectionTitle extends React.Component {
 		});
 	}
 
-
 	getSearchFieldUI() {
 		return (
 			<div className="search-wrapper">
@@ -61,8 +60,13 @@ class SectionTitle extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-9 no-padding">
-							<h4>{this.props.title}</h4>
-							{this.getLocationUI.bind(this)()}
+							<div>
+								<h4>{this.props.title}</h4>
+								{this.getLocationUI.bind(this)()}
+							</div>
+							<div>
+								{this.props.subtitle}
+							</div>
 						</div>
 						<div className="col-sm-3 no-padding">
 							{this.getSearchFieldUI.bind(this)()}
