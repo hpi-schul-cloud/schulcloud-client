@@ -11,7 +11,7 @@ class SectionTable extends React.Component {
 	}
 
 
-		getCardsUI(weekday) {
+		getCardsUI() {
 			return (
 				<div>
 					<h4>{ this.props.weekday }</h4>

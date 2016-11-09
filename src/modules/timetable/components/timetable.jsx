@@ -15,13 +15,13 @@ class Timetable extends React.Component {
 	render() {
 		return (
 			<LayoutBackend>
-				<SectionTitle title="Timetable" />
+				<SectionTitle title="Stundenplan" />
 				<SectionControls />
-				<SectionTable weekday="Montag" />
-				<SectionTable weekday="Dienstag" />
-				<SectionTable weekday="Mittwoch" />
-				<SectionTable weekday="Donnerstag" />
-				<SectionTable weekday="Freitag" />
+				<SectionTable weekday="Montag" dashboard="false" />
+				<SectionTable weekday="Dienstag" dashboard="false" />
+				<SectionTable weekday="Mittwoch" dashboard="false" />
+				<SectionTable weekday="Donnerstag" dashboard="false" />
+				<SectionTable weekday="Freitag" dashboard="false" />
 			</LayoutBackend>
 		);
 	}
