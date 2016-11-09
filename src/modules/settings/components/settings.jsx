@@ -1,11 +1,9 @@
-
-
 import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';
 
 require('../styles/settings.scss');
 
-class Dashboard extends React.Component {
+class Settings extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -13,12 +11,12 @@ class Dashboard extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-%settings%">
-				<SectionTitle title="Einstellungen" />
+			<LayoutBackend className="route-settings">
+				<SectionTitle title="Mein Profil" />
 			</LayoutBackend>
 		);
 	}
 
 }
 
-export default Dashboard;
+export default Settings;

@@ -6,6 +6,7 @@ import SectionTimetable from './timetable';
 import SectionTools from './tools';
 import SectionNews from './news';
 import SectionMessages from './messages';
+import SectionTasks from './tasks';
 
 require('../styles/dashboard.scss');
 
@@ -50,7 +51,8 @@ class Dashboard extends React.Component {
 
 		return (
 			<LayoutBackend className="route-dashboard">
-				<SectionTitle title="Dashboard" location="school" />
+				<SectionTitle title="Dashboard" location={this.props.location.query.l || 'school'} />
+				<SectionTasks location={this.props.location.query.l || 'school'} />
 				<SectionTimetable />
 				<SectionMessages />
 				<SectionTools buttons={tools} />

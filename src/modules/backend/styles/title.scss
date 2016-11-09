@@ -16,7 +16,9 @@
 
 	.location-info {
 		float:left;
-		color:$colorHPIYellow;
+		a {
+			color: $colorHPIYellow;
+		}
 	}
 
 	.search-wrapper {

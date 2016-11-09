@@ -18,14 +18,18 @@ class SectionTitle extends React.Component {
 		let locationUI;
 		if(this.props.location == 'school') {
 			locationUI = (
-				<div className="location-info">
-					<i className="fa fa-graduation-cap" /> <span>in der Schule</span>
+				<div className="location-info" >
+					<Link to={{ pathname: '/dashboard/', query: { l: 'home' }}}>
+						<i className="fa fa-graduation-cap" /> <span>in der Schule</span>
+					</Link>
 				</div>
 			);
 		} else {
 			locationUI = (
 				<div className="location-info">
-					<i className="fa fa-home" /> <span>zu Hause</span>
+					<Link to={{ pathname: '/dashboard/', query: { l: 'school' }}}>
+						<i className="fa fa-home" /> <span>zu Hause</span>
+					</Link>
 				</div>
 			);
 		}
