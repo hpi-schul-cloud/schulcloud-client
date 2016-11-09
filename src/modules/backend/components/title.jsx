@@ -18,14 +18,18 @@ class SectionTitle extends React.Component {
 		let locationUI;
 		if(this.props.location == 'school') {
 			locationUI = (
-				<div className="location-info">
-					<i className="fa fa-graduation-cap" /> <span>in der Schule</span>
+				<div className="location-info" >
+					<Link to={{ pathname: '/dashboard/', query: { l: 'home' }}}>
+						<i className="fa fa-graduation-cap" /> <span>in der Schule</span>
+					</Link>
 				</div>
 			);
 		} else {
 			locationUI = (
 				<div className="location-info">
-					<i className="fa fa-home" /> <span>zu Hause</span>
+					<Link to={{ pathname: '/dashboard/', query: { l: 'school' }}}>
+						<i className="fa fa-home" /> <span>zu Hause</span>
+					</Link>
 				</div>
 			);
 		}
@@ -38,7 +42,6 @@ class SectionTitle extends React.Component {
 			query:event.target.value
 		});
 	}
-
 
 	getSearchFieldUI() {
 		return (
@@ -61,8 +64,13 @@ class SectionTitle extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-9 no-padding">
-							<h4>{this.props.title}</h4>
-							{this.getLocationUI.bind(this)()}
+							<div>
+								<h4>{this.props.title}</h4>
+								{this.getLocationUI.bind(this)()}
+							</div>
+							<div>
+								{this.props.subtitle}
+							</div>
 						</div>
 						<div className="col-sm-3 no-padding">
 							{this.getSearchFieldUI.bind(this)()}

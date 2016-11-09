@@ -45,11 +45,11 @@ class SectionMessages extends React.Component {
 							<div className="row notices">
 								<div className="row notice">
 									<div className="col-sm-12">
-										<div className="alert alert-info alert-dismissible" role="alert">
+										<div className="alert alert-warning alert-dismissible" role="alert">
 											<button type="button" className="close" data-dismiss="alert" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+											<strong>Mathe (17. November 2016, 3. + 4. Stunde):</strong> <br />Fällt aus.
 										</div>
 									</div>
 								</div>
@@ -59,7 +59,7 @@ class SectionMessages extends React.Component {
 											<button type="button" className="close" data-dismiss="alert" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<strong>Holy guacamole!</strong> You should check in on some of those fields below.
+											<strong>Englisch (18. November 2016, 1. + 2. Stunde):</strong> <br />Vertretung durch Herrn Müller.
 										</div>
 									</div>
 								</div>
