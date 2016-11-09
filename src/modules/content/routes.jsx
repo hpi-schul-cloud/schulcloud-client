@@ -1,4 +1,3 @@
-
 import Content from './containers/content';
 
 export default [

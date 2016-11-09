@@ -13,7 +13,7 @@ class Dashboard extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-settings">
+			<LayoutBackend className="route-%settings%">
 				<SectionTitle title="Einstellungen" />
 			</LayoutBackend>
 		);

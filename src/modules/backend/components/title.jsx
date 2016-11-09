@@ -1,9 +1,15 @@
+import {Link} from 'react-router';
+
 require('../styles/title.scss');
 
 class SectionTitle extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			query: ''
+		}
 	}
 
 	getLocationUI() {
@@ -27,13 +33,22 @@ class SectionTitle extends React.Component {
 		return locationUI;
 	}
 
+	setQuery(event) {
+		this.setState({
+			query:event.target.value
+		});
+	}
+
+
 	getSearchFieldUI() {
 		return (
 			<div className="search-wrapper">
 				<div className="input-group input-group-sm">
-					<input type="text" className="form-control search-field" placeholder="Search for..." />
+					<input type="text" className="form-control search-field" placeholder="Search for..."  onChange={this.setQuery.bind(this)} />
 					<span className="input-group-btn">
-						<button className="btn btn-secondary" type="button"><i className="fa fa-search" /></button>
+						<Link className="btn btn-secondary" to={{ pathname: '/content/', query: { q: this.state.query } }}>
+							<i className="fa fa-search" />
+						</Link>
 					</span>
 				</div>
 			</div>

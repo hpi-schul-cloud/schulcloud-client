@@ -1,5 +1,3 @@
-
-
 import LayoutStatic from '../../static/components/layout';
 
 require('../styles/home.scss');

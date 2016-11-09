@@ -1,5 +1,3 @@
-
-
 import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';
 
@@ -7,7 +5,7 @@ import SectionSearch from '../components/search';
 
 require('../styles/content.scss');
 
-class Dashboard extends React.Component {
+class Content extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -16,12 +14,12 @@ class Dashboard extends React.Component {
 	render() {
 		return (
 			<LayoutBackend>
-				<SectionTitle title="Inhalte" />
-				<SectionSearch />
+				<SectionTitle title="Materialiensuche" />
+				<SectionSearch {...this.props} />
 			</LayoutBackend>
 		);
 	}
 
 }
 
-export default Dashboard;
+export default Content;

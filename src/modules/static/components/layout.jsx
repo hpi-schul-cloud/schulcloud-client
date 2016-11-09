@@ -20,7 +20,6 @@ class LayoutStatic extends React.Component {
 			</Layout>
 		);
 	}
-
 }
 
 export default LayoutStatic;
