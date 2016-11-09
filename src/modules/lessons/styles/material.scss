@@ -9,11 +9,26 @@
 
 	h5 {
 		color: $colorHPIRed;
+		padding:10px 0px 20px;
 	}
 
-	.card-img-top {
+	.doc-preview {
 		max-width:100%;
-		height:auto;
+		height:160px;
+		background:url(../../../static/images/doc.png) no-repeat center top;
+		background-size:contain;
+	}
+
+	.doc-title {
+		color: $colorHPIRed;
+		line-height:1.4;
+		font-size:14px;
+		font-weight:bold;
+	}
+
+	.doc-text {
+		line-height:1.4;
+		font-size:14px;
 	}
 
 	.materials .material:nth-child(4n +1) {

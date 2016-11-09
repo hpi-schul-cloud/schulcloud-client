@@ -98,27 +98,14 @@ class SectionHomework extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-12 no-padding">
-							<h5>Hausaufgabe</h5>
+							<h5>Hausaufgabe: BeeBIT <span className="tag tag-warning">Hausaufgabe fällig in 3 Tagen</span></h5>
 						</div>
 					</div>
 					<div className="row search-bar">
 						<div className="row">
 							<div className="col-sm-12">
-								<strong>Arbeitsauftrag</strong>
-
-								<ol>
-									<li>Erläutere kurz was der Imker unter der Varrose versteht.</li>
-									<li>Formuliere Hypothesen, wie du mit Hilfe von Messdaten herausfinden könntest, ob ein Bienenstock von der Varroamilbe befallen ist.</li>
-									<li>Betrachte auf der Homepage von BeeBIT (<a target="_blank" href="http://www.beebit.de">www.beebit.de</a>) folgende zwei Diagramme in zwei verschiedenen Fenstern.<br />
-										Bienenstock: DEU – FKG – 1<br />
-										Zeitraum: 05.07.2016 – 20.07.2016<br />
-										Sensor: Gewicht<br />
-										Bienenstock: AUT – GSC – 1<br />
-										Zeitraum: 01.06.2016 – 14.06.2016<br />
-										Sensor: Gewicht</li>
-									<li>Vergleiche den Verlauf der Diagramme.</li>
-									<li>Einer der Bienenstöcke leidet unter der Varrose. Begründe dabei mit Hilfe der Diagramme, welcher Bienenstock von der Varroamilbe befallen sein müsste.</li>
-								</ol>
+								<p>Schon seit Jahren sterben jedes Jahr mehr Bienenvölker, derzeit etwa 40% jährlich. Bei Wissenschaftlern klingeln da alle Alarmglocken, denn: Die Biene gehört zu den wichtigsten Nutztieren unserer Landwirtschaft. Gleichzeitig gilt nur ein Bruchteil ihrer Eigenschaften als erforscht, d.h. bei Vorschlägen gegen das Bienensterben kann man meist wenig über deren Wirksamkeit aussagen. Unser Ziel ist es, durch die BeeBIT E-Hives ein System bereitzustellen, das auch Schülern die Forschung an der Biene nahebringt und gleichzeitig Wissenschaftlern ein mächtiges Werkzeug zur qualitativen und quantitativen Bienenforschung an die Hand gibt.<br />Was genau ist die Aufgabe der die E-Hives?</p>
+								<p><span className="tag tag-default">bereits von 4 Schülern abgegeben</span></p>
 							</div>
 						</div>
 					</div>

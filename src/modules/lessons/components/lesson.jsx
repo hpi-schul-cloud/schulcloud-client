@@ -17,7 +17,7 @@ class Lesson extends React.Component {
 	render() {
 		return (
 			<LayoutBackend className="route-lesson">
-				<SectionTitle title="Mathe, 12. Dezember 2017" />
+				<SectionTitle title="Biologie, 17. November 2016" />
 				<SectionHomework />
 				<SectionMaterial />
 			</LayoutBackend>
