@@ -15,7 +15,7 @@ class Home extends React.Component {
 					<div className="row">
 						<div className="col-sm-8 offset-sm-2">
 							<h1 className="text-hero">Schul-Cloud Home</h1>
-							<h2>Bla Bla</h2>
+							<h2>description</h2>
 						</div>
 					</div>
 				</div>
@@ -24,7 +24,7 @@ class Home extends React.Component {
 						<div className="row">
 							<div className="col-sm-8 offset-sm-2">
 								<h1 className="text-hero">Schul-Cloud Home</h1>
-								<h2>Bla Bla</h2>
+								<h2>description</h2>
 							</div>
 						</div>
 					</div>

@@ -10,6 +10,7 @@
 
 1. Clone directory into local folder
 2. Go into the cloned folder and enter `npm install`
+3. Install nodemon by entering `npm install -g nodemon`
 
 ## Run
 
