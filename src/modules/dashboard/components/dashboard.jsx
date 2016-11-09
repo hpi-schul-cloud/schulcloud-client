@@ -2,7 +2,7 @@
 
 import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';
-import SectionTimetable from './timetable';
+import SectionTimetable from '../../timetable/components/table';
 import SectionTools from './tools';
 import SectionNews from './news';
 import SectionMessages from './messages';

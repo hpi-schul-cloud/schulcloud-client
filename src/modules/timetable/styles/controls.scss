@@ -1,0 +1,28 @@
+@import '../../core/styles/colors.scss';
+
+.section-timetable {
+	width:100%;
+	float:left;
+	border-top:2px solid #696969;
+	padding: 15px 0px 50px;
+	line-height: 1.75rem;
+
+h5 {
+  color: $colorHPIRed;
+}
+
+.controls {
+  float:right;
+  color: #646464;
+
+  .selected-date {
+    float:left;
+    margin-right:20px;
+    color: #969696;
+  }
+
+  .btn-toolbar {
+    float:left;
+  }
+}
+}

@@ -8,6 +8,7 @@ import Dashboard from './dashboard';
 import Content from './content';
 import Settings from './settings';
 import Lessons from './lessons';
+import Timetable from './timetable';
 
 export default {
 	Core,
@@ -17,5 +18,6 @@ export default {
 	Login,
 	Content,
 	Lessons,
+	Timetable,
     Static
 };
