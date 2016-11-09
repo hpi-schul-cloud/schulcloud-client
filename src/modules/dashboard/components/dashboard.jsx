@@ -49,7 +49,7 @@ class Dashboard extends React.Component {
 		}];
 
 		return (
-			<LayoutBackend>
+			<LayoutBackend className="route-dashboard">
 				<SectionTitle title="Dashboard" location="school" />
 				<SectionTimetable />
 				<SectionMessages />

@@ -1,5 +1,3 @@
-
-
 import LayoutStatic from '../../static/components/layout';
 
 require('../styles/home.scss');
@@ -12,7 +10,7 @@ class Home extends React.Component {
 
 	render() {
 		return (
-			<LayoutStatic>
+			<LayoutStatic className="route-root">
 				<div className="container">
 					<div className="row">
 						<div className="col-sm-8 offset-sm-2">

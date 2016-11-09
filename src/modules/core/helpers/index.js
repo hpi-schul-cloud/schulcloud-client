@@ -1,7 +1,5 @@
-import Module from './module';
-import Router from './router';
+import App from './app';
 
-export default {
-	Module,
-	Router
+export {
+	App
 };

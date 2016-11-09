@@ -8,7 +8,7 @@ class SectionSearch extends React.Component {
 		super(props);
 
 		this.state = {
-			query: ''
+			query: (this.props.location.query || {}).q || ''
 		}
 	}
 
@@ -108,7 +108,7 @@ class SectionSearch extends React.Component {
 		return (
 			<div className="search-wrapper">
 				<div className="input-group input-group-lg">
-					<input type="text" className="form-control search-field" placeholder="Search for..." onChange={this.setQuery.bind(this)} />
+					<input value={this.state.query} type="text" className="form-control search-field" placeholder="Search for..." onChange={this.setQuery.bind(this)} />
 				</div>
 			</div>
 		);
@@ -118,43 +118,144 @@ class SectionSearch extends React.Component {
 		const query = this.state.query;
 		if(query != 'Biene' && query != 'Bienen' && query != 'biene' && query != 'bienen') {
 			return (
-				<div className="col-sm-12">
-					<div className="alert alert-info" role="alert">
-						<span>Keine Suchergebnisse.</span>
+				<div className="row">
+					<div className="col-sm-12 no-padding">
+						<p className="text-muted text-center">
+							<span>Keine Suchergebnisse.</span>
+						</p>
 					</div>
 				</div>
 			);
 		} else {
 			return (
 				<div>
-					{this.getData.bind(this)().map((result) => {
-						return (
-							<div className="col-sm-4">
-								<div className="card">
-									<img className="card-img-top" src={result.image} alt="Card image cap" />
-									<div className="card-block">
-										<h4 className="card-title">{result.title}</h4>
-										<p className="card-text">{result.description}</p>
+					<div className="row">
+						<div className="col-sm-12 no-padding">
+							<h5>Suchergebnisse für "{this.state.query}":</h5>
+						</div>
+					</div>
+					<div className="row">
+						<div className="row results">
+							{this.getData.bind(this)().map((result) => {
+								return (
+									<div className="col-sm-4">
+										<div className="card">
+											<img className="card-img-top" src={result.image} alt="Card image cap" />
+											<div className="card-block">
+												<h4 className="card-title">{result.title}</h4>
+												<p className="card-text">{result.description}</p>
+												<p><small className="text-muted">via natur.org | 17. November 2016</small></p>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-						);
-					})}
+								);
+							})}
+						</div>
+					</div>
 				</div>
 			);
 
 		}
 	}
 
+	getFiltersUI() {
+		return (
+			<div>
+				<div className="row">
+					<div className="col-sm-12 no-padding">
+						<div className="card filters-attributes">
+							<div className="card-block">
+								<div className="container-fluid">
+									<div className="row">
+										<div className="col-sm-4">
+											<strong>Fachbereich</strong>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> Biologie
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> Mathe
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> Deutsch
+												</label>
+											</div>
+										</div>
+										<div className="col-sm-4">
+											<strong>Klassenstufe</strong>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> 7.
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> 8.
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> 9.
+												</label>
+											</div>
+										</div>
+										<div className="col-sm-4">
+											<strong>Lizenz</strong>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> Frei
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> GPL
+												</label>
+											</div>
+											<div className="form-check">
+												<label className="form-check-label">
+													<input className="form-check-input" type="checkbox" value="" /> CC
+												</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-sm-12 no-padding">
+						<div className="btn-toolbar filters-type">
+							<div className="btn-group">
+								<button type="button" className="btn btn-secondary">Alle</button>
+								<button type="button" className="btn btn-secondary">Dokumente (20)</button>
+								<button type="button" className="btn btn-secondary">Videos (15)</button>
+								<button type="button" className="btn btn-secondary">Literatur (10)</button>
+								<button type="button" className="btn btn-secondary">Web</button>
+								<button type="button" className="btn btn-secondary">Apps</button>
+							</div>
+
+							<div className="pull-right" role="group">
+								<select className="custom-select">
+									<option selected value="relevance">Relevanz</option>
+									<option value="date">Datum</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	render() {
 		return (
 			<section className="section-search">
 				<div className="container-fluid">
-					<div className="row">
-						<div className="col-sm-12 no-padding">
-							<h5>Inhaltssuche</h5>
-						</div>
-					</div>
 					<div className="row search-bar">
 						<div className="row">
 							<div className="col-sm-12">
@@ -162,10 +263,11 @@ class SectionSearch extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="row search-results">
-						<div className="row">
-							{this.getResultsUI.bind(this)()}
-						</div>
+					<div className="filters">
+						{this.getFiltersUI.bind(this)()}
+					</div>
+					<div className="search-results">
+						{this.getResultsUI.bind(this)()}
 					</div>
 				</div>
 			</section>

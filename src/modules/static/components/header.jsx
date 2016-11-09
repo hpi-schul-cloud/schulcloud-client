@@ -21,6 +21,9 @@ class Header extends React.Component {
 							<li className="nav-item">
 								<Link className="nav-link" to="/login/">Login</Link>
 							</li>
+							<li className="nav-item">
+								<a className="nav-link" href="https://blog.schulcloud.org/" target="_blank">Blog</a>
+							</li>
 						</ul>
 					</nav>
 				</div>

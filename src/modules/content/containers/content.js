@@ -6,7 +6,6 @@ import component from '../components/content';
 import actions from '../actions/content';
 
 const composer = (props, onData) => {
-
 	let componentData = {
 		actions
 	};

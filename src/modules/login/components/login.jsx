@@ -13,7 +13,7 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<LayoutStatic>
+			<LayoutStatic className="route-login">
 				<div className="container">
 					<div className="row">
 						<div className="col-md-6 offset-md-3">
