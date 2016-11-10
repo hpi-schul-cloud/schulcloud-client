@@ -1,6 +1,9 @@
 import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';
 
+import SectionNotifications from './notifications';
+import SectionPrivacy from './privacy';
+
 require('../styles/settings.scss');
 
 class Settings extends React.Component {
@@ -13,6 +16,8 @@ class Settings extends React.Component {
 		return (
 			<LayoutBackend className="route-settings">
 				<SectionTitle title="Mein Profil" />
+				<SectionNotifications />
+				<SectionPrivacy />
 			</LayoutBackend>
 		);
 	}
