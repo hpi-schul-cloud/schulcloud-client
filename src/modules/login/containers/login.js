@@ -27,9 +27,6 @@ function composer(props, onData) {
 		.catch(error => {
 			onData(error);
 		});
-
 }
-
-};
 
 export default compose(composer)(component);
