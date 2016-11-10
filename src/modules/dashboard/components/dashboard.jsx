@@ -60,7 +60,7 @@ class Dashboard extends React.Component {
 				<SectionTitle title="Dashboard" location={this.props.location.query.l || 'school'} />
 				<SectionTasks location={this.props.location.query.l || 'school'} />
 				<SectionControls dashboard="true" />
-				<SectionTimetable weekday="Donnerstag" />
+				<SectionTimetable weekday="Donnerstag" timeline="true" />
 				<SectionMessages />
 				<SectionTools buttons={tools} />
 				<SectionNews articles={articles} />

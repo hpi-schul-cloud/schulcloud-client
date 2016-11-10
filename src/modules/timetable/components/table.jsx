@@ -178,9 +178,11 @@ class SectionTable extends React.Component {
 						<div className="row lesson-cards">
 							{this.getCardsUI.bind(this)()}
 						</div>
+						{ (this.props.timeline ?
 						<div className="row timeline">
 							{this.getTimelineUI.bind(this)()}
 						</div>
+						: '')}
 					</div>
 			);
 		}

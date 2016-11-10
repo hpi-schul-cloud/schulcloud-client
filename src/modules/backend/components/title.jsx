@@ -47,7 +47,7 @@ class SectionTitle extends React.Component {
 		return (
 			<div className="search-wrapper">
 				<div className="input-group input-group-sm">
-					<input type="text" className="form-control search-field" placeholder="Search for..."  onChange={this.setQuery.bind(this)} />
+					<input type="text" className="form-control search-field" placeholder="Suche nach..."  onChange={this.setQuery.bind(this)} />
 					<span className="input-group-btn">
 						<Link className="btn btn-secondary" to={{ pathname: '/content/', query: { q: this.state.query } }}>
 							<i className="fa fa-search" />
