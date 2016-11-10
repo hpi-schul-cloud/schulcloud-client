@@ -2,7 +2,8 @@
 
 import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';
-import SectionTimetable from './timetable';
+import SectionTimetable from '../../timetable/components/table';
+import SectionControls from '../../timetable/components/controls';
 import SectionTools from './tools';
 import SectionNews from './news';
 import SectionMessages from './messages';
@@ -18,8 +19,8 @@ class Dashboard extends React.Component {
 
 	render() {
 		const tools = [{
-			label: 'Dashboard',
-			icon: 'user'
+			label: 'Office',
+			icon: 'pencil'
 		},{
 			label: 'Kalender',
 			icon: 'calendar'
@@ -53,7 +54,8 @@ class Dashboard extends React.Component {
 			<LayoutBackend className="route-dashboard">
 				<SectionTitle title="Dashboard" location={this.props.location.query.l || 'school'} />
 				<SectionTasks location={this.props.location.query.l || 'school'} />
-				<SectionTimetable />
+				<SectionControls dashboard="true" />
+				<SectionTimetable weekday="Donnerstag" />
 				<SectionMessages />
 				<SectionTools buttons={tools} />
 				<SectionNews articles={articles} />

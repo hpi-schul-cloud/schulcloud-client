@@ -2,6 +2,7 @@ import Layout from '../../core/components/layout';
 
 import Sidebar from './sidebar';
 import Topbar from './topbar';
+import Footer from '../../static/components/footer'
 
 require('../styles/layout.scss');
 
@@ -26,6 +27,7 @@ class LayoutBackend extends React.Component {
 						</div>
 					</div>
 				</div>
+				<Footer />
 			</Layout>
 		);
 	}
