@@ -4,40 +4,32 @@ import {compose} from 'react-komposer';
 
 import component from '../components/login';
 import actions from '../actions/login';
+import { server } from '../../feathers';
 
+const schoolService = server.service('/schools');
 
-const schools =  {
-	'123': {
-		_id: '123',
-		name:'Schiller-Oberschule',
-		systems: [{
-			_id: '456',
-			name:'Moodle'
-		}]
-	},
-	'dsfdsf': {
-		_id: 'dsfdsf',
-		name:'Friedensburg Oberschule',
-		systems: [{
-			_id: 'asdasd',
-			name:'Moodle'
-		},
-		{
-			_id: 'sdfsdf',
-			name:'ITSLearning'
-		}]
-	}
-};
+function composer(props, onData) {
 
+	schoolService.find()
+		.then(result => {
+			const schools = result.data;
+			let schoolMap = new Map();
+			schools.forEach(s => {
+				schoolMap.set(s._id, s);
+			});
+			let componentData = {
+				actions,
+				schools,
+				schoolMap
+			};
+			onData(null, componentData);
+		})
+		.catch(error => {
+			onData(error);
+		});
 
-const composer = (props, onData) => {
+}
 
-	let componentData = {
-		actions,
-		schools
-	};
-
-	onData(null, componentData);
 };
 
 export default compose(composer)(component);
