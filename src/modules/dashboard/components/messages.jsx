@@ -24,7 +24,7 @@ class SectionMessages extends React.Component {
 										<img className="avatar" src="https://randomuser.me/api/portraits/men/1.jpg" /><strong>Tom</strong>
 									</div>
 									<div className="col-sm-10">
-										<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+										<p>[Schulfest] Am 31.März findet unser Alljährliches Schulfest statt<br />Liebe Lehrer, liebe Mitschüler, im Namen Schulversammlung lade ich Euch und eure Familien ganz herzlich zum Schulfest nächsten Monat ein. Beginn ist um 15 Uhr in der Aula. Im Anschluss bieten wir verschiedene Attraktionen wie, Kuchenverkauf, Beatboxen und Fußball an. <a href="www.example.com">Ablaufplan</a></p>
 									</div>
 								</div>
 
@@ -33,7 +33,7 @@ class SectionMessages extends React.Component {
 										<img className="avatar" src="https://randomuser.me/api/portraits/women/91.jpg" /><strong>Jana</strong>
 									</div>
 									<div className="col-sm-10">
-										<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+										<p>[Projekt] Abgabe Physik-Projekt am Dienstag<br />Bis Dienstag müssen noch die Details zu Magnetfeldern und Stromleitern auf unser Plakat. Könntest du das übernehmen, Jens? Katrin und ich kümmern uns in der Zwischenzeit um die schriftliche Ausarbeitung. Treffen wie uns nach der 8ten Stunde noch in der Bibliothek?</p>
 									</div>
 								</div>
 							</div>
