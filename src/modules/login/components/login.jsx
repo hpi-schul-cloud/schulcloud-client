@@ -17,7 +17,7 @@ class Login extends React.Component {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-6 offset-md-3">
-							<h3>Schul-Cloud <sup>BETA</sup></h3>
+							<h3>Schul-Cloud <sup>DEMO</sup></h3>
 							<LoginForm {...this.props} />
 						</div>
 					</div>
