@@ -28,7 +28,7 @@ class Directories extends React.Component {
 							<h3 className="card-title"><i className="fa fa-file-text-o" aria-hidden="true"></i> Dokumente</h3>
 						</div>
 						<div className="card card-block col-md-3 col-sm-12 col-xs-12">
-							<h3 className="card-title"><i className="fa fa-music" aria-hidden="true"></i> Musik</h3>
+							<h3 className="card-title"><i className="fa fa-video-camera" aria-hidden="true"></i> Videos</h3>
 						</div>
 					</div>
 				</div>

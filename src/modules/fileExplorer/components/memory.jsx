@@ -21,8 +21,8 @@ class Memory extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-4 no-padding">
-							<Link href="#">
-								<i className="fa fa-upload" aria-hidden="true"></i>Hochladen
+							<Link href="#" className="upload">
+								<i className="fa fa-upload" aria-hidden="true"></i><span>Hochladen</span>
 							</Link>
 						</div>
 						<div className="col-sm-8 no-padding rightSide">
