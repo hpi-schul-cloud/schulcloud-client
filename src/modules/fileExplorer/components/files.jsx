@@ -22,7 +22,7 @@ class Files extends React.Component {
 		},
 		{
 			name: 'Bienen.jpg',
-			type: 'Bilderressource',
+			type: 'Bildressource',
 			thumbnail: 'http://www.br-online.de/kinder/fragen-verstehen/wissen/2003/00278/bienenwabe_dpa482.jpg'
 		}];
 	}
