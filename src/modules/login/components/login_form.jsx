@@ -85,7 +85,8 @@ class LoginForm extends React.Component {
 			<select className="custom-select form-control system-select" onChange={this.handleFieldChange.bind(this, 'system')}>
 				<optgroup label="System">
 					<option hidden>System auswählen</option>
-					{((this.props.schools[this.state.school] || {}).systems || []).map((system) => {
+					{systems.map((system) => {
+						console.log(system);
 						return (<option key={system._id} value={system._id}>{system.type}</option>);
 					})}
 				</optgroup>
