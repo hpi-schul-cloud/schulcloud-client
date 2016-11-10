@@ -1,6 +1,10 @@
 @import '../../core/styles/colors.scss';
 
 .memory {
-  padding: 10px;
-  text-align: right;
+  padding-top: 4%;
+
+  .rightSide {
+    float: right;
+    text-align: right;
+  }
 }
