@@ -11,6 +11,7 @@ class SectionNews extends React.Component {
 	getArticleUI(article) {
 		return (
 			<div className="card card-block" key={article.createdAt}>
+				<strong className="card-text">{article.title}</strong>
 				<p className="card-text">{article.content}</p>
 				<p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
 				{article.url ? <a href={article.url}> weiterlesen</a> : '' }
