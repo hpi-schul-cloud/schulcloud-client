@@ -25,7 +25,7 @@ class SectionMessages extends React.Component {
 									</div>
 									<div className="col-sm-10">
 										<h6>[Schulfest] Am 31.März findet unser Alljährliches Schulfest statt</h6>
-										<p>Liebe Lehrer, liebe Mitschüler, im Namen der Schulversammlung lade ich Euch und eure Familien ganz herzlich zum Schulfest im nächsten Monat ein. Beginn ist um 15 Uhr in der Aula. Im Anschluss bieten wir verschiedene Attraktionen wie Kuchenverkauf, Beatboxen und Fußball an. <a href="#">Ablaufplan</a></p>
+										<p>Liebe Lehrer, liebe Mitschüler, im Namen der Schülervertretung lade ich Euch und eure Familien ganz herzlich zum Schulfest im nächsten Monat ein. Beginn ist um 15 Uhr in der Aula. Im Anschluss bieten wir verschiedene Attraktionen wie Kuchenverkauf, Beatboxen und Fußball an. <a href="#">Ablaufplan</a></p>
 									</div>
 								</div>
 
