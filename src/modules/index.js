@@ -9,6 +9,7 @@ import Content from './content';
 import Settings from './settings';
 import Lessons from './lessons';
 import Timetable from './timetable';
+import FileExplorer from './fileExplorer';
 
 export default {
 	Core,
@@ -19,5 +20,6 @@ export default {
 	Content,
 	Lessons,
 	Timetable,
+	FileExplorer,
     Static
 };
