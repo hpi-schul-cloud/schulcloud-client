@@ -9,14 +9,14 @@ const mockWeekdays = {
 		id: 1,
 		lessonTime: '1. +  2.',
 		title: 'Mathematik',
-		room: 'R 101',
+		room: 'R 410',
 		description: ''
 	},
 	{
 		id: 2,
 		lessonTime: '3. +  4.',
-		title: 'Biologie',
-		room: 'R 404',
+		title: 'Erdkunde',
+		room: 'R 200',
 		description: ''
 	},
 	{
@@ -30,15 +30,16 @@ const mockWeekdays = {
 	Dienstag: [{
 		id: 1,
 		lessonTime: '1. +  2.',
-		title: 'Mathematik',
-		room: 'R 123',
-		description: ''
+		title: 'Chemie',
+		room: 'R 418',
+		description: '',
+		disabled: true
 	},
 	{
 		id: 2,
 		lessonTime: '3. +  4.',
-		title: 'Erdkunde',
-		room: 'R 200',
+		title: 'Englisch',
+		room: 'R 007',
 		description: ''
 	},
 	{
@@ -46,13 +47,6 @@ const mockWeekdays = {
 		lessonTime: '5. +  6.',
 		title: 'Sport',
 		room: 'Sporthalle',
-		description: ''
-	},
-	{
-		id: 4,
-		lessonTime: '7. +  8.',
-		title: 'Mathe',
-		room: 'R 101',
 		description: ''
 	}],
 	Mittwoch: [{
@@ -73,22 +67,22 @@ const mockWeekdays = {
 		id: 3,
 		lessonTime: '5. +  6.',
 		title: 'Physik',
-		room: 'R 13',
+		room: 'R 400',
 		description: ''
 	}],
 	Donnerstag: [{
 		id: 1,
 		lessonTime: '1. +  2.',
-		title: 'Chemie',
-		room: 'R 17',
+		title: 'Mathematik',
+		room: 'R 101',
 		description: '',
 		disabled: true
 	},
 	{
 		id: 2,
 		lessonTime: '3. +  4.',
-		title: 'Englisch',
-		room: 'R 007',
+		title: 'Biologie',
+		room: 'R 404',
 		description: ''
 	},
 	{
@@ -97,19 +91,26 @@ const mockWeekdays = {
 		title: 'Sport',
 		room: 'Sporthalle',
 		description: ''
+	},
+	{
+		id: 4,
+		lessonTime: '7. +  8.',
+		title: 'Mathe',
+		room: 'R 101',
+		description: ''
 	}],
 	Freitag: [{
 		id: 1,
 		lessonTime: '1. +  2.',
-		title: 'Deutsch',
-		room: 'R 17',
-		description: ''
+		title: 'Englisch',
+		room: 'R 007',
+		description: 'Vertretung'
 	},
 	{
 		id: 2,
 		lessonTime: '3. +  4.',
-		title: 'Englisch',
-		room: 'R 007',
+		title: 'Deutsch',
+		room: 'R 301',
 		description: ''
 	},
 	{

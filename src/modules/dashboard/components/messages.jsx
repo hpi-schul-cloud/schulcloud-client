@@ -49,7 +49,7 @@ class SectionMessages extends React.Component {
 											<button type="button" className="close" data-dismiss="alert" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<strong>Mathe (17. November 2016, 3. + 4. Stunde):</strong> <br />Fällt aus.
+											<strong>Mathe (17. November 2016, 1. + 2. Stunde):</strong> <br />Fällt aus.
 										</div>
 									</div>
 								</div>

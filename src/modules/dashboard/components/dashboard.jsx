@@ -19,8 +19,8 @@ class Dashboard extends React.Component {
 
 	render() {
 		const tools = [{
-			label: 'Dashboard',
-			icon: 'user'
+			label: 'Office',
+			icon: 'pencil'
 		},{
 			label: 'Kalender',
 			icon: 'calendar'
@@ -55,7 +55,7 @@ class Dashboard extends React.Component {
 				<SectionTitle title="Dashboard" location={this.props.location.query.l || 'school'} />
 				<SectionTasks location={this.props.location.query.l || 'school'} />
 				<SectionControls dashboard="true" />
-				<SectionTimetable weekday="Dienstag" />
+				<SectionTimetable weekday="Donnerstag" />
 				<SectionMessages />
 				<SectionTools buttons={tools} />
 				<SectionNews articles={articles} />

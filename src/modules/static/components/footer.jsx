@@ -10,7 +10,11 @@ class Footer extends React.Component {
 
 	render() {
 		return (
-			<footer></footer>
+			<footer>
+				<div className="imprint">
+					<a href="https://hpi.de/impressum.html" target="_blank">Impressum</a>
+				</div>
+				</footer>
 		);
 	}
 }

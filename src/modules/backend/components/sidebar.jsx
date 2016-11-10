@@ -13,11 +13,11 @@ class Sidebar extends React.Component {
 			name: 'Dashboard',
 			icon: 'user',
 			to: '/dashboard/'
-		},{
+		},/**{
 			name: 'Kalender',
 			icon: 'calendar',
 			to: '/lessons/'
-		},{
+		},**/{
 			name: 'Stundenplan',
 			icon: 'table',
 			to: '/timetable/'
