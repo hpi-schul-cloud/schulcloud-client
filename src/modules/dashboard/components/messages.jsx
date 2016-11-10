@@ -24,7 +24,7 @@ class SectionMessages extends React.Component {
 										<img className="avatar" src="https://randomuser.me/api/portraits/men/1.jpg" /><strong>Tom</strong>
 									</div>
 									<div className="col-sm-10">
-										<p>[Schulfest] Am 31.März findet unser Alljährliches Schulfest statt<br />Liebe Lehrer, liebe Mitschüler, im Namen Schulversammlung lade ich Euch und eure Familien ganz herzlich zum Schulfest nächsten Monat ein. Beginn ist um 15 Uhr in der Aula. Im Anschluss bieten wir verschiedene Attraktionen wie, Kuchenverkauf, Beatboxen und Fußball an. <a href="www.example.com">Ablaufplan</a></p>
+										<p>[Schulfest] Am 31.März findet unser Alljährliches Schulfest statt<br />Liebe Lehrer, liebe Mitschüler, im Namen Schulversammlung lade ich Euch und eure Familien ganz herzlich zum Schulfest nächsten Monat ein. Beginn ist um 15 Uhr in der Aula. Im Anschluss bieten wir verschiedene Attraktionen wie Kuchenverkauf, Beatboxen und Fußball an. <a href="www.example.com">Ablaufplan</a></p>
 									</div>
 								</div>
 
