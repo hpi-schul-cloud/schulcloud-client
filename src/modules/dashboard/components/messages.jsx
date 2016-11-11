@@ -35,7 +35,7 @@ class SectionMessages extends React.Component {
 									</div>
 									<div className="col-sm-10">
 										<h6>[Projekt] Abgabe Physik-Projekt am Dienstag</h6>
-										<p>Bis Dienstag müssen noch die Details zu Magnetfeldern und Stromleitern auf unser Plakat. Könntest du das übernehmen, Jens? Katrin und ich kümmern uns in der Zwischenzeit um die schriftliche Ausarbeitung. Treffen wir uns nach der 8ten Stunde noch in der Bibliothek?</p>
+										<p>Bis Dienstag müssen noch die Details zu Magnetfeldern und Stromleitern auf unser Plakat. Könntest du das übernehmen, Lukas? Katrin und ich kümmern uns in der Zwischenzeit um die schriftliche Ausarbeitung. Treffen wir uns nach der 8ten Stunde noch in der Bibliothek?</p>
 									</div>
 								</div>
 							</div>
