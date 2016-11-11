@@ -116,8 +116,8 @@ class SectionSearch extends React.Component {
 					createdAt: "2016",
 					description: "Eine anwendungsorientierte Einführung der Integralrechnung mit GeoGebra (Jahrgangsstufe 12).",
 					url: "https://www.lehrer-online.de/unterricht/sekundarstufen/naturwissenschaften/mathematik/unterrichtseinheit/ue/einfuehrung-in-die-integralrechnung-mit-geogebra/",
-					image: "http://www.bildung-und-medien.de/wp-content/uploads/2015/05/lehrer-online.gif",
-					source: "lehrer-online.de"
+					image: "https://static.geogebra.org/images/geogebra-logo-name.svg",
+					source: "geogebra.org"
 				}, {
 					id: 3,
 					title: "Serlo - Integralrechnung",

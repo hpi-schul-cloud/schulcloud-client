@@ -32,8 +32,7 @@ const mockWeekdays = {
 		lessonTime: '1. +  2.',
 		title: 'Chemie',
 		room: 'R 418',
-		description: '',
-		disabled: true
+		description: ''
 	},
 	{
 		id: 2,
@@ -73,10 +72,9 @@ const mockWeekdays = {
 	Donnerstag: [{
 		id: 1,
 		lessonTime: '1. +  2.',
-		title: 'Mathematik',
+		title: 'Geschichte',
 		room: 'R 101',
-		description: '',
-		disabled: true
+		description: ''
 	},
 	{
 		id: 2,
@@ -90,13 +88,6 @@ const mockWeekdays = {
 		lessonTime: '5. +  6.',
 		title: 'Sport',
 		room: 'Sporthalle',
-		description: ''
-	},
-	{
-		id: 4,
-		lessonTime: '7. +  8.',
-		title: 'Mathe',
-		room: 'R 101',
 		description: ''
 	}],
 	Freitag: [{
@@ -116,15 +107,15 @@ const mockWeekdays = {
 	{
 		id: 3,
 		lessonTime: '5. +  6.',
-		title: 'Mathe',
-		room: 'R 101',
+		title: 'Informatik',
+		room: 'R 300',
 		description: ''
 	},
 	{
 		id: 4,
 		lessonTime: '7. +  8.',
-		title: 'Mathe',
-		room: 'R 101',
+		title: 'Gemeinschaftskunde',
+		room: 'R 444',
 		description: ''
 	},
 	{

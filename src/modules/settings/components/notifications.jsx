@@ -18,20 +18,22 @@ class SectionNotifications extends React.Component {
 						</div>
 					</div>
 					<div className="row">
+						<div className="col-sm-6 no-padding">
 						<table>
 							<tbody>
 								<tr>
 									<td><Switch on={true} enabled={true}/></td>
-									<td>Email</td>
-									<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+									<td>E-Mail</td>
+									<td>Erhalte Benachrichtigungen per E-Mail.</td>
 								</tr>
 								<tr>
 									<td><Switch enabled={true}/></td>
 									<td>Messenger</td>
-									<td>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</td>
+									<td>Erhalte Benachrichtigungen per Messenger.</td>
 								</tr>
 							</tbody>
 						</table>
+					</div>
 					</div>
 				</div>
 			</section>
