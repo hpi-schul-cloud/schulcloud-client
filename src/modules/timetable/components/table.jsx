@@ -72,9 +72,10 @@ const mockWeekdays = {
 	Donnerstag: [{
 		id: 1,
 		lessonTime: '1. +  2.',
-		title: 'Geschichte',
+		title: 'Mathematik',
 		room: 'R 101',
-		description: ''
+		description: '',
+		disabled: true
 	},
 	{
 		id: 2,
@@ -88,6 +89,13 @@ const mockWeekdays = {
 		lessonTime: '5. +  6.',
 		title: 'Sport',
 		room: 'Sporthalle',
+		description: ''
+	},
+	{
+		id: 4,
+		lessonTime: '1. +  2.',
+		title: 'Geschichte',
+		room: 'R 001',
 		description: ''
 	}],
 	Freitag: [{

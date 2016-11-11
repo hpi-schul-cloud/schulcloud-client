@@ -19,7 +19,7 @@ class SectionPrivacy extends React.Component {
 					</div>
 					<div className="row">
 						<div className="col-sm-8 no-padding">
-							Hier kannst du einstellen, wer sieht, ob du online bist, in welcher AG du mitarbeitest, welche Handynummer und Badges du hast. Gehe damit sorgfältig um und frag deine Lehrkraft, falls du dir bei den Einstellungen unsicher bist.
+							Hier kannst du einstellen, wer sieht, ob du online bist, in welcher AG du mitarbeitest, welche Handynummer und Badges du hast. Gehe damit sorgfältig um und frag deine Lehrerin oder deinen Lehrer, falls du dir bei den Einstellungen unsicher bist.
 							<table>
 								<thead>
 									<tr>
