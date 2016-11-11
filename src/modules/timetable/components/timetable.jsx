@@ -20,8 +20,8 @@ class Timetable extends React.Component {
 				<SectionTable weekday="Montag" dashboard="false" />
 				<SectionTable weekday="Dienstag" dashboard="false" />
 				<SectionTable weekday="Mittwoch" dashboard="false" />
-				<SectionTable weekday="Donnerstag" dashboard="false" />
-				<SectionTable weekday="Freitag" dashboard="false" />	
+				<SectionTable weekday="Donnerstag" dashboard="false" timeline="true" />
+				<SectionTable weekday="Freitag" dashboard="false" />
 			</LayoutBackend>
 		);
 	}

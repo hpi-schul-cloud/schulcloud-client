@@ -32,8 +32,12 @@ class Sidebar extends React.Component {
 			icon: 'list-ul'
 		} ,{
 			name: 'Materialsuche',
-			icon: 'folder-open',
+			icon: 'search',
 			to: '/content/'
+		},{
+			name: 'Dateien',
+			icon: 'folder-open',
+			to: '/files/'
 		},{
 			name: 'Einstellungen',
 			icon: 'gears',

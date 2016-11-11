@@ -32,8 +32,7 @@ const mockWeekdays = {
 		lessonTime: '1. +  2.',
 		title: 'Chemie',
 		room: 'R 418',
-		description: '',
-		disabled: true
+		description: ''
 	},
 	{
 		id: 2,
@@ -94,9 +93,9 @@ const mockWeekdays = {
 	},
 	{
 		id: 4,
-		lessonTime: '7. +  8.',
-		title: 'Mathe',
-		room: 'R 101',
+		lessonTime: '1. +  2.',
+		title: 'Geschichte',
+		room: 'R 001',
 		description: ''
 	}],
 	Freitag: [{
@@ -116,15 +115,15 @@ const mockWeekdays = {
 	{
 		id: 3,
 		lessonTime: '5. +  6.',
-		title: 'Mathe',
-		room: 'R 101',
+		title: 'Informatik',
+		room: 'R 300',
 		description: ''
 	},
 	{
 		id: 4,
 		lessonTime: '7. +  8.',
-		title: 'Mathe',
-		room: 'R 101',
+		title: 'Gemeinschaftskunde',
+		room: 'R 444',
 		description: ''
 	},
 	{
@@ -178,9 +177,11 @@ class SectionTable extends React.Component {
 						<div className="row lesson-cards">
 							{this.getCardsUI.bind(this)()}
 						</div>
+						{ (this.props.timeline ?
 						<div className="row timeline">
 							{this.getTimelineUI.bind(this)()}
 						</div>
+						: '')}
 					</div>
 			);
 		}
