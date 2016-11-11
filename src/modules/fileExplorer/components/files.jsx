@@ -52,7 +52,7 @@ class Files extends React.Component {
 		return (
 			<section className="files">
 				<div className="container-fluid">
-					<strong>Dateien</strong>
+					<strong>Meine Dateien</strong>
 					<div className="row">
 						{this.getFilesUI()}
 					</div>
