@@ -32,7 +32,7 @@ class Files extends React.Component {
 		<div>
 		{this.getData.bind(this)().map((file) => {
 			return (
-				<div className="col-sm-4 col-xs-12 col-md-4" key={file.name}>
+				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name}>
 					<div className="card">
 						<img className="card-img-top" src={file.thumbnail} alt="Card image cap" />
 						<div className="card-block">
