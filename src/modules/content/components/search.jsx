@@ -151,10 +151,11 @@ class SectionSearch extends React.Component {
 					type: "Online-Video",
 					duration: "ca. 10 min",
 					createdAt: "2016",
-					description: "Du bist ein Weltenbummler und möchtest deine Erfahrungen und Fotos auf einer eigenen Homepage teilen?",
+					description: "",
 					url: "https://player.vimeo.com/external/171390780.hd.mp4?s=43af5932ba7fccaabbcdd141fd45ba8e26ee30c2&profile_id=174&oauth2_token_id=60919992",
 					image: "",
-					source: "hpi.de"
+					source: "openhpi.de",
+					download: "https://open.hpi.de/files/afacdce2-9a57-4df6-b007-30ba4d0a3422"
 				},
 				{
 					id: 2,
@@ -162,10 +163,11 @@ class SectionSearch extends React.Component {
 					type: "Online-Video",
 					duration: "ca. 10 min",
 					createdAt: "2016",
-					description: "Du bist ein Weltenbummler und möchtest deine Erfahrungen und Fotos auf einer eigenen Homepage teilen?",
+					description: "",
 					url: "https://player.vimeo.com/external/172109517.hd.mp4?s=1ad4c02c397ba8041ef34f38368d122677cdecb2&profile_id=174&oauth2_token_id=60919992",
 					image: "",
-					source: "hpi.de"
+					source: "openhpi.de",
+					download: "https://open.hpi.de/files/df7144e9-43b7-42e6-b639-555272eeb5b0"
 				},
 				{
 					id: 3,
@@ -173,10 +175,11 @@ class SectionSearch extends React.Component {
 					type: "Online-Video",
 					duration: "ca. 10 min",
 					createdAt: "2016",
-					description: "Du bist ein Weltenbummler und möchtest deine Erfahrungen und Fotos auf einer eigenen Homepage teilen?",
+					description: "",
 					url: "https://player.vimeo.com/external/172398981.hd.mp4?s=b60bbf3a6d5b84077e3594cc47ccc4985074da27&profile_id=174&oauth2_token_id=60919992",
 					image: "",
-					source: "hpi.de"
+					source: "openhpi.de",
+					download: "https://open.hpi.de/files/919e129c-b9f6-4233-b3de-0e8c75239943"
 				}];
 		}
 	}
@@ -225,10 +228,14 @@ class SectionSearch extends React.Component {
 											<div className="card-block">
 												<h4 className="card-title">{result.title}</h4>
 												<p className="card-text">{result.description}</p>
+												{ (result.download) ?
+												<button type="button" className="btn btn-secondary">
+													<a href={ result.download } target="_blank">Slides</a>
+												</button> : '' }
 												<p>
 													<small className="text-muted"> via {result.source} | 17. November 2016</small>
-												</p>
-											</div>
+											</p>
+												</div>
 										</div>
 									</div>
 								);
