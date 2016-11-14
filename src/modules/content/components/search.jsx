@@ -130,6 +130,54 @@ class SectionSearch extends React.Component {
 					source: "serlo.org"
 				}
 			];
+		} else if (query == 'Bachelor' || query == 'bachelor') {
+			return [
+				{
+					id: 1,
+					title: "HPI - Bachelorpodium 2016",
+					type: "Online-Video",
+					duration: "ca. 4 min",
+					createdAt: "2016",
+					description: "Beim diesjährigen Bachelorpodium präsentierten angehende Absolventen des Hasso-Plattner-Instituts 14 innovative Softwarelösungen, die sie in Studententeams am Ende ihres Bachelorstudiums entwickelt haben.",
+					url: "http://www10-fms.hpi.uni-potsdam.de/vod/media/HPI/HPI-TV/HD_bachelorpodium_2016.mp4",
+					image: "",
+					source: "hpi.de"
+				}];
+		} else if (query == 'css' || query == 'CSS') {
+			return [
+				{
+					id: 1,
+					title: "CSS - Aufbau",
+					type: "Online-Video",
+					duration: "ca. 10 min",
+					createdAt: "2016",
+					description: "Du bist ein Weltenbummler und möchtest deine Erfahrungen und Fotos auf einer eigenen Homepage teilen?",
+					url: "https://player.vimeo.com/external/171390780.hd.mp4?s=43af5932ba7fccaabbcdd141fd45ba8e26ee30c2&profile_id=174&oauth2_token_id=60919992",
+					image: "",
+					source: "hpi.de"
+				},
+				{
+					id: 2,
+					title: "CSS - Einführung",
+					type: "Online-Video",
+					duration: "ca. 10 min",
+					createdAt: "2016",
+					description: "Du bist ein Weltenbummler und möchtest deine Erfahrungen und Fotos auf einer eigenen Homepage teilen?",
+					url: "https://player.vimeo.com/external/172109517.hd.mp4?s=1ad4c02c397ba8041ef34f38368d122677cdecb2&profile_id=174&oauth2_token_id=60919992",
+					image: "",
+					source: "hpi.de"
+				},
+				{
+					id: 3,
+					title: "CSS - Fortsetzung",
+					type: "Online-Video",
+					duration: "ca. 10 min",
+					createdAt: "2016",
+					description: "Du bist ein Weltenbummler und möchtest deine Erfahrungen und Fotos auf einer eigenen Homepage teilen?",
+					url: "https://player.vimeo.com/external/172398981.hd.mp4?s=b60bbf3a6d5b84077e3594cc47ccc4985074da27&profile_id=174&oauth2_token_id=60919992",
+					image: "",
+					source: "hpi.de"
+				}];
 		}
 	}
 
@@ -149,7 +197,7 @@ class SectionSearch extends React.Component {
 
 	getResultsUI() {
 		const query = this.state.query;
-		if (query != 'Biene' && query != 'Bienen' && query != 'biene' && query != 'bienen' && query != 'Integral' && query != 'integral' && query != 'Integralrechnung' && query != 'integralrechnung') {
+		if (query != 'Biene' && query != 'Bienen' && query != 'biene' && query != 'bienen' && query != 'Integral' && query != 'integral' && query != 'Integralrechnung' && query != 'integralrechnung' && query != 'bachelor' && query != 'Bachelor' && query != 'css' && query != 'CSS') {
 			return (
 				<div className="row">
 					<div className="col-sm-12 no-padding">

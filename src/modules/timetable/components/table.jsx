@@ -148,7 +148,7 @@ class SectionTable extends React.Component {
 			var weekdayLessons = mockWeekdays[this.props.weekday];
 			return (
 				<div>
-					<h4>{ this.props.weekday }</h4>
+					{(this.props.dashboard) ? <h4>{ this.props.weekday + '	-		' + this.props.date }</h4> : ''}
 					{ weekdayLessons.map((lesson) => {
 							return <LessonCard key={lesson.id} lesson={lesson} />;
 						})
