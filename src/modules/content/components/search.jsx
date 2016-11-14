@@ -1,4 +1,4 @@
-
+import ReactPlayer from 'react-player';
 require('../styles/search.scss');
 
 class SectionSearch extends React.Component {
@@ -22,33 +22,33 @@ class SectionSearch extends React.Component {
 					duration: "15 min",
 					createdAt: "2015",
 					description: "Vernetzte Bienen - Bienen gehören zu den ältesten Nutztieren der Menscheit und können untereinander komplexe Informationen austauschen.",
-					url: "https://xplay.datenbank-bildungsmedien.net/5f5d32e7735b1124b642757dde62364a/shpool-56508/ZDF-ER3_149.mp4",
+					url: "https://www.youtube.com/watch?v=lAqvEVmMs1Q",
 					image: "https://vebu.de/wp-content/uploads/2015/12/beitragsbild_690x460_bienen_industriell-690x460.jpg",
 					source: "bildungsmedien.net"
 				}, {
 					id: 2,
 					title: "Preetz - eine Stadt mit Herz für Bienen (HD)",
-					type: "Online-Video",
+					type: "Text",
 					duration: "ca. 10 min",
 					createdAt: "2016",
 					description: "Moderatorin Vèrena Püschel ist heute auf Spurensuche in Preetz unterwegs, in der offiziell 'bienenfreundlichsten Stadt' in Schleswig-Holstein.",
-					url: "https://xplay.datenbank-bildungsmedien.net/4c12ec3aa3ecb349e15fc377fdb4191d/ndr-57212-p/NDR-SH_18_Uhr-Preetz-eine_Stadt_mit_Herz_fuer_Bienen-HD_ndr160803.mp4?play",
+					url: "",
 					image: "https://www.hauenstein-rafz.ch/de-wAssets/img/pflanzenwelt/sammelsurium/bienenweidepflanzen/Biene_12.jpg",
 					source: "bildungsmedien.net"
 				}, {
 					id: 3,
 					title: "Warum brauchen wir Bienen?",
-					type: "Online-Video",
+					type: "Text",
 					duration: "15 min",
 					createdAt: "2014",
 					description: "Kaum ein Tier wird so geschätzt wie die Biene: Arbeit, Ordnungssinn und perfekte Zusammenarbeit kennzeichnen ihr Leben.",
-					url: "https://xplay.datenbank-bildungsmedien.net/ac6d30210e364766b02be3856df7931e/sf-43533-p/Bienenstatt_in_Gefahr-Warum_brauchen_wir_Bienen.mp4?play",
+					url: "",
 					image: "http://www.br-online.de/kinder/fragen-verstehen/wissen/2003/00278/bienenwabe_dpa482.jpg",
 					source: "bildungsmedien.net"
 				}, {
 					id: 4,
 					title: "Bienen, gefährdete Gedächtniskünstler",
-					type: "Online-Audio",
+					type: "Text",
 					duration: "24 min",
 					createdAt: "2016",
 					description: "Regina Oehler im Gespräch mit dem Neurobiologen Professor Randolf Menzel",
@@ -87,7 +87,7 @@ class SectionSearch extends React.Component {
 				}, {
 					id: 8,
 					title: "Die Bienenretter",
-					type: "Online-Video",
+					type: "Text",
 					duration: "30 min",
 					createdAt: "2015",
 					description: "Äpfel, Erdbeeren, Gurken, Honig: Etwa ein Drittel unserer Nahrung hängt von Pflanzen ab, die von Bienen bestäubt werden.",
@@ -111,7 +111,7 @@ class SectionSearch extends React.Component {
 				}, {
 					id: 2,
 					title: "Integralrechnung mit GeoGebra",
-					type: "Online-Video",
+					type: "Text",
 					duration: "ca. 10 min",
 					createdAt: "2016",
 					description: "Eine anwendungsorientierte Einführung der Integralrechnung mit GeoGebra (Jahrgangsstufe 12).",
@@ -141,7 +141,7 @@ class SectionSearch extends React.Component {
 		return (
 			<div className="search-wrapper">
 				<div className="input-group input-group-lg">
-					<input value={this.state.query} type="text" className="form-control search-field" placeholder="Search for..." onChange={this.setQuery.bind(this)}/>
+					<input value={this.state.query} type="text" className="form-control search-field" placeholder="Suche nach..." onChange={this.setQuery.bind(this)}/>
 				</div>
 			</div>
 		);
@@ -173,7 +173,7 @@ class SectionSearch extends React.Component {
 								return (
 									<div className="col-sm-4" key={result.id}>
 										<div className="card">
-											<img className="card-img-top" src={result.image} alt="Card image cap"/>
+											{result.type == "Online-Video" ? <ReactPlayer url={result.url} className="card-img-top" youtubeConfig={{preload:true}} playing={false} controls={true} /> : <img className="card-img-top" src={result.image} alt="Card image cap"/> }
 											<div className="card-block">
 												<h4 className="card-title">{result.title}</h4>
 												<p className="card-text">{result.description}</p>
@@ -202,7 +202,7 @@ class SectionSearch extends React.Component {
 							<div className="card-block">
 								<div className="container-fluid">
 									<div className="row">
-										<div className="col-sm-4">
+										<div className="col-sm-3">
 											<div className="btn-group">
 												<button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<strong>Fachbereich</strong>
@@ -229,7 +229,7 @@ class SectionSearch extends React.Component {
 												</div>
 											</div>
 										</div>
-										<div className="col-sm-4">
+										<div className="col-sm-3">
 											<div className="btn-group">
 												<button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<strong>Klassenstufe</strong>
@@ -256,7 +256,7 @@ class SectionSearch extends React.Component {
 												</div>
 											</div>
 										</div>
-										<div className="col-sm-4">
+										<div className="col-sm-3">
 											<div className="btn-group">
 												<button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 													<strong>Lizenz</strong>
@@ -278,6 +278,27 @@ class SectionSearch extends React.Component {
 														<label className="form-check-label">
 															<input className="form-check-input" type="checkbox" value=""/>
 															Creative Commons
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div className="col-sm-3">
+											<div className="btn-group">
+												<button type="button" className="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<strong>Editierbar</strong>
+												</button>
+												<div className="dropdown-menu dropdown-menu-right">
+													<div className="form-check">
+														<label className="form-check-label">
+															<input className="form-check-input" type="checkbox" value=""/>
+															Ja
+														</label>
+													</div>
+													<div className="form-check">
+														<label className="form-check-label">
+															<input className="form-check-input" type="checkbox" value=""/>
+															Nein
 														</label>
 													</div>
 												</div>
