@@ -17,11 +17,11 @@ class Timetable extends React.Component {
 			<LayoutBackend>
 				<SectionTitle title="Stundenplan" />
 				<SectionControls />
-				<SectionTable weekday="Montag" dashboard="false" />
-				<SectionTable weekday="Dienstag" dashboard="false" />
-				<SectionTable weekday="Mittwoch" dashboard="false" />
-				<SectionTable weekday="Donnerstag" dashboard="false" timeline="true" />
-				<SectionTable weekday="Freitag" dashboard="false" />
+				<SectionTable weekday="Montag" date="14.11.2016" dashboard="false" />
+				<SectionTable weekday="Dienstag" date="15.11.2016" dashboard="false" />
+				<SectionTable weekday="Mittwoch" date="16.11.2016" dashboard="false" />
+				<SectionTable weekday="Donnerstag" date="17.11.2016" dashboard="false" timeline="true" />
+				<SectionTable weekday="Freitag" date="18.11.2016" dashboard="false" />
 			</LayoutBackend>
 		);
 	}

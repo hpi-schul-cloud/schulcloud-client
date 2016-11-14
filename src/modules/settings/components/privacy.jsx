@@ -25,7 +25,7 @@ class SectionPrivacy extends React.Component {
 									<tr>
 										<th></th>
 										<th>Meine Klasse</th>
-										<th>Mein Status</th>
+										<th>Meine Klassenstufe</th>
 										<th>Meine Schule</th>
 										<th>Alle</th>
 									</tr>
@@ -33,10 +33,10 @@ class SectionPrivacy extends React.Component {
 								<tbody>
 									<tr>
 										<td>Badges</td>
-										<td><Switch on={true} enabled={true}/></td>
-										<td><Switch on={true} enabled={true}/></td>
-										<td><Switch on={true} enabled={true}/></td>
-										<td><Switch on={true} enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
 									</tr>
 									<tr>
 										<td>Mitgliedschaften in AGs</td>
@@ -54,10 +54,10 @@ class SectionPrivacy extends React.Component {
 									</tr>
 									<tr>
 										<td>Online Status</td>
-										<td><Switch on={true} enabled={true}/></td>
-										<td><Switch on={true} enabled={true}/></td>
-										<td><Switch on={true} enabled={true}/></td>
-										<td><Switch on={true} enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
+										<td><Switch enabled={true}/></td>
 									</tr>
 								</tbody>
 							</table>
