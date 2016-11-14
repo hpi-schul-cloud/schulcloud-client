@@ -48,7 +48,7 @@ class SectionSearch extends React.Component {
 				}, {
 					id: 4,
 					title: "Bienen, gefährdete Gedächtniskünstler",
-					type: "Texte",
+					type: "Text",
 					duration: "24 min",
 					createdAt: "2016",
 					description: "Regina Oehler im Gespräch mit dem Neurobiologen Professor Randolf Menzel",
@@ -87,7 +87,7 @@ class SectionSearch extends React.Component {
 				}, {
 					id: 8,
 					title: "Die Bienenretter",
-					type: "Texte",
+					type: "Text",
 					duration: "30 min",
 					createdAt: "2015",
 					description: "Äpfel, Erdbeeren, Gurken, Honig: Etwa ein Drittel unserer Nahrung hängt von Pflanzen ab, die von Bienen bestäubt werden.",
