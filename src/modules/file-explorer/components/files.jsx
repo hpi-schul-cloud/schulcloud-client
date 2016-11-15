@@ -33,12 +33,16 @@ class Files extends React.Component {
 		{this.getData.bind(this)().map((file) => {
 			return (
 				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name}>
-					<div className="card">
-						<img className="card-img-top" src={file.thumbnail} alt="Card image cap" />
-						<div className="card-block">
-							<p className="card-text">{file.name}</p>
-							<p className="card-text">{file.type}</p>
-							<p><small className="text-muted">17. November 2016</small></p>
+					<div className="card file">
+						<div className="container-fluid">
+							<div className="row">
+								<div className="col-sm-3 no-padding">
+									<div className="file-preview" style={{'background-image': 'url(' + file.thumbnail + ')'}}></div>
+								</div>
+								<div className="col-sm-9">
+									<strong>{file.name}</strong>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -52,9 +56,15 @@ class Files extends React.Component {
 		return (
 			<section className="files">
 				<div className="container-fluid">
-					<strong>Meine Dateien</strong>
 					<div className="row">
-						{this.getFilesUI()}
+						<div className="col-sm-12 no-padding">
+							<h5>Meine Dateien</h5>
+						</div>
+					</div>
+					<div className="row">
+						<div className="row">
+							{this.getFilesUI()}
+						</div>
 					</div>
 				</div>
 			</section>

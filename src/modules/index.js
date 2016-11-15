@@ -9,7 +9,7 @@ import Content from './content';
 import Settings from './settings';
 import Lessons from './lessons';
 import Timetable from './timetable';
-import FileExplorer from './fileExplorer';
+import FileExplorer from './file-explorer';
 
 export default {
 	Core,
