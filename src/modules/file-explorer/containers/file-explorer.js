@@ -1,8 +1,8 @@
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
 
-import component from '../components/fileExplorer';
-import actions from '../actions/fileExplorer';
+import component from '../components/file-explorer';
+import actions from '../actions/file-explorer';
 
 const composer = (props, onData) => {
 
