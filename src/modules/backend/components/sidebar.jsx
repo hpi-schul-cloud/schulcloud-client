@@ -8,6 +8,12 @@ class Sidebar extends React.Component {
 		super(props);
 	}
 
+	componentDidMount() {
+		$('.mobile-nav-toggle').click((e) => {
+			$('aside.nav-sidebar nav:first-child').toggleClass('active');
+		});
+	}
+
 	render() {
 		const sidebarLinks = [{
 			name: 'Dashboard',
@@ -53,7 +59,7 @@ class Sidebar extends React.Component {
 								<li key={link.name}>
 									<Link className={link.class} to={link.to} activeClassName="active">
 										<i className={'fa ' + 'fa-' + link.icon} aria-hidden="true"></i>
-										<span className="">{link.name}</span>
+										<span className="link-name">{link.name}</span>
 									</Link>
 								</li>
 							);
@@ -61,6 +67,9 @@ class Sidebar extends React.Component {
 
 					</ul>
 				</nav>
+				<a className="mobile-nav-toggle">
+					<i className="fa fa-bars" />
+				</a>
 			</aside>
 		);
 	}
