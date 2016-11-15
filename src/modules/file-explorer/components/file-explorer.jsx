@@ -2,10 +2,10 @@ import LayoutBackend from '../../backend/components/layout';
 import SectionTitle from '../../backend/components/title';  /* only for backend */
 
 import Directories from './directories';
-import Memory from './memory';
+import Upload from './upload';
 import Files from './files';
 
-require('../styles/fileExplorer.scss');
+require('../styles/file-explorer.scss');
 
 class FileExplorer extends React.Component {
 
@@ -13,11 +13,19 @@ class FileExplorer extends React.Component {
 		super(props);
 	}
 
+	getSubtitle() {
+		return (
+			<div>
+				<i className="fa fa-floppy-o" aria-hidden="true"></i> <b>3.10 MB</b> verwendet von <b>5 GB</b>
+			</div>
+		);
+	}
+
 	render() {
 		return (
-			<LayoutBackend className="route-fileExplorer">
-				<SectionTitle title="Dateien" />
-				<Memory />
+			<LayoutBackend className="route-file-explorer">
+				<SectionTitle title="Dateien" subtitle={this.getSubtitle.bind(this)()} />
+				<Upload />
 				<Directories />
 				<Files />
 			</LayoutBackend>
