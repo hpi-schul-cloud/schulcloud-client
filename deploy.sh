@@ -1,1 +1,5 @@
-ftps://zeus04.de/html/nico.is/projects/schulcloud
+cd ~/schulcloud-client/
+git pull
+npm install
+webpack -d
+forever restart server.js
