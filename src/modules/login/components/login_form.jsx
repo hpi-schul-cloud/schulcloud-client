@@ -1,7 +1,3 @@
-import { server } from '../../feathers';
-const systemService = server.service('/systems');
-
-
 class LoginForm extends React.Component {
 
 	constructor(props) {
@@ -29,34 +25,25 @@ class LoginForm extends React.Component {
 		});
 	}
 
-	loadSystems(key, event) {
-		// TODO: find out where to move this method
-		this.setState({key: event.target.value});
+	loadSystems(event) {
+		this.setState({school: event.target.value});
 
 		const schoolId = event.target.value;
 		console.log('target is ' + event.target);
-		const systemIds = this.props.schoolMap.get(schoolId).systems;
 
-		Promise.all(systemIds.map(id => systemService.get(id)))
-			.then(systems => {
-				systems.forEach(s => {
-					s.type = s.type.substr(0,1).toUpperCase() + s.type.substr(1);	// capitalize
-				});
-				if(systems.length < 2) {
-					this.setState({system: systems[0]});	// automatically select the only system
-				}
-				this.setState({systems: systems});
-			})
-			.catch(error => {
-				console.log(error);
-			});
+		const systems = this.props.schools[schoolId].systems;
+		this.setState({systems: systems});
+
+		if(systems.length === 1) {
+			this.setState({system: systems[0]});	// automatically select the only system
+		}
 	}
 
 	getSchoolsUI() {
 		if(!this.props.schools) return '';
 
 		return (
-			<select className="custom-select form-control" onChange={this.loadSystems.bind(this, 'school')}>
+			<select className="custom-select form-control" onChange={this.loadSystems.bind(this)}>
 				<optgroup label="Schule">
 					<option hidden>Schule auswählen</option>
 					{Object.values(this.props.schools).map((school) => {
