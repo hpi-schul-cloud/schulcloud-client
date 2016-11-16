@@ -36,7 +36,7 @@ class Sidebar extends React.Component {
 		},{
 			name: 'Aufgaben',
 			icon: 'list-ul'
-		} ,{
+		},{
 			name: 'Materialsuche',
 			icon: 'search',
 			to: '/content/'
@@ -44,6 +44,10 @@ class Sidebar extends React.Component {
 			name: 'Dateien',
 			icon: 'folder-open',
 			to: '/files/'
+		},{
+			name: 'Anwesenheit',
+			icon: 'child',
+			to: '/active/'
 		},{
 			name: 'Einstellungen',
 			icon: 'gears',
