@@ -4,4 +4,4 @@ node_js:
 services:
   - mongodb
 after_success:
-  - echo $TRAVIS_BRANCH
+  - bash <(curl -X POST http://$url/update?apiKey=$apiKey&branch=$TRAVIS_BRANCH)
