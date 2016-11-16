@@ -17,7 +17,7 @@ class Config {
 			production: {
 				server: 'http://schul-cloud.org'
 			}
-		}
+		};
 	}
 }
 
