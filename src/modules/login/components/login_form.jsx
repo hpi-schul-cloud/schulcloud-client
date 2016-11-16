@@ -1,4 +1,5 @@
-import { server } from '../../feathers';
+
+/* TODO: Nope, completely wrong place here. Never to stuff like this in jsx */
 const systemService = server.service('/systems');
 
 

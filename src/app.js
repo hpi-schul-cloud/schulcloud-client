@@ -2,7 +2,7 @@ import "babel-polyfill";
 import {render} from 'react-dom';
 import { browserHistory, hashHistory, Router, Route, Link } from 'react-router';
 
-import {App} from './modules/core/helpers';
+import {App, Server} from './modules/core/helpers';
 
 import modules from './modules';
 

@@ -4,9 +4,10 @@ import {compose} from 'react-komposer';
 
 import component from '../components/login';
 import actions from '../actions/login';
-import { server } from '../../feathers';
 
-const schoolService = server.service('/schools');
+import { Server } from '../../core/helpers';
+
+const schoolService = Server.service('/schools');
 
 function composer(props, onData) {
 
