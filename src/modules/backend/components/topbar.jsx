@@ -11,7 +11,7 @@ class Topbar extends React.Component {
 	render() {
 		return (
 			<nav className="topbar navbar">
-				<ul className="nav navbar-nav float-sm-right">
+				<ul className="nav navbar-nav float-xs-right">
 					<li className="nav-item">
 						<a className="nav-link" href="#"><i className="fa fa-envelope" /></a>
 					</li>
