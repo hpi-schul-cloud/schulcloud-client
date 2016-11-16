@@ -58,6 +58,7 @@ class List extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-12 no-padding">
+							<h5>Anwesenheitsliste</h5>
 						</div>
 					</div>
 					<div className="row">
