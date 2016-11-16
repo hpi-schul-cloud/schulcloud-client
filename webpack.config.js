@@ -60,7 +60,7 @@ var config = {
 		}),
 		new webpack.DefinePlugin({
 			'process.env': {
-				'ENV': JSON.stringify(process.env.ENV),
+				'ENV': JSON.stringify(process.env.NODE_ENV),
 			}
 		})
 	]
