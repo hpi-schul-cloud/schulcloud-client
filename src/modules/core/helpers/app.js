@@ -84,7 +84,7 @@ export default class App {
 					indexRoute: indexRoute,
 					childRoutes: routes
 				}}
-				onUpdate={this._checkLoggedIn}
+				onUpdate={this._checkPermissions}
 			/>
 		);
 	}
@@ -95,10 +95,27 @@ export default class App {
 		}
 	}
 
-	_checkLoggedIn() {
+	_checkPermissions() {
+		// check login
 		let currentRoute = this.props.history.getCurrentLocation().pathname;
-		if (!cookieHelper.load(cookies.loggedIn) && currentRoute !== '/login/') {
+		if (currentRoute !== '/login/' && !cookieHelper.load(cookies.userData)) {
 			browserHistory.push('/login/');
+		} else { // check for permissions, TODO: Refactoring !!
+			let user = cookieHelper.load(cookies.userData);
+			let currentRoutePermission = 0;
+			this.props.routes.childRoutes.forEach((route) => {
+				if (route.path === currentRoute) {
+					currentRoutePermission = route.permission;
+				}
+			});
+			let maxPermission = 0;
+			user.data.roles.forEach((role) => {
+				if (role.permission > maxPermission) maxPermission = role.permission;
+			});
+
+			if (currentRoutePermission > maxPermission && currentRoute !== '/dashboard/') {
+				browserHistory.push('/dashboard/'); // TODO: Route to error page (permission denied, 403)
+			}
 		}
 	}
 }

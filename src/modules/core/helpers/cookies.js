@@ -1,3 +1,3 @@
 module.exports = {
-  loggedIn: 'schulcloud_token'
+  userData: 'schulcloud_user'
 };
