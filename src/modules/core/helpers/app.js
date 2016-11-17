@@ -1,4 +1,6 @@
 import { browserHistory, hashHistory, Router, Route, Link } from 'react-router';
+import cookieHelper from 'react-cookie';
+import cookies from './cookies';
 
 import Layout from '../components/layout';
 
@@ -80,8 +82,9 @@ export default class App {
 					path: '/',
 					component: Layout,
 					indexRoute: indexRoute,
-					childRoutes: routes
+					childRoutes: routes,
 				}}
+				onUpdate={this._checkLoggedIn}
 			/>
 		);
 	}
@@ -89,6 +92,13 @@ export default class App {
 	_checkForInit() {
 		if (this.__initialized) {
 			throw new Error('App is already initialized.');
+		}
+	}
+
+	_checkLoggedIn() {
+		let currentRoute = this.props.history.getCurrentLocation().pathname;
+		if (!cookieHelper.load(cookies.loggedIn) && currentRoute !== '/login/') {
+			browserHistory.push('/login/');
 		}
 	}
 }

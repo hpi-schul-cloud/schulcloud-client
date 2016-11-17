@@ -29,8 +29,6 @@ class LoginForm extends React.Component {
 		this.setState({school: event.target.value});
 
 		const schoolId = event.target.value;
-		console.log('target is ' + event.target);
-
 		const systems = this.props.schools[schoolId].systems;
 		this.setState({systems: systems});
 
@@ -73,7 +71,6 @@ class LoginForm extends React.Component {
 				<optgroup label="System">
 					<option hidden>System auswählen</option>
 					{systems.map((system) => {
-						console.log(system);
 						return (<option key={system._id} value={system._id}>{system.type}</option>);
 					})}
 				</optgroup>
