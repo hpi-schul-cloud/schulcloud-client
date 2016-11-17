@@ -82,7 +82,7 @@ export default class App {
 					path: '/',
 					component: Layout,
 					indexRoute: indexRoute,
-					childRoutes: routes,
+					childRoutes: routes
 				}}
 				onUpdate={this._checkLoggedIn}
 			/>
