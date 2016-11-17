@@ -198,6 +198,12 @@ class SectionSearch extends React.Component {
 		);
 	}
 
+	componentWillReceiveProps(nextProps){
+		if (nextProps.location.query.q !== this.state.query) {
+			this.setState({ query: nextProps.location.query.q });
+		}
+	}
+
 	getResultsUI() {
 		const query = this.state.query;
 		if (query != 'Biene' && query != 'Bienen' && query != 'biene' && query != 'bienen' && query != 'Integral' && query != 'integral' && query != 'Integralrechnung' && query != 'integralrechnung' && query != 'bachelor' && query != 'Bachelor' && query != 'css' && query != 'CSS') {
