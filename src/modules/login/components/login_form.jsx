@@ -1,5 +1,3 @@
-
-
 class LoginForm extends React.Component {
 
 	constructor(props) {
@@ -27,11 +25,23 @@ class LoginForm extends React.Component {
 		});
 	}
 
+	loadSystems(event) {
+		this.setState({school: event.target.value});
+
+		const schoolId = event.target.value;
+		const systems = this.props.schools[schoolId].systems;
+		this.setState({systems: systems});
+
+		if(systems.length === 1) {
+			this.setState({system: systems[0]});	// automatically select the only system
+		}
+	}
+
 	getSchoolsUI() {
 		if(!this.props.schools) return '';
 
 		return (
-			<select className="custom-select form-control" onChange={this.handleFieldChange.bind(this, 'school')}>
+			<select className="custom-select form-control" onChange={this.loadSystems.bind(this)}>
 				<optgroup label="Schule">
 					<option hidden>Schule auswählen</option>
 					{Object.values(this.props.schools).map((school) => {
@@ -43,14 +53,25 @@ class LoginForm extends React.Component {
 	}
 
 	getSystemsUI() {
-		if(!this.props.schools || ((this.props.schools[this.state.school] || {}).systems || []).length < 2) return '';
-
+		if(!this.state.systems) return '';
+		const systems = this.state.systems || [];
+		if (systems.length == 1 && this.state.system) {
+			const system = this.state.system;
+			return (
+				<select className="custom-select form-control" value={system._id} readOnly="readOnly">
+					<optgroup label="System">
+						<option key={system._id} value={system._id} className="system-option">{system.type}</option>
+					</optgroup>
+				</select>
+			);
+		}
+		if (systems.length < 2) return '';
 		return (
-			<select className="custom-select form-control" onChange={this.handleFieldChange.bind(this, 'system')}>
+			<select className="custom-select form-control system-select" onChange={this.handleFieldChange.bind(this, 'system')}>
 				<optgroup label="System">
 					<option hidden>System auswählen</option>
-					{((this.props.schools[this.state.school] || {}).systems || []).map((system) => {
-						return (<option key={system._id} value={system._id}>{system.name}</option>);
+					{systems.map((system) => {
+						return (<option key={system._id} value={system._id}>{system.type}</option>);
 					})}
 				</optgroup>
 			</select>

@@ -5,39 +5,51 @@ import {compose} from 'react-komposer';
 import component from '../components/login';
 import actions from '../actions/login';
 
+import { Server } from '../../core/helpers';
 
-const schools =  {
-	'123': {
-		_id: '123',
-		name:'Schiller-Oberschule',
-		systems: [{
-			_id: '456',
-			name:'Moodle'
-		}]
-	},
-	'dsfdsf': {
-		_id: 'dsfdsf',
-		name:'Friedensburg Oberschule',
-		systems: [{
-			_id: 'asdasd',
-			name:'Moodle'
-		},
-		{
-			_id: 'sdfsdf',
-			name:'ITSLearning'
-		}]
-	}
-};
+const schoolService = Server.service('/schools');
+const systemService = Server.service('/systems');
 
+function composer(props, onData) {
 
-const composer = (props, onData) => {
+	// load schools
+	schoolService.find()
+		.then(result => {
+			let schools = result.data || [];
 
-	let componentData = {
-		actions,
-		schools
-	};
+			return Promise.all(schools.map(school => {
+				// load systems
+				Promise.all(school.systems.map(id => systemService.get(id)))
+					.then(systems => {
+						school.systems = systems.map(system => {
+							system.type = system.type.substr(0, 1).toUpperCase() + system.type.substr(1);	// capitalize
+							return system;
+						});
+						return school.systems;
+					})
+					.catch(error => {
+						onData(error);
+					});
 
-	onData(null, componentData);
-};
+				return school;
+			}));
+		})
+		.then(schoolsArray => {
+			let schoolsObject = {};
+			schoolsArray.forEach((school) => {
+				schoolsObject[school._id] = school;
+			});
+
+			let componentData = {
+				actions,
+				schools: schoolsObject
+			};
+
+			onData(null, componentData);
+		})
+		.catch(error => {
+			onData(error);
+		});
+}
 
 export default compose(composer)(component);

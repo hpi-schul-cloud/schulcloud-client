@@ -3,3 +3,5 @@ node_js:
   - "6"
 services:
   - mongodb
+after_success:
+  - bash <(curl -X POST --data "apiKey=$apiKey&branch=$TRAVIS_BRANCH" http://$url/update)

@@ -1,0 +1,45 @@
+
+@import '../../core/styles/colors.scss';
+
+.Anwesenheit{
+	width:100%;
+	float:left;
+	padding: 15px 0px 50px;
+	line-height: 1.75rem;
+
+	.picture {
+		border-radius: 50%;
+		height: 32px;
+		width: 32px;
+		margin-right: 10px;
+	}
+
+	.class-toggle {
+		border:none;
+		padding-left:10px;
+		padding-right:10px;
+	}
+
+	h5 {
+		color: $colorHPIRed;
+		padding-bottom: 20px;
+	}
+
+	table {
+		width: 100%;
+		margin-top: 40px;
+		border-collapse: separate;
+		border-spacing: 0px 2px;
+
+		th {
+			padding-left: 15px;
+		}
+
+		td {
+			padding-top: 10px;
+			padding-left: 15px;
+			color: grey;
+			background-color: whitesmoke;
+		}
+	}
+}

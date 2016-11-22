@@ -10,6 +10,7 @@ import Settings from './settings';
 import Lessons from './lessons';
 import Timetable from './timetable';
 import FileExplorer from './file-explorer';
+import ActiveStudents from './active-students';
 
 export default {
 	Core,
@@ -21,5 +22,6 @@ export default {
 	Lessons,
 	Timetable,
 	FileExplorer,
+	ActiveStudents,
     Static
 };

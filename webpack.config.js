@@ -57,6 +57,11 @@ var config = {
 			"window.Tether": 'tether',
 			tether: 'tether',
 			'React': 'react'
+		}),
+		new webpack.DefinePlugin({
+			'process.env': {
+				'ENV': JSON.stringify(process.env.NODE_ENV),
+			}
 		})
 	]
 };
