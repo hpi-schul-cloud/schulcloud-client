@@ -5,12 +5,14 @@ import {compose} from 'react-komposer';
 import { Permissions, Server } from '../../core/helpers/';
 
 import permissions from '../permissions';
-import component from '../components/lesson';
-import actions from '../actions/lesson';
+import component from '../components/layout';
+import actions from '../actions/layout';
 
 const composer = (props, onData) => {
 	const currentUser = Server.get('user');
-	Permissions.userHasPermission(currentUser, permissions.VIEW)
+	if(currentUser) {
+
+		Permissions.userHasPermission(currentUser, permissions.VIEW)
 		.then(() => {
 			let componentData = {
 				actions
@@ -21,6 +23,13 @@ const composer = (props, onData) => {
 		.catch(() => {
 			onData(new Error('You don\'t have the permission to see this page.'));
 		});
+
+	} else {
+		browserHistory.push('/login/');
+
+		onData(new Error('Not authorized, redirect to login.'));
+	}
+
 };
 
 export default compose(composer)(component);

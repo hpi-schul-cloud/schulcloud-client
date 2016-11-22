@@ -21,7 +21,7 @@ class Topbar extends React.Component {
 								<img className="avatar" src="https://randomuser.me/api/portraits/men/11.jpg" /><strong>Lukas Müller</strong>
 							</button>
 							<div className="dropdown-menu dropdown-menu-right">
-								<Link className="dropdown-item" to="/login/">Logout</Link>
+								<a className="dropdown-item" onClick={this.props.logout.bind(this)}>Logout</a>
 							</div>
 						</div>
 					</li>
