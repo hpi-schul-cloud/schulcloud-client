@@ -4,6 +4,7 @@ export default [
 	{
 		path: '/content/',
 		name: 'content',
-		component: Content
+		component: Content,
+		permission: 1
 	}
 ];

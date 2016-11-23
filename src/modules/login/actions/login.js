@@ -8,11 +8,11 @@ const authService = Server.service('/auth');
 
 export default {
 	login: ({email, password, school, system}) => {
-		cookieHelper.remove(cookies.loggedIn);
+		cookieHelper.remove(cookies.userData);
 		authService.create({username: email, password: password, systemId: system})
 			.then(user => {
 				if (user.token) {
-					cookieHelper.save(cookies.loggedIn, user.token, { path: '/'});
+					cookieHelper.save(cookies.userData, user, { path: '/'});
 					browserHistory.push('/dashboard/');
 				}
 			})
