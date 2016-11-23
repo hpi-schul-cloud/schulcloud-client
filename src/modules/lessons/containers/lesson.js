@@ -10,17 +10,15 @@ import actions from '../actions/lesson';
 
 const composer = (props, onData) => {
 	const currentUser = Server.get('user');
-	Permissions.userHasPermission(currentUser, permissions.VIEW)
-		.then(() => {
-			let componentData = {
-				actions
-			};
+	if(Permissions.userHasPermission(currentUser, permissions.VIEW)) {
+		let componentData = {
+			actions
+		};
 
-			onData(null, componentData);
-		})
-		.catch(() => {
-			onData(new Error('You don\'t have the permission to see this page.'));
-		});
+		onData(null, componentData);
+	} else {
+		onData(new Error('You don\'t have the permission to see this page.'));
+	}
 };
 
 export default compose(composer)(component);

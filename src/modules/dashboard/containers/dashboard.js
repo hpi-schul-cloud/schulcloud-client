@@ -10,17 +10,16 @@ import actions from '../actions/dashboard';
 
 const composer = (props, onData) => {
 	const currentUser = Server.get('user');
-	Permissions.userHasPermission(currentUser, permissions.VIEW)
-	.then(() => {
+
+	if(Permissions.userHasPermission(currentUser, permissions.VIEW)) {
 		let componentData = {
 			actions
 		};
 
 		onData(null, componentData);
-	})
-	.catch(() => {
+	} else {
 		onData(new Error('You don\'t have the permission to see this page.'));
-	});
+	}
 };
 
 export default compose(composer)(component);

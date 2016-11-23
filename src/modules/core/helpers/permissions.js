@@ -8,16 +8,8 @@ class Permissions {
 
 		const userPermissions = user.permissions || [];
 
-		return new Promise((resolve, reject) => {
-			const hasPermission = permissions.every((permission) => {
-				return userPermissions.includes(permission);
-			});
-
-			if(hasPermission) {
-				resolve(true);
-			} else {
-				reject(false);
-			}
+		return permissions.every((permission) => {
+			return userPermissions.includes(permission);
 		});
 	}
 }
