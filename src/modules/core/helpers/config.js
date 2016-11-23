@@ -15,7 +15,7 @@ class Config {
 				server: 'https://school.langl.eu:3030'
 			},
 			production: {
-				server: 'https://schul-cloud.org'
+				server: 'https://schul-cloud.org:8080'
 			}
 		};
 	}
