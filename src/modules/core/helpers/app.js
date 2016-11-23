@@ -1,6 +1,4 @@
 import { browserHistory, hashHistory, Router, Route, Link } from 'react-router';
-import cookieHelper from 'react-cookie';
-import cookies from './cookies';
 
 import Layout from '../components/layout';
 
@@ -84,7 +82,6 @@ export default class App {
 					indexRoute: indexRoute,
 					childRoutes: routes
 				}}
-				onUpdate={this._checkLoggedIn}
 			/>
 		);
 	}
@@ -95,10 +92,4 @@ export default class App {
 		}
 	}
 
-	_checkLoggedIn() {
-		let currentRoute = this.props.history.getCurrentLocation().pathname;
-		if (!cookieHelper.load(cookies.loggedIn) && currentRoute !== '/login/') {
-			browserHistory.push('/login/');
-		}
-	}
 }
