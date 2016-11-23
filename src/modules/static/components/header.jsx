@@ -22,7 +22,7 @@ class Header extends React.Component {
 								<Link className="nav-link" to="/login/">Login</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="https://blog.schulcloud.org/" target="_blank">Blog</a>
+								<a className="nav-link" href="https://blog.schul-cloud.org/" target="_blank">Blog</a>
 							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="https://hpi.de/open-campus/hpi-initiativen/schulcloud" target="_blank">über Schul-Cloud</a>
