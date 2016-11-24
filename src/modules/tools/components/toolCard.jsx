@@ -1,0 +1,32 @@
+import { Link } from 'react-router';
+require('../styles/toolCard.scss');
+
+class ToolCard extends React.Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {};
+	}
+
+	handleConnect(e) {
+		this.props.actions.connect(this.props.tool._id);
+	}
+
+
+	render() {
+		var tool = this.props.tool;
+		return (
+			<Link className="col-sm-4 tool-card" onClick={this.handleConnect.bind(this)}>
+				<div className="card">
+					<img className="card-img-top" src={tool.logo_url} alt="Card image cap"/>
+					<div className="card-block">
+						<h4 className="card-title">{tool.name}</h4>
+					</div>
+				</div>
+			</Link>
+		);
+	}
+}
+
+export default ToolCard;
