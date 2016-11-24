@@ -1,4 +1,4 @@
-import LayoutBackend from '../../backend/components/layout';
+import LayoutBackend from '../../backend/containers/layout';
 import SectionTitle from '../../backend/components/title';  /* only for backend */
 
 import SectionTable from './table';

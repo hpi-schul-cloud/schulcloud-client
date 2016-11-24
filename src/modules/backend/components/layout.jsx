@@ -17,7 +17,7 @@ class LayoutBackend extends React.Component {
 			<Layout {...this.props}>
 				<Sidebar {...this.props} />
 				<div className="content-wrapper">
-					<Topbar />
+					<Topbar logout={this.props.actions.logout} />
 
 					<div className="container-fluid">
 						<div className="row">

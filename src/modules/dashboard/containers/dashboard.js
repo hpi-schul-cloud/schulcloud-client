@@ -1,17 +1,25 @@
-
+import {browserHistory} from 'react-router';
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
 
+import { Permissions, Server } from '../../core/helpers/';
+
+import permissions from '../permissions';
 import component from '../components/dashboard';
 import actions from '../actions/dashboard';
 
 const composer = (props, onData) => {
+	const currentUser = Server.get('user');
 
-	let componentData = {
-		actions
-	};
+	if(Permissions.userHasPermission(currentUser, permissions.VIEW)) {
+		let componentData = {
+			actions
+		};
 
-	onData(null, componentData);
+		onData(null, componentData);
+	} else {
+		onData(new Error('You don\'t have the permission to see this page.'));
+	}
 };
 
 export default compose(composer)(component);
