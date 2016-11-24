@@ -6,8 +6,12 @@ const toolsConnectService = Server.service('/ltiTools/connect');
 
 export default {
 	connect: (toolId) => {
-
-		console.log(toolId);
+		toolsConnectService.create({ toolId })
+			.then(result => {
+				//window.location.href = result;
+				console.log(result);
+				//TODO: Redirect
+			});
 	}
 };
 
