@@ -1,28 +1,47 @@
 footer {
 	width:100%;
 	border-top:2px solid #727272;
-	line-height: 1.5rem;
 
-	position: relative;
-	padding-top: 15px;
-	height: 50px;
+	position: inherit;
+	padding-top: 5px;
+	height: 80px;
 	bottom: 0;
 	right: 0;
 	left: 0;
 	clear: both;
 }
 
-
-
 .imprint {
-	text-align: center;
-	align-items: center;
+
 	.container-fluid{
-		padding-left: 55px;
-		padding-bottom: 15px;
+		float: right;
+		z-index: 10;
+		position: relative;
+
+		.right{
+			float: right;
+		}
+
+		.bg-graphic {
+			position: absolute;
+			background: no-repeat center center;
+			background-size: contain;
+			z-index: -1;
+			width: 125px;
+			height: 109px;
+
+			&.bg-graphic-footer {
+				top: -36px;
+				right: 0;
+				background-image: url(../../../static/images/sidecloud.png);
+			}
+		}
 	}
-	.underline{
-		border-top: 2px solid #727272;
+	.center{
+		text-align: center;
+		align-items: center;
 	}
+
+
 
 }
