@@ -8,9 +8,12 @@ export default {
 	connect: (toolId) => {
 		toolsConnectService.create({ toolId })
 			.then(result => {
-				//window.location.href = result;
-				console.log(result);
-				//TODO: Redirect
+				if (result.type === 'url') {
+					window.open(result.data);
+				} else {
+					let win = window.open("");
+					win.document.write(result.data);
+				}
 			});
 	}
 };
