@@ -15,7 +15,6 @@ class Footer extends React.Component {
 				<div className="imprint">
 					<div className="container-fluid">
 						<div className="right">
-						<a href="https://blog.schul-cloud.org/" target="blank"><i className="fa fa-commenting" aria-hidden="true"></i> Blog</a><br/>
 						<a href="https://hpi.de/impressum.html" target="blank"><i className="fa fa-info" aria-hidden="true"></i> Impressum</a><br/>
 						<a href="mailto:hpi-info@hpi.de?subject=Schul_Cloud%20Anfrage"><i className="fa fa-at" aria-hidden="true"></i> Kontakt</a>
 						</div>
