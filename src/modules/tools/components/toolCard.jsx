@@ -19,7 +19,10 @@ class ToolCard extends React.Component {
 		return (
 			<Link className="col-sm-4 tool-card" onClick={this.handleConnect.bind(this)}>
 				<div className="card">
-					<img className="card-img-top" src={tool.logo_url} alt="Card image cap"/>
+					{ tool.logo_url
+						? <img className="card-img-top" src={tool.logo_url} alt="Card image cap"/>
+						: <img className="card-img-top" src="/images/cloud.png" alt="Card image cap"/>
+					}
 					<div className="card-block">
 						<h4 className="card-title">{tool.name}</h4>
 					</div>

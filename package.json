@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=local webpack -d --watch",
-	"windev": "set NODE_ENV=local&& webpack -d --watch",
+    "windev": "set NODE_ENV=local&& webpack -d --watch",
     "build": "webpack -p",
     "deploy": "npm run build && ./deploy.sh",
     "lint": "eslint ./src ./test --ext .js",

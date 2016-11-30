@@ -13,26 +13,7 @@ function composer(props, onData) {
 		// load tools
 		toolsService.find()
 			.then(result => {
-				/**let schools = result.data || [];
-
-				return Promise.all(schools.map(school => {
-					// load systems
-					Promise.all(school.systems.map(id => systemService.get(id)))
-						.then(systems => {
-							school.systems = systems.map(system => {
-								system.type = system.type.substr(0, 1).toUpperCase() + system.type.substr(1);	// capitalize
-								return system;
-							});
-							return school.systems;
-						})
-						.catch(error => {
-							onData(error);
-						});
-
-					return school;
-				}));**/
 				let tools = result.data || [];
-
 				return tools;
 			})
 			.then(toolsArray => {
