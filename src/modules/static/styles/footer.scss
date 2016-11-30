@@ -1,10 +1,8 @@
 footer {
 	width:100%;
-	/*border-top:2px solid #727272;*/
+	border-top:2px solid #727272;
 
 	position: inherit;
-	padding-top: 5px;
-	height: 50px;
 	bottom: 0;
 	right: 0;
 	left: 0;
@@ -12,38 +10,8 @@ footer {
 }
 
 .imprint {
-
-	.container-fluid{
-		float: right;
-		z-index: 10;
-		position: relative;
-
-		.right{
-			position: relative;
-			bottom: 12px;
-
-		}
-
-		.bg-graphic {
-			position: absolute;
-			background: no-repeat center center;
-			background-size: contain;
-			z-index: -1;
-			width: 115px;
-			height: 105px;
-
-			&.bg-graphic-footer {
-				top: -60px;
-				right: 0;
-				background-image: url(../../../static/images/sidecloud.png);
-			}
-		}
-	}
 	.center{
 		text-align: center;
 		align-items: center;
 	}
-
-
-
 }
