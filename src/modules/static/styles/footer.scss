@@ -1,14 +1,28 @@
 footer {
 	width:100%;
-	float:left;
+	border-top:2px solid #727272;
+	line-height: 1.5rem;
+
+	position: relative;
+	padding-top: 15px;
+	height: 50px;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	clear: both;
 }
 
-.imprint {
-	text-align: right;
-	bottom: 0;
-	width: 100%;
 
-	a{
-		padding: 5%;
+
+.imprint {
+	text-align: center;
+	align-items: center;
+	.container-fluid{
+		padding-left: 55px;
+		padding-bottom: 15px;
 	}
+	.underline{
+		border-top: 2px solid #727272;
+	}
+
 }
