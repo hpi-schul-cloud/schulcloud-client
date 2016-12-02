@@ -56,6 +56,10 @@ class Sidebar extends React.Component {
 			name: 'Einstellungen',
 			icon: 'gears',
 			to: '/settings/'
+		},{
+			name: 'Administration',
+			icon: 'wrench',
+			to: '/administration/'
 		}];
 
 		return (

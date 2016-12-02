@@ -11,4 +11,21 @@
 		padding-left:0px;
 		padding-right:0px;
 	}
+
+	.section-default {
+		width:100%;
+		float:left;
+		padding: 30px 0px 50px;
+		line-height: 1.75rem;
+
+		& + .section-default {
+			border-top:2px solid #696969;
+		}
+
+		h5 {
+			color: $colorHPIRed;
+			margin:0px 0px 30px 0px;
+		}
+
+	}
 }

@@ -13,6 +13,8 @@ import FileExplorer from './file-explorer';
 import ActiveStudents from './active-students';
 import Tools from './tools';
 
+import Administration from './administration';
+
 export default {
 	Core,
 	Backend,
@@ -24,6 +26,7 @@ export default {
 	Timetable,
 	FileExplorer,
 	ActiveStudents,
+	Administration,
 	Tools,
     Static
 };
