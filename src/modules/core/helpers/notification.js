@@ -11,7 +11,7 @@ class Notification {
 			timeout: 'none'
 		});
 	}
-	showNormal(message) {
+	showInfo(message) {
 		Alert.info(message, {
 			position: 'top',
 			effect: 'jelly',

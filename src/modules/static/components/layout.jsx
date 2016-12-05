@@ -2,7 +2,6 @@ import Layout from '../../core/components/layout';
 
 import Header from './header';
 import Footer from './footer';
-import Notification from './notification';
 
 class LayoutStatic extends React.Component {
 
@@ -18,7 +17,6 @@ class LayoutStatic extends React.Component {
 					{this.props.children}
 				</div>
 				<Footer />
-				<Notification />
 			</Layout>
 		);
 	}
