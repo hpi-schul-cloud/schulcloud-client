@@ -7,12 +7,12 @@ const toolService = Server.service('/ltiTools');
 
 export default {
 	connect: (toolId) => {
+		let win = window.open("");
 		toolsConnectService.create({ toolId })
 			.then(result => {
 				if (result.type === 'url') {
-					window.open(result.data);
+					win.location.href = result.data;
 				} else {
-					let win = window.open("");
 					win.document.write(result.data);
 				}
 			});
