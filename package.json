@@ -27,6 +27,7 @@
     "feathers-authentication-client": "^0.1.1",
     "feathers-client": "^1.7.2",
     "feathers-hooks": "^1.6.1",
+    "feathers-subscriptions-manager": "^1.0.1",
     "jquery": "^3.1.1",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

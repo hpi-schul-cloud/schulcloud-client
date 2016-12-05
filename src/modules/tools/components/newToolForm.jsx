@@ -9,11 +9,6 @@ class NewToolForm extends React.Component {
 		super(props);
 		this.state = {
 			tool: {
-				name: 'Lti Tools Test',
-				url: 'http://lti.tools/test/tp.php',
-				key: 'jisc.ac.uk',
-				secret: 'secret',
-				logo_url: 'http://fa-se.de/wp-content/uploads/2016/02/bettermarks-logo-neu.jpg',
 				lti_message_type: 'basic-lti-launch-request',
 				lti_version: 'LTI-1p0',
 				resource_link_id: '0',
@@ -97,21 +92,21 @@ class NewToolForm extends React.Component {
 
 	render() {
 		return (
-			<form className="new_tool_form" onSubmit={this.handleSubmit}>
+			<form className="new_tool_form">
 				<label>
-					Name:
+					Name (Pflichtfeld):
 					<input type="text" required="required" value={this.state.tool.name} onChange={this.handleChange.bind(null, "name")} />
 				</label> <br></br>
 				<label>
-					URL:
+					URL (Pflichtfeld):
 					<input type="text" required="required" value={this.state.tool.url} onChange={this.handleChange.bind(null, "url")} />
 				</label> <br></br>
 				<label>
-					OAuth-Key:
+					OAuth-Key (Pflichtfeld):
 					<input type="text" required="required" value={this.state.tool.key} onChange={this.handleChange.bind(null, "key")} />
 				</label> <br></br>
 				<label>
-					OAuth-Secret:
+					OAuth-Secret (Pflichtfeld):
 					<input type="text" required="required" value={this.state.tool.secret} onChange={this.handleChange.bind(null, "secret")} />
 				</label> <br></br>
 				<label>
@@ -122,10 +117,10 @@ class NewToolForm extends React.Component {
 					Privatsphäre:
 					<select className="form-control" required="required" value={this.state.tool.privacy_permission} onChange={this.handleChange.bind(null, "privacy_permission" +
 					 "")}>
-						<option label="Anonym">anonymous</option>
-						<option label="Nur E-Mail">e-mail</option>
-						<option label="Nur Name">name</option>
-						<option label="Öffentlich">public</option>
+						<option value="anonymous">Anonym</option>
+						<option value="e-mail">Nur E-Mail</option>
+						<option value="name">Nur Name</option>
+						<option value="public">Öffentlich</option>
 					</select>
 				</label> <br></br>
 				<div className="custom-fields">
@@ -133,7 +128,7 @@ class NewToolForm extends React.Component {
 					{ this.renderCustomFields() } <br></br>
 					{ this.renderNewCustomFields() } <br></br>
 				</div>
-				<input type="submit" value="Submit" className="btn btn-primary" />
+				<button data-dismiss="modal" onClick={this.handleSubmit} className="btn btn-primary">Abschicken</button>
 			</form>
 		);
 	}
