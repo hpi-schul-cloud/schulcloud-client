@@ -16,11 +16,11 @@ class Administration extends React.Component {
 	}
 
 	render() {
+
 		return (
 			<LayoutBackend className="route-administration">
 				<SectionTitle title="Administration" />
 				<SectionSchool {...this.props} />
-
 				<SectionCourses {...this.props} />
 				<SectionClasses {...this.props} />
 				<SectionTeachers {...this.props} />

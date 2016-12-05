@@ -5,8 +5,9 @@ import { Permissions, Server } from '../../core/helpers/';
 import { SubsManager } from 'feathers-subscriptions-manager';
 
 const schoolService = Server.service('/schools');
-const courseService = Server.service('/course');
-const classService = Server.service('/class');
+const courseService = Server.service('/courses');
+const classService = Server.service('/classes');
+const userService = Server.service('/users');
 
 import component from '../components/administration';
 import actions from '../actions/administration';
@@ -24,6 +25,14 @@ const composer = (props, onData) => {
 
 	subManager.addSubscription(classService.find({query: {schoolId: schoolId}}), (classes) => {
 		return {classes: classes.data};
+	});
+
+	subManager.addSubscription(userService.find(), (students) => {
+		return {students: students.data};
+	});
+
+	subManager.addSubscription(userService.find(), (teachers) => {
+		return {teachers: teachers.data};
 	});
 
 	subManager.ready((data, initial) => {

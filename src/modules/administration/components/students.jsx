@@ -1,16 +1,34 @@
-require('../styles/school.scss');
-
+import AdminSection from './admin-section';
 import ModalForm from './modal-form';
 import Table from './table';
 
-class SectionStudents extends React.Component {
+class SectionStudents extends AdminSection {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+
+		this.options = {
+			title: 'Schüler',
+			addLabel: 'Schüler hinzufügen',
+			editLabel: 'Schüler bearbeiten',
+			submitCallback: (data) => {
+				this.props.actions.addStudent(data);
+			}
+		};
+
+		this.actions = [
+			{
+				action: this.openModal.bind(this),
+				icon: 'edit'
+			},
+			{
+				action: this.removeRecord.bind(this),
+				icon: 'trash-o'
+			}
+		]
 	}
 
-	editClassUI(studentId = 0) {
+	modalFormUI(record) {
 		return (
 			<div className="edit-form">
 				<div className="form-group">
@@ -26,51 +44,19 @@ class SectionStudents extends React.Component {
 		);
 	}
 
-	modalUI() {
-		const title = this.state.studentId ? "Schüler bearbeiten" : "Schüler hinzufügen";
-		return (
-			<ModalForm
-				title={title}
-				content={this.editClassUI()}
-				id="studentModal"
-				studentId={this.state.studentId}
-			/>
-		);
+
+	removeRecord(record) {
+		this.props.actions.removeStudent(record);
 	}
 
-	openModal(studentId) {
-		this.setState({
-			studentId
+	getTableHead() {
+		return ['ID', 'Name', 'Klasse', 'E-Mail-Adresse', 'Erstellt am', ''];
+	}
+
+	getTableBody() {
+		return this.props.students.map((record) => {
+			return [record._id, record.name, record.class, record.email, record.createdAt, this.getTableActions(this.actions, record)];
 		});
-		$('#studentModal').modal('show');
-	}
-
-	render() {
-		const tableHead = ['Name', 'Klasse', 'E-Mail-Adresse'];
-		const tableBody = [
-			['Max Mustermann', '11a', 'vorname.nachname@schulcloud.org'],
-			['Max Mustermann', '11a', 'vorname.nachname@schulcloud.org'],
-			['Max Mustermann', '11a', 'vorname.nachname@schulcloud.org']
-		];
-
-		return (
-			<section className="section-courses section-default">
-				<div className="container-fluid">
-					<div className="row">
-						<div className="col-sm-12 no-padding">
-							<h5>Schüler</h5>
-
-							<Table head={tableHead} body={tableBody} />
-							<button type="submit" className="btn btn-primary" onClick={this.openModal.bind(this, '')}>
-								Schüler hinzuf&uuml;gen
-							</button>
-						</div>
-					</div>
-				</div>
-
-				{this.modalUI()}
-			</section>
-		);
 	}
 
 }

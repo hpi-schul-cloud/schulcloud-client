@@ -14,7 +14,7 @@ class Server {
 		const socket = io(Config.server);
 		const server = feathers()
 			.configure(socketio(socket))
-			.configure(rx(RxJS))
+			.configure(rx(RxJS, {listStrategy: 'always'}))
 			.configure(hooks())
 			.configure(authentication({ storage: window.localStorage, path: '/auth' }));
 

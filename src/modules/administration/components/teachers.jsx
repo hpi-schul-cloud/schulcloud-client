@@ -1,16 +1,34 @@
-require('../styles/school.scss');
-
+import AdminSection from './admin-section';
 import ModalForm from './modal-form';
 import Table from './table';
 
-class SectionTeachers extends React.Component {
+class SectionTeachers extends AdminSection {
 
 	constructor(props) {
 		super(props);
-		this.state = {};
+
+		this.options = {
+			title: 'Lehrer',
+			addLabel: 'Lehrer hinzufügen',
+			editLabel: 'Lehrer bearbeiten',
+			submitCallback: (data) => {
+				this.props.actions.addTeacher(data);
+			}
+		};
+
+		this.actions = [
+			{
+				action: this.openModal.bind(this),
+				icon: 'edit'
+			},
+			{
+				action: this.removeRecord.bind(this),
+				icon: 'trash-o'
+			}
+		]
 	}
 
-	editClassUI(teacherId = 0) {
+	modalFormUI(record) {
 		return (
 			<div className="edit-form">
 				<div className="form-group">
@@ -26,51 +44,18 @@ class SectionTeachers extends React.Component {
 		);
 	}
 
-	modalUI() {
-		const title = this.state.teacherId ? "Lehrer bearbeiten" : "Lehrer hinzufügen";
-		return (
-			<ModalForm
-				title={title}
-				content={this.editClassUI()}
-				id="teacherModal"
-				teacherId={this.state.teacherId}
-			/>
-		);
+	removeRecord(record) {
+		this.props.actions.removeTeacher(record);
 	}
 
-	openModal(teacherId) {
-		this.setState({
-			teacherId
+	getTableHead() {
+		return ['ID', 'Name', 'E-Mail-Adresse', 'Erstellt am', ''];
+	}
+
+	getTableBody() {
+		return this.props.teachers.map((record) => {
+			return [record._id, record.name, record.email, record.createdAt, this.getTableActions(this.actions, record)];
 		});
-		$('#teacherModal').modal('show');
-	}
-
-	render() {
-		const tableHead = ['Name', 'E-Mail-Adresse'];
-		const tableBody = [
-			['Mathe', 'vorname.nachname@schulcloud.org'],
-			['Deutsch', 'vorname.nachname@schulcloud.org'],
-			['Geschichte', 'vorname.nachname@schulcloud.org']
-		];
-
-		return (
-			<section className="section-courses section-default">
-				<div className="container-fluid">
-					<div className="row">
-						<div className="col-sm-12 no-padding">
-							<h5>Lehrer</h5>
-
-							<Table head={tableHead} body={tableBody} />
-							<button type="submit" className="btn btn-primary" onClick={this.openModal.bind(this, '')}>
-								Lehrer hinzuf&uuml;gen
-							</button>
-						</div>
-					</div>
-				</div>
-
-				{this.modalUI()}
-			</section>
-		);
 	}
 
 }

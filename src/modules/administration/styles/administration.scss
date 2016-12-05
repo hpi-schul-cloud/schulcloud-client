@@ -2,4 +2,23 @@
 
 .route-administration {
 
+
+	.section-buttons {
+		margin:20px -15px;
+
+		.btn {
+			background: $colorHPIYellow;
+			color:#fff;
+			font-weight:600;
+
+			&:hover {
+				background: $colorHPIOrange;
+			}
+
+			.fa {
+				margin-right:10px;
+				display:inline-block;
+			}
+		}
+	}
 }

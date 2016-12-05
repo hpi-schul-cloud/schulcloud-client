@@ -1,3 +1,5 @@
+import ReactDOM from 'react-dom';
+
 class ModalForm extends React.Component {
 
 	constructor(props) {
@@ -5,7 +7,7 @@ class ModalForm extends React.Component {
 	}
 
 	componentDidMount() {
-		this.$container = $('#' + this.props.id);
+		this.$container = $(ReactDOM.findDOMNode(this));
 		this.$form = this.$container.find('form');
 	}
 
@@ -38,12 +40,12 @@ class ModalForm extends React.Component {
 		}
 
 		return (
-			<div className="modal fade" id={this.props.id} tabIndex="-1" role="dialog" aria-hidden="true">
+			<div className="modal fade" tabIndex="-1" role="dialog" aria-hidden="true">
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
 							{closeIcon}
-							<h4 className="modal-title" id="exampleModalLabel">{this.props.title}</h4>
+							<h4 className="modal-title">{this.props.title}</h4>
 						</div>
 						<div className="modal-body">
 							<form>
