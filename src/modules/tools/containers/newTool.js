@@ -6,8 +6,8 @@ import { SubsManager } from 'feathers-subscriptions-manager';
 import { Permissions, Server } from '../../core/helpers/';
 
 import permissions from '../permissions';
-import component from '../components/tools';
-import actions from '../actions/tools';
+import component from '../components/newTool';
+import actions from '../actions/newTool';
 
 const toolsService = Server.service('/ltiTools');
 
@@ -15,14 +15,20 @@ function composer(props, onData) {
 
 	const currentUser = Server.get('user');
 
-	if(Permissions.userHasPermission(currentUser, permissions.VIEW)) {
+	if(Permissions.userHasPermission(currentUser, permissions.NEW_VIEW)) {
 		// load tools
 		toolsService.find()
 			.then(result => {
 				let tools = result.data || [];
 				tools = tools.filter((t) => {
-					return !t.isTemplate;
+					return t.isTemplate;
 				});
+
+				tools.forEach((t) => {
+					t._id = undefined;
+					t.isTemplate = false;
+				});
+
 				return tools;
 			})
 			.then(toolsArray => {

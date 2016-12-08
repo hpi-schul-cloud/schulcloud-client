@@ -6,16 +6,14 @@ const toolsConnectService = Server.service('/ltiTools/connect');
 const toolService = Server.service('/ltiTools');
 
 export default {
-	connect: (toolId) => {
-		let win = window.open("");
-		// todo: extract current user id
-		toolsConnectService.create({ toolId })
+	createNew: (tool) => {
+		toolService.create(tool)
 			.then(result => {
-				if (result.type === 'url') {
-					win.location.href = result.data;
-				} else {
-					win.document.write(result.data);
-				}
+				// Todo: remove when subsmanager is implemented
+				window.location.href = '/tools/'
+			})
+			.catch(err => {
+				console.log(err);
 			});
 	}
 };

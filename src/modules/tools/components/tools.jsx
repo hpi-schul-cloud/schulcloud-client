@@ -2,8 +2,8 @@ import LayoutBackend from '../../backend/containers/layout';
 import SectionTitle from '../../backend/components/title';  /* only for backend */
 import ToolCard from './toolCard';
 import {browserHistory} from 'react-router';
-import NewToolForm from './newToolForm';
-
+import { Permissions, Server } from '../../core/helpers/';
+import permissions from '../permissions';
 require('../styles/tools.scss');
 
 class Tools extends React.Component {
@@ -14,6 +14,11 @@ class Tools extends React.Component {
 
 	handleCreateNew(e) {
 		browserHistory.push("/tools/new/");
+	}
+
+	handleHasPermission(e) {
+		const currentUser = Server.get('user');
+		return Permissions.userHasPermission(currentUser, permissions.NEW_VIEW);
 	}
 
 	render() {
@@ -27,21 +32,7 @@ class Tools extends React.Component {
 						})
 					}
 				</div>
-				<button type="button" data-toggle="modal" data-target="#newToolModal" className="btn btn-primary">Neues Tool erstellen</button>
-
-				<div className="modal fade" id="newToolModal" role="dialog" aria-labelledby="myModalLabel">
-					<div className="modal-dialog" role="document">
-						<div className="modal-content">
-							<div className="modal-header">
-								<button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 className="modal-title" id="myModalLabel">Neues LTI-Tool erstellen</h4>
-							</div>
-							<div className="modal-body">
-								<NewToolForm modal="#"{...this.props} />
-							</div>
-						</div>
-					</div>
-				</div>
+				<button type="button" style={{visibility: this.handleHasPermission() ? 'visible' : 'hidden'}} onClick={this.handleCreateNew.bind(this)} className="btn btn-primary">Neues Tool erstellen</button>
 			</LayoutBackend>
 		);
 	}
