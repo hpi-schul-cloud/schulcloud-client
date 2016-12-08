@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 require('../styles/toolCard.scss');
+require('../../../static/images/cloud.png');
 
 class ToolCard extends React.Component {
 
