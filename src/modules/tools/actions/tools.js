@@ -21,7 +21,7 @@ export default {
 		toolService.create(tool)
 			.then(result => {
 				// Todo: remove when subsmanager is implemented
-				window.location.href = '/tools/'
+				window.location.href = '/tools/';
 			})
 			.catch(err => {
 				console.log(err);

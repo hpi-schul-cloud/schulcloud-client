@@ -7,7 +7,6 @@ const userService = Server.service('/users');
 
 export default {
 	updateSchool: (schoolId, data) => {
-		console.log(schoolId, data);
 		schoolService.patch(schoolId, data);
 	},
 
