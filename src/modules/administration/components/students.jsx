@@ -60,21 +60,33 @@ class SectionStudents extends AdminSection {
 		);
 	}
 
-
 	removeRecord(record) {
 		this.props.actions.removeStudent(record);
 	}
 
 	getTableHead() {
-		return ['ID', 'Name', 'Klasse', 'E-Mail-Adresse', 'Erstellt am', ''];
+		return [
+			'ID',
+			'Name',
+			'Klasse',
+			'E-Mail-Adresse',
+			'Erstellt am',
+			''
+		];
 	}
 
 	getTableBody() {
 		return this.props.students.map((record) => {
-			return [record._id, record.userName, record.class, record.email, record.createdAt, this.getTableActions(this.actions, record)];
+			return [
+				record._id,
+				record.userName,
+				record.class,
+				record.email,
+				record.createdAt,
+				this.getTableActions(this.actions, record)
+			];
 		});
 	}
-
 }
 
 export default SectionStudents;

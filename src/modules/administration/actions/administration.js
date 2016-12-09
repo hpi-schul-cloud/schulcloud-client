@@ -35,7 +35,6 @@ export default {
 
 
 	updateStudent: (data) => {
-		console.log(data);
 		if(data._id) return userService.update(data._id, data);
 
 		return userService.create(data);

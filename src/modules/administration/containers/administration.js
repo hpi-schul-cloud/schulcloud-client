@@ -13,7 +13,7 @@ import component from '../components/administration';
 import actions from '../actions/administration';
 
 const composer = (props, onData) => {
-	const schoolId = "582c58c72038900b2b7010a8";
+	const schoolId = "582c58c72038900b2b7010a8";  // TODO: no _id
 
 	const subManager = new SubsManager();
 
@@ -28,12 +28,12 @@ const composer = (props, onData) => {
 	});
 
 	subManager.addSubscription(userService.find({
-		query: {roles: ['583ead19ee1321739414d3d9']},
+		query: {roles: ['583ead19ee1321739414d3d9']},  // TODO: no _id
 		rx: {
 			listStrategy: 'always',
 				idField: '_id',
 				matcher: query => item => {
-				return (item.roles || []).includes('583ead19ee1321739414d3d9');
+				return (item.roles || []).includes('583ead19ee1321739414d3d9');  // TODO: no _id
 			}
 		}
 	}), (teachers) => {
@@ -41,12 +41,12 @@ const composer = (props, onData) => {
 	});
 
 	subManager.addSubscription(userService.find({
-		query: {roles: ['583ead19ee1321739414d3db']},
+		query: {roles: ['583ead19ee1321739414d3db']},   // TODO: no _id
 		rx: {
 			listStrategy: 'always',
 			idField: '_id',
 			matcher: query => item => {
-				return (item.roles || []).includes('583ead19ee1321739414d3db');
+				return (item.roles || []).includes('583ead19ee1321739414d3db');   // TODO: no _id
 			}
 		}
 	}), (students) => {

@@ -1,5 +1,3 @@
-require('../styles/school.scss');
-
 class SectionSchool extends React.Component {
 
 	constructor(props) {
@@ -44,7 +42,6 @@ class SectionSchool extends React.Component {
 			</section>
 		);
 	}
-
 }
 
 SectionSchool.defaultProps = {

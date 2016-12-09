@@ -16,7 +16,6 @@ class Administration extends React.Component {
 	}
 
 	render() {
-
 		return (
 			<LayoutBackend className="route-administration">
 				<SectionTitle title="Administration" />
@@ -25,7 +24,6 @@ class Administration extends React.Component {
 				<SectionClasses {...this.props} />
 				<SectionTeachers {...this.props} />
 				<SectionStudents {...this.props} />
-
 			</LayoutBackend>
 		);
 	}

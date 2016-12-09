@@ -25,11 +25,7 @@ class SectionTeachers extends AdminSection {
 			{
 				action: this.openModal.bind(this),
 				icon: 'edit'
-			},
-			/*{
-				action: this.removeRecord.bind(this),
-				icon: 'trash-o'
-			}*/
+			}
 		]
 	}
 
@@ -69,12 +65,24 @@ class SectionTeachers extends AdminSection {
 	}
 
 	getTableHead() {
-		return ['ID', 'Name', 'E-Mail-Adresse', 'Erstellt am', ''];
+		return [
+			'ID',
+			'Name',
+			'E-Mail-Adresse',
+			'Erstellt am',
+			''
+		];
 	}
 
 	getTableBody() {
 		return this.props.teachers.map((record) => {
-			return [record._id, record.userName, record.email, record.createdAt, this.getTableActions(this.actions, record)];
+			return [
+				record._id,
+				record.userName,
+				record.email,
+				record.createdAt,
+				this.getTableActions(this.actions, record)
+			];
 		});
 	}
 

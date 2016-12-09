@@ -45,7 +45,9 @@ class AdminSection extends React.Component {
 	}
 
 
-	modalFormUI(record) {}
+	modalFormUI(record) {
+		return;
+	}
 
 	modalUI() {
 		const title = this.state.record.name != '' ? this.options.editLabel : this.options.addLabel;

@@ -1,5 +1,3 @@
-require('../styles/school.scss');
-
 import AdminSection from './admin-section';
 import ModalForm from './modal-form';
 import Table from './table';
@@ -20,7 +18,7 @@ class SectionClasses extends AdminSection {
 
 		this.defaultRecord = {
 			name: '',
-			schoolId: '582c58c72038900b2b7010a8'
+			schoolId: '582c58c72038900b2b7010a8' // TODO: no _id
 		};
 
 		this.actions = [
@@ -74,12 +72,22 @@ class SectionClasses extends AdminSection {
 	}
 
 	getTableHead() {
-		return ['ID', 'Bezeichnung', 'Erstellt am', ''];
+		return [
+			'ID',
+			'Bezeichnung',
+			'Erstellt am',
+			''
+		];
 	}
 
 	getTableBody() {
 		return this.props.classes.map((c) => {
-			return [c._id, c.name, c.createdAt, this.getTableActions(this.actions, c)];
+			return [
+				c._id,
+				c.name,
+				c.createdAt,
+				this.getTableActions(this.actions, c)
+			];
 		});
 	}
 }
