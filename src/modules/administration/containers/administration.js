@@ -8,6 +8,7 @@ const schoolService = Server.service('/schools');
 const courseService = Server.service('/courses');
 const classService = Server.service('/classes');
 const userService = Server.service('/users');
+const roleService = Server.service('/roles');
 
 import component from '../components/administration';
 import actions from '../actions/administration';
@@ -15,45 +16,66 @@ import actions from '../actions/administration';
 const composer = (props, onData) => {
 	const schoolId = "582c58c72038900b2b7010a8";  // TODO: no _id
 
-	const subManager = new SubsManager();
+	const subsManager = new SubsManager();
 
-	subManager.addSubscription(schoolService.get(schoolId), 'school');
+	subsManager.addSubscription(schoolService.get(schoolId), 'school');
 
-	subManager.addSubscription(courseService.find({query: {schoolId: schoolId}}), (courses) => {
+	subsManager.addSubscription(courseService.find({query: {schoolId: schoolId}}), (courses) => {
 		return {courses: courses.data};
 	});
 
-	subManager.addSubscription(classService.find({query: {schoolId: schoolId}}), (classes) => {
+	subsManager.addSubscription(classService.find({query: {schoolId: schoolId}}), (classes) => {
 		return {classes: classes.data};
 	});
 
-	subManager.addSubscription(userService.find({
-		query: {roles: ['583ead19ee1321739414d3d9']},  // TODO: no _id
+	subsManager.addSubscription(userService.find({
+		query: {
+			roles: ['teacher'],
+			$populate: ['roles']
+		},
 		rx: {
 			listStrategy: 'always',
-				idField: '_id',
-				matcher: query => item => {
-				return (item.roles || []).includes('583ead19ee1321739414d3d9');  // TODO: no _id
+			idField: '_id',
+			matcher: query => item => {
+				// TODO: this should work out of the box - looks like a bug in the feathers-reactive module
+				return roleService.find({
+					query: {
+						_id: {
+							$in: item.roles || []
+						}
+					}
+				}).then((response) => {
+					return response.data.map(r => r.name).includes('teacher');
+				});
 			}
 		}
 	}), (teachers) => {
 		return {teachers: teachers.data};
 	});
 
-	subManager.addSubscription(userService.find({
-		query: {roles: ['583ead19ee1321739414d3db']},   // TODO: no _id
+	subsManager.addSubscription(userService.find({
+		query: {roles: ['student']},   // TODO: no _id
 		rx: {
 			listStrategy: 'always',
 			idField: '_id',
 			matcher: query => item => {
-				return (item.roles || []).includes('583ead19ee1321739414d3db');   // TODO: no _id
+				// TODO: this should work out of the box - looks like a bug in the feathers-reactive module
+				return roleService.find({
+					query: {
+						_id: {
+							$in: item.roles || []
+						}
+					}
+				}).then((response) => {
+					return response.data.map(r => r.name).includes('student');
+				});
 			}
 		}
 	}), (students) => {
 		return {students: students.data};
 	});
 
-	subManager.ready((data, initial) => {
+	subsManager.ready((data, initial) => {
 		const componentData = Object.assign({}, {actions}, data);
 		onData(null, componentData);
 	});
