@@ -11,7 +11,7 @@ class ToolCard extends React.Component {
 	}
 
 	handleConnect(e) {
-		this.props.actions.connect(this.props.tool._id);
+		this.props.actions.connect(this.props.tool);
 	}
 
 
