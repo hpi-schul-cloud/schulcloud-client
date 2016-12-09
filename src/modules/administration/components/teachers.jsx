@@ -12,8 +12,13 @@ class SectionTeachers extends AdminSection {
 			addLabel: 'Lehrer hinzufügen',
 			editLabel: 'Lehrer bearbeiten',
 			submitCallback: (data) => {
-				this.props.actions.addTeacher(data);
+				this.props.actions.updateTeacher(data);
 			}
+		};
+
+		this.defaultRecord = {
+			userName: '',
+			roles: ['teacher']
 		};
 
 		this.actions = [
@@ -21,24 +26,39 @@ class SectionTeachers extends AdminSection {
 				action: this.openModal.bind(this),
 				icon: 'edit'
 			},
-			{
+			/*{
 				action: this.removeRecord.bind(this),
 				icon: 'trash-o'
-			}
+			}*/
 		]
 	}
 
-	modalFormUI(record) {
+	modalFormUI() {
+		const record = this.state.record;
 		return (
 			<div className="edit-form">
 				<div className="form-group">
 					<label htmlFor="">Name *</label>
-					<input type="text" className="form-control" placeholder="Mathe" required />
+					<input
+						type="text"
+						className="form-control"
+						name="userName"
+						value={record.userName}
+						placeholder="Herr Mustermann"
+						onChange={this.handleRecordChange.bind(this)}
+						required />
 				</div>
 
 				<div className="form-group">
 					<label htmlFor="">E-Mail *</label>
-					<input type="email" className="form-control" placeholder="test@test.org" required />
+					<input
+						type="email"
+						name="email"
+						value={record.email}
+						className="form-control"
+						placeholder="test@test.org"
+						onChange={this.handleRecordChange.bind(this)}
+						required />
 				</div>
 			</div>
 		);
@@ -54,7 +74,7 @@ class SectionTeachers extends AdminSection {
 
 	getTableBody() {
 		return this.props.teachers.map((record) => {
-			return [record._id, record.name, record.email, record.createdAt, this.getTableActions(this.actions, record)];
+			return [record._id, record.userName, record.email, record.createdAt, this.getTableActions(this.actions, record)];
 		});
 	}
 

@@ -27,12 +27,30 @@ const composer = (props, onData) => {
 		return {classes: classes.data};
 	});
 
-	subManager.addSubscription(userService.find(), (students) => {
-		return {students: students.data};
+	subManager.addSubscription(userService.find({
+		query: {roles: ['583ead19ee1321739414d3d9']},
+		rx: {
+			listStrategy: 'always',
+				idField: '_id',
+				matcher: query => item => {
+				return (item.roles || []).includes('583ead19ee1321739414d3d9');
+			}
+		}
+	}), (teachers) => {
+		return {teachers: teachers.data};
 	});
 
-	subManager.addSubscription(userService.find(), (teachers) => {
-		return {teachers: teachers.data};
+	subManager.addSubscription(userService.find({
+		query: {roles: ['583ead19ee1321739414d3db']},
+		rx: {
+			listStrategy: 'always',
+			idField: '_id',
+			matcher: query => item => {
+				return (item.roles || []).includes('583ead19ee1321739414d3db');
+			}
+		}
+	}), (students) => {
+		return {students: students.data};
 	});
 
 	subManager.ready((data, initial) => {

@@ -14,8 +14,14 @@ class SectionCourses extends AdminSection {
 			addLabel: 'Kurs hinzufügen',
 			editLabel: 'Kurs bearbeiten',
 			submitCallback: (data) => {
-				this.props.actions.addCourse(data);
+				this.props.actions.updateCourse(data);
 			}
+		};
+
+		this.defaultRecord = {
+			name: '',
+			schoolId: '582c58c72038900b2b7010a8',
+			classId: '58407f3f8fd94f15f984ab03'
 		};
 
 		this.actions = [
@@ -30,32 +36,46 @@ class SectionCourses extends AdminSection {
 		]
 	}
 
-	modalFormUI(courseId = 0) {
+	modalFormUI(courseId) {
+		const record = this.state.record;
 		return (
 			<div className="edit-form">
 				<div className="form-group">
-					<label htmlFor="">Name des Kurses *</label>
-					<input type="text" className="form-control" placeholder="Mathe" name="name" required/>
+					<label>Name des Kurses *</label>
+					<input
+						type="text"
+						value={record.name}
+						className="form-control"
+						name="name"
+						placeholder="Mathe"
+						onChange={this.handleRecordChange.bind(this)}
+						required />
 				</div>
 
-				<input type="hidden" name="schoolId" value="582c58c72038900b2b7010a8"/>
-
-				<input type="hidden" name="classId" value="58407f3f8fd94f15f984ab03"/>
-
 				<div className="form-group">
-					<label htmlFor="">Unterrichtender Lehrer</label>
-					<select className="form-control" name="teacher" id="">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+					<label>Unterrichtender Lehrer *</label>
+					<select
+						value={record.teacherId}
+						className="form-control"
+						name="teacherId"
+						onChange={this.handleRecordChange.bind(this)}
+						required
+						multiple>
+						{this.props.teachers.map((r) => {
+							return (<option key={r._id} value={r._id}>{r.userName || r._id}</option>);
+						})}
 					</select>
 				</div>
 
 				<div className="form-group">
 					<label htmlFor="">Klasse(n)</label>
-					<select multiple className="form-control" name="classId" id="">
+					<select
+						value={record.classId}
+						className="form-control"
+						name="classId"
+						onChange={this.handleRecordChange.bind(this)}
+						required
+						multiple>
 						{this.props.classes.map((c) => {
 							return (<option key={c._id} value={c._id}>{c.name}</option>);
 						})}
@@ -63,8 +83,15 @@ class SectionCourses extends AdminSection {
 				</div>
 
 				<div className="form-group">
-					<label htmlFor="">Frequenz *</label>
-					<input type="text" className="form-control" placeholder="Wöchentlich" name="frequency" required/>
+					<label>Frequenz *</label>
+					<input
+						type="text"
+						value={record.frequency}
+						className="form-control"
+						name="frequency"
+						placeholder="Wöchentlich"
+						onChange={this.handleRecordChange.bind(this)}
+						required />
 				</div>
 			</div>
 		);

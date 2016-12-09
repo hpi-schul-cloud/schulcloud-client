@@ -12,7 +12,9 @@ export default {
 	},
 
 
-	addCourse: (data) => {
+	updateCourse: (data) => {
+		if(data._id) return courseService.update(data._id, data);
+
 		return courseService.create(data);
 	},
 
@@ -21,7 +23,9 @@ export default {
 	},
 
 
-	addClass: (data) => {
+	updateClass: (data) => {
+		if(data._id) return classService.update(data._id, data);
+
 		return classService.create(data);
 	},
 
@@ -30,7 +34,10 @@ export default {
 	},
 
 
-	addStudent: (data) => {
+	updateStudent: (data) => {
+		console.log(data);
+		if(data._id) return userService.update(data._id, data);
+
 		return userService.create(data);
 	},
 
@@ -39,7 +46,9 @@ export default {
 	},
 
 
-	addTeacher: (data) => {
+	updateTeacher: (data) => {
+		if(data._id) return userService.update(data._id, data);
+
 		return userService.create(data);
 	},
 

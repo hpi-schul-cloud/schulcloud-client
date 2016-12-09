@@ -6,30 +6,17 @@ class ModalForm extends React.Component {
 		super(props);
 	}
 
-	componentDidMount() {
-		this.$container = $(ReactDOM.findDOMNode(this));
-		this.$form = this.$container.find('form');
-	}
-
-	arrayToObject(array) {
-		let newObject = {};
-		array.forEach((el) => {
-			newObject[el.name] = el.value;
-		});
-		return newObject;
-	}
-
-	onSubmit() {
-		const data = this.arrayToObject(this.$form.serializeArray());
-		this.props.submitCallback(data);
-	}
-
 	render() {
 		let closeIcon = '';
 		let closeButton = '';
 		if(this.props.closable) {
 			closeIcon = (
-				<button type="button" className="close" data-dismiss="modal" aria-label="Close" onClick={this.props.closeCallback.bind(this)}>
+				<button
+					type="button"
+					className="close"
+					data-dismiss="modal"
+					aria-label="Close"
+					onClick={this.props.closeCallback.bind(this)}>
 					<span aria-hidden="true">&times;</span>
 				</button>
 			);
@@ -54,7 +41,11 @@ class ModalForm extends React.Component {
 						</div>
 						<div className="modal-footer">
 							{closeButton}&nbsp;
-							<button type="button" data-dismiss="modal" className="btn btn-primary" onClick={this.onSubmit.bind(this)}>
+							<button
+								type="button"
+								data-dismiss="modal"
+								className="btn btn-primary"
+								onClick={this.props.submitCallback.bind(this)}>
 								{this.props.submitLabel}
 							</button>
 						</div>

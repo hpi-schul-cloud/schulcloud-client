@@ -14,8 +14,13 @@ class SectionClasses extends AdminSection {
 			addLabel: 'Klasse hinzufügen',
 			editLabel: 'Klasse bearbeiten',
 			submitCallback: (data) => {
-				this.props.actions.addClass(data);
+				this.props.actions.updateClass(data);
 			}
+		};
+
+		this.defaultRecord = {
+			name: '',
+			schoolId: '582c58c72038900b2b7010a8'
 		};
 
 		this.actions = [
@@ -30,24 +35,34 @@ class SectionClasses extends AdminSection {
 		]
 	}
 
-	modalFormUI(record) {
+	modalFormUI() {
+		const record = this.state.record;
 		return (
 			<div className="edit-form">
 				<div className="form-group">
 					<label htmlFor="">Name der Klasse *</label>
-					<input type="text" defaultValue={record.name} className="form-control" name="name" placeholder="Mathe" required />
+					<input
+						type="text"
+						value={record.name}
+						className="form-control"
+						name="name"
+						placeholder="10a"
+						onChange={this.handleRecordChange.bind(this)}
+						required />
 				</div>
-
-				<input type="hidden" name="schoolId" value="582c58c72038900b2b7010a8" />
 
 				<div className="form-group">
 					<label htmlFor="">Klassenlehrer</label>
-					<select className="form-control" name="teacherId" id="">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+					<select
+						value={record.teacherId}
+						className="form-control"
+						name="teacherId"
+						onChange={this.handleRecordChange.bind(this)}
+						required
+						multiple>
+						{this.props.teachers.map((r) => {
+							return (<option key={r._id} value={r._id}>{r.userName || r._id}</option>);
+						})}
 					</select>
 				</div>
 			</div>
