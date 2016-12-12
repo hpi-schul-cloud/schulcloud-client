@@ -1,6 +1,14 @@
 const OAuth = require('oauth-1.0a');
 const crypto = require('crypto');
 
+const ltiRoles = {
+	user: 'Learner',
+	student: 'Learner',
+	teacher: 'Instructor',
+	administrator: 'Administrator',
+	superhero: 'Administrator'
+};
+
 class LTICustomer {
 	constructor() {}
 
@@ -15,6 +23,10 @@ class LTICustomer {
 				return crypto.createHmac('sha1', key).update(base_string).digest('base64');
 			}
 		});
+	}
+
+	mapSchulcloudRoleToLTIRole(role) {
+		return ltiRoles[role];
 	}
 
 	sendRequest(request_data, consumer) {
