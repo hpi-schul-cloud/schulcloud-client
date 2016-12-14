@@ -32,7 +32,7 @@ class Tools extends React.Component {
 						})
 					}
 				</div>
-				<button type="button" style={{visibility: this.handleHasPermission() ? 'visible' : 'hidden'}} onClick={this.handleCreateNew.bind(this)} className="btn btn-primary">Neues Tool erstellen</button>
+				<button type="button" style={{visibility: this.handleHasPermission() ? 'visible' : 'hidden'}} onClick={this.handleCreateNew.bind(this)} className="btn btn-primary btn-tools">Neues Tool erstellen</button>
 			</LayoutBackend>
 		);
 	}
