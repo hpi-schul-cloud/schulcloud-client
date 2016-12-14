@@ -21,7 +21,7 @@ class NotFound extends React.Component {
 				<div className="description">
 					Ups! Da ist etwas schief gelaufen. <br />
 					Diese Seite existiert (noch) nicht, <br />
-					bitte versuche es auf anderem Wege.
+					bitte versuche es auf einem andern Weg.
 				</div>
 			</section>
 		);
