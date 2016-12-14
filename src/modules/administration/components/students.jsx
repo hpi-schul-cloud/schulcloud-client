@@ -16,11 +16,6 @@ class SectionStudents extends AdminSection {
 			}
 		};
 
-		this.defaultRecord = {
-			userName: '',
-			roles: ['583ead19ee1321739414d3db']  // TODO: no _id
-		};
-
 		this.actions = [
 			{
 				action: this.openModal.bind(this),

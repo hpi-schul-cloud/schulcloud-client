@@ -14,7 +14,12 @@ import component from '../components/administration';
 import actions from '../actions/administration';
 
 const composer = (props, onData) => {
-	const schoolId = "582c58c72038900b2b7010a8";  // TODO: no _id
+	const currentUser = Server.get('user');
+	const schoolId = currentUser.schoolId;
+
+	if(!schoolId) {
+		return onData(new Error("The current user is not associated with a school"));
+	}
 
 	const subsManager = new SubsManager();
 

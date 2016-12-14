@@ -18,7 +18,7 @@ class SectionClasses extends AdminSection {
 
 		this.defaultRecord = {
 			name: '',
-			schoolId: '582c58c72038900b2b7010a8' // TODO: no _id
+			schoolId: this.props.school._id
 		};
 
 		this.actions = [
