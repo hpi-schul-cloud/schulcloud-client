@@ -4,6 +4,7 @@ import { Permissions, Server } from '../../core/helpers/';
 
 import { SubsManager } from 'feathers-subscriptions-manager';
 
+import permissions from '../permissions';
 const schoolService = Server.service('/schools');
 const courseService = Server.service('/courses');
 const classService = Server.service('/classes');
@@ -14,7 +15,14 @@ import component from '../components/administration';
 import actions from '../actions/administration';
 
 const composer = (props, onData) => {
+
 	const currentUser = Server.get('user');
+
+	if(!Permissions.userHasPermission(currentUser, permissions.VIEW)) {
+		onData(new Error('You don\'t have the permission to see this page.'));
+		return;
+	}
+
 	const schoolId = currentUser.schoolId;
 
 	if(!schoolId) {
