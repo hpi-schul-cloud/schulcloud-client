@@ -3,6 +3,7 @@ import { Server, LTICustomer } from '../../core/helpers';
 const rolesService = Server.service('/roles');
 
 export default {
+
 	connect: (tool) => {
 		var consumer = LTICustomer.createConsumer(tool.key, tool.secret);
 

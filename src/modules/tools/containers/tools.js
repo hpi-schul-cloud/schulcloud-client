@@ -15,27 +15,30 @@ function composer(props, onData) {
 
 	const currentUser = Server.get('user');
 
-	if(Permissions.userHasPermission(currentUser, permissions.VIEW)) {
+	if(!Permissions.userHasPermission(currentUser, permissions.VIEW)) {
+		onData(new Error('You don\'t have the permission to see this page.'));
+		return;
+	}
 		// load tools
-		toolsService.find()
-			.then(result => {
-				let tools = result.data || [];
-				tools = tools.filter((t) => {
-					return !t.isTemplate;
-				});
-				return tools;
-			})
-			.then(toolsArray => {
-				let componentData = {
-					actions,
-					tools: toolsArray
-				};
-
-				onData(null, componentData);
-			})
-			.catch(error => {
-				onData(error);
+	toolsService.find()
+		.then(result => {
+			let tools = result.data || [];
+			tools = tools.filter((t) => {
+				return !t.isTemplate;
 			});
+			return tools;
+		})
+		.then(toolsArray => {
+			let componentData = {
+				actions,
+				tools: toolsArray
+			};
+
+			onData(null, componentData);
+		})
+		.catch(error => {
+			onData(error);
+		});
 
 		/**
 		 * subManager.addSubscription(toolsService.find(), (tools) => {
@@ -47,9 +50,6 @@ function composer(props, onData) {
 	onData(null, componentData);
 });
 		 */
-	} else {
-		onData(new Error('You don\'t have the permission to see this page.'));
-	}
 }
 
 export default compose(composer)(component);
