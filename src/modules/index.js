@@ -11,6 +11,9 @@ import Lessons from './lessons';
 import Timetable from './timetable';
 import FileExplorer from './file-explorer';
 import ActiveStudents from './active-students';
+import ErrorPage from './error-page';
+import Tools from './tools';
+import Administration from './administration';
 
 export default {
 	Core,
@@ -23,5 +26,8 @@ export default {
 	Timetable,
 	FileExplorer,
 	ActiveStudents,
+	Administration,
+	ErrorPage,
+	Tools,
     Static
 };

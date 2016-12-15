@@ -1,0 +1,10 @@
+@import '../../core/styles/colors.scss';
+
+.tool-card {
+	cursor: pointer;
+	margin-top: 15px;
+	.card-img-top {
+		max-width:100%;
+		height:auto;
+	}
+}

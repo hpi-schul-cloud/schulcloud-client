@@ -1,7 +1,7 @@
 # SchulCloud - Client
 
-![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)
-
+Dev: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)
+Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=production)
 # Requirements
 
 * node.js
@@ -21,8 +21,8 @@
 
 ## How to name your branch
 
-1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feather-js")
-2. Name the branch "yourname/trelloid" (e.g. "nico/8-setup-feather-js")
+1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")
+2. Name the branch after the Trello id (e.g. "8-setup-feathers-js")
 
 ## Testing
 

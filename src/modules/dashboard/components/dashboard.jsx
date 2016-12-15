@@ -1,6 +1,4 @@
-
-
-import LayoutBackend from '../../backend/components/layout';
+import LayoutBackend from '../../backend/containers/layout';
 import SectionTitle from '../../backend/components/title';
 import SectionTimetable from '../../timetable/components/table';
 import SectionControls from '../../timetable/components/controls';

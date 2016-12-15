@@ -49,9 +49,17 @@ class Sidebar extends React.Component {
 			icon: 'child',
 			to: '/active/'
 		},{
+			name: 'Tools',
+			icon: 'cubes',
+			to: '/tools/'
+		},{
 			name: 'Einstellungen',
 			icon: 'gears',
 			to: '/settings/'
+		},{
+			name: 'Administration',
+			icon: 'wrench',
+			to: '/administration/'
 		}];
 
 		return (

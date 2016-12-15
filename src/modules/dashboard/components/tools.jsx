@@ -1,5 +1,3 @@
-
-
 require('../styles/tools.scss');
 
 class SectionTools extends React.Component {

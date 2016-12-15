@@ -1,4 +1,4 @@
-
+import { browserHistory } from 'react-router';
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
 
@@ -11,9 +11,12 @@ const schoolService = Server.service('/schools');
 const systemService = Server.service('/systems');
 
 function composer(props, onData) {
-
-	// load schools
-	schoolService.find()
+	if(Server.get('user')) {
+		browserHistory.push('/dashboard/');
+		console.info('Already loggedin, redirect to dashboard');
+	} else {
+		// load schools
+		schoolService.find()
 		.then(result => {
 			let schools = result.data || [];
 
@@ -50,6 +53,7 @@ function composer(props, onData) {
 		.catch(error => {
 			onData(error);
 		});
+	}
 }
 
 export default compose(composer)(component);
