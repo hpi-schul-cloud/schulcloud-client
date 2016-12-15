@@ -8,14 +8,11 @@ class NewToolForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			tool: {
-				lti_message_type: 'basic-lti-launch-request',
-				lti_version: 'LTI-1p0',
-				resource_link_id: '0',
-				privacy_permission: 'anonymous',
-				customs: []
-			},
-			custom_fields: [],
+			tool: this.props.toolTemplate,
+			custom_fields: this.props.toolTemplate.customs.map((c) => {
+				c.id = this.createRandomComponentId(c.key, c.value);
+				return c;
+			}),
 			new_custom_field: {
 				key: '',
 				value: ''
@@ -24,6 +21,10 @@ class NewToolForm extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	createRandomComponentId(key, value) {
+		return key + value + Math.random() * 10000;
 	}
 
 	handleChange(fieldName, event) {
@@ -50,7 +51,8 @@ class NewToolForm extends React.Component {
 		var stateCustomsUpdate = this.state.custom_fields;
 		var newCustomField = this.state.new_custom_field;
 
-		var index = newCustomField.key + newCustomField.value + Math.random() * 10000;
+		// index for react component, not id of real db object
+		var index = this.createRandomComponentId(newCustomField.key, newCustomField.value);
 		stateCustomsUpdate.push({id: index, key: newCustomField.key, value: newCustomField.value});
 
 		this.setState({custom_fields: stateCustomsUpdate});
@@ -96,18 +98,6 @@ class NewToolForm extends React.Component {
 				<label>
 					Name (Pflichtfeld):
 					<input type="text" required="required" value={this.state.tool.name} onChange={this.handleChange.bind(null, "name")} />
-				</label> <br></br>
-				<label>
-					URL (Pflichtfeld):
-					<input type="text" required="required" value={this.state.tool.url} onChange={this.handleChange.bind(null, "url")} />
-				</label> <br></br>
-				<label>
-					OAuth-Key (Pflichtfeld):
-					<input type="text" required="required" value={this.state.tool.key} onChange={this.handleChange.bind(null, "key")} />
-				</label> <br></br>
-				<label>
-					OAuth-Secret (Pflichtfeld):
-					<input type="text" required="required" value={this.state.tool.secret} onChange={this.handleChange.bind(null, "secret")} />
 				</label> <br></br>
 				<label>
 					Logo (URL):
