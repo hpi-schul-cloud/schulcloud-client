@@ -1,0 +1,17 @@
+@import '../../core/styles/colors.scss';
+
+.new_tool_form {
+	margin-top: 5%;
+	input {
+		margin-left: 5px;
+	}
+	.btn-add-custom {
+		margin-left: 10px;
+	}
+	.custom-fields {
+		.fa {
+			cursor: pointer;
+			margin-left: 10px;
+		}
+	}
+}

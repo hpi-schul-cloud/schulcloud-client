@@ -1,6 +1,6 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import { Server } from '../../core/helpers';
+import { Server, Notification } from '../../core/helpers';
 
 const authService = Server.service('/auth');
 
@@ -23,12 +23,13 @@ export default {
 						browserHistory.push('/dashboard/');
 					}).catch(function(error) {
 						console.error('Error authenticating!', error);
+						Notification.showError('Error authenticating!');
 					});
 				}
 			})
 			.catch(error => {
-				console.error(error);
-				return false;	// TODO: return or display error
+				Notification.showError(error.message);
+				return false;
 			});
 	}
 };
