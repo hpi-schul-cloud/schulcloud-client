@@ -7,7 +7,6 @@ class ToolCard extends React.Component {
 
 	constructor(props) {
 		super(props);
-
 		this.state = {};
 	}
 
@@ -15,7 +14,7 @@ class ToolCard extends React.Component {
 		var tool = this.props.tool;
 		return (
 			<div>
-				<Link className="col-sm-4 tool-card" data-toggle="modal" data-target={"#newToolModal" + tool.name}>
+				<Link className="col-sm-4 tool-card" data-toggle="modal" data-target={"#newToolModal" + this.props.modalId}>
 					<div className="card">
 						{ tool.logo_url
 							? <img className="card-img-top" src={tool.logo_url} alt="Card image cap"/>
@@ -27,7 +26,7 @@ class ToolCard extends React.Component {
 					</div>
 				</Link>
 
-				<div className="modal fade" id={"newToolModal" + tool.name} role="dialog" aria-labelledby="myModalLabel">
+				<div className="modal fade" id={"newToolModal" + this.props.modalId} role="dialog" aria-labelledby="myModalLabel">
 					<div className="modal-dialog" role="document">
 						<div className="modal-content">
 							<div className="modal-header">
