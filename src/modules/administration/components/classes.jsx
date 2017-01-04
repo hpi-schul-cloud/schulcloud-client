@@ -52,9 +52,9 @@ class SectionClasses extends AdminSection {
 				<div className="form-group">
 					<label htmlFor="">Klassenlehrer</label>
 					<select
-						value={record.teacherId}
+						value={record.teacherIds}
 						className="form-control"
-						name="teacherId"
+						name="teacherIds"
 						onChange={this.handleRecordChange.bind(this)}
 						required
 						multiple>
