@@ -35,7 +35,7 @@ class ToolCard extends React.Component {
 								<h4 className="modal-title" id="myModalLabel">Neues LTI-Tool erstellen</h4>
 							</div>
 							<div className="modal-body">
-								<NewToolForm toolTemplate={tool} modal="#"{...this.props} />
+								<NewToolForm toolTemplate={tool} modal="#"{...this.props} courses={this.props.courses} />
 							</div>
 						</div>
 					</div>

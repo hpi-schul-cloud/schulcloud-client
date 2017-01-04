@@ -10,6 +10,7 @@ import component from '../components/tools';
 import actions from '../actions/tools';
 
 const toolsService = Server.service('/ltiTools');
+const coursesService = Server.service('/courses');
 
 function composer(props, onData) {
 
@@ -19,37 +20,36 @@ function composer(props, onData) {
 		onData(new Error('You don\'t have the permission to see this page.'));
 		return;
 	}
-		// load tools
-	toolsService.find()
-		.then(result => {
-			let tools = result.data || [];
-			tools = tools.filter((t) => {
-				return !t.isTemplate;
+
+	// get just tools for the user's courses
+	coursesService.find({
+		query: {$or: [{teacherIds: currentUser._id}, {userIds: currentUser._id}]}
+	}).then(result => {
+		let courses = result.data;
+		toolsService.find({
+			query: {courseId: {$in: courses.map(c => c._id)}}
+		})
+			.then(result => {
+				let tools = result.data || [];
+				tools = tools.filter((t) => {
+					return !t.isTemplate;
+				});
+				return tools;
+			})
+			.then(toolsArray => {
+					let componentData = {
+						actions,
+						tools: toolsArray
+					};
+
+					onData(null, componentData);
+			})
+			.catch(error => {
+				onData(error);
 			});
-			return tools;
-		})
-		.then(toolsArray => {
-			let componentData = {
-				actions,
-				tools: toolsArray
-			};
-
-			onData(null, componentData);
-		})
-		.catch(error => {
-			onData(error);
-		});
-
-		/**
-		 * subManager.addSubscription(toolsService.find(), (tools) => {
-	return {tools: tools.data};
-});
-
-		 subManager.ready((data, initial) => {
-	const componentData = Object.assign({}, {actions}, data);
-	onData(null, componentData);
-});
-		 */
+	}).catch(err => {
+		onData(err);
+	});
 }
 
 export default compose(composer)(component);

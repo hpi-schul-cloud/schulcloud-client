@@ -10,6 +10,7 @@ import component from '../components/newTool';
 import actions from '../actions/newTool';
 
 const toolsService = Server.service('/ltiTools');
+const courseService = Server.service('courses');
 
 function composer(props, onData) {
 
@@ -32,27 +33,24 @@ function composer(props, onData) {
 				return tools;
 			})
 			.then(toolsArray => {
-				let componentData = {
-					actions,
-					tools: toolsArray
-				};
+				// get all courses for teacher
+				courseService.find({
+					query: {teacherIds: currentUser._id}
+				}).then(result => {
+					let componentData = {
+						actions,
+						tools: toolsArray,
+						courses: result.data
+					};
+					onData(null, componentData);
+				}).catch(err => {
+					console.log(err);
+				});
 
-				onData(null, componentData);
 			})
 			.catch(error => {
 				onData(error);
 			});
-
-		/**
-		 * subManager.addSubscription(toolsService.find(), (tools) => {
-	return {tools: tools.data};
-});
-
-		 subManager.ready((data, initial) => {
-	const componentData = Object.assign({}, {actions}, data);
-	onData(null, componentData);
-});
-		 */
 	} else {
 		onData(new Error('You don\'t have the permission to see this page.'));
 	}
