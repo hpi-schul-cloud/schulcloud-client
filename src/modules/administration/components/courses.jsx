@@ -53,9 +53,9 @@ class SectionCourses extends AdminSection {
 				<div className="form-group">
 					<label>Unterrichtender Lehrer *</label>
 					<select
-						value={record.teacherId}
+						value={record.teacherIds}
 						className="form-control"
-						name="teacherId"
+						name="teacherIds"
 						onChange={this.handleRecordChange.bind(this)}
 						required
 						multiple>
