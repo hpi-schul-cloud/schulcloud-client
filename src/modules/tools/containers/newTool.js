@@ -10,7 +10,7 @@ import component from '../components/newTool';
 import actions from '../actions/newTool';
 
 const toolsService = Server.service('/ltiTools');
-const courseService = Server.service('courses');
+const courseService = Server.service('/courses');
 
 function composer(props, onData) {
 
