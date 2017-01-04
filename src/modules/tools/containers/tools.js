@@ -23,30 +23,22 @@ function composer(props, onData) {
 
 	// get just tools for the user's courses
 	coursesService.find({
-		query: {$or: [{teacherIds: currentUser._id}, {userIds: currentUser._id}]}
+		query: {
+			$or: [{teacherIds: currentUser._id}, {userIds: currentUser._id}],
+			$populate: ['ltiToolIds']
+		}
 	}).then(result => {
 		let courses = result.data;
-		toolsService.find({
-			query: {courseId: {$in: courses.map(c => c._id)}}
-		})
-			.then(result => {
-				let tools = result.data || [];
-				tools = tools.filter((t) => {
-					return !t.isTemplate;
-				});
-				return tools;
-			})
-			.then(toolsArray => {
-					let componentData = {
-						actions,
-						tools: toolsArray
-					};
-
-					onData(null, componentData);
-			})
-			.catch(error => {
-				onData(error);
+		let tools = [].concat.apply([], courses.map(c => {
+			return c.ltiToolIds.filter(t => {
+				return !t.isTemplate;
 			});
+		}));
+		let componentData = {
+			actions,
+			tools: tools
+		};
+		onData(null, componentData);
 	}).catch(err => {
 		onData(err);
 	});

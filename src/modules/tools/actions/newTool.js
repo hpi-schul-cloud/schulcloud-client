@@ -1,17 +1,26 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import { Server } from '../../core/helpers';
+import { Server, Notification } from '../../core/helpers';
 
 const toolService = Server.service('/ltiTools');
+const courseService = Server.service('/courses');
 
 export default {
 	createNew: (tool) => {
 		toolService.create(tool)
 			.then(result => {
-				window.location.href = '/tools/'
+				if (result._id) {
+					courseService.patch(tool.courseId, { $push: {ltiToolIds: result._id}}).then(result => {
+						window.location.href = '/tools/'
+					}).catch(err => {
+						Notification.showError(err.message);
+						return false;
+					})
+				}
 			})
 			.catch(err => {
-				console.log(err);
+				Notification.showError(err.message);
+				return false;
 			});
 	}
 };
