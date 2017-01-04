@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';
 
 require('../styles/newToolForm.scss');
 

@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';  /* only for backend */
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';  /* only for base */
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import SectionSchool from './school';
@@ -19,7 +19,7 @@ class Administration extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-administration">
+			<LayoutBase className="route-administration">
 				<SectionTitle title="Administration" />
 				<SectionSchool {...this.props} />
 				<Tabs>
@@ -37,7 +37,7 @@ class Administration extends React.Component {
 					<TabPanel><SectionTeachers {...this.props} /></TabPanel>
 					<TabPanel><SectionStudents {...this.props} /></TabPanel>
 				</Tabs>
-			</LayoutBackend>
+			</LayoutBase>
 
 		);
 	}

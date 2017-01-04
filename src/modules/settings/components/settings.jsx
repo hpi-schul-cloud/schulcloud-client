@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';
 
 import SectionNotifications from './notifications';
 import SectionPrivacy from './privacy';
@@ -14,11 +14,11 @@ class Settings extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-settings">
+			<LayoutBase className="route-settings">
 				<SectionTitle title="Mein Profil" />
 				<SectionNotifications />
 				<SectionPrivacy />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

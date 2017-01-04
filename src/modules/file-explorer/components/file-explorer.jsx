@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';  /* only for backend */
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';  /* only for base */
 
 import Directories from './directories';
 import Upload from './upload';
@@ -23,12 +23,12 @@ class FileExplorer extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-file-explorer">
+			<LayoutBase className="route-file-explorer">
 				<SectionTitle title="Dateien" subtitle={this.getSubtitle.bind(this)()} />
 				<Upload />
 				<Directories />
 				<Files />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

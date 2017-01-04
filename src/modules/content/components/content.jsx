@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';
 
 import SectionSearch from '../components/search';
 
@@ -13,10 +13,10 @@ class Content extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend>
+			<LayoutBase>
 				<SectionTitle title="Materialiensuche" />
 				<SectionSearch {...this.props} />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 
