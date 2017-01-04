@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';  /* only for backend */
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';  /* only for base */
 
 import List from './list';
 
@@ -21,10 +21,10 @@ class ActiveStudents extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-active-students">
+			<LayoutBase className="route-active-students">
 				<SectionTitle title="Schüler" subtitle={this.getSubtitle.bind(this)()} />
 				<List />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

@@ -6,7 +6,7 @@ import Footer from '../../static/components/footer'
 
 require('../styles/layout.scss');
 
-class LayoutBackend extends React.Component {
+class LayoutBase extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -34,4 +34,4 @@ class LayoutBackend extends React.Component {
 
 }
 
-export default LayoutBackend;
+export default LayoutBase;

@@ -3,7 +3,7 @@ import Core from './core';
 import Static from './static';
 import Login from './login';
 
-import Backend from './backend';
+import Base from './base';
 import Dashboard from './dashboard';
 import Content from './content';
 import Settings from './settings';
@@ -17,7 +17,7 @@ import Administration from './administration';
 
 export default {
 	Core,
-	Backend,
+	Base,
 	Dashboard,
 	Settings,
 	Login,

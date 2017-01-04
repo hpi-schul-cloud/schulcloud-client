@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';  /* only for backend */
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';  /* only for base */
 import ToolCard from './toolCard';
 import {browserHistory} from 'react-router';
 import { Permissions, Server } from '../../core/helpers/';
@@ -23,7 +23,7 @@ class Tools extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="tools">
+			<LayoutBase className="tools">
 				<SectionTitle title="Tools"/>
 				<div className="tools-section">
 					{
@@ -33,7 +33,7 @@ class Tools extends React.Component {
 					}
 				</div>
 				<button type="button" style={{visibility: this.handleHasPermission() ? 'visible' : 'hidden'}} onClick={this.handleCreateNew.bind(this)} className="btn btn-primary btn-tools">Neues Tool erstellen</button>
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 
