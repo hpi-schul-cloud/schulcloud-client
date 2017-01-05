@@ -105,7 +105,7 @@ class NewToolForm extends React.Component {
 			<form className="new_tool_form">
 				<label>
 					Kurs:
-					<select type="text" required="required" value={this.state.tool.courseId} onChange={this.handleChange.bind(null, "courseId")}>
+					<select className="form-control" type="text" required="required" value={this.state.tool.courseId} onChange={this.handleChange.bind(null, "courseId")}>
 						{ this.props.courses.map(c => {
 							return this.renderCoursesOption(c);
 						}) }
