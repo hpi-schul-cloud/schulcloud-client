@@ -15,7 +15,7 @@ function composer(props, onData) {
 
 		console.log(props);
 
-		onData(null, {actions});
+		onData(null, {actions, step: props.params.step});
 	}
 }
 
