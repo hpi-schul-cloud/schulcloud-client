@@ -18,9 +18,9 @@ export default {
 				roles: LTICustomer.mapSchulcloudRoleToLTIRole(role),
 				launch_presentation_document_target: 'window',
 				lis_person_name_full: currentUser.firstName && currentUser.lastName
-					? `${currentUser.firstName} ${currentUser.lastName} `
+					? `${currentUser.firstName} ${currentUser.lastName}`
 					: 'John Logie Baird',
-				lis_person_contact_email_primary: currentUser.username ? currentUser.username : 'jbaird@uni.ac.uk',
+				lis_person_contact_email_primary: currentUser.username ? `${currentUser.username}@schul-cloud.org` : 'jbaird@uni.ac.uk',
 				launch_presentation_locale: 'en'
 			};
 
