@@ -26,7 +26,7 @@ class SearchResult extends React.Component {
 							</button> : '' }
 						<p>
 							<small className="text-muted">
-								via {result.source} | {result.creationDate}
+								via {result.source} | {new Date(result.creationDate).toLocaleDateString("de-DE")}
 							</small>
 						</p>
 					</div>
