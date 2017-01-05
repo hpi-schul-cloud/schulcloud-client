@@ -19,6 +19,8 @@ class NewToolForm extends React.Component {
 			}
 		};
 
+		// set default course
+		this.state.tool.courseId = this.props.courses[0]._id;
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
@@ -66,7 +68,7 @@ class NewToolForm extends React.Component {
 		this.setState({custom_fields: stateCustomsUpdate});
 	}
 
-	renderNewCustomFields() {
+	renderNewCustomField() {
 		return (
 			<div>
 				<input type="text" value={this.state.new_custom_field.key} onChange={this.handleChangeCustomField.bind(this, "key")} />
@@ -92,9 +94,23 @@ class NewToolForm extends React.Component {
 		)
 	}
 
+	renderCoursesOption(course) {
+		return (
+			<option key={course._id} value={course._id}>{ course.name }</option>
+		);
+	}
+
 	render() {
 		return (
 			<form className="new_tool_form">
+				<label>
+					Kurs:
+					<select className="form-control" type="text" required="required" value={this.state.tool.courseId} onChange={this.handleChange.bind(null, "courseId")}>
+						{ this.props.courses.map(c => {
+							return this.renderCoursesOption(c);
+						}) }
+					</select>
+				</label> <br></br>
 				<label>
 					Name (Pflichtfeld):
 					<input type="text" required="required" value={this.state.tool.name} onChange={this.handleChange.bind(null, "name")} />
@@ -105,8 +121,7 @@ class NewToolForm extends React.Component {
 				</label> <br></br>
 				<label>
 					Privatsphäre:
-					<select className="form-control" required="required" value={this.state.tool.privacy_permission} onChange={this.handleChange.bind(null, "privacy_permission" +
-					 "")}>
+					<select className="form-control" required="required" value={this.state.tool.privacy_permission} onChange={this.handleChange.bind(null, "privacy_permission")}>
 						<option value="anonymous">Anonym</option>
 						<option value="e-mail">Nur E-Mail</option>
 						<option value="name">Nur Name</option>
@@ -116,7 +131,7 @@ class NewToolForm extends React.Component {
 				<div className="custom-fields">
 					Sonstige Einstellungen:
 					{ this.renderCustomFields() } <br></br>
-					{ this.renderNewCustomFields() } <br></br>
+					{ this.renderNewCustomField() } <br></br>
 				</div>
 				<button data-dismiss="modal" onClick={this.handleSubmit} className="btn btn-primary">Abschicken</button>
 			</form>

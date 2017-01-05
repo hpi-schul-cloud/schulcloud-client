@@ -20,7 +20,7 @@ class NewTool extends React.Component {
 					{
 						this.props.tools.map((tool) => {
 							idCount++;
-							return <TemplateToolCard {...this.props} key={idCount} modalId={idCount} tool={tool} />;
+							return <TemplateToolCard {...this.props} key={idCount} modalId={idCount} tool={tool} courses={this.props.courses} />;
 						})
 					}
 				</div>
