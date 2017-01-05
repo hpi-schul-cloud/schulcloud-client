@@ -6,11 +6,19 @@ import component from '../components/content';
 import actions from '../actions/content';
 
 const composer = (props, onData) => {
-	let componentData = {
-		actions
-	};
+	const query = (props.location.query || {}).q || '';
 
-	onData(null, componentData);
+	actions.findContent(query)
+		.then((searchResults, error) => {
+			let componentData = {
+				actions,
+				searchResults,
+				query
+			};
+			if (error) console.error(error);
+
+			onData(error, componentData);
+		});
 };
 
 export default compose(composer)(component);
