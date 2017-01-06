@@ -30,19 +30,19 @@ class Signup extends React.Component {
 	getFormStepUI() {
 		switch(this.props.step) {
 			case 'admin': {
-				return <SignupFormAdmin />
+				return <SignupFormAdmin {...this.props} />
 			}
 			case 'school': {
-				return <SignupFormSchool />
+				return <SignupFormSchool {...this.props} />
 			}
 			case 'teachers': {
-				return <SignupFormTeachers />
+				return <SignupFormTeachers {...this.props} />
 			}
 			case 'classes': {
-				return <SignupFormClasses />
+				return <SignupFormClasses {...this.props} />
 			}
 			case 'courses': {
-				return <SignupFormCourses />
+				return <SignupFormCourses {...this.props} />
 			}
 			default: {
 				// TODO: refactor to redirect to 404

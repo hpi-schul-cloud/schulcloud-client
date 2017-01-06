@@ -43,7 +43,7 @@ const ReactSelect = React.createClass({
 	renderElement() {
 		return (
 			<ReactSelectPlain
-				//{...this.props}
+				{...this.props}
 				ref={(c) => this.element = c}
 				onChange={this.changeValue}
 				value={this.getValue()}

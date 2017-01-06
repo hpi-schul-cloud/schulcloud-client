@@ -11,25 +11,15 @@ import {
 	ReactSelect,
 	Form
 } from '../../core/helpers/form';
-import Table from '../../administration/components/table';
 import {Link} from 'react-router';
 
-class SignupFormCourses extends React.Component {
+import Table from '../../administration/components/table';
+import AdminSectionCourses from '../../administration/components/courses';
+
+class SignupFormCourses extends AdminSectionCourses {
 
 	constructor(props) {
 		super(props);
-	}
-
-	getTableHead() {
-		return [
-			'Name',
-			'Klasse(n)',
-			'Lehrer'
-		];
-	}
-
-	getTableBody() {
-		return [["Sport", "10a, 10b, 10c", "Maria Musterfrau"]];
 	}
 
 	render() {
@@ -51,7 +41,11 @@ class SignupFormCourses extends React.Component {
 					</div>
 				</Form>
 
-				<button className="btn btn-success">Kurs hinzufügen</button>
+				<button type="submit" className="btn btn-success" onClick={this.openModal.bind(this, this.defaultRecord)}>
+					Kurs hinzufügen
+				</button>
+
+				{this.modalUI()}
 
 				<hr />
 

@@ -1,6 +1,6 @@
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
+
+
 
 class SectionTeachers extends AdminSection {
 
@@ -66,10 +66,8 @@ class SectionTeachers extends AdminSection {
 
 	getTableHead() {
 		return [
-			'ID',
 			'Name',
 			'E-Mail-Adresse',
-			'Erstellt am',
 			''
 		];
 	}
@@ -77,10 +75,8 @@ class SectionTeachers extends AdminSection {
 	getTableBody() {
 		return this.props.teachers.map((record) => {
 			return [
-				record._id,
 				record.userName,
 				record.email,
-				record.createdAt,
 				this.getTableActions(this.actions, record)
 			];
 		});

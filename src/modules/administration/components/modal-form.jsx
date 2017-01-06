@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import {Form} from '../../core/helpers/form';
 
 class ModalForm extends React.Component {
 
@@ -30,25 +30,24 @@ class ModalForm extends React.Component {
 			<div className="modal fade" tabIndex="-1" role="dialog" aria-hidden="true">
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
-						<div className="modal-header">
-							{closeIcon}
-							<h4 className="modal-title">{this.props.title}</h4>
-						</div>
-						<div className="modal-body">
-							<form>
+						<Form className="edit-form" onValidSubmit={this.props.submitCallback.bind(this)}>
+							<div className="modal-header">
+								{closeIcon}
+								<h4 className="modal-title">{this.props.title}</h4>
+							</div>
+							<div className="modal-body">
 								{this.props.content}
-							</form>
-						</div>
-						<div className="modal-footer">
-							{closeButton}&nbsp;
-							<button
-								type="button"
-								data-dismiss="modal"
-								className="btn btn-primary"
-								onClick={this.props.submitCallback.bind(this)}>
-								{this.props.submitLabel}
-							</button>
-						</div>
+							</div>
+							<div className="modal-footer">
+								{closeButton}&nbsp;
+								<button
+									type="submit"
+									//data-dismiss="modal"
+									className="btn btn-primary">
+									{this.props.submitLabel}
+								</button>
+							</div>
+						</Form>
 					</div>
 				</div>
 			</div>

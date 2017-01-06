@@ -55,15 +55,12 @@ class AdminSection extends React.Component {
 			<ModalForm
 				title={title}
 				content={this.modalFormUI.bind(this)()}
-				submitCallback={this.options.submitCallback.bind(this, this.state.record)}
+				submitCallback={this.options.submitCallback.bind(this)}
 			/>
 		);
 	}
 
 	openModal(record) {
-		this.setState({
-			record: Object.assign({}, record)
-		});
 		$(ReactDOM.findDOMNode(this)).find('.modal').modal('show');
 	}
 

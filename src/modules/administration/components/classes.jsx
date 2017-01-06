@@ -1,6 +1,10 @@
+import {
+	Input,
+	ReactSelect,
+	Form
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
 
 class SectionClasses extends AdminSection {
 
@@ -12,13 +16,9 @@ class SectionClasses extends AdminSection {
 			addLabel: 'Klasse hinzufügen',
 			editLabel: 'Klasse bearbeiten',
 			submitCallback: (data) => {
+				console.log(data);
 				this.props.actions.updateClass(data);
 			}
-		};
-
-		this.defaultRecord = {
-			name: '',
-			schoolId: this.props.school._id
 		};
 
 		this.actions = [
@@ -33,36 +33,40 @@ class SectionClasses extends AdminSection {
 		]
 	}
 
+	getTeacherOptions() {
+		return this.props.teachers.map((r) => {
+			return {
+				label: r.userName || r._id,
+				value: r._id
+			};
+		});
+	}
+
 	modalFormUI() {
 		const record = this.state.record;
 		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label htmlFor="">Name der Klasse *</label>
-					<input
-						type="text"
-						value={record.name}
-						className="form-control"
-						name="name"
-						placeholder="10a"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
+			<div>
+				<Input
+					label="Name der Klasse"
+					name="name"
+					type="text"
+					placeholder="10a"
+					layout="vertical"
+					value={record.name}
+					required
+				/>
 
-				<div className="form-group">
-					<label htmlFor="">Klassenlehrer</label>
-					<select
-						value={record.teacherIds}
-						className="form-control"
-						name="teacherIds"
-						onChange={this.handleRecordChange.bind(this)}
-						required
-						multiple>
-						{this.props.teachers.map((r) => {
-							return (<option key={r._id} value={r._id}>{r.userName || r._id}</option>);
-						})}
-					</select>
-				</div>
+				<ReactSelect
+					label="Klassenlehrer"
+					name="teacherIds"
+					type="text"
+					placeholder="Frau Musterfrau"
+					layout="vertical"
+					value={record.teacherIds}
+					multi
+					options={this.getTeacherOptions()}
+					required
+				/>
 			</div>
 		);
 	}
@@ -73,9 +77,8 @@ class SectionClasses extends AdminSection {
 
 	getTableHead() {
 		return [
-			'ID',
 			'Bezeichnung',
-			'Erstellt am',
+			'Lehrer',
 			''
 		];
 	}
@@ -83,9 +86,8 @@ class SectionClasses extends AdminSection {
 	getTableBody() {
 		return this.props.classes.map((c) => {
 			return [
-				c._id,
 				c.name,
-				c.createdAt,
+				c.teacherIds,
 				this.getTableActions(this.actions, c)
 			];
 		});

@@ -101,10 +101,8 @@ class SectionCourses extends AdminSection {
 
 	getTableHead() {
 		return [
-			'ID',
 			'Name',
 			'Klasse(n)',
-			'Erstellt am',
 			''
 		];
 	}
@@ -112,10 +110,8 @@ class SectionCourses extends AdminSection {
 	getTableBody() {
 		return this.props.courses.map((c) => {
 			return [
-				c._id,
 				c.name,
 				c.classId,
-				c.createdAt,
 				this.getTableActions(this.actions, c)
 			];
 		});
