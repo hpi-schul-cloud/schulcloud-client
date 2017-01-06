@@ -1,7 +1,6 @@
 import {
 	Input,
-	ReactSelect,
-	Form
+	ReactSelect
 } from '../../core/helpers/form';
 
 import AdminSection from './admin-section';
@@ -16,7 +15,9 @@ class SectionClasses extends AdminSection {
 			addLabel: 'Klasse hinzufügen',
 			editLabel: 'Klasse bearbeiten',
 			submitCallback: (data) => {
-				console.log(data);
+				// selected options to array of ids
+				data.teacherIds = data.teacherIds.map(t => t.value);
+
 				this.props.actions.updateClass(data);
 			}
 		};
@@ -27,10 +28,28 @@ class SectionClasses extends AdminSection {
 				icon: 'edit'
 			},
 			{
-				action: this.removeRecord.bind(this),
+				action: this.props.actions.removeClass.bind(this),
 				icon: 'trash-o'
 			}
 		]
+	}
+
+	getTableHead() {
+		return [
+			'Bezeichnung',
+			'Lehrer',
+			''
+		];
+	}
+
+	getTableBody() {
+		return this.props.classes.map((c) => {
+			return [
+				c.name,
+				c.teacherIds.join(", "),
+				this.getTableActions(this.actions, c)
+			];
+		});
 	}
 
 	getTeacherOptions() {
@@ -44,8 +63,16 @@ class SectionClasses extends AdminSection {
 
 	modalFormUI() {
 		const record = this.state.record;
+
 		return (
 			<div>
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.school._id}
+				/>
+
 				<Input
 					label="Name der Klasse"
 					name="name"
@@ -69,28 +96,6 @@ class SectionClasses extends AdminSection {
 				/>
 			</div>
 		);
-	}
-
-	removeRecord(record) {
-		this.props.actions.removeClass(record);
-	}
-
-	getTableHead() {
-		return [
-			'Bezeichnung',
-			'Lehrer',
-			''
-		];
-	}
-
-	getTableBody() {
-		return this.props.classes.map((c) => {
-			return [
-				c.name,
-				c.teacherIds,
-				this.getTableActions(this.actions, c)
-			];
-		});
 	}
 }
 

@@ -1,6 +1,9 @@
+import {
+	Input,
+	ReactSelect
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
 
 class SectionCourses extends AdminSection {
 
@@ -12,14 +15,12 @@ class SectionCourses extends AdminSection {
 			addLabel: 'Kurs hinzufügen',
 			editLabel: 'Kurs bearbeiten',
 			submitCallback: (data) => {
+				// selected options to array of ids
+				data.teacherIds = data.teacherIds.map(r => r.value);
+				data.classIds = data.classIds.map(r => r.value);
+
 				this.props.actions.updateCourse(data);
 			}
-		};
-
-		this.defaultRecord = {
-			name: '',
-			schoolId: this.props.school._id,
-			classId: '58407f3f8fd94f15f984ab03' // TODO: no _id
 		};
 
 		this.actions = [
@@ -28,75 +29,10 @@ class SectionCourses extends AdminSection {
 				icon: 'edit'
 			},
 			{
-				action: this.removeRecord.bind(this),
+				action: this.props.actions.removeCourse.bind(this),
 				icon: 'trash-o'
 			}
 		]
-	}
-
-	modalFormUI(courseId) {
-		const record = this.state.record;
-		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label>Name des Kurses *</label>
-					<input
-						type="text"
-						value={record.name}
-						className="form-control"
-						name="name"
-						placeholder="Mathe"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-
-				<div className="form-group">
-					<label>Unterrichtender Lehrer *</label>
-					<select
-						value={record.teacherIds}
-						className="form-control"
-						name="teacherIds"
-						onChange={this.handleRecordChange.bind(this)}
-						required
-						multiple>
-						{this.props.teachers.map((r) => {
-							return (<option key={r._id} value={r._id}>{r.userName || r._id}</option>);
-						})}
-					</select>
-				</div>
-
-				<div className="form-group">
-					<label htmlFor="">Klasse(n)</label>
-					<select
-						value={record.classId}
-						className="form-control"
-						name="classId"
-						onChange={this.handleRecordChange.bind(this)}
-						required
-						multiple>
-						{this.props.classes.map((c) => {
-							return (<option key={c._id} value={c._id}>{c.name}</option>);
-						})}
-					</select>
-				</div>
-
-				<div className="form-group">
-					<label>Frequenz *</label>
-					<input
-						type="text"
-						value={record.frequency}
-						className="form-control"
-						name="frequency"
-						placeholder="Wöchentlich"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-			</div>
-		);
-	}
-
-	removeRecord(record) {
-		this.props.actions.removeCourse(record);
 	}
 
 	getTableHead() {
@@ -111,10 +47,85 @@ class SectionCourses extends AdminSection {
 		return this.props.courses.map((c) => {
 			return [
 				c.name,
-				c.classId,
+				c.classIds,
 				this.getTableActions(this.actions, c)
 			];
 		});
+	}
+
+	getTeacherOptions() {
+		return this.props.teachers.map((r) => {
+			return {
+				label: r.userName || r._id,
+				value: r._id
+			};
+		});
+	}
+
+	getClassOptions() {
+		return this.props.classes.map((r) => {
+			return {
+				label: r.name || r._id,
+				value: r._id
+			};
+		});
+	}
+
+	modalFormUI(courseId) {
+		const record = this.state.record;
+		return (
+		<div>
+			<Input
+				name="schoolId"
+				type="hidden"
+				layout="elementOnly"
+				value={this.props.school._id}
+			/>
+
+			<Input
+				label="Name des Kurses"
+				name="name"
+				type="text"
+				placeholder="Mathe"
+				layout="vertical"
+				value={record.name}
+				required
+			/>
+
+			<ReactSelect
+				label="Unterrichtender Lehrer"
+				name="teacherIds"
+				type="text"
+				placeholder="Frau Musterfrau"
+				layout="vertical"
+				value={record.teacherIds}
+				options={this.getTeacherOptions()}
+				multi
+				required
+			/>
+
+			<ReactSelect
+				label="Klasse(n)"
+				name="classIds"
+				type="text"
+				placeholder="10a"
+				layout="vertical"
+				value={record.classIds}
+				options={this.getClassOptions()}
+				multi
+				required
+			/>
+
+			<Input
+				label="Termin"
+				name="date"
+				type="date"
+				layout="vertical"
+				value={record.date}
+				required
+			/>
+		</div>
+		);
 	}
 }
 

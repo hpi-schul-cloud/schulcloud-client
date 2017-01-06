@@ -1,4 +1,5 @@
 import Formsy from 'formsy-react';
+import React from 'react';
 
 import {Checkbox, CheckboxGroup, ComponentMixin, ParentContextMixin, Icon, Input, RadioGroup, Row, Select, File, Textarea} from 'formsy-react-components';
 import ReactSelectPlain from 'react-select';
@@ -51,7 +52,7 @@ const ReactSelect = React.createClass({
 				disabled={this.isFormDisabled() || this.props.disabled}
 				options={this.props.options}
 			/>
-		)
+		);
 	}
 });
 

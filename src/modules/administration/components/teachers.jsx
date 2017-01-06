@@ -1,6 +1,8 @@
+import {
+	Input
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-
-
 
 class SectionTeachers extends AdminSection {
 
@@ -16,52 +18,12 @@ class SectionTeachers extends AdminSection {
 			}
 		};
 
-		this.defaultRecord = {
-			userName: '',
-			roles: ['teacher']
-		};
-
 		this.actions = [
 			{
 				action: this.openModal.bind(this),
 				icon: 'edit'
 			}
 		]
-	}
-
-	modalFormUI() {
-		const record = this.state.record;
-		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label htmlFor="">Name *</label>
-					<input
-						type="text"
-						className="form-control"
-						name="userName"
-						value={record.userName}
-						placeholder="Herr Mustermann"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-
-				<div className="form-group">
-					<label htmlFor="">E-Mail *</label>
-					<input
-						type="email"
-						name="email"
-						value={record.email}
-						className="form-control"
-						placeholder="test@test.org"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-			</div>
-		);
-	}
-
-	removeRecord(record) {
-		this.props.actions.removeTeacher(record);
 	}
 
 	getTableHead() {
@@ -80,6 +42,49 @@ class SectionTeachers extends AdminSection {
 				this.getTableActions(this.actions, record)
 			];
 		});
+	}
+
+	modalFormUI() {
+		const record = this.state.record;
+		return (
+			<div>
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.school._id}
+				/>
+
+				<Input
+					name="roles"
+					type="hidden"
+					layout="elementOnly"
+					value={["teacher"]}
+				/>
+
+				<Input
+					label="Name"
+					name="userName"
+					type="text"
+					placeholder="Maria Musterfrau"
+					layout="vertical"
+					value={record.userName}
+					required
+				/>
+
+				<Input
+					label="E-Mail-Adresse"
+					name="email"
+					type="email"
+					validations="isEmail"
+					placeholder="test@test.org"
+					validationError="This is not an email"
+					layout="vertical"
+					value={record.email}
+					required
+				/>
+			</div>
+		);
 	}
 
 }
