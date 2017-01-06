@@ -15,9 +15,8 @@ class SectionCourses extends AdminSection {
 			addLabel: 'Kurs hinzufügen',
 			editLabel: 'Kurs bearbeiten',
 			submitCallback: (data) => {
-				// selected options to array of ids
-				data.teacherIds = data.teacherIds.map(r => r.value);
-				data.classIds = data.classIds.map(r => r.value);
+				// TODO: make sure data.classId works on edit
+				console.log(data);
 
 				this.props.actions.updateCourse(data);
 			}
@@ -39,6 +38,7 @@ class SectionCourses extends AdminSection {
 		return [
 			'Name',
 			'Klasse(n)',
+			'Lehrer',
 			''
 		];
 	}
@@ -48,6 +48,7 @@ class SectionCourses extends AdminSection {
 			return [
 				c.name,
 				c.classIds,
+				c.teacherIds,
 				this.getTableActions(this.actions, c)
 			];
 		});
@@ -73,8 +74,18 @@ class SectionCourses extends AdminSection {
 
 	modalFormUI(courseId) {
 		const record = this.state.record;
+
+		console.log(record);
+
 		return (
 		<div>
+			<Input
+				name="_id"
+				type="hidden"
+				layout="elementOnly"
+				value={this.state.record._id}
+			/>
+
 			<Input
 				name="schoolId"
 				type="hidden"
@@ -88,7 +99,7 @@ class SectionCourses extends AdminSection {
 				type="text"
 				placeholder="Mathe"
 				layout="vertical"
-				value={record.name}
+				value={record.name || ''}
 				required
 			/>
 
@@ -98,9 +109,9 @@ class SectionCourses extends AdminSection {
 				type="text"
 				placeholder="Frau Musterfrau"
 				layout="vertical"
-				value={record.teacherIds}
+				value={record.teacherIds || []}
 				options={this.getTeacherOptions()}
-				multi
+				multiple
 				required
 			/>
 
@@ -110,18 +121,9 @@ class SectionCourses extends AdminSection {
 				type="text"
 				placeholder="10a"
 				layout="vertical"
-				value={record.classIds}
+				value={record.classIds || []}
 				options={this.getClassOptions()}
-				multi
-				required
-			/>
-
-			<Input
-				label="Termin"
-				name="date"
-				type="date"
-				layout="vertical"
-				value={record.date}
+				multiple
 				required
 			/>
 		</div>

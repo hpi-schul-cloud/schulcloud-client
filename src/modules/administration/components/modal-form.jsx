@@ -47,10 +47,10 @@ class ModalForm extends React.Component {
 		}
 
 		return (
-			<div className="modal fade" tabIndex="-1" role="dialog" aria-hidden="true">
+			<div ref="edit-modal" className="modal fade" tabIndex="-1" role="dialog" aria-hidden="true">
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
-						<Form className="edit-form" onValidSubmit={this.onSubmit.bind(this)}>
+						<Form ref="edit-form" className="edit-form" onValidSubmit={this.onSubmit.bind(this)}>
 							<div className="modal-header">
 								{closeIcon}
 								<h4 className="modal-title">{this.props.title}</h4>

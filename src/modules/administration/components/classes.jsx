@@ -90,7 +90,7 @@ class SectionClasses extends AdminSection {
 					placeholder="Frau Musterfrau"
 					layout="vertical"
 					value={record.teacherIds}
-					multi
+					multiple
 					options={this.getTeacherOptions()}
 					required
 				/>

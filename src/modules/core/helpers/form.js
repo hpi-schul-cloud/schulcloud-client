@@ -15,13 +15,12 @@ const ReactSelect = React.createClass({
 		options: React.PropTypes.array.isRequired
 	},
 
-	changeValue(value, selectedOptions) {
+	changeValue(value) {
 		if (this.props.multiple) {
-			this.setValue(selectedOptions.map(option => option.value));
-		} else {
-			this.setValue(value);
+			value = (value || []).map(option => option.value);
 		}
-		this.props.onChange(this.props.name, value);
+
+		this.setValue(value);
 	},
 
 	render() {
@@ -44,13 +43,14 @@ const ReactSelect = React.createClass({
 	renderElement() {
 		return (
 			<ReactSelectPlain
-				{...this.props}
 				ref={(c) => this.element = c}
 				onChange={this.changeValue}
 				value={this.getValue()}
 				id={this.getId()}
 				disabled={this.isFormDisabled() || this.props.disabled}
 				options={this.props.options}
+				name={this.props.name}
+				multi={this.props.multiple}
 			/>
 		);
 	}

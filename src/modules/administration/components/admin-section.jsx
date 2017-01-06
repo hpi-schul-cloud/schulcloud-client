@@ -22,11 +22,6 @@ class AdminSection extends React.Component {
 		this.defaultRecord = {};
 	}
 
-	// TODO: remove while refactoring
-	handleRecordChange(e) {
-	}
-
-
 	modalFormUI(record) {
 		throw new Error("modalFormUI() has to be implemented by AdminSection.");
 	}
@@ -35,9 +30,11 @@ class AdminSection extends React.Component {
 		const title = this.state.record.name != '' ? this.options.editLabel : this.options.addLabel;
 		return (
 			<ModalForm
+				ref="edit-modal"
 				title={title}
 				content={this.modalFormUI.bind(this)()}
 				submitCallback={this.options.submitCallback.bind(this)}
+				{...this.options}
 			/>
 		);
 	}
@@ -46,6 +43,10 @@ class AdminSection extends React.Component {
 		this.setState({
 			record: Object.assign({}, record)
 		});
+
+
+		console.log(record, this.state.record);
+
 		$(ReactDOM.findDOMNode(this)).find('.modal').modal('show');
 	}
 
