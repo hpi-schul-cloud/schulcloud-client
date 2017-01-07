@@ -16,6 +16,11 @@ const composer = (props, onData) => {
 		return;
 	}
 
+	if(!(currentUser.system || {}).finishedSignup) {
+		browserHistory.push('/signup/teachers/');
+		return;
+	}
+
 	let componentData = {
 		actions
 	};

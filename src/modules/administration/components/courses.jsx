@@ -47,8 +47,8 @@ class SectionCourses extends AdminSection {
 		return this.props.courses.map((c) => {
 			return [
 				c.name,
-				c.classIds,
-				c.teacherIds,
+				c.classIds.map(id => this.props.classesById[id].name).join(', '),
+				c.teacherIds.map(id => this.props.teachersById[id].userName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});
@@ -74,9 +74,6 @@ class SectionCourses extends AdminSection {
 
 	modalFormUI(courseId) {
 		const record = this.state.record;
-
-		console.log(record);
-
 		return (
 		<div>
 			<Input

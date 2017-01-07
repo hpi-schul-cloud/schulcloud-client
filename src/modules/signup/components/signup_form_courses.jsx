@@ -49,7 +49,7 @@ class SignupFormCourses extends AdminSectionCourses {
 
 				<hr />
 
-				<Link className="btn btn-secondary" to="/administration/">Abschließen</Link>
+				<button className="btn btn-secondary" onClick={this.props.onSignupFinished.bind(this)}>Abschließen</button>
 			</div>
 		);
 	}

@@ -15,9 +15,6 @@ class SectionClasses extends AdminSection {
 			addLabel: 'Klasse hinzufügen',
 			editLabel: 'Klasse bearbeiten',
 			submitCallback: (data) => {
-				// selected options to array of ids
-				data.teacherIds = data.teacherIds.map(t => t.value);
-
 				this.props.actions.updateClass(data);
 			}
 		};
@@ -46,7 +43,7 @@ class SectionClasses extends AdminSection {
 		return this.props.classes.map((c) => {
 			return [
 				c.name,
-				c.teacherIds.join(", "),
+				c.teacherIds.map(id => this.props.teachersById[id].userName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});
@@ -67,6 +64,13 @@ class SectionClasses extends AdminSection {
 		return (
 			<div>
 				<Input
+					name="_id"
+					type="hidden"
+					layout="elementOnly"
+					value={this.state.record._id}
+				/>
+
+				<Input
 					name="schoolId"
 					type="hidden"
 					layout="elementOnly"
@@ -79,7 +83,7 @@ class SectionClasses extends AdminSection {
 					type="text"
 					placeholder="10a"
 					layout="vertical"
-					value={record.name}
+					value={record.name || ''}
 					required
 				/>
 
@@ -89,7 +93,7 @@ class SectionClasses extends AdminSection {
 					type="text"
 					placeholder="Frau Musterfrau"
 					layout="vertical"
-					value={record.teacherIds}
+					value={record.teacherIds || []}
 					multiple
 					options={this.getTeacherOptions()}
 					required

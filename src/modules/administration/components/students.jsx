@@ -49,6 +49,13 @@ class SectionStudents extends AdminSection {
 		return (
 			<div>
 				<Input
+					name="_id"
+					type="hidden"
+					layout="elementOnly"
+					value={this.state.record._id}
+				/>
+
+				<Input
 					name="schoolId"
 					type="hidden"
 					layout="elementOnly"
@@ -68,7 +75,7 @@ class SectionStudents extends AdminSection {
 					type="text"
 					placeholder="Max Mustermann"
 					layout="vertical"
-					value={record.userName}
+					value={record.userName || ''}
 					required
 				/>
 
@@ -80,7 +87,7 @@ class SectionStudents extends AdminSection {
 					placeholder="test@test.org"
 					validationError="This is not an email"
 					layout="vertical"
-					value={record.email}
+					value={record.email || ''}
 					required
 				/>
 			</div>

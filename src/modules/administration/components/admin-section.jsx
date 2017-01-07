@@ -43,10 +43,6 @@ class AdminSection extends React.Component {
 		this.setState({
 			record: Object.assign({}, record)
 		});
-
-
-		console.log(record, this.state.record);
-
 		$(ReactDOM.findDOMNode(this)).find('.modal').modal('show');
 	}
 
@@ -60,7 +56,7 @@ class AdminSection extends React.Component {
 
 	getTableActions(actions, record) {
 		return (
-			<div>
+			<div className="table-actions">
 				{actions.map((action, index) => {
 					return (
 						<a
