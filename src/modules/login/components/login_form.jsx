@@ -1,3 +1,5 @@
+import { Notification } from '../../core/helpers';
+
 class LoginForm extends React.Component {
 
 	constructor(props) {
@@ -6,6 +8,16 @@ class LoginForm extends React.Component {
 		this.state = {
 			email: '',
 			password: ''
+		}
+	}
+
+	componentDidMount() {
+		if(this.props.reference) {
+			switch(this.props.reference) {
+				case 'signup': {
+					Notification.showInfo('Super, wir haben eine E-Mail mit Ihren Nutzerdaten an die angegebene E-Mail-Adresse versendet.');
+				};
+			};
 		}
 	}
 

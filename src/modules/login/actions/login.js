@@ -10,9 +10,7 @@ export default {
 		// generate JWT
 		authService.create({username: email, password: password, systemId: system})
 			.then(user => {
-
 				if (user.token) {
-
 					// Login with JWT
 					Server.authenticate({
 						type: 'token',

@@ -34,7 +34,7 @@ class SignupFormAdmin extends React.Component {
 				<p>Damit unser Team die Schule überprüfen und im Anschluss
 					freischalten kann werden ein paar Informationen benötigt.</p>
 
-				<Form>
+				<Form onValidSubmit={this.props.onFinishedSignupSchool.bind(this)}>
 					<div className="row">
 						<div className="col-md-12">
 							<Input
@@ -68,7 +68,7 @@ class SignupFormAdmin extends React.Component {
 							<div className="col-md-4 no-padding">
 								<div className="form-group">
 									<ReactSelect
-										name="person"
+										name="systems"
 										layout="elementOnly"
 										options={this.getSystemOptions()}
 									/>
@@ -85,17 +85,15 @@ class SignupFormAdmin extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="col-md-12">
-							<p><a href="">+ Weiteres System hinzufügen</a></p>
-						</div>
 					</div>
+
+					<p>Nach dem Abschluss der Registrierung wird unser Team
+						Ihre Daten zeitnah prüfen und Ihnen im Anschluss
+						Ihre Zugangsdaten zukommen lassen.</p>
+
+					<button className="btn btn-success" type="submit">Registrierung abschließen</button>
+
 				</Form>
-
-				<p>Nach dem Abschluss der Registrierung wird unser Team
-					Ihre Daten zeitnah prüfen und Ihnen im Anschluss
-					Ihre Zugangsdaten zukommen lassen.</p>
-
-				<button className="btn btn-success">Registrierung abschließen</button>
 			</div>
 		);
 	}

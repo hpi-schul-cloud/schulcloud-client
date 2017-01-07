@@ -26,10 +26,53 @@ const pluckArrayToObject = (array, key) => {
 
 
 function composer(props, onData) {
-	if(!Server.get('user')) {
-		console.error('User has to be logged in at this point');
+
+	const step = props.params.step;
+	const combinedActions = Object.assign({}, adminActions, actions);
+	const currentUser = Server.get('user');
+
+	// first two steps don't need to be logged in
+	if(!currentUser) {
+
+		if(['admin', 'school'].includes(step)) {
+			const componentData = Object.assign({
+				actions: combinedActions,
+				step,
+				onFinishedSignupAdmin: (data) => {
+					console.log(data);
+					combinedActions.updateSchool({}).then((school) => {
+
+						console.log('school created', school);
+
+						data.schoolId = school._id;
+						localStorage.schholId = school._id;
+
+						combinedActions.updateAdmin(data).then((admin) => {
+							console.log('admin created', admin);
+
+							browserHistory.push('/signup/school/');
+						});
+					});
+				},
+				onFinishedSignupSchool: (data) => {
+					data._id = localStorage.schholId;
+					data.address = {
+						street: 'fdsfsdfsfs'
+					};
+					console.log(data);
+
+					combinedActions.updateSchool(data).then((school) => {
+						browserHistory.push('/login/');
+					});
+				}
+			});
+
+			onData(null, componentData);
+		} else {
+			browserHistory.push('/login/');
+		}
 	} else {
-		const currentUser = Server.get('user');
+
 		if((currentUser.system || {}).finishedSignup) {
 			browserHistory.push('/dashboard/');
 			return;
@@ -75,10 +118,9 @@ function composer(props, onData) {
 		});
 
 		subsManager.ready((data, initial) => {
-			const combinedActions = Object.assign({}, adminActions, actions);
 			const componentData = Object.assign({
 				actions: combinedActions,
-				step: props.params.step,
+				step,
 				onSignupFinished: () => {
 					actions.finishSignup(currentUser._id).then(() => {
 						browserHistory.push("/administration/");
@@ -88,9 +130,6 @@ function composer(props, onData) {
 
 			onData(null, componentData);
 		});
-
-
-
 	}
 }
 

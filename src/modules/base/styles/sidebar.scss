@@ -37,10 +37,11 @@ aside.nav-sidebar {
 					line-height:60px;
 					border-bottom:1px solid #adadad;
 					cursor: pointer;
+					color: #727272;
 
 					&.active {
 						background: #fff;
-						color: #555;
+						color: $colorHPIRed;
 						border-bottom:1px solid transparent;
 					}
 

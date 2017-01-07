@@ -45,6 +45,7 @@ function composer(props, onData) {
 
 			let componentData = {
 				actions,
+				reference: props.location.query.ref,
 				schools: schoolsObject
 			};
 
