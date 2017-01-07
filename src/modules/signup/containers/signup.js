@@ -59,9 +59,9 @@ function composer(props, onData) {
 					data.address = {
 						street: 'fdsfsdfsfs'
 					};
-					console.log(data);
 
 					combinedActions.updateSchool(data).then((school) => {
+						// TODO: Send mail with credentials here
 						browserHistory.push('/login/');
 					});
 				}
