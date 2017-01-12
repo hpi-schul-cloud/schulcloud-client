@@ -57,7 +57,7 @@ class SystemSelector extends React.Component {
 		if(!this.state.schools) return null;
 
 		return (
-			<select className="custom-select form-control" onChange={this.didSelectSchool.bind(this)}>
+			<select className="custom-select form-control" onChange={this.didSelectSchool.bind(this)} key="schoolSelector">
 				<optgroup label="Schule">
 					<option hidden>Schule auswählen</option>
 					{Object.values(this.state.schools).map((school) => {
@@ -74,7 +74,7 @@ class SystemSelector extends React.Component {
 		if (systems.length == 1 && this.state.system) {
 			const system = this.state.system;
 			return (
-				<select className="custom-select form-control" value={system._id} readOnly="readOnly">
+				<select className="custom-select form-control" value={system._id} readOnly="readOnly" key="systemSelectorStatic">
 					<optgroup label="System">
 						<option key={system._id} value={system._id} className="system-option">{system.type}</option>
 					</optgroup>
@@ -83,7 +83,7 @@ class SystemSelector extends React.Component {
 		}
 		if (systems.length < 2) return null;
 		return (
-			<select className="custom-select form-control system-select" onChange={this.didSelectSystem.bind(this)}>
+			<select className="custom-select form-control system-select" onChange={this.didSelectSystem.bind(this)} key="systemSelector">
 				<optgroup label="System">
 					<option hidden>System auswählen</option>
 					{systems.map((system) => {
