@@ -13,10 +13,14 @@ class Course extends React.Component {
 		super(props);
 	}
 
+	getSubTitleUI() {
+		return this.props.course.classId ? `für Klasse ${this.props.course.classId.name}` : '';
+	}
+
 	render() {
 		return (
 			<LayoutBase className="route-course">
-				<SectionTitle title={this.props.course.name} />
+				<SectionTitle title={this.props.course.name} subtitle={this.getSubTitleUI()} />
 				<div className="course-section">
 					<div className="container-fluid">
 						<SectionTeachers course={this.props.course}/>

@@ -4,9 +4,7 @@ class SectionStudents extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {
-			students: this.props.course.userIds
-		};
+		this.students = this.props.course.userIds
 	}
 
 	getStudentUI(student) {
@@ -34,7 +32,7 @@ class SectionStudents extends React.Component {
 					</thead>
 					<tbody>
 					{
-						this.state.students.map(student => {
+						this.students.map(student => {
 							return this.getStudentUI(student);
 						})
 					}

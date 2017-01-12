@@ -18,7 +18,7 @@ const composer = (props, onData) => {
 
 	coursesService.find({query: {
 		_id: props.params.id,
-		$populate: ['ltiToolIds', 'userIds', 'teacherIds']
+		$populate: ['ltiToolIds', 'userIds', 'teacherIds', 'classId']
 	}}).then(res => {
 
 		let course = res.data[0];
