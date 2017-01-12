@@ -11,16 +11,20 @@ class SignupFormAdmin extends React.Component {
 	}
 
 	render() {
-		const options = [{ value: 'one', label: 'One' },
-			{ value: 'two', label: 'Two' }];
-
 		return (
 			<div>
 				<h1>Willkommen zur<br />Schul-Cloud</h1>
 
 				<p>Im <b>ersten Schritt</b> würden wir Sie gerne besser kennen lernen:</p>
 
-				<Form onValidSubmit={this.props.onFinishedSignupAdmin.bind(this)}>
+				<Form onValidSubmit={this.props.onSignupAdmin.bind(this)}>
+					<Input
+						name="schoolId"
+						type="hidden"
+						layout="elementOnly"
+						value={this.props.schoolId}
+					/>
+
 					<Input
 						name="roles"
 						type="hidden"
@@ -81,12 +85,7 @@ class SignupFormAdmin extends React.Component {
 
 					<p>Ihr Passwort können Sie danach jederzeit ändern.</p>
 
-					<hr />
-
-					<p>Im <b>nächsten Schritt</b> können Sie Informationen über die Schule
-						und verwendete Systeme eintragen:</p>
-
-					<button className="btn btn-success" type="submit">Fortsetzen</button>
+					<button className="btn btn-success" type="submit">Abschließen</button>
 				</Form>
 			</div>
 		);

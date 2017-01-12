@@ -18,14 +18,6 @@ class SignupFormAdmin extends React.Component {
 		super(props);
 	}
 
-	getSystemOptions() {
-		return [
-			{ value: 'moodle', label: 'Moodle' },
-			{ value: 'lernsax', label: 'LernSax' },
-			{ value: 'itslearning', label: 'ITSLearning' },
-		];
-	}
-
 	render() {
 		return (
 			<div>
@@ -34,7 +26,14 @@ class SignupFormAdmin extends React.Component {
 				<p>Damit unser Team die Schule überprüfen und im Anschluss
 					freischalten kann werden ein paar Informationen benötigt.</p>
 
-				<Form onValidSubmit={this.props.onFinishedSignupSchool.bind(this)}>
+				<Form onValidSubmit={this.props.onUpdateSchool.bind(this)}>
+					<Input
+						name="_id"
+						type="hidden"
+						layout="elementOnly"
+						value={this.props.school._id}
+					/>
+
 					<div className="row">
 						<div className="col-md-12">
 							<Input
@@ -42,6 +41,7 @@ class SignupFormAdmin extends React.Component {
 								name="name"
 								type="text"
 								layout="vertical"
+								value={this.props.school.name}
 								required
 							/>
 						</div>
@@ -54,44 +54,13 @@ class SignupFormAdmin extends React.Component {
 								name="address"
 								type="text"
 								layout="vertical"
+								value={(this.props.school.address || {}).address}
 								required
 							/>
 						</div>
 					</div>
 
-					<div className="row">
-						<div className="col-md-12">
-							<label>Verwendete Systeme</label>
-							<p className="text-muted">Wird an Ihrer Schule Moodle, LernSax oder ITSLearning verwendet?</p>
-						</div>
-						<div className="col-md-12">
-							<div className="col-md-4 no-padding">
-								<div className="form-group">
-									<ReactSelect
-										name="systems"
-										layout="elementOnly"
-										options={this.getSystemOptions()}
-									/>
-								</div>
-							</div>
-							<div className="col-md-8 no-padding">
-								<div className="form-group">
-									<Input
-										name="url"
-										type="url"
-										layout="elementOnly"
-										placeholder="URL"
-									/>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<p>Nach dem Abschluss der Registrierung wird unser Team
-						Ihre Daten zeitnah prüfen und Ihnen im Anschluss
-						Ihre Zugangsdaten zukommen lassen.</p>
-
-					<button className="btn btn-success" type="submit">Registrierung abschließen</button>
+					<button className="btn btn-success" type="submit">Fortsetzen</button>
 
 				</Form>
 			</div>

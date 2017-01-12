@@ -31,106 +31,80 @@ function composer(props, onData) {
 	const combinedActions = Object.assign({}, adminActions, actions);
 	const currentUser = Server.get('user');
 
-	// first two steps don't need to be logged in
-	if(!currentUser) {
-
-		if(['admin', 'school'].includes(step)) {
-			const componentData = Object.assign({
-				actions: combinedActions,
-				step,
-				onFinishedSignupAdmin: (data) => {
-					console.log(data);
-					combinedActions.updateSchool({}).then((school) => {
-
-						console.log('school created', school);
-
-						data.schoolId = school._id;
-						localStorage.schholId = school._id;
-
-						combinedActions.updateAdmin(data).then((admin) => {
-							console.log('admin created', admin);
-
-							browserHistory.push('/signup/school/');
-						});
-					});
-				},
-				onFinishedSignupSchool: (data) => {
-					data._id = localStorage.schholId;
-					data.address = {
-						street: 'fdsfsdfsfs'
-					};
-
-					combinedActions.updateSchool(data).then((school) => {
-						// TODO: Send mail with credentials here
-						browserHistory.push('/login/');
-					});
-				}
-			});
-
-			onData(null, componentData);
-		} else {
-			browserHistory.push('/login/');
-		}
-	} else {
-
-		if((currentUser.system || {}).finishedSignup) {
-			browserHistory.push('/dashboard/');
-			return;
-		}
-
-		const subsManager = new SubsManager();
-
-		const schoolId = '584ad186816abba584714c94';
-
-		subsManager.addSubscription(schoolService.get(schoolId), 'school');
-
-		subsManager.addSubscription(courseService.find({query: {schoolId: schoolId}}), (courses) => {
-			return {courses: courses.data, coursesById: pluckArrayToObject(courses.data, '_id')};
-		});
-
-		subsManager.addSubscription(classService.find({query: {schoolId: schoolId}}), (classes) => {
-			return {classes: classes.data, classesById: pluckArrayToObject(classes.data, '_id')};
-		});
-
-		subsManager.addSubscription(userService.find({
-			query: {
-				roles: ['teacher'],
-				$populate: ['roles']
-			},
-			rx: {
-				listStrategy: 'always',
-				idField: '_id',
-				matcher: query => item => {
-					// TODO: this should work out of the box - looks like a bug in the feathers-reactive module
-					return roleService.find({
-						query: {
-							_id: {
-								$in: item.roles || []
-							}
-						}
-					}).then((response) => {
-						return response.data.map(r => r.name).includes('teacher');
-					});
-				}
-			}
-		}), (teachers) => {
-			return {teachers: teachers.data, teachersById: pluckArrayToObject(teachers.data, '_id')};
-		});
-
-		subsManager.ready((data, initial) => {
-			const componentData = Object.assign({
-				actions: combinedActions,
-				step,
-				onSignupFinished: () => {
-					actions.finishSignup(currentUser._id).then(() => {
-						browserHistory.push("/administration/");
-					});
-				}
-			}, data);
-
-			onData(null, componentData);
-		});
+	// make sure that only allowed steps here
+	if(!['school', 'teachers', 'classes', 'courses'].includes(step)) {
+		throw new Error('not found', 404);
 	}
+
+	if(!currentUser) {
+		browserHistory.push('/login/');
+		return;
+	}
+
+	if((currentUser.system || {}).finishedSignup
+		|| !Permissions.userHasPermission(currentUser, permissions.ADMIN_VIEW)
+	) {
+		browserHistory.push('/dashboard/');
+		return;
+	}
+
+	const subsManager = new SubsManager();
+
+	const schoolId = '584ad186816abba584714c94';
+
+	subsManager.addSubscription(schoolService.get(schoolId), 'school');
+
+	subsManager.addSubscription(courseService.find({query: {schoolId: schoolId}}), (courses) => {
+		return {courses: courses.data, coursesById: pluckArrayToObject(courses.data, '_id')};
+	});
+
+	subsManager.addSubscription(classService.find({query: {schoolId: schoolId}}), (classes) => {
+		return {classes: classes.data, classesById: pluckArrayToObject(classes.data, '_id')};
+	});
+
+	subsManager.addSubscription(userService.find({
+		query: {
+			roles: ['teacher'],
+			$populate: ['roles']
+		},
+		rx: {
+			listStrategy: 'always',
+			idField: '_id',
+			matcher: query => item => {
+				// TODO: this should work out of the box - looks like a bug in the feathers-reactive module
+				return roleService.find({
+					query: {
+						_id: {
+							$in: item.roles || []
+						}
+					}
+				}).then((response) => {
+					return response.data.map(r => r.name).includes('teacher');
+				});
+			}
+		}
+	}), (teachers) => {
+		return {teachers: teachers.data, teachersById: pluckArrayToObject(teachers.data, '_id')};
+	});
+
+	subsManager.ready((data, initial) => {
+		const componentData = Object.assign({
+			actions: combinedActions,
+			step,
+			onUpdateSchool: (data) => {
+				adminActions.updateSchool(data).then(() => {
+					browserHistory.push("/signup/teachers/");
+				});
+			},
+			onSignupFinished: () => {
+				actions.finishSignup(currentUser._id).then(() => {
+					browserHistory.push("/administration/");
+				});
+			}
+		}, data);
+
+		onData(null, componentData);
+	});
 }
 
 export default compose(composer)(component);

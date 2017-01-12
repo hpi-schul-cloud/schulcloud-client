@@ -16,8 +16,10 @@ const composer = (props, onData) => {
 		return;
 	}
 
-	if(!(currentUser.system || {}).finishedSignup) {
-		browserHistory.push('/signup/teachers/');
+	if(!(currentUser.system || {}).finishedSignup
+		&& Permissions.userHasPermission(currentUser, permissions.ADMIN_VIEW)
+	) {
+		browserHistory.push('/signup/school/');
 		return;
 	}
 

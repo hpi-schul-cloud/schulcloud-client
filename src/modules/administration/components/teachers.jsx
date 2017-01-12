@@ -28,7 +28,8 @@ class SectionTeachers extends AdminSection {
 
 	getTableHead() {
 		return [
-			'Name',
+			'Vorname',
+			'Nachname',
 			'E-Mail-Adresse',
 			''
 		];
@@ -37,7 +38,8 @@ class SectionTeachers extends AdminSection {
 	getTableBody() {
 		return this.props.teachers.map((record) => {
 			return [
-				record.userName,
+				record.firstName,
+				record.lastName,
 				record.email,
 				this.getTableActions(this.actions, record)
 			];
@@ -70,12 +72,22 @@ class SectionTeachers extends AdminSection {
 				/>
 
 				<Input
-					label="Name"
-					name="userName"
+					label="Vorname"
+					name="firstName"
 					type="text"
-					placeholder="Maria Musterfrau"
+					placeholder="Max"
 					layout="vertical"
-					value={record.userName || ''}
+					value={record.firstName || ''}
+					required
+				/>
+
+				<Input
+					label="Nachname"
+					name="lastName"
+					type="text"
+					placeholder="Mustermann"
+					layout="vertical"
+					value={record.lastName || ''}
 					required
 				/>
 
