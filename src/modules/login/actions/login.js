@@ -3,6 +3,21 @@ import {browserHistory} from 'react-router';
 import { Server, Notification } from '../../core/helpers';
 
 const authService = Server.service('/auth');
+const schoolService = Server.service('/schools');
+const systemService = Server.service('/systems');
+
+String.prototype.capitalizeFirstLetter = function () {
+	return this.substr(0, 1).toUpperCase() + this.substr(1);
+};
+
+Array.prototype.indexBy = function (property) {
+	let map = {};
+	this.forEach(element => {
+		const key = element[property];
+		map[key] = element;
+	});
+	return map;
+};
 
 export default {
 	login: ({email, password, school, system}) => {
@@ -30,6 +45,27 @@ export default {
 			.catch(error => {
 				Notification.showError(error.message);
 				return false;
+			});
+	},
+
+	loadSchools: () => {
+		// load schools
+		// returns an object that maps from ids to schools
+		return schoolService.find()
+			.then(result => {
+				let schools = result.data || [];
+				let schoolsMap = schools.indexBy('_id');
+				return Promise.resolve(schoolsMap);
+			});
+	},
+
+	loadSystems: (school) => {
+		return Promise.all(school.systems.map(id => systemService.get(id)))
+			.then(systems => {
+				systems.forEach(s => {
+					s.type = s.type.capitalizeFirstLetter();	// capitalize
+				});
+				return systems;
 			});
 	}
 };
