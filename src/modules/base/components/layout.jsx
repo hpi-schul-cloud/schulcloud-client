@@ -17,7 +17,7 @@ class LayoutBase extends React.Component {
 			<Layout {...this.props}>
 				<Sidebar {...this.props} />
 				<div className="content-wrapper">
-					<Topbar logout={this.props.actions.logout} />
+					<Topbar logout={this.props.actions.logout} displayName={this.props.displayName} />
 
 					<div className="container-fluid">
 						<div className="row">

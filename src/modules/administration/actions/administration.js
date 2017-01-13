@@ -34,30 +34,7 @@ export default {
 		return classService.remove(data._id);
 	},
 
-
-	updateStudent: (data) => {
-		if(data._id) return userService.patch(data._id, data);
-
-		return userService.create(data);
-	},
-
-	removeStudent: (data) => {
-		return userService.remove(data._id);
-	},
-
-
-	updateTeacher: (data) => {
-		if(data._id) return userService.patch(data._id, data);
-
-		return userService.create(data);
-	},
-
-	removeTeacher: (data) => {
-		return userService.remove(data._id);
-	},
-
-
-	updateAdmin: (data) => {
+	updateUser: (data) => {
 		if(data._id) return userService.patch(data._id, data);
 
 		return userService.create(data);

@@ -1,25 +1,8 @@
-import Layout from '../../core/components/layout';
-import SignupFormAdmin from './signup_form_admin';
-import SignupFormSchool from './signup_form_school';
-import SignupFormTeachers from './signup_form_teachers';
-import SignupFormClasses from './signup_form_classes';
-import SignupFormCourses from './signup_form_courses';
-
 import {
-	Checkbox,
-	CheckboxGroup,
-	Icon,
 	Input,
-	RadioGroup,
-	Row,
-	Select,
-	File,
-	Textarea,
-	ReactSelect,
 	Form
 } from '../../core/helpers/form';
-
-require('../styles/signup.scss');
+import Layout from '../../core/components/layout';
 
 class Signup extends React.Component {
 
@@ -27,28 +10,101 @@ class Signup extends React.Component {
 		super(props);
 	}
 
-	getFormStepUI() {
-		switch(this.props.step) {
-			case 'admin': {
-				return <SignupFormAdmin {...this.props} />
-			}
-			case 'school': {
-				return <SignupFormSchool {...this.props} />
-			}
-			case 'teachers': {
-				return <SignupFormTeachers {...this.props} />
-			}
-			case 'classes': {
-				return <SignupFormClasses {...this.props} />
-			}
-			case 'courses': {
-				return <SignupFormCourses {...this.props} />
-			}
-			default: {
-				// TODO: refactor to redirect to 404
-				return <div>Diese Seite existiert nicht.</div>
-			}
-		}
+
+	getSharedFieldsUI() {
+		return (
+			<div>
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.schoolId}
+				/>
+
+				<Input
+					name="accountId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.accountId}
+				/>
+
+				<Input
+					name="roles"
+					type="hidden"
+					layout="elementOnly"
+					value={["administrator"]}
+				/>
+
+				<div className="row">
+					<div className="col-md-6">
+						<Input
+							label="Vorname"
+							name="firstName"
+							type="text"
+							layout="vertical"
+							required
+						/>
+					</div>
+					<div className="col-md-6">
+						<Input
+							label="Nachname"
+							name="lastName"
+							type="text"
+							layout="vertical"
+							required
+						/>
+					</div>
+				</div>
+
+				<div className="row">
+					<div className="col-md-12">
+						<Input
+							label="E-Mail"
+							name="email"
+							type="email"
+							validations="isEmail"
+							validationError="This is not an email"
+							layout="vertical"
+							required
+						/>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	getAdminFieldsUI() {
+		if(this.props.role !== 'admin') return;
+
+		return (
+			<div>
+				<div className="row">
+					<div className="col-md-12">
+						<Input
+							label="Telefon"
+							name="tel"
+							type="tel"
+							validations="isNumeric"
+							validationError="Nur Ziffern, keine Leerzeichen und Striche"
+							layout="vertical"
+						/>
+					</div>
+				</div>
+			</div>
+		);
+	}
+
+	getAccountNoteUI() {
+		if(this.props.isSSO) return;
+
+		return (
+			<div>
+				<p>Du erhältst von uns nach Abschluss Deiner Registrierung
+					eine E-Mail mit Deinen Anmeldedaten (Nutzername und Passwort).</p>
+
+				<p>Dein Passwort kannst Du danach jederzeit ändern.</p>
+			</div>
+		);
 	}
 
 	render() {
@@ -57,7 +113,19 @@ class Signup extends React.Component {
 				<div className="container">
 					<div className="row">
 						<div className="col-md-6 offset-md-3">
-							{this.getFormStepUI()}
+							<h1>Willkommen zur<br />Schul-Cloud</h1>
+
+							<p>Im <b>diesem Schritt</b> würden wir Dich gerne besser kennen lernen:</p>
+
+							<Form onValidSubmit={this.props.onSignup.bind(this)}>
+
+								{this.getSharedFieldsUI()}
+								{this.getAdminFieldsUI()}
+
+								{this.getAccountNoteUI()}
+
+								<button className="btn btn-success" type="submit">Abschließen</button>
+							</Form>
 						</div>
 					</div>
 				</div>
@@ -68,3 +136,6 @@ class Signup extends React.Component {
 }
 
 export default Signup;
+
+
+

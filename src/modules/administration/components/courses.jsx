@@ -16,8 +16,6 @@ class SectionCourses extends AdminSection {
 			editLabel: 'Kurs bearbeiten',
 			submitCallback: (data) => {
 				// TODO: make sure data.classId works on edit
-				console.log(data);
-
 				this.props.actions.updateCourse(data);
 			}
 		};

@@ -1,16 +1,16 @@
-import SignupAdmin from './containers/signup-admin';
 import Signup from './containers/signup';
+import Setup from './containers/setup';
 
 export default [
 	{
-		path: '/signup/admin/:schoolId/',
-		name: 'signup-admin',
-		component: SignupAdmin
-	},
-	{
-		path: '/signup/:step/',
+		path: '/signup/:role/:schoolId/(:accountId/)',
 		name: 'signup',
 		component: Signup
+	},
+	{
+		path: '/setup/:step/',
+		name: 'setup',
+		component: Setup
 	}
 ];
 

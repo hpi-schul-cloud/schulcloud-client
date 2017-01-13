@@ -14,9 +14,9 @@ import {
 import {Link} from 'react-router';
 
 import Table from '../../administration/components/table';
-import AdminSectionTeachers from '../../administration/components/teachers';
+import AdminSectionCourses from '../../administration/components/courses';
 
-class SignupFormTeachers extends AdminSectionTeachers {
+class SetupFormCourses extends AdminSectionCourses {
 
 	constructor(props) {
 		super(props);
@@ -25,13 +25,13 @@ class SignupFormTeachers extends AdminSectionTeachers {
 	render() {
 		return (
 			<div>
-				<h1>Administration: <br />Lehrkräfte</h1>
+				<h1>Administration: <br />Kurse</h1>
 
-				<p>Ihr Account wurde freigeschaltet und die Schule freigegeben.
-					Sie können nun Lehrkräfte (Lehrer/innen, Betreuer, ...) anlegen.</p>
+				<p>Sie können nun Kurse anlegen und diesen Lehrkräfte zuweisen.</p>
+				<p>"Kurse" bezeichnet sowohl Kurse in der Oberstufe, als auch Fächer für
+					jede Klasse der Mittelstufe (also zum Beispiel "Mathe für die 10a").</p>
 
-				<p><b>Tipp:</b> Sie können auch nach Abschluss der Registrierung
-					jeder Zeit weitere Lehrkräfte hinzufügen.</p>
+				<p><b>Tipp:</b> Lehrer können auch selber Kurse anlegen.</p>
 
 				<Form>
 					<div className="row">
@@ -42,23 +42,21 @@ class SignupFormTeachers extends AdminSectionTeachers {
 				</Form>
 
 				<button type="submit" className="btn btn-success" onClick={this.openModal.bind(this, this.defaultRecord)}>
-					Lehrkraft hinzufügen
+					Kurs hinzufügen
 				</button>
 
 				{this.modalUI()}
 
 				<hr />
 
-				<p>Im <b>nächsten Schritt</b> können Sie Klassen anlegen.</p>
-
-				<Link className="btn btn-secondary" to="/signup/classes/">Fortsetzen</Link>
+				<button className="btn btn-secondary" onClick={this.props.onSignupFinished.bind(this)}>Abschließen</button>
 			</div>
 		);
 	}
 
 }
 
-export default SignupFormTeachers;
+export default SetupFormCourses;
 
 
 

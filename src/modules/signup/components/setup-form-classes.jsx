@@ -16,7 +16,7 @@ import {Link} from 'react-router';
 import Table from '../../administration/components/table';
 import AdminSectionClasses from '../../administration/components/classes';
 
-class SignupFormClasses extends AdminSectionClasses {
+class SetupFormClasses extends AdminSectionClasses {
 
 	constructor(props) {
 		super(props);
@@ -57,7 +57,7 @@ class SignupFormClasses extends AdminSectionClasses {
 
 }
 
-export default SignupFormClasses;
+export default SetupFormClasses;
 
 
 

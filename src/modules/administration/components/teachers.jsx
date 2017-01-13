@@ -14,7 +14,7 @@ class SectionTeachers extends AdminSection {
 			addLabel: 'Lehrer hinzufügen',
 			editLabel: 'Lehrer bearbeiten',
 			submitCallback: (data) => {
-				this.props.actions.updateTeacher(data);
+				this.props.actions.updateUser(data);
 			}
 		};
 

@@ -13,7 +13,7 @@ class Layout extends React.Component {
 
 	render() {
 		return (
-			<div {...this.props}>
+			<div className={this.props.className} id={this.props.id}>
 				{this.props.children}
 				<Notification />
 			</div>

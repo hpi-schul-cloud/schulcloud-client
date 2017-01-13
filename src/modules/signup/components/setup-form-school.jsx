@@ -12,7 +12,7 @@ import {
 	Form
 } from '../../core/helpers/form';
 
-class SignupFormAdmin extends React.Component {
+class SetupFormSchool extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -69,7 +69,7 @@ class SignupFormAdmin extends React.Component {
 
 }
 
-export default SignupFormAdmin;
+export default SetupFormSchool;
 
 
 
