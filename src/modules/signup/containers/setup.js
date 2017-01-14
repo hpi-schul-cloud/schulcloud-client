@@ -41,9 +41,7 @@ function composer(props, onData) {
 		return;
 	}
 
-	if((currentUser.system || {}).finishedSignup
-		|| !Permissions.userHasPermission(currentUser, permissions.ADMIN_VIEW)
-	) {
+	if((currentUser.system || {}).finishedSignup) {
 		browserHistory.push('/dashboard/');
 		return;
 	}

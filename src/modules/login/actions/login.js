@@ -13,7 +13,7 @@ const authenticate = ({username, password}) => {
 		password,
 		storage: window.localStorage
 	});
-}
+};
 
 export default {
 	login: ({username, schoolId, systemId, password, email}) => {
@@ -29,7 +29,9 @@ export default {
 				// account exists not => signup Account
 				return signupActions.signupAccount({username, schoolId, systemId, password})
 					.then((account) => {
-						return authenticate({username: account.username, password});
+						console.log(account);
+
+						return authenticate({username, password});
 					}).catch(() => {
 						// account credentials not valid
 						return new Error('Could not create new account for this credentials.');

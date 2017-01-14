@@ -25,3 +25,30 @@
 .text-center {
 	text-align:center;
 }
+
+.btn-loading {
+	font-size: 0px !important;
+	transition: width 0.3s;
+
+	&:before {
+		content: "\f1ce";
+		-webkit-animation: fa-spin 2s infinite linear;
+		animation: fa-spin 2s infinite linear;
+		font-family: "FontAwesome";
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		font-size: 16px;
+	}
+}
+
+@-webkit-keyframes fa-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}

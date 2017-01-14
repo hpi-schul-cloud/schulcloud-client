@@ -42,7 +42,7 @@ class Server {
 				});
 			}).catch((e) => {
 				// client doesn't care about login failing
-			})
+			});
 		};
 
 		socket.io.engine.on('upgrade', function(transport) {

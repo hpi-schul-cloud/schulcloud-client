@@ -8,12 +8,6 @@ class Sidebar extends React.Component {
 		super(props);
 	}
 
-	componentDidMount() {
-		$('.mobile-nav-toggle').click((e) => {
-			$('aside.nav-sidebar nav:first-child').toggleClass('active');
-		});
-	}
-
 	render() {
 		const sidebarLinks = [{
 			name: 'Dashboard',
@@ -23,16 +17,7 @@ class Sidebar extends React.Component {
 			name: 'Stundenplan',
 			icon: 'table',
 			to: '/timetable/'
-		}/*,{
-			name: 'Gruppen',
-			icon: 'group'
 		},{
-			name: 'Materialien',
-			icon: 'pencil'
-		},{
-			name: 'Aufgaben',
-			icon: 'list-ul'
-		}*/,{
 			name: 'Materialsuche',
 			icon: 'search',
 			to: '/content/'
@@ -62,6 +47,12 @@ class Sidebar extends React.Component {
 			<aside className="nav-sidebar">
 				<nav>
 					<ul>
+						<li>
+							<a>
+								<i className="fa fa-cloud" aria-hidden="true"></i>
+								<span className="link-name">Schul-Cloud</span>
+							</a>
+						</li>
 						{sidebarLinks.map((link) => {
 							return (
 								<li key={link.name}>

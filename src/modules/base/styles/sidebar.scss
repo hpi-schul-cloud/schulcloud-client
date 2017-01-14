@@ -36,7 +36,6 @@ aside.nav-sidebar {
 					height:60px;
 					line-height:60px;
 					border-bottom:1px solid #adadad;
-					cursor: pointer;
 					color: #727272;
 
 					&.active {
@@ -45,9 +44,10 @@ aside.nav-sidebar {
 						border-bottom:1px solid transparent;
 					}
 
-					&:hover {
+					&[href]:hover {
 						background: #434857;
 						color: #fff !important;
+						cursor: pointer;
 					}
 
 					i.fa {

@@ -53,10 +53,12 @@ function composer(props, onData) {
 						// if userId this means account has connected user
 						if(result.userId) {
 							return browserHistory.push('/dashboard/');
+
 						} else if(result.accountId) {
 							// if only account id
 							// TODO: schoolId instead of school in login form
-							return browserHistory.push(`/signup/student-sso/${data.school}/${result.accountId}/`);
+							return browserHistory.push(`/signup/student-sso/${data.schoolId}/${result.accountId}/`);
+
 						} else {
 							throw new Error('Wrong credentials');
 						}
