@@ -9,7 +9,7 @@ class SystemSelector extends React.Component {
 	}
 
 	handleSystemSelection(systemId) {
-		this.props.onChange(systemId);	// notify the parent of relevant changes (whether the user did select a valid system)
+		this.props.onChangeSystemId(systemId);	// notify the parent of relevant changes (whether the user did select a valid system)
 	}
 
 	showSchoolSystemSelectors() {
@@ -22,8 +22,8 @@ class SystemSelector extends React.Component {
 
 	didSelectSchool(event) {
 		const schoolId = event.target.value;
+		this.props.onChangeSchoolId(schoolId);
 		if(!schoolId) return;
-		this.handleSystemSelection(null);	// if the school was just selected, there can be no system chosen
 		this.setState({
 			schoolId: schoolId,
 			systems: []		// pending reload

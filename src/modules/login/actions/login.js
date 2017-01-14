@@ -20,10 +20,10 @@ function mapFromArray(array, indexedByProperty) {
 }
 
 export default {
-	login: ({email, password, school, system}) => {
+	login: ({email, password, schoolId, systemId}) => {
 
 		// generate JWT
-		authService.create({username: email, password: password, systemId: system})
+		authService.create({username: email, password: password, schoolId, systemId})
 			.then(user => {
 
 				if (user.token) {

@@ -14,9 +14,14 @@ class LoginForm extends React.Component {
 	}
 
 	handleFieldChange(key, event) {
-		let newState = this.state || {};
+		let newState = {};
 		newState[key] = event.target.value;
+		this.setState(newState);
+	}
 
+	handleValueChange(key, value) {
+		let newState = {};
+		newState[key] = value;
 		this.setState(newState);
 	}
 
@@ -24,13 +29,11 @@ class LoginForm extends React.Component {
 		this.props.actions.login.bind(this)({
 			email: this.state.email,
 			password: this.state.password,
-			system: this.state.systemId || undefined,
+			schoolId: this.state.schoolId || undefined,
+			systemId: this.state.systemId || undefined,
 		});
 	}
 
-	handleSystemSelectChange(systemId) {
-		this.setState({systemId});
-	}
 
 	hasValidSystem() {
 		return this.state.systemId != null;
@@ -41,7 +44,9 @@ class LoginForm extends React.Component {
 			<div className="form-group">
 				<input type="text" className="form-control form-control-lg" placeholder="Email" onChange={this.handleFieldChange.bind(this, 'email')} />
 				<input type="password" className="form-control form-control-lg" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
-				<SystemSelector {...this.props} onChange={this.handleSystemSelectChange.bind(this)}/>
+				<SystemSelector {...this.props}
+								onChangeSchoolId={this.handleValueChange.bind(this, 'schoolId')}
+								onChangeSystemId={this.handleValueChange.bind(this, 'systemId')} />
 				<button className="btn btn-primary btn-block" disabled={!this.hasValidSystem()} onClick={this.handleLogin.bind(this)}>Anmelden</button>
 			</div>
 		);
