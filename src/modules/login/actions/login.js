@@ -6,18 +6,18 @@ const authService = Server.service('/auth');
 const schoolService = Server.service('/schools');
 const systemService = Server.service('/systems');
 
-String.prototype.capitalizeFirstLetter = function () {
-	return this.substr(0, 1).toUpperCase() + this.substr(1);
-};
+function capitalizeFirstLetter(string) {
+	return string.substr(0, 1).toUpperCase() + string.substr(1);
+}
 
-Array.prototype.indexBy = function (property) {
+function mapFromArray(array, indexedByProperty) {
 	let map = {};
-	this.forEach(element => {
-		const key = element[property];
+	array.forEach(element => {
+		const key = element[indexedByProperty];
 		map[key] = element;
 	});
 	return map;
-};
+}
 
 export default {
 	login: ({email, password, school, system}) => {
@@ -54,7 +54,7 @@ export default {
 		return schoolService.find()
 			.then(result => {
 				let schools = result.data || [];
-				let schoolsMap = schools.indexBy('_id');
+				let schoolsMap = mapFromArray(schools, '_id');
 				return Promise.resolve(schoolsMap);
 			});
 	},
@@ -63,7 +63,7 @@ export default {
 		return Promise.all(school.systems.map(id => systemService.get(id)))
 			.then(systems => {
 				systems.forEach(s => {
-					s.type = s.type.capitalizeFirstLetter();	// capitalize
+					s.type = capitalizeFirstLetter(s.type);
 				});
 				return systems;
 			});
