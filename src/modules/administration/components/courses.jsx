@@ -45,7 +45,7 @@ class SectionCourses extends AdminSection {
 		return this.props.courses.map((c) => {
 			return [
 				c.name,
-				c.classIds.map(id => this.props.classesById[id].name).join(', '),
+				(c.classIds || []).map(id => this.props.classesById[id].name).join(', '),
 				c.teacherIds.map(id => (this.props.teachersById[id] || {}).lastName).join(', '),
 				this.getTableActions(this.actions, c)
 			];

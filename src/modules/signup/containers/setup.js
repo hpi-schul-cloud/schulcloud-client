@@ -41,7 +41,7 @@ function composer(props, onData) {
 		return;
 	}
 
-	if((currentUser.system || {}).finishedSignup) {
+	if((currentUser.preferences || {}).finishedSignup) {
 		browserHistory.push('/dashboard/');
 		return;
 	}

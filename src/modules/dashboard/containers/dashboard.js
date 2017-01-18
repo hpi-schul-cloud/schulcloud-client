@@ -16,7 +16,7 @@ const composer = (props, onData) => {
 		return;
 	}
 
-	if(!(currentUser.system || {}).finishedSignup
+	if(!(currentUser.preferences || {}).finishedSignup
 		&& Permissions.userHasPermission(currentUser, permissions.ADMIN_VIEW)
 	) {
 		browserHistory.push('/signup/school/');

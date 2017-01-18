@@ -20,7 +20,7 @@ export default {
 		if(!username) username = email;
 
 		// check if account already exists
-		return accountService.find({query: {username, schoolId, systemId}}).then((result) => {
+		return accountService.find({query: {username, systemId}}).then((result) => {
 			// account exists => login with _id from account
 			if(result.data.length) {
 				// we can't just use account to login as it has hashed password

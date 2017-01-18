@@ -32,7 +32,7 @@ class Signup extends React.Component {
 					name="roles"
 					type="hidden"
 					layout="elementOnly"
-					value={["administrator"]}
+					value={[this.props.role]}
 				/>
 
 				<div className="row">
