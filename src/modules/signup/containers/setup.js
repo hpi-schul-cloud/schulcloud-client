@@ -1,18 +1,20 @@
+import { browserHistory } from 'react-router';
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
-import { Permissions, Server } from '../../core/helpers/';
-
 import { SubsManager } from 'feathers-subscriptions-manager';
 
-import permissions from '../permissions';
+import adminActions from '../../administration/actions/administration';
+
+import component from '../components/setup';
+import actions from '../actions/signup';
+
 const schoolService = Server.service('/schools');
 const courseService = Server.service('/courses');
 const classService = Server.service('/classes');
 const userService = Server.service('/users');
 const roleService = Server.service('/roles');
 
-import component from '../components/administration';
-import actions from '../actions/administration';
+import { Server } from '../../core/helpers';
 
 const pluckArrayToObject = (array, key) => {
 	const result = {};
@@ -22,22 +24,31 @@ const pluckArrayToObject = (array, key) => {
 	return result;
 };
 
-const composer = (props, onData) => {
 
+function composer(props, onData) {
+
+	const step = props.params.step;
+	const combinedActions = Object.assign({}, adminActions, actions);
 	const currentUser = Server.get('user');
 
-	if(!Permissions.userHasPermission(currentUser, permissions.VIEW)) {
-		onData(new Error('You don\'t have the permission to see this page.'));
+	// make sure that only allowed steps here
+	if(!['school', 'teachers', 'classes', 'courses'].includes(step)) {
+		throw new Error('not found', 404);
+	}
+
+	if(!currentUser) {
+		browserHistory.push('/login/');
 		return;
 	}
 
-	const schoolId = currentUser.schoolId;
-
-	if(!schoolId) {
-		return onData(new Error("The current user is not associated with a school"));
+	if((currentUser.preferences || {}).finishedSignup) {
+		browserHistory.push('/dashboard/');
+		return;
 	}
 
 	const subsManager = new SubsManager();
+
+	const schoolId = '584ad186816abba584714c94';
 
 	subsManager.addSubscription(schoolService.get(schoolId), 'school');
 
@@ -74,33 +85,24 @@ const composer = (props, onData) => {
 		return {teachers: teachers.data, teachersById: pluckArrayToObject(teachers.data, '_id')};
 	});
 
-	subsManager.addSubscription(userService.find({
-		query: {roles: ['student']},   // TODO: no _id
-		rx: {
-			listStrategy: 'always',
-			idField: '_id',
-			matcher: query => item => {
-				// TODO: this should work out of the box - looks like a bug in the feathers-reactive module
-				return roleService.find({
-					query: {
-						_id: {
-							$in: item.roles || []
-						}
-					}
-				}).then((response) => {
-					return response.data.map(r => r.name).includes('student');
+	subsManager.ready((data, initial) => {
+		const componentData = Object.assign({
+			actions: combinedActions,
+			step,
+			onUpdateSchool: (data) => {
+				adminActions.updateSchool(data).then(() => {
+					browserHistory.push("/signup/teachers/");
+				});
+			},
+			onSignupFinished: () => {
+				actions.finishSignup(currentUser._id).then(() => {
+					browserHistory.push("/administration/");
 				});
 			}
-		}
-	}), (students) => {
-		return {students: students.data, studentsById: pluckArrayToObject(students.data, '_id')};
-	});
+		}, data);
 
-	subsManager.ready((data, initial) => {
-		const componentData = Object.assign({}, {actions}, data);
 		onData(null, componentData);
 	});
-
-};
+}
 
 export default compose(composer)(component);

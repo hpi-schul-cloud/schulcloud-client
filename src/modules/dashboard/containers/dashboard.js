@@ -16,6 +16,13 @@ const composer = (props, onData) => {
 		return;
 	}
 
+	if(!(currentUser.preferences || {}).finishedSignup
+		&& Permissions.userHasPermission(currentUser, permissions.ADMIN_VIEW)
+	) {
+		browserHistory.push('/signup/school/');
+		return;
+	}
+
 	let componentData = {
 		actions
 	};

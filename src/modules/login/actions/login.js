@@ -2,9 +2,21 @@ import React from 'react';
 import {browserHistory} from 'react-router';
 import { Server, Notification } from '../../core/helpers';
 
+import signupActions from '../../signup/actions/signup';
+
 const authService = Server.service('/auth');
 const schoolService = Server.service('/schools');
 const systemService = Server.service('/systems');
+const accountService = Server.service('/accounts');
+
+const authenticate = ({username, password}) => {
+	return Server.authenticateUser({
+		strategy: 'local',
+		username,
+		password,
+		storage: window.localStorage
+	});
+};
 
 function capitalizeFirstLetter(string) {
 	return string.substr(0, 1).toUpperCase() + string.substr(1);
@@ -20,32 +32,28 @@ function mapFromArray(array, indexedByProperty) {
 }
 
 export default {
-	login: ({email, password, schoolId, systemId}) => {
+	login: ({username, schoolId, systemId, password, email}) => {
+		if(!username) username = email;
 
-		// generate JWT
-		authService.create({username: email, password: password, schoolId, systemId})
-			.then(user => {
+		// check if account already exists
+		return accountService.find({query: {username, systemId}}).then((result) => {
+			// account exists => login with _id from account
+			if(result.data.length) {
+				// we can't just use account to login as it has hashed password
+				return authenticate({username, password});
+			} else {
+				// account exists not => signup Account
+				return signupActions.signupAccount({username, schoolId, systemId, password})
+					.then((account) => {
+						console.log(account);
 
-				if (user.token) {
-
-					// Login with JWT
-					Server.authenticate({
-						type: 'token',
-						'token': user.token,
-						path: '/auth'
-					}).then(function(result) {
-						console.info('Authenticated!', Server.get('token'));
-						browserHistory.push('/dashboard/');
-					}).catch(function(error) {
-						console.error('Error authenticating!', error);
-						Notification.showError('Error authenticating!');
+						return authenticate({username, password});
+					}).catch(() => {
+						// account credentials not valid
+						return new Error('Could not create new account for this credentials.');
 					});
-				}
-			})
-			.catch(error => {
-				Notification.showError(error.message);
-				return false;
-			});
+			}
+		});
 	},
 
 	loadSchools: () => {

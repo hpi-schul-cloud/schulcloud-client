@@ -44,7 +44,7 @@ function composer(props, onData) {
 					};
 					onData(null, componentData);
 				}).catch(err => {
-					console.log(err);
+					console.error(err);
 				});
 
 			})

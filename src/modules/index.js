@@ -3,6 +3,8 @@ import Core from './core';
 import Static from './static';
 import Login from './login';
 
+import Signup from './signup';
+
 import Base from './base';
 import Dashboard from './dashboard';
 import Content from './content';
@@ -29,5 +31,6 @@ export default {
 	Administration,
 	ErrorPage,
 	Tools,
-    Static
+    Static,
+	Signup
 };

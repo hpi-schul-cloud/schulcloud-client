@@ -4,9 +4,11 @@ import { Server } from '../../core/helpers';
 
 export default {
 	logout: () => {
-		Server.logout();
-		console.info('User successfully logged out.');
-		browserHistory.push('/login/');
+		Server.logout().then(() => {
+			console.info('User successfully logged out.');
+			Server.set('user', null);
+			browserHistory.push('/login/');
+		});
 	}
 };
 

@@ -26,7 +26,7 @@ class LoginForm extends React.Component {
 	}
 
 	handleLogin(e) {
-		this.props.actions.login.bind(this)({
+		this.props.onLogin({
 			email: this.state.email,
 			password: this.state.password,
 			schoolId: this.state.schoolId || undefined,

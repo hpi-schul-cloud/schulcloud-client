@@ -4,6 +4,7 @@ import Permissions from './permissions';
 import Server from './server';
 import Notification from './notification';
 import LTICustomer from './ltiCustomer';
+import Form from './form';
 
 export {
 	App,
@@ -11,5 +12,6 @@ export {
 	Permissions,
 	Server,
 	Notification,
-	LTICustomer
+	LTICustomer,
+	Form
 };
