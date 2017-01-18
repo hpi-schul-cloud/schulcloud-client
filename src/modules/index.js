@@ -33,6 +33,6 @@ export default {
 	ErrorPage,
 	Tools,
     Static,
-	Signup
+	Signup,
 	Courses
 };

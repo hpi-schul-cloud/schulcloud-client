@@ -36,7 +36,7 @@ const composer = (props, onData) => {
 		onData(null, componentData);
 	}).catch(err => {
 		Notification.showError("Kurs wurde nicht gefunden");
-		browserHistory.push("/courses/")
+		browserHistory.push("/courses/");
 	});
 };
 
