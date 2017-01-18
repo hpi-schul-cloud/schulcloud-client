@@ -12,6 +12,7 @@ const systemService = Server.service('/systems');
 
 function composer(props, onData) {
 	if(Server.get('user')) {
+		console.log(Server.get('user'));
 		browserHistory.push('/dashboard/');
 		console.info('Already loggedin, redirect to dashboard');
 	} else {
@@ -45,7 +46,24 @@ function composer(props, onData) {
 
 			let componentData = {
 				actions,
-				schools: schoolsObject
+				reference: props.location.query.ref,
+				schools: schoolsObject,
+				onLogin: (data) => {
+					return actions.login(data).then((result = {}) => {
+						// if userId this means account has connected user
+						if(result.userId) {
+							return browserHistory.push('/dashboard/');
+
+						} else if(result.accountId) {
+							// if only account id
+							// TODO: schoolId instead of school in login form
+							return browserHistory.push(`/signup/student-sso/${data.schoolId}/${result.accountId}/`);
+
+						} else {
+							throw new Error('Wrong credentials');
+						}
+					});
+				}
 			};
 
 			onData(null, componentData);

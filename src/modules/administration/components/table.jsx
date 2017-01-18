@@ -1,3 +1,5 @@
+require('../styles/table.scss');
+
 class Table extends React.Component {
 
 	constructor(props) {
