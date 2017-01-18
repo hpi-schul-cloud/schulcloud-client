@@ -16,6 +16,10 @@ class Notification {
 	showInfo(message) {
 		Alert.info(message, options);
 	}
+
+	showSuccess(message) {
+		Alert.success(message, options);
+	}
 }
 
 export default new Notification();
