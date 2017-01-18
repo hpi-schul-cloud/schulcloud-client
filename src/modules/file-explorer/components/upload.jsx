@@ -3,7 +3,9 @@ import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
-
+import { s3Service } from '../../core/helpers';
+import { Server } from '../../core/helpers';
+const signesURLservice
 
 require('../styles/upload.scss');
 
@@ -23,6 +25,7 @@ class Memory extends React.Component {
 	_onDrop(files) {
 		var file = files[0];
 
+		console.log(file);
 		axios.get(ENDPOINT_TO_GET_SIGNED_URL, {
 			filename: file.name,
 			filetype: file.type
