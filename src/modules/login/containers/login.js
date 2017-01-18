@@ -12,9 +12,9 @@ const systemService = Server.service('/systems');
 
 function composer(props, onData) {
 	if(Server.get('user')) {
-		console.log(Server.get('user'));
 		browserHistory.push('/dashboard/');
 		console.info('Already loggedin, redirect to dashboard');
+		return;
 	} else {
 		// load schools
 		schoolService.find()

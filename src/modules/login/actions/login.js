@@ -4,6 +4,9 @@ import { Server, Notification } from '../../core/helpers';
 
 import signupActions from '../../signup/actions/signup';
 
+const authService = Server.service('/auth');
+const schoolService = Server.service('/schools');
+const systemService = Server.service('/systems');
 const accountService = Server.service('/accounts');
 
 const authenticate = ({username, password}) => {
@@ -14,6 +17,19 @@ const authenticate = ({username, password}) => {
 		storage: window.localStorage
 	});
 };
+
+function capitalizeFirstLetter(string) {
+	return string.substr(0, 1).toUpperCase() + string.substr(1);
+}
+
+function mapFromArray(array, indexedByProperty) {
+	let map = {};
+	array.forEach(element => {
+		const key = element[indexedByProperty];
+		map[key] = element;
+	});
+	return map;
+}
 
 export default {
 	login: ({username, schoolId, systemId, password, email}) => {
@@ -38,6 +54,27 @@ export default {
 					});
 			}
 		});
+	},
+
+	loadSchools: () => {
+		// load schools
+		// returns an object that maps from ids to schools
+		return schoolService.find()
+			.then(result => {
+				let schools = result.data || [];
+				let schoolsMap = mapFromArray(schools, '_id');
+				return Promise.resolve(schoolsMap);
+			});
+	},
+
+	loadSystems: (school) => {
+		return Promise.all(school.systems.map(id => systemService.get(id)))
+			.then(systems => {
+				systems.forEach(s => {
+					s.type = capitalizeFirstLetter(s.type);
+				});
+				return systems;
+			});
 	}
 };
 
