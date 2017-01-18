@@ -15,7 +15,7 @@ export default {
 					}).catch(err => {
 						Notification.showError(err.message);
 						return false;
-					})
+					});
 				}
 			})
 			.catch(err => {

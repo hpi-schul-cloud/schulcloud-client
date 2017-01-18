@@ -16,7 +16,7 @@ const _init = () => {
 };
 
 // Wait for server to tell us whether logged in (then) or not (catch)
-Server.authenticate().then(() => {
+Server.authenticateUser().then(() => {
 	_init();
 }).catch(() => {
 	_init();

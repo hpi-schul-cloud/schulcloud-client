@@ -1,5 +1,3 @@
-import { Link } from 'react-router';
-
 require('../styles/topbar.scss');
 
 class Topbar extends React.Component {
@@ -18,7 +16,7 @@ class Topbar extends React.Component {
 					<li className="nav-item">
 						<div className="btn-group">
 							<button type="button" className="btn btn-secondary dropdown-toggle account-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<img className="avatar" src="https://randomuser.me/api/portraits/men/11.jpg" /><strong>Lukas Müller</strong>
+								<img className="avatar" src="https://randomuser.me/api/portraits/men/11.jpg" /><strong>{this.props.displayName}</strong>
 							</button>
 							<div className="dropdown-menu dropdown-menu-right">
 								<a className="dropdown-item" onClick={this.props.logout.bind(this)}>Logout</a>

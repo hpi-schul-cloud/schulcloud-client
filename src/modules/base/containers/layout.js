@@ -14,7 +14,8 @@ const composer = (props, onData) => {
 
 		if(Permissions.userHasPermission(currentUser, permissions.VIEW)) {
 			let componentData = {
-				actions
+				actions,
+				displayName: currentUser.displayName
 			};
 
 			onData(null, componentData);

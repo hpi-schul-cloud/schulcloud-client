@@ -1,3 +1,5 @@
+import SystemSelector from './systemSelector';
+
 class LoginForm extends React.Component {
 
 	constructor(props) {
@@ -5,77 +7,36 @@ class LoginForm extends React.Component {
 
 		this.state = {
 			email: '',
-			password: ''
-		}
+			password: '',
+			systemId: '0000d186816abba584714c92'	// the id of the 'local' system.
+			// TODO: replace with placeholder value, e.g. 'schul-cloud', to be replaced in a hook
+		};
 	}
 
 	handleFieldChange(key, event) {
-		let newState = this.state || {};
+		let newState = {};
 		newState[key] = event.target.value;
+		this.setState(newState);
+	}
 
+	handleValueChange(key, value) {
+		let newState = {};
+		newState[key] = value;
 		this.setState(newState);
 	}
 
 	handleLogin(e) {
-		this.props.actions.login.bind(this)({
+		this.props.onLogin({
 			email: this.state.email,
 			password: this.state.password,
-			school: this.state.school || undefined,
-			system: this.state.system || undefined,
+			schoolId: this.state.schoolId || undefined,
+			systemId: this.state.systemId || undefined,
 		});
 	}
 
-	loadSystems(event) {
-		this.setState({school: event.target.value});
 
-		const schoolId = event.target.value;
-		const systems = this.props.schools[schoolId].systems;
-		this.setState({systems: systems});
-
-		if(systems.length === 1) {
-			this.setState({system: systems[0]});	// automatically select the only system
-		}
-	}
-
-	getSchoolsUI() {
-		if(!this.props.schools) return '';
-
-		return (
-			<select className="custom-select form-control" onChange={this.loadSystems.bind(this)}>
-				<optgroup label="Schule">
-					<option hidden>Schule auswählen</option>
-					{Object.values(this.props.schools).map((school) => {
-						return (<option key={school._id} value={school._id}>{school.name}</option>);
-					})}
-				</optgroup>
-			</select>
-		);
-	}
-
-	getSystemsUI() {
-		if(!this.state.systems) return '';
-		const systems = this.state.systems || [];
-		if (systems.length == 1 && this.state.system) {
-			const system = this.state.system;
-			return (
-				<select className="custom-select form-control" value={system._id} readOnly="readOnly">
-					<optgroup label="System">
-						<option key={system._id} value={system._id} className="system-option">{system.type}</option>
-					</optgroup>
-				</select>
-			);
-		}
-		if (systems.length < 2) return '';
-		return (
-			<select className="custom-select form-control system-select" onChange={this.handleFieldChange.bind(this, 'system')}>
-				<optgroup label="System">
-					<option hidden>System auswählen</option>
-					{systems.map((system) => {
-						return (<option key={system._id} value={system._id}>{system.type}</option>);
-					})}
-				</optgroup>
-			</select>
-		);
+	hasValidSystem() {
+		return this.state.systemId != null;
 	}
 
 	render() {
@@ -83,9 +44,10 @@ class LoginForm extends React.Component {
 			<div className="form-group">
 				<input type="text" className="form-control form-control-lg" placeholder="Email" onChange={this.handleFieldChange.bind(this, 'email')} />
 				<input type="password" className="form-control form-control-lg" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
-				{this.getSchoolsUI()}
-				{this.getSystemsUI()}
-				<button className="btn btn-primary" onClick={this.handleLogin.bind(this)}>Anmelden</button>
+				<SystemSelector {...this.props}
+								onChangeSchoolId={this.handleValueChange.bind(this, 'schoolId')}
+								onChangeSystemId={this.handleValueChange.bind(this, 'systemId')} />
+				<button className="btn btn-primary btn-block" disabled={!this.hasValidSystem()} onClick={this.handleLogin.bind(this)}>Anmelden</button>
 			</div>
 		);
 	}
