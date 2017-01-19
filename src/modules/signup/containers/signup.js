@@ -30,7 +30,6 @@ function composer(props, onData) {
 		accountId,
 		onSignup: (data) => {
 			actions.signupUser(data, data.accountId).then((account) => {
-				console.log(account);
 				return actions.finishSetup(account.userId);
 			}).then(() => {
 				browserHistory.push('/login/');
