@@ -97,7 +97,7 @@ const composer = (props, onData) => {
 	});
 
 	subsManager.ready((data, initial) => {
-		const componentData = Object.assign({}, {actions}, data);
+		const componentData = Object.assign({}, {actions, schoolId}, data);
 		onData(null, componentData);
 	});
 

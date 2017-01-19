@@ -29,7 +29,22 @@ class SectionCourses extends AdminSection {
 				action: this.props.actions.removeCourse.bind(this),
 				icon: 'trash-o'
 			}
-		]
+		];
+
+		Object.assign(this.state, this.state, {courses: []});
+	}
+
+	componentDidMount() {
+		this.loadContent(1, this.state.itemsPerPage);
+	}
+
+	loadContent(page, itemsPerPage) {
+		this.props.actions.getCourses({$skip: (page - 1) * itemsPerPage, $limit: itemsPerPage})
+			.then((result) => {
+				console.log('Fetched ', result);
+				const numberOfPages = Math.ceil(result.pagination.total / this.state.itemsPerPage);
+				this.setState({courses: result.courses, numberOfPages});
+			});
 	}
 
 	getTableHead() {
@@ -42,7 +57,7 @@ class SectionCourses extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.props.courses.map((c) => {
+		return this.state.courses.map((c) => {
 			return [
 				c.name,
 				(c.classIds || []).map(id => this.props.classesById[id].name).join(', '),

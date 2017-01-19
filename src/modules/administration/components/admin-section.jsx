@@ -17,13 +17,16 @@ class AdminSection extends React.Component {
 			addLabel: '',
 			editLabel: '',
 			submitCallback: () => {}
-		}
+		};
 
 		this.state = {
-			record: {}
+			record: {},
+			numberOfPages: 42,
+			itemsPerPage: 10,
 		};
 
 		this.defaultRecord = {};
+		this.updateAction = this.props.actions.getCourses;
 	}
 
 	modalFormUI(record) {
@@ -75,13 +78,29 @@ class AdminSection extends React.Component {
 		);
 	}
 
-	onPageSizeChange(currentPage, pageSize) {
-		console.log(current);
-		console.log(pageSize);
+	onPageSizeChange(currentPage, itemsPerPage) {
+		this.setState({itemsPerPage});
+		this.loadContent(1, itemsPerPage);
 	}
 
+	loadContent() {
+		throw new TypeError('loadContent must be implemented by subclasses');
+	}
 	onPageChange(page) {
-		console.log(page);
+		this.loadContent(page, this.state.itemsPerPage);
+	}
+
+	getPaginationControl() {
+		return (<Pagination
+			selectComponentClass={Select}
+			locale={require('rc-pagination/lib/locale/en_US')}
+			showSizeChanger
+			defaultPageSize={this.state.itemsPerPage}
+			defaultCurrent={1}
+			onShowSizeChange={this.onPageSizeChange.bind(this)}
+			onChange={this.onPageChange.bind(this)}
+			total={this.state.numberOfPages}
+		/>)
 	}
 
 	render() {
@@ -93,16 +112,7 @@ class AdminSection extends React.Component {
 							<h5>{this.options.title}</h5>
 
 							<Table head={this.getTableHead()} body={this.getTableBody()} />
-							<Pagination
-								selectComponentClass={Select}
-								locale={require('rc-pagination/lib/locale/en_US')}
-								showSizeChanger
-								defaultPageSize={20}
-								defaultCurrent={1}
-								onShowSizeChange={this.onPageSizeChange.bind(this)}
-								onPageChange={this.onPageChange.bind(this)}
-								total={450}
-							/>
+							{this.getPaginationControl()}
 							<button type="submit" className="btn btn-primary" onClick={this.openModal.bind(this, this.defaultRecord)}>
 								{this.options.addLabel}
 							</button>

@@ -5,7 +5,36 @@ const classService = Server.service('/classes');
 const courseService = Server.service('/courses');
 const userService = Server.service('/users');
 
+
+const indexArrayByKey = (array, key) => {
+	const result = {};
+	array.forEach((obj) => {
+		result[obj[key]] = obj;
+	});
+	return result;
+};
+
 export default {
+	getCourses: options => {
+		const currentUser = Server.get('user');
+		const schoolId = currentUser.schoolId;
+		return courseService.find({query: Object.assign({}, {schoolId}, options)})
+			.then((result) => {
+				return Promise.resolve({
+					courses: result.data,
+					coursesById: indexArrayByKey(result.data, '_id'),
+					pagination: {total: result.total, skip: result.skip}
+				});
+			});
+	},
+
+	getClasses: options => {
+		const currentUser = Server.get('user');
+		const schoolId = currentUser.schoolId;
+		classService.find({query: {schoolId: schoolId}}).then((classes) => {
+			return Promise.resolve({classes: classes.data, classesById: indexArrayByKey(classes.data, '_id')});
+		});
+	},
 	updateSchool: (data) => {
 		if(data._id) return schoolService.patch(data._id, data);
 
