@@ -1,5 +1,4 @@
 import LayoutBase from '../../base/containers/layout';
-import SectionTitle from '../../base/components/title';  /* only for base */
 import ToolCard from './toolCard';
 import {browserHistory} from 'react-router';
 import { Permissions, Server } from '../../core/helpers/';
@@ -23,9 +22,9 @@ class Tools extends React.Component {
 
 	render() {
 		return (
-			<LayoutBase className="tools">
-				<SectionTitle title="Tools"/>
-				<div className="tools-section">
+			<div className="tools-section">
+				<h5>Tools</h5>
+				<div className="row">
 					{
 						this.props.tools.map((tool) => {
 							return <ToolCard {...this.props} key={tool._id} tool={tool} />;
@@ -33,7 +32,7 @@ class Tools extends React.Component {
 					}
 				</div>
 				<button type="button" style={{visibility: this.handleHasPermission() ? 'visible' : 'hidden'}} onClick={this.handleCreateNew.bind(this)} className="btn btn-primary btn-tools">Neues Tool erstellen</button>
-			</LayoutBase>
+			</div>
 		);
 	}
 
