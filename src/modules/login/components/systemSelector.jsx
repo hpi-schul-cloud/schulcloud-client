@@ -26,6 +26,11 @@ class SystemSelector extends React.Component {
 	}
 
 	loadSystems(schoolId) {
+		if(!schoolId) {
+			this.setState({systems: []});
+			return;
+		}
+
 		const selectedSchool = this.state.schools[schoolId];
 		this.props.actions.loadSystems(selectedSchool)
 			.then(systems => this.setState({systems}))

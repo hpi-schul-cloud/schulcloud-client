@@ -20,7 +20,7 @@ const ReactSelect = React.createClass({
 			value = (value || []).map(option => option.value);
 		}
 
-		if(Object.keys(value).includes('value')) {
+		if(value && typeof(value) === 'object' && Object.keys(value).includes('value')) {
 			value = value.value;
 		}
 
@@ -46,7 +46,6 @@ const ReactSelect = React.createClass({
 	},
 
 	renderElement() {
-		console.log(this.getValue());
 		return (
 			<ReactSelectPlain
 				ref={(c) => this.element = c}
