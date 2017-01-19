@@ -14,6 +14,14 @@ const roleService = Server.service('/roles');
 import component from '../components/administration';
 import actions from '../actions/administration';
 
+const pluckArrayToObject = (array, key) => {
+	const result = {};
+	array.forEach((obj) => {
+		result[obj[key]] = obj;
+	});
+	return result;
+};
+
 const composer = (props, onData) => {
 
 	const currentUser = Server.get('user');
@@ -34,11 +42,11 @@ const composer = (props, onData) => {
 	subsManager.addSubscription(schoolService.get(schoolId), 'school');
 
 	subsManager.addSubscription(courseService.find({query: {schoolId: schoolId}}), (courses) => {
-		return {courses: courses.data};
+		return {courses: courses.data, coursesById: pluckArrayToObject(courses.data, '_id')};
 	});
 
 	subsManager.addSubscription(classService.find({query: {schoolId: schoolId}}), (classes) => {
-		return {classes: classes.data};
+		return {classes: classes.data, classesById: pluckArrayToObject(classes.data, '_id')};
 	});
 
 	subsManager.addSubscription(userService.find({
@@ -63,7 +71,7 @@ const composer = (props, onData) => {
 			}
 		}
 	}), (teachers) => {
-		return {teachers: teachers.data};
+		return {teachers: teachers.data, teachersById: pluckArrayToObject(teachers.data, '_id')};
 	});
 
 	subsManager.addSubscription(userService.find({
@@ -85,7 +93,7 @@ const composer = (props, onData) => {
 			}
 		}
 	}), (students) => {
-		return {students: students.data};
+		return {students: students.data, studentsById: pluckArrayToObject(students.data, '_id')};
 	});
 
 	subsManager.ready((data, initial) => {

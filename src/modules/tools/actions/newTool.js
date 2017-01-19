@@ -11,11 +11,11 @@ export default {
 			.then(result => {
 				if (result._id) {
 					courseService.patch(tool.courseId, { $push: {ltiToolIds: result._id}}).then(result => {
-						window.location.href = '/tools/'
+						browserHistory.push("/courses/");
 					}).catch(err => {
 						Notification.showError(err.message);
 						return false;
-					})
+					});
 				}
 			})
 			.catch(err => {

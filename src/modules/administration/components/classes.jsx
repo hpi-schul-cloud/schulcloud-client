@@ -1,6 +1,9 @@
+import {
+	Input,
+	ReactSelect
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
 
 class SectionClasses extends AdminSection {
 
@@ -16,66 +19,22 @@ class SectionClasses extends AdminSection {
 			}
 		};
 
-		this.defaultRecord = {
-			name: '',
-			schoolId: this.props.school._id
-		};
-
 		this.actions = [
 			{
 				action: this.openModal.bind(this),
 				icon: 'edit'
 			},
 			{
-				action: this.removeRecord.bind(this),
+				action: this.props.actions.removeClass.bind(this),
 				icon: 'trash-o'
 			}
 		]
 	}
 
-	modalFormUI() {
-		const record = this.state.record;
-		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label htmlFor="">Name der Klasse *</label>
-					<input
-						type="text"
-						value={record.name}
-						className="form-control"
-						name="name"
-						placeholder="10a"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-
-				<div className="form-group">
-					<label htmlFor="">Klassenlehrer</label>
-					<select
-						value={record.teacherIds}
-						className="form-control"
-						name="teacherIds"
-						onChange={this.handleRecordChange.bind(this)}
-						required
-						multiple>
-						{this.props.teachers.map((r) => {
-							return (<option key={r._id} value={r._id}>{r.userName || r._id}</option>);
-						})}
-					</select>
-				</div>
-			</div>
-		);
-	}
-
-	removeRecord(record) {
-		this.props.actions.removeClass(record);
-	}
-
 	getTableHead() {
 		return [
-			'ID',
 			'Bezeichnung',
-			'Erstellt am',
+			'Lehrer',
 			''
 		];
 	}
@@ -83,12 +42,64 @@ class SectionClasses extends AdminSection {
 	getTableBody() {
 		return this.props.classes.map((c) => {
 			return [
-				c._id,
 				c.name,
-				c.createdAt,
+				c.teacherIds.map(id => (this.props.teachersById[id] || {}).lastName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});
+	}
+
+	getTeacherOptions() {
+		return this.props.teachers.map((r) => {
+			return {
+				label: r.lastName || r._id,
+				value: r._id
+			};
+		});
+	}
+
+	modalFormUI() {
+		const record = this.state.record;
+
+		return (
+			<div>
+				<Input
+					name="_id"
+					type="hidden"
+					layout="elementOnly"
+					value={this.state.record._id}
+				/>
+
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.school._id}
+				/>
+
+				<Input
+					label="Name der Klasse"
+					name="name"
+					type="text"
+					placeholder="10a"
+					layout="vertical"
+					value={record.name || ''}
+					required
+				/>
+
+				<ReactSelect
+					label="Klassenlehrer"
+					name="teacherIds"
+					type="text"
+					placeholder="Frau Musterfrau"
+					layout="vertical"
+					value={record.teacherIds || []}
+					multiple
+					options={this.getTeacherOptions()}
+					required
+				/>
+			</div>
+		);
 	}
 }
 

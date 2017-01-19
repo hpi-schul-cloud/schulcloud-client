@@ -1,0 +1,20 @@
+@import '../../core/styles/colors.scss';
+
+.table {
+	.table-actions {
+		display: inline-block;
+		white-space: nowrap;
+
+		a {
+			cursor: pointer;
+
+			i {
+				color: $colorHPIRed;
+			}
+		}
+
+		a + a {
+			margin-left:5px;
+		}
+	}
+}

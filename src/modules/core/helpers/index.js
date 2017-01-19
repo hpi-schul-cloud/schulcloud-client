@@ -5,6 +5,7 @@ import Server from './server';
 import Notification from './notification';
 import LTICustomer from './ltiCustomer';
 import s3Service from './s3Service';
+import Form from './form';
 
 export {
 	App,
@@ -13,5 +14,6 @@ export {
 	Server,
 	Notification,
 	LTICustomer,
-	s3Service
+	s3Service,
+	Form
 };

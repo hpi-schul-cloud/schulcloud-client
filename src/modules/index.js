@@ -3,6 +3,8 @@ import Core from './core';
 import Static from './static';
 import Login from './login';
 
+import Signup from './signup';
+
 import Base from './base';
 import Dashboard from './dashboard';
 import Content from './content';
@@ -14,6 +16,7 @@ import ActiveStudents from './active-students';
 import ErrorPage from './error-page';
 import Tools from './tools';
 import Administration from './administration';
+import Courses from './courses';
 
 export default {
 	Core,
@@ -29,5 +32,7 @@ export default {
 	Administration,
 	ErrorPage,
 	Tools,
-    Static
+    Static,
+	Signup,
+	Courses
 };

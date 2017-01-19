@@ -1,6 +1,8 @@
+import {
+	Input
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
 
 class SectionTeachers extends AdminSection {
 
@@ -12,13 +14,8 @@ class SectionTeachers extends AdminSection {
 			addLabel: 'Lehrer hinzufügen',
 			editLabel: 'Lehrer bearbeiten',
 			submitCallback: (data) => {
-				this.props.actions.updateTeacher(data);
+				this.props.actions.updateUser(data);
 			}
-		};
-
-		this.defaultRecord = {
-			userName: '',
-			roles: ['teacher']
 		};
 
 		this.actions = [
@@ -29,47 +26,11 @@ class SectionTeachers extends AdminSection {
 		]
 	}
 
-	modalFormUI() {
-		const record = this.state.record;
-		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label htmlFor="">Name *</label>
-					<input
-						type="text"
-						className="form-control"
-						name="userName"
-						value={record.userName}
-						placeholder="Herr Mustermann"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-
-				<div className="form-group">
-					<label htmlFor="">E-Mail *</label>
-					<input
-						type="email"
-						name="email"
-						value={record.email}
-						className="form-control"
-						placeholder="test@test.org"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-			</div>
-		);
-	}
-
-	removeRecord(record) {
-		this.props.actions.removeTeacher(record);
-	}
-
 	getTableHead() {
 		return [
-			'ID',
-			'Name',
+			'Vorname',
+			'Nachname',
 			'E-Mail-Adresse',
-			'Erstellt am',
 			''
 		];
 	}
@@ -77,13 +38,72 @@ class SectionTeachers extends AdminSection {
 	getTableBody() {
 		return this.props.teachers.map((record) => {
 			return [
-				record._id,
-				record.userName,
+				record.firstName,
+				record.lastName,
 				record.email,
-				record.createdAt,
 				this.getTableActions(this.actions, record)
 			];
 		});
+	}
+
+	modalFormUI() {
+		const record = this.state.record;
+		return (
+			<div>
+				<Input
+					name="_id"
+					type="hidden"
+					layout="elementOnly"
+					value={this.state.record._id}
+				/>
+
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.school._id}
+				/>
+
+				<Input
+					name="roles"
+					type="hidden"
+					layout="elementOnly"
+					value={["teacher"]}
+				/>
+
+				<Input
+					label="Vorname"
+					name="firstName"
+					type="text"
+					placeholder="Max"
+					layout="vertical"
+					value={record.firstName || ''}
+					required
+				/>
+
+				<Input
+					label="Nachname"
+					name="lastName"
+					type="text"
+					placeholder="Mustermann"
+					layout="vertical"
+					value={record.lastName || ''}
+					required
+				/>
+
+				<Input
+					label="E-Mail-Adresse"
+					name="email"
+					type="email"
+					validations="isEmail"
+					placeholder="test@test.org"
+					validationError="This is not an email"
+					layout="vertical"
+					value={record.email || ''}
+					required
+				/>
+			</div>
+		);
 	}
 
 }
