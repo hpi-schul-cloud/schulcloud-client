@@ -14,12 +14,12 @@ import { Server } from '../../core/helpers';
 
 function composer(props, onData) {
 	// admin, teacher, student, student-sso TODO: make secure
-	const role = props.params.role;
+	const isSSO = props.params.role.includes('-sso');
+	const role = props.params.role.replace('-sso', '');
 
 	let accountId = props.params.accountId;
 	let schoolId = props.params.schoolId;
 
-	const isSSO = (role === 'student-sso');
 	if(isSSO && !accountId) throw new Error('accountId has to be set if you want to use SSO.');
 
 	const componentData = Object.assign({
@@ -30,6 +30,7 @@ function composer(props, onData) {
 		accountId,
 		onSignup: (data) => {
 			actions.signupUser(data, data.accountId).then((account) => {
+				console.log(account);
 				return actions.finishSetup(account.userId);
 			}).then(() => {
 				browserHistory.push('/login/');

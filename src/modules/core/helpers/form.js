@@ -56,6 +56,10 @@ const ReactSelect = React.createClass({
 	}
 });
 
+const validators = {
+	password: /^(?=.?[A-Z])(?=.?[a-z])(?=.?[0-9])(?=.?[^\w\s]).{8,}$/
+};
+
 export {
 	Checkbox,
 	CheckboxGroup,
@@ -73,6 +77,7 @@ export {
 const Form = Formsy.Form;
 export {
 	Form,
-	ReactSelect
+	ReactSelect,
+	validators
 };
 

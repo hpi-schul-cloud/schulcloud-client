@@ -1,6 +1,7 @@
 import {
 	Input,
-	Form
+	Form,
+	validators
 } from '../../core/helpers/form';
 import Layout from '../../core/components/layout';
 
@@ -94,15 +95,30 @@ class Signup extends React.Component {
 		);
 	}
 
-	getAccountNoteUI() {
+	getPasswordFieldUI() {
 		if(this.props.isSSO) return;
 
 		return (
-			<div>
-				<p>Du erhältst von uns nach Abschluss Deiner Registrierung
-					eine E-Mail mit Deinen Anmeldedaten (Nutzername und Passwort).</p>
-
-				<p>Dein Passwort kannst Du danach jederzeit ändern.</p>
+			<div className="row">
+				<div className="col-md-12">
+					<Input
+						label="Passwort"
+						name="password"
+						type="password"
+						layout="vertical"
+						validations={{
+							matchRegexp: validators.password
+						}}
+						validationError="Ihr Passwort stimmt nicht mit den Anforderungen überein"
+						required
+					/>
+					<p className="text-muted">Ihr Passwort muss folgendes enthalten:</p>
+					<ul className="text-muted">
+						<li>Mindestens 8 Zeichen</li>
+						<li>Groß- und Kleinschreibung</li>
+						<li>Mindestens eine Zahl und Sonderzeichen</li>
+					</ul>
+				</div>
 			</div>
 		);
 	}
@@ -122,7 +138,7 @@ class Signup extends React.Component {
 								{this.getSharedFieldsUI()}
 								{this.getAdminFieldsUI()}
 
-								{this.getAccountNoteUI()}
+								{this.getPasswordFieldUI()}
 
 								<button className="btn btn-success" type="submit">Abschließen</button>
 							</Form>
