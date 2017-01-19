@@ -25,7 +25,7 @@ class ToolCard extends React.Component {
 						: <img className="card-img-top" src="/images/cloud.png" alt="Card image cap"/>
 					}
 					<div className="card-block">
-						<h4 className="card-title">{tool.name}</h4>
+						<p className="card-title">{tool.name}</p>
 					</div>
 				</div>
 			</Link>

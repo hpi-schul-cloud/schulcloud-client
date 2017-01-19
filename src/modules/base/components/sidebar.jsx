@@ -30,9 +30,9 @@ class Sidebar extends React.Component {
 			icon: 'child',
 			to: '/active/'
 		},{
-			name: 'Tools',
-			icon: 'cubes',
-			to: '/tools/'
+			name: 'Kurse',
+			icon: 'graduation-cap',
+			to: '/courses/'
 		},{
 			name: 'Einstellungen',
 			icon: 'gears',
