@@ -1,8 +1,10 @@
+@import '../../core/styles/colors.scss';
+
 .rc-select {
 	box-sizing: border-box;
 	display: inline-block;
 	position: relative;
-	vertical-align: middle;
+	vertical-align: top;
 	color: #666;
 	line-height: 28px;
 }
@@ -57,16 +59,15 @@
 	color: #aaa;
 }
 .rc-select-focused .rc-select-selection {
-	border-color: #b10438;
-	background-color: #b10438;
+	border-color: $colorHPIRed;
+	background-color: $colorHPIRed;
 	color: #fff;
 }
 .rc-select-enabled .rc-select-selection:hover {
-	border-color: #23c0fa;
-	box-shadow: 0 0 2px rgba(45, 183, 245, 0.8);
+	background-color: #7f0328;
 }
 .rc-select-enabled .rc-select-selection:active {
-	border-color: #2db7f5;
+	background-color: #7f0328;
 }
 .rc-select-selection--single {
 	height: 28px;
