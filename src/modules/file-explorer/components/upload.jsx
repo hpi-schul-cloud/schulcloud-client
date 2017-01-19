@@ -23,19 +23,18 @@ class Memory extends React.Component {
 	}
 
 	_onDrop(files) {
-
-		for(var i = 0; i<files.length; i++) {
-			var signedUrl = s3Service.geturl(files[i].name, files[i].type, "users");
-			console.log(signedUrl);
-			var options = {
-				headers: {
-					'Content-Type': files[i].type,
-					'Access-Control-Allow-Origin': '*'
-				}
-			};
-
-			axios.put(signedUrl, files[i], options);
-		}
+		files.forEach((file) => {
+			s3Service.geturl(file.name, file.type, "users")
+				.then((signedUrl) => {
+					var options = {
+						headers: {
+							'Content-Type': file.type,
+							'Access-Control-Allow-Origin': '*'
+						}
+					};
+					axios.put(signedUrl, file, options);
+				});
+		});
 	}
 
 	render() {

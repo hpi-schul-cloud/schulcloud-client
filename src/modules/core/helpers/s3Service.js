@@ -10,8 +10,6 @@ class s3Service {
 		const s3SignedUrl = Server.service('/fileStorage/signedUrl');
 		const currentUser = Server.get('user');
 
-		console.log(s3SignedUrl);
-
 		path = path + '/' + currentUser._id;
 
 		var data = {
@@ -22,7 +20,10 @@ class s3Service {
 
 		return s3SignedUrl.create(data)
 			.then((response) => {
-				console.log(response);
+				return response;
+			})
+			.catch((error) => {
+				console.log(error);
 			});
 		//return s3SignedUrl.create(data);
 	}
