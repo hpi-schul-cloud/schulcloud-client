@@ -41,7 +41,6 @@ class SectionCourses extends AdminSection {
 	loadContent(page, itemsPerPage) {
 		this.props.actions.getCourses({$skip: (page - 1) * itemsPerPage, $limit: itemsPerPage})
 			.then((result) => {
-				console.log('Fetched ', result);
 				const numberOfPages = Math.ceil(result.pagination.total / this.state.itemsPerPage);
 				this.setState({courses: result.courses, numberOfPages});
 			});

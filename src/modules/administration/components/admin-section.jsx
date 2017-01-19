@@ -29,6 +29,9 @@ class AdminSection extends React.Component {
 		this.updateAction = this.props.actions.getCourses;
 	}
 
+	contentQuery() {
+		throw new TypeError("contentQuery() has to be implemented by AdminSection subclasses.");
+	}
 	modalFormUI(record) {
 		throw new Error("modalFormUI() has to be implemented by AdminSection.");
 	}
@@ -83,8 +86,14 @@ class AdminSection extends React.Component {
 		this.loadContent(1, itemsPerPage);
 	}
 
-	loadContent() {
-		throw new TypeError('loadContent must be implemented by subclasses');
+	loadContent(page, itemsPerPage) {
+		const paginationOptions = {$skip: (page - 1) * itemsPerPage, $limit: itemsPerPage};
+		const query = Object.assign({}, paginationOptions, this.contentQuery());
+		this.props.actions.loadContent(query)
+			.then((result) => {
+				const numberOfPages = Math.ceil(result.pagination.total / this.state.itemsPerPage);
+				this.setState({courses: result.courses, numberOfPages});
+			});
 	}
 	onPageChange(page) {
 		this.loadContent(page, this.state.itemsPerPage);

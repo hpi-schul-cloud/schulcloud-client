@@ -75,7 +75,7 @@ const composer = (props, onData) => {
 	});
 
 	subsManager.addSubscription(userService.find({
-		query: {roles: ['student']},   // TODO: no _id
+		query: {roles: ['student']},
 		rx: {
 			listStrategy: 'always',
 			idField: '_id',
