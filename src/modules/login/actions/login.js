@@ -34,10 +34,16 @@ function mapFromArray(array, indexedByProperty) {
 export default {
 	login: ({schoolId, systemId, password, username}) => {
 		const query = {username};
-		if(systemId) query.systemId = systemId;
+
+		if(systemId) {
+			query.systemId = systemId;
+		} else {
+			query.systemId = {"$exists": false};
+		}
 
 		// check if account already exists
 		return accountService.find({query}).then((result) => {
+
 			// account exists => login with _id from account
 			if(result.length) {
 				// we can't just use account to login as it has hashed password
