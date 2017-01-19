@@ -23,7 +23,7 @@ class SectionStudents extends AdminSection {
 				action: this.openModal.bind(this),
 				icon: 'edit'
 			}
-		]
+		];
 	}
 
 	getTableHead() {

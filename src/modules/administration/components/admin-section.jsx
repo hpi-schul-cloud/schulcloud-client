@@ -1,4 +1,8 @@
 import ReactDOM from 'react-dom';
+import Pagination from 'rc-pagination';
+import Select from 'rc-select';
+import '../styles/rc-pagination.scss';
+import '../styles/rc-select.scss';
 
 import ModalForm from './modal-form';
 import Table from './table';
@@ -71,6 +75,15 @@ class AdminSection extends React.Component {
 		);
 	}
 
+	onPageSizeChange(currentPage, pageSize) {
+		console.log(current);
+		console.log(pageSize);
+	}
+
+	onPageChange(page) {
+		console.log(page);
+	}
+
 	render() {
 		return (
 			<section className="section-courses section-default">
@@ -80,13 +93,22 @@ class AdminSection extends React.Component {
 							<h5>{this.options.title}</h5>
 
 							<Table head={this.getTableHead()} body={this.getTableBody()} />
+							<Pagination
+								selectComponentClass={Select}
+								locale={require('rc-pagination/lib/locale/en_US')}
+								showSizeChanger
+								defaultPageSize={20}
+								defaultCurrent={1}
+								onShowSizeChange={this.onPageSizeChange.bind(this)}
+								onPageChange={this.onPageChange.bind(this)}
+								total={450}
+							/>
 							<button type="submit" className="btn btn-primary" onClick={this.openModal.bind(this, this.defaultRecord)}>
 								{this.options.addLabel}
 							</button>
 						</div>
 					</div>
 				</div>
-
 				{this.modalUI()}
 			</section>
 		);
