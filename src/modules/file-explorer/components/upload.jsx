@@ -25,7 +25,7 @@ class Memory extends React.Component {
 	_onDrop(files) {
 
 		for(var i = 0; i<files.length; i++) {
-			var signedUrl = s3Service.geturl(files[i].name, files[i].type);
+			var signedUrl = s3Service.geturl(files[i].name, files[i].type, "users");
 			console.log(signedUrl);
 			var options = {
 				headers: {

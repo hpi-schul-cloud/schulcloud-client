@@ -11,7 +11,8 @@ class Files extends React.Component {
 
 	/* Mock data */
 	getData() {
-		return [{
+	return [
+		 {
 			name: 'Aufgabe1.docx',
 			type: 'Word-Dokument',
 			thumbnail: 'https://vebu.de/wp-content/uploads/2015/12/beitragsbild_690x460_bienen_industriell-690x460.jpg'
@@ -31,7 +32,6 @@ class Files extends React.Component {
 	getFilesUI() {
 		return (
 		<div>
-
 		{this.getData.bind(this)().map((file) => {
 			return (
 				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name}>
