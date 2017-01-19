@@ -4,12 +4,13 @@ class s3Service {
 	constructor() {}
 
 
-	s3upload(filename, filetype){
+	geturl(filename, filetype){
 
-		console.log(filename, filetype);
 		var config = new aws.Config({
-			accessKeyId: "1234",
-			secretAccessKey: "1234",
+			signatureVersion: "v4",
+			s3ForcePathStyle: true,
+			accessKeyId: "schulcloud",
+			secretAccessKey: "schulcloud",
 			region: "eu-west-1",
 			endpoint: new aws.Endpoint("http://service.langl.eu:3000")
 		});
@@ -17,27 +18,35 @@ class s3Service {
 		var s3 = new aws.S3(config);
 
 		var params = {
-			Bucket: 'Bucket',
+			Bucket: 'bucket-test2',
 			Key: filename,
 			Expires: 60,
 			ContentType: filetype
 			};
 
-		s3.createBucket({ Bucket: 'test' }, function(err, data) {
-			if (err) {
-				console.log("Error", err);
-			} else {
-				console.log("Success", data.Location);
-			}
+
+		return s3.getSignedUrl('putObject', params);
+	}
+	getList(){
+		var config = new aws.Config({
+			accessKeyId: "schulcloud",
+			secretAccessKey: "schulcloud",
+			region: "eu-west-1",
+			endpoint: new aws.Endpoint("http://service.langl.eu:3000")
 		});
 
+		var s3 = new aws.S3(config);
 
-		s3.getSignedUrl('putObject', params, function(err, data) {
+		var params = {
+			Bucket: 'bucket-test2'
+		};
+
+
+
+		s3.listObjects(params, function(err, data) {
 			if (err) {
-				console.log(err);
-				return err;
+				console.log(err, err.stack);
 			} else {
-				console.log('The URL is', data);
 				return data;
 			}
 		});

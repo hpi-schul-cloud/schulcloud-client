@@ -1,11 +1,11 @@
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import React from 'react';
 import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import axios from 'axios';
-import { s3Service } from '../../core/helpers';
-import { Server } from '../../core/helpers';
-const signesURLservice
+import {s3Service} from '../../core/helpers';
+import {Server} from '../../core/helpers';
+/*const signesURLservice;*/
 
 require('../styles/upload.scss');
 
@@ -23,32 +23,20 @@ class Memory extends React.Component {
 	}
 
 	_onDrop(files) {
-		var file = files[0];
 
-		console.log(file);
-		axios.get(ENDPOINT_TO_GET_SIGNED_URL, {
-			filename: file.name,
-			filetype: file.type
-		})
-			.then(function (result) {
-				var signedUrl = result.data.signedUrl;
+		for(var i = 0; i<files.length; i++) {
+			var signedUrl = s3Service.geturl(files[i].name, files[i].type);
+			console.log(signedUrl);
+			var options = {
+				headers: {
+					'Content-Type': files[i].type,
+					'Access-Control-Allow-Origin': '*'
+				}
+			};
 
-				var options = {
-					headers: {
-						'Content-Type': file.type
-					}
-				};
-
-				return axios.put(signedUrl, file, options);
-			})
-			.then(function (result) {
-				console.log(result);
-			})
-			.catch(function (err) {
-				console.log(err);
-			});
+			axios.put(signedUrl, files[i], options);
 		}
-
+	}
 
 	render() {
 		return (
@@ -56,9 +44,9 @@ class Memory extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<Dropzone className="drop-zone"
-							onDrop={ this._onDrop }
-							maxSize={10000000}>
-							<span><i className="fa fa-cloud-upload" /> Dateien zum Hochladen ablegen.</span>
+								  onDrop={ this._onDrop }
+								  maxSize={1024 * 1024 * 1000}>
+							<span><i className="fa fa-cloud-upload"/> Dateien zum Hochladen ablegen.</span>
 						</Dropzone>
 					</div>
 				</div>
