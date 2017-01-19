@@ -5,6 +5,28 @@ import { Server, Notification } from '../../core/helpers';
 const accountService = Server.service('/accounts');
 const userService = Server.service('/users');
 
+const afterSignupUserRegular = (user, data) => {
+	data.userId = user._id;
+	data.username = user.email;
+
+	return accountService.create(data).then(() => {
+		return Server.authenticateUser({
+			strategy: 'local',
+			username: data.username,
+			password: data.password,
+			storage: window.localStorage
+		});
+	});
+};
+
+const afterSignupUserSSO = (user, {accountId}) => {
+	return accountService.patch(accountId, {
+		userId: user._id
+	}).then(() => {
+		return Server.authenticateUser();
+	});
+};
+
 export default {
 	signupAccount(data) {
 		return accountService.create(data);
@@ -13,17 +35,10 @@ export default {
 	signupUser(data, accountId) {
 		return userService.create(data).then((user) => {
 			if(accountId) {
-				// use sso account
-				return accountService.patch(accountId, {
-					userId: user._id
-				});
+				return afterSignupUserSSO(user, {accountId});
 			} else {
-				// create schulcloud account
-				data.userId = user._id;
-				return accountService.create(data);
+				return afterSignupUserRegular(user, data);
 			}
-		}).then(() => {
-			return Server.authenticateUser();
 		});
 	},
 

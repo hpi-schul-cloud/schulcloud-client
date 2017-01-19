@@ -6,10 +6,8 @@ class LoginForm extends React.Component {
 		super(props);
 
 		this.state = {
-			email: '',
-			password: '',
-			systemId: '0000d186816abba584714c92'	// the id of the 'local' system.
-			// TODO: replace with placeholder value, e.g. 'schul-cloud', to be replaced in a hook
+			username: '',
+			password: ''
 		};
 	}
 
@@ -27,7 +25,7 @@ class LoginForm extends React.Component {
 
 	handleLogin(e) {
 		this.props.onLogin({
-			email: this.state.email,
+			username: this.state.username,
 			password: this.state.password,
 			schoolId: this.state.schoolId || undefined,
 			systemId: this.state.systemId || undefined,
@@ -36,13 +34,15 @@ class LoginForm extends React.Component {
 
 
 	hasValidSystem() {
-		return this.state.systemId != null;
+		// TODO: make work with local
+		return true;
+		//return this.state.systemId != null;
 	}
 
 	render() {
 		return (
 			<div className="form-group">
-				<input type="text" className="form-control form-control-lg" placeholder="Email" onChange={this.handleFieldChange.bind(this, 'email')} />
+				<input type="text" className="form-control form-control-lg" placeholder="Email-Adresse oder Nutzername" onChange={this.handleFieldChange.bind(this, 'username')} />
 				<input type="password" className="form-control form-control-lg" placeholder="Passwort" onChange={this.handleFieldChange.bind(this, 'password')} />
 				<SystemSelector {...this.props}
 								onChangeSchoolId={this.handleValueChange.bind(this, 'schoolId')}

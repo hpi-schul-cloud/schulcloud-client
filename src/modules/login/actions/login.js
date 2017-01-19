@@ -32,25 +32,26 @@ function mapFromArray(array, indexedByProperty) {
 }
 
 export default {
-	login: ({username, schoolId, systemId, password, email}) => {
-		if(!username) username = email;
+	login: ({schoolId, systemId, password, username}) => {
+		const query = {username};
+		if(systemId) query.systemId = systemId;
 
 		// check if account already exists
-		return accountService.find({query: {username, systemId}}).then((result) => {
+		return accountService.find({query}).then((result) => {
 			// account exists => login with _id from account
-			if(result.data.length) {
+			if(result.length) {
 				// we can't just use account to login as it has hashed password
 				return authenticate({username, password});
 			} else {
-				// account exists not => signup Account
-				return signupActions.signupAccount({username, schoolId, systemId, password})
-					.then((account) => {
-						console.log(account);
+				// account exists not => create SSO Account
+				if(!systemId) return new Error('Account not found');
 
+				return signupActions.signupAccount({username, schoolId, systemId, password})
+					.then(() => {
 						return authenticate({username, password});
 					}).catch(() => {
 						// account credentials not valid
-						return new Error('Could not create new account for this credentials.');
+						return new Error('Could not create new SSO account for this credentials.');
 					});
 			}
 		});
