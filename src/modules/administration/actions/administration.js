@@ -15,26 +15,19 @@ const indexArrayByKey = (array, key) => {
 };
 
 export default {
-	getCourses: options => {
-		const currentUser = Server.get('user');
-		const schoolId = currentUser.schoolId;
-		return courseService.find({query: Object.assign({}, {schoolId}, options)})
-			.then((result) => {
+
+	loadContent: (serviceName, query) => {
+		const service = Server.service(serviceName);
+		return service.find({query})
+			.then(result => {
 				return Promise.resolve({
-					courses: result.data,
-					coursesById: indexArrayByKey(result.data, '_id'),
+					records: result.data,
+					//coursesById: indexArrayByKey(result.data, '_id'),
 					pagination: {total: result.total, skip: result.skip}
 				});
-			});
-	},
-
-	getClasses: options => {
-		const currentUser = Server.get('user');
-		const schoolId = currentUser.schoolId;
-		classService.find({query: {schoolId: schoolId}}).then((classes) => {
-			return Promise.resolve({classes: classes.data, classesById: indexArrayByKey(classes.data, '_id')});
 		});
 	},
+
 	updateSchool: (data) => {
 		if(data._id) return schoolService.patch(data._id, data);
 

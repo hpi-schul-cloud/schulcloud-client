@@ -28,7 +28,17 @@ class SectionClasses extends AdminSection {
 				action: this.props.actions.removeClass.bind(this),
 				icon: 'trash-o'
 			}
-		]
+		];
+
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/classes');
+	}
+
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			$populate: ['teacherIds']
+		};
 	}
 
 	getTableHead() {
@@ -40,10 +50,10 @@ class SectionClasses extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.props.classes.map((c) => {
+		return this.state.records.map((c) => {
 			return [
 				c.name,
-				c.teacherIds.map(id => (this.props.teachersById[id] || {}).lastName).join(', '),
+				c.teacherIds.map(teacher => teacher.lastName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});

@@ -23,7 +23,18 @@ class SectionTeachers extends AdminSection {
 				action: this.openModal.bind(this),
 				icon: 'edit'
 			}
-		]
+		];
+
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/users');
+	}
+
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			roles: ['teacher'],
+			$populate: ['roles']
+		};
 	}
 
 	getTableHead() {
@@ -36,7 +47,7 @@ class SectionTeachers extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.props.teachers.map((record) => {
+		return this.state.records.map((record) => {
 			return [
 				record.firstName,
 				record.lastName,

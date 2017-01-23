@@ -24,6 +24,16 @@ class SectionStudents extends AdminSection {
 				icon: 'edit'
 			}
 		];
+
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/users');
+	}
+
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			roles: ['student']
+		};
 	}
 
 	getTableHead() {
@@ -36,7 +46,7 @@ class SectionStudents extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.props.students.map((record) => {
+		return this.state.records.map((record) => {
 			return [
 				record.firstName,
 				record.lastName,

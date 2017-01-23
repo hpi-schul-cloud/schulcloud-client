@@ -21,17 +21,24 @@ class AdminSection extends React.Component {
 
 		this.state = {
 			record: {},
-			numberOfPages: 42,
+			records: [],
+			numberOfPages: 1,
 			itemsPerPage: 10,
 		};
 
 		this.defaultRecord = {};
-		this.updateAction = this.props.actions.getCourses;
+		this.loadContentFromServer = null;
 	}
 
+	componentDidMount() {
+		this.loadContent(1, this.state.itemsPerPage);
+	}
+
+	// return the query passed to actions.loadContent along with pagination options, e.g. {schoolId: 123456}
 	contentQuery() {
 		throw new TypeError("contentQuery() has to be implemented by AdminSection subclasses.");
 	}
+
 	modalFormUI(record) {
 		throw new Error("modalFormUI() has to be implemented by AdminSection.");
 	}
@@ -73,7 +80,9 @@ class AdminSection extends React.Component {
 							key={index}
 							className={action.class}
 							onClick={action.action.bind(this, record)}>
-							<i className={`fa fa-${action.icon}`} />
+							<button className={`btn btn-default btn-sm`}>
+								<i className={`fa fa-${action.icon}`} />
+							</button>
 						</a>
 					);
 				})}
@@ -89,17 +98,20 @@ class AdminSection extends React.Component {
 	loadContent(page, itemsPerPage) {
 		const paginationOptions = {$skip: (page - 1) * itemsPerPage, $limit: itemsPerPage};
 		const query = Object.assign({}, paginationOptions, this.contentQuery());
-		this.props.actions.loadContent(query)
+		this.loadContentFromServer(query)
 			.then((result) => {
 				const numberOfPages = Math.ceil(result.pagination.total / this.state.itemsPerPage);
-				this.setState({courses: result.courses, numberOfPages});
+				Object.assign(result, {numberOfPages});
+				this.setState(result);
 			});
 	}
+
 	onPageChange(page) {
 		this.loadContent(page, this.state.itemsPerPage);
 	}
 
 	getPaginationControl() {
+		//if (this.state.numberOfPages < 2) return null;
 		return (<Pagination
 			selectComponentClass={Select}
 			locale={require('rc-pagination/lib/locale/en_US')}
@@ -109,7 +121,7 @@ class AdminSection extends React.Component {
 			onShowSizeChange={this.onPageSizeChange.bind(this)}
 			onChange={this.onPageChange.bind(this)}
 			total={this.state.numberOfPages}
-		/>)
+		/>);
 	}
 
 	render() {

@@ -27,23 +27,19 @@ class SectionCourses extends AdminSection {
 			},
 			{
 				action: this.props.actions.removeCourse.bind(this),
-				icon: 'trash-o'
+				icon: 'trash'
 			}
 		];
 
-		Object.assign(this.state, this.state, {courses: []});
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/courses');
 	}
 
-	componentDidMount() {
-		this.loadContent(1, this.state.itemsPerPage);
-	}
-
-	loadContent(page, itemsPerPage) {
-		this.props.actions.getCourses({$skip: (page - 1) * itemsPerPage, $limit: itemsPerPage})
-			.then((result) => {
-				const numberOfPages = Math.ceil(result.pagination.total / this.state.itemsPerPage);
-				this.setState({courses: result.courses, numberOfPages});
-			});
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			$populate: ['classId', 'teacherIds']
+		};
 	}
 
 	getTableHead() {
@@ -56,17 +52,17 @@ class SectionCourses extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.state.courses.map((c) => {
+		return this.state.records.map((c) => {
 			return [
 				c.name,
-				(c.classIds || []).map(id => this.props.classesById[id].name).join(', '),
-				c.teacherIds.map(id => (this.props.teachersById[id] || {}).lastName).join(', '),
+				(c.classIds || []).map(cl => cl.name).join(', '),
+				c.teacherIds.map(teacher => teacher.lastName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});
 	}
 
-	getTeacherOptions() {
+	getTeacherOptions() {		// TODO: don't load them twice (once in the composer and once for their page)
 		return this.props.teachers.map((r) => {
 			return {
 				label: r.lastName || r._id,
