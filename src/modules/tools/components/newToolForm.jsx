@@ -111,28 +111,28 @@ class NewToolForm extends React.Component {
 					name="courseId"
 					type="text"
 					options={this.getCourseOptions()}
+					layout="vertical"
 					value={this.state.tool.courseId}>
 				</Select>
-			 	<br></br>
 				<Input
 					label="Name"
 					type="text"
 					name="name"
+					layout="vertical"
 					value={this.state.tool.name} />
-				<br></br>
 				<Input
 					label="Logo"
 					type="text"
 					name="logo_url"
+					layout="vertical"
 					value={this.state.tool.logo_url} />
-				 <br></br>
 				<Select
 					label="Privatsphäre"
 					name="privacy_permission"
 					value={this.state.tool.privacy_permission}
+					layout="vertical"
 					options={this.getPrivacyOptions()}>
 				</Select>
-				<br></br>
 				<div className="custom-fields">
 					Sonstige Einstellungen:
 					{ this.renderCustomFields() } <br></br>
