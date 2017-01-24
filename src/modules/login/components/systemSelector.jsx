@@ -1,115 +1,114 @@
+import {
+	ReactSelect
+} from '../../core/helpers/form';
+
 class SystemSelector extends React.Component {
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			showSchoolsAndSystems: false,
+			showSelectors: false,
+			schools: [],
+			systems: []
 		};
 	}
 
-	handleSystemSelection(systemId) {
-		this.props.onChangeSystemId(systemId);	// notify the parent of relevant changes (whether the user did select a valid system)
+	showSchoolSystemSelectors() {
+		this.setState({showSelectors: true});
+		this.loadSchools();
 	}
 
-	showSchoolSystemSelectors() {
-		this.setState({showSchoolsAndSystems: true});
-		this.handleSystemSelection(null);
+	loadSchools() {
 		this.props.actions.loadSchools()
 			.then(schools => this.setState({schools}))
-			.catch(e => console.log(e));
+			.catch(e => console.error(e));
 	}
 
-	didSelectSchool(event) {
-		const schoolId = event.target.value;
-		this.props.onChangeSchoolId(schoolId);
-		if(!schoolId) return;
-		this.setState({
-			schoolId: schoolId,
-			systems: []		// pending reload
-		});
+	loadSystems(schoolId) {
+		if(!schoolId) {
+			this.setState({systems: []});
+			return;
+		}
 
-		const school = this.state.schools[schoolId];
-
-		this.loadSystems(school);
-	}
-
-	loadSystems(school) {
-		this.props.actions.loadSystems(school)
-			.then(systems => {
-				let state = {systems};
-				if (systems.length === 1) {
-					state['systemId'] = systems[0];	// automatically select the only system
-					this.handleSystemSelection(systems[0]._id);
-				}
-				this.setState(state);
-			})
-			.catch(e => console.log(e));
-	}
-
-	didSelectSystem(event) {
-		let systemId = event.target.value;
-		this.setState({systemId});
-		this.handleSystemSelection(systemId);
+		const selectedSchool = this.state.schools[schoolId];
+		this.props.actions.loadSystems(selectedSchool)
+			.then(systems => this.setState({systems}))
+			.catch(e => console.error(e));
 	}
 
 	getSchoolsUI() {
-		if(!this.state.schools) return null;
+		let schools = Object.values(this.state.schools) || [];
+		if(!schools.length) return;
+
+		schools = schools.map(school => ({
+			label: school.name,
+			value: school._id
+		}));
 
 		return (
-			<select className="custom-select form-control" onChange={this.didSelectSchool.bind(this)} key="schoolSelector">
-				<optgroup label="Schule">
-					<option hidden>Schule auswählen</option>
-					{Object.values(this.state.schools).map((school) => {
-						return (<option key={school._id} value={school._id}>{school.name}</option>);
-					})}
-				</optgroup>
-			</select>
+			<ReactSelect
+				name="schoolId"
+				placeholder="Schule"
+				type="text"
+				layout="elementOnly"
+				options={schools}
+				value=""
+				className="select"
+				onChange={this.loadSystems.bind(this)}
+				required
+			/>
 		);
 	}
 
 	getSystemsUI() {
-		if(!this.state.systems) return '';
-		const systems = this.state.systems || [];
-		if (systems.length == 1 && this.state.system) {
-			const system = this.state.system;
-			return (
-				<select className="custom-select form-control" value={system._id} readOnly="readOnly" key="systemSelectorStatic">
-					<optgroup label="System">
-						<option key={system._id} value={system._id} className="system-option">{system.type}</option>
-					</optgroup>
-				</select>
-			);
-		}
-		if (systems.length < 2) return null;
-		return (
-			<select className="custom-select form-control system-select" onChange={this.didSelectSystem.bind(this)} key="systemSelector">
-				<optgroup label="System">
-					<option hidden>System auswählen</option>
-					{systems.map((system) => {
-						return (<option key={system._id} value={system._id}>{system.type}</option>);
-					})}
-				</optgroup>
-			</select>
-		);
-	}
+		let systems = Object.values(this.state.systems) || [];
+		if(!systems.length) return;
 
-	showSelectors() {
-		if(this.state.showSchoolsAndSystems) {
-			return [
-				this.getSchoolsUI(),
-				this.getSystemsUI()
-			];
+		systems = systems.map(system => ({
+			label: system.type,
+			value: system._id
+		}));
+
+		let selectedSystem;
+		if (systems.length == 1) {
+			selectedSystem = systems[0].value;
 		}
+
+		return (
+			<ReactSelect
+				name="systemId"
+				type="text"
+				placeholder="System"
+				layout="elementOnly"
+				options={systems}
+				value={selectedSystem}
+				className="select"
+				required
+				disabled={!!selectedSystem}
+			/>
+		);
 	}
 
 	render() {
-		return (
-			<div className="form-group">
-				{this.showSelectors()}
-				{ (this.state.showSchoolsAndSystems) ? null : <button className="btn btn-secondary btn-block" onClick={this.showSchoolSystemSelectors.bind(this)}>Mit anderem System anmelden</button> }
-			</div>
-		);
+		if(this.state.showSelectors) {
+			return (
+				<div>
+					{this.getSchoolsUI()}
+					{this.getSystemsUI()}
+				</div>
+			);
+		} else {
+			return (
+				<button
+					type="button"
+					className="btn btn-secondary btn-block"
+					onClick={this.showSchoolSystemSelectors.bind(this)}
+				>
+					Mit anderem System anmelden
+				</button>
+			)
+		}
 	}
 
 }
