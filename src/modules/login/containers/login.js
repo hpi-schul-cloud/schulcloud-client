@@ -5,7 +5,7 @@ import {compose} from 'react-komposer';
 import component from '../components/login';
 import actions from '../actions/login';
 
-import { Server } from '../../core/helpers';
+import { Server, Notification } from '../../core/helpers';
 
 const schoolService = Server.service('/schools');
 const systemService = Server.service('/systems');
@@ -53,15 +53,13 @@ function composer(props, onData) {
 						// if userId this means account has connected user
 						if(result.userId) {
 							return browserHistory.push('/dashboard/');
-
 						} else if(result.accountId) {
-							// if only account id
-							// TODO: schoolId instead of school in login form
 							return browserHistory.push(`/signup/student-sso/${data.schoolId}/${result.accountId}/`);
-
 						} else {
-							throw new Error('Wrong credentials');
+							throw new Error('Wrong credentials.');
 						}
+					}).catch((e) => {
+						Notification.showError(e.message);
 					});
 				}
 			};
