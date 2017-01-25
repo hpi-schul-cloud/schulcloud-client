@@ -1,56 +1,37 @@
 import { Permissions, Server } from '../../core/helpers/';
 
-var aws = require('aws-sdk');
-//const s3Service = Server.service('/fileStorage');
-
 class s3Service {
 	constructor() {}
 
-	geturl(filename, filetype, path){
+	getUrl(fileName, fileType, storageContext) {
 		const s3SignedUrl = Server.service('/fileStorage/signedUrl');
-		const currentUser = Server.get('user');
-
-		path = path + '/' + currentUser._id;
 
 		var data = {
-			storageContext: path,
-			fileName: filename,
-			fileType: filetype
+			storageContext: storageContext,
+			fileName: fileName,
+			fileType: fileType
 		};
 
 		return s3SignedUrl.create(data)
-			.then((response) => {
-				return response;
+			.then((res) => {
+				return res;
 			})
-			.catch((error) => {
-				console.log(error);
+			.catch((err) => {
+				Notification.showError(err.message);
 			});
-		//return s3SignedUrl.create(data);
 	}
-	getList(){
-		var config = new aws.Config({
-			signatureVersion: "v4",
-			s3ForcePathStyle: true,
-			accessKeyId: "schulcloud",
-			secretAccessKey: "schulcloud",
-			region: "eu-west-1",
-			endpoint: new aws.Endpoint("http://service.langl.eu:3000")
-		});
 
-		var s3 = new aws.S3(config);
-
-		var params = {
-			Bucket: 'bucket-test2'
-		};
-
-
-
-		s3.listObjects(params, function(err, data) {
-			if (err) {
-				console.log(err, err.stack);
-			} else {
-				return data;
+	getFileList(storageContext) {
+		const fileStorageService = Server.service('/fileStorage');
+		const currentUser = Server.get('user');
+		return fileStorageService.find({
+			query: {
+				storageContext: storageContext
 			}
+		}).then(res => {
+			return res;
+		}).catch(err => {
+			Notification.showError(err.message);
 		});
 	}
 }

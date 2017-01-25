@@ -1,5 +1,4 @@
 require('../styles/files.scss');
-import { s3Service } from '../../core/helpers';
 
 class Files extends React.Component {
 
@@ -9,30 +8,10 @@ class Files extends React.Component {
 		this.state = {};
 	}
 
-	/* Mock data */
-	getData() {
-	return [
-		 {
-			name: 'Aufgabe1.docx',
-			type: 'Word-Dokument',
-			thumbnail: 'https://vebu.de/wp-content/uploads/2015/12/beitragsbild_690x460_bienen_industriell-690x460.jpg'
-		},
-		{
-			name: 'Aufgabe2.docx',
-			type: 'Word-Dokument',
-			thumbnail: 'https://www.hauenstein-rafz.ch/de-wAssets/img/pflanzenwelt/sammelsurium/bienenweidepflanzen/Biene_12.jpg'
-		},
-		{
-			name: 'Bienen.jpg',
-			type: 'Bildressource',
-			thumbnail: 'http://www.br-online.de/kinder/fragen-verstehen/wissen/2003/00278/bienenwabe_dpa482.jpg'
-		}];
-	}
-
 	getFilesUI() {
 		return (
 		<div>
-		{this.getData.bind(this)().map((file) => {
+		{this.props.files.map((file) => {
 			return (
 				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name}>
 					<div className="card file">

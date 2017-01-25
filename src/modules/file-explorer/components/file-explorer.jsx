@@ -25,9 +25,8 @@ class FileExplorer extends React.Component {
 		return (
 			<LayoutBase className="route-file-explorer">
 				<SectionTitle title="Dateien" subtitle={this.getSubtitle.bind(this)()} />
-				<Upload />
-				<Directories />
-				<Files />
+				<Upload {...this.props} />
+				<Files {...this.props} />
 			</LayoutBase>
 		);
 	}
