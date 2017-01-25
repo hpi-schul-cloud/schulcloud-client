@@ -20,7 +20,12 @@ const ReactSelect = React.createClass({
 			value = (value || []).map(option => option.value);
 		}
 
+		if(value && typeof(value) === 'object' && Object.keys(value).includes('value')) {
+			value = value.value;
+		}
+
 		this.setValue(value);
+		this.props.onChange(value);
 	},
 
 	render() {
@@ -45,12 +50,14 @@ const ReactSelect = React.createClass({
 			<ReactSelectPlain
 				ref={(c) => this.element = c}
 				onChange={this.changeValue}
-				value={this.getValue()}
+				value={this.getValue() || ''}
 				id={this.getId()}
 				disabled={this.isFormDisabled() || this.props.disabled}
 				options={this.props.options}
 				name={this.props.name}
 				multi={this.props.multiple}
+				className={this.props.className}
+				placeholder={this.props.placeholder}
 			/>
 		);
 	}

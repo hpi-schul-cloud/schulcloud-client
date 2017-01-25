@@ -11,7 +11,8 @@ export default {
 			.then(result => {
 				if (result._id) {
 					courseService.patch(tool.courseId, { $push: {ltiToolIds: result._id}}).then(result => {
-						browserHistory.push("/courses/");
+						browserHistory.push(`/courses/${result._id}`);
+						Notification.showSuccess("Neues Tool wurde erfolgreich angelegt!");
 					}).catch(err => {
 						Notification.showError(err.message);
 						return false;

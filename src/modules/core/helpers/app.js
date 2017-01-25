@@ -3,6 +3,15 @@ import { useScroll } from 'react-router-scroll';
 
 import Layout from '../components/layout';
 
+const _forceTrailingSlash = (prevState, nextState, replace) => {
+	const path = nextState.location.pathname;
+	if (path.slice(-1) !== '/') {
+		replace(Object.assign(nextState.location, {
+			pathname: `${path}/`
+		}));
+	}
+};
+
 export default class App {
 	constructor(context) {
 		if (!context) {
@@ -70,6 +79,13 @@ export default class App {
 			}
 
 			return route;
+		});
+
+		// force trailing slashes with redirect
+		routes.push({
+			path:'*',
+			onEnter: _forceTrailingSlash.bind(this, null),
+			onUpdate: _forceTrailingSlash
 		});
 
 		this.__initialized = true;
