@@ -1,4 +1,4 @@
-import { Permissions, Server } from '../../core/helpers/';
+import { Permissions, Server, Notification } from '../../core/helpers/';
 
 class s3Service {
 	constructor() {}
