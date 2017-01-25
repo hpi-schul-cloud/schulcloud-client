@@ -10,7 +10,7 @@ const _forceTrailingSlash = (prevState, nextState, replace) => {
 			pathname: `${path}/`
 		}));
 	}
-}
+};
 
 export default class App {
 	constructor(context) {
