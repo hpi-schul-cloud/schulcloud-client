@@ -10,15 +10,12 @@ class SectionCourses extends AdminSection {
 	constructor(props) {
 		super(props);
 
-		this.options = {
+		const options = {
 			title: 'Kurse',
 			addLabel: 'Kurs hinzufügen',
 			editLabel: 'Kurs bearbeiten',
-			submitCallback: (data) => {
-				// TODO: make sure data.classId works on edit
-				this.props.actions.updateCourse(data);
-			}
 		};
+		Object.assign(this.options, options);
 
 		this.actions = [
 			{
@@ -26,12 +23,21 @@ class SectionCourses extends AdminSection {
 				icon: 'edit'
 			},
 			{
-				action: this.props.actions.removeCourse.bind(this),
-				icon: 'trash'
+				action: this.removeRecord,
+				icon: 'trash-o'
 			}
 		];
 
+		Object.assign(this.state, {teachers: [], classes: []});
+
 		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/courses');
+		this.serviceName = '/courses';
+	}
+
+	componentDidMount() {
+		super.componentDidMount();
+		this.loadTeachers();
+		this.loadClasses();
 	}
 
 	contentQuery() {
@@ -52,7 +58,8 @@ class SectionCourses extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.state.records.map((c) => {
+		return Object.keys(this.state.records).map((id) => {
+			const c = this.state.records[id];
 			return [
 				c.name,
 				(c.classIds || []).map(cl => cl.name).join(', '),
@@ -62,8 +69,8 @@ class SectionCourses extends AdminSection {
 		});
 	}
 
-	getTeacherOptions() {		// TODO: don't load them twice (once in the composer and once for their page)
-		return this.props.teachers.map((r) => {
+	getTeacherOptions() {
+		return this.state.teachers.map((r) => {
 			return {
 				label: r.lastName || r._id,
 				value: r._id
@@ -72,7 +79,7 @@ class SectionCourses extends AdminSection {
 	}
 
 	getClassOptions() {
-		return this.props.classes.map((r) => {
+		return this.state.classes.map((r) => {
 			return {
 				label: r.name || r._id,
 				value: r._id
@@ -95,7 +102,7 @@ class SectionCourses extends AdminSection {
 				name="schoolId"
 				type="hidden"
 				layout="elementOnly"
-				value={this.props.school._id}
+				value={this.props.schoolId}
 			/>
 
 			<Input

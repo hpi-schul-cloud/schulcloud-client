@@ -9,23 +9,26 @@ class SectionStudents extends AdminSection {
 	constructor(props) {
 		super(props);
 
-		this.options = {
+		const options = {
 			title: 'Schüler',
 			addLabel: 'Schüler hinzufügen',
 			editLabel: 'Schüler bearbeiten',
-			submitCallback: (data) => {
-				this.props.actions.updateUser(data);
-			}
 		};
+		Object.assign(this.options, options);
 
 		this.actions = [
 			{
 				action: this.openModal.bind(this),
 				icon: 'edit'
+			},
+			{
+				action: this.removeRecord,
+				icon: 'trash-o'
 			}
 		];
 
 		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/users');
+		this.serviceName = '/users';
 	}
 
 	contentQuery() {
@@ -46,7 +49,8 @@ class SectionStudents extends AdminSection {
 	}
 
 	getTableBody() {
-		return this.state.records.map((record) => {
+		return Object.keys(this.state.records).map((id) => {
+			const record = this.state.records[id];
 			return [
 				record.firstName,
 				record.lastName,
@@ -71,7 +75,7 @@ class SectionStudents extends AdminSection {
 					name="schoolId"
 					type="hidden"
 					layout="elementOnly"
-					value={this.props.school._id}
+					value={this.props.schoolId}
 				/>
 
 				<Input

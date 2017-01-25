@@ -1,10 +1,7 @@
 import { Permissions, Server } from '../../core/helpers/';
 
-const schoolService = Server.service('/schools');
-const classService = Server.service('/classes');
-const courseService = Server.service('/courses');
 const userService = Server.service('/users');
-
+const classService = Server.service('/classes');
 
 const indexArrayByKey = (array, key) => {
 	const result = {};
@@ -21,44 +18,51 @@ export default {
 		return service.find({query})
 			.then(result => {
 				return Promise.resolve({
-					records: result.data,
-					//coursesById: indexArrayByKey(result.data, '_id'),
+					records: indexArrayByKey(result.data, '_id'),
 					pagination: {total: result.total, skip: result.skip}
 				});
 		});
 	},
 
-	updateSchool: (data) => {
-		if(data._id) return schoolService.patch(data._id, data);
-
-		return schoolService.create(data);
+	updateRecord: (serviceName, data) => {
+		const service = Server.service(serviceName);
+		if(data._id) return service.patch(data._id, data);
+		return service.create(data);
 	},
 
-
-	updateCourse: (data) => {
-		if(data._id) return courseService.patch(data._id, data);
-
-		return courseService.create(data);
+	removeRecord: (serviceName, data) => {
+		const id = data._id;
+		if(!id) throw new Error("_id not set!");
+		const service = Server.service(serviceName);
+		return service.remove(id);
 	},
 
-	removeCourse: (data) => {
-		return courseService.remove(data._id);
+	populateFields: (serviceName, _id, fields) => {
+		const service = Server.service(serviceName);
+		return service.find({query: {
+			_id,
+			$populate: fields
+		}});
 	},
 
-
-	updateClass: (data) => {
-		if(data._id) return classService.patch(data._id, data);
-
-		return classService.create(data);
+	_loadTeachers: (schoolId) => {
+		return userService.find({
+			query: {
+				schoolId,
+				roles: ['teacher'],
+				$limit: 1000
+			}
+		})
+			.then(result => Promise.resolve(result.data));
 	},
 
-	removeClass: (data) => {
-		return classService.remove(data._id);
-	},
-
-	updateUser: (data) => {
-		if(data._id) return userService.patch(data._id, data);
-
-		return userService.create(data);
+	_loadClasses: (schoolId) => {
+		return classService.find({
+			query: {
+				schoolId,
+				$limit: 1000
+			}
+		})
+			.then(result => Promise.resolve(result.data));
 	}
 };

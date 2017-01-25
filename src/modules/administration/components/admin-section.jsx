@@ -16,7 +16,10 @@ class AdminSection extends React.Component {
 			title: '',
 			addLabel: '',
 			editLabel: '',
-			submitCallback: () => {}
+			submitCallback: (data) => {
+				this.updateRecord(data);
+			},
+			onMount: null
 		};
 
 		this.state = {
@@ -28,6 +31,7 @@ class AdminSection extends React.Component {
 
 		this.defaultRecord = {};
 		this.loadContentFromServer = null;
+		this.serviceName = null;
 	}
 
 	componentDidMount() {
@@ -81,7 +85,7 @@ class AdminSection extends React.Component {
 							className={action.class}
 							onClick={action.action.bind(this, record)}>
 							<button className={`btn btn-default btn-sm`}>
-								<i className={`fa fa-${action.icon}`} />
+								<i className={`fa fa-${action.icon}`} /> {action.label || ""}
 							</button>
 						</a>
 					);
@@ -106,8 +110,42 @@ class AdminSection extends React.Component {
 			});
 	}
 
+	loadTeachers() {
+		this.props.actions.loadTeachers()
+			.then(teachers => this.setState({teachers}));
+	}
+
+	loadClasses() {
+		this.props.actions.loadClasses()
+			.then(classes => this.setState({classes}));
+	}
+
 	onPageChange(page) {
 		this.loadContent(page, this.state.itemsPerPage);
+	}
+
+	updateRecord(data) {
+		console.info(`Replacing \n${JSON.stringify(this.state.records[data._id])} with \n${JSON.stringify(data)}`);
+		this.props.actions.updateRecord(this.serviceName, data)
+			.then(this.customizeRecordBeforeInserting)
+			.then(savedData => {
+				let records = this.state.records;
+				records[data._id] = savedData;
+				this.setState({records});
+			});
+	}
+
+	customizeRecordBeforeInserting(data) {
+		return Promise.resolve(data);
+	}
+
+	removeRecord(data) {
+		this.props.actions.removeRecord(this.serviceName, data)
+			.then(_ => {
+				let records = this.state.records;
+				delete records[data._id];
+				this.setState({records});
+			});
 	}
 
 	getPaginationControl() {
