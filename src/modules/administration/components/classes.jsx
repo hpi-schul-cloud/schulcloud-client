@@ -76,7 +76,7 @@ class SectionClasses extends AdminSection {
 	getTeacherOptions() {
 		return this.state.teachers.map((r) => {
 			return {
-				label: r.firstName || r._id + " " + r.lastName || "",
+				label: `${r.firstName || r._id} ${r.lastName || ""}`,
 				value: r._id
 			};
 		});
