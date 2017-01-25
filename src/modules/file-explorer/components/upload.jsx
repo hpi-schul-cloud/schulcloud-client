@@ -1,4 +1,5 @@
-import { Link } from 'react-router';
+import React from 'react';
+import Dropzone from 'react-dropzone';
 
 require('../styles/upload.scss');
 
@@ -10,19 +11,16 @@ class Memory extends React.Component {
 		this.state = {};
 	}
 
-	/* Mock data */
-	getData() {
-		return [{}];
-	}
-
 	render() {
 		return (
 			<section className="section-upload">
 				<div className="container-fluid">
 					<div className="row">
-						<div className="drop-zone">
-							<span><i className="fa fa-cloud-upload" /> Dateien zum Hochladen ablegen.</span>
-						</div>
+						<Dropzone className="drop-zone"
+								  onDrop={ this.props.actions.upload }
+								  maxSize={1024 * 1024 * 1000}>
+							<span><i className="fa fa-cloud-upload"/> Dateien zum Hochladen ablegen.</span>
+						</Dropzone>
 					</div>
 				</div>
 			</section>
