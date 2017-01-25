@@ -2,6 +2,7 @@ import { browserHistory, applyRouterMiddleware, Router, Route, Link } from 'reac
 import { useScroll } from 'react-router-scroll';
 
 import Layout from '../components/layout';
+import ErrorPage from '../containers/error-page';
 
 const _forceTrailingSlash = (prevState, nextState, replace) => {
 	const path = nextState.location.pathname;
@@ -11,6 +12,13 @@ const _forceTrailingSlash = (prevState, nextState, replace) => {
 		}));
 	}
 };
+
+const _getErrorPageUI = (errorCode) => {
+	return (
+ 		<ErrorPage errorCode={errorCode} />
+	);
+};
+
 
 export default class App {
 	constructor(context) {
@@ -81,9 +89,10 @@ export default class App {
 			return route;
 		});
 
-		// force trailing slashes with redirect
+		// force trailing slashes with redirect or not found
 		routes.push({
 			path:'*',
+			component: _getErrorPageUI.bind(this, '404'),
 			onEnter: _forceTrailingSlash.bind(this, null),
 			onUpdate: _forceTrailingSlash
 		});
