@@ -15,7 +15,8 @@ const _forceTrailingSlash = (prevState, nextState, replace) => {
 
 const _getErrorPageUI = (errorCode) => {
 	return (
- <ErrorPage errorCode={errorCode} />);
+ 		<ErrorPage errorCode={errorCode} />
+	);
 };
 
 
