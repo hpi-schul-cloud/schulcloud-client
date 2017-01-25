@@ -127,7 +127,7 @@ class AdminSection extends React.Component {
 	updateRecord(data) {
 		console.info(`Replacing \n${JSON.stringify(this.state.records[data._id])} with \n${JSON.stringify(data)}`);
 		this.props.actions.updateRecord(this.serviceName, data)
-			.then(this.customizeRecordBeforeInserting)
+			.then(this.customizeRecordBeforeInserting.bind(this))
 			.then(savedData => {
 				let records = this.state.records;
 				records[data._id] = savedData;
@@ -135,6 +135,8 @@ class AdminSection extends React.Component {
 			});
 	}
 
+	// override point to customize records before they are inserted into the table,
+	// e.g. to populate fields (resolve ids)
 	customizeRecordBeforeInserting(data) {
 		return Promise.resolve(data);
 	}

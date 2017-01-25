@@ -44,8 +44,12 @@ class SectionCourses extends AdminSection {
 		const schoolId = this.props.schoolId;
 		return {
 			schoolId,
-			$populate: ['classId', 'teacherIds']
+			$populate: ['classIds', 'teacherIds']
 		};
+	}
+
+	customizeRecordBeforeInserting(data) {
+		return this.props.actions.populateFields('/courses', data._id, ['classIds', 'teacherIds']);
 	}
 
 	getTableHead() {

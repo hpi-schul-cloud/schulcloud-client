@@ -59,7 +59,7 @@ class SectionClasses extends AdminSection {
 	}
 
 	customizeRecordBeforeInserting(data) {
-		return this.props.actions.populateFields('classes', data._id, ['teacherIds'])
+		return this.props.actions.populateFields('/classes', data._id, ['teacherIds']);
 	}
 
 	getTableBody() {

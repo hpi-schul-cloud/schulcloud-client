@@ -42,7 +42,8 @@ export default {
 		return service.find({query: {
 			_id,
 			$populate: fields
-		}});
+		}})
+			.then(result => Promise.resolve(result.data[0]));
 	},
 
 	_loadTeachers: (schoolId) => {
