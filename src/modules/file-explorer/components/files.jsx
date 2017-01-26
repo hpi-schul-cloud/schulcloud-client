@@ -8,12 +8,16 @@ class Files extends React.Component {
 		this.state = {};
 	}
 
+	handleOnFileClick(file) {
+		this.props.actions.download(file);
+	}
+
 	getFilesUI() {
 		return (
 		<div>
 		{this.props.files.map((file) => {
 			return (
-				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name}>
+				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name} onClick={this.handleOnFileClick.bind(this, file)}>
 					<div className="card file">
 						<div className="container-fluid">
 							<div className="row">
