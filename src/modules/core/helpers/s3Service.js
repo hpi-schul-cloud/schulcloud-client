@@ -3,13 +3,14 @@ import { Permissions, Server, Notification } from '../../core/helpers/';
 class s3Service {
 	constructor() {}
 
-	getUrl(fileName, fileType, storageContext) {
+	getUrl(fileName, fileType, storageContext, action) {
 		const s3SignedUrl = Server.service('/fileStorage/signedUrl');
 
 		var data = {
 			storageContext: storageContext,
 			fileName: fileName,
-			fileType: fileType
+			fileType: fileType,
+			action: action
 		};
 
 		return s3SignedUrl.create(data)

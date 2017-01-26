@@ -6,7 +6,7 @@ export default {
 	upload: (files) => {
 		const currentUser = Server.get('user');
 		Promise.all(files.map((file) => {
-			return s3Service.getUrl(file.name, file.type, `users/${currentUser._id}`)
+			return s3Service.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
 				.then((signedUrl) => {
 					var options = {
 						headers: signedUrl.header
