@@ -1,37 +1,37 @@
 @import '../../core/styles/colors.scss';
 
 .files {
-	width:100%;
-	float:left;
-	margin-bottom:40px;
+	width: 100%;
+	float: left;
+	margin-bottom: 40px;
 
 	h5 {
 		color: $colorHPIRed;
-		padding:10px 0px 20px;
+		padding: 10px 0px 20px;
 	}
 
 	.card.file {
-		box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
-		height:65px;
-		line-height:63px;
-
 		&:hover {
 			box-shadow: 0px 1px 4px rgba(0,0,0,0.2);
-			background:#f9f9f9;
-			cursor: pointer;
+			background: #f9f9f9;
 		}
 
 		.file-preview {
-			width:90%;
-			height:65px;
-			float:left;
+			width: 90%;
+			height: 65px;
+			float: left;
 			background: no-repeat center center;
-			background-size:cover;
+			background-size: cover;
 		}
 
 		.fa {
-			margin-right:15px;
+			margin-right: 15px;
 			color:#ccc;
+			&:hover {
+				box-shadow: 0px 1px 4px rgba(0,0,0,0.2);
+				background: #f9f9f9;
+				cursor: pointer;
+			}
 		}
 	}
 }

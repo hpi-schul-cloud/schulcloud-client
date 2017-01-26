@@ -12,28 +12,33 @@ class Files extends React.Component {
 		this.props.actions.download(file);
 	}
 
-	getFilesUI() {
+	getFileUI(file) {
 		return (
-		<div>
-		{this.props.files.map((file) => {
-			return (
-				<div className="col-sm-6 col-xs-12 col-md-4" key={file.name} onClick={this.handleOnFileClick.bind(this, file)}>
-					<div className="card file">
-						<div className="container-fluid">
-							<div className="row">
+			<div className="col-sm-6 col-xs-12 col-md-4" key={file.name}>
+				<div className="card file">
+					<div className="card-block">
+							<div className="card-title">
 								<div className="col-sm-3 no-padding">
 									<div className="file-preview" style={{'background-image': 'url(' + file.thumbnail + ')'}}></div>
 								</div>
-								<div className="col-sm-9">
-									<strong>{file.name}</strong>
-								</div>
+								<large>{file.name}</large>
 							</div>
-						</div>
+							<div className="card-text">
+								<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnFileClick.bind(this, file)}/>
+							</div>
 					</div>
 				</div>
-			);
-		})}
 			</div>
+		);
+	}
+
+	getFilesUI() {
+		return (
+		<div>
+			{this.props.files.map((file) => {
+				return this.getFileUI(file);
+			})}
+		</div>
 		);
 	}
 
