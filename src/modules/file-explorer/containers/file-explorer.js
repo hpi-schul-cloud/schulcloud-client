@@ -10,13 +10,17 @@ const composer = (props, onData) => {
 	const currentUser = Server.get('user');
 	s3Service.getFileList(`users/${currentUser._id}`)
 		.then(res => {
-		let componentData = {
-			actions,
-			files: res
-		};
-		onData(null, componentData);
-	}).catch(err => {
-		Notification.showError(err.message);
+			let componentData = {actions, files: []};
+
+			if( Object.prototype.toString.call( res ) === '[object Array]' ) {
+				componentData.files = res;
+			} else {
+				Notification.showError("Deine Schule hat bislang noch keine Dateiverwaltung ausgewählt");
+			}
+			
+			onData(null, componentData);
+		}).catch(err => {
+			Notification.showError(err);
 	});
 };
 
