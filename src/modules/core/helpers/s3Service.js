@@ -24,7 +24,6 @@ class s3Service {
 
 	getFileList(storageContext) {
 		const fileStorageService = Server.service('/fileStorage');
-		const currentUser = Server.get('user');
 		return fileStorageService.find({
 			query: {
 				storageContext: storageContext
@@ -33,6 +32,16 @@ class s3Service {
 			return res;
 		}).catch(err => {
 			Notification.showError(err.message);
+		});
+	}
+
+	deleteFile(storageContext, fileName) {
+		const fileStorageService = Server.service('/fileStorage');
+		return fileStorageService.remove(null, {
+			query: {
+				storageContext: storageContext,
+				fileName: fileName
+			}
 		});
 	}
 }

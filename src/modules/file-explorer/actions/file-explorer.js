@@ -17,6 +17,8 @@ const saveFile = (url, fileName) => {
 	});
 };
 
+/** todo: use file strategy instead of fixed s3 **/
+
 export default {
 	upload: (files) => {
 		const currentUser = Server.get('user');
@@ -43,6 +45,16 @@ export default {
 				}
 
 				saveFile(signedUrl.url, file.name);
+			}).catch(err => {
+				Notification.showError(err.message);
+			});
+	},
+
+	delete: (file) => {
+		const currentUser = Server.get('user');
+		return s3Service.deleteFile(`users/${currentUser._id}`, file.name, null)
+			.then((res) => {
+				window.location.reload();
 			}).catch(err => {
 				Notification.showError(err.message);
 			});

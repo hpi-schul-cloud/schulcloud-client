@@ -8,8 +8,12 @@ class Files extends React.Component {
 		this.state = {};
 	}
 
-	handleOnFileClick(file) {
+	handleOnDownloadClick(file) {
 		this.props.actions.download(file);
+	}
+
+	handleOnDeleteClick(file) {
+		this.props.actions.delete(file);
 	}
 
 	getFileUI(file) {
@@ -24,7 +28,8 @@ class Files extends React.Component {
 								<large>{file.name}</large>
 							</div>
 							<div className="card-text">
-								<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnFileClick.bind(this, file)}/>
+								<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
+								<i className="fa fa-trash-o" aria-hidden="true" onClick={this.handleOnDeleteClick.bind(this, file)}/>
 							</div>
 					</div>
 				</div>
