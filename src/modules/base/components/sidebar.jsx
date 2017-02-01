@@ -8,6 +8,12 @@ class Sidebar extends React.Component {
 		super(props);
 	}
 
+	componentDidMount() {
+		$('.mobile-nav-toggle').click((e) => {
+			$('aside.nav-sidebar nav:first-child').toggleClass('active');
+		});
+	}
+
 	render() {
 		const sidebarLinks = [{
 			name: 'Dashboard',
