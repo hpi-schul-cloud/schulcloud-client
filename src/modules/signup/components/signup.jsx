@@ -16,17 +16,24 @@ class Signup extends React.Component {
 		return (
 			<div>
 				<Input
-					name="schoolId"
-					type="hidden"
-					layout="elementOnly"
-					value={this.props.schoolId}
-				/>
-
-				<Input
 					name="accountId"
 					type="hidden"
 					layout="elementOnly"
 					value={this.props.accountId}
+				/>
+
+				<Input
+					name="userId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.user._id}
+				/>
+
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.schoolId}
 				/>
 
 				<Input
@@ -43,6 +50,7 @@ class Signup extends React.Component {
 							name="firstName"
 							type="text"
 							layout="vertical"
+							value={this.props.user.firstName}
 							required
 						/>
 					</div>
@@ -52,6 +60,7 @@ class Signup extends React.Component {
 							name="lastName"
 							type="text"
 							layout="vertical"
+							value={this.props.user.lastName}
 							required
 						/>
 					</div>
@@ -66,6 +75,7 @@ class Signup extends React.Component {
 							validations="isEmail"
 							validationError="This is not an email"
 							layout="vertical"
+							value={this.props.user.email}
 							required
 						/>
 					</div>
@@ -112,7 +122,9 @@ class Signup extends React.Component {
 						validationError="Ihr Passwort stimmt nicht mit den Anforderungen überein"
 						required
 					/>
-					<p className="text-muted">Ihr Passwort muss folgendes enthalten:</p>
+					<p>
+						<b className="text-muted">Ihr Passwort muss folgendes enthalten:</b>
+					</p>
 					<ul className="text-muted">
 						<li>Mindestens 8 Zeichen</li>
 						<li>Groß- und Kleinschreibung</li>

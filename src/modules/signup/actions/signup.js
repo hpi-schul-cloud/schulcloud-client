@@ -9,12 +9,14 @@ const afterSignupUserRegular = (user, data) => {
 	data.userId = user._id;
 	data.username = user.email;
 
-	return accountService.create(data).then(() => {
+	return accountService.create(data).then((account) => {
 		return Server.authenticateUser({
 			strategy: 'local',
 			username: data.username,
 			password: data.password,
 			storage: window.localStorage
+		}).then(_ => {
+			return Promise.resolve(account);
 		});
 	});
 };
@@ -22,8 +24,10 @@ const afterSignupUserRegular = (user, data) => {
 const afterSignupUserSSO = (user, {accountId}) => {
 	return accountService.patch(accountId, {
 		userId: user._id
-	}).then(() => {
-		return Server.authenticateUser();
+	}).then(account => {
+		return Server.authenticateUser().then(_ => {
+			return Promise.resolve(account);
+		});
 	});
 };
 
@@ -32,10 +36,18 @@ export default {
 		return accountService.create(data);
 	},
 
-	signupUser(data, accountId) {
-		return userService.create(data).then((user) => {
-			if(accountId) {
-				return afterSignupUserSSO(user, {accountId});
+	signupUser(data) {
+		let userPromise;
+
+		if(data.userId) {
+			userPromise = userService.update(data.userId, data);
+		} else {
+			userPromise = userService.create(data);
+		}
+
+		return userPromise.then((user) => {
+			if(data.accountId) {
+				return afterSignupUserSSO(user, {accountId: data.accountId});
 			} else {
 				return afterSignupUserRegular(user, data);
 			}

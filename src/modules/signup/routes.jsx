@@ -3,7 +3,7 @@ import Setup from './containers/setup';
 
 export default [
 	{
-		path: '/signup/:role/:schoolId/(:accountId/)',
+		path: '/signup/:idType/:recordId/(:schoolId/)', // schoolId is needed only for SSO
 		name: 'signup',
 		component: Signup
 	},
