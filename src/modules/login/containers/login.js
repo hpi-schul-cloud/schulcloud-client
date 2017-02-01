@@ -54,7 +54,7 @@ function composer(props, onData) {
 						if(result.userId) {
 							return browserHistory.push('/dashboard/');
 						} else if(result.accountId) {
-							return browserHistory.push(`/signup/student-sso/${data.schoolId}/${result.accountId}/`);
+							return browserHistory.push(`/signup/a/${result.accountId}/${data.schoolId}/`);
 						} else {
 							throw new Error('Wrong credentials.');
 						}
