@@ -158,6 +158,7 @@ class AdminSection extends React.Component {
 			showSizeChanger
 			defaultPageSize={this.state.itemsPerPage}
 			defaultCurrent={1}
+			pageSizeOptions={['10', '25', '50', '100']}
 			onShowSizeChange={this.onPageSizeChange.bind(this)}
 			onChange={this.onPageChange.bind(this)}
 			total={this.state.numberOfPages}
