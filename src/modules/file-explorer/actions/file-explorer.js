@@ -20,18 +20,22 @@ const saveFile = (url, fileName) => {
 /** todo: use file strategy instead of fixed s3 **/
 
 export default {
-	upload: (files) => {
+	upload: (progressCallback, files) => {
 		const currentUser = Server.get('user');
 		Promise.all(files.map((file) => {
 			return s3Service.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
 				.then((signedUrl) => {
 					var options = {
-						headers: signedUrl.header
+						headers: signedUrl.header,
+						onUploadProgress: function(progressEvent) {
+							const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+							progressCallback(file, percentCompleted);
+						}
 					};
-					return axios.put(signedUrl.url, file, options);
+					return axios.put(signedUrl.url, file, options)
 				});
 		})).then(res => {
-			window.location.reload();
+			window.location.reload(); /**todo: only refresh "Meine Dateien"**/
 		});
 	},
 
