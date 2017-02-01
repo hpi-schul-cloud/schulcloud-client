@@ -33,9 +33,12 @@ const composer = (props, onData) => {
 	actions.loadTeachers = actions._loadTeachers.bind(undefined, schoolId);
 	actions.loadClasses = actions._loadClasses.bind(undefined, schoolId);
 
-	const componentData = {actions, schoolId};
-	onData(null, componentData);
-
+	Server.service('/schools').get(schoolId)
+		.then(school => {
+			const componentData = {actions, schoolId, school};
+			onData(null, componentData);
+		})
+		.catch(error => onData(error));
 };
 
 export default compose(composer)(component);
