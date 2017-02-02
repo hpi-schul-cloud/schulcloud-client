@@ -5,13 +5,7 @@ import { Permissions, Server } from '../../core/helpers/';
 import { SubsManager } from 'feathers-subscriptions-manager';
 
 import permissions from '../permissions';
-const schoolService = Server.service('/schools');
-const courseService = Server.service('/courses');
-const classService = Server.service('/classes');
-const userService = Server.service('/users');
-const roleService = Server.service('/roles');
 
-import component from '../components/administration';
 import actions from '../actions/administration';
 
 const composer = (props, onData) => {
@@ -30,8 +24,8 @@ const composer = (props, onData) => {
 	}
 
 	// bind the schoolId parameter for cleaner calls in the components
-	actions.loadTeachers = actions._loadTeachers.bind(undefined, schoolId);
-	actions.loadClasses = actions._loadClasses.bind(undefined, schoolId);
+	actions.loadTeachers = actions._loadTeachers.bind(null, schoolId);
+	actions.loadClasses = actions._loadClasses.bind(null, schoolId);
 
 	Server.service('/schools').get(schoolId)
 		.then(school => {
@@ -41,4 +35,4 @@ const composer = (props, onData) => {
 		.catch(error => onData(error));
 };
 
-export default compose(composer)(component);
+export default compose(composer);

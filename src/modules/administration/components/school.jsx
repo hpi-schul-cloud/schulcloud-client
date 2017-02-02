@@ -18,7 +18,8 @@ class SectionSchool extends React.Component {
 		this.props.actions.updateRecord('/schools', {
 			_id: this.props.school._id,
 			name: this.state.schoolName
-		});
+		})
+			.catch(e=>console.error(e));
 	}
 
 	render() {

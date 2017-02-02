@@ -16,10 +16,6 @@ class AdminSection extends React.Component {
 			title: '',
 			addLabel: '',
 			editLabel: '',
-			submitCallback: (data) => {
-				this.updateRecord(data);
-			},
-			onMount: null
 		};
 
 		this.state = {
@@ -54,7 +50,7 @@ class AdminSection extends React.Component {
 				ref="edit-modal"
 				title={title}
 				content={this.modalFormUI.bind(this)()}
-				submitCallback={this.options.submitCallback.bind(this)}
+				submitCallback={this.updateRecord.bind(this)}
 				{...this.options}
 			/>
 		);

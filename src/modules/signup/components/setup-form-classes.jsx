@@ -14,7 +14,7 @@ import {
 import {Link} from 'react-router';
 
 import Table from '../../administration/components/table';
-import AdminSectionClasses from '../../administration/components/classes';
+import AdminSectionClasses from '../../administration/containers/classes';
 
 class SetupFormClasses extends AdminSectionClasses {
 
@@ -31,19 +31,7 @@ class SetupFormClasses extends AdminSectionClasses {
 
 				<p><b>Tipp:</b> Lehrer können auch selber Klassen anlegen.</p>
 
-				<Form>
-					<div className="row">
-						<div className="col-md-12">
-							<Table head={this.getTableHead()} body={this.getTableBody()} />
-						</div>
-					</div>
-				</Form>
-
-				<button type="submit" className="btn btn-success" onClick={this.openModal.bind(this, this.defaultRecord)}>
-					Klasse hinzufügen
-				</button>
-
-				{this.modalUI()}
+				<AdminSectionClasses />
 
 				<hr />
 
