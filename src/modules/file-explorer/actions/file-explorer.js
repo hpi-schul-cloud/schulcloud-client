@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {s3Service} from '../../core/helpers';
+import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
 
 const saveFile = (url, fileName) => {
@@ -21,13 +21,11 @@ const saveFile = (url, fileName) => {
 	});
 };
 
-/** todo: use file strategy instead of fixed s3 **/
-
 export default {
 	upload: (progressCallback, files) => {
 		const currentUser = Server.get('user');
 		Promise.all(files.map((file) => {
-			return s3Service.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
+			return FileService.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
 				.then((signedUrl) => {
 					var options = {
 						headers: signedUrl.header,
@@ -45,7 +43,7 @@ export default {
 
 	download: (file) => {
 		const currentUser = Server.get('user');
-		return s3Service.getUrl(file.name, null, `users/${currentUser._id}`, 'getObject')
+		return FileService.getUrl(file.name, null, `users/${currentUser._id}`, 'getObject')
 			.then((signedUrl) => {
 				if (!signedUrl.url) {
 					Notification.showError("Beim Downloaden der Datei ist etwas schief gelaufen!");
@@ -60,7 +58,7 @@ export default {
 
 	delete: (file) => {
 		const currentUser = Server.get('user');
-		return s3Service.deleteFile(`users/${currentUser._id}`, file.name, null)
+		return FileService.deleteFile(`users/${currentUser._id}`, file.name, null)
 			.then((res) => {
 				window.location.reload();
 			}).catch(err => {

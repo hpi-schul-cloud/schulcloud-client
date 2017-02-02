@@ -4,6 +4,7 @@ import { Server, Notification } from '../../core/helpers';
 
 const accountService = Server.service('/accounts');
 const userService = Server.service('/users');
+const schoolService = Server.service('/schools');
 
 const afterSignupUserRegular = (user, data) => {
 	data.userId = user._id;
@@ -52,6 +53,11 @@ export default {
 				return afterSignupUserRegular(user, data);
 			}
 		});
+	},
+
+	updateSchool(data) {
+		if (data._id) return schoolService.patch(data._id, data);
+		return schoolService.create(data);
 	},
 
 	finishSetup(userId) {

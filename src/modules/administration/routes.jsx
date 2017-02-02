@@ -1,4 +1,4 @@
-import Administration from './containers/administration';
+import Administration from './components/administration';
 
 export default [
 	{
