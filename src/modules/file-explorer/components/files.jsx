@@ -11,7 +11,9 @@ class Files extends React.Component {
 	}
 
 	handleOnDeleteClick(file) {
-		this.props.actions.delete(file);
+		this.props.actions.delete(file).then(res => {
+			this.props.onReload();
+		});
 	}
 
 	getFileDeleteModalUI(file) {
