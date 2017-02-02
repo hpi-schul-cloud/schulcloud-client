@@ -4,8 +4,6 @@ class Files extends React.Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = {};
 	}
 
 	handleOnDownloadClick(file) {
@@ -16,9 +14,9 @@ class Files extends React.Component {
 		this.props.actions.delete(file);
 	}
 
-	getFileDeleteModalUI(id, file) {
+	getFileDeleteModalUI(file) {
 		return (
-			<div className="modal fade" id={`deleteFileModal${id}`} role="dialog" aria-labelledby="myModalLabel">
+			<div className="modal fade" id={`deleteFileModal${file.id}`} role="dialog" aria-labelledby="myModalLabel">
 				<div className="modal-dialog" role="document">
 					<div className="modal-content">
 						<div className="modal-header">
@@ -43,9 +41,9 @@ class Files extends React.Component {
 		);
 	}
 
-	getFileUI(id, file) {
+	getFileUI(file) {
 		return (
-			<div className="col-sm-6 col-xs-12 col-md-4" key={`file${id}`}>
+			<div className="col-sm-6 col-xs-12 col-md-4" key={`file${file.id}`}>
 				<div className="card file">
 					<div className="card-block">
 							<div className="card-title">
@@ -56,22 +54,20 @@ class Files extends React.Component {
 							</div>
 							<div className="card-text">
 								<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
-								<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${id}`}/>
+								<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`}/>
 							</div>
 					</div>
 				</div>
-				{ this.getFileDeleteModalUI(id, file) }
+				{ this.getFileDeleteModalUI(file) }
 			</div>
 		);
 	}
 
 	getFilesUI() {
-		let idCount = 0;
 		return (
 			<div>
 				{this.props.files.map((file) => {
-					idCount++;
-					return this.getFileUI(idCount, file);
+					return this.getFileUI(file);
 				})}
 			</div>
 		);

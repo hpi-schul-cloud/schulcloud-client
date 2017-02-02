@@ -1,6 +1,6 @@
 import { Permissions, Server, Notification } from '../../core/helpers/';
 
-class s3Service {
+class FileService {
 	constructor() {}
 
 	getUrl(fileName, fileType, storageContext, action) {
@@ -46,4 +46,4 @@ class s3Service {
 	}
 }
 
-export default new s3Service();
+export default new FileService();

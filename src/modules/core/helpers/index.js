@@ -4,8 +4,9 @@ import Permissions from './permissions';
 import Server from './server';
 import Notification from './notification';
 import LTICustomer from './ltiCustomer';
-import s3Service from './s3Service';
+import FileService from './fileService';
 import Form from './form';
+import RandomIdGenerator from './randomIdGenerator';
 
 export {
 	App,
@@ -14,6 +15,7 @@ export {
 	Server,
 	Notification,
 	LTICustomer,
-	s3Service,
-	Form
+	FileService,
+	Form,
+	RandomIdGenerator
 };
