@@ -20,7 +20,7 @@ const saveFile = (url, fileName) => {
 export default {
 	upload: (files) => {
 		const currentUser = Server.get('user');
-		Promise.all(files.map((file) => {
+		return Promise.all(files.map((file) => {
 			return FileService.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
 				.then((signedUrl) => {
 					var options = {
@@ -29,8 +29,8 @@ export default {
 					return axios.put(signedUrl.url, file, options);
 				});
 		})).then(res => {
-			window.location.reload();
-		});
+			return res;
+		}).catch(err => Notification.showError(err));
 	},
 
 	download: (file) => {
@@ -52,7 +52,7 @@ export default {
 		const currentUser = Server.get('user');
 		return FileService.deleteFile(`users/${currentUser._id}`, file.name, null)
 			.then((res) => {
-				window.location.reload();
+				return res;
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
