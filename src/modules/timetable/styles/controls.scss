@@ -1,27 +1,27 @@
 @import '../../core/styles/colors.scss';
 
 .section-timetable {
-	width:100%;
-	float:left;
+	width: 100%;
+	float: left;
 	padding-top: 15px;
 	line-height: 1.75rem;
 
-h5 {
-  color: $colorHPIRed;
-}
+	h5 {
+		color: $colorHPIRed;
+	}
 
-.controls {
-  float:right;
-  color: #646464;
+	.controls {
+		float: right;
+		color: #646464;
 
-  .selected-date {
-    float:left;
-    margin-right:20px;
-    color: #969696;
-  }
+		.selected-date {
+			float: left;
+			margin-right: 20px;
+			color: #969696;
+		}
 
-  .btn-toolbar {
-    float:left;
-  }
-}
+		.btn-toolbar {
+			float: left;
+		}
+	}
 }
