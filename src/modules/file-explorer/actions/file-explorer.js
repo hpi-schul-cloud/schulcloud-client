@@ -4,7 +4,11 @@ import {Permissions, Server, Notification} from '../../core/helpers/';
 
 const saveFile = (url, fileName) => {
 	var options = {
-		responseType: 'blob'
+		responseType: 'blob',
+		onDownloadProgress: function (progressEvent) {
+			const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+			progressCallback(fileName, percentCompleted);
+		}
 	};
 
 	axios.get(url, options).then(res => {
@@ -35,7 +39,7 @@ export default {
 					return axios.put(signedUrl.url, file, options)
 				});
 		})).then(res => {
-			window.location.reload(); /**todo: only refresh "Meine Dateien"**/
+			window.location.reload();
 		});
 	},
 

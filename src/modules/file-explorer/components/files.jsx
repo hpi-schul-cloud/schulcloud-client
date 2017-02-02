@@ -5,11 +5,24 @@ class Files extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {downloadingFile: {}};
 	}
 
 	handleOnDownloadClick(file) {
 		this.props.actions.download(file);
+		//this.props.actions.download.bind(null, this.updateProgress.bind(this));
+	}
+
+	updateProgress(file, progress) {
+		let downloadingFile = this.state.downloadingFile;
+		console.log(file);
+		if(progress == 100) {
+			delete downloadingFile[file.name];
+		} else {
+			downloadingFile[file.name] = file;
+			downloadingFile[file.name].progress = progress;
+		}
+		this.setState({downloadingFile});
 	}
 
 	handleOnDeleteClick(file) {
@@ -57,6 +70,11 @@ class Files extends React.Component {
 							<div className="card-text">
 								<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
 								<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${id}`}/>
+								<br/>
+								/**{Object.keys(this.state.downloadingFile).map(key => {
+									const file = this.state.downloadingFile[key];
+									return  `${file.name} wird heruntergeladen: ${file.progress}%`
+								})}**/
 							</div>
 					</div>
 				</div>
