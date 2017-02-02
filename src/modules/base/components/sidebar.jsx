@@ -22,7 +22,7 @@ class Sidebar extends React.Component {
 		},{
 			name: 'Stundenplan',
 			icon: 'table',
-			to: '/timetable/'
+			to: '/calendar/'
 		},{
 			name: 'Materialsuche',
 			icon: 'search',
