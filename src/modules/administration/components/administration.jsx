@@ -2,11 +2,11 @@ import LayoutBase from '../../base/containers/layout';
 import SectionTitle from '../../base/components/title';  /* only for base */
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import SectionSchool from './school';
-import SectionCourses from './courses';
-import SectionClasses from './classes';
-import SectionTeachers from './teachers';
-import SectionStudents from './students';
+import SectionSchool from '../containers/school';
+import SectionCourses from '../containers/courses';
+import SectionClasses from '../containers/classes';
+import SectionTeachers from '../containers/teachers';
+import SectionStudents from '../containers/students';
 
 require('../styles/administration.scss');
 

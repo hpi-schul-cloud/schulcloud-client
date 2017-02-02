@@ -10,14 +10,12 @@ class SectionClasses extends AdminSection {
 	constructor(props) {
 		super(props);
 
-		this.options = {
+		const options = {
 			title: 'Klassen',
 			addLabel: 'Klasse hinzufügen',
-			editLabel: 'Klasse bearbeiten',
-			submitCallback: (data) => {
-				this.props.actions.updateClass(data);
-			}
+			editLabel: 'Klasse bearbeiten'
 		};
+		Object.assign(this.options, options);
 
 		this.actions = [
 			{
@@ -25,10 +23,31 @@ class SectionClasses extends AdminSection {
 				icon: 'edit'
 			},
 			{
-				action: this.props.actions.removeClass.bind(this),
+				action: this.removeRecord,
 				icon: 'trash-o'
 			}
-		]
+		];
+
+		Object.assign(this.state, {
+			teachers: [],
+			classes: []
+		});
+
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/classes');
+		this.serviceName = '/classes';
+	}
+
+	componentDidMount() {
+		super.componentDidMount();
+		this.loadTeachers();
+	}
+
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			$populate: ['teacherIds']
+		};
 	}
 
 	getTableHead() {
@@ -39,20 +58,25 @@ class SectionClasses extends AdminSection {
 		];
 	}
 
+	customizeRecordBeforeInserting(data) {
+		return this.props.actions.populateFields('/classes', data._id, ['teacherIds']);
+	}
+
 	getTableBody() {
-		return this.props.classes.map((c) => {
+		return Object.keys(this.state.records).map((id) => {
+			const c = this.state.records[id];
 			return [
 				c.name,
-				c.teacherIds.map(id => (this.props.teachersById[id] || {}).lastName).join(', '),
+				c.teacherIds.map(teacher => teacher.lastName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});
 	}
 
 	getTeacherOptions() {
-		return this.props.teachers.map((r) => {
+		return this.state.teachers.map((r) => {
 			return {
-				label: r.lastName || r._id,
+				label: `${r.firstName || r._id} ${r.lastName || ""}`,
 				value: r._id
 			};
 		});
@@ -74,7 +98,7 @@ class SectionClasses extends AdminSection {
 					name="schoolId"
 					type="hidden"
 					layout="elementOnly"
-					value={this.props.school._id}
+					value={this.props.schoolId}
 				/>
 
 				<Input

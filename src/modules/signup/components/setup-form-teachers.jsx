@@ -14,7 +14,7 @@ import {
 import {Link} from 'react-router';
 
 import Table from '../../administration/components/table';
-import AdminSectionTeachers from '../../administration/components/teachers';
+import AdminSectionTeachers from '../../administration/containers/teachers';
 
 class SetupFormTeachers extends AdminSectionTeachers {
 
@@ -33,25 +33,13 @@ class SetupFormTeachers extends AdminSectionTeachers {
 				<p><b>Tipp:</b> Sie können auch nach Abschluss der Registrierung
 					jeder Zeit weitere Lehrkräfte hinzufügen.</p>
 
-				<Form>
-					<div className="row">
-						<div className="col-md-12">
-							<Table head={this.getTableHead()} body={this.getTableBody()} />
-						</div>
-					</div>
-				</Form>
-
-				<button type="submit" className="btn btn-success" onClick={this.openModal.bind(this, this.defaultRecord)}>
-					Lehrkraft hinzufügen
-				</button>
-
-				{this.modalUI()}
+				<AdminSectionTeachers/>
 
 				<hr />
 
 				<p>Im <b>nächsten Schritt</b> können Sie Klassen anlegen.</p>
 
-				<Link className="btn btn-secondary" to="/signup/classes/">Fortsetzen</Link>
+				<Link className="btn btn-secondary" to="/setup/classes/">Fortsetzen</Link>
 			</div>
 		);
 	}

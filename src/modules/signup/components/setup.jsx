@@ -6,7 +6,7 @@ import SetupFormCourses from './setup-form-courses';
 
 require('../styles/signup.scss');
 
-class Signup extends React.Component {
+class Setup extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -49,4 +49,4 @@ class Signup extends React.Component {
 
 }
 
-export default Signup;
+export default Setup;
