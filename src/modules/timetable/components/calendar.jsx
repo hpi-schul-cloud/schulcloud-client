@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import LayoutBase from '../../base/containers/layout';
 import SectionTitle from '../../base/components/title';
 
-require('../../../../node_modules/fullcalendar/dist/fullCalendar.min.js');
+require('../../../../node_modules/fullcalendar/dist/fullcalendar.min.js');
 require('../../../../node_modules/fullcalendar/dist/locale/de.js');
 
 require('../../../../node_modules/fullcalendar/dist/fullcalendar.css');
