@@ -35,6 +35,8 @@
     "formsy-react-components": "^0.9.0",
     "jquery": "^3.1.1",
     "oauth-1.0a": "^2.0.0",
+    "rc-pagination": "^1.6.5",
+    "rc-select": "^6.7.1",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-dropzone": "^3.9.0",

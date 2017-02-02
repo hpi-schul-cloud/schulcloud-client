@@ -14,7 +14,7 @@ import {
 import {Link} from 'react-router';
 
 import Table from '../../administration/components/table';
-import AdminSectionCourses from '../../administration/components/courses';
+import AdminSectionCourses from '../../administration/containers/courses';
 
 class SetupFormCourses extends AdminSectionCourses {
 
@@ -33,19 +33,7 @@ class SetupFormCourses extends AdminSectionCourses {
 
 				<p><b>Tipp:</b> Lehrer können auch selber Kurse anlegen.</p>
 
-				<Form>
-					<div className="row">
-						<div className="col-md-12">
-							<Table head={this.getTableHead()} body={this.getTableBody()} />
-						</div>
-					</div>
-				</Form>
-
-				<button type="submit" className="btn btn-success" onClick={this.openModal.bind(this, this.defaultRecord)}>
-					Kurs hinzufügen
-				</button>
-
-				{this.modalUI()}
+				<AdminSectionCourses />
 
 				<hr />
 
