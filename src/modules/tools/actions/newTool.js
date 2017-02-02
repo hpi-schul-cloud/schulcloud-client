@@ -1,19 +1,27 @@
 import React from 'react';
 import {browserHistory} from 'react-router';
-import { Server } from '../../core/helpers';
+import { Server, Notification } from '../../core/helpers';
 
-const toolsConnectService = Server.service('/ltiTools/connect');
 const toolService = Server.service('/ltiTools');
+const courseService = Server.service('/courses');
 
 export default {
 	createNew: (tool) => {
 		toolService.create(tool)
 			.then(result => {
-				// Todo: remove when subsmanager is implemented
-				window.location.href = '/tools/'
+				if (result._id) {
+					courseService.patch(tool.courseId, { $push: {ltiToolIds: result._id}}).then(result => {
+						browserHistory.push(`/courses/${result._id}`);
+						Notification.showSuccess("Neues Tool wurde erfolgreich angelegt!");
+					}).catch(err => {
+						Notification.showError(err.message);
+						return false;
+					});
+				}
 			})
 			.catch(err => {
-				console.log(err);
+				Notification.showError(err.message);
+				return false;
 			});
 	}
 };

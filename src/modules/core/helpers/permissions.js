@@ -1,9 +1,16 @@
+import {browserHistory} from 'react-router';
+
 class Permissions {
 	constructor() {}
 
 	userHasPermission(user, permissions) {
 		if(!Array.isArray(permissions)) {
 			permissions = [permissions];
+		}
+
+		if (!user) {
+			browserHistory.push('/login/');
+			return;
 		}
 
 		const userPermissions = user.permissions || [];

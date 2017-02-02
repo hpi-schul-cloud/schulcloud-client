@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';  /* only for backend */
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';  /* only for base */
 import {browserHistory} from 'react-router';
 import TemplateToolCard from './templateToolCard';
 
@@ -14,17 +14,17 @@ class NewTool extends React.Component {
 	render() {
 		let idCount = 0;
 		return (
-			<LayoutBackend className="tools">
+			<LayoutBase className="tools">
 				<SectionTitle title="Tool Vorlagen"/>
 				<div className="tools-section">
 					{
 						this.props.tools.map((tool) => {
 							idCount++;
-							return <TemplateToolCard {...this.props} key={idCount} modalId={idCount} tool={tool} />;
+							return <TemplateToolCard {...this.props} key={idCount} modalId={idCount} tool={tool} courses={this.props.courses} />;
 						})
 					}
 				</div>
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

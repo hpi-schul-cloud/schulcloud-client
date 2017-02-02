@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';
 import SectionTimetable from '../../timetable/components/table';
 import SectionControls from '../../timetable/components/controls';
 import SectionTools from './tools';
@@ -54,7 +54,7 @@ class Dashboard extends React.Component {
 		}];
 
 		return (
-			<LayoutBackend className="route-dashboard">
+			<LayoutBase className="route-dashboard">
 				<SectionTitle title="Dashboard" location={this.props.location.query.l || 'school'} />
 				<SectionTasks location={this.props.location.query.l || 'school'} />
 				<SectionControls dashboard="true" />
@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
 				<SectionMessages />
 				<SectionTools buttons={tools} />
 				<SectionNews articles={articles} />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

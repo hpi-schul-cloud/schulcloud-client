@@ -1,6 +1,24 @@
-import { browserHistory, hashHistory, Router, Route, Link } from 'react-router';
+import {browserHistory, applyRouterMiddleware, Router, Route, Link} from 'react-router';
+import {useScroll} from 'react-router-scroll';
 
 import Layout from '../components/layout';
+import ErrorPage from '../containers/error-page';
+
+const _forceTrailingSlash = (prevState, nextState, replace) => {
+	const path = nextState.location.pathname;
+	if (path.slice(-1) !== '/') {
+		replace(Object.assign(nextState.location, {
+			pathname: `${path}/`
+		}));
+	}
+};
+
+const _getErrorPageUI = (errorCode) => {
+	return (
+		<ErrorPage errorCode={errorCode}/>
+	);
+};
+
 
 export default class App {
 	constructor(context) {
@@ -20,7 +38,7 @@ export default class App {
 		}
 
 		modules.forEach((module) => {
-			if(module.__loaded) return;
+			if (module.__loaded) return;
 			this.loadModule(module);
 		});
 	}
@@ -37,7 +55,7 @@ export default class App {
 		}
 
 		if (module.routes) {
-			if(Array.isArray(module.routes)) {
+			if (Array.isArray(module.routes)) {
 				this.routes.push.apply(this.routes, module.routes);
 			} else {
 				this.routes.push(module.routes);
@@ -64,11 +82,19 @@ export default class App {
 				route = route(this.context);
 			}
 
-			if(route.path == '/') {
+			if (route.path == '/') {
 				indexRoute = route;
 			}
 
 			return route;
+		});
+
+		// force trailing slashes with redirect or not found
+		routes.push({
+			path: '*',
+			component: _getErrorPageUI.bind(this, '404'),
+			onEnter: _forceTrailingSlash.bind(this, null),
+			onUpdate: _forceTrailingSlash
 		});
 
 		this.__initialized = true;
@@ -82,6 +108,7 @@ export default class App {
 					indexRoute: indexRoute,
 					childRoutes: routes
 				}}
+				render={applyRouterMiddleware(useScroll())}
 			/>
 		);
 	}

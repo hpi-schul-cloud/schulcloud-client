@@ -1,86 +1,123 @@
+import {
+	Input
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
 
 class SectionStudents extends AdminSection {
 
 	constructor(props) {
 		super(props);
 
-		this.options = {
+		const options = {
 			title: 'Schüler',
 			addLabel: 'Schüler hinzufügen',
 			editLabel: 'Schüler bearbeiten',
-			submitCallback: (data) => {
-				this.props.actions.updateStudent(data);
-			}
 		};
+		Object.assign(this.options, options);
 
 		this.actions = [
 			{
 				action: this.openModal.bind(this),
 				icon: 'edit'
+			},
+			{
+				action: this.removeRecord,
+				icon: 'trash-o'
 			}
-		]
+		];
+
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/users');
+		this.serviceName = '/users';
 	}
 
-	modalFormUI() {
-		const record = this.state.record;
-		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label>Name *</label>
-					<input
-						type="text"
-						className="form-control"
-						name="userName"
-						value={record.userName}
-						placeholder="Max Mustermann"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-
-				<div className="form-group">
-					<label>E-Mail *</label>
-					<input
-						type="email"
-						className="form-control"
-						value={record.email}
-						name="email"
-						onChange={this.handleRecordChange.bind(this)}
-						placeholder="test@test.org"
-						required />
-				</div>
-			</div>
-		);
-	}
-
-	removeRecord(record) {
-		this.props.actions.removeStudent(record);
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			roles: ['student']
+		};
 	}
 
 	getTableHead() {
 		return [
-			'ID',
-			'Name',
-			'Klasse',
+			'Vorname',
+			'Nachname',
 			'E-Mail-Adresse',
-			'Erstellt am',
 			''
 		];
 	}
 
 	getTableBody() {
-		return this.props.students.map((record) => {
+		return Object.keys(this.state.records).map((id) => {
+			const record = this.state.records[id];
 			return [
-				record._id,
-				record.userName,
-				record.class,
+				record.firstName,
+				record.lastName,
 				record.email,
-				record.createdAt,
 				this.getTableActions(this.actions, record)
 			];
 		});
+	}
+
+	modalFormUI() {
+		const record = this.state.record;
+		return (
+			<div>
+				<Input
+					name="_id"
+					type="hidden"
+					layout="elementOnly"
+					value={this.state.record._id}
+				/>
+
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.schoolId}
+				/>
+
+				<Input
+					name="roles"
+					type="hidden"
+					layout="elementOnly"
+					value={["student"]}
+				/>
+
+				<Input
+					label="Vorname"
+					name="firstName"
+					type="text"
+					placeholder="Max"
+					layout="vertical"
+					value={record.firstName || ''}
+					required
+				/>
+
+				<Input
+					label="Nachname"
+					name="lastName"
+					type="text"
+					placeholder="Mustermann"
+					layout="vertical"
+					value={record.lastName || ''}
+					required
+				/>
+
+				<Input
+					label="E-Mail-Adresse"
+					name="email"
+					type="email"
+					validations="isEmail"
+					placeholder="test@test.org"
+					validationError="This is not an email"
+					layout="vertical"
+					value={record.email || ''}
+					required
+				/>
+			</div>
+		);
 	}
 }
 

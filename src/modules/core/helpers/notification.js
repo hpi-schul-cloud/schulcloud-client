@@ -1,23 +1,24 @@
 import Alert from 'react-s-alert';
 /** http://react-s-alert.jsdemo.be/ **/
+
+const options = {
+	position: 'top',
+	beep: false,
+	html: true
+};
+
 class Notification {
 	constructor() {}
 
 	showError(message) {
-		Alert.error(message, {
-			position: 'top',
-			effect: 'jelly',
-			beep: false,
-			timeout: 'none'
-		});
+		Alert.error(message, options);
 	}
 	showInfo(message) {
-		Alert.info(message, {
-			position: 'top',
-			effect: 'jelly',
-			beep: false,
-			timeout: 'none'
-		});
+		Alert.info(message, options);
+	}
+
+	showSuccess(message) {
+		Alert.success(message, options);
 	}
 }
 

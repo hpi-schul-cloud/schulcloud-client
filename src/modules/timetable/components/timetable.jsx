@@ -1,5 +1,5 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';  /* only for backend */
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';  /* only for base */
 
 import SectionTable from './table';
 import SectionControls from './controls';
@@ -14,7 +14,7 @@ class Timetable extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend>
+			<LayoutBase>
 				<SectionTitle title="Stundenplan" />
 				<SectionControls />
 				<SectionTable weekday="Montag" date="14.11.2016" dashboard="false" />
@@ -22,7 +22,7 @@ class Timetable extends React.Component {
 				<SectionTable weekday="Mittwoch" date="16.11.2016" dashboard="false" />
 				<SectionTable weekday="Donnerstag" date="17.11.2016" dashboard="false" timeline="true" />
 				<SectionTable weekday="Freitag" date="18.11.2016" dashboard="false" />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

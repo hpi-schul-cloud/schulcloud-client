@@ -1,7 +1,7 @@
 
 
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';
+import LayoutBase from '../../base/containers/layout';
+import SectionTitle from '../../base/components/title';
 
 import SectionHomework from './homework';
 import SectionMaterial from './material';
@@ -26,11 +26,11 @@ class Lesson extends React.Component {
 
 	render() {
 		return (
-			<LayoutBackend className="route-lesson">
+			<LayoutBase className="route-lesson">
 				<SectionTitle title="Biologie, 17. November 2016" subtitle={this.getSubtitleUI.bind(this)()} />
 				<SectionHomework />
 				<SectionMaterial />
-			</LayoutBackend>
+			</LayoutBase>
 		);
 	}
 

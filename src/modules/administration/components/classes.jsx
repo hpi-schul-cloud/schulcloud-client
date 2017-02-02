@@ -1,25 +1,21 @@
+import {
+	Input,
+	ReactSelect
+} from '../../core/helpers/form';
+
 import AdminSection from './admin-section';
-import ModalForm from './modal-form';
-import Table from './table';
 
 class SectionClasses extends AdminSection {
 
 	constructor(props) {
 		super(props);
 
-		this.options = {
+		const options = {
 			title: 'Klassen',
 			addLabel: 'Klasse hinzufügen',
-			editLabel: 'Klasse bearbeiten',
-			submitCallback: (data) => {
-				this.props.actions.updateClass(data);
-			}
+			editLabel: 'Klasse bearbeiten'
 		};
-
-		this.defaultRecord = {
-			name: '',
-			schoolId: this.props.school._id
-		};
+		Object.assign(this.options, options);
 
 		this.actions = [
 			{
@@ -27,68 +23,107 @@ class SectionClasses extends AdminSection {
 				icon: 'edit'
 			},
 			{
-				action: this.removeRecord.bind(this),
+				action: this.removeRecord,
 				icon: 'trash-o'
 			}
-		]
+		];
+
+		Object.assign(this.state, {
+			teachers: [],
+			classes: []
+		});
+
+		this.loadContentFromServer = this.props.actions.loadContent.bind(this, '/classes');
+		this.serviceName = '/classes';
 	}
 
-	modalFormUI() {
-		const record = this.state.record;
-		return (
-			<div className="edit-form">
-				<div className="form-group">
-					<label htmlFor="">Name der Klasse *</label>
-					<input
-						type="text"
-						value={record.name}
-						className="form-control"
-						name="name"
-						placeholder="10a"
-						onChange={this.handleRecordChange.bind(this)}
-						required />
-				</div>
-
-				<div className="form-group">
-					<label htmlFor="">Klassenlehrer</label>
-					<select
-						value={record.teacherId}
-						className="form-control"
-						name="teacherId"
-						onChange={this.handleRecordChange.bind(this)}
-						required
-						multiple>
-						{this.props.teachers.map((r) => {
-							return (<option key={r._id} value={r._id}>{r.userName || r._id}</option>);
-						})}
-					</select>
-				</div>
-			</div>
-		);
+	componentDidMount() {
+		super.componentDidMount();
+		this.loadTeachers();
 	}
 
-	removeRecord(record) {
-		this.props.actions.removeClass(record);
+	contentQuery() {
+		const schoolId = this.props.schoolId;
+		return {
+			schoolId,
+			$populate: ['teacherIds']
+		};
 	}
 
 	getTableHead() {
 		return [
-			'ID',
 			'Bezeichnung',
-			'Erstellt am',
+			'Lehrer',
 			''
 		];
 	}
 
+	customizeRecordBeforeInserting(data) {
+		return this.props.actions.populateFields('/classes', data._id, ['teacherIds']);
+	}
+
 	getTableBody() {
-		return this.props.classes.map((c) => {
+		return Object.keys(this.state.records).map((id) => {
+			const c = this.state.records[id];
 			return [
-				c._id,
 				c.name,
-				c.createdAt,
+				c.teacherIds.map(teacher => teacher.lastName).join(', '),
 				this.getTableActions(this.actions, c)
 			];
 		});
+	}
+
+	getTeacherOptions() {
+		return this.state.teachers.map((r) => {
+			return {
+				label: `${r.firstName || r._id} ${r.lastName || ""}`,
+				value: r._id
+			};
+		});
+	}
+
+	modalFormUI() {
+		const record = this.state.record;
+
+		return (
+			<div>
+				<Input
+					name="_id"
+					type="hidden"
+					layout="elementOnly"
+					value={this.state.record._id}
+				/>
+
+				<Input
+					name="schoolId"
+					type="hidden"
+					layout="elementOnly"
+					value={this.props.schoolId}
+				/>
+
+				<Input
+					label="Name der Klasse"
+					name="name"
+					type="text"
+					placeholder="10a"
+					layout="vertical"
+					value={record.name || ''}
+					required
+				/>
+
+				<ReactSelect
+					label="Klassenlehrer"
+					name="teacherIds"
+					type="text"
+					placeholder="Frau Musterfrau"
+					layout="vertical"
+					value={record.teacherIds || []}
+					multiple
+					options={this.getTeacherOptions()}
+					required
+				/>
+			</div>
+		);
 	}
 }
 

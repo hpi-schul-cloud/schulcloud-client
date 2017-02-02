@@ -1,4 +1,8 @@
 import ReactDOM from 'react-dom';
+import Pagination from 'rc-pagination';
+import Select from 'rc-select';
+import '../styles/rc-pagination.scss';
+import '../styles/rc-select.scss';
 
 import ModalForm from './modal-form';
 import Table from './table';
@@ -12,50 +16,42 @@ class AdminSection extends React.Component {
 			title: '',
 			addLabel: '',
 			editLabel: '',
-			submitCallback: () => {}
-		}
+		};
 
 		this.state = {
-			record: {}
+			record: {},
+			records: [],
+			numberOfPages: 1,
+			itemsPerPage: 10,
 		};
 
 		this.defaultRecord = {};
+		this.loadContentFromServer = null;
+		this.serviceName = null;
 	}
 
-
-	handleRecordChange(e) {
-		let el = e.target;
-		let name = el.name;
-		let type = el.type;
-		let record = this.state.record;
-
-		if (type == 'select-multiple') {
-			let selectedOptions = [];
-			for (let i = 0, l = el.options.length; i < l; i++) {
-				if (el.options[i].selected) {
-					selectedOptions.push(el.options[i].value);
-				}
-			}
-			record[name] = selectedOptions;
-		} else {
-			record[name] = el.value;
-		}
-
-		this.setState({record});
+	componentDidMount() {
+		this.loadContent(1, this.state.itemsPerPage);
 	}
 
+	// return the query passed to actions.loadContent along with pagination options, e.g. {schoolId: 123456}
+	contentQuery() {
+		throw new TypeError("contentQuery() has to be implemented by AdminSection subclasses.");
+	}
 
 	modalFormUI(record) {
-		return;
+		throw new Error("modalFormUI() has to be implemented by AdminSection.");
 	}
 
 	modalUI() {
 		const title = this.state.record.name != '' ? this.options.editLabel : this.options.addLabel;
 		return (
 			<ModalForm
+				ref="edit-modal"
 				title={title}
 				content={this.modalFormUI.bind(this)()}
-				submitCallback={this.options.submitCallback.bind(this, this.state.record)}
+				submitCallback={this.updateRecord.bind(this)}
+				{...this.options}
 			/>
 		);
 	}
@@ -68,28 +64,101 @@ class AdminSection extends React.Component {
 	}
 
 	getTableHead() {
-		return [];
+		throw new Error("getTableHead() has to be implemented by AdminSection.");
 	}
 
 	getTableBody() {
-		return [];
+		throw new Error("getTableBody() has to be implemented by AdminSection.");
 	}
 
 	getTableActions(actions, record) {
 		return (
-			<div>
+			<div className="table-actions">
 				{actions.map((action, index) => {
 					return (
 						<a
 							key={index}
 							className={action.class}
 							onClick={action.action.bind(this, record)}>
-							<i className={`fa fa-${action.icon}`} />
+							<button className={`btn btn-default btn-sm`}>
+								<i className={`fa fa-${action.icon}`} /> {action.label || ""}
+							</button>
 						</a>
 					);
 				})}
 			</div>
 		);
+	}
+
+	onPageSizeChange(currentPage, itemsPerPage) {
+		this.setState({itemsPerPage});
+		this.loadContent(1, itemsPerPage);
+	}
+
+	loadContent(page, itemsPerPage) {
+		const paginationOptions = {$skip: (page - 1) * itemsPerPage, $limit: itemsPerPage};
+		const query = Object.assign({}, paginationOptions, this.contentQuery());
+		this.loadContentFromServer(query)
+			.then((result) => {
+				const numberOfPages = Math.ceil(result.pagination.total / this.state.itemsPerPage);
+				Object.assign(result, {numberOfPages});
+				this.setState(result);
+			});
+	}
+
+	loadTeachers() {
+		this.props.actions.loadTeachers()
+			.then(teachers => this.setState({teachers}));
+	}
+
+	loadClasses() {
+		this.props.actions.loadClasses()
+			.then(classes => this.setState({classes}));
+	}
+
+	onPageChange(page) {
+		this.loadContent(page, this.state.itemsPerPage);
+	}
+
+	updateRecord(data) {
+		console.info(`Replacing \n${JSON.stringify(this.state.records[data._id])} with \n${JSON.stringify(data)}`);
+		this.props.actions.updateRecord(this.serviceName, data)
+			.then(this.customizeRecordBeforeInserting.bind(this))
+			.then(savedData => {
+				let records = this.state.records;
+				records[data._id] = savedData;
+				this.setState({records});
+			});
+	}
+
+	// override point to customize records before they are inserted into the table,
+	// e.g. to populate fields (resolve ids)
+	customizeRecordBeforeInserting(data) {
+		return Promise.resolve(data);
+	}
+
+	removeRecord(data) {
+		this.props.actions.removeRecord(this.serviceName, data)
+			.then(_ => {
+				let records = this.state.records;
+				delete records[data._id];
+				this.setState({records});
+			});
+	}
+
+	getPaginationControl() {
+		//if (this.state.numberOfPages < 2) return null;
+		return (<Pagination
+			selectComponentClass={Select}
+			locale={require('rc-pagination/lib/locale/en_US')}
+			showSizeChanger
+			defaultPageSize={this.state.itemsPerPage}
+			defaultCurrent={1}
+			pageSizeOptions={['10', '25', '50', '100']}
+			onShowSizeChange={this.onPageSizeChange.bind(this)}
+			onChange={this.onPageChange.bind(this)}
+			total={this.state.numberOfPages}
+		/>);
 	}
 
 	render() {
@@ -101,13 +170,13 @@ class AdminSection extends React.Component {
 							<h5>{this.options.title}</h5>
 
 							<Table head={this.getTableHead()} body={this.getTableBody()} />
+							{this.getPaginationControl()}
 							<button type="submit" className="btn btn-primary" onClick={this.openModal.bind(this, this.defaultRecord)}>
 								{this.options.addLabel}
 							</button>
 						</div>
 					</div>
 				</div>
-
 				{this.modalUI()}
 			</section>
 		);

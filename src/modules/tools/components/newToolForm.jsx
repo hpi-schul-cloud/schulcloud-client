@@ -1,5 +1,8 @@
-import LayoutBackend from '../../backend/containers/layout';
-import SectionTitle from '../../backend/components/title';
+import {
+	Input,
+	Select,
+	Form
+} from '../../core/helpers/form';
 
 require('../styles/newToolForm.scss');
 
@@ -19,7 +22,8 @@ class NewToolForm extends React.Component {
 			}
 		};
 
-		this.handleChange = this.handleChange.bind(this);
+		// set default course
+		this.state.tool.courseId = this.props.courses[0]._id;
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
@@ -27,14 +31,7 @@ class NewToolForm extends React.Component {
 		return key + value + Math.random() * 10000;
 	}
 
-	handleChange(fieldName, event) {
-		var stateUpdate = this.state.tool;
-		stateUpdate[fieldName] = event.target.value;
-		this.setState({tool: stateUpdate});
-	}
-
 	handleSubmit(event) {
-		event.preventDefault();
 		var tool = this.state.tool;
 		tool.customs = this.state.custom_fields;
 
@@ -66,7 +63,7 @@ class NewToolForm extends React.Component {
 		this.setState({custom_fields: stateCustomsUpdate});
 	}
 
-	renderNewCustomFields() {
+	renderNewCustomField() {
 		return (
 			<div>
 				<input type="text" value={this.state.new_custom_field.key} onChange={this.handleChangeCustomField.bind(this, "key")} />
@@ -92,34 +89,61 @@ class NewToolForm extends React.Component {
 		)
 	}
 
+	getCourseOptions() {
+		return this.props.courses.map(c => {
+			return {label: c.name, value: c._id};
+		});
+	}
+
+	getPrivacyOptions() {
+		return [
+			{label: "Nur E-Mail", value: "e-mail"},
+			{label: "Nur Name", value: "name"},
+			{label: "Öffentlich", value: "public"}
+		]
+	}
+
 	render() {
 		return (
-			<form className="new_tool_form">
-				<label>
-					Name (Pflichtfeld):
-					<input type="text" required="required" value={this.state.tool.name} onChange={this.handleChange.bind(null, "name")} />
-				</label> <br></br>
-				<label>
-					Logo (URL):
-					<input type="text" value={this.state.tool.logo_url} onChange={this.handleChange.bind(null, "logo_url")} />
-				</label> <br></br>
-				<label>
-					Privatsphäre:
-					<select className="form-control" required="required" value={this.state.tool.privacy_permission} onChange={this.handleChange.bind(null, "privacy_permission" +
-					 "")}>
-						<option value="anonymous">Anonym</option>
-						<option value="e-mail">Nur E-Mail</option>
-						<option value="name">Nur Name</option>
-						<option value="public">Öffentlich</option>
-					</select>
-				</label> <br></br>
+			<Form className="new_tool_form">
+				<Select
+					label="Kurs"
+					name="courseId"
+					type="text"
+					options={this.getCourseOptions()}
+					layout="vertical"
+					value={this.state.tool.courseId}>
+				</Select>
+				<Input
+					label="Name"
+					type="text"
+					name="name"
+					layout="vertical"
+					value={this.state.tool.name} />
+				<Input
+					label="Logo"
+					type="text"
+					name="logo_url"
+					layout="vertical"
+					value={this.state.tool.logo_url} />
+				<Select
+					label="Privatsphäre"
+					name="privacy_permission"
+					value={this.state.tool.privacy_permission}
+					layout="vertical"
+					options={this.getPrivacyOptions()}>
+				</Select>
 				<div className="custom-fields">
 					Sonstige Einstellungen:
 					{ this.renderCustomFields() } <br></br>
-					{ this.renderNewCustomFields() } <br></br>
+					{ this.renderNewCustomField() } <br></br>
 				</div>
-				<button data-dismiss="modal" onClick={this.handleSubmit} className="btn btn-primary">Abschicken</button>
-			</form>
+				<button
+					type="submit"
+					data-dismiss="modal"
+					onClick={this.handleSubmit}
+					className="btn btn-primary">Abschicken</button>
+			</Form>
 		);
 	}
 
