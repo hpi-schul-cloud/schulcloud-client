@@ -37,7 +37,7 @@ class SetupFormClasses extends AdminSectionClasses {
 
 				<p>Im <b>nächsten Schritt</b> können Sie Kurse anlegen:</p>
 
-				<Link className="btn btn-secondary" to="/signup/courses/">Fortsetzen</Link>
+				<Link className="btn btn-secondary" to="/setup/courses/">Fortsetzen</Link>
 			</div>
 		);
 

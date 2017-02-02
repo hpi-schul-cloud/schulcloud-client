@@ -39,7 +39,7 @@ class SetupFormTeachers extends AdminSectionTeachers {
 
 				<p>Im <b>nächsten Schritt</b> können Sie Klassen anlegen.</p>
 
-				<Link className="btn btn-secondary" to="/signup/classes/">Fortsetzen</Link>
+				<Link className="btn btn-secondary" to="/setup/classes/">Fortsetzen</Link>
 			</div>
 		);
 	}
