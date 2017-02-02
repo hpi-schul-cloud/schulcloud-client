@@ -52,7 +52,7 @@ function composer(props, onData) {
 			});
 		},
 		onSignupFinished: () => {
-			actions.finishSignup(currentUser._id).then(() => {
+			actions.finishSetup(currentUser._id).then(() => {
 				browserHistory.push("/administration/");
 			});
 		}
