@@ -13,25 +13,29 @@ class Calendar extends React.Component {
 
 	constructor(props) {
 		super(props);
-
+		this.$calendar = {};
 		this.state = {};
 	}
 
 	componentDidMount() {
-		$('#calendar').fullCalendar({
+		this.$calendar = $('#calendar');
+		this.$calendar.fullCalendar({
+			defaultView: this.props.view,
 			editable: false,
 			events: this.props.events,
 			eventRender: (event, element) => {
 				if(event.cancelled) {
 					element.addClass('fc-event-cancelled');
 				}
-
 			},
 			header: {
 				left: 'title',
 				right: 'month,agendaWeek,agendaDay prev,today,next'
 			},
 			locale: 'de',
+			viewRender: (view, element) => {
+				location.hash = view.name;
+			}
 		});
 
 		// overwrite styles
@@ -45,6 +49,12 @@ class Calendar extends React.Component {
 		$('.fc-button-group')
 			.removeClass()
 			.addClass('btn-group btn-group-sm');
+	}
+
+ 	componentWillReceiveProps(nextProps) {
+		if(this.props.view && nextProps.view !== this.props.view) {
+			this.$calendar.fullCalendar('changeView', nextProps.view);
+		}
 	}
 
 	render() {

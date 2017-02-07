@@ -1,6 +1,6 @@
 import {Link} from 'react-router';
 
-import LessonCard from './lessonCard';
+import LessonCard from './lesson-card';
 
 require('../styles/table.scss');
 
