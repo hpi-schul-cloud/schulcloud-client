@@ -8,11 +8,24 @@ class Directories extends React.Component {
 		this.state = {};
 	}
 
-	/* Mock data */
-	getData() {
-		return [{
+	getDirectoryUI(directory) {
+		return (
+			<div className="col-sm-6 col-xs-12 col-md-4" key={`directory${directory.id}`} >
+				<div className="card card-block folder">
+					<strong className="card-title-directory"><i className="fa fa-folder" aria-hidden="true"></i> {directory.name}</strong>
+				</div>
+			</div>
+		);
+	}
 
-		}];
+	getDirectoriesUI() {
+		return (
+			<div>
+				{this.props.directories.map(d => {
+					return this.getDirectoryUI(d);
+				})}
+			</div>
+		);
 	}
 
 	render() {
@@ -20,27 +33,8 @@ class Directories extends React.Component {
 			<section className="directories">
 				<div className="container-fluid">
 					<div className="row">
-						<div className="col-sm-12 no-padding">
-							<h5>Meine Ordner</h5>
-						</div>
-					</div>
-					<div className="row">
 						<div className="row">
-							<div className="col-sm-6 col-xs-12 col-md-4" >
-								<div className="card card-block folder">
-									<strong className="card-title-directory"><i className="fa fa-folder" aria-hidden="true"></i> Bilder</strong>
-								</div>
-							</div>
-							<div className="col-sm-6 col-xs-12 col-md-4">
-								<div className="card card-block folder">
-									<strong className="card-title"><i className="fa fa-folder" aria-hidden="true"></i> Dokumente</strong>
-								</div>
-							</div>
-							<div className="col-sm-6 col-xs-12 col-md-4">
-								<div className="card card-block folder">
-									<strong className="card-title"><i className="fa fa-folder" aria-hidden="true"></i> Videos</strong>
-								</div>
-							</div>
+							{this.getDirectoriesUI()}
 						</div>
 					</div>
 				</div>

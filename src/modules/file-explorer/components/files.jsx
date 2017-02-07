@@ -1,4 +1,5 @@
 require('../styles/files.scss');
+import Directories from './directories';
 
 class Files extends React.Component {
 
@@ -104,6 +105,7 @@ class Files extends React.Component {
 							{this.getStorageContextUI()}
 						</div>
 					</div>
+					<Directories {...this.props} />
 					<div className="row">
 						<div className="row">
 							{this.getFilesUI()}

@@ -15,15 +15,15 @@ const composer = (props, onData) => {
 			.then(res => {
 				let componentData = {
 					actions,
-					files: [],
+					filesList: [],
 					storageContext: context,
 					onReload: getFiles
 				};
 
 				// if the storage provider does not return any files, there's no empty array but an ugly error message
 				if( Object.prototype.toString.call( res ) === '[object Array]' ) {
-					componentData.files = res;
-					componentData.files.forEach(f => f.id = RandomIdGenerator.generateRandomId());
+					componentData.filesList = res;
+					componentData.filesList.forEach(f => f.id = RandomIdGenerator.generateRandomId());
 				} else {
 					Notification.showError("Deine Schule hat bislang noch keine Dateiverwaltung ausgewählt");
 				}
