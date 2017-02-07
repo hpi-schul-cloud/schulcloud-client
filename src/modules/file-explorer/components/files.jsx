@@ -4,10 +4,24 @@ class Files extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = {downloadingFiles: {}};
+	}
+
+	updateProgress(file, progress) {
+		let downloadingFiles = this.state.downloadingFiles;
+		if(progress == 100) {
+			delete downloadingFiles[file.name];
+		} else {
+			downloadingFiles[file.name] = file;
+			downloadingFiles[file.name].progress = progress;
+		}
+		this.setState({downloadingFiles});
 	}
 
 	handleOnDownloadClick(file) {
-		this.props.actions.download(file);
+		//this.props.actions.download.bind(null, this.updateProgress.bind(this));
+		this.props.actions.download(null, file);
 	}
 
 	handleOnDeleteClick(file) {

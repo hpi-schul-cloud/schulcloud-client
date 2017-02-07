@@ -2,7 +2,7 @@ import axios from 'axios';
 import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
 
-const saveFile = (url, fileName) => {
+const saveFile = (progressCallback, url, fileName) => {
 	var options = {
 		responseType: 'blob',
 		onDownloadProgress: function (progressEvent) {
@@ -41,7 +41,7 @@ export default {
 		});
 	},
 
-	download: (file) => {
+	download: (progressCallback, file) => {
 		const currentUser = Server.get('user');
 		return FileService.getUrl(file.name, null, `users/${currentUser._id}`, 'getObject')
 			.then((signedUrl) => {
@@ -50,7 +50,7 @@ export default {
 					return;
 				}
 
-				saveFile(signedUrl.url, file.name);
+				saveFile(progressCallback, signedUrl.url, file.name);
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
