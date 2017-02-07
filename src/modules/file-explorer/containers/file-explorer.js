@@ -9,12 +9,14 @@ import actions from '../actions/file-explorer';
 const composer = (props, onData) => {
 
 	const currentUser = Server.get('user');
-	const getFiles = () => {
-		FileService.getFileList(`users/${currentUser._id}`)
+	const getFiles = (storageContext) => {
+		var context = storageContext || `users/${currentUser._id}`;
+		FileService.getFileList(context)
 			.then(res => {
 				let componentData = {
 					actions,
 					files: [],
+					storageContext: context,
 					onReload: getFiles
 				};
 

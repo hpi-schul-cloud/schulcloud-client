@@ -6,13 +6,25 @@ class Files extends React.Component {
 		super(props);
 	}
 
+	getStorageTitle(storageContext) {
+		var values = storageContext.split("/");
+		switch (values[0]) {
+			case 'users': return `Meine persönlichen Dateien /${values.filter((v, index) => {
+					return index > 1;
+				}).join("/")}`;
+			case 'courses': return "Kurs Dateien";
+			case 'classes': return "Klassen Dateien";
+			default: return "";
+		}
+	}
+
 	handleOnDownloadClick(file) {
-		this.props.actions.download(file);
+		this.props.actions.download(file, this.props.storageContext);
 	}
 
 	handleOnDeleteClick(file) {
-		this.props.actions.delete(file).then(res => {
-			this.props.onReload();
+		this.props.actions.delete(file, this.props.storageContext).then(res => {
+			this.props.onReload(this.props.storageContext);
 		});
 	}
 
@@ -75,13 +87,21 @@ class Files extends React.Component {
 		);
 	}
 
+	getStorageContextUI() {
+		return (
+			<h5>
+				{this.getStorageTitle(this.props.storageContext)}
+			</h5>
+		);
+	}
+
 	render() {
 		return (
 			<section className="files">
 				<div className="container-fluid">
 					<div className="row">
 						<div className="col-sm-12 no-padding">
-							<h5>Meine Dateien</h5>
+							{this.getStorageContextUI()}
 						</div>
 					</div>
 					<div className="row">

@@ -18,10 +18,10 @@ const saveFile = (url, fileName) => {
 };
 
 export default {
-	upload: (files) => {
+	upload: (files, storageContext) => {
 		const currentUser = Server.get('user');
 		return Promise.all(files.map((file) => {
-			return FileService.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
+			return FileService.getUrl(file.name, file.type, storageContext, 'putObject')
 				.then((signedUrl) => {
 					var options = {
 						headers: signedUrl.header
@@ -33,9 +33,9 @@ export default {
 		}).catch(err => Notification.showError(err));
 	},
 
-	download: (file) => {
+	download: (file, storageContext) => {
 		const currentUser = Server.get('user');
-		return FileService.getUrl(file.name, null, `users/${currentUser._id}`, 'getObject')
+		return FileService.getUrl(file.name, null, storageContext, 'getObject')
 			.then((signedUrl) => {
 				if (!signedUrl.url) {
 					Notification.showError("Beim Downloaden der Datei ist etwas schief gelaufen!");
@@ -48,9 +48,9 @@ export default {
 			});
 	},
 
-	delete: (file) => {
+	delete: (file, storageContext) => {
 		const currentUser = Server.get('user');
-		return FileService.deleteFile(`users/${currentUser._id}`, file.name, null)
+		return FileService.deleteFile(storageContext, file.name, null)
 			.then((res) => {
 				return res;
 			}).catch(err => {
