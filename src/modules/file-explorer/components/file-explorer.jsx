@@ -15,25 +15,39 @@ class FileExplorer extends React.Component {
 
 	/**
 	 * split files-list in files, that are in current directory, and the sub-directories
-	 * by a entry's path, which has the form "/" if it's the current directory or "/sub" if it's in a sub-directory
 	 * @param data is the files-list
      */
 	splitFilesAndDirectories(data) {
 		let files = [];
 		let directories = [];
+
+		// gets name of current directory
+		let values = this.props.storageContext.split("/").filter((v, index) => index > 1);
+		let currentDir = values[values.length - 1];
 		data.forEach(entry => {
 			// the sub-directory is in the second value after the split function
-			entry.path.split("/")[1] == ""
+			entry.path.split("/")[1] == "" || (currentDir && entry.path.split("/")[1] == currentDir)
 				? files.push(entry)
-				: directories.push({
-					id: RandomIdGenerator.generateRandomId(),
-					name: entry.path.split("/")[1]
-				});
+				: directories.push(entry.path.split("/")[1]);
 		});
-		
+
+		// delete duplicates in directories
+		let withoutDuplicates = [];
+		directories.forEach(d => {
+			if (withoutDuplicates.indexOf(d) == -1) withoutDuplicates.push(d);
+		});
+
+		// remove .scfake.png fake file
+		files = files.filter(f => f.name != ".scfake.png");
+
 		return {
 			files: files,
-			directories: directories
+			directories: withoutDuplicates.map(v => {
+				return {
+					id: RandomIdGenerator.generateRandomId(),
+					name: v
+				};
+			})
 		};
 	}
 

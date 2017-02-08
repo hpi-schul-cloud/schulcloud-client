@@ -30,6 +30,7 @@ const composer = (props, onData) => {
 
 				onData(null, componentData);
 			}).catch(err => {
+				console.log(err);
 				Notification.showError(err);
 			});
 	};

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
+require('../../../static/images/.scfake.png');
 
 const saveFile = (url, fileName) => {
 	var options = {
@@ -19,7 +20,6 @@ const saveFile = (url, fileName) => {
 
 export default {
 	upload: (files, storageContext) => {
-		const currentUser = Server.get('user');
 		return Promise.all(files.map((file) => {
 			return FileService.getUrl(file.name, file.type, storageContext, 'putObject')
 				.then((signedUrl) => {
@@ -34,7 +34,6 @@ export default {
 	},
 
 	download: (file, storageContext) => {
-		const currentUser = Server.get('user');
 		return FileService.getUrl(file.name, null, storageContext, 'getObject')
 			.then((signedUrl) => {
 				if (!signedUrl.url) {
@@ -49,12 +48,32 @@ export default {
 	},
 
 	delete: (file, storageContext) => {
-		const currentUser = Server.get('user');
 		return FileService.deleteFile(storageContext, file.name, null)
 			.then((res) => {
 				return res;
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
+	},
+
+	createNewFolder: (dirName, storageContext) => {
+
+		// load empty fake file for creating new directory
+
+		var options = {
+			responseType: 'blob'
+		};
+
+		return axios.get("/images/.scfake.png", options).then(res => {
+			let fakeFile = res.data;
+			return FileService.getUrl(".scfake.png", fakeFile.type, `${storageContext}/${dirName}`, 'putObject')
+			 .then((signedUrl) => {
+				var options = {
+					headers: signedUrl.header
+				};
+
+				return axios.put(signedUrl.url, fakeFile, options);
+			}).catch(err => Notification.showError(err));
+		});
 	}
 };

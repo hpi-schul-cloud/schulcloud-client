@@ -13,7 +13,7 @@ class Memory extends React.Component {
 
 	handleOnDrop(files) {
 		this.props.actions.upload(files, this.props.storageContext).then(res => {
-			this.props.onReload();
+			this.props.onReload(this.props.storageContext);
 		});
 	}
 
