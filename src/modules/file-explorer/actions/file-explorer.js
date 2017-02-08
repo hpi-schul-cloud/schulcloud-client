@@ -57,23 +57,6 @@ export default {
 	},
 
 	createNewFolder: (dirName, storageContext) => {
-
-		// load empty fake file for creating new directory
-
-		var options = {
-			responseType: 'blob'
-		};
-
-		return axios.get("/images/.scfake.png", options).then(res => {
-			let fakeFile = res.data;
-			return FileService.getUrl(".scfake.png", fakeFile.type, `${storageContext}/${dirName}`, 'putObject')
-			 .then((signedUrl) => {
-				var options = {
-					headers: signedUrl.header
-				};
-
-				return axios.put(signedUrl.url, fakeFile, options);
-			}).catch(err => Notification.showError(err));
-		});
+		return FileService.createDirectory(storageContext, dirName);
 	}
 };
