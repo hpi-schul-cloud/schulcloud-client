@@ -10,11 +10,13 @@ class Files extends React.Component {
 	getStorageTitle(storageContext) {
 		var values = storageContext.split("/");
 		switch (values[0]) {
-			case 'users': return `Meine persönlichen Dateien /${values.filter((v, index) => {
+			case 'users':
+				let dirName = values.filter((v, index) => {
 					return index > 1;
-				}).join("/")}`;
-			case 'courses': return "Kurs Dateien";
-			case 'classes': return "Klassen Dateien";
+				}).join("/");
+				return `Meine persönlichen Dateien /${dirName}`;
+			case 'courses': return "Kurs-Dateien";
+			case 'classes': return "Klassen-Dateien";
 			default: return "";
 		}
 	}
