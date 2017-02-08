@@ -1,5 +1,6 @@
 import ReactPlayer from 'react-player';
 import SearchResult from './searchResult';
+import InfiniteScroll from 'react-infinite-scroller';
 require('../styles/search.scss');
 
 class SectionSearch extends React.Component {
@@ -9,24 +10,29 @@ class SectionSearch extends React.Component {
 
 		this.state = {
 			query: this.props.query,
-			searchResults: []
+			searchResults: [],
+			hasMore: false
 		};
-
-		this.updateContent(this.state.query);
 	}
 
 	handleSearchFieldChange(event) {
 		const query = event.target.value;
 		this.setState({query});
-		this.updateContent(query);
+		this.onChangeQuery();
 	}
 
-	updateContent(query) {
-		this.props.actions.findContent(query)
-			.then(searchResults => {
-				this.setState({searchResults: searchResults.data});
-			})
-			.catch(error => console.error(error));	// TODO: display the error
+	onChangeQuery(query) {
+		this.setState({searchResults: []});
+		this.loadMoreItems(0);
+	}
+
+	loadMoreItems(pageToLoad) {
+		this.props.actions.findContent(this.state.query, pageToLoad)
+			.then(result => {
+				const searchResults = this.state.searchResults.concat(result.data);
+				const hasMore = (searchResults.length < result.total);
+				this.setState({searchResults, hasMore});
+			});
 	}
 
 	getSearchFieldUI() {
@@ -268,6 +274,12 @@ class SectionSearch extends React.Component {
 					<div className="search-results">
 						{this.getResultsUI.bind(this)()}
 					</div>
+					<InfiniteScroll
+						loadMore={this.loadMoreItems.bind(this)}
+						hasMore={this.state.hasMore}
+						loader={<div className="loader">Loading ...</div>}>
+						{this.getResultsUI()}
+					</InfiniteScroll>
 				</div>
 			</section>
 		);
