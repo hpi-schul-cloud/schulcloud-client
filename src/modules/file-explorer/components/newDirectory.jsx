@@ -5,7 +5,9 @@ class NewDirectory extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {};
+		this.state = {
+			newDirectoryName: ""
+		};
 	}
 
 	handleChangeNewDirectoryField(e) {
@@ -52,7 +54,7 @@ class NewDirectory extends React.Component {
 		return (
 			<div className="col-sm-6 col-xs-12 col-md-4">
 				 <div data-toggle="modal" data-target="#newDirectoryModal">
-					<div className="card card-block folder">
+					<div className="newDirectoryCard card card-block folder">
 						<strong className="card-title-directory"><i className="fa fa-folder" aria-hidden="true"></i> Neuen Ordner erstellen ... </strong>
 					</div>
 				 </div>
