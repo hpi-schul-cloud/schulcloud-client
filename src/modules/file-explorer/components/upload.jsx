@@ -23,7 +23,7 @@ class Memory extends React.Component {
 	}
 
 	handleOnDrop(files) {
-		this.props.actions.upload(this.updateProgress,files).then(res => {
+		this.props.actions.upload(this.updateProgress.bind(this),files).then(res => {
 			this.props.onReload();
 		});
 	}
@@ -34,8 +34,8 @@ class Memory extends React.Component {
 				<div className="container-fluid">
 					<div className="row">
 						<Dropzone className="drop-zone"
-								  maxSize={1024 * 1024 * 100000}>
-								  onDrop={ this.handleOnDrop.bind(this) }
+								  maxSize={1024 * 1024 * 100000}
+								  onDrop={ this.handleOnDrop.bind(this) }>
 							<span><i className="fa fa-cloud-upload"/> Dateien zum Hochladen ablegen.</span>
 						</Dropzone>
 						{Object.keys(this.state.uploadingFiles).map(key => {

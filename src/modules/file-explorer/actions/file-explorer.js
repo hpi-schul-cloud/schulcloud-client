@@ -2,23 +2,40 @@ import axios from 'axios';
 import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
 
-const saveFile = (progressCallback, url, fileName) => {
-	var options = {
-		responseType: 'blob',
-		onDownloadProgress: function (progressEvent) {
-			const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-			progressCallback(fileName, percentCompleted);
-		}
-	};
+window.saveFile = function (url, fileName) {
+		//iOS devices not supported
+	if (/(iP)/g.test(navigator.userAgent)) {
+		alert('Your device does not support files downloading. Please try again in desktop browser.');
+		return false;
+	}
 
-	axios.get(url, options).then(res => {
-		var a = document.createElement('a');
-		a.href = window.URL.createObjectURL(res.data);
-		a.download = fileName;
-		a.style.display = 'none';
-		document.body.appendChild(a);
-		a.click();
-	});
+	//If in Chrome or Safari - download via virtual link click
+	if ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) || (navigator.userAgent.toLowerCase().indexOf('safari') > -1)) {
+		//Creating new link node.
+		var link = document.createElement('a');
+		link.href = url;
+
+		if (link.download !== undefined) {
+			//Set HTML5 download attribute. This will prevent file from opening if supported.
+			link.download = fileName;
+		}
+
+		//Dispatching click event.
+		if (document.createEvent) {
+			var e = document.createEvent('MouseEvents');
+			e.initEvent('click', true, true);
+			link.dispatchEvent(e);
+			return true;
+		}
+	}
+
+	// Force file download (whether supported by server).
+	if (url.indexOf('?') === -1) {
+		url += '?download';
+	}
+
+	window.open(url, '_self');
+	return true;
 };
 
 export default {
@@ -41,7 +58,7 @@ export default {
 		}).catch(err => Notification.showError(err));
 	},
 
-	download: (progressCallback, file) => {
+	download: (file) => {
 		const currentUser = Server.get('user');
 		return FileService.getUrl(file.name, null, `users/${currentUser._id}`, 'getObject')
 			.then((signedUrl) => {
@@ -50,7 +67,9 @@ export default {
 					return;
 				}
 
-				saveFile(progressCallback, signedUrl.url, file.name);
+				saveFile(signedUrl.url, file.name);
+
+
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
