@@ -7,7 +7,7 @@
 	cursor: pointer;
 
 	.drop-zone {
-		width:100%;
+		width: 100%;
 		height:200px;
 		border:4px dashed #ddd;
 		background:#f9f9f9;
@@ -16,5 +16,28 @@
 		text-align:center;
 		color:#ccc;
 		line-height:192px;
+	}
+	.progress {
+		margin-top: 0px;
+		margin-bottom: -4px;
+		width: 100%;
+		color:#ccc;
+		float:left;
+		height: 30px;
+		border:4px solid #ddd;
+
+		.percent {
+			position: absolute;
+			left: 50%;
+			color: #373a3c;
+		}
+		.bar {
+			background-color: $colorHPIOrange;
+		}
+		.name{
+			padding-left: 2px;
+			position: absolute;
+			color: #373a3c;
+		}
 	}
 }

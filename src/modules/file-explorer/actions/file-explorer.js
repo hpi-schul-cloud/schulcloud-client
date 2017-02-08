@@ -5,18 +5,18 @@ import {Permissions, Server, Notification} from '../../core/helpers/';
 window.saveFile = function (url, fileName) {
 		//iOS devices not supported
 	if (/(iP)/g.test(navigator.userAgent)) {
-		alert('Your device does not support files downloading. Please try again in desktop browser.');
+		Notification.showError('Dein Gerät unterstützt das Herunterladen nicht. Bitte benutze einen Desktop Browser.');
 		return false;
 	}
 
 	//If in Chrome or Safari - download via virtual link click
 	if ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) || (navigator.userAgent.toLowerCase().indexOf('safari') > -1)) {
-		//Creating new link node.
+		//new link node.
 		var link = document.createElement('a');
 		link.href = url;
 
 		if (link.download !== undefined) {
-			//Set HTML5 download attribute. This will prevent file from opening if supported.
+			//Set HTML5 download attribute, will prevent file from opening if supported.
 			link.download = fileName;
 		}
 

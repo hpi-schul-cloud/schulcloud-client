@@ -1,6 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone';
-
+import {RandomIdGenerator} from '../../core/helpers';
 require('../styles/upload.scss');
 
 class Memory extends React.Component {
@@ -38,10 +38,17 @@ class Memory extends React.Component {
 								  onDrop={ this.handleOnDrop.bind(this) }>
 							<span><i className="fa fa-cloud-upload"/> Dateien zum Hochladen ablegen.</span>
 						</Dropzone>
+						<div className="progress-bar">
 						{Object.keys(this.state.uploadingFiles).map(key => {
 							const file = this.state.uploadingFiles[key];
-							return  <a> {file.name} wird hochgeladen: {file.progress}% <br/></a>
+							return	(
+								<div className="progress" key={RandomIdGenerator.generateRandomId()}>
+									<span className="percent">{file.progress}%</span>
+									<div className="name">{file.name}</div>
+									<div className="bar" style={{width:file.progress +'%'}}>&nbsp;</div>
+								</div>)
 						})}
+						</div>
 					</div>
 				</div>
 			</section>
