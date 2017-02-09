@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
+require('../../../static/images/.scfake.png');
 
 const saveFile = (url, fileName) => {
 	var options = {
@@ -18,10 +19,9 @@ const saveFile = (url, fileName) => {
 };
 
 export default {
-	upload: (files) => {
-		const currentUser = Server.get('user');
+	upload: (files, storageContext) => {
 		return Promise.all(files.map((file) => {
-			return FileService.getUrl(file.name, file.type, `users/${currentUser._id}`, 'putObject')
+			return FileService.getUrl(file.name, file.type, storageContext, 'putObject')
 				.then((signedUrl) => {
 					var options = {
 						headers: signedUrl.header
@@ -33,9 +33,8 @@ export default {
 		}).catch(err => Notification.showError(err));
 	},
 
-	download: (file) => {
-		const currentUser = Server.get('user');
-		return FileService.getUrl(file.name, null, `users/${currentUser._id}`, 'getObject')
+	download: (file, storageContext) => {
+		return FileService.getUrl(file.name, null, storageContext, 'getObject')
 			.then((signedUrl) => {
 				if (!signedUrl.url) {
 					Notification.showError("Beim Downloaden der Datei ist etwas schief gelaufen!");
@@ -48,13 +47,16 @@ export default {
 			});
 	},
 
-	delete: (file) => {
-		const currentUser = Server.get('user');
-		return FileService.deleteFile(`users/${currentUser._id}`, file.name, null)
+	delete: (file, storageContext) => {
+		return FileService.deleteFile(storageContext, file.name, null)
 			.then((res) => {
 				return res;
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
+	},
+
+	createNewFolder: (dirName, storageContext) => {
+		return FileService.createDirectory(storageContext, dirName);
 	}
 };

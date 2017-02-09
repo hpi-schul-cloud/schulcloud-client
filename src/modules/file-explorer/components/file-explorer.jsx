@@ -1,9 +1,9 @@
 import LayoutBase from '../../base/containers/layout';
 import SectionTitle from '../../base/components/title';  /* only for base */
 
-import Directories from './directories';
 import Upload from './upload';
 import Files from './files';
+import {RandomIdGenerator} from '../../core/helpers/';
 
 require('../styles/file-explorer.scss');
 
@@ -12,6 +12,7 @@ class FileExplorer extends React.Component {
 	constructor(props) {
 		super(props);
 	}
+
 
 	getSubtitle() {
 		return (
