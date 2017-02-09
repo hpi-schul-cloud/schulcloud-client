@@ -4,7 +4,7 @@ class FileService {
 	constructor() {}
 
 	getUrl(fileName, fileType, storageContext, action) {
-		const s3SignedUrl = Server.service('/fileStorage/signedUrl');
+		const signedUrlService = Server.service('/fileStorage/signedUrl');
 
 		var data = {
 			storageContext: storageContext,
@@ -13,7 +13,7 @@ class FileService {
 			action: action
 		};
 
-		return s3SignedUrl.create(data)
+		return signedUrlService.create(data)
 			.then((res) => {
 				return res;
 			})
@@ -42,6 +42,14 @@ class FileService {
 				storageContext: storageContext,
 				fileName: fileName
 			}
+		});
+	}
+
+	createDirectory(storageContext, dirName) {
+		const directoryService = Server.service('/fileStorage/directories');
+		return directoryService.create({
+			storageContext: storageContext,
+			dirName: dirName
 		});
 	}
 }

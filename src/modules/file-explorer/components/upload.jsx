@@ -3,7 +3,7 @@ import Dropzone from 'react-dropzone';
 import {RandomIdGenerator} from '../../core/helpers';
 require('../styles/upload.scss');
 
-class Memory extends React.Component {
+class Upload extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -23,8 +23,8 @@ class Memory extends React.Component {
 	}
 
 	handleOnDrop(files) {
-		this.props.actions.upload(this.updateProgress.bind(this), files).then(res => {
-			this.props.onReload();
+		this.props.actions.upload(this.updateProgress.bind(this), files, this.props.storageContext).then(res => {
+			this.props.onReload(this.props.storageContext);
 		});
 	}
 
@@ -61,4 +61,4 @@ class Memory extends React.Component {
 
 }
 
-export default Memory;
+export default Upload;
