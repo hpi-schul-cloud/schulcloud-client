@@ -3,30 +3,55 @@ import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
 require('../../../static/images/.scfake.png');
 
-const saveFile = (url, fileName) => {
-	var options = {
-		responseType: 'blob'
-	};
+window.saveFile = function (url, fileName) {
+		//iOS devices not supported
+	if (/(iP)/g.test(navigator.userAgent)) {
+		Notification.showError('Dein Gerät unterstützt das Herunterladen nicht. Bitte benutze einen Desktop Browser.');
+		return false;
+	}
 
-	axios.get(url, options).then(res => {
-		var a = document.createElement('a');
-		a.href = window.URL.createObjectURL(res.data);
-		a.download = fileName;
-		a.style.display = 'none';
-		document.body.appendChild(a);
-		a.click();
-	});
+	//If in Chrome or Safari - download via virtual link click
+	if ((navigator.userAgent.toLowerCase().indexOf('chrome') > -1) || (navigator.userAgent.toLowerCase().indexOf('safari') > -1)) {
+		//new link node.
+		var link = document.createElement('a');
+		link.href = url;
+
+		if (link.download !== undefined) {
+			//Set HTML5 download attribute, will prevent file from opening if supported.
+			link.download = fileName;
+		}
+
+		//Dispatching click event.
+		if (document.createEvent) {
+			var e = document.createEvent('MouseEvents');
+			e.initEvent('click', true, true);
+			link.dispatchEvent(e);
+			return true;
+		}
+	}
+
+	// Force file download (whether supported by server).
+	if (url.indexOf('?') === -1) {
+		url += '?download';
+	}
+
+	window.open(url, '_self');
+	return true;
 };
 
 export default {
-	upload: (files, storageContext) => {
+	upload: (progressCallback, files, storageContext) => {
 		return Promise.all(files.map((file) => {
 			return FileService.getUrl(file.name, file.type, storageContext, 'putObject')
 				.then((signedUrl) => {
 					var options = {
-						headers: signedUrl.header
+						headers: signedUrl.header,
+						onUploadProgress: function(progressEvent) {
+							const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+							progressCallback(file, percentCompleted);
+						}
 					};
-					return axios.put(signedUrl.url, file, options);
+					return axios.put(signedUrl.url, file, options)
 				});
 		})).then(res => {
 			return res;
@@ -42,6 +67,8 @@ export default {
 				}
 
 				saveFile(signedUrl.url, file.name);
+
+
 			}).catch(err => {
 				Notification.showError(err.message);
 			});

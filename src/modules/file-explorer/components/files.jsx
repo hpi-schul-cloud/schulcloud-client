@@ -5,6 +5,8 @@ class Files extends React.Component {
 
 	constructor(props) {
 		super(props);
+
+		this.state = { };
 	}
 
 	getStorageTitle(storageContext) {
@@ -63,16 +65,16 @@ class Files extends React.Component {
 			<div className="col-sm-6 col-xs-12 col-md-4" key={`file${file.id}`}>
 				<div className="card file">
 					<div className="card-block">
-							<div className="card-title">
-								<div className="col-sm-3 no-padding">
-									<div className="file-preview" style={{'background-image': 'url(' + file.thumbnail + ')'}}></div>
-								</div>
-								<large>{file.name}</large>
+						<div className="card-title">
+							<div className="col-sm-3 no-padding">
+								<div className="file-preview" style={{'background-image': 'url(' + file.thumbnail + ')'}}></div>
 							</div>
-							<div className="card-text">
-								<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
-								<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`}/>
-							</div>
+							<large>{file.name}</large>
+						</div>
+						<div className="card-text">
+							<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
+							<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`}/>
+						</div>
 					</div>
 				</div>
 				{ this.getFileDeleteModalUI(file) }
