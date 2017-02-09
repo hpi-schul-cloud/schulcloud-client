@@ -74,6 +74,19 @@ export default {
 			});
 	},
 
+	open: (file, storageContext) => {
+        return FileService.getUrl(file.name, null, storageContext, 'getObject')
+            .then((signedUrl) => {
+                if (!signedUrl.url) {
+                    Notification.showError("Beim Anzeigen der Datei ist etwas schief gelaufen!");
+                    return;
+                }
+                window.open(signedUrl.url);
+            }).catch(err => {
+                Notification.showError(err.message);
+            });
+    },
+
 	delete: (file, storageContext) => {
 		return FileService.deleteFile(storageContext, file.name, null)
 			.then((res) => {

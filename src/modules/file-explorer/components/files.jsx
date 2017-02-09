@@ -22,8 +22,14 @@ class Files extends React.Component {
 			default: return "";
 		}
 	}
+    preventEventPropergation(e){
+        if (!e) var e = window.event;
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
+	}
 
-	handleOnDownloadClick(file) {
+	handleOnDownloadClick(file,e) {
+       this.preventEventPropergation(e)
 		this.props.actions.download(file, this.props.storageContext);
 	}
 
@@ -31,6 +37,10 @@ class Files extends React.Component {
 		this.props.actions.delete(file, this.props.storageContext).then(res => {
 			this.props.onReload(this.props.storageContext);
 		});
+	}
+
+	handleOnOpenClick(file){
+        return this.props.actions.open(file, this.props.storageContext);
 	}
 
 	getFileDeleteModalUI(file) {
@@ -64,6 +74,7 @@ class Files extends React.Component {
 		return (
 			<div className="col-sm-6 col-xs-12 col-md-4" key={`file${file.id}`}>
 				<div className="card file">
+					<div className="openFile"  onClick={this.handleOnOpenClick.bind(this, file)}>
 					<div className="card-block">
 						<div className="card-title">
 							<div className="col-sm-3 no-padding">
@@ -73,7 +84,8 @@ class Files extends React.Component {
 						</div>
 						<div className="card-text">
 							<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
-							<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`}/>
+							<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`} onClick={this.preventEventPropergation}/>
+						</div>
 						</div>
 					</div>
 				</div>
