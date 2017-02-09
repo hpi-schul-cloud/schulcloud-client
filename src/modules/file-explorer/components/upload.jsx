@@ -13,7 +13,7 @@ class Memory extends React.Component {
 
 	updateProgress(file, progress) {
 		let uploadingFiles = this.state.uploadingFiles;
-		if(progress == 100) {
+		if (progress == 100) {
 			delete uploadingFiles[file.name];
 		} else {
 			uploadingFiles[file.name] = file;
@@ -23,9 +23,18 @@ class Memory extends React.Component {
 	}
 
 	handleOnDrop(files) {
-		this.props.actions.upload(this.updateProgress.bind(this),files).then(res => {
+		this.props.actions.upload(this.updateProgress.bind(this), files).then(res => {
 			this.props.onReload();
 		});
+	}
+
+	getProgressUI(file) {
+		return (
+			<div className="progress" key={RandomIdGenerator.generateRandomId()}>
+				<span className="percent">{file.progress}%</span>
+				<div className="name">{file.name}</div>
+				<div className="bar" style={{width:file.progress +'%'}}>&nbsp;</div>
+			</div>)
 	}
 
 	render() {
@@ -39,15 +48,10 @@ class Memory extends React.Component {
 							<span><i className="fa fa-cloud-upload"/> Dateien zum Hochladen ablegen.</span>
 						</Dropzone>
 						<div className="progress-bar">
-						{Object.keys(this.state.uploadingFiles).map(key => {
-							const file = this.state.uploadingFiles[key];
-							return	(
-								<div className="progress" key={RandomIdGenerator.generateRandomId()}>
-									<span className="percent">{file.progress}%</span>
-									<div className="name">{file.name}</div>
-									<div className="bar" style={{width:file.progress +'%'}}>&nbsp;</div>
-								</div>)
-						})}
+							{Object.keys(this.state.uploadingFiles).map(key => {
+								const file = this.state.uploadingFiles[key];
+								return this.getProgressUI(file);
+							})}
 						</div>
 					</div>
 				</div>
