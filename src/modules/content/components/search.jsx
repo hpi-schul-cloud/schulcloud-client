@@ -18,19 +18,23 @@ class SectionSearch extends React.Component {
 	handleSearchFieldChange(event) {
 		const query = event.target.value;
 		this.setState({query});
-		this.onChangeQuery();
+		this.onChangeQuery(query);
 	}
 
 	onChangeQuery(query) {
 		this.setState({searchResults: []});
-		this.loadMoreItems(0);
+		this.loadMoreItems(0, query);
 	}
 
-	loadMoreItems(pageToLoad) {
+	loadMoreItems(pageToLoad, query) {
+		query = query || this.state.query;
+		console.log('loading page', pageToLoad, 'with', query);
 		this.props.actions.findContent(this.state.query, pageToLoad)
 			.then(result => {
+
 				const searchResults = this.state.searchResults.concat(result.data);
 				const hasMore = (searchResults.length < result.total);
+				console.log('got page', pageToLoad, result.data, 'hasMore', hasMore);
 				this.setState({searchResults, hasMore});
 			});
 	}
@@ -72,13 +76,18 @@ class SectionSearch extends React.Component {
 							<h5>Suchergebnisse für "{this.state.query}":</h5>
 						</div>
 					</div>
-					<div className="row">
-						<div className="row results">
-							{results.map((result) => {
-								return (<SearchResult result={result} key={result.originId} />)
-							})}
+					<InfiniteScroll
+						loadMore={this.loadMoreItems.bind(this)}
+						hasMore={this.state.hasMore}
+						loader={<div className="loader">Loading ...</div>}>
+						<div className="row">
+							<div className="row results">
+								{results.map((result) => {
+									return (<SearchResult result={result} key={result.id} />);
+								})}
+							</div>
 						</div>
-					</div>
+					</InfiniteScroll>
 				</div>
 			);
 
@@ -272,14 +281,8 @@ class SectionSearch extends React.Component {
 						{this.getFiltersUI.bind(this)()}
 					</div>
 					<div className="search-results">
-						{this.getResultsUI.bind(this)()}
-					</div>
-					<InfiniteScroll
-						loadMore={this.loadMoreItems.bind(this)}
-						hasMore={this.state.hasMore}
-						loader={<div className="loader">Loading ...</div>}>
 						{this.getResultsUI()}
-					</InfiniteScroll>
+					</div>
 				</div>
 			</section>
 		);
