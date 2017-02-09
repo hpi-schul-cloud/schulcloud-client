@@ -7,26 +7,26 @@ class SearchResult extends React.Component {
 	}
 
 	render() {
-		const result = this.props.result;
+		const attributes = this.props.result.attributes;
 		return (
 			<div className="col-sm-4">
 				<div className="card">
-					{result.type == "Online-Video" ?
-						<ReactPlayer url={result.url} className="card-img-top"
+					{attributes.type == "Online-Video" ?
+						<ReactPlayer url={attributes.url} className="card-img-top"
 									 youtubeConfig={{preload: true}} playing={false}
 									 controls={true}/> :
-						<img className="card-img-top" src={result.image}
+						<img className="card-img-top" src={attributes.image}
 							 alt="Card image cap"/> }
 					<div className="card-block">
-						<h4 className="card-title">{result.title}</h4>
-						<p className="card-text">{result.description}</p>
-						{ (result.download) ?
+						<h4 className="card-title">{attributes.title}</h4>
+						<p className="card-text">{attributes.description}</p>
+						{ (attributes.download) ?
 							<button type="button" className="btn btn-secondary">
-								<a href={ result.download } target="_blank">Slides</a>
+								<a href={ attributes.download } target="_blank">Slides</a>
 							</button> : '' }
 						<p>
 							<small className="text-muted">
-								via {result.source} | {new Date(result.creationDate).toLocaleDateString("de-DE")}
+								via {attributes.source} | {new Date(attributes.creationDate).toLocaleDateString("de-DE")}
 							</small>
 						</p>
 					</div>
