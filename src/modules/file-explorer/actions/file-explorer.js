@@ -51,7 +51,7 @@ export default {
 							progressCallback(file, percentCompleted);
 						}
 					};
-					return axios.put(signedUrl.url, file, options)
+					return axios.put(signedUrl.url, file, options);
 				});
 		})).then(res => {
 			return res;
@@ -66,9 +66,8 @@ export default {
 					return;
 				}
 
-				saveFile(signedUrl.url, file.name);
-
-
+				window.saveFile(signedUrl.url, file.name);
+				
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
