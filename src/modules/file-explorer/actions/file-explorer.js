@@ -51,7 +51,7 @@ export default {
 							progressCallback(file, percentCompleted);
 						}
 					};
-					return axios.put(signedUrl.url, file, options)
+					return axios.put(signedUrl.url, file, options);
 				});
 		})).then(res => {
 			return res;
@@ -66,13 +66,25 @@ export default {
 					return;
 				}
 
-				saveFile(signedUrl.url, file.name);
-
-
+				window.saveFile(signedUrl.url, file.name);
+				
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
 	},
+
+	open: (file, storageContext) => {
+        return FileService.getUrl(file.name, null, storageContext, 'getObject')
+            .then((signedUrl) => {
+                if (!signedUrl.url) {
+                    Notification.showError("Beim Anzeigen der Datei ist etwas schief gelaufen!");
+                    return;
+                }
+                window.open(signedUrl.url);
+            }).catch(err => {
+                Notification.showError(err.message);
+            });
+    },
 
 	delete: (file, storageContext) => {
 		return FileService.deleteFile(storageContext, file.name, null)
