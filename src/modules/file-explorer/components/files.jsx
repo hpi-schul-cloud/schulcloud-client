@@ -22,14 +22,14 @@ class Files extends React.Component {
 			default: return "";
 		}
 	}
-    preventEventPropergation(e){
+    preventEventPropagation(e){
         if (!e) var e = window.event;
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
 	}
 
 	handleOnDownloadClick(file,e) {
-       this.preventEventPropergation(e)
+       this.preventEventPropagation(e)
 		this.props.actions.download(file, this.props.storageContext);
 	}
 
@@ -84,7 +84,7 @@ class Files extends React.Component {
 						</div>
 						<div className="card-text">
 							<i className="fa fa-cloud-download" aria-hidden="true" onClick={this.handleOnDownloadClick.bind(this, file)}/>
-							<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`} onClick={this.preventEventPropergation}/>
+							<i className="fa fa-trash-o" aria-hidden="true" data-toggle="modal" data-target={`#deleteFileModal${file.id}`} onClick={this.preventEventPropagation}/>
 						</div>
 						</div>
 					</div>
