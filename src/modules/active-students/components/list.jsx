@@ -212,33 +212,32 @@ class List extends React.Component {
 	}
 
 	getPersonUI() {
-
 		return (
-			<div>
-				{this.getInfo.bind(this)().map((person) => {
-					if (person.seen == 'jetzt'){
-						return (
+			<tbody>
+			{this.getInfo.bind(this)().map((person) => {
+				if (person.seen == 'jetzt'){
+					return (
+					<tr>
+						<td><img className="picture" src={person.picture} alt=""/></td>
+						<td>{person.firstname}</td>
+						<td>{person.lastname}</td>
+						<td><font color="green">{person.seen}</font></td>
+						<td>{person.page}</td>
+					</tr>
+				);}
+				else {
+					return (
 						<tr>
 							<td><img className="picture" src={person.picture} alt=""/></td>
 							<td>{person.firstname}</td>
 							<td>{person.lastname}</td>
-							<td><font color="green">{person.seen}</font></td>
+							<td><font color="red">{person.seen}</font></td>
 							<td>{person.page}</td>
 						</tr>
-					);}
-					else {
-						return (
-							<tr>
-								<td><img className="picture" src={person.picture} alt=""/></td>
-								<td>{person.firstname}</td>
-								<td>{person.lastname}</td>
-								<td><font color="red">{person.seen}</font></td>
-								<td>{person.page}</td>
-							</tr>
-						)
-					}
-				})}
-			</div>
+					)
+				}
+			})}
+			</tbody>
 		);
 	}
 
@@ -288,9 +287,7 @@ class List extends React.Component {
 										<th>aktuelle Seite</th>
 									</tr>
 									</thead>
-									<tbody>
 									{this.getPersonUI()}
-									</tbody>
 								</table>
 							</div>
 						</div>
