@@ -13,23 +13,34 @@ const composer = (props, onData) => {
 		view = 'month';
 	}
 
-	calendarService.find().then(data => {
-		const events = data.map(event => {
+	let error;
+	const getEvents = new Promise((resolve, reject) => {
+		calendarService
+			.find()
+			.then(events => resolve(events))
+			.catch(err => {
+				error = err;
+				resolve([]);
+			}); // prevent calendar from not loading if calendar service is down
+	});
+
+	getEvents.then(events => {
+		events = events.map(event => {
 			return {
 				id: event.id,
 				title: event.summary,
 				start: event.dtstart,
 				end: event.dtend,
 				cancelled: event.cancelled,
-				//url: '',
 
 				/* custom */
 				description: event.description,
 				location: event.location,
-			}
+			};
 		});
 
 		let componentData = {
+			error,
 			events,
 			view
 		};
