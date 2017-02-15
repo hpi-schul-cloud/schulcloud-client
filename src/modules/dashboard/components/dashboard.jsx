@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
 		}];
 
 		const articles = [{
-			title: 'Willkommen im Schuljahr 2016!',
+			title: 'Willkommen im Schuljahr 2017!',
 			content: 'Die Schulleitung heißt alle (neuen) Schüler im neuen Schuljahr willkommen. Auch dieses Jahr haben wir wieder viele neue Veranstaltungen für Euch geplant. Unter anderem ein Besuch bei der UNESCO und einen Schüleraustausch mit einer Schule im Silicon Valley der Klasse 10. Viel Erfolg wünscht Euch das Lehrerkolleg!',
 			createdAt: 12345678,
 			url: '#'

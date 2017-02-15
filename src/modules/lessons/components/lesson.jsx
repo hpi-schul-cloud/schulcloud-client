@@ -27,7 +27,7 @@ class Lesson extends React.Component {
 	render() {
 		return (
 			<LayoutBase className="route-lesson">
-				<SectionTitle title="Biologie, 17. November 2016" subtitle={this.getSubtitleUI.bind(this)()} />
+				<SectionTitle title="Biologie, 23. März 2017" subtitle={this.getSubtitleUI.bind(this)()} />
 				<SectionHomework />
 				<SectionMaterial />
 			</LayoutBase>
