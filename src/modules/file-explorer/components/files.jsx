@@ -29,13 +29,13 @@ class Files extends React.Component {
 	}
 
 	handleOnDownloadClick(file,e) {
-       this.preventEventPropagation(e)
+		this.preventEventPropagation(e);
 		this.props.actions.download(file, this.props.storageContext);
 	}
 
 	handleOnDeleteClick(file) {
 		this.props.actions.delete(file, this.props.storageContext).then(res => {
-			this.props.onReload(this.props.storageContext);
+			this.props.onReload(this.props.storageContext, this.props.scopes);
 		});
 	}
 

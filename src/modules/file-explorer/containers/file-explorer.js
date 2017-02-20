@@ -9,16 +9,20 @@ import actions from '../actions/file-explorer';
 const composer = (props, onData) => {
 
 	const currentUser = Server.get('user');
-	const getFiles = (storageContext) => {
+	const scopeService = Server.service('resolve/scopes');
+	const getFiles = (storageContext, scopes) => {
+		console.log(storageContext);
 		var context = storageContext || `users/${currentUser._id}`;
 		FileService.getFileList(context)
 			.then(res => {
+				console.log(res);
 				let componentData = {
 					actions,
 					files: [],
 					directories: [],
 					storageContext: context,
-					onReload: getFiles
+					onReload: getFiles,
+					scopes: scopes
 				};
 
 				if( res.files ) {
@@ -37,7 +41,13 @@ const composer = (props, onData) => {
 			});
 	};
 
-	getFiles();
+	scopeService.get(currentUser._id).then(res => {
+		// todo: get type of each scope, e.g. course or class
+		getFiles(`users/${currentUser._id}`, res.data);
+	}).catch(err => {
+		console.log(err);
+		Notification.showError(err);
+	});
 };
 
 export default compose(composer)(component);

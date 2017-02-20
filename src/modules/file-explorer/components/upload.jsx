@@ -24,7 +24,7 @@ class Upload extends React.Component {
 
 	handleOnDrop(files) {
 		this.props.actions.upload(this.updateProgress.bind(this), files, this.props.storageContext).then(res => {
-			this.props.onReload(this.props.storageContext);
+			this.props.onReload(this.props.storageContext, this.props.scopes);
 		});
 	}
 
