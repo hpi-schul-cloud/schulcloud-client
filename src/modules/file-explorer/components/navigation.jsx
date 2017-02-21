@@ -8,16 +8,27 @@ class Navigation extends React.Component {
 		this.state = { };
 	}
 
+	isActive(scope) {
+		return this.props.storageContext == scope.storageContext;
+	}
+
 	handleOnScopeClick(scope) {
-		// todo: retrieve correct storageContext from scope-type + scope-id
-		this.props.onReload(`courses/${scope.id}`, this.props.scopes);
+		this.props.onReload(scope.storageContext, this.props.scopes);
+	}
+
+	getScopeTitle(scope) {
+		switch(scope.type) {
+			case 'user': return "Meine Dateien";
+			case 'scope': return scope.attributes.name;
+			default: return scope.id;
+		}
 	}
 
 	getScopeUI(scope) {
 		return (
-			<li key={scope.id} onClick={this.handleOnScopeClick.bind(this, scope)}>
-				<i className='fa fa-folder' aria-hidden="true"></i>
-				<span className="link-name">{scope.id}</span>
+			<li key={scope.id} className={this.isActive(scope) ? 'active' : 'non-active'} onClick={this.handleOnScopeClick.bind(this, scope)}>
+				<i className={`fa ${this.isActive(scope) ? 'fa-folder-open' : 'fa-folder'}`} aria-hidden="true"></i>
+				<span className="link-name">{this.getScopeTitle(scope)}</span>
 			</li>
 		)
 	}
@@ -26,7 +37,9 @@ class Navigation extends React.Component {
 		return (
 			<section className="navigation">
 				<div className="container-fluid">
-					{this.props.scopes.map(scope => this.getScopeUI(scope))}
+					<ul>
+						{this.props.scopes.map(scope => this.getScopeUI(scope))}
+					</ul>
 				</div>
 			</section>
 		);

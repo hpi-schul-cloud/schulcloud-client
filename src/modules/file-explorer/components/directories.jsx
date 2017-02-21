@@ -10,7 +10,7 @@ class Directories extends React.Component {
 	}
 
 	handleOnDirectoryClick(directory) {
-		this.props.onReload(`${this.props.storageContext}/${directory.name}`);
+		this.props.onReload(`${this.props.storageContext}/${directory.name}`, this.props.scopes);
 	}
 
 	getDirectoryUI(directory) {

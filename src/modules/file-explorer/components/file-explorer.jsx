@@ -28,10 +28,10 @@ class FileExplorer extends React.Component {
 			<LayoutBase className="route-file-explorer">
 				<SectionTitle title="Dateien" subtitle={this.getSubtitle.bind(this)()} />
 				<div className="row">
-					<div className="col-md-2 col-xs-12">
+					<div className="col-md-2 col-xs-12 left">
 						<Navigation {...this.props} />
 					</div>
-					<div className="col-md-10 col-xs-12">
+					<div className="col-md-10 col-xs-12 main">
 						<Upload {...this.props} />
 						<Files {...this.props} />
 					</div>
