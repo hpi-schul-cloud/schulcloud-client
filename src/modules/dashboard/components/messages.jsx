@@ -51,7 +51,7 @@ class SectionMessages extends React.Component {
 											<button type="button" className="close" data-dismiss="alert" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<strong>Mathe (17. November 2016, 1. + 2. Stunde):</strong> <br />Fällt aus.
+											<strong>Mathe (23. März 2017, 1. + 2. Stunde):</strong> <br />Fällt aus.
 										</div>
 									</div>
 								</div>
@@ -61,7 +61,7 @@ class SectionMessages extends React.Component {
 											<button type="button" className="close" data-dismiss="alert" aria-label="Close">
 												<span aria-hidden="true">&times;</span>
 											</button>
-											<strong>Englisch (18. November 2016, 1. + 2. Stunde):</strong> <br />Vertretung durch Herrn Müller.
+											<strong>Englisch (24. März 2017, 1. + 2. Stunde):</strong> <br />Vertretung durch Herrn Müller.
 										</div>
 									</div>
 								</div>
