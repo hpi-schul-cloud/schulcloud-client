@@ -27,11 +27,10 @@ class SectionSearch extends React.Component {
 	}
 
 	loadMoreItems(pageToLoad, query) {
-		query = query || this.state.query;
+		if(query === undefined) query = this.state.query;
 		console.log('loading page', pageToLoad, 'with', query);
-		this.props.actions.findContent(this.state.query, pageToLoad)
+		this.props.actions.findContent(query, pageToLoad)
 			.then(result => {
-
 				const searchResults = this.state.searchResults.concat(result.data);
 				const hasMore = (searchResults.length < result.total);
 				console.log('got page', pageToLoad, result.data, 'hasMore', hasMore);
