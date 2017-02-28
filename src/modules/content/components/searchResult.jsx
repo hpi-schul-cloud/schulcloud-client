@@ -6,17 +6,22 @@ class SearchResult extends React.Component {
 		super(props);
 	}
 
+	getContentView(attributes) {
+		if(attributes.type == "Online-Video") {
+			return (<ReactPlayer url={attributes.url} className="card-img-top"
+						 youtubeConfig={{preload: true}} playing={false}
+						 controls={true}/>);
+		} else if(attributes.image) {
+			return (<img className="card-img-top" src={attributes.image}/>);
+		}
+	}
+
 	render() {
 		const attributes = this.props.result.attributes;
 		return (
 			<div className="col-sm-4">
 				<div className="card">
-					{attributes.type == "Online-Video" ?
-						<ReactPlayer url={attributes.url} className="card-img-top"
-									 youtubeConfig={{preload: true}} playing={false}
-									 controls={true}/> :
-						<img className="card-img-top" src={attributes.image}
-							 alt="Card image cap"/> }
+					{ this.getContentView(attributes) }
 					<div className="card-block">
 						<h4 className="card-title">{attributes.title}</h4>
 						<p className="card-text">{attributes.description}</p>
