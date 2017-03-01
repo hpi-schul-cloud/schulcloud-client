@@ -17,7 +17,7 @@ class Sidebar extends React.Component {
 	render() {
 		const sidebarLinks = [{
 			name: 'Dashboard',
-			icon: 'user',
+			icon: 'cloud',
 			to: '/dashboard/'
 		},{
 			name: 'Stundenplan',
@@ -53,12 +53,6 @@ class Sidebar extends React.Component {
 			<aside className="nav-sidebar">
 				<nav>
 					<ul>
-						<li>
-							<a>
-								<i className="fa fa-cloud" aria-hidden="true"></i>
-								<span className="link-name">Schul-Cloud</span>
-							</a>
-						</li>
 						{sidebarLinks.map((link) => {
 							return (
 								<li key={link.name}>
