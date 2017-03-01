@@ -1,5 +1,6 @@
 
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
 .Anwesenheit{
 	width:100%;
@@ -30,12 +31,47 @@
 		margin-top: 40px;
 		border-collapse: separate;
 		border-spacing: 0px 2px;
-		
+
 		td {
 			padding-top: 10px;
 			padding-left: 15px;
 			color: grey;
 			background-color: whitesmoke;
+		}
+		@include media-breakpoint-down(xs) {
+			margin-top: 0;
+			thead{display:none;}
+			tr{
+				display:block;
+			}
+			tr:not(:last-child){
+				border-bottom: 1px solid #ddd;
+			}
+			td{
+				padding-left: .25em;	
+			}
+			.picturewrap, .firstname, .lastname{
+				display: inline-block;
+			}
+			.seen,.page{
+				display:block;
+				padding: 0 0 0 58px;
+				font-size: smaller;
+				line-height: normal;
+			}
+			.page{
+				padding-bottom: 10px;
+			}
+			.seen:before,.page:before{
+				float:left;
+				margin-right: .5em;
+			}
+			.seen:before{
+				content: "Zuletzt gesehen: ";
+			}
+			.page:before{	
+				content: "aktuelle Seite: ";
+			}
 		}
 	}
 }
