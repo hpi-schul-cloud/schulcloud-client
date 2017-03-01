@@ -15,6 +15,10 @@ class SectionSearch extends React.Component {
 		};
 	}
 
+	componentDidMount() {
+		this.loadItems(0, this.state.query);
+	}
+
 	handleSearchFieldChange(event) {
 		const searchString = event.target.value;
 		const newQuery = Object.assign({}, this.state.query, {searchString});
@@ -48,7 +52,7 @@ class SectionSearch extends React.Component {
 		return (
 			<div className="search-wrapper">
 				<div className="input-group input-group-lg">
-					<input value={this.state.query} type="text" className="form-control search-field"
+					<input value={this.state.query.searchString} type="text" className="form-control search-field"
 						   placeholder="Suche nach..." onChange={this.handleSearchFieldChange.bind(this)}/>
 				</div>
 			</div>
@@ -82,7 +86,7 @@ class SectionSearch extends React.Component {
 				<div>
 					<div className="row">
 						<div className="col-sm-12 no-padding">
-							<h5>Suchergebnisse für "{this.state.query}":</h5>
+							<h5>Suchergebnisse für "{this.state.query.searchString}":</h5>
 						</div>
 					</div>
 					<InfiniteScroll

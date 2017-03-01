@@ -7,7 +7,9 @@ export default {
 		if (query.searchString == "") return Promise.resolve({data: []});
 		const $limit = 20;
 		const $skip = page * $limit;
-		Object.assign(query, {$limit, $skip});
-		return contentService.find({query: query});
+		const _query = Object.assign({}, query, {$limit, $skip});
+		_query.query = _query.searchString;
+		delete _query.searchString;
+		return contentService.find({query: _query});
 	}
 };
