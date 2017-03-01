@@ -1,6 +1,7 @@
 import ReactPlayer from 'react-player';
 import SearchResult from './searchResult';
 import InfiniteScroll from 'react-infinite-scroller';
+import _ from 'lodash';
 require('../styles/search.scss');
 
 class SectionSearch extends React.Component {
@@ -9,7 +10,15 @@ class SectionSearch extends React.Component {
 		super(props);
 
 		this.state = {
-			query: {searchString: this.props.searchString},
+			query: {
+				searchString: this.props.searchString,
+				filter: {
+					subjects: new Set(),
+					grade: new Set(),
+					license: new Set(),
+					editable: new Set()
+				}
+			},
 			searchResults: [],
 			hasMore: false
 		};
@@ -96,7 +105,7 @@ class SectionSearch extends React.Component {
 						<div className="row">
 							<div className="row results">
 								{results.map((result) => {
-									return (<SearchResult result={result} key={result.id} />);
+									return (<SearchResult result={result} key={result.id}/>);
 								})}
 							</div>
 						</div>
@@ -107,7 +116,56 @@ class SectionSearch extends React.Component {
 		}
 	}
 
+
+	toggleFilter(category, value) {
+		const filter = this.state.query.filter[category];
+		if (filter.has(value)) {
+			filter.delete(value);
+		} else {
+			filter.add(value);
+		}
+		const newFilter = {};
+		newFilter[category] = filter;
+		this.setState((previousState) => _.merge({}, previousState, {query: {filter: newFilter}}));
+		this.onChangeQuery(this.state.query);
+	}
+
+	getSubjectFiltersUI() {
+		const subjects = {
+			Biologie: "640",
+			Mathematik: "380",
+
+		};
+		return (
+			<div className="col-sm-3">
+				<div className="btn-group">
+					<button type="button" className="btn btn-secondary dropdown-toggle"
+							data-toggle="dropdown" aria-haspopup="true"
+							aria-expanded="false">
+						<strong>Fachbereich</strong>
+					</button>
+					<div className="dropdown-menu dropdown-menu-right">
+						{_.map(subjects, (value, key) => (
+							<div className="form-check">
+								<label className="form-check-label">
+									<input className="form-check-input" type="checkbox"
+										   value={key}
+										   checked={this.state.query.filter.subjects.has(value)}
+										   onChange={this.toggleFilter.bind(this, 'subjects', value)}
+									/>
+									<span>{key}</span>
+								</label>
+							</div>
+						))}
+
+					</div>
+				</div>
+			</div>
+		);
+	}
+
 	getFiltersUI() {
+
 		return (
 			<div>
 				<div className="row">
@@ -116,38 +174,7 @@ class SectionSearch extends React.Component {
 							<div className="card-block">
 								<div className="container-fluid">
 									<div className="row">
-										<div className="col-sm-3">
-											<div className="btn-group">
-												<button type="button" className="btn btn-secondary dropdown-toggle"
-														data-toggle="dropdown" aria-haspopup="true"
-														aria-expanded="false">
-													<strong>Fachbereich</strong>
-												</button>
-												<div className="dropdown-menu dropdown-menu-right">
-													<div className="form-check">
-														<label className="form-check-label">
-															<input className="form-check-input" type="checkbox"
-																   value=""/>
-															<span>Biologie</span>
-														</label>
-													</div>
-													<div className="form-check">
-														<label className="form-check-label">
-															<input className="form-check-input" type="checkbox"
-																   value=""/>
-															Mathe
-														</label>
-													</div>
-													<div className="form-check">
-														<label className="form-check-label">
-															<input className="form-check-input" type="checkbox"
-																   value=""/>
-															Deutsch
-														</label>
-													</div>
-												</div>
-											</div>
-										</div>
+										{this.getSubjectFiltersUI()}
 										<div className="col-sm-3">
 											<div className="btn-group">
 												<button type="button" className="btn btn-secondary dropdown-toggle"
