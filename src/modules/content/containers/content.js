@@ -6,14 +6,14 @@ import component from '../components/content';
 import actions from '../actions/content';
 
 const composer = (props, onData) => {
-	const query = (props.location.query || {}).q || '';
+	const searchString = (props.location.query || {}).q || '';
 
-	actions.findContent(query)
+	actions.findContent({searchString})
 		.then((searchResults, error) => {
 			let componentData = {
 				actions,
 				searchResults,
-				query
+				searchString
 			};
 			if (error) console.error(error);
 

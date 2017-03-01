@@ -9,31 +9,37 @@ class SectionSearch extends React.Component {
 		super(props);
 
 		this.state = {
-			query: this.props.query,
+			query: {searchString: this.props.searchString},
 			searchResults: [],
 			hasMore: false
 		};
 	}
 
 	handleSearchFieldChange(event) {
-		const query = event.target.value;
-		this.setState({query});
-		this.onChangeQuery(query);
+		const searchString = event.target.value;
+		const newQuery = Object.assign({}, this.state.query, {searchString});
+		this.setState({query: newQuery});
+		// setState may not update the state immediately,
+		// so pass the new query as a parameter
+		this.onChangeQuery(newQuery);
 	}
 
 	onChangeQuery(query) {
 		this.setState({searchResults: []});
-		this.loadMoreItems(0, query);
+		this.loadItems(0, query);
 	}
 
-	loadMoreItems(pageToLoad, query) {
-		if(query === undefined) query = this.state.query;
-		console.log('loading page', pageToLoad, 'with', query);
+	loadMoreItems(pageToLoad) {
+		console.log('loading page', pageToLoad, 'with', this.state.query);
+		this.loadItems(pageToLoad, this.state.query);
+	}
+
+	loadItems(pageToLoad, query) {
 		this.props.actions.findContent(query, pageToLoad)
 			.then(result => {
 				const searchResults = this.state.searchResults.concat(result.data);
 				const hasMore = (searchResults.length < result.total);
-				console.log('got page', pageToLoad, result.data, 'hasMore', hasMore);
+				console.log('got page', pageToLoad, 'for query', query, result.data, 'hasMore:', hasMore);
 				this.setState({searchResults, hasMore});
 			});
 	}
@@ -50,13 +56,17 @@ class SectionSearch extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.location.query.q !== this.state.query) {
-			this.updateContent(nextProps.location.query.q);
+		const searchString = nextProps.location.query.q;
+		if (searchString !== this.state.query.searchString) {
+			const newQuery = Object.assign({}, this.state.query, {searchString});
+			this.setState({query: newQuery});
+			this.onChangeQuery(newQuery);
 		}
 	}
 
 	getResultsUI() {
 		const results = this.state.searchResults;
+		console.log(results);
 		if (results.length == 0) {
 			return (
 				<div className="row">
