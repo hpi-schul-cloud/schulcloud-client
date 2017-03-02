@@ -1,4 +1,6 @@
 import _ from 'lodash';
+import ReactSelect from 'react-select';
+
 require('../styles/search.scss');
 
 class SectionFilters extends React.Component {
@@ -7,62 +9,82 @@ class SectionFilters extends React.Component {
 		super(props);
 
 		this.state = {
-			subjects: new Set(this.props.subjects),
-			grades: new Set(this.props.grades),
-			licenses: new Set(this.props.licenses),
-			editable: new Set(this.props.editable)
+			subjects: this.props.subjects || [],
+			grades: this.props.grades || [],
+			licenses: this.props.licenses || [],
+			editable: this.props.editable || []
 		};
 	}
 
 	toggleFilter(category, value) {
-		const filter = this.state[category];
-		if (filter.has(value)) {
-			filter.delete(value);
-		} else {
-			filter.add(value);
-		}
+		console.log(category, value);
 		const newFilter = {};
-		newFilter[category] = filter;
+		newFilter[category] = value;
 		this.setState(newFilter);
 		this.updateQuery(newFilter);
 	}
 
-	updateQuery(newFilter) {
-		const filters = _.pick(this.state, ['subjects', 'grades', 'licenses', 'editable']);
-		Object.assign(filters, newFilter);
+	updateQuery(updatedFilter) {
+		let filterCategories = _.pick(this.state, ['subjects', 'grades', 'licenses', 'editable']);
+		Object.assign(filterCategories, updatedFilter);
+		const filters = _.mapValues(filterCategories, array => {
+			return array.map(selectOption => selectOption.value);	// extract the values from ReactSelect's key-value pairs
+		});
 		this.props.onUpdateFilters(filters);
 	}
 
 	getSubjectFiltersUI() {
+		// http://agmud.de/wp-content/uploads/2013/09/sgsyst-20121219.pdf
 		const subjects = {
-			Biologie: "640",
-			Mathematik: "380",
-
+			"Arbeitslehre": "020",
+			"Berufliche Bildung": "040",
+			"Bildende Kunst": "060",
+			"Biologie": "080",
+			"Chemie": "100",
+			"Deutsch": "120",
+			"Elementarbereich, Vorschulerziehung": "140",
+			"Ethik": "160",
+			"Freizeit": "180",
+			"Fremdsprachen": "200",
+			"Geographie": "220",
+			"Geschichte": "240",
+			"Gesundheit": "260",
+			"Grundschule": "280",
+			"Heimatraum, Region": "300",
+			"Informationstechnische Bildung": "320",
+			"Interkulturelle Bildung": "340",
+			"Kinder- und Jugendbildung": "360",
+			"Mathematik": "380",
+			"Medienpädagogik": "400",
+			"Musik": "420",
+			"Pädagogik": "440",
+			"Philosophie": "450",
+			"Physik": "460",
+			"Politische bildung": "480",
+			"Praxisorientierte Fächer": "500",
+			"Psychologie": "510",
+			"Religion": "520",
+			"Retten, helfen, schützen": "540",
+			"Sexualerziehung": "560",
+			"Spiel- und Dokumentarfilm": "580",
+			"Sport": "600",
+			"Sucht und Prävention": "620",
+			"Umweltgefährdung, Umweltschutz": "640",
+			"Verkehrserziehung": "660",
+			"Weiterbildung": "680",
+			"Wirtschaftskunde": "700",
+			"Sachgebietsübergreifende Medien": "720"
 		};
+
 		return (
 			<div className="col-sm-3">
-				<div className="btn-group">
-					<button type="button" className="btn btn-secondary dropdown-toggle"
-							data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false">
-						<strong>Fachbereich</strong>
-					</button>
-					<div className="dropdown-menu dropdown-menu-right">
-						{_.map(subjects, (value, key) => (
-							<div className="form-check">
-								<label className="form-check-label">
-									<input className="form-check-input" type="checkbox"
-										   value={key}
-										   checked={this.state.subjects.has(value)}
-										   onChange={this.toggleFilter.bind(this, 'subjects', value)}
-									/>
-									<span>{key}</span>
-								</label>
-							</div>
-						))}
-
-					</div>
-				</div>
+				<ReactSelect
+					multi={true}
+					placeholder="Sachgebiet"
+					value={this.state.subjects}
+					options={_.map(subjects, (value, key) => ({value: value, label: key}))}
+					onChange={this.toggleFilter.bind(this, 'subjects')}
+				/>
 			</div>
 		);
 	}
