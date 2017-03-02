@@ -45,9 +45,4 @@
 			margin-right: 10px;
 		}
 	}
-	@include media-breakpoint-down(xs) {
-		.container-fluid{
-			padding:0;
-		}
-	}
 }
