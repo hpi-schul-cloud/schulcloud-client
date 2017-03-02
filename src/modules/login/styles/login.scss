@@ -1,6 +1,11 @@
 @import '../../core/styles/colors.scss';
 @import '../../core/styles/bootstrap/scss/bootstrap';
 
+body{
+	max-height:100vh;
+	max-width: 100vw;
+	overflow:hidden;
+}
 .route-login {
 	background:$colorBeige;
 	position: absolute;
@@ -32,6 +37,11 @@
 		}
 		h3{
 			margin: 100px 0 50px;
+		}
+	}
+	@include media-breakpoint-down(xs) {
+		h3{
+			margin: 35px 0;
 		}
 	}
 	
@@ -73,7 +83,18 @@
 				height:150px;
 			}
 		}
-		
+		@include media-breakpoint-down(xs) {
+			&.bg-graphic-left{
+				display:none;
+			}
+		}	
 	}
-
+}
+@include media-breakpoint-down(xs) {
+	header .navbar-brand{
+		display:none;
+	}
+	footer{
+		padding-bottom: 10px;
+	}
 }
