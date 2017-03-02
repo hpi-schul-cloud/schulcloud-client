@@ -2,15 +2,21 @@
 @import '../../core/styles/bootstrap/scss/bootstrap';
 
 .route-administration {
-	 .nav-item.active{
+	.nav-item.active{
 		color: #55595c;
 		background-color: #fff;
-		border-bottom: 1px solid $colorHPIRed
+		border-bottom: 1px solid $colorHPIRed;
 	}
 
 	@include media-breakpoint-down(xs) {
+		.nav-tabs{
+			border-bottom: none;
+		}
+		.nav-item{
+			border-bottom: 1px solid #ddd;
+		}
 		.nav-tabs .nav-item + .nav-item{
-			margin-left: 0;
+			margin-left: 5px;
 		}
 		.nav-item > a{
 			padding: 8px;
