@@ -128,11 +128,7 @@ class SectionSearch extends React.Component {
 			<section className="section-search">
 				<div className="container-fluid">
 					<div className="row search-bar">
-						<div className="row">
-							<div className="col-sm-12">
-								{this.getSearchFieldUI.bind(this)()}
-							</div>
-						</div>
+						{this.getSearchFieldUI.bind(this)()}
 					</div>
 					<SectionFilters onUpdateFilters={this.updateFilters.bind(this)}/>
 					<div className="search-results">
