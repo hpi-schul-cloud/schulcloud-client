@@ -10,8 +10,9 @@
 	}
 
 	.course-subsection {
-		padding: 20px !important;
-
+		@include media-breakpoint-up(sm) {
+			padding: 20px !important;
+		}
 		&.left {
 			border-right: 2px $colorGrey solid;
 		}
@@ -22,9 +23,16 @@
 			}
 		}
 		@include media-breakpoint-down(xs) {
+			padding: 10px 0 !important;
 			.tools-section > .row{
 				margin-left:0;
 				margin-right:0;
+			}
+			&.left {
+				border-right: none;
+			}
+			&.teachers{
+				margin-left: -15px;
 			}
 		}
 	}
