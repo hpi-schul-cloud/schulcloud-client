@@ -1,10 +1,15 @@
 @import '../../core/styles/colors.scss';
 @import '../../core/styles/bootstrap/scss/bootstrap';
 
-body{
-	max-height:100vh;
-	max-width: 100vw;
+html,body{
+	position:relative;
+	height:100%;
+	height:100vh;
+	width: 100%;
+	width: 100vw;
 	overflow:hidden;
+	margin:0;
+	padding:0;
 }
 .route-login {
 	background:$colorBeige;
