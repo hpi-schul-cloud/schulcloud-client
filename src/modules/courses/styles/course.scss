@@ -21,6 +21,12 @@
 				margin-right: 2px;
 			}
 		}
+		@include media-breakpoint-down(xs) {
+			.tools-section > .row{
+				margin-left:0;
+				margin-right:0;
+			}
+		}
 	}
 
 	table {
