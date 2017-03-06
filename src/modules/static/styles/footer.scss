@@ -16,7 +16,7 @@ footer {
 		text-align: center;
 		align-items: center;
 		
-		@include media-breakpoint-down(xs) {
+		@include media-breakpoint-down(sm) {
 			img{
 				display:block;
 				margin: 0 auto;
