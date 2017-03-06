@@ -35,39 +35,40 @@
 				display:block;
 				position: relative;
 				/* max-width: 425px; */
-			}
-			tr:not(:last-child){
-				padding-bottom: 10px;
-				border-bottom: 1px dashed #ddd;
-			}
-			td{
-				display:block;
-				padding: 10px 0;
-				line-height: normal;	
-				background-color: transparent;				
-			}
-			tr > td:first-of-type{
-				font-weight: bold;
-				color: #373a3c;
-				padding-bottom:0;
-			}
-			tr > td:nth-of-type(odd):not(:first-child){
-				background-color: whitesmoke;
-			}
-			tr > td:before{
-				display: inline-block;
-				margin-left: .5em;
-			}
-			tr > td:nth-of-type(2):before{content: "Meine Klasse"}
-			tr > td:nth-of-type(3):before{content: "Meine Klassenstufe"}
-			tr > td:nth-of-type(4):before{content: "Meine Schule"}
-			tr > td:nth-of-type(5):before{content: "Alle"}		
+				
+				&:not(:last-child){
+					padding-bottom: 10px;
+					border-bottom: 1px dashed #ddd;
+				}
+				> td{
+					display:block;
+					padding: 10px 0;
+					line-height: normal;	
+					background-color: transparent;	
 
-			td > .switch{
-				position: absolute;
-				right: 0;
-				margin-top: -2.5px;
-			}
+					&:first-of-type{
+						font-weight: bold;
+						color: #373a3c;
+						padding-bottom:0;
+					}
+					&:nth-of-type(odd):not(:first-child){
+						background-color: whitesmoke;
+					}
+					&:before{
+						display: inline-block;
+						margin-left: .5em;
+					}
+					&:nth-of-type(2):before{content: "Meine Klasse"}
+					&:nth-of-type(3):before{content: "Meine Klassenstufe"}
+					&:nth-of-type(4):before{content: "Meine Schule"}
+					&:nth-of-type(5):before{content: "Alle"}	
+					
+					> .switch{
+						float:right;
+						margin-top: -2.5px;
+					}
+				}
+			}				
 		}
 	}
 }
