@@ -56,7 +56,6 @@ class Sidebar extends React.Component {
 						{sidebarLinks.map((link) => {
 							return (
 								<li key={link.name}>
-									<Link className={link.class} to={link.to} activeClassName="active">
 										<i className={'fa ' + 'fa-' + link.icon} aria-hidden="true"></i>
 										<span className="link-name">{link.name}</span>
 									</Link>
