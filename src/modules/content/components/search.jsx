@@ -43,7 +43,7 @@ class SectionSearch extends React.Component {
 					createdAt: "2014",
 					description: "Kaum ein Tier wird so geschätzt wie die Biene: Arbeit, Ordnungssinn und perfekte Zusammenarbeit kennzeichnen ihr Leben.",
 					url: "",
-					image: "http://www.br-online.de/kinder/fragen-verstehen/wissen/2003/00278/bienenwabe_dpa482.jpg",
+					image: "https://c1.staticflickr.com/5/4001/4629255847_5881bcdb1c_b.jpg",
 					source: "bildungsmedien.net"
 				}, {
 					id: 4,
