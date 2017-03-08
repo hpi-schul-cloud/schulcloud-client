@@ -9,7 +9,5 @@ after_success:
   - bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)
 notifications:
   slack:
-  	rooms:
-	 - schul-cloud:6Kefiuws4KEH3JOWnpfU1NhY#ci
-    on_success: change
+  	on_success: change
     on_failure: always
