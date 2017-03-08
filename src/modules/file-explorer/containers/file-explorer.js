@@ -11,7 +11,6 @@ const composer = (props, onData) => {
 	const currentUser = Server.get('user');
 	const scopeService = Server.service('resolve/scopes');
 	const getFiles = (storageContext, scopes) => {
-		console.log(storageContext);
 		var context = storageContext || `users/${currentUser._id}`;
 		FileService.getFileList(context)
 			.then(res => {
@@ -41,13 +40,15 @@ const composer = (props, onData) => {
 	};
 
 	scopeService.get(currentUser._id).then(res => {
-		// todo: get type of each scope, e.g. course or class
-		// todo: retrieve correct storageContext from scope-type + scope-id
 		res.data.forEach(scope => {
 			switch(scope.type) {
 				case 'user': scope.storageContext = `users/${scope.id}`; break;
-				case 'course': scope.storageContext = `courses/${scope.id}`; break;
-				case 'class': scope.storageContext = `classes/${scope.id}`; break;
+				case 'scope':
+					switch(scope.attributes.scopeType) {
+						case 'course': scope.storageContext = `courses/${scope.id}`; break;
+						case 'class': scope.storageContext = `classes/${scope.id}`; break;
+					}
+					break;
 				default: scope.storageContext = `scope/${scope.id}`; break;
 			}
 		});

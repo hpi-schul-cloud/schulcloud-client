@@ -9,7 +9,7 @@ class Navigation extends React.Component {
 	}
 
 	isActive(scope) {
-		return this.props.storageContext == scope.storageContext;
+		return this.props.storageContext.startsWith(scope.storageContext);
 	}
 
 	handleOnScopeClick(scope) {
@@ -34,6 +34,7 @@ class Navigation extends React.Component {
 	}
 
 	render() {
+		// todo: group by courses and classes
 		return (
 			<section className="navigation">
 				<div className="container-fluid">
