@@ -76,7 +76,30 @@ aside.nav-sidebar {
 		line-height:50px;
 		text-align:center;
 	}
+	@include media-breakpoint-up(lg) {
+		width:200px;
+		nav {
+		
+			ul {
 
+				li {
+
+					a {
+						padding:0px 20px;
+						i.fa {
+							width: auto !important;
+							display:inline-block;
+							margin-right: 10px;
+						}
+
+						.link-name {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+	}
 	@include media-breakpoint-down(xs) {
 		width:100%;
 		position: relative;
