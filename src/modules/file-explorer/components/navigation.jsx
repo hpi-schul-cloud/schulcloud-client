@@ -33,14 +33,52 @@ class Navigation extends React.Component {
 		)
 	}
 
+	getCourseScopesUI() {
+		let courseScopes = this.props.scopes.filter(scope => scope.attributes.scopeType == 'course');
+		return (
+			<div>
+				<div className="title">
+					<i className="fa fa-graduation-cap" aria-hidden="true"></i>
+					<span>Meine Kurse</span>
+				</div>
+				<ul className="courses">
+					{courseScopes.map(scope => this.getScopeUI(scope))}
+				</ul>
+			</div>
+		)
+	}
+
+	getClassesScopesUI() {
+		let classScopes = this.props.scopes.filter(scope => scope.attributes.scopeType == 'class');
+		return (
+			<div>
+				<div className="title">
+					<i className="fa fa-book" aria-hidden="true"></i>
+					<span>Meine Klassen</span>
+				</div>
+				<ul className="classes">
+					{classScopes.map(scope => this.getScopeUI(scope))}
+				</ul>
+			</div>
+		)
+	}
+
+	getOtherScopesUI() {
+		let otherScopes = this.props.scopes.filter(scope => scope.attributes.scopeType != 'class' && scope.attributes.scopeType != 'course');
+		return (
+			<ul>
+				{otherScopes.map(scope => this.getScopeUI(scope))}
+			</ul>
+		)
+	}
+
 	render() {
-		// todo: group by courses and classes
 		return (
 			<section className="navigation">
 				<div className="container-fluid">
-					<ul>
-						{this.props.scopes.map(scope => this.getScopeUI(scope))}
-					</ul>
+					{this.getOtherScopesUI()}
+					{this.getCourseScopesUI()}
+					{this.getClassesScopesUI()}
 				</div>
 			</section>
 		);
