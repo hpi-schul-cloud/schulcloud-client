@@ -7,3 +7,8 @@ script:
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 after_success:
   - bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)
+notifications:
+  slack:
+    secure: fu23yg2LDKYmMLZS46JR2003yMAoXpKgi5quqtZV9OtrkEGZ7XB6V0UQOWVCDp76zAwxb7ldPy4q2fl0+JBDLzEqHJgAe4obyD9/xvYqL8Dw7yBFZ2fhiKpin39WEo1vALNGZxJbvY8RDSJlaixy++1PUQ8hSXOfAHiPCf955HhJHoYj/aOTzQpmHg0IAp4IuXvPGd1zdQUFISw7nUgE74O8vn//rn3NjBo3Gw/aejYeGOXDTO0yf9pKQ18DgqaftGSURwTvpB7TBSpqeaktw0zxbf88DD0OWjjRmao1NDAOTYqa46l2lSzbSwkoD6Fddc97Vcak9SL1AtvNFiq9Z3/6HQN0cbApNoouO3pGhMPMRJCVcA6e6UyfxVpyO/kpRFJK3K5rwLHtmncVXSfAhuOhABZKsm9e8Tb+pTtdJLXgV6wGcHDYz6ym7H3gw+ImuGLtsJx6dd7UUzv+umaiiHjZI5tE2hQbve3VaYCFBc7oQSfqK9TQUHdVmsqdcKhlvkeP16F9EEeHXRZLeaX9g1CIbPzLCnJzTr9FUE4F517ZwCep/tmtA2RMWeO1diGx4PzwMPL5080+/fT4xxmVED5/ahKsa5zQyuVJxC0+Dwrad9x0Q6gBULInKBEBSsnaH7aoU2z1YZEGBX3Hhe49XNt3TY3LjOhEiphCI/cjwh4=
+    on_success: change
+    on_failure: always
