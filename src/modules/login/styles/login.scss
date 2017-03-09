@@ -1,5 +1,13 @@
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
+html,body{
+	position:relative;
+	height:100%;
+	width: 100%;
+	margin:0;
+	padding:0;
+}
 .route-login {
 	background:$colorBeige;
 	position: absolute;
@@ -23,7 +31,22 @@
 	.select, .Select, select, input {
 		margin-bottom:10px;
 	}
-
+	@include media-breakpoint-down(sm) {
+		.navbar-nav .nav-item{
+			margin-left:0;
+			margin-right:1rem;
+			float:right;
+		}
+		h3{
+			margin: 100px 0 50px;
+		}
+	}
+	@include media-breakpoint-down(xs) {
+		h3{
+			margin: 35px 0;
+		}
+	}
+	
 	.bg-graphic {
 		position:absolute;
 		background:no-repeat center center;
@@ -43,6 +66,37 @@
 			top:30%;
 			background-image:url(../../../static/images/login-right.png);
 		}
+		@include media-breakpoint-down(md) {
+			&.bg-graphic-left{
+				left: 0;
+			}
+			&.bg-graphic-right{
+				right: 0;
+			}
+		}
+		@include media-breakpoint-down(sm) {
+			&.bg-graphic-right{
+				display:none;
+			}
+			&.bg-graphic-left{
+				top: 75px;
+				left: 25px;
+				width:150px;
+				height:150px;
+			}
+		}
+		@include media-breakpoint-down(xs) {
+			&.bg-graphic-left{
+				display:none;
+			}
+		}	
 	}
-
+}
+@include media-breakpoint-down(xs) {
+	header .navbar-brand{
+		display:none;
+	}
+	footer{
+		padding-bottom: 10px;
+	}
 }
