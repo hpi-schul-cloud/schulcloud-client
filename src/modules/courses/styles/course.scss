@@ -1,16 +1,18 @@
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
 .route-course {
 	.course-section {
-		margin: 10px;
+		margin: 10px 0;
 		width: 100%;
 		float: left;
 		padding-bottom: 20px;
 	}
 
 	.course-subsection {
-		padding: 20px !important;
-
+		@include media-breakpoint-up(sm) {
+			padding: 20px !important;
+		}
 		&.left {
 			border-right: 2px $colorGrey solid;
 		}
@@ -18,6 +20,19 @@
 		&.teachers {
 			.tag {
 				margin-right: 2px;
+			}
+		}
+		@include media-breakpoint-down(xs) {
+			padding: 10px 0 !important;
+			.tools-section > .row{
+				margin-left:0;
+				margin-right:0;
+			}
+			&.left {
+				border-right: none;
+			}
+			&.teachers{
+				margin-left: -15px;
 			}
 		}
 	}

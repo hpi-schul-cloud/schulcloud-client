@@ -1,10 +1,25 @@
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
 .route-administration {
-}
+	.nav-item.active{
+		color: #55595c;
+		background-color: #fff;
+		border-bottom: 1px solid $colorHPIRed;
+	}
 
-.active > .nav-link {
-	color: #55595c;
-	background-color: #fff;
-	border-color: #ddd #ddd transparent
+	@include media-breakpoint-down(xs) {
+		.nav-tabs{
+			border-bottom: none;
+		}
+		.nav-item{
+			border-bottom: 1px solid #ddd;
+		}
+		.nav-tabs .nav-item + .nav-item{
+			margin-left: 5px;
+		}
+		.nav-item > a{
+			padding: 8px;
+		}
+	}
 }

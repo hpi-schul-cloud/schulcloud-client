@@ -1,4 +1,5 @@
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
 .route-calendar {
 	#calendar {
@@ -51,6 +52,11 @@
 						font-weight: 600;
 					}
 				}
+			}
+		}
+		@include media-breakpoint-down(xs) {
+			.fc-month-view .fc-scroller{
+				min-height: 24em;
 			}
 		}
 	}
