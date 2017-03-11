@@ -2,6 +2,7 @@ import { Permissions, Server } from '../../core/helpers/';
 
 const userService = Server.service('/users');
 const classService = Server.service('/classes');
+const fileStorageService = Server.service('/fileStorage');
 
 const indexArrayByKey = (array, key) => {
 	const result = {};
@@ -65,5 +66,11 @@ export default {
 			}
 		})
 			.then(result => Promise.resolve(result.data));
+	},
+
+	createBucket: (schoolId) => {
+		return fileStorageService.create({
+			schoolId: schoolId
+		});
 	}
 };
