@@ -395,7 +395,15 @@ class SectionSearch extends React.Component {
 			</div>
 		);
 	}
-
+	
+	componentDidMount() {
+		$('.mobile-filter-toggle').click((e) => {
+			$('.filters').toggleClass('active');
+			$('.mobile-filter-toggle .fa').toggleClass('fa-filter');
+			$('.mobile-filter-toggle .fa').toggleClass('fa-times');
+		});
+	}
+	
 	render() {
 		return (
 			<section className="section-search">
@@ -407,6 +415,9 @@ class SectionSearch extends React.Component {
 							</div>
 						</div>
 					</div>
+					<a className="mobile-filter-toggle">
+						Filter <i className="fa fa-filter" />
+					</a>
 					<div className="filters">
 						{this.getFiltersUI.bind(this)()}
 					</div>

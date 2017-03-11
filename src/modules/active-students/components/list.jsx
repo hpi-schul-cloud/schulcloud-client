@@ -207,7 +207,7 @@ class List extends React.Component {
 			picture: 'https://randomuser.me/api/portraits/women/8.jpg',
 			seen: 'vor 2 Minuten',
 			class: 'GY1T',
-			page: 'Dateinen'
+			page: 'Dateien'
 		}];
 	}
 
@@ -218,21 +218,21 @@ class List extends React.Component {
 				if (person.seen == 'jetzt'){
 					return (
 					<tr>
-						<td><img className="picture" src={person.picture} alt=""/></td>
-						<td>{person.firstname}</td>
-						<td>{person.lastname}</td>
-						<td><font color="green">{person.seen}</font></td>
-						<td>{person.page}</td>
+						<td className="picturewrap"><img className="picture" src={person.picture} alt=""/></td>
+						<td className="firstname" >{person.firstname}</td>
+						<td className="lastname" >{person.lastname}</td>
+						<td className="seen"><font color="green">{person.seen}</font></td>
+						<td className="page">{person.page}</td>
 					</tr>
 				);}
 				else {
 					return (
 						<tr>
-							<td><img className="picture" src={person.picture} alt=""/></td>
-							<td>{person.firstname}</td>
-							<td>{person.lastname}</td>
-							<td><font color="red">{person.seen}</font></td>
-							<td>{person.page}</td>
+							<td className="picturewrap"><img className="picture" src={person.picture} alt=""/></td>
+							<td className="firstname" >{person.firstname}</td>
+							<td className="lastname" >{person.lastname}</td>
+							<td className="seen" ><font color="red">{person.seen}</font></td>
+							<td className="page" >{person.page}</td>
 						</tr>
 					)
 				}
