@@ -1,4 +1,5 @@
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
 .section-tools {
 	width:100%;
@@ -25,6 +26,11 @@
 			.fa {
 				margin-right:10px;
 				display:inline-block;
+			}
+		}
+		@include media-breakpoint-down(xs) {
+			.btn{
+				margin: 5px 0;
 			}
 		}
 	}

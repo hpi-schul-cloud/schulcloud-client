@@ -48,7 +48,6 @@ class Server {
 		socket.io.engine.on('upgrade', function(transport) {
 			server.authenticateUser();
 		});
-
 		return server;
 	}
 }

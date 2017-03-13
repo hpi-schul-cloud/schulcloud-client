@@ -42,10 +42,19 @@ class SectionTitle extends React.Component {
 			query:event.target.value
 		});
 	}
-
+	componentDidMount() {
+		$('.mobile-search-toggle').click((e) => {
+			$('.search-wrapper .input-group').toggleClass('active');
+			$('.search-wrapper .mobile-search-toggle .fa').toggleClass('fa-search');
+			$('.search-wrapper .mobile-search-toggle .fa').toggleClass('fa-times');
+		});
+	}
 	getSearchFieldUI() {
 		return (
 			<div className="search-wrapper">
+				<a className="mobile-search-toggle">
+					<i className="fa fa-search" />
+				</a>
 				<div className="input-group input-group-sm">
 					<input type="text" className="form-control search-field" placeholder="Suche nach..."  onChange={this.setQuery.bind(this)} />
 					<span className="input-group-btn">

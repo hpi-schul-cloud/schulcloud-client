@@ -14,6 +14,7 @@ import Timetable from './timetable';
 import FileExplorer from './file-explorer';
 import ActiveStudents from './active-students';
 import Tools from './tools';
+import News from './news';
 import Administration from './administration';
 import Courses from './courses';
 
@@ -32,5 +33,6 @@ export default {
 	Tools,
     Static,
 	Signup,
+	News,
 	Courses
 };

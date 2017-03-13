@@ -9,7 +9,6 @@ import permissions from '../permissions';
 import actions from '../actions/administration';
 
 const composer = (props, onData) => {
-
 	const currentUser = Server.get('user');
 
 	if(!Permissions.userHasPermission(currentUser, permissions.VIEW)) {

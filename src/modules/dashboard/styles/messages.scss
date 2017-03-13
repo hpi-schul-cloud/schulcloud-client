@@ -1,4 +1,5 @@
 @import '../../core/styles/colors.scss';
+@import '../../core/styles/bootstrap/scss/bootstrap';
 
 .section-messages {
 	width:100%;
@@ -12,6 +13,9 @@
 
 	h6 {
 		font-weight: bold;
+		@include media-breakpoint-down(xs) {
+			margin-top: 0.5rem;
+		}
 	}
 
 	.messages,

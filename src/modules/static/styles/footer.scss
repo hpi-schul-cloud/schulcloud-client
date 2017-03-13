@@ -1,3 +1,5 @@
+@import '../../core/styles/bootstrap/scss/bootstrap';
+
 footer {
 	width:100%;
 	margin-top: 40px;
@@ -13,5 +15,12 @@ footer {
 	.center{
 		text-align: center;
 		align-items: center;
+		
+		@include media-breakpoint-down(sm) {
+			img{
+				display:block;
+				margin: 0 auto;
+			}
+		}
 	}
 }

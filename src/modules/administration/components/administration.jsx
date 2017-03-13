@@ -7,6 +7,7 @@ import SectionCourses from '../containers/courses';
 import SectionClasses from '../containers/classes';
 import SectionTeachers from '../containers/teachers';
 import SectionStudents from '../containers/students';
+import SectionNews from '../containers/news';
 
 require('../styles/administration.scss');
 
@@ -37,6 +38,7 @@ class Administration extends React.Component {
 					<TabPanel><SectionTeachers {...this.props} /></TabPanel>
 					<TabPanel><SectionStudents {...this.props} /></TabPanel>
 				</Tabs>
+                <SectionNews {...this.props} />
 			</LayoutBase>
 
 		);

@@ -1,0 +1,21 @@
+@import '../../core/styles/bootstrap/scss/bootstrap';
+
+@include media-breakpoint-down(xs) {
+	.row.lesson-cards,
+	.row.messages,
+	.row.notices,
+	.row.buttons,
+	.row.articles
+	{
+		margin: 5px -15px;
+	}
+	.row.timeline{
+		display:none;
+	}
+	.row .lesson-cards .lesson-card{
+		padding: 10px 0;
+	}
+	.section-messages{
+		padding: 15px 0 50px;
+	}
+}

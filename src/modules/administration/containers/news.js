@@ -1,5 +1,5 @@
 
-import SectionSchool from '../components/school';
+import SectionNews from '../components/news';
 import composer from './common';
 
-export default composer(SectionSchool);
+export default composer(SectionNews);

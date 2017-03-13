@@ -1,11 +1,10 @@
 import LayoutBase from '../../base/containers/layout';
 import SectionTitle from '../../base/components/title';  /* only for base */
+import NewsEntry from './newsEntry';
 
-import CourseCard from './courseCard';
+require('../styles/news.scss');
 
-require('../styles/courses.scss');
-
-class Courses extends React.Component {
+class News extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -13,19 +12,23 @@ class Courses extends React.Component {
 
 	render() {
 		return (
-			<LayoutBase className="route-courses">
-				<SectionTitle title="Kurse" />
-				<div className="course-section">
-					{
-						this.props.courses.map((course) => {
-							return <CourseCard {...this.props} key={course._id} course={course} />;
-						})
-					}
+			<LayoutBase className="route-news">
+				<SectionTitle title="Neuigkeiten" />
+				<section className="section-news">
+				<div className="container-fluid">
+					<div className="row articles">
+						<div className="card-group">
+							{(this.props.news || []).map((article) => {
+								return <NewsEntry {...article} key={article._id}/>;
+							})}
+						</div>
+					</div>
 				</div>
+			</section>
 			</LayoutBase>
 		);
 	}
 
 }
 
-export default Courses;
+export default News;

@@ -1,39 +1,37 @@
-import LayoutBase from '../../base/containers/layout';
+require('../styles/news.scss');
 
-import SectionTitle from '../../base/components/title';
-import SectionTools from './tools';
-import SectionStudents from './students';
-import SectionTeachers from './teachers';
-
-require('../styles/course.scss');
-
-class Course extends React.Component {
+class NewsEntry extends React.Component {
 
 	constructor(props) {
 		super(props);
-	}
 
-	getSubTitleUI() {
-		return this.props.course.classId ? `für Klasse ${this.props.course.classId.name}` : '';
+		this.state = {};
 	}
 
 	render() {
+		var article = this.props;
+		var time = Math.floor(Date.now()/1000 - new Date(article.updatedAt).getTime()/1000);
+		if(time < 60){ /* < 1 minute */
+			var echo = 'just now';
+		}else if(time < 3600){ /* < 1 hour */
+			var echo = Math.floor(time/60)+' mins ago';
+		}else if(time < 86400){ /* < 1 day */
+			var echo =Math.floor(time/3600)+' hours ago';
+		}else if(time < 604800){ /* < 1 week */
+			var echo = Math.floor(time/86400)+' days ago';
+		}else{
+			var date = new Date();
+			var echo = date.getDate().toString()+date.getMonth().toString()+date.getFullYear().toString();
+		}
 		return (
-			<LayoutBase className="route-course">
-				<SectionTitle title={this.props.course.name} subtitle={this.getSubTitleUI()} />
-				<div className="course-section">
-					<div className="container-fluid">
-						<SectionTeachers course={this.props.course}/>
-						<div className="row">
-							<SectionTools {... this.props} />
-							<SectionStudents course={this.props.course} />
-						</div>
-					</div>
-				</div>
-			</LayoutBase>
+            <div className="card card-block newsEntry" key={article._id}>
+				<strong className="card-text">{article.title}</strong>
+				<p className="card-text">{article.content}</p>
+				<p className="card-text"><small className="text-muted">Last updated {echo}</small></p>
+				{article.url ? <a href={article.url}> weiterlesen</a> : '' }
+			</div>
 		);
 	}
-
 }
 
-export default Course;
+export default NewsEntry;

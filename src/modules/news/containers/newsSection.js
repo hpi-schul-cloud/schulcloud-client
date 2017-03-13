@@ -1,7 +1,7 @@
 import {render} from 'react-dom';
 import {compose} from 'react-komposer';
 
-import component from '../components/news';
+import component from '../components/newsSection';
 import { Server, Notification } from '../../core/helpers/';
 import actions from '../actions/news';
 
