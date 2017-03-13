@@ -1,7 +1,6 @@
 import axios from 'axios';
 import {FileService} from '../../core/helpers';
 import {Permissions, Server, Notification} from '../../core/helpers/';
-require('../../../static/images/.scfake.png');
 
 window.saveFile = function (url, fileName) {
 		//iOS devices not supported
@@ -67,7 +66,7 @@ export default {
 				}
 
 				window.saveFile(signedUrl.url, file.name);
-				
+
 			}).catch(err => {
 				Notification.showError(err.message);
 			});

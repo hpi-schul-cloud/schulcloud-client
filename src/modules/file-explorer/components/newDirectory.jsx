@@ -18,7 +18,7 @@ class NewDirectory extends React.Component {
 
 	handleOnNewDirectoryClick() {
 		this.props.actions.createNewFolder(this.state.newDirectoryName, this.props.storageContext).then(res => {
-			this.props.onReload(this.props.storageContext);
+			this.props.onReload(this.props.storageContext, this.props.scopes);
 		});
 	}
 

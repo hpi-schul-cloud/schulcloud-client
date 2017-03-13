@@ -10,18 +10,19 @@ class Files extends React.Component {
 	}
 
 	getStorageTitle(storageContext) {
-		var values = storageContext.split("/");
-		switch (values[0]) {
-			case 'users':
-				let dirName = values.filter((v, index) => {
-					return index > 1;
-				}).join("/");
-				return `Meine persönlichen Dateien /${dirName}`;
-			case 'courses': return "Kurs-Dateien";
-			case 'classes': return "Klassen-Dateien";
-			default: return "";
-		}
+		const storageTitles = {
+			users: "Meine persönlichen Dateien",
+			courses: "Kurs-Dateien",
+			classes: "Klassen-Dateien"
+		};
+
+		let values = storageContext.split("/");
+		let dirName = values.filter((v, index) => {
+			return index > 1;
+		}).join("/");
+		return `${storageTitles[values[0]]} /${dirName}`;
 	}
+
     preventEventPropagation(e){
         if (!e) var e = window.event;
         e.cancelBubble = true;
@@ -29,13 +30,13 @@ class Files extends React.Component {
 	}
 
 	handleOnDownloadClick(file,e) {
-       this.preventEventPropagation(e)
+		this.preventEventPropagation(e);
 		this.props.actions.download(file, this.props.storageContext);
 	}
 
 	handleOnDeleteClick(file) {
 		this.props.actions.delete(file, this.props.storageContext).then(res => {
-			this.props.onReload(this.props.storageContext);
+			this.props.onReload(this.props.storageContext, this.props.scopes);
 		});
 	}
 
