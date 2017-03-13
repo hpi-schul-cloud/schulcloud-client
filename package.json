@@ -10,7 +10,7 @@
     "deploy": "npm run build && ./deploy.sh",
     "lint": "eslint ./src ./test --ext .js",
     "test": "npm run lint",
-    "start": "node src/",
+    "start": "node server.js",
     "startd": "nodemon server.js",
     "mocha": "mocha test/ --recursive"
   },
