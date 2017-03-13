@@ -28,8 +28,6 @@ class FileService {
 			query: {
 				storageContext: storageContext
 			}
-		}).then(res => {
-			return res;
 		}).catch(err => {
 			Notification.showError(err.message);
 		});
@@ -48,6 +46,14 @@ class FileService {
 	createDirectory(storageContext, dirName) {
 		const directoryService = Server.service('/fileStorage/directories');
 		return directoryService.create({
+			storageContext: storageContext,
+			dirName: dirName
+		});
+	}
+
+	deleteDirectory(storageContext, dirName) {
+		const directoryService = Server.service('/fileStorage/directories');
+		return directoryService.remove(null, {
 			storageContext: storageContext,
 			dirName: dirName
 		});
