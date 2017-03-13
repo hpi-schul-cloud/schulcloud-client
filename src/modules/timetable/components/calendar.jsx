@@ -32,6 +32,7 @@ class Calendar extends React.Component {
 				left: 'title',
 				right: 'month,agendaWeek,agendaDay prev,today,next'
 			},
+			height: 750,
 			locale: 'de',
 			viewRender: (view, element) => {
 				location.hash = view.name;
