@@ -54,8 +54,10 @@ class FileService {
 	deleteDirectory(storageContext, dirName) {
 		const directoryService = Server.service('/fileStorage/directories');
 		return directoryService.remove(null, {
-			storageContext: storageContext,
-			dirName: dirName
+			query: {
+				storageContext: storageContext,
+				dirName: dirName
+			}
 		});
 	}
 }

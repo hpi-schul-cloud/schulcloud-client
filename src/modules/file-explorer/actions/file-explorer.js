@@ -67,7 +67,7 @@ export default {
 				}
 
 				window.saveFile(signedUrl.url, file.name);
-				
+
 			}).catch(err => {
 				Notification.showError(err.message);
 			});
@@ -88,9 +88,14 @@ export default {
 
 	delete: (file, storageContext) => {
 		return FileService.deleteFile(storageContext, file.name, null)
-			.then((res) => {
-				return res;
-			}).catch(err => {
+			.catch(err => {
+				Notification.showError(err.message);
+			});
+	},
+
+	deleteDirectory: (storageContext, directory) => {
+		return FileService.deleteDirectory(storageContext, directory.name)
+			.catch(err => {
 				Notification.showError(err.message);
 			});
 	},
