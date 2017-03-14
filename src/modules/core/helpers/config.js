@@ -12,7 +12,7 @@ class Config {
 				server: 'http://localhost:3030'
 			},
 			staging: {
-				server: 'https://school.langl.eu:3030'
+				server: 'https://schul.tech:3030'
 			},
 			production: {
 				server: 'https://schul-cloud.org:8080'
