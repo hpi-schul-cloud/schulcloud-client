@@ -42,7 +42,8 @@ window.saveFile = function (url, fileName) {
 export default {
 	upload: (progressCallback, files, storageContext) => {
 		return Promise.all(files.map((file) => {
-			return FileService.getUrl(file.name, file.type, storageContext, 'putObject')
+			const fileType = file.type || "application/octet-stream";
+			return FileService.getUrl(file.name, fileType, storageContext, 'putObject')
 				.then((signedUrl) => {
 					var options = {
 						headers: signedUrl.header,
