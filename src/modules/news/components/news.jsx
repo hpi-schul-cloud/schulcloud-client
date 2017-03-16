@@ -10,6 +10,15 @@ class News extends React.Component {
 		super(props);
 	}
 
+	sortFunction(a, b) {
+	    if (a.updatedAt === b.updatedAt) {
+	        return 0;
+	    }
+	    else {
+	        return (a.updatedAt < b.updatedAt) ? 1 : -1;
+	    }
+	}
+
 	render() {
 		return (
 			<LayoutBase className="route-news">
@@ -18,7 +27,7 @@ class News extends React.Component {
 				<div className="container-fluid">
 					<div className="row articles">
 						<div className="card-group">
-							{(this.props.news || []).map((article) => {
+							{(this.props.news.sort(this.sortFunction) || []).map((article) => {
 								return <NewsEntry {...article} key={article._id}/>;
 							})}
 						</div>
