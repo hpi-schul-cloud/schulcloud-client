@@ -31,8 +31,11 @@ class NewToolForm extends React.Component {
 		return key + value + Math.random() * 10000;
 	}
 
-	handleSubmit(event) {
+	handleSubmit(data) {
 		var tool = this.state.tool;
+		Object.keys(data).forEach(k => {
+			tool[k] = data[k]
+		});
 		tool.customs = this.state.custom_fields;
 
 		this.props.actions.createNew(tool);
@@ -105,7 +108,7 @@ class NewToolForm extends React.Component {
 
 	render() {
 		return (
-			<Form className="new_tool_form">
+			<Form className="new_tool_form" onValidSubmit={this.handleSubmit.bind(this)}>
 				<Select
 					label="Kurs"
 					name="courseId"
@@ -140,8 +143,6 @@ class NewToolForm extends React.Component {
 				</div>
 				<button
 					type="submit"
-					data-dismiss="modal"
-					onClick={this.handleSubmit}
 					className="btn btn-primary">Abschicken</button>
 			</Form>
 		);
