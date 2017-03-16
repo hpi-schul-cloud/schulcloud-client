@@ -10,6 +10,7 @@ class SectionSchool extends React.Component {
 
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			newFileStorage: this.getStorageProviders()[0].value
 		};
