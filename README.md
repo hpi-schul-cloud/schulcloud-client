@@ -1,5 +1,8 @@
-# Schulcloud Client (Express)
+# Schulcloud Client
 _An implementation of the Schul-Cloud client with NodeJS and Express._
+
+Dev: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)<br>
+Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=production)
 
 ## Requirements
 
