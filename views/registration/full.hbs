@@ -1,0 +1,20 @@
+{{#extend "registration/registration"}}
+    {{#content "fields"}}
+        <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" name="firstName" class="form-control form-control-lg" placeholder="Max" required>
+        </div>
+        <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" name="lastName" class="form-control form-control-lg" placeholder="Musterschüler" required>
+        </div>
+        <div class="form-group">
+            <label>E-Mail-Adresse</label>
+            <input type="email" name="email" class="form-control form-control-lg" placeholder="max.musterschüler@schul-cloud.org" required>
+        </div>
+        <div class="form-group">
+            <label>Passwort</label>
+            <input type="password" name="password" class="form-control form-control-lg" placeholder="***************" required>
+        </div>
+    {{/content}}
+{{/extend}}

@@ -1,8 +1,7 @@
-# SchulCloud - Client
+# Schulcloud Client (Express)
+_An implementation of the Schul-Cloud client with NodeJS and Express._
 
-Dev: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)
-Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=production)
-# Requirements
+## Requirements
 
 * node.js
 
@@ -15,8 +14,8 @@ Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.
 ## Run
 
 1. Go into project folder
-2. run `npm run dev` to build the project
-3. run `npm run startd` 
+2. run `gulp watch` to run gulp
+3. run `npm run watch` to boot the application
 4. go to `http://localhost:3100`
 
 ## How to name your branch
@@ -26,22 +25,11 @@ Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.
 
 ## Testing
 
-### Run tests
-
-1. Go into project folder
-2. run `npm run test`
-
-### Create tests
-
-1. Create a folder for the "service" you're working on in "/test/services"
-2. Create a file "user.test.js" for frontend tests (e.g. clicking a link or check if url is available)
-3. Create a file "unit.test.js" for backend tests (e.g. calculating a number)
-
-*Try to cover as many methods as possible unit test wise - goal is 100% of course, so one test per method.*
+_Didn't have time to write tests so far :(_
 
 ## Commiting
 
-Default branch: develop
+Default branch: master
 
 1. Go into project folder
 2. Run the tests (see above)
