@@ -1,7 +1,7 @@
 # SchulCloud - Client
 
-Dev: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)
-Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=production)
+Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)
+Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=production)
 # Requirements
 
 * node.js
