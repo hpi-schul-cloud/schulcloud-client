@@ -48,7 +48,7 @@ router.get('/register/account/:userId', function (req, res, next) {
 
 
 router.post('/register/account', function (req, res, next) {
-    const username = req.body.username; // TODO: sanitize
+    const username = req.body.email; // TODO: sanitize
     const password = req.body.password; // TODO: sanitize
     const userId = req.body.userId; // TODO: sanitize
 
