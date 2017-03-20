@@ -70,3 +70,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# IntelliJ IDEA configuration files
+\.idea/
