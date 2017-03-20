@@ -12,14 +12,15 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 
 1. Clone directory into local folder
 2. Go into the cloned folder and enter `npm install`
-3. Install nodemon by entering `npm install -g nodemon`
+3. Install nodemon and gulp globally by entering `npm install -g nodemon gulp`
 
 ## Run
 
-1. Go into project folder
-2. run `gulp watch` to run gulp
-3. run `npm run watch` to boot the application
-4. go to `http://localhost:3100`
+1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)
+2. Go into project folder
+3. run `gulp watch` to run gulp
+4. run `npm run watch` to boot the application
+5. go to `http://localhost:3100`
 
 ## How to name your branch
 
