@@ -1,0 +1,18 @@
+- var lessons = [{ href: '/lessons/s52ruf6wst', status: 'fällt aus', lessonTimes: [1, 2], title: 'Mathematik', room: 'R 101'}, { href: '/lessons/s52ruf6wst', status: '', lessonTimes: [3, 4], title: 'Biologie', room: 'R 404'}, { href: '/lessons/s52ruf6wst', status: '', lessonTimes: [5, 6], title: 'Sport', room: 'Sporthalle'}, { href: '/lessons/s52ruf6wst', status: '', lessonTimes: [1, 2], title: 'Geschichte', room: 'R 001'}]
+.container-fluid.timetable
+    .row.lesson-cards
+        div
+            each lesson in lessons
+                a.col-sm-2.lesson-card(href=lesson.href)
+                    .card.card-block(data-status=lesson.status, class={disabled: lesson.status === 'fällt aus'})
+                        time.lesson-time= lesson.lessonTimes.map(t => (t + '.')).join(' + ')
+                        h3.card-title= lesson.title
+                        br
+                        = lesson.room
+                        p.card-text
+    - var timelineTimes = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    .row.timeline
+        div
+            each time in timelineTimes
+                .col-sm-1
+                    .tick #{time} .00
