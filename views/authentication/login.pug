@@ -1,0 +1,39 @@
+extends ../lib/default
+
+append styles
+    link(rel='stylesheet', href='/styles/authentication/login.css')
+append scripts
+    script(src='/scripts/login.js', type='text/javascript')
+block body
+    .container
+        .row
+            .col-md-6.offset-md-3
+                hgroup.huge-gap
+                    h3
+                        | Schul-Cloud
+                        sup ALPHA
+                .form-wrapper
+                    include ../lib/components/notification
+                    form.login-form(method='post', action='/login/')
+                        .form-group
+                            input.form-control.form-control-lg(type='text', name='username', placeholder='Email-Adresse oder Nutzername', required='')
+                            |
+                            input.form-control.form-control-lg(type='password', name='password', placeholder='Passwort', required='')
+                        .form-group.toggle-providers
+                            a.btn.btn-block.btn-secondary.btn-toggle-providers Mit anderem System anmelden
+                        .login-providers
+                            .form-group
+                                select.school(name='schoolId', data-placeholder='Schule')
+                                    option
+                                        // Empty option goes here.
+                                    each school in schools
+                                        option(value=school._id)= school.name
+                            .form-group
+                                select.system(name='systemId', data-placeholder='System')
+                                    option
+                                    each system in systems
+                                        option(value=system._id)= system.type
+                        .form-group
+                            input.btn.btn-block.btn-primary(type='submit', value='Anmelden')
+    .bg-graphic.bg-graphic-left
+    .bg-graphic.bg-graphic-right

@@ -1,0 +1,22 @@
+extends ../lib/loggedin
+
+block page
+  = message
+  = error
+  .route-account
+    form(method='post')
+      .form-group
+        label Vorname
+        |
+        input.form-control(type='text', name='firstName', value=currentUser.firstName)
+      .form-group
+        label Nachname
+        |
+        input.form-control(type='text', name='lastName', value=currentUser.lastName)
+      .form-group
+        label E-Mail-Adresse
+        |
+        input.form-control(type='email', name='email', value=currentUser.email)
+      .form-group
+        input.btn.btn-primary(type='submit')
+

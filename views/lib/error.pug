@@ -1,0 +1,10 @@
+extends default
+append styles
+    link(rel='stylesheet', href='/styles/lib/error.css')
+block body
+    .error-page
+        section.details
+            .error-code= error.status
+            .error-title= message
+            .error-description= error.stack
+        .bg-graphic.bg-graphic-right

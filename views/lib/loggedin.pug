@@ -1,0 +1,73 @@
+extends default
+append styles
+    link(rel='stylesheet', href='/styles/lib/loggedin.css')
+block body
+    aside.nav-sidebar
+        nav
+            ul
+                each item in sidebarItems
+                    li
+                        a(class=item.class, href=item.link)
+                            i(class=`fa fa-${item.icon}`, aria-hidden='true')
+                            span.link-name= item.name
+                        if item.childActive && item.children
+                            ul.subitems
+                                each child in item.children
+                                    li
+                                        a.subitem(class=child.class, href=child.link)
+                                            i.fa(class='fa-' + child.icon, aria-hidden='true')
+                                            |
+                                            span.link-name= child.name
+        a.mobile-nav-toggle
+            i.fa.fa-bars
+    section.content-wrapper
+        nav.topbar.navbar
+            if breadcrumb
+                ol.breadcrumb
+                    each b in breadcrumb
+                        li.breadcrumb-item(class=b.class)
+                            a(href=b.url)= b.title
+            ul.nav.navbar-nav.float-xs-right
+                li.nav-item
+                    .btn-group
+                        button.btn.btn-secondary.dropdown-toggle.account-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                            strong= currentUser.displayName
+                        .dropdown-menu.dropdown-menu-right
+                            a.dropdown-item(href='/account/') Einstellungen
+                            |
+                            a.dropdown-item(href='/logout/') Abmelden
+        section.section-title
+            .container-fluid
+                .row
+                    .col-sm-9
+                        div
+                            h4= title
+                        div= subtitle
+                    .col-sm-3
+                        form.search-wrapper(action='/content/', method='get')
+                            a.mobile-search-toggle
+                                i.fa.fa-search
+                            .input-group.input-group-sm
+                                input.form-control.search-field(type='text', placeholder='Suche nach...', name='q')
+                                |
+                                span.input-group-btn
+                                    button.btn.btn-secondary(type='submit')
+                                        i.fa.fa-search
+        .container-fluid
+            .row
+                .col-sm-12
+                    block page
+        footer
+            .imprint
+                .center
+                    img(src='/images/hpi-logo.png', width='235', height='44')
+                    |
+                    a &copy; 2017 Schul-Cloud
+                    nobr
+                        span -
+                        |
+                        a(href='https://hpi.de/impressum.html', target='blank') Impressum
+                        |
+                        span -
+                        |
+                        a(href='mailto:hpi-info@hpi.de?subject=Schul_Cloud%20Anfrage') Kontakt

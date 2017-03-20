@@ -1,0 +1,201 @@
+extends ../lib/loggedin
+
+append styles
+    link(rel='stylesheet', href='/styles/dashboard/dashboard.css')
+append scripts
+    script(src='/scripts/login.js', type='text/javascript')
+block page
+    div
+        .col-sm-12
+            section.section-timetable
+                .container-fluid
+                    .row
+                        .col-sm-4.no-padding
+                            h5 Stundenplan
+                        .col-sm-8.no-padding
+                            .controls
+                                time.selected-date Montag, 20. M&auml;rz 2017
+                                .btn-toolbar(role='toolbar', aria-label='Toolbar with button groups')
+                                    .btn-group(role='group', aria-label='First group')
+                                        button.btn.btn-secondary.btn-sm.active(type='button') Tag
+                                        |
+                                        button.btn.btn-secondary.btn-sm(type='button') Woche
+                                    .btn-group(role='group', aria-label='Second group')
+                                        button.btn.btn-secondary.btn-sm(type='button')
+                                            i.fa.fa-chevron-left
+                                        |
+                                        button.btn.btn-secondary.btn-sm(type='button') Heute
+                                        |
+                                        button.btn.btn-secondary.btn-sm(type='button')
+                                            i.fa.fa-chevron-right
+            .container-fluid.timetable
+                .row.lesson-cards
+                    div
+                        a.col-sm-2.lesson-card(href='/lessons/s52ruf6wst')
+                            .card.card-block.disabled(data-status='fällt aus')
+                                time.lesson-time 1. + 2.
+                                h3.card-title
+                                    | Mathematik
+                                    br
+                                    |  R 101
+                                p.card-text
+                        a.col-sm-2.lesson-card(href='/lessons/s52ruf6wst')
+                            .card.card-block(data-status='')
+                                time.lesson-time 3. + 4.
+                                h3.card-title
+                                    | Biologie
+                                    br
+                                    |  R 404
+                                p.card-text
+                        a.col-sm-2.lesson-card(href='/lessons/s52ruf6wst')
+                            .card.card-block(data-status='')
+                                time.lesson-time 5. + 6.
+                                h3.card-title
+                                    | Sport
+                                    br
+                                    |  Sporthalle
+                                p.card-text
+                        a.col-sm-2.lesson-card(href='/lessons/s52ruf6wst')
+                            .card.card-block(data-status='')
+                                time.lesson-time 1. + 2.
+                                h3.card-title
+                                    | Geschichte
+                                    br
+                                    |  R 001
+                                p.card-text
+                .row.timeline
+                    div
+                        .col-sm-1
+                            .tick 8 .00
+                        .col-sm-1
+                            .tick 9 .00
+                        .col-sm-1
+                            .tick 10 .00
+                        .col-sm-1
+                            .tick 11 .00
+                        .col-sm-1
+                            .tick 12 .00
+                        .col-sm-1
+                            .tick 13 .00
+                        .col-sm-1
+                            .tick 14 .00
+                        .col-sm-1
+                            .tick 15 .00
+                        .col-sm-1
+                            .tick 16 .00
+                        .col-sm-1
+                            .tick 17 .00
+                        .col-sm-1
+                            .tick 18 .00
+                        .col-sm-1
+                            .tick 19 .00
+            section.section-messages
+                .container-fluid
+                    .row
+                        .col-sm-7
+                            .row
+                                h5
+                                    | Briefkasten
+                                    span.tag.tag-default 23
+                            .row.messages
+                                .row.message
+                                    .col-sm-2
+                                        img.avatar(src='https://randomuser.me/api/portraits/men/1.jpg')
+                                        strong Tom
+                                    .col-sm-10
+                                        h6 [Schulfest] Am 31.M&auml;rz findet unser Allj&auml;hrliches Schulfest statt
+                                        p
+                                            | Liebe Lehrer, liebe Mitsch&uuml;ler, im Namen der Sch&uuml;lervertretung lade ich Euch und eure Familien ganz herzlich zum Schulfest im n&auml;chsten Monat ein. Beginn ist um 15 Uhr in der Aula. Im Anschluss bieten wir verschiedene Attraktionen wie Kuchenverkauf, Beatboxen und Fu&szlig;ball an.
+                                            a(href='#') Ablaufplan
+                                .row.message
+                                    .col-sm-2
+                                        img.avatar(src='https://randomuser.me/api/portraits/women/91.jpg')
+                                        strong Jana
+                                    .col-sm-10
+                                        h6 [Projekt] Abgabe Physik-Projekt am Dienstag
+                                        p
+                                            | Bis Dienstag m&uuml;ssen noch die Details zu Magnetfeldern und Stromleitern auf unser Plakat. K&ouml;nntest du das &uuml;bernehmen, Lukas? Katrin und ich k&uuml;mmern uns in der Zwischenzeit um die schriftliche Ausarbeitung. Treffen wir uns nach der 8ten Stunde noch in der Bibliothek?
+                        .col-sm-4.offset-sm-1
+                            .row
+                                h5 Mitteilungen
+                            .row.notices
+                                .row.notice
+                                    .col-sm-12
+                                        .alert.alert-warning.alert-dismissible(role='alert')
+                                            button.close(type='button', data-dismiss='alert', aria-label='Close')
+                                                span(aria-hidden='true') &times;
+                                            |
+                                            strong Mathe (20. M&auml;rz 2017, 1. + 2. Stunde):
+                                            br
+                                            |  F&auml;llt aus.
+                                .row.notice
+                                    .col-sm-12
+                                        .alert.alert-info.alert-dismissible(role='alert')
+                                            button.close(type='button', data-dismiss='alert', aria-label='Close')
+                                                span(aria-hidden='true') &times;
+                                            |
+                                            strong Englisch (20. M&auml;rz 2017, 1. + 2. Stunde):
+                                            br
+                                            |  Vertretung durch Herrn M&uuml;ller.
+            section.section-tools
+                .container-fluid
+                    .row
+                        .col-sm-12.no-padding
+                            h5 Tools
+                    .row.buttons
+                        .row
+                            .col-sm-3
+                                button.btn.btn-block
+                                    i.fa.fa-pencil
+                                    span Office
+                            .col-sm-3
+                                button.btn.btn-block
+                                    i.fa.fa-calendar
+                                    span Kalender
+                            .col-sm-3
+                                button.btn.btn-block
+                                    i.fa.fa-group
+                                    span Gruppen
+                            .col-sm-3
+                                button.btn.btn-block
+                                    i.fa.fa-camera
+                                    span Video
+            section.section-news
+                .container-fluid
+                    .row
+                        .col-sm-12.no-padding
+                            h5 Neuigkeiten
+                    .row.articles
+                        .card-group
+                            .card.card-block
+                                strong.card-text Willkommen im Schuljahr 2016!
+                                p.card-text
+                                    | Die Schulleitung hei&szlig;t alle (neuen) Sch&uuml;ler im neuen Schuljahr willkommen. Auch dieses Jahr haben wir wieder viele neue Veranstaltungen f&uuml;r Euch geplant. Unter anderem ein Besuch bei der UNESCO und einen Sch&uuml;leraustausch mit einer Schule im Silicon Valley der Klasse 10. Viel Erfolg w&uuml;nscht Euch das Lehrerkolleg!
+                                p.card-text
+                                    small.text-muted Last updated 3 mins ago
+                                |
+                                a(href='#') weiterlesen
+                            .card.card-block
+                                strong.card-text Forschungsprojekt Umwelt
+                                p.card-text
+                                    | Um die Energieeffizienz von Elektroautos zu beweisen, f&uuml;hrten die Sch&uuml;ler der 11. Klasse in den vergangenen Monaten verschiedene Experimente durch. Unter Anderem mit einem Tesla Model X auf der Langstrecke von Berlin nach K&ouml;ln. Hierbei fanden sie heraus, dass insgesamt nur &frac14; der Energie der konventionellen Treibstoffe ben&ouml;tigt wurde.
+                                p.card-text
+                                    small.text-muted Last updated 3 mins ago
+                                |
+                                a(href='#') weiterlesen
+                            .card.card-block
+                                strong.card-text Preisverleihung Sommerfestspiele
+                                p.card-text
+                                    | Auch in diesem Jahr gab es wieder herausragende sportliche Leistungen. Unter Anderem ein neuer Schulrekord im 100m-Lauf bei den M&auml;dchen und beim Weitsprung der Jungen. Auch f&uuml;r die Versorgung mit Wasser und Energieriegel wurde durch den F&ouml;rderverein gesorgt. Die Urkunden&uuml;bergabe findet am 30. Juni um 13 Uhr in der Sporthalle statt.
+                                p.card-text
+                                    small.text-muted Last updated 3 mins ago
+                                |
+                                a(href='#') weiterlesen
+                            .card.card-block
+                                strong.card-text Einf&uuml;hrung der Schul-Cloud
+                                p.card-text
+                                    | Um auch n&auml;chsten Jahrzehnt des 21. Jahrhunderts bildungsm&auml;&szlig;ig spitze aufgestellt zu sein, nutzen wir ab sofort die Schul-Cloud. Diese erm&ouml;glicht es unter Anderem, sich mit den bestehenden Moodle-Accounts anzumelden, Office zu nutzen und auf Bildungsangebote zuzugreifen. Ebenfalls ist es m&ouml;glich, aktualisierte Stundenpl&auml;ne und Aufgaben einzusehen.
+                                p.card-text
+                                    small.text-muted Last updated 3 mins ago
+                                |
+                                a(href='#') weiterlesen
