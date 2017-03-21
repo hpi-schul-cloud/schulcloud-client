@@ -57,7 +57,8 @@ const editCourseHandler = (req, res, next) => {
             course,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
-            students: markSelected(students, _.map(course.userIds, '_id'))
+            students: markSelected(students, _.map(course.userIds, '_id')),
+            user: res.locals.currentUser
         });
     });
 };
@@ -87,7 +88,8 @@ router.get('/', function (req, res, next) {
         });
         res.render('courses/overview', {
             title: 'Meine Kurse',
-            courses
+            courses,
+            user: res.locals.currentUser
         });
     });
 });
@@ -142,7 +144,8 @@ router.get('/:courseId', function (req, res, next) {
                     url: '/courses'
                 },
                 {}
-            ]
+            ],
+            user: res.locals.currentUser
         }));
     });
 });

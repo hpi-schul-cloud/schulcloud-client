@@ -29,15 +29,16 @@ router.get('/', function (req, res, next) {
 
         // get base url with all filters and query
         const urlParts = url.parse(req.originalUrl, true);
-        urlParts.query.p = '{{page}}';
         delete urlParts.search;
-        const baseUrl = url.format(urlParts);
 
         const pagination = {
             currentPage,
-            numPages: Math.ceil(meta.page.total / itemsPerPage),
+            numPages: Math.ceil((meta.page || {}).total / itemsPerPage),
             maxItems: 10,
-            baseUrl
+            urlForPage: page => {
+                urlParts.query.p = page;
+                return url.format(urlParts);
+            }
         };
 
         const results = data.map(result => {

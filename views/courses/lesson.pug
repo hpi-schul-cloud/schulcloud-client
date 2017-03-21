@@ -1,0 +1,22 @@
+extends ../lib/loggedin
+//- Be sure to include all the components to be loaded dynamically
+include components/content-text
+
+append styles
+    link(rel='stylesheet', href='/styles/courses/course.css')
+
+block page
+    section.section-course
+        .row.description
+            .col-sm-12
+                p.lead= description
+        .row
+            each c in contents
+                .col-sm-6
+                    //- Dynamically load the component
+                    +#{c.component}(c.title, c.markup)
+
+        if user.permissions.includes('COURSE_EDIT')
+            .row.padding-top
+                .col-sm-12
+                    a.btn.btn-add.btn-primary(href=`/courses/${courseId}/lessons/${_id}/edit`) Stunde bearbeiten
