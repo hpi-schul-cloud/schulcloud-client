@@ -1,0 +1,9 @@
+mixin modal(className, title)
+    .modal.fade(class!=className, tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    button.close(type='button')
+                        span(aria-hidden='true') &times;
+                    h4.modal-title= title
+                block

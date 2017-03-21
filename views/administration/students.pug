@@ -1,0 +1,22 @@
+extends administration
+include ../lib/components/table
+include ../lib/components/modal-form
+include ../lib/components/pagination
+block page
+    .route-administration
+        section.section-school.section-default
+            .container-fluid
+                .row
+                    .col-sm-12.no-padding
+                        include ../lib/components/notification
+                        +table(head, body)
+                .row
+                    +pagination(pagination)
+                .row
+                    .col-sm-12.no-padding
+                        button.btn.btn-primary.btn-add(type='submit') Schüler hinzufügen
+
+                +modal-form('edit-modal', 'Bearbeiten', null, 'patch', '', 'Speichern')
+                    include forms/form-students
+                +modal-form('add-modal', 'Bearbeiten', '/administration/students/', 'post', '', 'Hinzufügen')
+                    include forms/form-students

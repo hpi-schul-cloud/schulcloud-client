@@ -1,0 +1,11 @@
+include selects
+
+input(name='schoolId', type='hidden', data-force-value='true', value=currentSchool)
+
+.form-group
+    label Name der Klasse
+    input.form-control(name='name', type='text', placeholder='10a', required='')
+
++select-teachers(teachers, 'Klassenlehrer')
++select-students(students, 'Schüler')
+

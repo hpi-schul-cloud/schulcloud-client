@@ -1,0 +1,16 @@
+mixin modal-form(className, title, action, method, closeLabel, submitLabel)
+    .modal.fade(class!=className, tabindex='-1', role='dialog', aria-hidden='true')
+        .modal-dialog(role='document')
+            .modal-content
+                .modal-header
+                    button.close(type='button')
+                        span(aria-hidden='true') &times;
+                    h4.modal-title= title
+                form.modal-form(method='post', action=action)
+                    if method
+                        input(type='hidden', name='_method', data-force-value='true', value=method)
+                    .modal-body
+                        block
+                    .modal-footer
+                        button.btn.btn-secondary.btn-close(type='button')= closeLabel
+                        button.btn.btn-primary.btn-submit(type='submit')= submitLabel

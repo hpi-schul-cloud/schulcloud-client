@@ -1,0 +1,19 @@
+mixin pagination(options)
+    //-
+        urlForPage is a function
+    - let currentPage = (typeof options.currentPage=="string") ? parseInt(options.currentPage, 10) : options.currentPage
+    - const numberOfPages = options.numPages;
+    if(numberOfPages > 1)
+        nav.pagination-wrapper
+            ul.pagination
+                li.page-item(class={disabled: currentPage == 1})
+                    a.page-link(href=options.urlForPage(1))
+                        span &laquo;
+                - var lower = currentPage-2; if(currentPage >= (numberOfPages - 2)) lower = (numberOfPages - 4)
+                - var upper = currentPage+2; if(upper < 5 && numberOfPages >= 5) upper = 5
+                - for(var i = lower; i <= upper; ++i)
+                    if (i <= numberOfPages && i > 0)
+                        li(class={active: i == currentPage})
+                            a(href=options.urlForPage(i))=i
+                li.page-item(class={disabled: currentPage == numberOfPages})
+                    a.page-link(href=options.urlForPage(numberOfPages))

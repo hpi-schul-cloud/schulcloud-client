@@ -1,0 +1,12 @@
+include selects
+
+input(name='schoolId', type='hidden', data-force-value='true', value=currentSchool)
+.form-group
+    label Name des Kurses
+    input.form-control(name='name', type='text', placeholder='Geschichte', required='')
+
++select-classes(classes)
++select-teachers(teachers)
++select-students(students)
+
+
