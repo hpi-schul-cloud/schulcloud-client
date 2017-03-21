@@ -1,20 +1,21 @@
 mixin pagination(options)
     //-
-        urlForPage is a function
-    - let currentPage = (typeof options.currentPage=="string") ? parseInt(options.currentPage, 10) : options.currentPage
-    - const numberOfPages = options.numPages;
-    if(numberOfPages > 1)
+        options:
+            urlForPage: function(page) -> URL
+            numPages
+    - const {currentPage, numPages} = options;
+    if(numPages > 1)
         nav.pagination-wrapper
             ul.pagination
-                +paginationItem(options, 1, '&laquo;')(class={disabled: currentPage == 1})
-                - var lower = currentPage-2; if(currentPage >= (numberOfPages - 2)) lower = (numberOfPages - 4);
-                - var upper = currentPage+2; if(upper < 5 && numberOfPages >= 5) upper = 5;
-                - for(var i = lower; i <= upper; i++)
-                    if (i <= numberOfPages && i > 0)
-                        +paginationItem(options, i, i)(class={active: i == currentPage})
-                +paginationItem(options, numberOfPages, '&raquo;')(class={disabled: currentPage == numberOfPages})
+                +paginationItem(options, 1, '&laquo;', {disabled: (currentPage == 1)})
+                - const lower = (currentPage >= (numPages - 2)) ? (numPages - 4) : currentPage - 2;
+                - const upper = (currentPage < 3 && numPages >= 5) ? 5 : currentPage + 2;
+                - for(let i = lower; i <= upper; i++)
+                    if (i <= numPages && i > 0)
+                        +paginationItem(options, i, i, {active: (i == currentPage)})
+                +paginationItem(options, numPages, '&raquo;', {disabled: (currentPage == numPages)})
 
-mixin paginationItem(options, page, label)
-    li.page-item
+mixin paginationItem(options, page, label, classes)
+    li.page-item(class=classes)
         a.page-link(href=options.urlForPage(page))
             span!= label
