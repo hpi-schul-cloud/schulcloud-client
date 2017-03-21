@@ -6,16 +6,15 @@ mixin pagination(options)
     if(numberOfPages > 1)
         nav.pagination-wrapper
             ul.pagination
-                li.page-item(class={disabled: currentPage == 1})
-                    a.page-link(href=options.urlForPage(1))
-                        span &laquo;
-                - var lower = currentPage-2; if(currentPage >= (numberOfPages - 2)) lower = (numberOfPages - 4)
-                - var upper = currentPage+2; if(upper < 5 && numberOfPages >= 5) upper = 5
-                - for(var i = lower; i <= upper; ++i)
+                +paginationItem(options, 1, '&laquo;')(class={disabled: currentPage == 1})
+                - var lower = currentPage-2; if(currentPage >= (numberOfPages - 2)) lower = (numberOfPages - 4);
+                - var upper = currentPage+2; if(upper < 5 && numberOfPages >= 5) upper = 5;
+                - for(var i = lower; i <= upper; i++)
                     if (i <= numberOfPages && i > 0)
-                        li.page-item(class={active: i == currentPage})
-                            a.page-link(href=options.urlForPage(i))
-                                span= i
-                li.page-item(class={disabled: currentPage == numberOfPages})
-                    a.page-link(href=options.urlForPage(numberOfPages))
-                        span &raquo;
+                        +paginationItem(options, i, i)(class={active: i == currentPage})
+                +paginationItem(options, numberOfPages, '&raquo;')(class={disabled: currentPage == numberOfPages})
+
+mixin paginationItem(options, page, label)
+    li.page-item
+        a.page-link(href=options.urlForPage(page))
+            span!= label

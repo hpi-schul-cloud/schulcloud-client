@@ -1,0 +1,51 @@
+extends ../lib/loggedin
+include fileCard
+
+append styles
+    link(rel='stylesheet', href='/styles/files/files.css')
+append scripts
+    script(src='/scripts/dropzone/dropzone.js', type='text/javascript')
+    script(src='/scripts/files.js', type='text/javascript')
+
+block page
+    .route-files
+        section.section-title
+            .container-fluid
+                .row
+                    .col-sm-12.no-padding
+                        h5
+                            each breadcrumb in breadcrumbs
+                                a(class='folders-breadcrumb', href=breadcrumb.url)= breadcrumb.label
+                                span= ' / '
+        if canUploadFile
+            //- Dropzone
+            section.section-upload
+                .container-fluid
+                    .row
+                        form.form-upload(action='/files/upload/')
+                            span
+                                i.fa.fa-cloud-upload
+                                |  Dateien zum Hochladen ablegen.
+                        .progress-bar
+                            .progress
+                                span.percent
+                                .bar(style='width:0%') &nbsp;
+        section.directories
+            .row
+                each dir in directories
+                    .col-sm-6.col-xs-12.col-md-4
+                        a.card.card-block.folder(href=dir.url)
+                            strong.card-title-directory
+                                i.fa.fa-folder(aria-hidden='true')
+                                = dir.name
+                if canCreateDir
+                    .col-sm-6.col-xs-12.col-md-4
+                        div(data-toggle='modal')
+                            .card.card-block.folder.create-directory
+                                strong.card-title-directory
+                                    i.fa.fa-folder(aria-hidden='true')
+                                    |  Neuen Ordner erstellen ...
+        section.files
+            .row
+                each file in files
+                    +fileCard(file)

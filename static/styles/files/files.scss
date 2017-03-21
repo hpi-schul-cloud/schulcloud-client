@@ -71,10 +71,8 @@
         }
     }
 
-    .section-title {
-        .active {
-            font-weight:bold;
-        }
+    .folders-breadcrumb:last-of-type {
+        font-weight:bold;
     }
 
     .directories {
