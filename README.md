@@ -4,6 +4,11 @@ _An implementation of the Schul-Cloud client with NodeJS and Express._
 Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>
 Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=production)
 
+## Implementation
+Schulcloud-Client uses server-side rendering. As our base framework, we use [Express](https://expressjs.com).
+The view templates are written in [Pug](https://pugjs.org/language/attributes.html), which is then compiled to the final HTML.
+To compile assets, [Gulp](http://gulpjs.com) is used.
+
 ## Requirements
 
 * node.js
