@@ -13,7 +13,9 @@ mixin pagination(options)
                 - var upper = currentPage+2; if(upper < 5 && numberOfPages >= 5) upper = 5
                 - for(var i = lower; i <= upper; ++i)
                     if (i <= numberOfPages && i > 0)
-                        li(class={active: i == currentPage})
-                            a(href=options.urlForPage(i))=i
+                        li.page-item(class={active: i == currentPage})
+                            a.page-link(href=options.urlForPage(i))
+                                span= i
                 li.page-item(class={disabled: currentPage == numberOfPages})
                     a.page-link(href=options.urlForPage(numberOfPages))
+                        span &raquo;
