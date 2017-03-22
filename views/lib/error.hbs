@@ -1,0 +1,23 @@
+{{#extend "lib/default"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/lib/error.css" />
+    {{/content}}
+
+    {{#content "body"}}
+        <div class="error-page">
+            <section class="details">
+                <div class="error-code">
+                    {{error.status}}
+                </div>
+                <div class="error-title">
+                    {{message}}
+                </div>
+                <div class="error-description">
+                   {{error.stack}}
+                </div>
+            </section>
+
+            <div class="bg-graphic bg-graphic-right" />
+        </div>
+    {{/content}}
+{{/extend}}

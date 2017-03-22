@@ -1,0 +1,62 @@
+@import '../lib/colors.scss';
+
+body {
+    background: $colorBeige;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    h3 {
+        color: $colorHPIRed;
+        font-weight: bold;
+    }
+
+    hgroup {
+        text-align: center;
+        font-weight: bold;
+        margin: 100px 0px 60px;
+        width: 100%;
+        float: left;
+
+        &.huge-gap {
+            margin-bottom:100px;
+        }
+    }
+
+    .form-wrapper {
+        z-index: 10;
+        position: relative;
+        float: left;
+        width: 100%;
+    }
+
+    .login-providers {
+        display:none;
+    }
+
+    .select, .Select, select, input {
+        margin-bottom: 10px;
+    }
+
+    .bg-graphic {
+        position: absolute;
+        background: no-repeat center center;
+        background-size: contain;
+        z-index: 0;
+        width: 300px;
+        height: 300px;
+
+        &.bg-graphic-left {
+            left: 10%;
+            top: 10%;
+            background-image: url(../../images/login-left.png);
+        }
+
+        &.bg-graphic-right {
+            right: 10%;
+            top: 30%;
+            background-image: url(../../images/login-right.png);
+        }
+    }
+
+}

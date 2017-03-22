@@ -1,0 +1,15 @@
+{{#extend "registration/registration"}}
+    {{#content "fields"}}
+        <div class="form-group">
+            <div class="form-group">
+                <label>E-Mail-Adresse</label>
+                <input type="email" name="email" class="form-control form-control-lg" placeholder="max.musterschüler@schul-cloud.org" required>
+            </div>
+            <div class="form-group">
+                <label>Passwort</label>
+                <input type="password" name="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                       title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl oder Sonderzeichen" required>
+            </div>
+        </div>
+    {{/content}}
+{{/extend}}
