@@ -1,0 +1,36 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+<div class="form-group">
+    <label>Name des Kurses</label>
+    <input class="form-control" name="name" type="text" placeholder="10a" required />
+</div>
+
+<div class="form-group">
+    <label>Klasse(n)</label>
+
+    <select name="classIds[]" required multiple data-placeholder="Klasse(n) auswählen">
+        {{#each classes}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Unterrichtender Lehrer</label>
+
+    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
+        {{#each teachers}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Schüler / Teilnehmer</label>
+
+    <select name="userIds[]" required multiple data-placeholder="Schüler auswählen">
+        {{#each students}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+        {{/each}}
+    </select>
+</div>

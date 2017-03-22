@@ -1,0 +1,41 @@
+<nav class="pagination-wrapper">
+    {{#pagination settings}}
+        <ul class="pagination">
+            {{#each pageItems}}
+                {{#if first}}
+                    <li class="page-item{{#if disabled}} disabled{{/if}}">
+                        <a class="page-link" href="{{url}}">
+                            <span>&laquo;</span>
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if previous}}
+                    <li class="page-item{{#if disabled}} disabled{{/if}}">
+                        <a class="page-link" href="{{url}}">
+                            <span>&lsaquo;</span>
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if middle}}
+                    <li class="page-item{{#if disabled}} disabled{{/if}}{{#if active}} active{{/if}}">
+                        <a class="page-link" href="{{url}}">{{num}}</a>
+                    </li>
+                {{/if}}
+                {{#if next}}
+                    <li class="page-item{{#if disabled}} disabled{{/if}}">
+                        <a class="page-link" href="{{url}}">
+                            <span>&rsaquo;</span>
+                        </a>
+                    </li>
+                {{/if}}
+                {{#if last}}
+                    <li class="page-item{{#if disabled}} disabled{{/if}}">
+                        <a class="page-link" href="{{url}}">
+                            <span>&raquo;</span>
+                        </a>
+                    </li>
+                {{/if}}
+            {{/each}}
+        </ul>
+    {{/pagination}}
+</nav>
