@@ -8,6 +8,9 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const _subjects = require('../helpers/content/subjects.json');
+const _ = require('lodash');
+const subjects = _.mapValues(_subjects, v => ({name: v}));
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -21,6 +24,7 @@ router.get('/', function (req, res, next) {
     api(req).get('/contents/', {
         qs: {
             query,
+            filter: req.query.filter,
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1)
         }
@@ -44,7 +48,12 @@ router.get('/', function (req, res, next) {
             return result.attributes;
         });
 
-        res.render('content/search', {title: 'Inhalte', query, results, pagination});
+        let selectedSubjects = _.cloneDeep(subjects);
+        let querySubjects = ((req.query.filter || {}).subjects || []);
+        if(!Array.isArray(querySubjects)) querySubjects = [querySubjects];
+        querySubjects.forEach(s => {selectedSubjects[s].selected = true;});
+
+        res.render('content/search', {title: 'Inhalte', query, results, pagination, subjects: selectedSubjects});
     });
 });
 

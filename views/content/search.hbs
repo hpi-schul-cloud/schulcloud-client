@@ -1,69 +1,124 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/content/search.css"/>
-    {{/content}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/content/search.css"/>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+	{{/content}}
 
-    {{#content "page"}}
+	{{#content "scripts" mode="append"}}
+		<script src="/scripts/chosen/chosen.jquery.min.js"></script>
+	{{/content}}
 
-        <section class="section-search">
-            <div class="search-bar">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="search-wrapper">
-                            <div class="input-group input-group-lg">
-                                <form method="get">
-                                    <input value="{{ query }}" name="q" type="text" class="form-control search-field" placeholder="Suche nach..." />
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="search-results">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5>Suchergebnisse für "{{ query }}":</h5>
-                        </div>
-                    </div>
+	{{#content "page"}}
+		<section class="search-parameters">
+			<form method="get">
+				<div class="search-wrapper">
+					<div class="input-group input-group-lg">
+						<input value="{{ query }}"
+							   name="q"
+							   type="text"
+							   class="form-control search-field"
+							   placeholder="Suche nach..."/>
+					</div>
+				</div>
+				<div class="card">
 
-                    <div class=" results">
-                        <div class="card-columns">
-                        {{#each results}}
-                            <div class="card">
-                                {{#if this.image}}
-                                    <img class="card-img-top" src="{{this.image}}" />
-                                {{/if}}
-                                <div class="card-block">
-                                    <h4 class="card-title">
-                                        <a href="{{this.url}}" target="_blank">
-                                            {{this.title}}
-                                        </a>
-                                    </h4>
-                                    <p class="card-text">{{this.description}}</p>
-                                    {{#if this.download}}
-                                        <button type="button" class="btn btn-secondary">
-                                            <a href="{{this.download}}" target="_blank">Slides</a>
-                                        </button>
-                                    {{/if}}
-                                </div>
-                                <div class="card-footer">
-                                    <small class="text-muted"> via {{this.client}} | 17. November 2016</small>
-                                </div>
-                            </div>
-                        {{else}}
-                            <p class="text-muted text-center">
-                                <span>Keine Suchergebnisse.</span>
-                            </p>
-                        {{/each}}
-                        </div>
-                    </div>
+					<div class="card-block">
+						<div class="filters-attributes">
 
-                    <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
-                    </div>
-                </div>
+							<div class="container-fluid">
+								<div class="row">
+									<div class="col-sm-12 col-md-6">
+										<select name="filter[subjects]"
+												data-placeholder="Fachbereich"
+												class="select-subjects" multiple="multiple">
+											{{#each subjects}}
+												<option value="{{@key}}"
+														{{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+											{{/each}}
+										</select>
+									</div>
+									<div class="col-sm-12 col-md-6">
+										<select name="filter[grade]"
+												data-placeholder="Klassenstufe"
+												class="select-subjects" multiple="multiple">
+											<option value="7">7.</option>
+											<option value="8">8.</option>
+											<option value="9">9.</option>
+										</select>
+									</div>
+								</div>
+							</div>
 
-        </section>
-    {{/content}}
+						</div>
+
+					</div>
+					<div class="card-footer clearfix">
+						<button class="btn btn-primary float-right" type="submit">Suchen</button>
+					</div>
+					<!--div class="row">
+						<div class="col-sm-12 no-padding">
+							<div class="btn-toolbar filters-type">
+								<div class="btn-group">
+									<button type="button" class="btn btn-secondary">Alle</button>
+									<button type="button" class="btn btn-secondary">Dokumente (20)</button>
+									<button type="button" class="btn btn-secondary">Videos (15)</button>
+									<button type="button" class="btn btn-secondary">Literatur (10)</button>
+									<button type="button" class="btn btn-secondary">Web</button>
+									<button type="button" class="btn btn-secondary">Apps</button>
+								</div>
+								<div class="pull-right" role="group"><select class="custom-select">
+									<option value="relevance">Relevanz</option>
+									<option value="date">Datum</option>
+								</select></div>
+							</div>
+						</div>
+					</div -->
+				</div>
+
+			</form>
+		</section>
+		<section class="search-results">
+			<div class="row">
+				<div class="col-sm-12">
+					<h5>Suchergebnisse für "{{ query }}":</h5>
+				</div>
+			</div>
+			<div class=" results">
+				<div class="card-columns">
+					{{#each results}}
+						<div class="card">
+							{{#if this.image}}
+								<img class="card-img-top" src="{{this.image}}"/>
+							{{/if}}
+							<div class="card-block">
+								<h4 class="card-title">
+									<a href="{{this.url}}" target="_blank">
+										{{this.title}}
+									</a>
+								</h4>
+								<p class="card-text">{{this.description}}</p>
+								{{#if this.download}}
+									<button type="button" class="btn btn-secondary">
+										<a href="{{this.download}}" target="_blank">Slides</a>
+									</button>
+								{{/if}}
+							</div>
+							<div class="card-footer">
+								<small class="text-muted"> via {{this.client}} | 17. November 2016</small>
+							</div>
+						</div>
+					{{else}}
+						<p class="text-muted text-center">
+							<span>Keine Suchergebnisse</span>
+						</p>
+					{{/each}}
+				</div>
+			</div>
+			<div class="row">
+				{{> "lib/components/pagination" settings=pagination }}
+			</div>
+
+		</section>
+	{{/content}}
 {{/extend}}
