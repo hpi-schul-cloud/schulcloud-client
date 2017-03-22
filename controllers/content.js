@@ -21,6 +21,11 @@ router.get('/', function (req, res, next) {
     const itemsPerPage = 10;
     const currentPage = parseInt(req.query.p) || 1;
 
+    if(!query && !req.query.filter) {
+        res.render('content/search', {query, results: [], subjects: subjects});
+        return;
+    }
+
     api(req).get('/contents/', {
         qs: {
             query,

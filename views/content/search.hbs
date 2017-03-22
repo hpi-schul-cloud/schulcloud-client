@@ -23,67 +23,71 @@
 				</div>
 				<div class="card">
 
-					<div class="card-block">
-						<div class="filters-attributes">
-
-							<div class="container-fluid">
-								<div class="row">
-									<div class="col-sm-12 col-md-6">
-										<select name="filter[subjects]"
-												data-placeholder="Fachbereich"
-												class="select-subjects" multiple="multiple">
-											{{#each subjects}}
-												<option value="{{@key}}"
-														{{#if this.selected}}selected{{/if}}>{{this.name}}</option>
-											{{/each}}
-										</select>
-									</div>
-									<div class="col-sm-12 col-md-6">
-										<select name="filter[grade]"
-												data-placeholder="Klassenstufe"
-												class="select-subjects" multiple="multiple">
-											<option value="7">7.</option>
-											<option value="8">8.</option>
-											<option value="9">9.</option>
-										</select>
-									</div>
+					<div class="card-block filters-attributes">
+						<div class="container-fluid no-padding">
+							<div class="row">
+								<div class="col-sm-12 col-md-6">
+									<select name="filter[subjects]"
+											data-placeholder="Fachbereich"
+											class="select-subjects" multiple="multiple">
+										{{#each subjects}}
+											<option value="{{@key}}"
+													{{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+										{{/each}}
+									</select>
+								</div>
+								<div class="col-sm-12 col-md-6">
+									<select name="filter[grade]"
+											data-placeholder="Klassenstufe"
+											class="select-subjects" multiple="multiple">
+										<option value="7">7.</option>
+										<option value="8">8.</option>
+										<option value="9">9.</option>
+									</select>
 								</div>
 							</div>
-
 						</div>
-
 					</div>
-					<div class="card-footer clearfix">
-						<button class="btn btn-primary float-right" type="submit">Suchen</button>
-					</div>
-					<!--div class="row">
-						<div class="col-sm-12 no-padding">
-							<div class="btn-toolbar filters-type">
-								<div class="btn-group">
-									<button type="button" class="btn btn-secondary">Alle</button>
-									<button type="button" class="btn btn-secondary">Dokumente (20)</button>
-									<button type="button" class="btn btn-secondary">Videos (15)</button>
-									<button type="button" class="btn btn-secondary">Literatur (10)</button>
-									<button type="button" class="btn btn-secondary">Web</button>
-									<button type="button" class="btn btn-secondary">Apps</button>
-								</div>
-								<div class="pull-right" role="group"><select class="custom-select">
-									<option value="relevance">Relevanz</option>
-									<option value="date">Datum</option>
-								</select></div>
-							</div>
-						</div>
-					</div -->
 				</div>
+
+				<button class="btn btn-primary float-right" type="submit">Suchen</button>
+
+				<!--div class="row">
+                    <div class="col-sm-12 no-padding">
+                        <div class="btn-toolbar filters-type">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary">Alle</button>
+                                <button type="button" class="btn btn-secondary">Dokumente (20)</button>
+                                <button type="button" class="btn btn-secondary">Videos (15)</button>
+                                <button type="button" class="btn btn-secondary">Literatur (10)</button>
+                                <button type="button" class="btn btn-secondary">Web</button>
+                                <button type="button" class="btn btn-secondary">Apps</button>
+                            </div>
+                            <div class="pull-right" role="group"><select class="custom-select">
+                                <option value="relevance">Relevanz</option>
+                                <option value="date">Datum</option>
+                            </select></div>
+                        </div>
+                    </div>
+                </div -->
+
 
 			</form>
 		</section>
+		<hr>
 		<section class="search-results">
-			<div class="row">
-				<div class="col-sm-12">
-					<h5>Suchergebnisse für "{{ query }}":</h5>
-				</div>
-			</div>
+			{{#if query }}
+				<h5>Suchergebnisse für "{{ query }}"</h5>
+			{{else}}
+				{{#if results}}
+					<h5>Suchergebnisse</h5>
+				{{/if}}
+			{{/if}}
+			{{#unless results}}
+				<h5 class="text-muted text-center">
+					<span>Keine Suchergebnisse</span>
+				</h5>
+			{{/unless}}
 			<div class=" results">
 				<div class="card-columns">
 					{{#each results}}
@@ -108,10 +112,6 @@
 								<small class="text-muted"> via {{this.client}} | 17. November 2016</small>
 							</div>
 						</div>
-					{{else}}
-						<p class="text-muted text-center">
-							<span>Keine Suchergebnisse</span>
-						</p>
 					{{/each}}
 				</div>
 			</div>
