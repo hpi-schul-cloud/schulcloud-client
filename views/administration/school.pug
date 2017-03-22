@@ -1,0 +1,16 @@
+extends administration
+block page
+    .route-administration
+        section.section-school.section-default
+            .container-fluid
+                .row
+                    .col-sm-12.no-padding
+                        h5 Schule
+                        form.edit-form-school(action=`/administration/schools/${school._id}`, method='post')
+                            include ../lib/components/notification
+                            input(type='hidden', name='_method', value='patch')
+                            .form-group
+                                label Name der Schule
+                                input.form-control(value=school.name, type='text', name='name', placeholder='Einhorn Gymnasium', required='')
+                            button.btn.btn-primary.btn-submit(type='submit') Speichern
+

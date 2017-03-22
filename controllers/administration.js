@@ -144,10 +144,10 @@ router.all('/courses', function (req, res, next) {
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/courses/?p={{page}}'
+                urlForPage: page => `/administration/courses/?p=${page}'`
             };
 
-            res.render('administration/courses', {title: 'Administration: Kurse', head, body, classes, teachers, students, pagination});
+            res.render('administration/courses', {title: 'Administration: Kurse', head, body, classes, teachers, students, pagination, currentSchool: res.locals.currentSchool});
         });
     });
 });
@@ -194,10 +194,10 @@ router.all('/classes', function (req, res, next) {
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/classes/?p={{page}}'
+                urlForPage: page => `/administration/classes/?p=${page}'`
             };
 
-            res.render('administration/classes', {title: 'Administration: Klassen', head, body, teachers, students, pagination});
+            res.render('administration/classes', {title: 'Administration: Klassen', head, body, teachers, students, pagination, currentSchool: res.locals.currentSchool});
         });
     });
 });
@@ -240,10 +240,10 @@ router.all('/teachers', function (req, res, next) {
         const pagination = {
             currentPage,
             numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/teachers/?p={{page}}'
+            urlForPage: page => `/administration/teachers/?p=${page}'`
         };
 
-        res.render('administration/teachers', {title: 'Administration: Lehrer', head, body, pagination});
+        res.render('administration/teachers', {title: 'Administration: Lehrer', head, body, pagination, currentSchool: res.locals.currentSchool});
     });
 });
 
@@ -285,10 +285,10 @@ router.all('/students', function (req, res, next) {
         const pagination = {
             currentPage,
             numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/students/?p={{page}}'
+            urlForPage: page => `/administration/students/?p=${page}'`
         };
 
-        res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination});
+        res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination, currentSchool: res.locals.currentSchool});
     });
 });
 

@@ -6,30 +6,17 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 
-
-// template stuff
-const handlebars = require("handlebars");
-const layouts = require("handlebars-layouts");
-const handlebarsWax = require('handlebars-wax');
-
 const app = express();
 app.use(compression());
 
 // view engine setup
-const handlebarsHelper = require('./helpers/handlebars');
-const wax = handlebarsWax(handlebars)
-    .partials(path.join(__dirname, 'views/**/*.{hbs,js}'))
-    .helpers(layouts)
-    .helpers(handlebarsHelper.helpers);
-
-app.use(handlebarsHelper.middleware);
-
-app.engine("hbs", wax.engine);
-app.set("view engine", "hbs");
-
+app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-
 app.set('view cache', true);
+
+// helpers
+const handlebarsHelper = require('./helpers/handlebars');
+app.use(handlebarsHelper.middleware);
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

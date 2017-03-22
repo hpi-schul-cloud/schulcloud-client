@@ -1,0 +1,23 @@
+extends ../lib/loggedin
+block page
+    include ../lib/helpers/truncate.js.pug
+    section.section-courses
+        .container-fluid
+            .row.results
+                .card-columns
+                    if courses.length > 0
+                        each course in courses
+                            .card
+                                .card-block
+                                    h4.card-title
+                                        a(href=course.url)= course.name
+                                    p.card-text= truncate(course.description)
+                                .card-footer
+                                    small.text-muted Di 15:00, Do 13:30 | Raum H1.03
+                    else
+                        p.text-muted.text-center
+                            span Keine Kurse.
+            if user.permissions.includes('COURSE_EDIT')
+                .row.padding-top
+                    a.btn.btn-add.btn-primary(href='/courses/add') Kurs anlegen
+

@@ -1,0 +1,22 @@
+extends ../lib/loggedin
+include ../lib/components/selects
+append styles
+    link(rel='stylesheet', href='/styles/courses/course.css')
+block page
+    section.section-course
+        form(action=action, method='post')
+            if method
+                input(type='hidden', name='_method', data-force-value='true', value=method)
+            input(name='schoolId', type='hidden', data-force-value='true', value=currentSchool)
+            .form-group
+                label Name des Kurses
+                input.form-control(name='name', type='text', placeholder='10a', value=course.name, required='')
+            .form-group
+                label Beschreibung des Kurses
+                textarea.form-control(name='description')= course.description
+            +select-classes(classes)
+            +select-teachers(teachers, 'Lehrer auswählen')
+            +select-students(students)
+            .form-group
+                input.btn.btn-primary(type='submit', value=submitLabel)
+

@@ -1,0 +1,38 @@
+extends ../lib/loggedin
+append styles
+    link(rel='stylesheet', href='/styles/content/search.css')
+block page
+    section.section-search
+        .search-bar
+            .row
+                .col-sm-12
+                    .search-wrapper
+                        .input-group.input-group-lg
+                            form(method='get')
+                                input.form-control.search-field(value=query, name='q', type='text', placeholder='Suche nach...')
+        .search-results
+            .row
+                .col-sm-12
+                    h5 Suchergebnisse für "#{query}":
+            .results
+                .card-columns
+                    if (results || []).length > 0
+                        each result in results
+                            .card
+                                if result.image
+                                    img.card-img-top(src=result.image)
+                                .card-block
+                                    h4.card-title
+                                        a(href=result.url, target='_blank')= result.title
+                                    p.card-text= result.description
+                                    if result.download
+                                        button.btn.btn-secondary(type='button')
+                                            a(href=result.download, target='_blank') Slides
+                                .card-footer
+                                    small.text-muted via #{result.client} | 17. November 2016
+                    else
+                        p.text-muted.text-center
+                            span Keine Suchergebnisse.
+            .row
+                include ../lib/components/pagination
+

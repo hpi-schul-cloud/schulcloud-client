@@ -1,0 +1,6 @@
+if notification
+    .notification.alert.alert-dismissible(class='alert-' + notification.type, role='alert')
+        button.close(type='button', data-dismiss='alert', aria-label='Close')
+            span(aria-hidden='true') &times;
+        .notification-content= notification.message
+

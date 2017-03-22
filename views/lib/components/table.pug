@@ -1,0 +1,27 @@
+mixin table(head, body, className)
+    table.table-hover(class=className || 'table table-bordered')
+        if head
+            thead
+                tr
+                    each h in head
+                        th= h
+        if body
+            tbody
+                each row in body
+                    tr
+                        each cell in row
+                            if Array.isArray(cell)
+                                td.table-actions
+                                    each action in cell
+                                        if action.method
+                                            form.inline(action=action.link, method='post')
+                                                input(type='hidden', name='_method', value=action.method)
+                                                button.btn.btn-secondary.btn-sm(type='submit', class=action.class)
+                                                    i.fa(class=`fa-${action.icon}`)
+                                                    = action.label
+                                        else
+                                            a.btn.btn-secondary.btn-sm(class=action.class, href=action.link)
+                                                i.fa(class=`fa-${action.icon}`)
+                                                = action.label
+                            else
+                                td= cell

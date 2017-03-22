@@ -1,0 +1,23 @@
+extends ../lib/loggedin
+append styles
+    link(rel='stylesheet', href='/styles/courses/course.css')
+block page
+    section.section-course
+        form(action=action, method='post')
+            if method
+                input(type='hidden', name='_method', data-force-value='true', value=method)
+            input(name='courseId', type='hidden', data-force-value='true', value=courseId)
+            .form-group
+                label Titel für die Stunde
+                input.form-control(name='name', type='text', placeholder='10a', value=lesson.name, required='')
+            .form-group
+                label Beschreibung der Stunde
+                textarea.form-control(name='description')= lesson.description
+            .form-group
+                label Datum
+                input.form-control(type='date', name='date', value=lesson.date, required='')
+            .form-group
+                label Uhrzeit
+                input.form-control(type='time', name='time', value=lesson.time, required='')
+            .form-group
+                input.btn.btn-primary(type='submit', value=submitLabel)

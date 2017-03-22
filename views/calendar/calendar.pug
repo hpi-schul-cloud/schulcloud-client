@@ -1,0 +1,16 @@
+extends ../lib/loggedin
+append styles
+    link(rel='stylesheet', href='/styles/calendar/fullcalendar.min.css')
+    link(rel='stylesheet', href='/styles/calendar/calendar.css')
+
+append scripts
+    script(src='/scripts/moment/moment.js', type='text/javascript')
+    script.
+        moment().format();
+    script(src='/scripts/fullcalendar/fullcalendar.min.js', type='text/javascript')
+    script(src='/scripts/fullcalendar/de.js', type='text/javascript')
+    script(src='/scripts/calendar.js', type='text/javascript')
+
+block page
+    .route-calendar
+        #calendar.fullcalendar

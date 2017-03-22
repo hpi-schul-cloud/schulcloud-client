@@ -1,0 +1,43 @@
+extends ../lib/loggedin
+append styles
+    link(rel='stylesheet', href='/styles/courses/course.css')
+block page
+    section.section-course
+        .row.description
+            .col-sm-12
+                p.lead= description
+        .row
+            .col-sm-6
+                h4 Unterrichtsstunden
+                .list-group
+                    if lessons
+                        each lesson in lessons
+                            a.list-group-item.list-group-item-action.flex-column.align-items-start(href=lesson.url)
+                                span= lesson.name
+                                small.text-muted.lesson-date.float-right= lesson.date
+                    else
+                        p.text-muted.list-group-item.list-group-item-action.flex-column.align-items-start
+                            span Keine Unterrichtsstunden.
+                    if user.permissions.includes('COURSE_EDIT')
+                        a.btn.btn-secondary.margin-top(href=`/courses/${_id}/lessons/add`) Neue Unterrichtsstunde hinzufügen
+            .col-sm-6
+                h4 Tools
+                .list-group
+                    if ltiToolIds
+                        each ltiTool in ltiToolIds
+                            a.list-group-item.list-group-item-action.flex-column.align-items-start(href='#')
+                                img.float-left(src='http://www.wissensschule.de/wp-content/uploads/2012/02/logo-bettermarks.jpg', style='width:100px; height:auto;')
+                                |
+                                span= ltiTool.title
+                                |
+                                small.text-muted.lesson-date= ltiTool.date
+                    else
+                        p.text-muted.list-group-item.list-group-item-action.flex-column.align-items-start
+                            span Keine Tools.
+                if user.permissions.includes('COURSE_EDIT')
+                    a.btn.btn-secondary.margin-top(href='#') Neues Tool hinzuf&uuml;gen
+        if user.permissions.includes('COURSE_EDIT')
+            .row.padding-top
+                .col-sm-12
+                    a.btn.btn-add.btn-primary(href=`/courses/${_id}/edit`) Kurs bearbeiten
+

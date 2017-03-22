@@ -1,0 +1,15 @@
+mixin fileCard(file)
+    .col-xs-12.col-sm-6.col-md-4
+        .card.file
+            .openFile
+                .card-block
+                    .card-title
+                        .col-sm-3.no-padding
+                            .file-preview(style=`background-image: url(${file.thumbnail})`)
+                        |
+                        a(href=`/files/file?file=${file.file}`, target='_blank')= file.name
+                    .card-text
+                        a(href=`/files/file?download=1&file=${file.file}`, target='_blank')
+                            i.fa.fa-cloud-download
+                        a(href='/files/file/', target='_blank', data-method='delete', data-file-name=file.name, data-file-path=file.path)
+                            i.fa.fa-trash-o

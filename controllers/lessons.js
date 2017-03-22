@@ -32,7 +32,8 @@ const editLessonHandler = (req, res, next) => {
             title: req.params.courseId ? 'Unterrichtsstunde bearbeiten' : 'Unterrichtsstunde anlegen',
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Unterrichtsstunde anlegen',
             lesson,
-            courseId: req.params.courseId
+            courseId: req.params.courseId,
+            user: res.locals.currentUser
         });
     });
 };
@@ -92,7 +93,8 @@ router.get('/:lessonId', function (req, res, next) {
                     url: '/courses/' + course._id
                 },
                 {}
-            ]
+            ],
+            user: res.locals.currentUser
         }));
     });
 });

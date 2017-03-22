@@ -1,0 +1,34 @@
+extends ../lib/loggedin
+
+append styles
+    link(rel='stylesheet', href='/styles/dashboard/dashboard.css')
+append scripts
+    script(src='/scripts/login.js', type='text/javascript')
+block page
+    div
+        .col-sm-12
+            section.section-timetable
+                .container-fluid
+                    .row
+                        .col-sm-4.no-padding
+                            h5 Stundenplan
+                        .col-sm-8.no-padding
+                            .controls
+                                time.selected-date Montag, 20. M&auml;rz 2017
+                                .btn-toolbar(role='toolbar', aria-label='Toolbar with button groups')
+                                    .btn-group(role='group', aria-label='First group')
+                                        button.btn.btn-secondary.btn-sm.active(type='button') Tag
+                                        |
+                                        button.btn.btn-secondary.btn-sm(type='button') Woche
+                                    .btn-group(role='group', aria-label='Second group')
+                                        button.btn.btn-secondary.btn-sm(type='button')
+                                            i.fa.fa-chevron-left
+                                        |
+                                        button.btn.btn-secondary.btn-sm(type='button') Heute
+                                        |
+                                        button.btn.btn-secondary.btn-sm(type='button')
+                                            i.fa.fa-chevron-right
+            include timetable
+            include messages
+            include tools
+            include news

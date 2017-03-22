@@ -1,0 +1,20 @@
+mixin select-teachers(teachers, label)
+    .form-group
+        label= label || 'Unterrichtende Lehrer'
+        select(name='teacherIds[]', required='', multiple='', data-placeholder='Lehrer auswählen')
+            each t in teachers
+                option(value=t._id, selected=t.selected)= t.lastName
+
+mixin select-students(students, label)
+    .form-group
+        label= label || 'Schüler / Teilnehmer'
+        select(name='userIds[]', required='', multiple='', data-placeholder='Schüler auswählen')
+            each s in students
+                option(value=s._id, selected=s.selected)= s.lastName
+
+mixin select-classes(classes)
+    .form-group
+        label Klasse(n)
+        select(name='classIds[]', required='', multiple='', data-placeholder='Klasse(n) auswählen')
+            each c in classes
+                option(value=c._id, selected=c.selected)= c.name
