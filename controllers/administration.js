@@ -95,7 +95,7 @@ const createBucket = (req, res, next) => {
         api(req).post('/fileStorage', {
             json: {fileStorageType: req.body.fileStorageType, schoolId:req.params.id }
         }),
-        api(req).patch('/' + 'schools' + '/' + req.params.id, {
+        api(req).patch('/schools/' + req.params.id, {
             json: req.body
         })]).then(data => {
             res.redirect(req.header('Referer'));
