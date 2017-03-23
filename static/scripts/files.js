@@ -87,6 +87,7 @@ $(document).ready(function() {
 
 
     $('a[data-method="delete"]').on('click', function(e) {
+        e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);
 

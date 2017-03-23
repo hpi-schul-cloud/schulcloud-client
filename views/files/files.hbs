@@ -48,11 +48,11 @@
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
-                        <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div class="card card-block folder">
-                                <a href="{{this.url}}" class="card-title-directory">
-                                    <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
-                                </a>
+						<div class="col-sm-6 col-xs-12 col-md-4">
+							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
+								<strong class="card-title-directory">
+									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+								</strong>
 								<a href="/files/directory/"
 								   target="_blank"
 								   data-method="delete"
@@ -60,7 +60,7 @@
 								   data-file-path="{{this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
-                            </div>
+							</div>
 						</div>
                     {{/each}}
 
