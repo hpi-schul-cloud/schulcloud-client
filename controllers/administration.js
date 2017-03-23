@@ -8,7 +8,6 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 
-
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
         qs: query
@@ -84,6 +83,27 @@ const getDeleteHandler = (service) => {
     };
 };
 
+const getStorageProviders = () => {
+    return [
+        {label: 'AWS S3', value: 'awsS3'}
+    ];
+};
+
+const createBucket = (req, res, next) => {
+    if (req.body.fileStorageType) {
+        Promise.all([
+        api(req).post('/fileStorage', {
+            json: {fileStorageType: req.body.fileStorageType, schoolId:req.params.id }
+        }),
+        api(req).patch('/' + 'schools' + '/' + req.params.id, {
+            json: req.body
+        })]).then(data => {
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+           next(err);
+        });
+    }
+};
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -92,9 +112,22 @@ router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 
 router.patch('/schools/:id', getUpdateHandler('schools'));
 
+router.post('/schools/:id/bucket', createBucket);
+
 router.all('/', function (req, res, next) {
     api(req).get('/schools/' + res.locals.currentSchool).then(data => {
-        res.render('administration/school', {title: 'Administration: Allgemein', school: data});
+        let provider = getStorageProviders();
+        provider = (provider || []).map(prov => {
+            if (prov.value == data.fileStorageType) {
+                return Object.assign(prov, {
+                    selected: true
+                });
+            } else {
+                return prov;
+            }
+        });
+
+        res.render('administration/school', {title: 'Administration: Allgemein', school: data, provider});
     });
 });
 
