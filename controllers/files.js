@@ -203,8 +203,7 @@ router.delete('/directory', function (req, res) {
     const {name, dir} = req.body;
 
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer')}),
-        dirName: name
+        storageContext: dir
     };
 
     api(req).delete('/fileStorage/directories/', {
