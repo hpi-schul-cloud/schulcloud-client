@@ -8,9 +8,13 @@ const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 const request = require('request');
 
+const createToolHandler = (req, res, next) => {
+    console.log(req.body);
+    return;
+};
+
 const addToolHandler = (req, res, next) => {
-    let toolPromise, action, method;
-    if(req.params.ltiToolId) {
+    /**if(req.params.ltiToolId) {
         action = '/courses/' + req.params.courseId + '/tools/' + req.params.ltiToolId;
         method = 'patch';
         toolPromise = api(req).get('/tools/' + req.params.ltiToolId);
@@ -18,25 +22,19 @@ const addToolHandler = (req, res, next) => {
         action = '/courses/' + req.params.courseId + '/tools/';
         method = 'post';
         toolPromise = Promise.resolve({});
-    }
+    }**/
 
-    Promise.all([
-        api(req).get('/ltiTools/', {
+    let action = '/courses/' + req.params.courseId + '/tools/add';
 
-            }),
-        toolPromise
-    ]).then(([tool]) => {
-        const ltiTool = tool.data.filter(ltiTool => {
-            if (ltiTool.hasOwnProperty("isTemplate", true)) {
-                return ltiTool;
-            }
-        });
+    api(req).get('/ltiTools/')
+    .then(tools => {
+        const ltiTools = tools.data.filter(ltiTool => ltiTool.isTemplate == 'true');
+        console.log(ltiTools);
         res.render('courses/add-tool', {
             action,
-            method,
-            title: req.params.courseId ? 'Tool bearbeiten' : 'Tool anlegen',
-            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Tool anlegen',
-            ltiTool,
+            title: 'Tool anlegen',
+            submitLabel: 'Tool anlegen',
+            ltiTools,
             courseId: req.params.courseId
         });
     });
@@ -82,17 +80,13 @@ const runToolHandler = (req, res, next) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-
 router.get('/', (req, res, next) => {
     res.redirect('/courses/' + req.params.courseId);
 });
 
-
 router.get('/add', addToolHandler);
+router.post('/add', createToolHandler);
 
 router.get('/run/:ltiToolId', runToolHandler);
-
-//router.get('/:ltiToolId/edit', editToolHandler);
-
 
 module.exports = router;
