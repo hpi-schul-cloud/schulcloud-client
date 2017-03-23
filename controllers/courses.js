@@ -5,7 +5,6 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
-
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
         qs: query
@@ -21,7 +20,6 @@ const markSelected = (options, values = []) => {
         return option;
     });
 };
-
 
 const editCourseHandler = (req, res, next) => {
     let coursePromise, action, method;
@@ -61,7 +59,6 @@ const editCourseHandler = (req, res, next) => {
         });
     });
 };
-
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -124,9 +121,15 @@ router.get('/:courseId', function (req, res, next) {
             qs: {
                 courseId: req.params.courseId
             }
+        }),
+        api(req).get('/ltiTools/', {
         })
-    ]).then(([course, lessons]) => {
-
+    ]).then(([course, lessons, ltiTools]) => {
+        let ltiToolIds = ltiTools.data.filter(ltiTool => {
+           if (ltiTool.hasOwnProperty("courseId", course._id)) {
+               return ltiTool;
+           }
+        });
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
                 url: '/courses/' + req.params.courseId + '/lessons/' + lesson._id + '/'
@@ -136,6 +139,7 @@ router.get('/:courseId', function (req, res, next) {
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
+            ltiToolIds,
             breadcrumb: [
                 {
                     title: 'Meine Kurse',
