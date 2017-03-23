@@ -40,9 +40,7 @@ const addToolHandler = (req, res, next) => {
 };
 
 const runToolHandler = (req, res, next) => {
-    Promise.all([
-        api(req).get('/ltiTools/' + req.params.ltiToolId)
-    ]).then(([tool]) => {
+    api(req).get('/ltiTools/' + req.params.ltiToolId).then(tool => {
        let customer = new ltiCustomer.LTICustomer();
        let consumer = customer.createConsumer(tool.key, tool.secret);
        let payload = {
@@ -76,8 +74,17 @@ const runToolHandler = (req, res, next) => {
 };
 
 const getDetailHandler = (req, res, next) => {
-    api(req).get('/ltiTools/' + req.params.id).then(data => {
-        res.json(data);
+    Promise.all([
+        api(req).get('/courses/', {
+        qs: {
+            teacherIds: res.locals.currentUser._id}
+        }),
+        api(req).get('/ltiTools/' + req.params.id)]).
+    then(([courses, tool]) => {
+        res.json({
+            courses: courses,
+            tool: tool
+        });
     }).catch(err => {
         next(err);
     });

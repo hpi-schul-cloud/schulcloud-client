@@ -1,10 +1,20 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');
 
+    var populateCourseSelection = function (modal, courses) {
+        var $selection = modal.find('.course-selection');
+        courses.forEach(function(course) {
+            var option = document.createElement("option");
+            option.text = course.name;
+            option.value = course._id;
+            $selection.append(option);
+        });
+        $selection.chosen().trigger("chosen:updated");
+    };
 
-    var populateModalForm = function(modal, data) {
+    var populateModalForm = function (modal, data) {
 
         var $title = modal.find('.modal-title');
         var $btnSubmit = modal.find('.btn-submit');
@@ -15,8 +25,7 @@ $(document).ready(function() {
         $btnSubmit.html(data.submitLabel);
         $btnClose.html(data.closeLabel);
 
-        if(data.action) {
-            console.log(data.action);
+        if (data.action) {
             $form.attr('action', data.action);
         }
 
@@ -35,25 +44,25 @@ $(document).ready(function() {
             }
         });
     };
-    
 
-    $('.template_tool').on('click', function(e) {
+
+    $('.template_tool').on('click', function (e) {
         e.preventDefault();
         var entry = $(this).attr('href');
-        $.getJSON(entry, function(result) {
-            console.log(result);
+        $.getJSON(entry, function (result) {
             populateModalForm($editModal, {
                 action: entry,
                 title: 'Bearbeiten',
                 closeLabel: 'Schließen',
                 submitLabel: 'Speichern',
-                fields: result
+                fields: result.tool
             });
+            populateCourseSelection($editModal, result.courses.data);
             $editModal.modal('show');
         });
     });
 
-    $modals.find('.close, .btn-close').on('click', function() {
+    $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
     });
 
