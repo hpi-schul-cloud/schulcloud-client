@@ -1,0 +1,30 @@
+{{#extend "lib/loggedin"}}
+    {{#content "page"}}
+
+        {{message}}
+        {{error}}
+
+        <div class="route-account">
+            <form method="post">
+                <div class="form-group">
+                    <label>Vorname</label>
+                    <input type="text" class="form-control" name="firstName" value="{{ currentUser.firstName }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Nachname</label>
+                    <input type="text" class="form-control" name="lastName" value="{{ currentUser.lastName }}">
+                </div>
+
+                <div class="form-group">
+                    <label>E-Mail-Adresse</label>
+                    <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    {{/content}}
+{{/extend}}

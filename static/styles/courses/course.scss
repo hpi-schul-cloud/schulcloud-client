@@ -1,0 +1,17 @@
+@import '../lib/colors.scss';
+
+.section-course {
+
+    h4 {
+        margin-bottom: 20px;
+    }
+
+    .lesson-date {
+        line-height: 24px;
+        float: right;
+    }
+
+    .description {
+        margin-bottom: 40px;
+    }
+}
