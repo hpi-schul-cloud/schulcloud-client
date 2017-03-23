@@ -29,7 +29,6 @@ const addToolHandler = (req, res, next) => {
     api(req).get('/ltiTools/')
     .then(tools => {
         const ltiTools = tools.data.filter(ltiTool => ltiTool.isTemplate == 'true');
-        console.log(ltiTools);
         res.render('courses/add-tool', {
             action,
             title: 'Tool anlegen',
@@ -76,6 +75,14 @@ const runToolHandler = (req, res, next) => {
     });
 };
 
+const getDetailHandler = (req, res, next) => {
+    api(req).get('/ltiTools/' + req.params.id).then(data => {
+        res.json(data);
+    }).catch(err => {
+        next(err);
+    });
+};
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -88,5 +95,7 @@ router.get('/add', addToolHandler);
 router.post('/add', createToolHandler);
 
 router.get('/run/:ltiToolId', runToolHandler);
+
+router.get('/:id', getDetailHandler);
 
 module.exports = router;
