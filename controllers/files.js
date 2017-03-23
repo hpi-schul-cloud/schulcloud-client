@@ -70,6 +70,7 @@ const FileGetter = (req, res, next) => {
 
         directories = directories.map(dir => {
             dir.url = '?dir=' + path.join(currentDir, dir.name);
+            dir.path = path.join(storageContext, dir.name);
             return dir;
         });
 
@@ -125,8 +126,8 @@ router.post('/file', function (req, res, next) {
 
     getSignedUrl(req, data).then(signedUrl => {
         res.json({signedUrl});
-    }).catch(_ => {
-        res.sendStatus(500);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
@@ -146,8 +147,8 @@ router.delete('/file', function (req, res, next) {
         qs: data
     }).then(_ => {
         res.sendStatus(200);
-    }).catch(_ => {
-        res.sendStatus(500);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
@@ -175,7 +176,7 @@ router.get('/file', function (req, res, next) {
             res.end(awsFile, 'binary');
         });
     }).catch(err => {
-        res.sendStatus(500);
+        res.status((err.statusCode||500)).send(err);
     });
 });
 
@@ -193,11 +194,27 @@ router.post('/directory', function (req, res, next) {
     }).then(_ => {
         res.sendStatus(200);
     }).catch(err => {
-        res.sendStatus(500);
+        res.status((err.statusCode||500)).send(err);
     });
 });
 
+// delete directory
+router.delete('/directory', function (req, res) {
+    const {name, dir} = req.body;
 
+    const data = {
+        storageContext: getStorageContext(req, res, {url: req.get('Referrer')}),
+        dirName: name
+    };
+
+    api(req).delete('/fileStorage/directories/', {
+        qs: data
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode||500)).send(err);
+    });
+});
 
 
 
