@@ -52,12 +52,12 @@ const runToolHandler = (req, res, next) => {
            lti_version: tool.lti_version,
            lti_message_type: tool.lti_message_type,
            resource_link_id: tool.courseId  || tool.resource_link_id,
-           roles: 'Instructor',
+           roles: 'Learner', // todo: get role from currentUser
            launch_presentation_document_target: 'window',
            launch_presentation_locale: 'en'
        };
        tool.customs.forEach((custom) => {
-           payload[LTICustomer.customFieldToString(custom)] = custom.value;
+           payload[customer.customFieldToString(custom)] = custom.value;
        });
 
        let request_data = {
@@ -66,7 +66,15 @@ const runToolHandler = (req, res, next) => {
            data: payload
        };
 
-        customer.sendRequest(request_data, consumer);
+        var formData = consumer.authorize(request_data);
+        
+        res.render('courses/components/run-lti', {
+            url: tool.url,
+            method: 'POST',
+            formData: Object.keys(formData).map(key => {
+                return {name: key, value: formData[key]}
+            })
+        });
     });
 };
 
