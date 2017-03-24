@@ -13,14 +13,14 @@ function getQueryParameterByName(name, url) {
 $(document).ready(function(){
     // notification stuff
     var $notification = $('.notification');
-    var $notificationContent = $notification.find('.notification-content')
+    var $notificationContent = $notification.find('.notification-content');
 
     window.$.showNotification = function(content, type) {
         $notificationContent.html(content);
 
         // remove old classes in case type was set before
         $notification.removeClass();
-        $notification.addClass('notification alert alert-dismissible');
+        $notification.addClass('notification alert alert-dismissible alert-fixed');
         if(type) {
             $notification.addClass('alert-' + type);
         }
@@ -30,7 +30,7 @@ $(document).ready(function(){
 
     window.$.hideNotification = function() {
         $notification.fadeOut();
-    }
+    };
 
 
     // Initialize bootstrap-select
