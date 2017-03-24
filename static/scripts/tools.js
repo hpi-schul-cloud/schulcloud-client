@@ -2,6 +2,7 @@ $(document).ready(function () {
 
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');
+    var customFieldCount = 0;
 
     function guidGenerator() {
         var S4 = function () {
@@ -14,19 +15,36 @@ $(document).ready(function () {
         $('#' + customFieldId).remove();
     };
 
+    var addNewCustomField = function (modal) {
+        var $customFields = modal.find('.custom-fields');
+        var $newCustomFieldKey = modal.find('.new-custom-field-key');
+        var $newCustomFieldValue = modal.find('.new-custom-field-value');
+        populateCustomField($customFields, {
+            key: $newCustomFieldKey.val(),
+            value: $newCustomFieldValue.val()
+        });
+        $newCustomFieldKey.val("");
+        $newCustomFieldValue.val("");
+    };
+
+    var populateCustomField = function ($customFields, field) {
+        var _id = guidGenerator();
+        var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value:" + field.value + "</div>")
+            .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' style='display: none'></input>"))
+            .append($("<input name='customs[" + customFieldCount + "][value]' value='" + field.value + "' style='display: none'></input>"))
+            .append($("<i class='fa fa-trash-o' />")
+                .click(deleteCustomField.bind(this, _id))
+            );
+        $customFields.append($field);
+        customFieldCount++;
+    };
+
     var populateCustomFields = function (modal, customFields) {
         var $customFields = modal.find('.custom-fields');
-        _count = 0;
         customFields.forEach(function (field) {
-            var _id = guidGenerator();
-            var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value:" + field.value + "</div>")
-                .append($("<input name='customs[" + _count + "][key]' value='" + field.key + "' style='display: none'></input>"))
-                .append($("<input name='customs[" + _count + "][value]' value='" + field.value + "' style='display: none'></input>"))
-                .append($("<i class='fa fa-trash-o' />")
-                    .click(deleteCustomField.bind(this, _id))
-                );
-            $customFields.append($field);
+            populateCustomField($customFields, field);
         });
+        modal.find('.new-custom-field-add').click(addNewCustomField.bind(this, modal));
     };
 
     var populateCourseSelection = function (modal, courses) {
