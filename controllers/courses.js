@@ -121,15 +121,9 @@ router.get('/:courseId', function (req, res, next) {
             qs: {
                 courseId: req.params.courseId
             }
-        }),
-        api(req).get('/ltiTools/', {
         })
-    ]).then(([course, lessons, ltiTools]) => {
-        let ltiToolIds = ltiTools.data.filter(ltiTool => {
-           if (ltiTool.hasOwnProperty("courseId", course._id)) {
-               return ltiTool;
-           }
-        });
+    ]).then(([course, lessons]) => {
+        let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
                 url: '/courses/' + req.params.courseId + '/lessons/' + lesson._id + '/'

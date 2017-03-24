@@ -9,8 +9,21 @@ const ltiCustomer = require('../helpers/ltiCustomer');
 const request = require('request');
 
 const createToolHandler = (req, res, next) => {
-    console.log(req.body);
-    return;
+    api(req).post('/ltiTools/', {
+        json: req.body
+    }).then(tool => {
+        if (tool._id) {
+            api(req).patch('/courses/' + req.body.courseId, {
+                json: {
+                    $push: {
+                        ltiToolIds: tool._id
+                    }
+                }
+            }).then(course => {
+               res.redirect('/courses/' + course._id);
+            });
+        }
+    });
 };
 
 const addToolHandler = (req, res, next) => {
@@ -62,7 +75,7 @@ const runToolHandler = (req, res, next) => {
        };
 
         var formData = consumer.authorize(request_data);
-        
+
         res.render('courses/components/run-lti', {
             url: tool.url,
             method: 'POST',
