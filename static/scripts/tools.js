@@ -32,7 +32,7 @@ $(document).ready(function () {
         var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value:" + field.value + "</div>")
             .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' style='display: none'></input>"))
             .append($("<input name='customs[" + customFieldCount + "][value]' value='" + field.value + "' style='display: none'></input>"))
-            .append($("<i class='fa fa-trash-o' />")
+            .append($("<i class='fa fa-trash-o custom-field-delete' />")
                 .click(deleteCustomField.bind(this, _id))
             );
         $customFields.append($field);
