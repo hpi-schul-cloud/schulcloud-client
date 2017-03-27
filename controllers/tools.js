@@ -27,16 +27,6 @@ const createToolHandler = (req, res, next) => {
 };
 
 const addToolHandler = (req, res, next) => {
-    /**if(req.params.ltiToolId) {
-        action = '/courses/' + req.params.courseId + '/tools/' + req.params.ltiToolId;
-        method = 'patch';
-        toolPromise = api(req).get('/tools/' + req.params.ltiToolId);
-    } else {
-        action = '/courses/' + req.params.courseId + '/tools/';
-        method = 'post';
-        toolPromise = Promise.resolve({});
-    }**/
-
     let action = '/courses/' + req.params.courseId + '/tools/add';
 
     api(req).get('/ltiTools/')
