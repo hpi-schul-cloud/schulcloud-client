@@ -29,7 +29,12 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 
 ## Testing
 
-_Didn't have time to write tests so far :(_
+1. Set the password for the demo user `schueler@schul-cloud.org`
+    Ubuntu/Mac: `export SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
+    Windows: `set SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
+2. run `npm run test`
+3. If you want to use another backend url than localhost, set the `BACKEND_URL` environment variable (see 1)
+4. If you want to list the coverage, run `npm run coverage`
 
 ## Commiting
 
