@@ -114,7 +114,7 @@ router.post('/file', function (req, res, next) {
     const data = {
         storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
         fileName: name,
-        fileType: type,
+        fileType: (type || 'application/octet-stream'),
         action: action
     };
 
