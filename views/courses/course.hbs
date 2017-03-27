@@ -43,10 +43,13 @@
                     <div class="list-group">
                         {{#if ltiToolIds}}
                             {{#each ltiToolIds}}
-                                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <img src="http://www.wissensschule.de/wp-content/uploads/2012/02/logo-bettermarks.jpg" class="float-left" style="width:100px; height:auto;"/>
-                                    <span>{{this.title}}</span>
-                                    <small class="text-muted lesson-date">{{this.date}}</small>
+                                <a href="/courses/{{../_id}}/tools/run/{{this._id}}" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    {{#if logo_url}}
+                                        <img src={{this.logo_url}} class="float-left" style="width:100px; height:auto;"/>
+                                    {{else}}
+                                        <img src="/images/cloud.png" class="float-left" style="width:100px; height:auto;"/>
+                                    {{/if}}
+                                    <span>{{this.name}}</span>
                                 </a>
                             {{/each}}
                         {{else}}
@@ -57,7 +60,7 @@
                     </div>
 
                     {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="#" class="btn btn-secondary margin-top">Neues Tool hinzufügen</a>
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">Neues Tool hinzufügen</a>
                     {{/userHasPermission}}
                 </div>
             </div>

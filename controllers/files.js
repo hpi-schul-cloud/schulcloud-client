@@ -29,7 +29,7 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
         };
     });
 
-    if(baseLabel) {
+    if (baseLabel) {
         breadcrumbs.unshift({
             label: baseLabel,
             url: basePath
@@ -45,7 +45,7 @@ const getStorageContext = (req, res, options = {}) => {
 
     let storageContext = urlParts.pathname.replace('/files/', '');
 
-    if(storageContext === '') {
+    if (storageContext === '') {
         storageContext = 'users/' + res.locals.currentUser._id;
     }
 
@@ -70,6 +70,7 @@ const FileGetter = (req, res, next) => {
 
         directories = directories.map(dir => {
             dir.url = '?dir=' + path.join(currentDir, dir.name);
+            dir.path = path.join(storageContext, dir.name);
             return dir;
         });
 
@@ -102,14 +103,8 @@ const getScopeDirs = (req, res, scope) => {
 };
 
 
-
-
-
 // secure routes
 router.use(authHelper.authChecker);
-
-
-
 
 
 // upload file
@@ -119,14 +114,14 @@ router.post('/file', function (req, res, next) {
     const data = {
         storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
         fileName: name,
-        fileType: type,
+        fileType: (type || 'application/octet-stream'),
         action: action
     };
 
     getSignedUrl(req, data).then(signedUrl => {
         res.json({signedUrl});
-    }).catch(_ => {
-        res.sendStatus(500);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
@@ -146,8 +141,8 @@ router.delete('/file', function (req, res, next) {
         qs: data
     }).then(_ => {
         res.sendStatus(200);
-    }).catch(_ => {
-        res.sendStatus(500);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
@@ -175,10 +170,9 @@ router.get('/file', function (req, res, next) {
             res.end(awsFile, 'binary');
         });
     }).catch(err => {
-        res.sendStatus(500);
+        res.status((err.statusCode || 500)).send(err);
     });
 });
-
 
 
 // create directory
@@ -193,18 +187,26 @@ router.post('/directory', function (req, res, next) {
     }).then(_ => {
         res.sendStatus(200);
     }).catch(err => {
-        res.sendStatus(500);
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
+// delete directory
+router.delete('/directory', function (req, res) {
+    const {name, dir} = req.body;
 
+    const data = {
+        storageContext: dir
+    };
 
-
-
-
-
-
-
+    api(req).delete('/fileStorage/directories/', {
+        qs: data
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
+    });
+});
 
 
 router.get('/', FileGetter, function (req, res, next) {
@@ -260,7 +262,6 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
 
     });
 });
-
 
 
 router.get('/classes/', function (req, res, next) {
