@@ -20,17 +20,20 @@ $(document).ready(function(){
 
         // remove old classes in case type was set before
         $notification.removeClass();
-        $notification.addClass('notification alert alert-dismissible alert-fixed');
-        if(type) {
-            $notification.addClass('alert-' + type);
-        }
+        $notification.addClass('notification alert alert-fixed alert-' + (type || 'info'));
 
         $notification.fadeIn();
     };
 
+    $notification.on('DOMNodeRemoved', function(e) {
+        console.log(e.target, ' was removed');
+    });
+
     window.$.hideNotification = function() {
         $notification.fadeOut();
     };
+
+    $notification.find('.close').click(window.$.hideNotification);
 
 
     // Initialize bootstrap-select
