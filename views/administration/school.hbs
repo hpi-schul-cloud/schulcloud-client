@@ -1,0 +1,67 @@
+{{#extend "administration/administration"}}
+    {{#content "page"}}
+        <div class="route-administration">
+            <section class="section-school section-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+
+                            <h5>Schule</h5>
+
+                            <form action="/administration/schools/{{currentSchool}}" method="post" class="edit-form-school">
+
+                                {{> "lib/components/notification"}}
+
+                                <input type="hidden" name="_method" value="patch" />
+
+                                <div class="form-group">
+                                    <label>Name der Schule</label>
+                                    <input value="{{school.name}}" type="text" class="form-control" name="name" placeholder="Einhorn Gymnasium" required />
+                                </div>
+
+                                {{#if school.fileStorageType}}
+                                <div class="form-group">
+                                    <label>Cloud-Storage Anbieter</label>
+                                    <select name="fileStorageType" type="text">
+                                        {{#each provider}}
+                                            <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                {{/if}}
+
+                                <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{#unless school.fileStorageType}}
+            <section class="section-school section-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                                <form action="/administration/schools/{{currentSchool}}/bucket" method="post" class="edit-form-school">
+
+                                    <div class="form-group">
+                                        <label>Cloud-Storage Anbieter</label>
+                                        <select name="fileStorageType" type="text">
+                                            <option disabled="disabled" selected="selected">Anbieter auswählen</option>
+                                            {{#each provider}}
+                                                <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+
+                                </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {{/unless}}
+        </div>
+    {{/content}}
+{{/extend}}
