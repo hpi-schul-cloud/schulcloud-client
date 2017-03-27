@@ -6,10 +6,14 @@
     "start": "node ./bin/www",
     "watch": "nodemon ./bin/www -w ./",
     "lint": "eslint ./bin ./controllers ./helpers ./api.js ./app.js --ext .js --fix",
-    "startd": "echo 'Do you mean 'npm run watch'?'"
+    "startd": "echo 'Do you mean 'npm run watch'?'",
+    "test": "npm run mocha",
+    "mocha": "BACKEND_URL=http://service.langl.eu:3030 mocha test/ --recursive"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
@@ -21,6 +25,7 @@
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "method-override": "^2.3.7",
+    "mocha": "^3.2.0",
     "moment": "^2.17.1",
     "morgan": "~1.7.0",
     "request": "^2.79.0",

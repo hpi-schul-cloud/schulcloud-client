@@ -29,7 +29,10 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 
 ## Testing
 
-_Didn't have time to write tests so far :(_
+1. Set the password for the demo user `schueler@schul-cloud.org`
+1.a Ubuntu/Mac: `export SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
+1.b Windows: `set SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
+2. npm run test
 
 ## Commiting
 
