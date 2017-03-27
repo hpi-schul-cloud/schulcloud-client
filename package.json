@@ -13,8 +13,6 @@
   },
   "dependencies": {
     "body-parser": "~1.16.0",
-    "chai": "^3.5.0",
-    "chai-http": "^3.0.0",
     "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
@@ -22,12 +20,10 @@
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "~4.0.1",
-    "istanbul": "^0.4.5",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
     "method-override": "^2.3.7",
-    "mocha": "^3.2.0",
     "moment": "^2.17.1",
     "morgan": "~1.7.0",
     "request": "^2.79.0",
@@ -35,6 +31,10 @@
     "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "chai": "^3.5.0",
+    "chai-http": "^3.0.0",
     "clean-css": "^4.0.8",
     "eslint": "^3.17.1",
     "gulp": "^3.9.1",
