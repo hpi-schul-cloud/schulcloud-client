@@ -8,7 +8,7 @@
     "lint": "eslint ./bin ./controllers ./helpers ./api.js ./app.js --ext .js --fix",
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run lint && npm run mocha",
-    "mocha": "BACKEND_URL=https://schul.tech:3030 mocha test/ --recursive"
+    "mocha": "mocha test/ --recursive"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
