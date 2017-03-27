@@ -36,7 +36,8 @@ $(document).ready(function() {
             }, function(data) {
                 file.signedUrl = data.signedUrl;
                 done();
-            });
+            })
+                .fail(showAJAXError);
         },
         createImageThumbnails: false,
         method: 'put',
