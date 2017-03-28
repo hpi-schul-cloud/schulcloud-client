@@ -11,6 +11,7 @@ const rp = require('request-promise');
 const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
+const joinPath = require('path.join');
 
 const getSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
@@ -49,7 +50,7 @@ const getStorageContext = (req, res, options = {}) => {
         storageContext = 'users/' + res.locals.currentUser._id;
     }
 
-    return path.join(storageContext, currentDir);
+    return joinPath(storageContext, currentDir);
 };
 
 
