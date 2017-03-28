@@ -25,10 +25,6 @@ $(document).ready(function(){
         $notification.fadeIn();
     };
 
-    $notification.on('DOMNodeRemoved', function(e) {
-        console.log(e.target, ' was removed');
-    });
-
     window.$.hideNotification = function() {
         $notification.fadeOut();
     };
