@@ -1,8 +1,10 @@
-# SchulCloud - Client
+# Schulcloud Client
+_An implementation of the Schul-Cloud client with NodeJS and Express._
 
-Dev: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=master)
-Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.svg?branch=production)
-# Requirements
+Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>
+Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=production)
+
+## Requirements
 
 * node.js
 
@@ -10,14 +12,15 @@ Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.
 
 1. Clone directory into local folder
 2. Go into the cloned folder and enter `npm install`
-3. Install nodemon by entering `npm install -g nodemon`
+3. Install nodemon and gulp globally by entering `npm install -g nodemon gulp`
 
 ## Run
 
-1. Go into project folder
-2. run `npm run dev` to build the project
-3. run `npm run startd` 
-4. go to `http://localhost:3100`
+1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)
+2. Go into project folder
+3. run `gulp watch` to run gulp
+4. run `npm run watch` to boot the application
+5. go to `http://localhost:3100`
 
 ## How to name your branch
 
@@ -26,22 +29,16 @@ Production: ![Travis Status](https://travis-ci.org/schulcloud/schulcloud-client.
 
 ## Testing
 
-### Run tests
-
-1. Go into project folder
+1. Set the password for the demo user `schueler@schul-cloud.org`
+    Ubuntu/Mac: `export SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
+    Windows: `set SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
 2. run `npm run test`
-
-### Create tests
-
-1. Create a folder for the "service" you're working on in "/test/services"
-2. Create a file "user.test.js" for frontend tests (e.g. clicking a link or check if url is available)
-3. Create a file "unit.test.js" for backend tests (e.g. calculating a number)
-
-*Try to cover as many methods as possible unit test wise - goal is 100% of course, so one test per method.*
+3. If you want to use another backend url than localhost, set the `BACKEND_URL` environment variable (see 1)
+4. If you want to list the coverage, run `npm run coverage`
 
 ## Commiting
 
-Default branch: develop
+Default branch: master
 
 1. Go into project folder
 2. Run the tests (see above)
