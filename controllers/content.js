@@ -22,7 +22,7 @@ router.get('/', function (req, res, next) {
     const currentPage = parseInt(req.query.p) || 1;
 
     if(!query && !req.query.filter) {
-        res.render('content/search', {query, results: [], subjects: subjects});
+        res.render('content/search', {title: 'Inhalte', query, results: [], subjects});
         return;
     }
 
