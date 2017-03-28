@@ -13,24 +13,23 @@ function getQueryParameterByName(name, url) {
 $(document).ready(function(){
     // notification stuff
     var $notification = $('.notification');
-    var $notificationContent = $notification.find('.notification-content')
+    var $notificationContent = $notification.find('.notification-content');
 
     window.$.showNotification = function(content, type) {
         $notificationContent.html(content);
 
         // remove old classes in case type was set before
         $notification.removeClass();
-        $notification.addClass('notification alert alert-dismissible');
-        if(type) {
-            $notification.addClass('alert-' + type);
-        }
+        $notification.addClass('notification alert alert-fixed alert-' + (type || 'info'));
 
         $notification.fadeIn();
     };
 
     window.$.hideNotification = function() {
         $notification.fadeOut();
-    }
+    };
+
+    $notification.find('.close').click(window.$.hideNotification);
 
 
     // Initialize bootstrap-select
