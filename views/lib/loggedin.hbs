@@ -52,6 +52,9 @@
                 {{/if}}
 
                 <ul class="nav navbar-nav float-xs-right">
+                    {{#if currentSchoolData}}
+                        <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                    {{/if}}
                     <li class="nav-item">
                         <div class="btn-group">
                             <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"

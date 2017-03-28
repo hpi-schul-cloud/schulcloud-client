@@ -60,8 +60,13 @@ const populateCurrentUser = (req, res) => {
         }}).then(data => {
             res.locals.currentUser = data;
             res.locals.currentRole = rolesDisplayName[data.roles[0].name];
-            res.locals.currentSchool = res.locals.currentUser.schoolId; // TODO: consider school object if any advantages
-            return data;
+            return api(req).get('/schools/' + res.locals.currentUser.schoolId, { qs: {
+                $populate: ['federalState']
+            }}).then(data => {
+                res.locals.currentSchool = res.locals.currentUser.schoolId;
+                res.locals.currentSchoolData = data;
+                return data;
+            });
         });
     }
 
