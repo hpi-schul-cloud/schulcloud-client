@@ -26,6 +26,11 @@ router.get('/', function (req, res, next) {
         return;
     }
 
+    let selectedSubjects = _.cloneDeep(subjects);
+    let querySubjects = ((req.query.filter || {}).subjects || []);
+    if(!Array.isArray(querySubjects)) querySubjects = [querySubjects];
+    querySubjects.forEach(s => {selectedSubjects[s].selected = true;});
+
     api(req).get('/contents/', {
         qs: {
             query,
@@ -53,13 +58,14 @@ router.get('/', function (req, res, next) {
             return result.attributes;
         });
 
-        let selectedSubjects = _.cloneDeep(subjects);
-        let querySubjects = ((req.query.filter || {}).subjects || []);
-        if(!Array.isArray(querySubjects)) querySubjects = [querySubjects];
-        querySubjects.forEach(s => {selectedSubjects[s].selected = true;});
-
         res.render('content/search', {title: 'Inhalte', query, results, pagination, subjects: selectedSubjects});
-    });
+    })
+        .catch(error => {
+            res.render('content/search', {title: 'Inhalte', query, subjects: selectedSubjects, notification: {
+                type: 'danger',
+                message: `${error.name} ${error.message}`
+            }});
+        });
 });
 
 module.exports = router;
