@@ -115,10 +115,11 @@
 					{{/each}}
 				</div>
 			</div>
-			<div class="row">
-				{{> "lib/components/pagination" settings=pagination }}
-			</div>
-
+			{{#if pagination}}
+				<div class="row">
+					{{> "lib/components/pagination" settings=pagination }}
+				</div>
+			{{/if}}
 		</section>
 	{{/content}}
 {{/extend}}
