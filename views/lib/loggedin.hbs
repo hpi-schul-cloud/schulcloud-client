@@ -79,6 +79,7 @@
                                 {{subtitle}}
                             </div>
                         </div>
+                        {{#unless hideSearch}}
                         <div class="col-sm-3">
                             <form class="search-wrapper" action="/content/" method="get">
                                 <a class="mobile-search-toggle">
@@ -94,6 +95,7 @@
                                 </div>
                             </form>
                         </div>
+                        {{/unless}}
                     </div>
                 </div>
             </section>
