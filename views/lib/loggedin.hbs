@@ -54,6 +54,9 @@
                 <ul class="nav navbar-nav float-xs-right">
                     {{#if currentSchoolData}}
                         <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                        {{#if currentSchoolData.federalState}}
+                            <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                        {{/if}}
                     {{/if}}
                     <li class="nav-item">
                         <div class="btn-group">
