@@ -39,6 +39,7 @@
         </aside>
 
         <section class="content-wrapper">
+			{{> "lib/components/notification"}}
             <nav class="topbar navbar">
 
                 {{#if breadcrumb}}
@@ -84,6 +85,7 @@
                                 {{subtitle}}
                             </div>
                         </div>
+                        {{#unless hideSearch}}
                         <div class="col-sm-3">
                             <form class="search-wrapper" action="/content/" method="get">
                                 <a class="mobile-search-toggle">
@@ -99,6 +101,7 @@
                                 </div>
                             </form>
                         </div>
+                        {{/unless}}
                     </div>
                 </div>
             </section>
