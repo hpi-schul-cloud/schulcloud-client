@@ -14,8 +14,8 @@
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
 							<li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-                                <a href="{{this.url}}">
-                                    <div class="due">{{this.dueDateF}}</div>
+                                <a href="{{this.url}}">	
+									<div class="due">{{this.showdate}}</div>									
                                     <h5 class="title">
                                         <span>{{this.courseId.name}}</span>
                                         {{this.name}}

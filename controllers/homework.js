@@ -125,8 +125,11 @@ router.all('/', function (req, res, next) {
 			assignment.color = (assignment.courseId.color.length!=7)?"#000000":assignment.courseId.color;
 			assignment.publicSubmissions = assignment.publicSubmissions; 
             var dueDate = new Date(assignment.dueDate);
-            assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+            var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
             var availableDate = new Date(assignment.availableDate);
+            var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
+			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?(dueDateF):(availableDateF+" - "+dueDateF);
+
             assignment.availableDateReached = availableDate.getTime() > Date.now();
             const submissionPromise = getSelectOptions(req, 'submissions', {
                 homeworkId: assignment._id,
