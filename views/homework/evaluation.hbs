@@ -1,0 +1,100 @@
+<section class="section-evaluation tab-view">
+    <nav class="tab-links">
+		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
+		<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
+		<a id="student-comment-tab-link" class="tab-link">Kommentare</a>
+	</nav>
+	<div class="tabs">
+		<div id="submission" class="tab-content active">
+			<div class="comment">
+                <p>{{#if this.submission.comment}}{{this.submission.comment}}{{else}}Keine Abgabe.{{/if}}</p>
+			</div>
+			<div class="material card">
+				<ul>
+					<li>
+						<img src="http://placehold.it/100x80"/>
+						<p class="title">ExtraLongFilename.html</p>
+						<div class="buttons">
+							<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+						</div>
+						<div class="buttons">
+							<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="comment" class="tab-content">
+            {{#if this.submission}}
+                <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
+                    <input type="hidden" name="_method" data-force-value="true" value="patch" />
+            {{else}}
+                <form class="form" method="post" action="/homework/submit">
+                    <input type="hidden" name="_method" data-force-value="true" value="post" />
+                    <input name="schoolId" type="hidden" data-force-value="true" value="{{this.student.schoolId}}" />
+                    <input name="studentId" type="hidden" data-force-value="true" value="{{this.student._id}}" />
+                    <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
+            {{/if}}
+
+			<div class="comment form-group">
+				<div class="form-group">
+					<label>Note</label>
+					<select name="grade" data-placeholder="Note auswählen">
+                        <option value="">Keine Bewertung</option>
+                        <option value="15" {{#ifvalue this.submission.grade value=15}} selected {{/ifvalue}}>1+</option>
+                        <option value="14" {{#ifvalue this.submission.grade value=14}} selected {{/ifvalue}}>1</option>
+                        <option value="13" {{#ifvalue this.submission.grade value=13}} selected {{/ifvalue}}>1-</option>
+                        <option value="12" {{#ifvalue this.submission.grade value=12}} selected {{/ifvalue}}>2+</option>
+                        <option value="11" {{#ifvalue this.submission.grade value=11}} selected {{/ifvalue}}>2</option>
+                        <option value="10" {{#ifvalue this.submission.grade value=10}} selected {{/ifvalue}}>2-</option>
+                        <option value="9" {{#ifvalue this.submission.grade value=9}} selected {{/ifvalue}}>3+</option>
+                        <option value="8" {{#ifvalue this.submission.grade value=8}} selected {{/ifvalue}}>3</option>
+                        <option value="7" {{#ifvalue this.submission.grade value=7}} selected {{/ifvalue}}>3-</option>
+                        <option value="6" {{#ifvalue this.submission.grade value=6}} selected {{/ifvalue}}>4+</option>
+                        <option value="5" {{#ifvalue this.submission.grade value=5}} selected {{/ifvalue}}>4</option>
+                        <option value="4" {{#ifvalue this.submission.grade value=4}} selected {{/ifvalue}}>4-</option>
+                        <option value="3" {{#ifvalue this.submission.grade value=3}} selected {{/ifvalue}}>5+</option>
+                        <option value="2" {{#ifvalue this.submission.grade value=2}} selected {{/ifvalue}}>5</option>
+                        <option value="1" {{#ifvalue this.submission.grade value=1}} selected {{/ifvalue}}>5-</option>
+                        <option value="0" {{#ifvalue this.submission.grade value=0}} selected {{/ifvalue}}>6</option>
+					</select>
+				</div>
+				<h6>Kommentar</h6>
+				<textarea id="evaluation" name="gradeComment" type="text" class="form-control" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
+			</div>
+			<h6>Dateien</h6>
+			<div class="material card">
+				<ul>
+					<li>
+						<a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					</li>
+				</ul>
+			</div>
+			<button type="submit" class="btn btn-primary">Speichern</button>
+            </form>
+		</div>
+		
+		<div id="student-comment" class="tab-content">
+			<div class="commentarea form-group">
+				<ul class="comments">
+					<li class="comment">
+						<img class="picture" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/>
+						<a class="btn btn-secondary btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						<b class="name">David Dietrich</b>
+						<p>Spicy jalapeno shoulder strip steak tenderloin jerky cow. Ground round cupim tail pork shank cow, shankle ball tip leberkas. Pancetta turkey cupim burgdoggen doner pig. Kevin alcatra tail frankfurter ribeye hamburger. Tri-tip pancetta flank rump sausage tongue kielbasa cupim chuck porchetta strip steak cow shankle turkey. Spare ribs shankle corned beef rump. Pork ham hock turducken, leberkas drumstick pork loin andouille short ribs ham biltong swine ribeye alcatra tongue.</p>
+					</li>
+					<li class="comment">
+						<img class="picture" src="https://randomuser.me/api/portraits/women/11.jpg" alt=""/>
+						<b class="name">Lisa Hoppe</b>
+						<p>Gumbo beet greens corn soko endive gumbo gourd. Parsley shallot courgette tatsoi pea sprouts fava bean collard greens dandelion okra wakame tomato. Dandelion cucumber earthnut pea peanut soko zucchini.</p>
+					</li>
+				</ul>
+				<div class="answer">
+					<textarea id="evaluation" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>
+					<button type="submit" class="btn btn-primary">senden</button>
+				</div>
+			</div>
+		</div>
+    </div>
+</section>

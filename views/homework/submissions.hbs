@@ -1,0 +1,36 @@
+<section id="submissions" class="tab-content section-homeworksubmissions">
+	<h5>Abgaben</h5>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th/>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Abgegeben</th>
+            <th>Bewertung</th>
+            <th/>
+        </tr>
+        </thead>
+        {{#each students}}
+            <tbody class="usersubmission">
+            <tr class="userinfo">
+                <td><img class="picture" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/></td>
+                <td>{{this.student.firstName}}</td>
+                <td>{{this.student.lastName}}</td>
+                <td>
+                    {{#if this.submission.comment}}
+                        <i class="fa fa-check green" aria-hidden="true"/>
+                    {{else}}
+						<i class="fa fa-times red" aria-hidden="true"/>
+                    {{/if}}
+                </td>
+                <td>{{this.submission.grade}}</td>
+                <td><i class="fa fa-pencil-square-o" aria-hidden="true"/></td>
+            </tr>
+            <tr class="evaluation">
+                <td colSpan="6">{{>"homework/evaluation"}}</td>
+            </tr>
+            </tbody>
+        {{/each}}
+    </table>
+</section>
