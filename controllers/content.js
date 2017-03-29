@@ -76,8 +76,8 @@ router.get('/', function (req, res, next) {
             res.href = result.id;
             return res;
         });
-
-        res.render('content/search', {title: 'Inhalte', query, results, pagination, subjects: selectedSubjects});
+        let action = 'addToLesson';
+        res.render('content/search', {title: 'Inhalte', query, results, pagination, action, subjects: selectedSubjects});
     })
         .catch(error => {
             res.render('content/search', {title: 'Inhalte', query, subjects: selectedSubjects, notification: {
@@ -85,6 +85,22 @@ router.get('/', function (req, res, next) {
                 message: `${error.name} ${error.message}`
             }});
         });
+});
+
+router.post('/addToLesson', function (req, res, next) {
+   api(req).post('/materials/', {
+       json: req.body
+   }).then(material => {
+       api(req).patch('/lessons/' + req.body.lessonId, {
+           json: {
+               $push: {
+                   materialIds: material._id
+               }
+           }
+       }).then(result => {
+           res.redirect('/content'); // todo!!
+       })
+   }) 
 });
 
 module.exports = router;

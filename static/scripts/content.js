@@ -13,6 +13,24 @@ $(document).ready(function () {
 		$selection.chosen().trigger("chosen:updated");
 	};
 
+	var populateLessonSelection = function (modal, lessons) {
+		var $selection = modal.find('.lesson-selection');
+		$selection
+			.find('option')
+			.remove()
+			.end();
+
+		lessons.forEach(function (lesson) {
+			var option = document.createElement("option");
+			option.text = lesson.name;
+			option.value = lesson._id;
+			$selection.append(option);
+		});
+
+		modal.find('.lessons').css("display", "block");
+		$selection.chosen().trigger("chosen:updated");
+	};
+
 	var populateModalForm = function (modal, data) {
 
 		var $title = modal.find('.modal-title');
@@ -49,7 +67,7 @@ $(document).ready(function () {
 				title: 'Material zu Stunde hinzufügen',
 				closeLabel: 'Schließen',
 				submitLabel: 'Senden',
-				fields: result.content
+				fields: result.content.data.attributes
 			});
 			populateCourseSelection($editModal, result.courses.data);
 			$editModal.modal('show');
@@ -57,7 +75,10 @@ $(document).ready(function () {
 	});
 
 	$('.course-selection').on('change', function () {
-		console.log($(this).find("option-selected").val());
+		var selectedCourse = $(this).find("option:selected").val();
+		$.getJSON('/courses/' + selectedCourse + '/json', function (res) {
+			populateLessonSelection($editModal, res.lessons.data);
+		});
 	});
 
 	$modals.find('.close, .btn-close').on('click', function () {
