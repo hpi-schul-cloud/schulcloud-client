@@ -61,6 +61,7 @@ $(document).ready(function() {
 		$.getJSON(entry, function(result) {
 			console.log("Result",result);
 			populateModalForm($editModal, {
+				action: entry,
 				title: 'Bearbeiten',
 				closeLabel: 'Schließen',
 				submitLabel: 'Speichern',
