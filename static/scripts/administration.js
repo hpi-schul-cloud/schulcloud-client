@@ -25,10 +25,22 @@ $(document).ready(function() {
         $('[name]', $form).not('[data-force-value]').each(function () {
             var value = (data.fields || {})[$(this).prop('name').replace('[]', '')] || '';
             switch ($(this).prop("type")) {
-                case "radio":
+                case "radio":	
+					if(typeof(value) === "boolean"){value = value?"1":"0";}
+					if(value === ""){value = "0";}
+					if (($(this).attr('name') == $(this).prop('name'))&&($(this).attr('value')==value)){
+						$(this).attr("checked","checked");
+					}else{
+						$(this).removeAttr("checked");
+					}
+					break;
                 case "checkbox":
                     $(this).each(function () {
-                        if ($(this).attr('name') == name) $(this).attr("checked", value);
+                        if (($(this).attr('name') == $(this).prop('name'))){
+							$(this).attr("checked", value);
+						}else{
+							$(this).removeAttr("checked");
+						}
                     });
                     break;
 				case "color":
