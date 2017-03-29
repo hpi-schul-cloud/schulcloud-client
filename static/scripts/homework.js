@@ -30,6 +30,8 @@ $(document).ready(function() {
                     $(this).each(function () {
                         if (($(this).attr('name') == $(this).prop('name'))&&value){
 							$(this).attr("checked", value);
+						}else{
+							$(this).removeAttr("checked");
 						}
                     });
                     break;
@@ -56,10 +58,9 @@ $(document).ready(function() {
     $('.btn-edit').on('click', function(e) {
         e.preventDefault();
 		var entry = $(this).attr('href');
-		$.getJSON(entry, function(result) {		//URL liefert kein JSON zurück --> code wird nicht augeführt
+		$.getJSON(entry, function(result) {
 			console.log("Result",result);
 			populateModalForm($editModal, {
-				// action: entry,
 				title: 'Bearbeiten',
 				closeLabel: 'Schließen',
 				submitLabel: 'Speichern',

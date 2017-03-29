@@ -94,7 +94,7 @@ const getDeleteHandler = (service) => {
 
 
 router.post('/', getCreateHandler('homework'));
-router.patch('/:id', getUpdateHandler('homework'));
+router.patch('/:id/json', getUpdateHandler('homework'));
 router.get('/:id/json', getDetailHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
 
@@ -121,6 +121,7 @@ router.all('/', function (req, res, next) {
                 assignment.userIds = assignment.courseId.userIds;
             }
 			console.log("Color: ",assignment.courseId.color);
+			assignment.privateclass = assignment.private?"private":"";
 			assignment.color = (assignment.courseId.color.length!=7)?"#000000":assignment.courseId.color;
 			assignment.publicSubmissions = assignment.publicSubmissions; 
             var dueDate = new Date(assignment.dueDate);

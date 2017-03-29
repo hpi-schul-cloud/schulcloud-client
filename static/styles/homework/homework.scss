@@ -153,8 +153,8 @@
 				}
 			}
 			&.private{
-				h5{
-					color: limegreen;
+				h5::before{
+					content:"🔒";
 				}
 			}
 		}	

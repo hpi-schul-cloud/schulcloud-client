@@ -9,10 +9,10 @@
 
 <div class="form-group">
     <label>Kurs</label>
-    <select name="courseId" required data-placeholder="Kurs auswählen">
-        <option value="" {{#if this.selected}}selected{{/if}}>Keine Zuordnung</option>
+    <select name="courseId" data-placeholder="Kurs auswählen">
+        <option value="" selected>Keine Zuordnung</option>
         {{#each courses}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+            <option value="{{this._id}}">{{this.name}}</option>
         {{/each}}
     </select>
     {{#if isStudent}}
