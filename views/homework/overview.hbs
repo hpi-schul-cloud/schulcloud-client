@@ -13,7 +13,7 @@
                 <ol class="homework">
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
-							<li class="card assignment {{this.privateclass}}">
+							<li class="card assignment" style="border-left:10px solid {{this.color}}">
                                 <a href="{{this.url}}">
                                     <div class="due">{{this.dueDateF}}</div>
                                     <h5 class="title">

@@ -28,9 +28,13 @@ $(document).ready(function() {
                 case "radio":
                 case "checkbox":
                     $(this).each(function () {
-                        if ($(this).attr('value') == value) $(this).attr("checked", value);
+                        if ($(this).attr('name') == name) $(this).attr("checked", value);
                     });
                     break;
+				case "color":
+					$(this).attr("value", value);
+					$(this).attr("placeholder", value);
+					break;
                 default:
                     $(this).val(value).trigger("chosen:updated");
             }
