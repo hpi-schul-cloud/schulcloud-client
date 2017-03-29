@@ -63,7 +63,6 @@ const getUpdateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            console.log(req);
             res.redirect(req.header('Referer'));
     }).catch(err => {
             next(err);
@@ -184,7 +183,6 @@ router.get('/:assignmentId', function (req, res, next) {
             }else{
                 assignment.submittable = true;
             }
-            console.log(assignment);
             if(assignment.teacherId == res.locals.currentUser._id) {
                 if(assignment.private){
                     assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
@@ -202,7 +200,6 @@ router.get('/:assignmentId', function (req, res, next) {
                                 return n.studentId == student._id;
                             })[0]};
                     });
-                    console.log(students);
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: assignment.courseId.name + ' - ' + assignment.name,
                         breadcrumb: [
