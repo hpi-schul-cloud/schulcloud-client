@@ -190,7 +190,7 @@ router.get('/:assignmentId', function (req, res, next) {
             }
 			console.log(assignment.courseId.gradeSystem);
 			assignment.gradeSystem = assignment.courseId.gradeSystem;
-            if(assignment.teacherId == res.locals.currentUser._id) {
+            if(assignment.teacherId == res.locals.currentUser._id || assignment.publicSubmissions) {
                 if(assignment.private){
                     assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 }
