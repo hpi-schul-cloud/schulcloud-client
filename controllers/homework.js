@@ -11,7 +11,7 @@ const handlebars = require("handlebars");
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
-        return options.fn(this)
+        return options.fn(this);
     } else {
         return options.inverse(this);
     }
@@ -112,11 +112,11 @@ router.all('/', function (req, res, next) {
     }).then(assignments => {
         assignments = assignments.data.map(assignment => {
             if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                && assignment.teacherId != res.locals.currentUser._id){ return }
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(assignment.private
-                && assignment.teacherId != res.locals.currentUser._id){ return }
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(new Date(assignment.availableDate).getTime() > Date.now()
-                && assignment.teacherId != res.locals.currentUser._id){ return }
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
             assignment.url = '/homework/' + assignment._id;
             if(!assignment.private){
                 assignment.userIds = assignment.courseId.userIds;
@@ -135,7 +135,7 @@ router.all('/', function (req, res, next) {
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
         });
-        assignments = assignments.filter(function(n){ return n != undefined });
+        assignments = assignments.filter(function(n){ return n != undefined; });
         const coursesPromise = getSelectOptions(req, 'courses', {$or:[
             {userIds: res.locals.currentUser._id},
             {teacherIds: res.locals.currentUser._id}
@@ -171,14 +171,11 @@ router.get('/:assignmentId', function (req, res, next) {
         });
         Promise.resolve(submissionPromise).then(submissions => {
             if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                && assignment.teacherId != res.locals.currentUser._id){ return }
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(assignment.private
-                && assignment.teacherId != res.locals.currentUser._id){ return }
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(new Date(assignment.availableDate).getTime() > Date.now()
-                && assignment.teacherId != res.locals.currentUser._id){ return }
-            if(!assignment.private){
-                assignment.userIds = assignment.courseId.userIds;
-            }
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
             var dueDate = new Date(assignment.dueDate);
             assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
             //23:59 am Tag der Abgabe
@@ -187,9 +184,10 @@ router.get('/:assignmentId', function (req, res, next) {
             }else{
                 assignment.submittable = true;
             }
+            console.log(assignment);
             if(assignment.teacherId == res.locals.currentUser._id) {
                 if(assignment.private){
-                    assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id })[0];
+                    assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 }
                 assignment.submissions = submissions;
                 const coursePromise = getSelectOptions(req, 'courses', {
@@ -201,7 +199,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     students = students.map(student => {
                         return {student: student,
                             submission: assignment.submissions.filter(function(n){
-                                return n.studentId == student._id
+                                return n.studentId == student._id;
                             })[0]};
                     });
                     console.log(students);
@@ -218,8 +216,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     }));
                 });
             }else{
-                assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id })[0];
-                assignment.gradeComment = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id })[0]["gradeComment"];
+                assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 res.render('homework/assignment', Object.assign({}, assignment, {
                     title: assignment.courseId.name + ' - ' + assignment.name,
                     breadcrumb: [

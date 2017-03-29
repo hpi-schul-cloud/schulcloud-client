@@ -77,7 +77,7 @@ const runToolHandler = (req, res, next) => {
             url: tool.url,
             method: 'POST',
             formData: Object.keys(formData).map(key => {
-                return {name: key, value: formData[key]}
+                return {name: key, value: formData[key]};
             })
         });
     });
