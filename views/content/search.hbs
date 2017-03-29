@@ -74,20 +74,24 @@
 
 			</form>
 		</section>
-		<hr>
 		<section class="search-results">
 			{{#if query }}
-				<h5>Suchergebnisse für "{{ query }}"</h5>
+				{{#if results}}
+					<hr>
+					<h5>Suchergebnisse für "{{ query }}"</h5>
+				{{/if}}
 			{{else}}
 				{{#if results}}
+					<hr>
 					<h5>Suchergebnisse</h5>
 				{{/if}}
 			{{/if}}
-			{{#unless results}}
+			{{#unless results}}{{#unless suppressNoResultsMessage}}
+				<hr>
 				<h5 class="text-muted text-center">
 					<span>Keine Suchergebnisse</span>
 				</h5>
-			{{/unless}}
+			{{/unless}}{{/unless}}
 			<div class=" results">
 				<div class="card-columns">
 					{{#each results}}
