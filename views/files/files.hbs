@@ -82,7 +82,38 @@
                 <div class="row">
                     {{#each files}}
                         <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div class="card file">
+                            <div class="card file"
+                            onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
+                            onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
+                                <script>
+                                function writeFileSizePretty(filesize) {
+                                    var unit;
+                                    var iterator = 0;
+
+                                    while (filesize > 1024) {
+                                        filesize = Math.round((filesize/1024) * 100) / 100;
+                                        iterator++;
+                                    }
+                                    switch (iterator){
+                                        case 0:
+                                            unit = "B";
+                                            break;
+                                        case 1:
+                                            unit = "KB";
+                                            break;
+                                        case 2:
+                                            unit = "MB";
+                                            break;
+                                        case 3:
+                                            unit = "GB";
+                                            break;
+                                        case 4:
+                                            unit = "TB";
+                                            break;
+                                    }
+                                    return (filesize + unit);
+                                }
+                                </script>
                                 <div class="openFile">
                                     <div class="card-block">
                                         <div class="card-title">
@@ -114,6 +145,7 @@
                                                data-file-path="{{this.path}}">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
+                                            <small class="file-info" id="{{this.name}}"></small>
                                         </div>
                                     </div>
                                 </div>
@@ -123,7 +155,7 @@
                 </div>
             </section>
         </div>
-
+        
 
         {{#embed "lib/components/modal-form" class="edit-modal" title="Neuer Ordner" closeLabel="Abbrechen" submitLabel="Ordner erstellen"}}
             {{#content "fields"}}
