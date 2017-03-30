@@ -45,6 +45,7 @@ const getActions = (item, path) => {
 
 const getCreateHandler = (service) => {
     return function (req, res, next) {
+		if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -59,7 +60,7 @@ const getCreateHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-		if(req.body.courseId && req.body.courseId.length<=2){req.body.courseId = null;}
+		if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
 		if(!req.body.private){req.body.private = false;}
 		if(!req.body.publicSubmissions){req.body.publicSubmissions = false;}
         api(req).patch('/' + service + '/' + req.params.id, {
