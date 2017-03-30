@@ -1,23 +1,31 @@
 {{#extend "lib/default"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/error.css" />
-    {{/content}}
+	{{#content "styles" mode="append"}}
+		<link rel="stylesheet" href="/styles/lib/error.css"/>
+	{{/content}}
 
-    {{#content "body"}}
-        <div class="error-page">
-            <section class="details">
-                <div class="error-code">
-                    {{error.status}}
-                </div>
-                <div class="error-title">
-                    {{message}}
-                </div>
-                <div class="error-description">
-                   {{error.stack}}
-                </div>
-            </section>
+	{{#content "body"}}
+		{{#embed "lib/header"}}{{/embed}}
+		<div class="error-page">
+			<section class="details">
+				<div class="error-code">
+					{{error.status}}
+				</div>
+				<div class="error-title">
+					{{message}}
+				</div>
+				{{#if error.stack}}
+					<div class="card error-card">
+						<div class="card-header">
+							Fehler-Details
+						</div>
+						<div class="card-block error-description">
+							{{error.stack}}
+						</div>
+					</div>
+				{{/if}}
+			</section>
 
-            <div class="bg-graphic bg-graphic-right" />
-        </div>
-    {{/content}}
+			<div class="bg-graphic bg-graphic-right"/>
+		</div>
+	{{/content}}
 {{/extend}}

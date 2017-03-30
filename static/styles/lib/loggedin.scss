@@ -153,6 +153,11 @@ aside.nav-sidebar {
     }
 }
 
+header {
+    width:100%;
+    float:left;
+}
+
 .content-wrapper {
     width: 100%;
     min-height:calc(100vh - 136px);
@@ -168,6 +173,15 @@ aside.nav-sidebar {
     @include media-breakpoint-down(xs) {
         padding-left: 0px;
         padding-right: 0px;
+    }
+
+    .school-data {
+        padding-top: 11px;
+    }
+    .federal-state {
+        padding-top: 10px;
+        height: 35px;
+        margin-left: 8px !important;
     }
 
     .section-default {
