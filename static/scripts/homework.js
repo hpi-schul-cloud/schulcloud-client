@@ -59,7 +59,9 @@ $(document).ready(function() {
         e.preventDefault();
 		var entry = $(this).attr('href');
 		$.getJSON(entry, function(result) {
+			if((!result.courseId)||(result.courseId && result.courseId.length<=2)){result.private = true;}
 			console.log("Result",result);
+			
 			populateModalForm($editModal, {
 				action: entry,
 				title: 'Bearbeiten',

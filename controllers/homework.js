@@ -127,6 +127,7 @@ router.all('/', function (req, res, next) {
 				assignment.color = (assignment.courseId.color.length!=7)?"#000000":assignment.courseId.color;
 			}else{
 				assignment.color = "#64FFDA";
+				assignment.private = true;
 			}
 			assignment.url = '/homework/' + assignment._id;
 			assignment.privateclass = assignment.private?"private":"";
