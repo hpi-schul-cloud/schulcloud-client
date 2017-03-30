@@ -39,10 +39,11 @@
     <label>bis</label>
     <input class="form-control" name="dueDate" id="dueDate" type="date" required />
 </div>
-
+{{#if isStudent}}{{else}}
 <div class="form-group">
     <label>
         <input name="publicSubmissions" type="checkbox" value="public" />
         Schülerabgaben untereinander sichtbar
     </label>
 </div>
+{{/if}}
