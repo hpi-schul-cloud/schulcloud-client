@@ -50,11 +50,18 @@
 			font-weight: 700;
 			color: $colorHPIOrange;
 		}
-	
 		.description,
 		.comment,
 		.feedback{
 			color: grey;
+			pre{
+				font:inherit;
+				display:block;
+				width:100%;
+				outline:none;
+				border:none;
+				background:transparent;
+			}
 		}
 		.feedback{
 			margin-right: 75px;

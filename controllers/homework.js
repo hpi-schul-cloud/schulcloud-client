@@ -60,7 +60,7 @@ const getCreateHandler = (service) => {
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
 		console.log("LOG: ",req.body);
-		if(req.body.courseId.length<=2){req.body.courseId = null;}
+		if(req.body.courseId && req.body.courseId.length<=2){req.body.courseId = null;}
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
 			json: req.body
