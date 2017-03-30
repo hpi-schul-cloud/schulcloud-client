@@ -27,10 +27,10 @@
 
             {{#if materialIds}}
                 <div class="materials">
-                    <h5>gespeicherte Unterrichtsmaterialen</h5>
-                    <div class="row">
+                    <h5>Gespeicherte Unterrichtsmaterialen</h5>
+                    <div class="card-columns">
                         {{#each materialIds}}
-                            <div class="card col-sm-4">
+                            <div class="card">
                                 {{#if this.image}}
                                     <img class="card-img-top" src="{{this.image}}"/>
                                 {{/if}}
