@@ -17,7 +17,9 @@
                                 <a href="{{this.url}}">	
 									<div class="due">{{this.showdate}}</div>									
                                     <h5 class="title">
-                                        <span>{{this.courseId.name}}</span>
+										{{#if this.courseId}}
+											<span>{{this.courseId.name}}</span>
+										{{/if}}
                                         {{this.name}}
                                     </h5>
                                     <!-- graded, turned in etc. -->

@@ -59,9 +59,11 @@ const getCreateHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
+		console.log("LOG: ",req.body);
+		if(req.body.courseId.length<=2){req.body.courseId = null;}
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
-            json: req.body
+			json: req.body
         }).then(data => {
             res.redirect(req.header('Referer'));
     }).catch(err => {
@@ -110,19 +112,22 @@ router.all('/', function (req, res, next) {
         }
     }).then(assignments => {
         assignments = assignments.data.map(assignment => {
-            if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                && assignment.teacherId != res.locals.currentUser._id){ return; }
-            if(assignment.private
-                && assignment.teacherId != res.locals.currentUser._id){ return; }
-            if(new Date(assignment.availableDate).getTime() > Date.now()
-                && assignment.teacherId != res.locals.currentUser._id){ return; }
-            assignment.url = '/homework/' + assignment._id;
-            if(!assignment.private){
-                assignment.userIds = assignment.courseId.userIds;
-            }
-			console.log("Color: ",assignment.courseId.color);
+			if(new Date(assignment.availableDate).getTime() > Date.now()
+					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+			if(assignment.private
+				&& assignment.teacherId != res.locals.currentUser._id){ return; }
+			if(assignment.courseId!=null){
+				if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+				if(!assignment.private){
+					assignment.userIds = assignment.courseId.userIds;
+				}
+				assignment.color = (assignment.courseId.color.length!=7)?"#000000":assignment.courseId.color;
+			}else{
+				assignment.color = "#64FFDA";
+			}
+			assignment.url = '/homework/' + assignment._id;
 			assignment.privateclass = assignment.private?"private":"";
-			assignment.color = (assignment.courseId.color.length!=7)?"#000000":assignment.courseId.color;
 			assignment.publicSubmissions = assignment.publicSubmissions; 
             var dueDate = new Date(assignment.dueDate);
             var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
@@ -174,12 +179,16 @@ router.get('/:assignmentId', function (req, res, next) {
             homeworkId: assignment._id
         });
         Promise.resolve(submissionPromise).then(submissions => {
-            if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(assignment.private
                 && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(new Date(assignment.availableDate).getTime() > Date.now()
                 && assignment.teacherId != res.locals.currentUser._id){ return; }
+			if(assignment.courseId!=null){
+				if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+				console.log(assignment.courseId.gradeSystem);
+				assignment.gradeSystem = assignment.courseId.gradeSystem;
+			}
             var dueDate = new Date(assignment.dueDate);
             assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
             //23:59 am Tag der Abgabe
@@ -188,9 +197,7 @@ router.get('/:assignmentId', function (req, res, next) {
             }else{
                 assignment.submittable = true;
             }
-			console.log(assignment.courseId.gradeSystem);
-			assignment.gradeSystem = assignment.courseId.gradeSystem;
-            if(assignment.teacherId == res.locals.currentUser._id || assignment.publicSubmissions) {
+            if(assignment.teacherId == res.locals.currentUser._id && assignment.courseId!=null || assignment.publicSubmissions) {
                 if(assignment.private){
                     assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 }
@@ -222,7 +229,7 @@ router.get('/:assignmentId', function (req, res, next) {
             }else{
                 assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 res.render('homework/assignment', Object.assign({}, assignment, {
-                    title: assignment.courseId.name + ' - ' + assignment.name,
+                    title: (assignment.courseId==null)?assignment.name:(assignment.courseId.name + ' - ' + assignment.name),
                     breadcrumb: [
                         {
                             title: 'Meine Aufgaben',
