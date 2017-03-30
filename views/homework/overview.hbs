@@ -25,7 +25,7 @@
                                     <!-- graded, turned in etc. -->
                                     {{this.status}}
                                     <div class="description">
-                                        <p>{{truncate this.description}}</p>
+										<pre>{{truncate this.description}}</pre>
                                     </div>
                                 </a>
 								{{#ifvalue this.teacherId value=this.currentUser._id}}

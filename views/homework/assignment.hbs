@@ -65,17 +65,17 @@
 					{{/if}}
 				</nav>
 				<div class="tabs">
-					{{> 'homework/extended'}}
+{{> 'homework/extended'}}
 					{{#if private}}
-						{{> 'homework/submission'}}
+{{> 'homework/submission'}}
 					{{else}}
 						{{#ifvalue teacherId value=currentUser._id}}
-							{{> 'homework/submissions'}}
+{{> 'homework/submissions'}}
 						{{else}}
-							{{> 'homework/submission'}}
-							{{> 'homework/feedback'}}
+{{> 'homework/submission'}}
+{{> 'homework/feedback'}}
 							{{#if publicSubmissions}}
-								{{> 'homework/submissions'}}
+{{> 'homework/submissions'}}
 							{{/if}}
 						{{/ifvalue}}
 					{{/if}}

@@ -104,11 +104,13 @@
 				@include media-breakpoint-down(xs) {
 					margin-right: 25px;
 				}
-				p:not(:first-of-type){
-					display:none;	
-				}
-				p:last-of-type{
-					margin-bottom:0;	
+				pre{
+					font:inherit;
+					display:block;
+					width:100%;
+					outline:none;
+					border:none;
+					background:transparent;
 				}
 			}
 			.due{
