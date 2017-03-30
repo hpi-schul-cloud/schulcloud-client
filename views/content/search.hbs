@@ -106,7 +106,9 @@
 							</div>
 							<div class="card-footer">
 								<small class="text-muted"> via {{this.client}} | 17. November 2016</small>
-                                <a class="add-to-lesson" href="{{this.href}}"><i class="fa fa-plus-square"></i></a>
+                                {{#userHasPermission "COURSE_EDIT"}}
+                                    <a class="add-to-lesson" href="{{../this.href}}"><i class="fa fa-plus-square"></i></a>
+                                {{/userHasPermission}}
 							</div>
 						</div>
 					{{/each}}

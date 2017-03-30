@@ -62,12 +62,16 @@ $(document).ready(function () {
 	$('.add-to-lesson').on('click', function (e) {
 		e.preventDefault();
 		var entry = $(this).attr('href');
+		var query = $('.search-field');
 		$.getJSON(entry, function (result) {
+			var fields = result.content.data.attributes;
+			fields.query = query.val();
+
 			populateModalForm($editModal, {
 				title: 'Material zu Stunde hinzufügen',
 				closeLabel: 'Schließen',
 				submitLabel: 'Senden',
-				fields: result.content.data.attributes
+				fields: fields
 			});
 			populateCourseSelection($editModal, result.courses.data);
 			$editModal.modal('show');

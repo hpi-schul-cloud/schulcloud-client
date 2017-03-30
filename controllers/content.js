@@ -76,6 +76,7 @@ router.get('/', function (req, res, next) {
             res.href = result.id;
             return res;
         });
+
         let action = 'addToLesson';
         res.render('content/search', {title: 'Inhalte', query, results, pagination, action, subjects: selectedSubjects});
     })
@@ -98,7 +99,7 @@ router.post('/addToLesson', function (req, res, next) {
                }
            }
        }).then(result => {
-           res.redirect('/content'); // todo!!
+           res.redirect('/content/?q=' + req.body.query);
        })
    }) 
 });
