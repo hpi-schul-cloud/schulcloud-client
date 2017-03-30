@@ -59,7 +59,6 @@ const getCreateHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-		console.log("LOG: ",req.body);
 		if(req.body.courseId && req.body.courseId.length<=2){req.body.courseId = null;}
 		if(!req.body.private){req.body.private = false;}
 		if(!req.body.publicSubmissions){req.body.publicSubmissions = false;}
@@ -198,9 +197,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submittable = true;
             }
             if(assignment.teacherId == res.locals.currentUser._id && assignment.courseId!=null || assignment.publicSubmissions) {
-                if(assignment.private){
-                    assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
-                }
+				assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 assignment.submissions = submissions;
                 const coursePromise = getSelectOptions(req, 'courses', {
                     _id: assignment.courseId._id,
