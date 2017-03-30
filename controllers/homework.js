@@ -186,8 +186,6 @@ router.get('/:assignmentId', function (req, res, next) {
 			if(assignment.courseId!=null){
 				if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
 					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-				console.log(assignment.courseId.gradeSystem);
-				assignment.gradeSystem = assignment.courseId.gradeSystem;
 			}
             var dueDate = new Date(assignment.dueDate);
             assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
