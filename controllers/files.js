@@ -41,6 +41,11 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
 };
 
 const getStorageContext = (req, res, options = {}) => {
+
+    if (req.query.storageContext) {
+        return req.query.storageContext;
+    }
+
     const currentDir = options.dir || req.query.dir || '';
     const urlParts = url.parse((options.url || req.originalUrl), true);
 
@@ -77,7 +82,8 @@ const FileGetter = (req, res, next) => {
 
         res.locals.files = {
             files,
-            directories
+            directories,
+            storageContext
         };
 
         next();
