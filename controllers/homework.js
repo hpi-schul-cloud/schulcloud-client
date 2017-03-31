@@ -124,7 +124,7 @@ router.all('/', function (req, res, next) {
 				if(!assignment.private){
 					assignment.userIds = assignment.courseId.userIds;
 				}
-				assignment.color = (assignment.courseId.color.length!=7)?"#000000":assignment.courseId.color;
+				assignment.color = (assignment.courseId.color.length!=7)?"#1DE9B6":assignment.courseId.color;
 			}else{
 				assignment.color = "#1DE9B6";
 				assignment.private = true;
@@ -189,6 +189,9 @@ router.get('/:assignmentId', function (req, res, next) {
 			if(assignment.courseId!=null){
 				if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
 					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+				assignment.color = (assignment.courseId.color.length!=7)?"#1DE9B6":assignment.courseId.color;
+			}else{
+				assignment.color = "#1DE9B6";
 			}
             var dueDate = new Date(assignment.dueDate);
             assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
