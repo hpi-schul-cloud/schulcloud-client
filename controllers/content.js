@@ -15,6 +15,23 @@ const subjects = _.mapValues(_subjects, v => ({name: v}));
 // secure routes
 router.use(authHelper.authChecker);
 
+router.get('/:id', function (req, res, next) {
+    Promise.all([
+        api(req).get('/courses/', {
+            qs: {
+                teacherIds: res.locals.currentUser._id}
+        }),
+        api(req).get('/contents/' + req.params.id)]).
+    then(([courses, content]) => {
+        res.json({
+            courses: courses,
+            content: content
+        });
+    }).catch(err => {
+        next(err);
+    });
+});
+
 router.get('/', function (req, res, next) {
     const query = req.query.q;
 
@@ -55,10 +72,13 @@ router.get('/', function (req, res, next) {
         };
 
         const results = data.map(result => {
-            return result.attributes;
+            let res = result.attributes;
+            res.href = result.id;
+            return res;
         });
 
-        res.render('content/search', {title: 'Inhalte', query, results, pagination, subjects: selectedSubjects});
+        let action = 'addToLesson';
+        res.render('content/search', {title: 'Inhalte', query, results, pagination, action, subjects: selectedSubjects});
     })
         .catch(error => {
             res.render('content/search', {title: 'Inhalte', query, subjects: selectedSubjects, notification: {
@@ -66,6 +86,22 @@ router.get('/', function (req, res, next) {
                 message: `${error.name} ${error.message}`
             }});
         });
+});
+
+router.post('/addToLesson', function (req, res, next) {
+   api(req).post('/materials/', {
+       json: req.body
+   }).then(material => {
+       api(req).patch('/lessons/' + req.body.lessonId, {
+           json: {
+               $push: {
+                   materialIds: material._id
+               }
+           }
+       }).then(result => {
+           res.redirect('/content/?q=' + req.body.query);
+       })
+   }) 
 });
 
 module.exports = router;
