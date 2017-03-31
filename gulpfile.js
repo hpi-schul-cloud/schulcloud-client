@@ -47,6 +47,18 @@ gulp.task('watch-fonts', function () {
 });
 
 
+const buildVendor = () => {
+    return gulp.src('./static/vendor/**/*.*')
+        .pipe(gulp.dest('./build/vendor'))
+};
+
+gulp.task('watch-vendor', function () {
+    return gulp.watch('./static/vendor/**/*.*', function (cb) {
+        buildVendor(cb);
+    });
+});
+
+
 const buildScripts = (cb) => {
     gulp.src('./static/scripts/**/*.js')
         .pipe(uglify())
@@ -71,7 +83,8 @@ gulp.task('watch', [
     'watch-images',
     'watch-styles',
     'watch-fonts',
-    'watch-scripts'
+    'watch-scripts',
+    'watch-vendor'
 ]);
 
 gulp.task('default', ['clean'], function () {
@@ -79,4 +92,5 @@ gulp.task('default', ['clean'], function () {
     buildStyles();
     buildFonts();
     buildScripts();
+    buildVendor();
 });
