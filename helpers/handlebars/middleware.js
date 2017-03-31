@@ -1,6 +1,7 @@
 const url = require('url');
 
 const makeActive = (items, currentUrl) => {
+	currentUrl += "/";		
     return items.map(item => {
         const regex = new RegExp("^" + item.link, "i");
 
