@@ -3,7 +3,7 @@
     <div class="homework">
         {{#if courseId.gradeSystem}}
             {{#if submission.grade}}
-				Note: 
+				<b class="grade">Note: 
 				{{#ifvalue submission.grade value=0 }} 6{{/ifvalue}}
 				{{#ifvalue submission.grade value=1 }}5-{{/ifvalue}}
 				{{#ifvalue submission.grade value=2 }} 5{{/ifvalue}}
@@ -20,10 +20,11 @@
 				{{#ifvalue submission.grade value=13}}1-{{/ifvalue}}
 				{{#ifvalue submission.grade value=14}} 1{{/ifvalue}}
 				{{#ifvalue submission.grade value=15}}1+{{/ifvalue}}
+				</b>
 			{{/if}}
         {{else}}
 			{{#if submission.grade}}
-				{{submission.grade}} Punkte
+				<b class="grade">{{submission.grade}} Punkte</b>
 			{{/if}}
         {{/if}}
         <div class="comment">
