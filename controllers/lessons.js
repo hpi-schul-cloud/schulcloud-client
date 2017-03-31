@@ -136,8 +136,8 @@ router.delete('/:lessonId/materials/:materialId', function (req, res, next) {
     }).then(_ => {
         api(req).delete('/materials/' + req.params.materialId).then(_ => {
             res.sendStatus(200);
-        })
-    })
+        });
+    });
 });
 
 
