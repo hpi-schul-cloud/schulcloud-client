@@ -108,6 +108,20 @@ router.get('/add/', editCourseHandler);
  * Single Course
  */
 
+router.get('/:courseId/json', function (req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        }),
+        api(req).get('/lessons/', {
+            qs: {
+                courseId: req.params.courseId
+            }
+        })
+    ]).then(([course, lessons]) => res.json({course, lessons}));
+});
 
 router.get('/:courseId', function (req, res, next) {
 
