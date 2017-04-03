@@ -86,12 +86,22 @@ const getDetailHandler = (service) => {
 };
 
 
+const getDeleteHandlerR = (service) => {
+    return function (req, res, next) {
+        api(req).delete('/' + service + '/' + req.params.id).then(_ => {
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 const getDeleteHandler = (service) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
             res.redirect('/' + service);
         }).catch(err => {
-                next(err);
+            next(err);
         });
     };
 };
@@ -106,6 +116,7 @@ router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 
 router.post('/comment', getCreateHandler('comments'));
+router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
@@ -201,8 +212,8 @@ router.get('/:assignmentId', function (req, res, next) {
             }else{
                 assignment.submittable = true;
             }
+            assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
             if(assignment.teacherId == res.locals.currentUser._id && assignment.courseId!=null || assignment.publicSubmissions) {
-				assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 assignment.submissions = submissions;
                 const coursePromise = getSelectOptions(req, 'courses', {
                     _id: assignment.courseId._id,
@@ -216,20 +227,29 @@ router.get('/:assignmentId', function (req, res, next) {
                                 return n.studentId == student._id;
                             })[0]};
                     });
-                    res.render('homework/assignment', Object.assign({}, assignment, {
-                        title: assignment.courseId.name + ' - ' + assignment.name,
-                        breadcrumb: [
-                            {
-                                title: 'Meine Aufgaben',
-                                url: '/homework'
-                            },
-                            {}
-                        ],
-                        students
-                    }));
+                    const ids = assignment.submissions.map(n => n._id);
+                    const commentPromise = getSelectOptions(req, 'comments', {
+                        submissionId: { $in: ids },
+                        $populate: ['author']
+                    });
+                    Promise.resolve(commentPromise).then(comments => {
+                        console.log(comments);
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: assignment.courseId.name + ' - ' + assignment.name,
+                            breadcrumb: [
+                                {
+                                    title: 'Meine Aufgaben',
+                                    url: '/homework'
+                                },
+                                {}
+                            ],
+                            students,
+                            comments
+                        }));
+                    });
+
                 });
             }else{
-                assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
                 console.log(assignment);
                 res.render('homework/assignment', Object.assign({}, assignment, {
                     title: (assignment.courseId==null)?assignment.name:(assignment.courseId.name + ' - ' + assignment.name),
