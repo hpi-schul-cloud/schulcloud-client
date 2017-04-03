@@ -2,6 +2,7 @@
 	<h5>Bewertung</h5>
     <div class="homework">
         {{#if courseId.gradeSystem}}
+            {{#ifvalue submission.grade value=0 }}<b class="grade">Note: 6</b>{{/ifvalue}}
             {{#if submission.grade}}
 				<b class="grade">Note: 
 				{{#ifvalue submission.grade value=0 }} 6{{/ifvalue}}
@@ -23,6 +24,9 @@
 				</b>
 			{{/if}}
         {{else}}
+            {{#ifvalue submission.grade value=0}}
+                <b class="grade">0 Punkte</b>
+            {{/ifvalue}}
 			{{#if submission.grade}}
 				<b class="grade">{{submission.grade}} Punkte</b>
 			{{/if}}

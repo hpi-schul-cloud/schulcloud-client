@@ -44,7 +44,7 @@
 					<label>Note</label>
 					<select name="grade" data-placeholder="Note auswählen">
 							<option value="">Keine Bewertung</option>
-						{{#if courseId.gradeSystem}}
+						{{#if @root.courseId.gradeSystem}}
 							<option value="15" {{#ifvalue this.submission.grade value=15}} selected {{/ifvalue}}>1+</option>
 							<option value="14" {{#ifvalue this.submission.grade value=14}} selected {{/ifvalue}}>1</option>
 							<option value="13" {{#ifvalue this.submission.grade value=13}} selected {{/ifvalue}}>1-</option>

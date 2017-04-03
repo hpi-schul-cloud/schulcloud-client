@@ -230,6 +230,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
             }else{
                 assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
+                console.log(assignment);
                 res.render('homework/assignment', Object.assign({}, assignment, {
                     title: (assignment.courseId==null)?assignment.name:(assignment.courseId.name + ' - ' + assignment.name),
                     breadcrumb: [
