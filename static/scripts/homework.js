@@ -17,7 +17,6 @@ $(document).ready(function() {
         $btnClose.html(data.closeLabel);
 
         if(data.action) {
-            console.log(data.action);
             $form.attr('action', data.action);
         }
 
@@ -35,6 +34,9 @@ $(document).ready(function() {
 						}
                     });
                     break;
+				case "datetime-local":
+					$(this).val(value.slice(0,16)).trigger("chosen:updated");
+					break;
 				case "date":
 					$(this).val(value.slice(0,10)).trigger("chosen:updated");
 					break;
@@ -47,10 +49,18 @@ $(document).ready(function() {
 
     $('.btn-add').on('click', function(e) {
         e.preventDefault();
+		// YYYY-MM-DDThh:mm
+		var now = new Date;
+		var dd = (now.getDate()<10)?"0"+now.getDate():now.getDate();
+		var mm = (now.getMonth()<10)?"0"+now.getMonth():now.getMonth();
+		var availableDate = now.getFullYear()+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes();
+		var dueDate = (now.getFullYear()+9)+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes(); //default dueDate: now + 9 years
+		var result = JSON.parse('{"availableDate":"'+availableDate+'", "dueDate":"'+dueDate+'"}');
         populateModalForm($addModal, {
             title: 'Hinzufügen',
             closeLabel: 'Schließen',
-            submitLabel: 'Hinzufügen'
+            submitLabel: 'Hinzufügen',
+			fields: result
         });
         $addModal.modal('show');
     });
@@ -60,8 +70,6 @@ $(document).ready(function() {
 		var entry = $(this).attr('href');
 		$.getJSON(entry, function(result) {
 			if((!result.courseId)||(result.courseId && result.courseId.length<=2)){result.private = true;}
-			console.log("Result",result);
-			
 			populateModalForm($editModal, {
 				action: entry,
 				title: 'Bearbeiten',

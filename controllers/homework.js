@@ -143,11 +143,19 @@ router.all('/', function (req, res, next) {
 			assignment.url = '/homework/' + assignment._id;
 			assignment.privateclass = assignment.private?"private":"";
 			assignment.publicSubmissions = assignment.publicSubmissions; 
-            var dueDate = new Date(assignment.dueDate);
-            var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
-            var availableDate = new Date(assignment.availableDate);
+			
+			
+            var availableDate = new Date(assignment.availableDate.slice(0,16));
             var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
-			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?(dueDateF):(availableDateF+" - "+dueDateF);
+	        var availableTimeF = availableDate.getHours()-2+":"+availableDate.getMinutes();
+
+			var dueDate = new Date(assignment.dueDate.slice(0,16));
+            var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+            var dueTimeF = dueDate.getHours()-2+":"+dueDate.getMinutes();
+			
+			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?
+				(dueDateF+" ("+dueTimeF+")"):
+				(availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
             const submissionPromise = getSelectOptions(req, 'submissions', {
