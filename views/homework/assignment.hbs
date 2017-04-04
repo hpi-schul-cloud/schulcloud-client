@@ -42,7 +42,7 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/homework/assignment.css"/>
 		<link rel="stylesheet" href="/styles/homework/submissions.css"/>
-		<style>.section-title h4::before{content:"● ";color:{{this.color}};}</style>
+		<style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
     {{/content}}
     {{#content "page"}}
 
