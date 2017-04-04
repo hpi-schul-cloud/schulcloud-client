@@ -240,9 +240,8 @@ router.get('/:assignmentId', function (req, res, next) {
 			
 			assignment.submissionscount = submissions.length;
 			
-			if(assignment.submissionscount>0){
+			if(submissions.length>0){
 				var ratingsum = 0
-				console.log(assignment.courseId.gradeSystem);
 				if(assignment.courseId.gradeSystem){
 					var submissiongrades = submissions.map(function(sub){
 						return 6 - Math.ceil(sub.grade / 3);
