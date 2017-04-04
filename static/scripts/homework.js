@@ -66,7 +66,8 @@ $(document).ready(function() {
 				action: entry,
 				title: 'Bearbeiten',
 				closeLabel: 'Schließen',
-				submitLabel: 'Speichern'
+				submitLabel: 'Speichern',
+				fields: result
 			});
 			$editModal.modal('show');
         });
