@@ -237,6 +237,26 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submittable = true;
             }
             assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
+			
+			assignment.submissionscount = submissions.length;
+			
+			if(assignment.submissionscount>0){
+				var ratingsum = 0
+				console.log(assignment.courseId.gradeSystem);
+				if(assignment.courseId.gradeSystem){
+					var submissiongrades = submissions.map(function(sub){
+						return 6 - Math.ceil(sub.grade / 3);
+					});
+				}else{
+					var submissiongrades = submissions.map(function(sub){
+						return sub.grade;
+					});
+				}
+				submissiongrades.forEach(function(e){ratingsum+=e});
+				assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
+			}
+			
+			
             if(assignment.teacherId == res.locals.currentUser._id && assignment.courseId!=null || assignment.publicSubmissions) {
                 assignment.submissions = submissions;
                 const coursePromise = getSelectOptions(req, 'courses', {
@@ -245,6 +265,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
                 Promise.resolve(coursePromise).then(courses => {
                     var students = courses[0].userIds;
+					assignment.usercount = students.length;
                     students = students.map(student => {
                         return {student: student,
                             submission: assignment.submissions.filter(function(n){
