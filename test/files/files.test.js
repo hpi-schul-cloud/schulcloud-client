@@ -9,6 +9,7 @@ const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
 describe('Files tests', function () {
+    this.timeout(5000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
