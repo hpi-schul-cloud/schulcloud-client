@@ -49,23 +49,15 @@ $(document).ready(function() {
 
     $('.btn-add').on('click', function(e) {
         e.preventDefault();
-		// YYYY-MM-DDThh:mm
-		var now = new Date;
-		var dd = (now.getDate()<10)?"0"+now.getDate():now.getDate();
-		var mm = (now.getMonth()<10)?"0"+now.getMonth():now.getMonth();
-		var availableDate = now.getFullYear()+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes();
-		var dueDate = (now.getFullYear()+9)+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes(); //default dueDate: now + 9 years
-		var result = JSON.parse('{"availableDate":"'+availableDate+'", "dueDate":"'+dueDate+'"}');
         populateModalForm($addModal, {
             title: 'Hinzufügen',
             closeLabel: 'Schließen',
             submitLabel: 'Hinzufügen',
-			fields: result
         });
         $addModal.modal('show');
     });
 
-    $('.btn-edit').on('click', function(e) {
+    $('.btn-edit').on('click', function(e){
         e.preventDefault();
 		var entry = $(this).attr('href');
 		$.getJSON(entry, function(result) {
@@ -74,8 +66,7 @@ $(document).ready(function() {
 				action: entry,
 				title: 'Bearbeiten',
 				closeLabel: 'Schließen',
-				submitLabel: 'Speichern',
-				fields: result
+				submitLabel: 'Speichern'
 			});
 			$editModal.modal('show');
         });

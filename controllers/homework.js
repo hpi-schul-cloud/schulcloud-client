@@ -46,6 +46,21 @@ const getActions = (item, path) => {
 const getCreateHandler = (service) => {
     return function (req, res, next) {
 		if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
+		
+		if(!req.body.availableDate || !req.body.dueDate){
+			var now = new Date;
+			var dd = (now.getDate()<10)?"0"+now.getDate():now.getDate();
+			var mm = (now.getMonth()<10)?"0"+now.getMonth():now.getMonth();
+		}
+		if(!req.body.availableDate){
+			var availableDate = now.getFullYear()+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes()+":00.000Z";
+			req.body.availableDate = availableDate;
+		}
+		if(!req.body.dueDate){
+			var dueDate = (now.getFullYear()+9)+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes()+":00.000Z"; //default dueDate: now + 9 years
+			req.body.dueDate = dueDate;
+		}
+		
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -143,16 +158,16 @@ router.all('/', function (req, res, next) {
 			assignment.url = '/homework/' + assignment._id;
 			assignment.privateclass = assignment.private?"private":"";
 			assignment.publicSubmissions = assignment.publicSubmissions; 
-			
-			
-            var availableDate = new Date(assignment.availableDate.slice(0,16));
-            var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
-	        var availableTimeF = availableDate.getHours()-2+":"+availableDate.getMinutes();
+
+
+			var availableDate = new Date(assignment.availableDate.slice(0,16));
+			var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
+			var availableTimeF = availableDate.getHours()-2+":"+availableDate.getMinutes();
 
 			var dueDate = new Date(assignment.dueDate.slice(0,16));
-            var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
-            var dueTimeF = dueDate.getHours()-2+":"+dueDate.getMinutes();
-			
+			var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+			var dueTimeF = dueDate.getHours()-2+":"+dueDate.getMinutes();
+
 			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?
 				(dueDateF+" ("+dueTimeF+")"):
 				(availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
@@ -214,8 +229,9 @@ router.get('/:assignmentId', function (req, res, next) {
 			}
             var dueDate = new Date(assignment.dueDate);
             assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
-            //23:59 am Tag der Abgabe
-            if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
+			//23:59 am Tag der Abgabe
+			//if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
+			if (new Date(assignment.dueDate).getTime() < Date.now()){
                 assignment.submittable = false;
             }else{
                 assignment.submittable = true;
@@ -241,7 +257,6 @@ router.get('/:assignmentId', function (req, res, next) {
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
-                        console.log(comments);
                         res.render('homework/assignment', Object.assign({}, assignment, {
                             title: assignment.courseId.name + ' - ' + assignment.name,
                             breadcrumb: [
@@ -258,7 +273,6 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 });
             }else{
-                console.log(assignment);
                 res.render('homework/assignment', Object.assign({}, assignment, {
                     title: (assignment.courseId==null)?assignment.name:(assignment.courseId.name + ' - ' + assignment.name),
                     breadcrumb: [
