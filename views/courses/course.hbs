@@ -43,7 +43,7 @@
                     <div class="list-group">
                         {{#if ltiToolIds}}
                             {{#each ltiToolIds}}
-                                <a href="/courses/{{../_id}}/tools/run/{{this._id}}" target="_blank" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <a href="/courses/{{../_id}}/tools/show/{{this._id}}" class="list-group-item list-group-item-action flex-column align-items-start">
                                     {{#if logo_url}}
                                         <img src={{this.logo_url}} class="float-left" style="width:100px; height:auto;"/>
                                     {{else}}

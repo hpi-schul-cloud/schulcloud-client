@@ -73,7 +73,7 @@ const runToolHandler = (req, res, next) => {
 
         var formData = consumer.authorize(request_data);
 
-        res.render('courses/components/run-lti', {
+        res.render('courses/components/run-lti-frame', {
             url: tool.url,
             method: 'POST',
             formData: Object.keys(formData).map(key => {
@@ -100,6 +100,16 @@ const getDetailHandler = (req, res, next) => {
     });
 };
 
+const showToolHandler = (req, res, next) => {
+    api(req).get('/ltiTools/' + req.params.ltiToolId).then(tool => {
+        res.render('courses/run-lti', {
+            courseId: req.params.courseId,
+            title: tool.name,
+            tool: tool
+        });
+    });
+};
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -112,6 +122,7 @@ router.get('/add', addToolHandler);
 router.post('/add', createToolHandler);
 
 router.get('/run/:ltiToolId', runToolHandler);
+router.get('/show/:ltiToolId', showToolHandler);
 
 router.get('/:id', getDetailHandler);
 
