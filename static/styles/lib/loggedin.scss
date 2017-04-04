@@ -1,6 +1,9 @@
 @import './colors';
 @import './bootstrap/scss/bootstrap';
 
+body {
+    background: white !important;
+}
 aside.nav-sidebar {
     color: #727272;
     position: fixed;
