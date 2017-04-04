@@ -1,0 +1,49 @@
+<section id="feedback" class="tab-content section-homeworkdetails">
+	<h5>Bewertung</h5>
+    <div class="homework">
+        {{#if courseId.gradeSystem}}
+            {{#ifvalue submission.grade value=0 }}<b class="grade">Note: 6</b>{{/ifvalue}}
+            {{#if submission.grade}}
+				<b class="grade">Note: 
+				{{#ifvalue submission.grade value=0 }} 6{{/ifvalue}}
+				{{#ifvalue submission.grade value=1 }}5-{{/ifvalue}}
+				{{#ifvalue submission.grade value=2 }} 5{{/ifvalue}}
+				{{#ifvalue submission.grade value=3 }}5+{{/ifvalue}}
+				{{#ifvalue submission.grade value=4 }}4-{{/ifvalue}}
+				{{#ifvalue submission.grade value=5 }} 4{{/ifvalue}}
+				{{#ifvalue submission.grade value=6 }}4+{{/ifvalue}}
+				{{#ifvalue submission.grade value=7 }}3-{{/ifvalue}}
+				{{#ifvalue submission.grade value=8 }} 3{{/ifvalue}}
+				{{#ifvalue submission.grade value=9 }}3+{{/ifvalue}}
+				{{#ifvalue submission.grade value=10}}2-{{/ifvalue}}
+				{{#ifvalue submission.grade value=11}} 2{{/ifvalue}}
+				{{#ifvalue submission.grade value=12}}2+{{/ifvalue}}
+				{{#ifvalue submission.grade value=13}}1-{{/ifvalue}}
+				{{#ifvalue submission.grade value=14}} 1{{/ifvalue}}
+				{{#ifvalue submission.grade value=15}}1+{{/ifvalue}}
+				</b>
+			{{/if}}
+        {{else}}
+            {{#ifvalue submission.grade value=0}}
+                <b class="grade">0 Punkte</b>
+            {{/ifvalue}}
+			{{#if submission.grade}}
+				<b class="grade">{{submission.grade}} Punkte</b>
+			{{/if}}
+        {{/if}}
+        <div class="comment">
+			<pre>{{submission.gradeComment}}</pre>
+        </div>
+        <div class="material card">
+            <ul>
+                <li>
+                    <img src="http://placehold.it/100x80"/>
+                    <p class="title">ExtraLongFilename.html</p>
+                    <div class="buttons">
+                        <a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
