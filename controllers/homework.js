@@ -159,17 +159,31 @@ router.all('/', function (req, res, next) {
 			assignment.privateclass = assignment.private?"private":"";
 			assignment.publicSubmissions = assignment.publicSubmissions; 
 
-
+			function formattimepart(s){
+				s = (s<0)?(24+s):s;
+				return (s<10)?"0"+s:s;
+			}
 			var availableDate = new Date(assignment.availableDate.slice(0,16));
 			var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
-			var availableTimeF = availableDate.getHours()-2+":"+availableDate.getMinutes();
+			var availableTimeF = formattimepart(availableDate.getHours())+":"+formattimepart(availableDate.getMinutes());
 
 			var dueDate = new Date(assignment.dueDate.slice(0,16));
 			var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
-			var dueTimeF = dueDate.getHours()-2+":"+dueDate.getMinutes();
-
+			var dueTimeF = formattimepart(dueDate.getHours())+":"+formattimepart(dueDate.getMinutes());
+			
+			var now = new Date();
+			var remaining = (dueDate - now)
+			var remainingDays 	= Math.floor  (	remaining / (1000*60*60*24)) ;
+			var remainingHours 	= Math.floor ((	remaining % (1000*60*60*24)) / (1000*60*60)) ;
+			var remainingMinutes= Math.floor(((	remaining % (1000*60*60*24)) % (1000*60*60)) / (1000*60));
+			console.log(remainingDays,remainingHours,remainingMinutes);
+			if(remainingDays > 5)		{ var dueString = (dueDateF+" ("+dueTimeF+")") }
+			else if(remainingDays >= 1)	{ var dueString = "noch "+remainingDays		+((remainingDays==1)?" Tag":" Tage") }
+			else if(remainingHours >= 1){ var dueString = "noch "+remainingHours	+((remainingHours==1)?" Stunde":" Stunden") }
+			else						{ var dueString = "noch "+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten") }
+			
 			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?
-				(dueDateF+" ("+dueTimeF+")"):
+				dueString:
 				(availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
