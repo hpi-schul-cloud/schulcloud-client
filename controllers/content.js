@@ -100,8 +100,8 @@ router.post('/addToLesson', function (req, res, next) {
            }
        }).then(result => {
            res.redirect('/content/?q=' + req.body.query);
-       })
-   }) 
+       });
+   }); 
 });
 
 module.exports = router;
