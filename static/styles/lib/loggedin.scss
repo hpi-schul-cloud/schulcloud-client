@@ -312,6 +312,7 @@ footer {
 
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;
+		padding-left: 50px !important;
         background: $colorBeige;
     }
 
