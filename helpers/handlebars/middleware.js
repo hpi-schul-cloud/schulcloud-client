@@ -40,6 +40,10 @@ module.exports = (req, res, next) => {
         icon: 'table',
         link: '/calendar/'
     }, {
+        name: 'Aufgaben',
+        icon: 'tasks',
+        link: '/homework/'
+    }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
         link: '/files/',
