@@ -196,7 +196,7 @@ router.all('/', function (req, res, next) {
 			}
 			
             assignment.availableDateReached = availableDate.getTime() > Date.now();
-			    
+
 			assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
