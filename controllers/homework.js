@@ -184,13 +184,22 @@ router.all('/', function (req, res, next) {
         assignments = assignments.filter(function(n){ return n != undefined; });
 		
 		// Hausaufgaben nach Abgabedatum sortieren
-		assignments.sort(function sortFunction(a, b) {
+		assignments.sort(sortbyDueDate);
+		
+		function sortbyavailableDate(a, b) {
+			c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
+			d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
+			console.log(c,d,(c===d)?0:((c<d)?-1:1));
+			if (c === d) {return 0;}
+			else {return (c < d) ? -1 : 1;}
+		}
+		function sortbyDueDate(a, b) {
 			c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
 			d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
 			console.log(c,d,(c===d)?0:((c<d)?-1:1));
 			if (c === d) {return 0;}
 			else {return (c < d) ? -1 : 1;}
-		});
+		}
 		
         const coursesPromise = getSelectOptions(req, 'courses', {$or:[
             {userIds: res.locals.currentUser._id},
