@@ -182,6 +182,16 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
         assignments = assignments.filter(function(n){ return n != undefined; });
+		
+		// Hausaufgaben nach Abgabedatum sortieren
+		assignments.sort(function sortFunction(a, b) {
+			c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
+			d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
+			console.log(c,d,(c===d)?0:((c<d)?-1:1));
+			if (c === d) {return 0;}
+			else {return (c < d) ? -1 : 1;}
+		});
+		
         const coursesPromise = getSelectOptions(req, 'courses', {$or:[
             {userIds: res.locals.currentUser._id},
             {teacherIds: res.locals.currentUser._id}
