@@ -160,15 +160,18 @@ router.all('/', function (req, res, next) {
 			assignment.publicSubmissions = assignment.publicSubmissions; 
 
 			function formattimepart(s){
-				s = (s<0)?(24+s):s;
+				return (s<10)?"0"+s:s;
 				return (s<10)?"0"+s:s;
 			}
-			var availableDate = new Date(assignment.availableDate.slice(0,16));
-			var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
+			
+			var availableDateRaw = new Date(assignment.availableDate);
+			var availableDate 	 = new Date(availableDateRaw.getTime() + (availableDateRaw.getTimezoneOffset()*60000));
+			var availableDateF = formattimepart(availableDate.getDate())+"."+formattimepart(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
 			var availableTimeF = formattimepart(availableDate.getHours())+":"+formattimepart(availableDate.getMinutes());
 
-			var dueDate = new Date(assignment.dueDate.slice(0,16));
-			var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+			var dueDateRaw 	= new Date(assignment.dueDate);
+			var dueDate 	= new Date(dueDateRaw.getTime() + (dueDateRaw.getTimezoneOffset()*60000));
+			var dueDateF = formattimepart(dueDate.getDate())+"."+formattimepart(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
 			var dueTimeF = formattimepart(dueDate.getHours())+":"+formattimepart(dueDate.getMinutes());
 			
 			var now = new Date();
@@ -176,16 +179,18 @@ router.all('/', function (req, res, next) {
 			var remainingDays 	= Math.floor  (	remaining / (1000*60*60*24)) ;
 			var remainingHours 	= Math.floor ((	remaining % (1000*60*60*24)) / (1000*60*60)) ;
 			var remainingMinutes= Math.floor(((	remaining % (1000*60*60*24)) % (1000*60*60)) / (1000*60));
-			console.log(remainingDays,remainingHours,remainingMinutes);
 			if(remainingDays > 5)		{ var dueString = (dueDateF+" ("+dueTimeF+")") }
 			else if(remainingDays >= 1)	{ var dueString = "noch "+remainingDays		+((remainingDays==1)?" Tag":" Tage") }
 			else if(remainingHours >= 1){ var dueString = "noch "+remainingHours	+((remainingHours==1)?" Stunde":" Stunden") }
 			else						{ var dueString = "noch "+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten") }
 			
-			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?
-				dueString:
-				(availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
-
+			if(assignment.teacherId != res.locals.currentUser._id){
+				assignment.dueString = dueString;
+			}else{
+				assignment.fromdate = availableDateF+" ("+availableTimeF+")";
+				assignment.todate = dueDateF+" ("+dueTimeF+")";
+			}
+			
             assignment.availableDateReached = availableDate.getTime() > Date.now();
             const submissionPromise = getSelectOptions(req, 'submissions', {
                 homeworkId: assignment._id,
@@ -196,6 +201,7 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
         assignments = assignments.filter(function(n){ return n != undefined; });
+		
         const coursesPromise = getSelectOptions(req, 'courses', {$or:[
             {userIds: res.locals.currentUser._id},
             {teacherIds: res.locals.currentUser._id}
@@ -241,8 +247,23 @@ router.get('/:assignmentId', function (req, res, next) {
 			}else{
 				assignment.color = "#1DE9B6";
 			}
-            var dueDate = new Date(assignment.dueDate);
-            assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+  
+			function formattimepart(s){
+				return (s<10)?"0"+s:s;
+				return (s<10)?"0"+s:s;
+			}
+			
+			var availableDateRaw = new Date(assignment.availableDate);
+			var availableDate 	 = new Date(availableDateRaw.getTime() + (availableDateRaw.getTimezoneOffset()*60000));
+			assignment.availableDateF = formattimepart(availableDate.getDate())+"."+formattimepart(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
+			assignment.availableTimeF = formattimepart(availableDate.getHours())+":"+formattimepart(availableDate.getMinutes());
+
+			var dueDateRaw 	= new Date(assignment.dueDate);
+			var dueDate 	= new Date(dueDateRaw.getTime() + (dueDateRaw.getTimezoneOffset()*60000));
+			assignment.dueDateF = formattimepart(dueDate.getDate())+"."+formattimepart(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+			assignment.dueTimeF = formattimepart(dueDate.getHours())+":"+formattimepart(dueDate.getMinutes());
+			
+			
 			//23:59 am Tag der Abgabe
 			//if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
 			if (new Date(assignment.dueDate).getTime() < Date.now()){

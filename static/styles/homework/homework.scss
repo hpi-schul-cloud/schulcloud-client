@@ -114,12 +114,12 @@
 					overflow: hidden;
 				}
 			}
-			.due{
+			.dates{
 				float:right;
 				padding:10px 0 0;
 				color:grey;
 				font-weight:bold;
-				/* &:before{content: "Bis zum: ";} */
+				text-align: right;
 			}
 			.state{
 				margin-left: .25rem;

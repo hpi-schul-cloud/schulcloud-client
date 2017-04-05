@@ -47,7 +47,10 @@
     {{#content "page"}}
 
         <section class="section-homework">
-            <div class="due">{{dueDateF}}</div>
+            <div class="dates">
+				{{availableDateF}} ({{availableTimeF}})<br/>
+				bis: {{dueDateF}} ({{dueTimeF}})
+			</div>
 			<div class="tab-view">
 				<nav class="tab-links">
 					<a id="extended-tab-link" class="tab-link active" href="#activetabid=extended">Details</a>
