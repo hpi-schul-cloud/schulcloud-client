@@ -198,12 +198,13 @@ router.all('/', function (req, res, next) {
                         assignment.gradedstatscolor = (submissioncount>(submissions.length*0.7))?"":"red";
                         if(submissioncount>0){
                             var ratingsum = 0;
+                            var submissiongrades;
                             if(assignment.courseId.gradeSystem){
-                                var submissiongrades = submissions.map(function(sub){
+                                submissiongrades = submissions.map(function(sub){
                                     return 6 - Math.ceil(sub.grade / 3);
                                 });
                             }else{
-                                var submissiongrades = submissions.map(function(sub){
+                                submissiongrades = submissions.map(function(sub){
                                     return sub.grade;
                                 });
                             }
@@ -214,7 +215,6 @@ router.all('/', function (req, res, next) {
                 }else{
                     //student
                     var submission = submissions.filter(function(n){ return n.studentId._id == res.locals.currentUser._id; })[0];
-                    console.log(submission != null);
                     if(submission != null){
                         assignment.dueColor = "submitted";
                     }
@@ -287,12 +287,13 @@ router.get('/:assignmentId', function (req, res, next) {
             
             if(submissions.length>0){
                 var ratingsum = 0;
+                var submissiongrades;
                 if(assignment.courseId.gradeSystem){
-                    var submissiongrades = submissions.map(function(sub){
+                    submissiongrades = submissions.map(function(sub){
                         return 6 - Math.ceil(sub.grade / 3);
                     });
                 }else{
-                    var submissiongrades = submissions.map(function(sub){
+                    submissiongrades = submissions.map(function(sub){
                         return sub.grade;
                     });
                 }
