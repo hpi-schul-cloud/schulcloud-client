@@ -161,7 +161,6 @@ router.all('/', function (req, res, next) {
 
 			function formattimepart(s){
 				return (s<10)?"0"+s:s;
-				return (s<10)?"0"+s:s;
 			}
 			
 			var availableDateRaw = new Date(assignment.availableDate);
@@ -179,12 +178,13 @@ router.all('/', function (req, res, next) {
 			var remainingDays 	= Math.floor  (	remaining / (1000*60*60*24)) ;
 			var remainingHours 	= Math.floor ((	remaining % (1000*60*60*24)) / (1000*60*60)) ;
 			var remainingMinutes= Math.floor(((	remaining % (1000*60*60*24)) % (1000*60*60)) / (1000*60));
-			if(remainingDays > 5||remaining<0){ dueColor = ""; 		var dueString = (dueDateF+" ("+dueTimeF+")") }
-			else if(remainingDays > 1)	{ dueColor = "days"; 	var dueString = "noch "+remainingDays	+" Tage" }
-			else if(remainingDays == 1)	{ dueColor = "hours"; 	var dueString = "noch "+remainingDays	+" Tag "	+remainingHours+ ((remainingHours==1)?" Stunde":" Stunden") }
-			else if(remainingHours > 2) { dueColor = "hours"; 	var dueString = "noch "								+remainingHours+" Stunden" }
-			else if(remainingHours >= 1){ dueColor = "minutes"; var dueString = "noch "								+remainingHours+((remainingHours==1)?" Stunde ":" Stunden ")	+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten")}
-			else						{ dueColor = "minutes";	var dueString = "noch "																								+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten") }
+            var dueColor; var dueString;
+			if(remainingDays > 5||remaining<0){ dueColor = ""; 	dueString = (dueDateF+" ("+dueTimeF+")") }
+			else if(remainingDays > 1)	{ dueColor = "days"; 	dueString = "noch "+remainingDays	+" Tage" }
+			else if(remainingDays == 1)	{ dueColor = "hours"; 	dueString = "noch "+remainingDays	+" Tag "    +remainingHours+ ((remainingHours==1)?" Stunde":" Stunden") }
+			else if(remainingHours > 2) { dueColor = "hours"; 	dueString = "noch "								+remainingHours+" Stunden" }
+			else if(remainingHours >= 1){ dueColor = "minutes"; dueString = "noch "								+remainingHours+((remainingHours==1)?" Stunde ":" Stunden ")	+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten")}
+			else						{ dueColor = "minutes";	dueString = "noch "																								+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten") }
 			
 			
 			assignment.dueColor = dueColor;
@@ -250,7 +250,6 @@ router.get('/:assignmentId', function (req, res, next) {
 			}
   
 			function formattimepart(s){
-				return (s<10)?"0"+s:s;
 				return (s<10)?"0"+s:s;
 			}
 			
