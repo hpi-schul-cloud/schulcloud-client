@@ -22,8 +22,6 @@
 												 {{this.fromdate}}<br/>
 											bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
 										{{/if}}
-									{{this.showdate}}
-									
 									</div>									
                                     <h5 class="title">
 										{{#if this.courseId}}
@@ -31,8 +29,7 @@
 										{{/if}}
                                         {{this.name}}
                                     </h5>
-                                    <!-- graded, turned in etc. -->
-                                    {{this.status}}
+
                                     <div class="description">
 										<pre>{{truncate this.description}}</pre>
                                     </div>
