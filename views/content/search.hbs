@@ -76,7 +76,7 @@
                 <h5>Suchergebnisse für "{{ query }}" <span class="search-results-count">{{ total }} Ergebnisse</span></h5>
             {{else}}
                 {{#if results}}
-                    <h5>Suchergebnisse</h5>
+                    <h5>Suchergebnisse <span class="search-results-count">{{ total }} Ergebnisse</span></h5>
                 {{/if}}
             {{/if}}
             {{#unless results}}
