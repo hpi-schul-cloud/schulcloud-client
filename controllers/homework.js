@@ -45,22 +45,22 @@ const getActions = (item, path) => {
 
 const getCreateHandler = (service) => {
     return function (req, res, next) {
-		if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
-		
-		if(!req.body.availableDate || !req.body.dueDate){
-			var now = new Date;
-			var dd = (now.getDate()<10)?"0"+now.getDate():now.getDate();
-			var mm = (now.getMonth()<10)?"0"+now.getMonth():now.getMonth();
-		}
-		if(!req.body.availableDate){
-			var availableDate = now.getFullYear()+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes()+":00.000Z";
-			req.body.availableDate = availableDate;
-		}
-		if(!req.body.dueDate){
-			var dueDate = (now.getFullYear()+9)+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes()+":00.000Z"; //default dueDate: now + 9 years
-			req.body.dueDate = dueDate;
-		}
-		
+        if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
+        
+        if(!req.body.availableDate || !req.body.dueDate){
+            var now = new Date;
+            var dd = (now.getDate()<10)?"0"+now.getDate():now.getDate();
+            var mm = (now.getMonth()<10)?"0"+now.getMonth():now.getMonth();
+        }
+        if(!req.body.availableDate){
+            var availableDate = now.getFullYear()+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes()+":00.000Z";
+            req.body.availableDate = availableDate;
+        }
+        if(!req.body.dueDate){
+            var dueDate = (now.getFullYear()+9)+"-"+mm+"-"+dd+"T"+now.getHours()+":"+now.getMinutes()+":00.000Z"; //default dueDate: now + 9 years
+            req.body.dueDate = dueDate;
+        }
+        
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -75,12 +75,12 @@ const getCreateHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-		if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
-		if(!req.body.private){req.body.private = false;}
-		if(!req.body.publicSubmissions){req.body.publicSubmissions = false;}
+        if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
+        if(!req.body.private){req.body.private = false;}
+        if(!req.body.publicSubmissions){req.body.publicSubmissions = false;}
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
-			json: req.body
+            json: req.body
         }).then(data => {
             res.redirect(req.header('Referer'));
     }).catch(err => {
@@ -93,10 +93,10 @@ const getUpdateHandler = (service) => {
 const getDetailHandler = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
-			data => {res.json(data);
-		}).catch(err => {
-			next(err);
-		});
+            data => {res.json(data);
+        }).catch(err => {
+            next(err);
+        });
     };
 };
 
@@ -140,74 +140,74 @@ router.all('/', function (req, res, next) {
         }
     }).then(assignments => {
         assignments = assignments.data.map(assignment => {
-			if(new Date(assignment.availableDate).getTime() > Date.now()
-					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-			if(assignment.private
-				&& assignment.teacherId != res.locals.currentUser._id){ return; }
-			if(assignment.courseId!=null){
-				if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-				if(!assignment.private){
-					assignment.userIds = assignment.courseId.userIds;
-				}
-				assignment.color = (assignment.courseId.color.length!=7)?"#1DE9B6":assignment.courseId.color;
-			}else{
-				assignment.color = "#1DE9B6";
-				assignment.private = true;
-			}
-			assignment.url = '/homework/' + assignment._id;
-			assignment.privateclass = assignment.private?"private":"";
-			assignment.publicSubmissions = assignment.publicSubmissions; 
+            if(new Date(assignment.availableDate).getTime() > Date.now()
+                    && assignment.teacherId != res.locals.currentUser._id){ return; }
+            if(assignment.private
+                && assignment.teacherId != res.locals.currentUser._id){ return; }
+            if(assignment.courseId!=null){
+                if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+                    && assignment.teacherId != res.locals.currentUser._id){ return; }
+                if(!assignment.private){
+                    assignment.userIds = assignment.courseId.userIds;
+                }
+                assignment.color = (assignment.courseId.color.length!=7)?"#1DE9B6":assignment.courseId.color;
+            }else{
+                assignment.color = "#1DE9B6";
+                assignment.private = true;
+            }
+            assignment.url = '/homework/' + assignment._id;
+            assignment.privateclass = assignment.private?"private":"";
+            assignment.publicSubmissions = assignment.publicSubmissions; 
 
 
-			var availableDate = new Date(assignment.availableDate.slice(0,16));
-			var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
-			var availableTimeF = availableDate.getHours()-2+":"+availableDate.getMinutes();
+            var availableDate = new Date(assignment.availableDate.slice(0,16));
+            var availableDateF = availableDate.getDate()+"."+(availableDate.getMonth()+1)+"."+availableDate.getFullYear();
+            var availableTimeF = availableDate.getHours()-2+":"+availableDate.getMinutes();
 
-			var dueDate = new Date(assignment.dueDate.slice(0,16));
-			var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
-			var dueTimeF = dueDate.getHours()-2+":"+dueDate.getMinutes();
+            var dueDate = new Date(assignment.dueDate.slice(0,16));
+            var dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
+            var dueTimeF = dueDate.getHours()-2+":"+dueDate.getMinutes();
 
-			assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?
-				(dueDateF+" ("+dueTimeF+")"):
-				(availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
+            assignment.showdate = (assignment.teacherId != res.locals.currentUser._id)?
+                (dueDateF+" ("+dueTimeF+")"):
+                (availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
             
-			
-			const submissionPromise = getSelectOptions(req, 'submissions', {
+            
+            const submissionPromise = getSelectOptions(req, 'submissions', {
                 homeworkId: assignment._id,
                 $populate: ['studentId']
             });
-			Promise.resolve(submissionPromise).then(submissions => {
-				if(assignment.private
-					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-				if(new Date(assignment.availableDate).getTime() > Date.now()
-					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-				if(assignment.courseId!=null && assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-					
-				if(assignment.teacherId === res.locals.currentUser._id){
-					//teacher
-					assignment.submissionstats = submissions.length+"/"+assignment.userIds.length;
-					assignment.submissionstatscolor = (submissions.length>(assignment.userIds.length*0.8))?"green":"";
-					var submissioncount = (submissions.filter(function(a){return (a.gradeComment==''&&a.grade==null)?0:1})).length
-					if(submissions.length>0){
-						assignment.gradedstats = submissioncount+"/"+submissions.length;
-						assignment.gradedstatscolor = (submissioncount>(submissions.length*0.7))?"":"red";
-					}
-				}else{
-					//student
-					var submission = submissions.filter(function(n){ return n.studentId._id == res.locals.currentUser._id; })[0];
-					console.log(submission != null);
-					if(submission != null){
-						assignment.dueColor = "submitted";
-					}
-				}
-			});
-			
-			
-			assignment.currentUser = res.locals.currentUser;
+            Promise.resolve(submissionPromise).then(submissions => {
+                if(assignment.private
+                    && assignment.teacherId != res.locals.currentUser._id){ return; }
+                if(new Date(assignment.availableDate).getTime() > Date.now()
+                    && assignment.teacherId != res.locals.currentUser._id){ return; }
+                if(assignment.courseId!=null && assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+                    && assignment.teacherId != res.locals.currentUser._id){ return; }
+                    
+                if(assignment.teacherId === res.locals.currentUser._id){
+                    //teacher
+                    assignment.submissionstats = submissions.length+"/"+assignment.userIds.length;
+                    assignment.submissionstatscolor = (submissions.length>(assignment.userIds.length*0.8))?"green":"";
+                    var submissioncount = (submissions.filter(function(a){return (a.gradeComment==''&&a.grade==null)?0:1})).length
+                    if(submissions.length>0){
+                        assignment.gradedstats = submissioncount+"/"+submissions.length;
+                        assignment.gradedstatscolor = (submissioncount>(submissions.length*0.7))?"":"red";
+                    }
+                }else{
+                    //student
+                    var submission = submissions.filter(function(n){ return n.studentId._id == res.locals.currentUser._id; })[0];
+                    console.log(submission != null);
+                    if(submission != null){
+                        assignment.dueColor = "submitted";
+                    }
+                }
+            });
+            
+            
+            assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
         });
@@ -250,42 +250,42 @@ router.get('/:assignmentId', function (req, res, next) {
                 && assignment.teacherId != res.locals.currentUser._id){ return; }
             if(new Date(assignment.availableDate).getTime() > Date.now()
                 && assignment.teacherId != res.locals.currentUser._id){ return; }
-			if(assignment.courseId!=null){
-				if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-					&& assignment.teacherId != res.locals.currentUser._id){ return; }
-				assignment.color = (assignment.courseId.color.length!=7)?"#1DE9B6":assignment.courseId.color;
-			}else{
-				assignment.color = "#1DE9B6";
-			}
+            if(assignment.courseId!=null){
+                if(assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+                    && assignment.teacherId != res.locals.currentUser._id){ return; }
+                assignment.color = (assignment.courseId.color.length!=7)?"#1DE9B6":assignment.courseId.color;
+            }else{
+                assignment.color = "#1DE9B6";
+            }
             var dueDate = new Date(assignment.dueDate);
             assignment.dueDateF = dueDate.getDate()+"."+(dueDate.getMonth()+1)+"."+dueDate.getFullYear();
-			//23:59 am Tag der Abgabe
-			//if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
-			if (new Date(assignment.dueDate).getTime() < Date.now()){
+            //23:59 am Tag der Abgabe
+            //if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
+            if (new Date(assignment.dueDate).getTime() < Date.now()){
                 assignment.submittable = false;
             }else{
                 assignment.submittable = true;
             }
             assignment.submission = submissions.filter(function(n){ return n.studentId == res.locals.currentUser._id; })[0];
-			
-			assignment.submissionscount = submissions.length;
-			
-			if(submissions.length>0){
-				var ratingsum = 0
-				if(assignment.courseId.gradeSystem){
-					var submissiongrades = submissions.map(function(sub){
-						return 6 - Math.ceil(sub.grade / 3);
-					});
-				}else{
-					var submissiongrades = submissions.map(function(sub){
-						return sub.grade;
-					});
-				}
-				submissiongrades.forEach(function(e){ratingsum+=e});
-				assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
-			}
-			
-			
+            
+            assignment.submissionscount = submissions.length;
+            
+            if(submissions.length>0){
+                var ratingsum = 0
+                if(assignment.courseId.gradeSystem){
+                    var submissiongrades = submissions.map(function(sub){
+                        return 6 - Math.ceil(sub.grade / 3);
+                    });
+                }else{
+                    var submissiongrades = submissions.map(function(sub){
+                        return sub.grade;
+                    });
+                }
+                submissiongrades.forEach(function(e){ratingsum+=e});
+                assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
+            }
+            
+            
             if(assignment.teacherId == res.locals.currentUser._id && assignment.courseId!=null || assignment.publicSubmissions) {
                 assignment.submissions = submissions;
                 const coursePromise = getSelectOptions(req, 'courses', {
@@ -294,7 +294,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
                 Promise.resolve(coursePromise).then(courses => {
                     var students = courses[0].userIds;
-					assignment.usercount = students.length;
+                    assignment.usercount = students.length;
                     students = students.map(student => {
                         return {student: student,
                             submission: assignment.submissions.filter(function(n){
@@ -335,7 +335,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 }));
             }
         });
-	});
+    });
 });
 
 module.exports = router;
