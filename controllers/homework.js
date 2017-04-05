@@ -173,10 +173,40 @@ router.all('/', function (req, res, next) {
 				(availableDateF+" ("+availableTimeF+") - "+dueDateF+" ("+dueTimeF+")");
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
-            const submissionPromise = getSelectOptions(req, 'submissions', {
+            
+			
+			const submissionPromise = getSelectOptions(req, 'submissions', {
                 homeworkId: assignment._id,
                 $populate: ['studentId']
             });
+			Promise.resolve(submissionPromise).then(submissions => {
+				if(assignment.private
+					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+				if(new Date(assignment.availableDate).getTime() > Date.now()
+					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+				if(assignment.courseId!=null && assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+					&& assignment.teacherId != res.locals.currentUser._id){ return; }
+					
+				if(assignment.teacherId === res.locals.currentUser._id){
+					//teacher
+					assignment.submissionstats = submissions.length+"/"+assignment.userIds.length;
+					assignment.submissionstatscolor = (submissions.length>(assignment.userIds.length*0.8))?"green":"";
+					var submissioncount = (submissions.filter(function(a){return (a.gradeComment==''&&a.grade==null)?0:1})).length
+					if(submissions.length>0){
+						assignment.gradedstats = submissioncount+"/"+submissions.length;
+						assignment.gradedstatscolor = (submissioncount>(submissions.length*0.7))?"":"red";
+					}
+				}else{
+					//student
+					var submission = submissions.filter(function(n){ return n.studentId._id == res.locals.currentUser._id; })[0];
+					console.log(submission != null);
+					if(submission != null){
+						assignment.dueColor = "submitted";
+					}
+				}
+			});
+			
+			
 			assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;

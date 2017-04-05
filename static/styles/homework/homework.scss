@@ -114,30 +114,28 @@
 					overflow: hidden;
 				}
 			}
-			.due{
+			.dates{
 				float:right;
 				padding:10px 0 0;
 				color:grey;
-				font-weight:bold;
-				/* &:before{content: "Bis zum: ";} */
+				text-align: right;
+				.days{		color:$colorHPIYellow;	}
+				.hours{		color:$colorHPIOrange;	font-weight:bold;	}
+				.minutes{	color:$colorHPIRed; 	font-weight:bold;	text-decoration: underline;}
+				.submitted{	color:green; 			font-weight:normal;	text-decoration: none;
+					&::after{
+						content: " ✔";
+					}
+				}
 			}
 			.state{
+				float:right;
+				clear: both;
+				color:grey;
+				text-align:right;
 				margin-left: .25rem;
-				&.symbol{
-					font-size: 1.75em;
-					vertical-align:middle;
-					.fa-check-circle-o{color: green;}
-					.fa-times-circle-o{color:red;}
-				}
-				&.turnedin{
-					float:right;
-					color: grey;
-				}
-				&.graded{
-					float:right;
-					font-size: 1.2em;
-					font-weight:bolder;
-				}
+				.green{	color:green;}
+				.red{	color:red;}
 			}
 			.more{
 				/* display:block;
