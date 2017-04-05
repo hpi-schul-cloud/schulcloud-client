@@ -86,57 +86,59 @@
 		.assignment {
 			width: 100%;
 			position:relative;
+            
 			/* max-width: 700px;
 			margin: 5px; */
 			padding: 10px;
-			h5 {
-				padding:10px 0 0;
-				margin:0;
-				color: $colorHPIRed;
-				span:before{content:"[";}
-				span:after{content:"] - ";}
-			}
-			.description{
-				margin-top: 10px;
-				margin-right: 75px;
-				margin: 10px 75px 10px 0;
-				color: grey;
-				@include media-breakpoint-down(xs) {
-					margin-right: 25px;
-				}
-				pre{
-					font:inherit;
-					display:block;
-					width:100%;
-					outline:none;
-					border:none;
-					background:transparent;
-					overflow: hidden;
-				}
-			}
-			.dates{
-				float:right;
-				padding:10px 0 0;
-				color:grey;
-				text-align: right;
-				.days{		color:$colorHPIYellow;	}
-				.hours{		color:$colorHPIOrange;	font-weight:bold;	}
-				.minutes{	color:$colorHPIRed; 	font-weight:bold;	text-decoration: underline;}
-				.submitted{	color:green; 			font-weight:normal;	text-decoration: none;
-					&::after{
-						content: " ✔";
-					}
-				}
-			}
-			.state{
-				float:right;
-				clear: both;
-				color:grey;
-				text-align:right;
-				margin-left: .25rem;
-				.green{	color:green;}
-				.red{	color:red;}
-			}
+            
+            .content{
+                display:block;
+            }
+            h5 {
+                margin:0;
+                color: $colorHPIRed;
+                span:before{content:"[";}
+                span:after{content:"] - ";}
+            }
+            .description{
+                /* margin: 10px 75px 10px 0; */
+                margin: 10px 0;
+                color: grey;
+                @include media-breakpoint-down(xs) {
+                    margin-right: 25px;
+                }
+                pre{
+                    font:inherit;
+                    display:inline;
+                    width:100%;
+                    outline:none;
+                    border:none;
+                    background:transparent;
+                    overflow: hidden;
+                }
+            }
+            
+            .dates{
+                float:right;
+                text-align:right;
+                color:grey;
+                .days{		color:$colorHPIYellow;	}
+                .hours{		color:$colorHPIOrange;	font-weight:bold;	}
+                .minutes{	color:$colorHPIRed; 	font-weight:bold;	text-decoration: underline;}
+                .submitted{	color:green; 			font-weight:normal;	text-decoration: none;
+                    &::after{
+                        content: " ✔";
+                    }
+                }
+            }
+            .state{
+                float:right;
+                text-align:right;
+                clear:right;
+                color:grey;
+                .green{	color:green;}
+                .red{	color:red;}
+            }
 			.more{
 				/* display:block;
 				float:right;*/

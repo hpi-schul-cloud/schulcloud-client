@@ -195,6 +195,20 @@ router.all('/', function (req, res, next) {
                     if(submissions.length>0){
                         assignment.gradedstats = submissioncount+"/"+submissions.length;
                         assignment.gradedstatscolor = (submissioncount>(submissions.length*0.7))?"":"red";
+                        if(submissioncount>0){
+                            var ratingsum = 0;
+                            if(assignment.courseId.gradeSystem){
+                                var submissiongrades = submissions.map(function(sub){
+                                    return 6 - Math.ceil(sub.grade / 3);
+                                });
+                            }else{
+                                var submissiongrades = submissions.map(function(sub){
+                                    return sub.grade;
+                                });
+                            }
+                            submissiongrades.forEach(function(e){ratingsum+=e});
+                            assignment.averagerating = (ratingsum / submissioncount).toFixed(1);
+                        }
                     }
                 }else{
                     //student
@@ -271,7 +285,7 @@ router.get('/:assignmentId', function (req, res, next) {
             assignment.submissionscount = submissions.length;
             
             if(submissions.length>0){
-                var ratingsum = 0
+                var ratingsum = 0;
                 if(assignment.courseId.gradeSystem){
                     var submissiongrades = submissions.map(function(sub){
                         return 6 - Math.ceil(sub.grade / 3);
