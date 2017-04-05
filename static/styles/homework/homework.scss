@@ -118,8 +118,10 @@
 				float:right;
 				padding:10px 0 0;
 				color:grey;
-				font-weight:bold;
 				text-align: right;
+				.days{		color:$colorHPIYellow;	}
+				.hours{		color:$colorHPIOrange;	font-weight:bold;	}
+				.minutes{	color:$colorHPIRed; 	font-weight:bold;	text-decoration: underline;}
 			}
 			.state{
 				margin-left: .25rem;

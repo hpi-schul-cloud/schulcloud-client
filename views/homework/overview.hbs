@@ -17,10 +17,10 @@
                                 <a href="{{this.url}}">	
 									<div class="dates">
 										{{#if this.dueString}}
-											{{this.dueString}}
+											<span class="{{this.dueColor}}">{{this.dueString}}</span>
 										{{else}}
 												 {{this.fromdate}}<br/>
-											bis: {{this.todate}}
+											bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
 										{{/if}}
 									{{this.showdate}}
 									
