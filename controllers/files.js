@@ -233,7 +233,7 @@ router.get('/courses/', function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req);
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Fächern und Kursen',
             url: '/files/courses/'
         });
 
@@ -254,7 +254,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Fächern und Kursen',
             url: basePath
         }, {
             label: record.name,
@@ -297,7 +297,7 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Klassen',
             url: basePath
         }, {
             label: record.name,
