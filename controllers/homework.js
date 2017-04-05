@@ -183,7 +183,7 @@ router.all('/', function (req, res, next) {
 			else if(remainingDays > 1)	{ dueColor = "days"; 	var dueString = "noch "+remainingDays	+" Tage" }
 			else if(remainingDays == 1)	{ dueColor = "hours"; 	var dueString = "noch "+remainingDays	+" Tag "	+remainingHours+ ((remainingHours==1)?" Stunde":" Stunden") }
 			else if(remainingHours > 2) { dueColor = "hours"; 	var dueString = "noch "								+remainingHours+" Stunden" }
-			else if(remainingHours <=2)	{ dueColor = "minutes"; var dueString = "noch "								+remainingHours+((remainingHours==1)?" Stunde ":" Stunden ")	+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten")}
+			else if(remainingHours >= 1){ dueColor = "minutes"; var dueString = "noch "								+remainingHours+((remainingHours==1)?" Stunde ":" Stunden ")	+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten")}
 			else						{ dueColor = "minutes";	var dueString = "noch "																								+remainingMinutes	+((remainingMinutes==1)?" Minute":" Minuten") }
 			
 			
