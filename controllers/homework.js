@@ -190,7 +190,8 @@ router.all('/', function (req, res, next) {
                 if(assignment.teacherId === res.locals.currentUser._id){
                     //teacher
                     assignment.submissionstats = submissions.length+"/"+assignment.userIds.length;
-                    assignment.submissionstatscolor = (submissions.length>(assignment.userIds.length*0.8))?"green":"";
+                    assignment.submissionstatscolor = (submissions.length>=(assignment.userIds.length*0.8))?"orange":"";
+                    assignment.submissionstatscolor = (submissions.length>=(assignment.userIds.length))?"green":"";
                     var submissioncount = (submissions.filter(function(a){return (a.gradeComment==''&&a.grade==null)?0:1})).length
                     if(submissions.length>0){
                         assignment.gradedstats = submissioncount+"/"+submissions.length;
