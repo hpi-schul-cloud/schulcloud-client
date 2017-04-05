@@ -174,7 +174,7 @@ router.all('/', function (req, res, next) {
             var dueTimeF = formattimepart(dueDate.getHours())+":"+formattimepart(dueDate.getMinutes());
             
             var now = new Date();
-            var remaining = (dueDate - now)
+            var remaining = (dueDate - now);
             var remainingDays     = Math.floor  (    remaining / (1000*60*60*24)) ;
             var remainingHours     = Math.floor ((    remaining % (1000*60*60*24)) / (1000*60*60)) ;
             var remainingMinutes= Math.floor(((    remaining % (1000*60*60*24)) % (1000*60*60)) / (1000*60));
@@ -184,7 +184,6 @@ router.all('/', function (req, res, next) {
             else if(remainingDays == 1) { dueColor = "hours";   dueString = "noch "+remainingDays    +" Tag "   +remainingHours+ ((remainingHours==1)?" Stunde":" Stunden") }
             else if(remainingHours > 2) { dueColor = "hours";   dueString = "noch "                             +remainingHours+" Stunden" }
             else if(remainingHours >= 1){ dueColor = "minutes"; dueString = "noch "                             +remainingHours+((remainingHours==1)?" Stunde ":" Stunden ")    +remainingMinutes    +((remainingMinutes==1)?" Minute":" Minuten")}
-            else                        { dueColor = "minutes"; dueString = "noch "                                                                                             +remainingMinutes    +((remainingMinutes==1)?" Minute":" Minuten")}
             else                        { dueColor = "minutes"; dueString = "noch "                                                                                             +remainingMinutes    +((remainingMinutes==1)?" Minute":" Minuten")}
             
             
