@@ -43,6 +43,19 @@ const getActions = (item, path) => {
     ];
 };
 
+const getSortmethods = () => {
+    return [
+        {
+            functionname: 'sortbyavailableDate',
+            title: 'Verfügbarkeitsdatum'
+        },
+        {
+            functionname: 'sortbydueDate',
+            title: 'Abgabedatum'
+        }
+    ];
+};
+
 const getCreateHandler = (service) => {
     return function (req, res, next) {
 		if((!req.body.courseId)||(req.body.courseId && req.body.courseId.length<=2)){req.body.courseId = null;}
@@ -182,8 +195,9 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
         assignments = assignments.filter(function(n){ return n != undefined; });
-		
+        
 		// Hausaufgaben nach Abgabedatum sortieren
+		var sortmethods = getSortmethods();
 		assignments.sort(sortbyDueDate);
 		
 		function sortbyavailableDate(a, b) {
@@ -218,7 +232,7 @@ router.all('/', function (req, res, next) {
                 if(roles.indexOf('student') == -1){
                     isStudent = false;
                 }
-                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent});
+                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
             });
         });
 

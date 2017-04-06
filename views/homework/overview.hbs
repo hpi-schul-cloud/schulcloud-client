@@ -10,6 +10,16 @@
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     <p>Aufgabe hinzufügen</p>
                 </button>
+                
+                <div class="form-group">
+                    <select name="sort" data-placeholder="Sortieren">
+                        {{#each sortmethods}}
+                            <option value="{{this.functionname}}">{{this.title}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+
                 <ol class="homework">
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
