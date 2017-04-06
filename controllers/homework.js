@@ -334,23 +334,22 @@ router.all('/', function (req, res, next) {
                 assignments.sort(sortbyavailableDate);
             }else if(sorting.fn == "dueDate"){
                 assignments.sort(sortbyDueDate);
-            }
-            function sortbyavailableDate(a, b) {
-                var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
-                var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
-                if (c === d) {return 0;}
-                else {return (c < d) ? -1 : 1;}
-            }
-            function sortbyDueDate(a, b) {
-                var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
-                var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
-                if (c === d) {return 0;}
-                else {return (c < d) ? -1 : 1;}
-            }
-            
+            }            
             if(sorting.desc){
                 assignments.reverse();
             }
+        }
+        function sortbyavailableDate(a, b) {
+            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
+            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
+            if (c === d) {return 0;}
+            else {return (c < d) ? -1 : 1;}
+        }
+        function sortbyDueDate(a, b) {
+            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
+            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
+            if (c === d) {return 0;}
+            else {return (c < d) ? -1 : 1;}
         }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
