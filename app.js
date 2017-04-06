@@ -74,6 +74,8 @@ app.use(function (err, req, res, next) {
         res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {status};
 
+    if (res.locals.currentUser)
+        res.locals.loggedin = true;
     // render the error page
     res.status(status);
     res.render('lib/error');
