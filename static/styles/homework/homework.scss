@@ -94,8 +94,11 @@
       /* max-width: 700px;
       margin: 5px; */
       padding: 10px;
+
+      .content {
+        display: block;
+      }
       h5 {
-        padding: 10px 0 0;
         margin: 0;
         color: $colorHPIRed;
         span:before {
@@ -106,16 +109,15 @@
         }
       }
       .description {
-        margin-top: 10px;
-        margin-right: 75px;
-        margin: 10px 75px 10px 0;
+        /* margin: 10px 75px 10px 0; */
+        margin: 10px 0 25px;
         color: grey;
         @include media-breakpoint-down(xs) {
           margin-right: 25px;
         }
         pre {
           font: inherit;
-          display: block;
+          display: inline;
           width: 100%;
           outline: none;
           border: none;
@@ -125,9 +127,8 @@
       }
       .dates {
         float: right;
-        padding: 10px 0 0;
-        color: grey;
         text-align: right;
+        color: grey;
         .days {
           color: $colorHPIYellow;
         }
@@ -140,27 +141,28 @@
           font-weight: bold;
           text-decoration: underline;
         }
+        .submitted {
+          color: green;
+          font-weight: normal;
+          text-decoration: none;
+          &::after {
+            content: " ✔";
+          }
+        }
       }
       .state {
-        margin-left: .25rem;
-        &.symbol {
-          font-size: 1.75em;
-          vertical-align: middle;
-          .fa-check-circle-o {
-            color: green;
-          }
-          .fa-times-circle-o {
-            color: red;
-          }
+        float: right;
+        text-align: right;
+        clear: right;
+        color: grey;
+        .green {
+          color: green;
         }
-        &.turnedin {
-          float: right;
-          color: grey;
+        .orange {
+          color: $colorHPIOrange;
         }
-        &.graded {
-          float: right;
-          font-size: 1.2em;
-          font-weight: bolder;
+        .red {
+          color: red;
         }
       }
       .more {

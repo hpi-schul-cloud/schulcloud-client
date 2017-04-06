@@ -14,7 +14,7 @@
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
                             <li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-                                <a href="{{this.url}}">    
+                                <a class="content" href="{{this.url}}">  
                                     <div class="dates">
                                         {{#if this.dueString}}
                                             <span class="{{this.dueColor}}">{{this.dueString}}</span>
@@ -22,14 +22,30 @@
                                                  {{this.fromdate}}<br/>
                                             bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
                                         {{/if}}
-                                    </div>                                    
+                                    </div>   
+                                    <!-- graded, turned in etc. -->
+                                    {{#if this.submissionstats}}
+                                        <div class="state">
+                                            <span class="{{this.submissionstatscolor}}">Abgegeben: {{this.submissionstats}}</span><br/>
+                                            {{#if this.gradedstats}}
+                                                <span class="{{this.gradedstatscolor}}">Bewertet: {{this.gradedstats}}</span><br/>
+                                            {{/if}}
+                                            {{#if this.averagerating}}
+                                                {{#if this.courseId.gradeSystem}}
+                                                    Ø: {{this.averagerating}} 
+                                                {{else}}
+                                                    Ø: {{this.averagerating}} Punkte
+                                                {{/if}}
+                                            {{/if}}
+                                        </div>
+                                    {{/if}}
+
                                     <h5 class="title">
                                         {{#if this.courseId}}
                                             <span>{{this.courseId.name}}</span>
                                         {{/if}}
                                         {{this.name}}
                                     </h5>
-
                                     <div class="description">
                                         <pre>{{truncate this.description}}</pre>
                                     </div>

@@ -231,6 +231,65 @@ router.all('/', function (req, res, next) {
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
 
+            const submissionPromise = getSelectOptions(req, 'submissions', {
+                homeworkId: assignment._id,
+                $populate: ['studentId']
+            });
+            Promise.resolve(submissionPromise).then(submissions => {
+                if (assignment.private
+                    && assignment.teacherId != res.locals.currentUser._id) {
+                    return;
+                }
+                if (new Date(assignment.availableDate).getTime() > Date.now()
+                    && assignment.teacherId != res.locals.currentUser._id) {
+                    return;
+                }
+                if (assignment.courseId != null && assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+                    && assignment.teacherId != res.locals.currentUser._id) {
+                    return;
+                }
+
+                if (assignment.teacherId === res.locals.currentUser._id) {
+                    //teacher
+                    assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
+                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
+                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
+                    var submissioncount = (submissions.filter(function (a) {
+                        return (a.gradeComment == '' && a.grade == null) ? 0 : 1
+                    })).length
+                    if (submissions.length > 0) {
+                        assignment.gradedstats = submissioncount + "/" + submissions.length;
+                        assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
+                        if (submissioncount > 0) {
+                            var ratingsum = 0;
+                            var submissiongrades;
+                            if (assignment.courseId.gradeSystem) {
+                                submissiongrades = submissions.map(function (sub) {
+                                    return 6 - Math.ceil(sub.grade / 3);
+                                });
+                            } else {
+                                submissiongrades = submissions.map(function (sub) {
+                                    return sub.grade;
+                                });
+                            }
+                            submissiongrades.forEach(function (e) {
+                                ratingsum += e
+                            });
+                            assignment.averagerating = (ratingsum / submissioncount).toFixed(1);
+                        }
+                    }
+                } else {
+                    //student
+                    var submission = submissions.filter(function (n) {
+                        return n.studentId._id == res.locals.currentUser._id;
+                    })[0];
+                    if (submission != null) {
+                        assignment.dueColor = "submitted";
+                    }
+                }
+            });
+
+
             assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
@@ -307,7 +366,6 @@ router.get('/:assignmentId', function (req, res, next) {
             assignment.dueDateF = formattimepart(dueDate.getDate()) + "." + formattimepart(dueDate.getMonth() + 1) + "." + dueDate.getFullYear();
             assignment.dueTimeF = formattimepart(dueDate.getHours()) + ":" + formattimepart(dueDate.getMinutes());
 
-
             //23:59 am Tag der Abgabe
             //if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
             if (new Date(assignment.dueDate).getTime() < Date.now()) {
@@ -318,6 +376,27 @@ router.get('/:assignmentId', function (req, res, next) {
             assignment.submission = submissions.filter(function (n) {
                 return n.studentId == res.locals.currentUser._id;
             })[0];
+
+            assignment.submissionscount = submissions.length;
+
+            if (submissions.length > 0) {
+                var ratingsum = 0;
+                var submissiongrades;
+                if (assignment.courseId.gradeSystem) {
+                    submissiongrades = submissions.map(function (sub) {
+                        return 6 - Math.ceil(sub.grade / 3);
+                    });
+                } else {
+                    submissiongrades = submissions.map(function (sub) {
+                        return sub.grade;
+                    });
+                }
+                submissiongrades.forEach(function (e) {
+                    ratingsum += e
+                });
+                assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
+            }
+
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
                 assignment.submissions = submissions;
                 const coursePromise = getSelectOptions(req, 'courses', {
@@ -326,6 +405,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
                 Promise.resolve(coursePromise).then(courses => {
                     var students = courses[0].userIds;
+                    assignment.usercount = students.length;
                     students = students.map(student => {
                         return {
                             student: student,

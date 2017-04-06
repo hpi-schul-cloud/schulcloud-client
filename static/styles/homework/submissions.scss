@@ -15,6 +15,16 @@
         text-align: right;
       }
     }
+    th span {
+      color: grey;
+      font-weight: lighter;
+      &::before {
+        content: "(";
+      }
+      &::after {
+        content: ")";
+      }
+    }
   }
   .usersubmission {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
