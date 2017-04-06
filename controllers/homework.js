@@ -283,7 +283,7 @@ router.all('/', function (req, res, next) {
                     var submission = submissions.filter(function (n) {
                         return n.studentId._id == res.locals.currentUser._id;
                     })[0];
-                    if (submission != null) {
+                    if (submission != null && submission.comment != ""){
                         assignment.dueColor = "submitted";
                     }
                 }
