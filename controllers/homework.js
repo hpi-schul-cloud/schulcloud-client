@@ -55,7 +55,8 @@ const getSortmethods = () => {
         },
         {
             functionname: '',
-            title: 'Erstelldatum'
+            title: 'Erstelldatum',
+            active: 'selected'
         }
     ];
 };
@@ -320,6 +321,8 @@ router.all('/', function (req, res, next) {
 		var sortmethods = getSortmethods().map(function(e){
             if(e.functionname == req.query.sort){
                 e.active = 'selected';
+            }else if(req.query.sort!=null){
+                delete e['active'];
             }
             return e;
         });
