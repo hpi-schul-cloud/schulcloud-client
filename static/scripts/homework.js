@@ -77,4 +77,14 @@ $(document).ready(function() {
         $modals.modal('hide');
     });
 
+    
+    
+    $('#sortselection').on('change', function(e){
+        console.log($('#sortselection').val());
+        if($('#sortselection').val() != ""){
+            window.location = window.location.pathname + "?sort=" + escape( $('#sortselection').val());
+        }else{
+            window.location = window.location.pathname;
+        }
+    });
 });

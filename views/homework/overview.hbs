@@ -11,10 +11,10 @@
                     <p>Aufgabe hinzufügen</p>
                 </button>
                 
-                <div class="form-group">
-                    <select name="sort" data-placeholder="Sortieren">
+                <div class="form-group sort">
+                    <select name="sort" id="sortselection" data-placeholder="Sortieren">
                         {{#each sortmethods}}
-                            <option value="{{this.functionname}}">{{this.title}}</option>
+                            <option value="{{this.functionname}}" {{#if this.active}}selected="{{this.active}}"{{/if}}>{{this.title}}</option>
                         {{/each}}
                     </select>
                 </div>

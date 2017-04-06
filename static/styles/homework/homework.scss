@@ -3,6 +3,11 @@
 
 .route-homework {
   position: relative;
+  .sort{
+    float: left;
+    margin: 10px 0 0;
+    min-width: 200px;
+  }
   .create {
     float: right;
     margin: 10px 0 0;
