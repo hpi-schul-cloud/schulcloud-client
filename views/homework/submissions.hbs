@@ -6,8 +6,8 @@
             <th/>
             <th>Vorname</th>
             <th>Nachname</th>
-            <th>Abgegeben</th>
-            <th>Bewertung</th>
+            <th>Abgegeben <span>{{submissionscount}}/{{usercount}}</span></th>
+            <th>Bewertung {{#if averagerating}}<span>{{averagerating}}</span>{{/if}}</th>
             <th/>
         </tr>
         </thead>
@@ -46,7 +46,7 @@
 						{{/if}}
 					{{else}}
 						{{#ifvalue submission.grade value=0}}0 Punkte{{/ifvalue}}
-						{{#if submission.grade}}{{submission.grade}} Punkte<{{/if}}
+						{{#if submission.grade}}{{submission.grade}} Punkte{{/if}}
 					{{/if}}
 					</td>
 				<td><i class="fa fa-pencil-square-o" aria-hidden="true"/></td>
