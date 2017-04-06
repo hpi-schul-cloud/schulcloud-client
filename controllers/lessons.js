@@ -70,7 +70,11 @@ router.get('/:lessonId', function (req, res, next) {
 
     Promise.all([
         api(req).get('/courses/' + req.params.courseId),
-        api(req).get('/lessons/' + req.params.lessonId)
+        api(req).get('/lessons/' + req.params.lessonId, {
+            qs: {
+                $populate: ['materialIds']
+            }
+        })
     ]).then(([course, lesson]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
@@ -119,6 +123,20 @@ router.delete('/:lessonId', function (req, res, next) {
         res.redirect('/courses/' + req.params.courseId + '/lessons/');
     }).catch(_ => {
         res.sendStatus(500);
+    });
+});
+
+router.delete('/:lessonId/materials/:materialId', function (req, res, next) {
+    api(req).patch('/lessons/' + req.params.lessonId, {
+        json: {
+            $pull: {
+                materialIds: req.params.materialId
+            }
+        }
+    }).then(_ => {
+        api(req).delete('/materials/' + req.params.materialId).then(_ => {
+            res.sendStatus(200);
+        });
     });
 });
 

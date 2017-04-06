@@ -39,6 +39,7 @@
         </aside>
 
         <section class="content-wrapper">
+			{{> "lib/components/notification"}}
             <nav class="topbar navbar">
 
                 {{#if breadcrumb}}
@@ -52,6 +53,12 @@
                 {{/if}}
 
                 <ul class="nav navbar-nav float-xs-right">
+                    {{#if currentSchoolData}}
+                        <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                        {{#if currentSchoolData.federalState}}
+                            <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                        {{/if}}
+                    {{/if}}
                     <li class="nav-item">
                         <div class="btn-group">
                             <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
@@ -78,6 +85,7 @@
                                 {{subtitle}}
                             </div>
                         </div>
+                        {{#unless hideSearch}}
                         <div class="col-sm-3">
                             <form class="search-wrapper" action="/content/" method="get">
                                 <a class="mobile-search-toggle">
@@ -93,6 +101,7 @@
                                 </div>
                             </form>
                         </div>
+                        {{/unless}}
                     </div>
                 </div>
             </section>

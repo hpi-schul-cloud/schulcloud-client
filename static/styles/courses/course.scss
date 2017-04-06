@@ -14,4 +14,19 @@
     .description {
         margin-bottom: 40px;
     }
+
+    .delete-material {
+        float: right;
+        cursor: pointer;
+    }
+
+    .delete-tool {
+        float: right;
+        cursor: pointer;
+        padding-top: 1.4em;
+    }
+
+    .card-tool {
+        cursor: pointer;
+    }
 }

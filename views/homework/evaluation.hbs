@@ -1,0 +1,132 @@
+<section class="section-evaluation tab-view">
+    <nav class="tab-links">
+		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
+		{{#ifvalue teacherId value=currentUser._id}}
+			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
+		{{/ifvalue}}
+		<a id="student-comment-tab-link" class="tab-link">Kommentare</a>
+	</nav>
+	<div class="tabs">
+		<div id="submission" class="tab-content active">
+			<div class="comment">
+                <pre>{{#if this.submission.comment}}{{this.submission.comment}}{{else}}Keine Abgabe.{{/if}}</pre>
+			</div>
+			<div class="material card">
+				<ul>
+					<li>
+						<img src="http://placehold.it/100x80"/>
+						<p class="title">ExtraLongFilename.html</p>
+						<div class="buttons">
+							<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+						</div>
+						<div class="buttons">
+							<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="comment" class="tab-content">
+            {{#if this.submission}}
+                <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
+                    <input type="hidden" name="_method" data-force-value="true" value="patch" />
+            {{else}}
+                <form class="form" method="post" action="/homework/submit">
+                    <input type="hidden" name="_method" data-force-value="true" value="post" />
+                    <input name="schoolId" type="hidden" data-force-value="true" value="{{this.student.schoolId}}" />
+                    <input name="studentId" type="hidden" data-force-value="true" value="{{this.student._id}}" />
+                    <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
+            {{/if}}
+
+			<div class="comment form-group">
+				<div class="form-group">
+					<label>Note</label>
+					<select name="grade" data-placeholder="Note auswählen">
+							<option value="">Keine Bewertung</option>
+						{{#if @root.courseId.gradeSystem}}
+							<option value="15" {{#ifvalue this.submission.grade value=15}} selected {{/ifvalue}}>1+</option>
+							<option value="14" {{#ifvalue this.submission.grade value=14}} selected {{/ifvalue}}>1</option>
+							<option value="13" {{#ifvalue this.submission.grade value=13}} selected {{/ifvalue}}>1-</option>
+							<option value="12" {{#ifvalue this.submission.grade value=12}} selected {{/ifvalue}}>2+</option>
+							<option value="11" {{#ifvalue this.submission.grade value=11}} selected {{/ifvalue}}>2</option>
+							<option value="10" {{#ifvalue this.submission.grade value=10}} selected {{/ifvalue}}>2-</option>
+							<option value="9" {{#ifvalue this.submission.grade value=9}} selected {{/ifvalue}}>3+</option>
+							<option value="8" {{#ifvalue this.submission.grade value=8}} selected {{/ifvalue}}>3</option>
+							<option value="7" {{#ifvalue this.submission.grade value=7}} selected {{/ifvalue}}>3-</option>
+							<option value="6" {{#ifvalue this.submission.grade value=6}} selected {{/ifvalue}}>4+</option>
+							<option value="5" {{#ifvalue this.submission.grade value=5}} selected {{/ifvalue}}>4</option>
+							<option value="4" {{#ifvalue this.submission.grade value=4}} selected {{/ifvalue}}>4-</option>
+							<option value="3" {{#ifvalue this.submission.grade value=3}} selected {{/ifvalue}}>5+</option>
+							<option value="2" {{#ifvalue this.submission.grade value=2}} selected {{/ifvalue}}>5</option>
+							<option value="1" {{#ifvalue this.submission.grade value=1}} selected {{/ifvalue}}>5-</option>
+							<option value="0" {{#ifvalue this.submission.grade value=0}} selected {{/ifvalue}}>6</option>
+						{{else}}
+							<option value="15" {{#ifvalue this.submission.grade value=15}} selected {{/ifvalue}}>15</option>
+							<option value="14" {{#ifvalue this.submission.grade value=14}} selected {{/ifvalue}}>14</option>
+							<option value="13" {{#ifvalue this.submission.grade value=13}} selected {{/ifvalue}}>13</option>
+							<option value="12" {{#ifvalue this.submission.grade value=12}} selected {{/ifvalue}}>12</option>
+							<option value="11" {{#ifvalue this.submission.grade value=11}} selected {{/ifvalue}}>11</option>
+							<option value="10" {{#ifvalue this.submission.grade value=10}} selected {{/ifvalue}}>10</option>
+							<option value="9" {{#ifvalue this.submission.grade value=9}} selected {{/ifvalue}}>9</option>
+							<option value="8" {{#ifvalue this.submission.grade value=8}} selected {{/ifvalue}}>8</option>
+							<option value="7" {{#ifvalue this.submission.grade value=7}} selected {{/ifvalue}}>7</option>
+							<option value="6" {{#ifvalue this.submission.grade value=6}} selected {{/ifvalue}}>6</option>
+							<option value="5" {{#ifvalue this.submission.grade value=5}} selected {{/ifvalue}}>5</option>
+							<option value="4" {{#ifvalue this.submission.grade value=4}} selected {{/ifvalue}}>4</option>
+							<option value="3" {{#ifvalue this.submission.grade value=3}} selected {{/ifvalue}}>3</option>
+							<option value="2" {{#ifvalue this.submission.grade value=2}} selected {{/ifvalue}}>2</option>
+							<option value="1" {{#ifvalue this.submission.grade value=1}} selected {{/ifvalue}}>1</option>
+							<option value="0" {{#ifvalue this.submission.grade value=0}} selected {{/ifvalue}}>0</option>
+						{{/if}}
+					</select>
+				</div>
+				<h6>Kommentar</h6>
+				<textarea id="evaluation" name="gradeComment" type="text" class="form-control" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
+			</div>
+			<h6>Dateien</h6>
+			<div class="material card">
+				<ul>
+					<li>
+						<a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					</li>
+				</ul>
+			</div>
+			<button type="submit" class="btn btn-primary">Speichern</button>
+            </form>
+		</div>
+		
+		<div id="student-comment" class="tab-content">
+
+			<div class="commentarea form-group">
+				<ul class="comments">
+                    {{#each @root.comments}}
+                        {{#ifvalue this.submissionId value=../this.submission._id}}
+                            <li class="comment">
+                                <img class="picture" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/>
+                                <form action="/homework/comment/{{this._id}}" method="post" class="inline">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <button type="submit" class="btn btn-secondary btn-sm">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                                <b class="name">{{this.author.firstName}} {{this.author.lastName}}</b>
+                                <pre>{{this.comment}}</pre>
+                            </li>
+                        {{/ifvalue}}
+                    {{/each}}
+				</ul>
+				<div class="answer">
+                    <form class="form" method="post" action="/homework/comment">
+                        <input type="hidden" name="_method" data-force-value="true" value="post" />
+                        <input name="author" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}" />
+                        <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
+                        <textarea name="comment" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>
+                        <button type="submit" class="btn btn-primary">senden</button>
+                    </form>
+				</div>
+			</div>
+
+		</div>
+    </div>
+</section>

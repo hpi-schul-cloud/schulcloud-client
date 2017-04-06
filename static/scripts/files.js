@@ -13,12 +13,21 @@ $(document).ready(function() {
         window.location.reload();
     };
 
+    function showAJAXError(req, textStatus, errorThrown) {
+        $deleteModal.modal('hide');
+        if(textStatus==="timeout") {
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+        } else {
+            $.showNotification(errorThrown, "danger");
+        }
+    }
+
     $form.dropzone({
         accept: function(file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
 
-            var currentDir = getQueryParameterByName('dir')
+            var currentDir = getQueryParameterByName('dir');
 
             $.post('/files/file', {
                 name: file.name,
@@ -27,7 +36,8 @@ $(document).ready(function() {
             }, function(data) {
                 file.signedUrl = data.signedUrl;
                 done();
-            });
+            })
+                .fail(showAJAXError);
         },
         createImageThumbnails: false,
         method: 'put',
@@ -46,7 +56,7 @@ $(document).ready(function() {
                 var _send = xhr.send;
                 xhr.send = function() {
                     _send.call(xhr, file);
-                }
+                };
             });
 
             this.on("totaluploadprogress", function(progress) {
@@ -92,6 +102,8 @@ $(document).ready(function() {
         var $buttonContext = $(this);
 
         $deleteModal.modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
+        
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
                 url: $buttonContext.attr('href'),
@@ -102,7 +114,8 @@ $(document).ready(function() {
                 },
                 success: function(result) {
                     reloadFiles();
-                }
+                },
+                error: showAJAXError
             });
         });
     });
@@ -122,7 +135,7 @@ $(document).ready(function() {
             dir: getQueryParameterByName('dir')
         }, function (data) {
             reloadFiles();
-        });
+        }).fail(showAJAXError);
     });
 
     $modals.find('.close, .btn-close').on('click', function() {

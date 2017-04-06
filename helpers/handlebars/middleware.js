@@ -40,12 +40,16 @@ module.exports = (req, res, next) => {
         icon: 'table',
         link: '/calendar/'
     }, {
+        name: 'Aufgaben',
+        icon: 'tasks',
+        link: '/homework/'
+    }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
         link: '/files/',
         children: [
             {
-                name: 'Kurse',
+                name: 'Fächer / Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
             },
@@ -53,7 +57,7 @@ module.exports = (req, res, next) => {
                 name: 'Klassen',
                 icon: 'folder-open-o',
                 link: '/files/classes/'
-            },
+            }
         ]
     }, {
         name: 'Materialien',
