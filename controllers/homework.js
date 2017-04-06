@@ -56,7 +56,7 @@ const getSortmethods = () => {
         {
             functionname: '',
             title: 'Erstelldatum',
-            active: 'selected'
+            active: "selected"
         }
     ];
 };
@@ -317,31 +317,40 @@ router.all('/', function (req, res, next) {
             return n != undefined;
         });
 
-		// Hausaufgaben nach Abgabedatum sortieren
-		var sortmethods = getSortmethods().map(function(e){
-            if(e.functionname == req.query.sort){
-                e.active = 'selected';
-            }else if(req.query.sort!=null){
-                delete e['active'];
+        var sortmethods = getSortmethods()
+        if(req.query.sort){
+            var sorting = JSON.parse(req.query.sort);
+            // Hausaufgaben nach Abgabedatum sortieren
+            sortmethods = sortmethods.map(function(e){
+                if(e.functionname == sorting.fn){
+                    e.active = 'selected';
+                    e.desc = sorting.desc;
+                }else{
+                    delete e['active'];
+                }
+                return e;
+            });
+            if(sorting.fn == "availableDate"){
+                assignments.sort(sortbyavailableDate);
+            }else if(sorting.fn == "dueDate"){
+                assignments.sort(sortbyDueDate);
             }
-            return e;
-        });
-        if(req.query.sort == "availableDate"){
-            assignments.sort(sortbyavailableDate);
-        }else if(req.query.sort == "dueDate"){
-            assignments.sort(sortbyDueDate);
-        }
-        function sortbyavailableDate(a, b) {
-            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
-            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
-            if (c === d) {return 0;}
-            else {return (c < d) ? -1 : 1;}
-        }
-        function sortbyDueDate(a, b) {
-            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
-            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
-            if (c === d) {return 0;}
-            else {return (c < d) ? -1 : 1;}
+            function sortbyavailableDate(a, b) {
+                var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
+                var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
+                if (c === d) {return 0;}
+                else {return (c < d) ? -1 : 1;}
+            }
+            function sortbyDueDate(a, b) {
+                var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
+                var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
+                if (c === d) {return 0;}
+                else {return (c < d) ? -1 : 1;}
+            }
+            
+            if(sorting.desc){
+                assignments.reverse();
+            }
         }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
