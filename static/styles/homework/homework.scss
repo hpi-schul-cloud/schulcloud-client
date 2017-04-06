@@ -91,7 +91,6 @@
     .assignment {
       width: 100%;
       position: relative;
-
       /* max-width: 700px;
       margin: 5px; */
       padding: 10px;
@@ -111,7 +110,7 @@
       }
       .description {
         /* margin: 10px 75px 10px 0; */
-        margin: 10px 0;
+        margin: 10px 0 25px;
         color: grey;
         @include media-breakpoint-down(xs) {
           margin-right: 25px;
@@ -126,7 +125,6 @@
           overflow: hidden;
         }
       }
-
       .dates {
         float: right;
         text-align: right;

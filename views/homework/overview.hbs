@@ -15,7 +15,14 @@
                         {{#each assignments}}
                             <li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
                                 <a class="content" href="{{this.url}}">  
-                                    <div class="dates">{{this.showdate}}</div>
+                                    <div class="dates">
+                                        {{#if this.dueString}}
+                                            <span class="{{this.dueColor}}">{{this.dueString}}</span>
+                                        {{else}}
+                                                 {{this.fromdate}}<br/>
+                                            bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
+                                        {{/if}}
+                                    </div>   
                                     <!-- graded, turned in etc. -->
                                     {{#if this.submissionstats}}
                                         <div class="state">
@@ -32,6 +39,7 @@
                                             {{/if}}
                                         </div>
                                     {{/if}}
+
                                     <h5 class="title">
                                         {{#if this.courseId}}
                                             <span>{{this.courseId.name}}</span>
