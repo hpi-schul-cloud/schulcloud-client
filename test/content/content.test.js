@@ -35,4 +35,18 @@ describe('Content tests', function () {
                 });
         });
     });
+
+    it('GET /content/?q=Mathe', function () {
+        return new Promise((resolve, reject) => {
+            this.agent
+                .get('/content/?q=Mathe')
+                .end((err, res) => {
+                    expect(res.statusCode).to.equal(200);
+                    expect(res.text).to.contain('Inhalte');
+                    expect(res.text).to.contain('Suchergebnisse für \"Mathe\"');
+                    expect(res.text).not.to.contain('keine Ergebnisse');
+                    resolve();
+                });
+        });
+    })
 });
