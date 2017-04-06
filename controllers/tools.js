@@ -126,4 +126,18 @@ router.get('/show/:ltiToolId', showToolHandler);
 
 router.get('/:id', getDetailHandler);
 
+router.delete('/delete/:ltiToolId', function (req, res, next) {
+    api(req).patch('/courses/' + req.params.courseId, {
+        json: {
+            $pull: {
+                ltiToolIds: req.params.ltiToolId
+            }
+        }
+    }).then(_ => {
+        api(req).delete('/ltiTools/' + req.params.ltiToolId).then(_ => {
+            res.sendStatus(200);
+        });
+    });
+});
+
 module.exports = router;
