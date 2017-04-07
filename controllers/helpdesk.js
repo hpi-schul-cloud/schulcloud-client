@@ -6,15 +6,10 @@ const api = require('../api');
 router.use(require('../helpers/authentication').authChecker);
 
 router.post('/', function (req, res, next) {
-    let body = req.body;
-    api(req).post('/mails', {
-        json: {
-          email: 'schul-cloud-support@hpi.de',
-          subject: 'Feedback ' + body.title,
-          content: { text: body.email + "\n" + body.message}
-        }
-    }).then(() =>  {
-        res.redirect(req.header('Referer'));
+    api(req).post('/mails', {json: req.body}).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 

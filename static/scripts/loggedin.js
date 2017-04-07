@@ -3,6 +3,43 @@ $(document).ready(function () {
     var $feedbackModal = $('.feedback-modal');
     var $modalForm = $('.modal-form');
 
+    function showAJAXError(req, textStatus, errorThrown) {
+        $feedbackModal.modal('hide');
+        if(textStatus==="timeout") {
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+        } else {
+            $.showNotification(errorThrown, "danger");
+        }
+    }
+
+    function showAJAXSuccess(message) {
+        $feedbackModal.modal('hide');
+        $.showNotification(message, "success");
+    }
+
+    var sendFeedback = function (modal, e) {
+        e.preventDefault();
+
+        var email= 'schul-cloud-support@hpi.de';
+        var subject = 'Feedback ' + modal.find('#title').val();
+        var content = { text: modal.find('#email').val() + "\n" + modal.find('#message').val()};
+
+        $.ajax({
+            url: '/helpdesk',
+            type: 'POST',
+            data: {
+                email: email,
+                subject: subject,
+                content: content
+            },
+            success: function(result) {
+                showAJAXSuccess("Feedback erfolgreich versendet!")
+            },
+            error: showAJAXError
+        });
+
+    };
+
     var populateModalForm = function (modal, data) {
 
         var $title = modal.find('.modal-title');
@@ -28,11 +65,12 @@ $(document).ready(function () {
                     $(this).val(value).trigger("chosen:updated");
             }
         });
+
+        $form.on('submit', sendFeedback.bind(this, modal));
     };
 
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
-        $modalForm.attr('action', '/helpdesk');
 
         populateModalForm($feedbackModal, {
             title: 'Feedback',
