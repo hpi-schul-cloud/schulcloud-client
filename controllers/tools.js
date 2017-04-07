@@ -53,7 +53,7 @@ const runToolHandler = (req, res, next) => {
        let payload = {
            lti_version: tool.lti_version,
            lti_message_type: tool.lti_message_type,
-           resource_link_id: tool.courseId  || tool.resource_link_id,
+           resource_link_id: req.params.courseId  || tool.resource_link_id,
            roles: customer.mapSchulcloudRoleToLTIRole(role.name),
            launch_presentation_document_target: 'window',
            launch_presentation_locale: 'en',
