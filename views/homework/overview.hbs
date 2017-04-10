@@ -10,6 +10,27 @@
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     <p>Aufgabe hinzufügen</p>
                 </button>
+                
+                <div class="form-group sort">
+                    <select name="sort" id="sortselection" data-placeholder="Sortieren">
+                        {{#each sortmethods}}
+                            {{#if this.active}}
+                                {{#if this.desc}}
+                                    <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
+                                    <option value='{"fn":"{{this.functionname}}","desc":true }' selected="selected">{{this.title}} ▼</option>
+                                {{else}}
+                                    <option value='{"fn":"{{this.functionname}}","desc":false }' selected="selected">{{this.title}} ▲</option>
+                                    <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
+                                {{/if}}
+                            {{else}}
+                                <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
+                                <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+
+
                 <ol class="homework">
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
