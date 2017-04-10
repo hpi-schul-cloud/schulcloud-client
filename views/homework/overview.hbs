@@ -1,6 +1,10 @@
 {{#extend "homework/homework"}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
+    {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js"></script>
     {{/content}}
 
     {{#content "page"}}
@@ -47,6 +51,7 @@
                                     <!-- graded, turned in etc. -->
                                     {{#if this.submissionstats}}
                                         <div class="state">
+                                            <circular-progress primarycolor="#f2503f" accentcolor="#404F70" data="42" width="800" height="500"></circular-progress>
                                             <span class="{{this.submissionstatscolor}}">Abgegeben: {{this.submissionstats}}</span><br/>
                                             {{#if this.gradedstats}}
                                                 <span class="{{this.gradedstatscolor}}">Bewertet: {{this.gradedstats}}</span><br/>
