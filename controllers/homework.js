@@ -270,6 +270,7 @@ router.all('/', function (req, res, next) {
                 if (assignment.teacherId === res.locals.currentUser._id) {
                     //teacher
                     assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
+                    assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
                     assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
                     assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
                     var submissioncount = (submissions.filter(function (a) {
@@ -277,6 +278,7 @@ router.all('/', function (req, res, next) {
                     })).length
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;
+                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
                         assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
                         if (submissioncount > 0) {
                             var ratingsum = 0;

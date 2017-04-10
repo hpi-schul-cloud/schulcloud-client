@@ -51,7 +51,11 @@
                                     <!-- graded, turned in etc. -->
                                     {{#if this.submissionstats}}
                                         <div class="state">
-                                            <circular-progress primarycolor="#f2503f" accentcolor="#404F70" data="42" width="800" height="500"></circular-progress>
+                                            <circular-progress primarycolor="#f2503f" accentcolor="#404F70" 
+                                                data="{{this.submissionstatsperc}}"
+                                                {{#if this.gradedstats}} secdata="{{this.gradedstatsperc}}"{{/if}}
+                                                width="80" height="80">
+                                            </circular-progress>
                                             <span class="{{this.submissionstatscolor}}">Abgegeben: {{this.submissionstats}}</span><br/>
                                             {{#if this.gradedstats}}
                                                 <span class="{{this.gradedstatscolor}}">Bewertet: {{this.gradedstats}}</span><br/>
