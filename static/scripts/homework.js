@@ -77,4 +77,9 @@ $(document).ready(function() {
         $modals.modal('hide');
     });
 
+    
+    
+    $('#sortselection').on('change', function(e){
+        window.location = window.location.pathname + "?sort=" + escape( $('#sortselection').val());
+    });
 });
