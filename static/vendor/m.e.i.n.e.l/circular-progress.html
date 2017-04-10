@@ -9550,6 +9550,11 @@ var e,r,n=t[0].trace,a=i.select(this),o=u.hasMarkers(n),c=u.hasText(n),f=y(n),d=
                         type: Number,
                         notify: true,
                     },
+                    /** Secondary Data (optional) provided as an integer value (percentage) */
+                    secdata: {
+                        type: Number,
+                        notify: true,
+                    },
                     /** Width of the outer div */
                     width: {
                         type: Number,
@@ -9564,6 +9569,11 @@ var e,r,n=t[0].trace,a=i.select(this),o=u.hasMarkers(n),c=u.hasText(n),f=y(n),d=
                     primarycolor: {
                         type: String,
                         value: '#f2503f',
+                    },
+                    /** Fill and text color of optional secondary value*/
+                    secondarycolor: {
+                        type: String,
+                        value: '#ffa64c',
                     },
                     /** Background color of the circle*/
                     accentcolor: {
@@ -9618,9 +9628,6 @@ var e,r,n=t[0].trace,a=i.select(this),o=u.hasMarkers(n),c=u.hasText(n),f=y(n),d=
                             .attr("stop-opacity", 1);
                     };
 
-                    var percent = this.data;
-                    var ratio = percent / 100;
-
                     var width = this.offsetWidth,
                         height = this.offsetHeight;
 
@@ -9636,8 +9643,7 @@ var e,r,n=t[0].trace,a=i.select(this),o=u.hasMarkers(n),c=u.hasText(n),f=y(n),d=
                         .append('g')
                           .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
 
-                    createPercentageFill(svg, 'gradient', this.primarycolor);
-
+                          
                     var arc = d3.svg.arc()
                         .innerRadius(innerRadius)
                         .outerRadius(outerRadius)
@@ -9652,46 +9658,64 @@ var e,r,n=t[0].trace,a=i.select(this),o=u.hasMarkers(n),c=u.hasText(n),f=y(n),d=
                     var pathBackground = svg.append('path')
                         .attr('d', arc)
                         .style('fill', this.accentcolor);
+                   
+                    if(this.data == 100){this.primarycolor = "#00d900";}
+                    if(this.secdata&&this.secdata==100){this.secondarycolor = "#008c00";}
+                    
+                    if(this.secdata){                                            //  tx, ty, px, py,  fts,  fps                 
+                        build_value(this.data,    this.primarycolor,   'gradient1', -20, 25, 6,-20, 0.30, 0.15);
+                        build_value(this.secdata, this.secondarycolor, 'gradient2', -40,  4, 8,  6, 0.20, 0.10);
+                    }else{
+                        build_value(this.data,    this.primarycolor,   'gradient1', -20, 10, 6,-60, 0.30, 0.15);
+                    }
+                    
+                    function build_value(percent, color, id, tx,ty,px,py,fts,fps){
+                        //percent to fill, fill-color, unique ID, textx, texty, %x, %y, font-size(text), font-size(%)
+                        if(percent==100){px=px-2;} //move % to right if 100% to prevent overlap
+                        
+                        var ratio = percent / 100;
+                        createPercentageFill(svg, id, color);
 
-                    var pathChart = svg.append('path')
-                        .datum({ endAngle: 0 })
-                        .attr('d', arcLine)
-                        .style('fill', 'url(#gradient)');
+                        var pathChart = svg.append('path')
+                            .datum({ endAngle: 0 })
+                            .attr('d', arcLine)
+                            .style('fill', 'url(#'+id+')');
 
-                    var middleCount = svg.append('text')
-                        .text(function(d) {
-                            return d;
-                        })
-                        .attr('text-anchor', 'middle')
-                        .attr('dy', edgeLength / 10)
-                        .attr('dx', -(edgeLength / 20))
-                        .style('fill', this.primarycolor)
-                        .style('font-size', (0.3 * edgeLength) + 'px');
+                        var middleCount = svg.append('text')
+                            .text(function(d) {
+                                return d;
+                            })
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', edgeLength / ty)
+                            .attr('dx', edgeLength / tx)
+                            .style('fill', color)
+                            .style('font-size', (fts * edgeLength) + 'px');
 
-                    svg.append('text')
-                        .text('%')
-                        .attr('text-anchor', 'middle')
-                        .attr('dx', edgeLength / 6)
-                        .attr('dy', -(edgeLength / 60))
-                        .style('fill', this.primarycolor)
-                        .style('font-size', (0.14 * edgeLength) + 'px');
+                        svg.append('text')
+                            .text('%')
+                            .attr('text-anchor', 'middle')
+                            .attr('dy', edgeLength / py)
+                            .attr('dx', edgeLength / px)
+                            .style('fill', color)
+                            .style('font-size', (fps * edgeLength) + 'px');
 
-                    var arcTween = function(transition, newAngle) {
-                        transition.attrTween("d", function(d) {
-                            var interpolate = d3.interpolate(d.endAngle, newAngle);
-                            var interpolateCount = d3.interpolate(0, percent);
-                            return function(t) {
-                                d.endAngle = interpolate(t);
-                                middleCount.text(Math.floor(interpolateCount(t)));
-                                return arcLine(d);
-                            };
-                        });
-                    };
+                        var arcTween = function(transition, newAngle) {
+                            transition.attrTween("d", function(d) {
+                                var interpolate = d3.interpolate(d.endAngle, newAngle);
+                                var interpolateCount = d3.interpolate(0, percent);
+                                return function(t) {
+                                    d.endAngle = interpolate(t);
+                                    middleCount.text(Math.floor(interpolateCount(t)));
+                                    return arcLine(d);
+                                };
+                            });
+                        };
 
-                    pathChart.transition()
-                        .duration(750)
-                        .ease('cubic')
-                        .call(arcTween, 2 * Math.PI * ratio);
+                        pathChart.transition()
+                            .duration(750)
+                            .ease('cubic')
+                            .call(arcTween, 2 * Math.PI * ratio);
+                    }
 
                     var _this = this;
                     var resizeTimer;
