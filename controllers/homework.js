@@ -43,6 +43,24 @@ const getActions = (item, path) => {
     ];
 };
 
+const getSortmethods = () => {
+    return [
+        {
+            functionname: 'availableDate',
+            title: 'Verfügbarkeitsdatum'
+        },
+        {
+            functionname: 'dueDate',
+            title: 'Abgabedatum'
+        },
+        {
+            functionname: '',
+            title: 'Erstelldatum',
+            active: "selected"
+        }
+    ];
+};
+
 const getCreateHandler = (service) => {
     return function (req, res, next) {
         if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
@@ -294,9 +312,45 @@ router.all('/', function (req, res, next) {
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
         });
+
         assignments = assignments.filter(function (n) {
             return n != undefined;
         });
+
+        var sortmethods = getSortmethods()
+        if(req.query.sort){
+            var sorting = JSON.parse(req.query.sort);
+            // Hausaufgaben nach Abgabedatum sortieren
+            sortmethods = sortmethods.map(function(e){
+                if(e.functionname == sorting.fn){
+                    e.active = 'selected';
+                    e.desc = sorting.desc;
+                }else{
+                    delete e['active'];
+                }
+                return e;
+            });
+            if(sorting.fn == "availableDate"){
+                assignments.sort(sortbyavailableDate);
+            }else if(sorting.fn == "dueDate"){
+                assignments.sort(sortbyDueDate);
+            }            
+            if(sorting.desc){
+                assignments.reverse();
+            }
+        }
+        function sortbyavailableDate(a, b) {
+            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
+            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
+            if (c === d) {return 0;}
+            else {return (c < d) ? -1 : 1;}
+        }
+        function sortbyDueDate(a, b) {
+            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
+            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
+            if (c === d) {return 0;}
+            else {return (c < d) ? -1 : 1;}
+        }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
@@ -304,6 +358,7 @@ router.all('/', function (req, res, next) {
                 {teacherIds: res.locals.currentUser._id}
             ]
         });
+
         Promise.resolve(coursesPromise).then(courses => {
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -317,7 +372,7 @@ router.all('/', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
-                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent});
+                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
             });
         });
 
