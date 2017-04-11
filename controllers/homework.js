@@ -171,10 +171,6 @@ router.all('/', function (req, res, next) {
                 && assignment.teacherId != res.locals.currentUser._id) {
                 return;
             }
-            if (assignment.private
-                && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
             if (assignment.courseId != null) {
                 if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
                     && assignment.teacherId != res.locals.currentUser._id) {
@@ -187,6 +183,10 @@ router.all('/', function (req, res, next) {
             } else {
                 assignment.color = "#1DE9B6";
                 assignment.private = true;
+            }
+            if (assignment.private
+                && assignment.teacherId != res.locals.currentUser._id) {
+                return;
             }
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : "";
