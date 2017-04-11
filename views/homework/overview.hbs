@@ -48,26 +48,32 @@
                                             bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
                                         {{/if}}
                                     </div>   
-                                    <!-- graded, turned in etc. -->
+
                                     {{#if this.submissionstats}}
-                                        <div class="state">
-                                            <circular-progress primarycolor="#f2503f" accentcolor="#404F70" 
-                                                data="{{this.submissionstatsperc}}"
-                                                {{#if this.gradedstats}} secdata="{{this.gradedstatsperc}}"{{/if}}
-                                                width="80" height="80">
-                                            </circular-progress>
-                                            <span class="{{this.submissionstatscolor}}">Abgegeben: {{this.submissionstats}}</span><br/>
+                                    <div class="state">
+                                        <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
+                                            data="{{this.submissionstatsperc}}"
+                                            {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
+                                            width="80" height="80">
+                                        </circular-progress>
+                                        <div class="textinfo">
+                                            <span>Abgegeben: {{this.submissionstats}}</span><br/>
                                             {{#if this.gradedstats}}
-                                                <span class="{{this.gradedstatscolor}}">Bewertet: {{this.gradedstats}}</span><br/>
+                                                <span>Bewertet: {{this.gradedstats}}</span><br/>
+                                            {{else}}
+                                                <span>Bewertet: -</span><br/>
                                             {{/if}}
-                                            {{#if this.averagerating}}
+                                            <span>{{#if this.averagerating}}
                                                 {{#if this.courseId.gradeSystem}}
                                                     Ø: {{this.averagerating}} 
                                                 {{else}}
                                                     Ø: {{this.averagerating}} Punkte
                                                 {{/if}}
-                                            {{/if}}
+                                                {{else}}
+                                                    Ø: - 
+                                            {{/if}}</span>
                                         </div>
+                                    </div>
                                     {{/if}}
 
                                     <h5 class="title">
