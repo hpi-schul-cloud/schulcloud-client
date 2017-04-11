@@ -71,14 +71,15 @@ const getCreateHandler = (service) => {
             var now = new Date;
             var dd = (now.getDate() < 10) ? "0" + now.getDate() : now.getDate();
             var mm = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
-        }
-        if (!req.body.availableDate) {
-            var availableDate = now.getFullYear() + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z";
-            req.body.availableDate = availableDate;
-        }
-        if (!req.body.dueDate) {
-            var dueDate = (now.getFullYear() + 9) + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z"; //default dueDate: now + 9 years
-            req.body.dueDate = dueDate;
+            
+            if (!req.body.availableDate) {
+                var availableDate = now.getFullYear() + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z";
+                req.body.availableDate = availableDate;
+            }
+            if (!req.body.dueDate) {
+                var dueDate = (now.getFullYear() + 9) + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z"; //default dueDate: now + 9 years
+                req.body.dueDate = dueDate;
+            }
         }
 
         api(req).post('/' + service + '/', {
