@@ -68,16 +68,17 @@ const getCreateHandler = (service) => {
         }
 
         if (!req.body.availableDate || !req.body.dueDate) {
-            var now = new Date;
+            var now = new Date();
             var dd = (now.getDate() < 10) ? "0" + now.getDate() : now.getDate();
-            var mm = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
-            
+            var MM = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
+            var HH = (now.getHours() < 10) ? "0" + now.getHours() : now.getHours();
+            var mm = (now.getMinutes() < 10) ? "0" + now.getMinutes() : now.getMinutes();
             if (!req.body.availableDate) {
-                var availableDate = now.getFullYear() + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z";
+                var availableDate = now.getFullYear() + "-" + MM + "-" + dd + "T" + HH + ":" + mm+ ":00.000Z";
                 req.body.availableDate = availableDate;
             }
             if (!req.body.dueDate) {
-                var dueDate = (now.getFullYear() + 9) + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z"; //default dueDate: now + 9 years
+                var dueDate = (now.getFullYear() + 9) + "-" + MM + "-" + dd + "T" + HH + ":" + mm + ":00.000Z"; //default dueDate: now + 9 years
                 req.body.dueDate = dueDate;
             }
         }
