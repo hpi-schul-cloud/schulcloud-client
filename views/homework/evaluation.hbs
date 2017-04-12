@@ -9,21 +9,11 @@
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
 			<div class="comment">
-                <pre>{{#if this.submission.comment}}{{this.submission.comment}}{{else}}Keine Abgabe.{{/if}}</pre>
-			</div>
-			<div class="material card">
-				<ul>
-					<li>
-						<img src="http://placehold.it/100x80"/>
-						<p class="title">ExtraLongFilename.html</p>
-						<div class="buttons">
-							<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-						</div>
-						<div class="buttons">
-							<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-						</div>
-					</li>
-				</ul>
+                {{#if this.submission.comment}}
+                    {{this.submission.comment}}
+                {{else}}
+                    Keine Abgabe.
+                {{/if}}
 			</div>
 		</div>
 
