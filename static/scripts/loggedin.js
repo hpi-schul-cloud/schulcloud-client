@@ -6,15 +6,15 @@ $(document).ready(function () {
     function showAJAXError(req, textStatus, errorThrown) {
         $feedbackModal.modal('hide');
         if(textStatus==="timeout") {
-            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
         } else {
-            $.showNotification(errorThrown, "danger");
+            $.showNotification(errorThrown, "danger", true);
         }
     }
 
     function showAJAXSuccess(message) {
         $feedbackModal.modal('hide');
-        $.showNotification(message, "success");
+        $.showNotification(message, "success", true);
     }
 
     var sendFeedback = function (modal, e) {
@@ -22,13 +22,14 @@ $(document).ready(function () {
 
         var email= 'schul-cloud-support@hpi.de';
         var subject = 'Feedback ' + modal.find('#title').val();
-        var content = { text: modal.find('#email').val() + "\n" + modal.find('#message').val()};
+        var content = { text: modal.find('#message').val()};
 
         $.ajax({
             url: '/helpdesk',
             type: 'POST',
             data: {
                 email: email,
+                modalEmail: modal.find('#email').val(),
                 subject: subject,
                 content: content
             },
@@ -72,8 +73,9 @@ $(document).ready(function () {
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
 
+        var title = $(document).find("title").text();
         populateModalForm($feedbackModal, {
-            title: 'Feedback',
+            title: 'Feedback - Bereich: ' + title.slice(0, title.indexOf('- Schul-Cloud')),
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });
