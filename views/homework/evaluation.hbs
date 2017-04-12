@@ -10,7 +10,7 @@
 		<div id="submission" class="tab-content active">
 			<div class="comment">
                 {{#if this.submission.comment}}
-                    {{this.submission.comment}}
+                    {{{this.submission.comment}}}
                 {{else}}
                     Keine Abgabe.
                 {{/if}}
@@ -73,14 +73,6 @@
 				</div>
 				<h6>Kommentar</h6>
 				<textarea id="evaluation" name="gradeComment" type="text" class="form-control" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
-			</div>
-			<h6>Dateien</h6>
-			<div class="material card">
-				<ul>
-					<li>
-						<a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-					</li>
-				</ul>
 			</div>
 			<button type="submit" class="btn btn-primary">Speichern</button>
             </form>

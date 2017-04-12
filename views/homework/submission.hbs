@@ -1,15 +1,6 @@
-{{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace( 'evaluation' );
-    </script>
-{{/content}}
-
 <section id="submission" class="tab-content section-homeworkdetails">
-	<h5>Abgabe</h5>
-	<div class="comment">
-		<h6>Kommentar</h6>
-		{{#if submittable}}
+    {{#if submittable}}
+        <div class="comment editor">
 			{{#if submission}}
 			<form class="form" method="post" action="/homework/submit/{{submission._id}}">
 				<input type="hidden" name="_method" data-force-value="true" value="patch" />
@@ -27,32 +18,15 @@
 				</div>
 			{{/if}}
 
-		{{else}}
+    {{else}}
+        <div class="comment">
 			{{#if comment}}
 				<pre>{{comment}}</pre>
 			{{else}}
 				<p>Kein Kommentar.</p>
 			{{/if}}
-		{{/if}}
-	</div>
-	<h6>Dateien</h6>
-	<div class="material card">
-		<ul>
-			<li>
-				<img src="http://placehold.it/100x80"/>
-				<p class="title">ExtraLongFilename.html</p>
-				<div class="buttons">
-					<a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-					<a class="delete" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-				</div>
-			</li>
-			{{#if submittable}}
-			<li>
-				<a class="add" href="#"><i class="fa fa-plus" aria-hidden="true"></i></a>
-			</li>
-			{{/if}}
-		</ul>
-	</div>
+    {{/if}}
+        </div>
 	{{#if submittable}}
 		<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 	</form>
