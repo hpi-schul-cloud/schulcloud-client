@@ -1,0 +1,37 @@
+{{#extend "administration/administration"}}
+    {{#content "page"}}
+        <div class="route-administration">
+            <section class="section-school section-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/notification"}}
+
+                            {{> "lib/components/table" head=head body=body}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <button type="submit" class="btn btn-primary btn-add">
+                                System hinzufügen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-systems"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-systems"}}
+                    {{/content}}
+                {{/embed}}
+
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}
