@@ -91,6 +91,11 @@ module.exports = (req, res, next) => {
                 name: 'Schüler',
                 icon: 'users',
                 link: '/administration/students/'
+            },
+            {
+                name: 'Authentifizierung',
+                icon: 'key',
+                link: '/administration/systems/'
             }
         ]
     });
