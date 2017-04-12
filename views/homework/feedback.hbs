@@ -31,7 +31,11 @@
 			{{/if}}
         {{/if}}
         <div class="comment">
-			{{{submission.gradeComment}}}
+            {{#if submission.gradeComment}}
+                {{{submission.gradeComment}}}
+            {{else}}
+                <p>Kein Kommentar.</p>
+            {{/if}}
         </div>
     </div>
 </section>
