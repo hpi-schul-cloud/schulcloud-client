@@ -47,6 +47,17 @@ const editCourseHandler = (req, res, next) => {
         teachersPromise,
         studentsPromise
     ]).then(([course, classes, teachers, students]) => {
+
+        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
+        teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
+        students = students.filter(s => s.schoolId == res.locals.currentSchool);
+
+        // preselect current teacher when creating new course
+        if (!req.params.courseId) {
+            course.teacherIds = [];
+            course.teacherIds.push(res.locals.currentUser);
+        }
+
         res.render('courses/edit-course', {
             action,
             method,
