@@ -15,7 +15,7 @@ $(document).ready(function(){
     var $notification = $('.notification');
     var $notificationContent = $notification.find('.notification-content');
 
-    window.$.showNotification = function(content, type) {
+    window.$.showNotification = function(content, type, timeout) {
         $notificationContent.html(content);
 
         // remove old classes in case type was set before
@@ -23,6 +23,12 @@ $(document).ready(function(){
         $notification.addClass('notification alert alert-fixed alert-' + (type || 'info'));
 
         $notification.fadeIn();
+
+        if (timeout) {
+            setTimeout(function () {
+                $notification.fadeOut();
+            }, 5000);
+        }
     };
 
     window.$.hideNotification = function() {
