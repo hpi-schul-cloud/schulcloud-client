@@ -387,14 +387,9 @@ router.delete('/systems/:id', removeSystemFromSchoolHandler , getDeleteHandler('
 
 router.all('/systems', function (req, res, next) {
 
-    const itemsPerPage = 10;
-    const currentPage = parseInt(req.query.p) || 1;
-
     api(req).get('/schools/' + res.locals.currentSchool, {
         qs: {
             $populate: ['systems'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
         }
     }).then(data => {
         const head = [
@@ -416,19 +411,12 @@ router.all('/systems', function (req, res, next) {
 
         const availableSSOTypes = getSSOTypes();
 
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/systems/?p={{page}}'
-        };
-
         res.render('administration/systems', {
             title: 'Administration: Authentifizierungsdienste',
             head,
             body,
             systems,
-            availableSSOTypes,
-            pagination
+            availableSSOTypes
         });
     });
 });
