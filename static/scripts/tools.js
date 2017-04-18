@@ -28,8 +28,10 @@ $(document).ready(function () {
     };
 
     var populateCustomField = function ($customFields, field) {
+        if (!field.key || field.key == '') return;
+        
         var _id = guidGenerator();
-        var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value:" + field.value + "</div>")
+        var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value: " + field.value + "</div>")
             .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' type='hidden'></input>"))
             .append($("<input name='customs[" + customFieldCount + "][value]' value='" + field.value + "' type='hidden'></input>"))
             .append($("<i class='fa fa-trash-o custom-field-delete' />")
@@ -41,6 +43,10 @@ $(document).ready(function () {
 
     var populateCustomFields = function (modal, customFields) {
         var $customFields = modal.find('.custom-fields');
+
+        // cleanup
+        $customFields.empty();
+
         customFields.forEach(function (field) {
             populateCustomField($customFields, field);
         });
