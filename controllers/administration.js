@@ -394,6 +394,7 @@ router.all('/systems', function (req, res, next) {
     }).then(data => {
         const head = [
             'Name',
+            'Typ',
             'Url',
             ''
         ];
@@ -403,6 +404,7 @@ router.all('/systems', function (req, res, next) {
         const body = systems.map(item => {
             let name = getSSOTypes().filter(type => item.type === type.value);
             return [
+                item.alias,
                 name,
                 item.url,
                 getTableActions(item, '/administration/systems/')

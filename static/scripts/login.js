@@ -8,7 +8,8 @@ $(document).ready(function() {
         $systems.empty();
         $.getJSON('/login/systems/' + schoolId, function(systems) {
             systems.forEach(function(system) {
-                $systems.append('<option value="' + system._id + '">' + system.type + '</option>');
+                var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
+                $systems.append('<option value="' + system._id + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
         });
