@@ -68,17 +68,19 @@ const getCreateHandler = (service) => {
         }
 
         if (!req.body.availableDate || !req.body.dueDate) {
-            var now = new Date;
+            var now = new Date();
             var dd = (now.getDate() < 10) ? "0" + now.getDate() : now.getDate();
-            var mm = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
-        }
-        if (!req.body.availableDate) {
-            var availableDate = now.getFullYear() + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z";
-            req.body.availableDate = availableDate;
-        }
-        if (!req.body.dueDate) {
-            var dueDate = (now.getFullYear() + 9) + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z"; //default dueDate: now + 9 years
-            req.body.dueDate = dueDate;
+            var MM = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
+            var HH = (now.getHours() < 10) ? "0" + now.getHours() : now.getHours();
+            var mm = (now.getMinutes() < 10) ? "0" + now.getMinutes() : now.getMinutes();
+            if (!req.body.availableDate) {
+                var availableDate = now.getFullYear() + "-" + MM + "-" + dd + "T" + HH + ":" + mm+ ":00.000Z";
+                req.body.availableDate = availableDate;
+            }
+            if (!req.body.dueDate) {
+                var dueDate = (now.getFullYear() + 9) + "-" + MM + "-" + dd + "T" + HH + ":" + mm + ":00.000Z"; //default dueDate: now + 9 years
+                req.body.dueDate = dueDate;
+            }
         }
 
         api(req).post('/' + service + '/', {
@@ -240,11 +242,11 @@ router.all('/', function (req, res, next) {
 
 
             assignment.dueColor = dueColor;
-            if (assignment.teacherId != res.locals.currentUser._id) {
-                assignment.dueString = dueString;
-            } else {
+            if((assignment.teacherId == res.locals.currentUser._id) && (remainingDays > 5 || remaining < 0)) {
                 assignment.fromdate = availableDateF + " (" + availableTimeF + ")";
                 assignment.todate = dueDateF + " (" + dueTimeF + ")";
+            }else{
+                 assignment.dueString = dueString;
             }
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
@@ -270,14 +272,16 @@ router.all('/', function (req, res, next) {
                 if (assignment.teacherId === res.locals.currentUser._id) {
                     //teacher
                     assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
-                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
-                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
+                    assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
+                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
+                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
                     var submissioncount = (submissions.filter(function (a) {
                         return (a.gradeComment == '' && a.grade == null) ? 0 : 1
                     })).length
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;
-                        assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
+                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
+                        //assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
                         if (submissioncount > 0) {
                             var ratingsum = 0;
                             var submissiongrades;

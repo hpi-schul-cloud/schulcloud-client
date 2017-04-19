@@ -83,24 +83,62 @@ const getDeleteHandler = (service) => {
     };
 };
 
+const removeSystemFromSchoolHandler = (req, res, next) => {
+    api(req).patch('/schools/' + res.locals.currentSchool, {
+        json: {
+            $pull: {
+                systems: req.params.id
+            }
+        }
+    }).then(_ => {
+        next();
+    }).catch(err => {
+        next(err);
+    })
+};
+
+const createSystemHandler = (req, res, next) => {
+    api(req).post('/systems/', { json: req.body }).then(system => {
+        api(req).patch('/schools/' + req.body.schoolId, {
+            json: {
+                $push: {
+                    systems: system._id
+                }
+            }
+        }).then(data => {
+            next();
+        }).catch(err => {
+            next(err);
+        });
+    });
+};
+
 const getStorageProviders = () => {
     return [
         {label: 'AWS S3', value: 'awsS3'}
     ];
 };
 
+const getSSOTypes = () => {
+    return [
+        {label: 'Moodle', value: 'moodle'},
+        {label: 'ITSLearning', value: 'itslearning'},
+        {label: 'LernSax', value: 'lernsax'}
+    ]
+};
+
 const createBucket = (req, res, next) => {
     if (req.body.fileStorageType) {
         Promise.all([
-        api(req).post('/fileStorage', {
-            json: {fileStorageType: req.body.fileStorageType, schoolId:req.params.id }
-        }),
-        api(req).patch('/schools/' + req.params.id, {
-            json: req.body
-        })]).then(data => {
+            api(req).post('/fileStorage', {
+                json: {fileStorageType: req.body.fileStorageType, schoolId: req.params.id}
+            }),
+            api(req).patch('/schools/' + req.params.id, {
+                json: req.body
+            })]).then(data => {
             res.redirect(req.header('Referer'));
         }).catch(err => {
-           next(err);
+            next(err);
         });
     }
 };
@@ -127,7 +165,9 @@ router.all('/', function (req, res, next) {
             }
         });
 
-        res.render('administration/school', {title: 'Administration: Allgemein', school: data, provider});
+        let ssoTypes = getSSOTypes();
+
+        res.render('administration/school', {title: 'Administration: Allgemein', school: data, provider, ssoTypes});
     });
 });
 
@@ -180,7 +220,15 @@ router.all('/courses', function (req, res, next) {
                 baseUrl: '/administration/courses/?p={{page}}'
             };
 
-            res.render('administration/courses', {title: 'Administration: Kurse', head, body, classes, teachers, students, pagination});
+            res.render('administration/courses', {
+                title: 'Administration: Kurse',
+                head,
+                body,
+                classes,
+                teachers,
+                students,
+                pagination
+            });
         });
     });
 });
@@ -230,7 +278,14 @@ router.all('/classes', function (req, res, next) {
                 baseUrl: '/administration/classes/?p={{page}}'
             };
 
-            res.render('administration/classes', {title: 'Administration: Klassen', head, body, teachers, students, pagination});
+            res.render('administration/classes', {
+                title: 'Administration: Klassen',
+                head,
+                body,
+                teachers,
+                students,
+                pagination
+            });
         });
     });
 });
@@ -322,6 +377,49 @@ router.all('/students', function (req, res, next) {
         };
 
         res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination});
+    });
+});
+
+router.post('/systems/', createSystemHandler);
+router.patch('/systems/:id', getUpdateHandler('systems'));
+router.get('/systems/:id', getDetailHandler('systems'));
+router.delete('/systems/:id', removeSystemFromSchoolHandler , getDeleteHandler('systems'));
+
+router.all('/systems', function (req, res, next) {
+
+    api(req).get('/schools/' + res.locals.currentSchool, {
+        qs: {
+            $populate: ['systems'],
+        }
+    }).then(data => {
+        const head = [
+            'Name',
+            'Typ',
+            'Url',
+            ''
+        ];
+
+        let systems = data.systems.filter(system => system.type != 'local');
+
+        const body = systems.map(item => {
+            let name = getSSOTypes().filter(type => item.type === type.value);
+            return [
+                item.alias,
+                name,
+                item.url,
+                getTableActions(item, '/administration/systems/')
+            ];
+        });
+
+        const availableSSOTypes = getSSOTypes();
+
+        res.render('administration/systems', {
+            title: 'Administration: Authentifizierungsdienste',
+            head,
+            body,
+            systems,
+            availableSSOTypes
+        });
     });
 });
 
