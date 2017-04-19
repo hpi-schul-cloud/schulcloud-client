@@ -22,6 +22,12 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 4. run `npm run watch` to boot the application
 5. go to `http://localhost:3100`
 
+## Run with Docker
+
+1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)
+2. Go into the project folder
+3. run `docker-compose up`
+
 ## How to name your branch
 
 1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")
