@@ -54,8 +54,11 @@
       color: grey;
       max-width:700px;
       margin: .5rem 0;
-      &.editor{
+      &.htmleditor{
         max-width:100%;
+      }
+      p {
+        margin-bottom:.25rem;
       }
       pre{
         font-family:inherit;
