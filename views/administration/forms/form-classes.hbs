@@ -8,7 +8,7 @@
 <div class="form-group">
     <label>Klassenlehrer</label>
 
-    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each teachers}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
         {{/each}}
@@ -18,7 +18,7 @@
 <div class="form-group">
     <label>Schüler</label>
 
-    <select name="userIds[]" required multiple data-placeholder="Schüler auswählen">
+    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
         {{/each}}
