@@ -179,7 +179,6 @@ const sendMailHandler = (req, res, next) => {
                res.status((err.statusCode || 500)).send(err);
            });
        } else {
-           console.log(err);
            next(err);
        }
     });
