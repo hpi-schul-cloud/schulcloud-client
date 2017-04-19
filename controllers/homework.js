@@ -242,11 +242,11 @@ router.all('/', function (req, res, next) {
 
 
             assignment.dueColor = dueColor;
-            if (assignment.teacherId != res.locals.currentUser._id) {
-                assignment.dueString = dueString;
-            } else {
+            if((assignment.teacherId == res.locals.currentUser._id) && (remainingDays > 5 || remaining < 0)) {
                 assignment.fromdate = availableDateF + " (" + availableTimeF + ")";
                 assignment.todate = dueDateF + " (" + dueTimeF + ")";
+            }else{
+                 assignment.dueString = dueString;
             }
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
@@ -272,14 +272,16 @@ router.all('/', function (req, res, next) {
                 if (assignment.teacherId === res.locals.currentUser._id) {
                     //teacher
                     assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
-                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
-                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
+                    assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
+                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
+                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
                     var submissioncount = (submissions.filter(function (a) {
                         return (a.gradeComment == '' && a.grade == null) ? 0 : 1
                     })).length
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;
-                        assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
+                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
+                        //assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
                         if (submissioncount > 0) {
                             var ratingsum = 0;
                             var submissiongrades;

@@ -45,7 +45,7 @@
                                     <select name="systemId" class="system" data-placeholder="System">
                                         <option><!-- Empty option goes here. --><option>
                                         {{#each systems}}
-                                            <option value="{{this._id}}">{{this.type}}</option>
+                                            <option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
                                         {{/each}}
                                     </select>
                                 </div>
