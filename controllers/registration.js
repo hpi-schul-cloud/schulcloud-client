@@ -145,8 +145,13 @@ router.post('/register/', function (req, res, next) {
         }).then(_ => {
             return res.redirect('/login/success/');
         }).catch(err => {
-            return res.status(500).send(err);
-        });
+            req.session.notification = {
+                type: 'danger',
+                message: err.error.message || err.message
+            };
+            const referrer = req.get('Referrer');
+                res.redirect(referrer);
+            });
 });
 
 
