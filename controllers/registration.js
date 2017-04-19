@@ -147,7 +147,7 @@ router.post('/register/', function (req, res, next) {
         }).catch(err => {
             req.session.notification = {
                 type: 'danger',
-                message: err.message
+                message: err.error.message || err.message
             };
             const referrer = req.get('Referrer');
                 res.redirect(referrer);
