@@ -1,6 +1,9 @@
 {{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js"></script>
-    <script>CKEDITOR.replace('ckeditor');</script>
+    <script>
+        CKEDITOR.replace($('.add-modal').find("textarea")[0]);
+        CKEDITOR.replace($('.edit-modal').find("textarea")[0]);
+    </script>
 {{/content}}
 {{#extend "homework/homework"}}
     {{#content "styles" mode="append"}}
@@ -75,7 +78,7 @@
                                         {{this.name}}
                                     </h5>
                                     <div class="description">
-                                        <pre>{{truncate this.description}}</pre>
+                                        {{{truncate this.description}}}
                                     </div>
                                 </a>
                                 {{#ifvalue this.teacherId value=this.currentUser._id}}
