@@ -22,6 +22,14 @@ $(document).ready(function() {
         }
     }
 
+    /**
+     * gets the directory name of a file's fullPath (all except last path-part)
+     * @param {string} fullPath - the fullPath of a file
+     * **/
+    function getDirname(fullPath) {
+        return fullPath.split("/").slice(0, -1).join('/');
+    }
+
     $form.dropzone({
         accept: function(file, done) {
             // get signed url before processing the file
@@ -33,7 +41,7 @@ $(document).ready(function() {
             if (file.fullPath) {
                 var separator = currentDir ? currentDir + '/' : '';
                 // todo: filter directory name
-                currentDir = separator + file.fullPath;
+                currentDir = separator + getDirname(file.fullPath);
             }
 
             $.post('/files/file', {
