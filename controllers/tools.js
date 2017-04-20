@@ -46,7 +46,7 @@ const runToolHandler = (req, res, next) => {
     let currentUser = res.locals.currentUser;
     Promise.all([
         api(req).get('/ltiTools/' + req.params.ltiToolId),
-        api(req).get('/roles/' + currentUser.roles[0])
+        api(req).get('/roles/' + currentUser.roles[0]._id)
     ]).then(([tool, role]) => {
        let customer = new ltiCustomer.LTICustomer();
        let consumer = customer.createConsumer(tool.key, tool.secret);
@@ -77,7 +77,7 @@ const runToolHandler = (req, res, next) => {
             url: tool.url,
             method: 'POST',
             formData: Object.keys(formData).map(key => {
-                return {name: key, value: formData[key]}
+                return {name: key, value: formData[key]};
             })
         });
     });
