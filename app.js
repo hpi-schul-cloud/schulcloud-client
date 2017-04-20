@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 
+const session = require('express-session');
 
 // template stuff
 const handlebars = require("handlebars");
@@ -38,6 +39,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'build')));
+
+const sessionStore = new session.MemoryStore;
+app.use(session({
+    cookie: { maxAge: 60000 },
+    store: sessionStore,
+    saveUninitialized: true,
+    resave: 'true',
+    secret: 'secret'
+}));
+// Custom flash middleware
+app.use(function(req, res, next){
+    // if there's a flash message in the session request, make it available in the response, then delete it
+    res.locals.notification = req.session.notification;
+    delete req.session.notification;
+    next();
+});
 
 const methodOverride = require('method-override');
 app.use(methodOverride('_method')); // for GET requests
@@ -74,6 +91,8 @@ app.use(function (err, req, res, next) {
         res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {status};
 
+    if (res.locals.currentUser)
+        res.locals.loggedin = true;
     // render the error page
     res.status(status);
     res.render('lib/error');

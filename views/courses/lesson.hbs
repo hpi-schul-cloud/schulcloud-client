@@ -51,9 +51,10 @@
                                     <small class="text-muted"> via {{this.client}} | 17. November 2016</small>
                                     {{#userHasPermission "COURSE_EDIT"}}
                                         <a class="delete-material"
-                                        href="materials/{{../_id}}"
-                                        target="_blank"
-                                        data-method="delete-material">
+                                           href="materials/{{../_id}}"
+                                           target="_blank"
+                                           data-method="delete-material"
+                                           data-name="{{../title}}">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     {{/userHasPermission}}
@@ -67,7 +68,8 @@
             {{#userHasPermission "COURSE_EDIT"}}
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                        <a href="/courses/{{../courseId}}/lessons/{{../_id}}/edit" class="btn btn-add btn-primary">Stunde bearbeiten</a>
+                        <a href="/courses/{{../courseId}}/lessons/{{../_id}}/edit" class="btn btn-add btn-primary">Stunde
+                            bearbeiten</a>
                     </div>
                 </div>
             {{/userHasPermission}}

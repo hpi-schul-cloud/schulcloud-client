@@ -12,6 +12,8 @@ router.use('/courses/:courseId/lessons/', require('./lessons'));
 router.use('/courses/:courseId/tools/', require('./tools'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
+router.use('/homework/', require('./homework'));
+router.use('/helpdesk/', require('./helpdesk'));
 
 router.use('/administration/', require('./administration'));
 

@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label>Klasse(n)</label>
 
-                    <select name="classIds[]" required multiple data-placeholder="Klasse(n) auswählen">
+                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
                         {{#each classes}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
                         {{/each}}
@@ -46,7 +46,7 @@
                 <div class="form-group">
                     <label>Schüler / Teilnehmer</label>
 
-                    <select name="userIds[]" required multiple data-placeholder="Schüler auswählen">
+                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
                         {{/each}}

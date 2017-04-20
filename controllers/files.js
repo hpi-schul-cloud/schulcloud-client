@@ -41,6 +41,11 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
 };
 
 const getStorageContext = (req, res, options = {}) => {
+
+    if (req.query.storageContext) {
+        return req.query.storageContext;
+    }
+
     const currentDir = options.dir || req.query.dir || '';
     const urlParts = url.parse((options.url || req.originalUrl), true);
 
@@ -77,7 +82,8 @@ const FileGetter = (req, res, next) => {
 
         res.locals.files = {
             files,
-            directories
+            directories,
+            storageContext
         };
 
         next();
@@ -227,7 +233,7 @@ router.get('/courses/', function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req);
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Fächern und Kursen',
             url: '/files/courses/'
         });
 
@@ -248,7 +254,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Fächern und Kursen',
             url: basePath
         }, {
             label: record.name,
@@ -291,7 +297,7 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Klassen',
             url: basePath
         }, {
             label: record.name,
