@@ -7,6 +7,8 @@ $(document).ready(function() {
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');
     var $deleteModal = $('.delete-modal');
+    var $moveModal = $('.move-modal');
+
 
     // TODO: replace with something cooler
     var reloadFiles = function() {
@@ -15,6 +17,7 @@ $(document).ready(function() {
 
     function showAJAXError(req, textStatus, errorThrown) {
         $deleteModal.modal('hide');
+        $moveModal.modal('hide');
         if(textStatus==="timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn");
         } else {
@@ -120,6 +123,32 @@ $(document).ready(function() {
 
     $deleteModal.find('.close, .btn-close').on('click', function() {
         $deleteModal.modal('hide');
+    });
+
+    $('a[data-method="move"]').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $buttonContext = $(this);
+
+        $moveModal.modal('show');
+        $moveModal.find('.btn-submit').unbind('click').on('click', function() {
+            $.ajax({
+                url: $buttonContext.attr('href'),
+                type: 'MOVE',
+                data: {
+                    name: $buttonContext.data('file-name'),
+                    dir: $buttonContext.data('file-path')
+                },
+                success: function(result) {
+                    reloadFiles();
+                },
+                error: showAJAXError
+            });
+        });
+    });
+
+    $moveModal.find('.close, .btn-close').on('click', function() {
+        $moveModal.modal('hide');
     });
 
     $('.create-directory').on('click', function(){
