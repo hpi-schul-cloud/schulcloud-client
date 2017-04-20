@@ -17,6 +17,7 @@
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.0",
     "express": "~4.14.1",
+    "express-session": "^1.15.2",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "~4.0.1",
