@@ -40,13 +40,12 @@ $(document).ready(function() {
             // uploading whole folders
             if (file.fullPath) {
                 var separator = currentDir ? currentDir + '/' : '';
-                // todo: filter directory name
                 currentDir = separator + getDirname(file.fullPath);
             }
 
             $.post('/files/file', {
                 name: file.name,
-                dir:  currentDir,
+                dir: currentDir,
                 type: file.type
             }, function(data) {
                 file.signedUrl = data.signedUrl;
