@@ -7,6 +7,9 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -40,6 +43,7 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
+            res.locals.createdTeacher = data;
             next();
         }).catch(err => {
             next(err);
@@ -141,6 +145,43 @@ const createBucket = (req, res, next) => {
             next(err);
         });
     }
+};
+
+const sendMailHandler = (req, res, next) => {
+    let createdTeacher = res.locals.createdTeacher;
+    let email = createdTeacher.email;
+    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
+       if(!err){
+           let source = data.toString();
+           let template = handlebars.compile(source);
+           let outputString = template({
+               "url":req.headers.origin + "/register/account/" + createdTeacher._id,
+               "firstName": createdTeacher.firstName,
+               "lastName": createdTeacher.lastName
+           });
+
+           let content = {
+               "html": outputString,
+               "text": "Sehr geehrte/r " + createdTeacher.firstName + " " + createdTeacher.lastName + ",\n\n" +
+               "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+               req.headers.origin + "/register/account/" + createdTeacher._id + "\n\n" +
+               "Mit Freundlichen Grüßen" + "\n Ihr Schul-Cloud Team"
+           };
+           req.body.content = content;
+           api(req).post('/mails', {json:{
+               headers: {},
+               email: email,
+               subject: "Einladung in die Schul-Cloud",
+               content: content
+           }}).then(_ => {
+               next();
+           }).catch(err => {
+               res.status((err.statusCode || 500)).send(err);
+           });
+       } else {
+           next(err);
+       }
+    });
 };
 
 // secure routes
@@ -291,7 +332,7 @@ router.all('/classes', function (req, res, next) {
 });
 
 
-router.post('/teachers/', getCreateHandler('users'));
+router.post('/teachers/', getCreateHandler('users'), sendMailHandler);
 router.patch('/teachers/:id', getUpdateHandler('users'));
 router.get('/teachers/:id', getDetailHandler('users'));
 router.delete('/teachers/:id', getDeleteHandler('users'));
