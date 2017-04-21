@@ -14,6 +14,7 @@ router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
 router.use('/helpdesk/', require('./helpdesk'));
+router.use('/pwrecovery/', require('./pwrecovery'));
 
 router.use('/administration/', require('./administration'));
 

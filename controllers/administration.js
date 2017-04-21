@@ -98,7 +98,7 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
         next();
     }).catch(err => {
         next(err);
-    })
+    });
 };
 
 const createSystemHandler = (req, res, next) => {
@@ -128,7 +128,7 @@ const getSSOTypes = () => {
         {label: 'Moodle', value: 'moodle'},
         {label: 'ITSLearning', value: 'itslearning'},
         {label: 'LernSax', value: 'lernsax'}
-    ]
+    ];
 };
 
 const createBucket = (req, res, next) => {
@@ -165,7 +165,7 @@ const sendMailHandler = (req, res, next) => {
                "text": "Sehr geehrte/r " + createdTeacher.firstName + " " + createdTeacher.lastName + ",\n\n" +
                "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
                req.headers.origin + "/register/account/" + createdTeacher._id + "\n\n" +
-               "Mit Freundlichen Grüßen" + "\n Ihr Schul-Cloud Team"
+               "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
            };
            req.body.content = content;
            api(req).post('/mails', {json:{
