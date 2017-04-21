@@ -479,18 +479,41 @@ router.get('/:assignmentId', function (req, res, next) {
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: assignment.courseId.name + ' - ' + assignment.name,
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ],
-                            students,
-                            comments
-                        }));
+                        const coursesPromise = getSelectOptions(req, 'courses', {
+                            $or: [
+                                {userIds: res.locals.currentUser._id},
+                                {teacherIds: res.locals.currentUser._id}
+                            ]
+                        });
+                        Promise.resolve(coursesPromise).then(courses => {
+                            const userPromise = getSelectOptions(req, 'users', {
+                                _id: res.locals.currentUser._id,
+                                $populate: ['roles']
+                            });
+                            Promise.resolve(userPromise).then(user => {
+                                const roles = user[0].roles.map(role => {
+                                    return role.name;
+                                });
+                                var isStudent = true;
+                                if (roles.indexOf('student') == -1) {
+                                    isStudent = false;
+                                }
+                                res.render('homework/assignment', Object.assign({}, assignment, {
+                                    title: assignment.courseId.name + ' - ' + assignment.name,
+                                    breadcrumb: [
+                                        {
+                                            title: 'Meine Aufgaben',
+                                            url: '/homework'
+                                        },
+                                        {}
+                                    ],
+                                    students,
+                                    courses,
+                                    isStudent,
+                                    comments
+                                }));
+                            });
+                        });
                     });
 
                 });
