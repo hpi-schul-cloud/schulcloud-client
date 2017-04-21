@@ -80,7 +80,7 @@ $(document).ready(function() {
     $('.submit-pwrecovery').on('click', function(e) {
         e.preventDefault();
         populateModalForm($pwRecoveryModal, {
-            title: 'Passwort Recovery',
+            title: 'Passwort Zurücksetzen',
             closeLabel: 'Schließen',
             submitLabel: 'Abschicken'
         });

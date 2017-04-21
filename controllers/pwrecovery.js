@@ -17,7 +17,7 @@ const sendMailHandler = (req, res, next) => {
                 json: {
                     headers: {},
                     email: account.userId.email,
-                    subject: "Einladung in die Schul-Cloud",
+                    subject: "Passwort zurücksetzen für die Schul-Cloud",
                     content: content
                 }
             }).then(_ => {
