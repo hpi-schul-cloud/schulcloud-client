@@ -48,6 +48,9 @@
       font-weight: 700;
       color: $colorHPIOrange;
     }
+    form.inline button{
+        background: $colorHPIRed;
+    }
     .description,
     .comment,
     .feedback {
