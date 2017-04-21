@@ -37,9 +37,9 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes');
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
+    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000 });
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000 });
 
     Promise.all([
         coursePromise,
@@ -47,6 +47,17 @@ const editCourseHandler = (req, res, next) => {
         teachersPromise,
         studentsPromise
     ]).then(([course, classes, teachers, students]) => {
+
+        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
+        teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
+        students = students.filter(s => s.schoolId == res.locals.currentSchool);
+
+        // preselect current teacher when creating new course
+        if (!req.params.courseId) {
+            course.teacherIds = [];
+            course.teacherIds.push(res.locals.currentUser);
+        }
+
         res.render('courses/edit-course', {
             action,
             method,

@@ -53,7 +53,7 @@ const runToolHandler = (req, res, next) => {
        let payload = {
            lti_version: tool.lti_version,
            lti_message_type: tool.lti_message_type,
-           resource_link_id: tool.courseId  || tool.resource_link_id,
+           resource_link_id: req.params.courseId  || tool.resource_link_id,
            roles: customer.mapSchulcloudRoleToLTIRole(role.name),
            launch_presentation_document_target: 'window',
            launch_presentation_locale: 'en',
@@ -73,7 +73,7 @@ const runToolHandler = (req, res, next) => {
 
         var formData = consumer.authorize(request_data);
 
-        res.render('courses/components/run-lti', {
+        res.render('courses/components/run-lti-frame', {
             url: tool.url,
             method: 'POST',
             formData: Object.keys(formData).map(key => {
@@ -100,6 +100,17 @@ const getDetailHandler = (req, res, next) => {
     });
 };
 
+const showToolHandler = (req, res, next) => {
+    api(req).get('/ltiTools/' + req.params.ltiToolId).then(tool => {
+        res.render('courses/run-lti', {
+            courseId: req.params.courseId,
+            title: tool.name,
+            tool: tool
+        });
+    });
+};
+
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -111,6 +122,7 @@ router.get('/add', addToolHandler);
 router.post('/add', createToolHandler);
 
 router.get('/run/:ltiToolId', runToolHandler);
+router.get('/show/:ltiToolId', showToolHandler);
 
 router.get('/:id', getDetailHandler);
 

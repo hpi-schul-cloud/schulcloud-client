@@ -43,6 +43,24 @@ const getActions = (item, path) => {
     ];
 };
 
+const getSortmethods = () => {
+    return [
+        {
+            functionname: 'availableDate',
+            title: 'Verfügbarkeitsdatum'
+        },
+        {
+            functionname: 'dueDate',
+            title: 'Abgabedatum'
+        },
+        {
+            functionname: '',
+            title: 'Erstelldatum',
+            active: "selected"
+        }
+    ];
+};
+
 const getCreateHandler = (service) => {
     return function (req, res, next) {
         if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
@@ -50,17 +68,19 @@ const getCreateHandler = (service) => {
         }
 
         if (!req.body.availableDate || !req.body.dueDate) {
-            var now = new Date;
+            var now = new Date();
             var dd = (now.getDate() < 10) ? "0" + now.getDate() : now.getDate();
-            var mm = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
-        }
-        if (!req.body.availableDate) {
-            var availableDate = now.getFullYear() + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z";
-            req.body.availableDate = availableDate;
-        }
-        if (!req.body.dueDate) {
-            var dueDate = (now.getFullYear() + 9) + "-" + mm + "-" + dd + "T" + now.getHours() + ":" + now.getMinutes() + ":00.000Z"; //default dueDate: now + 9 years
-            req.body.dueDate = dueDate;
+            var MM = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
+            var HH = (now.getHours() < 10) ? "0" + now.getHours() : now.getHours();
+            var mm = (now.getMinutes() < 10) ? "0" + now.getMinutes() : now.getMinutes();
+            if (!req.body.availableDate) {
+                var availableDate = now.getFullYear() + "-" + MM + "-" + dd + "T" + HH + ":" + mm+ ":00.000Z";
+                req.body.availableDate = availableDate;
+            }
+            if (!req.body.dueDate) {
+                var dueDate = (now.getFullYear() + 9) + "-" + MM + "-" + dd + "T" + HH + ":" + mm + ":00.000Z"; //default dueDate: now + 9 years
+                req.body.dueDate = dueDate;
+            }
         }
 
         api(req).post('/' + service + '/', {
@@ -153,10 +173,6 @@ router.all('/', function (req, res, next) {
                 && assignment.teacherId != res.locals.currentUser._id) {
                 return;
             }
-            if (assignment.private
-                && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
             if (assignment.courseId != null) {
                 if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
                     && assignment.teacherId != res.locals.currentUser._id) {
@@ -169,6 +185,10 @@ router.all('/', function (req, res, next) {
             } else {
                 assignment.color = "#1DE9B6";
                 assignment.private = true;
+            }
+            if (assignment.private
+                && assignment.teacherId != res.locals.currentUser._id) {
+                return;
             }
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : "";
@@ -197,36 +217,36 @@ router.all('/', function (req, res, next) {
             var dueString;
             if (remainingDays > 5 || remaining < 0) {
                 dueColor = "";
-                dueString = (dueDateF + " (" + dueTimeF + ")")
+                dueString = (dueDateF + " (" + dueTimeF + ")");
             }
             else if (remainingDays > 1) {
                 dueColor = "days";
-                dueString = "noch " + remainingDays + " Tage"
+                dueString = "noch " + remainingDays + " Tage";
             }
             else if (remainingDays == 1) {
                 dueColor = "hours";
-                dueString = "noch " + remainingDays + " Tag " + remainingHours + ((remainingHours == 1) ? " Stunde" : " Stunden")
+                dueString = "noch " + remainingDays + " Tag " + remainingHours + ((remainingHours == 1) ? " Stunde" : " Stunden");
             }
             else if (remainingHours > 2) {
                 dueColor = "hours";
-                dueString = "noch " + remainingHours + " Stunden"
+                dueString = "noch " + remainingHours + " Stunden";
             }
             else if (remainingHours >= 1) {
                 dueColor = "minutes";
-                dueString = "noch " + remainingHours + ((remainingHours == 1) ? " Stunde " : " Stunden ") + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten")
+                dueString = "noch " + remainingHours + ((remainingHours == 1) ? " Stunde " : " Stunden ") + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten");
             }
             else {
                 dueColor = "minutes";
-                dueString = "noch " + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten")
+                dueString = "noch " + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten");
             }
 
 
             assignment.dueColor = dueColor;
-            if (assignment.teacherId != res.locals.currentUser._id) {
-                assignment.dueString = dueString;
-            } else {
+            if((assignment.teacherId == res.locals.currentUser._id) && (remainingDays > 5 || remaining < 0)) {
                 assignment.fromdate = availableDateF + " (" + availableTimeF + ")";
                 assignment.todate = dueDateF + " (" + dueTimeF + ")";
+            }else{
+                 assignment.dueString = dueString;
             }
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
@@ -252,14 +272,16 @@ router.all('/', function (req, res, next) {
                 if (assignment.teacherId === res.locals.currentUser._id) {
                     //teacher
                     assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
-                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
-                    assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
+                    assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
+                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
+                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
                     var submissioncount = (submissions.filter(function (a) {
-                        return (a.gradeComment == '' && a.grade == null) ? 0 : 1
-                    })).length
+                        return (a.gradeComment == '' && a.grade == null) ? 0 : 1;
+                    })).length;
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;
-                        assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
+                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
+                        //assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
                         if (submissioncount > 0) {
                             var ratingsum = 0;
                             var submissiongrades;
@@ -273,7 +295,7 @@ router.all('/', function (req, res, next) {
                                 });
                             }
                             submissiongrades.forEach(function (e) {
-                                ratingsum += e
+                                ratingsum += e;
                             });
                             assignment.averagerating = (ratingsum / submissioncount).toFixed(1);
                         }
@@ -294,9 +316,45 @@ router.all('/', function (req, res, next) {
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
         });
+
         assignments = assignments.filter(function (n) {
             return n != undefined;
         });
+
+        var sortmethods = getSortmethods();
+        if(req.query.sort){
+            var sorting = JSON.parse(req.query.sort);
+            // Hausaufgaben nach Abgabedatum sortieren
+            sortmethods = sortmethods.map(function(e){
+                if(e.functionname == sorting.fn){
+                    e.active = 'selected';
+                    e.desc = sorting.desc;
+                }else{
+                    delete e['active'];
+                }
+                return e;
+            });
+            if(sorting.fn == "availableDate"){
+                assignments.sort(sortbyavailableDate);
+            }else if(sorting.fn == "dueDate"){
+                assignments.sort(sortbyDueDate);
+            }            
+            if(sorting.desc){
+                assignments.reverse();
+            }
+        }
+        function sortbyavailableDate(a, b) {
+            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000));
+            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000));
+            if (c === d) {return 0;}
+            else {return (c < d) ? -1 : 1;}
+        }
+        function sortbyDueDate(a, b) {
+            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000));
+            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000));
+            if (c === d) {return 0;}
+            else {return (c < d) ? -1 : 1;}
+        }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
@@ -304,6 +362,7 @@ router.all('/', function (req, res, next) {
                 {teacherIds: res.locals.currentUser._id}
             ]
         });
+
         Promise.resolve(coursesPromise).then(courses => {
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -317,7 +376,7 @@ router.all('/', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
-                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent});
+                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
             });
         });
 
@@ -392,7 +451,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                 }
                 submissiongrades.forEach(function (e) {
-                    ratingsum += e
+                    ratingsum += e;
                 });
                 assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
             }
@@ -420,18 +479,41 @@ router.get('/:assignmentId', function (req, res, next) {
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: assignment.courseId.name + ' - ' + assignment.name,
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ],
-                            students,
-                            comments
-                        }));
+                        const coursesPromise = getSelectOptions(req, 'courses', {
+                            $or: [
+                                {userIds: res.locals.currentUser._id},
+                                {teacherIds: res.locals.currentUser._id}
+                            ]
+                        });
+                        Promise.resolve(coursesPromise).then(courses => {
+                            const userPromise = getSelectOptions(req, 'users', {
+                                _id: res.locals.currentUser._id,
+                                $populate: ['roles']
+                            });
+                            Promise.resolve(userPromise).then(user => {
+                                const roles = user[0].roles.map(role => {
+                                    return role.name;
+                                });
+                                var isStudent = true;
+                                if (roles.indexOf('student') == -1) {
+                                    isStudent = false;
+                                }
+                                res.render('homework/assignment', Object.assign({}, assignment, {
+                                    title: assignment.courseId.name + ' - ' + assignment.name,
+                                    breadcrumb: [
+                                        {
+                                            title: 'Meine Aufgaben',
+                                            url: '/homework'
+                                        },
+                                        {}
+                                    ],
+                                    students,
+                                    courses,
+                                    isStudent,
+                                    comments
+                                }));
+                            });
+                        });
                     });
 
                 });
