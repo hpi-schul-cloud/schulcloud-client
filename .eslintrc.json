@@ -20,9 +20,7 @@
     },
     "sourceType": "module"
   },
-  "plugins": [
-    "react"
-  ],
+  "plugins": [],
   "rules": {
     "linebreak-style": [
       2,
@@ -34,8 +32,6 @@
     ],
     "no-unused-vars": [
       0
-    ],
-	  "no-console": "off",
-	  "no-mixed-spaces-and-tabs": ["error", "smart-tabs"]
+    ]
   }
 }
