@@ -51,13 +51,13 @@ body {
         &.bg-graphic-left {
             left: 10%;
             top: 10%;
-            background-image: url(../../images/login-left.png);
+            background-image: url(/images/login-left.png);
         }
 
         &.bg-graphic-right {
             right: 10%;
             top: 30%;
-            background-image: url(../../images/login-right.png);
+            background-image: url(/images/login-right.png);
         }
     }
 
