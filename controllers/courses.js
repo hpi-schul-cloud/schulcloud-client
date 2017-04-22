@@ -151,7 +151,7 @@ router.get('/:courseId', function (req, res, next) {
         let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
-                url: '/courses/' + req.params.courseId + '/lessons/' + lesson._id + '/'
+                url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
             });
         });
 
