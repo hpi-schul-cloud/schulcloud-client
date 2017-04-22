@@ -7,6 +7,7 @@ const map = require('vinyl-map');
 const imagemin = require('gulp-imagemin');
 const babel = require('gulp-babel');
 const filelog = require('gulp-filelog');
+const plumber = require('gulp-plumber');
 const watch = require('gulp-watch');
 
 /**
@@ -20,8 +21,10 @@ const getGulpTask = (src, isWatch = false) => {
     if(isWatch) {
         task = task.pipe(watch(src));
     }
-    return task.pipe(filelog());
-}
+    return task
+        .pipe(filelog())
+        .pipe(plumber());
+};
 
 /**
  * Minify images
@@ -85,6 +88,15 @@ const buildScripts = (isWatch) => {
         }))
         .pipe(uglify())
         .pipe(gulp.dest('./build/scripts'))
+        .on('error', catchError)
+};
+
+/**
+ * Prevent gulp from crashing when there are errors while bundling (e.g. in js-files)
+ * @param error {Error} - the error which is thrown and has to be handled
+ */
+const catchError = (error) => {
+    console.log(error.toString());
 };
 
 /**

@@ -2,6 +2,11 @@
 
 <div class="form-group">
     <label>Name des Systems</label>
+    <input class="form-control" name="alias" type="text" value="{{alias}}" />
+</div>
+
+<div class="form-group">
+    <label>Typ des Systems</label>
     <select name="type" required data-placeholder="Anbieter auswählen">
         {{#each availableSSOTypes}}
             <option value="{{this.value}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>

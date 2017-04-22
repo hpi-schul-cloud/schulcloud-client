@@ -217,27 +217,27 @@ router.all('/', function (req, res, next) {
             var dueString;
             if (remainingDays > 5 || remaining < 0) {
                 dueColor = "";
-                dueString = (dueDateF + " (" + dueTimeF + ")")
+                dueString = (dueDateF + " (" + dueTimeF + ")");
             }
             else if (remainingDays > 1) {
                 dueColor = "days";
-                dueString = "noch " + remainingDays + " Tage"
+                dueString = "noch " + remainingDays + " Tage";
             }
             else if (remainingDays == 1) {
                 dueColor = "hours";
-                dueString = "noch " + remainingDays + " Tag " + remainingHours + ((remainingHours == 1) ? " Stunde" : " Stunden")
+                dueString = "noch " + remainingDays + " Tag " + remainingHours + ((remainingHours == 1) ? " Stunde" : " Stunden");
             }
             else if (remainingHours > 2) {
                 dueColor = "hours";
-                dueString = "noch " + remainingHours + " Stunden"
+                dueString = "noch " + remainingHours + " Stunden";
             }
             else if (remainingHours >= 1) {
                 dueColor = "minutes";
-                dueString = "noch " + remainingHours + ((remainingHours == 1) ? " Stunde " : " Stunden ") + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten")
+                dueString = "noch " + remainingHours + ((remainingHours == 1) ? " Stunde " : " Stunden ") + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten");
             }
             else {
                 dueColor = "minutes";
-                dueString = "noch " + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten")
+                dueString = "noch " + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten");
             }
 
 
@@ -276,8 +276,8 @@ router.all('/', function (req, res, next) {
                     //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
                     //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
                     var submissioncount = (submissions.filter(function (a) {
-                        return (a.gradeComment == '' && a.grade == null) ? 0 : 1
-                    })).length
+                        return (a.gradeComment == '' && a.grade == null) ? 0 : 1;
+                    })).length;
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;
                         assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
@@ -295,7 +295,7 @@ router.all('/', function (req, res, next) {
                                 });
                             }
                             submissiongrades.forEach(function (e) {
-                                ratingsum += e
+                                ratingsum += e;
                             });
                             assignment.averagerating = (ratingsum / submissioncount).toFixed(1);
                         }
@@ -321,7 +321,7 @@ router.all('/', function (req, res, next) {
             return n != undefined;
         });
 
-        var sortmethods = getSortmethods()
+        var sortmethods = getSortmethods();
         if(req.query.sort){
             var sorting = JSON.parse(req.query.sort);
             // Hausaufgaben nach Abgabedatum sortieren
@@ -344,14 +344,14 @@ router.all('/', function (req, res, next) {
             }
         }
         function sortbyavailableDate(a, b) {
-            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000))
-            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000))
+            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000));
+            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000));
             if (c === d) {return 0;}
             else {return (c < d) ? -1 : 1;}
         }
         function sortbyDueDate(a, b) {
-            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000))
-            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000))
+            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000));
+            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000));
             if (c === d) {return 0;}
             else {return (c < d) ? -1 : 1;}
         }
@@ -451,7 +451,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                 }
                 submissiongrades.forEach(function (e) {
-                    ratingsum += e
+                    ratingsum += e;
                 });
                 assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
             }
@@ -479,18 +479,41 @@ router.get('/:assignmentId', function (req, res, next) {
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: assignment.courseId.name + ' - ' + assignment.name,
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ],
-                            students,
-                            comments
-                        }));
+                        const coursesPromise = getSelectOptions(req, 'courses', {
+                            $or: [
+                                {userIds: res.locals.currentUser._id},
+                                {teacherIds: res.locals.currentUser._id}
+                            ]
+                        });
+                        Promise.resolve(coursesPromise).then(courses => {
+                            const userPromise = getSelectOptions(req, 'users', {
+                                _id: res.locals.currentUser._id,
+                                $populate: ['roles']
+                            });
+                            Promise.resolve(userPromise).then(user => {
+                                const roles = user[0].roles.map(role => {
+                                    return role.name;
+                                });
+                                var isStudent = true;
+                                if (roles.indexOf('student') == -1) {
+                                    isStudent = false;
+                                }
+                                res.render('homework/assignment', Object.assign({}, assignment, {
+                                    title: assignment.courseId.name + ' - ' + assignment.name,
+                                    breadcrumb: [
+                                        {
+                                            title: 'Meine Aufgaben',
+                                            url: '/homework'
+                                        },
+                                        {}
+                                    ],
+                                    students,
+                                    courses,
+                                    isStudent,
+                                    comments
+                                }));
+                            });
+                        });
                     });
 
                 });

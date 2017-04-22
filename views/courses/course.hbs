@@ -28,7 +28,6 @@
                                 <a href="{{this.url}}"
                                    class="list-group-item list-group-item-action flex-column align-items-start">
                                     <span>{{this.name}}</span>
-                                    <small class="text-muted lesson-date float-right">{{this.date}}</small>
                                 </a>
                             {{/each}}
                         {{else}}
@@ -51,7 +50,7 @@
                         {{#if ltiToolIds}}
                             {{#each ltiToolIds}}
                                 <div class="card card-block card-tool"
-                                     onclick="window.open('/courses/{{../_id}}/tools/run/{{this._id}}')">
+                                     onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'">
                                     <p class="card-title-directory">
                                         {{#if logo_url}}
                                             <img src={{this.logo_url}} class="float-left"
