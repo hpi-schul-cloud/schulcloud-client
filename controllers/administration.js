@@ -7,6 +7,9 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
+const handlebars = require('handlebars');
+const fs = require('fs');
+const path = require('path');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -40,6 +43,7 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
+            res.locals.createdUser = data;
             next();
         }).catch(err => {
             next(err);
@@ -94,7 +98,7 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
         next();
     }).catch(err => {
         next(err);
-    })
+    });
 };
 
 const createSystemHandler = (req, res, next) => {
@@ -124,7 +128,7 @@ const getSSOTypes = () => {
         {label: 'Moodle', value: 'moodle'},
         {label: 'ITSLearning', value: 'itslearning'},
         {label: 'LernSax', value: 'lernsax'}
-    ]
+    ];
 };
 
 const createBucket = (req, res, next) => {
@@ -141,6 +145,43 @@ const createBucket = (req, res, next) => {
             next(err);
         });
     }
+};
+
+const sendMailHandler = (req, res, next) => {
+    let createdUser = res.locals.createdUser;
+    let email = createdUser.email;
+    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
+       if(!err){
+           let source = data.toString();
+           let template = handlebars.compile(source);
+           let outputString = template({
+               "url":req.headers.origin + "/register/account/" + createdUser._id,
+               "firstName": createdUser.firstName,
+               "lastName": createdUser.lastName
+           });
+
+           let content = {
+               "html": outputString,
+               "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
+               "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+               req.headers.origin + "/register/account/" + createdUser._id + "\n\n" +
+               "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
+           };
+           req.body.content = content;
+           api(req).post('/mails', {json:{
+               headers: {},
+               email: email,
+               subject: "Einladung in die Schul-Cloud",
+               content: content
+           }}).then(_ => {
+               next();
+           }).catch(err => {
+               res.status((err.statusCode || 500)).send(err);
+           });
+       } else {
+           next(err);
+       }
+    });
 };
 
 // secure routes
@@ -291,7 +332,7 @@ router.all('/classes', function (req, res, next) {
 });
 
 
-router.post('/teachers/', getCreateHandler('users'));
+router.post('/teachers/', getCreateHandler('users'), sendMailHandler);
 router.patch('/teachers/:id', getUpdateHandler('users'));
 router.get('/teachers/:id', getDetailHandler('users'));
 router.delete('/teachers/:id', getDeleteHandler('users'));
@@ -336,7 +377,7 @@ router.all('/teachers', function (req, res, next) {
 });
 
 
-router.post('/students/', getCreateHandler('users'));
+router.post('/students/', getCreateHandler('users'), sendMailHandler);
 router.patch('/students/:id', getUpdateHandler('users'));
 router.get('/students/:id', getDetailHandler('users'));
 router.delete('/students/:id', getDeleteHandler('users'));
@@ -394,6 +435,7 @@ router.all('/systems', function (req, res, next) {
     }).then(data => {
         const head = [
             'Name',
+            'Typ',
             'Url',
             ''
         ];
@@ -403,6 +445,7 @@ router.all('/systems', function (req, res, next) {
         const body = systems.map(item => {
             let name = getSSOTypes().filter(type => item.type === type.value);
             return [
+                item.alias,
                 name,
                 item.url,
                 getTableActions(item, '/administration/systems/')
