@@ -48,5 +48,5 @@ describe('Content tests', function () {
                     resolve();
                 });
         });
-    })
+    });
 });
