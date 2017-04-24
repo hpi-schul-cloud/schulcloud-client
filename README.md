@@ -6,7 +6,7 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 
 ## Requirements
 
-* node.js
+* node.js 6 or later (You can install it from https://nodejs.org/en/download/)
 
 ## Setup
 
