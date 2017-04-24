@@ -19,6 +19,18 @@ services:
       - .:/app
     command: npm run watch
 
+  schulcloud-client-gulp:
+      image: schulcloud-client:latest
+      build:
+        context: .
+        dockerfile: Dockerfile
+      environment:
+        NODE_ENV: development
+      volumes:
+        - .:/app
+      # command: /opt/node_modules/.bin/gulp watch
+      command: /opt/node_modules/.bin/gulp
+
 networks:
   default:
     external:
