@@ -11,19 +11,17 @@
     {{#content "page"}}
 
         <section class="section-course">
-            <div class="row description">
-                <div class="col-sm-12">
-                    <p class="lead">{{{description}}}</p>
-                </div>
-            </div>
-
-            <div class="row">
-                {{#each contents}}
-                    <div class="col-sm-6">
-                        {{> (lookup . 'component') this}}
+            {{#each contents}}
+                {{#unless hidden}}
+                <div class="row">
+                    <div class="col-md-6 col-sm-10 col-xs-12">
+                        <div class="content-block">
+                            {{> (lookup . 'component') }}
+                        </div>
                     </div>
-                {{/each}}
-            </div>
+                </div>
+                {{/unless}}
+            {{/each}}
 
             {{#if materialIds}}
                 <div class="materials">
@@ -48,7 +46,7 @@
                                     {{/if}}
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted"> via {{this.client}} | 17. November 2016</small>
+                                    <small class="text-muted"> via {{this.client}}</small>
                                     {{#userHasPermission "COURSE_EDIT"}}
                                         <a class="delete-material"
                                            href="materials/{{../_id}}"
@@ -68,7 +66,7 @@
             {{#userHasPermission "COURSE_EDIT"}}
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                        <a href="/courses/{{../courseId}}/lessons/{{../_id}}/edit" class="btn btn-add btn-primary">Stunde
+                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Stunde
                             bearbeiten</a>
                     </div>
                 </div>
