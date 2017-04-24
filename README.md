@@ -22,11 +22,6 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 4. run `npm run watch` to boot the application
 5. go to `http://localhost:3100`
 
-## How to name your branch
-
-1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")
-2. Name the branch after the Trello id (e.g. "8-setup-feathers-js")
-
 ## Testing
 
 1. Set the password for the demo user `schueler@schul-cloud.org`
@@ -35,6 +30,11 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 2. run `npm run test`
 3. If you want to use another backend url than localhost, set the `BACKEND_URL` environment variable (see 1)
 4. If you want to list the coverage, run `npm run coverage`
+
+## How to name your branch
+
+1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")
+2. Name the branch after the Trello id (e.g. "8-setup-feathers-js")
 
 ## Commiting
 
