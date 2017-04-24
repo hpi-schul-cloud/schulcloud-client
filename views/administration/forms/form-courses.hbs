@@ -2,12 +2,12 @@
 
 <div class="form-group">
     <label>Name des Kurses</label>
-    <input class="form-control" name="name" type="text" placeholder="10a" required />
+    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" required />
 </div>
 
 <div class="form-group">
     <label>Farbe des Kurses:</label>
-	<input name="color" list="coursecolors" type="color" placeholder="#ff0000" autocomplete=on required/>
+	<input name="color" list="coursecolors" type="color" value="{{#if course.color}}{{course.color}}{{else}}#ff0000{{/if}}" placeholder="#ff0000" autocomplete=on required/>
 	<datalist id="coursecolors">
 	  <option value="#F44336">
 	  <option value="#E91E63">
@@ -58,7 +58,13 @@
 
     <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each teachers}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
         {{/each}}
     </select>
 </div>
@@ -68,7 +74,13 @@
 
     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
         {{/each}}
     </select>
 </div>
