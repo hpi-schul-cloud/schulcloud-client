@@ -3,6 +3,9 @@ node_js:
   - "6"
 services:
   - mongodb
+env:
+  - BACKEND_URL=https://schul.tech:3030
+  - SC_DEMO_USER_PASSWORD=schulcloud
 script:
   - npm test
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
