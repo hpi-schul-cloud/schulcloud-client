@@ -1,10 +1,11 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
+        <script src="/vendor/react/react.js"></script>
+        <script src="/vendor/react/react-dom.js"></script>
+        <script src="/vendor/react/react-sortable-hoc.js"></script>
         <script src="/vendor/ckeditor/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replace( 'editor' );
-        </script>
+        <script src="/scripts/topic.js"></script>
     {{/content}}
 
     {{#content "styles" mode="append"}}
@@ -12,7 +13,7 @@
     {{/content}}
 
     {{#content "page"}}
-        <section class="section-course">
+        <section class="section-course-edit">
             <form action="{{action}}" method="post">
                 {{#if method}}
                     <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
@@ -21,28 +22,16 @@
                 <input name="courseId" type="hidden" data-force-value="true" value="{{courseId}}" />
 
                 <div class="form-group">
-                    <label>Titel für die Stunde</label>
-                    <input class="form-control" name="name" type="text" placeholder="10a" value="{{lesson.name}}" required />
+                    <label>Titel des Themas</label>
+                    <input class="form-control" name="name" type="text" placeholder="z.B. Rechnen mit Primzahlen" value="{{lesson.name}}" required />
                 </div>
 
                 <div class="form-group">
-                    <label>Beschreibung der Stunde</label>
-                    <textarea class="form-control" id="editor" name="description">{{lesson.description}}</textarea>
+                    <label>Inhalte</label>
+
+                    <!-- React Magic -->
+                    <div id="content-blocks" data-value="{{lesson.contents}}"></div>
                 </div>
-
-                <div class="form-group">
-                    <label>Datum</label>
-                    <input type="date" class="form-control" name="date" value="{{lesson.date}}" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Uhrzeit</label>
-                    <input type="time" class="form-control" name="time" value="{{lesson.time}}" required>
-                </div>
-
-
-                <!-- TODO: content sections -->
-
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="{{submitLabel}}" />

@@ -7,30 +7,32 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
 
-const editLessonHandler = (req, res, next) => {
+const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
-    if(req.params.lessonId) {
-        action = '/courses/' + req.params.courseId + '/lessons/' + req.params.lessonId;
+    if(req.params.topicId) {
+        action = '/courses/' + req.params.courseId + '/topics/' + req.params.topicId;
         method = 'patch';
-        lessonPromise = api(req).get('/lessons/' + req.params.lessonId);
+        lessonPromise = api(req).get('/lessons/' + req.params.topicId);
     } else {
-        action = '/courses/' + req.params.courseId + '/lessons/';
+        action = '/courses/' + req.params.courseId + '/topics/';
         method = 'post';
         lessonPromise = Promise.resolve({});
     }
 
+
     Promise.all([
         lessonPromise
     ]).then(([lesson]) => {
+        if(lesson.contents) {
+            // so we can share the content through data-value to the react component
+            lesson.contents = JSON.stringify(lesson.contents);
+        }
 
-        lesson.time = moment(lesson.time || 0).format('HH:mm');
-        lesson.date = moment(lesson.date || 0).format('YYYY-MM-DD');
-
-        res.render('courses/edit-lesson', {
+        res.render('topic/edit-topic', {
             action,
             method,
-            title: req.params.courseId ? 'Unterrichtsstunde bearbeiten' : 'Unterrichtsstunde anlegen',
-            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Unterrichtsstunde anlegen',
+            title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
+            submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
             lesson,
             courseId: req.params.courseId
         });
@@ -47,7 +49,7 @@ router.get('/', (req, res, next) => {
 });
 
 
-router.get('/add', editLessonHandler);
+router.get('/add', editTopicHandler);
 
 
 router.post('/', function (req, res, next) {
@@ -59,18 +61,18 @@ router.post('/', function (req, res, next) {
     api(req).post('/lessons/', {
         json: data // TODO: sanitize
     }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/lessons/');
+        res.redirect('/courses/' + req.params.courseId + '/topics/');
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
 
 
-router.get('/:lessonId', function (req, res, next) {
+router.get('/:topicId', function (req, res, next) {
 
     Promise.all([
         api(req).get('/courses/' + req.params.courseId),
-        api(req).get('/lessons/' + req.params.lessonId, {
+        api(req).get('/lessons/' + req.params.topicId, {
             qs: {
                 $populate: ['materialIds']
             }
@@ -78,13 +80,11 @@ router.get('/:lessonId', function (req, res, next) {
     ]).then(([course, lesson]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
-            return Object.assign(block, {
-                component: 'courses/components/content-text',
-                markup: marked(block.content || '')
-            });
+            block.component = 'topic/components/content-' + block.component;
+            return block;
         });
 
-        res.render('courses/lesson', Object.assign({}, lesson, {
+        res.render('topic/topic', Object.assign({}, lesson, {
             title: lesson.name,
             breadcrumb: [
                 {
@@ -102,32 +102,32 @@ router.get('/:lessonId', function (req, res, next) {
 });
 
 
-router.patch('/:lessonId', function (req, res, next) {
+router.patch('/:topicId', function (req, res, next) {
     const data = req.body;
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
-    api(req).patch('/lessons/' + req.params.lessonId, {
+    api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/lessons/' + req.params.lessonId);
+        res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
 
 
-router.delete('/:lessonId', function (req, res, next) {
-    api(req).delete('/lessons/' + req.params.lessonId).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/lessons/');
+router.delete('/:topicId', function (req, res, next) {
+    api(req).delete('/lessons/' + req.params.topicId).then(_ => {
+        res.redirect('/courses/' + req.params.courseId + '/topics/');
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
 
-router.delete('/:lessonId/materials/:materialId', function (req, res, next) {
-    api(req).patch('/lessons/' + req.params.lessonId, {
+router.delete('/:topicId/materials/:materialId', function (req, res, next) {
+    api(req).patch('/lessons/' + req.params.topicId, {
         json: {
             $pull: {
                 materialIds: req.params.materialId
@@ -141,7 +141,7 @@ router.delete('/:lessonId/materials/:materialId', function (req, res, next) {
 });
 
 
-router.get('/:lessonId/edit', editLessonHandler);
+router.get('/:topicId/edit', editTopicHandler);
 
 
 module.exports = router;
