@@ -32,13 +32,16 @@ const addToolHandler = (req, res, next) => {
     api(req).get('/ltiTools/')
     .then(tools => {
         const ltiTools = tools.data.filter(ltiTool => ltiTool.isTemplate == 'true');
-        res.render('courses/add-tool', {
-            action,
-            title: 'Tool anlegen',
-            submitLabel: 'Tool anlegen',
-            ltiTools,
-            courseId: req.params.courseId
-        });
+        api(req).get('/courses/' + req.params.courseId)
+            .then(course => {
+                res.render('courses/add-tool', {
+                    action,
+                    title: 'Tool anlegen für ' + course.name,
+                    submitLabel: 'Tool anlegen',
+                    ltiTools,
+                    courseId: req.params.courseId
+                });
+            });
     });
 };
 
@@ -92,7 +95,6 @@ const getDetailHandler = (req, res, next) => {
         api(req).get('/ltiTools/' + req.params.id)]).
     then(([courses, tool]) => {
         res.json({
-            courses: courses,
             tool: tool
         });
     }).catch(err => {
