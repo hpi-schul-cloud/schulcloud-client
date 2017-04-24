@@ -161,11 +161,11 @@ $(document).ready(function() {
                 error: showAJAXError
             });
         });
-    });**/
+    });
 
     $moveModal.find('.close, .btn-close').on('click', function() {
         $moveModal.modal('hide');
-    });
+    });**/
 
     $('.create-directory').on('click', function(){
         $editModal.modal('show');
