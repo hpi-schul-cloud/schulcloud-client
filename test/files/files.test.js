@@ -9,6 +9,7 @@ const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
 describe('Files tests', function () {
+    this.timeout(5000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
@@ -43,7 +44,7 @@ describe('Files tests', function () {
                 .get('/files/courses/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Dateien aus meinen Kursen');
+                    expect(res.text).to.contain('Dateien aus meinen Fächern und Kursen');
                     resolve();
                 });
         });

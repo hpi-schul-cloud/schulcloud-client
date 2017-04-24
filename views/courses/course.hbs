@@ -20,23 +20,25 @@
 
             <div class="row">
                 <div class="col-sm-6">
-                    <h4>Unterrichtsstunden</h4>
+                    <h4>Themen</h4>
 
                     <div class="list-group">
                         {{#if lessons}}
                             {{#each lessons}}
-                                <a href="{{this.url}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                <a href="{{this.url}}"
+                                   class="list-group-item list-group-item-action flex-column align-items-start">
                                     <span>{{this.name}}</span>
-                                    <small class="text-muted lesson-date float-right">{{this.date}}</small>
                                 </a>
                             {{/each}}
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                                <span>Keine Unterrichtsstunden.</span>
+                                <span>Keine Themen.</span>
                             </p>
                         {{/if}}
                         {{#userHasPermission "COURSE_EDIT"}}
-                            <a href="/courses/{{../_id}}/lessons/add" class="btn btn-secondary margin-top">Neue Unterrichtsstunde hinzufügen</a>
+                            <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary margin-top">
+                                Thema hinzufügen
+                            </a>
                         {{/userHasPermission}}
                     </div>
                 </div>
@@ -47,21 +49,25 @@
                     <div class="list-group">
                         {{#if ltiToolIds}}
                             {{#each ltiToolIds}}
-                                <div class="card card-block card-tool" onclick="window.open('/courses/{{../_id}}/tools/run/{{this._id}}')">
+                                <div class="card card-block card-tool"
+                                     onclick="location.href='/courses/{{../_id}}/tools/show/{{this._id}}'">
                                     <p class="card-title-directory">
                                         {{#if logo_url}}
-                                            <img src={{this.logo_url}} class="float-left" style="width:100px; height:auto;"/>
+                                            <img src={{this.logo_url}} class="float-left"
+                                                 style="width:100px; height:auto;"/>
                                         {{else}}
-                                            <img src="/images/cloud.png" class="float-left" style="width:100px; height:auto;"/>
+                                            <img src="/images/cloud.png" class="float-left"
+                                                 style="width:100px; height:auto;"/>
                                         {{/if}}
                                         <span>{{this.name}}</span>
 
-                                    <a class="delete-tool"
-                                       href="/courses/{{../_id}}/tools/delete/{{this._id}}"
-                                       target="_blank"
-                                       data-method="delete-material">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
+                                        <a class="delete-tool"
+                                           href="/courses/{{../_id}}/tools/delete/{{this._id}}"
+                                           target="_blank"
+                                           data-method="delete-material"
+                                           data-name="{{this.name}}">
+                                            <i class="fa fa-trash-o"></i>
+                                        </a>
                                     </p>
                                 </div>
                             {{/each}}
@@ -73,7 +79,8 @@
                     </div>
 
                     {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">Neues Tool hinzufügen</a>
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">Neues Tool
+                            hinzufügen</a>
                     {{/userHasPermission}}
                 </div>
             </div>

@@ -1,0 +1,48 @@
+﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+<input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
+
+<div class="form-group">
+    <label>Titel</label>
+    <input class="form-control" name="name" type="text" placeholder="Titel" required />
+</div>
+
+<div class="form-group">
+    <label>Kurs</label>
+    <select name="courseId" data-placeholder="Kurs auswählen">
+        <option value="" selected>Keine Zuordnung</option>
+        {{#each courses}}
+            <option value="{{this._id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+    {{#if isStudent}}
+        <input name="private" type="hidden" data-force-value="true" value="private" />
+    {{else}}
+        <label>
+            <input name="private" type="checkbox" value="private" />
+            Private Aufgabe (nur für mich sichtbar)
+        </label>
+    {{/if}}
+</div>
+
+<div class="form-group">
+    <label>Aufgabenstellung</label>
+    <textarea name="description" type="text" class="form-control htmleditor" placeholder="Aufgabenstellung" required></textarea></div>
+
+<div class="form-group">
+    <label>Bearbeitungszeit von</label>
+    <input class="form-control" name="availableDate" id="availableDate" type="datetime-local" />
+</div>
+
+<div class="form-group">
+    <label>bis</label>
+    <input class="form-control" name="dueDate" id="dueDate" type="datetime-local" />
+</div>
+{{#if isStudent}}{{else}}
+<div class="form-group">
+    <label>
+        <input name="publicSubmissions" type="checkbox" value="public" />
+        Schülerabgaben untereinander sichtbar
+    </label>
+</div>
+{{/if}}

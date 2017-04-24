@@ -1,54 +1,54 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
-	{{#content "styles" mode="append"}}
-		<link rel="stylesheet" href="/styles/content/search.css"/>
-		<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
-	{{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/content/search.css"/>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
+    {{/content}}
 
-	{{#content "page"}}
-		<section class="search-parameters">
-			<form method="get">
-				<div class="search-wrapper">
-					<div class="input-group input-group-lg">
-						<input value="{{ query }}"
-							   name="q"
-							   type="text"
-							   class="form-control search-field"
-							   placeholder="Suche nach..."/>
-					</div>
-				</div>
-				<div class="card">
+    {{#content "page"}}
+        <section class="search-parameters">
+            <form method="get">
+                <div class="search-wrapper">
+                    <div class="input-group input-group-lg">
+                        <input value="{{ query }}"
+                               name="q"
+                               type="text"
+                               class="form-control search-field"
+                               placeholder="Suche nach..."/>
+                    </div>
+                </div>
+                <div class="card">
 
-					<div class="card-block filters-attributes">
-						<div class="container-fluid no-padding">
-							<div class="row">
-								<div class="col-sm-12 col-md-6">
-									<select name="filter[subjects]"
-											data-placeholder="Fachbereich"
-											class="select-subjects" multiple="multiple">
-										{{#each subjects}}
-											<option value="{{@key}}"
-													{{#if this.selected}}selected{{/if}}>{{this.name}}</option>
-										{{/each}}
-									</select>
-								</div>
-								<!--div class="col-sm-12 col-md-6">
-									<select name="filter[targetGroups.grade]"
-											data-placeholder="Klassenstufe"
-											class="select-subjects" multiple="multiple">
-										<option value="7">7.</option>
-										<option value="8">8.</option>
-										<option value="9">9.</option>
-									</select>
-								</div-->
-							</div>
-						</div>
-					</div>
-				</div>
+                    <div class="card-block filters-attributes">
+                        <div class="container-fluid no-padding">
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <select name="filter[subjects]"
+                                            data-placeholder="Fachbereich"
+                                            class="select-subjects" multiple="multiple">
+                                        {{#each subjects}}
+                                            <option value="{{@key}}"
+                                                    {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <!--div class="col-sm-12 col-md-6">
+                                    <select name="filter[targetGroups.grade]"
+                                            data-placeholder="Klassenstufe"
+                                            class="select-subjects" multiple="multiple">
+                                        <option value="7">7.</option>
+                                        <option value="8">8.</option>
+                                        <option value="9">9.</option>
+                                    </select>
+                                </div-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<button class="btn btn-primary float-right" type="submit">Suchen</button>
+                <button class="btn btn-primary float-right" type="submit">Suchen</button>
 
-				<!--div class="row">
+                <!--div class="row">
                     <div class="col-sm-12 no-padding">
                         <div class="btn-toolbar filters-type">
                             <div class="btn-group">
@@ -66,6 +66,7 @@
                         </div>
                     </div>
                 </div -->
+
 
 
 			</form>
@@ -111,26 +112,27 @@
 							<div class="card-footer">
 								<small class="text-muted"> via {{this.client}} | 17. November 2016</small>
                                 {{#userHasPermission "COURSE_EDIT"}}
-                                    <a class="add-to-lesson" href="{{../this.href}}"><i class="fa fa-plus-square"></i></a>
+                                    <a class="add-to-lesson" href="{{../this.href}}"><i
+                                            class="fa fa-plus-square"></i></a>
                                 {{/userHasPermission}}
-							</div>
-						</div>
-					{{/each}}
-				</div>
-			</div>
-			{{#if pagination}}
-				<div class="row">
-					{{> "lib/components/pagination" settings=pagination }}
-				</div>
-			{{/if}}
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{#if pagination}}
+                <div class="row">
+                    {{> "lib/components/pagination" settings=pagination }}
+                </div>
+            {{/if}}
 
             {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
                 {{#content "fields"}}
                     {{> "content/forms/form-add-lesson"}}
                 {{/content}}
             {{/embed}}
-		</section>
-	{{/content}}
+        </section>
+    {{/content}}
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/chosen/chosen.jquery.min.js"></script>

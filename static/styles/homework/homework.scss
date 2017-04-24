@@ -1,0 +1,225 @@
+@import '../lib/colors.scss';
+@import '../lib/bootstrap/scss/bootstrap';
+
+.route-homework {
+  position: relative;
+  .sort{
+    float: left;
+    margin: 10px 0 0;
+    min-width: 200px;
+  }
+  .create {
+    float: right;
+    margin: 10px 0 0;
+    i {
+      display: none;
+    }
+    p {
+      margin: 0;
+    }
+    @include media-breakpoint-down(xs) {
+      margin: 0;
+      position: fixed;
+      z-index: 999;
+      width: 56px;
+      height: 56px;
+      font-size: 24px;
+      line-height: 24px;
+      border: none;
+      border-radius: 50%;
+      padding: 16px;
+      bottom: 5vw;
+      right: 5vw;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+
+      i {
+        display: initial;
+      }
+      p {
+        transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s;
+        opacity: 0;
+        visibility: hidden;
+
+        position: absolute;
+        top: 11px;
+        right: 67px;
+        padding: 5px 9px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #212121;
+        white-space: nowrap;
+      }
+      &:hover p {
+        transition-delay: 0s, 0s;
+        opacity: .8;
+        visibility: visible;
+      }
+    }
+  }
+  .search-wrapper {
+    float: left;
+    width: 50%;
+    margin: 10px 0 0;
+    @include media-breakpoint-down(xs) {
+      width: 100%;
+    }
+  }
+  .section-search {
+    .filters {
+      clear: both;
+    }
+    padding: 10px 0;
+    .form-group {
+      margin: 0;
+    }
+    .card-block {
+      padding: 1rem;
+      > row {
+        margin: 0;
+      }
+    }
+  }
+  .homework {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    clear: both;
+    a {
+      color: #373a3c;
+      &:hover {
+        text-decoration: none;
+        color: #373a3c;
+      }
+    }
+    .assignment {
+      width: 100%;
+      position: relative;
+      /* max-width: 700px;
+      margin: 5px; */
+      padding: 10px;
+
+      .content {
+        display: block;
+      }
+      h5 {
+        margin: 0;
+        color: $colorHPIRed;
+        span:before {
+          content: "[";
+        }
+        span:after {
+          content: "] - ";
+        }
+      }
+      .description {
+        /* margin: 10px 75px 10px 0; */
+        margin: 10px 0;
+        min-height: 75px;
+        color: grey;
+        @include media-breakpoint-down(xs) {
+          margin-right: 25px;
+        }
+        pre {
+          font: inherit;
+          display: inline;
+          width: 100%;
+          outline: none;
+          border: none;
+          background: transparent;
+          overflow: hidden;
+        }
+      }
+      .dates {
+        float: right;
+        text-align: right;
+        color: grey;
+        .days {
+          color: $colorHPIYellow;
+        }
+        .hours {
+          color: $colorHPIOrange;
+          font-weight: bold;
+        }
+        .minutes {
+          color: $colorHPIRed;
+          font-weight: bold;
+          text-decoration: underline;
+        }
+        .submitted {
+          color: #61BD4F;
+          font-weight: normal;
+          text-decoration: none;
+          &::after {
+            content: " ✔";
+          }
+        }
+      }
+      .state {
+        float: right;
+        text-align: right;
+        clear: right;
+        color: grey;
+        position:relative;
+        .green {
+          color: #61BD4F;
+        }
+        .orange {
+          color: $colorHPIOrange;
+        }
+        .red {
+          color: red;
+        }
+        
+        .textinfo{
+            transition: visibility 0s linear .3s,opacity .3s linear 0s;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 6px;
+            bottom: 6px;
+            right: 80px;
+            width:125px;
+            padding: 5px 9px;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #212121;
+        }
+        &:hover .textinfo{
+          transition-delay: 0s,0s;
+          opacity: .8;
+          visibility: visible;
+        }
+      }
+      .more {
+        /* display:block;
+        float:right;*/
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+        padding: 5px 0 5px 10px;
+        clear: both;
+        text-align: right;
+        color: #b10438;
+        text-decoration: none;
+        &:hover {
+          color: #660220;
+          text-decoration: underline;
+        }
+      }
+      &.private {
+        h5::before {
+          content: "🔒";
+        }
+      }
+    }
+  }
+}
+
+.modal-body {
+  textarea {
+    min-height: 100px;
+  }
+}

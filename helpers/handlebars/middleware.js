@@ -1,6 +1,7 @@
 const url = require('url');
 
 const makeActive = (items, currentUrl) => {
+	currentUrl += "/";		
     return items.map(item => {
         const regex = new RegExp("^" + item.link, "i");
 
@@ -40,12 +41,16 @@ module.exports = (req, res, next) => {
         icon: 'table',
         link: '/calendar/'
     }, {
+        name: 'Aufgaben',
+        icon: 'tasks',
+        link: '/homework/'
+    }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
         link: '/files/',
         children: [
             {
-                name: 'Kurse',
+                name: 'Fächer / Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
             },
@@ -53,7 +58,7 @@ module.exports = (req, res, next) => {
                 name: 'Klassen',
                 icon: 'folder-open-o',
                 link: '/files/classes/'
-            },
+            }
         ]
     }, {
         name: 'Materialien',
@@ -86,6 +91,11 @@ module.exports = (req, res, next) => {
                 name: 'Schüler',
                 icon: 'users',
                 link: '/administration/students/'
+            },
+            {
+                name: 'Authentifizierung',
+                icon: 'key',
+                link: '/administration/systems/'
             }
         ]
     });

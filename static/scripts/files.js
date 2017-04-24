@@ -22,12 +22,26 @@ $(document).ready(function() {
         }
     }
 
+    /**
+     * gets the directory name of a file's fullPath (all except last path-part)
+     * @param {string} fullPath - the fullPath of a file
+     * **/
+    function getDirname(fullPath) {
+        return fullPath.split("/").slice(0, -1).join('/');
+    }
+
     $form.dropzone({
         accept: function(file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
 
             var currentDir = getQueryParameterByName('dir');
+
+            // uploading whole folders
+            if (file.fullPath) {
+                var separator = currentDir ? currentDir + '/' : '';
+                currentDir = separator + getDirname(file.fullPath);
+            }
 
             $.post('/files/file', {
                 name: file.name,
@@ -102,6 +116,8 @@ $(document).ready(function() {
         var $buttonContext = $(this);
 
         $deleteModal.modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
+        
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
                 url: $buttonContext.attr('href'),

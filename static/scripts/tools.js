@@ -28,8 +28,10 @@ $(document).ready(function () {
     };
 
     var populateCustomField = function ($customFields, field) {
+        if (!field.key || field.key == '') return;
+        
         var _id = guidGenerator();
-        var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value:" + field.value + "</div>")
+        var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value: " + field.value + "</div>")
             .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' type='hidden'></input>"))
             .append($("<input name='customs[" + customFieldCount + "][value]' value='" + field.value + "' type='hidden'></input>"))
             .append($("<i class='fa fa-trash-o custom-field-delete' />")
@@ -41,13 +43,17 @@ $(document).ready(function () {
 
     var populateCustomFields = function (modal, customFields) {
         var $customFields = modal.find('.custom-fields');
+
+        // cleanup
+        $customFields.empty();
+
         customFields.forEach(function (field) {
             populateCustomField($customFields, field);
         });
         modal.find('.new-custom-field-add').click(addNewCustomField.bind(this, modal));
     };
 
-    var populateCourseSelection = function (modal, courses) {
+    /**var populateCourseSelection = function (modal, courses) {
         var $selection = modal.find('.course-selection');
         courses.forEach(function (course) {
             var option = document.createElement("option");
@@ -56,7 +62,7 @@ $(document).ready(function () {
             $selection.append(option);
         });
         $selection.chosen().trigger("chosen:updated");
-    };
+    };**/
 
     var populateModalForm = function (modal, data) {
 
@@ -91,12 +97,11 @@ $(document).ready(function () {
         var entry = $(this).attr('href');
         $.getJSON(entry, function (result) {
             populateModalForm($editModal, {
-                title: 'Bearbeiten',
                 closeLabel: 'Schließen',
                 submitLabel: 'Speichern',
                 fields: result.tool
             });
-            populateCourseSelection($editModal, result.courses.data);
+            //populateCourseSelection($editModal, result.courses.data);
             populateCustomFields($editModal, result.tool.customs);
             $editModal.modal('show');
         });

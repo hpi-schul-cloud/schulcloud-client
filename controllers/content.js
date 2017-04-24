@@ -66,10 +66,12 @@ router.get('/', function (req, res, next) {
 
         const pagination = {
             currentPage,
-            numPages: Math.ceil(meta.page.total / itemsPerPage),
+            numPages: Math.ceil((meta.page || {}).total / itemsPerPage),
             maxItems: 10,
             baseUrl
         };
+
+        const total = result.total || "keine";
 
         const results = data.map(result => {
             let res = result.attributes;
@@ -78,7 +80,7 @@ router.get('/', function (req, res, next) {
         });
 
         let action = 'addToLesson';
-        res.render('content/search', {title: 'Inhalte', query, results, pagination, action, subjects: selectedSubjects});
+        res.render('content/search', {title: 'Inhalte', query, results, pagination, action, subjects: selectedSubjects, total});
     })
         .catch(error => {
             res.render('content/search', {title: 'Inhalte', query, subjects: selectedSubjects, notification: {
