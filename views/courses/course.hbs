@@ -20,7 +20,7 @@
 
             <div class="row">
                 <div class="col-sm-6">
-                    <h4>Unterrichtsstunden</h4>
+                    <h4>Themen</h4>
 
                     <div class="list-group">
                         {{#if lessons}}
@@ -28,17 +28,17 @@
                                 <a href="{{this.url}}"
                                    class="list-group-item list-group-item-action flex-column align-items-start">
                                     <span>{{this.name}}</span>
-                                    <small class="text-muted lesson-date float-right">{{this.date}}</small>
                                 </a>
                             {{/each}}
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                                <span>Keine Unterrichtsstunden.</span>
+                                <span>Keine Themen.</span>
                             </p>
                         {{/if}}
                         {{#userHasPermission "COURSE_EDIT"}}
-                            <a href="/courses/{{../_id}}/lessons/add" class="btn btn-secondary margin-top">Neue
-                                Unterrichtsstunde hinzufügen</a>
+                            <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary margin-top">
+                                Thema hinzufügen
+                            </a>
                         {{/userHasPermission}}
                     </div>
                 </div>
