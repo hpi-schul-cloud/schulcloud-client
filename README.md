@@ -7,6 +7,7 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 ## Requirements
 
 * node.js
+vcvcvc
 
 ## Setup
 
