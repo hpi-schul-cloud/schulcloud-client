@@ -25,12 +25,26 @@ $(document).ready(function() {
         }
     }
 
+    /**
+     * gets the directory name of a file's fullPath (all except last path-part)
+     * @param {string} fullPath - the fullPath of a file
+     * **/
+    function getDirname(fullPath) {
+        return fullPath.split("/").slice(0, -1).join('/');
+    }
+
     $form.dropzone({
         accept: function(file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
 
             var currentDir = getQueryParameterByName('dir');
+
+            // uploading whole folders
+            if (file.fullPath) {
+                var separator = currentDir ? currentDir + '/' : '';
+                currentDir = separator + getDirname(file.fullPath);
+            }
 
             $.post('/files/file', {
                 name: file.name,

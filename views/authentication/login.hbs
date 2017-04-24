@@ -57,12 +57,23 @@
                         </form>
 
                     </div>
+                    <div style="text-align:center">
+                        <a href="" class="submit-pwrecovery">Passwort vergessen?</a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="bg-graphic bg-graphic-left"></div>
         <div class="bg-graphic bg-graphic-right"></div>
+
+
+        {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+            {{#content "fields"}}
+                {{> "authentication/forms/pwrecovery"}}
+            {{/content}}
+        {{/embed}}
+
 
     {{/content}}
 {{/extend}}
