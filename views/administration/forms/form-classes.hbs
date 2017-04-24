@@ -10,7 +10,13 @@
 
     <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each teachers}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
         {{/each}}
     </select>
 </div>
@@ -20,7 +26,13 @@
 
     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
         {{/each}}
     </select>
 </div>
