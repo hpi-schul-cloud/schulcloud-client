@@ -17,12 +17,23 @@ $(document).ready(function () {
         $.showNotification(message, "success", true);
     }
 
-    var sendFeedback = function (modal, e) {
+    /**
+     * creates the feedback-message which will be sent to the Schul-Cloud helpdesk
+     * @param modal {object} - modal containing content from feedback-form
+     */
+    const createFeedbackMessage = function(modal) {
+        return "Als " + modal.find('#role').val() + "\n" +
+                "möchte ich " + modal.find('#desire').val() + ",\n" +
+                "um " + modal.find("#benefit").val() + ".\n" +
+                "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
+    };
+
+    const sendFeedback = function (modal, e) {
         e.preventDefault();
 
         var email= 'schul-cloud-support@hpi.de';
-        var subject = 'Feedback ' + modal.find('#title').val();
-        var content = { text: modal.find('#message').val()};
+        var subject = 'Feedback';
+        var content = { text: createFeedbackMessage(modal)};
 
         $.ajax({
             url: '/helpdesk',
