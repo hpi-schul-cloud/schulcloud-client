@@ -43,7 +43,7 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            res.locals.createdTeacher = data;
+            res.locals.createdUser = data;
             next();
         }).catch(err => {
             next(err);
@@ -148,23 +148,23 @@ const createBucket = (req, res, next) => {
 };
 
 const sendMailHandler = (req, res, next) => {
-    let createdTeacher = res.locals.createdTeacher;
-    let email = createdTeacher.email;
+    let createdUser = res.locals.createdUser;
+    let email = createdUser.email;
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
        if(!err){
            let source = data.toString();
            let template = handlebars.compile(source);
            let outputString = template({
-               "url":req.headers.origin + "/register/account/" + createdTeacher._id,
-               "firstName": createdTeacher.firstName,
-               "lastName": createdTeacher.lastName
+               "url":req.headers.origin + "/register/account/" + createdUser._id,
+               "firstName": createdUser.firstName,
+               "lastName": createdUser.lastName
            });
 
            let content = {
                "html": outputString,
-               "text": "Sehr geehrte/r " + createdTeacher.firstName + " " + createdTeacher.lastName + ",\n\n" +
+               "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
                "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-               req.headers.origin + "/register/account/" + createdTeacher._id + "\n\n" +
+               req.headers.origin + "/register/account/" + createdUser._id + "\n\n" +
                "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
            };
            req.body.content = content;
@@ -377,7 +377,7 @@ router.all('/teachers', function (req, res, next) {
 });
 
 
-router.post('/students/', getCreateHandler('users'));
+router.post('/students/', getCreateHandler('users'), sendMailHandler);
 router.patch('/students/:id', getUpdateHandler('users'));
 router.get('/students/:id', getDetailHandler('users'));
 router.delete('/students/:id', getDeleteHandler('users'));
