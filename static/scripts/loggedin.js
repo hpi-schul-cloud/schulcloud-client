@@ -75,7 +75,7 @@ $(document).ready(function () {
 
         var title = $(document).find("title").text();
         populateModalForm($feedbackModal, {
-            title: 'Feedback - Bereich: ' + title.slice(0, title.indexOf('- Schul-Cloud')),
+            title: 'Feedback - Bereich: ' + title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud')),
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });
