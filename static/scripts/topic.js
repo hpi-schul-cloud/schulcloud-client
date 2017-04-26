@@ -57,7 +57,6 @@ class TopicBlockWrapper extends React.Component {
                                 </a>
                             </span>
 
-
                             <input
                                 placeholder="Titel des Abschnitts"
                                 value={this.props.title}
@@ -340,12 +339,39 @@ class TopicText extends TopicBlock {
             uploadUrl: '/files/upload/?storageContext=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
             filebrowserUploadUrl: '/files/upload/?storageContext=' + storageContext,
-            filebrowserImageUploadUrl: '/files/upload/?storageContext=' + storageContext
+            filebrowserImageUploadUrl: '/files/upload/?storageContext=' + storageContext,
+            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link'
         });
         CKEDITOR.instances[this.editorId].on("change", function () {
             const data = CKEDITOR.instances[this.editorId].getData();
             this.updateText(data);
         }.bind(this));
+
+        CKEDITOR.on( 'dialogDefinition', function( ev )
+        {
+            var dialogName = ev.data.name;
+            var dialogDefinition = ev.data.definition;
+            ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
+
+            if ( dialogName == 'link' ) {
+                var infoTab = dialogDefinition.getContents( 'info' );
+                infoTab.remove( 'protocol' );
+                dialogDefinition.removeContents( 'target' );
+                dialogDefinition.removeContents( 'advanced' );
+            }
+
+            if ( dialogName == 'image' ) {
+                dialogDefinition.removeContents( 'Link' );
+                dialogDefinition.removeContents( 'advanced' );
+                var infoTab = dialogDefinition.getContents( 'info' );
+                infoTab.remove( 'txtBorder' );
+                infoTab.remove( 'txtHSpace' );
+                infoTab.remove( 'txtVSpace' );
+                infoTab.remove( 'cmbAlign' );
+
+                infoTab.elements[0].children[0].children[1].label = 'Datei auswählen';
+            }
+        });
 
         this.props.addOnSortEndCallback(function () {
             CKEDITOR.instances[this.editorId].setData((this.props.content || {}).text);

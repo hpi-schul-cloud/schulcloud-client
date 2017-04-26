@@ -177,6 +177,13 @@ $(document).ready(function() {
         if(isCKEditor) returnFileUrl($(this).data('href'));
     });
 
+    $('.card.file .title').on('click', function(e) {
+        if(isCKEditor) {
+            e.preventDefault();
+            returnFileUrl($(this).closest('.card.file').data('href'));
+        }
+    });
+
     $editModal.find('.modal-form').on('submit', function(e) {
         e.preventDefault();
         $.post('/files/directory', {
