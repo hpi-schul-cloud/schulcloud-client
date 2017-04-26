@@ -334,15 +334,35 @@ class TopicText extends TopicBlock {
     }
 
     componentDidMount() {
-        CKEDITOR.replace(this.editorId);
+        const storageContext = this.getStorageContext();
+        CKEDITOR.replace(this.editorId, {
+            extraPlugins: 'uploadimage',
+            uploadUrl: '/files/upload/?storageContext=' + storageContext,
+            filebrowserBrowseUrl: '/files/' + storageContext,
+            filebrowserUploadUrl: '/files/upload/?storageContext=' + storageContext,
+            filebrowserImageUploadUrl: '/files/upload/?storageContext=' + storageContext
+        });
         CKEDITOR.instances[this.editorId].on("change", function () {
             const data = CKEDITOR.instances[this.editorId].getData();
             this.updateText(data);
         }.bind(this));
 
         this.props.addOnSortEndCallback(function () {
-            CKEDITOR.instances[this.editorId].setData((this.props.content || {}).text)
+            CKEDITOR.instances[this.editorId].setData((this.props.content || {}).text);
         }.bind(this));
+    }
+
+
+    getStorageContext() {
+        const url = window.location.pathname;
+        const urlParts = url.split('/');
+
+        if(urlParts[1] != 'courses') {
+            throw new Error('Storage context should be the course');
+        }
+
+        const storageContext = urlParts[1] + '/' + urlParts[2];
+        return storageContext;
     }
 
     /**

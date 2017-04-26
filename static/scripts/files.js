@@ -10,6 +10,8 @@ $(document).ready(function() {
     var $moveModal = $('.move-modal');
 
 
+    var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
+
     // TODO: replace with something cooler
     var reloadFiles = function() {
         window.location.reload();
@@ -167,8 +169,12 @@ $(document).ready(function() {
         $moveModal.modal('hide');
     });**/
 
-    $('.create-directory').on('click', function(){
+    $('.create-directory').on('click', function() {
         $editModal.modal('show');
+    });
+
+    $('.card.file').on('click', function() {
+        if(isCKEditor) returnFileUrl($(this).data('href'));
     });
 
     $editModal.find('.modal-form').on('submit', function(e) {
@@ -184,5 +190,11 @@ $(document).ready(function() {
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
     });
+
+    var returnFileUrl = (fileUrl) => {
+        var funcNum = getQueryParameterByName('CKEditorFuncNum');
+        window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
+        window.close();
+    }
 
 });

@@ -83,7 +83,7 @@
                 <div class="row">
                     {{#each files}}
                         <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div class="card file"
+                            <div class="card file" data-href="/files/file?file={{this.name}}&storageContext={{../storageContext}}"
                                 onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
                                 onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
                                 <div class="openFile">
@@ -93,7 +93,7 @@
                                                 <div class="file-preview"
                                                      style="background-image: url({{this.thumbnail}})"></div>
                                             </div>
-                                            <a href="/files/file?file={{this.file}}&storageContext={{../storageContext}}" target="_blank">
+                                            <a href="/files/file?file={{this.name}}&storageContext={{../storageContext}}" target="_blank">
                                                 {{this.name}}
                                             </a>
                                         </div>

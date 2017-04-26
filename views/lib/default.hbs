@@ -21,7 +21,9 @@
 <body>
     {{#block "body"}}{{/block}}
 
-    {{#embed "lib/footer"}}{{/embed}}
+    {{#unless inline}}
+        {{#embed "lib/footer"}}{{/embed}}
+    {{/unless}}
 
     {{#block "scripts"}}
         <script src="/scripts/jquery/jquery.min.js" type="text/javascript"></script>
