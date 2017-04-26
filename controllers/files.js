@@ -12,11 +12,28 @@ const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const joinPath = require('path.join');
+const multer  = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
 
 const getSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
     });
+};
+
+const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
+    const urlParts = url.parse(originalUrl, true);
+
+    Object.keys(params).forEach(param => {
+        urlParts.query[param] = params[param];
+    });
+
+    if(pathname) {
+        urlParts.pathname = pathname;
+    }
+
+    delete urlParts.search;
+    return url.format(urlParts);
 };
 
 const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = {}) => {
@@ -26,14 +43,14 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
         dirParts += '/' + dirPart;
         return {
             label: dirPart,
-            url: basePath + '?dir=' + dirParts
+            url: changeQueryParams(req.originalUrl, {'dir': dirParts}, basePath)
         };
     });
 
     if (baseLabel) {
         breadcrumbs.unshift({
             label: baseLabel,
-            url: basePath
+            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath)
         });
     }
 
@@ -75,7 +92,7 @@ const FileGetter = (req, res, next) => {
         });
 
         directories = directories.map(dir => {
-            dir.url = '?dir=' + path.join(currentDir, dir.name);
+            dir.url = changeQueryParams(req.originalUrl, {dir: path.join(currentDir, dir.name)});
             dir.path = path.join(storageContext, dir.name);
             return dir;
         });
@@ -114,7 +131,7 @@ const getScopeDirs = (req, res, scope) => {
 router.use(authHelper.authChecker);
 
 
-// upload file
+// get signed url to upload file
 router.post('/file', function (req, res, next) {
     const {type, name, dir = '', action = 'putObject'} = req.body;
 
@@ -131,6 +148,35 @@ router.post('/file', function (req, res, next) {
         res.status((err.statusCode || 500)).send(err);
     });
 });
+
+// get signed url to upload file
+router.post('/upload', upload.single('upload'), function (req, res, next) {
+    const data = {
+        storageContext: getStorageContext(req, {}, {}),
+        fileName: req.file.originalname,
+        fileType: (req.file.mimetype || 'application/octet-stream'),
+        action: 'putObject'
+    };
+
+    getSignedUrl(req, data).then(signedUrl => {
+        return rp.put({
+            url: signedUrl.url,
+            headers: Object.assign({}, signedUrl.header, {
+                'content-type': req.file.mimetype
+            }),
+            body: req.file.buffer
+        });
+    }).then(_ => {
+        res.json({
+            "uploaded": 1,
+            "fileName": req.file.originalname,
+            "url": "/files/file?file=" + data.fileName + "&storageContext=" + data.storageContext
+        });
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
+    });
+});
+
 
 
 // delete file
@@ -224,17 +270,20 @@ router.get('/', FileGetter, function (req, res, next) {
         }),
         canUploadFile: true,
         canCreateDir: true,
+        inline: req.query.inline || req.query.CKEditor,
+        CKEditor: req.query.CKEditor
     }, res.locals.files));
 });
 
 
 router.get('/courses/', function (req, res, next) {
+    const basePath = '/files/courses/';
     getScopeDirs(req, res, 'courses').then(directories => {
-        const breadcrumbs = getBreadcrumbs(req);
+        const breadcrumbs = getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Fächern und Kursen',
-            url: '/files/courses/'
+            url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/courses/')
         });
 
         res.render('files/files', {
@@ -251,19 +300,22 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
     const basePath = '/files/courses/';
     api(req).get('/courses/' + req.params.courseId).then(record => {
 
-        const breadcrumbs = getBreadcrumbs(req, {basePath});
+        const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Fächern und Kursen',
-            url: basePath
+            url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
         }, {
             label: record.name,
-            url: basePath + record._id
+            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
         });
 
         res.render('files/files', Object.assign({
             title: 'Dateien',
             canUploadFile: true,
+            canCreateDir: true,
+            inline: req.query.inline || req.query.CKEditor,
+            CKEditor: req.query.CKEditor,
             breadcrumbs,
         }, res.locals.files));
 
@@ -277,7 +329,7 @@ router.get('/classes/', function (req, res, next) {
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Klassen',
-            url: '/files/classes/'
+            url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/classes/')
         });
 
         res.render('files/files', {
@@ -298,16 +350,18 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Klassen',
-            url: basePath
+            url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
         }, {
             label: record.name,
-            url: basePath + record._id
+            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
         });
 
         res.render('files/files', Object.assign({
             title: 'Dateien',
             canUploadFile: true,
             breadcrumbs,
+            inline: req.query.inline || req.query.CKEditor,
+            CKEditor: req.query.CKEditor,
         }, res.locals.files));
 
     });
