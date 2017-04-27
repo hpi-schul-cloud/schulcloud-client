@@ -41,7 +41,7 @@ $(document).ready(function() {
 					$(this).val(value.slice(0,10)).trigger("chosen:updated");
 					break;
                 default:
-                    if($(this).prop('nodeName') == "TEXTAREA" && $(this).hasClass("htmleditor")){
+                    if($(this).prop('nodeName') == "TEXTAREA" && $(this).hasClass("customckeditor")){
                         if(CKEDITOR.instances.description){
                             CKEDITOR.instances.description.setData(value);
                         }
