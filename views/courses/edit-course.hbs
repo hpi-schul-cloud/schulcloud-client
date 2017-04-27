@@ -92,6 +92,44 @@
                     </select>
                 </div>
 
+                <label>Zeitraum(Schuljahr)</label>
+                <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Von</label>
+                    <input name="startDate" id="startDate" type="date" class="form-control" />
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label>Bis</label>
+                    <input name="untilDate" id="untilDate" type="date" class="form-control" />
+                </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label>Wochentag</label>
+                        <select id="weekday" name="weekday">
+                            <option value="0">Montag</option>
+                            <option value="1">Dienstag</option>
+                            <option value="2">Mittwoch</option>
+                            <option value="3">Donnerstag</option>
+                            <option value="4">Freitag</option>
+                            <option value="5">Samstag</option>
+                            <option value="6">Sonntag</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Start der Schulstunde</label>
+                        <input class="form-control" name="duration" id="duration" type="time" />
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label>Dauer der Schulstunde</label>
+                        <input class="form-control" name="duration" id="duration" type="number" placeholder="in Minuten"/>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="{{submitLabel}}" />
                 </div>
