@@ -37,9 +37,9 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes');
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
+    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000 });
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000 });
 
     Promise.all([
         coursePromise,
@@ -151,7 +151,7 @@ router.get('/:courseId', function (req, res, next) {
         let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
-                url: '/courses/' + req.params.courseId + '/lessons/' + lesson._id + '/'
+                url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
             });
         });
 

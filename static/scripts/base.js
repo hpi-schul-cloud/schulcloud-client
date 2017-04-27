@@ -10,6 +10,17 @@ function getQueryParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=[^&#]*", "i");
+    if (re.test(uri)) {
+        return uri.replace(re, '$1' + key + "=" + value);
+    } else {
+        var matchData = uri.match(/^([^#]*)(#.*)?$/);
+        var separator = /\?/.test(uri) ? "&" : "?";
+        return matchData[0] + separator + key + "=" + value + (matchData[1] || '');
+    }
+}
+
 $(document).ready(function(){
     // notification stuff
     var $notification = $('.notification');
