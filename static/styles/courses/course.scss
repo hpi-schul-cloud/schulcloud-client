@@ -29,4 +29,24 @@
     .card-tool {
         cursor: pointer;
     }
+
+    .content-block {
+        margin-bottom: 50px;
+
+        img {
+            max-width: 100%;
+            height: auto !important;
+        }
+    }
 }
+
+.section-course-edit {
+    .content-block {
+        .card-header {
+            .move-handle {
+                cursor: move;
+            }
+        }
+    }
+}
+

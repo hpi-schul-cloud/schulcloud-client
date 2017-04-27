@@ -1,6 +1,7 @@
 const url = require('url');
 
 const makeActive = (items, currentUrl) => {
+	currentUrl += "/";		
     return items.map(item => {
         const regex = new RegExp("^" + item.link, "i");
 
@@ -90,6 +91,11 @@ module.exports = (req, res, next) => {
                 name: 'Schüler',
                 icon: 'users',
                 link: '/administration/students/'
+            },
+            {
+                name: 'Authentifizierung',
+                icon: 'key',
+                link: '/administration/systems/'
             }
         ]
     });

@@ -7,6 +7,10 @@ $(document).ready(function() {
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');
     var $deleteModal = $('.delete-modal');
+    var $moveModal = $('.move-modal');
+
+
+    var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
 
     // TODO: replace with something cooler
     var reloadFiles = function() {
@@ -15,11 +19,20 @@ $(document).ready(function() {
 
     function showAJAXError(req, textStatus, errorThrown) {
         $deleteModal.modal('hide');
+        $moveModal.modal('hide');
         if(textStatus==="timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn");
         } else {
             $.showNotification(errorThrown, "danger");
         }
+    }
+
+    /**
+     * gets the directory name of a file's fullPath (all except last path-part)
+     * @param {string} fullPath - the fullPath of a file
+     * **/
+    function getDirname(fullPath) {
+        return fullPath.split("/").slice(0, -1).join('/');
     }
 
     $form.dropzone({
@@ -28,6 +41,12 @@ $(document).ready(function() {
             // this is called on per-file basis
 
             var currentDir = getQueryParameterByName('dir');
+
+            // uploading whole folders
+            if (file.fullPath) {
+                var separator = currentDir ? currentDir + '/' : '';
+                currentDir = separator + getDirname(file.fullPath);
+            }
 
             $.post('/files/file', {
                 name: file.name,
@@ -124,8 +143,45 @@ $(document).ready(function() {
         $deleteModal.modal('hide');
     });
 
-    $('.create-directory').on('click', function(){
+    /**$('a[data-method="move"]').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $buttonContext = $(this);
+
+        $moveModal.modal('show');
+        $moveModal.find('.btn-submit').unbind('click').on('click', function() {
+            $.ajax({
+                url: $buttonContext.attr('href'),
+                type: 'MOVE',
+                data: {
+                    name: $buttonContext.data('file-name'),
+                    dir: $buttonContext.data('file-path')
+                },
+                success: function(result) {
+                    reloadFiles();
+                },
+                error: showAJAXError
+            });
+        });
+    });
+
+    $moveModal.find('.close, .btn-close').on('click', function() {
+        $moveModal.modal('hide');
+    });**/
+
+    $('.create-directory').on('click', function() {
         $editModal.modal('show');
+    });
+
+    $('.card.file').on('click', function() {
+        if(isCKEditor) returnFileUrl($(this).data('href'));
+    });
+
+    $('.card.file .title').on('click', function(e) {
+        if(isCKEditor) {
+            e.preventDefault();
+            returnFileUrl($(this).closest('.card.file').data('href'));
+        }
     });
 
     $editModal.find('.modal-form').on('submit', function(e) {
@@ -141,5 +197,11 @@ $(document).ready(function() {
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
     });
+
+    var returnFileUrl = (fileUrl) => {
+        var funcNum = getQueryParameterByName('CKEditorFuncNum');
+        window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
+        window.close();
+    }
 
 });

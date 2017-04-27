@@ -10,12 +10,23 @@ function getQueryParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+function updateQueryStringParameter(uri, key, value) {
+    var re = new RegExp("([?&])" + key + "=[^&#]*", "i");
+    if (re.test(uri)) {
+        return uri.replace(re, '$1' + key + "=" + value);
+    } else {
+        var matchData = uri.match(/^([^#]*)(#.*)?$/);
+        var separator = /\?/.test(uri) ? "&" : "?";
+        return matchData[0] + separator + key + "=" + value + (matchData[1] || '');
+    }
+}
+
 $(document).ready(function(){
     // notification stuff
     var $notification = $('.notification');
     var $notificationContent = $notification.find('.notification-content');
 
-    window.$.showNotification = function(content, type) {
+    window.$.showNotification = function(content, type, timeout) {
         $notificationContent.html(content);
 
         // remove old classes in case type was set before
@@ -23,6 +34,12 @@ $(document).ready(function(){
         $notification.addClass('notification alert alert-fixed alert-' + (type || 'info'));
 
         $notification.fadeIn();
+
+        if (timeout) {
+            setTimeout(function () {
+                $notification.fadeOut();
+            }, 5000);
+        }
     };
 
     window.$.hideNotification = function() {
