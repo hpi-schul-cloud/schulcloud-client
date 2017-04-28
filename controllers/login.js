@@ -27,7 +27,7 @@ router.post('/login/', function (req, res, next) {
 
     const login = (data) => {
         return api(req).post('/authentication', {json: data}).then(data => {
-            res.cookie('jwt', data.accessToken);
+            res.cookie('jwt', data.accessToken, { expires :  new Date(Date.now() + 30*24*60*60*1000)});
             res.redirect('/login/success/');
         }).catch(_ => {
             res.locals.notification = {
