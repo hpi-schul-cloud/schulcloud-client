@@ -123,28 +123,26 @@
                         <div class="row">
                             <div class="col-sm-7">
                                 <div class="container-fluid">
-                                 <div class="row">
-                                  <div class="col-sm-12 no-padding">
-                                  <h5>Neuigkeiten</h5>
-                                  <a href="/news/" id="showAll" className="btn btn-secondary">
-                                      Alle anzeigen
-                                  </a>
-                              </div>
-                              </div>
-                              <div class="row articles">
-                                <div class="card-group">
-                                  {{#each news}}
-                                      <div class="card card-block"><strong class="card-text">{{this.title}}</strong>
-                                          <p class="card-text">{{truncate this.content}}</p>
-                                          <p class="card-text">
-                                              <small class="text-muted">{{this.timeString}}</small>
-                                          </p>
-                                          <a href="/news/{{this._id}}">weiterlesen</a>
-                                      </div>
-                                    {{/each}}
-                                  </div>
+                                    <div class="row">
+                                        <div class="col-sm-12 no-padding">
+                                            <h5>Neuigkeiten</h5>
+                                            <a href="/news/" id="showAll" className="btn btn-secondary">
+                                                Alle anzeigen
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row articles">
+                                        <div class="card-group">{{#each news}}
+                                            <div class="card card-block"><strong class="card-text">{{this.title}}</strong>
+                                                <p class="card-text">{{truncate this.content}}</p>
+                                                <p class="card-text">
+                                                    <small class="text-muted">{{this.timeString}}</small>
+                                                </p>
+                                                <a href="/news/{{this._id}}">weiterlesen</a>
+                                            </div>
+                                        {{/each}}</div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                             <div class="col-sm-4 offset-sm-1">
                                 <div class="row"><h5>Mitteilungen</h5></div>

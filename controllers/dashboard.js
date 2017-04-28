@@ -63,7 +63,7 @@ router.get('/', function (req, res, next) {
             }
         }
 
-        news = news.sort(sortFunction).slice(0,4);
+        news = news.sort(sortFunction).slice(0,3);
         res.render('dashboard/dashboard', {title: 'Übersicht', news});
     });
 });
