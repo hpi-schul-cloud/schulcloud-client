@@ -150,7 +150,6 @@ const getDeleteHandler = (service) => {
     };
 };
 
-
 router.post('/', getCreateHandler('homework'));
 router.patch('/:id/json', getUpdateHandler('homework'));
 router.get('/:id/json', getDetailHandler('homework'));
@@ -162,91 +161,103 @@ router.post('/submit', getCreateHandler('submissions'));
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
+
+
+const addLeadingZero = function(s) {
+    return (s < 10) ? "0" + s : s;
+}
+const splitDate = function(date){
+    var DateRaw = new Date(date);
+    var realDate = new Date(DateRaw.getTime() + (DateRaw.getTimezoneOffset() * 60000));
+    var DateF = addLeadingZero(realDate.getDate()) + "." + addLeadingZero(realDate.getMonth() + 1) + "." + realDate.getFullYear();
+    var TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
+    return {"timestamp":realDate,"date":DateF,"time":TimeF};
+}
+const formatDate = function(datediff){
+    var Days = Math.floor(datediff / (1000 * 60 * 60 * 24));
+    var Hours = Math.floor((datediff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var Minutes = Math.floor(((datediff % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) / (1000 * 60));
+    return {"Days":Days,"Hours":Hours,"Minutes":Minutes};
+}
+const formatremaining = function(remaining){
+    var remainingArray = formatDate(remaining);
+    var dueColor="", dueString="";
+    if (remainingArray["Days"] <= 5 || remaining > 0) {
+        if (remainingArray["Days"] > 1) {
+            dueColor = "days";
+            dueString = "noch " + remainingArray["Days"] + " Tage";
+        }
+        else if (remainingArray["Days"] == 1) {
+            dueColor = "hours";
+            dueString = "noch " + remainingArray["Days"] + " Tag " + remainingArray["Hours"] + ((remainingArray["Hours"] == 1) ? " Stunde" : " Stunden");
+        }
+        else if (remainingArray["Hours"] > 2) {
+            dueColor = "hours";
+            dueString = "noch " + remainingArray["Hours"] + " Stunden";
+        }
+        else if (remainingArray["Hours"] >= 1) {
+            dueColor = "minutes";
+            dueString = "noch " + remainingArray["Hours"] + ((remainingArray["Hours"] == 1) ? " Stunde " : " Stunden ") + remainingArray["Minutes"] + ((remainingArray["Minutes"] == 1) ? " Minute" : " Minuten");
+        }
+        else {
+            dueColor = "minutes";
+            dueString = "noch " + remainingArray["Minutes"] + ((remainingArray["Minutes"] == 1) ? " Minute" : " Minuten");
+        }
+    }
+    return {"colorClass":dueColor,"str":dueString};
+}
+
+
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
         qs: {
             $populate: ['courseId']
         }
     }).then(assignments => {
-        assignments = assignments.data.map(assignment => {
-            if (new Date(assignment.availableDate).getTime() > Date.now()
-                && assignment.teacherId != res.locals.currentUser._id) {
+        assignments = assignments.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
+            // Schuelern keine noch unveroeffentlichten Hausaufgaben anzeigen
+            if (splitDate(assignment.availableDate)["timestamp"] > Date.now() && assignment.teacherId != res.locals.currentUser._id) {
                 return;
             }
-            if (assignment.courseId != null) {
-                if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                    && assignment.teacherId != res.locals.currentUser._id) {
+            // kein Kurs -> Private Hausaufgabe
+            if (assignment.courseId == null) {
+                assignment.color = "#1DE9B6";
+                assignment.private = true;
+            }else {
+                // Hausaufgabe ist nicht für den aktuellen benutzer freigegeben -> nicht anzeigen
+                if ((assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1)&&(assignment.teacherId != res.locals.currentUser._id)){
                     return;
                 }
                 if (!assignment.private) {
                     assignment.userIds = assignment.courseId.userIds;
                 }
-                assignment.color = (assignment.courseId.color.length != 7) ? "#1DE9B6" : assignment.courseId.color;
-            } else {
-                assignment.color = "#1DE9B6";
-                assignment.private = true;
+                // Kursfarbe setzen + Fallback, falls keine hinterlegt (Fallback eventuell unnötig, falls im server color = required)
+                assignment.color = (assignment.courseId.color.length != 7) ? "#b30000" : assignment.courseId.color;
             }
-            if (assignment.private
-                && assignment.teacherId != res.locals.currentUser._id) {
+            // Hausaufgabe ist Privat, aber gehört nicht dem Benutzer -> nicht anzeigen
+            if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)) {
                 return;
             }
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : "";
             assignment.publicSubmissions = assignment.publicSubmissions;
 
-            function formattimepart(s) {
-                return (s < 10) ? "0" + s : s;
-            }
+            var availableDateArray = splitDate(assignment.availableDate);
+            var availableDate = availableDateArray["timestamp"];
 
-            var availableDateRaw = new Date(assignment.availableDate);
-            var availableDate = new Date(availableDateRaw.getTime() + (availableDateRaw.getTimezoneOffset() * 60000));
-            var availableDateF = formattimepart(availableDate.getDate()) + "." + formattimepart(availableDate.getMonth() + 1) + "." + availableDate.getFullYear();
-            var availableTimeF = formattimepart(availableDate.getHours()) + ":" + formattimepart(availableDate.getMinutes());
-
-            var dueDateRaw = new Date(assignment.dueDate);
-            var dueDate = new Date(dueDateRaw.getTime() + (dueDateRaw.getTimezoneOffset() * 60000));
-            var dueDateF = formattimepart(dueDate.getDate()) + "." + formattimepart(dueDate.getMonth() + 1) + "." + dueDate.getFullYear();
-            var dueTimeF = formattimepart(dueDate.getHours()) + ":" + formattimepart(dueDate.getMinutes());
+            var dueDateArray = splitDate(assignment.dueDate);
+            var dueDate = dueDateArray["timestamp"];
 
             var now = new Date();
             var remaining = (dueDate - now);
-            var remainingDays = Math.floor(remaining / (1000 * 60 * 60 * 24));
-            var remainingHours = Math.floor((    remaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var remainingMinutes = Math.floor(((    remaining % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) / (1000 * 60));
-            var dueColor;
-            var dueString;
-            if (remainingDays > 5 || remaining < 0) {
-                dueColor = "";
-                dueString = (dueDateF + " (" + dueTimeF + ")");
-            }
-            else if (remainingDays > 1) {
-                dueColor = "days";
-                dueString = "noch " + remainingDays + " Tage";
-            }
-            else if (remainingDays == 1) {
-                dueColor = "hours";
-                dueString = "noch " + remainingDays + " Tag " + remainingHours + ((remainingHours == 1) ? " Stunde" : " Stunden");
-            }
-            else if (remainingHours > 2) {
-                dueColor = "hours";
-                dueString = "noch " + remainingHours + " Stunden";
-            }
-            else if (remainingHours >= 1) {
-                dueColor = "minutes";
-                dueString = "noch " + remainingHours + ((remainingHours == 1) ? " Stunde " : " Stunden ") + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten");
-            }
-            else {
-                dueColor = "minutes";
-                dueString = "noch " + remainingMinutes + ((remainingMinutes == 1) ? " Minute" : " Minuten");
-            }
+            var remainingF = formatremaining(remaining);
 
-
-            assignment.dueColor = dueColor;
-            if((assignment.teacherId == res.locals.currentUser._id) && (remainingDays > 5 || remaining < 0)) {
-                assignment.fromdate = availableDateF + " (" + availableTimeF + ")";
-                assignment.todate = dueDateF + " (" + dueTimeF + ")";
+            assignment.dueColor = remainingF["colorClass"];
+            if(remaining > 432000000 /* 5 days */ || remaining < 0) {
+                assignment.fromdate = availableDateArray["date"] + " (" + availableDateArray["time"] + ")";
+                assignment.todate = dueDateArray["date"] + " (" + dueDateArray["time"] + ")";
             }else{
-                 assignment.dueString = dueString;
+                 assignment.dueString = remainingF["str"];
             }
 
             assignment.availableDateReached = availableDate.getTime() > Date.now();
@@ -269,19 +280,15 @@ router.all('/', function (req, res, next) {
                     return;
                 }
 
-                if (assignment.teacherId === res.locals.currentUser._id) {
-                    //teacher
+                if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
                     assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
                     assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
-                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length * 0.8)) ? "orange" : "";
-                    //assignment.submissionstatscolor = (submissions.length >= (assignment.userIds.length)) ? "green" : "";
                     var submissioncount = (submissions.filter(function (a) {
                         return (a.gradeComment == '' && a.grade == null) ? 0 : 1;
                     })).length;
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;
                         assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
-                        //assignment.gradedstatscolor = (submissioncount > (submissions.length * 0.7)) ? "" : "red";
                         if (submissioncount > 0) {
                             var ratingsum = 0;
                             var submissiongrades;
@@ -410,20 +417,16 @@ router.get('/:assignmentId', function (req, res, next) {
             } else {
                 assignment.color = "#1DE9B6";
             }
-
-            function formattimepart(s) {
-                return (s < 10) ? "0" + s : s;
-            }
-
+            
             var availableDateRaw = new Date(assignment.availableDate);
             var availableDate = new Date(availableDateRaw.getTime() + (availableDateRaw.getTimezoneOffset() * 60000));
-            assignment.availableDateF = formattimepart(availableDate.getDate()) + "." + formattimepart(availableDate.getMonth() + 1) + "." + availableDate.getFullYear();
-            assignment.availableTimeF = formattimepart(availableDate.getHours()) + ":" + formattimepart(availableDate.getMinutes());
+            assignment.availableDateF = addLeadingZero(availableDate.getDate()) + "." + addLeadingZero(availableDate.getMonth() + 1) + "." + availableDate.getFullYear();
+            assignment.availableTimeF = addLeadingZero(availableDate.getHours()) + ":" + addLeadingZero(availableDate.getMinutes());
 
             var dueDateRaw = new Date(assignment.dueDate);
             var dueDate = new Date(dueDateRaw.getTime() + (dueDateRaw.getTimezoneOffset() * 60000));
-            assignment.dueDateF = formattimepart(dueDate.getDate()) + "." + formattimepart(dueDate.getMonth() + 1) + "." + dueDate.getFullYear();
-            assignment.dueTimeF = formattimepart(dueDate.getHours()) + ":" + formattimepart(dueDate.getMinutes());
+            assignment.dueDateF = addLeadingZero(dueDate.getDate()) + "." + addLeadingZero(dueDate.getMonth() + 1) + "." + dueDate.getFullYear();
+            assignment.dueTimeF = addLeadingZero(dueDate.getHours()) + ":" + addLeadingZero(dueDate.getMinutes());
 
             //23:59 am Tag der Abgabe
             //if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
