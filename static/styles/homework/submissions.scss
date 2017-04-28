@@ -1,0 +1,152 @@
+@import '../lib/colors.scss';
+@import '../lib/bootstrap/scss/bootstrap';
+
+.tab-content#submissions {
+  table {
+    border: none;
+    width: 100%;
+    border-collapse: collapse;
+    thead, thead tr {
+      border: none;
+      @include media-breakpoint-down(xs) {
+        display: none;
+      }
+      th:nth-of-type(n+4) {
+        text-align: right;
+      }
+    }
+    th span {
+      color: grey;
+      font-weight: lighter;
+      &::before {
+        content: "(";
+      }
+      &::after {
+        content: ")";
+      }
+    }
+  }
+  .usersubmission {
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    clear: both;
+    cursor: pointer;
+    width: 100%;
+    .userinfo {
+      width: 100%;
+      .picture {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        margin-right: 10px;
+      }
+
+      > td {
+        border: none;
+        padding: 5px 0 5px 5px;
+        vertical-align: middle;
+        color: grey;
+        &:first-of-type {
+          width: 32px;
+        }
+        &:nth-of-type(n+4) {
+          text-align: right;
+          padding: 5px 5px 5px 0;
+        }
+      }
+      .fa.green {
+        color: green
+      }
+      .fa.red {
+        color: red
+      }
+      @include media-breakpoint-down(xs) {
+        position: relative;
+        td {
+          padding: 5px .1rem;
+          &:first-of-type {
+            padding-left: 5px;
+          }
+        }
+        .picture {
+          margin-right: 0;
+        }
+      }
+    }
+    &.active .evaluation {
+      display: table-row;
+      cursor: initial;
+    }
+    .evaluation {
+      display: none;
+      background: none;
+
+      .comments {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        .comment {
+          border-bottom: 1px solid #ddd;
+          margin-bottom: 1rem;
+          .picture {
+            float: left;
+            border-radius: 50%;
+            height: 32px;
+            width: 32px;
+            margin-right: 5px;
+          }
+          .name {
+            display: block;
+            line-height: 32px;
+          }
+          .btn {
+            float: right;
+
+            display: none;
+            color: #373a3c;
+            /* text-align:center;
+            padding: 5px;
+            margin: 3px 0;
+            width: 1.8rem;
+            font-size: 1rem;
+            line-height: 1rem;
+            background-color: grey;
+            color: #fff;
+            border-radius: 5px; */
+          }
+          &:hover .btn {
+            display: inline-block;
+          }
+        }
+      }
+      .answer {
+        textarea {
+          min-height: 50px;
+          margin-bottom: .5rem;
+        }
+      }
+    }
+  }
+
+}
+
+.section-evaluation {
+  padding: 0 10px 10px;
+  clear: both;
+
+  .submission > h6,
+  .comment > h6 {
+    font-size: 1.2rem;
+  }
+
+  .nav-item.active {
+    border-bottom: 1px solid $colorHPIOrange;
+  }
+  .feedback {
+    max-width: 100%;
+    margin: 0;
+    .btn-primary {
+      width: 100%;
+    }
+  }
+}

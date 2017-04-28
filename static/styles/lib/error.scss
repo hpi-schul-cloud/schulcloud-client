@@ -1,0 +1,80 @@
+@import './colors';
+
+body {
+  background: $colorBeige;
+}
+.error-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  h3 {
+	color: $colorHPIRed;
+	float: left;
+	width: 100%;
+	text-align: center;
+	font-weight: bold;
+	margin: 100px 0px;
+  }
+
+  .btn {
+	float: right;
+  }
+
+  .form-group {
+	z-index: 10;
+	position: relative;
+  }
+
+  select, input {
+	margin-bottom: 10px;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .bg-graphic {
+	position: fixed;
+	background: no-repeat center center;
+	background-size: contain;
+	z-index: 0;
+	width: 600px;
+	height: 600px;
+
+	&.bg-graphic-right {
+	  right: 2%;
+	  bottom: 2%;
+	  background-image: url(/images/login-right.png);
+	}
+  }
+
+  .details {
+	position: absolute;
+	margin-left: 70px;
+	margin-top: 100px;
+	z-index: 10;
+
+	.error-code {
+	  font-size: 800%;
+	  font-weight: bold;
+	}
+
+	.error-title {
+	  font-weight: bold;
+	  font-size: 5vw;
+	  text-transform: uppercase;
+	  margin-bottom: 1em;
+	  max-width: 100%;
+	  overflow: auto;
+	}
+
+	.error-card {
+	  max-width: 80%;
+	}
+
+	.error-description {
+	  overflow: auto;
+	  max-height: 70vh;
+	}
+
+  }
+
+}

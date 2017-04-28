@@ -1,0 +1,50 @@
+{{#extend "lib/loggedin"}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/settings.js" type="text/javascript"></script>
+    {{/content}}
+
+    {{#content "page"}}
+
+        {{message}}
+        {{error}}
+
+        <div class="route-account">
+            <form method="post">
+                <div class="form-group">
+                    <label>Vorname</label>
+                    <input type="text" class="form-control" name="firstName" value="{{ currentUser.firstName }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Nachname</label>
+                    <input type="text" class="form-control" name="lastName" value="{{ currentUser.lastName }}">
+                </div>
+
+                <div class="form-group">
+                    <label>E-Mail-Adresse</label>
+                    <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
+                </div>
+
+                <div class="form-group">
+                    <label>Aktuelles Passwort</label>
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="***************" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Neues Passwort</label>
+                    <input type="password" name="password_new" id="password_new" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                           title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl oder Sonderzeichen" >
+                </div>
+
+                <div class="form-group">
+                    <label>Neues Passwort</label>
+                    <input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" >
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    {{/content}}
+{{/extend}}

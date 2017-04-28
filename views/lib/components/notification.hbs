@@ -1,0 +1,6 @@
+<div class="notification alert alert-dismissible {{#if notification}}alert-{{notification.type}}{{else}}hidden{{/if}}" role="alert">
+    <button type="button" class="close" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="notification-content">{{notification.message}}</div>
+</div>

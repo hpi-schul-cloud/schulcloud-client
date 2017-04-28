@@ -1,0 +1,111 @@
+{{#extend "homework/homework"}}
+    {{#content "scripts" mode="append"}}
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('.userinfo').click(function(){
+                $(this).parent('.usersubmission.active').addClass('clicked');
+                $('.usersubmission.active').removeClass('active');
+                $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
+                $('.usersubmission.clicked').removeClass('clicked');
+
+                $('.usersubmission td:last-of-type i').removeClass('fa-times').addClass('fa-pencil-square-o');
+                $('.usersubmission.active td:last-of-type i').removeClass('fa-pencil-square-o').addClass('fa-times');
+            });
+
+            // change tab
+            $('.tab-view>.tab-links>.tab-link').click(function(e){
+                var range = $(this).closest(".tab-view");
+                range.find('>.tab-links .tab-link.active').removeClass('active');
+                $(this).addClass('active');
+                range.find('>.tabs>.tab-content.active').removeClass('active');
+                range.find(">.tabs"+">#"+this.id.replace("-tab-link","")+".tab-content").addClass('active');
+            });
+            
+            
+            //set initial tab-view by URL-Parameter
+            function getParameterByName(name) {
+                return decodeURIComponent(window.location.hash.replace("#activetabid=",""));
+            }
+
+            if(getParameterByName('activetabid')){
+                var id = getParameterByName('activetabid')
+                var range = $('#'+id).closest(".tab-view");
+                range.find('>.tab-links .tab-link.active').removeClass('active');
+                range.find('>.tabs>.tab-content.active').removeClass('active');
+                
+                range.find(">.tab-links"+">#"+id+"-tab-link").addClass('active');
+                $('#'+id).addClass('active');
+            }
+        });
+        </script>
+        <script src="/vendor/ckeditor/ckeditor.js"></script>
+        <script>if($('.edit-modal').find("textarea")[0]){
+            CKEDITOR.replace($('.edit-modal').find("textarea")[0],{
+                toolbarGroups: [
+                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                    { name: 'links', groups: [ 'links' ] },
+                    { name: 'insert', groups: [ 'insert' ] },
+                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                    { name: 'forms', groups: [ 'forms' ] },
+                    { name: 'tools', groups: [ 'tools' ] },
+                    { name: 'others', groups: [ 'others' ] },
+                    { name: 'styles', groups: [ 'styles' ] },
+                    { name: 'colors', groups: [ 'colors' ] },
+                    { name: 'about', groups: [ 'about' ] }
+                ],
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+            });
+        }</script>
+    {{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/homework/assignment.css"/>
+        <link rel="stylesheet" href="/styles/homework/submissions.css"/>
+        <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
+    {{/content}}
+    {{#content "page"}}
+
+        <section class="section-homework">
+            <div class="dates">
+                {{availableDateF}} ({{availableTimeF}})<br/>
+                bis: {{dueDateF}} ({{dueTimeF}})
+            </div>
+            <div class="tab-view">
+                <nav class="tab-links">
+                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended">Details</a>
+                    {{#if private}}
+                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">Abgabe</a>
+                    {{else}}
+                        {{#ifvalue teacherId value=currentUser._id}}
+                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">Abgaben</a>
+                        {{else}}
+                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">Abgabe</a>
+                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback">Feedback</a>
+                            {{#if publicSubmissions}}
+                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">Abgaben</a>
+                            {{/if}}
+                        {{/ifvalue}}
+                    {{/if}}
+                </nav>
+                <div class="tabs">
+{{> 'homework/extended'}}
+                    {{#if private}}
+{{> 'homework/submission'}}
+                    {{else}}
+                        {{#ifvalue teacherId value=currentUser._id}}
+{{> 'homework/submissions'}}
+                        {{else}}
+{{> 'homework/submission'}}
+{{> 'homework/feedback'}}
+                            {{#if publicSubmissions}}
+{{> 'homework/submissions'}}
+                            {{/if}}
+                        {{/ifvalue}}
+                    {{/if}}
+                </div>
+            </div>
+        </section>
+    {{/content}}
+{{/extend}}

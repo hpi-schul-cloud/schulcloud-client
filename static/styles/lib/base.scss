@@ -1,0 +1,134 @@
+@import "./colors";
+@import "components";
+
+@import "./tether/tether.min.css";
+@import "./bootstrap/scss/bootstrap";
+@import "./fontawesome/font-awesome";
+@import "./chosen/bootstrap-chosen.scss";
+
+/* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
+
+* {
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+}
+
+a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.no-padding {
+	padding: 0px !important;
+}
+
+.pull-right {
+	float:right;
+}
+
+.text-center {
+	text-align:center;
+}
+
+label {
+	font-weight: bold;
+}
+
+.pagination-wrapper {
+	text-align: center;
+}
+
+.btn-loading {
+	font-size: 0px !important;
+	transition: width 0.3s;
+
+	&:before {
+		content: "\f1ce";
+		-webkit-animation: fa-spin 2s infinite linear;
+		animation: fa-spin 2s infinite linear;
+		font-family: "FontAwesome";
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		font-size: 16px;
+	}
+}
+
+footer {
+	width: 100%;
+	margin-top: 40px;
+	position: inherit;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	clear: both;
+	padding: 30px 0px;
+
+	@include media-breakpoint-down(xs) {
+		background: $colorBeige;
+
+		img {
+			clear: both;
+			display: block;
+			margin: 0 auto 10px;
+		}
+	}
+
+	.imprint {
+		.center {
+			text-align: center;
+			align-items: center;
+		}
+	}
+}
+
+@-webkit-keyframes fa-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
+	}
+}
+
+.notification.hidden {
+	display:none;
+}
+
+form.inline {
+	display: inline;
+
+	button {
+		-webkit-appearance: none;
+		appearance: none;
+		background: transparent;
+		border: 0px;
+	}
+}
+
+.margin-top {
+	margin-top: 30px;
+}
+
+.padding-top {
+	padding-top: 30px;
+}
+
+.btn-tertiary,
+.btn.btn-tertiary,
+.list-group-item.btn-tertiary {
+	background-color: $colorGrey;
+}
+
+.alert-fixed {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index:9999;
+  border-radius:0
+}

@@ -1,0 +1,43 @@
+{{#extend "lib/default"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/authentication/login.css"/>
+    {{/content}}
+
+    {{#content "body"}}
+        <div class="container">
+            <div class="row">
+				<div class="col-xs-12">
+					{{> "lib/components/notification"}}
+				</div>
+                <div class="col-md-6 offset-md-3">
+                    <hgroup>
+                        <h3>{{title}}</h3>
+                        <h4>{{subtitle}}</h4>
+                    </hgroup>
+
+                    <div class="form-wrapper">
+                        <form method="post" class="registration-form" action="{{action}}">
+
+                            <input type="hidden" name="accountId" value="{{accountId}}" />
+                            <input type="hidden" name="userId" value="{{userId}}" />
+                            <input type="hidden" name="schoolId" value="{{schoolId}}" />
+
+                            {{#block "fields"}}{{/block}}
+
+                            <p><small>Indem du auf „{{buttonLabel}}“ klickst, erklärst du dich mit unseren
+                                <a href="">Nutzungsbedingungen</a> einverstanden und bestätigst, dass du unsere
+                                <a href="">Datenrichtlinie</a> gelesen hast.</small></p>
+
+                            <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-graphic bg-graphic-left"></div>
+        <div class="bg-graphic bg-graphic-right"></div>
+
+    {{/content}}
+{{/extend}}

@@ -1,0 +1,60 @@
+<section id="submissions" class="tab-content section-homeworksubmissions">
+	<h5>Abgaben</h5>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th/>
+            <th>Vorname</th>
+            <th>Nachname</th>
+            <th>Abgegeben <span>{{submissionscount}}/{{usercount}}</span></th>
+            <th>Bewertung {{#if averagerating}}<span>{{averagerating}}</span>{{/if}}</th>
+            <th/>
+        </tr>
+        </thead>
+		{{#each students}}
+			<tbody class="usersubmission">
+			<tr class="userinfo">
+				<td><img class="picture" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/></td>
+				<td>{{this.student.firstName}}</td>
+				<td>{{this.student.lastName}}</td>
+				<td>
+					{{#if this.submission.comment}}
+						<i class="fa fa-check green" aria-hidden="true"/>
+					{{else}}
+						<i class="fa fa-times red" aria-hidden="true"/>
+					{{/if}}
+				</td>
+				<td>
+					{{#if @root.courseId.gradeSystem}}
+						{{#ifvalue submission.grade value=0 }} 6{{/ifvalue}}
+						{{#if submission.grade}}
+								{{#ifvalue submission.grade value=1 }}5-{{/ifvalue}}
+								{{#ifvalue submission.grade value=2 }} 5{{/ifvalue}}
+								{{#ifvalue submission.grade value=3 }}5+{{/ifvalue}}
+								{{#ifvalue submission.grade value=4 }}4-{{/ifvalue}}
+								{{#ifvalue submission.grade value=5 }} 4{{/ifvalue}}
+								{{#ifvalue submission.grade value=6 }}4+{{/ifvalue}}
+								{{#ifvalue submission.grade value=7 }}3-{{/ifvalue}}
+								{{#ifvalue submission.grade value=8 }} 3{{/ifvalue}}
+								{{#ifvalue submission.grade value=9 }}3+{{/ifvalue}}
+								{{#ifvalue submission.grade value=10}}2-{{/ifvalue}}
+								{{#ifvalue submission.grade value=11}} 2{{/ifvalue}}
+								{{#ifvalue submission.grade value=12}}2+{{/ifvalue}}
+								{{#ifvalue submission.grade value=13}}1-{{/ifvalue}}
+								{{#ifvalue submission.grade value=14}} 1{{/ifvalue}}
+								{{#ifvalue submission.grade value=15}}1+{{/ifvalue}}
+						{{/if}}
+					{{else}}
+						{{#ifvalue submission.grade value=0}}0 Punkte{{/ifvalue}}
+						{{#if submission.grade}}{{submission.grade}} Punkte{{/if}}
+					{{/if}}
+					</td>
+				<td><i class="fa fa-pencil-square-o" aria-hidden="true"/></td>
+			</tr>
+			<tr class="evaluation">
+				<td colSpan="6">{{>"homework/evaluation"}}</td>
+			</tr>
+			</tbody>
+		{{/each}}
+    </table>
+</section>

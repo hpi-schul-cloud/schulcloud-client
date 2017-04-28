@@ -1,0 +1,22 @@
+{{#extend "lib/loggedin"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/calendar/fullcalendar.min.css"/>
+        <link rel="stylesheet" href="/styles/calendar/calendar.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/moment/moment.js" type="text/javascript"></script>
+        <script>
+            moment().format();
+        </script>
+        <script src="/scripts/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
+        <script src="/scripts/fullcalendar/de.js" type="text/javascript"></script>
+        <script src="/scripts/calendar.js" type="text/javascript"></script>
+    {{/content}}
+
+    {{#content "page"}}
+        <div class="route-calendar">
+            <div class="fullcalendar" id="calendar"></div>
+        </div>
+    {{/content}}
+{{/extend}}

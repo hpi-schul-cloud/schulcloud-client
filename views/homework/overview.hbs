@@ -1,0 +1,147 @@
+{{#extend "homework/homework"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
+    {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js"></script>
+    {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/lessons.js" type="text/javascript"></script>
+    {{/content}}
+    
+    {{#content "page"}}
+        <div class="route-homework">
+            <section class="section-homework">
+                <button type="submit" class="btn btn-primary btn-add create">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <p>Aufgabe hinzufügen</p>
+                </button>
+                
+                <div class="form-group sort">
+                    <select name="sort" id="sortselection" data-placeholder="Sortieren">
+                        {{#each sortmethods}}
+                            {{#if this.active}}
+                                {{#if this.desc}}
+                                    <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
+                                    <option value='{"fn":"{{this.functionname}}","desc":true }' selected="selected">{{this.title}} ▼</option>
+                                {{else}}
+                                    <option value='{"fn":"{{this.functionname}}","desc":false }' selected="selected">{{this.title}} ▲</option>
+                                    <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
+                                {{/if}}
+                            {{else}}
+                                <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
+                                <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+
+
+                <ol class="homework">
+                    <div class="row"><div class="col-lg-8">
+                        {{#each assignments}}
+                            <li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
+                                <a class="content" href="{{this.url}}">  
+                                    <div class="dates">
+                                        {{#if this.dueString}}
+                                            <span class="{{this.dueColor}}">{{this.dueString}}</span>
+                                        {{else}}
+                                                 {{this.fromdate}}<br/>
+                                            bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
+                                        {{/if}}
+                                    </div>   
+
+                                    {{#if this.submissionstats}}
+                                    <div class="state">
+                                        <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
+                                            data="{{this.submissionstatsperc}}"
+                                            {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
+                                            width="80" height="80">
+                                        </circular-progress>
+                                        <div class="textinfo">
+                                            <span>Abgegeben: {{this.submissionstats}}</span><br/>
+                                            {{#if this.gradedstats}}
+                                                <span>Bewertet: {{this.gradedstats}}</span><br/>
+                                            {{else}}
+                                                <span>Bewertet: -</span><br/>
+                                            {{/if}}
+                                            <span>{{#if this.averagerating}}
+                                                {{#if this.courseId.gradeSystem}}
+                                                    Ø: {{this.averagerating}} 
+                                                {{else}}
+                                                    Ø: {{this.averagerating}} Punkte
+                                                {{/if}}
+                                                {{else}}
+                                                    Ø: - 
+                                            {{/if}}</span>
+                                        </div>
+                                    </div>
+                                    {{/if}}
+
+                                    <h5 class="title">
+                                        {{#if this.courseId}}
+                                            <span>{{this.courseId.name}}</span>
+                                        {{/if}}
+                                        {{this.name}}
+                                    </h5>
+                                    <div class="description">
+                                        <pre>{{truncate this.description}}</pre>
+                                    </div>
+                                </a>
+                                {{#ifvalue this.teacherId value=this.currentUser._id}}
+                                    {{#each this.actions}}
+                                        {{#if this.method}}
+                                                <a class="{{this.class}}"
+                                                   href="{{this.link}}"
+                                                   target="_blank"
+                                                   data-method="delete-material"
+                                                   data-name="{{../name}}">
+                                                    <i class="fa fa-{{this.icon}}"></i>
+                                                </a>
+                                        {{else}}
+                                            <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}">
+                                                <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                                            </a>
+                                        {{/if}}
+                                    {{/each}}
+                                {{/ifvalue}}
+                                <a href="{{this.url}}">
+                                    <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
+                                </a>
+                            </li>
+                        {{else}}
+                            <p class="text-muted text-center">
+                                <span>Keine Aufgaben.</span>
+                            </p>
+                        {{/each}}
+                    </div></div>
+                </ol>
+                {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
+                    {{#content "fields"}}
+                        {{> "homework/form-assignment"}}
+                    {{/content}}
+                {{/embed}}
+                {{#embed "lib/components/modal-form" action="/homework/" method="post" class="add-modal"}}
+                    {{#content "fields"}}
+                        {{> "homework/form-assignment"}}
+                    {{/content}}
+                {{/embed}}
+                {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+                    {{#content "body"}}
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-close">
+                                Abbrechen
+                            </button>
+
+                            <button type="submit" class="btn btn-primary btn-submit">
+                                Löschen
+                            </button>
+                        </div>
+                    {{/content}}
+                {{/embed}}
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}

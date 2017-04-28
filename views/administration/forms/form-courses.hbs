@@ -1,0 +1,74 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+<div class="form-group">
+    <label>Name des Kurses</label>
+    <input class="form-control" name="name" type="text" placeholder="10a" required />
+</div>
+
+<div class="form-group">
+    <label>Farbe des Kurses:</label>
+	<input name="color" list="coursecolors" type="color" placeholder="#ff0000" autocomplete=on required/>
+	<datalist id="coursecolors">
+	  <option value="#F44336">
+	  <option value="#E91E63">
+	  <option value="#9C27B0">
+	  <option value="#673AB7">
+	  <option value="#304FFE">
+	  <option value="#2196F3">
+	  <option value="#03A9F4">
+	  <option value="#00BCD4">
+	  <option value="#009688">
+	  <option value="#4CAF50">
+	  <option value="#8BC34A">
+	  <option value="#CDDC39">
+	  <option value="#FFEB3B">
+	  <option value="#FFC107">
+	  <option value="#FF9800">
+	  <option value="#FF5722">
+	  <option value="#795548">
+	  <option value="#9E9E9E">
+	  <option value="#607D8B">
+	  <option value="#000000">
+	</datalist>
+</div>
+
+<div class="form-group">
+	<label>Bewertungssystem:</label>
+	<fieldset>
+		<input type="radio" name="gradeSystem" value="0" id="gradeSystem0" onchange="this.value=0"/>
+		<label for="gradeSystem0">Punkte</label>
+		<input type="radio" name="gradeSystem" value="1" id="gradeSystem1" onchange="this.value=1"/>
+		<label for="gradeSystem1">Noten</label>
+	</fieldset>
+</div>
+
+
+<div class="form-group">
+    <label>Klasse(n)</label>
+
+    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+        {{#each classes}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Unterrichtender Lehrer</label>
+
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
+        {{#each teachers}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Schüler / Teilnehmer</label>
+
+    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+        {{#each students}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+        {{/each}}
+    </select>
+</div>

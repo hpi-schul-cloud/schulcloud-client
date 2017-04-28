@@ -1,0 +1,40 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/tools/tools.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="section-course">
+                <div class="list-group">
+                    {{#if ltiTools}}
+                        {{#each ltiTools}}
+                            <a class="list-group-item list-group-item-action flex-column align-items-start template_tool" href="{{this._id}}">
+                            {{#if logo_url}}
+                                <img src={{this.logo_url}} class="float-left" style="width:100px; height:auto;"/>
+                            {{else}}
+                                <img src="/images/cloud.png" class="float-left" style="width:100px; height:auto;"/>
+                            {{/if}}
+                                <span>{{this.name}}</span>
+                            </a>
+                        {{/each}}
+                    {{else}}
+                        <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+                            <span>Keine Tools.</span>
+                        </p>
+                    {{/if}}
+                </div>
+
+            {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-tools"}}
+                {{/content}}
+            {{/embed}}
+        </section>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/tools.js" type="text/javascript"></script>
+    {{/content}}
+{{/extend}}
