@@ -215,6 +215,8 @@ router.all('/', function (req, res, next) {
         }
     }).then(assignments => {
         assignments = assignments.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
+            /* Hausaufgaben nach Nutzerberechtigungen Filtern */
+            
             // Schuelern keine noch unveroeffentlichten Hausaufgaben anzeigen
             if (splitDate(assignment.availableDate)["timestamp"] > Date.now() && assignment.teacherId != res.locals.currentUser._id) {
                 return;
@@ -232,26 +234,25 @@ router.all('/', function (req, res, next) {
                     assignment.userIds = assignment.courseId.userIds;
                 }
                 // Kursfarbe setzen + Fallback, falls keine hinterlegt (Fallback eventuell unnötig, falls im server color = required)
-                assignment.color = (assignment.courseId.color.length != 7) ? "#b30000" : assignment.courseId.color;
+                if(!assignment.courseId.color || (assignment.courseId.color.length != 7)){
+                    assignment.color = "#b30000";
+                }else{
+                    assignment.color = assignment.courseId.color;
+                }
             }
             // Hausaufgabe ist Privat, aber gehört nicht dem Benutzer -> nicht anzeigen
-            if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)) {
+            if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)){
                 return;
             }
+            
             assignment.url = '/homework/' + assignment._id;
-            assignment.privateclass = assignment.private ? "private" : "";
-            assignment.publicSubmissions = assignment.publicSubmissions;
+            assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
 
+            // Anzeigetext + Farbe für verbleibende Zeit
             var availableDateArray = splitDate(assignment.availableDate);
-            var availableDate = availableDateArray["timestamp"];
-
             var dueDateArray = splitDate(assignment.dueDate);
-            var dueDate = dueDateArray["timestamp"];
-
-            var now = new Date();
-            var remaining = (dueDate - now);
+            var remaining = (dueDateArray["timestamp"] - Date.now());
             var remainingF = formatremaining(remaining);
-
             assignment.dueColor = remainingF["colorClass"];
             if(remaining > 432000000 /* 5 days */ || remaining < 0) {
                 assignment.fromdate = availableDateArray["date"] + " (" + availableDateArray["time"] + ")";
@@ -260,18 +261,16 @@ router.all('/', function (req, res, next) {
                  assignment.dueString = remainingF["str"];
             }
 
-            assignment.availableDateReached = availableDate.getTime() > Date.now();
-
+            // alle Abgaben auslesen -> um Statistiken anzeigen zu können
             const submissionPromise = getSelectOptions(req, 'submissions', {
                 homeworkId: assignment._id,
                 $populate: ['studentId']
             });
             Promise.resolve(submissionPromise).then(submissions => {
-                if (assignment.private
-                    && assignment.teacherId != res.locals.currentUser._id) {
+                if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)){
                     return;
                 }
-                if (new Date(assignment.availableDate).getTime() > Date.now()
+                if (availableDateArray["timestamp"] > Date.now()
                     && assignment.teacherId != res.locals.currentUser._id) {
                     return;
                 }
