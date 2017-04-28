@@ -182,7 +182,7 @@ const formatDate = function(datediff){
 const formatremaining = function(remaining){
     var remainingArray = formatDate(remaining);
     var dueColor="", dueString="";
-    if (remainingArray["Days"] <= 5 || remaining > 0) {
+    if (remainingArray["Days"] <= 5 && remaining > 0) {
         if (remainingArray["Days"] > 1) {
             dueColor = "days";
             dueString = "noch " + remainingArray["Days"] + " Tage";
