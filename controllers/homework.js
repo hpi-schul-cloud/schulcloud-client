@@ -267,51 +267,38 @@ router.all('/', function (req, res, next) {
                 $populate: ['studentId']
             });
             Promise.resolve(submissionPromise).then(submissions => {
-                if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)){
-                    return;
-                }
-                if (availableDateArray["timestamp"] > Date.now()
-                    && assignment.teacherId != res.locals.currentUser._id) {
-                    return;
-                }
-                if (assignment.courseId != null && assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                    && assignment.teacherId != res.locals.currentUser._id) {
-                    return;
-                }
-
-                if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
+                if(assignment.teacherId === res.locals.currentUser._id){  //teacher
                     assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
                     assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
                     var submissioncount = (submissions.filter(function (a) {
                         return (a.gradeComment == '' && a.grade == null) ? 0 : 1;
                     })).length;
                     if (submissions.length > 0) {
-                        assignment.gradedstats = submissioncount + "/" + submissions.length;
-                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);
+                        assignment.gradedstats = submissioncount + "/" + submissions.length;                        // Anzahl der Abgaben
+                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);   // -||- in Prozent
+                        // Durchschnittsnote berechnen
                         if (submissioncount > 0) {
-                            var ratingsum = 0;
                             var submissiongrades;
-                            if (assignment.courseId.gradeSystem) {
+                            // Noten aus Abgaben auslesen
+                            if (assignment.courseId.gradeSystem){   // Notensystem (1+,1,...)
                                 submissiongrades = submissions.map(function (sub) {
-                                    return 6 - Math.ceil(sub.grade / 3);
+                                    return 6 - Math.ceil(sub.grade / 3);    // Umrechnung von Punkten in Note
                                 });
-                            } else {
-                                submissiongrades = submissions.map(function (sub) {
-                                    return sub.grade;
-                                });
+                            }else{ // Punktesystem
+                                submissiongrades = submissions.map(function(sub){return sub.grade;});
                             }
+                            // Durchschnittsnote berechnen
+                            var ratingsum = 0;
                             submissiongrades.forEach(function (e) {
                                 ratingsum += e;
                             });
-                            assignment.averagerating = (ratingsum / submissioncount).toFixed(1);
+                            assignment.averagerating = (ratingsum / submissioncount).toFixed(1);    // Durchschnittsnote
                         }
                     }
-                } else {
-                    //student
-                    var submission = submissions.filter(function (n) {
-                        return n.studentId._id == res.locals.currentUser._id;
-                    })[0];
-                    if (submission != null && submission.comment != ""){
+                }
+                else{ //student
+                    var submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
+                    if (submission != null && submission.comment != ""){ // Abgabe vorhanden?
                         assignment.dueColor = "submitted";
                     }
                 }
@@ -323,9 +310,8 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
 
-        assignments = assignments.filter(function (n) {
-            return n != undefined;
-        });
+        // Wofür ist das da?
+        assignments = assignments.filter(function(n){return n != undefined;});
 
         var sortmethods = getSortmethods();
         if(req.query.sort){
