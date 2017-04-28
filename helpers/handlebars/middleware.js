@@ -40,10 +40,6 @@ module.exports = (req, res, next) => {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'
-    },{
-        name: 'News',
-        icon: 'newspaper-o',
-        link: '/news/'
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
@@ -95,11 +91,6 @@ module.exports = (req, res, next) => {
                 name: 'Schüler',
                 icon: 'users',
                 link: '/administration/students/'
-            },
-            {
-                name: 'News',
-                icon: 'newspaper-o',
-                link: '/administration/news/'
             },
             {
                 name: 'Authentifizierung',

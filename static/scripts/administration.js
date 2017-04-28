@@ -47,12 +47,6 @@ $(document).ready(function() {
 					$(this).attr("value", value);
 					$(this).attr("placeholder", value);
 					break;
-                case "datetime-local":
-                    $(this).val(value.slice(0,16)).trigger("chosen:updated");
-                    break;
-                case "date":
-                    $(this).val(value.slice(0,10)).trigger("chosen:updated");
-                    break;
                 default:
                     $(this).val(value).trigger("chosen:updated");
             }
