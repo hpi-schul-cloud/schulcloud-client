@@ -30,6 +30,11 @@
 
     h5 {
         color: $colorHPIRed;
+        display: inline-block;
+    }
+
+    a#showAll {
+        float: right;
     }
 
     h6 {
