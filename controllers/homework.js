@@ -206,7 +206,19 @@ const formatremaining = function(remaining){
     }
     return {"colorClass":dueColor,"str":dueString};
 }
-
+// Sortierfunktionen
+const sortbyavailableDate = function(a, b) {
+    var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000));
+    var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000));
+    if (c === d) {return 0;}
+    else {return (c < d) ? -1 : 1;}
+}
+const sortbyDueDate = function(a, b) {
+    var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000));
+    var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000));
+    if (c === d) {return 0;}
+    else {return (c < d) ? -1 : 1;}
+}
 
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
@@ -314,9 +326,10 @@ router.all('/', function (req, res, next) {
         assignments = assignments.filter(function(n){return n != undefined;});
 
         var sortmethods = getSortmethods();
+        // Hausaufgaben sortieren
         if(req.query.sort){
             var sorting = JSON.parse(req.query.sort);
-            // Hausaufgaben nach Abgabedatum sortieren
+            // Aktueller Sortieralgorithmus für Anzeige aufbereiten
             sortmethods = sortmethods.map(function(e){
                 if(e.functionname == sorting.fn){
                     e.active = 'selected';
@@ -326,26 +339,15 @@ router.all('/', function (req, res, next) {
                 }
                 return e;
             });
+            // Hausaufgaben nach gewähltem Algorithmus sortieren
             if(sorting.fn == "availableDate"){
                 assignments.sort(sortbyavailableDate);
             }else if(sorting.fn == "dueDate"){
                 assignments.sort(sortbyDueDate);
-            }            
+            } 
             if(sorting.desc){
                 assignments.reverse();
             }
-        }
-        function sortbyavailableDate(a, b) {
-            var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000));
-            var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000));
-            if (c === d) {return 0;}
-            else {return (c < d) ? -1 : 1;}
-        }
-        function sortbyDueDate(a, b) {
-            var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000));
-            var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000));
-            if (c === d) {return 0;}
-            else {return (c < d) ? -1 : 1;}
         }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
@@ -354,8 +356,8 @@ router.all('/', function (req, res, next) {
                 {teacherIds: res.locals.currentUser._id}
             ]
         });
-
         Promise.resolve(coursesPromise).then(courses => {
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
                 $populate: ['roles']
@@ -371,7 +373,6 @@ router.all('/', function (req, res, next) {
                 res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
             });
         });
-
     });
 });
 
