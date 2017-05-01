@@ -21,6 +21,40 @@ const markSelected = (options, values = []) => {
     });
 };
 
+/**
+ *
+ * @param weekdayNum {number}
+ * @returns {string} - abbreviation of weekday
+ */
+const getWeekdayForNumber = (weekdayNum) => {
+    let weekdayNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
+    return weekdayNames[weekdayNum];
+};
+
+/**
+ * creates an event for a created course. following params has to be included in @param hook for creating the event:
+ * startDate {Date} - the date the course is first take place
+ * untilDate {Date} -  the date the course is last take place
+ * duration {Number} - the duration of a course lesson
+ * weekday {Number} - from 1 to 7, the weekday the course take place
+ * @param course
+ */
+const createEventsForCourse = (req, res, course) => {
+    return Promise.all(course.times.map(time => {
+        return api(req).post("/calendar", {
+            summary: course.name,
+            location: res.local.currentSchoolData.name,
+            description: course.description,
+            startDate: time.startDate,
+            duration: time.duration,
+            repeat_until: time.untilDate,
+            frequency: "WEEKLY",
+            weekday: getWeekdayForNumber(time.weekday),
+            scopeId: course._id
+        });
+    }));
+};
+
 const editCourseHandler = (req, res, next) => {
     let coursePromise, action, method;
     if(req.params.courseId) {
@@ -104,8 +138,16 @@ router.get('/', function (req, res, next) {
 router.post('/', function (req, res, next) {
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
-    }).then(_ => {
-        res.redirect('/courses/');
+    }).then(course => {
+
+        // can just run if a calendar service is running on the environment
+        if (process.env.CALENDAR_SERVICE_ENABLED) {
+            createEventsForCourse(req, res, course).then(_ => {
+                res.redirect('/courses');
+            });
+        } else {
+            res.redirect('/courses/');
+        }
     }).catch(_ => {
         res.sendStatus(500);
     });

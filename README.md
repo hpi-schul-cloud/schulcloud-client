@@ -22,6 +22,8 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 4. run `npm run watch` to boot the application
 5. go to `http://localhost:3100`
 
+For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.
+
 ## Testing
 
 1. Set the password for the demo user `schueler@schul-cloud.org`
