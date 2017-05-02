@@ -36,9 +36,9 @@ $(document).ready(function () {
             .append($("<td><i class='fa fa-trash-o custom-field-delete' /></td>")
                 .click(deleteCourseTime.bind(this, _id))
             )
-            .append($("<td class='form-group'><input class='form-control' name='times[" + courseTimesCount + "][weekday]' value='" + field.weekday + "' type='text' ></input></td>"))
-            .append($("<td class='form-group'><input class='form-control' name='times[" + courseTimesCount + "][startTime]' value='" + field.startTime + "' type='time'></input></td>"))
-            .append($("<td class='form-group'><input class='form-control' name='times[" + courseTimesCount + "][duration]' value='" + field.duration + "' type='number'></input></td>"))
+            .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][weekday]' value='" + field.weekday + "' type='text' ></input></td>"))
+            .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][startTime]' value='" + field.startTime + "' type='time'></input></td>"))
+            .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][duration]' value='" + field.duration + "' type='number'></input></td>"))
         $courseTimes.append($field);
         courseTimesCount++;
     };

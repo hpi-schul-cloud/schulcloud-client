@@ -58,6 +58,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Bewertungssystem:</label>
+                    <fieldset>
+                        <input type="radio" name="gradeSystem" value="0" id="gradeSystem0" onchange="this.value=0" {{#unless course.gradeSystem}}checked{{/unless}} />
+                        <label for="gradeSystem0">Punkte</label>
+                        <input type="radio" name="gradeSystem" value="1" id="gradeSystem1" onchange="this.value=1" {{#if course.gradeSystem}}checked{{/if}} />
+                        <label for="gradeSystem1">Noten</label>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
                     <label>Klasse(n)</label>
 
                     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
@@ -99,62 +109,81 @@
                     </select>
                 </div>
 
-                <label>Zeitraum(Schuljahr)</label>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label>Von</label>
-                        <input name="startDate" id="startDate" type="date" class="form-control"/>
-                    </div>
+                <div class="panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <a data-toggle="collapse" href="#collapse1"><label>Termine auswählen</label></a>
+                        </div>
+                        <div id="collapse1" class="panel-collapse collapse">
+                            <div class="times">
+                                <label>Zeitraum (z.B. Schuljahr)</label>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Von</label>
+                                        <input name="startDate" id="startDate" type="date" class="form-control"/>
+                                    </div>
 
-                    <div class="form-group col-md-6">
-                        <label>Bis</label>
-                        <input name="untilDate" id="untilDate" type="date" class="form-control"/>
+                                    <div class="form-group col-md-6">
+                                        <label>Bis</label>
+                                        <input name="untilDate" id="untilDate" type="date" class="form-control"/>
+                                    </div>
+                                </div>
+
+                                <table width="100%" cellpadding="5px">
+                                    <thead>
+                                    <th></th>
+                                    <th><label>Wochentag</label></th>
+                                    <th><label>Start der Schulstunde</label></th>
+                                    <th><label>Dauer der Schulstunde</label></th>
+                                    </thead>
+                                    <tbody class="add-course-times">
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-plus new-custom-field-add"></i>
+                                        </td>
+                                        <td>
+                                            <select class="new-weekday">
+                                                <option value="0">Montag</option>
+                                                <option value="1">Dienstag</option>
+                                                <option value="2">Mittwoch</option>
+                                                <option value="3">Donnerstag</option>
+                                                <option value="4">Freitag</option>
+                                                <option value="5">Samstag</option>
+                                                <option value="6">Sonntag</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <input class="form-control new-start-time" type="time"/>
+                                        </td>
+                                        <td>
+                                            <input class="form-control new-duration" type="number"
+                                                   placeholder="in Minuten"/>
+                                        </td>
+                                    </tr>
+                                    {{#each course.times}}
+                                        <tr id="{{this._id}}">
+                                            <td><i class="fa fa-trash-o custom-field-delete"
+                                                   onclick="deleteCourseTime.bind(this, {{this._id}})"></i></td>
+                                            <td class="form-group disabled"><input class="form-control"
+                                                                                   name="times[{{this.count}}][weekday]"
+                                                                                   value="{{this.weekday}}"
+                                                                                   type="text"></td>
+                                            <td class="form-group disabled"><input class="form-control"
+                                                                                   name="times[{{this.count}}][startTime]"
+                                                                                   value="{{this.startTime}}"
+                                                                                   type="time"></td>
+                                            <td class="form-group disabled"><input class="form-control"
+                                                                                   name="times[{{this.count}}][duration]"
+                                                                                   value="{{this.duration}}"
+                                                                                   type="number"></td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
-                <table width="100%">
-                    <thead>
-                    <th></th>
-                    <th><label>Wochentag</label></th>
-                    <th><label>Start der Schulstunde</label></th>
-                    <th><label>Dauer der Schulstunde</label></th>
-                    </thead>
-                    <tbody class="add-course-times">
-                        <tr>
-                            <td>
-                                <i class="fa fa-plus new-custom-field-add"></i>
-                            </td>
-                            <td>
-                                <select class="new-weekday">
-                                    <option value="0">Montag</option>
-                                    <option value="1">Dienstag</option>
-                                    <option value="2">Mittwoch</option>
-                                    <option value="3">Donnerstag</option>
-                                    <option value="4">Freitag</option>
-                                    <option value="5">Samstag</option>
-                                    <option value="6">Sonntag</option>
-                                </select>
-                            </td>
-                            <td>
-                                <input class="form-control new-start-time" type="time"/>
-                            </td>
-                            <td>
-                                <input class="form-control new-duration" type="number" placeholder="in Minuten"/>
-                            </td>
-                        </tr>
-                        {{#each times}}
-                            <tr id="{{this._id}}">
-                                <td><i class="fa fa-trash-o custom-field-delete" onclick="deleteCourseTime.bind(this, {{this._id}})"></i></td>
-                                <td class="form-group"><input class="form-control" name="times[{{this.count}}][weekday]" value="{{this.weekday}}"
-                                                              type="text"></td>
-                                <td class="form-group"><input class="form-control" name="times[{{this.count}}][startTime]" value="{{this.startTime}}"
-                                                              type="time"></td>
-                                <td class="form-group"><input class="form-control" name="times[{{this.count}}][duration]" value="{{this.duration}}"
-                                                              type="number"></td>
-                            </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="{{submitLabel}}"/>

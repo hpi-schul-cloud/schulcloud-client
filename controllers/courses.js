@@ -117,9 +117,6 @@ const editCourseHandler = (req, res, next) => {
             time.count = count;
         });
 
-
-        console.log(course);
-
         // preselect current teacher when creating new course
         if (!req.params.courseId) {
             course.teacherIds = [];
@@ -170,19 +167,17 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/', function (req, res, next) {
+
     // map course times to fit model
-    req.body.times.forEach(time => {
+    (req.body.times || []).forEach(time => {
         time.weekday = getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
 
-    console.log(req.body);
-
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
-
         // can just run if a calendar service is running on the environment
         if (process.env.CALENDAR_SERVICE_ENABLED) {
             createEventsForCourse(req, res, course).then(_ => {
@@ -257,6 +252,13 @@ router.get('/:courseId', function (req, res, next) {
 
 
 router.patch('/:courseId', function (req, res, next) {
+    // map course times to fit model
+    (req.body.times || []).forEach(time => {
+        time.weekday = getNumberForWeekday(time.weekday);
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
     api(req).patch('/courses/' + req.params.courseId, {
         json: req.body // TODO: sanitize
     }).then(_ => {
