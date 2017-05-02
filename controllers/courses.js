@@ -4,6 +4,7 @@ const router = express.Router();
 const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const moment = require('moment');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -26,31 +27,53 @@ const markSelected = (options, values = []) => {
  * @param weekdayNum {number}
  * @returns {string} - abbreviation of weekday
  */
-const getWeekdayForNumber = (weekdayNum) => {
+const getIsoWeekdayForNumber = (weekdayNum) => {
     let weekdayNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
     return weekdayNames[weekdayNum];
 };
 
 /**
- * creates an event for a created course. following params has to be included in @param hook for creating the event:
+ *
+ * @param weekdayNum {number}
+ * @returns {string} - abbreviation of weekday
+ */
+const getWeekdayForNumber = (weekdayNum) => {
+    let weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+    return weekdayNames[weekdayNum];
+};
+
+
+/**
+ *
+ * @param weekday {string}
+ * @returns {number} - number of weekday
+ */
+const getNumberForWeekday = (weekday) => {
+    let weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
+    return weekdayNames.indexOf(weekday);
+};
+
+/**
+ * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
  * untilDate {Date} -  the date the course is last take place
  * duration {Number} - the duration of a course lesson
- * weekday {Number} - from 1 to 7, the weekday the course take place
+ * weekday {Number} - from 0 to 6, the weekday the course take place
  * @param course
  */
 const createEventsForCourse = (req, res, course) => {
     return Promise.all(course.times.map(time => {
-        return api(req).post("/calendar", {
+        return api(req).post("/calendar", { json: {
             summary: course.name,
-            location: res.local.currentSchoolData.name,
+            location: res.locals.currentSchoolData.name,
             description: course.description,
-            startDate: time.startDate,
+            startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
             duration: time.duration,
-            repeat_until: time.untilDate,
+            repeat_until: course.untilDate,
             frequency: "WEEKLY",
-            weekday: getWeekdayForNumber(time.weekday),
+            weekday: getIsoWeekdayForNumber(time.weekday),
             scopeId: course._id
+        }
         });
     }));
 };
@@ -85,6 +108,17 @@ const editCourseHandler = (req, res, next) => {
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
         teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
         students = students.filter(s => s.schoolId == res.locals.currentSchool);
+
+        // map course times to fit into UI
+        (course.times || []).forEach((time, count) => {
+            time.weekday = getWeekdayForNumber(time.weekday);
+            time.duration = time.duration / 1000 / 60;
+            time.startTime = moment(time.startTime, "x").format("HH:mm");
+            time.count = count;
+        });
+
+
+        console.log(course);
 
         // preselect current teacher when creating new course
         if (!req.params.courseId) {
@@ -136,6 +170,15 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/', function (req, res, next) {
+    // map course times to fit model
+    req.body.times.forEach(time => {
+        time.weekday = getNumberForWeekday(time.weekday);
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
+    console.log(req.body);
+
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
@@ -148,7 +191,7 @@ router.post('/', function (req, res, next) {
         } else {
             res.redirect('/courses/');
         }
-    }).catch(_ => {
+    }).catch(err => {
         res.sendStatus(500);
     });
 });
