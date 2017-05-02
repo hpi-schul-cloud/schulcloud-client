@@ -23,7 +23,7 @@ const markSelected = (options, values = []) => {
 };
 
 /**
- *
+ * Generates the iso-weekday abbreviation for a given number, e.g. for the Schul-Cloud Calendar-Service
  * @param weekdayNum {number}
  * @returns {string} - abbreviation of weekday
  */
@@ -33,7 +33,7 @@ const getIsoWeekdayForNumber = (weekdayNum) => {
 };
 
 /**
- *
+ *  Generates the german weekday label for a given number
  * @param weekdayNum {number}
  * @returns {string} - abbreviation of weekday
  */
@@ -44,7 +44,7 @@ const getWeekdayForNumber = (weekdayNum) => {
 
 
 /**
- *
+ * Generates the index of a given german weekday label
  * @param weekday {string}
  * @returns {number} - number of weekday
  */
@@ -156,6 +156,10 @@ router.get('/', function (req, res, next) {
     }).then(courses => {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
+            (course.times || []).forEach(time => {
+                time.startTime = moment(time.startTime, "x").format("HH:mm");
+                time.weekday = getWeekdayForNumber(time.weekday);
+            });
             return course;
         });
         res.render('courses/overview', {
