@@ -5,35 +5,33 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
+const recurringEventsHelper = require('../helpers/recurringEvents');
 
 /**
- * Generates the index of a given iso weekday label
- * @param weekday {string}
- * @returns {number} - number of weekday
- */
-const getNumberForWeekday = (weekday) => {
-    let weekdayNames = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-    return weekdayNames.indexOf(weekday);
-};
-
-/**
- * sets the dow-property for recurring events
- * @param event
- * @returns event
+ * handle recurring events for fullcalendar.js
+ * @param event {Event} - a event which could contain a recurring value
+ * @returns events [] - new set of events
  */
 const mapRecurringEvent = (event) => {
-    if (event.included) {
-        event.dow = event.included[0].attributes.freq == 'WEEKLY' ?  [getNumberForWeekday(event.included[0].attributes.wkst)] : '';
+    if (event.included && event.included[0].attributes.freq == 'WEEKLY') {
+        //event.dow = event.included[0].attributes.freq == 'WEEKLY' ?  [recurringEventsHelper.getNumberForFullCalendarWeekday(event.included[0].attributes.wkst)] : '';
+        return recurringEventsHelper.createRecurringEvents(event)
     }
+
+    return [event];
 };
 
 /**
- * maps the end and start date of a event to fit fullcalendar
+ * maps jsonapi properties of a event to fit fullcalendar
  * @param event
  */
-const mapStartEndDate = (event) => {
+const mapEventProps = (event) => {
     event.start = new Date(event.attributes.dtstart).getTime();
     event.end = new Date(event.attributes.dtend).getTime();
+    event.summary = event.attributes.summary;
+    event.title = event.attributes.summary;
+    event.location = event.attributes.location;
+    event.description = "Test";
 };
 
 // secure routes
@@ -48,8 +46,10 @@ router.get('/', function (req, res, next) {
 router.get('/events/', function (req, res, next) {
     api(req).get('/calendar/').then(events => {
 
-        events.forEach(mapStartEndDate);
-        events.forEach(mapRecurringEvent);
+        events.forEach(mapEventProps);
+        events = [].concat.apply([], events.map(mapRecurringEvent));
+
+        console.log(JSON.stringify(events, null, 4));
         return res.json(events);
     }).catch(err => {
         console.log(err);

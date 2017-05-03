@@ -4,6 +4,7 @@ const router = express.Router();
 const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -20,37 +21,6 @@ const markSelected = (options, values = []) => {
         option.selected = values.includes(option._id);
         return option;
     });
-};
-
-/**
- * Generates the iso-weekday abbreviation for a given number, e.g. for the Schul-Cloud Calendar-Service
- * @param weekdayNum {number}
- * @returns {string} - abbreviation of weekday
- */
-const getIsoWeekdayForNumber = (weekdayNum) => {
-    let weekdayNames = ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'];
-    return weekdayNames[weekdayNum];
-};
-
-/**
- *  Generates the german weekday label for a given number
- * @param weekdayNum {number}
- * @returns {string} - abbreviation of weekday
- */
-const getWeekdayForNumber = (weekdayNum) => {
-    let weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-    return weekdayNames[weekdayNum];
-};
-
-
-/**
- * Generates the index of a given german weekday label
- * @param weekday {string}
- * @returns {number} - number of weekday
- */
-const getNumberForWeekday = (weekday) => {
-    let weekdayNames = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
-    return weekdayNames.indexOf(weekday);
 };
 
 /**
@@ -71,7 +41,7 @@ const createEventsForCourse = (req, res, course) => {
             duration: time.duration,
             repeat_until: course.untilDate,
             frequency: "WEEKLY",
-            weekday: getIsoWeekdayForNumber(time.weekday),
+            weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
             scopeId: course._id
         }
         });
@@ -111,11 +81,17 @@ const editCourseHandler = (req, res, next) => {
 
         // map course times to fit into UI
         (course.times || []).forEach((time, count) => {
-            time.weekday = getWeekdayForNumber(time.weekday);
+            time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             time.duration = time.duration / 1000 / 60;
             time.startTime = moment(time.startTime, "x").format("HH:mm");
             time.count = count;
         });
+
+        // format course start end until date
+        if (course.startDate) {
+            course.startDate = moment(new Date(course.startDate).getTime()).format("YYYY-MM-DD");
+            course.untilDate = moment(new Date(course.untilDate).getTime()).format("YYYY-MM-DD");
+        }
 
         // preselect current teacher when creating new course
         if (!req.params.courseId) {
@@ -158,7 +134,7 @@ router.get('/', function (req, res, next) {
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").format("HH:mm");
-                time.weekday = getWeekdayForNumber(time.weekday);
+                time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             });
             return course;
         });
@@ -174,7 +150,7 @@ router.post('/', function (req, res, next) {
 
     // map course times to fit model
     (req.body.times || []).forEach(time => {
-        time.weekday = getNumberForWeekday(time.weekday);
+        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
@@ -258,7 +234,7 @@ router.get('/:courseId', function (req, res, next) {
 router.patch('/:courseId', function (req, res, next) {
     // map course times to fit model
     (req.body.times || []).forEach(time => {
-        time.weekday = getNumberForWeekday(time.weekday);
+        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
