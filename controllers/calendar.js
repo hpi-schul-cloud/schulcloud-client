@@ -49,7 +49,6 @@ router.get('/events/', function (req, res, next) {
         events.forEach(mapEventProps);
         events = [].concat.apply([], events.map(mapRecurringEvent));
 
-        console.log(JSON.stringify(events, null, 4));
         return res.json(events);
     }).catch(err => {
         console.log(err);
