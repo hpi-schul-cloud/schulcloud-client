@@ -30,7 +30,6 @@ const getWeekdayForNumber = (weekdayNum) => {
     return weekdayNames[weekdayNum];
 };
 
-
 /**
  * Generates the index of a given german weekday label
  * @param weekday {string}
@@ -55,13 +54,12 @@ const createRecurringEvents = (recurringEvent) => {
     let oneWeekIndicator = 7 * oneDayIndicator;
 
     // find first weekday, if the start-event is not a real weekly event itself, because it's just a period of time
-    for (i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i++) {
+    for (var i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i++) {
         let newStartDate = start + i * oneDayIndicator;
         let newEndDate = end + i * oneDayIndicator;
 
         // check if it is the given weekday, if so set first date of recurring events
         if (moment(newStartDate).day() == getNumberForFullCalendarWeekday(recurringEvent.included[0].attributes.wkst)) {
-            console.log(new Date(newStartDate));
             start = newStartDate;
             end = newEndDate;
             break;
@@ -83,7 +81,7 @@ const createRecurringEvents = (recurringEvent) => {
             end: newEndDate
         });
 
-    } // for loop
+    } 
 
     return recurringEvents;
 };
