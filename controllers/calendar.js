@@ -14,7 +14,6 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
  */
 const mapRecurringEvent = (event) => {
     if (event.included && event.included[0].attributes.freq == 'WEEKLY') {
-        //event.dow = event.included[0].attributes.freq == 'WEEKLY' ?  [recurringEventsHelper.getNumberForFullCalendarWeekday(event.included[0].attributes.wkst)] : '';
         return recurringEventsHelper.createRecurringEvents(event);
     }
 
