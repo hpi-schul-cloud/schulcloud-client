@@ -56,8 +56,8 @@ const createRecurringEvents = (recurringEvent) => {
 
     // find first weekday, if the start-event is not a real weekly event itself, because it's just a period of time
     for (i = 0; start + i * oneDayIndicator <= end + oneWeekIndicator; i++) {
-        let newStartDate = start + i * oneWeekIndicator;
-        let newEndDate = end + i * oneWeekIndicator;
+        let newStartDate = start + i * oneDayIndicator;
+        let newEndDate = end + i * oneDayIndicator;
 
         // check if it is the given weekday, if so set first date of recurring events
         if (moment(newStartDate).day() == getNumberForFullCalendarWeekday(recurringEvent.included[0].attributes.wkst)) {
