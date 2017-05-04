@@ -211,7 +211,34 @@ const sortbyDueDate = function(a, b) {
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
 }
-
+// 
+const getAverageRating = function(submissions,gradeSystem){
+    // Durchschnittsnote berechnen
+    if (submissions.length > 0) {
+        // Nur bewertete Abgaben einbeziehen 
+        var submissiongrades = submissions.filter(function(sub){return (sub.grade!=null);})
+        // Abgaben vorhanden?
+        if(submissiongrades.length > 0){
+            // Noten aus Abgabe auslesen (& in Notensystem umwandeln)
+            if (gradeSystem) {
+                submissiongrades = submissiongrades.map(function (sub) {
+                    return 6 - Math.ceil(sub.grade / 3);
+                });
+            } else {
+                submissiongrades = submissiongrades.map(function (sub) {
+                    return sub.grade;
+                });
+            }
+            // Durchschnittsnote berechnen
+            var ratingsum = 0;
+            submissiongrades.forEach(function (e) {
+                ratingsum += e;
+            });
+            var averagerating = (ratingsum / submissiongrades.length).toFixed(2);
+        }
+    }   
+    return averagerating;
+}
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
         qs: {
@@ -276,24 +303,9 @@ router.all('/', function (req, res, next) {
                     if (submissions.length > 0) {
                         assignment.gradedstats = submissioncount + "/" + submissions.length;                        // Anzahl der Abgaben
                         assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);   // -||- in Prozent
-                        // Durchschnittsnote berechnen
-                        if (submissioncount > 0) {
-                            var submissiongrades;
-                            // Noten aus Abgaben auslesen
-                            if (assignment.courseId.gradeSystem){   // Notensystem (1+,1,...)
-                                submissiongrades = submissions.map(function (sub) {
-                                    return 6 - Math.ceil(sub.grade / 3);    // Umrechnung von Punkten in Note
-                                });
-                            }else{ // Punktesystem
-                                submissiongrades = submissions.map(function(sub){return sub.grade;});
-                            }
-                            // Durchschnittsnote berechnen
-                            var ratingsum = 0;
-                            submissiongrades.forEach(function (e) {
-                                ratingsum += e;
-                            });
-                            assignment.averagerating = (ratingsum / submissioncount).toFixed(1);    // Durchschnittsnote
-                        }
+
+                        assignment.submissionscount = submissions.length;
+                        assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
                     }
                 }
                 else{ //student
@@ -393,54 +405,37 @@ router.get('/:assignmentId', function (req, res, next) {
                 // Kursfarbe setzen
                 assignment.color = assignment.courseId.color;
             }
-            
-            
-                
-                
-            
-            var availableDateRaw = new Date(assignment.availableDate);
-            var availableDate = new Date(availableDateRaw.getTime() + (availableDateRaw.getTimezoneOffset() * 60000));
-            assignment.availableDateF = addLeadingZero(availableDate.getDate()) + "." + addLeadingZero(availableDate.getMonth() + 1) + "." + availableDate.getFullYear();
-            assignment.availableTimeF = addLeadingZero(availableDate.getHours()) + ":" + addLeadingZero(availableDate.getMinutes());
 
-            var dueDateRaw = new Date(assignment.dueDate);
-            var dueDate = new Date(dueDateRaw.getTime() + (dueDateRaw.getTimezoneOffset() * 60000));
-            assignment.dueDateF = addLeadingZero(dueDate.getDate()) + "." + addLeadingZero(dueDate.getMonth() + 1) + "." + dueDate.getFullYear();
-            assignment.dueTimeF = addLeadingZero(dueDate.getHours()) + ":" + addLeadingZero(dueDate.getMinutes());
+            // Datum aufbereiten
+            var availableDateArray = splitDate(assignment.availableDate);
+            assignment.availableDateF = availableDateArray["date"];
+            assignment.availableTimeF = availableDateArray["time"];
 
-            //23:59 am Tag der Abgabe
-            //if (new Date(assignment.dueDate).getTime()+84340000 < Date.now()){
+            var dueDateArray = splitDate(assignment.dueDate);
+            assignment.dueDateF = dueDateArray["date"];
+            assignment.dueTimeF = dueDateArray["time"];
+
+            // Abgabe noch möglich?
             if (new Date(assignment.dueDate).getTime() < Date.now()) {
                 assignment.submittable = false;
             } else {
                 assignment.submittable = true;
             }
+            
+            // Abgabe des Benutzers auslesen
             assignment.submission = submissions.filter(function (n) {
                 return n.studentId == res.locals.currentUser._id;
             })[0];
 
-            assignment.submissionscount = submissions.length;
-
-            if (submissions.length > 0) {
-                var ratingsum = 0;
-                var submissiongrades;
-                if (assignment.courseId.gradeSystem) {
-                    submissiongrades = submissions.map(function (sub) {
-                        return 6 - Math.ceil(sub.grade / 3);
-                    });
-                } else {
-                    submissiongrades = submissions.map(function (sub) {
-                        return sub.grade;
-                    });
-                }
-                submissiongrades.forEach(function (e) {
-                    ratingsum += e;
-                });
-                assignment.averagerating = (ratingsum / assignment.submissionscount).toFixed(2);
-            }
-
+            // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
+                // Anzahl der Abgaben -> Statistik in Abgabenübersicht
+                assignment.submissionscount = submission.length;
+                assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
+                // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
+            
+            
                 const coursePromise = getSelectOptions(req, 'courses', {
                     _id: assignment.courseId._id,
                     $populate: ['userIds']
