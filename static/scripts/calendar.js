@@ -16,6 +16,12 @@ $(document).ready(function () {
                 element.addClass('fc-event-cancelled');
             }
         },
+        eventClick: function(event) {
+            if (event.url) {
+                window.location.href = event.url;
+                return false;
+            }
+        },
         header: {
             left: 'title',
             right: 'month,agendaWeek,agendaDay prev,today,next'
