@@ -162,16 +162,15 @@ const addLeadingZero = function(s) {
     return (s < 10) ? "0" + s : s;
 }
 const splitDate = function(date){
-    var DateRaw = new Date(date);
-    var realDate = new Date(DateRaw.getTime() + (DateRaw.getTimezoneOffset() * 60000));
+    var realDate = new Date(new Date(date).getTime() + (new Date(date).getTimezoneOffset() * 60000));
     var DateF = addLeadingZero(realDate.getDate()) + "." + addLeadingZero(realDate.getMonth() + 1) + "." + realDate.getFullYear();
     var TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
     return {"timestamp":realDate,"date":DateF,"time":TimeF};
 }
 const formatDate = function(datediff){
-    var Days = Math.floor(datediff / (1000 * 60 * 60 * 24));
-    var Hours = Math.floor((datediff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var Minutes = Math.floor(((datediff % (1000 * 60 * 60 * 24)) % (1000 * 60 * 60)) / (1000 * 60));
+    var Days = Math.floor(datediff / 86400000);
+    var Hours = Math.floor((datediff % 86400000) / 3600000);
+    var Minutes = Math.floor(((datediff % 86400000) % 3600000) / 60000);
     return {"Days":Days,"Hours":Hours,"Minutes":Minutes};
 }
 const formatremaining = function(remaining){
