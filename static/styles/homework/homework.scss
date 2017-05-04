@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+﻿@import '../lib/colors.scss';
 @import '../lib/bootstrap/scss/bootstrap';
 
 .route-homework {
@@ -146,7 +146,7 @@
           font-weight: normal;
           text-decoration: none;
           &::after {
-            content: " ?";
+            content: " ✔";
           }
         }
       }
@@ -205,7 +205,7 @@
       }
       &.private {
         h5::before {
-          content: "??";
+          content: "🔒";
         }
       }
     }
