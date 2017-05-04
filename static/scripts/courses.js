@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    var courseTimesCount = 0;
+    var courseTimesCount = $('.course-time').length;
 
     function guidGenerator() {
         var S4 = function () {
@@ -32,8 +32,8 @@ $(document).ready(function () {
         if (!field.duration || field.duration == '') return;
 
         var _id = guidGenerator();
-        var $field = $("<tr id='" + _id + "'></tr>")
-            .append($("<td><i class='fa fa-trash-o custom-field-delete' /></td>")
+        var $field = $("<tr id='" + _id + "' class='course-time'></tr>")
+            .append($("<td><i class='fa fa-trash-o course-time-delete' /></td>")
                 .click(deleteCourseTime.bind(this, _id))
             )
             .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][weekday]' value='" + field.weekday + "' type='text' ></input></td>"))
@@ -44,5 +44,10 @@ $(document).ready(function () {
     };
 
     $('.new-custom-field-add').click(addNewCourseTime);
+    $('.course-time-delete').click(function (e){
+        e.stopPropagation();
+        e.preventDefault();
+        deleteCourseTime($(this).attr('href'));
+    });
 
 });

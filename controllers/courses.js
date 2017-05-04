@@ -43,7 +43,8 @@ const createEventsForCourse = (req, res, course) => {
             frequency: "WEEKLY",
             weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
             scopeId: course._id,
-            courseId: course._id
+            courseId: course._id,
+            courseTimeId: time._id
         }
         });
     }));
@@ -242,9 +243,17 @@ router.patch('/:courseId', function (req, res, next) {
 
     api(req).patch('/courses/' + req.params.courseId, {
         json: req.body // TODO: sanitize
-    }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId);
-    }).catch(_ => {
+    }).then(course => {
+        // can just run if a calendar service is running on the environment
+        // todo: first delete all old events
+        if (process.env.CALENDAR_SERVICE_ENABLED) {
+            createEventsForCourse(req, res, course).then(_ => {
+                res.redirect('/courses/' + req.params.courseId);
+            });
+        } else {
+            res.redirect('/courses/' + req.params.courseId);
+        }
+    }).catch(error => {
         res.sendStatus(500);
     });
 });
