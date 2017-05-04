@@ -77,6 +77,7 @@ const createRecurringEvents = (recurringEvent) => {
             summary: recurringEvent.summary,
             location: recurringEvent.location,
             description: recurringEvent.description,
+            url: recurringEvent.url,
             start: newStartDate,
             end: newEndDate
         });
