@@ -121,14 +121,8 @@
         @include media-breakpoint-down(xs) {
           margin-right: 25px;
         }
-        pre {
-          font: inherit;
-          display: inline;
-          width: 100%;
-          outline: none;
-          border: none;
-          background: transparent;
-          overflow: hidden;
+        p {
+          margin-bottom:.25rem;
         }
       }
       .dates {
@@ -152,7 +146,7 @@
           font-weight: normal;
           text-decoration: none;
           &::after {
-            content: " ✔";
+            content: " ?";
           }
         }
       }
@@ -211,7 +205,7 @@
       }
       &.private {
         h5::before {
-          content: "🔒";
+          content: "??";
         }
       }
     }
