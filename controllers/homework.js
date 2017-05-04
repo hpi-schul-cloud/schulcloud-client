@@ -237,12 +237,8 @@ router.all('/', function (req, res, next) {
                 if (!assignment.private) {
                     assignment.userIds = assignment.courseId.userIds;
                 }
-                // Kursfarbe setzen + Fallback, falls keine hinterlegt (Fallback eventuell unnötig, falls im server color = required)
-                if(!assignment.courseId.color || (assignment.courseId.color.length != 7)){
-                    assignment.color = "#b30000";
-                }else{
-                    assignment.color = assignment.courseId.color;
-                }
+                // Kursfarbe setzen
+                assignment.color = assignment.courseId.color;
             }
             // Hausaufgabe ist Privat, aber gehört nicht dem Benutzer -> nicht anzeigen
             if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)){
@@ -362,6 +358,7 @@ router.all('/', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
+                // Render Overview
                 res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
             });
         });
@@ -378,23 +375,28 @@ router.get('/:assignmentId', function (req, res, next) {
             homeworkId: assignment._id
         });
         Promise.resolve(submissionPromise).then(submissions => {
-            if (assignment.private
+            // private oder noch unveröffentlichte Hausaufgabe, die nicht aktuellem Benutzer gehört -> Return
+            if ((assignment.private 
+                    || (new Date(assignment.availableDate).getTime() > Date.now()))
                 && assignment.teacherId != res.locals.currentUser._id) {
                 return;
             }
-            if (new Date(assignment.availableDate).getTime() > Date.now()
-                && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
-            if (assignment.courseId != null) {
+            // kein Kurs -> Private Hausaufgabe
+            if (assignment.courseId == null) {
+                assignment.color = "#1DE9B6";
+                assignment.private = true;
+            }else {
                 if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
                     && assignment.teacherId != res.locals.currentUser._id) {
                     return;
                 }
-                assignment.color = (assignment.courseId.color.length != 7) ? "#1DE9B6" : assignment.courseId.color;
-            } else {
-                assignment.color = "#1DE9B6";
+                // Kursfarbe setzen
+                assignment.color = assignment.courseId.color;
             }
+            
+            
+                
+                
             
             var availableDateRaw = new Date(assignment.availableDate);
             var availableDate = new Date(availableDateRaw.getTime() + (availableDateRaw.getTimezoneOffset() * 60000));
