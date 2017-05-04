@@ -69,17 +69,12 @@ const getCreateHandler = (service) => {
 
         if (!req.body.availableDate || !req.body.dueDate) {
             var now = new Date();
-            var dd = (now.getDate() < 10) ? "0" + now.getDate() : now.getDate();
-            var MM = (now.getMonth() < 10) ? "0" + now.getMonth() : now.getMonth();
-            var HH = (now.getHours() < 10) ? "0" + now.getHours() : now.getHours();
-            var mm = (now.getMinutes() < 10) ? "0" + now.getMinutes() : now.getMinutes();
             if (!req.body.availableDate) {
-                var availableDate = now.getFullYear() + "-" + MM + "-" + dd + "T" + HH + ":" + mm+ ":00.000Z";
-                req.body.availableDate = availableDate;
+                req.body.availableDate = now.toISOString();
             }
             if (!req.body.dueDate) {
-                var dueDate = (now.getFullYear() + 9) + "-" + MM + "-" + dd + "T" + HH + ":" + mm + ":00.000Z"; //default dueDate: now + 9 years
-                req.body.dueDate = dueDate;
+                now.setFullYear(now.getFullYear() + 9);
+                req.body.dueDate = now.toISOString();
             }
         }
 
@@ -208,14 +203,12 @@ const formatremaining = function(remaining){
 }
 // Sortierfunktionen
 const sortbyavailableDate = function(a, b) {
-    var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000));
-    var d = new Date((new Date(b.availableDate)).getTime() + ((new Date(b.availableDate)).getTimezoneOffset()*60000));
+    var c = new Date(a.availableDate), d = new Date(b.availableDate);
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
 }
 const sortbyDueDate = function(a, b) {
-    var c = new Date((new Date(a.dueDate)).getTime() + ((new Date(a.dueDate)).getTimezoneOffset()*60000));
-    var d = new Date((new Date(b.dueDate)).getTime() + ((new Date(b.dueDate)).getTimezoneOffset()*60000));
+    var c = new Date(a.dueDate), d = new Date(b.dueDate);
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
 }
