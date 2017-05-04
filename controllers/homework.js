@@ -422,26 +422,23 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submittable = true;
             }
             
-            // Abgabe des Benutzers auslesen
-            assignment.submission = submissions.filter(function (n) {
-                return n.studentId == res.locals.currentUser._id;
-            })[0];
+            assignment.submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
 
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
-                assignment.submissionscount = submission.length;
+                assignment.submissionscount = submissions.length;
                 assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
             
-            
+                // Alle Teilnehmer des Kurses 
                 const coursePromise = getSelectOptions(req, 'courses', {
                     _id: assignment.courseId._id,
                     $populate: ['userIds']
                 });
-                Promise.resolve(coursePromise).then(courses => {
-                    var students = courses[0].userIds;
+                Promise.resolve(coursePromise).then(course => {
+                    var students = course[0].userIds;
                     assignment.usercount = students.length;
                     students = students.map(student => {
                         return {
@@ -451,12 +448,15 @@ router.get('/:assignmentId', function (req, res, next) {
                             })[0]
                         };
                     });
+                    // Kommentare zu Abgaben auslesen
                     const ids = assignment.submissions.map(n => n._id);
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: {$in: ids},
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
+                        // -> Kommentare stehen nun in comments
+                        // alle Kurse von aktuellem Benutzer auslesen
                         const coursesPromise = getSelectOptions(req, 'courses', {
                             $or: [
                                 {userIds: res.locals.currentUser._id},
@@ -464,6 +464,8 @@ router.get('/:assignmentId', function (req, res, next) {
                             ]
                         });
                         Promise.resolve(coursesPromise).then(courses => {
+                            // -> Kurse stehen nun in courses
+                            // ist der aktuelle Benutzer Schüler?
                             const userPromise = getSelectOptions(req, 'users', {
                                 _id: res.locals.currentUser._id,
                                 $populate: ['roles']
@@ -476,6 +478,7 @@ router.get('/:assignmentId', function (req, res, next) {
                                 if (roles.indexOf('student') == -1) {
                                     isStudent = false;
                                 }
+                                // Render assignment.hbs
                                 res.render('homework/assignment', Object.assign({}, assignment, {
                                     title: assignment.courseId.name + ' - ' + assignment.name,
                                     breadcrumb: [
