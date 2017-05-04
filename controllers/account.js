@@ -31,7 +31,9 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('account/settings', {title: 'Dein Account'});
+    res.render('account/settings', {
+        title: 'Dein Account',
+        userId: res.locals.currentUser._id});
 });
 
 module.exports = router;

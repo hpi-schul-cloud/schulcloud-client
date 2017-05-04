@@ -45,6 +45,10 @@
                     <input type="submit" class="btn btn-primary" />
                 </div>
             </form>
+
+
+            <input type="hidden" name="userId" value="{{userId}}" />
+            <button onclick="pushManager.requestPermission()">Request Permission</button>
         </div>
     {{/content}}
 {{/extend}}
