@@ -6,63 +6,10 @@ $(document).ready(function () {
         defaultView: view || 'month',
         editable: false,
         events: function (start, end, timezone, callback) {
-            /*
-             $.getJSON('/calendar/events/', {
-             start: start.unix(),
-             end: end.unix()
-             },
-             function(events) {
-             callback(events);
-             });
-             */
-            callback([
-                {
-                    "id": "58de50cfce86cd4303ca841d",
-                    "summary": "Legend Summer Party",
-                    "location": "HPI, Potsdam",
-                    "description": "For students, alumni and special guests only",
-                    "title": "Elternabend",
-                    "allDay": true,
-                    "start": 1491343200000,
-                    "end": 1491343200000,
-                    "url": ""
-                },
-                {
-                    "id": "58de50cfce86cd4303ca841d",
-                    "summary": "Legend Summer Party",
-                    "location": "HPI, Potsdam",
-                    "description": "For students, alumni and special guests only",
-                    "title": "Dienstberatung",
-                    "allDay": true,
-                    "start": 1491429600000,
-                    "end": 1491429600000,
-                    "url": ""
-                },
-                {
-                    "id": "58de50cfce86cd4303ca841d",
-                    "summary": "Legend Summer Party",
-                    "location": "HPI, Potsdam",
-                    "description": "For students, alumni and special guests only",
-                    "title": "Treffen Fachschaft Mathematik",
-                    "allDay": true,
-                    "start": 1493244000000,
-                    "end": 1493244000000,
-                    "url": ""
-                },
-                {
-                    "id": "58de50cfce86cd4303ca841d",
-                    "summary": "Legend Summer Party",
-                    "location": "HPI, Potsdam",
-                    "description": "For students, alumni and special guests only",
-                    "title": "Osterferien",
-                    "allDay": true,
-                    "start": 1491861600000,
-                    "end": 1492898340000,
-                    "url": ""
-                }
-            ]);
-
-
+            $.getJSON('/calendar/events/',
+                function (events) {
+                    callback(events);
+                });
         },
         eventRender: function (event, element) {
             if (event.cancelled) {

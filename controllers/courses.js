@@ -4,6 +4,8 @@ const router = express.Router();
 const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const recurringEventsHelper = require('../helpers/recurringEvents');
+const moment = require('moment');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -19,6 +21,31 @@ const markSelected = (options, values = []) => {
         option.selected = values.includes(option._id);
         return option;
     });
+};
+
+/**
+ * creates an event for a created course. following params has to be included in @param course for creating the event:
+ * startDate {Date} - the date the course is first take place
+ * untilDate {Date} -  the date the course is last take place
+ * duration {Number} - the duration of a course lesson
+ * weekday {Number} - from 0 to 6, the weekday the course take place
+ * @param course
+ */
+const createEventsForCourse = (req, res, course) => {
+    return Promise.all(course.times.map(time => {
+        return api(req).post("/calendar", { json: {
+            summary: course.name,
+            location: res.locals.currentSchoolData.name,
+            description: course.description,
+            startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+            duration: time.duration,
+            repeat_until: course.untilDate,
+            frequency: "WEEKLY",
+            weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+            scopeId: course._id
+        }
+        });
+    }));
 };
 
 const editCourseHandler = (req, res, next) => {
@@ -51,6 +78,20 @@ const editCourseHandler = (req, res, next) => {
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
         teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
         students = students.filter(s => s.schoolId == res.locals.currentSchool);
+
+        // map course times to fit into UI
+        (course.times || []).forEach((time, count) => {
+            time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+            time.duration = time.duration / 1000 / 60;
+            time.startTime = moment(time.startTime, "x").format("HH:mm");
+            time.count = count;
+        });
+
+        // format course start end until date
+        if (course.startDate) {
+            course.startDate = moment(new Date(course.startDate).getTime()).format("YYYY-MM-DD");
+            course.untilDate = moment(new Date(course.untilDate).getTime()).format("YYYY-MM-DD");
+        }
 
         // preselect current teacher when creating new course
         if (!req.params.courseId) {
@@ -91,6 +132,10 @@ router.get('/', function (req, res, next) {
     }).then(courses => {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
+            (course.times || []).forEach(time => {
+                time.startTime = moment(time.startTime, "x").format("HH:mm");
+                time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+            });
             return course;
         });
         res.render('courses/overview', {
@@ -102,11 +147,26 @@ router.get('/', function (req, res, next) {
 
 
 router.post('/', function (req, res, next) {
+
+    // map course times to fit model
+    (req.body.times || []).forEach(time => {
+        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
-    }).then(_ => {
-        res.redirect('/courses/');
-    }).catch(_ => {
+    }).then(course => {
+        // can just run if a calendar service is running on the environment
+        if (process.env.CALENDAR_SERVICE_ENABLED) {
+            createEventsForCourse(req, res, course).then(_ => {
+                res.redirect('/courses');
+            });
+        } else {
+            res.redirect('/courses/');
+        }
+    }).catch(err => {
         res.sendStatus(500);
     });
 });
@@ -172,6 +232,13 @@ router.get('/:courseId', function (req, res, next) {
 
 
 router.patch('/:courseId', function (req, res, next) {
+    // map course times to fit model
+    (req.body.times || []).forEach(time => {
+        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
     api(req).patch('/courses/' + req.params.courseId, {
         json: req.body // TODO: sanitize
     }).then(_ => {
