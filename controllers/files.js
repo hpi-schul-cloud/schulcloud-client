@@ -38,11 +38,13 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
 const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = {}) => {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
-    const breadcrumbs = (currentDir.split('/') || []).filter(value => value).map(dirPart => {
+    let pathComponents = currentDir.split('/') || [];
+    if(pathComponents[0] === 'users' || pathComponents[0] === 'courses' || pathComponents[0] === 'classes') pathComponents = pathComponents.slice(2);   // remove context and ID, if present
+    const breadcrumbs = pathComponents.filter(value => value).map(dirPart => {
         dirParts += '/' + dirPart;
         return {
             label: dirPart,
-            url: changeQueryParams(req.originalUrl, {'dir': dirParts}, basePath)
+            url: changeQueryParams(req.originalUrl, {dir: dirParts}, basePath)
         };
     });
 
@@ -62,7 +64,7 @@ const getStorageContext = (req, res, options = {}) => {
         return pathUtils.normalize(req.query.storageContext + '/');
     }
 
-    const currentDir = options.dir || req.query.dir || '/';
+    let currentDir = options.dir || req.query.dir || '/';
     const urlParts = url.parse((options.url || req.originalUrl), true);
 
     let storageContext = urlParts.pathname.replace('/files/', '/');
@@ -71,14 +73,14 @@ const getStorageContext = (req, res, options = {}) => {
         storageContext = 'users/' + res.locals.currentUser._id + '/';
     }
 
+    if(currentDir.slice(-1) != '/') currentDir = currentDir + '/';
     return pathUtils.join(storageContext, currentDir);
 };
 
 
 const FileGetter = (req, res, next) => {
-
-    const currentDir = req.originalUrl.split('/').slice(2).join('/') ||'';
     const path = getStorageContext(req, res);
+    const currentDir = path.split('/').slice(2).join('/');
 
     return api(req).get('/fileStorage', {
         qs: {path}
@@ -91,7 +93,8 @@ const FileGetter = (req, res, next) => {
         });
 
         directories = directories.map(dir => {
-            dir.url = changeQueryParams(req.originalUrl, {dir: pathUtils.join(currentDir, dir.name)});
+            const targetUrl = pathUtils.join(currentDir, dir.name);
+            dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
             dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
