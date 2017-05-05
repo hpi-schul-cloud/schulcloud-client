@@ -21,6 +21,13 @@
     }
 }
 
+@include media-breakpoint-down(lg) {
+    .section-messages .row.articles .card{
+        display: table !important;
+        border: 1px solid rgba(0, 0, 0, 0.125) !important;
+        width: 100%;
+    }
+}
 
 .section-messages {
     width:100%;
@@ -30,6 +37,11 @@
 
     h5 {
         color: $colorHPIRed;
+        display: inline-block;
+    }
+
+    a#showAll {
+        float: right;
     }
 
     h6 {
