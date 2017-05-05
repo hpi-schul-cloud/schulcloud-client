@@ -1,0 +1,22 @@
+{{#extend "news/news"}}
+    {{#content "page"}}
+        <div class="route-news">
+            <section class="section-news">
+                <div class="container-fluid">
+                    <div class="row articles">
+                        <div class="card-group">
+                            {{#each news}}
+                                <div class="card card-block newsEntry">
+                                    <strong class="card-text">{{this.title}}</strong>
+                                    <p class="card-text">{{truncate this.content}}</p>
+                                    <p class="card-text"><small class="text-muted">{{this.timeString}}</small></p>
+                                    <a href="/news/{{this._id}}"> weiterlesen</a>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}

@@ -37,6 +37,10 @@ module.exports = (req, res, next) => {
         icon: 'graduation-cap',
         link: '/courses/'
     }, {
+        name: 'News',
+        icon: 'newspaper-o',
+        link: '/news/'
+    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'
@@ -96,6 +100,10 @@ module.exports = (req, res, next) => {
                 name: 'Authentifizierung',
                 icon: 'key',
                 link: '/administration/systems/'
+            },{
+                name: 'News',
+                icon: 'newspaper-o',
+                link: '/administration/news/'
             }
         ]
     });
