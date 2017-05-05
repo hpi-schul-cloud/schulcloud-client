@@ -77,7 +77,7 @@ const getStorageContext = (req, res, options = {}) => {
 
 const FileGetter = (req, res, next) => {
 
-    const currentDir = req.originalUrl.split('/').slice(2).join('/') || '';
+    const currentDir = req.originalUrl.split('/').slice(2).join('/') ||'';
     const path = getStorageContext(req, res);
 
     return api(req).get('/fileStorage', {
