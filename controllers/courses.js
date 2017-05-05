@@ -42,7 +42,8 @@ const createEventsForCourse = (req, res, course) => {
             repeat_until: course.untilDate,
             frequency: "WEEKLY",
             weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
-            scopeId: course._id
+            scopeId: course._id,
+            courseId: course._id
         }
         });
     }));

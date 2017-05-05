@@ -1,5 +1,4 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
-	<h5>Bewertung</h5>
     <div class="homework">
         {{#if courseId.gradeSystem}}
             {{#ifvalue submission.grade value=0 }}<b class="grade">Note: 6</b>{{/ifvalue}}
@@ -32,18 +31,11 @@
 			{{/if}}
         {{/if}}
         <div class="comment">
-			<pre>{{submission.gradeComment}}</pre>
-        </div>
-        <div class="material card">
-            <ul>
-                <li>
-                    <img src="http://placehold.it/100x80"/>
-                    <p class="title">ExtraLongFilename.html</p>
-                    <div class="buttons">
-                        <a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-                    </div>
-                </li>
-            </ul>
+            {{#if submission.gradeComment}}
+                {{{submission.gradeComment}}}
+            {{else}}
+                <p>Kein Kommentar.</p>
+            {{/if}}
         </div>
     </div>
 </section>

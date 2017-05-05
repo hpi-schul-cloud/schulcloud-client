@@ -30,7 +30,9 @@ const mapEventProps = (event) => {
     event.summary = event.attributes.summary;
     event.title = event.attributes.summary;
     event.location = event.attributes.location;
-    event.description = "Test";
+    event.description = event.attributes.description;
+    // todo: maybe refactor later if also class-sites exists
+    event.url = event.attributes["x-sc-courseId"] ? `/courses/${event.attributes["x-sc-courseId"]}` : '';
 };
 
 // secure routes
