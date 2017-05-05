@@ -35,12 +35,16 @@ $(document).ready(function() {
         return fullPath.split("/").slice(0, -1).join('/');
     }
 
+    function getCurrentDir() {
+        return $('.section-upload').data('path');
+    }
+
     $form.dropzone({
         accept: function(file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
 
-            var currentDir = getQueryParameterByName('dir');
+            var currentDir = getCurrentDir();
 
             // uploading whole folders
             if (file.fullPath) {
@@ -49,8 +53,7 @@ $(document).ready(function() {
             }
 
             $.post('/files/file', {
-                name: file.name,
-                dir: currentDir,
+                path: currentDir + file.name,
                 type: file.type
             }, function(data) {
                 file.signedUrl = data.signedUrl;
@@ -188,7 +191,7 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('/files/directory', {
             name: $editModal.find('[name="new-dir-name"]').val(),
-            dir: getQueryParameterByName('dir')
+            dir: getCurrentDir()
         }, function (data) {
             reloadFiles();
         }).fail(showAJAXError);
@@ -202,6 +205,6 @@ $(document).ready(function() {
         var funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction( funcNum, fileUrl );
         window.close();
-    }
+    };
 
 });

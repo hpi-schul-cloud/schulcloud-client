@@ -14,7 +14,7 @@
 
         <div class="route-files">
             {{#if canUploadFile}}
-                <section class="section-upload">
+                <section class="section-upload" data-path="{{path}}">
                     <div class="container-fluid">
                         <div class="row">
                             <form class="form-upload" action="/files/upload/">
@@ -93,7 +93,7 @@
                                                 <div class="file-preview"
                                                      style="background-image: url({{this.thumbnail}})"></div>
                                             </div>
-                                            <a class="title" href="/files/file?file={{this.name}}&storageContext={{../storageContext}}" target="_blank">
+                                            <a class="title" href="/files/file?file={{this.file}}" target="_blank">
                                                 {{this.name}}
                                             </a>
                                         </div>

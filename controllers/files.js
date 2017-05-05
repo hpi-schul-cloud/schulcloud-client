@@ -3,7 +3,7 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+const pathUtils = require('path').posix;
 const url = require('url');
 const mime = require('mime');
 const api = require('../api');
@@ -11,11 +11,10 @@ const rp = require('request-promise');
 const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
-const joinPath = require('path.join');
 const multer  = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
-const getSignedUrl = (req, data) => {
+const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
     });
@@ -60,47 +59,47 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
 const getStorageContext = (req, res, options = {}) => {
 
     if (req.query.storageContext) {
-        return req.query.storageContext;
+        return pathUtils.normalize(req.query.storageContext + '/');
     }
 
-    const currentDir = options.dir || req.query.dir || '';
+    const currentDir = options.dir || req.query.dir || '/';
     const urlParts = url.parse((options.url || req.originalUrl), true);
 
-    let storageContext = urlParts.pathname.replace('/files/', '');
+    let storageContext = urlParts.pathname.replace('/files/', '/');
 
-    if (storageContext === '') {
-        storageContext = 'users/' + res.locals.currentUser._id;
+    if (storageContext === '/') {
+        storageContext = 'users/' + res.locals.currentUser._id + '/';
     }
 
-    return joinPath(storageContext, currentDir);
+    return pathUtils.join(storageContext, currentDir);
 };
 
 
 const FileGetter = (req, res, next) => {
 
-    const currentDir = req.query.dir || '';
-    const storageContext = getStorageContext(req, res);
+    const currentDir = req.originalUrl.split('/').slice(2).join('/') || '';
+    const path = getStorageContext(req, res);
 
     return api(req).get('/fileStorage', {
-        qs: {storageContext}
+        qs: {path}
     }).then(data => {
         let {files, directories} = data;
 
         files = files.map(file => {
-            file.file = path.join(file.path, file.name);
+            file.file = pathUtils.join(file.path, file.name);
             return file;
         });
 
         directories = directories.map(dir => {
-            dir.url = changeQueryParams(req.originalUrl, {dir: path.join(currentDir, dir.name)});
-            dir.path = path.join(storageContext, dir.name);
+            dir.url = changeQueryParams(req.originalUrl, {dir: pathUtils.join(currentDir, dir.name)});
+            dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
 
         res.locals.files = {
             files,
             directories,
-            storageContext
+            path
         };
 
         next();
@@ -130,35 +129,32 @@ const getScopeDirs = (req, res, scope) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-
-// get signed url to upload file
-router.post('/file', function (req, res, next) {
-    const {type, name, dir = '', action = 'putObject'} = req.body;
+const getSignedUrl = function (req, res, next) {
+    const {type, path, action = 'putObject'} = req.body;
 
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
-        fileName: name,
+        path,
         fileType: (type || 'application/octet-stream'),
         action: action
     };
 
-    getSignedUrl(req, data).then(signedUrl => {
-        res.json({signedUrl});
+    requestSignedUrl(req, data).then(signedUrl => {
+       if(res) res.json({signedUrl});
+        else return Promise.resolve({signedUrl, path: data.path});
     }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
+        if(res) res.status((err.statusCode || 500)).send(err);
+        else return Promise.reject(err);
     });
-});
+};
 
 // get signed url to upload file
-router.post('/upload', upload.single('upload'), function (req, res, next) {
-    const data = {
-        storageContext: getStorageContext(req, {}, {}),
-        fileName: req.file.originalname,
-        fileType: (req.file.mimetype || 'application/octet-stream'),
-        action: 'putObject'
-    };
+router.post('/file', getSignedUrl);
 
-    getSignedUrl(req, data).then(signedUrl => {
+// upload file directly
+router.post('/upload', upload.single('upload'), function (req, res, next) {
+    let path;
+    return getSignedUrl(req, null, next).then(({signedUrl, _path}) => {
+        path = _path;
         return rp.put({
             url: signedUrl.url,
             headers: Object.assign({}, signedUrl.header, {
@@ -170,7 +166,7 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
         res.json({
             "uploaded": 1,
             "fileName": req.file.originalname,
-            "url": "/files/file?file=" + data.fileName + "&storageContext=" + data.storageContext
+            "url": "/files/file?path=" + path
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -183,9 +179,9 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
 router.delete('/file', function (req, res, next) {
     const {name, dir = ''} = req.body;
 
+    const basePath = getStorageContext(req, res, {url: req.get('Referrer'), dir});
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
-        fileName: name,
+        path: basePath + name,
         fileType: null,
         action: null
     };
@@ -205,18 +201,18 @@ router.get('/file', function (req, res, next) {
 
     const {file, download = false} = req.query;
 
+    const basePath = getStorageContext(req, res, {url: req.get('Referrer')});
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer')}),
-        fileName: file,
+        path: basePath + file,
         fileType: mime.lookup(file),
         action: 'getObject'
     };
 
-    getSignedUrl(req, data).then(signedUrl => {
-        rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
+    requestSignedUrl(req, data).then(signedUrl => {
+        return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
             if (download) {
                 res.type('application/octet-stream');
-                res.set('Content-Disposition', 'attachment;filename=' + path.basename(file));
+                res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(file));
             } else if (signedUrl.header['Content-Type']) {
                 res.type(signedUrl.header['Content-Type']);
             }
@@ -232,10 +228,11 @@ router.get('/file', function (req, res, next) {
 router.post('/directory', function (req, res, next) {
     const {name, dir} = req.body;
 
+    const basePath = dir;
+    const dirName = name || 'Neuer Ordner';
     api(req).post('/fileStorage/directories', {
         json: {
-            storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
-            dirName: name || 'Neuer Ordner'
+            path: basePath + dirName,
         }
     }).then(_ => {
         res.sendStatus(200);
@@ -246,10 +243,8 @@ router.post('/directory', function (req, res, next) {
 
 // delete directory
 router.delete('/directory', function (req, res) {
-    const {name, dir} = req.body;
-
     const data = {
-        storageContext: dir
+        path: req.body.dir
     };
 
     api(req).delete('/fileStorage/directories/', {
@@ -265,6 +260,7 @@ router.delete('/directory', function (req, res) {
 router.get('/', FileGetter, function (req, res, next) {
     res.render('files/files', Object.assign({
         title: 'Dateien',
+        path: res.locals.files.path,
         breadcrumbs: getBreadcrumbs(req, {
             baseLabel: 'Meine persönlichen Dateien'
         }),
@@ -288,6 +284,7 @@ router.get('/courses/', function (req, res, next) {
 
         res.render('files/files', {
             title: 'Dateien',
+            path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
             directories
@@ -314,6 +311,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             title: 'Dateien',
             canUploadFile: true,
             canCreateDir: true,
+            path: res.locals.files.path,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
             breadcrumbs,
@@ -334,6 +332,7 @@ router.get('/classes/', function (req, res, next) {
 
         res.render('files/files', {
             title: 'Dateien',
+            path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
             directories
@@ -358,6 +357,7 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 
         res.render('files/files', Object.assign({
             title: 'Dateien',
+            path: res.locals.files.path,
             canUploadFile: true,
             breadcrumbs,
             inline: req.query.inline || req.query.CKEditor,
