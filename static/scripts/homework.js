@@ -41,7 +41,13 @@ $(document).ready(function() {
 					$(this).val(value.slice(0,10)).trigger("chosen:updated");
 					break;
                 default:
-                    $(this).val(value).trigger("chosen:updated");
+                    if($(this).prop('nodeName') == "TEXTAREA" && $(this).hasClass("customckeditor")){
+                        if(CKEDITOR.instances.description){
+                            CKEDITOR.instances.description.setData(value);
+                        }
+                    }else{
+                        $(this).val(value).trigger("chosen:updated");
+                    }
             }
         });
     };
