@@ -38,6 +38,27 @@
             height: auto !important;
         }
     }
+
+    .disabled {
+        cursor: not-allowed;
+        input {
+            background-color: $colorGrey;
+        }
+    }
+
+    .disabled > * {
+        pointer-events: none;
+    }
+
+    .times {
+        padding: 16px;
+        box-shadow: 0 1px 1px 0 #C7C7C7 inset;
+        background: none repeat scroll 0 0;
+        margin-bottom: 30px;
+        i {
+            cursor: pointer;
+        }
+    }
 }
 
 .section-course-edit {
