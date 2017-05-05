@@ -4,6 +4,7 @@ var pushManager = {
   setRegistrationId: function(id, service, device) {
     //console.log('set registration id: ' + id);
 
+      // TODO: check for notification granted
     sendRegistrationId(id, service, device);
   },
 

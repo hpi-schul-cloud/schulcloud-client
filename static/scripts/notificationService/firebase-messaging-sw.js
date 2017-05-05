@@ -9,7 +9,7 @@ importScripts('/scripts/notificationService/callback.js');
 // Initialize the Firebase app in the service worker by passing in the
 // messagingSenderId.
 firebase.initializeApp({
-  'messagingSenderId': '604077393164'
+  'messagingSenderId': '764547597772'
 });
 
 // Retrieve an instance of Firebase Messaging so that it can handle background

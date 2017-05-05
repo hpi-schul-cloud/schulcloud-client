@@ -4,7 +4,7 @@ var setupFirebasePush = function() {
   }
 
   var config = {
-    messagingSenderId: "604077393164"
+    messagingSenderId: "764547597772"
   };
 
   firebase.initializeApp(config);
