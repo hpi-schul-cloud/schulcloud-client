@@ -68,6 +68,7 @@
 //
 
 .navbar-brand {
+  @media screen and (max-width: 400px) { display: none; }
   float: left;
   padding-top: $navbar-brand-padding-y;
   padding-bottom: $navbar-brand-padding-y;

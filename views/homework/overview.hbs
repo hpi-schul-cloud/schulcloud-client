@@ -1,3 +1,44 @@
+{{#content "scripts" mode="append"}}
+    <script src="/vendor/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace($('.add-modal').find("textarea")[0],{
+            toolbarGroups: [
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                { name: 'links', groups: [ 'links' ] },
+                { name: 'insert', groups: [ 'insert' ] },
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                { name: 'forms', groups: [ 'forms' ] },
+                { name: 'tools', groups: [ 'tools' ] },
+                { name: 'others', groups: [ 'others' ] },
+                { name: 'styles', groups: [ 'styles' ] },
+                { name: 'colors', groups: [ 'colors' ] },
+                { name: 'about', groups: [ 'about' ] }
+            ],
+            removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+        });
+        CKEDITOR.replace($('.edit-modal').find("textarea")[0],{
+            toolbarGroups: [
+                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
+                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
+                { name: 'links', groups: [ 'links' ] },
+                { name: 'insert', groups: [ 'insert' ] },
+                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+                { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
+                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
+                { name: 'forms', groups: [ 'forms' ] },
+                { name: 'tools', groups: [ 'tools' ] },
+                { name: 'others', groups: [ 'others' ] },
+                { name: 'styles', groups: [ 'styles' ] },
+                { name: 'colors', groups: [ 'colors' ] },
+                { name: 'about', groups: [ 'about' ] }
+            ],
+            removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+        });
+    </script>
+{{/content}}
 {{#extend "homework/homework"}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/homework/homework.css"/>
@@ -86,7 +127,7 @@
                                         {{this.name}}
                                     </h5>
                                     <div class="description">
-                                        <pre>{{truncate this.description}}</pre>
+                                        {{{truncate this.description}}}
                                     </div>
                                 </a>
                                 {{#ifvalue this.teacherId value=this.currentUser._id}}
@@ -122,14 +163,13 @@
                         {{> "homework/form-assignment"}}
                     {{/content}}
                 {{/embed}}
-                {{#embed "lib/components/modal-form" action="/homework/" method="post" class="add-modal"}}
+                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/" }}
                     {{#content "fields"}}
                         {{> "homework/form-assignment"}}
                     {{/content}}
                 {{/embed}}
                 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                     {{#content "body"}}
-
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-close">
                                 Abbrechen
