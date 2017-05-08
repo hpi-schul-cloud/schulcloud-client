@@ -5,13 +5,14 @@ var CALLBACK_TYPES = {
 };
 
 function sendRegistrationId(id, service, device) {
-    $.post('/notification/devices', {
-        id: id,
-        service: service,
-        device: device
-    }, function(data) {
-        $.showNotification("Gerät erfolgreich registriert", "success");
-    });
+        $.post('/notification/devices', {
+            id: id,
+            service: service,
+            device: device
+        }, function (data) {
+            // Register notification permission cookie
+            document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        });
 }
 
 function sendShownCallback(notificationData) {
@@ -27,6 +28,8 @@ function sendShownCallback(notificationData) {
   return sendCallback(body, callback);
 }
 
+// Not used due to restrictions of context sharing
+/**
 function sendClickedCallback(notificationData) {
   var body = {
     notificationId: notificationData.notificationId,
@@ -38,10 +41,11 @@ function sendClickedCallback(notificationData) {
   }
 
   return sendCallback(body, callback);
-}
+}**/
 
 function sendCallback(body, callback) {
     $.post('/notification/callback', {
         body: body
     });
 }
+

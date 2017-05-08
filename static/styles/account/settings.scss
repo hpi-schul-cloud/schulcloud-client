@@ -1,0 +1,10 @@
+@import '../lib/colors.scss';
+@import '../lib/bootstrap/scss/bootstrap';
+
+.notification {
+  .btn-default {
+    margin-top: 20px;
+    background-color: $colorHPIRed;
+    color: #ffffff;
+  }
+}
