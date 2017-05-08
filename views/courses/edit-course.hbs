@@ -161,9 +161,8 @@
                                         </td>
                                     </tr>
                                     {{#each course.times}}
-                                        <tr id="{{this._id}}">
-                                            <td><i class="fa fa-trash-o custom-field-delete"
-                                                   onclick="deleteCourseTime.bind(this, {{this._id}})"></i></td>
+                                        <tr id="{{this._id}}" class="course-time">
+                                            <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
                                             <td class="form-group disabled"><input class="form-control"
                                                                                    name="times[{{this.count}}][weekday]"
                                                                                    value="{{this.weekday}}"
