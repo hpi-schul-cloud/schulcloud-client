@@ -338,7 +338,7 @@ router.all('/', function (req, res, next) {
                 assignments.sort(sortbyavailableDate);
             }else if(sorting.fn == "dueDate"){
                 assignments.sort(sortbyDueDate);
-            }            
+            }
             if(sorting.desc){
                 assignments.reverse();
             }

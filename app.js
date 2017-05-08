@@ -23,8 +23,6 @@ const wax = handlebarsWax(handlebars)
     .helpers(layouts)
     .helpers(handlebarsHelper.helpers);
 
-app.use(handlebarsHelper.middleware);
-
 app.engine("hbs", wax.engine);
 app.set("view engine", "hbs");
 
