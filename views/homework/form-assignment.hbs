@@ -1,4 +1,4 @@
-﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+﻿﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
 
@@ -27,7 +27,8 @@
 
 <div class="form-group">
     <label>Aufgabenstellung</label>
-    <textarea name="description" type="text" class="form-control htmleditor" placeholder="Aufgabenstellung" required></textarea></div>
+    <textarea name="description" type="text" class="form-control customckeditor" placeholder="Aufgabenstellung" required></textarea>
+</div>
 
 <div class="form-group">
     <label>Bearbeitungszeit von</label>
