@@ -32,20 +32,44 @@ const markSelected = (options, values = []) => {
  * @param course
  */
 const createEventsForCourse = (req, res, course) => {
-    return Promise.all(course.times.map(time => {
-        return api(req).post("/calendar", { json: {
-            summary: course.name,
-            location: res.locals.currentSchoolData.name,
-            description: course.description,
-            startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
-            duration: time.duration,
-            repeat_until: course.untilDate,
-            frequency: "WEEKLY",
-            weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
-            scopeId: course._id
-        }
+    // can just run if a calendar service is running on the environment
+    if (process.env.CALENDAR_SERVICE_ENABLED) {
+        return Promise.all(course.times.map(time => {
+            return api(req).post("/calendar", { json: {
+                summary: course.name,
+                location: res.locals.currentSchoolData.name,
+                description: course.description,
+                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+                duration: time.duration,
+                repeat_until: course.untilDate,
+                frequency: "WEEKLY",
+                weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+                scopeId: course._id,
+                courseId: course._id,
+                courseTimeId: time._id
+            }
+            });
+        }));
+    }
+
+    return Promise.resolve(true);
+};
+
+/**
+ * Deletes all events from the given course, clear function
+ * @param courseId {string} - the id of the course the events will be deleted
+ */
+const deleteEventsForCourse = (req, res, courseId) => {
+    if (process.env.CALENDAR_SERVICE_ENABLED) {
+        return api(req).get('courses/' + courseId).then(course => {
+           return Promise.all((course.times || []).map(t => {
+               if (t.eventId) {
+                   return api(req).delete('calendar/' + t.eventId);
+               }
+           }));
         });
-    }));
+    }
+    return Promise.resolve(true);
 };
 
 const editCourseHandler = (req, res, next) => {
@@ -158,14 +182,9 @@ router.post('/', function (req, res, next) {
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
-        // can just run if a calendar service is running on the environment
-        if (process.env.CALENDAR_SERVICE_ENABLED) {
-            createEventsForCourse(req, res, course).then(_ => {
-                res.redirect('/courses');
-            });
-        } else {
-            res.redirect('/courses/');
-        }
+        createEventsForCourse(req, res, course).then(_ => {
+            res.redirect('/courses');
+        });
     }).catch(err => {
         res.sendStatus(500);
     });
@@ -233,17 +252,23 @@ router.get('/:courseId', function (req, res, next) {
 
 router.patch('/:courseId', function (req, res, next) {
     // map course times to fit model
-    (req.body.times || []).forEach(time => {
+    req.body.times = req.body.times || [];
+    req.body.times.forEach(time => {
         time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
-
-    api(req).patch('/courses/' + req.params.courseId, {
-        json: req.body // TODO: sanitize
-    }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId);
-    }).catch(_ => {
+    
+    // first delete all old events for the course
+    deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
+        api(req).patch('/courses/' + req.params.courseId, {
+            json: req.body // TODO: sanitize
+        }).then(course => {
+            createEventsForCourse(req, res, course).then(_ => {
+                res.redirect('/courses/' + req.params.courseId);
+            });
+        })
+    }).catch(error => {
         res.sendStatus(500);
     });
 });

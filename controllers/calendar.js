@@ -21,16 +21,11 @@ const mapRecurringEvent = (event) => {
 };
 
 /**
- * maps jsonapi properties of a event to fit fullcalendar
+ * maps properties of a event to fit fullcalendar
  * @param event
  */
 const mapEventProps = (event) => {
-    event.start = new Date(event.attributes.dtstart).getTime();
-    event.end = new Date(event.attributes.dtend).getTime();
-    event.summary = event.attributes.summary;
-    event.title = event.attributes.summary;
-    event.location = event.attributes.location;
-    event.description = "Test";
+    event.url = event["x-sc-courseId"] ? `/courses/${event["x-sc-courseId"]}` : '';
 };
 
 // secure routes

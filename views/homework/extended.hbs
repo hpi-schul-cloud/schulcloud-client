@@ -1,25 +1,7 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
-	<h5>Details</h5>
     <div class="homework">
         <div class="description">
-<pre>{{this.description}}</pre>
-        </div>
-        <div class="material card">
-            <ul>
-                <li>
-                    <img src="http://placehold.it/100x80"/>
-                    <p class="title">ExtraLongFilename.html</p>
-                    <div class="buttons">
-                        <a class="download" href="#"><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-                        <a class="delete" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                    </div>
-                </li>
-                {{#ifvalue teacherId value=currentUser._id}}
-                    <li>
-                        <a class="add"><i class="fa fa-plus" aria-hidden="true"></i></a>
-                    </li>
-                {{/ifvalue}}
-            </ul>
+            {{{this.description}}}
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
             <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json">Bearbeiten</a>
