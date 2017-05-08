@@ -80,7 +80,9 @@ const getStorageContext = (req, res, options = {}) => {
 
 const FileGetter = (req, res, next) => {
     const path = getStorageContext(req, res);
-    const currentDir = path.split('/').slice(2).join('/');
+    let pathComponents = path.split('/');
+    if(pathComponents[0] === '') pathComponents = pathComponents.slice(1); // remove leading slash, if present
+    const currentDir = pathComponents.slice(2).join('/') || '/';
 
     return api(req).get('/fileStorage', {
         qs: {path}
