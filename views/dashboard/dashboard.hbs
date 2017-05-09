@@ -10,218 +10,95 @@
                 <section class="section-timetable">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-4 no-padding"><h5>Stundenplan</h5></div>
-                            <div class="col-sm-8 no-padding">
-                                <div class="controls">
-                                    <time class="selected-date">Montag, 20. März 2017</time>
-                                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group" role="group" aria-label="First group">
-                                            <button type="button" class="btn btn-secondary btn-sm active">Tag</button>
-                                            <button type="button" class="btn btn-secondary btn-sm">Woche</button>
+                            <div class="col-sm-12 no-padding">
+                                <h5>Stundenplan</h5>
+                                <time class="selected-date">Montag, 20. März 2017</time>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="container-fluid timetable">
+                        <div class="row lesson-cards">
+                            <div>
+                                {{#each events}}
+                                    <a class="lesson-card"{{#if url}}href="{{url}}"{{/if}}
+                                       style="width: {{style.width}}%; left: {{style.left}}%;">
+                                        <div class="card card-block">
+                                            <time class="lesson-time">{{comment}}</time>
+                                            <h3 class="card-title">{{title}}</h3>
+                                            <p class="card-text"></p>
                                         </div>
-                                        <div class="btn-group" role="group" aria-label="Second group">
-                                            <button type="button" class="btn btn-secondary btn-sm"><i
-                                                    class="fa fa-chevron-left"></i></button>
-                                            <button type="button" class="btn btn-secondary btn-sm">Heute</button>
-                                            <button type="button" class="btn btn-secondary btn-sm"><i
-                                                    class="fa fa-chevron-right"></i></button>
+                                    </a>
+                                {{/each}}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="timeline">
+                                <div class="current-time" style="width:{{currentTimePercentage}}%;">
+                                    <span>{{currentTime}}</span>
+                                </div>
+                                <div>
+                                    {{#each hours}}
+                                        <div class="col-sm-1">
+                                            <div class="tick">{{this}}.00</div>
                                         </div>
-                                    </div>
+                                    {{/each}}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <div class="container-fluid timetable">
-                    <div class="row lesson-cards">
-                        <div><!-- react-text: 220 --><!-- /react-text --><a class="col-sm-2 lesson-card"
-                                                                            href="/lessons/s52ruf6wst">
-                            <div class="card card-block disabled" data-status="fällt aus">
-                                <time class="lesson-time">1. + 2.</time>
-                                <h3 class="card-title"><!-- react-text: 225 -->Mathematik<!-- /react-text -->
-                                    <!-- react-text: 226 --> <!-- /react-text --><br><!-- react-text: 228 -->
-                                    <!-- /react-text --><!-- react-text: 229 -->R 101<!-- /react-text --></h3>
-                                <p class="card-text"></p></div>
-                        </a><a class="col-sm-2 lesson-card" href="/lessons/s52ruf6wst">
-                            <div class="card card-block " data-status="">
-                                <time class="lesson-time">3. + 4.</time>
-                                <h3 class="card-title"><!-- react-text: 235 -->Biologie<!-- /react-text -->
-                                    <!-- react-text: 236 --> <!-- /react-text --><br><!-- react-text: 238 -->
-                                    <!-- /react-text --><!-- react-text: 239 -->R 404<!-- /react-text --></h3>
-                                <p class="card-text"></p></div>
-                        </a><a class="col-sm-2 lesson-card" href="/lessons/s52ruf6wst">
-                            <div class="card card-block " data-status="">
-                                <time class="lesson-time">5. + 6.</time>
-                                <h3 class="card-title"><!-- react-text: 245 -->Sport<!-- /react-text -->
-                                    <!-- react-text: 246 --> <!-- /react-text --><br><!-- react-text: 248 -->
-                                    <!-- /react-text --><!-- react-text: 249 -->Sporthalle<!-- /react-text --></h3>
-                                <p class="card-text"></p></div>
-                        </a><a class="col-sm-2 lesson-card" href="/lessons/s52ruf6wst">
-                            <div class="card card-block " data-status="">
-                                <time class="lesson-time">1. + 2.</time>
-                                <h3 class="card-title"><!-- react-text: 255 -->Geschichte<!-- /react-text -->
-                                    <!-- react-text: 256 --> <!-- /react-text --><br><!-- react-text: 258 -->
-                                    <!-- /react-text --><!-- react-text: 259 -->R 001<!-- /react-text --></h3>
-                                <p class="card-text"></p></div>
-                        </a></div>
-                    </div>
-                    <div class="row timeline">
-                        <div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 265 -->8<!-- /react-text --><!-- react-text: 266 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 269 -->9<!-- /react-text --><!-- react-text: 270 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 273 -->10<!-- /react-text --><!-- react-text: 274 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 277 -->11<!-- /react-text --><!-- react-text: 278 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 281 -->12<!-- /react-text --><!-- react-text: 282 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 285 -->13<!-- /react-text --><!-- react-text: 286 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 289 -->14<!-- /react-text --><!-- react-text: 290 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 293 -->15<!-- /react-text --><!-- react-text: 294 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 297 -->16<!-- /react-text --><!-- react-text: 298 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 301 -->17<!-- /react-text --><!-- react-text: 302 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 305 -->18<!-- /react-text --><!-- react-text: 306 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                            <div class="col-sm-1">
-                                <div class="tick"><!-- react-text: 309 -->19<!-- /react-text --><!-- react-text: 310 -->
-                                    .00<!-- /react-text --></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <section class="section-messages">
+
+
+                <section class="section-tasks">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-7">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-sm-12 no-padding"><h5>Neuigkeiten</h5></div>
-                                    </div>
-                                    <div class="row articles">
-                                        <div class="card-group">
-                                            <div class="card card-block"><strong class="card-text">Willkommen im Schuljahr
-                                                2016!</strong>
-                                                <p class="card-text">Die Schulleitung heißt alle (neuen) Schüler im neuen Schuljahr
-                                                    willkommen. Auch dieses Jahr haben wir wieder viele neue Veranstaltungen für
-                                                    Euch geplant. Unter anderem ein Besuch bei der UNESCO und einen Schüleraustausch
-                                                    mit einer Schule im Silicon Valley der Klasse 10. Viel Erfolg wünscht Euch das
-                                                    Lehrerkolleg!</p>
-                                                <p class="card-text">
-                                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                                </p>
-                                                <a href="#"> weiterlesen</a></div>
-                                            <div class="card card-block"><strong class="card-text">Preisverleihung
-                                                Sommerfestspiele</strong>
-                                                <p class="card-text">Auch in diesem Jahr gab es wieder herausragende sportliche
-                                                    Leistungen. Unter Anderem ein neuer Schulrekord im 100m-Lauf bei den Mädchen und
-                                                    beim Weitsprung der Jungen. Auch für die Versorgung mit Wasser und Energieriegel
-                                                    wurde durch den Förderverein gesorgt. Die Urkundenübergabe findet am 30. Juni um
-                                                    13 Uhr in der Sporthalle statt.</p>
-                                                <p class="card-text">
-                                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                                </p>
-                                                <a href="#"> weiterlesen</a></div>
-                                            <div class="card card-block"><strong class="card-text">Einführung der
-                                                Schul-Cloud</strong>
-                                                <p class="card-text">Um auch nächsten Jahrzehnt des 21. Jahrhunderts bildungsmäßig
-                                                    spitze aufgestellt zu sein, nutzen wir ab sofort die Schul-Cloud. Diese
-                                                    ermöglicht es unter Anderem, sich mit den bestehenden Moodle-Accounts
-                                                    anzumelden, Office zu nutzen und auf Bildungsangebote zuzugreifen. Ebenfalls ist
-                                                    es möglich, aktualisierte Stundenpläne und Aufgaben einzusehen.</p>
-                                                <p class="card-text">
-                                                    <small class="text-muted">Last updated 3 mins ago</small>
-                                                </p>
-                                                <a href="#"> weiterlesen</a></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 offset-sm-1">
-                                <div class="row"><h5>Mitteilungen</h5></div>
-                                <div class="row notices">
-                                    <div class="row notice">
-                                        <div class="col-sm-12">
-                                            <div class="alert alert-warning alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                <strong>Mathe (20. März 2017, 1. + 2. Stunde):</strong>
-                                                <!-- react-text: 346 --> <!-- /react-text --><br>
-                                                <!-- react-text: 348 -->Fällt aus.<!-- /react-text --></div>
-                                        </div>
-                                    </div>
-                                    <div class="row notice">
-                                        <div class="col-sm-12">
-                                            <div class="alert alert-info alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert"
-                                                        aria-label="Close"><span aria-hidden="true">×</span></button>
-                                                <strong>Englisch (20. März 2017, 1. + 2. Stunde):</strong>
-                                                <!-- react-text: 355 --> <!-- /react-text --><br>
-                                                <!-- react-text: 357 -->Vertretung durch Herrn Müller.
-                                                <!-- /react-text --></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="col-sm-12 no-padding"><h5>Offene Aufgaben</h5></div>
                         </div>
-                    </div>
-                </section>
-                <section class="section-tools">
-                    <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-12 no-padding"><h5>Tools</h5></div>
-                        </div>
-                        <div class="row buttons">
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <button class="btn btn-block"><i class="fa fa-pencil"></i><span>Office</span>
-                                    </button>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button class="btn btn-block"><i class="fa fa-calendar"></i><span>Kalender</span>
-                                    </button>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button class="btn btn-block"><i class="fa fa-group"></i><span>Gruppen</span>
-                                    </button>
-                                </div>
-                                <div class="col-sm-3">
-                                    <button class="btn btn-block"><i class="fa fa-camera"></i><span>Video</span>
-                                    </button>
-                                </div>
+                            <div class="row tasks">
+
+                                {{#each homeworks}}
+                                    <div class="col-sm-4">
+                                        <div class="card card-block">
+                                            <div class="card-text">
+                                                <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
+                                            </div>
+
+                                            <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
+                                            <p class="card-text">{{{description}}}</p>
+
+                                            <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
+                                        </div>
+                                    </div>
+                                {{/each}}
                             </div>
                         </div>
                     </div>
                 </section>
+
+
                 <section class="section-news">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 no-padding"><h5>Neuigkeiten</h5></div>
+                        </div>
+                        <div class="row articles">
+                            <div class="card-group">
+                                {{#each news}}
+                                    <div class="card card-block"><strong class="card-text">{{name}}</strong>
+                                        <p class="card-text">{{summary}}</p>
+                                        <p class="card-text">
+                                            <small class="text-muted">{{timeFromNow date}}</small>
+                                        </p>
+                                        <a href="{{url}}">Weiterlesen</a>
+                                    </div>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>

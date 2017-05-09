@@ -1,4 +1,6 @@
 const url = require('url');
+const moment = require('moment');
+const api = require('../../api');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += "/";		
@@ -100,7 +102,24 @@ module.exports = (req, res, next) => {
         ]
     });
 
-     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
+    makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
-    next();
+    const notificationsPromise = api(req).get('/notification', {qs: { $limit: 10, $sort: "-createdAt" }}).catch(_ => []);
+
+    Promise.all([
+        notificationsPromise
+    ]).then(([notifications]) => {
+        res.locals.notifications = (notifications.data || []).map(notification => {
+            notification = notification.message;
+            notification.date = new Date(notification.createdAt);  // make new date out of iso string
+
+            if(moment.duration(moment(new Date()).diff(moment(notification.date))).asHours() < 5) {
+                res.locals.recentNotifications = 3;  // how many recent notifications?
+            }
+
+            return notification;
+        });
+
+        next();
+    });
 };
