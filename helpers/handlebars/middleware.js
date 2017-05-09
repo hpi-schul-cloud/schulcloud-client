@@ -104,7 +104,7 @@ module.exports = (req, res, next) => {
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
-    const notificationsPromise = api(req).get('/notification', {qs: { $limit: 10, $sort: "-createdAt" }});
+    const notificationsPromise = api(req).get('/notification', {qs: { $limit: 10, $sort: "-createdAt" }}).catch(_ => []);
 
     Promise.all([
         notificationsPromise
