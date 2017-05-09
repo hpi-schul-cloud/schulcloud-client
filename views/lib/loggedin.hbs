@@ -60,12 +60,31 @@
                     {{/if}}
 
                     <ul class="nav navbar-nav float-xs-right">
+
+                        <li class="nav-item notification-dropdown">
+                            <div class="dropdown show">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle {{#if recentNotifications}}recent{{/if}}" data-toggle="dropdown">
+                                    <i class="fa fa-bolt"></i> {{#if recentNotifications}}<span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
+                                </a>
+
+                                <div class="dropdown-menu">
+                                    {{#each notifications}}
+                                        <div class="notification-item">
+                                            <span>{{this.title}}</span>
+                                            <time class="notification-time">{{timeFromNow this.date}}</time>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </li>
+
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
                             {{#if currentSchoolData.federalState}}
                                 <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
                             {{/if}}
                         {{/if}}
+
                         <li class="nav-item">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
