@@ -26,6 +26,7 @@ var pushManager = {
 
     requestPermission: function () {
         document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        window.location.reload();
         if (this.requestPermissionCallback) {
             this.requestPermissionCallback();
         }

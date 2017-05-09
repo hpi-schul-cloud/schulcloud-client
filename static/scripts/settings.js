@@ -21,6 +21,9 @@ $(document).ready(function() {
         window.location.reload();
     };
 
+    var cookies = getCookiesMap(document.cookie);
+    if (cookies["notificationPermission"])
+        $(".btn-device").prop("disabled", true);
 
     $('a[data-method="delete"]').on('click', function(e) {
         e.stopPropagation();
