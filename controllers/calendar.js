@@ -33,7 +33,8 @@ router.use(require('../helpers/authentication').authChecker);
 
 router.get('/', function (req, res, next) {
     res.render('calendar/calendar', {
-        title: 'Kalender'
+        title: 'Kalender',
+        userId: res.locals.currentUser._id
     });
 });
 
@@ -47,6 +48,12 @@ router.get('/events/', function (req, res, next) {
     }).catch(err => {
         res.json([]);
     });
+});
+
+router.post('/events/', function (req, res, next) {
+   api(req).post('/calendar/', {json: req.body}).then(event => {
+      res.redirect('/calendar');
+   });
 });
 
 module.exports = router;
