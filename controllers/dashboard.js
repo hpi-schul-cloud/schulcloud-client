@@ -69,7 +69,10 @@ router.get('/', function (req, res, next) {
         qs: {
             $populate: ['courseId']
         }
-    }).then(data => data.data);
+    }).then(data => data.data.map(h => {
+        h.url = '/homework/' + h._id;
+        return h;
+    }));
 
     // TODO: Replace with real news service
     const newsPromise = new Promise((resolve, reject) => {

@@ -18,12 +18,12 @@
                     </div>
 
 
-
                     <div class="container-fluid timetable">
                         <div class="row lesson-cards">
                             <div>
                                 {{#each events}}
-                                    <a class="lesson-card" {{#if url}}href="{{url}}"{{/if}} style="width: {{style.width}}%; left: {{style.left}}%;">
+                                    <a class="lesson-card"{{#if url}}href="{{url}}"{{/if}}
+                                       style="width: {{style.width}}%; left: {{style.left}}%;">
                                         <div class="card card-block">
                                             <time class="lesson-time">{{comment}}</time>
                                             <h3 class="card-title">{{title}}</h3>
@@ -59,20 +59,21 @@
                         </div>
                         <div class="row">
                             <div class="row tasks">
-                                <div class="col-sm-4">
-                                    {{#each homeworks}}
+
+                                {{#each homeworks}}
+                                    <div class="col-sm-4">
                                         <div class="card card-block">
                                             <div class="card-text">
                                                 <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
                                             </div>
 
                                             <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
-                                            <p class="card-text">{{description}}</p>
+                                            <p class="card-text">{{{description}}}</p>
 
                                             <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
                                         </div>
-                                    {{/each}}
-                                </div>
+                                    </div>
+                                {{/each}}
                             </div>
                         </div>
                     </div>
