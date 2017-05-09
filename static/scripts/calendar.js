@@ -4,6 +4,20 @@ $(document).ready(function () {
     var view = location.hash.substring(1);
 
     var $createEventModal = $('.create-event-modal');
+    var $editEventModal = $('.edit-event-modal');
+
+    var reloadCalendar = function() {
+        window.location.reload();
+    };
+
+    function showAJAXError(req, textStatus, errorThrown) {
+        $editEventModal.modal('hide');
+        if(textStatus==="timeout") {
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+        } else {
+            $.showNotification(errorThrown, "danger");
+        }
+    }
 
     var populateModalForm = function(modal, data) {
 
@@ -77,6 +91,35 @@ $(document).ready(function () {
             if (event.url) {
                 window.location.href = event.url;
                 return false;
+            } else {
+                // personal event
+
+                // moment escapes 'T' to PM or AM
+                event.startDate = event.start.format("YYYY-MM-DD") + 'T' + event.start.format("hh:mm");
+                event.endDate = event.end.format("YYYY-MM-DD") + 'T' + event.end.add(1, 'hour').format("hh:mm");
+
+                populateModalForm($editEventModal, {
+                    title: 'Termin - Details',
+                    closeLabel: 'Schließen',
+                    submitLabel: 'Speichern',
+                    fields: event
+                });
+
+                $editEventModal.find('.btn-delete').click(e => {
+                    console.log(event);
+                    $.ajax({
+                        url: '/calendar/events/' + event.attributes.uid,
+                        type: 'DELETE',
+                        error: showAJAXError,
+                        success: function(result) {
+                            reloadCalendar();
+                        },
+                    });
+                });
+                $editEventModal.modal('show');
+
+                // todo: delete this if update-function is implemented
+                $editEventModal.find('.btn-submit').addClass('disabled');
             }
         },
         dayClick: function(date, jsEvent, view) {
@@ -92,8 +135,7 @@ $(document).ready(function () {
                 fields: {
                     startDate: _startDate,
                     endDate: _endDate
-                },
-                action: '/calendar/events'
+                }
             });
             $createEventModal.modal('show');
         },

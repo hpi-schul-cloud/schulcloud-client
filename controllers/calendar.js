@@ -56,4 +56,12 @@ router.post('/events/', function (req, res, next) {
    });
 });
 
+router.delete('/events/:eventId', function (req, res, next) {
+   api(req).delete('/calendar/' + req.params.eventId).then(_ => {
+       res.json(_);
+   }).catch(err => {
+       next(err);
+   });
+});
+
 module.exports = router;
