@@ -4,11 +4,13 @@ var CALLBACK_TYPES = {
   CLICKED: 'clicked'
 };
 
-function sendRegistrationId(id, service, device) {
+function sendRegistrationId(id, service, device, type, name) {
         $.post('/notification/devices', {
             id: id,
             service: service,
-            device: device
+            device: device,
+            type: type,
+            name: name
         }, function (data) {
             // Register notification permission cookie
             document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";

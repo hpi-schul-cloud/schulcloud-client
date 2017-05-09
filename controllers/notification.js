@@ -18,8 +18,8 @@ router.post('/devices', function (req, res, next) {
     res.locals.url = 'notification/devices';
     res.locals.body = {
         "service": req.body.service ? req.body.service : "firebase",
-        "type": "mobile",
-        "name": "test2",
+        "type": req.body.type ? req.body.type : "mobile",
+        "name": req.body.name ? req.body.name : "Gerät",
         "token": res.locals.currentUser._id,
         "device_token": req.body.id,
         "OS": req.body.device ? req.body.device : "android7"
