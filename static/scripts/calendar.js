@@ -119,7 +119,7 @@ $(document).ready(function () {
                 $editEventModal.modal('show');
 
                 // todo: delete this if update-function is implemented
-                $editEventModal.find('.btn-submit').addClass('disabled');
+                $editEventModal.find('.btn-submit').prop('disabled', true);
             }
         },
         dayClick: function(date, jsEvent, view) {
