@@ -21,12 +21,12 @@ function updateQueryStringParameter(uri, key, value) {
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     // notification stuff
     var $notification = $('.notification');
     var $notificationContent = $notification.find('.notification-content');
 
-    window.$.showNotification = function(content, type, timeout) {
+    window.$.showNotification = function (content, type, timeout) {
         $notificationContent.html(content);
 
         // remove old classes in case type was set before
@@ -42,7 +42,7 @@ $(document).ready(function(){
         }
     };
 
-    window.$.hideNotification = function() {
+    window.$.hideNotification = function () {
         $notification.fadeOut();
     };
 
@@ -57,12 +57,24 @@ $(document).ready(function(){
 
 
     // Init mobile nav
-    $('.mobile-nav-toggle').click(function(e) {
+    $('.mobile-nav-toggle').click(function (e) {
         $('aside.nav-sidebar nav:first-child').toggleClass('active');
     });
 
-    $('.mobile-search-toggle').click(function(e) {
+    $('.mobile-search-toggle').click(function (e) {
         $('.search-wrapper .input-group').toggleClass('active');
         $('.search-wrapper .mobile-search-toggle .fa').toggleClass('fa-search').toggleClass('fa-times');
     });
+
+
+    (function (a, b, c) {
+        if (c in b && b[c]) {
+            var d, e = a.location, f = /^(a|html)$/i;
+            a.addEventListener("click", function (a) {
+                d = a.target;
+                while (!f.test(d.nodeName))d = d.parentNode;
+                "href" in d && (d.href.indexOf("http") || ~d.href.indexOf(e.host)) && (a.preventDefault(), e.href = d.href)
+            }, !1)
+        }
+    })(document, window.navigator, "standalone")
 });
