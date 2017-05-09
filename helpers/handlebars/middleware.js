@@ -1,5 +1,6 @@
 const url = require('url');
 const moment = require('moment');
+const api = require('../../api');
 
 const makeActive = (items, currentUrl) => {
 	currentUrl += "/";		
@@ -103,175 +104,12 @@ module.exports = (req, res, next) => {
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
-    // TODO: use real notification proxy
-    const notificationsPromise = Promise.resolve({
-        "total": 9,
-        "limit": 5,
-        "skip": 0,
-        "data": [
-            {
-                "_id": "5910396de249634cc8462cb4",
-                "message": {
-                    "priority": "medium",
-                    "scopeIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "userIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "createdAt": "2017-05-08T09:25:01.396Z",
-                    "updatedAt": "2017-05-08T09:25:01.396Z",
-                    "_id": "5910396de249634cc8462cb3",
-                    "applicationId": "0000d231816abba584714c9e",
-                    "body": "Wap Bap",
-                    "title": "sdfsfsdfsdf22222",
-                    "__v": 0
-                },
-                "user": "0000d231816abba584714c9e",
-                "__v": 2,
-                "updatedAt": "2017-05-08T09:25:01.847Z",
-                "createdAt": "2017-05-08T09:25:01.847Z",
-                "callbacks": [
-                    {
-                        "type": "received",
-                        "_id": "59103970e249634cc8462cb6",
-                        "createdAt": "2017-05-08T09:25:04.757Z"
-                    }
-                ],
-                "stateHistory": [
-                    {
-                        "state": "created"
-                    }
-                ],
-                "state": "escalated"
-            },
-            {
-                "_id": "59103b5fe249634cc8462cba",
-                "message": {
-                    "priority": "medium",
-                    "scopeIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "userIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "createdAt": "2017-05-08T09:33:19.808Z",
-                    "updatedAt": "2017-05-08T09:33:19.808Z",
-                    "_id": "59103b5fe249634cc8462cb9",
-                    "applicationId": "0000d231816abba584714c9e",
-                    "body": "You have a new Notification",
-                    "title": "New Notification from Teacher1_1",
-                    "__v": 0
-                },
-                "user": "0000d231816abba584714c9e",
-                "__v": 1,
-                "updatedAt": "2017-05-08T09:33:19.868Z",
-                "createdAt": "2017-05-08T09:33:19.868Z",
-                "callbacks": [],
-                "stateHistory": [
-                    {
-                        "state": "created"
-                    }
-                ],
-                "state": "escalated"
-            },
-            {
-                "_id": "59103b89e249634cc8462cbf",
-                "message": {
-                    "priority": "medium",
-                    "scopeIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "userIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "createdAt": "2017-05-08T09:34:01.777Z",
-                    "updatedAt": "2017-05-08T09:34:01.777Z",
-                    "_id": "59103b89e249634cc8462cbe",
-                    "applicationId": "0000d231816abba584714c9e",
-                    "body": "You have a new Notification",
-                    "title": "New Notification from Teacher1_1",
-                    "__v": 0
-                },
-                "user": "0000d231816abba584714c9e",
-                "__v": 1,
-                "updatedAt": "2017-05-08T09:34:01.818Z",
-                "createdAt": "2017-05-08T09:34:01.818Z",
-                "callbacks": [],
-                "stateHistory": [
-                    {
-                        "state": "created"
-                    }
-                ],
-                "state": "escalated"
-            },
-            {
-                "_id": "59103bdfe249634cc8462cd4",
-                "message": {
-                    "priority": "medium",
-                    "scopeIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "userIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "createdAt": "2017-05-08T09:35:27.402Z",
-                    "updatedAt": "2017-05-08T09:35:27.402Z",
-                    "_id": "59103bdfe249634cc8462cd3",
-                    "applicationId": "0000d231816abba584714c9e",
-                    "body": "Wap Bap",
-                    "title": "sdfsfsdfsdf22222",
-                    "__v": 0
-                },
-                "user": "0000d231816abba584714c9e",
-                "__v": 1,
-                "updatedAt": "2017-05-08T09:35:27.446Z",
-                "createdAt": "2017-05-08T09:35:27.446Z",
-                "callbacks": [],
-                "stateHistory": [
-                    {
-                        "state": "created"
-                    }
-                ],
-                "state": "escalated"
-            },
-            {
-                "_id": "59103c48e249634cc8462cdb",
-                "message": {
-                    "priority": "medium",
-                    "scopeIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "userIds": [
-                        "0000d231816abba584714c9e"
-                    ],
-                    "createdAt": "2017-05-08T09:37:12.579Z",
-                    "updatedAt": "2017-05-08T09:37:12.579Z",
-                    "_id": "59103c48e249634cc8462cda",
-                    "applicationId": "0000d231816abba584714c9e",
-                    "body": "Wap Bap",
-                    "title": "sdfsfsdfsdf22222",
-                    "__v": 0
-                },
-                "user": "0000d231816abba584714c9e",
-                "__v": 1,
-                "updatedAt": "2017-05-08T09:37:12.633Z",
-                "createdAt": "2017-05-08T09:37:12.633Z",
-                "callbacks": [],
-                "stateHistory": [
-                    {
-                        "state": "created"
-                    }
-                ],
-                "state": "escalated"
-            }
-        ]
-    });
+    const notificationsPromise = api(req).get('/notification', {qs: { $limit: 10, $sort: "-createdAt" }});
 
     Promise.all([
         notificationsPromise
     ]).then(([notifications]) => {
-        res.locals.notifications = (notifications.data || []).reverse().map(notification => {
+        res.locals.notifications = (notifications.data || []).map(notification => {
             notification = notification.message;
             notification.date = new Date(notification.createdAt);  // make new date out of iso string
 
