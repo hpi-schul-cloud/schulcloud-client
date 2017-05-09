@@ -25,7 +25,7 @@ const mapRecurringEvent = (event) => {
  * @param event
  */
 const mapEventProps = (event) => {
-    event.url = event["x-sc-courseId"] ? `/courses/${event.attributes["x-sc-courseId"]}` : '';
+    event.url = event["x-sc-courseId"] ? `/courses/${event["x-sc-courseId"]}` : '';
 };
 
 // secure routes
