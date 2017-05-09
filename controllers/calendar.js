@@ -38,7 +38,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/events/', function (req, res, next) {
-    api(req).get('/calendar/').then(events => {
+    api(req).get('/calendar/', {
+        qs: {
+            all: true
+        }
+    }).then(events => {
 
         events.forEach(mapEventProps);
         events = [].concat.apply([], events.map(mapRecurringEvent));

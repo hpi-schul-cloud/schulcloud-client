@@ -37,13 +37,18 @@ router.get('/', function (req, res, next) {
     const eventsPromise = api(req).get('/calendar/', {
         qs: {
             from: start.toISOString(),
-            until: end.toISOString(),
-            all: false
+            until: end.toISOString()
         }
     }).then(events => {
         return (events || []).map(event => {
             const eventStart = new Date(event.start);
-            const eventEnd = new Date(event.end);
+            let eventEnd = new Date(event.end);
+
+            // cur events that are too long
+            if(eventEnd > end) {
+                eventEnd = end;
+                event.end = eventEnd.toISOString();
+            }
 
             // subtract timeStart so we can use these values for left alignment
             const eventStartRelativeMinutes = ((eventStart.getHours() - timeStart) * 60) + eventStart.getMinutes();

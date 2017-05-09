@@ -352,8 +352,9 @@ footer {
         border: none;
         line-height: 30px;
 
-        &.highlighted i {
+        &.recent i {
             color: $colorHPIRed;
+            margin-right: 5px;
         }
     }
 

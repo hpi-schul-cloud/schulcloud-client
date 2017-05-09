@@ -276,7 +276,7 @@ module.exports = (req, res, next) => {
             notification.date = new Date(notification.createdAt);  // make new date out of iso string
 
             if(moment.duration(moment(new Date()).diff(moment(notification.date))).asHours() < 5) {
-                res.locals.recentNotification = true;
+                res.locals.recentNotifications = 3;  // how many recent notifications?
             }
 
             return notification;
