@@ -96,17 +96,17 @@ $(document).ready(function () {
 
                 // moment escapes 'T' to PM or AM
                 event.startDate = event.start.format("YYYY-MM-DD") + 'T' + event.start.format("hh:mm");
-                event.endDate = event.end.format("YYYY-MM-DD") + 'T' + event.end.add(1, 'hour').format("hh:mm");
+                event.endDate = (event.end || event.start).format("YYYY-MM-DD") + 'T' + (event.end || event.start).add(1, 'hour').format("hh:mm");
 
                 populateModalForm($editEventModal, {
                     title: 'Termin - Details',
                     closeLabel: 'Schließen',
                     submitLabel: 'Speichern',
-                    fields: event
+                    fields: event,
+                    action: '/calendar/events/' + event.attributes.uid
                 });
 
                 $editEventModal.find('.btn-delete').click(e => {
-                    console.log(event);
                     $.ajax({
                         url: '/calendar/events/' + event.attributes.uid,
                         type: 'DELETE',
@@ -117,9 +117,6 @@ $(document).ready(function () {
                     });
                 });
                 $editEventModal.modal('show');
-
-                // todo: delete this if update-function is implemented
-                $editEventModal.find('.btn-submit').prop('disabled', true);
             }
         },
         dayClick: function(date, jsEvent, view) {

@@ -27,7 +27,7 @@
             {{/content}}
         {{/embed}}
 
-        {{#embed "lib/components/modal-form" class="edit-event-modal"}}
+        {{#embed "lib/components/modal-form" method="put" class="edit-event-modal"}}
             {{#content "fields"}}
                 {{> "calendar/forms/form-create-event"}}
             {{/content}}
