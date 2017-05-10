@@ -21,11 +21,19 @@ const mapRecurringEvent = (event) => {
 };
 
 /**
- * maps properties of a event to fit fullcalendar
+ * maps properties of a event to fit fullcalendar, e.g. url and color
  * @param event
  */
-const mapEventProps = (event) => {
-    event.url = event["x-sc-courseId"] ? `/courses/${event["x-sc-courseId"]}` : '';
+const mapEventProps = (event, req) => {
+    if (event["x-sc-courseId"]) {
+        return api(req).get('/courses/' + event["x-sc-courseId"]).then(course => {
+            event.url = '/courses/' + course._id;
+            event.color = course.color;
+            return event;
+        });
+    }
+
+    return event;
 };
 
 // secure routes
@@ -44,11 +52,10 @@ router.get('/events/', function (req, res, next) {
             all: true
         }
     }).then(events => {
-
-        events.forEach(mapEventProps);
-        events = [].concat.apply([], events.map(mapRecurringEvent));
-
-        return res.json(events);
+        Promise.all(events.map(event => mapEventProps(event, req))).then(events => {
+            events = [].concat.apply([], events.map(mapRecurringEvent));
+            return res.json(events);
+        });
     }).catch(err => {
         res.json([]);
     });
