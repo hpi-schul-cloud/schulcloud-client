@@ -69,9 +69,33 @@ router.get('/', function (req, res, next) {
         qs: {
             $populate: ['courseId']
         }
-    }).then(data => data.data.map(h => {
-        h.url = '/homework/' + h._id;
-        return h;
+    }).then(data => data.data.filter(assignment => {
+        if (new Date(assignment.availableDate).getTime() > Date.now()
+            && assignment.teacherId != res.locals.currentUser._id) {
+            return;
+        }
+        if (assignment.courseId != null) {
+            if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
+                && assignment.teacherId != res.locals.currentUser._id) {
+                return;
+            }
+            if (!assignment.private) {
+                assignment.userIds = assignment.courseId.userIds;
+            }
+            assignment.color = (assignment.courseId.color.length != 7) ? "#1DE9B6" : assignment.courseId.color;
+        } else {
+            assignment.color = "#1DE9B6";
+            assignment.private = true;
+        }
+        if (assignment.private
+            && assignment.teacherId != res.locals.currentUser._id) {
+            return;
+        }
+
+        return true;
+    }).map(assignment => {
+        assignment.url = '/homework/' + assignment._id;
+        return assignment;
     }));
 
     // TODO: Replace with real news service
