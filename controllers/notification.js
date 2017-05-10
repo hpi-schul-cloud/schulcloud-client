@@ -7,6 +7,7 @@ const authHelper = require('../helpers/authentication');
 router.use(authHelper.authChecker);
 
 const postRequest = (req, res, next) => {
+    console.log(res.locals.body);
     api(req).post(res.locals.url, {
         body: res.locals.body
     }).then((response) => {
@@ -30,7 +31,7 @@ router.post('/devices', function (req, res, next) {
 
 router.post('/callback', function (req, res, next) {
    res.locals.url = 'notification/callback';
-   res.locals.body = req.body.body;
+   res.locals.body = req.body;
 
    next();
 }, postRequest);

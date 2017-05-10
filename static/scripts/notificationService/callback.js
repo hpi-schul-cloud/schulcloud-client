@@ -1,7 +1,8 @@
 
 var CALLBACK_TYPES = {
   RECEIVED: 'received',
-  CLICKED: 'clicked'
+  CLICKED: 'clicked',
+  READ: 'read'
 };
 
 function sendRegistrationId(id, service, device, type, name) {
@@ -30,6 +31,19 @@ function sendShownCallback(notificationData) {
   return sendCallback(body, callback);
 }
 
+function sendReadCallback(notificationId) {
+    var body = {
+        notificationId: notificationId,
+        type: CALLBACK_TYPES.READ
+    };
+
+    function callback(response) {
+        console.log(response);
+    }
+
+    return sendCallback(body, callback);
+}
+
 // Not used due to restrictions of context sharing
 /**
 function sendClickedCallback(notificationData) {
@@ -46,8 +60,6 @@ function sendClickedCallback(notificationData) {
 }**/
 
 function sendCallback(body, callback) {
-    $.post('/notification/callback', {
-        body: body
-    });
+    $.post('/notification/callback', body);
 }
 

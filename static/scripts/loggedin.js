@@ -96,4 +96,16 @@ $(document).ready(function () {
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
     });
+
+    $('.notification-dropdown-toggle').on('click', function () {
+        $(this).removeClass('recent');
+
+        $('.notification-dropdown .notification-item.unread').each(function() {
+            if($(this).data('read') == true) return;
+
+            sendShownCallback({notificationId: $(this).data('notification-id')});
+            sendReadCallback($(this).data('notification-id'));
+            $(this).data('read', true);
+        });
+    });
 });

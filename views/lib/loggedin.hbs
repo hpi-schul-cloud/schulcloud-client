@@ -76,13 +76,13 @@
 
                         <li class="nav-item notification-dropdown">
                             <div class="dropdown show">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle {{#if recentNotifications}}recent{{/if}}" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if recentNotifications}}recent{{/if}}" data-toggle="dropdown">
                                     <i class="fa fa-bolt"></i> {{#if recentNotifications}}<span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                                 </a>
 
                                 <div class="dropdown-menu">
                                     {{#each notifications}}
-                                        <div class="notification-item">
+                                        <div class="notification-item {{#unless this.read}}unread{{/unless}}" data-notification-id="{{this.notificationId}}">
                                             <span>{{this.title}}</span>
                                             <time class="notification-time">{{timeFromNow this.date}}</time>
                                         </div>
