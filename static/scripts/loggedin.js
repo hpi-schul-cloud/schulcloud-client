@@ -52,35 +52,6 @@ $(document).ready(function () {
 
     };
 
-    var populateModalForm = function (modal, data) {
-
-        var $title = modal.find('.modal-title');
-        var $btnSubmit = modal.find('.btn-submit');
-        var $btnClose = modal.find('.btn-close');
-        var $form = modal.find('.modal-form');
-
-        $title.html(data.title);
-        $btnSubmit.html(data.submitLabel);
-        $btnClose.html(data.closeLabel);
-
-        // fields
-        $('[name]', $form).not('[data-force-value]').each(function () {
-            var value = (data.fields || {})[$(this).prop('name').replace('[]', '')] || '';
-            switch ($(this).prop("type")) {
-                case "radio":
-                case "checkbox":
-                    $(this).each(function () {
-                        if ($(this).attr('value') == value) $(this).attr("checked", value);
-                    });
-                    break;
-                default:
-                    $(this).val(value).trigger("chosen:updated");
-            }
-        });
-
-        $form.on('submit', sendFeedback.bind(this, modal));
-    };
-
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
 
@@ -90,6 +61,8 @@ $(document).ready(function () {
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });
+
+        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, modal));
         $feedbackModal.modal('show');
     });
 
