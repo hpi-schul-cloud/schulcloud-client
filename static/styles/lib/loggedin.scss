@@ -358,6 +358,10 @@ footer {
         }
     }
 
+    .dropdown-toggle:not(.recent) .tag {
+        display: none;
+    }
+
     .dropdown-menu {
         padding: 0px;
         width: 300px;
@@ -368,6 +372,10 @@ footer {
     .notification-item {
         padding: 10px 15px;
         font-size: 14px;
+
+        &.unread {
+            background: #fffbe4;
+        }
 
         & + .notification-item {
             border-top: 1px solid #e5e5e5;
