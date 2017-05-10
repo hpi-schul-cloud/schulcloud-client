@@ -33,30 +33,28 @@ messaging.setBackgroundMessageHandler(function(payload) {
     data: payload.data
   };
 
-  sendShownCallback(payload.data);
+  sendShownCallback(payload.data, true, payload.data.serviceUrl + '/callback');
 
   return self.registration.showNotification(notificationTitle, notificationOptions);
 });
 // [END background_handler]
 
 self.addEventListener('notificationclick', function(event) {
-  console.log('On notification click: ', event.notification);
-  sendClickedCallback({
-    notificationId: event.notification.data.notificationId
-  });
-  event.notification.close();
+    console.log('On notification click: ', event.notification);
+    sendClickedCallback(event.notification.data.notificationId, true, event.notification.data.serviceUrl + '/callback');
+    event.notification.close();
 
-  // This looks to see if the current is already open and
-  // focuses if it is
-  event.waitUntil(clients.matchAll({
-    type: "window"
-  }).then(function(clientList) {
-    for (var i = 0; i < clientList.length; i++) {
-      var client = clientList[i];
-      if (client.url == '/' && 'focus' in client)
-        return client.focus();
-    }
-    if (clients.openWindow)
-      return clients.openWindow('/');
-  }));
+    // This looks to see if the current is already open and
+    // focuses if it is
+    event.waitUntil(clients.matchAll({
+        type: "window"
+    }).then(function(clientList) {
+        for (var i = 0; i < clientList.length; i++) {
+            var client = clientList[i];
+            if (client.url == '/' && 'focus' in client)
+                return client.focus();
+        }
+        if (clients.openWindow)
+            return clients.openWindow(event.notification.data.action);
+    }));
 });

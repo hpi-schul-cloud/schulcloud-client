@@ -7,7 +7,6 @@ const authHelper = require('../helpers/authentication');
 router.use(authHelper.authChecker);
 
 const postRequest = (req, res, next) => {
-    console.log(res.locals.body);
     api(req).post(res.locals.url, {
         body: res.locals.body
     }).then((response) => {
