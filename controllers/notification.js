@@ -35,4 +35,11 @@ router.post('/callback', function (req, res, next) {
    next();
 }, postRequest);
 
+router.post('/message', function (req, res, next) {
+    res.locals.url = 'notification/messages';
+    res.locals.body = req.body;
+
+    next();
+}, postRequest);
+
 module.exports = router;

@@ -52,4 +52,20 @@ $(document).ready(function() {
         document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
 
+    $(".send-test-notification").on('click', function () {
+        $.post('/notification/message', {
+            "title": "Neue Test-Benachrichtigung",
+            "body": "Du hast eine neue Benachrichtigung",
+            "action": document.location.origin + '/dashboard/',
+            "token": $("[name='userId']").val(),
+            "scopeIds": [
+                $("[name='userId']").val()
+            ]
+        });
+    });
+
+    function sendTestNotification () {
+
+    }
+
 });
