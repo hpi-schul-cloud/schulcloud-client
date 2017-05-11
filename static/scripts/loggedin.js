@@ -62,7 +62,7 @@ $(document).ready(function () {
             submitLabel: 'Senden'
         });
 
-        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, modal));
+        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         $feedbackModal.modal('show');
     });
 
