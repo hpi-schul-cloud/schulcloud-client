@@ -20,5 +20,22 @@
         <div class="route-calendar">
             <div class="fullcalendar" id="calendar"></div>
         </div>
+
+        {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/"}}
+            {{#content "fields"}}
+                {{> "calendar/forms/form-create-event"}}
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal-form" method="put" class="edit-event-modal"}}
+            {{#content "fields"}}
+                {{> "calendar/forms/form-create-event"}}
+            {{/content}}
+            {{#content "additional-actions"}}
+                    <button type="button" class="btn btn-primary btn-danger btn-delete">
+                        <i class="fa fa-trash-o"></i> Löschen
+                    </button>
+            {{/content}}
+        {{/embed}}
     {{/content}}
 {{/extend}}
