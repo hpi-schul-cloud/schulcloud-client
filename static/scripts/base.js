@@ -106,6 +106,19 @@ $(document).ready(function () {
         "disable_search": true
     });
 
+    // collapse toggle
+    $('.collapse-toggle').click(function (e) {
+        var $collapseToggle = $(this);
+        var isCollapsed = $($collapseToggle.attr("href")).attr("aria-expanded");
+        if (!isCollapsed || isCollapsed === 'false') {
+            $collapseToggle.find('.collapse-icon').removeClass("fa-chevron-right");
+            $collapseToggle.find('.collapse-icon').addClass("fa-chevron-down");
+        } else {
+            $collapseToggle.find('.collapse-icon').removeClass("fa-chevron-down");
+            $collapseToggle.find('.collapse-icon').addClass("fa-chevron-right");
+        }
+    });
+
 
     // Init mobile nav
     $('.mobile-nav-toggle').click(function (e) {
