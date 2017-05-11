@@ -89,16 +89,16 @@ const mapTimeProps = (req, res, next) => {
  * @param data {object}
  * @param service {string}
  */
-const createEventsForCourse = (data, service, req, res) => {
-    // can just run if a calendar service is running on the environment
-    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+const createEventsForData = (data, service, req, res) => {
+    // can just run if a calendar service is running on the environment and the course have a teacher
+    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0]) {
         return Promise.all(data.times.map(time => {
             return api(req).post("/calendar", {
                 json: {
                     summary: data.name,
                     location: res.locals.currentSchoolData.name,
                     description: data.description,
-                    startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+                    startDate: new Date(new Date(data.startDate).getTime() + time.startTime).toISOString(),
                     duration: time.duration,
                     repeat_until: data.untilDate,
                     frequency: "WEEKLY",
@@ -106,7 +106,8 @@ const createEventsForCourse = (data, service, req, res) => {
                     scopeId: data._id,
                     courseId: data._id,
                     courseTimeId: time._id
-                }
+                },
+                qs: {userId: data.teacherIds[0]}
             });
         }));
     }
@@ -114,6 +115,26 @@ const createEventsForCourse = (data, service, req, res) => {
     return Promise.resolve(true);
 };
 
+/**
+ * Deletes all events from the given dataId in @param req.params, clear function
+ * @param service {string}
+ */
+const deleteEventsForData = (service) => {
+    return function(req, res, next) {
+        if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+            return api(req).get('courses/' + req.params.id).then(course => {
+                if (course.teacherIds.length < 1) next(); // if no teacher, no permission for deleting
+                return Promise.all((course.times || []).map(t => {
+                    if (t.eventId) {
+                        return api(req).delete('calendar/' + t.eventId,{qs: {userId: course.teacherIds[0]}});
+                    }
+                })).then(_ => next());
+            });
+        }
+
+        next();
+    };
+};
 
 const getCreateHandler = (service) => {
     return function (req, res, next) {
@@ -122,8 +143,9 @@ const getCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            createEventsForCourse(data, service);
-            next();
+            createEventsForData(data, service, req, res).then(_ => {
+                next();
+            });
         }).catch(err => {
             next(err);
         });
@@ -133,12 +155,13 @@ const getCreateHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-        console.log(req.body);
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            res.redirect(req.header('Referer'));
+            createEventsForData(data, service, req, res).then(_ => {
+                res.redirect(req.header('Referer'));
+            });
         }).catch(err => {
             next(err);
         });
@@ -294,9 +317,9 @@ router.all('/', function (req, res, next) {
 
 
 router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
-router.patch('/courses/:id', mapTimeProps, getUpdateHandler('courses'));
+router.patch('/courses/:id', mapTimeProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
-router.delete('/courses/:id', getDeleteHandler('courses'));
+router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
 
 router.all('/courses', function (req, res, next) {
 
