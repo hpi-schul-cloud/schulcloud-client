@@ -25,6 +25,8 @@ $(document).ready(function() {
                 submitLabel: 'Speichern',
                 fields: result
             });
+
+            populateCourseTimes($editModal, result.times || []);
             $editModal.modal('show');
         });
     });
