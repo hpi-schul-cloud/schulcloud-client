@@ -39,6 +39,7 @@ module.exports = {
         } else {
             return options.inverse(this);
         }
+    },
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
     },
