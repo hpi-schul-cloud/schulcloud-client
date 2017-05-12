@@ -211,7 +211,6 @@ const sortbyDueDate = function(a, b) {
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
 }
-// 
 const getAverageRating = function(submissions,gradeSystem){
     // Durchschnittsnote berechnen
     if (submissions.length > 0) {
@@ -402,9 +401,21 @@ router.get('/:assignmentId', function (req, res, next) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
                 assignment.submissionscount = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
                 assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
+
+                //generate select options for grades @ evaluation.hbs
+                submissions.map(function(sub){
+                    grades = (assignment.courseId.gradeSystem)?["1+","1","1-","2+","2","2-","3+","3","3-","4+","4","4-","5+","5","5-","6"]:["15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"];
+                    options = "";
+                    for(var i = 15; i > 0; i--){    
+                        options += ('<option value="'+i+'" '+((sub.grade == i)?"selected ":"")+'>'+grades[15-i]+'</option>');
+                    }
+                    sub.gradeoptions = options;
+                    return sub;
+                })
+
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
-            
+
                 // Alle Teilnehmer des Kurses 
                 const coursePromise = getSelectOptions(req, 'courses', {
                     _id: assignment.courseId._id,
