@@ -35,7 +35,7 @@
                         <label>Note</label>
                         <select name="grade" data-placeholder="Note auswählen">
                                 <option value="">Keine Bewertung</option>
-                                {{{this.submission.gradeoptions}}}
+                                {{{this.submission.gradeOptions}}}
                         </select>
                     </div>
                     <h6>Kommentar</h6>
@@ -44,36 +44,7 @@
                 <button type="submit" class="btn btn-primary">Speichern</button>
                 </form>
             {{else}}
-                {{#if @root.courseId.gradeSystem}}
-                    {{#ifvalue this.submission.grade value=0 }}<b class="grade">Note: 6</b>{{/ifvalue}}
-                    {{#if this.submission.grade}}
-                        <b class="grade">Note: 
-                        {{#ifvalue this.submission.grade value=0 }} 6{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=1 }}5-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=2 }} 5{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=3 }}5+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=4 }}4-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=5 }} 4{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=6 }}4+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=7 }}3-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=8 }} 3{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=9 }}3+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=10}}2-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=11}} 2{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=12}}2+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=13}}1-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=14}} 1{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=15}}1+{{/ifvalue}}
-                        </b>
-                    {{/if}}
-                {{else}}
-                    {{#ifvalue this.submission.grade value=0}}
-                        <b class="grade">0 Punkte</b>
-                    {{/ifvalue}}
-                    {{#if this.submission.grade}}
-                        <b class="grade">{{this.submission.grade}} Punkte</b>
-                    {{/if}}
-                {{/if}}
+                <b class="grade">{{{this.submission.gradeText}}}</b>
                 <div class="comment">
                     {{#if this.submission.gradeComment}}
                         {{{this.submission.gradeComment}}}

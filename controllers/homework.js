@@ -409,7 +409,8 @@ router.get('/:assignmentId', function (req, res, next) {
                     for(var i = 15; i > 0; i--){    
                         options += ('<option value="'+i+'" '+((sub.grade == i)?"selected ":"")+'>'+grades[15-i]+'</option>');
                     }
-                    sub.gradeoptions = options;
+                    sub.gradeOptions = options;
+                    sub.gradeText = ((assignment.courseId.gradeSystem)?"Note: ":"Punkte: ")+grades[15-sub.grade];
                     return sub;
                 })
 
