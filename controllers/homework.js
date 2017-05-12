@@ -167,14 +167,14 @@ const splitDate = function(date){
     var TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
     return {"timestamp":realDate,"date":DateF,"time":TimeF};
 }
-const formatDate = function(datediff){
+const formatDateDiff = function(datediff){
     var Days = Math.floor(datediff / 86400000);
     var Hours = Math.floor((datediff % 86400000) / 3600000);
     var Minutes = Math.floor(((datediff % 86400000) % 3600000) / 60000);
     return {"Days":Days,"Hours":Hours,"Minutes":Minutes};
 }
 const formatremaining = function(remaining){
-    var remainingArray = formatDate(remaining);
+    var remainingArray = formatDateDiff(remaining);
     var dueColor="", dueString="";
     if (remainingArray["Days"] <= 5 && remaining > 0) {
         if (remainingArray["Days"] > 1) {
