@@ -242,34 +242,20 @@ const getAverageRating = function(submissions,gradeSystem){
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
         qs: {
-            $populate: ['courseId']
+            $populate: ['courseId'],
         }
     }).then(assignments => {
         assignments = assignments.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
-            /* Hausaufgaben nach Nutzerberechtigungen Filtern */
-            
-            // Schuelern keine noch unveroeffentlichten Hausaufgaben anzeigen
-            if (splitDate(assignment.availableDate)["timestamp"] > Date.now() && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
             // kein Kurs -> Private Hausaufgabe
             if (assignment.courseId == null) {
                 assignment.color = "#1DE9B6";
                 assignment.private = true;
-            }else {
-                // Hausaufgabe ist nicht für den aktuellen benutzer freigegeben -> nicht anzeigen
-                if ((assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1)&&(assignment.teacherId != res.locals.currentUser._id)){
-                    return;
-                }
+            } else {
                 if (!assignment.private) {
                     assignment.userIds = assignment.courseId.userIds;
                 }
                 // Kursfarbe setzen
                 assignment.color = assignment.courseId.color;
-            }
-            // Hausaufgabe ist Privat, aber gehört nicht dem Benutzer -> nicht anzeigen
-            if (assignment.private && (assignment.teacherId != res.locals.currentUser._id)){
-                return;
             }
             
             assignment.url = '/homework/' + assignment._id;
@@ -291,22 +277,23 @@ router.all('/', function (req, res, next) {
             // alle Abgaben auslesen -> um Statistiken anzeigen zu können
             const submissionPromise = getSelectOptions(req, 'submissions', {
                 homeworkId: assignment._id,
-                $populate: ['studentId']
+                $populate: ['studentId', 'homeworkId']
             });
             Promise.resolve(submissionPromise).then(submissions => {
                 if(assignment.teacherId === res.locals.currentUser._id){  //teacher
-                    assignment.submissionstats = submissions.length + "/" + assignment.userIds.length;
-                    assignment.submissionstatsperc = Math.round((submissions.length/assignment.userIds.length)*100);
+                    let submissionlength = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
+                    assignment.submissionstats = submissionlength + "/" + assignment.userIds.length;
+                    assignment.submissionstatsperc = Math.round((submissionlength/assignment.userIds.length)*100);
                     var submissioncount = (submissions.filter(function (a) {
-                        return (a.gradeComment == '' && a.grade == null) ? 0 : 1;
+                        return (a.gradeComment != '' || a.grade != null);
                     })).length;
-                    if (submissions.length > 0) {
-                        assignment.gradedstats = submissioncount + "/" + submissions.length;                        // Anzahl der Abgaben
-                        assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);   // -||- in Prozent
 
-                        assignment.submissionscount = submissions.length;
-                        assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
-                    }
+                    assignment.gradedstats = submissioncount + "/" + assignment.userIds.length;                        // Anzahl der Abgaben
+                    assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);   // -||- in Prozent
+
+                    assignment.submissionscount = submissionlength;
+                    assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
+
                 }
                 else{ //student
                     var submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
@@ -316,14 +303,10 @@ router.all('/', function (req, res, next) {
                 }
             });
 
-
             assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
         });
-
-        // Wofür ist das da?
-        assignments = assignments.filter(function(n){return n != undefined;});
 
         var sortmethods = getSortmethods();
         // Hausaufgaben sortieren
@@ -384,24 +367,15 @@ router.get('/:assignmentId', function (req, res, next) {
         }
     }).then(assignment => {
         const submissionPromise = getSelectOptions(req, 'submissions', {
-            homeworkId: assignment._id
+            homeworkId: assignment._id,
+            $populate: ['homeworkId']
         });
         Promise.resolve(submissionPromise).then(submissions => {
-            // private oder noch unveröffentlichte Hausaufgabe, die nicht aktuellem Benutzer gehört -> Return
-            if ((assignment.private 
-                    || (new Date(assignment.availableDate).getTime() > Date.now()))
-                && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
             // kein Kurs -> Private Hausaufgabe
             if (assignment.courseId == null) {
                 assignment.color = "#1DE9B6";
                 assignment.private = true;
             }else {
-                if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                    && assignment.teacherId != res.locals.currentUser._id) {
-                    return;
-                }
                 // Kursfarbe setzen
                 assignment.color = assignment.courseId.color;
             }
@@ -421,13 +395,13 @@ router.get('/:assignmentId', function (req, res, next) {
             } else {
                 assignment.submittable = true;
             }
-            
-            assignment.submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
+            console.log(submissions);
+            assignment.submission = submissions[0];
 
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
-                assignment.submissionscount = submissions.length;
+                assignment.submissionscount = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
                 assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
