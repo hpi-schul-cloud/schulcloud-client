@@ -395,7 +395,6 @@ router.get('/:assignmentId', function (req, res, next) {
             } else {
                 assignment.submittable = true;
             }
-            console.log(submissions);
             assignment.submission = submissions[0];
 
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
