@@ -10,6 +10,8 @@ const permissionsHelper = require('../helpers/permissions');
 const handlebars = require('handlebars');
 const fs = require('fs');
 const path = require('path');
+const recurringEventsHelper = require('../helpers/recurringEvents');
+const moment = require('moment');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -36,6 +38,103 @@ const getTableActions = (item, path) => {
     ];
 };
 
+/**
+ * maps the event props from the server to fit the ui components, e.g. date and time
+ * @param data {object} - the plain data object
+ * @param service {string} - the model or service type
+ */
+const mapEventProps = (data, service) => {
+    if (service === 'courses') {
+        // map course times to fit into UI
+        (data.times || []).forEach((time, count) => {
+            time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+            time.duration = time.duration / 1000 / 60;
+            time.startTime = moment(time.startTime, "x").format("HH:mm");
+            time.count = count;
+        });
+
+        // format course start end until date
+        if (data.startDate) {
+            data.startDate = moment(new Date(data.startDate).getTime()).format("YYYY-MM-DD");
+            data.untilDate = moment(new Date(data.untilDate).getTime()).format("YYYY-MM-DD");
+        }
+    }
+
+    return data;
+};
+
+/**
+ * maps the request-data to fit model, e.g. for course times
+ * @param data {object} - the request-data object
+ * @param service {string} - maps
+ */
+const mapTimeProps = (req, res, next) => {
+    // map course times to fit model
+    req.body.times = req.body.times || [];
+    (req.body.times || []).forEach(time => {
+        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
+    next();
+};
+
+/**
+ * creates an event for a created course. following params has to be included in @param data for creating the event:
+ * startDate {Date} - the date the course is first take place
+ * untilDate {Date} -  the date the course is last take place
+ * duration {Number} - the duration of a course lesson
+ * weekday {Number} - from 0 to 6, the weekday the course take place
+ * @param data {object}
+ * @param service {string}
+ */
+const createEventsForData = (data, service, req, res) => {
+    // can just run if a calendar service is running on the environment and the course have a teacher
+    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0]) {
+        return Promise.all(data.times.map(time => {
+            return api(req).post("/calendar", {
+                json: {
+                    summary: data.name,
+                    location: res.locals.currentSchoolData.name,
+                    description: data.description,
+                    startDate: new Date(new Date(data.startDate).getTime() + time.startTime).toISOString(),
+                    duration: time.duration,
+                    repeat_until: data.untilDate,
+                    frequency: "WEEKLY",
+                    weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+                    scopeId: data._id,
+                    courseId: data._id,
+                    courseTimeId: time._id
+                },
+                qs: {userId: data.teacherIds[0]}
+            });
+        }));
+    }
+
+    return Promise.resolve(true);
+};
+
+/**
+ * Deletes all events from the given dataId in @param req.params, clear function
+ * @param service {string}
+ */
+const deleteEventsForData = (service) => {
+    return function(req, res, next) {
+        if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+            return api(req).get('courses/' + req.params.id).then(course => {
+                if (course.teacherIds.length < 1) next(); // if no teacher, no permission for deleting
+                return Promise.all((course.times || []).map(t => {
+                    if (t.eventId) {
+                        return api(req).delete('calendar/' + t.eventId,{qs: {userId: course.teacherIds[0]}});
+                    }
+                })).then(_ => next());
+            });
+        }
+
+        next();
+    };
+};
 
 const getCreateHandler = (service) => {
     return function (req, res, next) {
@@ -44,7 +143,9 @@ const getCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            next();
+            createEventsForData(data, service, req, res).then(_ => {
+                next();
+            });
         }).catch(err => {
             next(err);
         });
@@ -58,7 +159,9 @@ const getUpdateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            res.redirect(req.header('Referer'));
+            createEventsForData(data, service, req, res).then(_ => {
+                res.redirect(req.header('Referer'));
+            });
         }).catch(err => {
             next(err);
         });
@@ -69,7 +172,7 @@ const getUpdateHandler = (service) => {
 const getDetailHandler = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(data => {
-            res.json(data);
+            res.json(mapEventProps(data, service));
         }).catch(err => {
             next(err);
         });
@@ -213,10 +316,10 @@ router.all('/', function (req, res, next) {
 });
 
 
-router.post('/courses/', getCreateHandler('courses'));
-router.patch('/courses/:id', getUpdateHandler('courses'));
+router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
+router.patch('/courses/:id', mapTimeProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
-router.delete('/courses/:id', getDeleteHandler('courses'));
+router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
 
 router.all('/courses', function (req, res, next) {
 
