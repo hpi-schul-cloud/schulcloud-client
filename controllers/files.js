@@ -137,7 +137,7 @@ router.use(authHelper.authChecker);
 const getSignedUrl = function (req, res, next) {
     let {type, path, action = 'putObject'} = req.body;
     path = path || req.query.path;
-    const filename = req.file.originalname;
+    const filename = (req.file || {}).originalname;
     if(filename) path = path + '/' + filename;
 
     const data = {
