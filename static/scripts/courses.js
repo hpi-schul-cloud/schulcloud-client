@@ -52,16 +52,22 @@ $(document).ready(function () {
 
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
-        console.log('here');
         e.preventDefault();
-        // todo patch lesson
-        /**$.ajax({
+        var $hiddenToggleIcon = $(this).find('.fa');
+        $.ajax({
             method: 'PATCH',
-            body: {hidden: !($(this).hasClass('fa-eye-slash'))},
+            url: window.location.href + '/topics/' + $(this).attr('href') + '?json=true',
+            data: {hidden: !$hiddenToggleIcon.hasClass('fa-eye-slash')},
             success: function(result) {
-                window.location.reload();
-            },
-        });**/
+                if (result.hidden) {
+                    $hiddenToggleIcon.addClass('fa-eye-slash');
+                    $hiddenToggleIcon.removeClass('fa-eye');
+                } else {
+                    $hiddenToggleIcon.removeClass('fa-eye-slash');
+                    $hiddenToggleIcon.addClass('fa-eye');
+                }
+            }
+        });
     })
 
 });

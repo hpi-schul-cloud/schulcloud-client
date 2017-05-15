@@ -32,7 +32,7 @@
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle">
+                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
                                                              <i class="fa fa-eye"></i>
                                                         </a>
                                                     </span>
@@ -47,7 +47,7 @@
                                             <div class="card-header">
                                                 <div class="input-group">
                                                         <span class="input-group-btn">
-                                                            <a class="btn btn-secondary btn-hidden-toggle">
+                                                            <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
                                                                  <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                             </a>
                                                         </span>

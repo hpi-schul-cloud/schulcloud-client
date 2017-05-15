@@ -33,11 +33,14 @@
     .card-topic {
         cursor: pointer;
         .btn-hidden-toggle {
-            margin-right: 10px;
         }
         .topic-label {
             margin-bottom: 0;
             line-height: 35px;
+        }
+        .input-group-btn {
+            padding-right: 100px;
+            float: right;
         }
     }
 
