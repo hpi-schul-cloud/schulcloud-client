@@ -50,4 +50,18 @@ $(document).ready(function () {
         deleteCourseTime($(this).attr('href'));
     });
 
+    $('.btn-hidden-toggle').click(function (e) {
+        e.stopPropagation();
+        console.log('here');
+        e.preventDefault();
+        // todo patch lesson
+        /**$.ajax({
+            method: 'PATCH',
+            body: {hidden: !($(this).hasClass('fa-eye-slash'))},
+            success: function(result) {
+                window.location.reload();
+            },
+        });**/
+    })
+
 });
