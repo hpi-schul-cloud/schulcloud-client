@@ -125,6 +125,11 @@ form.inline {
 	background-color: $colorGrey;
 }
 
+.btn-thin {
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+}
+
 .alert-fixed {
   position:fixed;
   top: 0;
@@ -136,4 +141,9 @@ form.inline {
 
 .dropdown-item {
 	cursor: pointer;
+}
+
+.collapse-icon {
+	margin-left: 10px;
+	vertical-align: middle;
 }

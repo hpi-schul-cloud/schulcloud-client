@@ -267,7 +267,7 @@ router.patch('/:courseId', function (req, res, next) {
             createEventsForCourse(req, res, course).then(_ => {
                 res.redirect('/courses/' + req.params.courseId);
             });
-        })
+        });
     }).catch(error => {
         res.sendStatus(500);
     });
