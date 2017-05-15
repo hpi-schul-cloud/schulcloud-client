@@ -104,14 +104,18 @@ router.get('/:topicId', function (req, res, next) {
 
 router.patch('/:topicId', function (req, res, next) {
     const data = req.body;
-
+    
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
+        if (req.query.json) {
+            res.json(_);
+        } else {
+            res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
+        }
     }).catch(_ => {
         res.sendStatus(500);
     });
