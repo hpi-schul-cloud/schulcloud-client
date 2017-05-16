@@ -348,10 +348,9 @@ router.all('/', function (req, res, next) {
                 const roles = user[0].roles.map(role => {
                     return role.name;
                 });
+                let isStudent = true;
                 if (roles.indexOf('student') == -1) {
-                    const isStudent = false;
-                }else{
-                    const isStudent = true;
+                    isStudent = false;
                 }
                 // Render Overview
                 res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
@@ -424,7 +423,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     $populate: ['userIds']
                 });
                 Promise.resolve(coursePromise).then(course => {
-                    let students = course[0].userIds;
+                    var students = course[0].userIds;
                     assignment.usercount = students.length;
                     students = students.map(student => {
                         return {
@@ -461,9 +460,7 @@ router.get('/:assignmentId', function (req, res, next) {
                                     return role.name;
                                 });
                                 if (roles.indexOf('student') == -1) {
-                                    const isStudent = false;
-                                }else{
-                                    const isStudent = true;
+                                    isStudent = false;
                                 }
                                 // Render assignment.hbs
                                 res.render('homework/assignment', Object.assign({}, assignment, {
