@@ -31,7 +31,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    api(req).get('/notification/devices/' + res.locals.currentUser._id)
+    api(req).get('/notification/devices')
         .then(device => {
             device.map(d => {
                if (d.token === req.cookies.deviceToken) {

@@ -164,7 +164,7 @@ class TopicBlockList extends React.Component {
         this.state = {
             blocks: initialBlocks,
             onSortEndCallbacks: []
-        }
+        };
     }
 
     /**
@@ -194,7 +194,7 @@ class TopicBlockList extends React.Component {
                 return cb();
             });
         }
-    };
+    }
 
     /**
      * This function will be passed through the components so every one can use the onSortEnd event
@@ -276,7 +276,7 @@ class TopicBlockList extends React.Component {
                     </div>
                 </div>
             </div>
-        );s
+        );
     }
 };
 
@@ -336,10 +336,10 @@ class TopicText extends TopicBlock {
         const storageContext = this.getStorageContext();
         CKEDITOR.replace(this.editorId, {
             extraPlugins: 'uploadimage',
-            uploadUrl: '/files/upload/?storageContext=' + storageContext,
+            uploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
-            filebrowserUploadUrl: '/files/upload/?storageContext=' + storageContext,
-            filebrowserImageUploadUrl: '/files/upload/?storageContext=' + storageContext,
+            filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
+            filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
             removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link'
         });
         CKEDITOR.instances[this.editorId].on("change", function () {

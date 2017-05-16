@@ -135,7 +135,10 @@ const getScopeDirs = (req, res, scope) => {
 router.use(authHelper.authChecker);
 
 const getSignedUrl = function (req, res, next) {
-    const {type, path, action = 'putObject'} = req.body;
+    let {type, path, action = 'putObject'} = req.body;
+    path = path || req.query.path;
+    const filename = (req.file || {}).originalname;
+    if(filename) path = path + '/' + filename;
 
     const data = {
         path,
@@ -143,9 +146,9 @@ const getSignedUrl = function (req, res, next) {
         action: action
     };
 
-    requestSignedUrl(req, data).then(signedUrl => {
-       if(res) res.json({signedUrl});
-        else return Promise.resolve({signedUrl, path: data.path});
+    return requestSignedUrl(req, data).then(signedUrl => {
+       if(res) res.json({signedUrl, path});
+        else return Promise.resolve({signedUrl, path});
     }).catch(err => {
         if(res) res.status((err.statusCode || 500)).send(err);
         else return Promise.reject(err);
@@ -157,9 +160,9 @@ router.post('/file', getSignedUrl);
 
 // upload file directly
 router.post('/upload', upload.single('upload'), function (req, res, next) {
-    let path;
-    return getSignedUrl(req, null, next).then(({signedUrl, _path}) => {
-        path = _path;
+    let _path;
+    return getSignedUrl(req, null, next).then(({signedUrl, path}) => {
+        _path = path;
         return rp.put({
             url: signedUrl.url,
             headers: Object.assign({}, signedUrl.header, {
@@ -171,7 +174,7 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
         res.json({
             "uploaded": 1,
             "fileName": req.file.originalname,
-            "url": "/files/file?path=" + path
+            "url": "/files/file?path=" + _path
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -204,12 +207,12 @@ router.delete('/file', function (req, res, next) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download = false} = req.query;
+    const {file, download = false, path} = req.query;
 
     const basePath = getStorageContext(req, res, {url: req.get('Referrer')});
     const data = {
-        path: basePath + file,
-        fileType: mime.lookup(file),
+        path: path || basePath + file,
+        fileType: mime.lookup(file || pathUtils.basename(path)),
         action: 'getObject'
     };
 

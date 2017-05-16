@@ -6,6 +6,7 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/lessons.js" type="text/javascript" defer></script>
+        <script src="/scripts/courses.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -25,10 +26,37 @@
                     <div class="list-group">
                         {{#if lessons}}
                             {{#each lessons}}
-                                <a href="{{this.url}}"
-                                   class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <span>{{this.name}}</span>
-                                </a>
+                                {{#unless this.hidden}}
+                                    <div class="card card-topic" onclick="location.href='{{this.url}}'">
+                                        <div class="card-header">
+                                            <div class="input-group">
+                                                {{#userHasPermission "COURSE_EDIT"}}
+                                                    <span class="input-group-btn">
+                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                             <i class="fa fa-eye"></i>
+                                                        </a>
+                                                    </span>
+                                                {{/userHasPermission}}
+                                                <p class="topic-label">{{this.name}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{else}}
+                                    {{#userHasPermission "COURSE_EDIT"}}
+                                        <div class="card card-topic" onclick="location.href='{{../url}}'">
+                                            <div class="card-header">
+                                                <div class="input-group">
+                                                        <span class="input-group-btn">
+                                                            <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                                 <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
+                                                            </a>
+                                                        </span>
+                                                    <p class="topic-label">{{../name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/userHasPermission}}
+                                {{/unless}}
                             {{/each}}
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
