@@ -459,6 +459,7 @@ router.get('/:assignmentId', function (req, res, next) {
                                 const roles = user[0].roles.map(role => {
                                     return role.name;
                                 });
+                                let isStudent = true;
                                 if (roles.indexOf('student') == -1) {
                                     isStudent = false;
                                 }
