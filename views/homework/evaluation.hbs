@@ -1,9 +1,9 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
 		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
-		{{#ifvalue teacherId value=currentUser._id}}
+		{{#ifeqt teacherId currentUser._id}}
 			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
-		{{/ifvalue}}
+		{{/ifeqt}}
 		<a id="student-comment-tab-link" class="tab-link">Kommentare</a>
 	</nav>
 	<div class="tabs">
@@ -18,7 +18,7 @@
 		</div>
 
 		<div id="comment" class="tab-content">
-            {{#ifvalue @root.teacherId value=@root.currentUser._id}}
+            {{#ifeqt @root.teacherId @root.currentUser._id}}
                 {{#if this.submission}}
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
@@ -52,7 +52,7 @@
                         <p>Kein Kommentar.</p>
                     {{/if}}
                 </div>
-            {{/ifvalue}}
+            {{/ifeqt}}
             
 		</div>
 		
@@ -61,10 +61,10 @@
 			<div class="commentarea form-group">
 				<ul class="comments">
                     {{#each @root.comments}}
-                        {{#ifvalue this.submissionId value=../this.submission._id}}
+                        {{#ifeqt this.submissionId ../this.submission._id}}
                             <li class="comment">
                                 <img class="picture" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/>
-                                {{#ifvalue @root.teacherId value=@root.currentUser._id}}
+                                {{#ifeqt @root.teacherId @root.currentUser._id}}
                                     <form action="/homework/comment/{{this._id}}" method="post" class="inline">
                                         <input type="hidden" name="_method" value="delete"/>
                                         <button type="submit" class="btn btn-secondary btn-sm">
@@ -72,19 +72,19 @@
                                         </button>
                                     </form>
                                 {{else}}
-                                    {{#ifvalue this.author._id value=@root.currentUser._id}}
+                                    {{#ifeqt this.author._id @root.currentUser._id}}
                                         <form action="/homework/comment/{{this._id}}" method="post" class="inline">
                                             <input type="hidden" name="_method" value="delete"/>
                                             <button type="submit" class="btn btn-secondary btn-sm">
                                                 <i class="fa fa-trash" aria-hidden="true"></i>
                                             </button>
                                         </form>
-                                    {{/ifvalue}}
-                                {{/ifvalue}}
+                                    {{/ifeqt}}
+                                {{/ifeqt}}
                                 <b class="name">{{this.author.firstName}} {{this.author.lastName}}</b>
                                 <pre>{{this.comment}}</pre>
                             </li>
-                        {{/ifvalue}}
+                        {{/ifeqt}}
                     {{/each}}
 				</ul>
 				<div class="answer">

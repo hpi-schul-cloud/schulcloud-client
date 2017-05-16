@@ -1,31 +1,31 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework">
         {{#if courseId.gradeSystem}}
-            {{#ifvalue submission.grade value=0 }}<b class="grade">Note: 6</b>{{/ifvalue}}
+            {{#ifeqt submission.grade 0 }}<b class="grade">Note: 6</b>{{/ifeqt}}
             {{#if submission.grade}}
 				<b class="grade">Note: 
-				{{#ifvalue submission.grade value=0 }} 6{{/ifvalue}}
-				{{#ifvalue submission.grade value=1 }}5-{{/ifvalue}}
-				{{#ifvalue submission.grade value=2 }} 5{{/ifvalue}}
-				{{#ifvalue submission.grade value=3 }}5+{{/ifvalue}}
-				{{#ifvalue submission.grade value=4 }}4-{{/ifvalue}}
-				{{#ifvalue submission.grade value=5 }} 4{{/ifvalue}}
-				{{#ifvalue submission.grade value=6 }}4+{{/ifvalue}}
-				{{#ifvalue submission.grade value=7 }}3-{{/ifvalue}}
-				{{#ifvalue submission.grade value=8 }} 3{{/ifvalue}}
-				{{#ifvalue submission.grade value=9 }}3+{{/ifvalue}}
-				{{#ifvalue submission.grade value=10}}2-{{/ifvalue}}
-				{{#ifvalue submission.grade value=11}} 2{{/ifvalue}}
-				{{#ifvalue submission.grade value=12}}2+{{/ifvalue}}
-				{{#ifvalue submission.grade value=13}}1-{{/ifvalue}}
-				{{#ifvalue submission.grade value=14}} 1{{/ifvalue}}
-				{{#ifvalue submission.grade value=15}}1+{{/ifvalue}}
+				{{#ifeqt submission.grade 0}} 6{{/ifeqt}}
+				{{#ifeqt submission.grade 1}}5-{{/ifeqt}}
+				{{#ifeqt submission.grade 2}} 5{{/ifeqt}}
+				{{#ifeqt submission.grade 3}}5+{{/ifeqt}}
+				{{#ifeqt submission.grade 4}}4-{{/ifeqt}}
+				{{#ifeqt submission.grade 5}} 4{{/ifeqt}}
+				{{#ifeqt submission.grade 6}}4+{{/ifeqt}}
+				{{#ifeqt submission.grade 7}}3-{{/ifeqt}}
+				{{#ifeqt submission.grade 8}} 3{{/ifeqt}}
+				{{#ifeqt submission.grade 9}}3+{{/ifeqt}}
+				{{#ifeqt submission.grade 10}}2-{{/ifeqt}}
+				{{#ifeqt submission.grade 11}} 2{{/ifeqt}}
+				{{#ifeqt submission.grade 12}}2+{{/ifeqt}}
+				{{#ifeqt submission.grade 13}}1-{{/ifeqt}}
+				{{#ifeqt submission.grade 14}} 1{{/ifeqt}}
+				{{#ifeqt submission.grade 15}}1+{{/ifeqt}}
 				</b>
 			{{/if}}
         {{else}}
-            {{#ifvalue submission.grade value=0}}
+            {{#ifeqt submission.grade 0}}
                 <b class="grade">0 Punkte</b>
-            {{/ifvalue}}
+            {{/ifeqt}}
 			{{#if submission.grade}}
 				<b class="grade">{{submission.grade}} Punkte</b>
 			{{/if}}

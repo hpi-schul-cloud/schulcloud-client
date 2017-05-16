@@ -84,7 +84,7 @@
                     {{#if private}}
                         <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">Abgabe</a>
                     {{else}}
-                        {{#ifvalue teacherId value=currentUser._id}}
+                        {{#ifeqt teacherId currentUser._id}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">Abgaben</a>
                         {{else}}
                             <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">Abgabe</a>
@@ -92,7 +92,7 @@
                             {{#if publicSubmissions}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">Abgaben</a>
                             {{/if}}
-                        {{/ifvalue}}
+                        {{/ifeqt}}
                     {{/if}}
                 </nav>
                 <div class="tabs">
@@ -100,7 +100,7 @@
                     {{#if private}}
 {{> 'homework/submission'}}
                     {{else}}
-                        {{#ifvalue teacherId value=currentUser._id}}
+                        {{#ifeqt teacherId currentUser._id}}
 {{> 'homework/submissions'}}
                         {{else}}
 {{> 'homework/submission'}}
@@ -108,7 +108,7 @@
                             {{#if publicSubmissions}}
 {{> 'homework/submissions'}}
                             {{/if}}
-                        {{/ifvalue}}
+                        {{/ifeqt}}
                     {{/if}}
                 </div>
             </div>
