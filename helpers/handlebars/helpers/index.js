@@ -26,13 +26,6 @@ module.exports = {
             return opts.inverse(this);
         }
     },
-    ifeqt: (a, b, opts) => {
-        if (a === b) {
-            return opts.fn(this);
-        } else {
-            return opts.inverse(this);
-        }
-    },
     userHasPermission: (permission, opts) => {
         if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
             return opts.fn(this);
@@ -40,7 +33,7 @@ module.exports = {
             return opts.inverse(this);
         }
     },
-    ifvalue: (conditional, options) => { /* deprecated, not used in homework anymore, may used elsewhere? New: ifeqt*/
+    ifvalue: (conditional, options) => {
         if (options.hash.value === conditional) {
             return options.fn(this);
         } else {
