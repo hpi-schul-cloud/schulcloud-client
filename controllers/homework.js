@@ -68,7 +68,7 @@ const getCreateHandler = (service) => {
         }
 
         if (!req.body.availableDate || !req.body.dueDate) {
-            var now = new Date();
+            let now = new Date();
             if (!req.body.availableDate) {
                 req.body.availableDate = now.toISOString();
             }
@@ -162,20 +162,20 @@ const addLeadingZero = function(s) {
     return (s < 10) ? "0" + s : s;
 }
 const splitDate = function(date){
-    var realDate = new Date(new Date(date).getTime() + (new Date(date).getTimezoneOffset() * 60000));
-    var DateF = addLeadingZero(realDate.getDate()) + "." + addLeadingZero(realDate.getMonth() + 1) + "." + realDate.getFullYear();
-    var TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
+    let realDate = new Date(new Date(date).getTime() + (new Date(date).getTimezoneOffset() * 60000));
+    const DateF = addLeadingZero(realDate.getDate()) + "." + addLeadingZero(realDate.getMonth() + 1) + "." + realDate.getFullYear();
+    const TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
     return {"timestamp":realDate,"date":DateF,"time":TimeF};
 }
 const formatDateDiff = function(datediff){
-    var Days = Math.floor(datediff / 86400000);
-    var Hours = Math.floor((datediff % 86400000) / 3600000);
-    var Minutes = Math.floor(((datediff % 86400000) % 3600000) / 60000);
+    const Days = Math.floor(datediff / 86400000);
+    const Hours = Math.floor((datediff % 86400000) / 3600000);
+    const Minutes = Math.floor(((datediff % 86400000) % 3600000) / 60000);
     return {"Days":Days,"Hours":Hours,"Minutes":Minutes};
 }
 const formatremaining = function(remaining){
-    var remainingArray = formatDateDiff(remaining);
-    var dueColor="", dueString="";
+    const remainingArray = formatDateDiff(remaining);
+    let dueColor="", dueString="";
     if (remainingArray["Days"] <= 5 && remaining > 0) {
         if (remainingArray["Days"] > 1) {
             dueColor = "days";
@@ -202,12 +202,12 @@ const formatremaining = function(remaining){
 }
 // Sortierfunktionen
 const sortbyavailableDate = function(a, b) {
-    var c = new Date(a.availableDate), d = new Date(b.availableDate);
+    const c = new Date(a.availableDate), d = new Date(b.availableDate);
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
 }
 const sortbyDueDate = function(a, b) {
-    var c = new Date(a.dueDate), d = new Date(b.dueDate);
+    const c = new Date(a.dueDate), d = new Date(b.dueDate);
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
 }
@@ -215,7 +215,7 @@ const getAverageRating = function(submissions,gradeSystem){
     // Durchschnittsnote berechnen
     if (submissions.length > 0) {
         // Nur bewertete Abgaben einbeziehen 
-        var submissiongrades = submissions.filter(function(sub){return (sub.grade!=null);})
+        let submissiongrades = submissions.filter(function(sub){return (sub.grade!=null);})
         // Abgaben vorhanden?
         if(submissiongrades.length > 0){
             // Noten aus Abgabe auslesen (& in Notensystem umwandeln)
@@ -229,14 +229,14 @@ const getAverageRating = function(submissions,gradeSystem){
                 });
             }
             // Durchschnittsnote berechnen
-            var ratingsum = 0;
+            let ratingsum = 0;
             submissiongrades.forEach(function (e) {
                 ratingsum += e;
             });
-            var averagerating = (ratingsum / submissiongrades.length).toFixed(2);
+            return (ratingsum / submissiongrades.length).toFixed(2);
         }
     }   
-    return averagerating;
+    return undefined;
 }
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
@@ -261,10 +261,10 @@ router.all('/', function (req, res, next) {
             assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
 
             // Anzeigetext + Farbe für verbleibende Zeit
-            var availableDateArray = splitDate(assignment.availableDate);
-            var dueDateArray = splitDate(assignment.dueDate);
-            var remaining = (dueDateArray["timestamp"] - Date.now());
-            var remainingF = formatremaining(remaining);
+            const availableDateArray = splitDate(assignment.availableDate);
+            const dueDateArray = splitDate(assignment.dueDate);
+            const remaining = (dueDateArray["timestamp"] - Date.now());
+            const remainingF = formatremaining(remaining);
             assignment.dueColor = remainingF["colorClass"];
             if(remaining > 432000000 /* 5 days */ || remaining < 0) {
                 assignment.fromdate = availableDateArray["date"] + " (" + availableDateArray["time"] + ")";
@@ -283,7 +283,7 @@ router.all('/', function (req, res, next) {
                     let submissionlength = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
                     assignment.submissionstats = submissionlength + "/" + assignment.userIds.length;
                     assignment.submissionstatsperc = Math.round((submissionlength/assignment.userIds.length)*100);
-                    var submissioncount = (submissions.filter(function (a) {
+                    let submissioncount = (submissions.filter(function (a) {
                         return (a.gradeComment != '' || a.grade != null);
                     })).length;
 
@@ -295,7 +295,7 @@ router.all('/', function (req, res, next) {
 
                 }
                 else{ //student
-                    var submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
+                    const submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
                     if (submission != null && submission.comment != ""){ // Abgabe vorhanden?
                         assignment.dueColor = "submitted";
                     }
@@ -307,10 +307,10 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
 
-        var sortmethods = getSortmethods();
+        let sortmethods = getSortmethods();
         // Hausaufgaben sortieren
         if(req.query.sort){
-            var sorting = JSON.parse(req.query.sort);
+            const sorting = JSON.parse(req.query.sort);
             // Aktueller Sortieralgorithmus für Anzeige aufbereiten
             sortmethods = sortmethods.map(function(e){
                 if(e.functionname == sorting.fn){
@@ -348,9 +348,10 @@ router.all('/', function (req, res, next) {
                 const roles = user[0].roles.map(role => {
                     return role.name;
                 });
-                var isStudent = true;
                 if (roles.indexOf('student') == -1) {
-                    isStudent = false;
+                    const isStudent = false;
+                }else{
+                    const isStudent = true;
                 }
                 // Render Overview
                 res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
@@ -380,11 +381,11 @@ router.get('/:assignmentId', function (req, res, next) {
             }
 
             // Datum aufbereiten
-            var availableDateArray = splitDate(assignment.availableDate);
+            const availableDateArray = splitDate(assignment.availableDate);
             assignment.availableDateF = availableDateArray["date"];
             assignment.availableTimeF = availableDateArray["time"];
 
-            var dueDateArray = splitDate(assignment.dueDate);
+            const dueDateArray = splitDate(assignment.dueDate);
             assignment.dueDateF = dueDateArray["date"];
             assignment.dueTimeF = dueDateArray["time"];
 
@@ -404,9 +405,9 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 //generate select options for grades @ evaluation.hbs
                 submissions.map(function(sub){
-                    var grades = (assignment.courseId.gradeSystem)?["1+","1","1-","2+","2","2-","3+","3","3-","4+","4","4-","5+","5","5-","6"]:["15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"];
-                    var options = "";
-                    for(var i = 15; i > 0; i--){    
+                    const grades = (assignment.courseId.gradeSystem)?["1+","1","1-","2+","2","2-","3+","3","3-","4+","4","4-","5+","5","5-","6"]:["15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"];
+                    let options = "";
+                    for(let i = 15; i > 0; i--){    
                         options += ('<option value="'+i+'" '+((sub.grade == i)?"selected ":"")+'>'+grades[15-i]+'</option>');
                     }
                     sub.gradeOptions = options;
@@ -423,7 +424,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     $populate: ['userIds']
                 });
                 Promise.resolve(coursePromise).then(course => {
-                    var students = course[0].userIds;
+                    let students = course[0].userIds;
                     assignment.usercount = students.length;
                     students = students.map(student => {
                         return {
@@ -459,9 +460,10 @@ router.get('/:assignmentId', function (req, res, next) {
                                 const roles = user[0].roles.map(role => {
                                     return role.name;
                                 });
-                                var isStudent = true;
                                 if (roles.indexOf('student') == -1) {
-                                    isStudent = false;
+                                    const isStudent = false;
+                                }else{
+                                    const isStudent = true;
                                 }
                                 // Render assignment.hbs
                                 res.render('homework/assignment', Object.assign({}, assignment, {
