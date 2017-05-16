@@ -26,6 +26,16 @@ aside.nav-sidebar {
         position: relative;
     }
 
+    .sc-branding {
+        padding: 0.7rem;
+        font-size: 25px;
+        background: $colorHPIRed;
+        color: whitesmoke;
+        i {
+            margin-right: 0.8rem;
+        }
+    }
+
     nav {
         width: 100%;
         float: left;
