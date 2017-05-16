@@ -25,26 +25,26 @@
 				</td>
 				<td>
 					{{#if @root.courseId.gradeSystem}}
-						{{#ifeq submission.grade 0 }} 6{{/ifeqt}}
+						{{#ifeqt submission.grade 0}} 6{{/ifeqt}}
 						{{#if submission.grade}}
-								{{#ifeq submission.grade 1 }}5-{{/ifeqt}}
-								{{#ifeq submission.grade 2 }} 5{{/ifeqt}}
-								{{#ifeq submission.grade 3 }}5+{{/ifeqt}}
-								{{#ifeq submission.grade 4 }}4-{{/ifeqt}}
-								{{#ifeq submission.grade 5 }} 4{{/ifeqt}}
-								{{#ifeq submission.grade 6 }}4+{{/ifeqt}}
-								{{#ifeq submission.grade 7 }}3-{{/ifeqt}}
-								{{#ifeq submission.grade 8 }} 3{{/ifeqt}}
-								{{#ifeq submission.grade 9 }}3+{{/ifeqt}}
-								{{#ifeq submission.grade 10}}2-{{/ifeqt}}
-								{{#ifeq submission.grade 11}} 2{{/ifeqt}}
-								{{#ifeq submission.grade 12}}2+{{/ifeqt}}
-								{{#ifeq submission.grade 13}}1-{{/ifeqt}}
-								{{#ifeq submission.grade 14}} 1{{/ifeqt}}
-								{{#ifeq submission.grade 15}}1+{{/ifeqt}}
+								{{#ifeqt submission.grade 1}}5-{{/ifeqt}}
+								{{#ifeqt submission.grade 2}} 5{{/ifeqt}}
+								{{#ifeqt submission.grade 3}}5+{{/ifeqt}}
+								{{#ifeqt submission.grade 4}}4-{{/ifeqt}}
+								{{#ifeqt submission.grade 5}} 4{{/ifeqt}}
+								{{#ifeqt submission.grade 6}}4+{{/ifeqt}}
+								{{#ifeqt submission.grade 7}}3-{{/ifeqt}}
+								{{#ifeqt submission.grade 8}} 3{{/ifeqt}}
+								{{#ifeqt submission.grade 9}}3+{{/ifeqt}}
+								{{#ifeqt submission.grade 10}}2-{{/ifeqt}}
+								{{#ifeqt submission.grade 11}} 2{{/ifeqt}}
+								{{#ifeqt submission.grade 12}}2+{{/ifeqt}}
+								{{#ifeqt submission.grade 13}}1-{{/ifeqt}}
+								{{#ifeqt submission.grade 14}} 1{{/ifeqt}}
+								{{#ifeqt submission.grade 15}}1+{{/ifeqt}}
 						{{/if}}
 					{{else}}
-						{{#ifeq submission.grade 0}}0 Punkte{{/ifeqt}}
+						{{#ifeqt submission.grade 0}}0 Punkte{{/ifeqt}}
 						{{#if submission.grade}}{{submission.grade}} Punkte{{/if}}
 					{{/if}}
 					</td>
