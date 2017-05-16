@@ -404,8 +404,8 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 //generate select options for grades @ evaluation.hbs
                 submissions.map(function(sub){
-                    grades = (assignment.courseId.gradeSystem)?["1+","1","1-","2+","2","2-","3+","3","3-","4+","4","4-","5+","5","5-","6"]:["15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"];
-                    options = "";
+                    var grades = (assignment.courseId.gradeSystem)?["1+","1","1-","2+","2","2-","3+","3","3-","4+","4","4-","5+","5","5-","6"]:["15","14","13","12","11","10","9","8","7","6","5","4","3","2","1"];
+                    var options = "";
                     for(var i = 15; i > 0; i--){    
                         options += ('<option value="'+i+'" '+((sub.grade == i)?"selected ":"")+'>'+grades[15-i]+'</option>');
                     }
