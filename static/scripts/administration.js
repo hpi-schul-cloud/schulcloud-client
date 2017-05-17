@@ -18,7 +18,7 @@ $(document).ready(function () {
     $('.btn-edit').on('click', function (e) {
         e.preventDefault();
         var entry = $(this).attr('href');
-        $.post(entry, function (result) {
+        $.getJSON(entry, function (result) {
             populateModalForm($editModal, {
                 action: entry,
                 title: 'Bearbeiten',
