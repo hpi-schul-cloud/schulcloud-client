@@ -1,10 +1,11 @@
-$(document).ready(function() {
+$(document).ready(function () {
 
     var $modals = $('.modal');
     var $addModal = $('.add-modal');
     var $editModal = $('.edit-modal');
+    var $invitationModal = $('.invitation-modal');
 
-    $('.btn-add').on('click', function(e) {
+    $('.btn-add').on('click', function (e) {
         e.preventDefault();
         populateModalForm($addModal, {
             title: 'Hinzufügen',
@@ -14,10 +15,10 @@ $(document).ready(function() {
         $addModal.modal('show');
     });
 
-    $('.btn-edit').on('click', function(e) {
+    $('.btn-edit').on('click', function (e) {
         e.preventDefault();
         var entry = $(this).attr('href');
-        $.getJSON(entry, function(result) {
+        $.post(entry, function (result) {
             populateModalForm($editModal, {
                 action: entry,
                 title: 'Bearbeiten',
@@ -31,7 +32,33 @@ $(document).ready(function() {
         });
     });
 
-    $modals.find('.close, .btn-close').on('click', function() {
+    $('.btn-invitation-link').on('click', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "/link/",
+            data: {
+                schoolId: $invitationModal.find("input[name='schoolId']").attr("value")
+            },
+            success: function(data) {
+                populateModalForm($invitationModal, {
+                    title: 'Einladungslink generiert!',
+                    closeLabel: 'Schließen',
+                    submitLabel: 'Speichern',
+                    fields: {invitation: data.newUrl}
+                });
+                $invitationModal.find('.btn-submit').remove();
+                $invitationModal.find("input[name='invitation']").click(function () {
+                    $(this).select();
+                });
+
+                $invitationModal.modal('show');
+
+            }
+        });
+    });
+
+    $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
     });
 
