@@ -5,6 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
+const moment = require("moment");
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
 /**
@@ -62,6 +63,9 @@ router.get('/events/', function (req, res, next) {
 });
 
 router.post('/events/', function (req, res, next) {
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString();
+
    api(req).post('/calendar/', {json: req.body}).then(event => {
       res.redirect('/calendar');
    });
@@ -76,9 +80,13 @@ router.delete('/events/:eventId', function (req, res, next) {
 });
 
 router.put('/events/:eventId', function (req, res, next) {
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString();
+
     api(req).put('/calendar/' + req.params.eventId, {
         json: req.body
     }).then(_ => {
+
         res.redirect('/calendar/');
     }).catch(err => {
         next(err);
