@@ -33,6 +33,15 @@ aside.nav-sidebar {
         color: whitesmoke;
         i {
             margin-right: 0.8rem;
+            padding-left: 0.2rem;
+            @include media-breakpoint-down(md) {
+                margin-right: 0;
+            }
+        }
+        span {
+            @include media-breakpoint-down(md) {
+                display: none;
+            }
         }
     }
 
