@@ -2,9 +2,6 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 
-// secure routes
-router.use(require('../helpers/authentication').authChecker);
-
 router.post('/', function (req, res, next) {
     let target = `${req.protocol}://${req.get('host')}/register/${req.body.schoolId}`;
     api(req).post("/link/", {json: {target: target}}).then(data => {
