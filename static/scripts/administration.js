@@ -34,11 +34,12 @@ $(document).ready(function () {
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
+        let target = 'register/' + $invitationModal.find("input[name='schoolId']").attr("value");
         $.ajax({
             type: "POST",
             url: "/link/",
             data: {
-                schoolId: $invitationModal.find("input[name='schoolId']").attr("value")
+                target: target
             },
             success: function(data) {
                 populateModalForm($invitationModal, {

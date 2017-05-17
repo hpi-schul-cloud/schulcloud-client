@@ -3,8 +3,7 @@ const router = express.Router();
 const api = require('../api');
 
 router.post('/', function (req, res, next) {
-    let target = `${req.headers.origin}/register/${req.body.schoolId}`;
-    api(req).post("/link/", {json: {target: target}}).then(data => {
+    api(req).post("/link/", {json: {target: `${req.headers.origin}/${req.body.target}` }}).then(data => {
         data.newUrl = `${req.headers.origin}/link/${data._id}`;
         res.json(data);
     }).catch(err => next(err));
