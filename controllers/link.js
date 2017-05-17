@@ -3,9 +3,9 @@ const router = express.Router();
 const api = require('../api');
 
 router.post('/', function (req, res, next) {
-    let target = `${req.protocol}://${req.get('host')}/register/${req.body.schoolId}`;
+    let target = `${req.headers.origin}/register/${req.body.schoolId}`;
     api(req).post("/link/", {json: {target: target}}).then(data => {
-        data.newUrl = `${req.protocol}://${req.get('host')}/link/${data._id}`;
+        data.newUrl = `${req.headers.origin}/link/${data._id}`;
         res.json(data);
     }).catch(err => next(err));
 });
