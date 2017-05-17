@@ -42,6 +42,10 @@ aside.nav-sidebar {
             @include media-breakpoint-down(md) {
                 display: none;
             }
+
+            @include media-breakpoint-down(xs) {
+                display: inline-block;
+            }
         }
     }
 
