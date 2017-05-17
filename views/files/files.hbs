@@ -86,13 +86,16 @@
                                 onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
                                 onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
                                 <div class="openFile">
+                                    <a href="#_" class="lightbox" id="view{{this.name}}" onclick="document.getElementById('view{{this.name}}').innerHTML = ''">
+                                    </a>
                                     <div class="card-block">
                                         <div class="card-title">
                                             <div class="col-sm-3 no-padding">
                                                 <div class="file-preview"
                                                      style="background-image: url({{this.thumbnail}})"></div>
                                             </div>
-                                            <a class="title" href="/files/file?file={{this.file}}" target="_blank">
+                                            <a class="title" href="#view{{this.name}}"
+                                               onclick="document.getElementById('view{{this.name}}').innerHTML = fileViewer('{{this.type}}', '{{this.file}}') ">
                                                 {{this.name}}
                                             </a>
                                         </div>
