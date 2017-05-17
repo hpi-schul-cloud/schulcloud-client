@@ -18,6 +18,9 @@
                             <button type="submit" class="btn btn-primary btn-add">
                                 Schüler hinzufügen
                             </button>
+                            <button class="btn btn-primary btn-invitation-link">
+                                Einladungslink generieren
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -31,6 +34,12 @@
                 {{#embed "lib/components/modal-form" action="/administration/students/" method="post" class="add-modal"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-students"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-invitation"}}
                     {{/content}}
                 {{/embed}}
 
