@@ -100,4 +100,26 @@
     label {
         margin-right: 0.5rem;
     }
+    .toggle {
+        height: 2rem !important;
+        width: 7rem !important;
+        .toggle-handle {
+            width: 0.3rem !important;
+            background: whitesmoke !important;
+        }
+    }
+
+    .off {
+        background: grey !important;
+        label {
+            color: whitesmoke !important;
+            padding-left: 48px !important;
+        }
+    }
+
+    .on {
+        label {
+            padding-right: 48px !important;
+        }
+    }
 }
