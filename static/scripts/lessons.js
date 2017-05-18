@@ -2,8 +2,12 @@ $(document).ready(function() {
     var $modals = $('.modal');
     var $deleteModal = $('.delete-modal');
 
-    var reloadLesson = function() {
-        window.location.reload();
+    var reloadLesson = function(href=undefined) {
+        if(href===undefined){
+            window.location.reload();
+        }else{
+            window.location.href=href;
+        }
     };
 
     function showAJAXError(req, textStatus, errorThrown) {
@@ -28,7 +32,7 @@ $(document).ready(function() {
                 type: 'DELETE',
                 error: showAJAXError,
                 success: function(result) {
-                    reloadLesson();
+                    reloadLesson($buttonContext.attr('redirect'));
                 },
             });
         });
