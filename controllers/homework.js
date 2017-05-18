@@ -185,34 +185,26 @@ const splitDate = function(date){
     const TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
     return {"timestamp":realDate,"date":DateF,"time":TimeF};
 }
-const formatremaining = function(remaining){
-    let diff = moment.duration(remaining), dueColor="", dueString="";
+const formatremaining = function(dueDate){
+    let diff = moment.duration(dueDate - Date.now());
+    let dueColor="", dueString="";
     const Days = Math.floor(diff.asDays());
     const Hours = diff.hours();
     const Minutes = diff.minutes();
-    if (Days <= 5 && remaining > 0) {
+    if (Days <= 5 && diff.asSeconds() > 0) {
         if (Days > 1) {
             dueColor = "days";
-            dueString = "noch " + Days + " Tage";
         }
-        else if (Days == 1) {
+        else if (Days == 1 || Hours > 2) {
             dueColor = "hours";
-            dueString = "noch " + Days + " Tag " + Hours + ((Hours == 1) ? " Stunde" : " Stunden");
-        }
-        else if (Hours > 2) {
-            dueColor = "hours";
-            dueString = "noch " + Hours + " Stunden";
-        }
-        else if (Hours >= 1) {
-            dueColor = "minutes";
-            dueString = "noch " + Hours + ((Hours == 1) ? " Stunde " : " Stunden ") + Minutes + ((Minutes == 1) ? " Minute" : " Minuten");
         }
         else {
             dueColor = "minutes";
-            dueString = "noch " + Minutes + ((Minutes == 1) ? " Minute" : " Minuten");
         }
+        dueString = moment(dueDate).fromNow();
     }
-    return {"colorClass":dueColor,"str":dueString};
+    console.log(dueString,Days,Hours);
+    return {"colorClass":dueColor,"str":dueString,"diff":diff,"days":Days};
 }
 // Sortierfunktionen
 const sortbyavailableDate = function(a, b) {
@@ -277,10 +269,9 @@ router.all('/', function (req, res, next) {
             // Anzeigetext + Farbe für verbleibende Zeit
             const availableDateArray = splitDate(assignment.availableDate);
             const dueDateArray = splitDate(assignment.dueDate);
-            const remaining = (dueDateArray["timestamp"] - Date.now());
-            const remainingF = formatremaining(remaining);
+            const remainingF = formatremaining(dueDateArray["timestamp"]);
             assignment.dueColor = remainingF["colorClass"];
-            if(remaining > 432000000 /* 5 days */ || remaining < 0) {
+            if(remainingF["days"] > 5 || remainingF["diff"] < 0) {
                 assignment.fromdate = availableDateArray["date"] + " (" + availableDateArray["time"] + ")";
                 assignment.todate = dueDateArray["date"] + " (" + dueDateArray["time"] + ")";
             }else{
