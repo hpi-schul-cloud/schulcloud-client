@@ -86,22 +86,26 @@
                                 onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
                                 onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
                                 <div class="openFile">
-                                    <a href="#_" class="lightbox" id="view{{this.name}}" onclick="document.getElementById('view{{this.name}}').innerHTML = ''">
-                                    </a>
-                                    <div class="card-block">
+                                    <a href="#_" class="lightbox" id="view{{this.name}}" onclick="document.getElementById('view{{this.name}}').innerHTML = ''"></a>
+                                    <div class="card-block"
+                                         onclick="location.href='#view{{this.name}}';
+                                                 document.getElementById('view{{this.name}}').innerHTML = fileViewer('{{this.type}}', '{{this.file}}');">
                                         <div class="card-title">
                                             <div class="col-sm-3 no-padding">
                                                 <div class="file-preview"
                                                      style="background-image: url({{this.thumbnail}})"></div>
                                             </div>
-                                            <a class="title" href="#view{{this.name}}"
-                                               onclick="document.getElementById('view{{this.name}}').innerHTML = fileViewer('{{this.type}}', '{{this.file}}') ">
+                                            <a class="title">
                                                 {{this.name}}
                                             </a>
                                         </div>
                                         <div class="card-text">
-                                            <a href="/files/file?download=1&file={{this.file}}" target="_blank"><i
-                                                    class="fa fa-cloud-download"></i></a>
+
+                                            <a href="/files/file?download=1&file={{this.file}}"
+                                               target="_blank"
+                                               data-method="download">
+                                                <i class="fa fa-cloud-download"></i>
+                                            </a>
 
                                             <!--<form action="/files/file/" method="post" class="inline">
                                                 <input type="hidden" name="_method" value="delete" />
