@@ -47,6 +47,18 @@
 
             <section class="directories">
                 <div class="row">
+                    {{#if canCreateDir}}
+                        <div class="col-sm-6 col-xs-12 col-md-4">
+                            <div data-toggle="modal">
+                                <div class="card card-block folder create-directory">
+                                    <strong class="card-title-directory">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+
                     {{#each directories}}
 						<div class="col-sm-6 col-xs-12 col-md-4">
 							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
@@ -63,18 +75,6 @@
 							</div>
 						</div>
                     {{/each}}
-
-                    {{#if canCreateDir}}
-                        <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div data-toggle="modal">
-                                <div class="card card-block folder create-directory">
-                                    <strong class="card-title-directory">
-                                        <i class="fa fa-folder" aria-hidden="true"></i> Neuen Ordner erstellen ...
-                                    </strong>
-                                </div>
-                            </div>
-                        </div>
-                    {{/if}}
                 </div>
             </section>
 
