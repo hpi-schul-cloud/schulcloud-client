@@ -187,7 +187,6 @@ const splitDate = function(date){
 }
 const formatremaining = function(remaining){
     let diff = moment.duration(remaining), dueColor="", dueString="";
-    console.log(moment.duration(remaining));
     const Days = Math.floor(diff.asDays());
     const Hours = diff.hours();
     const Minutes = diff.minutes();
