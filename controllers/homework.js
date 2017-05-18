@@ -175,27 +175,25 @@ router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
 
-
-const addLeadingZero = function(s) {
-    return (s < 10) ? "0" + s : s;
-}
 const splitDate = function(date){
-    let realDate = new Date(new Date(date).getTime() + (new Date(date).getTimezoneOffset() * 60000));
-    const DateF = addLeadingZero(realDate.getDate()) + "." + addLeadingZero(realDate.getMonth() + 1) + "." + realDate.getFullYear();
-    const TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
-    return {"timestamp":realDate,"date":DateF,"time":TimeF};
+    const dateF = moment(date).format('DD.MM.YYYY');
+    const timeF = moment(date).format('HH:mm');
+    return {
+        "timestamp":moment(date).valueOf(),
+        "date":dateF,
+        "time":timeF
+    };
 }
 const formatremaining = function(dueDate){
     let diff = moment.duration(dueDate - Date.now());
-    let dueColor="", dueString="";
-    const Days = Math.floor(diff.asDays());
-    const Hours = diff.hours();
-    const Minutes = diff.minutes();
-    if (Days <= 5 && diff.asSeconds() > 0) {
-        if (Days > 1) {
+    let dueColor, dueString;
+    const days = Math.floor(diff.asDays());
+    const hours= diff.hours();
+    if (days <= 5 && diff.asSeconds() > 0) {
+        if (days > 1) {
             dueColor = "days";
         }
-        else if (Days == 1 || Hours > 2) {
+        else if (days == 1 || hours> 2) {
             dueColor = "hours";
         }
         else {
@@ -203,7 +201,12 @@ const formatremaining = function(dueDate){
         }
         dueString = moment(dueDate).fromNow();
     }
-    return {"colorClass":dueColor,"str":dueString,"diff":diff,"days":Days};
+    return {
+        "colorClass":dueColor,
+        "str":dueString,
+        "diff":diff,
+        "days":days
+    };
 }
 // Sortierfunktionen
 const sortbyavailableDate = function(a, b) {
@@ -284,21 +287,19 @@ router.all('/', function (req, res, next) {
             });
             Promise.resolve(submissionPromise).then(submissions => {
                 if(assignment.teacherId === res.locals.currentUser._id){  //teacher
-                    let submissionlength = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
-                    assignment.submissionstats = submissionlength + "/" + assignment.userIds.length;
-                    assignment.submissionstatsperc = Math.round((submissionlength/assignment.userIds.length)*100);
-                    let submissioncount = (submissions.filter(function (a) {
+                    let submissionLength = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
+                    assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
+                    assignment.submissionStatsPerc = Math.round((submissionLength/assignment.userIds.length)*100);
+                    let submissionCount = (submissions.filter(function (a) {
                         return (a.gradeComment != '' || a.grade != null);
                     })).length;
 
-                    assignment.gradedstats = submissioncount + "/" + assignment.userIds.length;                        // Anzahl der Abgaben
-                    assignment.gradedstatsperc = Math.round((submissioncount/assignment.userIds.length)*100);   // -||- in Prozent
+                    assignment.gradedStats = submissionCount + "/" + assignment.userIds.length;               // Anzahl der Abgaben
+                    assignment.gradedStatsPerc = Math.round((submissionCount/assignment.userIds.length)*100); // -||- in Prozent
 
-                    assignment.submissionscount = submissionlength;
-                    assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
+                    assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
-                }
-                else{ //student
+                }else{ //student
                     const submission = submissions.filter(function (n) {return n.studentId._id == res.locals.currentUser._id;})[0];  // Abgabe des Schuelers heraussuchen
                     if (submission != null && submission.comment != ""){ // Abgabe vorhanden?
                         assignment.dueColor = "submitted";
@@ -403,8 +404,8 @@ router.get('/:assignmentId', function (req, res, next) {
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
-                assignment.submissionscount = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
-                assignment.averagerating = getAverageRating(submissions, assignment.courseId.gradeSystem);
+                assignment.submissionsCount = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
+                assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
                 //generate select options for grades @ evaluation.hbs
                 submissions.map(function(sub){
@@ -428,7 +429,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
                 Promise.resolve(coursePromise).then(course => {
                     var students = course[0].userIds;
-                    assignment.usercount = students.length;
+                    assignment.userCount = students.length;
                     students = students.map(student => {
                         return {
                             student: student,
