@@ -19,6 +19,32 @@ $(document).ready(function () {
         }
     }
 
+    /**
+     * transform a event modal-form for course events
+     * @param modal {DOM-Element} - the given modal which will be transformed
+     * @param event {object} - a event, maybe a course-event
+     */
+    function transformCourseEvent(modal, event) {
+        var courseId = event["x-sc-courseId"];
+        if (courseId) {
+            $.getJSON("/courses/" + courseId + "/json", function (course) {
+                var $title = modal.find(".modal-title");
+                $title.html($title.html() + " , Kurs: " + course.course.name);
+
+                // if not teacher, not allow editing course events
+                if($('.create-course-event').length <= 0) {
+                    modal.find(".modal-form :input").attr("disabled", true);
+                }
+
+                // set fix course on editing
+                modal.find("input[name='scopeId']").attr("value", event["x-sc-courseId"]);
+                modal.find(".modal-form").append("<input name='courseId' value='" + courseId +"' type='hidden'>");
+                modal.find(".create-course-event").remove();
+
+            });
+        }
+    }
+
     $calendar.fullCalendar({
         defaultView: view || 'month',
         editable: false,
@@ -50,6 +76,8 @@ $(document).ready(function () {
                     fields: event,
                     action: '/calendar/events/' + event.attributes.uid
                 });
+
+                transformCourseEvent($editEventModal, event);
 
                 $editEventModal.find('.btn-delete').click(e => {
                     $.ajax({
@@ -111,12 +139,27 @@ $(document).ready(function () {
 
     $("input[name='isCourseEvent']").change(function(e) {
         var isChecked = $(this).is(":checked");
+        var $collapse = $("#" + $(this).attr("data-collapseRef"));
+        var $selection = $collapse.find('.course-selection');
+        $selection.find('option')
+            .remove()
+            .end();
+
         if (isChecked) {
             // fetch all courses for teacher and show selection
-            $('.collapse').collapse('show');
+            $.getJSON('/courses?json=true', function(courses) {
+                $collapse.collapse('show');
+                courses.forEach(function (course) {
+                    var option = document.createElement("option");
+                    option.text = course.name;
+                    option.value = course._id;
+                    $selection.append(option);
+                });
+                $selection.chosen().trigger("chosen:updated");
+
+            });
         } else {
-            // clear course-selection
-            $('.collapse').collapse('hide');
+            $collapse.collapse('hide');
         }
     });
 

@@ -28,12 +28,12 @@
     <div class="checkbox disabled">
         <label>
             Für Kurs anlegen?
-            <input name="isCourseEvent" type="checkbox" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            <input name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseId}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
         </label>
     </div>
-    <div id="collapse" class="panel-collapse collapse">
+    <div id="collapse{{../collapseId}}" class="panel-collapse collapse">
         <div class="form-group">
-            <select class="course-selection form-control" name="courseId" required="required">
+            <select class="course-selection form-control" name="courseId">
                 <option value="" selected hidden>Wähle einen Kurs...</option>
             </select>
         </div>
