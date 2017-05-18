@@ -26,6 +26,9 @@ For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-clo
 
 ## Testing
 
+**Information**: Please make sure that all your changes works on [Chrome](https://www.google.de/chrome/browser/desktop/index.html) , [Firefox](https://www.mozilla.org/de/firefox/new/) and [Safari](https://www.apple.com/de/safari/)!
+For html/css components please check [caniuse](https://caniuse.com/).
+
 1. Set the password for the demo user `schueler@schul-cloud.org`
     Ubuntu/Mac: `export SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
     Windows: `set SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)

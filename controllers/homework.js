@@ -8,6 +8,7 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
+const moment = require("moment");
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -67,6 +68,16 @@ const getCreateHandler = (service) => {
             req.body.courseId = null;
         }
 
+        if(req.body.dueDate) {
+            // rewrite german format to ISO
+            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+        }
+
+        if(req.body.availableDate) {
+            // rewrite german format to ISO
+            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+        }
+
         if (!req.body.availableDate || !req.body.dueDate) {
             var now = new Date();
             var dd = (now.getDate() < 10) ? "0" + now.getDate() : now.getDate();
@@ -106,6 +117,11 @@ const getUpdateHandler = (service) => {
         if (!req.body.publicSubmissions) {
             req.body.publicSubmissions = false;
         }
+
+        // rewrite german format to ISO
+        req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+        req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
@@ -122,6 +138,8 @@ const getDetailHandler = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
             data => {
+                data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
+                data.dueDate = moment(data.dueDate).format('DD.MM.YYYY HH:mm');
                 res.json(data);
             }).catch(err => {
             next(err);
@@ -338,7 +356,7 @@ router.all('/', function (req, res, next) {
                 assignments.sort(sortbyavailableDate);
             }else if(sorting.fn == "dueDate"){
                 assignments.sort(sortbyDueDate);
-            }            
+            }
             if(sorting.desc){
                 assignments.reverse();
             }

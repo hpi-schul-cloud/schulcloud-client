@@ -1,71 +1,76 @@
-﻿{{#extend "homework/homework"}}
-    {{#content "scripts" mode="append"}}
-        <script type="text/javascript">
-        $(document).ready(function(){
-            $('.userinfo').click(function(){
-                $(this).parent('.usersubmission.active').addClass('clicked');
-                $('.usersubmission.active').removeClass('active');
-                $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
-                $('.usersubmission.clicked').removeClass('clicked');
+﻿{{#content "scripts" mode="append"}}
+    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script type="text/javascript">
+        window.addEventListener('DOMContentLoaded', function() {
+            $(document).ready(function () {
+                $('.userinfo').click(function () {
+                    $(this).parent('.usersubmission.active').addClass('clicked');
+                    $('.usersubmission.active').removeClass('active');
+                    $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
+                    $('.usersubmission.clicked').removeClass('clicked');
 
-                $('.usersubmission td:last-of-type i').removeClass('fa-times').addClass('fa-pencil-square-o');
-                $('.usersubmission.active td:last-of-type i').removeClass('fa-pencil-square-o').addClass('fa-times');
+                    $('.usersubmission td:last-of-type i').removeClass('fa-times').addClass('fa-pencil-square-o');
+                    $('.usersubmission.active td:last-of-type i').removeClass('fa-pencil-square-o').addClass('fa-times');
+                });
+
+                // change tab
+                $('.tab-view>.tab-links>.tab-link').click(function (e) {
+                    var range = $(this).closest(".tab-view");
+                    range.find('>.tab-links .tab-link.active').removeClass('active');
+                    $(this).addClass('active');
+                    range.find('>.tabs>.tab-content.active').removeClass('active');
+                    range.find(">.tabs" + ">#" + this.id.replace("-tab-link", "") + ".tab-content").addClass('active');
+                });
+
+
+                //set initial tab-view by URL-Parameter
+                function getParameterByName(name) {
+                    return decodeURIComponent(window.location.hash.replace("#activetabid=", ""));
+                }
+
+                if (getParameterByName('activetabid')) {
+                    var id = getParameterByName('activetabid')
+                    var range = $('#' + id).closest(".tab-view");
+                    range.find('>.tab-links .tab-link.active').removeClass('active');
+                    range.find('>.tabs>.tab-content.active').removeClass('active');
+
+                    range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
+                    $('#' + id).addClass('active');
+                }
             });
-
-            // change tab
-            $('.tab-view>.tab-links>.tab-link').click(function(e){
-                var range = $(this).closest(".tab-view");
-                range.find('>.tab-links .tab-link.active').removeClass('active');
-                $(this).addClass('active');
-                range.find('>.tabs>.tab-content.active').removeClass('active');
-                range.find(">.tabs"+">#"+this.id.replace("-tab-link","")+".tab-content").addClass('active');
-            });
-            
-            
-            //set initial tab-view by URL-Parameter
-            function getParameterByName(name) {
-                return decodeURIComponent(window.location.hash.replace("#activetabid=",""));
-            }
-
-            if(getParameterByName('activetabid')){
-                var id = getParameterByName('activetabid')
-                var range = $('#'+id).closest(".tab-view");
-                range.find('>.tab-links .tab-link.active').removeClass('active');
-                range.find('>.tabs>.tab-content.active').removeClass('active');
-                
-                range.find(">.tab-links"+">#"+id+"-tab-link").addClass('active');
-                $('#'+id).addClass('active');
-            }
         });
-        </script>
-        <script src="/vendor/ckeditor/ckeditor.js"></script>
-        <script>
-            CKEDITOR.replaceAll(function(textarea, config){
+    </script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
                 config.toolbarGroups = [
-                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                    { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                    { name: 'links', groups: [ 'links' ] },
-                    { name: 'insert', groups: [ 'insert' ] },
-                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                    { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                    { name: 'forms', groups: [ 'forms' ] },
-                    { name: 'tools', groups: [ 'tools' ] },
-                    { name: 'others', groups: [ 'others' ] },
-                    { name: 'styles', groups: [ 'styles' ] },
-                    { name: 'colors', groups: [ 'colors' ] },
-                    { name: 'about', groups: [ 'about' ] }
+                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+                    {name: 'links', groups: ['links']},
+                    {name: 'insert', groups: ['insert']},
+                    {name: 'document', groups: ['mode', 'document', 'doctools']},
+                    {name: 'clipboard', groups: ['clipboard', 'undo']},
+                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+                    {name: 'forms', groups: ['forms']},
+                    {name: 'tools', groups: ['tools']},
+                    {name: 'others', groups: ['others']},
+                    {name: 'styles', groups: ['styles']},
+                    {name: 'colors', groups: ['colors']},
+                    {name: 'about', groups: ['about']}
                 ];
                 config.removeButtons = 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About';
             });
-        </script>
-    {{/content}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/homework/assignment.css"/>
-        <link rel="stylesheet" href="/styles/homework/submissions.css"/>
-        <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
-    {{/content}}
+        });
+    </script>
+{{/content}}
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/homework/assignment.css"/>
+    <link rel="stylesheet" href="/styles/homework/submissions.css"/>
+    <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
+{{/content}}
+
+{{#extend "homework/homework"}}
     {{#content "page"}}
 
         <section class="section-homework">

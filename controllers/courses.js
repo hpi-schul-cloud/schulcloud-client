@@ -107,14 +107,15 @@ const editCourseHandler = (req, res, next) => {
         (course.times || []).forEach((time, count) => {
             time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             time.duration = time.duration / 1000 / 60;
-            time.startTime = moment(time.startTime, "x").format("HH:mm");
+            const duration = moment.duration(time.startTime);
+            time.startTime = ("00" + duration.hours()).slice(-2) + ':' + ("00" + duration.minutes()).slice(-2);
             time.count = count;
         });
 
         // format course start end until date
         if (course.startDate) {
-            course.startDate = moment(new Date(course.startDate).getTime()).format("YYYY-MM-DD");
-            course.untilDate = moment(new Date(course.untilDate).getTime()).format("YYYY-MM-DD");
+            course.startDate = moment(new Date(course.startDate).getTime()).format("DD.MM.YYYY");
+            course.untilDate = moment(new Date(course.untilDate).getTime()).format("DD.MM.YYYY");
         }
 
         // preselect current teacher when creating new course
@@ -178,6 +179,9 @@ router.post('/', function (req, res, next) {
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
+
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
 
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
@@ -255,10 +259,13 @@ router.patch('/:courseId', function (req, res, next) {
     req.body.times = req.body.times || [];
     req.body.times.forEach(time => {
         time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
-        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.startTime = moment.duration(time.startTime).asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
-    
+
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+
     // first delete all old events for the course
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
         api(req).patch('/courses/' + req.params.courseId, {
@@ -267,7 +274,7 @@ router.patch('/:courseId', function (req, res, next) {
             createEventsForCourse(req, res, course).then(_ => {
                 res.redirect('/courses/' + req.params.courseId);
             });
-        })
+        });
     }).catch(error => {
         res.sendStatus(500);
     });

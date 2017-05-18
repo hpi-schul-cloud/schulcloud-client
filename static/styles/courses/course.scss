@@ -30,6 +30,24 @@
         cursor: pointer;
     }
 
+    .card-topic {
+        cursor: pointer;
+        .btn-hidden-toggle {
+        }
+        .topic-label {
+            margin-bottom: 0;
+            line-height: 35px;
+        }
+        .input-group-btn {
+            padding-right: 100px;
+            float: right;
+        }
+    }
+
+    .topic {
+        margin-top: 10px;
+    }
+
     .content-block {
         margin-bottom: 50px;
 

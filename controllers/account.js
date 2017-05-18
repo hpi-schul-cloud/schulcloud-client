@@ -31,7 +31,34 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    res.render('account/settings', {title: 'Dein Account'});
+    api(req).get('/notification/devices')
+        .then(device => {
+            device.map(d => {
+               if (d.token === req.cookies.deviceToken) {
+                   Object.assign(d, {selected: true});
+               }
+               return d;
+            });
+            res.render('account/settings', {
+                title: 'Dein Account',
+                device,
+                userId: res.locals.currentUser._id});
+        }).catch(err => {
+        res.render('account/settings', {
+            title: 'Dein Account',
+            userId: res.locals.currentUser._id});
+    });
+});
+
+// delete file
+router.delete('/settings/device', function (req, res, next) {
+    const {name, _id = ''} = req.body;
+
+    api(req).delete('/notification/devices/' + _id).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
+    });
 });
 
 module.exports = router;
