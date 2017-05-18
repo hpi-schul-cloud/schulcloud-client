@@ -22,21 +22,31 @@
       margin-left: 7px;
     }
   }
-
+  .tab-links{
+    border-bottom: 1px solid lightgrey;
+  }
   .tab-link {
     color: #000;
     display: inline-block;
-    padding: 5px 10px 0;
-    margin-bottom: 15px;
-    border-bottom: 1px solid grey;
     text-decoration: none;
+    padding: 5px 10px 0;
+    margin-top: 1.5rem;
+    margin-bottom: -2px;
+    border-bottom: 2px solid transparent;
     &.active {
       font-weight: 700;
       color: $colorHPIRed !important;
-      border-bottom-color: $colorHPIRed;
+      border: 2px solid $colorHPIRed;;
+      border-top-left-radius:5px;
+      border-top-right-radius:5px;
+      border-bottom:2px solid #fff;
+    }
+    @include media-breakpoint-up(sm) {
+      font-size: 1.2rem;
     }
   }
   .tab-content {
+    padding-top: .5rem;
     display: none;
     width: 100%;
     clear:both;
