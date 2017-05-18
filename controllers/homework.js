@@ -203,7 +203,6 @@ const formatremaining = function(dueDate){
         }
         dueString = moment(dueDate).fromNow();
     }
-    console.log(dueString,Days,Hours);
     return {"colorClass":dueColor,"str":dueString,"diff":diff,"days":Days};
 }
 // Sortierfunktionen
