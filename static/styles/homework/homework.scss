@@ -118,6 +118,7 @@
         margin: 10px 0;
         min-height: 75px;
         color: grey;
+        word-break: break-all;
         @include media-breakpoint-down(xs) {
           margin-right: 25px;
         }
