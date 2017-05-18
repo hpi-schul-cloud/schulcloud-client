@@ -185,35 +185,32 @@ const splitDate = function(date){
     const TimeF = addLeadingZero(realDate.getHours()) + ":" + addLeadingZero(realDate.getMinutes());
     return {"timestamp":realDate,"date":DateF,"time":TimeF};
 }
-const formatDateDiff = function(datediff){
-    const Days = Math.floor(datediff / 86400000);
-    const Hours = Math.floor((datediff % 86400000) / 3600000);
-    const Minutes = Math.floor(((datediff % 86400000) % 3600000) / 60000);
-    return {"Days":Days,"Hours":Hours,"Minutes":Minutes};
-}
 const formatremaining = function(remaining){
-    const remainingArray = formatDateDiff(remaining);
-    let dueColor="", dueString="";
-    if (remainingArray["Days"] <= 5 && remaining > 0) {
-        if (remainingArray["Days"] > 1) {
+    let diff = moment.duration(remaining), dueColor="", dueString="";
+    console.log(moment.duration(remaining));
+    const Days = Math.floor(diff.asDays());
+    const Hours = diff.hours();
+    const Minutes = diff.minutes();
+    if (Days <= 5 && remaining > 0) {
+        if (Days > 1) {
             dueColor = "days";
-            dueString = "noch " + remainingArray["Days"] + " Tage";
+            dueString = "noch " + Days + " Tage";
         }
-        else if (remainingArray["Days"] == 1) {
+        else if (Days == 1) {
             dueColor = "hours";
-            dueString = "noch " + remainingArray["Days"] + " Tag " + remainingArray["Hours"] + ((remainingArray["Hours"] == 1) ? " Stunde" : " Stunden");
+            dueString = "noch " + Days + " Tag " + Hours + ((Hours == 1) ? " Stunde" : " Stunden");
         }
-        else if (remainingArray["Hours"] > 2) {
+        else if (Hours > 2) {
             dueColor = "hours";
-            dueString = "noch " + remainingArray["Hours"] + " Stunden";
+            dueString = "noch " + Hours + " Stunden";
         }
-        else if (remainingArray["Hours"] >= 1) {
+        else if (Hours >= 1) {
             dueColor = "minutes";
-            dueString = "noch " + remainingArray["Hours"] + ((remainingArray["Hours"] == 1) ? " Stunde " : " Stunden ") + remainingArray["Minutes"] + ((remainingArray["Minutes"] == 1) ? " Minute" : " Minuten");
+            dueString = "noch " + Hours + ((Hours == 1) ? " Stunde " : " Stunden ") + Minutes + ((Minutes == 1) ? " Minute" : " Minuten");
         }
         else {
             dueColor = "minutes";
-            dueString = "noch " + remainingArray["Minutes"] + ((remainingArray["Minutes"] == 1) ? " Minute" : " Minuten");
+            dueString = "noch " + Minutes + ((Minutes == 1) ? " Minute" : " Minuten");
         }
     }
     return {"colorClass":dueColor,"str":dueString};
