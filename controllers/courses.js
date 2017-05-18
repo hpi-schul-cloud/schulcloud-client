@@ -180,6 +180,9 @@ router.post('/', function (req, res, next) {
         time.duration = time.duration * 60 * 1000;
     });
 
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
