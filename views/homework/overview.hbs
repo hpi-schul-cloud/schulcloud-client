@@ -88,7 +88,7 @@
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
                             <li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-                                <a class="content" href="{{this.url}}">  
+                                <a class="content" href="{{this.url}}"> 
                                     <div class="dates">
                                         {{#if this.dueString}}
                                             <span class="{{this.dueColor}}">{{this.dueString}}</span>
@@ -97,34 +97,38 @@
                                             bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
                                         {{/if}}
                                     </div>   
-
-                                    {{#if this.submissionstats}}
-                                    <div class="state">
-                                        <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
-                                            data="{{this.submissionstatsperc}}"
-                                            {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
-                                            width="80" height="80">
-                                        </circular-progress>
-                                        <div class="textinfo">
-                                            <span>Abgegeben: {{this.submissionstats}}</span><br/>
-                                            {{#if this.gradedstats}}
-                                                <span>Bewertet: {{this.gradedstats}}</span><br/>
-                                            {{else}}
-                                                <span>Bewertet: -</span><br/>
-                                            {{/if}}
-                                            <span>{{#if this.averagerating}}
-                                                {{#if this.courseId.gradeSystem}}
-                                                    Ø: {{this.averagerating}} 
+                                </a>
+                                {{#if this.submissionstats}}
+                                    <a class="content" href="{{this.url}}#activetabid=submissions"> 
+                                        <div class="state">
+                                            <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
+                                                data="{{this.submissionstatsperc}}"
+                                                {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
+                                                width="80" height="80">
+                                            </circular-progress>
+                                            <div class="textinfo">
+                                                <span>Abgegeben: {{this.submissionstats}}</span><br/>
+                                                {{#if this.gradedstats}}
+                                                    <span>Bewertet: {{this.gradedstats}}</span><br/>
                                                 {{else}}
-                                                    Ø: {{this.averagerating}} Punkte
+                                                    <span>Bewertet: -</span><br/>
                                                 {{/if}}
-                                                {{else}}
-                                                    Ø: - 
-                                            {{/if}}</span>
+                                                <span>
+                                                    {{#if this.averagerating}}
+                                                        {{#if this.courseId.gradeSystem}}
+                                                            Ø: {{this.averagerating}} 
+                                                        {{else}}
+                                                            Ø: {{this.averagerating}} Punkte
+                                                        {{/if}}
+                                                    {{else}}
+                                                        Ø: - 
+                                                    {{/if}}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{/if}}
-
+                                    </a>
+                                {{/if}}
+                                <a class="content" href="{{this.url}}"> 
                                     <h5 class="title">
                                         {{#if this.courseId}}
                                             <span>{{this.courseId.name}}</span>
