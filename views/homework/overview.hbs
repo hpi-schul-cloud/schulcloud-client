@@ -1,11 +1,13 @@
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/homework/homework.css"/>
+    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
 {{/content}}
 {{#content "scripts" mode="append"}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
     <script src="/scripts/lessons.js" type="text/javascript" defer></script>
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replace($('.add-modal').find("textarea")[0], {
@@ -44,6 +46,13 @@
                 ],
                 removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
             });
+
+            $.datetimepicker.setLocale('de');
+            $('input[data-datetime]').datetimepicker({
+                format:'d.m.Y H:i',
+                mask: '39.19.9999 29:59'
+            });
+
         });
     </script>
 {{/content}}

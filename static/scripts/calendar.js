@@ -22,6 +22,7 @@ $(document).ready(function () {
     $calendar.fullCalendar({
         defaultView: view || 'month',
         editable: false,
+        timezone: 'local',
         events: function (start, end, timezone, callback) {
             $.getJSON('/calendar/events/',
                 function (events) {
@@ -39,10 +40,8 @@ $(document).ready(function () {
                 return false;
             } else {
                 // personal event
-
-                // moment escapes 'T' to PM or AM
-                event.startDate = event.start.format("YYYY-MM-DD") + 'T' + event.start.format("hh:mm");
-                event.endDate = (event.end || event.start).format("YYYY-MM-DD") + 'T' + (event.end || event.start).add(1, 'hour').format("hh:mm");
+                event.startDate = event.start.format("DD.MM.YYYY HH:mm");
+                event.endDate = (event.end || event.start).format("DD.MM.YYYY HH:mm");
 
                 populateModalForm($editEventModal, {
                     title: 'Termin - Details',
@@ -67,9 +66,9 @@ $(document).ready(function () {
         },
         dayClick: function(date, jsEvent, view) {
 
-            // open create event modal, moment escapes 'T' to PM or AM
-            var _startDate = date.format("YYYY-MM-DD") + 'T' + date.add(9, 'hour').format("hh:mm");
-            var _endDate = date.format("YYYY-MM-DD") + 'T' + date.add(1, 'hour').format("hh:mm");
+            // open create event modal
+            var _startDate = date.format("DD.MM.YYYY HH:mm");
+            var _endDate = date.add(1, 'hour').format("DD.MM.YYYY HH:mm");
 
             populateModalForm($createEventModal, {
                 title: 'Termin hinzufügen',
@@ -102,4 +101,12 @@ $(document).ready(function () {
     $('.fc-button-group')
         .removeClass()
         .addClass('btn-group btn-group-sm');
+
+
+    $.datetimepicker.setLocale('de');
+    $('input[data-datetime]').datetimepicker({
+        format:'d.m.Y H:i',
+        mask: '39.19.9999 29:59'
+    });
+
 });

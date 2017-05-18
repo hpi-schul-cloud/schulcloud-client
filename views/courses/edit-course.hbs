@@ -2,10 +2,17 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
         <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/courses.js" type="text/javascript"></script>
     {{/content}}
 
     {{#content "page"}}
@@ -120,12 +127,12 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label>Von</label>
-                                        <input name="startDate" id="startDate" type="date" class="form-control" value="{{course.startDate}}"/>
+                                        <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}"/>
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label>Bis</label>
-                                        <input name="untilDate" id="untilDate" type="date" class="form-control" value="{{course.untilDate}}"/>
+                                        <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}"/>
                                     </div>
                                 </div>
 
@@ -153,7 +160,7 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control new-start-time" type="time"/>
+                                            <input class="form-control new-start-time" data-time type="text"/>
                                         </td>
                                         <td>
                                             <input class="form-control new-duration" type="number"
@@ -170,7 +177,7 @@
                                             <td class="form-group disabled"><input class="form-control"
                                                                                    name="times[{{this.count}}][startTime]"
                                                                                    value="{{this.startTime}}"
-                                                                                   type="time"></td>
+                                                                                   type="text" data-time></td>
                                             <td class="form-group disabled"><input class="form-control"
                                                                                    name="times[{{this.count}}][duration]"
                                                                                    value="{{this.duration}}"
