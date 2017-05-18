@@ -23,3 +23,21 @@
     <label class="control-label" for="location">Ort</label>
     <input class="form-control" name="location" placeholder="z.B. Turnhalle">
 </div>
+{{#userHasPermission "COURSE_EDIT"}}
+<div class="form-group create-course-event">
+    <div class="checkbox disabled">
+        <label>
+            Für Kurs anlegen?
+            <input name="isCourseEvent" type="checkbox" data-toggle="toggle">
+        </label>
+    </div>
+    <div id="collapse" class="panel-collapse collapse">
+        <div class="form-group">
+            <label for="courseId">Wählen Sie einen Kurs</label>
+            <select class="course-selection form-control" name="courseId" required="required">
+                <option value="" selected hidden>Wähle...</option>
+            </select>
+        </div>
+    </div>
+</div>
+{{/userHasPermission}}

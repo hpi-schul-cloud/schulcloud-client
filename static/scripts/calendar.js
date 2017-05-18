@@ -109,4 +109,15 @@ $(document).ready(function () {
         mask: '39.19.9999 29:59'
     });
 
+    $("input[name='isCourseEvent']").change(function(e) {
+        var isChecked = $(this).is(":checked");
+        if (isChecked) {
+            // fetch all courses for teacher and show selection
+            $('.collapse').collapse('show');
+        } else {
+            // clear course-selection
+            $('.collapse').collapse('hide');
+        }
+    });
+
 });
