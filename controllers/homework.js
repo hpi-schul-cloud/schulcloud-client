@@ -338,28 +338,28 @@ router.all('/', function (req, res, next) {
         assignments = assignments.filter(function (n) {
             return n != undefined;
         });
-
+        let desc = false;
         var sortmethods = getSortmethods();
         if(req.query.sort){
-            var sorting = JSON.parse(req.query.sort);
+            var sorting = req.query.sort;
             // Hausaufgaben nach Abgabedatum sortieren
             sortmethods = sortmethods.map(function(e){
-                if(e.functionname == sorting.fn){
+                if(e.functionname == sorting){
                     e.active = 'selected';
-                    e.desc = sorting.desc;
                 }else{
                     delete e['active'];
                 }
                 return e;
             });
-            if(sorting.fn == "availableDate"){
+            if(sorting == "availableDate"){
                 assignments.sort(sortbyavailableDate);
-            }else if(sorting.fn == "dueDate"){
+            }else if(sorting == "dueDate"){
                 assignments.sort(sortbyDueDate);
             }
-            if(sorting.desc){
-                assignments.reverse();
-            }
+        }
+        if(req.query.desc && req.query.desc == "true"){
+            assignments.reverse();
+            desc = true;
         }
         function sortbyavailableDate(a, b) {
             var c = new Date((new Date(a.availableDate)).getTime() + ((new Date(a.availableDate)).getTimezoneOffset()*60000));
@@ -395,7 +395,7 @@ router.all('/', function (req, res, next) {
                     isStudent = false;
                 }
                 //Pagination in client, because filters are in afterhook
-                const itemsPerPage = 1;
+                const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
                 pagination = {
                     currentPage,
@@ -404,7 +404,7 @@ router.all('/', function (req, res, next) {
                 };
                 const end = currentPage * itemsPerPage;
                 assignments = assignments.slice(end - itemsPerPage, end);
-                res.render('homework/overview', {title: 'Meine Aufgaben', pagination, assignments, courses, isStudent, sortmethods});
+                res.render('homework/overview', {title: 'Meine Aufgaben', pagination, assignments, courses, isStudent, sortmethods, desc});
             });
         });
 

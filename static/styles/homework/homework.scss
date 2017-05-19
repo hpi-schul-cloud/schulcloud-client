@@ -6,7 +6,22 @@
   .sort{
     float: left;
     margin: 10px 0 0;
-    min-width: 200px;
+    display: flex;
+    #sortselection_chosen{
+      min-width: 200px;
+      width: calc(100% - 30px) !important;
+      float: left;
+    }
+    #desc{
+      width: 30px;
+      padding: 0;
+      text-align:center;
+      border: none;
+      margin: 0;
+      background-color: white;
+      cursor: pointer;
+      cursor: hand;
+    }
   }
   .create {
     float: right;

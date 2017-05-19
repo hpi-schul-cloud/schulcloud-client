@@ -68,19 +68,17 @@
                     <select name="sort" id="sortselection" data-placeholder="Sortieren">
                         {{#each sortmethods}}
                             {{#if this.active}}
-                                {{#if this.desc}}
-                                    <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
-                                    <option value='{"fn":"{{this.functionname}}","desc":true }' selected="selected">{{this.title}} ▼</option>
-                                {{else}}
-                                    <option value='{"fn":"{{this.functionname}}","desc":false }' selected="selected">{{this.title}} ▲</option>
-                                    <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
-                                {{/if}}
+                                <option value='{{this.functionname}}' selected="selected">{{this.title}}</option>
                             {{else}}
-                                <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
-                                <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
+                                <option value='{{this.functionname}}'>{{this.title}}</option>
                             {{/if}}
                         {{/each}}
                     </select>
+                    {{#if this.desc}}
+                        <button id="desc" type="submit" name="desc" value="false">▲</button>
+                    {{else}}
+                        <button id="desc" type="submit" name="desc" value="true">▼</button>
+                    {{/if}}
                 </div>
 
 
