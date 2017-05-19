@@ -9,6 +9,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
+moment.locale('de')
 
 router.use(authHelper.authChecker);
 

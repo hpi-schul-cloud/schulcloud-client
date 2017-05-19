@@ -7,6 +7,7 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const moment = require("moment");
+moment.locale('de')
 
 // secure routes
 router.use(authHelper.authChecker);
