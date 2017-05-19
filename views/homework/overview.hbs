@@ -98,25 +98,25 @@
                                         {{/if}}
                                     </div>   
 
-                                    {{#if this.submissionstats}}
+                                    {{#if this.submissionStats}}
                                     <div class="state">
                                         <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
-                                            data="{{this.submissionstatsperc}}"
-                                            {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
+                                            data="{{this.submissionStatsPerc}}"
+                                            {{#if this.gradedStats}}secdata="{{this.gradedStatsPerc}}" {{/if}}
                                             width="80" height="80">
                                         </circular-progress>
                                         <div class="textinfo">
-                                            <span>Abgegeben: {{this.submissionstats}}</span><br/>
-                                            {{#if this.gradedstats}}
-                                                <span>Bewertet: {{this.gradedstats}}</span><br/>
+                                            <span>Abgegeben: {{this.submissionStats}}</span><br/>
+                                            {{#if this.gradedStats}}
+                                                <span>Bewertet: {{this.gradedStats}}</span><br/>
                                             {{else}}
                                                 <span>Bewertet: -</span><br/>
                                             {{/if}}
-                                            <span>{{#if this.averagerating}}
+                                            <span>{{#if this.averageRating}}
                                                 {{#if this.courseId.gradeSystem}}
-                                                    Ø: {{this.averagerating}} 
+                                                    Ø: {{this.averageRating}} 
                                                 {{else}}
-                                                    Ø: {{this.averagerating}} Punkte
+                                                    Ø: {{this.averageRating}} Punkte
                                                 {{/if}}
                                                 {{else}}
                                                     Ø: - 
@@ -168,7 +168,7 @@
                         {{> "homework/form-assignment"}}
                     {{/content}}
                 {{/embed}}
-                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/" }}
+                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/"}}
                     {{#content "fields"}}
                         {{> "homework/form-assignment"}}
                     {{/content}}
