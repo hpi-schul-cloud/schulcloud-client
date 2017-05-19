@@ -141,5 +141,53 @@ $(document).ready(function () {
             }, !1)
         }
     })(document, window.navigator, "standalone");
+    
+    
+    // delete modals
+    var $modals = $('.modal');
+    var $deleteModal = $('.delete-modal');
 
+    const nextPage = function(href=null) {
+        if(href==null){
+            window.location.reload();
+        }else{
+            window.location.href = href;
+        }
+    };
+
+    function showAJAXError(req, textStatus, errorThrown) {
+        $deleteModal.modal('hide');
+        if(textStatus==="timeout") {
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+        } else {
+            $.showNotification(errorThrown, "danger");
+        }
+    }
+
+    $('a[data-method="delete-material"]').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $buttonContext = $(this);
+
+        $deleteModal.modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
+            $.ajax({
+                url: $buttonContext.attr('href'),
+                type: 'DELETE',
+                error: showAJAXError,
+                success: function(result) {
+                    nextPage($buttonContext.attr('redirect'));
+                },
+            });
+        });
+    });
+
+    $deleteModal.find('.close, .btn-close').on('click', function() {
+        $deleteModal.modal('hide');
+    });
+
+    $modals.find('.close, .btn-close').on('click', function() {
+        $modals.modal('hide');
+    });
 });
