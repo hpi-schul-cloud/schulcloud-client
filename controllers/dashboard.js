@@ -14,6 +14,9 @@ router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
     api(req).get('/news/', {
+        query: {
+            schoolId: res.locals.currentSchool
+        }
     }).then(news => {
         news = news.data.map(news => {
             news.url = '/news/' + news._id;

@@ -27,7 +27,11 @@ const getDetailHandler = (service) => {
 router.get('/:id/json', getDetailHandler('news'));
 
 router.all('/', function (req, res, next) {
+    console.log(res.locals.currentSchool);
     api(req).get('/news/', {
+        query: {
+            schoolId: res.locals.currentSchool
+        }
     }).then(news => {
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
