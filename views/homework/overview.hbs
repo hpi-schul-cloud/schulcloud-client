@@ -166,6 +166,9 @@
                             </p>
                         {{/each}}
                     </div></div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
                 </ol>
                 {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
                     {{#content "fields"}}

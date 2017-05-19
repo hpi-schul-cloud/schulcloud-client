@@ -394,7 +394,17 @@ router.all('/', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
-                res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
+                //Pagination in client, because filters are in afterhook
+                const itemsPerPage = 1;
+                const currentPage = parseInt(req.query.p) || 1;
+                pagination = {
+                    currentPage,
+                    numPages: Math.ceil(assignments.length / itemsPerPage),
+                    baseUrl: '/homework/?p={{page}}'
+                };
+                const end = currentPage * itemsPerPage;
+                assignments = assignments.slice(end - itemsPerPage, end);
+                res.render('homework/overview', {title: 'Meine Aufgaben', pagination, assignments, courses, isStudent, sortmethods});
             });
         });
 
