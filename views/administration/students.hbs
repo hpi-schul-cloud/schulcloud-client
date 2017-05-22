@@ -18,8 +18,11 @@
                             <button type="submit" class="btn btn-primary btn-add">
                                 Schüler hinzufügen
                             </button>
-                            <button class="btn btn-primary btn-invitation-link">
+                            <button class="btn btn-secondary btn-invitation-link">
                                 Einladungslink generieren
+                            </button>
+                            <button class="btn btn-secondary btn-import">
+                                Schüler importieren
                             </button>
                         </div>
                     </div>
@@ -40,6 +43,12 @@
                 {{#embed "lib/components/modal-form" class="invitation-modal"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-invitation"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="student"}}
                     {{/content}}
                 {{/embed}}
 
