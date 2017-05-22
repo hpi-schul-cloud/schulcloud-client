@@ -1,4 +1,4 @@
-# Schulcloud Client
+# Schul-Cloud Client
 _An implementation of the Schul-Cloud client with NodeJS and Express._
 
 Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>
