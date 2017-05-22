@@ -142,6 +142,7 @@
                                     <th><label>Wochentag</label></th>
                                     <th><label>Start der Schulstunde</label></th>
                                     <th><label>Dauer der Schulstunde</label></th>
+                                    <th><label>Raum</label></th>
                                     </thead>
                                     <tbody class="add-course-times">
                                     <tr>
@@ -166,6 +167,10 @@
                                             <input class="form-control new-duration" type="number"
                                                    placeholder="in Minuten"/>
                                         </td>
+                                        <td>
+                                            <input class="form-control new-room" type="text"
+                                                   placeholder="z.B. R-1.21"/>
+                                        </td>
                                     </tr>
                                     {{#each course.times}}
                                         <tr id="{{this._id}}" class="course-time">
@@ -182,6 +187,10 @@
                                                                                    name="times[{{this.count}}][duration]"
                                                                                    value="{{this.duration}}"
                                                                                    type="number"></td>
+                                            <td class="form-group disabled"><input class="form-control"
+                                                                                   name="times[{{this.count}}][room]"
+                                                                                   value="{{this.room}}"
+                                                                                   type="text"></td>
                                         </tr>
                                     {{/each}}
                                     </tbody>
