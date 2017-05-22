@@ -14,14 +14,17 @@ var addNewCourseTime = function addNewCourseTime(div) {
     var $newWeekday = div.find('.new-weekday option:selected');
     var $newStartTime = div.find('.new-start-time');
     var $newDuration = div.find('.new-duration');
+    var $newRoom = div.find('.new-room');
     populateCourseTime($courseTimes, {
         weekday: $newWeekday.text(),
         startTime: $newStartTime.val(),
-        duration: $newDuration.val()
+        duration: $newDuration.val(),
+        room: $newRoom.val()
     });
     $newWeekday.val("");
     $newStartTime.val("");
     $newDuration.val("");
+    $newRoom.val("");
 };
 
 var courseTimesCount = $('.course-time').length;
@@ -48,6 +51,7 @@ function populateCourseTime($courseTimes, field) {
         .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][weekday]' value='" + field.weekday + "' type='text' ></input></td>"))
         .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][startTime]' value='" + field.startTime + "' type='time'></input></td>"))
         .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][duration]' value='" + field.duration + "' type='number'></input></td>"))
+        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][room]' value='" + field.room + "' type='text'></input></td>"));
     $courseTimes.append($field);
     courseTimesCount++;
 };

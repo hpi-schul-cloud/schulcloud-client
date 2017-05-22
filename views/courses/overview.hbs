@@ -15,8 +15,12 @@
                                     <p class="card-text">{{truncate this.description}}</p>
                                 </div>
                                 <div class="card-footer">
-                                    <small class="text-muted">
-                                        {{#each this.times}}{{this.weekday}} {{this.startTime}} |{{/each}} Raum H1.03</small>
+                                    {{#each this.times}}
+                                        <small class="text-muted">
+                                            {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
+                                        </small>
+                                        <br>
+                                    {{/each}}
                                 </div>
                             </div>
                         {{else}}

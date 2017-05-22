@@ -35,41 +35,7 @@
                         <label>Note</label>
                         <select name="grade" data-placeholder="Note auswählen">
                                 <option value="">Keine Bewertung</option>
-                            {{#if @root.courseId.gradeSystem}}
-                                <option value="15" {{#ifvalue this.submission.grade value=15}} selected {{/ifvalue}}>1+</option>
-                                <option value="14" {{#ifvalue this.submission.grade value=14}} selected {{/ifvalue}}>1</option>
-                                <option value="13" {{#ifvalue this.submission.grade value=13}} selected {{/ifvalue}}>1-</option>
-                                <option value="12" {{#ifvalue this.submission.grade value=12}} selected {{/ifvalue}}>2+</option>
-                                <option value="11" {{#ifvalue this.submission.grade value=11}} selected {{/ifvalue}}>2</option>
-                                <option value="10" {{#ifvalue this.submission.grade value=10}} selected {{/ifvalue}}>2-</option>
-                                <option value="9" {{#ifvalue this.submission.grade value=9}} selected {{/ifvalue}}>3+</option>
-                                <option value="8" {{#ifvalue this.submission.grade value=8}} selected {{/ifvalue}}>3</option>
-                                <option value="7" {{#ifvalue this.submission.grade value=7}} selected {{/ifvalue}}>3-</option>
-                                <option value="6" {{#ifvalue this.submission.grade value=6}} selected {{/ifvalue}}>4+</option>
-                                <option value="5" {{#ifvalue this.submission.grade value=5}} selected {{/ifvalue}}>4</option>
-                                <option value="4" {{#ifvalue this.submission.grade value=4}} selected {{/ifvalue}}>4-</option>
-                                <option value="3" {{#ifvalue this.submission.grade value=3}} selected {{/ifvalue}}>5+</option>
-                                <option value="2" {{#ifvalue this.submission.grade value=2}} selected {{/ifvalue}}>5</option>
-                                <option value="1" {{#ifvalue this.submission.grade value=1}} selected {{/ifvalue}}>5-</option>
-                                <option value="0" {{#ifvalue this.submission.grade value=0}} selected {{/ifvalue}}>6</option>
-                            {{else}}
-                                <option value="15" {{#ifvalue this.submission.grade value=15}} selected {{/ifvalue}}>15</option>
-                                <option value="14" {{#ifvalue this.submission.grade value=14}} selected {{/ifvalue}}>14</option>
-                                <option value="13" {{#ifvalue this.submission.grade value=13}} selected {{/ifvalue}}>13</option>
-                                <option value="12" {{#ifvalue this.submission.grade value=12}} selected {{/ifvalue}}>12</option>
-                                <option value="11" {{#ifvalue this.submission.grade value=11}} selected {{/ifvalue}}>11</option>
-                                <option value="10" {{#ifvalue this.submission.grade value=10}} selected {{/ifvalue}}>10</option>
-                                <option value="9" {{#ifvalue this.submission.grade value=9}} selected {{/ifvalue}}>9</option>
-                                <option value="8" {{#ifvalue this.submission.grade value=8}} selected {{/ifvalue}}>8</option>
-                                <option value="7" {{#ifvalue this.submission.grade value=7}} selected {{/ifvalue}}>7</option>
-                                <option value="6" {{#ifvalue this.submission.grade value=6}} selected {{/ifvalue}}>6</option>
-                                <option value="5" {{#ifvalue this.submission.grade value=5}} selected {{/ifvalue}}>5</option>
-                                <option value="4" {{#ifvalue this.submission.grade value=4}} selected {{/ifvalue}}>4</option>
-                                <option value="3" {{#ifvalue this.submission.grade value=3}} selected {{/ifvalue}}>3</option>
-                                <option value="2" {{#ifvalue this.submission.grade value=2}} selected {{/ifvalue}}>2</option>
-                                <option value="1" {{#ifvalue this.submission.grade value=1}} selected {{/ifvalue}}>1</option>
-                                <option value="0" {{#ifvalue this.submission.grade value=0}} selected {{/ifvalue}}>0</option>
-                            {{/if}}
+                                {{{this.submission.gradeOptions}}}
                         </select>
                     </div>
                     <h6>Kommentar</h6>
@@ -78,36 +44,7 @@
                 <button type="submit" class="btn btn-primary">Speichern</button>
                 </form>
             {{else}}
-                {{#if @root.courseId.gradeSystem}}
-                    {{#ifvalue this.submission.grade value=0 }}<b class="grade">Note: 6</b>{{/ifvalue}}
-                    {{#if this.submission.grade}}
-                        <b class="grade">Note: 
-                        {{#ifvalue this.submission.grade value=0 }} 6{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=1 }}5-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=2 }} 5{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=3 }}5+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=4 }}4-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=5 }} 4{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=6 }}4+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=7 }}3-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=8 }} 3{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=9 }}3+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=10}}2-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=11}} 2{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=12}}2+{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=13}}1-{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=14}} 1{{/ifvalue}}
-                        {{#ifvalue this.submission.grade value=15}}1+{{/ifvalue}}
-                        </b>
-                    {{/if}}
-                {{else}}
-                    {{#ifvalue this.submission.grade value=0}}
-                        <b class="grade">0 Punkte</b>
-                    {{/ifvalue}}
-                    {{#if this.submission.grade}}
-                        <b class="grade">{{this.submission.grade}} Punkte</b>
-                    {{/if}}
-                {{/if}}
+                <b class="grade">{{{this.submission.gradeText}}}</b>
                 <div class="comment">
                     {{#if this.submission.gradeComment}}
                         {{{this.submission.gradeComment}}}
