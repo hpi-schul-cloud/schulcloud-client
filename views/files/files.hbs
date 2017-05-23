@@ -78,6 +78,18 @@
                 </div>
             </section>
 
+            <section class="file-viewer">
+                <a href="#_" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
+                                                                      document.getElementById('link').innerHTML = '';
+                                                                      document.getElementById('picture').src = '';
+                                                                      document.getElementById('my-video').style.display='none'">
+                    <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup="{'fluid': true}}"></video>
+                    <script src="http://vjs.zencdn.net/5.19.2/video.js"></script>
+                    <img id="picture">
+                    <div id="link"></div>
+                </a>
+            </section>
+
             <section class="files">
                 <div class="row">
                     {{#each files}}
@@ -86,10 +98,9 @@
                                 onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
                                 onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
                                 <div class="openFile">
-                                    <a href="#_" class="lightbox" id="view{{this.name}}" onclick="document.getElementById('view{{this.name}}').innerHTML = ''"></a>
                                     <div class="card-block"
-                                         onclick="location.href='#view{{this.name}}';
-                                                 document.getElementById('view{{this.name}}').innerHTML = fileViewer('{{this.type}}', '{{this.file}}');">
+                                         onclick="location.href='#file-view';
+                                                 fileViewer('{{this.type}}', '{{this.file}}');">
                                         <div class="card-title">
                                             <div class="col-sm-3 no-padding">
                                                 <div class="file-preview"
