@@ -56,14 +56,16 @@ $(document).ready(function () {
         e.preventDefault();
 
         var title = $(document).find("title").text();
+        var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'Feedback - Bereich: ' + title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud')),
+            title: 'Feedback', 
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });
 
         $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         $feedbackModal.modal('show');
+        $feedbackModal.find('#title-area').html(area);
     });
 
     $modals.find('.close, .btn-close').on('click', function () {
