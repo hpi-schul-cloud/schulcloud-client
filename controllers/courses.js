@@ -163,12 +163,20 @@ router.get('/', function (req, res, next) {
             });
             return course;
         });
-        res.render('courses/overview', {
-            title: 'Meine Kurse',
-            courses
-        });
+        if (req.query.json) {
+            res.json(courses)
+        } else {
+            res.render('courses/overview', {
+                title: 'Meine Kurse',
+                courses
+            });
+        }
     });
 });
+
+router.get('/json', function (req, res, next) {
+
+})
 
 
 router.post('/', function (req, res, next) {
