@@ -214,11 +214,6 @@ $moveModal.modal('hide');
     });
 
     var returnFileUrl = (fileName) => {
-        var dir = getCurrentDir();
-        
-        // delete leading slash
-        if (dir[0] === '/') dir = dir.substring(1);
-
         var fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
         var funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
