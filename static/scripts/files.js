@@ -189,13 +189,13 @@ $moveModal.modal('hide');
     });
 
     $('.card.file').on('click', function () {
-        if (isCKEditor) returnFileUrl($(this).data('href'));
+        if (isCKEditor) returnFileUrl($(this).data('file-name'));
     });
 
     $('.card.file .title').on('click', function (e) {
         if (isCKEditor) {
             e.preventDefault();
-            returnFileUrl($(this).closest('.card.file').data('href'));
+            returnFileUrl($(this).closest('.card.file').data('file-name'));
         }
     });
 
@@ -213,8 +213,13 @@ $moveModal.modal('hide');
         $modals.modal('hide');
     });
 
-    var returnFileUrl = (fileUrl) => {
-        var fullUrl = fileUrl + '&storageContext=' + getCurrentDir();
+    var returnFileUrl = (fileName) => {
+        var dir = getCurrentDir();
+        
+        // delete leading slash
+        if (dir[0] === '/') dir = dir.substring(1);
+
+        var fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
         var funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
         window.close();
