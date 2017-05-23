@@ -104,7 +104,8 @@ const getDetailHandler = (req, res, next) => {
 
 const showToolHandler = (req, res, next) => {
     api(req).get('/ltiTools/' + req.params.ltiToolId).then(tool => {
-        res.render('courses/run-lti', {
+        let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
+        res.render(renderPath, {
             courseId: req.params.courseId,
             title: tool.name,
             tool: tool
