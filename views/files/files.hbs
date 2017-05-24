@@ -82,7 +82,7 @@
                 <div class="row">
                     {{#each files}}
                         <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div class="card file" data-href="/files/file?file={{this.name}}"
+                            <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}"
                                 onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
                                 onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
                                 <div class="openFile">
