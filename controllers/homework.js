@@ -312,10 +312,12 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
 
+        // Hausaufgaben sortieren
         let desc = false;
         let sortmethods = getSortmethods();
         if(req.query.sort){
             var sorting = req.query.sort;
+            // Aktueller Sortieralgorithmus für Anzeige aufbereiten
             sortmethods = sortmethods.map(function(e){
                 if(e.functionname == sorting){
                     e.active = 'selected';
@@ -328,11 +330,10 @@ router.all('/', function (req, res, next) {
                 assignments.sort(sortbyavailableDate);
             }else if(sorting == "dueDate"){
                 assignments.sort(sortbyDueDate);
+            } 
+            if(sorting.desc){
+                assignments.reverse();
             }
-        }
-        if(req.query.desc && req.query.desc == "true"){
-            assignments.reverse();
-            desc = true;
         }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
@@ -355,6 +356,8 @@ router.all('/', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
+
+            // Render Overview
                 //Pagination in client, because filters are in afterhook
                 const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
@@ -426,7 +429,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 submissions.map(function(sub){
                     let options = "";
                     for(let i = 15; i >= 0; i--){
-                        options += ('<option value="'+i+'" '+((sub.grade == i)?"klar selected ":"")+'>'+grades[15-i]+'</option>');
+                        options += ('<option value="'+i+'" '+((sub.grade == i)?"selected ":"")+'>'+grades[15-i]+'</option>');
                     }
                     sub.gradeOptions = options;
                     sub.gradeText = ((assignment.courseId.gradeSystem)?"Note: ":"Punkte: ")+grades[15-sub.grade];
@@ -483,7 +486,6 @@ router.get('/:assignmentId', function (req, res, next) {
                                     isStudent = false;
                                 }
                                 // Render assignment.hbs
-                                console.log(students);
                                 res.render('homework/assignment', Object.assign({}, assignment, {
                                     title: assignment.courseId.name + ' - ' + assignment.name,
                                     breadcrumb: [

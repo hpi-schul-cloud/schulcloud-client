@@ -43,7 +43,7 @@ $(document).ready(function() {
     $('#desc').on('click', function(e){
         window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
     });
-    
+
     $('#sortselection').on('change', function(e){
         window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape(getSearchParams("desc"));
     });

@@ -28,7 +28,7 @@ const mapRecurringEvent = (event) => {
 const mapEventProps = (event, req) => {
     if (event["x-sc-courseId"]) {
         return api(req).get('/courses/' + event["x-sc-courseId"]).then(course => {
-            event.url = '/courses/' + course._id;
+            event.url = event["x-sc-courseTimeId"] ? '/courses/' + course._id : '';
             event.color = course.color;
             return event;
         });
@@ -65,6 +65,13 @@ router.get('/events/', function (req, res, next) {
 router.post('/events/', function (req, res, next) {
     req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString();
     req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString();
+
+    // filter params
+    if (req.body.courseId && req.body.courseId !== '') {
+        req.body.scopeId = req.body.courseId;
+    } else {
+        delete req.body.courseId;
+    }
 
    api(req).post('/calendar/', {json: req.body}).then(event => {
       res.redirect('/calendar');

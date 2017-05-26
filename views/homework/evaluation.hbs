@@ -34,11 +34,7 @@
                         <label>Note</label>
                         <select name="grade" data-placeholder="Note auswählen">
                                 <option value="">Keine Bewertung</option>
-                                {{#if this.submission}}
-                                    {{{this.submission.gradeOptions}}}
-                                {{else}}
-                                    {{{@root.gradeOptions}}}
-                                {{/if}}
+                                {{{this.submission.gradeOptions}}}
                         </select>
                     </div>
                     <h6>Kommentar</h6>

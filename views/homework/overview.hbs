@@ -106,11 +106,13 @@
                                             </circular-progress>
                                             <div class="textinfo">
                                                 <span>Abgegeben: {{this.submissionStats}}</span><br/>
+                                                <span>
                                                 {{#if this.gradedStats}}
-                                                    <span>Bewertet: {{this.gradedStats}}</span><br/>
+                                                    Bewertet: {{this.gradedStats}}
                                                 {{else}}
-                                                    <span>Bewertet: -</span><br/>
+                                                    Bewertet: -
                                                 {{/if}}
+                                                </span><br/>
                                                 <span>
                                                     {{#if this.averageRating}}
                                                         {{#if this.courseId.gradeSystem}}
