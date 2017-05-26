@@ -33,13 +33,15 @@ const getActions = (item, path) => {
         {
             link: path + item._id + "/json",
             class: 'btn-edit',
-            icon: 'edit'
+            icon: 'edit',
+            alt:'bearbeiten'
         },
         {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
-            method: 'delete'
+            method: 'delete',
+            alt: 'löschen'
         }
     ];
 };
