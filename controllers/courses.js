@@ -163,16 +163,23 @@ router.get('/', function (req, res, next) {
             });
             return course;
         });
-        res.render('courses/overview', {
-            title: 'Meine Kurse',
-            courses
-        });
+        if (req.query.json) {
+            res.json(courses)
+        } else {
+            res.render('courses/overview', {
+                title: 'Meine Kurse',
+                courses
+            });
+        }
     });
 });
 
+router.get('/json', function (req, res, next) {
+
+})
+
 
 router.post('/', function (req, res, next) {
-
     // map course times to fit model
     (req.body.times || []).forEach(time => {
         time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
@@ -182,6 +189,11 @@ router.post('/', function (req, res, next) {
 
     req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
     req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
 
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
@@ -265,6 +277,14 @@ router.patch('/:courseId', function (req, res, next) {
 
     req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
     req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
+
+    if (!req.body.classIds)
+        req.body.classIds = [];
 
     // first delete all old events for the course
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {

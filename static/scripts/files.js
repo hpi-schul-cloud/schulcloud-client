@@ -189,13 +189,13 @@ $moveModal.modal('hide');
     });
 
     $('.card.file').on('click', function () {
-        if (isCKEditor) returnFileUrl($(this).data('href'));
+        if (isCKEditor) returnFileUrl($(this).data('file-name'));
     });
 
     $('.card.file .title').on('click', function (e) {
         if (isCKEditor) {
             e.preventDefault();
-            returnFileUrl($(this).closest('.card.file').data('href'));
+            returnFileUrl($(this).closest('.card.file').data('file-name'));
         }
     });
 
@@ -213,8 +213,8 @@ $moveModal.modal('hide');
         $modals.modal('hide');
     });
 
-    var returnFileUrl = (fileUrl) => {
-        var fullUrl = fileUrl + '&storageContext=' + getCurrentDir();
+    var returnFileUrl = (fileName) => {
+        var fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
         var funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
         window.close();
@@ -225,20 +225,28 @@ $moveModal.modal('hide');
     });
 
 });
+    function videoClick(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
 
     function fileViewer(filetype, file) {
+        $('#my-video').css("display","none");
         switch (filetype) {
             case 'image/'+filetype.substr(6, filetype.length) :
-                return ('<img src= "/files/file?download=1&file='+file+'">');
+                $('#picture').attr("src", '/files/file?file='+file);
                 break;
-            case 'audio/mp3':
-                return '<audio autoplay controls><source src= "/files/file?download=1&file='+file+'" type="audio/mpeg"> </audio>';
+            case 'audio/'+filetype.substr(6, filetype.length):
+            case 'video/'+filetype.substr(6, filetype.length):
+                videojs('my-video').ready(function () {
+                    this.src({type: filetype, src: '/files/file?file='+file});
+                });
+                $('#my-video').css("display","");
                 break;
-            case 'video/mp4':
-                return '<video autoplay controls><source src= "/files/file?download=1&file='+file+'" type="video/mp4"></video>'
-                break;
+            default:
+                $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+                $('#link').css("display","");
         }
-        return '<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>'//'<meta http-equiv="refresh" content="1; URL=/files/file?file='+file+'">';
     }
 
 	function writeFileSizePretty(filesize) {
