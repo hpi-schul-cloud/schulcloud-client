@@ -196,6 +196,9 @@
             font-size: 14px;
             color: #fff;
             background-color: #212121;
+            span{
+              display:block;
+            }
         }
         &:hover .textinfo{
           transition-delay: 0s,0s;

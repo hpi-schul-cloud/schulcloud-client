@@ -289,13 +289,13 @@ router.all('/', function (req, res, next) {
                 if(assignment.teacherId === res.locals.currentUser._id){  //teacher
                     let submissionLength = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
-                    assignment.submissionStatsPerc = Math.round((submissionLength/assignment.userIds.length)*100);
+                    assignment.submissionStatsPerc = (assignment.userIds.length)?Math.round((submissionLength/assignment.userIds.length)*100):0;
                     let submissionCount = (submissions.filter(function (a) {
                         return (a.gradeComment != '' || a.grade != null);
                     })).length;
 
                     assignment.gradedStats = submissionCount + "/" + assignment.userIds.length;               // Anzahl der Abgaben
-                    assignment.gradedStatsPerc = Math.round((submissionCount/assignment.userIds.length)*100); // -||- in Prozent
+                    assignment.gradedStatsPerc = (assignment.userIds.length)?Math.round((submissionCount/assignment.userIds.length)*100):0; // -||- in Prozent
 
                     assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
