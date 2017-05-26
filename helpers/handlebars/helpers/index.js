@@ -33,6 +33,13 @@ module.exports = {
             return opts.inverse(this);
         }
     },
+    ifvalue: (conditional, options) => {
+        if (options.hash.value === conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
     },

@@ -125,6 +125,10 @@ $(document).ready(function() {
         }
     });
 
+    $('a[data-method="download"]').on('click', function (e) {
+        e.stopPropagation();
+    });
+
     $('a[data-method="delete"]').on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -178,6 +182,7 @@ error: showAJAXError
      $moveModal.find('.close, .btn-close').on('click', function() {
 $moveModal.modal('hide');
 });**/
+
 
     $('.create-directory').on('click', function () {
         $editModal.modal('show');
