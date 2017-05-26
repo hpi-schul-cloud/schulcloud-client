@@ -30,7 +30,7 @@ describe('News tests', function () {
                 .get('/news/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Neuigkeiten');
+                    expect(res.text).to.contain('News');
                     resolve();
                 });
         });
