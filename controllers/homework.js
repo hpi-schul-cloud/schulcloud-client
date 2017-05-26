@@ -363,7 +363,7 @@ router.all('/', function (req, res, next) {
                 //Pagination in client, because filters are in afterhook
                 const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
-                pagination = {
+                let pagination = {
                     currentPage,
                     numPages: Math.ceil(assignments.length / itemsPerPage),
                     baseUrl: '/homework/?p={{page}}'
