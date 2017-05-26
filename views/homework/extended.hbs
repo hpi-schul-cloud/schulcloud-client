@@ -4,13 +4,14 @@
             {{{this.description}}}
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
-            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json">Bearbeiten</a>
+            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
             <a class="btn btn-primary btn-delete" 
                 href="/homework/{{_id}}"
                 redirect="/homework"
                 target="_blank" 
                 data-method="delete-material" 
-                data-name="{{title}}">
+                data-name="{{title}}"
+                alt="Löschen der Aufgabe: '{{title}}'.">
                 Löschen
             </a>
         {{/ifvalue}}

@@ -81,17 +81,17 @@
             </div>
             <div class="tab-view">
                 <nav class="tab-links">
-                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended">Details</a>
+                    <a id="extended-tab-link" class="tab-link active" href="#activetabid=extended" alt="Details der Aufgabe">Details</a>
                     {{#if private}}
-                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">Abgabe</a>
+                        <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
                     {{else}}
                         {{#ifvalue teacherId value=currentUser._id}}
-                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">Abgaben</a>
+                            <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                         {{else}}
-                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission">Abgabe</a>
-                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback">Feedback</a>
+                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
+                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
                             {{#if publicSubmissions}}
-                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions">Abgaben</a>
+                                <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                             {{/if}}
                         {{/ifvalue}}
                     {{/if}}
