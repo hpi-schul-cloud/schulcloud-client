@@ -27,6 +27,18 @@ $(document).ready(function () {
                 fields: result
             });
 
+            // post-fill gradiation selection
+            if ($editModal.find("input[name=gradeSystem]").length) {
+                var $gradeInputPoints = $editModal.find("#gradeSystem0");
+                var $gradeInputMarks = $editModal.find("#gradeSystem1");
+                if(result.gradeSystem) {
+                    $gradeInputMarks.attr("checked", true);
+                    $gradeInputPoints.removeAttr("checked");
+                } else {
+                    $gradeInputPoints.attr("checked", true);
+                    $gradeInputMarks.removeAttr("checked");
+                }
+            }
             populateCourseTimes($editModal, result.times || []);
             $editModal.modal('show');
         });

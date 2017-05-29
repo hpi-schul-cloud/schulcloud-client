@@ -155,6 +155,9 @@ const getCreateHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
+
+        if (!req.body.classIds) req.body.classIds = [];
+
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
