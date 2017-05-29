@@ -35,19 +35,20 @@ const createEventsForCourse = (req, res, course) => {
     // can just run if a calendar service is running on the environment
     if (process.env.CALENDAR_SERVICE_ENABLED) {
         return Promise.all(course.times.map(time => {
-            return api(req).post("/calendar", { json: {
-                summary: course.name,
-                location: res.locals.currentSchoolData.name,
-                description: course.description,
-                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
-                duration: time.duration,
-                repeat_until: course.untilDate,
-                frequency: "WEEKLY",
-                weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
-                scopeId: course._id,
-                courseId: course._id,
-                courseTimeId: time._id
-            }
+            return api(req).post("/calendar", {
+                json: {
+                    summary: course.name,
+                    location: res.locals.currentSchoolData.name,
+                    description: course.description,
+                    startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+                    duration: time.duration,
+                    repeat_until: course.untilDate,
+                    frequency: "WEEKLY",
+                    weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+                    scopeId: course._id,
+                    courseId: course._id,
+                    courseTimeId: time._id
+                }
             });
         }));
     }
@@ -62,11 +63,11 @@ const createEventsForCourse = (req, res, course) => {
 const deleteEventsForCourse = (req, res, courseId) => {
     if (process.env.CALENDAR_SERVICE_ENABLED) {
         return api(req).get('courses/' + courseId).then(course => {
-           return Promise.all((course.times || []).map(t => {
-               if (t.eventId) {
-                   return api(req).delete('calendar/' + t.eventId);
-               }
-           }));
+            return Promise.all((course.times || []).map(t => {
+                if (t.eventId) {
+                    return api(req).delete('calendar/' + t.eventId);
+                }
+            }));
         });
     }
     return Promise.resolve(true);
@@ -74,7 +75,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 
 const editCourseHandler = (req, res, next) => {
     let coursePromise, action, method;
-    if(req.params.courseId) {
+    if (req.params.courseId) {
         action = '/courses/' + req.params.courseId;
         method = 'patch';
         coursePromise = api(req).get('/courses/' + req.params.courseId, {
@@ -88,9 +89,9 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000 });
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000 });
+    const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
     Promise.all([
         coursePromise,
@@ -164,7 +165,7 @@ router.get('/', function (req, res, next) {
             return course;
         });
         if (req.query.json) {
-            res.json(courses)
+            res.json(courses);
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
@@ -176,7 +177,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/json', function (req, res, next) {
 
-})
+});
 
 
 router.post('/', function (req, res, next) {
