@@ -231,23 +231,21 @@ $moveModal.modal('hide');
     }
 
     function fileViewer(filetype, file) {
-        document.getElementById('my-video').style.display = "none";
-        document.getElementById('link').style.display = "none";
-
+        $('#my-video').css("display","none");
         switch (filetype) {
             case 'image/'+filetype.substr(6, filetype.length) :
-                document.getElementById('picture').src = '/files/file?file='+file;
+                $('#picture').attr("src", '/files/file?file='+file);
                 break;
             case 'audio/'+filetype.substr(6, filetype.length):
             case 'video/'+filetype.substr(6, filetype.length):
                 videojs('my-video').ready(function () {
                     this.src({type: filetype, src: '/files/file?file='+file});
                 });
-                document.getElementById('my-video').style.display = "";
+                $('#my-video').css("display","");
                 break;
             default:
-                document.getElementById('link').innerHTML='<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>'
-                document.getElementById('link').style.display = "";
+                $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+                $('#link').css("display","");
         }
     }
 
