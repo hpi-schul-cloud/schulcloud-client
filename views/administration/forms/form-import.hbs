@@ -1,0 +1,27 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+<input name="roles[]" type="hidden" data-force-value="true" value="{{roles}}" />
+
+<div class="form-group">
+    <label>CSV Datei</label>
+    <input class="form-control" name="csvFile" type="file" required />
+</div>
+
+<div class="form-group">
+    <label>Ausgangssystem</label>
+
+    <select name="exportSystem" data-placeholder="Ausgangssystem auswählen">
+        {{#each classes}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+        {{/each}}
+        <option value="">Anderes</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <p class="small">Falls Sie ihr derzeitiges System nicht in der Liste unterstützter Systeme finden, wählen Sie bitte "Anderes".
+        <br>Die ausgewählte .csv Datei sollte dann folgende Spalten beinhalten:<br>
+        <b>firstName</b>;<b>lastName</b>;<b>email</b><br>
+        Die vorherige Zeile muss als erste Zeile in der CSV Datei stehen.<br>
+        Als Trennzeichen muss ";" verwendet werden.</p>
+</div>
