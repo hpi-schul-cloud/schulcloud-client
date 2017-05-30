@@ -159,8 +159,18 @@ const getCreateHandler = (service) => {
 
 const getCSVImportHandler = (service) => {
     return function (req, res, next) {
-        const csvData = decoder.write(req.file.buffer);
-        const records = parse(csvData, {columns: true, delimiter: ';'});
+        let csvData = '';
+        let records = [];
+
+        try {
+            csvData = decoder.write(req.file.buffer);
+            records = parse(csvData, {columns: true, delimiter: ';'});
+        } catch(err) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Import fehlgeschlagen.'
+            };
+        }
 
         const groupData = {
             schoolId: req.body.schoolId,
