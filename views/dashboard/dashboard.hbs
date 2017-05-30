@@ -24,7 +24,8 @@
                                 {{#each events}}
                                     <a class="lesson-card"{{#if url}}href="{{url}}"{{/if}}
                                        style="width: {{style.width}}%; left: {{style.left}}%;">
-                                        <div class="card card-block">
+                                        <div class="card card-block" style="{{#if color}}background-color: {{color}};
+                                                border-color: {{color}};{{/if}}">
                                             <time class="lesson-time">{{comment}}</time>
                                             <h3 class="card-title">{{title}}</h3>
                                             <p class="card-text"></p>
