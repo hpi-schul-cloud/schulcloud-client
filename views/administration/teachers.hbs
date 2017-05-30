@@ -5,8 +5,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/notification"}}
-
                             {{> "lib/components/table" head=head body=body}}
                         </div>
                     </div>
@@ -17,6 +15,9 @@
                         <div class="col-sm-12 no-padding">
                             <button type="submit" class="btn btn-primary btn-add">
                                 Lehrer hinzufügen
+                            </button>
+                            <button class="btn btn-secondary btn-import">
+                                Lehrer importieren
                             </button>
                         </div>
                     </div>
@@ -33,6 +34,13 @@
                         {{> "administration/forms/form-teachers"}}
                     {{/content}}
                 {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="teacher"}}
+                    {{/content}}
+                {{/embed}}
+
 
             </section>
         </div>
