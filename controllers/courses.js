@@ -310,6 +310,12 @@ router.delete('/:courseId', function (req, res, next) {
     });
 });
 
+router.post('/:courseId/addStudent', function (req, res, next) {
+    // todo: add student in req.locals.currentUser._id to the given course
+    // todo: add button on course page for generate this link
+    // todo: show successful notification
+});
+
 
 router.get('/:courseId/edit', editCourseHandler);
 
