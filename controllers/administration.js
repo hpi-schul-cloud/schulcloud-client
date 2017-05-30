@@ -12,6 +12,11 @@ const fs = require('fs');
 const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
+const multer  = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+const StringDecoder = require('string_decoder').StringDecoder;
+const decoder = new StringDecoder('utf8');
+const parse = require('csv-parse/lib/sync');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -151,6 +156,42 @@ const getCreateHandler = (service) => {
         });
     };
 };
+
+const getCSVImportHandler = (service) => {
+    return function (req, res, next) {
+        let csvData = '';
+        let records = [];
+
+        try {
+            csvData = decoder.write(req.file.buffer);
+            records = parse(csvData, {columns: true, delimiter: ';'});
+        } catch(err) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Import fehlgeschlagen.'
+            };
+        }
+
+        const groupData = {
+            schoolId: req.body.schoolId,
+            roles: req.body.roles
+        }
+
+        const recordPromises = records.map((user) => {
+            user = Object.assign(user, groupData);
+            return api(req).post('/' + service + '/', {
+                json: user
+            })
+        });
+
+        Promise.all(recordPromises).then(_ => {
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 
 
 const getUpdateHandler = (service) => {
@@ -466,6 +507,7 @@ router.post('/teachers/', getCreateHandler('users'), sendMailHandler);
 router.patch('/teachers/:id', getUpdateHandler('users'));
 router.get('/teachers/:id', getDetailHandler('users'));
 router.delete('/teachers/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
+router.post('/teachers/import/', upload.single('csvFile'), getCSVImportHandler('users'));
 
 router.all('/teachers', function (req, res, next) {
 
@@ -510,6 +552,7 @@ router.all('/teachers', function (req, res, next) {
 router.post('/students/', getCreateHandler('users'), sendMailHandler);
 router.patch('/students/:id', getUpdateHandler('users'));
 router.get('/students/:id', getDetailHandler('users'));
+router.post('/students/import/', upload.single('csvFile'), getCSVImportHandler('users'));
 router.delete('/students/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
 
 router.all('/students', function (req, res, next) {
