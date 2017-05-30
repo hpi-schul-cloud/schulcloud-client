@@ -614,7 +614,10 @@ class TopicGeoGebra extends TopicBlock {
      */
     render() {
         return (
-            <div>
+            <div className="input-group">
+                <span className="input-group-btn">
+                    <a id="geo-gebra-info" className="btn btn-secondary" href="#"><i className="fa fa-info-circle" /></a>
+                </span>
                 <input
                     className="form-control"
                     id={this.editorId}

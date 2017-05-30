@@ -17,6 +17,10 @@ $(document).ready(function () {
                 }
             }
         });
-    })
+    });
 
+    $('#geo-gebra-info').tooltip({
+        placement: 'top',
+        title: "Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp' "
+    })
 });
