@@ -260,7 +260,8 @@ router.get('/:courseId', function (req, res, next) {
                     url: '/courses'
                 },
                 {}
-            ]
+            ],
+            filesUrl: `/files/courses/${req.params.courseId}`
         }));
     });
 });

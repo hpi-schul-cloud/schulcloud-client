@@ -323,6 +323,8 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
             breadcrumbs,
+            courseId: req.params.courseId,
+            courseUrl: `/courses/${req.params.courseId}/`
         }, res.locals.files));
 
     });
