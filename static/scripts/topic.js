@@ -348,10 +348,12 @@ class TopicText extends TopicBlock {
 
     componentDidMount() {
         const storageContext = this.getStorageContext();
+
         const editorId = (this.props.content || {}).editorId || this.editorId;
 
         CKEDITOR.replace(editorId, {
-            extraPlugins: 'uploadimage',
+            mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+            extraPlugins: 'uploadimage,mathjax',
             uploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
