@@ -8,6 +8,9 @@ const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const moment = require('moment');
 moment.locale('de');
+const recurringEventsHelper = require('../helpers/recurringEvents');
+
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -36,32 +39,51 @@ router.get('/', function (req, res, next) {
 
     const eventsPromise = api(req).get('/calendar/', {
         qs: {
-            from: start.toISOString(),
+            all: true,
             until: end.toISOString()
         }
     }).then(events => {
-        return (events || []).map(event => {
-            const eventStart = new Date(event.start);
-            let eventEnd = new Date(event.end);
+        // because the calender service is *§$" and is not
+        // returning recurring events for a given time period
+        // now we have to load all events from the beginning of time
+        // until end of the current day, map recurring events and
+        // display only the correct ones.
+        // I'm not happy with the solution but don't see any other less
+        // crappy way for this without changing the
+        // calendar service in it's core.
 
-            // cur events that are too long
-            if(eventEnd > end) {
-                eventEnd = end;
-                event.end = eventEnd.toISOString();
-            }
+        return Promise.all(events.map(event => recurringEventsHelper.mapEventProps(event, req))).then(events => {
+            events = [].concat.apply([], events.map(recurringEventsHelper.mapRecurringEvent)).filter(event => {
+                const eventStart = new Date(event.start);
+                const eventEnd = new Date(event.end);
 
-            // subtract timeStart so we can use these values for left alignment
-            const eventStartRelativeMinutes = ((eventStart.getHours() - timeStart) * 60) + eventStart.getMinutes();
-            const eventEndRelativeMinutes = ((eventEnd.getHours() - timeStart) * 60) + eventEnd.getMinutes();
-            const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
+                return eventStart < end && eventEnd > start;
+            });
 
-            event.comment = moment(eventStart).format('kk:mm') + ' - ' + moment(eventEnd).format('kk:mm');
-            event.style = {
-                left: 100 * (eventStartRelativeMinutes / numMinutes),  // percent
-                width: 100 * (eventDuration / numMinutes)  // percent
-            };
 
-            return event;
+            return (events || []).map(event => {
+                const eventStart = new Date(event.start);
+                let eventEnd = new Date(event.end);
+
+                // cur events that are too long
+                if(eventEnd > end) {
+                    eventEnd = end;
+                    event.end = eventEnd.toISOString();
+                }
+
+                // subtract timeStart so we can use these values for left alignment
+                const eventStartRelativeMinutes = ((eventStart.getHours() - timeStart) * 60) + eventStart.getMinutes();
+                const eventEndRelativeMinutes = ((eventEnd.getHours() - timeStart) * 60) + eventEnd.getMinutes();
+                const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
+
+                event.comment = moment(eventStart).format('kk:mm') + ' - ' + moment(eventEnd).format('kk:mm');
+                event.style = {
+                    left: 100 * (eventStartRelativeMinutes / numMinutes),  // percent
+                    width: 100 * (eventDuration / numMinutes)  // percent
+                };
+
+                return event;
+            });
         });
     }).catch(_ => []);
 
