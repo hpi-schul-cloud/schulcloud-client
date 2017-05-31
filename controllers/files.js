@@ -404,19 +404,14 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 });
 
 router.post('/permissions/', function (req, res, next) {
-    api(req).post("/filePermissions/", { json: req.body }).then(filePermission => {
-       res.json(filePermission);
-    }).catch(err => {
-        // if already exists, return existing filePermission
-        if (err.statusCode === 409) {
-            api(req).get("/filePermissions/", {
-                qs: {key: req.body.key}
-            }).then(result => {
-                res.json(result.data[0]);
+    api(req).get('/filePermissions/', { qs: {key: req.body.key} }).then(filePermission => {
+        if (filePermission.data.length > 0) {
+            res.json(filePermission.data[0]);
+        } else {
+            api(req).post("/filePermissions/", { json: req.body }).then(filePermission => {
+                res.json(filePermission);
             });
         }
-
-        res.send(err);
     });
 });
 
