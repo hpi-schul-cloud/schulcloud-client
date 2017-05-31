@@ -225,55 +225,71 @@ $moveModal.modal('hide');
     });
 
 });
-    function videoClick(e) {
-        e.stopPropagation();
-        e.preventDefault();
+
+function videoClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function fileViewer(filetype, file) {
+    $('#my-video').css("display","none");
+    switch (filetype) {
+        case 'image/'+filetype.substr(6, filetype.length) :
+            $('#picture').attr("src", '/files/file?file='+file);
+            break;
+        case 'audio/'+filetype.substr(6, filetype.length):
+        case 'video/'+filetype.substr(6, filetype.length):
+            videojs('my-video').ready(function () {
+                this.src({type: filetype, src: '/files/file?file='+file});
+            });
+            $('#my-video').css("display","");
+            break;
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+            $.ajax({
+                type: 'get',
+                data: {
+                    name: file
+                },
+                error: showAJAXError
+            });
+
+
+            var t = "schul.tech/files/file?file=" + file;
+
+            $('#link').html('<a class="link" href="https://docs.google.com/viewer?url='+t+'" target="_blank">Document extern öffnen</a>');
+            $('#link').css("display","");
+            break;
+        default:
+            $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+            $('#link').css("display","");
     }
+}
 
-    function fileViewer(filetype, file) {
-        $('#my-video').css("display","none");
-        switch (filetype) {
-            case 'image/'+filetype.substr(6, filetype.length) :
-                $('#picture').attr("src", '/files/file?file='+file);
-                break;
-            case 'audio/'+filetype.substr(6, filetype.length):
-            case 'video/'+filetype.substr(6, filetype.length):
-                videojs('my-video').ready(function () {
-                    this.src({type: filetype, src: '/files/file?file='+file});
-                });
-                $('#my-video').css("display","");
-                break;
-            default:
-                $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
-                $('#link').css("display","");
-        }
+function writeFileSizePretty(filesize) {
+    var unit;
+    var iterator = 0;
+
+    while (filesize > 1024) {
+        filesize = Math.round((filesize / 1024) * 100) / 100;
+        iterator++;
     }
-
-	function writeFileSizePretty(filesize) {
-		var unit;
-		var iterator = 0;
-
-		while (filesize > 1024) {
-			filesize = Math.round((filesize / 1024) * 100) / 100;
-			iterator++;
-		}
-		switch (iterator) {
-			case 0:
-				unit = "B";
-				break;
-			case 1:
-				unit = "KB";
-				break;
-			case 2:
-				unit = "MB";
-				break;
-			case 3:
-				unit = "GB";
-				break;
-			case 4:
-				unit = "TB";
-				break;
-		}
-		return (filesize + unit);
-	}
+    switch (iterator) {
+        case 0:
+            unit = "B";
+            break;
+        case 1:
+            unit = "KB";
+            break;
+        case 2:
+            unit = "MB";
+            break;
+        case 3:
+            unit = "GB";
+            break;
+        case 4:
+            unit = "TB";
+            break;
+    }
+    return (filesize + unit);
+}
 
