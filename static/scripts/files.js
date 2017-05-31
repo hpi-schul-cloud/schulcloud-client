@@ -257,17 +257,23 @@ function fileViewer(filetype, file) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
-            var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
             var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+            var url = window.location.href;
+            url = url.substr(0, url.lastIndexOf("/"));
+            url = url.substr(0, url.lastIndexOf("/"));
+            url += "/files/file?file=" + file;
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-            openInIframe(msviewer+url)
+            openInIframe(msviewer+url);
             break;
 
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
         case 'application/octet-stream':                                                    //.psd
         case 'application/x-zip-compressed':                                                //.zip
-            var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
             var gviewer ="https://docs.google.com/viewer?url=";
+            var url = window.location.href;
+            url = url.substr(0, url.lastIndexOf("/"));
+            url = url.substr(0, url.lastIndexOf("/"));
+            url += "/files/file?file=" + file;
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             openInIframe(gviewer+url+"&embedded=true");
             break;
