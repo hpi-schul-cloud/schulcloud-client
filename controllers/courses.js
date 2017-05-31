@@ -329,7 +329,7 @@ router.get('/:courseId/addStudent', function (req, res, next) {
         if (_.includes(course.userIds, currentUser._id)) {
             req.session.notification = {
                 type: 'danger',
-                message: "Sie sind bereits Teilnehmer des Kurses/ Fachs."
+                message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${course.name}.`
             };
             res.redirect('/courses/' + req.params.courseId);
             return;
@@ -342,7 +342,7 @@ router.get('/:courseId/addStudent', function (req, res, next) {
         }).then(_ => {
             req.session.notification = {
                 type: 'success',
-                message: "Sie wurden erfolgreich beim Kurs/ Fach hinzugefügt."
+                message: `Sie wurden erfolgreich beim Kurs/Fach ${course.name} hinzugefügt`
             };
             res.redirect('/courses/' + req.params.courseId);
         });
