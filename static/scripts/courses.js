@@ -1,9 +1,9 @@
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
-
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
+        var $hiddenToggleBtn = $(this);
         var $hiddenToggleIcon = $(this).find('.fa');
         $.ajax({
             method: 'PATCH',
@@ -13,9 +13,11 @@ $(document).ready(function () {
                 if (result.hidden) {
                     $hiddenToggleIcon.addClass('fa-eye-slash');
                     $hiddenToggleIcon.removeClass('fa-eye');
+                    $hiddenToggleBtn.attr('data-original-title', "Thema entsperren");
                 } else {
                     $hiddenToggleIcon.removeClass('fa-eye-slash');
                     $hiddenToggleIcon.addClass('fa-eye');
+                    $hiddenToggleBtn.attr('data-original-title', "Thema sperren");
                 }
             }
         });
