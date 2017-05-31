@@ -52,7 +52,13 @@ class TopicBlockWrapper extends React.Component {
 
                             <span className="input-group-btn">
                                 <i className="fa fa-arrows move-handle" />
-                                <a className="btn btn-secondary" onClick={this.toggleHidden.bind(this)}>
+                                <a className="btn btn-secondary hidden-toggle"
+                                   onClick={this.toggleHidden.bind(this)}
+                                   data-toggle="tooltip"
+                                   data-placement="top"
+                                   title={`Abschnitt ${this.props.hidden ? 'entsperren' : 'sperren'}`}
+                                   data-original-title={`Abschnitt ${this.props.hidden ? 'entsperren' : 'sperren'}`}
+                                >
                                     <i className={`fa fa-eye${this.props.hidden ? '-slash' : ''}`} />
                                 </a>
                             </span>

@@ -31,7 +31,7 @@
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema sperren">
                                                              <i class="fa fa-eye"></i>
                                                         </a>
                                                     </span>
@@ -46,7 +46,11 @@
                                             <div class="card-header">
                                                 <div class="input-group">
                                                         <span class="input-group-btn">
-                                                            <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                            <a
+                                                                class="btn btn-secondary btn-hidden-toggle"
+                                                                href="{{../_id}}"
+                                                                data-toggle="tooltip"
+                                                                title="{{#if ../hidden}}Thema entsperren{{else}}Thema sperren{{/if}}">
                                                                  <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                             </a>
                                                         </span>
