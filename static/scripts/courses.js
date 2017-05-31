@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -17,6 +19,34 @@ $(document).ready(function () {
                 }
             }
         });
-    })
+    });
 
+    $('.btn-create-invitation').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let target = $(this).attr("data-href") + 'addStudent';
+        let $invitationModal = $('.invitation-modal');
+        $.ajax({
+            type: "POST",
+            url: "/link/",
+            data: {
+                target: target
+            },
+            success: function(data) {
+                populateModalForm($invitationModal, {
+                    title: 'Einladungslink generiert!',
+                    closeLabel: 'Schließen',
+                    submitLabel: 'Speichern',
+                    fields: {invitation: data.newUrl}
+                });
+                $invitationModal.find('.btn-submit').remove();
+                $invitationModal.find("input[name='invitation']").click(function () {
+                    $(this).select();
+                });
+
+                $invitationModal.modal('show');
+
+            }
+        });
+    });
 });

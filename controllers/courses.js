@@ -164,7 +164,7 @@ router.get('/', function (req, res, next) {
             return course;
         });
         if (req.query.json) {
-            res.json(courses)
+            res.json(courses);
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
@@ -176,7 +176,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/json', function (req, res, next) {
 
-})
+});
 
 
 router.post('/', function (req, res, next) {
@@ -286,6 +286,8 @@ router.patch('/:courseId', function (req, res, next) {
 
     if (!req.body.classIds)
         req.body.classIds = [];
+    if (!req.body.userIds)
+        req.body.userIds = [];
 
     // first delete all old events for the course
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
@@ -307,6 +309,45 @@ router.delete('/:courseId', function (req, res, next) {
         res.redirect('/courses/');
     }).catch(_ => {
         res.sendStatus(500);
+    });
+});
+
+router.get('/:courseId/addStudent', function (req, res, next) {
+    let currentUser = res.locals.currentUser;
+    // if currentUser isn't a student don't add to course-students
+    if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
+        req.session.notification = {
+            type: 'danger',
+            message: "Sie sind kein Nutzer der Rolle 'Schüler'."
+        };
+        res.redirect('/courses/' + req.params.courseId);
+        return;
+    }
+
+    // check if student is already in course
+    api(req).get('/courses/' + req.params.courseId).then(course => {
+        if (_.includes(course.userIds, currentUser._id)) {
+            req.session.notification = {
+                type: 'danger',
+                message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${course.name}.`
+            };
+            res.redirect('/courses/' + req.params.courseId);
+            return;
+        }
+
+        // add Student to course
+        course.userIds.push(currentUser._id);
+        api(req).patch("/courses/" + course._id, {
+            json: course
+        }).then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: `Sie wurden erfolgreich beim Kurs/Fach ${course.name} hinzugefügt`
+            };
+            res.redirect('/courses/' + req.params.courseId);
+        });
+    }).catch(err => {
+        next(err);
     });
 });
 

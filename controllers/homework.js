@@ -183,7 +183,7 @@ const splitDate = function(date){
         "date":dateF,
         "time":timeF
     };
-}
+};
 const formatremaining = function(dueDate){
     let diff = moment.duration(dueDate - Date.now());
     let dueColor, dueString;
@@ -207,23 +207,23 @@ const formatremaining = function(dueDate){
         "diff":diff,
         "days":days
     };
-}
+};
 // Sortierfunktionen
 const sortbyavailableDate = function(a, b) {
     const c = new Date(a.availableDate), d = new Date(b.availableDate);
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
-}
+};
 const sortbyDueDate = function(a, b) {
     const c = new Date(a.dueDate), d = new Date(b.dueDate);
     if (c === d) {return 0;}
     else {return (c < d) ? -1 : 1;}
-}
+};
 const getAverageRating = function(submissions,gradeSystem){
     // Durchschnittsnote berechnen
     if (submissions.length > 0) {
         // Nur bewertete Abgaben einbeziehen 
-        let submissiongrades = submissions.filter(function(sub){return (sub.grade!=null);})
+        let submissiongrades = submissions.filter(function(sub){return (sub.grade!=null);});
         // Abgaben vorhanden?
         if(submissiongrades.length > 0){
             // Noten aus Abgabe auslesen (& in Notensystem umwandeln)
@@ -245,7 +245,7 @@ const getAverageRating = function(submissions,gradeSystem){
         }
     }   
     return undefined;
-}
+};
 router.all('/', function (req, res, next) {
     api(req).get('/homework/', {
         qs: {
@@ -287,7 +287,7 @@ router.all('/', function (req, res, next) {
             });
             Promise.resolve(submissionPromise).then(submissions => {
                 if(assignment.teacherId === res.locals.currentUser._id){  //teacher
-                    let submissionLength = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
+                    let submissionLength = submissions.filter(function(n){return n.comment != undefined && n.comment != "";}).length;
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
                     assignment.submissionStatsPerc = Math.round((submissionLength/assignment.userIds.length)*100);
                     let submissionCount = (submissions.filter(function (a) {
@@ -404,7 +404,7 @@ router.get('/:assignmentId', function (req, res, next) {
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
-                assignment.submissionsCount = submissions.filter(function(n){return n.comment != undefined && n.comment != ""}).length;
+                assignment.submissionsCount = submissions.filter(function(n){return n.comment != undefined && n.comment != "";}).length;
                 assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
                 //generate select options for grades @ evaluation.hbs
@@ -417,7 +417,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     sub.gradeOptions = options;
                     sub.gradeText = ((assignment.courseId.gradeSystem)?"Note: ":"Punkte: ")+grades[15-sub.grade];
                     return sub;
-                })
+                });
 
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
