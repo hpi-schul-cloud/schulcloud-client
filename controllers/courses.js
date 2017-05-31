@@ -164,7 +164,7 @@ router.get('/', function (req, res, next) {
             return course;
         });
         if (req.query.json) {
-            res.json(courses)
+            res.json(courses);
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
@@ -176,7 +176,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/json', function (req, res, next) {
 
-})
+});
 
 
 router.post('/', function (req, res, next) {
@@ -310,10 +310,43 @@ router.delete('/:courseId', function (req, res, next) {
     });
 });
 
-router.post('/:courseId/addStudent', function (req, res, next) {
-    // todo: add student in req.locals.currentUser._id to the given course
-    // todo: add button on course page for generate this link
-    // todo: show successful notification
+router.get('/:courseId/addStudent', function (req, res, next) {
+    let currentUser = res.locals.currentUser;
+    // if currentUser isn't a student don't add to course-students
+    if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
+        req.session.notification = {
+            type: 'danger',
+            message: "Sie sind kein Nutzer der Rolle 'Schüler'."
+        };
+        res.redirect('/courses/' + req.params.courseId);
+        return;
+    }
+
+    // check if student is already in course
+    api(req).get('/courses/' + req.params.courseId).then(course => {
+        if (_.includes(course.userIds, currentUser._id)) {
+            req.session.notification = {
+                type: 'danger',
+                message: "Sie sind bereits Teilnehmer des Kurses/ Fachs."
+            };
+            res.redirect('/courses/' + req.params.courseId);
+            return;
+        }
+
+        // add Student to course
+        course.userIds.push(currentUser._id);
+        api(req).patch("/courses/" + course._id, {
+            json: course
+        }).then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: "Sie wurden erfolgreich beim Kurs/ Fach hinzugefügt."
+            };
+            res.redirect('/courses/' + req.params.courseId);
+        });
+    }).catch(err => {
+        next(err);
+    });
 });
 
 

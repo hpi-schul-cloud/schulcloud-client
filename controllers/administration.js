@@ -175,13 +175,13 @@ const getCSVImportHandler = (service) => {
         const groupData = {
             schoolId: req.body.schoolId,
             roles: req.body.roles
-        }
+        };
 
         const recordPromises = records.map((user) => {
             user = Object.assign(user, groupData);
             return api(req).post('/' + service + '/', {
                 json: user
-            })
+            });
         });
 
         Promise.all(recordPromises).then(_ => {
@@ -253,7 +253,7 @@ const getDeleteAccountForUserHandler = (req, res, next) => {
         });
     }).catch(err => {
         next(err);
-    })
+    });
 };
 
 const removeSystemFromSchoolHandler = (req, res, next) => {
