@@ -279,7 +279,7 @@ class TopicBlockList extends React.Component {
                     <div className="btn-group" role="group" aria-label="Basic example">
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>Material</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                     </div>
                 </div>
             </div>
