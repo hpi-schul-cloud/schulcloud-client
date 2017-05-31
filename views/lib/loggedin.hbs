@@ -23,8 +23,7 @@
     {{/content}}
 
     {{#content "body"}}
-        {{#unless inline}}
-            <aside class="nav-sidebar">
+            <aside class="nav-sidebar hide-inline">
                 <nav>
                     <ul>
                         <li>
@@ -67,7 +66,7 @@
 
             <section class="content-wrapper">
                 {{> "lib/components/notification"}}
-                <nav class="topbar navbar">
+                <nav class="topbar navbar hide-inline">
 
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
@@ -131,7 +130,7 @@
                                 </div>
                             </div>
                             {{#unless hideSearch}}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 hide-inline">
                                 <form class="search-wrapper" action="/content/" method="get">
                                     <a class="mobile-search-toggle">
                                         <i class="fa fa-search"></i>
@@ -150,7 +149,6 @@
                         </div>
                     </div>
                 </section>
-            {{/unless}}
 
             <div class="container-fluid">
                 <div class="row">
@@ -160,19 +158,16 @@
                 </div>
             </div>
 
-            {{#unless inline}}
-                <a class="submit-helpdesk">
-                    {{#embed "lib/components/feedback-button"}}
-                    {{/embed}}
-                </a>
-
-
-                {{#embed "lib/components/modal-form" class="feedback-modal"}}
-                    {{#content "fields"}}
-                        {{> "lib/forms/form-helpdesk"}}
-                    {{/content}}
+            <a class="submit-helpdesk hide-inline">
+                {{#embed "lib/components/feedback-button"}}
                 {{/embed}}
-            {{/unless}}
+            </a>
+
+            {{#embed "lib/components/modal-form" class="feedback-modal"}}
+                {{#content "fields"}}
+                    {{> "lib/forms/form-helpdesk"}}
+                {{/content}}
+            {{/embed}}
         </section>
     {{/content}}
 {{/extend}}

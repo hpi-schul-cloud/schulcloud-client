@@ -35,9 +35,22 @@ $(document).ready(function () {
 		e.preventDefault();
 		var entry = $(this).attr('href');
 		var query = $('.search-field');
+
 		$.getJSON(entry, function (result) {
-			var fields = result.content.data.attributes;
-			fields.query = query.val();
+
+            var fields = result.content.data.attributes;
+            fields.query = query.val();
+
+            if(window.isInline) {
+                window.opener.addResource({
+                	url: fields.url,
+                    title: fields.title,
+					description: fields.description,
+                    client: fields.client
+				});
+                window.close();
+                return;
+            }
 
 			populateModalForm($editModal, {
 				title: 'Material zu Stunde hinzufügen',
@@ -48,6 +61,7 @@ $(document).ready(function () {
 			populateCourseSelection($editModal, result.courses.data);
 			$editModal.modal('show');
 		});
+
 	});
 
 	$('.course-selection').on('change', function () {

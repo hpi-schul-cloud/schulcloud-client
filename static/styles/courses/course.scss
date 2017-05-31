@@ -102,3 +102,12 @@
     }
 }
 
+.btn-remove-resource {
+    float: right;
+    cursor: pointer;
+
+    i {
+        color: $colorHPIRed;
+    }
+}
+
