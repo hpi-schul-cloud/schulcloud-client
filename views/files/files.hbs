@@ -139,12 +139,11 @@
                                                data-file-path="{{this.path}}">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
-                                            <a href="/files/file/"
-                                                target="_blank"
-                                                data-method="move"
-                                                data-file-name="{{this.name}}"
-                                                data-file-path="{{this.path}}">
-                                                <!--<i class="fa fa-share"></i>-->
+
+                                            <a href="#"
+                                               class="btn-file-share"
+                                               data-file-path="{{this.key}}">
+                                                <i class="fa fa-share"></i>
                                             </a>
                                             <small class="file-info" id="{{this.name}}"></small>
                                         </div>
@@ -203,6 +202,12 @@
                         Löschen
                     </button>
                 </div>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal-form" class="share-modal"}}
+            {{#content "fields"}}
+                {{> "files/forms/form-share-file"}}
             {{/content}}
         {{/embed}}
 

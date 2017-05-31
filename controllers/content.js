@@ -39,7 +39,13 @@ router.get('/', function (req, res, next) {
     const currentPage = parseInt(req.query.p) || 1;
 
     if(!query && !req.query.filter) {
-        res.render('content/search', {title: 'Inhalte', query, results: [], subjects, suppressNoResultsMessage: true});
+        res.render('content/search', {
+            title: 'Inhalte',
+            query,
+            results: [],
+            subjects,
+            suppressNoResultsMessage: true
+        });
         return;
     }
 
@@ -56,6 +62,7 @@ router.get('/', function (req, res, next) {
             $skip: itemsPerPage * (currentPage - 1)
         }
     }).then(result => {
+
         const {meta = {}, data = []} = result;
 
         // get base url with all filters and query
@@ -80,13 +87,27 @@ router.get('/', function (req, res, next) {
         });
 
         let action = 'addToLesson';
-        res.render('content/search', {title: 'Inhalte', query, results, pagination, action, subjects: selectedSubjects, total});
+        res.render('content/search', {
+            title: 'Inhalte',
+            query,
+            results,
+            pagination,
+            action,
+            subjects: selectedSubjects,
+            total
+        });
+
     })
         .catch(error => {
-            res.render('content/search', {title: 'Inhalte', query, subjects: selectedSubjects, notification: {
-                type: 'danger',
-                message: `${error.name} ${error.message}`
-            }});
+            res.render('content/search', {
+                title: 'Inhalte',
+                query,
+                subjects: selectedSubjects,
+                notification: {
+                    type: 'danger',
+                    message: `${error.name} ${error.message}`
+                }
+            });
         });
 });
 
