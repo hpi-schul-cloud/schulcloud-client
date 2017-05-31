@@ -10,6 +10,7 @@ $(document).ready(function() {
     var $moveModal = $('.move-modal');
 
 
+
     var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
 
     // TODO: replace with something cooler
@@ -209,8 +210,10 @@ $moveModal.modal('hide');
         }).fail(showAJAXError);
     });
 
+
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+
     });
 
     var returnFileUrl = (fileName) => {
@@ -237,6 +240,7 @@ function fileViewer(filetype, file) {
         case 'image/'+filetype.substr(6, filetype.length) :
             $('#picture').attr("src", '/files/file?file='+file);
             break;
+
         case 'audio/'+filetype.substr(6, filetype.length):
         case 'video/'+filetype.substr(6, filetype.length):
             videojs('my-video').ready(function () {
@@ -244,25 +248,49 @@ function fileViewer(filetype, file) {
             });
             $('#my-video').css("display","");
             break;
-        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-            $.ajax({
-                type: 'get',
-                data: {
-                    name: file
-                },
-                error: showAJAXError
-            });
 
-
-            var t = "schul.tech/files/file?file=" + file;
-
-            $('#link').html('<a class="link" href="https://docs.google.com/viewer?url='+t+'" target="_blank">Document extern öffnen</a>');
-            $('#link').css("display","");
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
+        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
+        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
+        case 'application/vnd.ms-powerpoint':                                               //.ppt
+        case 'application/vnd.ms-excel':                                                    //.xlx
+        case 'application/vnd.ms-word':                                                     //.doc
+            var msviwer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+            var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
+            //var gviewer = "https://docs.google.com/viewer?url=";
+            openInIframe(msviwer+url)
             break;
+
+        case 'text/plain': //only in Google Docs Viewer                                     //.txt
+        case 'application/octet-stream':                                                    //.psd
+        case 'application/x-zip-compressed':                                                //.zip
+            var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
+            var gviewer = "https://docs.google.com/viewer?url=";
+            openInIframe(gviewer+url+"&embedded=true");
+            break;
+
         default:
             $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
             $('#link').css("display","");
     }
+}
+
+function openInIframe(src){
+    var $openModal = $('.open-modal');
+
+    $openModal.modal('show');
+    $openModal.find('.btn-submit').unbind('click').on('click', function () {
+
+        $('#link').html('<iframe class="viweriframe" src=src>' +
+            '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+        $('#link').css("display","");
+        $openModal.modal('hide');
+    });
+
+    $openModal.find('.close, .btn-close').unbind('click').on('click', function () {
+        $openModal.modal('hide');
+        window.location.href = "#_";
+    });
 }
 
 function writeFileSizePretty(filesize) {
