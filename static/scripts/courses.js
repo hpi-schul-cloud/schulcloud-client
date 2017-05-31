@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -17,6 +19,5 @@ $(document).ready(function () {
                 }
             }
         });
-    })
-
+    });
 });

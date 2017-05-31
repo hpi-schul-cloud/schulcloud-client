@@ -272,6 +272,7 @@ class TopicBlockList extends React.Component {
                 <div className="form-group">
                     <div className="btn-group" role="group" aria-label="Basic example">
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
                         {/* <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>Material</button> */}
                     </div>
                 </div>
@@ -311,6 +312,9 @@ class TopicBlock extends React.Component {
                 break;
             case 'resources':
                 return TopicResources;
+                break;
+            case 'geoGebra':
+                return TopicGeoGebra;
                 break;
         }
     }
@@ -562,6 +566,71 @@ class TopicResources extends TopicBlock {
                 <div className="btn-group" role="group" >
                     <button type="button" className="btn btn-secondary btn-add" onClick={this.addResource.bind(this, '')}>+ Material</button>
                 </div>
+            </div>
+        );
+    }
+};
+
+/**
+ * Class representing a geo gebra worksheet
+ * @extends React.Component
+ */
+class TopicGeoGebra extends TopicBlock {
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+        const randomId = Math.random().toString(36).substr(2, 5);
+        this.editorId = `editor_${randomId}`;
+    }
+
+    componentDidMount() {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in view mode.
+     */
+    static get component() {
+        return 'geoGebra';
+    }
+
+    /**
+     * Keep state in sync with input.
+     */
+    updateMaterialId(event) {
+        const value = typeof(event) == 'string' ? event : event.target.value;
+        this.props.onUpdate({
+            content: {
+                materialId: value
+            }
+        });
+    }
+
+    /**
+     * Render the block (an textarea)
+     */
+    render() {
+        return (
+            <div className="input-group">
+                <span className="input-group-btn">
+                    <a
+                        className="btn btn-secondary geo-gebra-info"
+                        href="#"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"><i className="fa fa-info-circle" /></a>
+                </span>
+                <input
+                    className="form-control"
+                    id={this.editorId}
+                    onChange={this.updateMaterialId.bind(this)}
+                    value={(this.props.content || {}).materialId}
+                    placeholder="GeoGebra Material-ID eingeben, z.B. ZFTGX57r"
+                    name={`contents[${this.props.position}][content][materialId]`}
+                />
             </div>
         );
     }
