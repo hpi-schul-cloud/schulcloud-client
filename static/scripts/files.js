@@ -255,18 +255,15 @@ function fileViewer(filetype, file) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
-            var msviwer = "https://view.officeapps.live.com/op/embed.aspx?src=";
             var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
-            //var gviewer = "https://docs.google.com/viewer?url=";
-            openInIframe(msviwer+url)
+            openInIframe("msviewer",url)
             break;
 
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
         case 'application/octet-stream':                                                    //.psd
         case 'application/x-zip-compressed':                                                //.zip
             var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
-            var gviewer = "https://docs.google.com/viewer?url=";
-            openInIframe(gviewer+url+"&embedded=true");
+            openInIframe("gviewer"+url);
             break;
 
         default:
@@ -275,22 +272,55 @@ function fileViewer(filetype, file) {
     }
 }
 
-function openInIframe(src){
+function openInIframe(service, url){
     var $openModal = $('.open-modal');
+    var source;
 
-    $openModal.modal('show');
-    $openModal.find('.btn-submit').unbind('click').on('click', function () {
+    switch (service){
+        case 'msviewer':
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
+            source = "https://view.officeapps.live.com/op/embed.aspx?src=" + url;
+            break;
+        case 'gviewer':
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
+            source = "https://docs.google.com/viewer?url="+url+"&embedded=true";
+            break;
+    }
 
-        $('#link').html('<iframe class="viweriframe" src=src>' +
-            '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
-        $('#link').css("display","");
-        $openModal.modal('hide');
+    $("input.box").each(function() {
+        var mycookie = $.cookie($(this).attr('name'));
+        if (mycookie && mycookie == "true") {
+            $(this).prop('checked', mycookie);
+            $openModal.modal('hide');
+            $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
+                '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+            $('#link').css("display","");
+
+        }
+        else {
+            $openModal.modal('show');
+
+            $openModal.find('.btn-submit').unbind('click').on('click', function () {
+
+                $.cookie($("input.box").attr("name"), $("input.box").prop('checked'), {
+                    path: '/',
+                    expires: 365
+                });
+
+                $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
+                    '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+                $('#link').css("display","");
+                $openModal.modal('hide');
+            });
+
+            $openModal.find('.close, .btn-close').unbind('click').on('click', function () {
+                $openModal.modal('hide');
+                window.location.href = "#_";
+            });
+        }
     });
 
-    $openModal.find('.close, .btn-close').unbind('click').on('click', function () {
-        $openModal.modal('hide');
-        window.location.href = "#_";
-    });
+
 }
 
 function writeFileSizePretty(filesize) {
