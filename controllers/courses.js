@@ -286,6 +286,8 @@ router.patch('/:courseId', function (req, res, next) {
 
     if (!req.body.classIds)
         req.body.classIds = [];
+    if (!req.body.userIds)
+        req.body.userIds = [];
 
     // first delete all old events for the course
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
