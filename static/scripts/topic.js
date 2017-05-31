@@ -279,7 +279,7 @@ class TopicBlockList extends React.Component {
                     <div className="btn-group" role="group" aria-label="Basic example">
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
-                        {/* <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>Material</button> */}
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                     </div>
                 </div>
             </div>
@@ -338,13 +338,19 @@ class TopicText extends TopicBlock {
      */
     constructor(props) {
         super(props);
-        const randomId = Math.random().toString(36).substr(2, 5);
-        this.editorId = `editor_${randomId}`;
+
+        if(!(this.props.content || {}).editorId) {
+            const randomId = Math.random().toString(36).substr(2, 5);
+            this.editorId = `editor_${randomId}`;
+            this.updateText((this.props.content || {}).text);
+        }
     }
 
     componentDidMount() {
         const storageContext = this.getStorageContext();
-        CKEDITOR.replace(this.editorId, {
+        const editorId = (this.props.content || {}).editorId || this.editorId;
+
+        CKEDITOR.replace(editorId, {
             extraPlugins: 'uploadimage',
             uploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
@@ -352,13 +358,12 @@ class TopicText extends TopicBlock {
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
             removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link'
         });
-        CKEDITOR.instances[this.editorId].on("change", function () {
-            const data = CKEDITOR.instances[this.editorId].getData();
+        CKEDITOR.instances[editorId].on("change", function () {
+            const data = CKEDITOR.instances[editorId].getData();
             this.updateText(data);
         }.bind(this));
 
-        CKEDITOR.on( 'dialogDefinition', function( ev )
-        {
+        CKEDITOR.on( 'dialogDefinition', function( ev ) {
             var dialogName = ev.data.name;
             var dialogDefinition = ev.data.definition;
             ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
@@ -383,9 +388,9 @@ class TopicText extends TopicBlock {
             }
         });
 
-        this.props.addOnSortEndCallback(function () {
-            CKEDITOR.instances[this.editorId].setData((this.props.content || {}).text);
-        }.bind(this));
+        this.props.addOnSortEndCallback(() => {
+            CKEDITOR.instances[editorId].setData((this.props.content || {}).text);
+        });
     }
 
 
@@ -412,10 +417,12 @@ class TopicText extends TopicBlock {
      * Keep state in sync with input.
      */
     updateText(event) {
+        const editorId = (this.props.content || {}).editorId || this.editorId;
         const value = typeof(event) == 'string' ? event : event.target.value;
         this.props.onUpdate({
             content: {
-                text: value
+                text: value,
+                editorId: editorId
             }
         });
     }
@@ -424,12 +431,13 @@ class TopicText extends TopicBlock {
      * Render the block (an textarea)
      */
     render() {
+        const editorId = (this.props.content || {}).editorId || this.editorId;
         return (
             <div>
                 <textarea
                     className="form-control"
                     rows="10"
-                    id={this.editorId}
+                    id={editorId}
                     onChange={this.updateText.bind(this)}
                     value={(this.props.content || {}).text}
                     name={`contents[${this.props.position}][content][text]`}
@@ -454,34 +462,45 @@ class TopicResource extends React.Component {
     }
 
     /**
-     * Keep state in sync with input.
-     */
-    updateResource(event) {
-        this.props.onUpdate(event.target.value);
-    }
-
-    /**
      * Render the resource field.
      * TODO: show a real resource and not just inputfield
      */
     render() {
         return (
-            <div className="form-group">
-                <div className="input-group">
-                    <input
-                        placeholder="Resources ID"
-                        className="form-control"
-                        type="text"
-                        value={this.props.resource}
-                        onChange={this.updateResource.bind(this)}
-                        name={`contents[${this.props.position}][content][]`}
-                    />
-                    <span className="input-group-btn">
-                        <button className="btn btn-danger btn-remove" type="button" onClick={this.props.onRemove}>
-                            <i className="fa fa-minus" />
-                        </button>
-                    </span>
+            <div className="card">
+                <div className="card-block">
+                    <h4 className="card-title">
+                        <a href={(this.props.resource || {}).url} target="_blank">
+                            {(this.props.resource || {}).title}
+                        </a>
+                    </h4>
+                    <p className="card-text">{(this.props.resource || {}).description}</p>
                 </div>
+                <div className="card-footer">
+                    <small className="text-muted">via {(this.props.resource || {}).client}</small>
+                    <a className="btn-remove-resource" onClick={this.props.onRemove}><i
+                        className="fa fa-minus-square"></i></a>
+                </div>
+                <input
+                    type="hidden"
+                    value={(this.props.resource || {}).url}
+                    name={`contents[${this.props.position}][content][resources][${this.props.index}][url]`}
+                />
+                <input
+                    type="hidden"
+                    value={(this.props.resource || {}).title}
+                    name={`contents[${this.props.position}][content][resources][${this.props.index}][title]`}
+                />
+                <input
+                    type="hidden"
+                    value={(this.props.resource || {}).description}
+                    name={`contents[${this.props.position}][content][resources][${this.props.index}][description]`}
+                />
+                <input
+                    type="hidden"
+                    value={(this.props.resource || {}).client}
+                    name={`contents[${this.props.position}][content][resources][${this.props.index}][client]`}
+                />
             </div>
         );
     }
@@ -513,9 +532,19 @@ class TopicResources extends TopicBlock {
      * @param {string} resource - ID of the resource
      */
     addResource(resource = '') {
-        const resources = this.props.content.resources || [];
-        resources.push(resource);
-        this.updateResources(resources);
+        window.addResource = (resource) => {
+            const resources = this.props.content.resources || [];
+            resources.push(resource);
+            this.updateResources(resources);
+        };
+
+        if(!resource) {
+            // open content search popup
+            const resourcePopup = window.open('/content/?inline=1', "content-search", "toolbar=no, location=no, directories=no, width=800,height=600,status=no,scrollbars=yes,resizable=yes");
+            resourcePopup.focus();
+        } else {
+            window.addResource(resource);
+        }
     }
 
     /**
@@ -558,16 +587,18 @@ class TopicResources extends TopicBlock {
         const resources = (this.props.content || {}).resources || [];
         return (
             <div>
-                {resources.map((item, index) => {
-                    return (<TopicResource
-                        key={index}
-                        onUpdate={this.updateResource.bind(this, index)}
-                        onRemove={this.removeResource.bind(this, index)}
-                        position={this.props.position}
-                        index={index}
-                        resource={item}
-                    />);
-                })}
+                <div className="card-columns">
+                    {resources.map((item, index) => {
+                        return (<TopicResource
+                            key={index}
+                            onUpdate={this.updateResource.bind(this, index)}
+                            onRemove={this.removeResource.bind(this, index)}
+                            position={this.props.position}
+                            index={index}
+                            resource={item}
+                        />);
+                    })}
+                </div>
 
                 <div className="btn-group" role="group" >
                     <button type="button" className="btn btn-secondary btn-add" onClick={this.addResource.bind(this, '')}>+ Material</button>
