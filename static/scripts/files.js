@@ -225,6 +225,45 @@ $moveModal.modal('hide');
         $modals.modal('hide');
     });
 
+    $('.btn-file-share').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let path = $(this).attr('data-file-path');
+        let $shareModal = $('.share-modal');
+        $.ajax({
+            type: "POST",
+            url: "/files/permissions/",
+            data: {
+                key: path
+            },
+            success: function(data) {
+                let target = `files/file?path=${data.key}&shared=true`;
+                $.ajax({
+                    type: "POST",
+                    url: "/link/",
+                    data: {
+                        target: target
+                    },
+                    success: function(data) {
+                        populateModalForm($shareModal, {
+                            title: 'Einladungslink generiert!',
+                            closeLabel: 'Schließen',
+                            submitLabel: 'Speichern',
+                            fields: {invitation: data.newUrl}
+                        });
+                        $shareModal.find('.btn-submit').remove();
+                        $shareModal.find("input[name='invitation']").click(function () {
+                            $(this).select();
+                        });
+
+                        $shareModal.modal('show');
+
+                    }
+                });
+            }
+        });
+    });
+
 });
     function videoClick(e) {
         e.stopPropagation();
