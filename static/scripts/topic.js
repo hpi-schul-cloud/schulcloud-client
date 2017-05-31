@@ -587,7 +587,7 @@ class TopicGeoGebra extends TopicBlock {
     }
 
     componentDidMount() {
-
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     /**
@@ -616,7 +616,12 @@ class TopicGeoGebra extends TopicBlock {
         return (
             <div className="input-group">
                 <span className="input-group-btn">
-                    <a id="geo-gebra-info" className="btn btn-secondary" href="#"><i className="fa fa-info-circle" /></a>
+                    <a
+                        className="btn btn-secondary geo-gebra-info"
+                        href="#"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Die Material-ID finden Sie in der URL zu dem GeoGebra-Arbeitsblatt, was sie online abgespeichert haben. Bei z.B. https://www.geogebra.org/m/e6g4adXp ist die Material-ID 'e6g4adXp'"><i className="fa fa-info-circle" /></a>
                 </span>
                 <input
                     className="form-control"
