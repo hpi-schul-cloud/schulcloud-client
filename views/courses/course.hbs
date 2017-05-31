@@ -119,6 +119,7 @@
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
+                        <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
                     {{/userHasPermission}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
@@ -139,6 +140,12 @@
                             Löschen
                         </button>
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 
