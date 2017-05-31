@@ -1,5 +1,7 @@
 $(document).ready(function() {
     var $btnToggleProviers = $('.btn-toggle-providers');
+    var $btnHideProviers = $('.btn-hide-providers');
+    var $btnLogin = $('.btn-login');
     var $loginProviders = $('.login-providers');
     var $school = $('.school');
     var $systems = $('.system');
@@ -12,7 +14,11 @@ $(document).ready(function() {
         $.getJSON('/login/systems/' + schoolId, function(systems) {
             systems.forEach(function(system) {
                 var systemAlias = system.alias ? ' (' + system.alias + ')' : '';
-                $systems.append('<option value="' + system._id + '">' + system.type + systemAlias + '</option>');
+                let selected;
+                if(localStorage.getItem('loginSystem') == system._id) {
+                    selected = true;
+                }
+                $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
         });
@@ -22,6 +28,21 @@ $(document).ready(function() {
         e.preventDefault();
         $btnToggleProviers.hide();
         $loginProviders.show();
+    });
+
+    $btnHideProviers.on('click', function(e) {
+        e.preventDefault();
+        $btnToggleProviers.show();
+        $loginProviders.hide();
+        $school.val('');
+        $school.trigger('chosen:updated');
+        $systems.val('');
+        $systems.trigger('chosen:updated');
+    });
+
+    $btnLogin.on('click', function(e) {
+        localStorage.setItem('loginSchool', $school.val());
+        localStorage.setItem('loginSystem', $systems.val());
     });
 
     $school.on('change', function() {
@@ -41,4 +62,14 @@ $(document).ready(function() {
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
     });
+
+    // if stored login system - use that
+    if(localStorage.getItem('loginSchool')) {
+        $btnToggleProviers.hide();
+        $loginProviders.show();
+        $school.val(localStorage.getItem('loginSchool'));
+        $school.trigger('chosen:updated');
+        $school.trigger('change');
+    }
+
 });
