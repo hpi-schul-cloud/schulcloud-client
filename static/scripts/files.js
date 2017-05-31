@@ -229,6 +229,7 @@ $moveModal.modal('hide');
     });
 
 });
+var $openModal = $('.open-modal');
 
 function videoClick(e) {
     e.stopPropagation();
@@ -257,14 +258,18 @@ function fileViewer(filetype, file) {
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
             var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
-            openInIframe("msviewer",url)
+            var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
+            openInIframe(msviewer+url)
             break;
 
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
         case 'application/octet-stream':                                                    //.psd
         case 'application/x-zip-compressed':                                                //.zip
             var url = "https://calibre-ebook.com/downloads/demos/demo.docx";
-            openInIframe("gviewer"+url);
+            var gviewer ="https://docs.google.com/viewer?url=";
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
+            openInIframe(gviewer+url+"&embedded=true");
             break;
 
         default:
@@ -273,36 +278,18 @@ function fileViewer(filetype, file) {
     }
 }
 
-function openInIframe(service, url){
-    var $openModal = $('.open-modal');
-    var source;
-
-    switch (service){
-        case 'msviewer':
-            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-            source = "https://view.officeapps.live.com/op/embed.aspx?src=" + url;
-            break;
-        case 'gviewer':
-            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            source = "https://docs.google.com/viewer?url="+url+"&embedded=true";
-            break;
-    }
-
+function openInIframe(source){
     $("input.box").each(function() {
         var mycookie = $.cookie($(this).attr('name'));
         if (mycookie && mycookie == "true") {
             $(this).prop('checked', mycookie);
-            $openModal.modal('hide');
             $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
                 '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
             $('#link').css("display","");
-
         }
         else {
             $openModal.modal('show');
-
             $openModal.find('.btn-submit').unbind('click').on('click', function () {
-
                 $.cookie($("input.box").attr("name"), $("input.box").prop('checked'), {
                     path: '/',
                     expires: 365
