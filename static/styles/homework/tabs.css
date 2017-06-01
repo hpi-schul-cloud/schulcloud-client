@@ -23,7 +23,7 @@
     border-color: $colorHPIRed;
     border-bottom-color: #fff;
   }
-  &:hover{
+  &:hover, &:focus{
     text-decoration: none;
     font-weight: 700;
     color: $colorHPIRed !important;
