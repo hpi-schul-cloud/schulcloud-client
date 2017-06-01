@@ -300,7 +300,7 @@ router.all('/', function (req, res, next) {
             Promise.resolve(submissionPromise).then(submissions => {
                 if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
                     let submissionLength = submissions.filter(function (n) {
-                        return n.comment != undefined && n.comment != "";
+                        return n.comment;
                     }).length;
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
                     assignment.submissionStatsPerc = (assignment.userIds.length) ? Math.round((submissionLength / assignment.userIds.length) * 100) : 0;
@@ -314,10 +314,13 @@ router.all('/', function (req, res, next) {
                     assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
                 } else { //student
+                    console.log("ASSIGNMENT",assignment.name);
                     const submission = submissions.filter(function (n) {
                         return n.studentId._id == res.locals.currentUser._id;
                     })[0];  // Abgabe des Schuelers heraussuchen
+                    console.log("PRE SUBMITTED",submissions);
                     if (submission != null && submission.comment != "") { // Abgabe vorhanden?
+                        console.log("SUBMITTED");
                         assignment.dueColor = "submitted";
                     }
                 }
@@ -440,7 +443,7 @@ router.get('/:assignmentId', function (req, res, next) {
             if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
                 assignment.submissionsCount = submissions.filter(function (n) {
-                    return n.comment != undefined && n.comment != "";
+                    return n.comment;
                 }).length;
                 assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
@@ -458,7 +461,11 @@ router.get('/:assignmentId', function (req, res, next) {
                         options += ('<option value="' + i + '" ' + ((sub.grade == i) ? "selected " : "") + '>' + grades[15 - i] + '</option>');
                     }
                     sub.gradeOptions = options;
-                    sub.gradeText = ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade];
+                    sub.gradeText = (sub.grade)?(
+                            ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade]
+                        ):(
+                            (sub.gradeComment)?'<i class="fa fa-check green" aria-hidden="true"></i>':'<i class="fa fa-times red" aria-hidden="true"></i>'
+                        );
                     return sub;
                 });
 

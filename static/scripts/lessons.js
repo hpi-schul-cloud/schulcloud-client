@@ -2,8 +2,8 @@ $(document).ready(function() {
     var $modals = $('.modal');
     var $deleteModal = $('.delete-modal');
 
-    var reloadLesson = function(href=undefined) {
-        if(href===undefined){
+    var reloadLesson = function(href) {
+        if(!href){
             window.location.reload();
         }else{
             window.location.href=href;
