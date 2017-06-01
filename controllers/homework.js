@@ -314,13 +314,10 @@ router.all('/', function (req, res, next) {
                     assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
                 } else { //student
-                    console.log("ASSIGNMENT",assignment.name);
                     const submission = submissions.filter(function (n) {
                         return n.studentId._id == res.locals.currentUser._id;
                     })[0];  // Abgabe des Schuelers heraussuchen
-                    console.log("PRE SUBMITTED",submissions);
-                    if (submission != null && submission.comment != "") { // Abgabe vorhanden?
-                        console.log("SUBMITTED");
+                    if (submission && submission.comment !== "") { // Abgabe vorhanden?
                         assignment.dueColor = "submitted";
                     }
                 }
@@ -461,11 +458,10 @@ router.get('/:assignmentId', function (req, res, next) {
                         options += ('<option value="' + i + '" ' + ((sub.grade == i) ? "selected " : "") + '>' + grades[15 - i] + '</option>');
                     }
                     sub.gradeOptions = options;
-                    sub.gradeText = (sub.grade)?(
+                    sub.gradeText = (sub.grade) ?   (
                             ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade]
                         ):(
-                            (sub.gradeComment)?'<i class="fa fa-check green" aria-hidden="true"></i>':'<i class="fa fa-times red" aria-hidden="true"></i>'
-                        );
+                            (sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
                     return sub;
                 });
 
