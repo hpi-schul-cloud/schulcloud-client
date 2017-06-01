@@ -168,7 +168,7 @@ router.get('/', function (req, res, next) {
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
-                courses
+                courses: _.chunk(courses, 3)
             });
         }
     });
