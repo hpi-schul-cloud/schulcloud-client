@@ -329,10 +329,10 @@ router.all('/', function (req, res, next) {
         });
 
         // Hausaufgaben sortieren
-        let desc = false;
+        
         let sortmethods = getSortmethods();
-        if (req.query.sort) {
-            var sorting = req.query.sort;
+        let sorting = req.query.sort;
+        if (sorting) {
             // Aktueller Sortieralgorithmus für Anzeige aufbereiten
             sortmethods = sortmethods.map(function (e) {
                 if (e.functionname == sorting) {
@@ -342,14 +342,16 @@ router.all('/', function (req, res, next) {
                 }
                 return e;
             });
+            // Sortieren der Aufgaben
             if (sorting == "availableDate") {
                 assignments.sort(sortbyavailableDate);
             } else if (sorting == "dueDate") {
                 assignments.sort(sortbyDueDate);
             }
-            if (sorting.desc) {
-                assignments.reverse();
-            }
+        }
+        let desc = (req.query.desc == "true");
+        if (desc){
+            assignments.reverse();
         }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
