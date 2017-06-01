@@ -86,12 +86,18 @@
                                 </a>
 
                                 <div class="dropdown-menu">
+                                    {{#if notifications}}
                                     {{#each notifications}}
                                         <div class="notification-item {{#unless this.read}}unread{{/unless}}" data-notification-id="{{this.notificationId}}">
                                             <span>{{this.title}}</span>
                                             <time class="notification-time">{{timeFromNow this.date}}</time>
                                         </div>
                                     {{/each}}
+                                    {{else}}
+                                        <div class="notification-item" data-notification-id="0">
+                                            <span>Derzeit keine Benachrichtigungen</span>
+                                        </div>
+                                    {{/if}}
                                 </div>
                             </div>
                         </li>
