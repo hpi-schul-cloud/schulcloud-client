@@ -58,24 +58,21 @@
                         <div class="row">
                             <div class="col-sm-12 no-padding"><h5>Offene Aufgaben</h5></div>
                         </div>
-                        <div class="row">
-                            <div class="row tasks">
-
-                                {{#each homeworks}}
-                                    <div class="col-sm-4">
-                                        <div class="card card-block">
-                                            <div class="card-text">
-                                                <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
-                                            </div>
-
-                                            <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
-                                            <p class="card-text">{{{description}}}</p>
-
-                                            <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
+                        <div class="row tasks">
+                            {{#each homeworks}}
+                                <div class="col-sm-4">
+                                    <div class="card card-block">
+                                        <div class="card-text">
+                                            <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
                                         </div>
+
+                                        <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
+                                        <p class="card-text">{{{description}}}</p>
+
+                                        <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
                                     </div>
-                                {{/each}}
-                            </div>
+                                </div>
+                            {{/each}}
                         </div>
                     </div>
                 </section>
