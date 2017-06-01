@@ -15,7 +15,11 @@
       padding: 0 0 10px;
     }
   }
-
+  .maintabs > .tab-links .tab-link{
+    @include media-breakpoint-up(sm) {
+      margin-top: 1.5rem;
+    }
+  }
   .edit {
     float: right;
     margin: 5px;
@@ -25,91 +29,28 @@
       margin-left: 7px;
     }
   }
-  .tab-links{
-    border-bottom: 1px solid lightgrey;
-  }
-  .tab-link {
-    color: #000;
-    display: inline-block;
-    text-decoration: none;
-    padding: 5px 10px 0;
-    font-size: 1.1rem;
-    @include media-breakpoint-up(sm) {
-      font-size: 1.2rem;
-      margin-top: 1.5rem;
-    }
-    margin-bottom: -2px;
-    border: 2px solid transparent;
-    border-top-left-radius:5px;
-    border-top-right-radius:5px;
-    &.active {
-      font-weight: 700;
-      color: $colorHPIRed !important;
-      border-color: $colorHPIRed;
-      border-bottom-color: #fff;
+  
+  .description,
+  .feedback {
+    color: grey;
+    max-width:700px;
+    margin: .5rem 0;
+    word-break: break-all;
+    p {
+      margin-bottom:.25rem;
     }
   }
-  .tab-content {
-    padding-top: .5rem;
-    display: none;
-    width: 100%;
-    clear:both;
-    &.active {
-      display: block;
-    }
-    > h5 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: $colorHPIOrange;
-    }
-    form.inline button{
-        background: $colorHPIRed;
-    }
-    .description,
-    .comment,
-    .feedback {
-      color: grey;
-      max-width:700px;
-      margin: .5rem 0;
-      word-break: break-all;
-      &.htmleditor{
-        max-width:100%;
-      }
-      p {
-        margin-bottom:.25rem;
-      }
-      pre{
-        font-family:inherit;
-        font-size:1em;
-        margin-top: .5rem;
-      }
-    }
-    .feedback {
-      margin-right: 75px;
-      color: grey;
-      @include media-breakpoint-down(xs) {
-        margin-right: 25px;
-      }
+  .feedback {
+    margin-right: 75px;
+    color: grey;
+    @include media-breakpoint-down(xs) {
+      margin-right: 25px;
     }
     textarea {
       min-height: 100px;
     }
-
     h6 {
       color: $colorHPIOrange;
-    }
-  }
-
-  @include media-breakpoint-down(xs) {
-    .nav-tabs {
-      border-bottom: none;
-    }
-    .nav-item {
-      border-bottom: 1px solid #ddd;
-    }
-    .nav-tabs .nav-item + .nav-item {
-      margin-left: 0;
-      margin-left: 5px;
     }
   }
 }

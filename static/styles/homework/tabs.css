@@ -1,0 +1,58 @@
+@import '../lib/colors.scss';
+@import '../lib/bootstrap/scss/bootstrap-flex';
+
+.tab-links{
+  border-bottom: 1px solid lightgrey;
+}
+.tab-link {
+  color: #000;
+  display: inline-block;
+  text-decoration: none;
+  padding: 5px 10px 0;
+  font-size: 1.1rem;
+  @include media-breakpoint-up(sm) {
+    font-size: 1.2rem;
+  }
+  margin-bottom: -2px;
+  border: 2px solid transparent;
+  border-top-left-radius:5px;
+  border-top-right-radius:5px;
+  &.active {
+    font-weight: 700;
+    color: $colorHPIRed !important;
+    border-color: $colorHPIRed;
+    border-bottom-color: #fff;
+  }
+  &:hover{
+    text-decoration: none;
+    font-weight: 700;
+    color: $colorHPIRed !important;
+  }
+}
+.tab-content {
+  padding-top: .5rem;
+  display: none;
+  width: 100%;
+  clear:both;
+  &.active {
+    display: block;
+  }
+  > h5 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: $colorHPIOrange;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .nav-tabs {
+    border-bottom: none;
+  }
+  .nav-item {
+    border-bottom: 1px solid #ddd;
+  }
+  .nav-tabs .nav-item + .nav-item {
+    margin-left: 0;
+    margin-left: 5px;
+  }
+}

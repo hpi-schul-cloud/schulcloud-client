@@ -73,51 +73,13 @@
     }
     .evaluation {
       display: none;
-      background: none;
-
-      .comments {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        .comment {
-          border-bottom: 1px solid #ddd;
-          margin-bottom: 1rem;
-          .picture {
-            float: left;
-            border-radius: 50%;
-            height: 32px;
-            width: 32px;
-            margin-right: 5px;
-          }
-          .name {
-            display: block;
-            line-height: 32px;
-          }
-          .btn {
-            float: right;
-
-            display: none;
-            color: #373a3c;
-            background-color:transparent;
-          }
-          &:hover .btn {
-            display: inline-block;
-          }
-        }
-      }
-      .answer {
-        textarea {
-          min-height: 50px;
-          margin-bottom: .5rem;
-        }
-      }
+      background: transparent;
     }
   }
 
 }
 
 .section-evaluation {
-  padding: 0 10px 10px;
   clear: both;
 
   .submission > h6,
