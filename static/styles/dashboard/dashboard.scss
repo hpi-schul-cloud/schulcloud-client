@@ -70,6 +70,10 @@
     margin-bottom: 50px;
     line-height: 1.75rem;
 
+    @include media-breakpoint-down(xs) {
+        display: none;
+    }
+
     h5 {
         color: $colorHPIRed;
         float: left;
