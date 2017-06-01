@@ -162,6 +162,7 @@ router.get('/', function (req, res, next) {
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
             events,
+            eventsDate: moment().format('dddd, DD. MMMM YYYY'),
             homeworks: _.chunk(homeworks, 3),
             news,
             hours,
