@@ -4,6 +4,7 @@ $(document).ready(function () {
     var $addModal = $('.add-modal');
     var $editModal = $('.edit-modal');
     var $invitationModal = $('.invitation-modal');
+    var $importModal = $('.import-modal');
 
     $('.btn-add').on('click', function (e) {
         e.preventDefault();
@@ -27,6 +28,18 @@ $(document).ready(function () {
                 fields: result
             });
 
+            // post-fill gradiation selection
+            if ($editModal.find("input[name=gradeSystem]").length) {
+                var $gradeInputPoints = $editModal.find("#gradeSystem0");
+                var $gradeInputMarks = $editModal.find("#gradeSystem1");
+                if(result.gradeSystem) {
+                    $gradeInputMarks.attr("checked", true);
+                    $gradeInputPoints.removeAttr("checked");
+                } else {
+                    $gradeInputPoints.attr("checked", true);
+                    $gradeInputMarks.removeAttr("checked");
+                }
+            }
             populateCourseTimes($editModal, result.times || []);
             $editModal.modal('show');
         });
@@ -58,6 +71,17 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('.btn-import').on('click', function (e) {
+        e.preventDefault();
+        populateModalForm($importModal, {
+            title: 'CSV Importieren',
+            closeLabel: 'Schließen',
+            submitLabel: 'Importieren'
+        });
+        $importModal.modal('show');
+    });
+
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');

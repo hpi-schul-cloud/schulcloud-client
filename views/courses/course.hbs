@@ -31,7 +31,7 @@
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema sperren">
                                                              <i class="fa fa-eye"></i>
                                                         </a>
                                                     </span>
@@ -46,7 +46,11 @@
                                             <div class="card-header">
                                                 <div class="input-group">
                                                         <span class="input-group-btn">
-                                                            <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                            <a
+                                                                class="btn btn-secondary btn-hidden-toggle"
+                                                                href="{{../_id}}"
+                                                                data-toggle="tooltip"
+                                                                title="{{#if ../hidden}}Thema entsperren{{else}}Thema sperren{{/if}}">
                                                                  <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                             </a>
                                                         </span>
@@ -111,14 +115,17 @@
                     {{/userHasPermission}}
                 </div>
             </div>
-
-            {{#userHasPermission "COURSE_EDIT"}}
-                <div class="row padding-top">
-                    <div class="col-sm-12">
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
-                    </div>
+                        <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
+                    {{/userHasPermission}}
+                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
-            {{/userHasPermission}}
+            </div>
+
+
 
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
@@ -133,6 +140,12 @@
                             Löschen
                         </button>
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 

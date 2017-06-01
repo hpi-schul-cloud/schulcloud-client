@@ -87,5 +87,27 @@
             }
         }
     }
+
+    #content-blocks {
+        .btn-group {
+            .btn-secondary {
+                margin-right: 0.4rem;
+            }
+        }
+
+        .geo-gebra-info {
+            color: white;
+            background-color: $colorHPIRed;
+        }
+    }
+}
+
+.btn-remove-resource {
+    float: right;
+    cursor: pointer;
+
+    i {
+        color: $colorHPIRed;
+    }
 }
 

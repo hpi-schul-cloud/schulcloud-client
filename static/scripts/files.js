@@ -39,6 +39,8 @@ $(document).ready(function() {
         return $('.section-upload').data('path');
     }
 
+    let progressBarActive = false;
+    let finishedFilesSize = 0;
     $form.dropzone({
         accept: function (file, done) {
             // get signed url before processing the file
@@ -60,12 +62,18 @@ $(document).ready(function() {
         init: function () {
             // this is called on per-file basis
             this.on("processing", function (file) {
+                if(!progressBarActive) {
+                    $progress.css('width', '0%');
+
+                    $form.fadeOut(50, function () {
+                        $progressBar.fadeIn(50);
+                    });
+
+                    progressBarActive = true;
+                }
+
                 this.options.url = file.signedUrl.url;
                 this.options.headers = file.signedUrl.header;
-                $progress.css('width', '0%');
-                $form.fadeOut(50, function () {
-                    $progressBar.fadeIn(50);
-                });
             });
 
             this.on("sending", function (file, xhr, formData) {
@@ -75,35 +83,28 @@ $(document).ready(function() {
                 };
             });
 
-            this.on("totaluploadprogress", function (progress) {
-                $progress.stop().animate({'width': progress + '%'}, {
+            this.on("totaluploadprogress", function (progress, total, uploaded) {
+                const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
+
+                $progress.stop().animate({'width': realProgress + '%'}, {
                     step: function (now) {
                         $percentage.html(Math.ceil(now) + '%');
-                    },
-                    complete: function () {
-                        $progressBar.fadeOut(50, function () {
-                            $form.fadeIn(50);
-                            reloadFiles();
-                        });
                     }
                 });
             });
 
-            this.on("totaluploadprogress", function (progress) {
-                $progress.stop().animate({'width': progress + '%'}, {
-                    step: function (now) {
-                        $percentage.html(Math.ceil(now) + '%');
-                    },
-                    complete: function () {
-                        $progressBar.fadeOut(50, function () {
-                            $form.fadeIn(50);
-                            reloadFiles();
-                        });
-                    }
+            this.on("queuecomplete", function (file, response) {
+                progressBarActive = false;
+                finishedFilesSize = 0;
+
+                $progressBar.fadeOut(50, function () {
+                    $form.fadeIn(50);
+                    reloadFiles();
                 });
             });
 
             this.on("success", function (file, response) {
+                finishedFilesSize += file.size;
                 this.removeFile(file);
             });
 
@@ -222,6 +223,45 @@ $moveModal.modal('hide');
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+    });
+
+    $('.btn-file-share').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let path = $(this).attr('data-file-path');
+        let $shareModal = $('.share-modal');
+        $.ajax({
+            type: "POST",
+            url: "/files/permissions/",
+            data: {
+                key: path
+            },
+            success: function(data) {
+                let target = `files/file?path=${data.key}&shared=true`;
+                $.ajax({
+                    type: "POST",
+                    url: "/link/",
+                    data: {
+                        target: target
+                    },
+                    success: function(data) {
+                        populateModalForm($shareModal, {
+                            title: 'Einladungslink generiert!',
+                            closeLabel: 'Schließen',
+                            submitLabel: 'Speichern',
+                            fields: {invitation: data.newUrl}
+                        });
+                        $shareModal.find('.btn-submit').remove();
+                        $shareModal.find("input[name='invitation']").click(function () {
+                            $(this).select();
+                        });
+
+                        $shareModal.modal('show');
+
+                    }
+                });
+            }
+        });
     });
 
 });

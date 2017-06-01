@@ -22,6 +22,11 @@ a {
 	}
 }
 
+p.small {
+	line-height: 18px;
+	font-size: 12px;
+}
+
 .no-padding {
 	padding: 0px !important;
 }
@@ -148,4 +153,8 @@ form.inline {
 .collapse-icon {
 	margin-left: 10px;
 	vertical-align: middle;
+}
+
+.window-inline .hide-inline {
+	display: none;
 }

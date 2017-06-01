@@ -10,6 +10,8 @@
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replace($('.add-modal').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
                 toolbarGroups: [
                     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
                     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
@@ -25,9 +27,11 @@
                     {name: 'colors', groups: ['colors']},
                     {name: 'about', groups: ['about']}
                 ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
             });
             CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
                 toolbarGroups: [
                     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
                     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
@@ -43,7 +47,7 @@
                     {name: 'colors', groups: ['colors']},
                     {name: 'about', groups: ['about']}
                 ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
             });
 
             $.datetimepicker.setLocale('de');
