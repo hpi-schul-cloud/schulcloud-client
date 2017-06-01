@@ -537,16 +537,32 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 });
             } else {
-                res.render('homework/assignment', Object.assign({}, assignment, {
-                    title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                    breadcrumb: [
-                        {
-                            title: 'Meine Aufgaben',
-                            url: '/homework'
-                        },
-                        {}
-                    ]
-                }));
+                // Kommentare zu Abgaben auslesen
+                const commentPromise = getSelectOptions(req, 'comments', {
+                    submissionId: {$in: assignment.submission._id},
+                    $populate: ['author']
+                });
+                Promise.resolve(commentPromise).then(comments => {
+                    // -> Kommentare stehen nun in comments
+                    // alle Kurse von aktuellem Benutzer auslesen
+                    const coursesPromise = getSelectOptions(req, 'courses', {
+                        $or: [
+                            {userIds: res.locals.currentUser._id},
+                            {teacherIds: res.locals.currentUser._id}
+                        ]
+                    });
+                    res.render('homework/assignment', Object.assign({}, assignment, {
+                        title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                        breadcrumb: [
+                            {
+                                title: 'Meine Aufgaben',
+                                url: '/homework'
+                            },
+                            {}
+                        ],
+                        comments
+                    }));
+                });
             }
         });
     });
