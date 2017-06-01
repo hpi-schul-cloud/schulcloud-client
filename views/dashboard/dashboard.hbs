@@ -40,12 +40,14 @@
                                 <div class="current-time" style="width:{{currentTimePercentage}}%;">
                                     <span>{{currentTime}}</span>
                                 </div>
-                                <div>
-                                    {{#each hours}}
-                                        <div class="col-sm-1">
-                                            <div class="tick">{{this}}.00</div>
-                                        </div>
-                                    {{/each}}
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        {{#each hours}}
+                                            <div class="col-sm-1">
+                                                <div class="tick">{{this}}.00</div>
+                                            </div>
+                                        {{/each}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -60,17 +62,22 @@
                         </div>
                         <div class="row tasks">
                             {{#each homeworks}}
-                                <div class="col-sm-4">
-                                    <div class="card card-block">
-                                        <div class="card-text">
-                                            <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
+                                <div class="card-deck">
+                                    {{#each this}}
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="card-text">
+                                                    <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
+                                                </div>
+
+                                                <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
+                                                <p class="card-text">{{{description}}}</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
+                                            </div>
                                         </div>
-
-                                        <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
-                                        <p class="card-text">{{{description}}}</p>
-
-                                        <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
-                                    </div>
+                                    {{/each}}
                                 </div>
                             {{/each}}
                         </div>
