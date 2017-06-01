@@ -1,5 +1,5 @@
 @import '../lib/colors.scss';
-@import '../lib/bootstrap/scss/bootstrap';
+@import '../lib/bootstrap/scss/bootstrap-flex';
 
 @include media-breakpoint-down(xs) {
     .row.lesson-cards,
@@ -69,6 +69,10 @@
     padding-top: 15px;
     margin-bottom: 50px;
     line-height: 1.75rem;
+
+    @include media-breakpoint-down(xs) {
+        display: none;
+    }
 
     h5 {
         color: $colorHPIRed;
