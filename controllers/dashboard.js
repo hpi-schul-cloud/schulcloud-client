@@ -2,6 +2,7 @@
  * One Controller per layout view
  */
 
+const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
@@ -9,7 +10,6 @@ const api = require('../api');
 const moment = require('moment');
 moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
-
 
 
 // secure routes
@@ -152,6 +152,8 @@ router.get('/', function (req, res, next) {
         }]);
     });
 
+
+
     Promise.all([
         eventsPromise,
         homeworksPromise,
@@ -160,7 +162,7 @@ router.get('/', function (req, res, next) {
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
             events,
-            homeworks,
+            homeworks: _.chunk(homeworks, 3),
             news,
             hours,
             currentTimePercentage,

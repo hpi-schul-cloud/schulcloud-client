@@ -3,32 +3,37 @@
         <section class="section-courses">
             <div class="container-fluid">
                 <div class="row results">
-                    <div class="card-columns">
-                        {{#each courses}}
-                            <div class="card" style="border-left: 10px solid {{this.color}}">
-                                <div class="card-block">
-                                    <h4 class="card-title">
-                                        <a href="{{this.url}}">
-                                            {{this.name}}
-                                        </a>
-                                    </h4>
-                                    <p class="card-text">{{truncate this.description}}</p>
+                    {{#each courses}}
+                        <div class="card-deck">
+                            {{#each this}}
+
+                                <div class="card" style="border-left: 10px solid {{this.color}}">
+                                    <div class="card-block">
+                                        <h4 class="card-title">
+                                            <a href="{{this.url}}">
+                                                {{this.name}}
+                                            </a>
+                                        </h4>
+                                        <p class="card-text">{{truncate this.description}}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        {{#each this.times}}
+                                            <small class="text-muted">
+                                                {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
+                                            </small>
+                                            <br>
+                                        {{/each}}
+                                    </div>
                                 </div>
-                                <div class="card-footer">
-                                    {{#each this.times}}
-                                        <small class="text-muted">
-                                            {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
-                                        </small>
-                                        <br>
-                                    {{/each}}
-                                </div>
-                            </div>
-                        {{else}}
-                            <p class="text-muted text-center">
-                                <span>Keine Kurse.</span>
-                            </p>
-                        {{/each}}
-                    </div>
+
+                            {{/each}}
+                        </div>
+                    {{else}}
+                        <p class="text-muted text-center">
+                            <span>Keine Kurse.</span>
+                        </p>
+                    {{/each}}
+
                 </div>
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
