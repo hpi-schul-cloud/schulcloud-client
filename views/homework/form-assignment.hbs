@@ -1,4 +1,4 @@
-<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
 <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
 
@@ -32,12 +32,12 @@
 
 <div class="form-group">
     <label>Bearbeitungszeit von</label>
-    <input class="form-control" name="availableDate" id="availableDate" type="datetime-local" />
+    <input class="form-control" data-datetime name="availableDate" id="availableDate" type="text" />
 </div>
 
 <div class="form-group">
     <label>bis</label>
-    <input class="form-control" name="dueDate" id="dueDate" type="datetime-local" />
+    <input class="form-control" data-datetime name="dueDate" id="dueDate" type="text" />
 </div>
 {{#if isStudent}}{{else}}
 <div class="form-group">

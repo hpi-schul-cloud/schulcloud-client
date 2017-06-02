@@ -9,10 +9,25 @@ const babel = require('gulp-babel');
 const filelog = require('gulp-filelog');
 const plumber = require('gulp-plumber');
 const watch = require('gulp-watch');
+const optimizejs = require('gulp-optimize-js');
+const concat = require('gulp-concat');
+const count = require('gulp-count');
+
+const baseScripts = [
+    './static/scripts/jquery/jquery.min.js',
+    './static/scripts/jquery/jquery.serialize-object.js',
+    './static/scripts/tether/tether.min.js',
+    './static/scripts/bootstrap/bootstrap.min.js',
+    './static/scripts/chosen/chosen.jquery.min.js',
+    './static/scripts/base.js',
+    './static/scripts/piwik/piwik.js',
+    './static/scripts/toggle/bootstrap-toggle.min.js',
+    './static/scripts/mailchimp/mailchimp.js'
+];
 
 /**
  * Initialize a new gulp task for a given src and optionally watch it
- * @param {string} src - Path to the directory.
+ * @param {string|Array} src - Path to the directory.
  * @param {boolean} isWatch - To watch or not to watch.
  * @returns gulp instance
  */
@@ -66,14 +81,49 @@ const buildFonts = (isWatch) => {
 
 /**
  * Copy vendor files to output folder
- * TODO: minify js and css
  * @param {boolean} isWatch - To watch or not to watch.
  * @returns populated gulp instance
  */
-const buildVendor = (isWatch) => {
-    return getGulpTask('./static/vendor/**/*.*', isWatch)
+const buildVendorImages = (isWatch) => {
+    const minify = map(function (buff, filename) {
+        return new cleanCSS().minify(buff.toString()).styles;
+    });
+
+    return getGulpTask('./static/vendor/**/*.{css,sass,scss}', isWatch)
+        .pipe(sass())
+        .pipe(minify)
         .pipe(gulp.dest('./build/vendor'))
 };
+
+/**
+ * Copy vendor files to output folder
+ * @param {boolean} isWatch - To watch or not to watch.
+ * @returns populated gulp instance
+ */
+const buildVendorScripts = (isWatch) => {
+    return getGulpTask('./static/vendor/**/*.js', isWatch)
+        .pipe(babel({
+            compact: false,
+            presets: [["es2015", { modules: false }]],
+            plugins: ["transform-react-jsx"]
+        }))
+        .pipe(optimizejs())
+        .pipe(uglify())
+        .pipe(gulp.dest('./build/vendor'))
+        .on('error', catchError)
+};
+
+/**
+ * Copy vendor files to output folder
+ * @param {boolean} isWatch - To watch or not to watch.
+ * @returns populated gulp instance
+ */
+const buildVendorAssets = (isWatch) => {
+    return getGulpTask(['./static/vendor/**/*.*', '!./static/vendor/**/*.js', '!./static/vendor/**/*.{css,sass,scss}'], isWatch)
+        .pipe(gulp.dest('./build/vendor'))
+        .on('error', catchError)
+};
+
 
 /**
  * Compile/Transpile JSX and ES6 to ES5 and minify scripts.
@@ -81,12 +131,33 @@ const buildVendor = (isWatch) => {
  * @returns populated gulp instance
  */
 const buildScripts = (isWatch) => {
-    return getGulpTask('./static/scripts/**/*.js', isWatch)
+    return getGulpTask(['./static/scripts/**/*.js'].concat(baseScripts.map(script => '!' + script)), isWatch)
         .pipe(babel({
             presets: [["es2015", { modules: false }]],
             plugins: ["transform-react-jsx"]
         }))
+        .pipe(optimizejs())
         .pipe(uglify())
+        .pipe(gulp.dest('./build/scripts'))
+        .on('error', catchError)
+};
+
+
+/**
+ * For "base scripts": Compile/Transpile JSX and ES6 to ES5 and minify scripts.
+ * @param {boolean} isWatch - To watch or not to watch.
+ * @returns populated gulp instance
+ */
+const buildBaseScripts = (isWatch) => {
+    return getGulpTask(baseScripts, false)
+        .pipe(count('## js-files selected'))
+        .pipe(babel({
+            presets: [["es2015", { modules: false }]],
+            plugins: ["transform-react-jsx"]
+        }))
+        .pipe(optimizejs())
+        .pipe(uglify())
+        .pipe(concat('all.js'))
         .pipe(gulp.dest('./build/scripts'))
         .on('error', catchError)
 };
@@ -116,7 +187,10 @@ const getGulpTasks = (isWatch = false) => {
     buildStyles(isWatch);
     buildFonts(isWatch);
     buildScripts(isWatch);
-    buildVendor(isWatch);
+    buildBaseScripts(isWatch);
+    buildVendorImages(isWatch);
+    buildVendorScripts(isWatch);
+    buildVendorAssets(isWatch);
 };
 
 gulp.task('watch', ['clean'], getGulpTasks.bind(this, true));

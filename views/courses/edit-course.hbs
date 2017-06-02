@@ -2,6 +2,13 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
+        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -112,7 +119,7 @@
                 <div class="panel-group">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" href="#collapse1"><label>Termine auswählen</label></a>
+                            <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>Termine auswählen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
                         </div>
                         <div id="collapse1" class="panel-collapse collapse">
                             <div class="times">
@@ -120,12 +127,12 @@
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label>Von</label>
-                                        <input name="startDate" id="startDate" type="date" class="form-control" value="{{course.startDate}}"/>
+                                        <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}"/>
                                     </div>
 
                                     <div class="form-group col-md-6">
                                         <label>Bis</label>
-                                        <input name="untilDate" id="untilDate" type="date" class="form-control" value="{{course.untilDate}}"/>
+                                        <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}"/>
                                     </div>
                                 </div>
 
@@ -135,11 +142,12 @@
                                     <th><label>Wochentag</label></th>
                                     <th><label>Start der Schulstunde</label></th>
                                     <th><label>Dauer der Schulstunde</label></th>
+                                    <th><label>Raum</label></th>
                                     </thead>
                                     <tbody class="add-course-times">
                                     <tr>
                                         <td>
-                                            <i class="fa fa-plus new-custom-field-add"></i>
+                                            <i class="fa fa-plus new-course-time-add" data-timesref="#collapse1"></i>
                                         </td>
                                         <td>
                                             <select class="new-weekday">
@@ -153,17 +161,20 @@
                                             </select>
                                         </td>
                                         <td>
-                                            <input class="form-control new-start-time" type="time"/>
+                                            <input class="form-control new-start-time" data-time type="text"/>
                                         </td>
                                         <td>
                                             <input class="form-control new-duration" type="number"
                                                    placeholder="in Minuten"/>
                                         </td>
+                                        <td>
+                                            <input class="form-control new-room" type="text"
+                                                   placeholder="z.B. R-1.21"/>
+                                        </td>
                                     </tr>
                                     {{#each course.times}}
-                                        <tr id="{{this._id}}">
-                                            <td><i class="fa fa-trash-o custom-field-delete"
-                                                   onclick="deleteCourseTime.bind(this, {{this._id}})"></i></td>
+                                        <tr id="{{this._id}}" class="course-time">
+                                            <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
                                             <td class="form-group disabled"><input class="form-control"
                                                                                    name="times[{{this.count}}][weekday]"
                                                                                    value="{{this.weekday}}"
@@ -171,11 +182,15 @@
                                             <td class="form-group disabled"><input class="form-control"
                                                                                    name="times[{{this.count}}][startTime]"
                                                                                    value="{{this.startTime}}"
-                                                                                   type="time"></td>
+                                                                                   type="text" data-time></td>
                                             <td class="form-group disabled"><input class="form-control"
                                                                                    name="times[{{this.count}}][duration]"
                                                                                    value="{{this.duration}}"
                                                                                    type="number"></td>
+                                            <td class="form-group disabled"><input class="form-control"
+                                                                                   name="times[{{this.count}}][room]"
+                                                                                   value="{{this.room}}"
+                                                                                   type="text"></td>
                                         </tr>
                                     {{/each}}
                                     </tbody>

@@ -1,22 +1,33 @@
 @import '../lib/colors.scss';
-@import '../lib/bootstrap/scss/bootstrap';
+@import '../lib/bootstrap/scss/bootstrap-flex';
 
 @include media-breakpoint-down(xs) {
     .row.lesson-cards,
     .row.messages,
     .row.notices,
     .row.buttons,
-    .row.articles
-    {
+    .row.articles {
         margin: 5px -15px;
     }
-    .row.timeline{
-        display:none;
+    .row.timeline {
+        display: none;
     }
-    .row .lesson-cards .lesson-card{
+
+    .timetable {
+        border-top: none !important;
+    }
+
+    .timetable .row.lesson-cards {
+        height: auto;
+    }
+
+    .timetable .row.lesson-cards .lesson-card {
         padding: 10px 0;
+        position: relative !important;
+        left: 0px !important;
+        width: 100% !important;
     }
-    .section-messages{
+    .section-messages {
         padding: 15px 0 50px;
     }
 }
@@ -90,43 +101,8 @@
         padding-bottom:10px;
     }
 
-    .form-check-input {
-        margin-top: .4rem;
-    }
-}
-
-.section-tools {
-    width:100%;
-    float:left;
-    padding: 15px 0px 50px;
-    line-height: 1.75rem;
-
-    h5 {
-        color: $colorHPIRed;
-    }
-
-    .buttons {
-        margin:20px -15px;
-
-        .btn {
-            background: $colorHPIYellow;
-            color:#fff;
-            font-weight:600;
-
-            &:hover {
-                background: $colorHPIOrange;
-            }
-
-            .fa {
-                margin-right:10px;
-                display:inline-block;
-            }
-        }
-        @include media-breakpoint-down(xs) {
-            .btn{
-                margin: 5px 0;
-            }
-        }
+    .tasks {
+        margin: 20px -15px;
     }
 }
 
@@ -134,25 +110,22 @@
     width: 100%;
     float: left;
     padding-top: 15px;
+    margin-bottom: 50px;
     line-height: 1.75rem;
+
+    @include media-breakpoint-down(xs) {
+        display: none;
+    }
 
     h5 {
         color: $colorHPIRed;
+        float: left;
     }
 
-    .controls {
+    .selected-date {
         float: right;
-        color: #646464;
-
-        .selected-date {
-            float: left;
-            margin-right: 20px;
-            color: #969696;
-        }
-
-        .btn-toolbar {
-            float: left;
-        }
+        color: #969696;
+        line-height:22px;
     }
 }
 
@@ -162,14 +135,19 @@
     float:left;
     padding: 0px 15px 20px;
     line-height: 1.75rem;
+    border-top:1px solid #c8c8c8;
 
     .lesson-cards {
         margin-top:40px;
-        margin-bottom:20px;
+        margin-bottom:30px;
+        height:170px;
+        position: relative;
 
         .lesson-card {
             padding:0px 1px;
+            top: 0px;
             text-decoration: none !important;
+            position: absolute;
 
             .card {
                 border:0px;
@@ -178,7 +156,6 @@
                 border-bottom: 6px solid transparent;
                 color: #646464;
                 height:170px;
-                position: relative;
 
                 &:not(.disabled):hover {
                     background:#ddd;
@@ -223,8 +200,7 @@
         margin-top:3px;
         margin-bottom:20px;
 
-        &:before {
-            content: '';
+        .current-time {
             width: 100px;
             height: 3px;
             top: -3px;
@@ -232,6 +208,28 @@
             background: #696969;
             display: block;
             position: absolute;
+
+            &:before {
+                height: 245px;
+                content: '';
+                width: 2px;
+                background: $colorHPIRed;
+                right: 0px;
+                position: absolute;
+                bottom: 0px;
+            }
+
+            span {
+                font-size:10px;
+                padding: 0px 5px;
+                right: -15px;
+                position:absolute;
+                top: 8px;
+                color: $colorHPIRed;
+                background: #fff;
+                display: block;
+                z-index: 2;
+            }
         }
 
         .tick {
@@ -239,7 +237,7 @@
             left:0px;
             position:absolute;
             top:5px;
-            color:#969696;
+            color:#aaa;
         }
     }
 }

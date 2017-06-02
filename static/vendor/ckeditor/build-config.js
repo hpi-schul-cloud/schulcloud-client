@@ -87,7 +87,8 @@ var CKBUILDER_CONFIG = {
 		'uploadfile' : 1,
 		'uploadimage' : 1,
 		'wsc' : 1,
-		'wysiwygarea' : 1
+		'wysiwygarea' : 1,
+		'mathjax': 1
 	},
 	languages : {
 		'de' : 1,

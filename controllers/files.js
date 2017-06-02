@@ -3,7 +3,7 @@
  */
 
 const fs = require('fs');
-const path = require('path');
+const pathUtils = require('path').posix;
 const url = require('url');
 const mime = require('mime');
 const api = require('../api');
@@ -11,11 +11,10 @@ const rp = require('request-promise');
 const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
-const joinPath = require('path.join');
 const multer  = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
-const getSignedUrl = (req, data) => {
+const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
     });
@@ -39,11 +38,13 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
 const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = {}) => {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
-    const breadcrumbs = (currentDir.split('/') || []).filter(value => value).map(dirPart => {
+    let pathComponents = currentDir.split('/') || [];
+    if(pathComponents[0] === 'users' || pathComponents[0] === 'courses' || pathComponents[0] === 'classes') pathComponents = pathComponents.slice(2);   // remove context and ID, if present
+    const breadcrumbs = pathComponents.filter(value => value).map(dirPart => {
         dirParts += '/' + dirPart;
         return {
             label: dirPart,
-            url: changeQueryParams(req.originalUrl, {'dir': dirParts}, basePath)
+            url: changeQueryParams(req.originalUrl, {dir: dirParts}, basePath)
         };
     });
 
@@ -60,47 +61,50 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
 const getStorageContext = (req, res, options = {}) => {
 
     if (req.query.storageContext) {
-        return req.query.storageContext;
+        return pathUtils.normalize(req.query.storageContext + '/');
     }
 
-    const currentDir = options.dir || req.query.dir || '';
+    let currentDir = options.dir || req.query.dir || '/';
     const urlParts = url.parse((options.url || req.originalUrl), true);
 
-    let storageContext = urlParts.pathname.replace('/files/', '');
+    let storageContext = urlParts.pathname.replace('/files/', '/');
 
-    if (storageContext === '') {
-        storageContext = 'users/' + res.locals.currentUser._id;
+    if (storageContext === '/') {
+        storageContext = 'users/' + res.locals.currentUser._id + '/';
     }
 
-    return joinPath(storageContext, currentDir);
+    if(currentDir.slice(-1) != '/') currentDir = currentDir + '/';
+    return pathUtils.join(storageContext, currentDir);
 };
 
 
 const FileGetter = (req, res, next) => {
-
-    const currentDir = req.query.dir || '';
-    const storageContext = getStorageContext(req, res);
+    const path = getStorageContext(req, res);
+    let pathComponents = path.split('/');
+    if(pathComponents[0] === '') pathComponents = pathComponents.slice(1); // remove leading slash, if present
+    const currentDir = pathComponents.slice(2).join('/') || '/';
 
     return api(req).get('/fileStorage', {
-        qs: {storageContext}
+        qs: {path}
     }).then(data => {
         let {files, directories} = data;
 
         files = files.map(file => {
-            file.file = path.join(file.path, file.name);
+            file.file = pathUtils.join(file.path, file.name);
             return file;
         });
 
         directories = directories.map(dir => {
-            dir.url = changeQueryParams(req.originalUrl, {dir: path.join(currentDir, dir.name)});
-            dir.path = path.join(storageContext, dir.name);
+            const targetUrl = pathUtils.join(currentDir, dir.name);
+            dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+            dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
 
         res.locals.files = {
             files,
             directories,
-            storageContext
+            path
         };
 
         next();
@@ -126,39 +130,61 @@ const getScopeDirs = (req, res, scope) => {
     });
 };
 
+/**
+ * register a new filePermission for the given user for the given file
+ * @param userId {String} - the user which should be granted permission
+ * @param filePath {String} - the file for which a new permission should be created
+ */
+const registerSharedPermission = (userId, filePath, req) => {
+    // check whether a filePermission entry already exist for the given file
+    return api(req).get('/filePermissions/', {qs: {key: filePath}}).then(res => {
+        if (res.data.length <= 0) {
+            // owner permits sharing of given file
+            return Promise.reject("Zu dieser Datei haben Sie keinen Zugriff!");
+        } else {
+            let filePermission = res.data[0];
+            filePermission.permissions.push({
+                userId: userId,
+                permissions: ['can-read', 'can-write'] // todo: make it selectable
+            });
+            return api(req).patch('/filePermissions/' + res.data[0]._id, {json: filePermission});
+        }
+    });
+};
+
 
 // secure routes
 router.use(authHelper.authChecker);
 
-
-// get signed url to upload file
-router.post('/file', function (req, res, next) {
-    const {type, name, dir = '', action = 'putObject'} = req.body;
+const getSignedUrl = function (req, res, next) {
+    let {type, path, action = 'putObject'} = req.body;
+    path = path || req.query.path;
+    const filename = (req.file || {}).originalname;
+    if(filename) path = path + '/' + filename;
 
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
-        fileName: name,
+        path,
         fileType: (type || 'application/octet-stream'),
         action: action
     };
 
-    getSignedUrl(req, data).then(signedUrl => {
-        res.json({signedUrl});
+    return requestSignedUrl(req, data).then(signedUrl => {
+       if(res) res.json({signedUrl, path});
+        else return Promise.resolve({signedUrl, path});
     }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
+        if(res) res.status((err.statusCode || 500)).send(err);
+        else return Promise.reject(err);
     });
-});
+};
 
 // get signed url to upload file
-router.post('/upload', upload.single('upload'), function (req, res, next) {
-    const data = {
-        storageContext: getStorageContext(req, {}, {}),
-        fileName: req.file.originalname,
-        fileType: (req.file.mimetype || 'application/octet-stream'),
-        action: 'putObject'
-    };
+router.post('/file', getSignedUrl);
 
-    getSignedUrl(req, data).then(signedUrl => {
+// upload file directly
+router.post('/upload', upload.single('upload'), function (req, res, next) {
+    let _path;
+    return getSignedUrl(req, null, next).then(({signedUrl, path}) => {
+        _path = path;
         return rp.put({
             url: signedUrl.url,
             headers: Object.assign({}, signedUrl.header, {
@@ -170,7 +196,7 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
         res.json({
             "uploaded": 1,
             "fileName": req.file.originalname,
-            "url": "/files/file?file=" + data.fileName + "&storageContext=" + data.storageContext
+            "url": "/files/file?path=" + _path
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -183,9 +209,9 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
 router.delete('/file', function (req, res, next) {
     const {name, dir = ''} = req.body;
 
+    const basePath = getStorageContext(req, res, {url: req.get('Referrer'), dir});
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
-        fileName: name,
+        path: basePath + name,
         fileType: null,
         action: null
     };
@@ -203,24 +229,28 @@ router.delete('/file', function (req, res, next) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download = false} = req.query;
+    const {file, download = false, path, shared = false} = req.query;
 
+    const basePath = getStorageContext(req, res, {url: req.get('Referrer')});
     const data = {
-        storageContext: getStorageContext(req, res, {url: req.get('Referrer')}),
-        fileName: file,
-        fileType: mime.lookup(file),
+        path: path || basePath + file,
+        fileType: mime.lookup(file || pathUtils.basename(path)),
         action: 'getObject'
     };
 
-    getSignedUrl(req, data).then(signedUrl => {
-        rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
-            if (download) {
-                res.type('application/octet-stream');
-                res.set('Content-Disposition', 'attachment;filename=' + path.basename(file));
-            } else if (signedUrl.header['Content-Type']) {
-                res.type(signedUrl.header['Content-Type']);
-            }
-            res.end(awsFile, 'binary');
+    let sharedPromise = shared ? registerSharedPermission(res.locals.currentUser._id, data.path, req) : Promise.resolve();
+    sharedPromise.then(_ => {
+        return requestSignedUrl(req, data).then(signedUrl => {
+            return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
+                if (download) {
+                    res.type('application/octet-stream');
+                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(file));
+                } else if (signedUrl.header['Content-Type']) {
+                    res.type(signedUrl.header['Content-Type']);
+                }
+
+                res.end(awsFile, 'binary');
+            });
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -232,10 +262,11 @@ router.get('/file', function (req, res, next) {
 router.post('/directory', function (req, res, next) {
     const {name, dir} = req.body;
 
+    const basePath = dir;
+    const dirName = name || 'Neuer Ordner';
     api(req).post('/fileStorage/directories', {
         json: {
-            storageContext: getStorageContext(req, res, {url: req.get('Referrer'), dir}),
-            dirName: name || 'Neuer Ordner'
+            path: basePath + dirName,
         }
     }).then(_ => {
         res.sendStatus(200);
@@ -246,10 +277,8 @@ router.post('/directory', function (req, res, next) {
 
 // delete directory
 router.delete('/directory', function (req, res) {
-    const {name, dir} = req.body;
-
     const data = {
-        storageContext: dir
+        path: req.body.dir
     };
 
     api(req).delete('/fileStorage/directories/', {
@@ -265,6 +294,7 @@ router.delete('/directory', function (req, res) {
 router.get('/', FileGetter, function (req, res, next) {
     res.render('files/files', Object.assign({
         title: 'Dateien',
+        path: res.locals.files.path,
         breadcrumbs: getBreadcrumbs(req, {
             baseLabel: 'Meine persönlichen Dateien'
         }),
@@ -288,6 +318,7 @@ router.get('/courses/', function (req, res, next) {
 
         res.render('files/files', {
             title: 'Dateien',
+            path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
             directories
@@ -314,9 +345,12 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             title: 'Dateien',
             canUploadFile: true,
             canCreateDir: true,
+            path: res.locals.files.path,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
             breadcrumbs,
+            courseId: req.params.courseId,
+            courseUrl: `/courses/${req.params.courseId}/`
         }, res.locals.files));
 
     });
@@ -334,6 +368,7 @@ router.get('/classes/', function (req, res, next) {
 
         res.render('files/files', {
             title: 'Dateien',
+            path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
             directories
@@ -358,12 +393,25 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 
         res.render('files/files', Object.assign({
             title: 'Dateien',
+            path: res.locals.files.path,
             canUploadFile: true,
             breadcrumbs,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
         }, res.locals.files));
 
+    });
+});
+
+router.post('/permissions/', function (req, res, next) {
+    api(req).get('/filePermissions/', { qs: {key: req.body.key} }).then(filePermission => {
+        if (filePermission.data.length > 0) {
+            res.json(filePermission.data[0]);
+        } else {
+            api(req).post("/filePermissions/", { json: req.body }).then(filePermission => {
+                res.json(filePermission);
+            });
+        }
     });
 });
 

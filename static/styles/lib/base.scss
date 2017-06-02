@@ -2,9 +2,11 @@
 @import "components";
 
 @import "./tether/tether.min.css";
-@import "./bootstrap/scss/bootstrap";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./fontawesome/font-awesome";
 @import "./chosen/bootstrap-chosen.scss";
+@import "./datetimepicker/jquery.datetimepicker.min.css";
+@import "./toggle/bootstrap-toogle.min.css";
 
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
@@ -18,6 +20,11 @@ a {
 	&:hover {
 		text-decoration: none;
 	}
+}
+
+p.small {
+	line-height: 18px;
+	font-size: 12px;
 }
 
 .no-padding {
@@ -38,6 +45,7 @@ label {
 
 .pagination-wrapper {
 	text-align: center;
+	width: 100%;
 }
 
 .btn-loading {
@@ -125,6 +133,11 @@ form.inline {
 	background-color: $colorGrey;
 }
 
+.btn-thin {
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+}
+
 .alert-fixed {
   position:fixed;
   top: 0;
@@ -137,3 +150,50 @@ form.inline {
 .dropdown-item {
 	cursor: pointer;
 }
+
+.collapse-icon {
+	margin-left: 10px;
+	vertical-align: middle;
+}
+
+.window-inline .hide-inline {
+	display: none;
+}
+
+.card-deck {
+	width: 100%;
+
+	.card {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-flex: 1;
+		-webkit-flex: 1 0 0%;
+		-ms-flex: 1 0 0%;
+		flex: 1 0 0%;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+
+		@include media-breakpoint-up(md) {
+			max-width: 31%;
+		}
+
+		.card-block {
+			-webkit-box-flex: 1;
+			-webkit-flex: 1 1 auto;
+			-ms-flex: 1 1 auto;
+			flex: 1 1 auto;
+			padding: 1.25rem;
+			overflow: hidden;
+
+			.MathJax_Display {
+				display: none !important;
+			}
+		}
+	}
+}
+

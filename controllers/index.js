@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+// only execute middleware on this router
+const handlebarsHelper = require('../helpers/handlebars');
+router.use(handlebarsHelper.middleware);
+
 router.use(require('./login'));
 router.use(require('./registration'));
 
@@ -16,6 +20,8 @@ router.use('/homework/', require('./homework'));
 router.use('/news/', require('./news'));
 router.use('/helpdesk/', require('./helpdesk'));
 router.use('/pwrecovery/', require('./pwrecovery'));
+router.use('/notification/', require('./notification'));
+router.use('/link/', require('./link'));
 
 router.use('/administration/', require('./administration'));
 

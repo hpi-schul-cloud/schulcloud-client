@@ -1,4 +1,5 @@
 const moment = require('moment');
+const api = require('../api');
 
 /**
  * Generates the iso-weekday abbreviation for a given number, e.g. for the Schul-Cloud Calendar-Service
@@ -78,6 +79,7 @@ const createRecurringEvents = (recurringEvent) => {
             location: recurringEvent.location,
             description: recurringEvent.description,
             url: recurringEvent.url,
+            color: recurringEvent.color,
             start: newStartDate,
             end: newEndDate
         });
@@ -87,10 +89,42 @@ const createRecurringEvents = (recurringEvent) => {
     return recurringEvents;
 };
 
+/**
+ * handle recurring events for calendar
+ * @param event {Event} - a event which could contain a recurring value
+ * @returns events [] - new set of events
+ */
+const mapRecurringEvent = (event) => {
+    if (event.included && event.included[0].attributes.freq == 'WEEKLY') {
+        return createRecurringEvents(event);
+    }
+
+    return [event];
+};
+
+/**
+ * maps properties of a event to fit calendar, e.g. url and color
+ * @param event
+ */
+const mapEventProps = (event, req) => {
+    if (event["x-sc-courseId"]) {
+        return api(req).get('/courses/' + event["x-sc-courseId"]).then(course => {
+            event.url = event["x-sc-courseTimeId"] ? '/courses/' + course._id : '';
+            event.color = course.color;
+            return event;
+        });
+    }
+
+    return event;
+};
+
+
 module.exports = {
     getIsoWeekdayForNumber,
     getWeekdayForNumber,
     getNumberForWeekday,
     getNumberForFullCalendarWeekday,
-    createRecurringEvents
+    createRecurringEvents,
+    mapRecurringEvent,
+    mapEventProps
 };

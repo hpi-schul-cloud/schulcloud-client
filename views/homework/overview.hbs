@@ -1,56 +1,65 @@
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/homework/homework.css"/>
+    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+    <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
+{{/content}}
 {{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
+    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
-        CKEDITOR.replace($('.add-modal').find("textarea")[0],{
-            toolbarGroups: [
-                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                { name: 'links', groups: [ 'links' ] },
-                { name: 'insert', groups: [ 'insert' ] },
-                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                { name: 'forms', groups: [ 'forms' ] },
-                { name: 'tools', groups: [ 'tools' ] },
-                { name: 'others', groups: [ 'others' ] },
-                { name: 'styles', groups: [ 'styles' ] },
-                { name: 'colors', groups: [ 'colors' ] },
-                { name: 'about', groups: [ 'about' ] }
-            ],
-            removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
-        });
-        CKEDITOR.replace($('.edit-modal').find("textarea")[0],{
-            toolbarGroups: [
-                { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                { name: 'paragraph', groups: [ 'list', 'indent', 'blocks', 'align', 'bidi', 'paragraph' ] },
-                { name: 'links', groups: [ 'links' ] },
-                { name: 'insert', groups: [ 'insert' ] },
-                { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                { name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
-                { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                { name: 'forms', groups: [ 'forms' ] },
-                { name: 'tools', groups: [ 'tools' ] },
-                { name: 'others', groups: [ 'others' ] },
-                { name: 'styles', groups: [ 'styles' ] },
-                { name: 'colors', groups: [ 'colors' ] },
-                { name: 'about', groups: [ 'about' ] }
-            ],
-            removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+        window.addEventListener('DOMContentLoaded', function() {
+            CKEDITOR.replace($('.add-modal').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
+                toolbarGroups: [
+                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+                    {name: 'links', groups: ['links']},
+                    {name: 'insert', groups: ['insert']},
+                    {name: 'document', groups: ['mode', 'document', 'doctools']},
+                    {name: 'clipboard', groups: ['clipboard', 'undo']},
+                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+                    {name: 'forms', groups: ['forms']},
+                    {name: 'tools', groups: ['tools']},
+                    {name: 'others', groups: ['others']},
+                    {name: 'styles', groups: ['styles']},
+                    {name: 'colors', groups: ['colors']},
+                    {name: 'about', groups: ['about']}
+                ],
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
+            });
+            CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
+                toolbarGroups: [
+                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+                    {name: 'links', groups: ['links']},
+                    {name: 'insert', groups: ['insert']},
+                    {name: 'document', groups: ['mode', 'document', 'doctools']},
+                    {name: 'clipboard', groups: ['clipboard', 'undo']},
+                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+                    {name: 'forms', groups: ['forms']},
+                    {name: 'tools', groups: ['tools']},
+                    {name: 'others', groups: ['others']},
+                    {name: 'styles', groups: ['styles']},
+                    {name: 'colors', groups: ['colors']},
+                    {name: 'about', groups: ['about']}
+                ],
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
+            });
+
+            $.datetimepicker.setLocale('de');
+            $('input[data-datetime]').datetimepicker({
+                format:'d.m.Y H:i',
+                mask: '39.19.9999 29:59'
+            });
+
         });
     </script>
 {{/content}}
 {{#extend "homework/homework"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/homework/homework.css"/>
-        <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
-    {{/content}}
-    {{#content "scripts" mode="append"}}
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js"></script>
-    {{/content}}
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/lessons.js" type="text/javascript"></script>
-    {{/content}}
-    
     {{#content "page"}}
         <div class="route-homework">
             <section class="section-homework">
@@ -93,25 +102,25 @@
                                         {{/if}}
                                     </div>   
 
-                                    {{#if this.submissionstats}}
+                                    {{#if this.submissionStats}}
                                     <div class="state">
                                         <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
-                                            data="{{this.submissionstatsperc}}"
-                                            {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
+                                            data="{{this.submissionStatsPerc}}"
+                                            {{#if this.gradedStats}}secdata="{{this.gradedStatsPerc}}" {{/if}}
                                             width="80" height="80">
                                         </circular-progress>
                                         <div class="textinfo">
-                                            <span>Abgegeben: {{this.submissionstats}}</span><br/>
-                                            {{#if this.gradedstats}}
-                                                <span>Bewertet: {{this.gradedstats}}</span><br/>
+                                            <span>Abgegeben: {{this.submissionStats}}</span><br/>
+                                            {{#if this.gradedStats}}
+                                                <span>Bewertet: {{this.gradedStats}}</span><br/>
                                             {{else}}
                                                 <span>Bewertet: -</span><br/>
                                             {{/if}}
-                                            <span>{{#if this.averagerating}}
+                                            <span>{{#if this.averageRating}}
                                                 {{#if this.courseId.gradeSystem}}
-                                                    Ø: {{this.averagerating}} 
+                                                    Ø: {{this.averageRating}} 
                                                 {{else}}
-                                                    Ø: {{this.averagerating}} Punkte
+                                                    Ø: {{this.averageRating}} Punkte
                                                 {{/if}}
                                                 {{else}}
                                                     Ø: - 
@@ -163,7 +172,7 @@
                         {{> "homework/form-assignment"}}
                     {{/content}}
                 {{/embed}}
-                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/" }}
+                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/"}}
                     {{#content "fields"}}
                         {{> "homework/form-assignment"}}
                     {{/content}}

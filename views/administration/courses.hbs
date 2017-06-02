@@ -1,12 +1,13 @@
 {{#extend "administration/administration"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/administration/course.css"/>
+    {{/content}}
     {{#content "page"}}
         <div class="route-administration">
             <section class="section-school section-default">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/notification"}}
-
                             {{> "lib/components/table" head=head body=body}}
                         </div>
                     </div>
@@ -22,13 +23,13 @@
                     </div>
                 </div>
 
-                {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
+                {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-courses"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/courses/" method="post" class="add-modal"}}
+                {{#embed "lib/components/modal-form" action="/administration/courses/" method="post" class="add-modal" collapseId=2}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-courses"}}
                     {{/content}}

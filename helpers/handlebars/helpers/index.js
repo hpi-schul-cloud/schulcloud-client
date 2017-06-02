@@ -1,4 +1,7 @@
+/* eslint-disable no-console */
 const permissionsHelper = require('../../permissions');
+const moment = require('moment');
+moment.locale('de');
 
 module.exports = {
     pagination: require('./pagination'),
@@ -29,5 +32,18 @@ module.exports = {
         } else {
             return opts.inverse(this);
         }
+    },
+    ifvalue: (conditional, options) => {
+        if (options.hash.value === conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
+    timeFromNow: (date, opts) => {
+        return moment(date).fromNow();
+    },
+    log: (data) => {
+        console.log(data);
     }
 };

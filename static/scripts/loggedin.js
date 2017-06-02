@@ -1,3 +1,8 @@
+if (window.opener && window.opener !== window) {
+    document.body.classList.add('window-inline');
+    window.isInline = true;
+}
+
 $(document).ready(function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
@@ -50,50 +55,39 @@ $(document).ready(function () {
             error: showAJAXError
         });
 
-    };
-
-    var populateModalForm = function (modal, data) {
-
-        var $title = modal.find('.modal-title');
-        var $btnSubmit = modal.find('.btn-submit');
-        var $btnClose = modal.find('.btn-close');
-        var $form = modal.find('.modal-form');
-
-        $title.html(data.title);
-        $btnSubmit.html(data.submitLabel);
-        $btnClose.html(data.closeLabel);
-
-        // fields
-        $('[name]', $form).not('[data-force-value]').each(function () {
-            var value = (data.fields || {})[$(this).prop('name').replace('[]', '')] || '';
-            switch ($(this).prop("type")) {
-                case "radio":
-                case "checkbox":
-                    $(this).each(function () {
-                        if ($(this).attr('value') == value) $(this).attr("checked", value);
-                    });
-                    break;
-                default:
-                    $(this).val(value).trigger("chosen:updated");
-            }
-        });
-
-        $form.on('submit', sendFeedback.bind(this, modal));
+        $('.feedback-modal').find('.btn-submit').prop("disabled", true);
     };
 
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
 
+        $('.feedback-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
+        var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'Feedback - Bereich: ' + title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud')),
+            title: 'Feedback', 
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });
+
+        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         $feedbackModal.modal('show');
+        $feedbackModal.find('#title-area').html(area);
     });
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+    });
+
+    $('.notification-dropdown-toggle').on('click', function () {
+        $(this).removeClass('recent');
+
+        $('.notification-dropdown .notification-item.unread').each(function() {
+            if($(this).data('read') == true) return;
+
+            sendShownCallback({notificationId: $(this).data('notification-id')});
+            sendReadCallback($(this).data('notification-id'));
+            $(this).data('read', true);
+        });
     });
 });
