@@ -19,7 +19,7 @@ class TopicBlockWrapper extends React.Component {
      */
     updateTitle(event) {
         this.props.onUpdate({
-            title: event.target.value
+            title: ((event || {}).target || {}).value
         });
     }
 
@@ -420,7 +420,7 @@ class TopicText extends TopicBlock {
      */
     updateText(event) {
         const editorId = (this.props.content || {}).editorId || this.editorId;
-        const value = typeof(event) == 'string' ? event : event.target.value;
+        const value = typeof(event) == 'string' ? event : ((event || {}).target || {}).value;
         this.props.onUpdate({
             content: {
                 text: value,
@@ -640,7 +640,7 @@ class TopicGeoGebra extends TopicBlock {
      * Keep state in sync with input.
      */
     updateMaterialId(event) {
-        const value = typeof(event) == 'string' ? event : event.target.value;
+        const value = typeof(event) == 'string' ? event : ((event || {}).target || {}).value;
         this.props.onUpdate({
             content: {
                 materialId: value
