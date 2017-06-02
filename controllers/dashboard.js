@@ -92,7 +92,7 @@ router.get('/', function (req, res, next) {
         qs: {
             $populate: ['courseId']
         }
-    }).then(data => data.data.filter(assignment => {
+    }).then(data => data.data.map(assignment => {
         if (assignment.courseId != null) {
             if (!assignment.private) {
                 assignment.userIds = assignment.courseId.userIds;
@@ -102,8 +102,6 @@ router.get('/', function (req, res, next) {
             assignment.color = "#1DE9B6";
             assignment.private = true;
         }
-        return true;
-    }).map(assignment => {
         assignment.url = '/homework/' + assignment._id;
         return assignment;
     }));
