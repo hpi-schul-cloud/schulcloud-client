@@ -97,7 +97,9 @@
                             {{#if publicSubmissions}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                             {{else}}
-                                <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
+                                {{#if submission}}
+                                    <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
+                                {{/if}}
                             {{/if}}
                         {{/ifvalue}}
                     {{/if}}
@@ -115,7 +117,9 @@
                             {{#if publicSubmissions}}
 {{> 'homework/submissions'}}
                             {{else}}
+                                {{#if submission}}
 {{> 'homework/discussion'}}
+                                {{/if}}
                             {{/if}}
                         {{/ifvalue}}
                     {{/if}}
