@@ -305,9 +305,8 @@ router.all('/', function (req, res, next) {
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
                     assignment.submissionStatsPerc = (assignment.userIds.length) ? Math.round((submissionLength / assignment.userIds.length) * 100) : 0;
                     let submissionCount = (submissions.filter(function (a) {
-                        return (a.gradeComment != '' || a.grade != null);
+                        return ((a.gradeComment != undefined && a.gradeComment != '') || (a.grade != undefined && a.grade != null));
                     })).length;
-
                     assignment.gradedStats = submissionCount + "/" + assignment.userIds.length;               // Anzahl der Abgaben
                     assignment.gradedStatsPerc = (assignment.userIds.length) ? Math.round((submissionCount / assignment.userIds.length) * 100) : 0; // -||- in Prozent
 
