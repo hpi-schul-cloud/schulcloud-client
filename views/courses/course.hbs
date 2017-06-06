@@ -119,6 +119,12 @@
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
+                        <a href="/courses/{{../_id}}/"
+                           class="btn btn-delete-course btn-primary"
+                           target="_blank"
+                           data-method="delete-material"
+                           data-name="{{../name}}"
+                           redirect="/courses/">Kurs löschen</a>
                         <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
                     {{/userHasPermission}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
