@@ -5,7 +5,7 @@
     {{/content}}
 
     {{#content "page"}}
-        <div>
+        <div class="row">
             <div class="col-sm-12">
                 <section class="section-timetable">
                     <div class="container-fluid">
@@ -70,8 +70,8 @@
                                                     <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
                                                 </div>
 
-                                                <div class="card-text"><strong>[{{courseId.name}}] {{name}}</strong></div>
-                                                <p class="card-text">{{{description}}}</p>
+                                                <div class="card-text"><strong>{{#if courseId}}[{{courseId.name}}] {{/if}}{{name}}</strong></div>
+                                                <p class="card-text">{{{truncate description}}}</p>
                                             </div>
                                             <div class="card-footer">
                                                 <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
@@ -98,7 +98,7 @@
                                         <p class="card-text">
                                             <small class="text-muted">{{timeFromNow date}}</small>
                                         </p>
-                                        <a href="{{url}}">Weiterlesen</a>
+                                        <!--<a href="{{url}}">Weiterlesen</a>-->
                                     </div>
                                 {{/each}}
                             </div>

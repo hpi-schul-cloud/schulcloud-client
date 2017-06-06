@@ -50,7 +50,7 @@
 .section-tasks {
     width:100%;
     float:left;
-    padding: 15px 0px 50px;
+    padding: 15px 0px 15px;
     line-height: 1.75rem;
 
     h5 {
@@ -61,13 +61,17 @@
     .tasks {
         margin: 20px -15px;
     }
+
+    .card {
+        max-width: 100% !important;
+    }
 }
 
 .section-timetable {
     width: 100%;
     float: left;
     padding-top: 15px;
-    margin-bottom: 50px;
+    margin-bottom: 15px;
     line-height: 1.75rem;
 
     @include media-breakpoint-down(xs) {
