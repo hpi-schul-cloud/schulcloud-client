@@ -306,8 +306,10 @@ router.patch('/:courseId', function (req, res, next) {
 
 
 router.delete('/:courseId', function (req, res, next) {
-    api(req).delete('/courses/' + req.params.courseId).then(_ => {
-        res.redirect('/courses/');
+    deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
+        api(req).delete('/courses/' + req.params.courseId).then(_ => {
+            res.sendStatus(200);
+        });
     }).catch(_ => {
         res.sendStatus(500);
     });
