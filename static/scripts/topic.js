@@ -667,7 +667,7 @@ class TopicGeoGebra extends TopicBlock {
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
                     value={(this.props.content || {}).materialId}
-                    placeholder="GeoGebra Material-ID eingeben, z.B. ZFTGX57r"
+                    placeholder="GeoGebra Material-ID eingeben, z.B. kEBfU7AR"
                     name={`contents[${this.props.position}][content][materialId]`}
                 />
             </div>
