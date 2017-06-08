@@ -93,10 +93,14 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            if (data.courseId && !data.private) {
+            if (data.courseId && !data.private && service == "homework") {
                 api(req).get('/courses/' + data.courseId)
                     .then(course => {
-                        sendNotification(data.courseId, "Sie haben eine neue Hausaufgabe im Fach " + course.name, data.name + " ist bis zum " + moment(data.dueDate).format('DD.MM.YYYY HH:mm') + " abzugeben.", data.teacherId, req);
+                        sendNotification(data.courseId,
+                            "Sie haben eine neue Hausaufgabe im Fach " + course.name, data.name + " ist bis zum " + moment(data.dueDate).format('DD.MM.YYYY HH:mm') + " abzugeben.",
+                            data.teacherId,
+                            req,
+                            `${req.headers.origin}/homework/${data._id}`);
                     });
             }
             res.redirect(req.header('Referer'));
@@ -106,18 +110,19 @@ const getCreateHandler = (service) => {
     };
 };
 
-const sendNotification = (courseId, title, message, teacherId, req) => {
-            api(req).post('/notification/messages', {
-                json: {
-                    "title": title,
-                    "body": message,
-                    "token": teacherId,
-                    "priority": "high",
-                    "scopeIds": [
-                        courseId
-                    ]
-                }
-            });
+const sendNotification = (courseId, title, message, teacherId, req, link) => {
+    api(req).post('/notification/messages', {
+        json: {
+            "title": title,
+            "body": message,
+            "token": teacherId,
+            "priority": "high",
+            "action": link,
+            "scopeIds": [
+                courseId
+            ]
+        }
+    });
 };
 
 
@@ -141,6 +146,17 @@ const getUpdateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
+            if (service == "submissions")
+            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                .then(homework => {
+                sendNotification(data.studentId,
+                    "Deine Abgabe wurde bewertert im Fach " +
+                    homework.courseId.name,
+                    " ",
+                    data.studentId,
+                    req,
+                    `${req.headers.origin}/homework/${homework._id}`);
+                });
             res.redirect(req.header('Referer'));
         }).catch(err => {
             next(err);
