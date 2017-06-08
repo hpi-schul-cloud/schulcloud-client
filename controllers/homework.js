@@ -93,11 +93,31 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
+            if (data.courseId && !data.private) {
+                api(req).get('/courses/' + data.courseId)
+                    .then(course => {
+                        sendNotification(data.courseId, "Sie haben eine neue Hausaufgabe im Fach " + course.name, data.name + " ist bis zum " + moment(data.dueDate).format('DD.MM.YYYY HH:mm') + " abzugeben.", data.teacherId, req);
+                    });
+            }
             res.redirect(req.header('Referer'));
         }).catch(err => {
             next(err);
         });
     };
+};
+
+const sendNotification = (courseId, title, message, teacherId, req) => {
+            api(req).post('/notification/messages', {
+                json: {
+                    "title": title,
+                    "body": message,
+                    "token": teacherId,
+                    "priority": "high",
+                    "scopeIds": [
+                        courseId
+                    ]
+                }
+            });
 };
 
 

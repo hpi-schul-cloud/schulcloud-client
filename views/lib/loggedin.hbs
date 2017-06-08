@@ -89,7 +89,9 @@
                                     {{#if notifications}}
                                     {{#each notifications}}
                                         <div class="notification-item {{#unless this.read}}unread{{/unless}}" data-notification-id="{{this.notificationId}}">
-                                            <span>{{this.title}}</span>
+                                            <b>{{this.title}}</b>
+                                            <br>
+                                            <span>{{this.body}}</span>
                                             <time class="notification-time">{{timeFromNow this.date}}</time>
                                         </div>
                                     {{/each}}
