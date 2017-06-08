@@ -358,7 +358,8 @@ class TopicText extends TopicBlock {
             filebrowserBrowseUrl: '/files/' + storageContext,
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
-            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link'
+            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link',
+            DefaultLinkTarget: '_blank'
         });
         CKEDITOR.instances[editorId].on("change", function () {
             const data = CKEDITOR.instances[editorId].getData();
@@ -373,7 +374,6 @@ class TopicText extends TopicBlock {
             if ( dialogName == 'link' ) {
                 var infoTab = dialogDefinition.getContents( 'info' );
                 infoTab.remove( 'protocol' );
-                dialogDefinition.removeContents( 'target' );
                 dialogDefinition.removeContents( 'advanced' );
             }
 
