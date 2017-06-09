@@ -43,7 +43,7 @@
     }
 
     .articles {
-        margin: 20px -15px;
+        margin: 0px -30px 10px -15px;
     }
 }
 
@@ -55,10 +55,11 @@
 
     h5 {
         color: $colorHPIRed;
+        padding-bottom:10px;
     }
 
     .tasks {
-        margin: 20px -15px;
+        margin: -10px -30px 10px -15px;
     }
 
     .card {
