@@ -58,10 +58,40 @@
                 <section class="section-tasks">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-sm-12 no-padding"><h5>Offene Aufgaben</h5></div>
+                            <div class="col-sm-12 no-padding"><h5>Gestellte Aufgaben</h5></div>
                         </div>
                         <div class="row tasks">
                             {{#each homeworks}}
+                                <div class="card-deck">
+                                    {{#each this}}
+                                        <div class="card">
+                                            <div class="card-block">
+                                                <div class="card-text">
+                                                    <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
+                                                </div>
+
+                                                <div class="card-text"><strong>{{#if courseId}}[{{courseId.name}}] {{/if}}{{name}}</strong></div>
+                                                <p class="card-text">{{{truncate description}}}</p>
+                                            </div>
+                                            <div class="card-footer">
+                                                <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
+                                            </div>
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </section>
+                
+                
+                <section class="section-tasks">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-12 no-padding"><h5>Meine Aufgaben</h5></div>
+                        </div>
+                        <div class="row tasks">
+                            {{#each myhomeworks}}
                                 <div class="card-deck">
                                     {{#each this}}
                                         <div class="card">
