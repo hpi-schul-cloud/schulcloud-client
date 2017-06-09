@@ -147,17 +147,17 @@ const getUpdateHandler = (service) => {
             json: req.body
         }).then(data => {
             if (service == "submissions")
-            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
-                .then(homework => {
-                sendNotification(data.studentId,
-                    "Deine Abgabe wurde bewertert im Fach " +
-                    homework.courseId.name,
-                    " ",
-                    data.studentId,
-                    req,
-                    `${req.headers.origin}/homework/${homework._id}`);
-                });
-            res.redirect(req.header('Referer'));
+                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                    .then(homework => {
+                    sendNotification(data.studentId,
+                        "Deine Abgabe wurde bewertert im Fach " +
+                        homework.courseId.name,
+                        " ",
+                        data.studentId,
+                        req,
+                        `${req.headers.origin}/homework/${homework._id}`);
+                    });
+                res.redirect(req.header('Referer'));
         }).catch(err => {
             next(err);
         });
@@ -167,10 +167,31 @@ const getUpdateHandler = (service) => {
 
 const getDetailHandler = (service) => {
     return function (req, res, next) {
+        api(req).patch('/' + service + '/' + req.params.id, {
+            // TODO: sanitize
+            json: req.body
+        }).then(data => {
+            if (service == "submissions")
+                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                    .then(homework => {
+                    sendNotification(data.studentId,
+                        "Deine Abgabe wurde bewertert im Fach " +
+                        homework.courseId.name,
+                        " ",
+                        data.studentId,
+                        req,
+                        `${req.headers.origin}/homework/${homework._id}`);
+                    });
+                res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+const getImportHandler = (service) => {
+    return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
             data => {
-                data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
-                data.dueDate = moment(data.dueDate).format('DD.MM.YYYY HH:mm');
                 res.json(data);
             }).catch(err => {
             next(err);
@@ -201,9 +222,10 @@ const getDeleteHandler = (service) => {
 
 router.post('/', getCreateHandler('homework'));
 router.patch('/:id/json', getUpdateHandler('homework'));
-router.get('/:id/json', getDetailHandler('homework'));
+router.get('/:id/:id/json', getDetailHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
 
+router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 

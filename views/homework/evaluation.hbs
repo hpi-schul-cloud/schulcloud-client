@@ -39,7 +39,8 @@
                         </select>
                     </div>
                     <h6>Kommentar</h6>
-                    <textarea id="evaluation" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
+                    <button class="importsubmission">Abgabe des Schülers importieren</button>
+                    <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Speichern</button>
                 </form>

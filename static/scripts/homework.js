@@ -37,4 +37,8 @@ $(document).ready(function() {
     $('#sortselection').on('change', function(e){
         window.location = window.location.pathname + "?sort=" + escape( $('#sortselection').val());
     });
+    
+    $('.importsubmission').on('click', function(e){
+        e.preventDefault();
+    });
 });
