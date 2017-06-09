@@ -79,7 +79,7 @@ const editCourseHandler = (req, res, next) => {
         method = 'patch';
         coursePromise = api(req).get('/courses/' + req.params.courseId, {
             qs: {
-                $populate: ['lessonIds', 'ltiToolIds', 'classIds', 'teacherIds', 'userIds']
+                $populate: ['lessonIds', 'ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
             }
         });
     } else {
@@ -102,6 +102,7 @@ const editCourseHandler = (req, res, next) => {
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
         teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
         students = students.filter(s => s.schoolId == res.locals.currentSchool);
+        let substitutions = _.cloneDeep(teachers);
 
         // map course times to fit into UI
         (course.times || []).forEach((time, count) => {
@@ -132,6 +133,7 @@ const editCourseHandler = (req, res, next) => {
             course,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+            substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
             students: markSelected(students, _.map(course.userIds, '_id'))
         });
     });
@@ -147,6 +149,12 @@ router.use(authHelper.authChecker);
 
 
 router.get('/', function (req, res, next) {
+    Promise.all([
+    api(req).get('/courses/', {
+        qs: {
+            substitutionIds: res.locals.currentUser._id
+        }
+    }),
     api(req).get('/courses/', {
         qs: {
             $or: [
@@ -154,7 +162,16 @@ router.get('/', function (req, res, next) {
                 {teacherIds: res.locals.currentUser._id}
             ]
         }
-    }).then(courses => {
+    })]).then(([substitutionCourses, courses]) => {
+        substitutionCourses = substitutionCourses.data.map(course => {
+            course.url = '/courses/' + course._id;
+            (course.times || []).forEach(time => {
+                time.startTime = moment(time.startTime, "x").format("HH:mm");
+                time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+            });
+            return course;
+        });
+
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
@@ -168,7 +185,8 @@ router.get('/', function (req, res, next) {
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
-                courses: _.chunk(courses, 3)
+                courses: _.chunk(courses, 3),
+                substitutionCourses: _.chunk(substitutionCourses, 3)
             });
         }
     });
@@ -288,6 +306,8 @@ router.patch('/:courseId', function (req, res, next) {
         req.body.classIds = [];
     if (!req.body.userIds)
         req.body.userIds = [];
+    if (!req.body.substitutionIds)
+        req.body.substitutionIds = [];
 
     // first delete all old events for the course
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
