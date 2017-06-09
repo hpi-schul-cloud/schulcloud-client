@@ -110,6 +110,10 @@
             text-decoration: none !important;
             position: absolute;
 
+            .card-block {
+                padding: 0.5rem;
+            }
+
             .card {
                 border:0px;
                 background:#e9e9e9;
@@ -122,11 +126,15 @@
                     background:#ddd;
                 }
 
+
                 .card-title {
                     font-size:1.063rem;
                     font-weight: 600;
                 }
 
+                .card-text{
+                    line-height: 130%;
+                }
                 .lesson-time {
                     margin-bottom: 0px;
                     margin-top: -15px;
@@ -185,9 +193,9 @@
                 padding: 0px 5px;
                 right: -15px;
                 position:absolute;
-                top: 8px;
+                top: -28px;
+                background: #FFFFFF;
                 color: $colorHPIRed;
-                background: #fff;
                 display: block;
                 z-index: 2;
             }
@@ -195,9 +203,6 @@
 
         .tick {
             font-size:10px;
-            left:0px;
-            position:absolute;
-            top:5px;
             color:#aaa;
         }
     }
