@@ -37,7 +37,7 @@ const createEventsForCourse = (req, res, course) => {
         return Promise.all(course.times.map(time => {
             return api(req).post("/calendar", { json: {
                 summary: course.name,
-                location: res.locals.currentSchoolData.name,
+                location: time.room,
                 description: course.description,
                 startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
                 duration: time.duration,
@@ -261,7 +261,8 @@ router.get('/:courseId', function (req, res, next) {
                 },
                 {}
             ],
-            filesUrl: `/files/courses/${req.params.courseId}`
+            filesUrl: `/files/courses/${req.params.courseId}`,
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
         }));
     });
 });
