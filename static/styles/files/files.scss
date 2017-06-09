@@ -87,7 +87,6 @@
     .directories {
         width: 100%;
         float: left;
-        margin-bottom: 40px;
 
         .container-fluid {
             padding-left: 0;
@@ -115,10 +114,6 @@
 
         input {
             margin-bottom: 20px;
-        }
-
-        .create-directory {
-            background-color: $colorGrey;
         }
 
         .card-title-directory {
@@ -212,6 +207,10 @@
                     display: none;
                 }
             }
+        }
+
+        .create-directory{
+            margin-top: 30px;
         }
     }
 }
