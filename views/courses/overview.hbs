@@ -35,6 +35,46 @@
                     {{/each}}
 
                 </div>
+
+                {{#userHasPermission "COURSE_EDIT"}}
+                <div class="row results">
+                <section class="section-title">
+                    <h4>Meine Vertretungen</h4>
+                </section>
+                    {{#each ../substitutionCourses}}
+                        <div class="card-deck">
+                            {{#each this}}
+
+                                <div class="card" style="border-left: 10px solid {{this.color}}">
+                                    <div class="card-block">
+                                        <h4 class="card-title">
+                                            <a href="{{this.url}}">
+                                                {{this.name}}
+                                            </a>
+                                        </h4>
+                                        <p class="card-text">{{truncate this.description}}</p>
+                                    </div>
+                                    <div class="card-footer">
+                                        {{#each this.times}}
+                                            <small class="text-muted">
+                                                {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
+                                            </small>
+                                            <br>
+                                        {{/each}}
+                                    </div>
+                                </div>
+
+                            {{/each}}
+                        </div>
+                    {{else}}
+                        <p class="text-muted text-center">
+                            <span>Keine Kurse.</span>
+                        </p>
+                    {{/each}}
+
+                </div>
+                {{/userHasPermission}}
+
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
                         <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>

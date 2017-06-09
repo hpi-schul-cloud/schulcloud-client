@@ -166,7 +166,7 @@ router.get('/', function (req, res, next) {
             } else {
                 return -1;
             }
-        })
+        });
 
         res.render('dashboard/dashboard', {
             title: 'Übersicht',

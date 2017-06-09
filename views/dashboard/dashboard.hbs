@@ -86,7 +86,6 @@
                     </div>
                 </section>
                 
-                
                 <section class="section-tasks">
                     <div class="container-fluid">
                         <div class="row">
@@ -102,7 +101,7 @@
                                                     <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
                                                 </div>
 
-                                                <div class="card-text"><strong>{{#if courseId}}<span style="color:{{color}}">●</span> [{{courseId.name}}] {{/if}}{{name}}</strong></div>
+                                                <div class="card-text"><strong>{{#if courseId}}[{{courseId.name}}] {{/if}}{{name}}</strong></div>
                                                 <p class="card-text">{{{truncate description}}}</p>
                                             </div>
                                             <div class="card-footer">
