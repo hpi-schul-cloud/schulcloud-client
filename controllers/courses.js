@@ -282,6 +282,8 @@ router.get('/:courseId', function (req, res, next) {
             filesUrl: `/files/courses/${req.params.courseId}`,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
         }));
+    }).catch(err => {
+        next(err);
     });
 });
 

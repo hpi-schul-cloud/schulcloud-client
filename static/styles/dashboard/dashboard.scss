@@ -43,7 +43,7 @@
     }
 
     .articles {
-        margin: 20px -15px;
+        margin: 0px -30px 10px -15px;
     }
 }
 
@@ -59,7 +59,7 @@
     }
 
     .tasks {
-        margin: 20px -15px;
+        margin: -10px -30px 10px -15px;
     }
 
     .card {
@@ -71,7 +71,6 @@
     width: 100%;
     float: left;
     padding-top: 15px;
-    margin-bottom: 15px;
     line-height: 1.75rem;
 
     @include media-breakpoint-down(xs) {
@@ -94,7 +93,7 @@
 .timetable {
     width:100%;
     float:left;
-    padding: 0px 15px 20px;
+    padding: 0px 15px 0px;
     line-height: 1.75rem;
     border-top:1px solid #c8c8c8;
 
