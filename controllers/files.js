@@ -15,6 +15,7 @@ const multer  = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
 const thumbs = {
+    default: "/images/thumbs/default.png",
     psd: "/images/thumbs/psds.png",
     txt: "/images/thumbs/txts.png",
     doc: "/images/thumbs/docs.png",
@@ -319,7 +320,7 @@ router.get('/', FileGetter, function (req, res, next) {
     let files = res.locals.files.files;
     files.map(file => {
        let ending = file.name.split('.').pop();
-       file.thumbnail = thumbs[ending] ? thumbs[ending] : file.thumbnail;
+       file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
     });
     res.render('files/files', Object.assign({
         title: 'Dateien',
@@ -362,7 +363,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
         let files = res.locals.files.files;
         files.map(file => {
             let ending = file.name.split('.').pop();
-            file.thumbnail = thumbs[ending] ? thumbs[ending] : file.thumbnail;
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
         });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
@@ -417,7 +418,7 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
         let files = res.locals.files.files;
         files.map(file => {
             let ending = file.name.split('.').pop();
-            file.thumbnail = thumbs[ending] ? thumbs[ending] : file.thumbnail;
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
         });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath});
