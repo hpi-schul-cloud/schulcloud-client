@@ -14,6 +14,30 @@ const authHelper = require('../helpers/authentication');
 const multer  = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
+const thumbs = {
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.png"
+};
+
 const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
@@ -295,29 +319,6 @@ router.get('/', FileGetter, function (req, res, next) {
     let files = res.locals.files.files;
     files.map(file => {
        let ending = file.name.split('.').pop();
-       let thumbs = {
-           psd: "/images/thumbs/psds.png",
-           txt: "/images/thumbs/txts.png",
-           doc: "/images/thumbs/docs.png",
-           png: "/images/thumbs/pngs.png",
-           mp4: "/images/thumbs/mp4s.png",
-           mp3: "/images/thumbs/mp3s.png",
-           aac: "/images/thumbs/aacs.png",
-           avi: "/images/thumbs/avis.png",
-           gif: "/images/thumbs/gifs.png",
-           html: "/images/thumbs/htmls.png",
-           js: "/images/thumbs/jss.png",
-           mov: "/images/thumbs/movs.png",
-           xls: "/images/thumbs/xlss.png",
-           xlsx: "/images/thumbs/xlss.png",
-           pdf: "/images/thumbs/pdfs.png",
-           flac: "/images/thumbs/flacs.png",
-           jpg: "/images/thumbs/jpgs.png",
-           jpeg: "/images/thumbs/jpgs.png",
-           docx: "/images/thumbs/docs.png",
-           ai: "/images/thumbs/ais.png",
-           tiff: "/images/thumbs/tiffs.png"
-       };
        file.thumbnail = thumbs[ending] ? thumbs[ending] : file.thumbnail;
     });
     res.render('files/files', Object.assign({
@@ -358,6 +359,11 @@ router.get('/courses/', function (req, res, next) {
 router.get('/courses/:courseId', FileGetter, function (req, res, next) {
     const basePath = '/files/courses/';
     api(req).get('/courses/' + req.params.courseId).then(record => {
+        let files = res.locals.files.files;
+        files.map(file => {
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : file.thumbnail;
+        });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
 
@@ -408,6 +414,11 @@ router.get('/classes/', function (req, res, next) {
 router.get('/classes/:classId', FileGetter, function (req, res, next) {
     const basePath = '/files/classes/';
     api(req).get('/classes/' + req.params.classId).then(record => {
+        let files = res.locals.files.files;
+        files.map(file => {
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : file.thumbnail;
+        });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
