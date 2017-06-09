@@ -17,6 +17,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 const parse = require('csv-parse/lib/sync');
+moment.locale('de')
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -637,11 +638,37 @@ router.all('/systems', function (req, res, next) {
     });
 });
 
-router.post('/news/', getCreateHandler('news'));
-router.patch('/news/:id', getUpdateHandler('news'));
+router.post('/news/', function(req, res, next){
+    if(req.body.displayAt) {
+        // rewrite german format to ISO
+        req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    }
+    api(req).post('/' + service + '/', {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+});
+router.patch('/news/:id', function(req, res, next){
+    req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    api(req).patch('/' + service + '/', {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+});
 router.get('/news/:id', getDetailHandler('news'));
-router.delete('/news/:id', getDeleteHandler('news'));router.all('/news', function (req, res, next) {    const itemsPerPage = 10;
-    const currentPage = parseInt(req.query.p) || 1;    api(req).get('/news', {
+router.delete('/news/:id', getDeleteHandler('news'));
+router.all('/news', function (req, res, next) {
+    const itemsPerPage = 10;
+    const currentPage = parseInt(req.query.p) || 1;
+    api(req).get('/news', {
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1)
@@ -653,19 +680,10 @@ router.delete('/news/:id', getDeleteHandler('news'));router.all('/news', functio
             'Datum',
             ''
         ];
-        function formattimepart(s) {
-            return (s < 10) ? "0" + s : s;
-        }
-        function getTimeF(time){
-            var date = new Date(time);
-            var dateF = formattimepart(date.getDate()) + "." + formattimepart(date.getMonth() + 1) + "." + date.getFullYear();
-            var timeF = formattimepart(date.getHours()) + ":" + formattimepart(date.getMinutes());
-            return [dateF, timeF];
-        }
         const body = data.data.map(item => [
             item.title,
             item.content,
-            getTimeF(item.displayAt)[0] + " (" + getTimeF(item.displayAt)[1] + ")",
+            moment(item.displayAt).fromNow(),
             getTableActions(item, '/administration/news/')
         ]);
         const pagination = {
@@ -674,7 +692,7 @@ router.delete('/news/:id', getDeleteHandler('news'));router.all('/news', functio
             baseUrl: '/administration/news/?p={{page}}'
         };
         res.render('administration/news', {
-            title: 'Administration: News',
+            title: 'Administration: Neuigkeiten',
             head,
             body,
             pagination

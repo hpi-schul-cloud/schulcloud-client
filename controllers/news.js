@@ -29,7 +29,8 @@ router.get('/:id/json', getDetailHandler('news'));
 router.all('/', function (req, res, next) {
     api(req).get('/news/', {
         query: {
-            schoolId: res.locals.currentSchool
+            schoolId: res.locals.currentSchool,
+            displayAt: {$lte: moment(new Date()).toISOString()}
         }
     }).then(news => {
         news = news.data.map(news => {
@@ -45,7 +46,7 @@ router.all('/', function (req, res, next) {
             }
         }
         news = news.sort(sortFunction);
-        res.render('news/overview', {title: 'News', news});
+        res.render('news/overview', {title: 'Neuigkeiten', news});
     });
 });
 
