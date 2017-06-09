@@ -125,6 +125,8 @@ const mapEventProps = (event, req) => {
  * @return {String} - a formatted date string
  */
 const getNextEventForCourseTimes = (courseTimes) => {
+    if (courseTimes.length <= 0) return;
+
     let nextWeekdays = _.map(courseTimes, (ct, i) => {
         let weekDayIdentifier = ct.weekday + 1; // moment starts on sunday
 
