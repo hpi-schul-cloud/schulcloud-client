@@ -257,7 +257,8 @@ router.get('/:courseId', function (req, res, next) {
         }),
         api(req).get('/lessons/', {
             qs: {
-                courseId: req.params.courseId
+                courseId: req.params.courseId,
+                $sort: { name: 1 }
             }
         })
     ]).then(([course, lessons]) => {
