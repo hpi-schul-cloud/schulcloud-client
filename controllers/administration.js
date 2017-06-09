@@ -410,13 +410,15 @@ router.all('/courses', function (req, res, next) {
 
         const classesPromise = getSelectOptions(req, 'classes');
         const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
+        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
         const studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
 
         Promise.all([
             classesPromise,
             teachersPromise,
+            substitutionPromise,
             studentsPromise
-        ]).then(([classes, teachers, students]) => {
+        ]).then(([classes, teachers, substitutions, students]) => {
             const body = data.data.map(item => {
                 return [
                     item.name,
@@ -438,6 +440,7 @@ router.all('/courses', function (req, res, next) {
                 body,
                 classes,
                 teachers,
+                substitutions,
                 students,
                 pagination
             });
