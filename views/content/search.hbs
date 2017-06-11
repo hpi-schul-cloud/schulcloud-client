@@ -90,12 +90,12 @@
 					<span>Keine Suchergebnisse</span>
 				</h5>
 			{{/unless}}{{/unless}}
-			<div class=" results">
+			<div class="row results card-deck-row">
 
                 {{#each results}}
-                    <div class="card-deck">
-                        {{#each this}}
-                            <div class="card">
+                    {{#each this}}
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="card h-100">
                                 {{#if this.image}}
                                     <img class="card-img-top" src="{{this.image}}"/>
                                 {{/if}}
@@ -120,8 +120,8 @@
                                     {{/userHasPermission}}
                                 </div>
                             </div>
-                        {{/each}}
-                    </div>
+                        </div>
+                    {{/each}}
                 {{/each}}
             </div>
             {{#if pagination}}

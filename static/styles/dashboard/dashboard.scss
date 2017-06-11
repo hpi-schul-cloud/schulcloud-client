@@ -61,10 +61,6 @@
     .tasks {
         margin: -10px -30px 10px -15px;
     }
-
-    .card {
-        max-width: 100% !important;
-    }
 }
 
 .section-timetable {
@@ -207,4 +203,8 @@
     }
 }
 
-
+@include media-breakpoint-down(xs) {
+    .mobile-no-margin-right {
+        margin-right: 0px;
+    }
+}
