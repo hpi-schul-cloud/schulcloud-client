@@ -43,7 +43,7 @@
     }
 
     .articles {
-        margin: 20px -15px;
+        margin: 0px -30px 10px -15px;
     }
 }
 
@@ -59,7 +59,7 @@
     }
 
     .tasks {
-        margin: 20px -15px;
+        margin: -10px -30px 10px -15px;
     }
 
     .card {
@@ -71,7 +71,6 @@
     width: 100%;
     float: left;
     padding-top: 15px;
-    margin-bottom: 15px;
     line-height: 1.75rem;
 
     @include media-breakpoint-down(xs) {
@@ -94,7 +93,7 @@
 .timetable {
     width:100%;
     float:left;
-    padding: 0px 15px 20px;
+    padding: 0px 15px 0px;
     line-height: 1.75rem;
     border-top:1px solid #c8c8c8;
 
@@ -110,6 +109,10 @@
             text-decoration: none !important;
             position: absolute;
 
+            .card-block {
+                padding: 0.5rem;
+            }
+
             .card {
                 border:0px;
                 background:#e9e9e9;
@@ -122,11 +125,15 @@
                     background:#ddd;
                 }
 
+
                 .card-title {
                     font-size:1.063rem;
                     font-weight: 600;
                 }
 
+                .card-text{
+                    line-height: 130%;
+                }
                 .lesson-time {
                     margin-bottom: 0px;
                     margin-top: -15px;
@@ -185,9 +192,9 @@
                 padding: 0px 5px;
                 right: -15px;
                 position:absolute;
-                top: 8px;
+                top: -28px;
+                background: #FFFFFF;
                 color: $colorHPIRed;
-                background: #fff;
                 display: block;
                 z-index: 2;
             }
@@ -195,9 +202,6 @@
 
         .tick {
             font-size:10px;
-            left:0px;
-            position:absolute;
-            top:5px;
             color:#aaa;
         }
     }

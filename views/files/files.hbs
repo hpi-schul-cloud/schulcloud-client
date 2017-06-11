@@ -52,18 +52,6 @@
 
             <section class="directories">
                 <div class="row">
-                    {{#if canCreateDir}}
-                        <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div data-toggle="modal">
-                                <div class="card card-block folder create-directory">
-                                    <strong class="card-title-directory">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
-                                    </strong>
-                                </div>
-                            </div>
-                        </div>
-                    {{/if}}
-
                     {{#each directories}}
 						<div class="col-sm-6 col-xs-12 col-md-4">
 							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
@@ -108,7 +96,7 @@
                                         <div class="card-title">
                                             <div class="col-sm-3 no-padding">
                                                 <div class="file-preview"
-                                                     style="background-image: url({{this.thumbnail}})"></div>
+                                                     style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
                                             </div>
                                             <a class="title">
                                                 {{this.name}}
@@ -152,7 +140,24 @@
                         </div>
                     {{/each}}
                 </div>
+                <div class="row create-directory">
+                    {{#if canCreateDir}}
+                        <div class="col-sm-12">
+
+                        </div>
+                        <div class="col-sm-6 col-xs-12 col-md-4">
+                            <div data-toggle="modal">
+                                <div>
+                                    <span class="btn btn-secondary">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
             </section>
+
         </div>
 
 
