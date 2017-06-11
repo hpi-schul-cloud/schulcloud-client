@@ -160,40 +160,31 @@ form.inline {
 	display: none;
 }
 
-.card-deck {
-	width: 100%;
+.card-deck-row {
+	& > div {
+		margin-bottom: 30px;
+	}
 
 	.card {
-		display: -webkit-box;
-		display: -webkit-flex;
-		display: -ms-flexbox;
+		max-width: 100% !important;
 		display: flex;
-		-webkit-box-flex: 1;
-		-webkit-flex: 1 0 0%;
-		-ms-flex: 1 0 0%;
-		flex: 1 0 0%;
-		-webkit-box-orient: vertical;
-		-webkit-box-direction: normal;
-		-webkit-flex-direction: column;
-		-ms-flex-direction: column;
+		flex-wrap: wrap;
 		flex-direction: column;
 
-		@include media-breakpoint-up(md) {
-			max-width: 31%;
+		p {
+			word-wrap: break-word;
 		}
 
 		.card-block {
-			-webkit-box-flex: 1;
-			-webkit-flex: 1 1 auto;
-			-ms-flex: 1 1 auto;
-			flex: 1 1 auto;
-			padding: 1.25rem;
-			overflow: hidden;
+			max-width: 100%;
+			width: 100%;
+			flex: 1 1 0;
+		}
 
-			.MathJax_Display {
-				display: none !important;
-			}
+		.card-footer {
+			align-self: flex-end;
+			flex: 0 1 0;
+			width: 100%;
 		}
 	}
 }
-
