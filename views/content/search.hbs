@@ -90,36 +90,39 @@
 					<span>Keine Suchergebnisse</span>
 				</h5>
 			{{/unless}}{{/unless}}
-			<div class=" results">
-				<div class="card-columns">
-					{{#each results}}
-						<div class="card">
-							{{#if this.image}}
-								<img class="card-img-top" src="{{this.image}}"/>
-							{{/if}}
-							<div class="card-block">
-								<h4 class="card-title">
-									<a href="{{this.url}}" target="_blank">
-										{{this.title}}
-									</a>
-								</h4>
-								<p class="card-text">{{this.description}}</p>
-								{{#if this.download}}
-									<button type="button" class="btn btn-secondary">
-										<a href="{{this.download}}" target="_blank">Slides</a>
-									</button>
-								{{/if}}
-							</div>
-							<div class="card-footer">
-								<small class="text-muted"> via {{this.client}} | 17. November 2016</small>
-                                {{#userHasPermission "COURSE_EDIT"}}
-                                    <a class="add-to-lesson" href="{{../this.href}}"><i
-                                            class="fa fa-plus-square"></i></a>
-                                {{/userHasPermission}}
+			<div class="row results card-deck-row">
+
+                {{#each results}}
+                    {{#each this}}
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                            <div class="card h-100">
+                                {{#if this.image}}
+                                    <img class="card-img-top" src="{{this.image}}"/>
+                                {{/if}}
+                                <div class="card-block">
+                                    <h4 class="card-title">
+                                        <a href="{{this.url}}" target="_blank">
+                                            {{this.title}}
+                                        </a>
+                                    </h4>
+                                    <p class="card-text">{{this.description}}</p>
+                                    {{#if this.download}}
+                                        <button type="button" class="btn btn-secondary">
+                                            <a href="{{this.download}}" target="_blank">Slides</a>
+                                        </button>
+                                    {{/if}}
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted"> via {{this.client}} | 17. November 2016</small>
+                                    {{#userHasPermission "COURSE_EDIT"}}
+                                        <a class="add-to-lesson" href="{{../this.href}}"><i
+                                                class="fa fa-plus-square"></i></a>
+                                    {{/userHasPermission}}
+                                </div>
                             </div>
                         </div>
                     {{/each}}
-                </div>
+                {{/each}}
             </div>
             {{#if pagination}}
                 <div class="row">

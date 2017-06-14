@@ -35,7 +35,7 @@ router.get('/:id', function (req, res, next) {
 router.get('/', function (req, res, next) {
     const query = req.query.q;
 
-    const itemsPerPage = 10;
+    const itemsPerPage = 12;
     const currentPage = parseInt(req.query.p) || 1;
 
     if(!query && !req.query.filter) {
@@ -90,7 +90,7 @@ router.get('/', function (req, res, next) {
         res.render('content/search', {
             title: 'Inhalte',
             query,
-            results,
+            results: _.chunk(results, 3),
             pagination,
             action,
             subjects: selectedSubjects,
