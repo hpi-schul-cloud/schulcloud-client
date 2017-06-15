@@ -75,7 +75,8 @@
             <section class="file-viewer">
                 <a href="#_" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
                                                                       $('#link').html('');
-                                                                      $('#picture').attr('src', '');">
+                                                                      $('#picture').attr('src', '');
+                                                                      $('#file-view').css('display','none');">
                     <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup="{'fluid': true}}"></video>
                     <script src="https://vjs.zencdn.net/5.19.2/video.js"></script>
                     <img id="picture">

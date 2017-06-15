@@ -278,12 +278,20 @@ function videoClick(e) {
 function fileViewer(filetype, file) {
     $('#my-video').css("display","none");
     switch (filetype) {
+        case 'application/pdf':
+            $('#file-view').hide();
+            var win = window.open('/files/file?file='+file, '_blank');
+            win.focus();
+            break;
+
         case 'image/'+filetype.substr(6) :
+            $('#file-view').css('display','');
             $('#picture').attr("src", '/files/file?file='+file);
             break;
 
         case 'audio/'+filetype.substr(6):
         case 'video/'+filetype.substr(6):
+            $('#file-view').css('display','');
             videojs('my-video').ready(function () {
                 this.src({type: filetype, src: '/files/file?file='+file});
             });
@@ -296,6 +304,7 @@ function fileViewer(filetype, file) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
+            $('#file-view').css('display','');
             var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
             var url = window.location.href;
             url = url.substr(0, url.lastIndexOf("/"));
@@ -308,6 +317,7 @@ function fileViewer(filetype, file) {
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
         case 'application/octet-stream':                                                    //.psd
         case 'application/x-zip-compressed':                                                //.zip
+            $('#file-view').css('display','');
             var gviewer ="https://docs.google.com/viewer?url=";
             var url = window.location.href;
             url = url.substr(0, url.lastIndexOf("/"));
@@ -318,6 +328,7 @@ function fileViewer(filetype, file) {
             break;
 
         default:
+            $('#file-view').css('display','');
             $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
             $('#link').css("display","");
     }
