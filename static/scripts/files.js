@@ -275,7 +275,7 @@ function videoClick(e) {
     e.preventDefault();
 }
 
-function fileViewer(filetype, file) {
+function fileViewer(filetype, file, key) {
     $('#my-video').css("display","none");
     switch (filetype) {
         case 'application/pdf':
@@ -306,25 +306,52 @@ function fileViewer(filetype, file) {
         case 'application/vnd.ms-word':                                                     //.doc
             $('#file-view').css('display','');
             var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
-            var url = window.location.href;
-            url = url.substr(0, url.lastIndexOf("/"));
-            url = url.substr(0, url.lastIndexOf("/"));
-            url += "/files/file?file=" + file;
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-            openInIframe(msviewer+url);
+            $.ajax({
+                type: "POST",
+                url: "/files/permissions/",
+                data: {
+                    key: key
+                },
+                success: function(data) {
+                    let target = `files/file?path=${data.key}&shared=true`;
+                    $.ajax({
+                        type: "POST",
+                        url: "/link/",
+                        data: {
+                            target: target
+                        },
+                        success: function(data) {
+                            openInIframe(msviewer+data.newUrl)
+                        }
+                    });
+                }});
             break;
-
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
         case 'application/octet-stream':                                                    //.psd
         case 'application/x-zip-compressed':                                                //.zip
             $('#file-view').css('display','');
             var gviewer ="https://docs.google.com/viewer?url=";
-            var url = window.location.href;
-            url = url.substr(0, url.lastIndexOf("/"));
-            url = url.substr(0, url.lastIndexOf("/"));
-            url += "/files/file?file=" + file;
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            openInIframe(gviewer+url+"&embedded=true");
+            $.ajax({
+                type: "POST",
+                url: "/files/permissions/",
+                data: {
+                    key: key
+                },
+                success: function(data) {
+                    let target = `files/file?path=${data.key}&shared=true`;
+                    $.ajax({
+                        type: "POST",
+                        url: "/link/",
+                        data: {
+                            target: target
+                        },
+                        success: function(data) {
+                            openInIframe(gviewer+data.newUrl+"&embedded=true")
+                        }
+                    });
+                }});
             break;
 
         default:
