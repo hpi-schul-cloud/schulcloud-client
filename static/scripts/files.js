@@ -278,12 +278,12 @@ function videoClick(e) {
 function fileViewer(filetype, file) {
     $('#my-video').css("display","none");
     switch (filetype) {
-        case 'image/'+filetype.substr(6, filetype.length) :
+        case 'image/'+filetype.substr(6) :
             $('#picture').attr("src", '/files/file?file='+file);
             break;
 
-        case 'audio/'+filetype.substr(6, filetype.length):
-        case 'video/'+filetype.substr(6, filetype.length):
+        case 'audio/'+filetype.substr(6):
+        case 'video/'+filetype.substr(6):
             videojs('my-video').ready(function () {
                 this.src({type: filetype, src: '/files/file?file='+file});
             });
@@ -323,6 +323,7 @@ function fileViewer(filetype, file) {
     }
 }
 
+//show Google-Viewer/Office online in iframe, after user query (and set cookie)
 function openInIframe(source){
     $("input.box").each(function() {
         var mycookie = $.cookie($(this).attr('name'));
