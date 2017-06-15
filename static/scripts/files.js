@@ -10,6 +10,7 @@ $(document).ready(function() {
     var $moveModal = $('.move-modal');
 
 
+
     var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
 
     // TODO: replace with something cooler
@@ -210,8 +211,10 @@ $moveModal.modal('hide');
         }).fail(showAJAXError);
     });
 
+
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+
     });
 
     var returnFileUrl = (fileName) => {
@@ -265,55 +268,131 @@ $moveModal.modal('hide');
     });
 
 });
-    function videoClick(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    }
+var $openModal = $('.open-modal');
 
-    function fileViewer(filetype, file) {
-        $('#my-video').css("display","none");
-        switch (filetype) {
-            case 'image/'+filetype.substr(6, filetype.length) :
-                $('#picture').attr("src", '/files/file?file='+file);
-                break;
-            case 'audio/'+filetype.substr(6, filetype.length):
-            case 'video/'+filetype.substr(6, filetype.length):
-                videojs('my-video').ready(function () {
-                    this.src({type: filetype, src: '/files/file?file='+file});
-                });
-                $('#my-video').css("display","");
-                break;
-            default:
-                $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
-                $('#link').css("display","");
+function videoClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function fileViewer(filetype, file) {
+    $('#my-video').css("display","none");
+    switch (filetype) {
+        case 'application/pdf':
+            $('#file-view').hide();
+            var win = window.open('/files/file?file='+file, '_blank');
+            win.focus();
+            break;
+
+        case 'image/'+filetype.substr(6) :
+            $('#file-view').css('display','');
+            $('#picture').attr("src", '/files/file?file='+file);
+            break;
+
+        case 'audio/'+filetype.substr(6):
+        case 'video/'+filetype.substr(6):
+            $('#file-view').css('display','');
+            videojs('my-video').ready(function () {
+                this.src({type: filetype, src: '/files/file?file='+file});
+            });
+            $('#my-video').css("display","");
+            break;
+
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
+        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
+        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
+        case 'application/vnd.ms-powerpoint':                                               //.ppt
+        case 'application/vnd.ms-excel':                                                    //.xlx
+        case 'application/vnd.ms-word':                                                     //.doc
+            $('#file-view').css('display','');
+            var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+            var url = window.location.href;
+            url = url.substr(0, url.lastIndexOf("/"));
+            url = url.substr(0, url.lastIndexOf("/"));
+            url += "/files/file?file=" + file;
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
+            openInIframe(msviewer+url);
+            break;
+
+        case 'text/plain': //only in Google Docs Viewer                                     //.txt
+        case 'application/octet-stream':                                                    //.psd
+        case 'application/x-zip-compressed':                                                //.zip
+            $('#file-view').css('display','');
+            var gviewer ="https://docs.google.com/viewer?url=";
+            var url = window.location.href;
+            url = url.substr(0, url.lastIndexOf("/"));
+            url = url.substr(0, url.lastIndexOf("/"));
+            url += "/files/file?file=" + file;
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
+            openInIframe(gviewer+url+"&embedded=true");
+            break;
+
+        default:
+            $('#file-view').css('display','');
+            $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+            $('#link').css("display","");
+    }
+}
+
+//show Google-Viewer/Office online in iframe, after user query (and set cookie)
+function openInIframe(source){
+    $("input.box").each(function() {
+        var mycookie = $.cookie($(this).attr('name'));
+        if (mycookie && mycookie == "true") {
+            $(this).prop('checked', mycookie);
+            $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
+                '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+            $('#link').css("display","");
         }
+        else {
+            $openModal.modal('show');
+            $openModal.find('.btn-submit').unbind('click').on('click', function () {
+                $.cookie($("input.box").attr("name"), $("input.box").prop('checked'), {
+                    path: '/',
+                    expires: 365
+                });
+
+                $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
+                    '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+                $('#link').css("display","");
+                $openModal.modal('hide');
+            });
+
+            $openModal.find('.close, .btn-close').unbind('click').on('click', function () {
+                $openModal.modal('hide');
+                window.location.href = "#_";
+            });
+        }
+    });
+
+
+}
+
+function writeFileSizePretty(filesize) {
+    var unit;
+    var iterator = 0;
+
+    while (filesize > 1024) {
+        filesize = Math.round((filesize / 1024) * 100) / 100;
+        iterator++;
     }
-
-	function writeFileSizePretty(filesize) {
-		var unit;
-		var iterator = 0;
-
-		while (filesize > 1024) {
-			filesize = Math.round((filesize / 1024) * 100) / 100;
-			iterator++;
-		}
-		switch (iterator) {
-			case 0:
-				unit = "B";
-				break;
-			case 1:
-				unit = "KB";
-				break;
-			case 2:
-				unit = "MB";
-				break;
-			case 3:
-				unit = "GB";
-				break;
-			case 4:
-				unit = "TB";
-				break;
-		}
-		return (filesize + unit);
-	}
+    switch (iterator) {
+        case 0:
+            unit = "B";
+            break;
+        case 1:
+            unit = "KB";
+            break;
+        case 2:
+            unit = "MB";
+            break;
+        case 3:
+            unit = "GB";
+            break;
+        case 4:
+            unit = "TB";
+            break;
+    }
+    return (filesize + unit);
+}
 
