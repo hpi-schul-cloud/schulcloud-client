@@ -391,8 +391,6 @@ function openInIframe(source){
             });
         }
     });
-
-
 }
 
 function writeFileSizePretty(filesize) {
