@@ -69,6 +69,29 @@ const mapEventProps = (data, service) => {
 };
 
 /**
+ * sets undefined array-course properties to an empty array
+ */
+const mapEmptyCourseProps = (req, res, next) => {
+    let courseBody = req.body;
+    if (!courseBody.classIds) courseBody.classIds = [];
+    if (!courseBody.teacherIds) courseBody.teacherIds = [];
+    if (!courseBody.userIds) courseBody.userIds = [];
+    if (!courseBody.substitutionIds) courseBody.substitutionIds = [];
+
+    next();
+};
+
+/**
+ * sets undefined array-class properties to an empty array
+ */
+const mapEmptyClassProps = (req, res, next) => {
+    let classBody = req.body;
+    if (!classBody.teacherIds) classBody.teacherIds = [];
+    if (!classBody.userIds) classBody.userIds = [];
+    next();
+};
+
+/**
  * maps the request-data to fit model, e.g. for course times
  * @param data {object} - the request-data object
  * @param service {string} - maps
@@ -385,7 +408,7 @@ router.all('/', function (req, res, next) {
 
 
 router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
-router.patch('/courses/:id', mapTimeProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
+router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
 router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
 
@@ -450,7 +473,7 @@ router.all('/courses', function (req, res, next) {
 
 
 router.post('/classes/', getCreateHandler('classes'));
-router.patch('/classes/:id', getUpdateHandler('classes'));
+router.patch('/classes/:id', mapEmptyClassProps, getUpdateHandler('classes'));
 router.get('/classes/:id', getDetailHandler('classes'));
 router.delete('/classes/:id', getDeleteHandler('classes'));
 
