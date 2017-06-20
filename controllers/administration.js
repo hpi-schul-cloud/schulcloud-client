@@ -119,7 +119,7 @@ const mapTimeProps = (req, res, next) => {
  */
 const createEventsForData = (data, service, req, res) => {
     // can just run if a calendar service is running on the environment and the course have a teacher
-    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0]) {
+    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0] && data.times.length > 0) {
         return Promise.all(data.times.map(time => {
             return api(req).post("/calendar", {
                 json: {
@@ -151,7 +151,10 @@ const deleteEventsForData = (service) => {
     return function (req, res, next) {
         if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
             return api(req).get('courses/' + req.params.id).then(course => {
-                if (course.teacherIds.length < 1) next(); // if no teacher, no permission for deleting
+                if (course.teacherIds.length < 1 || course.times.length < 1) { // if no teacher, no permission for deleting
+                    next();
+                    return;
+                }
                 return Promise.all((course.times || []).map(t => {
                     if (t.eventId) {
                         return api(req).delete('calendar/' + t.eventId, {qs: {userId: course.teacherIds[0]}});
@@ -219,9 +222,6 @@ const getCSVImportHandler = (service) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-
-        if (!req.body.classIds) req.body.classIds = [];
-
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
