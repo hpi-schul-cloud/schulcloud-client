@@ -38,8 +38,8 @@
                                 {{{this.submission.gradeOptions}}}
                         </select>
                     </div>
+                    <button class="importsubmission btn btn-secondary btn-sm float-xs-right" data="{{this.submission._id}}">Abgabe des Schülers importieren</button>
                     <h6>Kommentar</h6>
-                    <button class="importsubmission">Abgabe des Schülers importieren</button>
                     <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Speichern</button>

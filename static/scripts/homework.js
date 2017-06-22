@@ -37,8 +37,16 @@ $(document).ready(function() {
     $('#sortselection').on('change', function(e){
         window.location = window.location.pathname + "?sort=" + escape( $('#sortselection').val());
     });
-    
+
     $('.importsubmission').on('click', function(e){
         e.preventDefault();
+        const submissionid = this.getAttribute("data");
+        if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
+            $.ajax({
+                url: "/homework/submit/"+submissionid+"/import"
+            }).done(function(r) {
+                CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
+            });
+        }
     });
 });
