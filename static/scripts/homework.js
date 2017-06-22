@@ -42,7 +42,7 @@ $(document).ready(function() {
         e.preventDefault();
         const submissionid = this.getAttribute("data");
         this.disabled = true;
-        this.innerHTML = "in progress...";
+        this.innerHTML = 'importiere <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
         if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
             $.ajax({
                 url: "/homework/submit/"+submissionid+"/import",
