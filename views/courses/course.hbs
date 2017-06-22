@@ -15,6 +15,7 @@
             <div class="row description">
                 <div class="col-sm-12">
                     <p class="lead">{{description}}</p>
+                    {{#if nextEvent}}<p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>{{/if}}
                 </div>
             </div>
 
@@ -68,6 +69,7 @@
                         {{/if}}
                         {{#userHasPermission "COURSE_EDIT"}}
                             <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary margin-top">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
                                 Thema hinzufügen
                             </a>
                         {{/userHasPermission}}
@@ -110,8 +112,8 @@
                     </div>
 
                     {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">Neues Tool
-                            hinzufügen</a>
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">
+                            <i class="fa fa-plus" aria-hidden="true"></i>  Neues Tool hinzufügen</a>
                     {{/userHasPermission}}
                 </div>
             </div>
@@ -120,7 +122,7 @@
                     {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
                         <a href="/courses/{{../_id}}/"
-                           class="btn btn-delete-course btn-primary"
+                           class="btn btn-delete-course btn-secondary"
                            target="_blank"
                            data-method="delete-material"
                            data-name="{{../name}}"

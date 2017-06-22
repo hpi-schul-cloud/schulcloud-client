@@ -7,6 +7,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
         <script src="/scripts/files.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -16,8 +17,10 @@
                 <section class="section-upload" data-path="{{path}}">
                     <div class="container-fluid">
                         <div class="row">
-                            <form class="form-upload" action="/files/upload/">
-                                <span><i class="fa fa-cloud-upload"></i> Dateien zum Hochladen ablegen.</span>
+                            <form class="form-upload dz-clickable" action="/files/upload/">
+                                <div class="dz-default dz-message" data-dz-message="">
+                                    <span><i class="fa fa-cloud-upload dz-clickable"></i> Dateien zum Hochladen ablegen.</span>
+                                </div>
                             </form>
                             <div class="progress-bar">
                                 <div class="progress">
@@ -52,18 +55,6 @@
 
             <section class="directories">
                 <div class="row">
-                    {{#if canCreateDir}}
-                        <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div data-toggle="modal">
-                                <div class="card card-block folder create-directory">
-                                    <strong class="card-title-directory">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
-                                    </strong>
-                                </div>
-                            </div>
-                        </div>
-                    {{/if}}
-
                     {{#each directories}}
 						<div class="col-sm-6 col-xs-12 col-md-4">
 							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
@@ -86,7 +77,8 @@
             <section class="file-viewer">
                 <a href="#_" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
                                                                       $('#link').html('');
-                                                                      $('#picture').attr('src', '');">
+                                                                      $('#picture').attr('src', '');
+                                                                      $('#file-view').css('display','none');">
                     <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup="{'fluid': true}}"></video>
                     <script src="https://vjs.zencdn.net/5.19.2/video.js"></script>
                     <img id="picture">
@@ -108,7 +100,7 @@
                                         <div class="card-title">
                                             <div class="col-sm-3 no-padding">
                                                 <div class="file-preview"
-                                                     style="background-image: url({{this.thumbnail}})"></div>
+                                                     style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
                                             </div>
                                             <a class="title">
                                                 {{this.name}}
@@ -152,8 +144,37 @@
                         </div>
                     {{/each}}
                 </div>
+                <div class="row create-directory">
+                    {{#if canCreateDir}}
+                        <div class="col-sm-12">
+
+                        </div>
+                        <div class="col-sm-6 col-xs-12 col-md-4">
+                            <div data-toggle="modal">
+                                <div>
+                                    <span class="btn btn-secondary">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
             </section>
+
         </div>
+
+        {{#embed "lib/components/modal" class="open-modal" title="Möchtest du diese Datei mit einem externen Dienst öffnen?"}}
+            {{#content "body"}}
+                <div class="modal-body">
+                    <input class="box" type="checkbox" name="allowExternalViewers" value="save">Diese Auswahl merken<br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close">Abbrechen</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Öffnen</button>
+                </div>
+            {{/content}}
+        {{/embed}}
 
 
         {{#embed "lib/components/modal-form" class="edit-modal" title="Neuer Ordner" closeLabel="Abbrechen" submitLabel="Ordner erstellen"}}

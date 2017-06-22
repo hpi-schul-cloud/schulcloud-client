@@ -87,7 +87,6 @@
     .directories {
         width: 100%;
         float: left;
-        margin-bottom: 40px;
 
         .container-fluid {
             padding-left: 0;
@@ -117,10 +116,6 @@
             margin-bottom: 20px;
         }
 
-        .create-directory {
-            background-color: $colorGrey;
-        }
-
         .card-title-directory {
             color: $colorHPIRed;
         }
@@ -147,6 +142,10 @@
              max-width: 100%;
              max-height: 100%;
          }
+        .vieweriframe {
+            width: 90%;
+            height: 90vh;
+        }
     }
 
     .lightbox img {
@@ -212,6 +211,10 @@
                     display: none;
                 }
             }
+        }
+
+        .create-directory{
+            margin-top: 30px;
         }
     }
 }
