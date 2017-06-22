@@ -41,11 +41,16 @@ $(document).ready(function() {
     $('.importsubmission').on('click', function(e){
         e.preventDefault();
         const submissionid = this.getAttribute("data");
+        this.disabled = true;
+        this.innerHTML = "in progress...";
         if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
             $.ajax({
-                url: "/homework/submit/"+submissionid+"/import"
+                url: "/homework/submit/"+submissionid+"/import",
+                context: this
             }).done(function(r) {
                 CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
+                this.disabled = false;
+                this.innerHTML = "Abgabe des Schülers importieren";
             });
         }
     });
