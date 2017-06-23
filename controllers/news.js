@@ -27,12 +27,9 @@ const getDetailHandler = (service) => {
 router.get('/:id/json', getDetailHandler('news'));
 
 router.all('/', function (req, res, next) {
-    api(req).get('/news/', {
-        query: {
-            schoolId: res.locals.currentSchool,
-            displayAt: {$lte: moment(new Date()).toISOString()}
-        }
-    }).then(news => {
+    //Somehow $lte doesn't work in normal query so I manually put it into a request
+    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
+    ).then(news => {
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
             news.timeString = moment(news.displayAt).fromNow();

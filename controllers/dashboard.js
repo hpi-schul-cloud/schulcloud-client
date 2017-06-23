@@ -114,11 +114,9 @@ router.get('/', function (req, res, next) {
             return (a.displayAt < b.displayAt) ? 1 : -1;
         }
     }
-    const newsPromise = api(req).get('/news/', {
-        query: {
-            schoolId: res.locals.currentSchool
-        }
-    }).then(news => news.data.map(news => {
+    //Somehow $lte doesn't work in normal query so I manually put it into a request
+    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
+    ).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
             news.timeString = moment(news.displayAt).fromNow();
             return news;

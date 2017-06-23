@@ -643,7 +643,7 @@ router.post('/news/', function(req, res, next){
         // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
     }
-    api(req).post('/' + service + '/', {
+    api(req).post('/news/', {
         // TODO: sanitize
         json: req.body
     }).then(data => {
@@ -654,7 +654,7 @@ router.post('/news/', function(req, res, next){
 });
 router.patch('/news/:id', function(req, res, next){
     req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
-    api(req).patch('/' + service + '/', {
+    api(req).patch('/news/', {
         // TODO: sanitize
         json: req.body
     }).then(data => {
@@ -670,6 +670,7 @@ router.all('/news', function (req, res, next) {
     const currentPage = parseInt(req.query.p) || 1;
     api(req).get('/news', {
         qs: {
+            schoolId: res.locals.currentSchool,
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1)
         }
@@ -691,6 +692,15 @@ router.all('/news', function (req, res, next) {
             numPages: Math.ceil(data.total / itemsPerPage),
             baseUrl: '/administration/news/?p={{page}}'
         };
+        function sortFunction(a, b) {
+            if (a.displayAt === b.displayAt) {
+                return 0;
+            }
+            else {
+                return (a.displayAt < b.displayAt) ? 1 : -1;
+            }
+        }
+        body.sort(sortFunction).reverse();
         res.render('administration/news', {
             title: 'Administration: Neuigkeiten',
             head,
