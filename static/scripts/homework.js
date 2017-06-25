@@ -34,7 +34,17 @@ $(document).ready(function() {
         $modals.modal('hide');
     });
 
+    function getSearchParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        return k?p[k]:p;
+    }
+
+    $('#desc').on('click', function(e){
+        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    });
+
     $('#sortselection').on('change', function(e){
-        window.location = window.location.pathname + "?sort=" + escape( $('#sortselection').val());
+        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape(getSearchParams("desc"));
     });
 });
