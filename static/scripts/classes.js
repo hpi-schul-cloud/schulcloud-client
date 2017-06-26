@@ -6,13 +6,12 @@ $(document).ready(function() {
 
     $('.btn-add').on('click', function(e) {
         e.preventDefault();
-        $.getJSON('/classes/teachers/', function (teachers) {
-            console.log(teachers);
+        $.getJSON('/classes/currentTeacher/', function (teacher) {
             populateModalForm($addModal, {
-                title: 'Hinzufügen',
+                title: 'Klasse hinzufügen',
                 closeLabel: 'Schließen',
                 submitLabel: 'Hinzufügen',
-                fields: {teachers}
+                fields: {teacherIds: [teacher]}
             });
             $addModal.modal('show');
         });
@@ -22,10 +21,9 @@ $(document).ready(function() {
         e.preventDefault();
         var entry = $(this).attr('href');
         $.getJSON(entry, function(result) {
-            if((!result.courseId)||(result.courseId && result.courseId.length<=2)){result.private = true;}
             populateModalForm($editModal, {
                 action: entry,
-                title: 'Bearbeiten',
+                title: 'Klasse bearbeiten',
                 closeLabel: 'Schließen',
                 submitLabel: 'Speichern',
                 fields: result

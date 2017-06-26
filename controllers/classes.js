@@ -15,14 +15,6 @@ const getSelectOptions = (req, service, query, values = []) => {
     });
 };
 
-
-const markSelected = (options, values = []) => {
-    return options.map(option => {
-        option.selected = values.includes(option._id);
-        return option;
-    });
-};
-
 /**
  * sets undefined array-class properties to an empty array
  */
@@ -60,6 +52,11 @@ router.get('/', function (req, res, next) {
             studentsPromise
         ]).then(([teachers, students]) => {
 
+            // preselect current teacher when creating new class
+            teachers.forEach(t => {
+                if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
+            });
+
             res.render('classes/overview', {
                 title: 'Meine Klassen',
                 classes,
@@ -70,16 +67,8 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/teachers/', function (req, res, next) {
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-    teachersPromise.then(teachers => {
-        // preselect current teacher when creating new class
-        teachers.forEach(t => {
-            if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
-        });
-
-        res.json(teachers);
-    })
+router.get('/currentTeacher/', function (req, res, next) {
+    res.json(res.locals.currentUser._id);
 });
 
 router.get('/:classId/', function (req, res, next) {
