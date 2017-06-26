@@ -1,5 +1,5 @@
 @import './colors';
-@import './bootstrap/scss/bootstrap';
+@import './bootstrap/scss/bootstrap-flex';
 
 body {
     background: white !important;
@@ -182,6 +182,10 @@ aside.nav-sidebar {
 header {
     width:100%;
     float:left;
+}
+
+.window-inline .content-wrapper {
+    padding: 20px !important;
 }
 
 .content-wrapper {

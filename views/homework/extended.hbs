@@ -4,11 +4,16 @@
             {{{this.description}}}
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
-            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json">Bearbeiten</a>
-            <form action="/homework/{{_id}}" method="post" class="inline">
-                <input type="hidden" name="_method" value="delete"/>
-                <button type="submit" class="btn btn-primary btn-submit">Löschen</button>
-            </form>
+            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
+            <a class="btn btn-primary btn-delete" 
+                href="/homework/{{_id}}"
+                redirect="/homework"
+                target="_blank" 
+                data-method="delete-material" 
+                data-name="{{title}}"
+                alt="Löschen der Aufgabe: '{{title}}'.">
+                Löschen
+            </a>
         {{/ifvalue}}
     </div>
 	{{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
@@ -16,4 +21,16 @@
 			{{> "homework/form-assignment"}}
 		{{/content}}
 	{{/embed}}
+    {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+        {{#content "body"}}
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn-close">
+                    Abbrechen
+                </button>
+                <button type="submit" class="btn btn-primary btn-submit">
+                    Löschen
+                </button>
+            </div>
+        {{/content}}
+    {{/embed}}
 </section>

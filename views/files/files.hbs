@@ -7,6 +7,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
         <script src="/scripts/files.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -16,8 +17,10 @@
                 <section class="section-upload" data-path="{{path}}">
                     <div class="container-fluid">
                         <div class="row">
-                            <form class="form-upload" action="/files/upload/">
-                                <span><i class="fa fa-cloud-upload"></i> Dateien zum Hochladen ablegen.</span>
+                            <form class="form-upload dz-clickable" action="/files/upload/">
+                                <div class="dz-default dz-message" data-dz-message="">
+                                    <span><i class="fa fa-cloud-upload dz-clickable"></i> Dateien zum Hochladen ablegen.</span>
+                                </div>
                             </form>
                             <div class="progress-bar">
                                 <div class="progress">
@@ -40,6 +43,11 @@
                                        href="{{this.url}}">{{this.label}}</a><span> / </span>
                                 {{/each}}
                             </h5>
+                            {{#if courseUrl}}
+                                <a href="{{courseUrl}}" class="btn btn-secondary btn-sm btn-thin pull-right">
+                                    Zum Kurs
+                                </a>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
@@ -63,45 +71,48 @@
 							</div>
 						</div>
                     {{/each}}
-
-                    {{#if canCreateDir}}
-                        <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div data-toggle="modal">
-                                <div class="card card-block folder create-directory">
-                                    <strong class="card-title-directory">
-                                        <i class="fa fa-folder" aria-hidden="true"></i> Neuen Ordner erstellen ...
-                                    </strong>
-                                </div>
-                            </div>
-                        </div>
-                    {{/if}}
                 </div>
+            </section>
+
+            <section class="file-viewer">
+                <a href="#_" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
+                                                                      $('#link').html('');
+                                                                      $('#picture').attr('src', '');
+                                                                      $('#file-view').css('display','none');">
+                    <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup="{'fluid': true}}"></video>
+                    <script src="https://vjs.zencdn.net/5.19.2/video.js"></script>
+                    <img id="picture">
+                    <div id="link"></div>
+                </a>
             </section>
 
             <section class="files">
                 <div class="row">
                     {{#each files}}
                         <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div class="card file" data-href="/files/file?file={{this.name}}"
+                            <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}"
                                 onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
                                 onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
                                 <div class="openFile">
-                                    <a href="#_" class="lightbox" id="view{{this.name}}" onclick="document.getElementById('view{{this.name}}').innerHTML = ''">
-                                    </a>
-                                    <div class="card-block">
+                                    <div class="card-block"
+                                         onclick="location.href='#file-view';
+                                                 fileViewer('{{this.type}}', '{{this.file}}');">
                                         <div class="card-title">
                                             <div class="col-sm-3 no-padding">
                                                 <div class="file-preview"
-                                                     style="background-image: url({{this.thumbnail}})"></div>
+                                                     style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
                                             </div>
-                                            <a class="title" href="#view{{this.name}}"
-                                               onclick="document.getElementById('view{{this.name}}').innerHTML = fileViewer('{{this.type}}', '{{this.file}}') ">
+                                            <a class="title">
                                                 {{this.name}}
                                             </a>
                                         </div>
                                         <div class="card-text">
-                                            <a href="/files/file?download=1&file={{this.file}}" target="_blank"><i
-                                                    class="fa fa-cloud-download"></i></a>
+
+                                            <a href="/files/file?download=1&file={{this.file}}"
+                                               target="_blank"
+                                               data-method="download">
+                                                <i class="fa fa-cloud-download"></i>
+                                            </a>
 
                                             <!--<form action="/files/file/" method="post" class="inline">
                                                 <input type="hidden" name="_method" value="delete" />
@@ -119,12 +130,11 @@
                                                data-file-path="{{this.path}}">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
-                                            <a href="/files/file/"
-                                                target="_blank"
-                                                data-method="move"
-                                                data-file-name="{{this.name}}"
-                                                data-file-path="{{this.path}}">
-                                                <!--<i class="fa fa-share"></i>-->
+
+                                            <a href="#"
+                                               class="btn-file-share"
+                                               data-file-path="{{this.key}}">
+                                                <i class="fa fa-share"></i>
                                             </a>
                                             <small class="file-info" id="{{this.name}}"></small>
                                         </div>
@@ -134,8 +144,37 @@
                         </div>
                     {{/each}}
                 </div>
+                <div class="row create-directory">
+                    {{#if canCreateDir}}
+                        <div class="col-sm-12">
+
+                        </div>
+                        <div class="col-sm-6 col-xs-12 col-md-4">
+                            <div data-toggle="modal">
+                                <div>
+                                    <span class="btn btn-secondary">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
             </section>
+
         </div>
+
+        {{#embed "lib/components/modal" class="open-modal" title="Möchtest du diese Datei mit einem externen Dienst öffnen?"}}
+            {{#content "body"}}
+                <div class="modal-body">
+                    <input class="box" type="checkbox" name="allowExternalViewers" value="save">Diese Auswahl merken<br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close">Abbrechen</button>
+                    <button type="submit" class="btn btn-primary btn-submit">Öffnen</button>
+                </div>
+            {{/content}}
+        {{/embed}}
 
 
         {{#embed "lib/components/modal-form" class="edit-modal" title="Neuer Ordner" closeLabel="Abbrechen" submitLabel="Ordner erstellen"}}
@@ -171,6 +210,12 @@
                         Löschen
                     </button>
                 </div>
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal-form" class="share-modal"}}
+            {{#content "fields"}}
+                {{> "files/forms/form-share-file"}}
             {{/content}}
         {{/embed}}
 

@@ -5,12 +5,13 @@
 {{/content}}
 {{#content "scripts" mode="append"}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
-    <script src="/scripts/lessons.js" type="text/javascript" defer></script>
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replace($('.add-modal').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
                 toolbarGroups: [
                     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
                     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
@@ -26,9 +27,11 @@
                     {name: 'colors', groups: ['colors']},
                     {name: 'about', groups: ['about']}
                 ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
             });
             CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
                 toolbarGroups: [
                     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
                     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
@@ -44,7 +47,7 @@
                     {name: 'colors', groups: ['colors']},
                     {name: 'about', groups: ['about']}
                 ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About'
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
             });
 
             $.datetimepicker.setLocale('de');
@@ -69,19 +72,17 @@
                     <select name="sort" id="sortselection" data-placeholder="Sortieren">
                         {{#each sortmethods}}
                             {{#if this.active}}
-                                {{#if this.desc}}
-                                    <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
-                                    <option value='{"fn":"{{this.functionname}}","desc":true }' selected="selected">{{this.title}} ▼</option>
-                                {{else}}
-                                    <option value='{"fn":"{{this.functionname}}","desc":false }' selected="selected">{{this.title}} ▲</option>
-                                    <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
-                                {{/if}}
+                                <option value='{{this.functionname}}' selected="selected">{{this.title}}</option>
                             {{else}}
-                                <option value='{"fn":"{{this.functionname}}","desc":false }'>{{this.title}} ▲</option>
-                                <option value='{"fn":"{{this.functionname}}","desc":true }'>{{this.title}} ▼</option>
+                                <option value='{{this.functionname}}'>{{this.title}}</option>
                             {{/if}}
                         {{/each}}
                     </select>
+                    {{#if this.desc}}
+                        <button id="desc" type="submit" name="desc" value="false">▲</button>
+                    {{else}}
+                        <button id="desc" type="submit" name="desc" value="true">▼</button>
+                    {{/if}}
                 </div>
 
 
@@ -89,7 +90,7 @@
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
                             <li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-                                <a class="content" href="{{this.url}}">  
+                                <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
                                     <div class="dates">
                                         {{#if this.dueString}}
                                             <span class="{{this.dueColor}}">{{this.dueString}}</span>
@@ -97,35 +98,41 @@
                                                  {{this.fromdate}}<br/>
                                             bis: <span class="{{this.dueColor}}">{{this.todate}}</span>
                                         {{/if}}
-                                    </div>   
-
-                                    {{#if this.submissionstats}}
-                                    <div class="state">
-                                        <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70" 
-                                            data="{{this.submissionstatsperc}}"
-                                            {{#if this.gradedstats}}secdata="{{this.gradedstatsperc}}" {{/if}}
-                                            width="80" height="80">
-                                        </circular-progress>
-                                        <div class="textinfo">
-                                            <span>Abgegeben: {{this.submissionstats}}</span><br/>
-                                            {{#if this.gradedstats}}
-                                                <span>Bewertet: {{this.gradedstats}}</span><br/>
-                                            {{else}}
-                                                <span>Bewertet: -</span><br/>
-                                            {{/if}}
-                                            <span>{{#if this.averagerating}}
-                                                {{#if this.courseId.gradeSystem}}
-                                                    Ø: {{this.averagerating}} 
-                                                {{else}}
-                                                    Ø: {{this.averagerating}} Punkte
-                                                {{/if}}
-                                                {{else}}
-                                                    Ø: - 
-                                            {{/if}}</span>
-                                        </div>
                                     </div>
-                                    {{/if}}
-
+                                </a>
+                                {{#if this.submissionStats}}
+                                    <a class="content" href="{{this.url}}#activetabid=submissions" alt="Abgaben der Aufgabe: '{{this.name}}'">
+                                        <div class="state">
+                                            <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70"
+                                                data="{{this.submissionStatsPerc}}"
+                                                {{#if this.gradedStats}}secdata="{{this.gradedStatsPerc}}" {{/if}}
+                                                width="80" height="80">
+                                            </circular-progress>
+                                            <div class="textinfo">
+                                                <span>Abgegeben: {{this.submissionStats}}</span>
+                                                <span>
+                                                {{#if this.gradedStats}}
+                                                    Bewertet: {{this.gradedStats}}
+                                                {{else}}
+                                                    Bewertet: -
+                                                {{/if}}
+                                                </span>
+                                                <span>
+                                                    {{#if this.averageRating}}
+                                                        {{#if this.courseId.gradeSystem}}
+                                                            Ø: {{this.averageRating}}
+                                                        {{else}}
+                                                            Ø: {{this.averageRating}} Punkte
+                                                        {{/if}}
+                                                    {{else}}
+                                                        Ø: -
+                                                    {{/if}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                {{/if}}
+                                <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
                                     <h5 class="title">
                                         {{#if this.courseId}}
                                             <span>{{this.courseId.name}}</span>
@@ -143,17 +150,18 @@
                                                    href="{{this.link}}"
                                                    target="_blank"
                                                    data-method="delete-material"
-                                                   data-name="{{../name}}">
+                                                   data-name="{{../name}}"
+                                                   alt="Löschen der Aufgabe: '{{../name}}'.">
                                                     <i class="fa fa-{{this.icon}}"></i>
                                                 </a>
                                         {{else}}
-                                            <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}">
+                                            <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../name}}' {{this.alt}}.">
                                                 <i class="fa fa-{{this.icon}}"></i> {{this.label}}
                                             </a>
                                         {{/if}}
                                     {{/each}}
                                 {{/ifvalue}}
-                                <a href="{{this.url}}">
+                                <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
                                     <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
                                 </a>
                             </li>
@@ -163,13 +171,16 @@
                             </p>
                         {{/each}}
                     </div></div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
                 </ol>
                 {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
                     {{#content "fields"}}
                         {{> "homework/form-assignment"}}
                     {{/content}}
                 {{/embed}}
-                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/" }}
+                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/"}}
                     {{#content "fields"}}
                         {{> "homework/form-assignment"}}
                     {{/content}}
@@ -180,7 +191,6 @@
                             <button type="button" class="btn btn-secondary btn-close">
                                 Abbrechen
                             </button>
-
                             <button type="submit" class="btn btn-primary btn-submit">
                                 Löschen
                             </button>

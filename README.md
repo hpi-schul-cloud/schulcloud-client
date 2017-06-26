@@ -1,4 +1,4 @@
-# Schulcloud Client
+# Schul-Cloud Client
 _An implementation of the Schul-Cloud client with NodeJS and Express._
 
 Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>
@@ -9,6 +9,8 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 * node.js 6 or later (You can install it from https://nodejs.org/en/download/)
 
 ## Setup
+
+There are blog posts on how to setup [client](https://github.com/schul-cloud/schulcloud-client) and [server](https://github.com/schul-cloud/schulcloud-server) under [Windows](https://schul-cloud.github.io/blog/2017-05-18/setup-schul-cloud-client-and-sever-under-windows) and [Linux](https://schul-cloud.github.io/blog/2017-04-21/setup-development-under-ubuntu).
 
 1. Clone directory into local folder
 2. Go into the cloned folder and enter `npm install`

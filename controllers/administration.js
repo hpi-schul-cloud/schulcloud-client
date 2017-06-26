@@ -12,6 +12,11 @@ const fs = require('fs');
 const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
+const multer  = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+const StringDecoder = require('string_decoder').StringDecoder;
+const decoder = new StringDecoder('utf8');
+const parse = require('csv-parse/lib/sync');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -64,6 +69,29 @@ const mapEventProps = (data, service) => {
 };
 
 /**
+ * sets undefined array-course properties to an empty array
+ */
+const mapEmptyCourseProps = (req, res, next) => {
+    let courseBody = req.body;
+    if (!courseBody.classIds) courseBody.classIds = [];
+    if (!courseBody.teacherIds) courseBody.teacherIds = [];
+    if (!courseBody.userIds) courseBody.userIds = [];
+    if (!courseBody.substitutionIds) courseBody.substitutionIds = [];
+
+    next();
+};
+
+/**
+ * sets undefined array-class properties to an empty array
+ */
+const mapEmptyClassProps = (req, res, next) => {
+    let classBody = req.body;
+    if (!classBody.teacherIds) classBody.teacherIds = [];
+    if (!classBody.userIds) classBody.userIds = [];
+    next();
+};
+
+/**
  * maps the request-data to fit model, e.g. for course times
  * @param data {object} - the request-data object
  * @param service {string} - maps
@@ -91,7 +119,7 @@ const mapTimeProps = (req, res, next) => {
  */
 const createEventsForData = (data, service, req, res) => {
     // can just run if a calendar service is running on the environment and the course have a teacher
-    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0]) {
+    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0] && data.times.length > 0) {
         return Promise.all(data.times.map(time => {
             return api(req).post("/calendar", {
                 json: {
@@ -120,13 +148,16 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
             return api(req).get('courses/' + req.params.id).then(course => {
-                if (course.teacherIds.length < 1) next(); // if no teacher, no permission for deleting
+                if (course.teacherIds.length < 1 || course.times.length < 1) { // if no teacher, no permission for deleting
+                    next();
+                    return;
+                }
                 return Promise.all((course.times || []).map(t => {
                     if (t.eventId) {
-                        return api(req).delete('calendar/' + t.eventId,{qs: {userId: course.teacherIds[0]}});
+                        return api(req).delete('calendar/' + t.eventId, {qs: {userId: course.teacherIds[0]}});
                     }
                 })).then(_ => next());
             });
@@ -151,6 +182,42 @@ const getCreateHandler = (service) => {
         });
     };
 };
+
+const getCSVImportHandler = (service) => {
+    return function (req, res, next) {
+        let csvData = '';
+        let records = [];
+
+        try {
+            csvData = decoder.write(req.file.buffer);
+            records = parse(csvData, {columns: true, delimiter: ';'});
+        } catch(err) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Import fehlgeschlagen.'
+            };
+        }
+
+        const groupData = {
+            schoolId: req.body.schoolId,
+            roles: req.body.roles
+        };
+
+        const recordPromises = records.map((user) => {
+            user = Object.assign(user, groupData);
+            return api(req).post('/' + service + '/', {
+                json: user
+            });
+        });
+
+        Promise.all(recordPromises).then(_ => {
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 
 
 const getUpdateHandler = (service) => {
@@ -190,6 +257,28 @@ const getDeleteHandler = (service) => {
     };
 };
 
+const getDeleteAccountForUserHandler = (req, res, next) => {
+    api(req).get("/accounts/", {
+        qs: {
+            userId: req.params.id
+        }
+    }).then(accounts => {
+        // if no account find, user isn't fully registered
+        if (!accounts || accounts.length <= 0) {
+            next();
+            return;
+        }
+
+        // for now there is only one account for a given user
+        let account = accounts[0];
+        api(req).delete("/accounts/" + account._id).then(_ => {
+            next();
+        });
+    }).catch(err => {
+        next(err);
+    });
+};
+
 const removeSystemFromSchoolHandler = (req, res, next) => {
     api(req).patch('/schools/' + res.locals.currentSchool, {
         json: {
@@ -205,7 +294,7 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
 };
 
 const createSystemHandler = (req, res, next) => {
-    api(req).post('/systems/', { json: req.body }).then(system => {
+    api(req).post('/systems/', {json: req.body}).then(system => {
         api(req).patch('/schools/' + req.body.schoolId, {
             json: {
                 $push: {
@@ -254,36 +343,38 @@ const sendMailHandler = (req, res, next) => {
     let createdUser = res.locals.createdUser;
     let email = createdUser.email;
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
-       if(!err){
-           let source = data.toString();
-           let template = handlebars.compile(source);
-           let outputString = template({
-               "url":req.headers.origin + "/register/account/" + createdUser._id,
-               "firstName": createdUser.firstName,
-               "lastName": createdUser.lastName
-           });
+        if (!err) {
+            let source = data.toString();
+            let template = handlebars.compile(source);
+            let outputString = template({
+                "url": req.headers.origin + "/register/account/" + createdUser._id,
+                "firstName": createdUser.firstName,
+                "lastName": createdUser.lastName
+            });
 
-           let content = {
-               "html": outputString,
-               "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
-               "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-               req.headers.origin + "/register/account/" + createdUser._id + "\n\n" +
-               "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
-           };
-           req.body.content = content;
-           api(req).post('/mails', {json:{
-               headers: {},
-               email: email,
-               subject: "Einladung in die Schul-Cloud",
-               content: content
-           }}).then(_ => {
-               next();
-           }).catch(err => {
-               res.status((err.statusCode || 500)).send(err);
-           });
-       } else {
-           next(err);
-       }
+            let content = {
+                "html": outputString,
+                "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
+                "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+                req.headers.origin + "/register/account/" + createdUser._id + "\n\n" +
+                "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
+            };
+            req.body.content = content;
+            api(req).post('/mails', {
+                json: {
+                    headers: {},
+                    email: email,
+                    subject: "Einladung in die Schul-Cloud",
+                    content: content
+                }
+            }).then(_ => {
+                next();
+            }).catch(err => {
+                res.status((err.statusCode || 500)).send(err);
+            });
+        } else {
+            next(err);
+        }
     });
 };
 
@@ -317,7 +408,7 @@ router.all('/', function (req, res, next) {
 
 
 router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
-router.patch('/courses/:id', mapTimeProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
+router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
 router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
 
@@ -342,13 +433,15 @@ router.all('/courses', function (req, res, next) {
 
         const classesPromise = getSelectOptions(req, 'classes');
         const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
+        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
         const studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
 
         Promise.all([
             classesPromise,
             teachersPromise,
+            substitutionPromise,
             studentsPromise
-        ]).then(([classes, teachers, students]) => {
+        ]).then(([classes, teachers, substitutions, students]) => {
             const body = data.data.map(item => {
                 return [
                     item.name,
@@ -370,6 +463,7 @@ router.all('/courses', function (req, res, next) {
                 body,
                 classes,
                 teachers,
+                substitutions,
                 students,
                 pagination
             });
@@ -379,7 +473,7 @@ router.all('/courses', function (req, res, next) {
 
 
 router.post('/classes/', getCreateHandler('classes'));
-router.patch('/classes/:id', getUpdateHandler('classes'));
+router.patch('/classes/:id', mapEmptyClassProps, getUpdateHandler('classes'));
 router.get('/classes/:id', getDetailHandler('classes'));
 router.delete('/classes/:id', getDeleteHandler('classes'));
 
@@ -438,7 +532,8 @@ router.all('/classes', function (req, res, next) {
 router.post('/teachers/', getCreateHandler('users'), sendMailHandler);
 router.patch('/teachers/:id', getUpdateHandler('users'));
 router.get('/teachers/:id', getDetailHandler('users'));
-router.delete('/teachers/:id', getDeleteHandler('users'));
+router.delete('/teachers/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
+router.post('/teachers/import/', upload.single('csvFile'), getCSVImportHandler('users'));
 
 router.all('/teachers', function (req, res, next) {
 
@@ -483,7 +578,8 @@ router.all('/teachers', function (req, res, next) {
 router.post('/students/', getCreateHandler('users'), sendMailHandler);
 router.patch('/students/:id', getUpdateHandler('users'));
 router.get('/students/:id', getDetailHandler('users'));
-router.delete('/students/:id', getDeleteHandler('users'));
+router.post('/students/import/', upload.single('csvFile'), getCSVImportHandler('users'));
+router.delete('/students/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
 
 router.all('/students', function (req, res, next) {
 
@@ -527,7 +623,7 @@ router.all('/students', function (req, res, next) {
 router.post('/systems/', createSystemHandler);
 router.patch('/systems/:id', getUpdateHandler('systems'));
 router.get('/systems/:id', getDetailHandler('systems'));
-router.delete('/systems/:id', removeSystemFromSchoolHandler , getDeleteHandler('systems'));
+router.delete('/systems/:id', removeSystemFromSchoolHandler, getDeleteHandler('systems'));
 
 router.all('/systems', function (req, res, next) {
 

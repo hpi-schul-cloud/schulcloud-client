@@ -10,6 +10,7 @@ $(document).ready(function() {
     var $moveModal = $('.move-modal');
 
 
+
     var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
 
     // TODO: replace with something cooler
@@ -39,6 +40,8 @@ $(document).ready(function() {
         return $('.section-upload').data('path');
     }
 
+    let progressBarActive = false;
+    let finishedFilesSize = 0;
     $form.dropzone({
         accept: function (file, done) {
             // get signed url before processing the file
@@ -60,12 +63,18 @@ $(document).ready(function() {
         init: function () {
             // this is called on per-file basis
             this.on("processing", function (file) {
+                if(!progressBarActive) {
+                    $progress.css('width', '0%');
+
+                    $form.fadeOut(50, function () {
+                        $progressBar.fadeIn(50);
+                    });
+
+                    progressBarActive = true;
+                }
+
                 this.options.url = file.signedUrl.url;
                 this.options.headers = file.signedUrl.header;
-                $progress.css('width', '0%');
-                $form.fadeOut(50, function () {
-                    $progressBar.fadeIn(50);
-                });
             });
 
             this.on("sending", function (file, xhr, formData) {
@@ -75,35 +84,28 @@ $(document).ready(function() {
                 };
             });
 
-            this.on("totaluploadprogress", function (progress) {
-                $progress.stop().animate({'width': progress + '%'}, {
+            this.on("totaluploadprogress", function (progress, total, uploaded) {
+                const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
+
+                $progress.stop().animate({'width': realProgress + '%'}, {
                     step: function (now) {
                         $percentage.html(Math.ceil(now) + '%');
-                    },
-                    complete: function () {
-                        $progressBar.fadeOut(50, function () {
-                            $form.fadeIn(50);
-                            reloadFiles();
-                        });
                     }
                 });
             });
 
-            this.on("totaluploadprogress", function (progress) {
-                $progress.stop().animate({'width': progress + '%'}, {
-                    step: function (now) {
-                        $percentage.html(Math.ceil(now) + '%');
-                    },
-                    complete: function () {
-                        $progressBar.fadeOut(50, function () {
-                            $form.fadeIn(50);
-                            reloadFiles();
-                        });
-                    }
+            this.on("queuecomplete", function (file, response) {
+                progressBarActive = false;
+                finishedFilesSize = 0;
+
+                $progressBar.fadeOut(50, function () {
+                    $form.fadeIn(50);
+                    reloadFiles();
                 });
             });
 
             this.on("success", function (file, response) {
+                finishedFilesSize += file.size;
                 this.removeFile(file);
             });
 
@@ -123,6 +125,10 @@ $(document).ready(function() {
                 $form.removeClass('focus');
             });
         }
+    });
+
+    $('a[data-method="download"]').on('click', function (e) {
+        e.stopPropagation();
     });
 
     $('a[data-method="delete"]').on('click', function (e) {
@@ -179,18 +185,19 @@ error: showAJAXError
 $moveModal.modal('hide');
 });**/
 
+
     $('.create-directory').on('click', function () {
         $editModal.modal('show');
     });
 
     $('.card.file').on('click', function () {
-        if (isCKEditor) returnFileUrl($(this).data('href'));
+        if (isCKEditor) returnFileUrl($(this).data('file-name'));
     });
 
     $('.card.file .title').on('click', function (e) {
         if (isCKEditor) {
             e.preventDefault();
-            returnFileUrl($(this).closest('.card.file').data('href'));
+            returnFileUrl($(this).closest('.card.file').data('file-name'));
         }
     });
 
@@ -204,12 +211,14 @@ $moveModal.modal('hide');
         }).fail(showAJAXError);
     });
 
+
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+
     });
 
-    var returnFileUrl = (fileUrl) => {
-        var fullUrl = fileUrl + '&storageContext=' + getCurrentDir();
+    var returnFileUrl = (fileName) => {
+        var fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
         var funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
         window.close();
@@ -219,48 +228,171 @@ $moveModal.modal('hide');
         $modals.modal('hide');
     });
 
+    $('.btn-file-share').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let path = $(this).attr('data-file-path');
+        let $shareModal = $('.share-modal');
+        $.ajax({
+            type: "POST",
+            url: "/files/permissions/",
+            data: {
+                key: path
+            },
+            success: function(data) {
+                let target = `files/file?path=${data.key}&shared=true`;
+                $.ajax({
+                    type: "POST",
+                    url: "/link/",
+                    data: {
+                        target: target
+                    },
+                    success: function(data) {
+                        populateModalForm($shareModal, {
+                            title: 'Einladungslink generiert!',
+                            closeLabel: 'Schließen',
+                            submitLabel: 'Speichern',
+                            fields: {invitation: data.newUrl}
+                        });
+                        $shareModal.find('.btn-submit').remove();
+                        $shareModal.find("input[name='invitation']").click(function () {
+                            $(this).select();
+                        });
+
+                        $shareModal.modal('show');
+
+                    }
+                });
+            }
+        });
+    });
+
 });
+var $openModal = $('.open-modal');
 
-    function fileViewer(filetype, file) {
-        switch (filetype) {
-            case 'image/'+filetype.substr(6, filetype.length) :
-                return ('<img src= "/files/file?download=1&file='+file+'">');
-                break;
-            case 'audio/mp3':
-                return '<audio autoplay controls><source src= "/files/file?download=1&file='+file+'" type="audio/mpeg"> </audio>';
-                break;
-            case 'video/mp4':
-                return '<video autoplay controls><source src= "/files/file?download=1&file='+file+'" type="video/mp4"></video>'
-                break;
-        }
-        return '<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>'//'<meta http-equiv="refresh" content="1; URL=/files/file?file='+file+'">';
+function videoClick(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function fileViewer(filetype, file) {
+    $('#my-video').css("display","none");
+    switch (filetype) {
+        case 'application/pdf':
+            $('#file-view').hide();
+            var win = window.open('/files/file?file='+file, '_blank');
+            win.focus();
+            break;
+
+        case 'image/'+filetype.substr(6) :
+            $('#file-view').css('display','');
+            $('#picture').attr("src", '/files/file?file='+file);
+            break;
+
+        case 'audio/'+filetype.substr(6):
+        case 'video/'+filetype.substr(6):
+            $('#file-view').css('display','');
+            videojs('my-video').ready(function () {
+                this.src({type: filetype, src: '/files/file?file='+file});
+            });
+            $('#my-video').css("display","");
+            break;
+
+        case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
+        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
+        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
+        case 'application/vnd.ms-powerpoint':                                               //.ppt
+        case 'application/vnd.ms-excel':                                                    //.xlx
+        case 'application/vnd.ms-word':                                                     //.doc
+            $('#file-view').css('display','');
+            var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+            var url = window.location.href;
+            url = url.substr(0, url.lastIndexOf("/"));
+            url = url.substr(0, url.lastIndexOf("/"));
+            url += "/files/file?file=" + file;
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
+            openInIframe(msviewer+url);
+            break;
+
+        case 'text/plain': //only in Google Docs Viewer                                     //.txt
+        case 'application/octet-stream':                                                    //.psd
+        case 'application/x-zip-compressed':                                                //.zip
+            $('#file-view').css('display','');
+            var gviewer ="https://docs.google.com/viewer?url=";
+            var url = window.location.href;
+            url = url.substr(0, url.lastIndexOf("/"));
+            url = url.substr(0, url.lastIndexOf("/"));
+            url += "/files/file?file=" + file;
+            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
+            openInIframe(gviewer+url+"&embedded=true");
+            break;
+
+        default:
+            $('#file-view').css('display','');
+            $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+            $('#link').css("display","");
     }
+}
 
-	function writeFileSizePretty(filesize) {
-		var unit;
-		var iterator = 0;
+//show Google-Viewer/Office online in iframe, after user query (and set cookie)
+function openInIframe(source){
+    $("input.box").each(function() {
+        var mycookie = $.cookie($(this).attr('name'));
+        if (mycookie && mycookie == "true") {
+            $(this).prop('checked', mycookie);
+            $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
+                '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+            $('#link').css("display","");
+        }
+        else {
+            $openModal.modal('show');
+            $openModal.find('.btn-submit').unbind('click').on('click', function () {
+                $.cookie($("input.box").attr("name"), $("input.box").prop('checked'), {
+                    path: '/',
+                    expires: 365
+                });
 
-		while (filesize > 1024) {
-			filesize = Math.round((filesize / 1024) * 100) / 100;
-			iterator++;
-		}
-		switch (iterator) {
-			case 0:
-				unit = "B";
-				break;
-			case 1:
-				unit = "KB";
-				break;
-			case 2:
-				unit = "MB";
-				break;
-			case 3:
-				unit = "GB";
-				break;
-			case 4:
-				unit = "TB";
-				break;
-		}
-		return (filesize + unit);
-	}
+                $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
+                    '<p>Dein Browser unterstützt dies nicht.</p></iframe>');
+                $('#link').css("display","");
+                $openModal.modal('hide');
+            });
+
+            $openModal.find('.close, .btn-close').unbind('click').on('click', function () {
+                $openModal.modal('hide');
+                window.location.href = "#_";
+            });
+        }
+    });
+
+
+}
+
+function writeFileSizePretty(filesize) {
+    var unit;
+    var iterator = 0;
+
+    while (filesize > 1024) {
+        filesize = Math.round((filesize / 1024) * 100) / 100;
+        iterator++;
+    }
+    switch (iterator) {
+        case 0:
+            unit = "B";
+            break;
+        case 1:
+            unit = "KB";
+            break;
+        case 2:
+            unit = "MB";
+            break;
+        case 3:
+            unit = "GB";
+            break;
+        case 4:
+            unit = "TB";
+            break;
+    }
+    return (filesize + unit);
+}
 

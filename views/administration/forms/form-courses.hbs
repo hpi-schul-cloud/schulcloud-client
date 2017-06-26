@@ -70,6 +70,17 @@
 </div>
 
 <div class="form-group">
+    <label>Vertretungs Lehrer</label>
+    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
+        {{#each substitutions}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{this.firstName}} {{this.lastName}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
     <label>Schüler / Teilnehmer</label>
 
     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
@@ -111,6 +122,7 @@
                     <th><label>Wochentag</label></th>
                     <th><label>Start der Schulstunde</label></th>
                     <th><label>Dauer der Schulstunde</label></th>
+                    <th><label>Raum</label></th>
                     </thead>
                     <tbody class="add-course-times">
                     <tr>
@@ -134,6 +146,10 @@
                         <td>
                             <input class="form-control new-duration" type="number"
                                    placeholder="in Minuten"/>
+                        </td>
+                        <td>
+                            <input class="form-control new-room" type="text"
+                                   placeholder="z.B. R-1.21"/>
                         </td>
                     </tr>
                     </tbody>

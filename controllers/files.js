@@ -14,6 +14,31 @@ const authHelper = require('../helpers/authentication');
 const multer  = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
+const thumbs = {
+    default: "/images/thumbs/default.png",
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.png"
+};
+
 const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
@@ -130,6 +155,28 @@ const getScopeDirs = (req, res, scope) => {
     });
 };
 
+/**
+ * register a new filePermission for the given user for the given file
+ * @param userId {String} - the user which should be granted permission
+ * @param filePath {String} - the file for which a new permission should be created
+ */
+const registerSharedPermission = (userId, filePath, req) => {
+    // check whether a filePermission entry already exist for the given file
+    return api(req).get('/filePermissions/', {qs: {key: filePath}}).then(res => {
+        if (res.data.length <= 0) {
+            // owner permits sharing of given file
+            return Promise.reject("Zu dieser Datei haben Sie keinen Zugriff!");
+        } else {
+            let filePermission = res.data[0];
+            filePermission.permissions.push({
+                userId: userId,
+                permissions: ['can-read', 'can-write'] // todo: make it selectable
+            });
+            return api(req).patch('/filePermissions/' + res.data[0]._id, {json: filePermission});
+        }
+    });
+};
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -207,7 +254,7 @@ router.delete('/file', function (req, res, next) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download = false, path} = req.query;
+    const {file, download = false, path, shared = false} = req.query;
 
     const basePath = getStorageContext(req, res, {url: req.get('Referrer')});
     const data = {
@@ -216,15 +263,19 @@ router.get('/file', function (req, res, next) {
         action: 'getObject'
     };
 
-    requestSignedUrl(req, data).then(signedUrl => {
-        return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
-            if (download) {
-                res.type('application/octet-stream');
-                res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(file));
-            } else if (signedUrl.header['Content-Type']) {
-                res.type(signedUrl.header['Content-Type']);
-            }
-            res.end(awsFile, 'binary');
+    let sharedPromise = shared ? registerSharedPermission(res.locals.currentUser._id, data.path, req) : Promise.resolve();
+    sharedPromise.then(_ => {
+        return requestSignedUrl(req, data).then(signedUrl => {
+            return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
+                if (download) {
+                    res.type('application/octet-stream');
+                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(file));
+                } else if (signedUrl.header['Content-Type']) {
+                    res.type(signedUrl.header['Content-Type']);
+                }
+
+                res.end(awsFile, 'binary');
+            });
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -266,6 +317,11 @@ router.delete('/directory', function (req, res) {
 
 
 router.get('/', FileGetter, function (req, res, next) {
+    let files = res.locals.files.files;
+    files.map(file => {
+       let ending = file.name.split('.').pop();
+       file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+    });
     res.render('files/files', Object.assign({
         title: 'Dateien',
         path: res.locals.files.path,
@@ -304,6 +360,11 @@ router.get('/courses/', function (req, res, next) {
 router.get('/courses/:courseId', FileGetter, function (req, res, next) {
     const basePath = '/files/courses/';
     api(req).get('/courses/' + req.params.courseId).then(record => {
+        let files = res.locals.files.files;
+        files.map(file => {
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+        });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
 
@@ -323,6 +384,8 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
             breadcrumbs,
+            courseId: req.params.courseId,
+            courseUrl: `/courses/${req.params.courseId}/`
         }, res.locals.files));
 
     });
@@ -352,6 +415,11 @@ router.get('/classes/', function (req, res, next) {
 router.get('/classes/:classId', FileGetter, function (req, res, next) {
     const basePath = '/files/classes/';
     api(req).get('/classes/' + req.params.classId).then(record => {
+        let files = res.locals.files.files;
+        files.map(file => {
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+        });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
@@ -372,6 +440,18 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
             CKEditor: req.query.CKEditor,
         }, res.locals.files));
 
+    });
+});
+
+router.post('/permissions/', function (req, res, next) {
+    api(req).get('/filePermissions/', { qs: {key: req.body.key} }).then(filePermission => {
+        if (filePermission.data.length > 0) {
+            res.json(filePermission.data[0]);
+        } else {
+            api(req).post("/filePermissions/", { json: req.body }).then(filePermission => {
+                res.json(filePermission);
+            });
+        }
     });
 });
 

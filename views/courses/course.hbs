@@ -5,7 +5,6 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/lessons.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
     {{/content}}
 
@@ -16,6 +15,7 @@
             <div class="row description">
                 <div class="col-sm-12">
                     <p class="lead">{{description}}</p>
+                    {{#if nextEvent}}<p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>{{/if}}
                 </div>
             </div>
 
@@ -32,7 +32,7 @@
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema sperren">
                                                              <i class="fa fa-eye"></i>
                                                         </a>
                                                     </span>
@@ -47,7 +47,11 @@
                                             <div class="card-header">
                                                 <div class="input-group">
                                                         <span class="input-group-btn">
-                                                            <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}">
+                                                            <a
+                                                                class="btn btn-secondary btn-hidden-toggle"
+                                                                href="{{../_id}}"
+                                                                data-toggle="tooltip"
+                                                                title="{{#if ../hidden}}Thema entsperren{{else}}Thema sperren{{/if}}">
                                                                  <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                             </a>
                                                         </span>
@@ -65,6 +69,7 @@
                         {{/if}}
                         {{#userHasPermission "COURSE_EDIT"}}
                             <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary margin-top">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
                                 Thema hinzufügen
                             </a>
                         {{/userHasPermission}}
@@ -107,19 +112,28 @@
                     </div>
 
                     {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">Neues Tool
-                            hinzufügen</a>
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">
+                            <i class="fa fa-plus" aria-hidden="true"></i>  Neues Tool hinzufügen</a>
                     {{/userHasPermission}}
                 </div>
             </div>
-
-            {{#userHasPermission "COURSE_EDIT"}}
-                <div class="row padding-top">
-                    <div class="col-sm-12">
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
-                    </div>
+                        <a href="/courses/{{../_id}}/"
+                           class="btn btn-delete-course btn-secondary"
+                           target="_blank"
+                           data-method="delete-material"
+                           data-name="{{../name}}"
+                           redirect="/courses/">Kurs löschen</a>
+                        <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
+                    {{/userHasPermission}}
+                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
-            {{/userHasPermission}}
+            </div>
+
+
 
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
@@ -134,6 +148,12 @@
                             Löschen
                         </button>
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 

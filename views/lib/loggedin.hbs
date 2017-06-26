@@ -12,6 +12,7 @@
         <script type="text/javascript" src="/scripts/notificationService/indexFirebase.js" defer></script>
 
         <script type="text/javascript" src="/scripts/notificationService/callback.js" defer></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML" defer></script>
         <script type="text/javascript" src="/scripts/notificationService/index.js" defer></script>
 
         <script type="text/javascript">
@@ -22,8 +23,7 @@
     {{/content}}
 
     {{#content "body"}}
-        {{#unless inline}}
-            <aside class="nav-sidebar">
+            <aside class="nav-sidebar hide-inline">
                 <nav>
                     <ul>
                         <li>
@@ -66,7 +66,7 @@
 
             <section class="content-wrapper">
                 {{> "lib/components/notification"}}
-                <nav class="topbar navbar">
+                <nav class="topbar navbar hide-inline">
 
                     {{#if breadcrumb}}
                         <ol class="breadcrumb">
@@ -86,12 +86,20 @@
                                 </a>
 
                                 <div class="dropdown-menu">
+                                    {{#if notifications}}
                                     {{#each notifications}}
                                         <div class="notification-item {{#unless this.read}}unread{{/unless}}" data-notification-id="{{this.notificationId}}">
-                                            <span>{{this.title}}</span>
+                                            <a href="{{this.action}}"><b>{{this.title}}</b></a>
+                                            <br>
+                                            <span>{{this.body}}</span>
                                             <time class="notification-time">{{timeFromNow this.date}}</time>
                                         </div>
                                     {{/each}}
+                                    {{else}}
+                                        <div class="notification-item" data-notification-id="0">
+                                            <span>Derzeit keine Benachrichtigungen</span>
+                                        </div>
+                                    {{/if}}
                                 </div>
                             </div>
                         </li>
@@ -130,7 +138,7 @@
                                 </div>
                             </div>
                             {{#unless hideSearch}}
-                            <div class="col-sm-3">
+                            <div class="col-sm-3 hide-inline">
                                 <form class="search-wrapper" action="/content/" method="get">
                                     <a class="mobile-search-toggle">
                                         <i class="fa fa-search"></i>
@@ -149,7 +157,6 @@
                         </div>
                     </div>
                 </section>
-            {{/unless}}
 
             <div class="container-fluid">
                 <div class="row">
@@ -159,19 +166,16 @@
                 </div>
             </div>
 
-            {{#unless inline}}
-                <a class="submit-helpdesk">
-                    {{#embed "lib/components/feedback-button"}}
-                    {{/embed}}
-                </a>
-
-
-                {{#embed "lib/components/modal-form" class="feedback-modal"}}
-                    {{#content "fields"}}
-                        {{> "lib/forms/form-helpdesk"}}
-                    {{/content}}
+            <a class="submit-helpdesk hide-inline">
+                {{#embed "lib/components/feedback-button"}}
                 {{/embed}}
-            {{/unless}}
+            </a>
+
+            {{#embed "lib/components/modal-form" class="feedback-modal"}}
+                {{#content "fields"}}
+                    {{> "lib/forms/form-helpdesk"}}
+                {{/content}}
+            {{/embed}}
         </section>
     {{/content}}
 {{/extend}}

@@ -2,10 +2,11 @@
 @import "components";
 
 @import "./tether/tether.min.css";
-@import "./bootstrap/scss/bootstrap";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./fontawesome/font-awesome";
 @import "./chosen/bootstrap-chosen.scss";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
+@import "./toggle/bootstrap-toogle.min.css";
 
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
@@ -19,6 +20,11 @@ a {
 	&:hover {
 		text-decoration: none;
 	}
+}
+
+p.small {
+	line-height: 18px;
+	font-size: 12px;
 }
 
 .no-padding {
@@ -39,6 +45,7 @@ label {
 
 .pagination-wrapper {
 	text-align: center;
+	width: 100%;
 }
 
 .btn-loading {
@@ -147,4 +154,39 @@ form.inline {
 .collapse-icon {
 	margin-left: 10px;
 	vertical-align: middle;
+}
+
+.window-inline .hide-inline {
+	display: none;
+}
+
+.card-deck-row {
+    width: 100%;
+
+	& > div {
+		margin-bottom: 30px;
+	}
+
+	.card {
+		max-width: 100% !important;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+
+		p {
+			word-wrap: break-word;
+		}
+
+		.card-block {
+			max-width: 100%;
+			width: 100%;
+			flex: 1 1 0;
+		}
+
+		.card-footer {
+			align-self: flex-end;
+			flex: 0 1 0;
+			width: 100%;
+		}
+	}
 }
