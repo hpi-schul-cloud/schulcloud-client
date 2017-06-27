@@ -41,7 +41,7 @@ module.exports = (req, res, next) => {
     },
     {
         name: 'Klassen',
-        icon: 'address-book',
+        icon: 'odnoklassniki',
         link: '/classes/'
     },
         {
