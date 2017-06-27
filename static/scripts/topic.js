@@ -11,6 +11,9 @@ class TopicBlockWrapper extends React.Component {
      */
     constructor(props) {
         super(props);
+        this.state = {
+            onBeforeRemoveCallbacks: []
+        }
     }
 
     /**
@@ -30,6 +33,24 @@ class TopicBlockWrapper extends React.Component {
         this.props.onUpdate({
             hidden: !this.props.hidden
         });
+    }
+
+
+    addOnBeforeRemoveCallback(cb) {
+        let onBeforeRemoveCallbacks = this.state.onBeforeRemoveCallbacks;
+        onBeforeRemoveCallbacks.push(cb);
+        this.setState({
+            onBeforeRemoveCallbacks
+        });
+    }
+
+    onRemoveWithCallback() {
+        if(this.state.onBeforeRemoveCallbacks.length) {
+            this.state.onBeforeRemoveCallbacks.forEach(cb => {
+                return cb();
+            });
+        }
+        this.props.onRemove();
     }
 
     /**
@@ -86,7 +107,7 @@ class TopicBlockWrapper extends React.Component {
                                     <i className="fa fa-cog"></i>
                                 </button>
                                 <div className="dropdown-menu dropdown-menu-right">
-                                    <a className="dropdown-item text-danger" onClick={this.props.onRemove}>
+                                    <a className="dropdown-item text-danger" onClick={this.onRemoveWithCallback.bind(this)}>
                                         <span><i className="fa fa-trash" /> Entfernen</span>
                                     </a>
                                 </div>
@@ -96,7 +117,7 @@ class TopicBlockWrapper extends React.Component {
                         </div>
                     </div>
                     <div className="card-block">
-                        <this.props.type {...this.props} />
+                        <this.props.type {...this.props} addOnBeforeRemoveCallback={this.addOnBeforeRemoveCallback.bind(this)} />
                     </div>
                 </div>
             </div>
@@ -347,23 +368,9 @@ class TopicText extends TopicBlock {
     }
 
     componentDidMount() {
-        const storageContext = this.getStorageContext();
-
         const editorId = (this.props.content || {}).editorId || this.editorId;
 
-        CKEDITOR.replace(editorId, {
-            mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-            extraPlugins: 'uploadimage,mathjax',
-            uploadUrl: '/files/upload/?path=' + storageContext,
-            filebrowserBrowseUrl: '/files/' + storageContext,
-            filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
-            filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
-            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link'
-        });
-        CKEDITOR.instances[editorId].on("change", function () {
-            const data = CKEDITOR.instances[editorId].getData();
-            this.updateText(data);
-        }.bind(this));
+        this.initEditor();
 
         CKEDITOR.on( 'dialogDefinition', function( ev ) {
             var dialogName = ev.data.name;
@@ -373,7 +380,6 @@ class TopicText extends TopicBlock {
             if ( dialogName == 'link' ) {
                 var infoTab = dialogDefinition.getContents( 'info' );
                 infoTab.remove( 'protocol' );
-                dialogDefinition.removeContents( 'target' );
                 dialogDefinition.removeContents( 'advanced' );
             }
 
@@ -393,6 +399,36 @@ class TopicText extends TopicBlock {
         this.props.addOnSortEndCallback(() => {
             CKEDITOR.instances[editorId].setData((this.props.content || {}).text);
         });
+
+        this.props.addOnBeforeRemoveCallback(() => {
+            Object.values(CKEDITOR.instances).forEach(editor => {
+                editor.destroy();
+            });
+        });
+    }
+
+
+    initEditor() {
+        const storageContext = this.getStorageContext();
+
+        const editorId = (this.props.content || {}).editorId || this.editorId;
+
+        CKEDITOR.replace(editorId, {
+            mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+            extraPlugins: 'uploadimage,mathjax',
+            uploadUrl: '/files/upload/?path=' + storageContext,
+            filebrowserBrowseUrl: '/files/' + storageContext,
+            filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
+            filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
+            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link',
+            DefaultLinkTarget: '_blank'
+        });
+
+        CKEDITOR.instances[editorId].on("change", function () {
+            const data = CKEDITOR.instances[editorId].getData();
+            this.updateText(data);
+        }.bind(this));
+
     }
 
 
@@ -427,6 +463,13 @@ class TopicText extends TopicBlock {
                 editorId: editorId
             }
         });
+    }
+
+    componentDidUpdate() {
+        const editorId = (this.props.content || {}).editorId || this.editorId;
+        if(!CKEDITOR.instances[editorId]) {
+            this.initEditor();
+        }
     }
 
     /**
@@ -667,7 +710,7 @@ class TopicGeoGebra extends TopicBlock {
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
                     value={(this.props.content || {}).materialId}
-                    placeholder="GeoGebra Material-ID eingeben, z.B. ZFTGX57r"
+                    placeholder="GeoGebra Material-ID eingeben, z.B. kEBfU7AR"
                     name={`contents[${this.props.position}][content][materialId]`}
                 />
             </div>

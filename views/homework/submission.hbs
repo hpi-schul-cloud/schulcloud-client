@@ -5,7 +5,7 @@
 			<form class="form" method="post" action="/homework/submit/{{submission._id}}">
 				<input type="hidden" name="_method" data-force-value="true" value="patch" />
 				<div class="form-group">
-					<textarea id="evaluation" name="comment" class="form-control customckeditor" placeholder="Verfasse einen Kommentar...">{{submission.comment}}</textarea>
+					<textarea id="evaluation" name="comment" class="form-control customckeditor" placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
 				</div>
 			{{else}}
 			<form class="form" method="post" action="/homework/submit">
@@ -14,7 +14,7 @@
 				<input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
 				<input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}" />
 				<div class="form-group">
-					<textarea id="evaluation" name="comment" class="form-control customckeditor" placeholder="Verfasse einen Kommentar..."></textarea>
+					<textarea id="evaluation" name="comment" class="form-control customckeditor" placeholder="Erstelle deine Abgabe..."></textarea>
 				</div>
 			{{/if}}
 
@@ -23,7 +23,7 @@
 			{{#if comment}}
 				{{{comment}}}
 			{{else}}
-				<p>Kein Kommentar.</p>
+				<p>Keine Abgabe.</p>
 			{{/if}}
     {{/if}}
         </div>
