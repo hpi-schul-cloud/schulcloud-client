@@ -4,7 +4,7 @@
 		{{#ifvalue teacherId value=currentUser._id}}
 			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
 		{{/ifvalue}}
-		<a id="student-comment-tab-link" class="tab-link">Kommentare</a>
+		<a id="discussion-tab-link" class="tab-link">Diskussion</a>
 	</nav>
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
@@ -16,7 +16,6 @@
                 {{/if}}
 			</div>
 		</div>
-
 		<div id="comment" class="tab-content">
             {{#ifvalue @root.teacherId value=@root.currentUser._id}}
                 {{#if this.submission}}
@@ -29,7 +28,6 @@
                         <input name="studentId" type="hidden" data-force-value="true" value="{{this.student._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                 {{/if}}
-
                 <div class="comment form-group">
                     <div class="form-group">
                         <label>Note</label>
@@ -52,55 +50,12 @@
                     {{#if this.submission.gradeComment}}
                         {{{this.submission.gradeComment}}}
                     {{else}}
-                        <p>Kein Kommentar.</p>
+                        <p>Kein Bewertungstext vorhanden.</p>
                     {{/if}}
                 </div>
             {{/ifvalue}}
-            
 		</div>
 		
-		<div id="student-comment" class="tab-content">
-
-			<div class="commentarea form-group">
-				<ul class="comments">
-                    {{#each @root.comments}}
-                        {{#ifvalue this.submissionId value=../this.submission._id}}
-                            <li class="comment">
-                                <img class="picture" src="https://randomuser.me/api/portraits/men/3.jpg" alt=""/>
-                                {{#ifvalue @root.teacherId value=@root.currentUser._id}}
-                                    <form action="/homework/comment/{{this._id}}" method="post" class="inline">
-                                        <input type="hidden" name="_method" value="delete"/>
-                                        <button type="submit" class="btn btn-secondary btn-sm">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </button>
-                                    </form>
-                                {{else}}
-                                    {{#ifvalue this.author._id value=@root.currentUser._id}}
-                                        <form action="/homework/comment/{{this._id}}" method="post" class="inline">
-                                            <input type="hidden" name="_method" value="delete"/>
-                                            <button type="submit" class="btn btn-secondary btn-sm">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                            </button>
-                                        </form>
-                                    {{/ifvalue}}
-                                {{/ifvalue}}
-                                <b class="name">{{this.author.firstName}} {{this.author.lastName}}</b>
-                                <pre>{{this.comment}}</pre>
-                            </li>
-                        {{/ifvalue}}
-                    {{/each}}
-				</ul>
-				<div class="answer">
-                    <form class="form" method="post" action="/homework/comment">
-                        <input type="hidden" name="_method" data-force-value="true" value="post" />
-                        <input name="author" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}" />
-                        <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
-                        <textarea name="comment" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>
-                        <button type="submit" class="btn btn-primary">senden</button>
-                    </form>
-				</div>
-			</div>
-
-		</div>
+        {{> 'homework/discussion'}}
     </div>
 </section>

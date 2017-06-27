@@ -47,8 +47,7 @@ const createEventsForCourse = (req, res, course) => {
                 scopeId: course._id,
                 courseId: course._id,
                 courseTimeId: time._id
-            }
-            });
+            }});
         }));
     }
 
@@ -62,11 +61,11 @@ const createEventsForCourse = (req, res, course) => {
 const deleteEventsForCourse = (req, res, courseId) => {
     if (process.env.CALENDAR_SERVICE_ENABLED) {
         return api(req).get('courses/' + courseId).then(course => {
-           return Promise.all((course.times || []).map(t => {
-               if (t.eventId) {
-                   return api(req).delete('calendar/' + t.eventId);
-               }
-           }));
+            return Promise.all((course.times || []).map(t => {
+                if (t.eventId) {
+                    return api(req).delete('calendar/' + t.eventId);
+                }
+            }));
         });
     }
     return Promise.resolve(true);
@@ -74,7 +73,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 
 const editCourseHandler = (req, res, next) => {
     let coursePromise, action, method;
-    if(req.params.courseId) {
+    if (req.params.courseId) {
         action = '/courses/' + req.params.courseId;
         method = 'patch';
         coursePromise = api(req).get('/courses/' + req.params.courseId, {
@@ -88,9 +87,9 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000 });
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000 });
+    const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
     Promise.all([
         coursePromise,

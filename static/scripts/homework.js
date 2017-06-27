@@ -34,8 +34,71 @@ $(document).ready(function() {
         $modals.modal('hide');
     });
 
+    function ajaxForm(element, after){
+        const submitbutton = element.find('[type=submit]')[0];
+        submitbuttontext = submitbutton.innerHTML || submitbutton.value;
+        submitbutton.innerHTML = submitbuttontext+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        submitbutton.disabled = true;
+        
+        const url     = element.attr("action");
+        const method  = element.attr("method");
+        // update value of ckeditor instances
+        ckeditorInstance = element.find('textarea.customckeditor').attr("id");
+        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
+        const content = element.serialize();
+        $.ajax({
+            type: method,
+            url: url,
+            data: content,
+            context: element
+        }).done(function(r) {
+            submitbutton.innerHTML = submitbuttontext;
+            submitbutton.disabled = false;
+            if(after) after(this);
+        });
+    }
+
+    // Bewertung speichern
+    $('.evaluation #comment form').on("submit",function(e){
+        if(e) e.preventDefault();
+        ajaxForm($(this));
+        return false;
+    });
+    
+    // Kommentar erstellen
+    $('.evaluation #student-comment form[action="/homework/comment"]').on("submit",function(e){
+        if(e) e.preventDefault();
+        ajaxForm($(this),function(t){
+            $(t).parent().prev().append('<li class="comment"><b class="name">Ich</b><pre>'+$(t).find("textarea")[0].value+'</pre></li>');
+            $(t).find("textarea")[0].value = "";
+        });
+        return false;
+    });
+    
+    // Kommentar löschen
+    $('.evaluation #student-comment ul.comments form').on("submit",function(e){
+        if(e) e.preventDefault();
+        if(confirm("Kommentar endgültig löschen?")){
+            ajaxForm($(this),function(t){
+                console.log($(t).closest("li.comment"));
+                $(t).closest("li.comment").remove();
+            });
+        }
+        return false;
+    });
+    
+    function getSearchParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        return k?p[k]:p;
+    }
+
+    $('#desc').on('click', function(e){
+        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    });
+
     $('#sortselection').on('change', function(e){
-        window.location = window.location.pathname + "?sort=" + escape( $('#sortselection').val());
+        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
     });
 
     $('.importsubmission').on('click', function(e){
