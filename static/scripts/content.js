@@ -53,7 +53,7 @@ $(document).ready(function () {
             }
 
 			populateModalForm($editModal, {
-				title: 'Material zu Stunde hinzufügen',
+				title: 'Material zu Thema hinzufügen',
 				closeLabel: 'Schließen',
 				submitLabel: 'Senden',
 				fields: fields
