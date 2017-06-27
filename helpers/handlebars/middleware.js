@@ -38,7 +38,13 @@ module.exports = (req, res, next) => {
         name: 'Fächer / Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
-    }, {
+    },
+    {
+        name: 'Klassen',
+        icon: 'odnoklassniki',
+        link: '/classes/'
+    },
+        {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'
