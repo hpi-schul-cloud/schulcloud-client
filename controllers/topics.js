@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const stripJs = require('strip-js');
 const moment = require('moment');
 const express = require('express');
 const router = express.Router({ mergeParams: true });
@@ -109,6 +110,18 @@ router.patch('/:topicId', function (req, res, next) {
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     if (!data.contents) data.contents = [];
+
+    data.contents = data.contents.map((item) => {
+        switch(item.component) {
+            case 'text':
+                if(item.content && item.content.text) {
+                    item.content.text = stripJs(item.content.text);
+                }
+                break;
+        }
+
+        return item;
+    });
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize

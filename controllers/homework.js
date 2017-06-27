@@ -2,6 +2,7 @@
  * One Controller per layout view
  */
 
+const stripJs = require('strip-js');
 const express = require('express');
 const router = express.Router();
 const marked = require('marked');
@@ -68,6 +69,10 @@ const getCreateHandler = (service) => {
     return function (req, res, next) {
         if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
             req.body.courseId = null;
+        }
+
+        if(req.body.description) {
+            req.body.description = stripJs(req.body.description);
         }
 
         if (req.body.dueDate) {
@@ -138,6 +143,11 @@ const getUpdateHandler = (service) => {
         }
         if (!req.body.publicSubmissions) {
             req.body.publicSubmissions = false;
+        }
+
+
+        if(req.body.description) {
+            req.body.description = stripJs(req.body.description);
         }
 
         // rewrite german format to ISO
