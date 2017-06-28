@@ -1,0 +1,99 @@
+{{#extend "lib/loggedin" hideSearch="true"}}
+
+    {{#content "styles" mode="append"}}
+        <style>
+            .partner-box-wrapper {
+                padding-top: 15px;
+                padding-bottom: 15px;
+            }
+            .partner-box {
+                border: 1px solid lightgray;
+                height: 150px;
+                text-align: center;
+            }
+            .partner-box img {
+                max-height: 100%;
+                /* Vertical Center */
+                position: relative;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        </style>
+    {{/content}}
+
+    {{#content "page"}}
+    <section class="section-partner">
+
+        <h5>Projektdurchführung</h5>
+        <div class="container" style="margin-left: 0">
+            <div class="row">
+                <div class="partner-box-wrapper col-md-4">
+                    <div class="partner-box">
+                        <a href="https://hpi.de">
+                            <img src="/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid" style="padding: 20px;">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-box-wrapper col-md-4">
+                    <div class="partner-box">
+                        <a href="https://www.bmbf.de/">
+                            <img src="/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-box-wrapper col-md-4">
+                    <div class="partner-box">
+                        <a href="https://www.mint-ec.de/">
+                            <img src="/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h5>Lerninhalte</h5>
+        <div class="container" style="margin-left: 0">
+            <div class="row">
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="https://www.mint-ec.de/">
+                            <img src="/images/partner/antares-logo.gif" alt="Logo Antares" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="https://www.mint-ec.de/">
+                            <img src="/images/partner/bettermarks-logo.jpg" alt="Logo Bettermaks" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="https://www.mint-ec.de/">
+                            <img src="/images/partner/deutsche-digitale-bibliothek-logo.png" alt="Logo Deutsche Digitale Bibliothek" class="img-fluid" style="padding: 20px;">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="https://www.mint-ec.de/">
+                            <img src="/images/partner/khanacademy-logo.png" alt="Logo Khan Academy" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="https://www.mint-ec.de/">
+                            <img src="/images/partner/serlo-logo.png" alt="Logo Serlo" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+    {{/content}}
+{{/extend}}
