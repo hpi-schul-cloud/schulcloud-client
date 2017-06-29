@@ -35,10 +35,13 @@ $(document).ready(function() {
     });
 
     function ajaxForm(element, after){
-        const submitbutton = element.find('[type=submit]')[0];
-        submitbuttontext = submitbutton.innerHTML || submitbutton.value;
-        submitbutton.innerHTML = submitbuttontext+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
-        submitbutton.disabled = true;
+        const submitButton = element.find('[type=submit]')[0];
+        submitButtonText = submitButton.innerHTML || submitButton.value;
+        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        submitButton.disabled = true;
+        const submitButtonStyleDisplay = submitButton.getAttribute("style");
+        submitButton.style["display"]="inline-block";
+        
         
         const url     = element.attr("action");
         const method  = element.attr("method");
@@ -46,15 +49,22 @@ $(document).ready(function() {
         ckeditorInstance = element.find('textarea.customckeditor').attr("id");
         if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
         const content = element.serialize();
-        $.ajax({
+        let request = $.ajax({
             type: method,
             url: url,
             data: content,
             context: element
-        }).done(function(r) {
-            submitbutton.innerHTML = submitbuttontext;
-            submitbutton.disabled = false;
+        })
+        request.done(function(r) {
+            submitButton.innerHTML = submitButtonText;
+            submitButton.disabled = false;
+            submitButton.setAttribute("style",submitButtonStyleDisplay);
             if(after) after(this);
+        });
+        request.fail(function(r) {
+            submitButton.innerHTML = submitButtonText;
+            submitButton.disabled = false;
+            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)'
         });
     }
 
@@ -66,17 +76,17 @@ $(document).ready(function() {
     });
     
     // Kommentar erstellen
-    $('.evaluation #student-comment form[action="/homework/comment"]').on("submit",function(e){
+    $('.discussionarea form[action="/homework/comment"]').on("submit",function(e){
         if(e) e.preventDefault();
         ajaxForm($(this),function(t){
-            $(t).parent().prev().append('<li class="comment"><b class="name">Ich</b><pre>'+$(t).find("textarea")[0].value+'</pre></li>');
+            $(t).parent().prev().append('<li class="comment"><b class="name">'+$(t).find("div[data-username]").attr('data-username')+'</b><pre>'+$(t).find("textarea")[0].value+'</pre></li>');
             $(t).find("textarea")[0].value = "";
         });
         return false;
     });
     
     // Kommentar löschen
-    $('.evaluation #student-comment ul.comments form').on("submit",function(e){
+    $('.discussionarea ul.comments form').on("submit",function(e){
         if(e) e.preventDefault();
         if(confirm("Kommentar endgültig löschen?")){
             ajaxForm($(this),function(t){

@@ -609,29 +609,44 @@ router.get('/:assignmentId', function (req, res, next) {
                                 {teacherIds: res.locals.currentUser._id}
                             ]
                         });
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ],
-                            comments
-                        }));
+                        Promise.resolve(coursesPromise).then(courses => {
+                        // -> Kurse stehen nun in courses
+                            res.render('homework/assignment', Object.assign({}, assignment, {
+                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                                breadcrumb: [
+                                    {
+                                        title: 'Meine Aufgaben',
+                                        url: '/homework'
+                                    },
+                                    {}
+                                ],
+                                comments,
+                                courses
+                            }));
+                        });
                     });
                 }else{
-                   res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ]
+                    // alle Kurse von aktuellem Benutzer auslesen
+                    const coursesPromise = getSelectOptions(req, 'courses', {
+                        $or: [
+                            {userIds: res.locals.currentUser._id},
+                            {teacherIds: res.locals.currentUser._id}
+                        ]
+                    });
+                    Promise.resolve(coursesPromise).then(courses => {
+                    // -> Kurse stehen nun in courses
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                                breadcrumb: [
+                                    {
+                                        title: 'Meine Aufgaben',
+                                        url: '/homework'
+                                    },
+                                    {}
+                                ],
+                                courses
                         })); 
+                    }); 
                 }
             }
         });
