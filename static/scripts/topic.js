@@ -9,8 +9,6 @@ $(document).ready(function () {
             type: "POST",
             url: `/courses/${courseId}/topics/${topicId}/share/`,
             success: function(data) {
-                console.log(data);
-                console.log($shareModal);
                 populateModalForm($shareModal, {
                     title: 'Kopiercode generiert!',
                     closeLabel: 'Schließen',

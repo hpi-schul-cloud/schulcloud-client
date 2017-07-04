@@ -377,8 +377,34 @@ router.get('/:courseId/addStudent', function (req, res, next) {
 });
 
 router.post('/:courseId/importTopic', function (req, res, next) {
-   // try to find topic for given shareToken
     let shareToken = req.body.shareToken;
+    // try to find topic for given shareToken
+    api(req).get("/lessons/", {qs: {shareToken: shareToken}}).then(result => {
+       if (result.data.length <= 0) {
+           req.session.notification = {
+               type: 'danger',
+               message: 'Es wurde kein Thema für diesen Code gefunden.'
+           };
+
+           res.redirect(req.header('Referer'));
+       }
+
+        // copy topic to course
+        let topic = result.data[0];
+        topic.originalTopic = JSON.parse(JSON.stringify(topic._id)); // copy value, not reference
+        delete topic._id;
+        delete topic.shareToken;
+        topic.courseId = req.params.courseId;
+
+        api(req).post("/lessons/", {json: topic}).then(topic => {
+            req.session.notification = {
+                type: 'success',
+                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
+            };
+
+            res.redirect(req.header('Referer'));
+        });
+    });
 });
 
 
