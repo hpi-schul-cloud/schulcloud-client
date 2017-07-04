@@ -18,7 +18,6 @@ router.use(authHelper.authChecker);
 router.get('/', function (req, res, next) {
     res.render('partner/partner', {
         title: 'Partner',
-        logo_prefix: "/images/partner/",
         partners: partners
     });
 });
