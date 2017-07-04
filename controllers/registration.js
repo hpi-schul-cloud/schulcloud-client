@@ -134,16 +134,22 @@ router.get('/register/:schoolId', function (req, res, next) {
 router.post('/register/', function (req, res, next) {
     const username = req.body.email; // TODO: sanitize
     const password = req.body.password; // TODO: sanitize
+    const name = req.body.firstName + " " + req.body.lastName;
 
     createUser(req, req.body)
         .then(user => {
-            return createAccount(req, {username, password, userId: user._id});
-        })
-        .then(_ => {
-            // do login at this point already so we don't need to fuck around with passwords
-            return login(req, res, {strategy:'local', username, password});
+            return createAccount(req, {username, password, userId: user._id})
+                .then(account => {
+                    api(req).post('/mails', {json: {email: username, subject: "Registrierung in der Schul-Cloud", content: {text:
+                        "Sehr geehrte/r " + name + ",\n\nBitte bestätigen Sie uns noch Ihre E-Mail Adresse unter folgendem Link:\n" + req.headers.origin + "/register/confirm/" + account._id + "\n\nMit freundlichen Grüßen,\nIhr Schul-Cloud Team"}}})
+                });
         }).then(_ => {
-            return res.redirect('/login/success/');
+            return res.render('registration/confirmation', {
+                title: 'Vielen Dank für das Registrieren in der Schul-Cloud,\nbitte bestätigen Sie noch Ihre E-Mail Adresse',
+                subtitle: 'Sie werden in 10 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
+                origin: "../../login",
+                time: 10000
+            });
         }).catch(err => {
             req.session.notification = {
                 type: 'danger',
@@ -154,5 +160,26 @@ router.post('/register/', function (req, res, next) {
             });
 });
 
+/**
+ * Registration confirmation
+ */
+
+router.get('/register/confirm/:accountId', function (req, res, next) {
+    let account;
+    api(req).get('/accounts/' + req.params.accountId).then(data => {
+        account = data;
+        api(req).post('/accounts/confirm/', {json: {accountId: req.params.accountId}})
+            .then(_ => {
+                res.render('registration/confirmation', {
+                    title: 'Vielen Dank für das Bestätigen der Anmeldung',
+                    subtitle: 'Sie werden in 5 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
+                    origin: "../../login",
+                    time: 5000
+                });
+            });
+    }).catch(_ => {
+        res.redirect('/login');
+    });
+});
 
 module.exports = router;
