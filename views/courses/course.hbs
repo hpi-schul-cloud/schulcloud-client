@@ -72,6 +72,10 @@
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 Thema hinzufügen
                             </a>
+                            <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary margin-top btn-import-topic">
+                                <i class="fa fa-exchange" aria-hidden="true"></i>
+                                Thema importieren
+                            </a>
                         {{/userHasPermission}}
                     </div>
                 </div>
@@ -154,6 +158,12 @@
             {{#embed "lib/components/modal-form" class="invitation-modal"}}
                 {{#content "fields"}}
                     {{> "courses/forms/form-invitation"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-topic"}}
                 {{/content}}
             {{/embed}}
 
