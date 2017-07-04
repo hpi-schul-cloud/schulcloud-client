@@ -21,11 +21,12 @@ const createUser = (req, {firstName, lastName, email, roles = ['student'], schoo
     }});
 };
 
-const createAccount = (req, {username, password, userId}) => {
+const createAccount = (req, {username, password, userId, activated}) => {
     return api(req).post('/accounts', {json: {
         username,
         password,
-        userId
+        userId,
+        activated
     }});
 };
 
@@ -35,15 +36,13 @@ const createAccount = (req, {username, password, userId}) => {
  */
 
 router.get('/register/account/:userId', function (req, res, next) {
-    api(req).get('/users/' + req.params.userId).then(user => {
         res.render('registration/account', {
             title: 'Zugangsdaten eintragen',
-            subtitle: 'für ' + user.firstName + ' ' + user.lastName,
+            subtitle: '',//'für ' + user.firstName + ' ' + user.lastName,
             action: '/register/account',
             userId: req.params.userId,
             buttonLabel: 'Abschließen'
         });
-    });
 });
 
 
@@ -55,7 +54,8 @@ router.post('/register/account', function (req, res, next) {
     createAccount(req, {
         username,
         password,
-        userId
+        userId,
+        activated: true
     }).then(account => {
         return login(req, res, {strategy:'local', username, password});
     }).then(_ => {
@@ -100,7 +100,8 @@ router.post('/register/user', authHelper.authChecker, function (req, res, next) 
     createUser(req, req.body).then(user => {
         // update account with userId
         return api(req).patch('/accounts/' + req.body.accountId, {json: {
-            userId: user._id
+            userId: user._id,
+            activated: true
         }});
     }).then(_ => {
         // refresh AccessToken

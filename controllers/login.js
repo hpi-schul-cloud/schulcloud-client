@@ -26,7 +26,14 @@ router.post('/login/', function (req, res, next) {
 
     return api(req).get('/accounts/', {qs: {username: username}})
         .then(account => {
-            if (!account[0].activated && account[0].activated !== undefined) { // undefined for currently existing users
+            if (account.length === 0 && !systemId) {
+                res.locals.notification = {
+                    'type': 'danger',
+                    'message': 'Login fehlgeschlagen.'
+                };
+                next();
+            }
+            if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) { // undefined for currently existing users
                 res.locals.notification = {
                     'type': 'danger',
                     'message': 'Account noch nicht aktiviert.'
