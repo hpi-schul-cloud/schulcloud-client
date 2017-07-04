@@ -51,4 +51,22 @@ $(document).ready(function () {
             }
         });
     });
+
+
+    $('.btn-import-topic').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let courseId = $(this).attr("data-courseId");
+        let $importModal = $('.import-modal');
+        populateModalForm($importModal, {
+            title: 'Thema importieren',
+            closeLabel: 'Schließen',
+            submitLabel: 'Speichern',
+            fields: {courseId: courseId}
+        });
+
+        let $modalForm = $importModal.find(".modal-form");
+        $modalForm.attr('action', `/courses/${courseId}/importTopic`);
+        $importModal.modal('show');
+    });
 });
