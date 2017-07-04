@@ -1,0 +1,117 @@
+{
+  "project_partners": [
+    {
+      "name": "HPI",
+      "url": "https://hpi.de",
+      "logo": "hpi-logo.jpg",
+      "padding": "20px"
+    },
+    {
+      "name": "MINT-EC",
+      "url": "https://www.mint-ec.de/",
+      "logo": "mintec-logo.jpg",
+      "padding": ""
+    },
+    {
+      "name": "BMBF",
+      "url": "https://www.bmbf.de/",
+      "logo": "bmbf-logo.jpg",
+      "padding": ""
+    }
+  ],
+  "content_partners": [
+    {
+      "name": "Antares",
+      "url": "http://www.antares.net/",
+      "logo": "antares-logo.jpg",
+      "padding": ""
+    },
+    {
+      "name": "Bettermarks",
+      "url": "http://de.bettermarks.com/",
+      "logo": "bettermarks-logo.jpg",
+      "padding": ""
+    },
+    {
+      "name": "Cornelsen",
+      "url": "https://www.cornelsen.de/home/",
+      "logo": "cornelsen-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "Deutsche Digitale Bibliothek",
+      "url": "https://www.deutsche-digitale-bibliothek.de/",
+      "logo": "deutsche-digitale-bibliothek-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "GeoGebra",
+      "url": "https://www.geogebra.org/",
+      "logo": "geogebra-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "Khan Academy",
+      "url": "https://de.khanacademy.org/",
+      "logo": "khanacademy-logo.png",
+      "padding": ""
+    },
+    {
+      "name": "MeinUnterricht",
+      "url": "https://www.meinunterricht.de/",
+      "logo": "meinunterricht-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "neXenio",
+      "url": "https://nexenio.com/",
+      "logo": "nexenio-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "Serlo",
+      "url": "https://de.serlo.org/",
+      "logo": "serlo-logo.png",
+      "padding": ""
+    },
+    {
+      "name": "Westermann",
+      "url": "https://verlage.westermanngruppe.de/westermann/",
+      "logo": "westermann-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "Wikimedia Commons",
+      "url": "https://commons.wikimedia.org/wiki/Main_Page",
+      "logo": "wikimedia-commons-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "Wikipedia",
+      "url": "https://www.wikipedia.de/",
+      "logo": "wikipedia-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com",
+      "logo": "youtube-logo.png",
+      "padding": ""
+    }
+  ],
+  "sponsors": [
+    {
+      "name": "aeroaccess",
+      "url": "http://aeroaccess.de/index.php",
+      "logo": "aeroaccess-logo.gif",
+      "padding": ""
+    },
+    {
+      "name": "Telekom",
+      "url": "https://www.telekom.de/start",
+      "logo": "telekom-logo.png",
+      "padding": "20px"
+    }
+  ]
+}
+
