@@ -90,4 +90,12 @@ $(document).ready(function () {
             $(this).data('read', true);
         });
     });
+
+    $('.btn-create-qr').on('click', function () {
+        // create qr code for current page
+        let el = kjua({text: window.location.href, render: 'canvas'});
+        let $qrbox = $('.qr-show');
+        $qrbox.empty();
+        $qrbox.append(el);
+    });
 });
