@@ -49,14 +49,14 @@
         <div class="container">
             <div class="row">
                 {{#each partners.project_partners}}
-                    <div class="partner-box-wrapper col-md-4">
-                        <div class="partner-box">
-                            <a href="{{{url}}}">
-                                <img src="/images/partner/{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                    {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
-                            </a>
-                        </div>
+                <div class="partner-box-wrapper col-md-4">
+                    <div class="partner-box">
+                        <a href="{{{url}}}">
+                            <img src="/images/partner/{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
+                        </a>
                     </div>
+                </div>
                 {{/each}}
             </div>
         </div>
