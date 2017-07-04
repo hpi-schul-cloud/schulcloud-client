@@ -3,6 +3,9 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
     {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/topic.js" defer></script>
+    {{/content}}
 
     {{#content "page"}}
 
@@ -62,8 +65,9 @@
             {{#userHasPermission "COURSE_EDIT"}}
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Stunde
+                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Thema
                             bearbeiten</a>
+                        <a href="#" data-href="{{../_id}}" class="btn btn-add btn-secondary btn-create-share">Thema mit anderen Lehrern teilen</a>
                     </div>
                 </div>
             {{/userHasPermission}}
@@ -80,6 +84,12 @@
                             Löschen
                         </button>
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "topic/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 
