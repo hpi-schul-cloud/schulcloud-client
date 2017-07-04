@@ -67,7 +67,10 @@
                     <div class="col-sm-12">
                         <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Thema
                             bearbeiten</a>
-                        <a href="#" data-href="{{../_id}}" class="btn btn-add btn-secondary btn-create-share">Thema mit anderen Lehrern teilen</a>
+                        <a href="#"
+                           data-href="{{../_id}}"
+                           data-courseId="{{../courseId}}"
+                           class="btn btn-add btn-secondary btn-create-share">Thema mit anderen Lehrern teilen</a>
                     </div>
                 </div>
             {{/userHasPermission}}
@@ -87,9 +90,9 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+            {{#embed "lib/components/modal-form" class="share-modal"}}
                 {{#content "fields"}}
-                    {{> "topic/forms/form-invitation"}}
+                    {{> "topic/forms/form-share"}}
                 {{/content}}
             {{/embed}}
 

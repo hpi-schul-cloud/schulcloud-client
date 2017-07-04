@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const moment = require('moment');
 const express = require('express');
+const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
 const api = require('../api');
@@ -65,6 +66,13 @@ router.post('/', function (req, res, next) {
     }).catch(_ => {
         res.sendStatus(500);
     });
+});
+
+router.post('/:id/share', function (req, res, next) {
+    // add random share id to topic
+    api(req).patch("/lessons/" + req.params.id, {json: {shareToken: shortid.generate()}})
+        .then(result => res.json(result))
+        .catch(err => {res.err(err)});
 });
 
 

@@ -2,29 +2,27 @@ $(document).ready(function () {
     $('.btn-create-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
-        let target = "courses/importTopic/"+ $(this).attr("data-href");
-        let $invitationModal = $('.invitation-modal');
+        let topicId = $(this).attr("data-href");
+        let courseId = $(this).attr("data-courseId");
+        let $shareModal = $('.share-modal');
         $.ajax({
             type: "POST",
-            url: "/link/",
-            data: {
-                target: target
-            },
+            url: `/courses/${courseId}/topics/${topicId}/share/`,
             success: function(data) {
                 console.log(data);
-                console.log($invitationModal)
-                populateModalForm($invitationModal, {
-                    title: 'Kopierlink generiert!',
+                console.log($shareModal);
+                populateModalForm($shareModal, {
+                    title: 'Kopiercode generiert!',
                     closeLabel: 'Schließen',
                     submitLabel: 'Speichern',
-                    fields: {link: data.newUrl}
+                    fields: {shareToken: data.shareToken}
                 });
-                $invitationModal.find('.btn-submit').remove();
-                $invitationModal.find("input[name='link']").click(function () {
+                $shareModal.find('.btn-submit').remove();
+                $shareModal.find("input[name='shareToken']").click(function () {
                     $(this).select();
                 });
 
-                $invitationModal.modal('show');
+                $shareModal.modal('show');
 
             }
         });

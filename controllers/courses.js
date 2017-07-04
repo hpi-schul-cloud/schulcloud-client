@@ -376,6 +376,11 @@ router.get('/:courseId/addStudent', function (req, res, next) {
     });
 });
 
+router.post('/:courseId/importTopic', function (req, res, next) {
+   // try to find topic for given shareToken
+    let shareToken = req.body.shareToken;
+});
+
 
 router.get('/:courseId/edit', editCourseHandler);
 
