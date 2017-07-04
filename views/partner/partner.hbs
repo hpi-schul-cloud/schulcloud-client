@@ -1,31 +1,7 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
     {{#content "styles" mode="append"}}
-        <style>
-            .section-partner h5 {
-                color: #b10438;
-                margin-top: 20px;
-            }
-            .section-partner .container {
-                margin-left: 0;
-            }
-            .partner-box-wrapper {
-                padding-top: 15px;
-                padding-bottom: 15px;
-            }
-            .partner-box {
-                border: 1px solid lightgray;
-                height: 150px;
-                text-align: center;
-            }
-            .partner-box img {
-                max-height: 100%;
-                /* Vertical Center */
-                position: relative;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        </style>
+        <link rel="stylesheet" href="/styles/partner/partner.css"/>
     {{/content}}
 
     {{#content "page"}}
@@ -33,7 +9,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-sm-12" style="padding: 0">
+                <div class="intro-box col-sm-12">
                     <p>
                         Sie möchten die Schul-Cloud unterstützen? Das freut uns. Wenn Sie interessante Lern- und Lehrinhalte
                         haben wenden Sie sich bitte an <a href="mailto:inhalte@schul-cloud.org">inhalte@schul-cloud.org</a>.
@@ -52,7 +28,7 @@
                 <div class="partner-box-wrapper col-md-4">
                     <div class="partner-box">
                         <a href="{{{url}}}">
-                            <img src="/images/partner/{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
                                 {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
                         </a>
                     </div>
@@ -68,7 +44,7 @@
                 <div class="partner-box-wrapper col-xs-6 col-md-3">
                     <div class="partner-box">
                         <a href="{{{url}}}">
-                            <img src="/images/partner/{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
                                 {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
                         </a>
                     </div>
@@ -84,7 +60,7 @@
                 <div class="partner-box-wrapper col-xs-6 col-md-3">
                     <div class="partner-box">
                         <a href="{{{url}}}">
-                            <img src="/images/partner/{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
                                 {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
                         </a>
                     </div>

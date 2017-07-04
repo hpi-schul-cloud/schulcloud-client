@@ -1,0 +1,31 @@
+@import '../lib/colors.scss';
+
+.section-partner {
+
+    h5 {
+        color: $colorHPIRed;
+        margin-top: 20px;
+    }
+    .container {
+        margin-left: 0;
+    }
+    .intro-box {
+        padding: 0;
+    }
+    .partner-box-wrapper {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+    .partner-box {
+        border: 1px solid lightgray;
+        height: 150px;
+        text-align: center;
+    }
+    .partner-box img {
+        max-height: 100%;
+        /* Vertical Center */
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
