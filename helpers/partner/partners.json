@@ -112,6 +112,48 @@
       "logo": "telekom-logo.png",
       "padding": "20px"
     }
+  ],
+  "advisers": [
+    {
+      "name": "SAP",
+      "url": "https://www.sap.com/germany/index.html"
+    },
+    {
+      "name": "Verband Bildungsmedien",
+      "url": "http://www.bildungsmedien.de/"
+    },
+    {
+      "name": "Bündnis für Bildung e.V.",
+      "url": "http://www.b-f-b.net/"
+    },
+    {
+      "name": "m2more",
+      "url": "http://m2more.de/"
+    },
+    {
+      "name": "Arbeitskreis Technik in der Konferenz der Datenschutzbeauftragten von Bund und Ländern",
+      "url": "https://datenschutz-berlin.de/content/technik/ratgeber/arbeitskreis-technik-der-konferenz-der-datenschutzbeauftragten"
+    },
+    {
+      "name": "Gymnasium Carolinum",
+      "url": "http://www.carolinum.de/"
+    },
+    {
+      "name": "KMK",
+      "url": "https://www.kmk.org/"
+    },
+    {
+      "name": "Thüringer Landesbeauftragter für den Datenschutz",
+      "url": "https://www.tlfdi.de/tlfdi/"
+    },
+    {
+      "name": "MBJS Brandenburg",
+      "url": "https://mbjs.brandenburg.de/sixcms/detail.php/lbm1.c.227195.de"
+    },
+    {
+      "name": "LDA Brandenburg",
+      "url": "http://www.lda.brandenburg.de/cms/detail.php?gsid=bb1.c.233960.de"
+    }
   ]
 }
 

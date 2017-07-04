@@ -1,10 +1,13 @@
 @import '../lib/colors.scss';
 
 .section-partner {
-
     h5 {
         color: $colorHPIRed;
         margin-top: 20px;
+    }
+    ul {
+        color: $colorHPIRed;
+        padding-left: 20px;
     }
     .container {
         margin-left: 0;

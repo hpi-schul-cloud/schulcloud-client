@@ -29,7 +29,7 @@
                     <div class="partner-box">
                         <a href="{{{url}}}">
                             <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
                         </a>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                     <div class="partner-box">
                         <a href="{{{url}}}">
                             <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
                         </a>
                     </div>
                 </div>
@@ -61,11 +61,35 @@
                     <div class="partner-box">
                         <a href="{{{url}}}">
                             <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                {{#if padding}} style="padding: {{{padding}}}" {{/if}}>
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
                         </a>
                     </div>
                 </div>
                 {{/each}}
+            </div>
+        </div>
+
+        <h5>Fachbeirat</h5>
+        <div class="container">
+            <div class="row">
+                <div class="intro-box col-sm-12">
+                    <p>
+                        Das Schul-Cloud Projekt wird von einem Fachbeirat unterstüzt, der sich aus verschiedenen
+                        Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben
+                        technischen Aspekten, auch Themen wie Datenschutz und Pädagogik. Die Ergebnisse der letzten
+                        Fachbeirats-Sitzung können Sie in unserem
+                        <a href="https://blog.schul-cloud.org/einblicke-in-die-arbeit-des-fachbeirats/">Blog</a> nachlesen.
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <ul>
+                    {{#each partners.advisers}}
+                    <li>
+                        <a href="{{{url}}}">{{{name}}}</a>
+                    </li>
+                    {{/each}}
+                </ul>
             </div>
         </div>
 

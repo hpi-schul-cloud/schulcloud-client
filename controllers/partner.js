@@ -6,10 +6,12 @@ const authHelper = require('../helpers/authentication');
 // Partners
 const partners = require('../helpers/partner/partners.json');
 
-// Sort Content-Partners & Sponsors by Name
+// Sort Content-Partners, Sponsors & Advisers by Name
 partners.content_partners = _orderBy(partners.content_partners,
     [x => x.name.toLowerCase()], ['asc']);
 partners.sponsors = _orderBy(partners.sponsors,
+    [x => x.name.toLowerCase()], ['asc']);
+partners.advisers = _orderBy(partners.advisers,
     [x => x.name.toLowerCase()], ['asc']);
 
 // secure routes
