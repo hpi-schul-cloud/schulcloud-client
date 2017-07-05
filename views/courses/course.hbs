@@ -32,12 +32,22 @@
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema sperren">
+                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema verstecken">
                                                              <i class="fa fa-eye"></i>
                                                         </a>
                                                     </span>
                                                 {{/userHasPermission}}
                                                 <p class="topic-label">{{this.name}}</p>
+                                                {{#userHasPermission "COURSE_EDIT"}}
+                                                    <a class="delete-topic"
+                                                       href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                       target="_blank"
+                                                       data-method="delete-material"
+                                                       data-name="{{../name}}"
+                                                        redirect="/courses/{{../courseId}}">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
+                                                {{/userHasPermission}}
                                             </div>
                                         </div>
                                     </div>
@@ -51,11 +61,19 @@
                                                                 class="btn btn-secondary btn-hidden-toggle"
                                                                 href="{{../_id}}"
                                                                 data-toggle="tooltip"
-                                                                title="{{#if ../hidden}}Thema entsperren{{else}}Thema sperren{{/if}}">
+                                                                title="{{#if ../hidden}}Thema sichtbar machen{{else}}Thema verstecken{{/if}}">
                                                                  <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                             </a>
                                                         </span>
                                                     <p class="topic-label">{{../name}}</p>
+                                                    <a class="delete-topic"
+                                                       href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                       target="_blank"
+                                                       data-method="delete-material"
+                                                       data-name="{{../name}}"
+                                                       redirect="/courses/{{../courseId}}">
+                                                        <i class="fa fa-trash-o"></i>
+                                                    </a>
                                                 </div>
                                             </div>
                                         </div>
@@ -71,6 +89,10 @@
                             <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary margin-top">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                 Thema hinzufügen
+                            </a>
+                            <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary margin-top btn-import-topic">
+                                <i class="fa fa-exchange" aria-hidden="true"></i>
+                                Thema importieren
                             </a>
                         {{/userHasPermission}}
                     </div>
@@ -154,6 +176,12 @@
             {{#embed "lib/components/modal-form" class="invitation-modal"}}
                 {{#content "fields"}}
                     {{> "courses/forms/form-invitation"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-topic"}}
                 {{/content}}
             {{/embed}}
 
