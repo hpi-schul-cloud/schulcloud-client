@@ -137,9 +137,9 @@ router.patch('/:topicId', function (req, res, next) {
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/topics/');
-    }).catch(_ => {
-        res.sendStatus(500);
+        res.sendStatus(200);
+    }).catch(err => {
+        next(err);
     });
 });
 
