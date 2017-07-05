@@ -14,15 +14,23 @@ partners.sponsors = _orderBy(partners.sponsors,
 partners.advisers = _orderBy(partners.advisers,
     [x => x.name.toLowerCase()], ['asc']);
 
-// secure routes
-router.use(authHelper.authChecker);
-
 router.get('/', function (req, res, next) {
-    res.render('partner/partner', {
-        title: 'Partner',
-        logo_prefix: "/images/partner/",
-        partners: partners
-    });
+
+    authHelper.isAuthenticated(req).then(isAuthenticated => {
+        let template = isAuthenticated ? 'partner/partner_loggedin' : 'partner/partner_guests';
+        if(isAuthenticated) {
+            return authHelper.populateCurrentUser(req, res)
+                .then(_ => authHelper.restrictSidebar(req, res))
+                .then(_ => Promise.resolve(template));
+        }
+        return Promise.resolve(template);
+    }).then( template =>
+        res.render(template, {
+            title: 'Partner',
+            logo_prefix: "/images/partner/",
+            partners: partners,
+        })
+    );
 });
 
 module.exports = router;
