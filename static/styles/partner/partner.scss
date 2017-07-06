@@ -11,39 +11,6 @@ hgroup {
     width: 100%;
 }
 
-.bg-graphic {
-
-    position: absolute;
-    background: no-repeat center center;
-    background-size: contain;
-    z-index: 0;
-    width: 300px;
-    height: 300px;
-
-    @media screen and (max-width: 670px) {
-        display: none;
-    }
-
-    &.bg-graphic-left {
-        left: 10%;
-        top: 10%;
-        background-image: url(/images/login-left.png);
-        @media screen and (max-width: 820px) {
-            left: 1%;
-        }
-
-    }
-
-    &.bg-graphic-right {
-        right: 10%;
-        top: 30%;
-        background-image: url(/images/login-right.png);
-        @media screen and (max-width: 820px) {
-            right: 1%;
-        }
-    }
-}
-
 .section-title {
     width: 100%;
     padding: 10px 0 20px;
