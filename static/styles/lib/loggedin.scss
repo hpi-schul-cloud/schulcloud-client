@@ -373,6 +373,17 @@ footer {
     }
 }
 
+.qr-code-action {
+    .btn {
+        border: none;
+        line-height: 30px;
+    }
+
+    .dropdown-menu {
+        padding: 15px;
+        padding-bottom: 9px;
+    }
+}
 
 .notification-dropdown {
     .btn {
