@@ -1,0 +1,41 @@
+@import '../lib/colors.scss';
+
+.section-classes {
+
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  .lesson-date {
+    line-height: 24px;
+    float: right;
+  }
+
+  .description {
+    margin-bottom: 40px;
+  }
+
+  .delete-material {
+    float: right;
+    cursor: pointer;
+  }
+
+  .content {
+    margin-left: 15px;
+    i {
+      padding-right: 5px;
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    input {
+      background-color: $colorGrey;
+    }
+  }
+
+  .disabled > * {
+    pointer-events: none;
+  }
+}
+
