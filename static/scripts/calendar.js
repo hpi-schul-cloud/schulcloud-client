@@ -48,7 +48,7 @@ $(document).ready(function () {
     $calendar.fullCalendar({
         defaultView: view || 'month',
         editable: false,
-        timezone: 'local',
+        timezone: 'UTC',
         events: function (start, end, timezone, callback) {
             $.getJSON('/calendar/events/',
                 function (events) {

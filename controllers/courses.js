@@ -39,7 +39,7 @@ const createEventsForCourse = (req, res, course) => {
                 summary: course.name,
                 location: time.room,
                 description: course.description,
-                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
                 duration: time.duration,
                 repeat_until: course.untilDate,
                 frequency: "WEEKLY",
