@@ -87,5 +87,6 @@ module.exports = {
     isJWT,
     authChecker,
     isAuthenticated,
+    restrictSidebar,
     populateCurrentUser
 };

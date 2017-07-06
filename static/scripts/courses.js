@@ -13,11 +13,11 @@ $(document).ready(function () {
                 if (result.hidden) {
                     $hiddenToggleIcon.addClass('fa-eye-slash');
                     $hiddenToggleIcon.removeClass('fa-eye');
-                    $hiddenToggleBtn.attr('data-original-title', "Thema entsperren");
+                    $hiddenToggleBtn.attr('data-original-title', "Thema sichtbar machen");
                 } else {
                     $hiddenToggleIcon.removeClass('fa-eye-slash');
                     $hiddenToggleIcon.addClass('fa-eye');
-                    $hiddenToggleBtn.attr('data-original-title', "Thema sperren");
+                    $hiddenToggleBtn.attr('data-original-title', "Thema verstecken");
                 }
             }
         });
