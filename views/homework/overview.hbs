@@ -142,7 +142,7 @@
                                         {{this.name}}
                                     </h5>
                                     <div class="description">
-                                        {{{this.description}}}
+                                        {{{truncateHTML (conflictFreeHtml this.description)}}}
                                     </div>
                                 </a>
                                 {{#ifvalue this.teacherId value=this.currentUser._id}}

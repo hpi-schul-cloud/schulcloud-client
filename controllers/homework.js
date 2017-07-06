@@ -9,7 +9,6 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
-const truncate = require('truncate-html');
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -316,11 +315,6 @@ router.all('/', function (req, res, next) {
 
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
-
-            // truncate description for overview and add unique style (don't show crazy colors selected by users and so on) 
-            assignment.description = assignment.description.replace(/style=["'][^"]*["']/g,'');
-            assignment.description = assignment.description.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2'); //remove all links (would break wrapper)
-            assignment.description = truncate(assignment.description, 140);
             
             // Anzeigetext + Farbe für verbleibende Zeit
             const availableDateArray = splitDate(assignment.availableDate);
