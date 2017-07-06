@@ -10,46 +10,12 @@
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replace($('.add-modal').find("textarea")[0], {
-                toolbarGroups: [
-                    { name: 'clipboard', groups: [ 'undo', 'clipboard' ] },
-                    { name: 'forms', groups: [ 'forms' ] },
-                    { name: 'insert', groups: [ 'insert' ] },
-                    { name: 'links', groups: [ 'links' ] },
-                    { name: 'tools', groups: [ 'tools' ] },
-                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                    { name: 'others', groups: [ 'others' ] },
-                    '/',
-                    { name: 'styles', groups: [ 'styles' ] },
-                    { name: 'colors', groups: [ 'colors' ] },
-                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                    { name: 'paragraph', groups: [ 'blocks', 'list', 'indent', 'align', 'bidi', 'paragraph' ] },
-                    { name: 'about', groups: [ 'about' ] }
-                ],
                 mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,colorbutton,colordialog',
-                removeButtons: 'Source,Styles,Scayt,HorizontalRule,Anchor,About,PasteFromWord'
+                extraPlugins: 'mathjax,colorbutton,colordialog'
             });
             CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
-                toolbarGroups: [
-                    { name: 'clipboard', groups: [ 'undo', 'clipboard' ] },
-                    { name: 'forms', groups: [ 'forms' ] },
-                    { name: 'insert', groups: [ 'insert' ] },
-                    { name: 'links', groups: [ 'links' ] },
-                    { name: 'tools', groups: [ 'tools' ] },
-                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                    { name: 'others', groups: [ 'others' ] },
-                    '/',
-                    { name: 'styles', groups: [ 'styles' ] },
-                    { name: 'colors', groups: [ 'colors' ] },
-                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                    { name: 'paragraph', groups: [ 'blocks', 'list', 'indent', 'align', 'bidi', 'paragraph' ] },
-                    { name: 'about', groups: [ 'about' ] }
-                ],
                 mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,colorbutton,colordialog',
-                removeButtons: 'Source,Styles,Scayt,HorizontalRule,Anchor,About,PasteFromWord'
+                extraPlugins: 'mathjax,colorbutton,colordialog'
             });
 
             $.datetimepicker.setLocale('de');

@@ -44,25 +44,8 @@
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-                config.toolbarGroups = [
-                    { name: 'clipboard', groups: [ 'undo', 'clipboard' ] },
-                    { name: 'forms', groups: [ 'forms' ] },
-                    { name: 'insert', groups: [ 'insert' ] },
-                    { name: 'links', groups: [ 'links' ] },
-                    { name: 'tools', groups: [ 'tools' ] },
-                    { name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
-                    { name: 'editing', groups: [ 'find', 'selection', 'spellchecker', 'editing' ] },
-                    { name: 'others', groups: [ 'others' ] },
-                    '/',
-                    { name: 'styles', groups: [ 'styles' ] },
-                    { name: 'colors', groups: [ 'colors' ] },
-                    { name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-                    { name: 'paragraph', groups: [ 'blocks', 'list', 'indent', 'align', 'bidi', 'paragraph' ] },
-                    { name: 'about', groups: [ 'about' ] }
-                ];
                 config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                config.extraPlugins = 'mathjax,colorbutton,colordialog',
-                config.removeButtons = 'Source,Styles,Scayt,HorizontalRule,Anchor,About,PasteFromWord';
+                config.extraPlugins = 'mathjax,colorbutton,colordialog';
             });
         });
     </script>
