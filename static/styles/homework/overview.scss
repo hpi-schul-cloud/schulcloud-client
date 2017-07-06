@@ -101,6 +101,13 @@
     margin: 0;
     padding: 10px 0;
     clear: both;
+    a {
+      color: #373a3c;
+      &:hover {
+        text-decoration: none;
+        color: #373a3c;
+      }
+    }
     .assignment {
       width: 100%;
       position: relative;
