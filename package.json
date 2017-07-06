@@ -22,7 +22,6 @@
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "~4.0.1",
-    "html-truncate": "^1.2.2",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
@@ -36,7 +35,8 @@
     "request-promise": "^4.1.1",
     "serve-favicon": "~2.3.2",
     "shortid": "^2.2.8",
-    "string_decoder": "^1.0.1"
+    "string_decoder": "^1.0.1",
+    "truncate-html": "^0.1.4"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.23.0",
