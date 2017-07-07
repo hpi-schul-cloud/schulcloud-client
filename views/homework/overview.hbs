@@ -11,7 +11,8 @@
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replace($('.add-modal').find("textarea")[0], {
                 mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax',
+                extraPlugins: 'mathjax,html5video,html5audio',
+                removeDialogTabs: 'html5video:Upload;html5audio:Upload',
                 toolbarGroups: [
                     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
                     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
@@ -31,7 +32,8 @@
             });
             CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
                 mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax',
+                extraPlugins: 'mathjax,html5video,html5audio',
+                removeDialogTabs: 'html5video:Upload;html5audio:Upload',
                 toolbarGroups: [
                     {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
                     {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},

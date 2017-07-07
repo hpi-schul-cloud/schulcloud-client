@@ -415,12 +415,12 @@ class TopicText extends TopicBlock {
 
         CKEDITOR.replace(editorId, {
             mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-            extraPlugins: 'uploadimage,mathjax',
+            extraPlugins: 'uploadimage,mathjax,html5video,html5audio',
             uploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
-            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link',
+            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link;html5video:Upload;html5audio:Upload',
             DefaultLinkTarget: '_blank'
         });
 
