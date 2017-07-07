@@ -139,9 +139,32 @@ const getNextEventForCourseTimes = (courseTimes) => {
 
     // find nearest day from now
     let minDate = _.minBy(nextWeekdays, (w) => w.date);
-    return moment(minDate.date).format("DD.MM.YYYY") + " " + moment(courseTimes[minDate.index].startTime, "x").format("HH:mm");
+    return moment(minDate.date).format("DD.MM.YYYY") + " " + moment.utc(courseTimes[minDate.index].startTime, "x").format("HH:mm");
 };
 
+if (!Date.prototype.toLocalISOString) {
+    (function() {
+
+        function pad(number) {
+            if (number < 10) {
+                return '0' + number;
+            }
+            return number;
+        }
+
+        Date.prototype.toLocalISOString = function() {
+            return this.getFullYear() +
+                '-' + pad(this.getMonth() + 1) +
+                '-' + pad(this.getDate()) +
+                'T' + pad(this.getHours()) +
+                ':' + pad(this.getMinutes()) +
+                ':' + pad(this.getSeconds()) +
+                '.' + (this.getMilliseconds() / 1000).toFixed(3).slice(2, 5) +
+                'Z';
+        };
+
+    }());
+}
 
 module.exports = {
     getIsoWeekdayForNumber,
