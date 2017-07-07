@@ -71,8 +71,8 @@ router.post('/', function (req, res, next) {
 router.post('/:id/share', function (req, res, next) {
     // if lesson already has shareToken, do not generate a new one
     api(req).get('/lessons/' + req.params.id).then(topic => {
-        let shareToken = topic.shareToken || shortid.generate();
-        api(req).patch("/lessons/" + req.params.id, {json: {shareToken: shareToken}})
+        topic.shareToken = topic.shareToken || shortid.generate();
+        api(req).patch("/lessons/" + req.params.id, {json: topic})
             .then(result => res.json(result))
             .catch(err => {res.err(err)});
     })
