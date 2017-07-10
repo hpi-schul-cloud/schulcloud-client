@@ -1,3 +1,7 @@
+function getCurrentDir() {
+    return $('.section-upload').data('path');
+}
+
 $(document).ready(function() {
     var $form = $(".form-upload");
     var $progressBar = $('.progress-bar');
@@ -36,9 +40,6 @@ $(document).ready(function() {
         return fullPath.split("/").slice(0, -1).join('/');
     }
 
-    function getCurrentDir() {
-        return $('.section-upload').data('path');
-    }
 
     let progressBarActive = false;
     let finishedFilesSize = 0;
@@ -304,54 +305,42 @@ function fileViewer(filetype, file, key) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
-            $('#file-view').css('display','');
+            //todo: msviewer nimmt gültige signed URL nicht an
+        /**    $('#file-view').css('display','');
             var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-            $.ajax({
-                type: "POST",
-                url: "/files/permissions/",
-                data: {
-                    key: key
-                },
-                success: function(data) {
-                    let target = `files/file?path=${data.key}&shared=true`;
-                    $.ajax({
-                        type: "POST",
-                        url: "/link/",
-                        data: {
-                            target: target
-                        },
-                        success: function(data) {
-                            openInIframe(msviewer+data.newUrl)
-                        }
-                    });
-                }});
-            break;
+            var currentDir = getCurrentDir();
+
+            $.post('/files/file??download=1&file=', {
+                path: currentDir + file,
+                type: filetype,
+                action: "getObject"
+            }, function (data) {
+                var url = data.signedUrl.url;
+                url = url.replace(/&/g, "%26");
+                console.log(url);
+                openInIframe(msviewer+url);
+            })
+                .fail(showAJAXError);
+            break;**/
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
-        case 'application/octet-stream':                                                    //.psd
-        case 'application/x-zip-compressed':                                                //.zip
+        //case 'application/x-zip-compressed':                                                //.zip
             $('#file-view').css('display','');
             var gviewer ="https://docs.google.com/viewer?url=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            $.ajax({
-                type: "POST",
-                url: "/files/permissions/",
-                data: {
-                    key: key
-                },
-                success: function(data) {
-                    let target = `files/file?path=${data.key}&shared=true`;
-                    $.ajax({
-                        type: "POST",
-                        url: "/link/",
-                        data: {
-                            target: target
-                        },
-                        success: function(data) {
-                            openInIframe(gviewer+data.newUrl+"&embedded=true")
-                        }
-                    });
-                }});
+            var currentDir = getCurrentDir();
+
+            $.post('/files/file?file=', {
+                path: currentDir + file,
+                type: filetype,
+                action: "getObject"
+            }, function (data) {
+                var url = data.signedUrl.url;
+                url = url.replace(/&/g, "%26");
+                console.log(url);
+                openInIframe(gviewer+url+"&embedded=true");
+            })
+                .fail(showAJAXError);
             break;
 
         default:
