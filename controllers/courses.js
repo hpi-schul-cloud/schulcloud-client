@@ -39,7 +39,7 @@ const createEventsForCourse = (req, res, course) => {
                 summary: course.name,
                 location: time.room,
                 description: course.description,
-                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
                 duration: time.duration,
                 repeat_until: course.untilDate,
                 frequency: "WEEKLY",
@@ -174,7 +174,7 @@ router.get('/', function (req, res, next) {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
-                time.startTime = moment(time.startTime, "x").format("HH:mm");
+                time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             });
             return course;
@@ -204,8 +204,8 @@ router.post('/', function (req, res, next) {
         time.duration = time.duration * 60 * 1000;
     });
 
-    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
 
     if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
         delete req.body.startDate;
@@ -297,8 +297,8 @@ router.patch('/:courseId', function (req, res, next) {
         time.duration = time.duration * 60 * 1000;
     });
 
-    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
 
     if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
         delete req.body.startDate;

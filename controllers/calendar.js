@@ -34,8 +34,8 @@ router.get('/events/', function (req, res, next) {
 });
 
 router.post('/events/', function (req, res, next) {
-    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString();
-    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString();
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
     // filter params
     if (req.body.courseId && req.body.courseId !== '') {
@@ -58,8 +58,8 @@ router.delete('/events/:eventId', function (req, res, next) {
 });
 
 router.put('/events/:eventId', function (req, res, next) {
-    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm').toISOString();
-    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm').toISOString();
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
     api(req).put('/calendar/' + req.params.eventId, {
         json: req.body
