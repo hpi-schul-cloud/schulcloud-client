@@ -47,8 +47,7 @@ const createEventsForCourse = (req, res, course) => {
                 scopeId: course._id,
                 courseId: course._id,
                 courseTimeId: time._id
-            }
-            });
+            }});
         }));
     }
 
@@ -62,11 +61,11 @@ const createEventsForCourse = (req, res, course) => {
 const deleteEventsForCourse = (req, res, courseId) => {
     if (process.env.CALENDAR_SERVICE_ENABLED) {
         return api(req).get('courses/' + courseId).then(course => {
-           return Promise.all((course.times || []).map(t => {
-               if (t.eventId) {
-                   return api(req).delete('calendar/' + t.eventId);
-               }
-           }));
+            return Promise.all((course.times || []).map(t => {
+                if (t.eventId) {
+                    return api(req).delete('calendar/' + t.eventId);
+                }
+            }));
         });
     }
     return Promise.resolve(true);
@@ -74,7 +73,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 
 const editCourseHandler = (req, res, next) => {
     let coursePromise, action, method;
-    if(req.params.courseId) {
+    if (req.params.courseId) {
         action = '/courses/' + req.params.courseId;
         method = 'patch';
         coursePromise = api(req).get('/courses/' + req.params.courseId, {
@@ -88,9 +87,9 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000 });
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000 });
+    const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
     Promise.all([
         coursePromise,
@@ -374,6 +373,37 @@ router.get('/:courseId/addStudent', function (req, res, next) {
         });
     }).catch(err => {
         next(err);
+    });
+});
+
+router.post('/:courseId/importTopic', function (req, res, next) {
+    let shareToken = req.body.shareToken;
+    // try to find topic for given shareToken
+    api(req).get("/lessons/", {qs: {shareToken: shareToken}}).then(result => {
+       if (result.data.length <= 0) {
+           req.session.notification = {
+               type: 'danger',
+               message: 'Es wurde kein Thema für diesen Code gefunden.'
+           };
+
+           res.redirect(req.header('Referer'));
+       }
+
+        // copy topic to course
+        let topic = result.data[0];
+        topic.originalTopic = JSON.parse(JSON.stringify(topic._id)); // copy value, not reference
+        delete topic._id;
+        delete topic.shareToken;
+        topic.courseId = req.params.courseId;
+
+        api(req).post("/lessons/", {json: topic}).then(topic => {
+            req.session.notification = {
+                type: 'success',
+                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
+            };
+
+            res.redirect(req.header('Referer'));
+        });
     });
 });
 
