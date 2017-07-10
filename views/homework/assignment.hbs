@@ -60,7 +60,8 @@
                     {name: 'about', groups: ['about']}
                 ];
                 config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                config.extraPlugins = 'mathjax',
+                config.extraPlugins = 'mathjax,html5video,html5audio',
+                config.removeDialogTabs = 'html5video:Upload;html5audio:Upload',
                 config.removeButtons = 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source';
             });
         });
