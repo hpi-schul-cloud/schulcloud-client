@@ -1,0 +1,50 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/help/help.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="changelog">
+            <h4>Neuste Features</h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            {{#each release}}
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="heading-{{@index}}">
+                                        <h5 class="mb-0">
+                                            <a data-toggle="collapse" data-parent="#accordion"
+                                               href="#collapse-{{@index}}"
+                                               aria-expanded="{{#ifeq @index 0}}true{{else}}false{{/ifeq}}"
+                                               aria-controls="collapse-{{@index}}">
+                                                <div>
+                                                    {{this.name}}
+                                                    <span class="text-muted author">
+                                                        {{this.publishedAt}}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show{{/ifeq}}"
+                                         role="tabpanel" aria-labelledby="heading-{{@index}}">
+                                        <div class="card-block">
+                                            {{{this.body}}}
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="{{this.url}}" target="_blank">Weiterlesen</a>
+                                            <span class="author"><i class="fa fa-user"></i><a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {{/content}}
+{{/extend}}
