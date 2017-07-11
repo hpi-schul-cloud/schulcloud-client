@@ -111,6 +111,8 @@ $(document).ready(function() {
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', {
                     key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    path: file.signedUrl.header['x-amz-meta-path'] + '/',
+                    name: file.name,
                     type: file.type,
                     size: file.size,
                     thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
