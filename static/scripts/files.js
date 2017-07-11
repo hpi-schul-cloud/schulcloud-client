@@ -107,7 +107,17 @@ $(document).ready(function() {
 
             this.on("success", function (file, response) {
                 finishedFilesSize += file.size;
+
+                // post file meta to proxy file service for persisting data
+                $.post('/files/fileModel', {
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    type: file.type,
+                    size: file.size,
+                    thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
+                });
+
                 this.removeFile(file);
+
             });
 
             this.on("dragover", function (file, response) {

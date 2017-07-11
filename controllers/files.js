@@ -446,15 +446,21 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 });
 
 router.post('/permissions/', function (req, res, next) {
-    api(req).get('/filePermissions/', { qs: {key: req.body.key} }).then(filePermission => {
+    // todo: refactoring sharing!
+    api(req).get('/files/', { qs: {key: req.body.key} }).then(filePermission => {
         if (filePermission.data.length > 0) {
             res.json(filePermission.data[0]);
         } else {
-            api(req).post("/filePermissions/", { json: req.body }).then(filePermission => {
+            api(req).post("/files/", { json: req.body }).then(filePermission => {
                 res.json(filePermission);
             });
         }
     });
+});
+
+/**** File and Directory proxy models ****/
+router.post('/fileModel', function (req, res, next) {
+    api(req).post('/files/', { json: req.body }).then(file => res.json(file)).catch(err => next(err));
 });
 
 
