@@ -373,6 +373,13 @@ footer {
     }
 }
 
+.dropdowns {
+    .btn-thin {
+        padding-left: 5px!important;
+        padding-right: 5px!important;
+    }
+}
+
 .qr-code-action {
     .btn {
         border: none;
@@ -382,6 +389,44 @@ footer {
     .dropdown-menu {
         padding: 15px;
         padding-bottom: 9px;
+    }
+}
+
+.help-drodown {
+    .btn {
+        border: none;
+        line-height: 30px;
+    }
+
+    .dropdown-menu {
+        width: 236px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    .list-group-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+    }
+
+    .list-group-item:last-child {
+        border-bottom-right-radius: 0rem;
+        border-bottom-left-radius: 0rem;
+    }
+
+    .list-group-item:first-child {
+        border-bottom-right-radius: 0rem;
+        border-bottom-left-radius: 0rem;
+    }
+
+    .link {
+        padding-left: 8px;
+    }
+
+    .delimiter {
+        background-color: $colorGrey;
+        height: 12px;
     }
 }
 
