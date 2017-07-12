@@ -1,7 +1,6 @@
 @import '../lib/colors.scss';
 
 .changelog {
-
   .author {
     float: right
   }
@@ -11,4 +10,45 @@
     height: auto;
     width: auto;
   }
+
+  h4 {
+    margin-bottom: 20px;
+    color: $colorHPIRed;
+  }
+
+  i {
+    padding-right: 5px;
+    color: $colorHPIRed;
+  }
+}
+
+.faqpanel {
+  .card-img-top {
+      height: auto;
+      width: 100%;
+  }
+
+  .card-footer {
+    text-align: center;
+  }
+
+  .h-100 {
+    margin-bottom: 0px;
+    text-align: center;
+  }
+
+  .circular {
+    width: 300px;
+    height: 300px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+  }
+
+  .img-out {
+    padding-top: 20px;
+    display: inline-block;
+  }
+
+  padding-bottom: 20px;
 }

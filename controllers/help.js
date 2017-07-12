@@ -21,10 +21,16 @@ router.get('/', function (req, res, next) {
             //let newRelease = releases.data.shift();
 
             res.render('help/help', {
-                title: 'Hilfe',
+                title: 'Hilfebereich',
                 release: releases.data
             });
         });
+});
+
+router.get('/faq', function (req, res, next) {
+   res.render('help/faq', {
+
+   });
 });
 
 
