@@ -115,6 +115,7 @@ $(document).ready(function() {
                     name: file.name,
                     type: file.type,
                     size: file.size,
+                    flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
                     thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
                 });
 

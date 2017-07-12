@@ -235,10 +235,8 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
 // delete file
 router.delete('/file', function (req, res, next) {
     const {name, dir = ''} = req.body;
-
-    const basePath = getStorageContext(req, res, {url: req.get('Referrer'), dir});
     const data = {
-        path: basePath + name,
+        path: dir + name,
         fileType: null,
         action: null
     };
