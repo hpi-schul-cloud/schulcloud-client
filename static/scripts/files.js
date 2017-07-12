@@ -328,16 +328,15 @@ function fileViewer(filetype, file, key) {
             $('#file-view').css('display','');
             var gviewer ="https://docs.google.com/viewer?url=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            var currentDir = getCurrentDir();
-
+            file = file.substring(file.indexOf('/') + 1 );
+            file = file.substring(file.indexOf('/') + 1 );
             $.post('/files/file?file=', {
-                path: currentDir + file,
+                path: getCurrentDir() + file,
                 type: filetype,
                 action: "getObject"
             }, function (data) {
                 var url = data.signedUrl.url;
                 url = url.replace(/&/g, "%26");
-                console.log(url);
                 openInIframe(gviewer+url+"&embedded=true");
             })
                 .fail(showAJAXError);
