@@ -98,4 +98,24 @@ $(document).ready(function () {
         $qrbox.empty();
         $qrbox.append(el);
     });
+
+    $.ajax({
+        url: '/help/releases',
+        type: 'GET',
+        success: function(release) {
+            let cookies = getCookiesMap(document.cookie);
+            if (cookies['releaseDate']) {
+                if (release.createdAt > cookies['releaseDate']) {
+                    document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                    $.showNotification("Es sind neue Funktionen verfügbar, sehen Sie die Änderungen <a href=\"/help/#changelog\">hier</a>");
+                }
+            } else {
+                document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                $.showNotification("Es sind neue Funktionen verfügbar, sehen Sie die Änderungen <a href=\"/help/#changelog\">hier</a>");
+            }
+        },
+        error: function(err) {
+            console.log(err);
+        }
+    });
 });
