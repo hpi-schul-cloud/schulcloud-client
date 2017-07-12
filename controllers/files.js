@@ -255,10 +255,8 @@ router.delete('/file', function (req, res, next) {
 router.get('/file', function (req, res, next) {
 
     const {file, download = false, path, shared = false} = req.query;
-
-    const basePath = getStorageContext(req, res, {url: req.get('Referrer')});
     const data = {
-        path: path || basePath + file,
+        path: path || file,
         fileType: mime.lookup(file || pathUtils.basename(path)),
         action: 'getObject'
     };
