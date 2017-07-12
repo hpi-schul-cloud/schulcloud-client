@@ -289,7 +289,7 @@ router.post('/directory', function (req, res, next) {
     const dirName = name || 'Neuer Ordner';
     api(req).post('/fileStorage/directories', {
         json: {
-            path: basePath + dirName,
+            path: basePath + "/" + dirName,
         }
     }).then(_ => {
         res.sendStatus(200);
