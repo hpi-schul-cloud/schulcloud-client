@@ -64,7 +64,8 @@ $(document).ready(function() {
         request.fail(function(r) {
             submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
-            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)'
+            
+            submitButton.innerHTML = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)','')+' <i class="fa fa-close" aria-hidden="true"></i> (error)'
         });
     }
 

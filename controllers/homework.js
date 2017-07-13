@@ -112,12 +112,12 @@ const getCreateHandler = (service) => {
     };
 };
 
-const sendNotification = (courseId, title, message, teacherId, req, link) => {
+const sendNotification = (courseId, title, message, userId, req, link) => {
     api(req).post('/notification/messages', {
         json: {
             "title": title,
             "body": message,
-            "token": teacherId,
+            "token": userId,
             "priority": "high",
             "action": link,
             "scopeIds": [
@@ -152,8 +152,8 @@ const getUpdateHandler = (service) => {
                 api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
                     .then(homework => {
                     sendNotification(data.studentId,
-                        "Deine Abgabe wurde bewertert im Fach " +
-                        homework.courseId.name,
+                        "Deine Abgabe im Fach " +
+                        homework.courseId.name + " wurde bewertet",
                         " ",
                         data.studentId,
                         req,
@@ -509,7 +509,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     sub.gradeText = (sub.grade) ?   (
                             ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade]
                         ):(
-                            (sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
+                            ((assignment.teacherId == res.locals.currentUser._id) && sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
                     return sub;
                 });
 
