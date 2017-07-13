@@ -307,37 +307,35 @@ function fileViewer(filetype, file, key) {
         case 'application/vnd.ms-word':                                                     //.doc
             //todo: msviewer nimmt gültige signed URL nicht an
         /**    $('#file-view').css('display','');
-            var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
-            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-            var currentDir = getCurrentDir();
-
-            $.post('/files/file??download=1&file=', {
-                path: currentDir + file,
+         var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+         $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
+         file = file.substring(file.lastIndexOf('/')+1);
+	 
+         $.post('/files/file?file=', {
+                path: getCurrentDir() + file,
                 type: filetype,
                 action: "getObject"
             }, function (data) {
                 var url = data.signedUrl.url;
                 url = url.replace(/&/g, "%26");
-                console.log(url);
                 openInIframe(msviewer+url);
             })
-                .fail(showAJAXError);
-            break;**/
+         .fail(showAJAXError);
+         break;**/
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
         //case 'application/x-zip-compressed':                                                //.zip
             $('#file-view').css('display','');
             var gviewer ="https://docs.google.com/viewer?url=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            var currentDir = getCurrentDir();
-
+            file = file.substring(file.lastIndexOf('/')+1);
+		    
             $.post('/files/file?file=', {
-                path: currentDir + file,
+                path: getCurrentDir() + file,
                 type: filetype,
                 action: "getObject"
             }, function (data) {
                 var url = data.signedUrl.url;
                 url = url.replace(/&/g, "%26");
-                console.log(url);
                 openInIframe(gviewer+url+"&embedded=true");
             })
                 .fail(showAJAXError);
