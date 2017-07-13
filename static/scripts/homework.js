@@ -3,7 +3,7 @@ $(document).ready(function() {
     var $modals = $('.modal');
     var $addModal = $('.add-modal');
     var $editModal = $('.edit-modal');
-
+    
     $('.btn-add').on('click', function(e) {
         e.preventDefault();
         populateModalForm($addModal, {
@@ -36,8 +36,8 @@ $(document).ready(function() {
 
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
-        submitButtonText = submitButton.innerHTML || submitButton.value;
-        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        let submitButtonText = submitButton.innerHTML || submitButton.value;
+        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
         submitButton.style["display"]="inline-block";
