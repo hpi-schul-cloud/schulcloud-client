@@ -414,12 +414,12 @@ class TopicText extends TopicBlock {
         const editorId = (this.props.content || {}).editorId || this.editorId;
 
         CKEDITOR.replace(editorId, {
-            extraPlugins: 'uploadimage,colorbutton,colordialog,mathjax',
+            extraPlugins: 'uploadimage,colorbutton,colordialog,mathjax,html5video,html5audio',
             uploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserBrowseUrl: '/files/' + storageContext,
             filebrowserUploadUrl: '/files/upload/?path=' + storageContext,
             filebrowserImageUploadUrl: '/files/upload/?path=' + storageContext,
-            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link',
+            removeDialogTabs: 'link:upload;image:Upload;image:advanced;image:Link;html5video:Upload;html5audio:Upload',
             DefaultLinkTarget: '_blank'
         });
 
