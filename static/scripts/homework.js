@@ -37,6 +37,7 @@ $(document).ready(function() {
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
         submitButtonText = submitButton.innerHTML || submitButton.value;
+        submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
         submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
@@ -62,10 +63,8 @@ $(document).ready(function() {
             if(after) after(this);
         });
         request.fail(function(r) {
-            submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
-            
-            submitButton.innerHTML = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)','')+' <i class="fa fa-close" aria-hidden="true"></i> (error)'
+            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
     }
 
