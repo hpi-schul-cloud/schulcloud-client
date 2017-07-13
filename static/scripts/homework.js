@@ -33,6 +33,33 @@ $(document).ready(function() {
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
     });
+    
+    $.datetimepicker.setLocale('de');
+    $('input[data-datetime]').datetimepicker({
+        format:'d.m.Y H:i',
+        mask: '39.19.9999 29:59',
+        onShow:function( ct ,input){
+            if(input[0].id == "availableDate"){
+                console.log("availableDate");
+                let due = $(input[0].parentNode.parentNode).find("#dueDate").val().split(" ");
+                this.setOptions({
+                    minDate:0,
+                    maxDate:(due && due[0])?due[0]:false,
+                    formatDate:'d.m.Y',
+                });
+            }
+            else if(input[0].id == "dueDate"){
+                console.log("dueDate");
+                let available = $(input[0].parentNode.parentNode).find("#availableDate").val().split(" ");
+                this.setOptions({
+                    minDate:(available && available[0])?available[0]:0,
+                    maxDate:false,
+                    formatDate:'d.m.Y'
+                });
+            }
+        }
+    });
+
 
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
