@@ -6,6 +6,7 @@
 {{#content "scripts" mode="append"}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/moment/moment.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
@@ -50,12 +51,6 @@
                     {name: 'about', groups: ['about']}
                 ],
                 removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
-            });
-
-            $.datetimepicker.setLocale('de');
-            $('input[data-datetime]').datetimepicker({
-                format:'d.m.Y H:i',
-                mask: '39.19.9999 29:59'
             });
 
         });
