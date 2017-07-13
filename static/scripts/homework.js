@@ -49,12 +49,24 @@ $(document).ready(function() {
                 });
             }
             else if(input[0].id == "dueDate"){
-                console.log("dueDate");
                 let available = $(input[0].parentNode.parentNode).find("#availableDate").val().split(" ");
                 this.setOptions({
                     minDate:(available && available[0])?available[0]:0,
                     maxDate:false,
                     formatDate:'d.m.Y'
+                });
+            }
+        },
+        onSelectDate:function( ct ,input){
+            if(input[0].id == "dueDate"){
+                let available = $(input[0].parentNode.parentNode).find("#availableDate").val().split(" ");
+                this.setOptions({
+                    minTime:(available && input.val().split(" ")[0] == available[0])?available[1]:false
+                });
+            }else if(input[0].id == "availableDate"){
+                let dueDate = $(input[0].parentNode.parentNode).find("#dueDate").val().split(" ");
+                this.setOptions({
+                    maxTime:(dueDate && input.val().split(" ")[0] == dueDate[0])?dueDate[1]:false
                 });
             }
         }
