@@ -44,8 +44,6 @@
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-                config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                config.extraPlugins = 'mathjax,colorbutton,colordialog';
             });
         });
     </script>

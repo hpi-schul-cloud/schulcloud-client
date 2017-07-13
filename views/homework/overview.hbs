@@ -9,13 +9,8 @@
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replace($('.add-modal').find("textarea")[0], {
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,colorbutton,colordialog'
-            });
-            CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,colorbutton,colordialog'
+            CKEDITOR.replaceAll(function (textarea, config) {
+                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
 
             $.datetimepicker.setLocale('de');
