@@ -27,9 +27,6 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', groups: [ 'cleanup' ] }
 	];
 
-    //use office2013 design 
-    config.skin = 'office2013';
-    
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
 	config.removeButtons = 'Source,PasteFromWord';
