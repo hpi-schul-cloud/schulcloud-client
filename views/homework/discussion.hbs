@@ -1,0 +1,38 @@
+<section id="discussion" class="tab-content section-homeworkdetails">
+    <div class="discussionarea">
+        <ul class="comments">
+            {{#each @root.comments}}
+                <li class="comment">
+                    {{#ifvalue @root.submission.teacherId value=@root.currentUser._id}}
+                        <form action="/homework/comment/{{this._id}}" method="post" class="inline">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" class="btn btn-secondary btn-sm btn-delete">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    {{else}}
+                    {{#ifvalue this.author._id value=@root.currentUser._id}}
+                        <form action="/homework/comment/{{this._id}}" method="post" class="inline">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button type="submit" class="btn btn-secondary btn-sm btn-delete">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    {{/ifvalue}}{{/ifvalue}}
+                    <b class="name">{{this.author.firstName}} {{this.author.lastName}}</b>
+                    <pre>{{this.comment}}</pre>
+                </li>
+            {{/each}}
+        </ul>
+        <div class="answer">
+            <form class="form" method="post" action="/homework/comment">
+                <input type="hidden" name="_method" data-force-value="true" value="post" />
+                <div data-username="{{@root.currentUser.displayName}}"></div>
+                <input name="author" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}" />
+                <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
+                <textarea name="comment" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>
+                <button type="submit" class="btn btn-primary">senden</button>
+            </form>
+        </div>
+    </div>
+</section>

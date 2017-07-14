@@ -43,6 +43,10 @@ module.exports = (req, res, next) => {
         icon: 'newspaper-o',
         link: '/news/'
     }, {
+        name: 'Klassen',
+        icon: 'odnoklassniki',
+        link: '/classes/'
+    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'

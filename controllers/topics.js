@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const moment = require('moment');
 const express = require('express');
+const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
 const api = require('../api');
@@ -67,6 +68,16 @@ router.post('/', function (req, res, next) {
     });
 });
 
+router.post('/:id/share', function (req, res, next) {
+    // if lesson already has shareToken, do not generate a new one
+    api(req).get('/lessons/' + req.params.id).then(topic => {
+        topic.shareToken = topic.shareToken || shortid.generate();
+        api(req).patch("/lessons/" + req.params.id, {json: topic})
+            .then(result => res.json(result))
+            .catch(err => {res.err(err)});
+    })
+});
+
 
 router.get('/:topicId', function (req, res, next) {
 
@@ -108,6 +119,8 @@ router.patch('/:topicId', function (req, res, next) {
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
+    if (!data.contents) data.contents = [];
+
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
@@ -124,9 +137,9 @@ router.patch('/:topicId', function (req, res, next) {
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/topics/');
-    }).catch(_ => {
-        res.sendStatus(500);
+        res.sendStatus(200);
+    }).catch(err => {
+        next(err);
     });
 });
 

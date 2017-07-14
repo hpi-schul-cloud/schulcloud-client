@@ -19,7 +19,7 @@ router.get('/', function (req, res, next) {
 
     // we display time from 8 a.m. to 8 p.m.
     const timeStart = 8;
-    const timeEnd = 20;
+    const timeEnd = 16;
     const numHours = timeEnd - timeStart;
     const numMinutes = numHours * 60;
     const hours = [];
@@ -27,7 +27,6 @@ router.get('/', function (req, res, next) {
     for(let j = 0; j < numHours; j++) {
         hours.push(j + timeStart);
     }
-
     const start = new Date();
     start.setHours(timeStart,0,0,0);
     const end = new Date();
@@ -41,7 +40,7 @@ router.get('/', function (req, res, next) {
     const eventsPromise = api(req).get('/calendar/', {
         qs: {
             all: true,
-            until: end.toISOString()
+            until: end.toLocalISOString()
         }
     }).then(events => {
         // because the calender service is *§$" and is not
@@ -69,15 +68,15 @@ router.get('/', function (req, res, next) {
                 // cur events that are too long
                 if(eventEnd > end) {
                     eventEnd = end;
-                    event.end = eventEnd.toISOString();
+                    event.end = eventEnd.toLocalISOString();
                 }
 
                 // subtract timeStart so we can use these values for left alignment
-                const eventStartRelativeMinutes = ((eventStart.getHours() - timeStart) * 60) + eventStart.getMinutes();
-                const eventEndRelativeMinutes = ((eventEnd.getHours() - timeStart) * 60) + eventEnd.getMinutes();
+                const eventStartRelativeMinutes = ((eventStart.getUTCHours() - timeStart) * 60) + eventStart.getMinutes();
+                const eventEndRelativeMinutes = ((eventEnd.getUTCHours() - timeStart) * 60) + eventEnd.getMinutes();
                 const eventDuration = eventEndRelativeMinutes - eventStartRelativeMinutes;
 
-                event.comment = moment(eventStart).format('kk:mm') + ' - ' + moment(eventEnd).format('kk:mm');
+                event.comment = moment.utc(eventStart).format('kk:mm') + ' - ' + moment.utc(eventEnd).format('kk:mm');
                 event.style = {
                     left: 100 * (eventStartRelativeMinutes / numMinutes),  // percent
                     width: 100 * (eventDuration / numMinutes)  // percent
@@ -127,11 +126,21 @@ router.get('/', function (req, res, next) {
         homeworksPromise,
         newsPromise
     ]).then(([events, homeworks, news]) => {
+
+        homeworks.sort((a,b) => {
+            if(a.dueDate > b.dueDate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
             events,
             eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-            homeworks: _.chunk(homeworks, 3),
+            homeworks: _.chunk(homeworks.filter(function(task){return !task.private;}).slice(0, 6), 3),
+            myhomeworks: _.chunk(homeworks.filter(function(task){return task.private;}).slice(0, 6), 3),
             news,
             hours,
             currentTimePercentage,
