@@ -1,3 +1,13 @@
+{{#content "scripts" mode="append"}}
+    <script defer>
+        setHeight = function() {
+            // dirty fix for digitalgipfel
+            $('.lti-frame').css({
+                'height': ($(document).height() - $('.navbar').height() * 3) + 'px'
+            });
+        };
+    </script>
+{{/content}}
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
@@ -5,6 +15,6 @@
     {{/content}}
 
     {{#content "page"}}
-        <iframe class="lti-frame" src="{{tool.url}}"></iframe>
+        <iframe class="lti-frame" src="{{tool.url}}" frameborder="0" onload="setHeight()"></iframe>
     {{/content}}
 {{/extend}}

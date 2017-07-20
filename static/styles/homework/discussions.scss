@@ -1,0 +1,36 @@
+.discussionarea{
+  .comments {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    .comment {
+      border-bottom: 1px dashed #ddd;
+      .name {
+        display: block;
+      }
+      pre{
+        font-family: inherit;
+        font-size: 1em;
+        margin: .5rem 0 .5rem 1rem;
+      }
+      .btn {
+        display: none;
+        float: right;
+        color: #373a3c;
+        background-color:transparent;
+      }
+      &:hover .btn {
+        display: inline-block;
+      }
+    }
+  }
+  .answer {
+    textarea {
+      min-height: 75px;
+      margin: .5rem 0;
+    }
+  }
+  .btn-delete .loadingspinner > div {
+    background-color: #373a3c;
+  }
+}
