@@ -571,39 +571,14 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
 
                 });
-            } else {
+            } else if(assignment.submission){ 
                 // Kommentare zu Abgaben auslesen
-                if(assignment.submission){
-                    const commentPromise = getSelectOptions(req, 'comments', {
-                        submissionId: {$in: assignment.submission._id},
-                        $populate: ['author']
-                    });
-                    Promise.resolve(commentPromise).then(comments => {
-                        // -> Kommentare stehen nun in comments
-                        // alle Kurse von aktuellem Benutzer auslesen
-                        const coursesPromise = getSelectOptions(req, 'courses', {
-                            $or: [
-                                {userIds: res.locals.currentUser._id},
-                                {teacherIds: res.locals.currentUser._id}
-                            ]
-                        });
-                        Promise.resolve(coursesPromise).then(courses => {
-                        // -> Kurse stehen nun in courses
-                            res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                                breadcrumb: [
-                                    {
-                                        title: 'Meine Aufgaben',
-                                        url: '/homework'
-                                    },
-                                    {}
-                                ],
-                                comments,
-                                courses
-                            }));
-                        });
-                    });
-                }else{
+                const commentPromise = getSelectOptions(req, 'comments', {
+                    submissionId: {$in: assignment.submission._id},
+                    $populate: ['author']
+                });
+                Promise.resolve(commentPromise).then(comments => {
+                    // -> Kommentare stehen nun in comments
                     // alle Kurse von aktuellem Benutzer auslesen
                     const coursesPromise = getSelectOptions(req, 'courses', {
                         $or: [
@@ -614,18 +589,41 @@ router.get('/:assignmentId', function (req, res, next) {
                     Promise.resolve(coursesPromise).then(courses => {
                     // -> Kurse stehen nun in courses
                         res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                                breadcrumb: [
-                                    {
-                                        title: 'Meine Aufgaben',
-                                        url: '/homework'
-                                    },
-                                    {}
-                                ],
-                                courses
-                        })); 
-                    }); 
-                }
+                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                            breadcrumb: [
+                                {
+                                    title: 'Meine Aufgaben',
+                                    url: '/homework'
+                                },
+                                {}
+                            ],
+                            comments,
+                            courses
+                        }));
+                    });
+                });
+            }else{
+                // alle Kurse von aktuellem Benutzer auslesen
+                const coursesPromise = getSelectOptions(req, 'courses', {
+                    $or: [
+                        {userIds: res.locals.currentUser._id},
+                        {teacherIds: res.locals.currentUser._id}
+                    ]
+                });
+                Promise.resolve(coursesPromise).then(courses => {
+                // -> Kurse stehen nun in courses
+                    res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                            breadcrumb: [
+                                {
+                                    title: 'Meine Aufgaben',
+                                    url: '/homework'
+                                },
+                                {}
+                            ],
+                            courses
+                    })); 
+                }); 
             }
         });
     });
