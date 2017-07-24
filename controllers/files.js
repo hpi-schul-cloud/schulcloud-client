@@ -12,6 +12,7 @@ const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const multer  = require('multer');
+const shortid = require('shortid');
 const upload = multer({ storage: multer.memoryStorage() });
 
 const thumbs = {
@@ -161,20 +162,25 @@ const getScopeDirs = (req, res, scope) => {
  * register a new filePermission for the given user for the given file
  * @param userId {String} - the user which should be granted permission
  * @param filePath {String} - the file for which a new permission should be created
+ * @param shareToken {String} - a token for verify enabled sharing
  */
-const registerSharedPermission = (userId, filePath, req) => {
-    // check whether a filePermission entry already exist for the given file
-    return api(req).get('/filePermissions/', {qs: {key: filePath}}).then(res => {
-        if (res.data.length <= 0) {
+const registerSharedPermission = (userId, filePath, shareToken, req) => {
+    // check whether sharing is enabled for given file
+    return api(req).get('/files/', {qs: {key: filePath}}).then(res => {
+        let file = res.data[0];
+
+        // verify given share token
+        if (!file || file.shareToken !== shareToken) {
             // owner permits sharing of given file
             return Promise.reject("Zu dieser Datei haben Sie keinen Zugriff!");
         } else {
-            let filePermission = res.data[0];
-            filePermission.permissions.push({
+
+            let file = res.data[0];
+            file.permissions.push({
                 userId: userId,
                 permissions: ['can-read', 'can-write'] // todo: make it selectable
             });
-            return api(req).patch('/filePermissions/' + res.data[0]._id, {json: filePermission});
+            return api(req).patch('/files/' + res.data[0]._id, {json: file});
         }
     });
 };
@@ -254,14 +260,14 @@ router.delete('/file', function (req, res, next) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download = false, path, shared = false} = req.query;
+    const {file, download = false, path, share} = req.query;
     const data = {
         path: path || file,
         fileType: mime.lookup(file || pathUtils.basename(path)),
         action: 'getObject'
     };
 
-    let sharedPromise = shared ? registerSharedPermission(res.locals.currentUser._id, data.path, req) : Promise.resolve();
+    let sharedPromise = share ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
         return requestSignedUrl(req, data).then(signedUrl => {
             return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
@@ -442,15 +448,16 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 });
 
 router.post('/permissions/', function (req, res, next) {
-    // todo: refactoring sharing!
-    api(req).get('/files/', { qs: {key: req.body.key} }).then(filePermission => {
-        if (filePermission.data.length > 0) {
-            res.json(filePermission.data[0]);
-        } else {
-            api(req).post("/files/", { json: req.body }).then(filePermission => {
-                res.json(filePermission);
-            });
+    api(req).get('/files/', { qs: {key: req.body.key} }).then(files => {
+        if (files.data.length <= 0) {
+            res.json({});
+            return;
         }
+        let file = files.data[0];
+        file.shareToken = file.shareToken || shortid.generate();
+        api(req).patch("/files/" + file._id, { json: file }).then(filePermission => {
+            res.json(filePermission);
+        });
     });
 });
 

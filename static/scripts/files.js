@@ -254,7 +254,7 @@ $moveModal.modal('hide');
                 key: path
             },
             success: function(data) {
-                let target = `files/file?path=${data.key}&shared=true`;
+                let target = `files/file?path=${data.key}&share=${data.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
