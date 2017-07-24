@@ -6,17 +6,12 @@
 {{#content "scripts" mode="append"}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/moment/moment.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-            });
-
-            $.datetimepicker.setLocale('de');
-            $('input[data-datetime]').datetimepicker({
-                format:'d.m.Y H:i',
-                mask: '39.19.9999 29:59'
             });
 
         });
@@ -98,7 +93,7 @@
                                 <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
                                     <h5 class="title">
                                         {{#if this.courseId}}
-                                            [<span>{{this.courseId.name}}</span>] - 
+                                            [<span>{{this.courseId.name}}</span>] -
                                         {{/if}}
                                         {{this.name}}
                                     </h5>
