@@ -21,6 +21,8 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'tools' },
 		'/',
 		{ name: 'styles' },
+		{ name: 'colors' , groups: [ 'colors' ] },
+		{ name: 'about' },
 		{ name: 'basicstyles', groups: [ 'basicstyles' ] },
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'colors', groups: [ 'colors' ] },
@@ -29,12 +31,13 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Source,PasteFromWord';
+	config.removeButtons = 'Underline,Subscript,Superscript,Source,PasteFromWord';
 
     // add color picker
     config.extraPlugins = 'mathjax,colorbutton,colordialog';
     config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML';
-	// Set the most common block elements.
+
+    // Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
 
 	// Simplify the dialog windows.
