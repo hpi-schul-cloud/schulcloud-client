@@ -10,31 +10,34 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	config.toolbarGroups = [
-		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
-		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
-		{ name: 'links' },
-		{ name: 'insert' },
+		{ name: 'clipboard', groups: [ 'undo', 'clipboard' ] },
 		{ name: 'forms' },
-		{ name: 'tools' },
-		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'insert' },
+		{ name: 'links' },
+		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
+		{ name: 'editing',  groups: [ 'find', 'selection', 'spellchecker' ] },
 		{ name: 'others' },
+		{ name: 'about' },
+        { name: 'tools' },
 		'/',
-		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'styles' },
 		{ name: 'colors' , groups: [ 'colors' ] },
-		{ name: 'about' }
+		{ name: 'about' },
+		{ name: 'basicstyles', groups: [ 'basicstyles' ] },
+		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+		{ name: 'colors', groups: [ 'colors' ] },
+		{ name: 'basicstyles', groups: [ 'cleanup' ] }
 	];
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Underline,Subscript,Superscript,Source';
+	config.removeButtons = 'Underline,Subscript,Superscript,Source,PasteFromWord';
 
     // add color picker
     config.extraPlugins = 'mathjax,colorbutton,colordialog';
     config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML';
-    
-	// Set the most common block elements.
+
+    // Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
 
 	// Simplify the dialog windows.
