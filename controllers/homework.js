@@ -92,7 +92,11 @@ const getCreateHandler = (service) => {
         }
 
         if(req.body.availableDate >= req.body.dueDate){
-            res.status(420).send('Das Beginndatum muss vor dem Abgabedatum liegen!');
+            req.session.notification = {
+                type: 'danger',
+                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+            };
+            res.redirect(req.header('Referer'));
             return;
         }
 
