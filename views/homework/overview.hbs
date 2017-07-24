@@ -1,5 +1,5 @@
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/homework/homework.css"/>
+    <link rel="stylesheet" href="/styles/homework/overview.css"/>
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
 {{/content}}
@@ -9,47 +9,8 @@
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replace($('.add-modal').find("textarea")[0], {
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,html5video,html5audio',
-                removeDialogTabs: 'html5video:Upload;html5audio:Upload',
-                toolbarGroups: [
-                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-                    {name: 'links', groups: ['links']},
-                    {name: 'insert', groups: ['insert']},
-                    {name: 'document', groups: ['mode', 'document', 'doctools']},
-                    {name: 'clipboard', groups: ['clipboard', 'undo']},
-                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-                    {name: 'forms', groups: ['forms']},
-                    {name: 'tools', groups: ['tools']},
-                    {name: 'others', groups: ['others']},
-                    {name: 'styles', groups: ['styles']},
-                    {name: 'colors', groups: ['colors']},
-                    {name: 'about', groups: ['about']}
-                ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
-            });
-            CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,html5video,html5audio',
-                removeDialogTabs: 'html5video:Upload;html5audio:Upload',
-                toolbarGroups: [
-                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-                    {name: 'links', groups: ['links']},
-                    {name: 'insert', groups: ['insert']},
-                    {name: 'document', groups: ['mode', 'document', 'doctools']},
-                    {name: 'clipboard', groups: ['clipboard', 'undo']},
-                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-                    {name: 'forms', groups: ['forms']},
-                    {name: 'tools', groups: ['tools']},
-                    {name: 'others', groups: ['others']},
-                    {name: 'styles', groups: ['styles']},
-                    {name: 'colors', groups: ['colors']},
-                    {name: 'about', groups: ['about']}
-                ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
+            CKEDITOR.replaceAll(function (textarea, config) {
+                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
 
             $.datetimepicker.setLocale('de');
@@ -137,12 +98,16 @@
                                 <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
                                     <h5 class="title">
                                         {{#if this.courseId}}
-                                            <span>{{this.courseId.name}}</span>
+                                            [<span>{{this.courseId.name}}</span>] - 
                                         {{/if}}
                                         {{this.name}}
                                     </h5>
                                     <div class="description">
-                                        {{{truncate this.description}}}
+                                        {{#if this.description}}
+                                            {{{truncateHTML (conflictFreeHtml this.description)}}}
+                                        {{else}}
+                                            keine Beschreibung vorhanden
+                                        {{/if}}
                                     </div>
                                 </a>
                                 {{#ifvalue this.teacherId value=this.currentUser._id}}
