@@ -320,7 +320,7 @@ router.all('/', function (req, res, next) {
 
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
-
+            
             // Anzeigetext + Farbe für verbleibende Zeit
             const availableDateArray = splitDate(assignment.availableDate);
             const dueDateArray = splitDate(assignment.dueDate);

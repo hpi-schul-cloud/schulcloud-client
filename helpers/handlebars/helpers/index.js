@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const permissionsHelper = require('../../permissions');
 const moment = require('moment');
+const truncatehtml = require('truncate-html');
 moment.locale('de');
 
 module.exports = {
@@ -18,6 +19,17 @@ module.exports = {
         }
         const subString = text.substr(0, length-1);
         return subString.substr(0, subString.lastIndexOf(' ')) + "...";
+    },
+    truncateHTML: (text = '', {length = 140} = {}) => {
+        if (text.length <= length) {
+            return text;
+        }
+        return truncatehtml(text, 140);
+    },
+    conflictFreeHtml: (text = '') => {
+        text = text.replace(/style=["'][^"]*["']/g,'');
+        text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
+        return text;
     },
     ifeq: (a, b, opts) => {
         if (a == b) {
