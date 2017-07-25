@@ -10,8 +10,11 @@
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replaceAll(function (textarea, config) {
-                if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
+            CKEDITOR.replace($('.add-modal').find("textarea")[0], function (textarea, config) {
+                if (!textarea.classList.contains("customckeditor")) return false;
+            });
+            CKEDITOR.replace($('.edit-modal').find("textarea")[0], function (textarea, config) {
+                if (!textarea.classList.contains("customckeditor")) return false;
             });
 
             $.datetimepicker.setLocale('de');
