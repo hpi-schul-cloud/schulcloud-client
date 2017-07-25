@@ -4,7 +4,9 @@
 		{{#ifvalue teacherId value=currentUser._id}}
 			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
 		{{/ifvalue}}
-		<a id="discussion-tab-link" class="tab-link">Diskussion</a>
+        {{#if this.submission}}
+            <a id="discussion-tab-link" class="tab-link">Diskussion</a>
+        {{/if}}
 	</nav>
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
@@ -55,7 +57,8 @@
                 </div>
             {{/ifvalue}}
 		</div>
-		
-        {{> 'homework/discussion'}}
+        {{#if this.submission}}
+            {{> 'homework/discussion'}}
+        {{/if}}
     </div>
 </section>

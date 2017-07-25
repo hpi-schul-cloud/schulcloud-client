@@ -1,63 +1,45 @@
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/homework/homework.css"/>
+    <link rel="stylesheet" href="/styles/homework/overview.css"/>
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     <link rel="import" href="/vendor/m.e.i.n.e.l/circular-progress.html">
 {{/content}}
 {{#content "scripts" mode="append"}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/moment/moment.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-            CKEDITOR.replace($('.add-modal').find("textarea")[0], {
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,html5video,html5audio',
-                removeDialogTabs: 'html5video:Upload;html5audio:Upload',
-                toolbarGroups: [
-                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-                    {name: 'links', groups: ['links']},
-                    {name: 'insert', groups: ['insert']},
-                    {name: 'document', groups: ['mode', 'document', 'doctools']},
-                    {name: 'clipboard', groups: ['clipboard', 'undo']},
-                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-                    {name: 'forms', groups: ['forms']},
-                    {name: 'tools', groups: ['tools']},
-                    {name: 'others', groups: ['others']},
-                    {name: 'styles', groups: ['styles']},
-                    {name: 'colors', groups: ['colors']},
-                    {name: 'about', groups: ['about']}
-                ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
+            CKEDITOR.replace($('.add-modal').find("textarea")[0], function (textarea, config) {
+                if (!textarea.classList.contains("customckeditor")) return false;
             });
-            CKEDITOR.replace($('.edit-modal').find("textarea")[0], {
-                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                extraPlugins: 'mathjax,html5video,html5audio',
-                removeDialogTabs: 'html5video:Upload;html5audio:Upload',
-                toolbarGroups: [
-                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-                    {name: 'links', groups: ['links']},
-                    {name: 'insert', groups: ['insert']},
-                    {name: 'document', groups: ['mode', 'document', 'doctools']},
-                    {name: 'clipboard', groups: ['clipboard', 'undo']},
-                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-                    {name: 'forms', groups: ['forms']},
-                    {name: 'tools', groups: ['tools']},
-                    {name: 'others', groups: ['others']},
-                    {name: 'styles', groups: ['styles']},
-                    {name: 'colors', groups: ['colors']},
-                    {name: 'about', groups: ['about']}
-                ],
-                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
+            CKEDITOR.replace($('.edit-modal').find("textarea")[0], function (textarea, config) {
+                if (!textarea.classList.contains("customckeditor")) return false;
             });
 
             $.datetimepicker.setLocale('de');
             $('input[data-datetime]').datetimepicker({
                 format:'d.m.Y H:i',
-                mask: '39.19.9999 29:59'
+                mask: '39.19.9999 29:59',
+                onShow:function(ct, input){
+                    if(input[0].id == "availableDate"){
+                        let due = $(input[0].parentNode.parentNode).find("#dueDate").val().split(" ");
+                        this.setOptions({
+                            minDate:0,
+                            maxDate:(due && due[0])?due[0]:false,
+                            formatDate:'d.m.Y',
+                        });
+                    }
+                    else if(input[0].id == "dueDate"){
+                        let available = $(input[0].parentNode.parentNode).find("#availableDate").val().split(" ");
+                        this.setOptions({
+                            minDate:(available && available[0])?available[0]:0,
+                            maxDate:false,
+                            formatDate:'d.m.Y'
+                        });
+                    }
+                }
             });
-
         });
     </script>
 {{/content}}
@@ -137,13 +119,13 @@
                                 <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
                                     <h5 class="title">
                                         {{#if this.courseId}}
-                                            <span>{{this.courseId.name}}</span>
+                                            [<span>{{this.courseId.name}}</span>] -
                                         {{/if}}
                                         {{this.name}}
                                     </h5>
                                     <div class="description">
                                         {{#if this.description}}
-                                            {{{truncate this.description}}}
+                                            {{{truncateHTML (conflictFreeHtml this.description)}}}
                                         {{else}}
                                             keine Beschreibung vorhanden
                                         {{/if}}

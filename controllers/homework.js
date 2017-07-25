@@ -91,6 +91,15 @@ const getCreateHandler = (service) => {
             }
         }
 
+        if(req.body.availableDate >= req.body.dueDate){
+            req.session.notification = {
+                type: 'danger',
+                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+            };
+            res.redirect(req.header('Referer'));
+            return;
+        }
+
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -326,7 +335,7 @@ router.all('/', function (req, res, next) {
 
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
-
+            
             // Anzeigetext + Farbe für verbleibende Zeit
             const availableDateArray = splitDate(assignment.availableDate);
             const dueDateArray = splitDate(assignment.dueDate);

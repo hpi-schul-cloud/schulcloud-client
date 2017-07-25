@@ -36,9 +36,9 @@ $(document).ready(function() {
 
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
-        submitButtonText = submitButton.innerHTML || submitButton.value;
+        let submitButtonText = submitButton.innerHTML || submitButton.value;
         submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
-        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
         submitButton.style["display"]="inline-block";
@@ -55,7 +55,7 @@ $(document).ready(function() {
             url: url,
             data: content,
             context: element
-        })
+        });
         request.done(function(r) {
             submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
