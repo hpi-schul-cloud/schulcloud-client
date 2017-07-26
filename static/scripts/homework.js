@@ -36,8 +36,9 @@ $(document).ready(function() {
 
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
-        submitButtonText = submitButton.innerHTML || submitButton.value;
-        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        let submitButtonText = submitButton.innerHTML || submitButton.value;
+        submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
+        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
         submitButton.style["display"]="inline-block";
@@ -54,7 +55,7 @@ $(document).ready(function() {
             url: url,
             data: content,
             context: element
-        })
+        });
         request.done(function(r) {
             submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
@@ -62,9 +63,8 @@ $(document).ready(function() {
             if(after) after(this);
         });
         request.fail(function(r) {
-            submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
-            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)'
+            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
     }
 
@@ -109,5 +109,22 @@ $(document).ready(function() {
 
     $('#sortselection').on('change', function(e){
         window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    });
+
+    $('.importsubmission').on('click', function(e){
+        e.preventDefault();
+        const submissionid = this.getAttribute("data");
+        this.disabled = true;
+        this.innerHTML = 'importiere <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+        if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
+            $.ajax({
+                url: "/homework/submit/"+submissionid+"/import",
+                context: this
+            }).done(function(r) {
+                CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
+                this.disabled = false;
+                this.innerHTML = "Abgabe des Schülers importieren";
+            });
+        }
     });
 });

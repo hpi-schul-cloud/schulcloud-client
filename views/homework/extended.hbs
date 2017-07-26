@@ -1,7 +1,11 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
     <div class="homework">
         <div class="description">
-            {{{this.description}}}
+            {{#if this.description}}
+                {{{this.description}}}
+            {{else}}
+                keine Beschreibung vorhanden
+            {{/if}}
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
             <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
