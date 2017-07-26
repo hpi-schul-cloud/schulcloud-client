@@ -325,6 +325,7 @@ router.get('/', FileGetter, function (req, res, next) {
         let ending = file.name.split('.').pop();
         file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
     });
+    console.log(res.locals.files);
     res.render('files/files', Object.assign({
         title: 'Dateien',
         path: res.locals.files.path,
@@ -461,16 +462,21 @@ router.post('/permissions/', function (req, res, next) {
 });
 
 router.get('/search/', function (req, res, next) {
-
-    // filter context
     api(req).get('/files/', {
-        qs: {name: {$regex: req.query.q}}
-    }).then(files => {
-        console.log(files);
+        qs: {
+            name: {$regex: req.query.q}
+        }
+    }).then(result => {
+        let files = result.data;
+        files.forEach(file => {
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+            file.file = pathUtils.join(file.path, file.name);
+        });
         res.render('files/search', {
             title: 'Dateisuche',
             query: req.query.q,
-            files: files.data
+            files: files
         });
     })
 });
