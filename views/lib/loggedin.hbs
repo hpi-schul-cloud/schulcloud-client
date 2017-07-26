@@ -148,12 +148,12 @@
                             </div>
                             {{#unless hideSearch}}
                             <div class="col-sm-3 hide-inline">
-                                <form class="search-wrapper" action="/content/" method="get">
+                                <form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">
                                     <a class="mobile-search-toggle">
                                         <i class="fa fa-search"></i>
                                     </a>
                                     <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control search-field" placeholder="Suche nach..." name="q" />
+                                    <input type="text" class="form-control search-field" placeholder="{{#if searchLabel}}{{searchLabel}}{{else}}Suche nach...{{/if}}" name="q" />
                                         <span class="input-group-btn">
                                             <button type="submit" class="btn btn-secondary">
                                                 <i class="fa fa-search"></i>

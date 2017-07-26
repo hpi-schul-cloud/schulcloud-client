@@ -3,22 +3,20 @@ function getCurrentDir() {
 }
 
 $(document).ready(function() {
-    var $form = $(".form-upload");
-    var $progressBar = $('.progress-bar');
-    var $progress = $progressBar.find('.bar');
-    var $percentage = $progressBar.find('.percent');
+    let $form = $(".form-upload");
+    let $progressBar = $('.progress-bar');
+    let $progress = $progressBar.find('.bar');
+    let $percentage = $progressBar.find('.percent');
 
-    var $modals = $('.modal');
-    var $editModal = $('.edit-modal');
-    var $deleteModal = $('.delete-modal');
-    var $moveModal = $('.move-modal');
+    let $modals = $('.modal');
+    let $editModal = $('.edit-modal');
+    let $deleteModal = $('.delete-modal');
+    let $moveModal = $('.move-modal');
 
-
-
-    var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
+    let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
     // TODO: replace with something cooler
-    var reloadFiles = function () {
+    let reloadFiles = function () {
         window.location.reload();
     };
 
@@ -48,7 +46,7 @@ $(document).ready(function() {
             // get signed url before processing the file
             // this is called on per-file basis
 
-            var currentDir = getCurrentDir();
+            let currentDir = getCurrentDir();
 
             $.post('/files/file', {
                 path: currentDir + file.name,
@@ -79,7 +77,7 @@ $(document).ready(function() {
             });
 
             this.on("sending", function (file, xhr, formData) {
-                var _send = xhr.send;
+                let _send = xhr.send;
                 xhr.send = function () {
                     _send.call(xhr, file);
                 };
@@ -148,7 +146,7 @@ $(document).ready(function() {
     $('a[data-method="delete"]').on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();
-        var $buttonContext = $(this);
+        let $buttonContext = $(this);
 
         $deleteModal.modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
@@ -172,33 +170,6 @@ $(document).ready(function() {
     $deleteModal.find('.close, .btn-close').on('click', function () {
         $deleteModal.modal('hide');
     });
-
-    /**$('a[data-method="move"]').on('click', function(e) {
-	e.stopPropagation();
-	e.preventDefault();
-	var $buttonContext = $(this);
-
-	$moveModal.modal('show');
-	$moveModal.find('.btn-submit').unbind('click').on('click', function() {
-	$.ajax({
-	url: $buttonContext.attr('href'),
-	type: 'MOVE',
-	data: {
-	name: $buttonContext.data('file-name'),
-	dir: $buttonContext.data('file-path')
-},
-success: function(result) {
-reloadFiles();
-},
-error: showAJAXError
-});
-});
-});
-
-     $moveModal.find('.close, .btn-close').on('click', function() {
-$moveModal.modal('hide');
-});**/
-
 
     $('.create-directory').on('click', function () {
         $editModal.modal('show');
@@ -231,9 +202,9 @@ $moveModal.modal('hide');
 
     });
 
-    var returnFileUrl = (fileName) => {
-        var fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
-        var funcNum = getQueryParameterByName('CKEditorFuncNum');
+    let returnFileUrl = (fileName) => {
+        let fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
+        let funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
         window.close();
     };
@@ -282,7 +253,7 @@ $moveModal.modal('hide');
     });
 
 });
-var $openModal = $('.open-modal');
+let $openModal = $('.open-modal');
 
 function videoClick(e) {
     e.stopPropagation();
@@ -294,7 +265,7 @@ function fileViewer(filetype, file, key) {
     switch (filetype) {
         case 'application/pdf':
             $('#file-view').hide();
-            var win = window.open('/files/file?file='+file, '_blank');
+            let win = window.open('/files/file?file='+file, '_blank');
             win.focus();
             break;
 
@@ -318,27 +289,9 @@ function fileViewer(filetype, file, key) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
-            //todo: msviewer nimmt gültige signed URL nicht an
-        /**    $('#file-view').css('display','');
-         var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
-         $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-         file = file.substring(file.lastIndexOf('/')+1);
-	 
-         $.post('/files/file?file=', {
-                path: getCurrentDir() + file,
-                type: filetype,
-                action: "getObject"
-            }, function (data) {
-                var url = data.signedUrl.url;
-                url = url.replace(/&/g, "%26");
-                openInIframe(msviewer+url);
-            })
-         .fail(showAJAXError);
-         break;**/
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
-        //case 'application/x-zip-compressed':                                                //.zip
             $('#file-view').css('display','');
-            var gviewer ="https://docs.google.com/viewer?url=";
+            let gviewer ="https://docs.google.com/viewer?url=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             file = file.substring(file.lastIndexOf('/')+1);
 		    
@@ -347,7 +300,7 @@ function fileViewer(filetype, file, key) {
                 type: filetype,
                 action: "getObject"
             }, function (data) {
-                var url = data.signedUrl.url;
+                let url = data.signedUrl.url;
                 url = url.replace(/&/g, "%26");
                 openInIframe(gviewer+url+"&embedded=true");
             })
@@ -364,7 +317,7 @@ function fileViewer(filetype, file, key) {
 //show Google-Viewer/Office online in iframe, after user query (and set cookie)
 function openInIframe(source){
     $("input.box").each(function() {
-        var mycookie = $.cookie($(this).attr('name'));
+        let mycookie = $.cookie($(this).attr('name'));
         if (mycookie && mycookie == "true") {
             $(this).prop('checked', mycookie);
             $('#link').html('<iframe class="vieweriframe" src='+source+'>' +
@@ -394,8 +347,8 @@ function openInIframe(source){
 }
 
 function writeFileSizePretty(filesize) {
-    var unit;
-    var iterator = 0;
+    let unit;
+    let iterator = 0;
 
     while (filesize > 1024) {
         filesize = Math.round((filesize / 1024) * 100) / 100;

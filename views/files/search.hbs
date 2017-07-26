@@ -1,0 +1,107 @@
+{{#extend "lib/loggedin" hideSearch="true"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/files/files.css"/>
+        <link rel="stylesheet" href="/styles/files/search.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
+        <script src="/scripts/files.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="search-parameters">
+            <form method="get">
+                <div class="search-wrapper">
+                    <div class="input-group input-group-lg">
+                        <input value="{{ query }}"
+                               name="q"
+                               type="text"
+                               class="form-control search-field"
+                               placeholder="Dateien durchsuchen..."/>
+                    </div>
+                </div>
+                <button class="btn btn-primary float-right" type="submit">Suchen</button>
+			</form>
+		</section>
+		<section class="search-results">
+			{{#if query }}
+				{{#if files}}
+					<hr>
+					<h5>Suchergebnisse für "{{ query }}"</h5>
+				{{/if}}
+			{{else}}
+				{{#if files}}
+					<hr>
+					<h5>Suchergebnisse</h5>
+				{{/if}}
+			{{/if}}
+			{{#unless files}}{{#unless suppressNoResultsMessage}}
+				<hr>
+				<h5 class="text-muted text-center">
+					<span>Keine Suchergebnisse</span>
+				</h5>
+			{{/unless}}{{/unless}}
+            <section class="file-viewer">
+                <a href="#_" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
+                                                                      $('#link').html('');
+                                                                      $('#picture').attr('src', '');
+                                                                      $('#file-view').css('display','none');">
+                    <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup="{'fluid': true}}"></video>
+                    <script src="https://vjs.zencdn.net/5.19.2/video.js"></script>
+                    <img id="picture">
+                    <div id="link"></div>
+                </a>
+            </section>
+            <section class="files">
+                <div class="row">
+                    {{#each files}}
+                        <div class="col-sm-6 col-xs-12 col-md-4">
+                            <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}">
+                                <div class="openFile">
+                                    <div class="card-block"
+                                         onclick="location.href='#file-view';
+                                                 fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}');">
+                                        <div class="card-title">
+                                            <div class="col-sm-3 no-padding">
+                                                <div class="file-preview"
+                                                     style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
+                                            </div>
+                                            <a class="title">
+                                                {{this.name}}
+                                            </a>
+                                        </div>
+                                        <div class="card-text">
+
+                                            <a href="/files/file?download=1&file={{this.file}}"
+                                               target="_blank"
+                                               data-method="download">
+                                                <i class="fa fa-cloud-download"></i>
+                                            </a>
+
+                                            <a href="/files/file/"
+                                               target="_blank"
+                                               data-method="delete"
+                                               data-file-name="{{this.name}}"
+                                               data-file-path="{{this.path}}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+
+                                            <a href="#"
+                                               class="btn-file-share"
+                                               data-file-path="{{this.key}}">
+                                                <i class="fa fa-share"></i>
+                                            </a>
+                                            <small class="file-info" id="{{this.name}}"></small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+    {{/content}}
+{{/extend}}

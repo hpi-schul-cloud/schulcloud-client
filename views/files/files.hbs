@@ -1,4 +1,4 @@
-{{#extend "lib/loggedin"}}
+{{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/"}}
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/files/files.css"/>
@@ -114,15 +114,6 @@
                                                 <i class="fa fa-cloud-download"></i>
                                             </a>
 
-                                            <!--<form action="/files/file/" method="post" class="inline">
-                                                <input type="hidden" name="_method" value="delete" />
-                                                <input type="hidden" name="name" value="{{this.name}}" />
-                                                <input type="hidden" name="path" value="{{this.path}}" />
-                                                <button type="submit" class="btn btn-secondary btn-sm {{this.class}}">
-                                                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                                                </button>
-                                            </form>-->
-
                                             <a href="/files/file/"
                                                target="_blank"
                                                data-method="delete"
@@ -144,7 +135,7 @@
                         </div>
                     {{/each}}
                 </div>
-                <div class="row create-directory">
+                <div class="row">
                     {{#if canCreateDir}}
                         <div class="col-sm-12">
 
@@ -152,7 +143,7 @@
                         <div class="col-sm-6 col-xs-12 col-md-4">
                             <div data-toggle="modal">
                                 <div>
-                                    <span class="btn btn-secondary">
+                                    <span class="btn btn-secondary create-directory">
                                         <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
                                     </span>
                                 </div>
