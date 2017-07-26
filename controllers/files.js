@@ -99,7 +99,7 @@ const getStorageContext = (req, res, options = {}) => {
         storageContext = 'users/' + res.locals.currentUser._id + '/';
     }
 
-    if (currentDir.slice(-1) != '/') currentDir = currentDir + '/';
+    if (currentDir.slice(-1) !== '/') currentDir = currentDir + '/';
     return pathUtils.join(storageContext, currentDir);
 };
 
@@ -473,6 +473,7 @@ router.get('/search/', function (req, res, next) {
             file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
             file.file = pathUtils.join(file.path, file.name);
         });
+
         res.render('files/search', {
             title: 'Dateisuche',
             query: req.query.q,
