@@ -12,9 +12,25 @@ const _subjects = require('../helpers/content/subjects.json');
 const _ = require('lodash');
 const subjects = _.mapValues(_subjects, v => ({name: v}));
 
+const moment = require("moment");
+
 // secure routes
 router.use(authHelper.authChecker);
 
+router.get('/', function (req, res, next) {
+    const query = req.query.q;
+    if (!query) {
+        return api(req).get('/contents').then(featured => {
+            return res.render('content/store', {
+                title: 'Inhalte',
+                featuredContent: featured.data.slice(0,3),
+                moment
+            });
+        });
+    }
+});
+
+/*
 router.get('/:id', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
@@ -31,7 +47,9 @@ router.get('/:id', function (req, res, next) {
         next(err);
     });
 });
+*/
 
+/*
 router.get('/', function (req, res, next) {
     const query = req.query.q;
 
@@ -39,7 +57,8 @@ router.get('/', function (req, res, next) {
     const currentPage = parseInt(req.query.p) || 1;
 
     if(!query && !req.query.filter) {
-        res.render('content/search', {
+        res.render('content/store', {
+        //res.render('content/search', {
             title: 'Inhalte',
             query,
             results: [],
@@ -110,7 +129,9 @@ router.get('/', function (req, res, next) {
             });
         });
 });
+*/
 
+/*
 router.post('/addToLesson', function (req, res, next) {
    api(req).post('/materials/', {
        json: req.body
@@ -126,5 +147,6 @@ router.post('/addToLesson', function (req, res, next) {
        });
    }); 
 });
+*/
 
 module.exports = router;
