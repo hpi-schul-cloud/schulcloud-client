@@ -6,6 +6,7 @@ if (window.opener && window.opener !== window) {
 $(document).ready(function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
+    var $featureModal = $('.feature-modal');
     var $modalForm = $('.modal-form');
 
     function showAJAXError(req, textStatus, errorThrown) {
@@ -104,14 +105,20 @@ $(document).ready(function () {
         type: 'GET',
         success: function(release) {
             let cookies = getCookiesMap(document.cookie);
+            populateModalForm($featureModal, {
+                title: 'Neue Features sind verfügbar',
+                closeLabel: 'Schließen'
+            });
             if (cookies['releaseDate']) {
                 if (release.createdAt > cookies['releaseDate']) {
                     document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-                    $.showNotification("Es sind neue Funktionen verfügbar, sehen Sie die Änderungen <a href=\"/help/#changelog\">hier</a>");
+                    $featureModal.modal('show');
+                    //$.showNotification("Es sind neue Funktionen verfügbar, sehen Sie die Änderungen <a href=\"/help/#changelog\">hier</a>");
                 }
             } else {
                 document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-                $.showNotification("Es sind neue Funktionen verfügbar, sehen Sie die Änderungen <a href=\"/help/#changelog\">hier</a>");
+                $featureModal.modal('show');
+                //$.showNotification("Es sind neue Funktionen verfügbar, sehen Sie die Änderungen <a href=\"/help/#changelog\">hier</a>");
             }
         },
         error: function(err) {
