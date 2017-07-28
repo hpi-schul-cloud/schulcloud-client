@@ -7,6 +7,7 @@
                 keine Beschreibung vorhanden
             {{/if}}
         </div>
+        {{#ifvalue teacherId value=currentUser._id}}
         <section class="section-upload" data-path="courses/{{this.courseId._id}}/homework/{{this._id}}/">
             <div class="container-fluid">
                 <div class="row">
@@ -24,6 +25,7 @@
                 </div>
             </div>
         </section>
+        {{/ifvalue}}
         <section class="files">
             <div class="row">
                 {{#each files}}
@@ -52,22 +54,23 @@
                                             <i class="fa fa-cloud-download"></i>
                                         </a>
 
-                                        <!--<form action="/files/file/" method="post" class="inline">
-                                                <input type="hidden" name="_method" value="delete" />
-                                                <input type="hidden" name="name" value="{{this.name}}" />
-                                                <input type="hidden" name="path" value="{{this.path}}" />
-                                                <button type="submit" class="btn btn-secondary btn-sm {{this.class}}">
-                                                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                                                </button>
-                                            </form>-->
-
-                                        <a href="/files/file/"
-                                           target="_blank"
-                                           data-method="delete"
-                                           data-file-name="{{this.name}}"
-                                           data-file-path="{{this.path}}">
-                                            <i class="fa fa-trash-o"></i>
-                                        </a>
+                                        {{#ifvalue @root.teacherId value=@root.currentUser._id}}
+                                            <!--<form action="/files/file/" method="post" class="inline">
+                                                    <input type="hidden" name="_method" value="delete" />
+                                                    <input type="hidden" name="name" value="{{this.name}}" />
+                                                    <input type="hidden" name="path" value="{{this.path}}" />
+                                                    <button type="submit" class="btn btn-secondary btn-sm {{this.class}}">
+                                                        <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                                                    </button>
+                                                </form>-->
+                                            <a href="/files/file/"
+                                               target="_blank"
+                                               data-method="delete"
+                                               data-file-name="{{this.name}}"
+                                               data-file-path="{{this.path}}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        {{/ifvalue}}
 
                                         <a href="#"
                                            class="btn-file-share"
