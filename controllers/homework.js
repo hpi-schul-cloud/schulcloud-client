@@ -148,10 +148,16 @@ const getCreateHandler = (service) => {
             }
             api(req).post('/fileStorage/directories', {
                 json: {
-                    path: 'courses/' + data.courseId + '/homework/' + data._id,
+                    path: 'courses/' + data.courseId + '/homework',
                 }
-            }).then(data => {
-                res.redirect(req.header('Referer'));
+            }).then(data2 => {
+                api(req).post('/fileStorage/directories', {
+                    json: {
+                        path: 'courses/' + data.courseId + '/homework/' + data._id,
+                    }
+                }).then(data3 => {
+                    res.redirect(req.header('Referer'));
+                });
             });
         }).catch(err => {
             next(err);
@@ -258,8 +264,47 @@ const getDeleteHandler = (service) => {
     };
 };
 
+const FileGetter = (req, res, next) => {
+    api(req).get('/homework/' + req.params.assignmentId, {
+    }).then(assignment => {
+        let path = '/courses/'+assignment.courseId+'/homework/'+assignment._id+'/';
+        let pathComponents = path.split('/');
+        if(pathComponents[0] === '') pathComponents = pathComponents.slice(1); // remove leading slash, if present
+        const currentDir = pathComponents.slice(2).join('/') || '/';
+
+        path = pathComponents.join('/');
+
+        return api(req).get('/fileStorage', {
+            qs: {path}
+        }).then(data => {
+            let {files, directories} = data;
+
+            files = files.map(file => {
+                file.file = pathUtils.join(file.path, file.name);
+                return file;
+            });
+
+            directories = directories.map(dir => {
+                const targetUrl = pathUtils.join(currentDir, dir.name);
+                dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+                dir.path = pathUtils.join(path, dir.name);
+                return dir;
+            });
+
+            res.locals.files = {
+                files,
+                directories,
+                path
+            };
+
+            next();
+        }).catch(err => {
+            next(err);
+        });
+    });
+};
+
 router.post('/', getCreateHandler('homework'));
-router.post('/create', getCreateHandler('homework'));
 router.patch('/:id/json', getUpdateHandler('homework'));
 router.get('/:id/json', getDetailHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
@@ -495,33 +540,7 @@ router.all('/', function (req, res, next) {
     });
 });
 
-router.get('/create', function (req, res, next) {
-    const coursesPromise = getSelectOptions(req, 'courses', {
-        $or: [
-            {userIds: res.locals.currentUser._id},
-            {teacherIds: res.locals.currentUser._id}
-        ]
-    });
-    Promise.resolve(coursesPromise).then(courses => {
-        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-        const userPromise = getSelectOptions(req, 'users', {
-            _id: res.locals.currentUser._id,
-            $populate: ['roles']
-        });
-        Promise.resolve(userPromise).then(user => {
-            const roles = user[0].roles.map(role => {
-                return role.name;
-            });
-            let isStudent = true;
-            if (roles.indexOf('student') == -1) {
-                isStudent = false;
-            }
-            res.render('homework/create', {title: 'Aufgabe erstellen', courses, isStudent});
-        });
-    });
-});
-
-router.get('/:assignmentId', function (req, res, next) {
+router.get('/:assignmentId', FileGetter, function (req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
@@ -637,7 +656,13 @@ router.get('/:assignmentId', function (req, res, next) {
                                     isStudent = false;
                                 }
                                 // Render assignment.hbs
-                                res.render('homework/assignment', Object.assign({}, assignment, {
+                                let files = res.locals.files.files;
+                                files.map(file => {
+                                    let ending = file.name.split('.').pop();
+                                    file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                                });
+                                res.render('homework/assignment', Object.assign({},
+                                    assignment, res.locals.files, {
                                     title: assignment.courseId.name + ' - ' + assignment.name,
                                     breadcrumb: [
                                         {
@@ -672,9 +697,15 @@ router.get('/:assignmentId', function (req, res, next) {
                                 {teacherIds: res.locals.currentUser._id}
                             ]
                         });
+                        let files = res.locals.files.files;
+                        files.map(file => {
+                            let ending = file.name.split('.').pop();
+                            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                        });
                         Promise.resolve(coursesPromise).then(courses => {
                         // -> Kurse stehen nun in courses
-                            res.render('homework/assignment', Object.assign({}, assignment, {
+                            res.render('homework/assignment', Object.assign({},
+                                assignment, res.locals.files, {
                                 title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                                 breadcrumb: [
                                     {
@@ -696,9 +727,15 @@ router.get('/:assignmentId', function (req, res, next) {
                             {teacherIds: res.locals.currentUser._id}
                         ]
                     });
+                    let files = res.locals.files.files;
+                    files.map(file => {
+                        let ending = file.name.split('.').pop();
+                        file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                    });
                     Promise.resolve(coursesPromise).then(courses => {
                     // -> Kurse stehen nun in courses
-                        res.render('homework/assignment', Object.assign({}, assignment, {
+                        res.render('homework/assignment', Object.assign({},
+                            assignment, res.locals.files, {
                                 title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                                 breadcrumb: [
                                     {
