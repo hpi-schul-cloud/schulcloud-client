@@ -14,11 +14,13 @@
                                         <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
                                     </div>
                                     <div class="card-block">
-                                        <h4 class="card-title">Häufig gestellte Fragen</h4>
-                                        <p class="card-text">Hier werden die meistgefragten Fragen zu dem Thema Schul-Cloud beantwortet.</p>
+                                        <div class="card-text">
+                                            <h4 class="card-title">Häufig gestellte Fragen</h4>
+                                            <p class="card-text">Hier werden die meistgefragten Fragen zu dem Thema Schul-Cloud beantwortet.</p>
+                                        </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <a href="faq" class="btn btn-primary">Zu den Fragen</a>
+                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                        <a href="/help/faq" class="btn btn-primary">Zu den Fragen</a>
                                     </div>
                                 </div>
                             </div>
@@ -28,11 +30,13 @@
                                         <img class="card-img-top circular" src="/images/login-right.png" alt="Card image cap">
                                     </div>
                                     <div class="card-block">
-                                        <h4 class="card-title">Problem melden</h4>
-                                        <p class="card-text">Sie haben ein Problem mit der Schul-Cloud? Schreiben Sie uns doch!</p>
+                                        <div class="card-text">
+                                            <h4 class="card-title">Problem melden</h4>
+                                            <p class="card-text">Sie haben ein Problem mit der Schul-Cloud? Schreiben Sie uns doch!</p>
+                                        </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <a href="#" class="btn btn-primary">Problem melden</a>
+                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                        <a href="#" class="btn btn-primary submit-problem">Problem melden</a>
                                     </div>
                                 </div>
                             </div>
@@ -42,11 +46,13 @@
                                         <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
                                     </div>
                                     <div class="card-block">
-                                        <h4 class="card-title">Fact Sheet</h4>
-                                        <p class="card-text">Gucken Sie doch unser Fact Sheet an und finden Sie heraus was die Schul-Cloud ist und was sie nicht ist.</p>
+                                        <div class="card-text">
+                                            <h4 class="card-title">Fact Sheet</h4>
+                                            <p class="card-text">Gucken Sie doch unser Fact Sheet an und finden Sie heraus was die Schul-Cloud ist und was sie nicht ist.</p>
+                                        </div>
                                     </div>
-                                    <div class="card-footer">
-                                        <a href="#" class="btn btn-primary">Fact Sheet ansehen</a>
+                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                        <a href="/vendor/fact-sheet.pdf" target="_blank" class="btn btn-primary">Fact Sheet ansehen</a>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +60,7 @@
             </div>
         </section>
         <section class="changelog" id="changelog">
-            <h4>Neuste Features</h4>
+            <h4>Neuste Funktionen</h4>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
@@ -65,7 +71,7 @@
                                         <h5 class="mb-0">
                                             <a data-toggle="collapse" data-parent="#accordion"
                                                href="#collapse-{{@index}}"
-                                               aria-expanded="{{#ifeq @index 0}}true{{else}}false{{/ifeq}}"
+                                               {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
                                                aria-controls="collapse-{{@index}}">
                                                 <div>
                                                     {{this.name}}
@@ -76,8 +82,8 @@
                                             </a>
                                         </h5>
                                     </div>
-                                    <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show{{/ifeq}}"
-                                         role="tabpanel" aria-labelledby="heading-{{@index}}">
+                                    <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show in{{/ifeq}}"
+                                         role="tabpanel" aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
                                         <div class="card-block">
                                             {{{this.body}}}
                                         </div>

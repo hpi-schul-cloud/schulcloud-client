@@ -130,14 +130,17 @@
                                     <div class="delimiter"></div>
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-magic"
                                                                                                 aria-hidden="true"></i><a
-                                            href="/help/#changelog" class="link">Neuste Features</a></span></li>
+                                            href="/help/#changelog" class="link">Neuste Funktionen</a></span></li>
+                                    <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
+                                                                                                aria-hidden="true"></i><a
+                                            href="/help/faq" class="link">FAQ</a></span></li>
                                     <div class="delimiter"></div>
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                 aria-hidden="true"></i></i>
                                         <a href="#" class="link submit-helpdesk">Feedback</a></span></li>
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
                                                                                                 aria-hidden="true"></i></i>
-                                        <a href="#" class="link">Ein Problem melden</a></span></li>
+                                        <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
                                 </ul>
                             </div>
                         </div>
@@ -214,6 +217,12 @@
             {{#embed "lib/components/modal-form" class="feedback-modal"}}
                 {{#content "fields"}}
                     {{> "lib/forms/form-helpdesk"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="problem-modal"}}
+                {{#content "fields"}}
+                    {{> "lib/forms/form-problems"}}
                 {{/content}}
             {{/embed}}
 

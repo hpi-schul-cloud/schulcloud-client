@@ -35,11 +35,13 @@
   .h-100 {
     margin-bottom: 0px;
     text-align: center;
+    position: relative;
+    padding-bottom: 75px;
   }
 
   .circular {
-    width: 300px;
-    height: 300px;
+    max-width: 300px;
+    max-height: 300px;
     border-radius: 150px;
     -webkit-border-radius: 150px;
     -moz-border-radius: 150px;
