@@ -264,6 +264,21 @@ const getDeleteHandler = (service) => {
     };
 };
 
+const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
+    const urlParts = url.parse(originalUrl, true);
+
+    Object.keys(params).forEach(param => {
+        urlParts.query[param] = params[param];
+    });
+
+    if(pathname) {
+        urlParts.pathname = pathname;
+    }
+
+    delete urlParts.search;
+    return url.format(urlParts);
+};
+
 const FileGetter = (req, res, next) => {
     api(req).get('/homework/' + req.params.assignmentId, {
     }).then(assignment => {
