@@ -1,3 +1,7 @@
+function getCurrentDir() {
+    return $('.section-upload').data('path');
+}
+
 $(document).ready(function() {
     var $form = $(".form-upload");
     var $progressBar = $('.progress-bar');
@@ -35,9 +39,6 @@ $(document).ready(function() {
         return fullPath.split("/").slice(0, -1).join('/');
     }
 
-    function getCurrentDir() {
-        return $('.section-upload').data('path');
-    }
 
     let progressBarActive = false;
     let finishedFilesSize = 0;
@@ -103,7 +104,20 @@ $(document).ready(function() {
 
             this.on("success", function (file, response) {
                 finishedFilesSize += file.size;
+
+                // post file meta to proxy file service for persisting data
+                $.post('/files/fileModel', {
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    path: file.signedUrl.header['x-amz-meta-path'] + '/',
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
+                    thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
+                });
+
                 this.removeFile(file);
+
             });
 
             this.on("dragover", function (file, response) {
@@ -237,7 +251,7 @@ $moveModal.modal('hide');
                 key: path
             },
             success: function(data) {
-                let target = `files/file?path=${data.key}&shared=true`;
+                let target = `files/file?path=${data.key}&share=${data.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
@@ -272,7 +286,7 @@ function videoClick(e) {
     e.preventDefault();
 }
 
-function fileViewer(filetype, file) {
+function fileViewer(filetype, file, key) {
     $('#my-video').css("display","none");
     switch (filetype) {
         case 'application/pdf':
@@ -301,27 +315,40 @@ function fileViewer(filetype, file) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
-            $('#file-view').css('display','');
-            var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
-            var url = window.location.href;
-            url = url.substr(0, url.lastIndexOf("/"));
-            url = url.substr(0, url.lastIndexOf("/"));
-            url += "/files/file?file=" + file;
-            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
-            openInIframe(msviewer+url);
-            break;
-
+            //todo: msviewer nimmt gültige signed URL nicht an
+        /**    $('#file-view').css('display','');
+         var msviewer = "https://view.officeapps.live.com/op/embed.aspx?src=";
+         $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Microsoft Office Online ansehen?");
+         file = file.substring(file.lastIndexOf('/')+1);
+	 
+         $.post('/files/file?file=', {
+                path: getCurrentDir() + file,
+                type: filetype,
+                action: "getObject"
+            }, function (data) {
+                var url = data.signedUrl.url;
+                url = url.replace(/&/g, "%26");
+                openInIframe(msviewer+url);
+            })
+         .fail(showAJAXError);
+         break;**/
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
-        case 'application/octet-stream':                                                    //.psd
-        case 'application/x-zip-compressed':                                                //.zip
+        //case 'application/x-zip-compressed':                                                //.zip
             $('#file-view').css('display','');
             var gviewer ="https://docs.google.com/viewer?url=";
-            var url = window.location.href;
-            url = url.substr(0, url.lastIndexOf("/"));
-            url = url.substr(0, url.lastIndexOf("/"));
-            url += "/files/file?file=" + file;
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            openInIframe(gviewer+url+"&embedded=true");
+            file = file.substring(file.lastIndexOf('/')+1);
+		    
+            $.post('/files/file?file=', {
+                path: getCurrentDir() + file,
+                type: filetype,
+                action: "getObject"
+            }, function (data) {
+                var url = data.signedUrl.url;
+                url = url.replace(/&/g, "%26");
+                openInIframe(gviewer+url+"&embedded=true");
+            })
+                .fail(showAJAXError);
             break;
 
         default:
@@ -361,8 +388,6 @@ function openInIframe(source){
             });
         }
     });
-
-
 }
 
 function writeFileSizePretty(filesize) {

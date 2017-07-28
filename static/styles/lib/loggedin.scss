@@ -70,6 +70,7 @@ aside.nav-sidebar {
             list-style-type: none;
             padding: 0px;
             margin: 0px;
+            overflow-y: auto;
 
             li {
                 width: 100%;
@@ -373,6 +374,17 @@ footer {
     }
 }
 
+.qr-code-action {
+    .btn {
+        border: none;
+        line-height: 30px;
+    }
+
+    .dropdown-menu {
+        padding: 15px;
+        padding-bottom: 9px;
+    }
+}
 
 .notification-dropdown {
     .btn {

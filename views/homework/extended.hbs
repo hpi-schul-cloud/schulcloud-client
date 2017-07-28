@@ -1,7 +1,11 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
     <div class="homework">
         <div class="description">
-            {{{this.description}}}
+            {{#if this.description}}
+                {{{this.description}}}
+            {{else}}
+                keine Beschreibung vorhanden
+            {{/if}}
         </div>
         <section class="section-upload" data-path="course/{{this.courseId._id}}/homework/{{this._id}}/">
             <div class="container-fluid">
@@ -21,13 +25,14 @@
             </div>
         </section>
         {{#ifvalue teacherId value=currentUser._id}}
-            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json">Bearbeiten</a>
+            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
             <a class="btn btn-primary btn-delete" 
                 href="/homework/{{_id}}"
                 redirect="/homework"
                 target="_blank" 
                 data-method="delete-material" 
-                data-name="{{title}}">
+                data-name="{{title}}"
+                alt="Löschen der Aufgabe: '{{title}}'.">
                 Löschen
             </a>
         {{/ifvalue}}
@@ -43,7 +48,6 @@
                 <button type="button" class="btn btn-secondary btn-close">
                     Abbrechen
                 </button>
-
                 <button type="submit" class="btn btn-primary btn-submit">
                     Löschen
                 </button>
