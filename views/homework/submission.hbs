@@ -29,6 +29,23 @@
         </div>
 	{{#if submittable}}
 		<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
-	</form>
+	    </form>
+        <section class="section-upload" data-path="{{path}}">
+            <div class="container-fluid">
+                <div class="row">
+                    <form class="form-upload dz-clickable" action="/files/upload/">
+                        <div class="dz-default dz-message" data-dz-message="">
+                            <span><i class="fa fa-cloud-upload dz-clickable"></i> Dateien zum Hochladen ablegen.</span>
+                        </div>
+                    </form>
+                    <div class="progress-bar">
+                        <div class="progress">
+                            <span class="percent"></span>
+                            <div class="bar" style="width:0%">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 	{{/if}}
 </section>

@@ -2,6 +2,11 @@
  * One Controller per layout view
  */
 
+const fs = require('fs');
+const pathUtils = require('path').posix;
+const url = require('url');
+const mime = require('mime');
+const rp = require('request-promise');
 const express = require('express');
 const router = express.Router();
 const marked = require('marked');
@@ -9,6 +14,33 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
+const multer  = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+
+const thumbs = {
+    default: "/images/thumbs/default.png",
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.Dateipng"
+};
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -103,7 +135,13 @@ const getCreateHandler = (service) => {
                             `${req.headers.origin}/homework/${data._id}`);
                     });
             }
-            res.redirect(req.header('Referer'));
+            api(req).post('/fileStorage/directories', {
+                json: {
+                    path: 'courses/' + data.courseId + '/homework/' + data._id,
+                }
+            }).then(data => {
+                res.redirect(req.header('Referer'));
+            });
         }).catch(err => {
             next(err);
         });
@@ -200,6 +238,7 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', getCreateHandler('homework'));
+router.post('/create', getCreateHandler('homework'));
 router.patch('/:id/json', getUpdateHandler('homework'));
 router.get('/:id/json', getDetailHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
@@ -396,6 +435,32 @@ router.all('/', function (req, res, next) {
                 // Render Overview
                 res.render('homework/overview', {title: 'Meine Aufgaben', assignments, courses, isStudent, sortmethods});
             });
+        });
+    });
+});
+
+router.get('/create', function (req, res, next) {
+    const coursesPromise = getSelectOptions(req, 'courses', {
+        $or: [
+            {userIds: res.locals.currentUser._id},
+            {teacherIds: res.locals.currentUser._id}
+        ]
+    });
+    Promise.resolve(coursesPromise).then(courses => {
+        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+        const userPromise = getSelectOptions(req, 'users', {
+            _id: res.locals.currentUser._id,
+            $populate: ['roles']
+        });
+        Promise.resolve(userPromise).then(user => {
+            const roles = user[0].roles.map(role => {
+                return role.name;
+            });
+            let isStudent = true;
+            if (roles.indexOf('student') == -1) {
+                isStudent = false;
+            }
+            res.render('homework/create', {title: 'Aufgabe erstellen', courses, isStudent});
         });
     });
 });

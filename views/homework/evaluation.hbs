@@ -43,6 +43,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Speichern</button>
                 </form>
+                <form action="/files/upload/" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" />
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                </form>
             {{else}}
                 <b class="grade">{{{this.submission.gradeText}}}</b>
                 <div class="comment">

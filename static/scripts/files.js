@@ -9,8 +9,6 @@ $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
     var $moveModal = $('.move-modal');
 
-
-
     var isCKEditor = window.location.href.indexOf('CKEditor=') != -1;
 
     // TODO: replace with something cooler
@@ -24,6 +22,7 @@ $(document).ready(function() {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn");
         } else {
+
             $.showNotification(errorThrown, "danger");
         }
     }
@@ -46,9 +45,7 @@ $(document).ready(function() {
         accept: function (file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
-
             var currentDir = getCurrentDir();
-
             $.post('/files/file', {
                 path: currentDir + file.name,
                 type: file.type

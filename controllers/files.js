@@ -209,6 +209,7 @@ router.post('/file', getSignedUrl);
 router.post('/upload', upload.single('upload'), function (req, res, next) {
     let _path;
     return getSignedUrl(req, null, next).then(({signedUrl, path}) => {
+        console.log(signedUrl);
         _path = path;
         return rp.put({
             url: signedUrl.url,
