@@ -19,16 +19,20 @@
         <script type="text/javascript" src="/scripts/notificationService/index.js" defer></script>
 
         <script type="text/javascript">
-            window.addEventListener('DOMContentLoaded', function () {
-                setupFirebasePush();
-            });
+        window.addEventListener('DOMContentLoaded', function() {
+            setupFirebasePush();
+            $('.sidebar-list').css({"height": window.innerHeight});
+        });
+        window.addEventListener("resize", function () {
+            $('.sidebar-list').css({"height": window.innerHeight});
+        });
         </script>
     {{/content}}
 
     {{#content "body"}}
         <aside class="nav-sidebar hide-inline">
             <nav>
-                <ul>
+                <ul class="sidebar-list">
                     <li>
                         <div class="sc-branding">
                             <i class="fa fa-cloud" aria-hidden="true"></i>
