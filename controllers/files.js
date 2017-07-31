@@ -40,6 +40,10 @@ const thumbs = {
     tiff: "/images/thumbs/tiffs.png"
 };
 
+const filterQueries = {
+  pics: {$regex: 'image'}
+};
+
 const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
@@ -461,10 +465,14 @@ router.post('/permissions/', function (req, res, next) {
 });
 
 router.get('/search/', function (req, res, next) {
+    const { query, filter } = req.query;
+
+    let filterQuery = filter ?
+        {type: filterQueries[filter]} :
+        {name: {$regex: query}};
+    
     api(req).get('/files/', {
-        qs: {
-            name: {$regex: req.query.q}
-        }
+        qs: filterQuery
     }).then(result => {
         let files = result.data;
         files.forEach(file => {
