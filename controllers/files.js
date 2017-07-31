@@ -325,7 +325,6 @@ router.get('/', FileGetter, function (req, res, next) {
         let ending = file.name.split('.').pop();
         file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
     });
-    console.log(res.locals.files);
     res.render('files/files', Object.assign({
         title: 'Dateien',
         path: res.locals.files.path,
@@ -479,7 +478,7 @@ router.get('/search/', function (req, res, next) {
             query: req.query.q,
             files: files
         });
-    })
+    });
 });
 
 /**** File and Directory proxy models ****/

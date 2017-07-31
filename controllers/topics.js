@@ -74,8 +74,8 @@ router.post('/:id/share', function (req, res, next) {
         topic.shareToken = topic.shareToken || shortid.generate();
         api(req).patch("/lessons/" + req.params.id, {json: topic})
             .then(result => res.json(result))
-            .catch(err => {res.err(err)});
-    })
+            .catch(err => {res.err(err);});
+    });
 });
 
 
