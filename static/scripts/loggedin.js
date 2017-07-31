@@ -6,10 +6,13 @@ if (window.opener && window.opener !== window) {
 $(document).ready(function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
+    var $featureModal = $('.feature-modal');
+    var $problemModal = $('.problem-modal');
     var $modalForm = $('.modal-form');
 
     function showAJAXError(req, textStatus, errorThrown) {
         $feedbackModal.modal('hide');
+        $problemModal.modal('hide');
         if(textStatus==="timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
         } else {
@@ -17,8 +20,8 @@ $(document).ready(function () {
         }
     }
 
-    function showAJAXSuccess(message) {
-        $feedbackModal.modal('hide');
+    function showAJAXSuccess(message, modal) {
+        modal.modal('hide');
         $.showNotification(message, "success", true);
     }
 
@@ -36,9 +39,13 @@ $(document).ready(function () {
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
-        var email= 'schul-cloud-support@hpi.de';
-        var subject = 'Feedback';
-        var content = { text: createFeedbackMessage(modal)};
+        let type = (modal[0].className.includes('feedback-modal')) ? 'feedback' : 'problem';
+
+        let email = 'schul-cloud-support@hpi.de';
+        let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
+        let text = (type === 'feedback') ? createFeedbackMessage(modal) : modal.find('#message').val();
+        let content = { text: text};
+        let category = modal.find('#category').val();
 
         $.ajax({
             url: '/helpdesk',
@@ -47,10 +54,12 @@ $(document).ready(function () {
                 email: email,
                 modalEmail: modal.find('#email').val(),
                 subject: subject,
-                content: content
+                content: content,
+                type: type,
+                category: category
             },
             success: function(result) {
-                showAJAXSuccess("Feedback erfolgreich versendet!")
+                showAJAXSuccess("Feedback erfolgreich versendet!", modal)
             },
             error: showAJAXError
         });
@@ -75,6 +84,20 @@ $(document).ready(function () {
         $feedbackModal.find('#title-area').html(area);
     });
 
+    $('.submit-problem').on('click', function (e) {
+        e.preventDefault();
+
+        $('.problem-modal').find('.btn-submit').prop("disabled", false);
+        populateModalForm($problemModal, {
+            title: 'Problem melden',
+            closeLabel: 'Schließen',
+            submitLabel: 'Senden'
+        });
+
+        $problemModal.find('.modal-form').on('submit', sendFeedback.bind(this, $problemModal));
+        $problemModal.modal('show');
+    });
+
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
     });
@@ -97,5 +120,29 @@ $(document).ready(function () {
         let $qrbox = $('.qr-show');
         $qrbox.empty();
         $qrbox.append(el);
+    });
+
+    $.ajax({
+        url: '/help/releases',
+        type: 'GET',
+        success: function(release) {
+            let cookies = getCookiesMap(document.cookie);
+            populateModalForm($featureModal, {
+                title: 'Neue Features sind verfügbar',
+                closeLabel: 'Schließen'
+            });
+            if (cookies['releaseDate']) {
+                if (release.createdAt > cookies['releaseDate']) {
+                    document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                    $featureModal.modal('show');
+                }
+            } else {
+                document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                $featureModal.modal('show');
+            }
+        },
+        error: function(err) {
+            console.log(err);
+        }
     });
 });
