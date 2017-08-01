@@ -1,0 +1,104 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/help/help.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="faqpanel">
+            <div class="container-fluid">
+                <div class="row">
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="card h-100">
+                                    <div class="img-out">
+                                        <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="card-text">
+                                            <h4 class="card-title">Häufig gestellte Fragen</h4>
+                                            <p class="card-text">Hier werden die meistgefragten Fragen zu dem Thema Schul-Cloud beantwortet.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                        <a href="/help/faq" class="btn btn-primary">Zu den Fragen</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="card h-100">
+                                    <div class="img-out">
+                                        <img class="card-img-top circular" src="/images/login-right.png" alt="Card image cap">
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="card-text">
+                                            <h4 class="card-title">Problem melden</h4>
+                                            <p class="card-text">Sie haben ein Problem mit der Schul-Cloud? Schreiben Sie uns doch!</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                        <a href="#" class="btn btn-primary submit-problem">Problem melden</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6 col-xs-12">
+                                <div class="card h-100">
+                                    <div class="img-out">
+                                        <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
+                                    </div>
+                                    <div class="card-block">
+                                        <div class="card-text">
+                                            <h4 class="card-title">Fact Sheet</h4>
+                                            <p class="card-text">Gucken Sie doch unser Fact Sheet an und finden Sie heraus was die Schul-Cloud ist und was sie nicht ist.</p>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                        <a href="/vendor/fact-sheet.pdf" target="_blank" class="btn btn-primary">Fact Sheet ansehen</a>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </section>
+        <section class="changelog" id="changelog">
+            <h4>Neuste Funktionen</h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div id="accordion" role="tablist" aria-multiselectable="true">
+                            {{#each release}}
+                                <div class="card">
+                                    <div class="card-header" role="tab" id="heading-{{@index}}">
+                                        <h5 class="mb-0">
+                                            <a data-toggle="collapse" data-parent="#accordion"
+                                               href="#collapse-{{@index}}"
+                                               {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
+                                               aria-controls="collapse-{{@index}}">
+                                                <div>
+                                                    {{this.name}}
+                                                    <span class="text-muted author">
+                                                        {{this.publishedAt}}
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show in{{/ifeq}}"
+                                         role="tabpanel" aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
+                                        <div class="card-block">
+                                            {{{this.body}}}
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="{{this.url}}" target="_blank">Weiterlesen</a>
+                                            <span class="author"><i class="fa fa-user"></i><a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    {{/content}}
+{{/extend}}
