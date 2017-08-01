@@ -40,8 +40,18 @@ const thumbs = {
     tiff: "/images/thumbs/tiffs.png"
 };
 
+const filterOptions = [
+    {key: 'pics', label: 'Bilder'},
+    {key: 'videos', label: 'Videos'},
+    {key: 'pdfs', label: 'PDF Dokumente'},
+    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
+];
+
 const filterQueries = {
-  pics: {$regex: 'image'}
+    pics: {$regex: 'image'},
+    videos: {$regex: 'video'},
+    pdfs: {$regex: 'pdf'},
+    msoffice: {$regex: 'officedocument'}
 };
 
 const requestSignedUrl = (req, data) => {
@@ -481,9 +491,11 @@ router.get('/search/', function (req, res, next) {
             file.file = pathUtils.join(file.path, file.name);
         });
 
+        let filterOption = filterOptions.filter(f => f.key === filter)[0];
+
         res.render('files/search', {
             title: 'Dateisuche',
-            query: req.query.q,
+            query: filterOption ? filterOption.label : req.query.q,
             files: files
         });
     });
