@@ -1,0 +1,29 @@
+<div class="form-group">
+    <label class="control-label" for="title">Titel für Ihre Anfrage</label>
+    <input type="text" name="title" id="title" placeholder="Titel für Ihre Anfrage" class="form-control" required>
+</div>
+<div class="form-group">
+    <label class="control-label" for="email">Ihre E-Mail-Adresse</label>
+    <input type="email"
+           name="email"
+           id="email"
+           size="30"
+           maxlength="60"
+           placeholder="Ihre E-Mail-Adresse"
+           class="form-control" required>
+</div>
+<div class="form-group">
+    <label class="control-label" for="message">Ihr Anliegen</label>
+    <textarea class="form-control" id="message" cols="50" name="message" rows="6" required>
+    </textarea>
+</div>
+<div class="form-group">
+    <select data-placeholder="Kategorie wählen" class="form-control" name="category" id="category">
+        <optgroup label="Allgemeines">
+            <option value="general">Allgemeines</option>
+        </optgroup>
+        <optgroup label="Technisches">
+            <option value="technical_problem">Technische Probleme</option>
+        </optgroup>
+    </select>
+</div>
