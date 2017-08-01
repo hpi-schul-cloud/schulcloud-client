@@ -209,8 +209,8 @@ const getCSVImportHandler = (service) => {
             return api(req).post('/' + service + '/', {
                 json: user
             })
-                .then(_ => {
-                    sendMailHandler(user, req);
+                .then(newUser => {
+                    sendMailHandler(newUser, req);
                 });
         });
 
