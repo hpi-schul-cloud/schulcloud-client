@@ -1,4 +1,4 @@
-const userHasPermission = (user, permissions) => {
+const userHasPermission = (user, permissions, operator) => {
     if(!Array.isArray(permissions)) {
         permissions = [permissions];
     }
@@ -6,15 +6,22 @@ const userHasPermission = (user, permissions) => {
     if(!user) return false;
 
     const userPermissions = user.permissions || [];
-    return permissions.every((permission) => {
-        return userPermissions.includes(permission);
-    });
+
+    if (operator === 'or') {
+        return permissions.some((permission) => { // one permission has to match
+            return userPermissions.includes(permission);
+        });
+    } else {
+        return permissions.every((permission) => { // every permission has to match
+            return userPermissions.includes(permission);
+        });
+    }
 };
 
 module.exports = {
     userHasPermission,
-    permissionsChecker: (permission) => (req, res, next) => {
-        if(userHasPermission(res.locals.currentUser, permission)) {
+    permissionsChecker: (permission, operator) => (req, res, next) => {
+        if (userHasPermission(res.locals.currentUser, permission, operator)) {
             return next();
         }
 

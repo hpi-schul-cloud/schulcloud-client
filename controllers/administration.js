@@ -380,14 +380,9 @@ const sendMailHandler = (user, req) => {
 
 // secure routes
 router.use(authHelper.authChecker);
-router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 
-
-router.patch('/schools/:id', getUpdateHandler('schools'));
-
-router.post('/schools/:id/bucket', createBucket);
-
-router.all('/', function (req, res, next) {
+// teacher admin permissions
+router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
     api(req).get('/schools/' + res.locals.currentSchool).then(data => {
         let provider = getStorageProviders();
         provider = (provider || []).map(prov => {
@@ -405,8 +400,100 @@ router.all('/', function (req, res, next) {
         res.render('administration/school', {title: 'Administration: Allgemein', school: data, provider, ssoTypes});
     });
 });
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'));
+router.patch('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
+router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
+router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
+router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 
+router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
+    const itemsPerPage = 10;
+    const currentPage = parseInt(req.query.p) || 1;
+
+    api(req).get('/users', {
+        qs: {
+            roles: ['teacher'],
+            $populate: ['roles'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1)
+        }
+    }).then(data => {
+        const head = [
+            'Vorname',
+            'Nachname',
+            'E-Mail-Adresse',
+            ''
+        ];
+
+        const body = data.data.map(item => {
+            return [
+                item.firstName,
+                item.lastName,
+                item.email,
+                getTableActions(item, '/administration/teachers/')
+            ];
+        });
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/teachers/?p={{page}}'
+        };
+
+        res.render('administration/teachers', {title: 'Administration: Lehrer', head, body, pagination});
+    });
+});
+
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getCreateHandler('users'));
+router.patch('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getUpdateHandler('users'));
+router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
+router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
+
+router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+
+    const itemsPerPage = 10;
+    const currentPage = parseInt(req.query.p) || 1;
+
+    api(req).get('/users', {
+        qs: {
+            roles: ['student'],
+            $populate: ['roles'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1)
+        }
+    }).then(data => {
+        const head = [
+            'Vorname',
+            'Nachname',
+            'E-Mail-Adresse',
+            ''
+        ];
+
+        const body = data.data.map(item => {
+            return [
+                item.firstName,
+                item.lastName,
+                item.email,
+                getTableActions(item, '/administration/students/')
+            ];
+        });
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/students/?p={{page}}'
+        };
+
+        res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination});
+    });
+});
+
+// general admin permissions
+router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
+router.patch('/schools/:id', getUpdateHandler('schools'));
+router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
 router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
@@ -525,98 +612,6 @@ router.all('/classes', function (req, res, next) {
                 pagination
             });
         });
-    });
-});
-
-
-router.post('/teachers/', getCreateHandler('users'));
-router.patch('/teachers/:id', getUpdateHandler('users'));
-router.get('/teachers/:id', getDetailHandler('users'));
-router.delete('/teachers/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
-router.post('/teachers/import/', upload.single('csvFile'), getCSVImportHandler('users'));
-
-router.all('/teachers', function (req, res, next) {
-
-    const itemsPerPage = 10;
-    const currentPage = parseInt(req.query.p) || 1;
-
-    api(req).get('/users', {
-        qs: {
-            roles: ['teacher'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
-        }
-    }).then(data => {
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getTableActions(item, '/administration/teachers/')
-            ];
-        });
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/teachers/?p={{page}}'
-        };
-
-        res.render('administration/teachers', {title: 'Administration: Lehrer', head, body, pagination});
-    });
-});
-
-
-router.post('/students/', getCreateHandler('users'));
-router.patch('/students/:id', getUpdateHandler('users'));
-router.get('/students/:id', getDetailHandler('users'));
-router.post('/students/import/', upload.single('csvFile'), getCSVImportHandler('users'));
-router.delete('/students/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
-
-router.all('/students', function (req, res, next) {
-
-    const itemsPerPage = 10;
-    const currentPage = parseInt(req.query.p) || 1;
-
-    api(req).get('/users', {
-        qs: {
-            roles: ['student'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
-        }
-    }).then(data => {
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getTableActions(item, '/administration/students/')
-            ];
-        });
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/students/?p={{page}}'
-        };
-
-        res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination});
     });
 });
 
