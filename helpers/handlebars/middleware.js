@@ -28,8 +28,7 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-    // TODO: based on permissions
-
+    // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',
         icon: 'th-large',
@@ -74,6 +73,27 @@ module.exports = (req, res, next) => {
         link: '/content/'
     }];
 
+    // teacher views
+    res.locals.sidebarItems.push({
+        name: 'Verwaltung',
+        icon: 'cogs',
+        link: '/administration/',
+        permission: 'STUDENT_CREATE',
+        children: [
+            {
+                name: 'Schüler',
+                icon: 'users',
+                link: '/administration/students/',
+            },
+            {
+                name: 'Lehrer',
+                icon: 'users',
+                link: '/administration/teachers/',
+            },
+        ]
+    });
+
+    // admin views
     res.locals.sidebarItems.push({
         name: 'Administration',
         icon: 'cogs',
