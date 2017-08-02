@@ -174,6 +174,7 @@ const getCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
+            (service === 'users') ? sendMailHandler(data, req) : "";
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -190,7 +191,7 @@ const getCSVImportHandler = (service) => {
 
         try {
             csvData = decoder.write(req.file.buffer);
-            records = parse(csvData, {columns: true, delimiter: ';'});
+            records = parse(csvData, {columns: true, delimiter: ','});
         } catch(err) {
             req.session.notification = {
                 type: 'danger',
@@ -207,7 +208,10 @@ const getCSVImportHandler = (service) => {
             user = Object.assign(user, groupData);
             return api(req).post('/' + service + '/', {
                 json: user
-            });
+            })
+                .then(newUser => {
+                    sendMailHandler(newUser, req);
+                });
         });
 
         Promise.all(recordPromises).then(_ => {
@@ -339,8 +343,8 @@ const createBucket = (req, res, next) => {
     }
 };
 
-const sendMailHandler = (req, res, next) => {
-    let createdUser = res.locals.createdUser;
+const sendMailHandler = (user, req) => {
+    let createdUser = user;
     let email = createdUser.email;
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
@@ -368,12 +372,8 @@ const sendMailHandler = (req, res, next) => {
                     content: content
                 }
             }).then(_ => {
-                next();
-            }).catch(err => {
-                res.status((err.statusCode || 500)).send(err);
+                return true;
             });
-        } else {
-            next(err);
         }
     });
 };
@@ -529,7 +529,7 @@ router.all('/classes', function (req, res, next) {
 });
 
 
-router.post('/teachers/', getCreateHandler('users'), sendMailHandler);
+router.post('/teachers/', getCreateHandler('users'));
 router.patch('/teachers/:id', getUpdateHandler('users'));
 router.get('/teachers/:id', getDetailHandler('users'));
 router.delete('/teachers/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
@@ -575,7 +575,7 @@ router.all('/teachers', function (req, res, next) {
 });
 
 
-router.post('/students/', getCreateHandler('users'), sendMailHandler);
+router.post('/students/', getCreateHandler('users'));
 router.patch('/students/:id', getUpdateHandler('users'));
 router.get('/students/:id', getDetailHandler('users'));
 router.post('/students/import/', upload.single('csvFile'), getCSVImportHandler('users'));
