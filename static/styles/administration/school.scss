@@ -1,0 +1,10 @@
+@import '../lib/colors.scss';
+
+.teacher-option {
+  h4 {
+    padding-top: 20px;
+    color: $colorHPIRed
+  }
+  text-align: center;
+  cursor: pointer;
+}
