@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
         icon: 'th-large',
         link: '/dashboard/',
     }, {
-        name: 'Fächer / Kurse',
+        name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
     },
@@ -57,7 +57,7 @@ module.exports = (req, res, next) => {
         link: '/files/',
         children: [
             {
-                name: 'Fächer / Kurse',
+                name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
             },
