@@ -475,11 +475,11 @@ router.post('/permissions/', function (req, res, next) {
 });
 
 router.get('/search/', function (req, res, next) {
-    const { query, filter } = req.query;
+    const { q, filter } = req.query;
 
     let filterQuery = filter ?
         {type: filterQueries[filter]} :
-        {name: {$regex: query}};
+        {name: {$regex: q}};
     
     api(req).get('/files/', {
         qs: filterQuery
@@ -495,7 +495,7 @@ router.get('/search/', function (req, res, next) {
 
         res.render('files/search', {
             title: 'Dateisuche',
-            query: filterOption ? filterOption.label : req.query.q,
+            query: filterOption ? filterOption.label : q,
             files: files
         });
     });

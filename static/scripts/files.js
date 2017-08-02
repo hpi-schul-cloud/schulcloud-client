@@ -186,6 +186,24 @@ $(document).ready(function() {
         }
     });
 
+    $('.file-search').click(function () {
+        let $input_field =  $(this);
+        let $parent = $input_field.parent().parent();
+
+        // add filter fields below file-search-bar
+        const filterOptions = [
+            {key: 'pics', label: 'Bilder'},
+            {key: 'videos', label: 'Videos'},
+            {key: 'pdfs', label: 'PDF Dokumente'},
+            {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
+        ];
+
+        filterOptions.forEach(fo => {
+            let $newFilterOption = $(`<div data-key="${fo.key}" class="filter-option" onClick="location.href = '/files/search?filter=${fo.key}'">${fo.label}</div>`);
+           $parent.append($newFilterOption);
+        });
+    });
+
     $editModal.find('.modal-form').on('submit', function (e) {
         e.preventDefault();
         $.post('/files/directory', {
