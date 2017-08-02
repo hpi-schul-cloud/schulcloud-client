@@ -237,6 +237,10 @@
         padding: 10px 15px 10px 15px;
         cursor: pointer;
     }
+    .filter-option:hover {
+        background-color: $colorHPIRed;
+        color: white;
+    }
 }
 
 
