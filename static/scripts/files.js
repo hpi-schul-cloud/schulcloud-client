@@ -198,10 +198,26 @@ $(document).ready(function() {
             {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
         ];
 
+        let $filterOptionsDiv = $('<div class="filter-options"></div>');
+
         filterOptions.forEach(fo => {
-            let $newFilterOption = $(`<div data-key="${fo.key}" class="filter-option" onClick="location.href = '/files/search?filter=${fo.key}'">${fo.label}</div>`);
-           $parent.append($newFilterOption);
+            let $newFilterOption = $(`<div data-key="${fo.key}" class="filter-option" onClick="location.href = '/files/search?filter=${fo.key}'"></div>`);
+            let $newFilterLabel = $(`<span>Nach <b>${fo.label}</b> filtern</span>`);
+            $newFilterOption.append($newFilterLabel);
+
+            $filterOptionsDiv.append($newFilterOption);
         });
+
+        $filterOptionsDiv.width($('.search-wrapper').width());
+        $parent.append($filterOptionsDiv);
+    });
+
+    $('.file-search').blur(function (e) {
+        setTimeout(function() {
+            // wait for other events
+            $('.filter-options').remove();
+        }, 100);
+
     });
 
     $editModal.find('.modal-form').on('submit', function (e) {

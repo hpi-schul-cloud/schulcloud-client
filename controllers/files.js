@@ -480,7 +480,7 @@ router.get('/search/', function (req, res, next) {
     let filterQuery = filter ?
         {type: filterQueries[filter]} :
         {name: {$regex: q}};
-    
+
     api(req).get('/files/', {
         qs: filterQuery
     }).then(result => {

@@ -226,3 +226,17 @@
     width: 100%;
     float: left;
 }
+
+.filter-options {
+    background: white;
+    position: absolute;
+    z-index: 5;
+    .filter-option {
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .1rem;
+        padding: 10px 15px 10px 15px;
+        cursor: pointer;
+    }
+}
+
+
