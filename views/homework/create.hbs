@@ -1,0 +1,54 @@
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/homework/homework.css"/>
+    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+{{/content}}
+{{#content "scripts" mode="append"}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" type="text/javascript" defer></script>
+    <script src="/vendor/ckeditor/ckeditor.js" type="text/javascript" defer></script>
+    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
+    <script src="/scripts/files.js" type="text/javascript" defer></script>
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            CKEDITOR.replace($('.dropzone').find("textarea")[0], {
+                mathJaxLib: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
+                extraPlugins: 'mathjax',
+                toolbarGroups: [
+                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
+                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
+                    {name: 'links', groups: ['links']},
+                    {name: 'insert', groups: ['insert']},
+                    {name: 'document', groups: ['mode', 'document', 'doctools']},
+                    {name: 'clipboard', groups: ['clipboard', 'undo']},
+                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
+                    {name: 'forms', groups: ['forms']},
+                    {name: 'tools', groups: ['tools']},
+                    {name: 'others', groups: ['others']},
+                    {name: 'styles', groups: ['styles']},
+                    {name: 'colors', groups: ['colors']},
+                    {name: 'about', groups: ['about']}
+                ],
+                removeButtons: 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source'
+            });
+
+            $.datetimepicker.setLocale('de');
+            $('input[data-datetime]').datetimepicker({
+                format:'d.m.Y H:i',
+                mask: '39.19.9999 29:59'
+            });
+
+        });
+    </script>
+{{/content}}
+{{#extend "homework/homework"}}
+    {{#content "page"}}
+        <div class="route-homework">
+            <section class="section-homework">
+                <form method="post" action="#" id="myDropzone" class="form-upload dz-clickable" enctype="multipart/form-data">
+                    {{> "homework/form-assignment"}}
+                    <button type="submit" class="btn btn-primary btn-submit">Erstellen</button>
+                </form>
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}

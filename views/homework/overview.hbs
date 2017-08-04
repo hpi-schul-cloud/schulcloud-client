@@ -6,6 +6,7 @@
 {{#content "scripts" mode="append"}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.7.23/webcomponents-lite.min.js" defer></script>
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
     <script src="/scripts/moment/moment.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
@@ -74,7 +75,7 @@
                     <div class="row"><div class="col-lg-8">
                         {{#each assignments}}
                             <li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-                                <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
+                                <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
                                     <div class="dates">
                                         {{#if this.dueString}}
                                             <span class="{{this.dueColor}}">{{this.dueString}}</span>
@@ -116,7 +117,7 @@
                                         </div>
                                     </a>
                                 {{/if}}
-                                <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
+                                <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
                                     <h5 class="title">
                                         {{#if this.courseId}}
                                             [<span>{{this.courseId.name}}</span>] -
@@ -168,7 +169,7 @@
                         {{> "homework/form-assignment"}}
                     {{/content}}
                 {{/embed}}
-                {{#embed "lib/components/modal-form" method="post" class="add-modal" action="/homework/"}}
+                {{#embed "lib/components/modal-form" method="post" class="add-modal"}}
                     {{#content "fields"}}
                         {{> "homework/form-assignment"}}
                     {{/content}}

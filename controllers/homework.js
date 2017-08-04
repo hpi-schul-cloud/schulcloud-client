@@ -2,6 +2,11 @@
  * One Controller per layout view
  */
 
+const fs = require('fs');
+const pathUtils = require('path').posix;
+const url = require('url');
+const mime = require('mime');
+const rp = require('request-promise');
 const express = require('express');
 const router = express.Router();
 const marked = require('marked');
@@ -9,6 +14,33 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
+const multer  = require('multer');
+const upload = multer({ storage: multer.memoryStorage() });
+
+const thumbs = {
+    default: "/images/thumbs/default.png",
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.Dateipng"
+};
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -114,7 +146,19 @@ const getCreateHandler = (service) => {
                             `${req.headers.origin}/homework/${data._id}`);
                     });
             }
-            res.redirect(req.header('Referer'));
+            api(req).post('/fileStorage/directories', {
+                json: {
+                    path: 'courses/' + data.courseId + '/homework',
+                }
+            }).then(data2 => {
+                api(req).post('/fileStorage/directories', {
+                    json: {
+                        path: 'courses/' + data.courseId + '/homework/' + data._id,
+                    }
+                }).then(data3 => {
+                    res.redirect(req.header('Referer'));
+                });
+            });
         }).catch(err => {
             next(err);
         });
@@ -218,6 +262,61 @@ const getDeleteHandler = (service) => {
             next(err);
         });
     };
+};
+
+const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
+    const urlParts = url.parse(originalUrl, true);
+
+    Object.keys(params).forEach(param => {
+        urlParts.query[param] = params[param];
+    });
+
+    if(pathname) {
+        urlParts.pathname = pathname;
+    }
+
+    delete urlParts.search;
+    return url.format(urlParts);
+};
+
+const FileGetter = (req, res, next) => {
+    api(req).get('/homework/' + req.params.assignmentId, {
+    }).then(assignment => {
+        let path = '/courses/'+assignment.courseId+'/homework/'+assignment._id+'/';
+        let pathComponents = path.split('/');
+        if(pathComponents[0] === '') pathComponents = pathComponents.slice(1); // remove leading slash, if present
+        const currentDir = pathComponents.slice(2).join('/') || '/';
+
+        path = pathComponents.join('/');
+
+        return api(req).get('/fileStorage', {
+            qs: {path}
+        }).then(data => {
+            let {files, directories} = data;
+
+            files = files.map(file => {
+                file.file = pathUtils.join(file.path, file.name);
+                return file;
+            });
+
+            directories = directories.map(dir => {
+                const targetUrl = pathUtils.join(currentDir, dir.name);
+                dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+                dir.path = pathUtils.join(path, dir.name);
+                return dir;
+            });
+
+            res.locals.files = {
+                files,
+                directories,
+                path
+            };
+
+            next();
+        }).catch(err => {
+            next(err);
+        });
+    });
 };
 
 router.post('/', getCreateHandler('homework'));
@@ -456,7 +555,7 @@ router.all('/', function (req, res, next) {
     });
 });
 
-router.get('/:assignmentId', function (req, res, next) {
+router.get('/:assignmentId', FileGetter, function (req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
@@ -572,7 +671,13 @@ router.get('/:assignmentId', function (req, res, next) {
                                     isStudent = false;
                                 }
                                 // Render assignment.hbs
-                                res.render('homework/assignment', Object.assign({}, assignment, {
+                                let files = res.locals.files.files;
+                                files.map(file => {
+                                    let ending = file.name.split('.').pop();
+                                    file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                                });
+                                res.render('homework/assignment', Object.assign({},
+                                    assignment, res.locals.files, {
                                     title: assignment.courseId.name + ' - ' + assignment.name,
                                     breadcrumb: [
                                         {
@@ -607,9 +712,15 @@ router.get('/:assignmentId', function (req, res, next) {
                                 {teacherIds: res.locals.currentUser._id}
                             ]
                         });
+                        let files = res.locals.files.files;
+                        files.map(file => {
+                            let ending = file.name.split('.').pop();
+                            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                        });
                         Promise.resolve(coursesPromise).then(courses => {
                         // -> Kurse stehen nun in courses
-                            res.render('homework/assignment', Object.assign({}, assignment, {
+                            res.render('homework/assignment', Object.assign({},
+                                assignment, res.locals.files, {
                                 title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                                 breadcrumb: [
                                     {
@@ -631,9 +742,15 @@ router.get('/:assignmentId', function (req, res, next) {
                             {teacherIds: res.locals.currentUser._id}
                         ]
                     });
+                    let files = res.locals.files.files;
+                    files.map(file => {
+                        let ending = file.name.split('.').pop();
+                        file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                    });
                     Promise.resolve(coursesPromise).then(courses => {
                     // -> Kurse stehen nun in courses
-                        res.render('homework/assignment', Object.assign({}, assignment, {
+                        res.render('homework/assignment', Object.assign({},
+                            assignment, res.locals.files, {
                                 title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                                 breadcrumb: [
                                     {
