@@ -51,7 +51,7 @@ const filterQueries = {
     pics: {$regex: 'image'},
     videos: {$regex: 'video'},
     pdfs: {$regex: 'pdf'},
-    msoffice: {$regex: 'officedocument'}
+    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
 };
 
 const requestSignedUrl = (req, data) => {
