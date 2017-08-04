@@ -14,6 +14,7 @@ const authHelper = require('../helpers/authentication');
 const multer = require('multer');
 const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
+const _ = require('lodash');
 
 const thumbs = {
     default: "/images/thumbs/default.png",
@@ -180,7 +181,7 @@ const getScopeDirs = (req, res, scope) => {
  */
 const registerSharedPermission = (userId, filePath, shareToken, req) => {
     // check whether sharing is enabled for given file
-    return api(req).get('/files/', {qs: {key: filePath}}).then(res => {
+    return api(req).get('/files/', {qs: {key: filePath, shareToken: shareToken}}).then(res => {
         let file = res.data[0];
 
         // verify given share token
@@ -190,11 +191,13 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
         } else {
 
             let file = res.data[0];
-            file.permissions.push({
-                userId: userId,
-                permissions: ['can-read', 'can-write'] // todo: make it selectable
-            });
-            return api(req).patch('/files/' + res.data[0]._id, {json: file});
+            if (! _.some(file.permissions, {userId: userId})) {
+                file.permissions.push({
+                    userId: userId,
+                    permissions: ['can-read', 'can-write'] // todo: make it selectable
+                });
+                return api(req).patch('/files/' + res.data[0]._id, {json: file});
+            }
         }
     });
 };
