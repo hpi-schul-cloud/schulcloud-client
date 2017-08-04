@@ -346,7 +346,7 @@ router.get('/courses/', function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Fächern und Kursen',
+            label: 'Dateien aus meinen Kursen',
             url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/courses/')
         });
 
@@ -373,7 +373,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
         const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Fächern und Kursen',
+            label: 'Dateien aus meinen Kursen',
             url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
         }, {
             label: record.name,
