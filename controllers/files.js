@@ -482,7 +482,7 @@ router.get('/search/', function (req, res, next) {
 
     let filterQuery = filter ?
         {type: filterQueries[filter]} :
-        {name: {$regex: q, $options: 'i'}};
+        {name: {$regex: _.escapeRegExp(q) , $options: 'i'}};
 
     api(req).get('/files/', {
         qs: filterQuery
