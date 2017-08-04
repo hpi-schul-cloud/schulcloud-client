@@ -44,7 +44,7 @@ describe('Files tests', function () {
                 .get('/files/courses/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Dateien aus meinen Fächern und Kursen');
+                    expect(res.text).to.contain('Dateien aus meinen Kursen');
                     resolve();
                 });
         });
