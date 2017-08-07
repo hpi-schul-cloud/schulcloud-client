@@ -328,9 +328,9 @@ function fileViewer(filetype, file, key) {
             let gviewer ="https://docs.google.com/viewer?url=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             file = file.substring(file.lastIndexOf('/')+1);
-		    
+
             $.post('/files/file?file=', {
-                path: getCurrentDir() + file,
+                path: (getCurrentDir()) ? getCurrentDir() + file : key,
                 type: filetype,
                 action: "getObject"
             }, function (data) {
