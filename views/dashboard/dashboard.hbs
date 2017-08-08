@@ -68,13 +68,15 @@
                                     {{#each this}}
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <div class="card h-100">
-                                                <div class="card-block">
+                                                <div class="card-block homework">
                                                     <div class="card-text">
                                                         <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
                                                     </div>
 
                                                     <div class="card-text"><strong>{{#if courseId}}<span style="color:{{color}}">●</span> [{{courseId.name}}] {{/if}}{{name}}</strong></div>
-                                                    <p class="card-text">{{{truncate description}}}</p>
+                                                    <div class="card-text description">
+                                                        {{{truncateHTML (conflictFreeHtml description)}}}
+                                                    </div>
                                                 </div>
                                                 <div class="card-footer">
                                                     <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
@@ -97,13 +99,15 @@
                                     {{#each this}}
                                         <div class="col-md-4 col-sm-6 col-xs-12">
                                             <div class="card h-100">
-                                                <div class="card-block">
+                                                <div class="card-block homework">
                                                     <div class="card-text">
                                                         <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
                                                     </div>
 
-                                                    <div class="card-text"><strong>{{#if courseId}}[{{courseId.name}}] {{/if}}{{name}}</strong></div>
-                                                    <p class="card-text">{{{truncate description}}}</p>
+                                                    <div class="card-text"><strong>{{#if courseId}}<span style="color:{{color}}">●</span> [{{courseId.name}}] {{/if}}{{name}}</strong></div>
+                                                    <div class="card-text description">
+                                                        {{{truncateHTML (conflictFreeHtml description)}}}
+                                                    </div>
                                                 </div>
                                                 <div class="card-footer">
                                                     <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>

@@ -28,17 +28,22 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-    // TODO: based on permissions
-
+    // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',
         icon: 'th-large',
         link: '/dashboard/',
     }, {
-        name: 'Fächer / Kurse',
+        name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
-    }, {
+    },
+    {
+        name: 'Klassen',
+        icon: 'odnoklassniki',
+        link: '/classes/'
+    },
+        {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'
@@ -52,7 +57,7 @@ module.exports = (req, res, next) => {
         link: '/files/',
         children: [
             {
-                name: 'Fächer / Kurse',
+                name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
             },
@@ -68,6 +73,27 @@ module.exports = (req, res, next) => {
         link: '/content/'
     }];
 
+    // teacher views
+    res.locals.sidebarItems.push({
+        name: 'Verwaltung',
+        icon: 'cogs',
+        link: '/administration/',
+        permission: 'STUDENT_CREATE',
+        children: [
+            {
+                name: 'Schüler',
+                icon: 'users',
+                link: '/administration/students/',
+            },
+            {
+                name: 'Lehrer',
+                icon: 'users',
+                link: '/administration/teachers/',
+            },
+        ]
+    });
+
+    // admin views
     res.locals.sidebarItems.push({
         name: 'Administration',
         icon: 'cogs',

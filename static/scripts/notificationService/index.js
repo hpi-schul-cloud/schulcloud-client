@@ -5,7 +5,7 @@ var pushManager = {
         //console.log('set registration id: ' + id);
 
         var deviceToken = "deviceToken=" + id;
-        document.cookie = deviceToken + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        document.cookie = deviceToken + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
 
         device = navigator.platform;
         var type = isMobile() ? 'mobile' : 'desktop';
@@ -25,7 +25,7 @@ var pushManager = {
     },
 
     requestPermission: function () {
-        document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
         if (this.requestPermissionCallback) {
             this.requestPermissionCallback(); // async, without promise
             setTimeout(function(){ window.location.reload() }, 2000);

@@ -4,7 +4,9 @@
 		{{#ifvalue teacherId value=currentUser._id}}
 			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
 		{{/ifvalue}}
-		<a id="discussion-tab-link" class="tab-link">Diskussion</a>
+        {{#if this.submission}}
+            <a id="discussion-tab-link" class="tab-link">Diskussion</a>
+        {{/if}}
 	</nav>
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
@@ -36,8 +38,11 @@
                                 {{{this.submission.gradeOptions}}}
                         </select>
                     </div>
+                    {{#if this.submission.comment}}
+                        <button class="importsubmission btn btn-secondary btn-sm float-xs-right" data="{{this.submission._id}}">Abgabe des Schülers importieren</button>
+                    {{/if}}
                     <h6>Kommentar</h6>
-                    <textarea id="evaluation" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
+                    <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Speichern</button>
                 </form>
@@ -52,7 +57,8 @@
                 </div>
             {{/ifvalue}}
 		</div>
-		
-        {{> 'homework/discussion'}}
+        {{#if this.submission}}
+            {{> 'homework/discussion'}}
+        {{/if}}
     </div>
 </section>

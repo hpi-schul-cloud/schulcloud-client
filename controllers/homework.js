@@ -91,6 +91,15 @@ const getCreateHandler = (service) => {
             }
         }
 
+        if(req.body.availableDate >= req.body.dueDate){
+            req.session.notification = {
+                type: 'danger',
+                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+            };
+            res.redirect(req.header('Referer'));
+            return;
+        }
+
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -112,12 +121,12 @@ const getCreateHandler = (service) => {
     };
 };
 
-const sendNotification = (courseId, title, message, teacherId, req, link) => {
+const sendNotification = (courseId, title, message, userId, req, link) => {
     api(req).post('/notification/messages', {
         json: {
             "title": title,
             "body": message,
-            "token": teacherId,
+            "token": userId,
             "priority": "high",
             "action": link,
             "scopeIds": [
@@ -149,23 +158,22 @@ const getUpdateHandler = (service) => {
             json: req.body
         }).then(data => {
             if (service == "submissions")
-            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
-                .then(homework => {
-                sendNotification(data.studentId,
-                    "Deine Abgabe wurde bewertert im Fach " +
-                    homework.courseId.name,
-                    " ",
-                    data.studentId,
-                    req,
-                    `${req.headers.origin}/homework/${homework._id}`);
-                });
-            res.redirect(req.header('Referer'));
+                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                    .then(homework => {
+                    sendNotification(data.studentId,
+                        "Deine Abgabe im Fach " +
+                        homework.courseId.name + " wurde bewertet",
+                        " ",
+                        data.studentId,
+                        req,
+                        `${req.headers.origin}/homework/${homework._id}`);
+                    });
+                res.redirect(req.header('Referer'));
         }).catch(err => {
             next(err);
         });
     };
 };
-
 
 const getDetailHandler = (service) => {
     return function (req, res, next) {
@@ -173,6 +181,17 @@ const getDetailHandler = (service) => {
             data => {
                 data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
                 data.dueDate = moment(data.dueDate).format('DD.MM.YYYY HH:mm');
+                res.json(data);
+            }).catch(err => {
+            next(err);
+        });
+    };
+};
+
+const getImportHandler = (service) => {
+    return function (req, res, next) {
+        api(req).get('/' + service + '/' + req.params.id).then(
+            data => {
                 res.json(data);
             }).catch(err => {
             next(err);
@@ -206,6 +225,7 @@ router.patch('/:id/json', getUpdateHandler('homework'));
 router.get('/:id/json', getDetailHandler('homework'));
 router.delete('/:id', getDeleteHandler('homework'));
 
+router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 
@@ -315,7 +335,7 @@ router.all('/', function (req, res, next) {
 
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
-
+            
             // Anzeigetext + Farbe für verbleibende Zeit
             const availableDateArray = splitDate(assignment.availableDate);
             const dueDateArray = splitDate(assignment.dueDate);
@@ -498,7 +518,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     sub.gradeText = (sub.grade) ?   (
                             ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade]
                         ):(
-                            (sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
+                            ((assignment.teacherId == res.locals.currentUser._id) && sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
                     return sub;
                 });
 
@@ -587,29 +607,44 @@ router.get('/:assignmentId', function (req, res, next) {
                                 {teacherIds: res.locals.currentUser._id}
                             ]
                         });
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ],
-                            comments
-                        }));
+                        Promise.resolve(coursesPromise).then(courses => {
+                        // -> Kurse stehen nun in courses
+                            res.render('homework/assignment', Object.assign({}, assignment, {
+                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                                breadcrumb: [
+                                    {
+                                        title: 'Meine Aufgaben',
+                                        url: '/homework'
+                                    },
+                                    {}
+                                ],
+                                comments,
+                                courses
+                            }));
+                        });
                     });
                 }else{
-                   res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ]
+                    // alle Kurse von aktuellem Benutzer auslesen
+                    const coursesPromise = getSelectOptions(req, 'courses', {
+                        $or: [
+                            {userIds: res.locals.currentUser._id},
+                            {teacherIds: res.locals.currentUser._id}
+                        ]
+                    });
+                    Promise.resolve(coursesPromise).then(courses => {
+                    // -> Kurse stehen nun in courses
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                                breadcrumb: [
+                                    {
+                                        title: 'Meine Aufgaben',
+                                        url: '/homework'
+                                    },
+                                    {}
+                                ],
+                                courses
                         })); 
+                    }); 
                 }
             }
         });

@@ -27,6 +27,7 @@
         <div class="answer">
             <form class="form" method="post" action="/homework/comment">
                 <input type="hidden" name="_method" data-force-value="true" value="post" />
+                <div data-username="{{@root.currentUser.displayName}}"></div>
                 <input name="author" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}" />
                 <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                 <textarea name="comment" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>

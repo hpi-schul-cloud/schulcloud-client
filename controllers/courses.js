@@ -39,7 +39,7 @@ const createEventsForCourse = (req, res, course) => {
                 summary: course.name,
                 location: time.room,
                 description: course.description,
-                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toISOString(),
+                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
                 duration: time.duration,
                 repeat_until: course.untilDate,
                 frequency: "WEEKLY",
@@ -174,7 +174,7 @@ router.get('/', function (req, res, next) {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
-                time.startTime = moment(time.startTime, "x").format("HH:mm");
+                time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             });
             return course;
@@ -204,8 +204,13 @@ router.post('/', function (req, res, next) {
         time.duration = time.duration * 60 * 1000;
     });
 
-    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
 
     if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
         delete req.body.startDate;
@@ -297,8 +302,20 @@ router.patch('/:courseId', function (req, res, next) {
         time.duration = time.duration * 60 * 1000;
     });
 
-    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
-    req.body.untilDate = moment(req.body.untilDate, 'DD.MM.YYYY').format('YYYY-MM-DD');
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
+
+    if (!req.body.classIds)
+        req.body.classIds = [];
+    if (!req.body.userIds)
+        req.body.userIds = [];
+    if (!req.body.substitutionIds)
+        req.body.substitutionIds = [];
 
     if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
         delete req.body.startDate;
@@ -373,6 +390,37 @@ router.get('/:courseId/addStudent', function (req, res, next) {
         });
     }).catch(err => {
         next(err);
+    });
+});
+
+router.post('/:courseId/importTopic', function (req, res, next) {
+    let shareToken = req.body.shareToken;
+    // try to find topic for given shareToken
+    api(req).get("/lessons/", {qs: {shareToken: shareToken}}).then(result => {
+       if (result.data.length <= 0) {
+           req.session.notification = {
+               type: 'danger',
+               message: 'Es wurde kein Thema für diesen Code gefunden.'
+           };
+
+           res.redirect(req.header('Referer'));
+       }
+
+        // copy topic to course
+        let topic = result.data[0];
+        topic.originalTopic = JSON.parse(JSON.stringify(topic._id)); // copy value, not reference
+        delete topic._id;
+        delete topic.shareToken;
+        topic.courseId = req.params.courseId;
+
+        api(req).post("/lessons/", {json: topic}).then(topic => {
+            req.session.notification = {
+                type: 'success',
+                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
+            };
+
+            res.redirect(req.header('Referer'));
+        });
     });
 });
 
