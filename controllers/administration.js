@@ -378,11 +378,21 @@ const sendMailHandler = (user, req) => {
     });
 };
 
+const returnAdminPrefix = (roles) => {
+    let prefix;
+    roles.map(role => {
+      (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
+    });
+    return prefix;
+};
+
 // secure routes
 router.use(authHelper.authChecker);
 
 // teacher admin permissions
 router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
+
     api(req).get('/schools/' + res.locals.currentSchool).then(data => {
         let provider = getStorageProviders();
         provider = (provider || []).map(prov => {
@@ -397,7 +407,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
 
         let ssoTypes = getSSOTypes();
 
-        res.render('administration/school', {title: 'Administration: Allgemein', school: data, provider, ssoTypes});
+        res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes});
     });
 });
 router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'));
@@ -410,6 +420,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
     const itemsPerPage = 10;
     const currentPage = parseInt(req.query.p) || 1;
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
 
     api(req).get('/users', {
         qs: {
@@ -441,7 +452,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             baseUrl: '/administration/teachers/?p={{page}}'
         };
 
-        res.render('administration/teachers', {title: 'Administration: Lehrer', head, body, pagination});
+        res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination});
     });
 });
 
@@ -455,6 +466,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
     const itemsPerPage = 10;
     const currentPage = parseInt(req.query.p) || 1;
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
 
     api(req).get('/users', {
         qs: {
@@ -486,7 +498,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
             baseUrl: '/administration/students/?p={{page}}'
         };
 
-        res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination});
+        res.render('administration/students', {title: title + 'Schüler', head, body, pagination});
     });
 });
 
