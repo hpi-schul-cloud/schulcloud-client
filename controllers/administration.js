@@ -410,7 +410,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes});
     });
 });
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'));
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users'));
 router.patch('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
