@@ -11,13 +11,15 @@ const login = (req, res, options) => {
     });
 };
 
-const createUser = (req, {firstName, lastName, email, roles = ['student'], schoolId}) => {
+const createUser = (req, {firstName, lastName, email, roles = ['student'], schoolId, gender}) => {
+    (gender === '' || !gender) ? gender = null : "";
     return api(req).post('/users', {json: {
         firstName,
         lastName,
         email,
         roles,
-        schoolId
+        schoolId,
+        gender
     }});
 };
 
