@@ -1,4 +1,4 @@
-{{#extend "lib/loggedin"}}
+{{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/" searchClass="file-search"}}
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/files/files.css"/>
@@ -74,77 +74,11 @@
                 </div>
             </section>
 
-            <section class="file-viewer">
-                <a href="#_" class="lightbox" id="file-view" onclick="videojs('my-video').ready(function () {this.pause();});
-                                                                      $('#link').html('');
-                                                                      $('#picture').attr('src', '');
-                                                                      $('#file-view').css('display','none');">
-                    <video id="my-video" class="video-js vjs-default-skin" onclick="videoClick(event);" autoplay controls preload="auto" data-setup="{'fluid': true}}"></video>
-                    <script src="https://vjs.zencdn.net/5.19.2/video.js"></script>
-                    <img id="picture">
-                    <div id="link"></div>
-                </a>
-            </section>
+            {{#embed "files/file-viewer"}}{{/embed}}
+            {{#embed "files/files-grid"}}{{/embed}}
 
-            <section class="files">
+            <section class="new-directory">
                 <div class="row">
-                    {{#each files}}
-                        <div class="col-sm-6 col-xs-12 col-md-4">
-                            <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}"
-                                onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
-                                onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
-                                <div class="openFile">
-                                    <div class="card-block"
-                                         onclick="location.href='#file-view';
-                                                 fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}');">
-                                        <div class="card-title">
-                                            <div class="col-sm-3 no-padding">
-                                                <div class="file-preview"
-                                                     style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
-                                            </div>
-                                            <a class="title">
-                                                {{this.name}}
-                                            </a>
-                                        </div>
-                                        <div class="card-text">
-
-                                            <a href="/files/file?download=1&file={{this.file}}"
-                                               target="_blank"
-                                               data-method="download">
-                                                <i class="fa fa-cloud-download"></i>
-                                            </a>
-
-                                            <!--<form action="/files/file/" method="post" class="inline">
-                                                <input type="hidden" name="_method" value="delete" />
-                                                <input type="hidden" name="name" value="{{this.name}}" />
-                                                <input type="hidden" name="path" value="{{this.path}}" />
-                                                <button type="submit" class="btn btn-secondary btn-sm {{this.class}}">
-                                                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                                                </button>
-                                            </form>-->
-
-                                            <a href="/files/file/"
-                                               target="_blank"
-                                               data-method="delete"
-                                               data-file-name="{{this.name}}"
-                                               data-file-path="{{this.path}}">
-                                                <i class="fa fa-trash-o"></i>
-                                            </a>
-
-                                            <a href="#"
-                                               class="btn-file-share"
-                                               data-file-path="{{this.key}}">
-                                                <i class="fa fa-share"></i>
-                                            </a>
-                                            <small class="file-info" id="{{this.name}}"></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {{/each}}
-                </div>
-                <div class="row create-directory">
                     {{#if canCreateDir}}
                         <div class="col-sm-12">
 
@@ -152,9 +86,9 @@
                         <div class="col-sm-6 col-xs-12 col-md-4">
                             <div data-toggle="modal">
                                 <div>
-                                    <span class="btn btn-secondary">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
-                                    </span>
+                                        <span class="btn btn-secondary create-directory">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                        </span>
                                 </div>
                             </div>
                         </div>
@@ -163,61 +97,5 @@
             </section>
 
         </div>
-
-        {{#embed "lib/components/modal" class="open-modal" title="Möchtest du diese Datei mit einem externen Dienst öffnen?"}}
-            {{#content "body"}}
-                <div class="modal-body">
-                    <input class="box" type="checkbox" name="allowExternalViewers" value="save">Diese Auswahl merken<br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close">Abbrechen</button>
-                    <button type="submit" class="btn btn-primary btn-submit">Öffnen</button>
-                </div>
-            {{/content}}
-        {{/embed}}
-
-
-        {{#embed "lib/components/modal-form" class="edit-modal" title="Neuer Ordner" closeLabel="Abbrechen" submitLabel="Ordner erstellen"}}
-            {{#content "fields"}}
-                <input type="text" class="form-control" name="new-dir-name" placeholder="Name des Ordners" required />
-            {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal" class="move-modal" title="Verschieben nach:"}}
-            {{#content "body"}}
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close">
-                        Abbrechen
-                    </button>
-
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        Verschieben
-                    </button>
-                </div>
-            {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-            {{#content "body"}}
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-close">
-                        Abbrechen
-                    </button>
-
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        Löschen
-                    </button>
-                </div>
-            {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal-form" class="share-modal"}}
-            {{#content "fields"}}
-                {{> "files/forms/form-share-file"}}
-            {{/content}}
-        {{/embed}}
-
     {{/content}}
 {{/extend}}
