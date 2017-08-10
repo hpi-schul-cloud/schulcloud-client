@@ -351,7 +351,7 @@ const sendMailHandler = (user, req) => {
             let source = data.toString();
             let template = handlebars.compile(source);
             let outputString = template({
-                "url": req.headers.origin + "/register/account/" + createdUser._id,
+                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id,
                 "firstName": createdUser.firstName,
                 "lastName": createdUser.lastName
             });
@@ -360,7 +360,7 @@ const sendMailHandler = (user, req) => {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
                 "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                req.headers.origin + "/register/account/" + createdUser._id + "\n\n" +
+                (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
                 "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
