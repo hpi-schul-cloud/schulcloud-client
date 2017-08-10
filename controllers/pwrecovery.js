@@ -9,7 +9,7 @@ const sendMailHandler = (req, res, next) => {
             let content = {
                 "text": "Sehr geehrte/r " + account.userId.firstName + " " + account.userId.lastName + "\n\n" +
                 "Bitte setzen Sie Ihr Passwort unter folgendem Link zurück:\n" +
-                req.headers.origin + "/pwrecovery/" + res.locals.result._id + "\n\n" +
+                (req.headers.origin || process.env.HOST) + "/pwrecovery/" + res.locals.result._id + "\n\n" +
                 "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;

@@ -111,7 +111,7 @@ const getCreateHandler = (service) => {
                             "Sie haben eine neue Hausaufgabe im Fach " + course.name, data.name + " ist bis zum " + moment(data.dueDate).format('DD.MM.YYYY HH:mm') + " abzugeben.",
                             data.teacherId,
                             req,
-                            `${req.headers.origin}/homework/${data._id}`);
+                            `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`);
                     });
             }
             res.redirect(req.header('Referer'));
@@ -166,7 +166,7 @@ const getUpdateHandler = (service) => {
                         " ",
                         data.studentId,
                         req,
-                        `${req.headers.origin}/homework/${homework._id}`);
+                        `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
                 res.redirect(req.header('Referer'));
         }).catch(err => {
