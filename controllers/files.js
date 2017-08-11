@@ -76,7 +76,7 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
     return url.format(urlParts);
 };
 
-const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = {}) => {
+const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) => {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
     let pathComponents = currentDir.split('/') || [];
@@ -110,7 +110,7 @@ const getStorageContext = (req, res, options = {}) => {
 
     let storageContext = urlParts.pathname.replace('/files/', '/');
 
-    if (storageContext === '/') {
+    if (storageContext === '/my/') {
         storageContext = 'users/' + res.locals.currentUser._id + '/';
     }
 
@@ -335,8 +335,7 @@ router.delete('/directory', function (req, res) {
     });
 });
 
-
-router.get('/', FileGetter, function (req, res, next) {
+router.get('/my/', FileGetter, function (req, res, next) {
     let files = res.locals.files.files;
     files.map(file => {
         let ending = file.name.split('.').pop();
@@ -353,6 +352,12 @@ router.get('/', FileGetter, function (req, res, next) {
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor
     }, res.locals.files));
+});
+
+router.get('/', function (req, res, next) {
+    res.render('files/files-overview', Object.assign({
+        title: 'Meine Dateien',
+    }));
 });
 
 

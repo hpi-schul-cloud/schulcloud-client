@@ -1,0 +1,47 @@
+{{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/" searchClass="file-search"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/files/files.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/files.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+
+        <div class="route-files-overview">
+            <div class="row card-deck-row">
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="card h-100">
+                        <div class="card-block">
+                            <h4 class="card-title"><i class="fa fa-user"></i> Meine persönlichen Dateien</h4>
+                            <div class="card-text">
+                                Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary btn-block" href="/files/my/">Dateien öffnen</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-12">
+                    <div class="card h-100">
+                        <div class="card-block">
+                            <h4 class="card-title"><i class="fa fa-graduation-cap"></i> Meine Kurs-Dateien</h4>
+                            <div class="card-text">
+                                Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a class="btn btn-primary btn-block" href="/files/courses/">Dateien öffnen</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    {{/content}}
+{{/extend}}
