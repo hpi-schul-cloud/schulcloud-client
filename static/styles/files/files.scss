@@ -244,4 +244,18 @@
     }
 }
 
+.route-files-overview {
+    .card {
+        .card-title {
+            text-align: center;
+        }
+        .card-text {
+            text-align: justify;
+        }
+        .text-red {
+            color: $colorHPIRed;
+        }
+    }
+}
+
 

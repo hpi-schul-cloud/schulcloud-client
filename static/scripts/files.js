@@ -39,9 +39,10 @@ $(document).ready(function() {
     }
 
 
+    /** loads dropzone, if it exists on current page **/
     let progressBarActive = false;
     let finishedFilesSize = 0;
-    $form.dropzone({
+    $form.dropzone ? $form.dropzone({
         accept: function (file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
@@ -137,7 +138,7 @@ $(document).ready(function() {
                 $form.removeClass('focus');
             });
         }
-    });
+    }) : '';
 
     $('a[data-method="download"]').on('click', function (e) {
         e.stopPropagation();

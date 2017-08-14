@@ -57,14 +57,14 @@ module.exports = (req, res, next) => {
         link: '/files/',
         children: [
             {
+                name: 'persönliche Dateien',
+                icon: 'folder-open-o',
+                link: '/files/my/'
+            },
+            {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
-            },
-            {
-                name: 'Klassen',
-                icon: 'folder-open-o',
-                link: '/files/classes/'
             }
         ]
     }, {
