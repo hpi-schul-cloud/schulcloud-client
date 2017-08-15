@@ -55,6 +55,16 @@ module.exports = {
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
     },
+    timeToString: (date, opts) => {
+        let now = moment();
+        let d = moment(date);
+        console.log(date, d.diff(now), d.diff(now, 'days'));
+        if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
+            return moment(date).format('DD.MM.YYYY') + "("+moment(date).format('HH:mm')+")";
+        } else {
+            return moment(date).fromNow();
+        }
+    },
     log: (data) => {
         console.log(data);
     }

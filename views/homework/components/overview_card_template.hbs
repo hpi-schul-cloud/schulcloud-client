@@ -1,0 +1,76 @@
+<li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
+    <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
+        <div class="dates">
+            {{timeToString availableDate}}<br/>
+                bis {{timeToString dueDate}}
+        </div>
+    </a>
+    {{#if this.submissionStats}}
+        <a class="content" href="{{this.url}}#activetabid=submissions" alt="Abgaben der Aufgabe: '{{this.name}}'">
+            <div class="state">
+                <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70"
+                    data="{{this.submissionStatsPerc}}"
+                    {{#if this.gradedStats}}secdata="{{this.gradedStatsPerc}}" {{/if}}
+                    width="80" height="80">
+                </circular-progress>
+                <div class="textinfo">
+                    <span>Abgegeben: {{this.submissionStats}}</span>
+                    <span>
+                    {{#if this.gradedStats}}
+                        Bewertet: {{this.gradedStats}}
+                    {{else}}
+                        Bewertet: -
+                    {{/if}}
+                    </span>
+                    <span>
+                        {{#if this.averageRating}}
+                            {{#if this.courseId.gradeSystem}}
+                                Ø: {{this.averageRating}}
+                            {{else}}
+                                Ø: {{this.averageRating}} Punkte
+                            {{/if}}
+                        {{else}}
+                            Ø: -
+                        {{/if}}
+                    </span>
+                </div>
+            </div>
+        </a>
+    {{/if}}
+    <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
+        <h5 class="title">
+            {{#if this.courseId}}
+                [<span>{{this.courseId.name}}</span>] -
+            {{/if}}
+            {{this.name}}
+        </h5>
+        <div class="description">
+            {{#if this.description}}
+                {{{truncateHTML (conflictFreeHtml this.description)}}}
+            {{else}}
+                keine Beschreibung vorhanden
+            {{/if}}
+        </div>
+    </a>
+    {{#ifvalue this.teacherId value=this.currentUser._id}}
+        {{#each this.actions}}
+            {{#if this.method}}
+                    <a class="{{this.class}}"
+                       href="{{this.link}}"
+                       target="_blank"
+                       data-method="delete-material"
+                       data-name="{{../name}}"
+                       alt="Löschen der Aufgabe: '{{../name}}'.">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
+            {{else}}
+                <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../name}}' {{this.alt}}.">
+                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                </a>
+            {{/if}}
+        {{/each}}
+    {{/ifvalue}}
+    <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
+        <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
+    </a>
+</li>

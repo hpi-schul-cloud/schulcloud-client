@@ -341,12 +341,6 @@ router.all('/', function (req, res, next) {
             const dueDateArray = splitDate(assignment.dueDate);
             const remainingF = formatremaining(dueDateArray["timestamp"]);
             assignment.dueColor = remainingF["colorClass"];
-            if (remainingF["days"] > 5 || remainingF["diff"] < 0) {
-                assignment.fromdate = availableDateArray["date"] + " (" + availableDateArray["time"] + ")";
-                assignment.todate = dueDateArray["date"] + " (" + dueDateArray["time"] + ")";
-            } else {
-                assignment.dueString = remainingF["str"];
-            }
 
             // alle Abgaben auslesen -> um Statistiken anzeigen zu können
             const submissionPromise = getSelectOptions(req, 'submissions', {
