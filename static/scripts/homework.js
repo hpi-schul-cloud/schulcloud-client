@@ -29,6 +29,31 @@ $(document).ready(function() {
 			$editModal.modal('show');
         });
     });
+    
+    $.datetimepicker.setLocale('de');
+            $('input[data-datetime]').datetimepicker({
+                format:'d.m.Y H:i',
+                mask: '39.19.9999 29:59',
+                onShow:function(ct, input){
+                    if(input[0].id == "availableDate"){
+                        let due = $(input[0].parentNode.parentNode).find("#dueDate").val().split(" ");
+                        this.setOptions({
+                            minDate:0,
+                            maxDate:(due && due[0])?due[0]:false,
+                            formatDate:'d.m.Y',
+                        });
+                    }
+                    else if(input[0].id == "dueDate"){
+                        let available = $(input[0].parentNode.parentNode).find("#availableDate").val().split(" ");
+                        this.setOptions({
+                            minDate:(available && available[0])?available[0]:0,
+                            maxDate:false,
+                            formatDate:'d.m.Y'
+                        });
+                    }
+                }
+            });
+
 
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
@@ -47,7 +72,7 @@ $(document).ready(function() {
         const url     = element.attr("action");
         const method  = element.attr("method");
         // update value of ckeditor instances
-        ckeditorInstance = element.find('textarea.customckeditor').attr("id");
+        let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
         if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
         const content = element.serialize();
         let request = $.ajax({
@@ -90,7 +115,6 @@ $(document).ready(function() {
         if(e) e.preventDefault();
         if(confirm("Kommentar endgültig löschen?")){
             ajaxForm($(this),function(t){
-                console.log($(t).closest("li.comment"));
                 $(t).closest("li.comment").remove();
             });
         }
@@ -99,7 +123,7 @@ $(document).ready(function() {
     
     function getSearchParams(k){
         var p={};
-        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v;});
         return k?p[k]:p;
     }
 
