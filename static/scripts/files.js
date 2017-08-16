@@ -286,6 +286,11 @@ $(document).ready(function() {
         });
     });
 
+    $moveModal.on('hidden.bs.modal', function () {
+        // delete the directory-tree
+        $('.directories-tree').empty();
+    });
+
     let moveToDirectory = function (modal, path) {
         let fileId = modal.find('.modal-form').find("input[name='fileId']").val();
         let fileName = modal.find('.modal-form').find("input[name='fileName']").val();
