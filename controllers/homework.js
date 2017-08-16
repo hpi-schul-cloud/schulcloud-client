@@ -31,7 +31,7 @@ const getSelectOptions = (req, service, query, values = []) => {
 const getActions = (item, path) => {
     return [
         {
-            link: path + item._id + "/json",
+            link: path + item._id + "/edit",
             class: 'btn-edit',
             icon: 'edit',
             alt: 'bearbeiten'
@@ -68,6 +68,7 @@ const getCreateHandler = (service) => {
     return function (req, res, next) {
         if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
             req.body.courseId = null;
+            req.body.private = true;
         }
 
         if (req.body.dueDate) {
@@ -99,7 +100,12 @@ const getCreateHandler = (service) => {
             res.redirect(req.header('Referer'));
             return;
         }
-
+        let referrer = (req.body.referrer)?
+                            (req.body.referrer):
+                            ((req.header('Referer').indexOf("homework/new") !== -1)?
+                                "/homework":
+                                req.header('Referer'));
+        delete req.body.referrer;
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -114,7 +120,7 @@ const getCreateHandler = (service) => {
                             `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`);
                     });
             }
-            res.redirect(req.header('Referer'));
+            res.redirect(referrer);
         }).catch(err => {
             next(err);
         });
@@ -141,6 +147,7 @@ const getUpdateHandler = (service) => {
     return function (req, res, next) {
         if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
             req.body.courseId = null;
+            req.body.private = true;
         }
         if (!req.body.private) {
             req.body.private = false;
@@ -153,12 +160,15 @@ const getUpdateHandler = (service) => {
         req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
         req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
         
+        let referrer = req.body.referrer.replace("/edit","");
+        delete req.body.referrer;
+
         if(req.body.availableDate >= req.body.dueDate){
             req.session.notification = {
                 type: 'danger',
                 message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
             };
-            res.redirect(req.header('Referer'));
+            res.redirect(referrer);
             return;
         }
         
@@ -177,7 +187,7 @@ const getUpdateHandler = (service) => {
                         req,
                         `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
-                res.redirect(req.header('Referer'));
+                res.redirect(referrer);
         }).catch(err => {
             next(err);
         });
@@ -230,8 +240,8 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', getCreateHandler('homework'));
-router.patch('/:id/json', getUpdateHandler('homework'));
-router.get('/:id/json', getDetailHandler('homework'));
+router.patch('/:id', getUpdateHandler('homework'));
+router.get('/:id/json', getDetailHandler('homework')); // may remove cause its unused
 router.delete('/:id', getDeleteHandler('homework'));
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
@@ -459,6 +469,90 @@ router.all('/', function (req, res, next) {
     });
 });
 
+router.get('/new', function (req, res, next) {
+    const coursesPromise = getSelectOptions(req, 'courses', {
+        $or: [
+            {userIds: res.locals.currentUser._id},
+            {teacherIds: res.locals.currentUser._id}
+        ]
+    });
+    Promise.resolve(coursesPromise).then(courses => {
+        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+        const userPromise = getSelectOptions(req, 'users', {
+            _id: res.locals.currentUser._id,
+            $populate: ['roles']
+        });
+        Promise.resolve(userPromise).then(user => {
+            const roles = user[0].roles.map(role => {
+                return role.name;
+            });
+            let isStudent = true;
+            if (roles.indexOf('student') == -1) {
+                isStudent = false;
+            }
+
+            //Render overview
+            res.render('homework/edit', {
+                title: 'Aufgabe hinzufügen',
+                submitLabel: 'Hinzufügen',
+                closeLabel: 'Schließen',
+                method: 'post',
+                action: '/homework/',
+                referrer: req.header('Referer'),
+                courses,
+                isStudent
+            });
+        });
+    });
+});
+
+router.get('/:assignmentId/edit', function (req, res, next) {
+    api(req).get('/homework/' + req.params.assignmentId, {
+        qs: {
+            $populate: ['courseId']
+        }
+    }).then(assignment => {
+        assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
+        assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+    
+        const coursesPromise = getSelectOptions(req, 'courses', {
+            $or: [
+                {userIds: res.locals.currentUser._id},
+                {teacherIds: res.locals.currentUser._id}
+            ]
+        });
+        Promise.resolve(coursesPromise).then(courses => {
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            const userPromise = getSelectOptions(req, 'users', {
+                _id: res.locals.currentUser._id,
+                $populate: ['roles']
+            });
+            Promise.resolve(userPromise).then(user => {
+                const roles = user[0].roles.map(role => {
+                    return role.name;
+                });
+                let isStudent = true;
+                if (roles.indexOf('student') == -1) {
+                    isStudent = false;
+                }
+
+                //Render overview
+                res.render('homework/edit', {
+                    title: 'Aufgabe hinzufügen',
+                    submitLabel: 'Speichern',
+                    closeLabel: 'Schließen',
+                    method: 'patch',
+                    action: '/homework/'+req.params.assignmentId,
+                    referrer: '/homework/'+req.params.assignmentId,
+                    assignment,
+                    courses,
+                    isStudent
+                });
+            });
+        });
+    });
+});
+
 router.get('/:assignmentId', function (req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
@@ -470,14 +564,8 @@ router.get('/:assignmentId', function (req, res, next) {
             $populate: ['homeworkId']
         });
         Promise.resolve(submissionPromise).then(submissions => {
-            // kein Kurs -> Private Hausaufgabe
-            if (assignment.courseId == null) {
-                assignment.color = "#1DE9B6";
-                assignment.private = true;
-            } else {
-                // Kursfarbe setzen
-                assignment.color = assignment.courseId.color;
-            }
+            // Kursfarbe setzen
+            assignment.color = (assignment.courseId && assignment.courseId.color)?assignment.courseId.color:"#1DE9B6";
 
             // Datum aufbereiten
             const availableDateArray = splitDate(assignment.availableDate);
@@ -497,7 +585,7 @@ router.get('/:assignmentId', function (req, res, next) {
             assignment.submission = submissions[0];
 
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
-            if (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions) {
+            if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
                 assignment.submissionsCount = submissions.filter(function (n) {
                     return n.comment;
@@ -552,51 +640,40 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                     Promise.resolve(commentPromise).then(comments => {
                         // -> Kommentare stehen nun in comments
-                        // alle Kurse von aktuellem Benutzer auslesen
-                        const coursesPromise = getSelectOptions(req, 'courses', {
-                            $or: [
-                                {userIds: res.locals.currentUser._id},
-                                {teacherIds: res.locals.currentUser._id}
-                            ]
+                        // ist der aktuelle Benutzer Schüler?
+                        const userPromise = getSelectOptions(req, 'users', {
+                            _id: res.locals.currentUser._id,
+                            $populate: ['roles']
                         });
-                        Promise.resolve(coursesPromise).then(courses => {
-                            // -> Kurse stehen nun in courses
-                            // ist der aktuelle Benutzer Schüler?
-                            const userPromise = getSelectOptions(req, 'users', {
-                                _id: res.locals.currentUser._id,
-                                $populate: ['roles']
+                        Promise.resolve(userPromise).then(user => {
+                            const roles = user[0].roles.map(role => {
+                                return role.name;
                             });
-                            Promise.resolve(userPromise).then(user => {
-                                const roles = user[0].roles.map(role => {
-                                    return role.name;
-                                });
-                                let isStudent = true;
-                                if (roles.indexOf('student') == -1) {
-                                    isStudent = false;
-                                }
-                                // Render assignment.hbs
-                                res.render('homework/assignment', Object.assign({}, assignment, {
-                                    title: assignment.courseId.name + ' - ' + assignment.name,
-                                    breadcrumb: [
-                                        {
-                                            title: 'Meine Aufgaben',
-                                            url: '/homework'
-                                        },
-                                        {}
-                                    ],
-                                    students,
-                                    courses,
-                                    isStudent,
-                                    comments
-                                }));
-                            });
+                            let isStudent = true;
+                            if (roles.indexOf('student') == -1) {
+                                isStudent = false;
+                            }
+                            // Render assignment.hbs
+                            res.render('homework/assignment', Object.assign({}, assignment, {
+                                title: assignment.courseId.name + ' - ' + assignment.name,
+                                breadcrumb: [
+                                    {
+                                        title: 'Meine Aufgaben',
+                                        url: '/homework'
+                                    },
+                                    {}
+                                ],
+                                students,
+                                isStudent,
+                                comments
+                            }));
                         });
                     });
 
                 });
             } else {
-                // Kommentare zu Abgaben auslesen
                 if(assignment.submission){
+                    // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: {$in: assignment.submission._id},
                         $populate: ['author']
@@ -627,27 +704,16 @@ router.get('/:assignmentId', function (req, res, next) {
                         });
                     });
                 }else{
-                    // alle Kurse von aktuellem Benutzer auslesen
-                    const coursesPromise = getSelectOptions(req, 'courses', {
-                        $or: [
-                            {userIds: res.locals.currentUser._id},
-                            {teacherIds: res.locals.currentUser._id}
-                        ]
-                    });
-                    Promise.resolve(coursesPromise).then(courses => {
-                    // -> Kurse stehen nun in courses
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                                breadcrumb: [
-                                    {
-                                        title: 'Meine Aufgaben',
-                                        url: '/homework'
-                                    },
-                                    {}
-                                ],
-                                courses
-                        })); 
-                    }); 
+                    res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                            breadcrumb: [
+                                {
+                                    title: 'Meine Aufgaben',
+                                    url: '/homework'
+                                },
+                                {}
+                            ]
+                    })); 
                 }
             }
         });

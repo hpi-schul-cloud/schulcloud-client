@@ -8,7 +8,7 @@
             {{/if}}
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
-            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/json" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
+            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/edit" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
             <a class="btn btn-primary btn-delete" 
                 href="/homework/{{_id}}"
                 redirect="/homework"
