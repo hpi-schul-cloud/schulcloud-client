@@ -323,7 +323,8 @@ const getSSOTypes = () => {
     return [
         {label: 'Moodle', value: 'moodle'},
         {label: 'ITSLearning', value: 'itslearning'},
-        {label: 'LernSax', value: 'lernsax'}
+        {label: 'LernSax', value: 'lernsax'},
+        {label: 'IServ', value: 'iserv'}
     ];
 };
 
