@@ -3,7 +3,7 @@
 {{/content}}
 {{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
-    <script src="/scripts/moment/moment.js" defer></script>
+    <script src="/scripts/mousetrap/mousetrap.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
@@ -35,12 +35,17 @@
                     }
                 }
             });
+            
+            Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
+                document.getElementById('homework-form').submit();
+                return false;
+            });
         });
     </script>
 {{/content}}
 {{#extend "homework/homework"}}
     {{#content "page"}}
-        <form class="modal-form" method="post" action="{{action}}">
+        <form class="modal-form" id="homework-form" method="post" action="{{action}}">
             {{#if method}}
                 <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
             {{/if}}
