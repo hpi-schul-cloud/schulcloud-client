@@ -31,7 +31,7 @@ const getSelectOptions = (req, service, query, values = []) => {
 const getActions = (item, path) => {
     return [
         {
-            link: path + item._id + "/json",
+            link: path + item._id + "/edit",
             class: 'btn-edit',
             icon: 'edit',
             alt: 'bearbeiten'
@@ -99,7 +99,12 @@ const getCreateHandler = (service) => {
             res.redirect(req.header('Referer'));
             return;
         }
-
+        let referrer = (req.body.referrer)?
+                            (req.body.referrer):
+                            ((req.header('Referer').indexOf("homework/create") !== -1)?
+                                "/homework":
+                                req.header('Referer'));
+        delete req.body.referrer;
         api(req).post('/' + service + '/', {
             // TODO: sanitize
             json: req.body
@@ -114,7 +119,7 @@ const getCreateHandler = (service) => {
                             `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`);
                     });
             }
-            res.redirect(req.header('Referer'));
+            res.redirect(referrer);
         }).catch(err => {
             next(err);
         });
@@ -153,12 +158,13 @@ const getUpdateHandler = (service) => {
         req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
         req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
         
+        let referrer = req.body.referrer.replace("/edit","");
         if(req.body.availableDate >= req.body.dueDate){
             req.session.notification = {
                 type: 'danger',
                 message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
             };
-            res.redirect(req.header('Referer'));
+            res.redirect(referrer);
             return;
         }
         
@@ -177,7 +183,7 @@ const getUpdateHandler = (service) => {
                         req,
                         `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
-                res.redirect(req.header('Referer'));
+                res.redirect(referrer);
         }).catch(err => {
             next(err);
         });
@@ -230,8 +236,8 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', getCreateHandler('homework'));
-router.patch('/:id/json', getUpdateHandler('homework'));
-router.get('/:id/json', getDetailHandler('homework'));
+router.patch('/:id', getUpdateHandler('homework'));
+router.get('/:id/json', getDetailHandler('homework')); // may remove cause its unused
 router.delete('/:id', getDeleteHandler('homework'));
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
@@ -453,6 +459,90 @@ router.all('/', function (req, res, next) {
                     isStudent,
                     sortmethods,
                     desc
+                });
+            });
+        });
+    });
+});
+
+router.get('/create', function (req, res, next) {
+    const coursesPromise = getSelectOptions(req, 'courses', {
+        $or: [
+            {userIds: res.locals.currentUser._id},
+            {teacherIds: res.locals.currentUser._id}
+        ]
+    });
+    Promise.resolve(coursesPromise).then(courses => {
+        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+        const userPromise = getSelectOptions(req, 'users', {
+            _id: res.locals.currentUser._id,
+            $populate: ['roles']
+        });
+        Promise.resolve(userPromise).then(user => {
+            const roles = user[0].roles.map(role => {
+                return role.name;
+            });
+            let isStudent = true;
+            if (roles.indexOf('student') == -1) {
+                isStudent = false;
+            }
+
+            //Render overview
+            res.render('homework/edit', {
+                title: 'Aufgabe hinzufügen',
+                submitLabel: 'Hinzufügen',
+                closeLabel: 'Schließen',
+                method: 'post',
+                action: '/homework/',
+                referrer: req.header('Referer'),
+                courses,
+                isStudent
+            });
+        });
+    });
+});
+
+router.get('/:assignmentId/edit', function (req, res, next) {
+    api(req).get('/homework/' + req.params.assignmentId, {
+        qs: {
+            $populate: ['courseId']
+        }
+    }).then(assignment => {
+        assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
+        assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
+    
+        const coursesPromise = getSelectOptions(req, 'courses', {
+            $or: [
+                {userIds: res.locals.currentUser._id},
+                {teacherIds: res.locals.currentUser._id}
+            ]
+        });
+        Promise.resolve(coursesPromise).then(courses => {
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            const userPromise = getSelectOptions(req, 'users', {
+                _id: res.locals.currentUser._id,
+                $populate: ['roles']
+            });
+            Promise.resolve(userPromise).then(user => {
+                const roles = user[0].roles.map(role => {
+                    return role.name;
+                });
+                let isStudent = true;
+                if (roles.indexOf('student') == -1) {
+                    isStudent = false;
+                }
+
+                //Render overview
+                res.render('homework/edit', {
+                    title: 'Aufgabe hinzufügen',
+                    submitLabel: 'Speichern',
+                    closeLabel: 'Schließen',
+                    method: 'patch',
+                    action: '/homework/'+req.params.assignmentId,
+                    referrer: '/homework/'+req.params.assignmentId,
+                    assignment,
+                    courses,
+                    isStudent
                 });
             });
         });
