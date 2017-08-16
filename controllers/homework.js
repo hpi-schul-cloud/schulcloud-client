@@ -102,7 +102,7 @@ const getCreateHandler = (service) => {
         }
         let referrer = (req.body.referrer)?
                             (req.body.referrer):
-                            ((req.header('Referer').indexOf("homework/create") !== -1)?
+                            ((req.header('Referer').indexOf("homework/new") !== -1)?
                                 "/homework":
                                 req.header('Referer'));
         delete req.body.referrer;
@@ -469,7 +469,7 @@ router.all('/', function (req, res, next) {
     });
 });
 
-router.get('/create', function (req, res, next) {
+router.get('/new', function (req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
         $or: [
             {userIds: res.locals.currentUser._id},
