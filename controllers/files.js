@@ -180,7 +180,7 @@ const getScopeDirs = (req, res, scope) => {
 const getDirectoryTree = (req, rootPath) => {
     return api(req).get('/directories/', {qs: {path: rootPath}}).then(dirs => {
         if (!dirs.data.length) return [];
-        return Promise.all(dirs.data.map(d => {
+        return Promise.all((dirs.data || []).map(d => {
             let subDir = {
                 name: d.name,
                 path: d.key + '/',
@@ -325,7 +325,6 @@ router.get('/file', function (req, res, next) {
 
 // move file
 router.patch('/file/:id', function (req, res, next) {
-    console.log(req.body);
     api(req).patch('/fileStorage/' + req.params.id, {
         json: {
             fileName: req.body.fileName,
@@ -333,6 +332,10 @@ router.patch('/file/:id', function (req, res, next) {
             destination: req.body.newPath
         }
     }).then(_ => {
+        req.session.notification = {
+            type: 'success',
+            message: 'Verschieben der Datei war erfolgreich!'
+        };
         res.sendStatus(200);
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -564,13 +567,34 @@ router.get('/permittedDirectories/', function (req, res, next) {
         name: 'Meine Dateien',
         path: userPath,
         subDirs: []
+    }, {
+        name: 'Meine Kurs-Dateien',
+        subDirs: []
     }];
     getDirectoryTree(req, userPath) // root folder personal files
         .then(personalDirs => {
             directoryTree[0].subDirs = personalDirs;
 
-            // todo: course folders
-            res.json(directoryTree);
+            // fetch tree for all course folders
+            directoryTree.push()
+            getScopeDirs(req, res, 'courses').then(courses => {
+                Promise.all((courses || []).map(c => {
+                    let coursePath = `courses/${c._id}/`;
+                    let newCourseDir = {
+                        name: c.name,
+                        path: coursePath,
+                        subDirs: []
+                    };
+
+                    return getDirectoryTree(req, coursePath).then(dirs => {
+                        newCourseDir.subDirs = dirs;
+                        directoryTree[1].subDirs.push(newCourseDir);
+                        return;
+                    });
+                })).then(_ => {
+                    res.json(directoryTree);
+                });
+            });
         });
 });
 

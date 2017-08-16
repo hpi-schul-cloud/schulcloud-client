@@ -306,14 +306,16 @@ $(document).ready(function() {
         });
     };
 
-    let addDirTree = function ($parent, dirTree) {
+    let addDirTree = function ($parent, dirTree, isMainFolder = true) {
         dirTree.forEach(d => {
-           let $dirElement =  $(`<li data-href="${d.path}"><span>${d.name}</span></li>`)
-               .click(moveToDirectory.bind(this, $moveModal, d.path));
+           let $dirElement =  $(`<li id="${d.path} "data-href="${d.path}"></li>`);
+           let $dirSpan = $(`<span class="directory-${isMainFolder ? 'main' : 'sub'}">${d.name}</span>`)
+               .click(d.path ? moveToDirectory.bind(this, $moveModal, d.path): '');
+           $dirElement.append($dirSpan);
 
            if (d.subDirs.length) {
                let $newList = $('<ul></ul>');
-               addDirTree($newList, d.subDirs);
+               addDirTree($newList, d.subDirs, false);
                $dirElement.append($newList);
            }
            $parent.append($dirElement);

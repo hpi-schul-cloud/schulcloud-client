@@ -287,6 +287,15 @@
     ul > li:last-child::after {
             height: 8px;
     }
+    .directory-main {
+        font-weight: bold;
+    }
+    span {
+        color: $colorHPIRed;
+    }
+    span:hover {
+        cursor: pointer;
+    }
 }
 
 
