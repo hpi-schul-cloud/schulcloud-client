@@ -37,6 +37,11 @@
                                 <a href="#"
                                    class="btn-file-share"
                                    data-file-path="{{this.key}}">
+                                    <i class="fa fa-share-alt"></i>
+                                </a>
+
+                                <a href="#"
+                                   class="btn-file-move">
                                     <i class="fa fa-share"></i>
                                 </a>
                                 <small class="file-info" id="{{this.name}}"></small>
@@ -86,5 +91,11 @@
 {{#embed "lib/components/modal-form" class="share-modal"}}
     {{#content "fields"}}
         {{> "files/forms/form-share-file"}}
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="move-modal"}}
+    {{#content "fields"}}
+        {{> "files/forms/form-move"}}
     {{/content}}
 {{/embed}}

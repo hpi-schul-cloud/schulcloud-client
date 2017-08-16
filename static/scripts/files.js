@@ -287,6 +287,22 @@ $(document).ready(function() {
         });
     });
 
+    $('.btn-file-move').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // fetch all directories the user is permitted to access
+        $.getJSON('/files/permittedDirectories/', function (result) {
+            populateModalForm($moveModal, {
+                title: 'Datei verschieben'
+            });
+
+            // remove modal-footer
+            $moveModal.find('.modal-footer').empty();
+            $moveModal.modal('show');
+        });
+    });
+
 });
 let $openModal = $('.open-modal');
 

@@ -174,6 +174,27 @@ const getScopeDirs = (req, res, scope) => {
 };
 
 /**
+ * generates a directory tree from a path recursively
+ * @param rootPath
+ */
+const getDirectoryTree = (req, rootPath) => {
+    return api(req).get('/directories/', {qs: {path: rootPath}}).then(dirs => {
+       if (!dirs.data.length) return [];
+       return Promise.all(dirs.data.map(d => {
+           let subDir = {
+               name: d.name,
+               path: d.path + d.name + '/',
+           };
+
+           return getDirectoryTree(req, subDir.path).then(subDirs => {
+              subDir.subDirs = subDirs;
+              return subDir;
+           });
+       }));
+    });
+};
+
+/**
  * register a new filePermission for the given user for the given file
  * @param userId {String} - the user which should be granted permission
  * @param filePath {String} - the file for which a new permission should be created
@@ -518,6 +539,21 @@ router.get('/search/', function (req, res, next) {
             query: filterOption ? filterOption.label : q,
             files: files
         });
+    });
+});
+
+/** fetch all personal folders and all course folders in a directory-tree **/
+router.get('/permittedDirectories/', function (req, res, next) {
+    let userPath = `users/${res.locals.currentUser._id}/`;
+    let directoryTree = [{
+        name: 'Meine Dateien',
+        path: userPath,
+        subDirs: []
+    }];
+    getDirectoryTree(req, userPath) // root folder
+       .then(personalDirs => {
+           console.log(JSON.stringify(personalDirs, null, 4));
+           res.json(directoryTree);
     });
 });
 
