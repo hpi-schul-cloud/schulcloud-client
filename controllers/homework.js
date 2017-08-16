@@ -491,6 +491,9 @@ router.get('/new', function (req, res, next) {
                 isStudent = false;
             }
 
+            let assignment={"private":(req.query.private == 'true')};
+            if(req.query.course){assignment["courseId"] = {"_id":req.query.course};}
+
             //Render overview
             res.render('homework/edit', {
                 title: 'Aufgabe hinzufügen',
@@ -499,6 +502,7 @@ router.get('/new', function (req, res, next) {
                 method: 'post',
                 action: '/homework/',
                 referrer: req.header('Referer'),
+                assignment,
                 courses,
                 isStudent
             });
