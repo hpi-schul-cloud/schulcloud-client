@@ -287,6 +287,18 @@ $(document).ready(function() {
         });
     });
 
+    let addDirTree = function ($parent, dirTree) {
+        dirTree.forEach(d => {
+           let $dirElement =  $(`<li><a href="${d.path}" class="directory-tree-element">${d.name}</a></li>`);
+           if (d.subDirs.length) {
+               let $newList = $('<ul></ul>');
+               addDirTree($newList, d.subDirs);
+               $dirElement.append($newList);
+           }
+           $parent.append($dirElement);
+        });
+    };
+
     $('.btn-file-move').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -297,6 +309,11 @@ $(document).ready(function() {
                 title: 'Datei verschieben'
             });
 
+            // add folder structure recursively
+            let $dirTree = $('.directories-tree');
+            let $dirTreeList = $('<ul class="super-list"></ul>');
+            addDirTree($dirTreeList, result);
+            $dirTree.append($dirTreeList);
             // remove modal-footer
             $moveModal.find('.modal-footer').empty();
             $moveModal.modal('show');

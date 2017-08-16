@@ -183,7 +183,7 @@ const getDirectoryTree = (req, rootPath) => {
        return Promise.all(dirs.data.map(d => {
            let subDir = {
                name: d.name,
-               path: d.path + d.name + '/',
+               path: d.key + '/',
            };
 
            return getDirectoryTree(req, subDir.path).then(subDirs => {
@@ -550,9 +550,11 @@ router.get('/permittedDirectories/', function (req, res, next) {
         path: userPath,
         subDirs: []
     }];
-    getDirectoryTree(req, userPath) // root folder
+    getDirectoryTree(req, userPath) // root folder personal files
        .then(personalDirs => {
-           console.log(JSON.stringify(personalDirs, null, 4));
+           directoryTree[0].subDirs = personalDirs;
+
+           // todo: course folders
            res.json(directoryTree);
     });
 });
