@@ -152,7 +152,16 @@ const getUpdateHandler = (service) => {
         // rewrite german format to ISO
         req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
         req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-
+        
+        if(req.body.availableDate >= req.body.dueDate){
+            req.session.notification = {
+                type: 'danger',
+                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+            };
+            res.redirect(req.header('Referer'));
+            return;
+        }
+        
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
