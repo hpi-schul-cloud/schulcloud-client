@@ -1,7 +1,6 @@
 function getCurrentDir() {
     return $('.section-upload').data('path');
 }
-
 $(document).ready(function() {
     let $form = $(".form-upload");
     let $progressBar = $('.progress-bar');
@@ -287,9 +286,31 @@ $(document).ready(function() {
         });
     });
 
+    let moveToDirectory = function (modal, path) {
+        let fileId = modal.find('.modal-form').find("input[name='fileId']").val();
+        let fileName = modal.find('.modal-form').find("input[name='fileName']").val();
+        let fileOldPath = modal.find('.modal-form').find("input[name='filePath']").val();
+
+        $.ajax({
+            url: '/files/file/' + fileId,
+            type: 'PATCH',
+            data: {
+                fileName: fileName,
+                oldPath: fileOldPath,
+                newPath: path
+            },
+            success: function (result) {
+                reloadFiles();
+            },
+            error: showAJAXError
+        });
+    };
+
     let addDirTree = function ($parent, dirTree) {
         dirTree.forEach(d => {
-           let $dirElement =  $(`<li><a href="${d.path}" class="directory-tree-element">${d.name}</a></li>`);
+           let $dirElement =  $(`<li data-href="${d.path}"><span>${d.name}</span></li>`)
+               .click(moveToDirectory.bind(this, $moveModal, d.path));
+
            if (d.subDirs.length) {
                let $newList = $('<ul></ul>');
                addDirTree($newList, d.subDirs);
@@ -302,11 +323,17 @@ $(document).ready(function() {
     $('.btn-file-move').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
+        let $context = $(this);
 
         // fetch all directories the user is permitted to access
         $.getJSON('/files/permittedDirectories/', function (result) {
             populateModalForm($moveModal, {
-                title: 'Datei verschieben'
+                title: 'Datei verschieben',
+                fields: {
+                    fileId: $context.attr('data-file-id'),
+                    fileName: $context.attr('data-file-name'),
+                    filePath: $context.attr('data-file-path')
+                }
             });
 
             // add folder structure recursively

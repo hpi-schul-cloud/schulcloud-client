@@ -179,18 +179,18 @@ const getScopeDirs = (req, res, scope) => {
  */
 const getDirectoryTree = (req, rootPath) => {
     return api(req).get('/directories/', {qs: {path: rootPath}}).then(dirs => {
-       if (!dirs.data.length) return [];
-       return Promise.all(dirs.data.map(d => {
-           let subDir = {
-               name: d.name,
-               path: d.key + '/',
-           };
+        if (!dirs.data.length) return [];
+        return Promise.all(dirs.data.map(d => {
+            let subDir = {
+                name: d.name,
+                path: d.key + '/',
+            };
 
-           return getDirectoryTree(req, subDir.path).then(subDirs => {
-              subDir.subDirs = subDirs;
-              return subDir;
-           });
-       }));
+            return getDirectoryTree(req, subDir.path).then(subDirs => {
+                subDir.subDirs = subDirs;
+                return subDir;
+            });
+        }));
     });
 };
 
@@ -212,7 +212,7 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
         } else {
 
             let file = res.data[0];
-            if (! _.some(file.permissions, {userId: userId})) {
+            if (!_.some(file.permissions, {userId: userId})) {
                 file.permissions.push({
                     userId: userId,
                     permissions: ['can-read', 'can-write'] // todo: make it selectable
@@ -323,6 +323,21 @@ router.get('/file', function (req, res, next) {
     });
 });
 
+// move file
+router.patch('/file/:id', function (req, res, next) {
+    console.log(req.body);
+    api(req).patch('/fileStorage/' + req.params.id, {
+        json: {
+            fileName: req.body.fileName,
+            path: req.body.oldPath,
+            destination: req.body.newPath
+        }
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
+    });
+});
 
 // create directory
 router.post('/directory', function (req, res, next) {
@@ -516,11 +531,11 @@ router.post('/permissions/', function (req, res, next) {
 });
 
 router.get('/search/', function (req, res, next) {
-    const { q, filter } = req.query;
+    const {q, filter} = req.query;
 
     let filterQuery = filter ?
         {type: filterQueries[filter]} :
-        {name: {$regex: _.escapeRegExp(q) , $options: 'i'}};
+        {name: {$regex: _.escapeRegExp(q), $options: 'i'}};
 
     api(req).get('/files/', {
         qs: filterQuery
@@ -551,12 +566,12 @@ router.get('/permittedDirectories/', function (req, res, next) {
         subDirs: []
     }];
     getDirectoryTree(req, userPath) // root folder personal files
-       .then(personalDirs => {
-           directoryTree[0].subDirs = personalDirs;
+        .then(personalDirs => {
+            directoryTree[0].subDirs = personalDirs;
 
-           // todo: course folders
-           res.json(directoryTree);
-    });
+            // todo: course folders
+            res.json(directoryTree);
+        });
 });
 
 /**** File and Directory proxy models ****/
