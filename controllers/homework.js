@@ -70,7 +70,9 @@ const getCreateHandler = (service) => {
             req.body.courseId = null;
             req.body.private = true;
         }
-
+        if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+            req.body.lessonId = null;
+        }
         if (req.body.dueDate) {
             // rewrite german format to ISO
             req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
@@ -148,6 +150,9 @@ const getUpdateHandler = (service) => {
         if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
             req.body.courseId = null;
             req.body.private = true;
+        }
+        if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+            req.body.lessonId = null;
         }
         if (!req.body.private) {
             req.body.private = false;
@@ -477,34 +482,39 @@ router.get('/new', function (req, res, next) {
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
-        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-        const userPromise = getSelectOptions(req, 'users', {
-            _id: res.locals.currentUser._id,
-            $populate: ['roles']
+        const lessonsPromise = getSelectOptions(req, 'lessons', {
+            courseId: req.query.course
         });
-        Promise.resolve(userPromise).then(user => {
-            const roles = user[0].roles.map(role => {
-                return role.name;
+        Promise.resolve(lessonsPromise).then(lessons => {
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            const userPromise = getSelectOptions(req, 'users', {
+                _id: res.locals.currentUser._id,
+                $populate: ['roles']
             });
-            let isStudent = true;
-            if (roles.indexOf('student') == -1) {
-                isStudent = false;
-            }
+            Promise.resolve(userPromise).then(user => {
+                const roles = user[0].roles.map(role => {
+                    return role.name;
+                });
+                let isStudent = true;
+                if (roles.indexOf('student') == -1) {
+                    isStudent = false;
+                }
 
-            let assignment={"private":(req.query.private == 'true')};
-            if(req.query.course){assignment["courseId"] = {"_id":req.query.course};}
-
-            //Render overview
-            res.render('homework/edit', {
-                title: 'Aufgabe hinzufügen',
-                submitLabel: 'Hinzufügen',
-                closeLabel: 'Schließen',
-                method: 'post',
-                action: '/homework/',
-                referrer: req.header('Referer'),
-                assignment,
-                courses,
-                isStudent
+                let assignment={"private":(req.query.private == 'true')};
+                if(req.query.course){assignment["courseId"] = {"_id":req.query.course};}
+                //Render overview
+                res.render('homework/edit', {
+                    title: 'Aufgabe hinzufügen',
+                    submitLabel: 'Hinzufügen',
+                    closeLabel: 'Schließen',
+                    method: 'post',
+                    action: '/homework/',
+                    referrer: req.header('Referer'),
+                    assignment,
+                    courses,
+                    lessons: (req.query.course)?lessons:false,
+                    isStudent
+                });
             });
         });
     });
@@ -539,19 +549,40 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
-
-                //Render overview
-                res.render('homework/edit', {
-                    title: 'Aufgabe hinzufügen',
-                    submitLabel: 'Speichern',
-                    closeLabel: 'Schließen',
-                    method: 'patch',
-                    action: '/homework/'+req.params.assignmentId,
-                    referrer: '/homework/'+req.params.assignmentId,
-                    assignment,
-                    courses,
-                    isStudent
-                });
+                if(assignment.courseId && assignment.courseId._id){
+                    const lessonsPromise = getSelectOptions(req, 'lessons', {
+                        courseId: assignment.courseId._id
+                    });
+                    Promise.resolve(lessonsPromise).then(lessons => {
+                        //Render overview
+                        res.render('homework/edit', {
+                            title: 'Aufgabe hinzufügen',
+                            submitLabel: 'Speichern',
+                            closeLabel: 'Schließen',
+                            method: 'patch',
+                            action: '/homework/'+req.params.assignmentId,
+                            referrer: '/homework/'+req.params.assignmentId,
+                            assignment,
+                            courses,
+                            lessons,
+                            isStudent
+                        });
+                    });
+                }else{
+                    //Render overview
+                    res.render('homework/edit', {
+                        title: 'Aufgabe hinzufügen',
+                        submitLabel: 'Speichern',
+                        closeLabel: 'Schließen',
+                        method: 'patch',
+                        action: '/homework/'+req.params.assignmentId,
+                        referrer: '/homework/'+req.params.assignmentId,
+                        assignment,
+                        courses,
+                        lessons: false,
+                        isStudent
+                    });
+                }
             });
         });
     });

@@ -43,6 +43,8 @@
 
             $("#coursePicker").change(function(e,s){
                 if(s.selected!=""){
+                    $('#lessonPicker').empty().append('<option value="">loading...</option>')
+                    $('#lessonPicker').prop('disabled', true).trigger('chosen:updated');
                     $.ajax({
                         url: "/courses/"+s.selected+"/json"
                     }).done(function( r ) {
@@ -94,8 +96,15 @@
                     {{/each}}
                 </select>
                 <label>Thema</label>
-                <select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen" disabled="true">
-                    <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Themen in diesem Kurs</option>
+                <select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen" {{#unless lessons}}disabled="true"{{/unless}}>
+                    {{#if assignment.courseId}}
+                        <option value="" {{#unless assignment.lessonId}}selected{{/unless}}>Keine Zuordnung</option>
+                        {{#each lessons}}
+                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>{{this.name}}</option>
+                        {{/each}}
+                    {{else}}
+                        <option value="" >Keine Themen in diesem Kurs</option>
+                    {{/if}}
                 </select>
             </div>
 
@@ -105,13 +114,13 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>Bearbeitungszeit von</label>
                         <input class="form-control" data-datetime name="availableDate" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label>bis</label>
                         <input class="form-control" data-datetime name="dueDate" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
