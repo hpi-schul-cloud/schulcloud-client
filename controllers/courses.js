@@ -261,6 +261,7 @@ router.get('/:courseId', function (req, res, next) {
         }),
         api(req).get('/homework/', {
             qs: {
+                courseId: req.params.courseId,
                 $populate: ['courseId']
             }
         })
@@ -271,14 +272,7 @@ router.get('/:courseId', function (req, res, next) {
                 url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
             });
         });
-        homeworks = (homeworks.data || []).filter(assignment => {
-            if( assignment.courseId == null 
-                || req.params.courseId != assignment.courseId._id
-                || assignment.teacherId != res.locals.currentUser._id) {
-                return false;
-            }
-            return true;
-        }).map(assignment => {
+        homeworks = (homeworks.data || []).map(assignment => {
             assignment.url = '/homework/' + assignment._id;
             return assignment;
         });
