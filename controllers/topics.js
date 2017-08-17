@@ -87,16 +87,35 @@ router.get('/:topicId', function (req, res, next) {
             qs: {
                 $populate: ['materialIds']
             }
+        }),
+        api(req).get('/homework/', {
+            qs: {
+                courseId: req.params.courseId,
+                lessonId: req.params.topicId,
+                $populate: ['courseId']
+            }
         })
-    ]).then(([course, lesson]) => {
+    ]).then(([course, lesson, homeworks]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
             return block;
         });
-
+        homeworks = (homeworks.data || []).map(assignment => {
+            assignment.url = '/homework/' + assignment._id;
+            return assignment;
+        });
+        homeworks.sort((a,b) => {
+            if(a.dueDate > b.dueDate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
         res.render('topic/topic', Object.assign({}, lesson, {
             title: lesson.name,
+            homeworks: homeworks.filter(function(task){return !task.private;}),
+            myhomeworks: homeworks.filter(function(task){return task.private;}),
             breadcrumb: [
                 {
                     title: 'Meine Kurse',

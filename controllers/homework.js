@@ -502,6 +502,7 @@ router.get('/new', function (req, res, next) {
 
                 let assignment={"private":(req.query.private == 'true')};
                 if(req.query.course){assignment["courseId"] = {"_id":req.query.course};}
+                if(req.query.topic){assignment["lessonId"] = req.query.topic;}
                 //Render overview
                 res.render('homework/edit', {
                     title: 'Aufgabe hinzufügen',
