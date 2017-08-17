@@ -9,7 +9,6 @@
   clear: both; 
 }
 .assignment {
-  min-height:90px;
   width: 100%;
   position: relative;
   padding: 10px;
@@ -96,7 +95,7 @@
   }
   .description {
     margin: 10px 0;
-    min-height: 75px;
+    min-height: 50px;
     color: #373a3c;
     text-decoration:none;
     &:hover{text-decoration:none;}
