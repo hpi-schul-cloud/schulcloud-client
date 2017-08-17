@@ -38,6 +38,13 @@ module.exports = {
             return opts.inverse(this);
         }
     },
+    ifneq: (a, b, opts) => {
+        if (a !== b) {
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    },
     userHasPermission: (permission, opts) => {
         if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
             return opts.fn(this);
