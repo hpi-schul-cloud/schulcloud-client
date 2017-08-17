@@ -40,21 +40,25 @@
                 document.getElementById('homework-form').submit();
                 return false;
             });
-            
 
             $("#coursePicker").change(function(e,s){
                 if(s.selected!=""){
                     $.ajax({
                         url: "/courses/"+s.selected+"/json"
                     }).done(function( r ) {
-                        console.log("Response:",typeof r.lessons.data);
-                        let optionlist = [{'text':'Keine Zuordnung','value':''}]
-                        data = r.lessons.data[0];
-                        data.foreach(function(e){
-                           optionlist.push({'text':e.name,'value':e._id})
-                        });
-                        document.getElementById("lessonPicker").options = optionlist
+                        let lessonPicker = $('#lessonPicker').empty();
+                        if(r.lessons.data.length > 0){
+                            lessonPicker.append('<option value="">Keine Zuordnung</option>');
+                            for (var i = 0; i < r.lessons.data.length; i++){
+                                $('#lessonPicker').append('<option value="'+r.lessons.data[i]._id+'">'+r.lessons.data[i].name+'</option>');
+                            }
+                        }else{
+                            lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
+                        }
+                        $('#lessonPicker').prop('disabled', false).trigger('chosen:updated');
                     });
+                }else{
+                    $('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
                 }
             });
         });
@@ -90,7 +94,7 @@
                     {{/each}}
                 </select>
                 <label>Thema</label>
-                <select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen" >
+                <select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen" disabled="true">
                     <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Themen in diesem Kurs</option>
                 </select>
             </div>
