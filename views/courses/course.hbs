@@ -31,11 +31,13 @@
                                         <div class="card-header">
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
-                                                    <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema verstecken">
-                                                             <i class="fa fa-eye"></i>
-                                                        </a>
-                                                    </span>
+                                                    <a 
+                                                        class="btn btn-secondary btn-sm btn-hidden-toggle" 
+                                                        href="{{../_id}}" 
+                                                        data-toggle="tooltip" 
+                                                        title="Thema verstecken">
+                                                         <i class="fa fa-eye"></i>
+                                                    </a>
                                                 {{/userHasPermission}}
                                                 <p class="topic-label">{{this.name}}</p>
                                                 {{#userHasPermission "COURSE_EDIT"}}
@@ -47,6 +49,16 @@
                                                         redirect="/courses/{{../courseId}}">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
+                                                    <span class="pull-right">
+                                                        <a class="btn btn-secondary btn-sm btn-hidden-toggle"
+                                                            href="{{../_id}}">
+                                                             <i class="fa fa-arrow-circle-o-down"></i>
+                                                        </a>
+                                                        <a class="btn btn-secondary btn-sm btn-hidden-toggle"
+                                                            href="{{../_id}}">
+                                                             <i class="fa fa-arrow-circle-o-up"></i>
+                                                        </a>
+                                                    </span>
                                                 {{/userHasPermission}}
                                             </div>
                                         </div>
@@ -56,15 +68,13 @@
                                         <div class="card card-topic" onclick="location.href='{{../url}}'">
                                             <div class="card-header">
                                                 <div class="input-group">
-                                                        <span class="input-group-btn">
-                                                            <a
-                                                                class="btn btn-secondary btn-hidden-toggle"
-                                                                href="{{../_id}}"
-                                                                data-toggle="tooltip"
-                                                                title="{{#if ../hidden}}Thema sichtbar machen{{else}}Thema verstecken{{/if}}">
-                                                                 <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
-                                                            </a>
-                                                        </span>
+                                                        <a
+                                                            class="btn btn-secondary btn-sm btn-hidden-toggle"
+                                                            href="{{../_id}}"
+                                                            data-toggle="tooltip"
+                                                            title="{{#if ../hidden}}Thema sichtbar machen{{else}}Thema verstecken{{/if}}">
+                                                             <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
+                                                        </a>
                                                     <p class="topic-label">{{../name}}</p>
                                                     <a class="delete-topic"
                                                        href="/courses/{{../courseId}}/topics/{{../_id}}"

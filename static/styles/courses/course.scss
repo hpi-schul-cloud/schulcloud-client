@@ -1,5 +1,8 @@
 @import '../lib/colors.scss';
 
+.input-group{
+    display:inline-block;
+}
 .section-course {
 
     h4 {
@@ -39,13 +42,13 @@
             margin-bottom: 0;
             line-height: 50px;
             padding-right: 20px;
+            display: inline-block;
         }
         .delete-topic {
             line-height: 50px;
         }
         .input-group-btn {
-            padding-right: 50px;
-            float: right;
+            padding-right: 10px;
         }
     }
 
