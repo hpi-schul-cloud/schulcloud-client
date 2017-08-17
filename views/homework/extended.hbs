@@ -18,6 +18,12 @@
                 alt="Löschen der Aufgabe: '{{title}}'.">
                 Löschen
             </a>
+            {{#if courseId._id}}
+                <a class="btn btn-secondary" href="/courses/{{courseId._id}}" alt="zum Kurs der Aufgabe">zum Kurs</a>
+                {{#if lessonId}}
+                    <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}" alt="zum Thema der Aufgabe">zum Thema</a>
+                {{/if}}
+            {{/if}}
         {{/ifvalue}}
     </div>
 	{{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
