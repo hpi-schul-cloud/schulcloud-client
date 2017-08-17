@@ -146,19 +146,45 @@ const getCreateHandler = (service) => {
                             `${req.headers.origin}/homework/${data._id}`);
                     });
             }
-            api(req).post('/fileStorage/directories', {
-                json: {
-                    path: 'courses/' + data.courseId + '/homework',
-                }
-            }).then(data2 => {
-                api(req).post('/fileStorage/directories', {
-                    json: {
-                        path: 'courses/' + data.courseId + '/homework/' + data._id,
-                    }
-                }).then(data3 => {
-                    res.redirect(req.header('Referer'));
+            api(req).get('/courses/' + data.courseId)
+                .then(course => {
+                    let directoryPromises = [
+                        api(req).post('/fileStorage/directories', {
+                            json: {
+                                path: 'courses/' + data.courseId + '/homework',
+                                label: 'Hausaufgaben'
+                            }
+                        }),
+                        api(req).post('/fileStorage/directories', {
+                            json: {
+                                path: 'courses/' + data.courseId + '/homework/' + data._id,
+                                label: req.body.name
+                            }
+                        })];
+                    course.userIds.forEach(id => {
+                       directoryPromises.push(api(req).post('/fileStorage/directories', {
+                           json: {
+                               path: 'users/' + id + '/homework',
+                               label: 'Hausaufgaben'
+                           }
+                       }));
+                        directoryPromises.push(api(req).post('/fileStorage/directories', {
+                            json: {
+                                path: 'users/' + id + '/homework/' + data.courseId,
+                                label: course.name
+                            }
+                        }));
+                        directoryPromises.push(api(req).post('/fileStorage/directories', {
+                            json: {
+                                path: 'users/' + id + '/homework/' + data.courseId + '/' + data._id,
+                                label: req.body.name
+                            }
+                        }));
+                    });
+                    Promise.all(directoryPromises).then(data => {
+                        res.redirect(req.header('Referer'));
+                    });
                 });
-            });
         }).catch(err => {
             next(err);
         });

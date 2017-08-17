@@ -73,7 +73,6 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = 
             url: changeQueryParams(req.originalUrl, {dir: dirParts}, basePath)
         };
     });
-
     if (baseLabel) {
         breadcrumbs.unshift({
             label: baseLabel,
@@ -107,11 +106,10 @@ const getStorageContext = (req, res, options = {}) => {
 const FileGetter = (req, res, next) => {
     let path = getStorageContext(req, res);
     let pathComponents = path.split('/');
+    console.log(res.locals);
     if(pathComponents[0] === '') pathComponents = pathComponents.slice(1); // remove leading slash, if present
     const currentDir = pathComponents.slice(2).join('/') || '/';
-
     path = pathComponents.join('/');
-
     return api(req).get('/fileStorage', {
         qs: {path}
     }).then(data => {
@@ -371,7 +369,6 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
         });
 
         const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
-
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Fächern und Kursen',
             url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
