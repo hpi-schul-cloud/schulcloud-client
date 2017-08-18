@@ -246,8 +246,7 @@ router.get('/:courseId/json', function (req, res, next) {
     ]).then(([course, lessons]) => res.json({course, lessons}));
 });
 
-router.get('/:courseId', function (req, res, next) {
-
+router.get('/:courseId', function (req, res, next) {        
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -259,17 +258,38 @@ router.get('/:courseId', function (req, res, next) {
                 courseId: req.params.courseId,
                 $sort: { position: 1 }
             }
+        }),
+        api(req).get('/homework/', {
+            qs: {
+                courseId: req.params.courseId,
+                $populate: ['courseId']
+            }
         })
-    ]).then(([course, lessons]) => {
+    ]).then(([course, lessons, homeworks]) => {
         let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
                 url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
             });
         });
+
+        homeworks = (homeworks.data || []).map(assignment => {
+            assignment.url = '/homework/' + assignment._id;
+            return assignment;
+        });
+        homeworks.sort((a,b) => {
+            if(a.dueDate > b.dueDate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
+            homeworks: homeworks.filter(function(task){return !task.private;}),
+            myhomeworks: homeworks.filter(function(task){return task.private;}),
             ltiToolIds,
             breadcrumb: [
                 {
