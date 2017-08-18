@@ -29,7 +29,7 @@
                                 {{#unless this.hidden}}
                                     <div class="card card-topic" onclick="location.href='{{this.url}}'">
                                         <div class="card-header">
-                                            <div class="input-group d-inline-block">
+                                            <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <a 
                                                         class="btn btn-secondary btn-sm btn-hidden-toggle" 
@@ -39,17 +39,17 @@
                                                          <i class="fa fa-eye"></i>
                                                     </a>
                                                 {{/userHasPermission}}
-                                                <p class="topic-label d-inline-block">{{this.name}}</p>
+                                                <p class="topic-label ml-1">{{this.name}}</p>
                                                 {{#userHasPermission "COURSE_EDIT"}}
-                                                    <a class="delete-topic"
-                                                       href="/courses/{{../courseId}}/topics/{{../_id}}"
-                                                       target="_blank"
-                                                       data-method="delete-material"
-                                                       data-name="{{../name}}"
-                                                        redirect="/courses/{{../courseId}}">
-                                                        <i class="fa fa-trash-o"></i>
-                                                    </a>
-                                                    <span class="pull-right">
+                                                    <div class="right-btn-group">
+                                                        <a class="delete-topic btn btn-sm"
+                                                           href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                           target="_blank"
+                                                           data-method="delete-material"
+                                                           data-name="{{../name}}"
+                                                            redirect="/courses/{{../courseId}}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
                                                         <a class="btn btn-secondary btn-sm btn-hidden-toggle"
                                                             href="{{../_id}}">
                                                              <i class="fa fa-arrow-circle-o-down"></i>
@@ -58,7 +58,7 @@
                                                             href="{{../_id}}">
                                                              <i class="fa fa-arrow-circle-o-up"></i>
                                                         </a>
-                                                    </span>
+                                                    </div>
                                                 {{/userHasPermission}}
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@
                                                             title="{{#if ../hidden}}Thema sichtbar machen{{else}}Thema verstecken{{/if}}">
                                                              <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                         </a>
-                                                    <p class="topic-label d-inline-block">{{../name}}</p>
+                                                    <p class="topic-label">{{../name}}</p>
                                                     <a class="delete-topic"
                                                        href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                        target="_blank"
