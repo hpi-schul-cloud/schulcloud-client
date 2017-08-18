@@ -257,7 +257,7 @@ router.get('/:courseId', function (req, res, next) {
         api(req).get('/lessons/', {
             qs: {
                 courseId: req.params.courseId,
-                $sort: { name: 1 }
+                $sort: { position: 1 }
             }
         })
     ]).then(([course, lessons]) => {
@@ -324,6 +324,14 @@ router.patch('/:courseId', function (req, res, next) {
     }).catch(error => {
         res.sendStatus(500);
     });
+});
+
+router.patch('/:courseId/positions', function (req, res, next) {
+    for(var elem in req.body) { 
+        api(req).patch('/lessons/' + elem, {
+            json: { "position" : parseInt(req.body[elem]) }
+        });
+    }
 });
 
 

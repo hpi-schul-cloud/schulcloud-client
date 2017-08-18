@@ -70,8 +70,24 @@ $(document).ready(function () {
         $importModal.modal('show');
     });
     
-    $( "#topic-list" ).sortable({
-      placeholder: "ui-state-highlight"
+    $("#topic-list").sortable({
+        placeholder: "ui-state-highlight",
+        handle: '.move-handle',
+        update: function(event, ui) {
+            let positions = {};
+            $( "#topic-list .card-topic" ).each(function(i) {
+                console.log(i,$(this),$(this).attr("data-topicId"));
+                positions[($( this ).attr("data-topicId"))] = i;
+                //$( this ).text()
+            });
+            console.log(positions);
+            $.ajax({
+                type: "PATCH",
+                url: window.location.href + "/positions",
+                data: positions
+            });
+        },
     });
+    $( "#topic-list" ).draggable();
     $( "#topic-list" ).disableSelection();
 });

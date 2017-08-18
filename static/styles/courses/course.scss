@@ -1,5 +1,9 @@
 @import '../lib/colors.scss';
 
+.move-handle {
+    cursor: move;
+}
+
 .section-course {
 
     h4 {
@@ -30,7 +34,7 @@
         cursor: pointer;
     }
     .ui-state-highlight{
-        height:65px;
+        height:55px;
         border: 2px dashed #373a3c;
         border-radius: 3px;
         margin-bottom: 12px;
@@ -45,9 +49,7 @@
             font-size: 20px;
         }
         .topic-label {
-            margin-bottom: 0;
-            line-height: 50px;
-            padding-right: 20px;
+            margin: 0;
         }
         .input-group-btn {
             padding-right: 10px;
@@ -98,13 +100,6 @@
 }
 
 .section-course-edit {
-    .content-block {
-        .card-header {
-            .move-handle {
-                cursor: move;
-            }
-        }
-    }
 
     #content-blocks {
         .btn-group {
