@@ -256,7 +256,7 @@ router.get('/:courseId', function (req, res, next) {
         api(req).get('/lessons/', {
             qs: {
                 courseId: req.params.courseId,
-                $sort: { name: 1 }
+                $sort: { position: 1 }
             }
         }),
         api(req).get('/homework/', {
@@ -272,6 +272,7 @@ router.get('/:courseId', function (req, res, next) {
                 url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
             });
         });
+
         homeworks = (homeworks.data || []).map(assignment => {
             assignment.url = '/homework/' + assignment._id;
             return assignment;
@@ -342,6 +343,17 @@ router.patch('/:courseId', function (req, res, next) {
     }).catch(error => {
         res.sendStatus(500);
     });
+});
+
+router.patch('/:courseId/positions', function (req, res, next) {
+    for(var elem in req.body) { 
+        api(req).patch('/lessons/' + elem, {
+            json: {
+                position : parseInt(req.body[elem]) 
+            }
+        });
+    }
+    res.sendStatus(200);
 });
 
 
