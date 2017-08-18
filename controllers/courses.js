@@ -267,7 +267,6 @@ router.get('/:courseId', function (req, res, next) {
                 url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
             });
         });
-
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
@@ -330,9 +329,7 @@ router.patch('/:courseId/positions', function (req, res, next) {
     for(var elem in req.body) { 
         api(req).patch('/lessons/' + elem, {
             json: {
-                $set: { 
-                    "position" : parseInt(req.body[elem]) 
-                }
+                position : parseInt(req.body[elem]) 
             }
         })
     }
