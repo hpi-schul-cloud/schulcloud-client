@@ -2,9 +2,12 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
     {{/content}}
 
@@ -25,61 +28,77 @@
 
                     <div class="list-group">
                         {{#if lessons}}
+                            <div id="topic-list">
                             {{#each lessons}}
                                 {{#unless this.hidden}}
-                                    <div class="card card-topic" onclick="location.href='{{this.url}}'">
+                                    <div class="card card-topic" onclick="location.href='{{this.url}}'" 
+                                    {{#userHasPermission "COURSE_EDIT"}}data-topicId="{{../_id}}"{{/userHasPermission}}>
                                         <div class="card-header">
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
-                                                    <span class="input-group-btn">
-                                                        <a class="btn btn-secondary btn-hidden-toggle" href="{{../_id}}" data-toggle="tooltip" title="Thema verstecken">
-                                                             <i class="fa fa-eye"></i>
-                                                        </a>
-                                                    </span>
-                                                {{/userHasPermission}}
-                                                <p class="topic-label">{{this.name}}</p>
-                                                {{#userHasPermission "COURSE_EDIT"}}
-                                                    <a class="delete-topic"
-                                                       href="/courses/{{../courseId}}/topics/{{../_id}}"
-                                                       target="_blank"
-                                                       data-method="delete-material"
-                                                       data-name="{{../name}}"
-                                                        redirect="/courses/{{../courseId}}">
-                                                        <i class="fa fa-trash-o"></i>
+                                                    <a 
+                                                        class="btn btn-secondary btn-sm btn-hidden-toggle" 
+                                                        href="{{../_id}}" 
+                                                        data-toggle="tooltip" 
+                                                        title="Thema verstecken">
+                                                         <i class="fa fa-eye"></i>
                                                     </a>
+                                                {{/userHasPermission}}
+                                                <p class="topic-label ml-1">{{this.name}}</p>
+                                                {{#userHasPermission "COURSE_EDIT"}}
+                                                    <div class="right-btn-group">
+                                                        <a class="delete-topic btn btn-sm"
+                                                           href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                           target="_blank"
+                                                           data-method="delete-material"
+                                                           data-name="{{../name}}"
+                                                            redirect="/courses/{{../courseId}}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                        <a class="btn btn-secondary btn-sm move-handle"
+                                                            href="{{../_id}}">
+                                                             <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                    </div>
                                                 {{/userHasPermission}}
                                             </div>
                                         </div>
                                     </div>
                                 {{else}}
                                     {{#userHasPermission "COURSE_EDIT"}}
-                                        <div class="card card-topic" onclick="location.href='{{../url}}'">
+                                        <div class="card card-topic" onclick="location.href='{{this.url}}'" 
+                                        data-topicId="{{../_id}}">
                                             <div class="card-header">
                                                 <div class="input-group">
-                                                        <span class="input-group-btn">
-                                                            <a
-                                                                class="btn btn-secondary btn-hidden-toggle"
-                                                                href="{{../_id}}"
-                                                                data-toggle="tooltip"
-                                                                title="{{#if ../hidden}}Thema sichtbar machen{{else}}Thema verstecken{{/if}}">
-                                                                 <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
-                                                            </a>
-                                                        </span>
-                                                    <p class="topic-label">{{../name}}</p>
-                                                    <a class="delete-topic"
-                                                       href="/courses/{{../courseId}}/topics/{{../_id}}"
-                                                       target="_blank"
-                                                       data-method="delete-material"
-                                                       data-name="{{../name}}"
-                                                       redirect="/courses/{{../courseId}}">
-                                                        <i class="fa fa-trash-o"></i>
+                                                    <a 
+                                                        class="btn btn-secondary btn-sm btn-hidden-toggle"
+                                                        href="{{../_id}}"
+                                                        data-toggle="tooltip"
+                                                        title="Thema sichtbar machen">
+                                                        <i class="fa fa-eye-slash"></i>
                                                     </a>
+                                                    <p class="topic-label ml-1">{{this.name}}</p>
+                                                    <div class="right-btn-group">
+                                                        <a class="delete-topic btn btn-sm"
+                                                           href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                           target="_blank"
+                                                           data-method="delete-material"
+                                                           data-name="{{../name}}"
+                                                            redirect="/courses/{{../courseId}}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                        <a class="btn btn-secondary btn-sm move-handle"
+                                                            href="{{../_id}}">
+                                                             <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     {{/userHasPermission}}
                                 {{/unless}}
                             {{/each}}
+                            </div>
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
                                 <span>Keine Themen.</span>
