@@ -1,5 +1,9 @@
 @import '../lib/colors.scss';
 
+.move-handle {
+    cursor: move;
+}
+
 .section-course {
 
     h4 {
@@ -29,23 +33,34 @@
     .card-tool {
         cursor: pointer;
     }
-
+    .ui-state-highlight{
+        height:55px;
+        border: 2px dashed #373a3c;
+        border-radius: 3px;
+        margin-bottom: 12px;
+        background: none!important;
+    }
     .card-topic {
         cursor: pointer;
+        .card-header {
+            padding:.5rem .75rem;
+        }
         .btn-hidden-toggle {
             font-size: 20px;
         }
         .topic-label {
-            margin-bottom: 0;
-            line-height: 50px;
-            padding-right: 20px;
-        }
-        .delete-topic {
-            line-height: 50px;
+            margin: 0;
         }
         .input-group-btn {
-            padding-right: 50px;
+            padding-right: 10px;
             float: right;
+        }
+        .input-group{
+            align-items: center;
+        }
+        .right-btn-group{
+            margin-left:auto;
+            white-space: nowrap;
         }
     }
 
@@ -85,13 +100,6 @@
 }
 
 .section-course-edit {
-    .content-block {
-        .card-header {
-            .move-handle {
-                cursor: move;
-            }
-        }
-    }
 
     #content-blocks {
         .btn-group {
