@@ -76,11 +76,8 @@ $(document).ready(function () {
         update: function(event, ui) {
             let positions = {};
             $( "#topic-list .card-topic" ).each(function(i) {
-                console.log(i,$(this),$(this).attr("data-topicId"));
                 positions[($( this ).attr("data-topicId"))] = i;
-                //$( this ).text()
             });
-            console.log(positions);
             $.ajax({
                 type: "PATCH",
                 url: window.location.href + "/positions",
@@ -88,6 +85,5 @@ $(document).ready(function () {
             });
         },
     });
-    $( "#topic-list" ).draggable();
     $( "#topic-list" ).disableSelection();
 });

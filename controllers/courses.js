@@ -329,9 +329,14 @@ router.patch('/:courseId', function (req, res, next) {
 router.patch('/:courseId/positions', function (req, res, next) {
     for(var elem in req.body) { 
         api(req).patch('/lessons/' + elem, {
-            json: { "position" : parseInt(req.body[elem]) }
-        });
+            json: {
+                $set: { 
+                    "position" : parseInt(req.body[elem]) 
+                }
+            }
+        })
     }
+    res.sendStatus(200);
 });
 
 
