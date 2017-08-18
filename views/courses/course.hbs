@@ -29,7 +29,7 @@
                                 {{#unless this.hidden}}
                                     <div class="card card-topic" onclick="location.href='{{this.url}}'">
                                         <div class="card-header">
-                                            <div class="input-group">
+                                            <div class="input-group d-inline-block">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <a 
                                                         class="btn btn-secondary btn-sm btn-hidden-toggle" 
@@ -39,7 +39,7 @@
                                                          <i class="fa fa-eye"></i>
                                                     </a>
                                                 {{/userHasPermission}}
-                                                <p class="topic-label">{{this.name}}</p>
+                                                <p class="topic-label d-inline-block">{{this.name}}</p>
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <a class="delete-topic"
                                                        href="/courses/{{../courseId}}/topics/{{../_id}}"
@@ -75,7 +75,7 @@
                                                             title="{{#if ../hidden}}Thema sichtbar machen{{else}}Thema verstecken{{/if}}">
                                                              <i class="fa fa-eye{{#if ../hidden}}-slash{{/if}}"></i>
                                                         </a>
-                                                    <p class="topic-label">{{../name}}</p>
+                                                    <p class="topic-label d-inline-block">{{../name}}</p>
                                                     <a class="delete-topic"
                                                        href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                        target="_blank"
