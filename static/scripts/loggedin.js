@@ -10,6 +10,16 @@ $(document).ready(function () {
     var $problemModal = $('.problem-modal');
     var $modalForm = $('.modal-form');
 
+    // Piwik
+    $.get('/account/user', (res) => {
+        _paq.push(['setCustomDimension', 1, res.schoolId]);
+        _paq.push(['setCustomDimension', 2, res.gender]);
+        _paq.push(['setCustomDimension', 3, res._id]);
+        _paq.push(['setCustomDimension', 4, res.roles[0].name]);
+        _paq.push(['setCustomDimension', 5, "test"]);
+    });
+
+
     function showAJAXError(req, textStatus, errorThrown) {
         $feedbackModal.modal('hide');
         $problemModal.modal('hide');

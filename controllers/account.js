@@ -63,4 +63,8 @@ router.delete('/settings/device', function (req, res, next) {
     });
 });
 
+router.get('/user', function (req, res, next) {
+    res.json(res.locals.currentUser);
+});
+
 module.exports = router;
