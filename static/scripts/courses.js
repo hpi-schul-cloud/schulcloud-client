@@ -69,4 +69,9 @@ $(document).ready(function () {
         $modalForm.attr('action', `/courses/${courseId}/importTopic`);
         $importModal.modal('show');
     });
+    
+    $( "#topic-list" ).sortable({
+      placeholder: "ui-state-highlight"
+    });
+    $( "#topic-list" ).disableSelection();
 });

@@ -29,7 +29,13 @@
     .card-tool {
         cursor: pointer;
     }
-
+    .ui-state-highlight{
+        height:65px;
+        border: 2px dashed #373a3c;
+        border-radius: 3px;
+        margin-bottom: 12px;
+        background: none!important;
+    }
     .card-topic {
         cursor: pointer;
         .card-header {

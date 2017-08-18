@@ -2,9 +2,11 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
     {{/content}}
 
@@ -25,6 +27,7 @@
 
                     <div class="list-group">
                         {{#if lessons}}
+                            <div id="topic-list">
                             {{#each lessons}}
                                 {{#unless this.hidden}}
                                     <div class="card card-topic" onclick="location.href='{{this.url}}'">
@@ -90,6 +93,7 @@
                                     {{/userHasPermission}}
                                 {{/unless}}
                             {{/each}}
+                            </div>
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
                                 <span>Keine Themen.</span>
