@@ -331,7 +331,7 @@ router.patch('/:courseId/positions', function (req, res, next) {
             json: {
                 position : parseInt(req.body[elem]) 
             }
-        })
+        });
     }
     res.sendStatus(200);
 });
