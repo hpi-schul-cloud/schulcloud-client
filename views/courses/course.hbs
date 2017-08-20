@@ -159,7 +159,7 @@
 
                 </div>
             </div>
-            <hr/>
+                <hr/>
             <div class="row">
                 <div class="col-sm-6">
                     <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
@@ -190,41 +190,7 @@
                     </div>
                 </div>
             </div>
-            <hr/>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <h4>Gestellte Aufgaben</h4>
-                        </div>
-                        <ol class="homework">
-                            <div class="row">
-                                {{#each homeworks}}
-                                    {{> 'homework/components/course_overview_card_template'}}
-                                {{/each}}
-                            </div>
-                        </ol>
-                        <a href="/homework/new?course={{../_id}}" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Neue Aufgabe</a>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <h4>Meine Aufgaben</h4>
-                        </div>
-                        <ol class="homework">
-                            <div class="row">
-                                {{#each myhomeworks}}
-                                    {{> 'homework/components/course_overview_card_template'}}
-                                {{/each}}
-                            </div>
-                        </ol>
-                        <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Neue private Aufgabe</a>
-                    </div>
-                </div>
-            </div>
+
             <div class="row padding-top">
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
