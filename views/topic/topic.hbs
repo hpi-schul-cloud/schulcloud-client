@@ -86,7 +86,7 @@
                         <h4>
                             <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                             Gestellte Aufgaben 
-                            <small>({{arrayLength homeworks}} Aufgaben)</small>
+                            <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
                         </h4>
                     </a>
                     <div id="homeworks" class="container-fluid collapse">
@@ -106,7 +106,7 @@
                         <h4>
                             <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                             Meine Aufgaben 
-                            <small>({{arrayLength myhomeworks}} Aufgaben)</small>
+                            <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
                         </h4>
                     </a>
                     <div id="myhomeworks" class="container-fluid collapse">
