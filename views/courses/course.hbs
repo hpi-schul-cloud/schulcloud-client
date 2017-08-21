@@ -25,6 +25,16 @@
 
             <div class="row">
                 <div class="col-sm-6">
+                    {{#userHasPermission "COURSE_EDIT"}}
+                        <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Thema hinzufügen">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="hidden-lg-down">Thema hinzufügen</span>
+                        </a>
+                        <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic" data-toggle="tooltip" title="Thema importieren">
+                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                            <span class="hidden-lg-down">Thema importieren</span>
+                        </a>
+                    {{/userHasPermission}}
                     <h4>Themen</h4>
 
                     <div class="list-group">
@@ -105,20 +115,14 @@
                                 <span>Keine Themen.</span>
                             </p>
                         {{/if}}
-                        {{#userHasPermission "COURSE_EDIT"}}
-                            <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary margin-top">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                Thema hinzufügen
-                            </a>
-                            <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary margin-top btn-import-topic">
-                                <i class="fa fa-exchange" aria-hidden="true"></i>
-                                Thema importieren
-                            </a>
-                        {{/userHasPermission}}
                     </div>
                 </div>
 
                 <div class="col-sm-6">
+                    {{#userHasPermission "COURSE_EDIT"}}
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
+                            <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
+                    {{/userHasPermission}}
                     <h4>Tools</h4>
 
                     <div class="list-group">
@@ -153,19 +157,15 @@
                         {{/if}}
                     </div>
 
-                    {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i>  Neues Tool hinzufügen</a>
-                    {{/userHasPermission}}
                 </div>
             </div>
-            <hr/>
+                <hr/>
             <div class="row">
                 <div class="col-sm-6">
+                    <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span></a>
+                        <h4>Gestellte Aufgaben</h4>
                     <div class="container-fluid">
-                        <div class="row">
-                            <h4>Gestellte Aufgaben</h4>
-                        </div>
                         <ol class="homework">
                             <div class="row">
                                 {{#each homeworks}}
@@ -173,15 +173,13 @@
                                 {{/each}}
                             </div>
                         </ol>
-                        <a href="/homework/new?course={{../_id}}" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Neue Aufgabe</a>
                     </div>
                 </div>
                 <div class="col-sm-6">
+                    <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="private Aufgabe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span></a>
+                    <h4>Meine Aufgaben</h4>
                     <div class="container-fluid">
-                        <div class="row">
-                            <h4>Meine Aufgaben</h4>
-                        </div>
                         <ol class="homework">
                             <div class="row">
                                 {{#each myhomeworks}}
@@ -189,11 +187,10 @@
                                 {{/each}}
                             </div>
                         </ol>
-                        <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Neue private Aufgabe</a>
                     </div>
                 </div>
             </div>
+
             <div class="row padding-top">
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}

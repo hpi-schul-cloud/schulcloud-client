@@ -284,7 +284,7 @@ router.get('/:courseId', function (req, res, next) {
                 return -1;
             }
         });
-        
+
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
