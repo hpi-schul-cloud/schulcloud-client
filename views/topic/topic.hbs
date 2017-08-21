@@ -80,10 +80,10 @@
 
             <div class="row">
                 <div class="col-sm-6">
+                    <a href="/homework/new?course={{../courseId}}&topic={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span></a>
+                    <h4>Gestellte Aufgaben</h4>
                     <div class="container-fluid">
-                        <div class="row">
-                            <h4>Gestellte Aufgaben</h4>
-                        </div>
                         <ol class="homework">
                             <div class="row">
                                 {{#each homeworks}}
@@ -91,15 +91,13 @@
                                 {{/each}}
                             </div>
                         </ol>
-                        <a href="/homework/new?course={{../courseId}}&topic={{../_id}}" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Neue Aufgabe</a>
                     </div>
                 </div>
                 <div class="col-sm-6">
+                    <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="private Aufgabe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span></a>
+                    <h4>Meine Aufgaben</h4>
                     <div class="container-fluid">
-                        <div class="row">
-                            <h4>Meine Aufgaben</h4>
-                        </div>
                         <ol class="homework">
                             <div class="row">
                                 {{#each myhomeworks}}
@@ -107,8 +105,6 @@
                                 {{/each}}
                             </div>
                         </ol>
-                        <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true" class="btn btn-secondary margin-top">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Neue private Aufgabe</a>
                     </div>
                 </div>
             </div>
