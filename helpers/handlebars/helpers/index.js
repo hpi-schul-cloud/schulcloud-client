@@ -13,6 +13,9 @@ module.exports = {
             return options.inverse(item);
         }
     },
+    arrayLength: (array) => {
+        return array.length;
+    },
     truncate: (text = '', {length = 140} = {}) => {
         if (text.length <= length) {
             return text;
