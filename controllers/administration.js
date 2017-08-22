@@ -502,6 +502,53 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     });
 });
 
+router.patch('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getUpdateHandler('helpdesk'));
+router.get('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDetailHandler('helpdesk'));
+router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDeleteHandler('helpdesk'));
+router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), function (req, res, next) {
+
+    const itemsPerPage = 10;
+    const currentPage = parseInt(req.query.p) || 1;
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
+
+    api(req).get('/helpdesk', {
+        qs: {
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1)
+        }
+    }).then(data => {
+        const head = [
+            'Titel',
+            'Ist-Zustand',
+            'Soll-Zustand',
+            'Kategorie',
+            'Status',
+            'Anmerkungen',
+            ''
+        ];
+
+        const body = data.data.map(item => {
+            return [
+                item.subject,
+                item.currentState,
+                item.targetState,
+                item.category,
+                item.state,
+                item.notes,
+                getTableActions(item, '/administration/helpdesk/')
+            ];
+        });
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/helpdesk/?p={{page}}'
+        };
+
+        res.render('administration/helpdesk', {title: title + 'Lehrer', head, body, pagination});
+    });
+});
+
 // general admin permissions
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', getUpdateHandler('schools'));
@@ -669,6 +716,5 @@ router.all('/systems', function (req, res, next) {
         });
     });
 });
-
 
 module.exports = router;

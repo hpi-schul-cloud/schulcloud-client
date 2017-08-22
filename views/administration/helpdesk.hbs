@@ -1,0 +1,24 @@
+{{#extend "administration/administration"}}
+    {{#content "page"}}
+        <div class="route-administration">
+            <section class="section-school section-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=head body=body}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
+                </div>
+
+                {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-helpdesk-problem"}}
+                    {{/content}}
+                {{/embed}}
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}
