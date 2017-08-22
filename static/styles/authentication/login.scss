@@ -19,6 +19,7 @@ body {
             font-size: 1.5rem;
             line-height: 1.5rem;
             font-weight: 700;
+            padding-left: 0 !important;
             padding-top: .75rem !important;
             padding-bottom: .75rem !important;
         }
@@ -31,6 +32,17 @@ body {
                 &:hover{
                     background-color: $colorHPIYellow;
                 }
+            }
+        }
+        .nav-item:last-of-type{
+            padding-right: 0;
+        }
+    }
+    aside{
+        #loginarea{
+            .btn-toggle-providers{
+                word-wrap: break-word;
+                white-space: normal;
             }
         }
     }
