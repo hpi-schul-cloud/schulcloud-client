@@ -343,8 +343,8 @@ router.all('/', function (req, res, next) {
         qs: {
             $populate: ['courseId'],
         }
-    }).then(assignments => {
-        assignments = assignments.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
+    }).then(homeworks => {
+        homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
             // kein Kurs -> Private Hausaufgabe
             if (assignment.courseId == null) {
                 assignment.color = "#1DE9B6";
@@ -417,14 +417,14 @@ router.all('/', function (req, res, next) {
             });
             // Sortieren der Aufgaben
             if (sorting == "availableDate") {
-                assignments.sort(sortbyavailableDate);
+                homeworks.sort(sortbyavailableDate);
             } else if (sorting == "dueDate") {
-                assignments.sort(sortbyDueDate);
+                homeworks.sort(sortbyDueDate);
             }
         }
         let desc = (req.query.desc == "true");
         if (desc){
-            assignments.reverse();
+            homeworks.reverse();
         }
 
         const coursesPromise = getSelectOptions(req, 'courses', {
@@ -447,23 +447,24 @@ router.all('/', function (req, res, next) {
                 if (roles.indexOf('student') == -1) {
                     isStudent = false;
                 }
-
                 // Render Overview
                 //Pagination in client, because filters are in afterhook
-                const itemsPerPage = 10;
+                const itemsPerPage = 3;
                 const currentPage = parseInt(req.query.p) || 1;
                 let pagination = {
                     currentPage,
-                    numPages: Math.ceil(assignments.length / itemsPerPage),
-                    baseUrl: '/homework/?p={{page}}'
+                    numPages: Math.ceil(homeworks.length / itemsPerPage),
+                    baseUrl: '/homework/?'
+                                        +((req.query.sort)?('sort='+req.query.sort+'&'):'')
+                                        +((req.query.desc == "true")?('desc='+req.query.desc+'&'):'')+'p={{page}}'
                 };
                 const end = currentPage * itemsPerPage;
-                assignments = assignments.slice(end - itemsPerPage, end);
+                homeworks = homeworks.slice(end - itemsPerPage, end);
                 //Render overview
                 res.render('homework/overview', {
                     title: 'Meine Aufgaben',
                     pagination,
-                    assignments,
+                    homeworks,
                     courses,
                     isStudent,
                     sortmethods,
