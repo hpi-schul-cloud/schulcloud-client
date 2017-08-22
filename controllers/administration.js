@@ -174,6 +174,7 @@ const getCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
+            (service === 'users') ? sendMailHandler(data, req) : "";
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -190,7 +191,7 @@ const getCSVImportHandler = (service) => {
 
         try {
             csvData = decoder.write(req.file.buffer);
-            records = parse(csvData, {columns: true, delimiter: ';'});
+            records = parse(csvData, {columns: true, delimiter: ','});
         } catch(err) {
             req.session.notification = {
                 type: 'danger',
@@ -207,7 +208,10 @@ const getCSVImportHandler = (service) => {
             user = Object.assign(user, groupData);
             return api(req).post('/' + service + '/', {
                 json: user
-            });
+            })
+                .then(newUser => {
+                    sendMailHandler(newUser, req);
+                });
         });
 
         Promise.all(recordPromises).then(_ => {
@@ -339,15 +343,15 @@ const createBucket = (req, res, next) => {
     }
 };
 
-const sendMailHandler = (req, res, next) => {
-    let createdUser = res.locals.createdUser;
+const sendMailHandler = (user, req) => {
+    let createdUser = user;
     let email = createdUser.email;
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
             let source = data.toString();
             let template = handlebars.compile(source);
             let outputString = template({
-                "url": req.headers.origin + "/register/account/" + createdUser._id,
+                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id,
                 "firstName": createdUser.firstName,
                 "lastName": createdUser.lastName
             });
@@ -356,7 +360,7 @@ const sendMailHandler = (req, res, next) => {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
                 "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                req.headers.origin + "/register/account/" + createdUser._id + "\n\n" +
+                (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
                 "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
@@ -368,26 +372,27 @@ const sendMailHandler = (req, res, next) => {
                     content: content
                 }
             }).then(_ => {
-                next();
-            }).catch(err => {
-                res.status((err.statusCode || 500)).send(err);
+                return true;
             });
-        } else {
-            next(err);
         }
     });
 };
 
+const returnAdminPrefix = (roles) => {
+    let prefix;
+    roles.map(role => {
+      (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
+    });
+    return prefix;
+};
+
 // secure routes
 router.use(authHelper.authChecker);
-router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 
+// teacher admin permissions
+router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
 
-router.patch('/schools/:id', getUpdateHandler('schools'));
-
-router.post('/schools/:id/bucket', createBucket);
-
-router.all('/', function (req, res, next) {
     api(req).get('/schools/' + res.locals.currentSchool).then(data => {
         let provider = getStorageProviders();
         provider = (provider || []).map(prov => {
@@ -402,11 +407,105 @@ router.all('/', function (req, res, next) {
 
         let ssoTypes = getSSOTypes();
 
-        res.render('administration/school', {title: 'Administration: Allgemein', school: data, provider, ssoTypes});
+        res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes});
+    });
+});
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users'));
+router.patch('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
+router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
+router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
+router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+
+router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+
+    const itemsPerPage = 10;
+    const currentPage = parseInt(req.query.p) || 1;
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
+
+    api(req).get('/users', {
+        qs: {
+            roles: ['teacher'],
+            $populate: ['roles'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1)
+        }
+    }).then(data => {
+        const head = [
+            'Vorname',
+            'Nachname',
+            'E-Mail-Adresse',
+            ''
+        ];
+
+        const body = data.data.map(item => {
+            return [
+                item.firstName,
+                item.lastName,
+                item.email,
+                getTableActions(item, '/administration/teachers/')
+            ];
+        });
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/teachers/?p={{page}}'
+        };
+
+        res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination});
     });
 });
 
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getCreateHandler('users'));
+router.patch('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getUpdateHandler('users'));
+router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
+router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
 
+router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+
+    const itemsPerPage = 10;
+    const currentPage = parseInt(req.query.p) || 1;
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
+
+    api(req).get('/users', {
+        qs: {
+            roles: ['student'],
+            $populate: ['roles'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1)
+        }
+    }).then(data => {
+        const head = [
+            'Vorname',
+            'Nachname',
+            'E-Mail-Adresse',
+            ''
+        ];
+
+        const body = data.data.map(item => {
+            return [
+                item.firstName,
+                item.lastName,
+                item.email,
+                getTableActions(item, '/administration/students/')
+            ];
+        });
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/students/?p={{page}}'
+        };
+
+        res.render('administration/students', {title: title + 'Schüler', head, body, pagination});
+    });
+});
+
+// general admin permissions
+router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
+router.patch('/schools/:id', getUpdateHandler('schools'));
+router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
 router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
@@ -525,98 +624,6 @@ router.all('/classes', function (req, res, next) {
                 pagination
             });
         });
-    });
-});
-
-
-router.post('/teachers/', getCreateHandler('users'), sendMailHandler);
-router.patch('/teachers/:id', getUpdateHandler('users'));
-router.get('/teachers/:id', getDetailHandler('users'));
-router.delete('/teachers/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
-router.post('/teachers/import/', upload.single('csvFile'), getCSVImportHandler('users'));
-
-router.all('/teachers', function (req, res, next) {
-
-    const itemsPerPage = 10;
-    const currentPage = parseInt(req.query.p) || 1;
-
-    api(req).get('/users', {
-        qs: {
-            roles: ['teacher'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
-        }
-    }).then(data => {
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getTableActions(item, '/administration/teachers/')
-            ];
-        });
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/teachers/?p={{page}}'
-        };
-
-        res.render('administration/teachers', {title: 'Administration: Lehrer', head, body, pagination});
-    });
-});
-
-
-router.post('/students/', getCreateHandler('users'), sendMailHandler);
-router.patch('/students/:id', getUpdateHandler('users'));
-router.get('/students/:id', getDetailHandler('users'));
-router.post('/students/import/', upload.single('csvFile'), getCSVImportHandler('users'));
-router.delete('/students/:id', getDeleteAccountForUserHandler, getDeleteHandler('users'));
-
-router.all('/students', function (req, res, next) {
-
-    const itemsPerPage = 10;
-    const currentPage = parseInt(req.query.p) || 1;
-
-    api(req).get('/users', {
-        qs: {
-            roles: ['student'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
-        }
-    }).then(data => {
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getTableActions(item, '/administration/students/')
-            ];
-        });
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/students/?p={{page}}'
-        };
-
-        res.render('administration/students', {title: 'Administration: Schüler', head, body, pagination});
     });
 });
 
