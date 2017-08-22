@@ -61,19 +61,18 @@ $(document).ready(function() {
         }
         return false;
     });
-    
-    function getSearchParams(k){
-        var p={};
-        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v;});
-        return k?p[k]:p;
+
+    function updateSearchParameter(key, value) {
+        let url = window.location.search;
+        let reg = new RegExp('('+key+'=)[^\&]+');
+        window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    $('#desc').on('click', function(e){
-        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    $('#desc').on('click', function(){
+        updateSearchParameter("desc", escape($('#desc').val()));
     });
-
-    $('#sortselection').on('change', function(e){
-        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    $('#sortselection').on('change',  function(){
+        updateSearchParameter("sort", escape($('#sortselection').val()));
     });
 
     $('.importsubmission').on('click', function(e){
