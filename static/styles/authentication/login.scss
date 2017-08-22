@@ -38,6 +38,13 @@ body {
             padding-right: 0;
         }
     }
+    main{
+        .illustration{
+            min-width: 150px;
+            width: 25vw;
+            max-width: 450px;
+        }
+    }
     aside{
         #loginarea{
             .btn-toggle-providers{
