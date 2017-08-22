@@ -1,0 +1,66 @@
+{{#extend "lib/loggedin" hideSearch="true"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/content/content.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="store container">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    {{> "content/forms/form-search" }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="background: lightgrey">
+                        <ol class="carousel-indicators">
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class=""></li>
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <img class="d-block img-fluid" src="/images/content/Cornelsen-Header.png" alt="First slide">
+                            </div>
+                        </div>
+                        <!--
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        -->
+                    </div>
+                </div>
+            </div>
+
+            <h3>Featured Content</h3>
+            <div class="row">
+                <div class="card-columns col-sm-12">
+                    {{#each featuredContent}}
+                        {{> "content/item" }}
+                    {{/each}}
+                </div>
+            </div>
+
+        </section>
+
+        {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
+            {{#content "fields"}}
+                {{> "content/forms/form-add-lesson" }}
+            {{/content}}
+        {{/embed}}
+
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/content.js" type="text/javascript" defer></script>
+    {{/content}}
+
+{{/extend}}
