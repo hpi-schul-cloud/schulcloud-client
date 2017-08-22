@@ -57,6 +57,9 @@ body {
                 font-size: 1rem;
                 padding: .5rem;
             }
+            .login-providers {
+                display:none;
+            }
         }
         #blogfeed{
             .list-group-item{
@@ -64,8 +67,9 @@ body {
             }
         }
     }
-
-    .login-providers {
-        display:none;
+    footer{
+        background-color: #555;
+        color: #fff;
+        padding:2rem;
     }
 }

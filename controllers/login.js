@@ -79,7 +79,6 @@ router.all('/', function (req, res, next) {
                     e.pubDate = date.getDate() + ". " + month;
                     return e;
                 });
-                console.log(blogFeed[0]);
                 let schoolsPromise = getSelectOptions(req, 'schools');
 
                 Promise.all([
