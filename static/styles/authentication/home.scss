@@ -14,11 +14,15 @@ body {
             font-size: 1rem;
             line-height: 1rem;
             padding: 1rem !important;
+            text-decoration: none; 
         }
         #title {
             font-size: 1.5rem;
             line-height: 1.5rem;
             font-weight: 700;
+            &:hover{
+                text-decoration: none;
+            }
             padding-left: 0 !important;
             padding-top: .75rem !important;
             padding-bottom: .75rem !important;
@@ -39,6 +43,7 @@ body {
         }
     }
     main{
+        min-height: calc(100vh - 228px );
         .illustration{
             min-width: 150px;
             width: 25vw;
@@ -46,23 +51,23 @@ body {
             shape-outside: circle(50%);
         }
     }
+    #loginarea{
+        .btn{
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        input {
+            margin-bottom: 10px;
+            font-size: 1rem;
+            padding: .5rem;
+        }
+        .login-providers {
+            display:none;
+        }
+    }
     aside{
         .card-title{
             break-word: break-all;
-        }
-        #loginarea{
-            .btn{
-                word-wrap: break-word;
-                white-space: normal;
-            }
-            input {
-                margin-bottom: 10px;
-                font-size: 1rem;
-                padding: .5rem;
-            }
-            .login-providers {
-                display:none;
-            }
         }
         #blogfeed{
             .list-group-item{

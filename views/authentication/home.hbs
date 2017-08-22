@@ -1,0 +1,85 @@
+{{#extend "lib/default"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/authentication/home.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/login.js" type="text/javascript" defer></script>
+        <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
+    {{/content}}
+
+    {{#content "body"}}
+        {{#embed "lib/header"}}{{/embed}}
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 card p-0">
+                    <section class="card-block">
+                        <h4>Was ist unser Ziel?</h4>
+                        <img src="/images/login-left-cropped.png" alt="Schul-Cloud Illustration #1" class="pull-right illustration">
+                        <p>Wir wollen eine moderne Lern- und Lehrinfrastruktur schaffen, da diese unabdingbar ist, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalisierten Gesellschaft vorzubereiten.</p>
+
+                        <h4>Was ist die Herausforderung?</h4>
+                        <p>Die Nutzung digitaler Medien und Lehrmethoden stellt viele Schulen vor große administrative und finanzielle Herausforderungen. Während im Alltag digitale Geräte längst allgegenwärtig sind, befinden sich in Schulen häufig ausschließlich veraltete Hard- und Software im Computerraum. Dieses ist meist nicht zu jeder Zeit von allen zugänglich. Jenseits von Fächern wie Mathematik, Informatik, Naturwissenschaft und Technik (MINT) sowie für die Vor- und Nachbereitung des Unterrichts können Schüler/innen die digitalen Angebote bisher kaum nutzen. Zudem fehlt Personal für die fachkundige Administration. In der Praxis halten engagierte Lehrkräfte Hard- und Software so gut es geht am Laufen – auf Kosten ihrer Lehraufgaben und der Qualität der Technik.</p>
+
+                        <h4>Was ist unsere Idee?</h4>
+                        <p>Das Hasso-Plattner-Institut startete in Kooperation mit dem Bundesministerium für Bildung und Forschung (BMBF) und dem bundesweiten Exzellenznetzwerk mathematisch-naturwissenschaftlicher Schulen (MINT-EC) das Pilotprojekt "Schul-Cloud". Die vom Hasso-Plattner-Institut konzipierte Cloud-Infrastruktur wird dabei helfen, Schüler/innen, Lehrkräften und Eltern einen einfachen Zugang zu Lern- und Lehrmaterial bereitzustellen, der für alle, überall und jederzeit verfügbar ist. </p>
+                        <img src="/images/login-right-cropped.png" alt="Schul-Cloud Illustration #1" class="pull-left illustration">
+                        <p>Da digitale Medien und Techniken für alle Unterrichtsfächer wertvolle Angebote bieten, müssen sie allen Schüler/innen zur Verfügung stehen. Neue technische Entwicklungen sind in Schulen leicht abbildbar: Die Einrichtung einer Schul-Cloud bietet eine zukunftsorientierte Lösung, um Schüler/innen die Möglichkeit zu geben, flächendeckend neueste und professionell gewartete Programme zu nutzen.</p>
+
+                        <h4>Wie funktioniert die Schul-Cloud?</h4>
+                        <p>Die Grundidee der Schul-Cloud besteht darin, Bildungsinhalte nicht mehr in abgeschlossenen Silos, in Lehrbüchern oder auf individuellen Rechnern in den Schulen zu platzieren. Stattdessen werden die Lehrinhalte webbasiert allen und von überall aus über verteilte Server in Rechenzentren verfügbar gemacht.</p>
+                        <p>Dadurch werden der Zugriff von jedem Ort und der sinnvolle Einsatz im Unterricht erleichtert. Expert/innen kümmern sich um die Aktualisierung von Hard- und Software, die aus der Cloud bezogen wird, sowie um deren abgesicherte Konfiguration und die regelmäßig notwendigen Updates. Auf den Anzeigegeräten der Nutzer/innen muss dann keine Software mehr installiert werden.</p>
+                        <p>Sämtliche Programme und das Benutzerprofil liegen in einem Rechenzentrum bereit und werden bei Bedarf via Internet zur Verfügung gestellt. Für die Schulen bedeutet dies, dass sie keine eigenen Rechner anschaffen und Netzwerke installieren, konfigurieren und administrieren müssen. Um Zugang zu den digitalen Lehr- und Lernangeboten zu erlangen, braucht es lediglich einen Internetzugang, webfähige Anzeige- und Eingabegeräte sowie entsprechende Berechtigungen.</p>
+                        <p>Die Bereitstellung einer Schul-Cloud ist ein zentrales Infrastrukturprojekt im Bereich der allgemeinbildenden Schulen und ein entscheidender und notwendiger Schritt, um die Nutzung digitaler Medien und Angebote flächendeckend im Schulalltag zu ermöglichen und voranzubringen.</p>
+                    </section>
+                </main>
+                <aside class="col-md-4">
+                    {{> "authentication/forms/login"}}
+
+                    <section id="blogfeed" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Schul-Cloud Blog</h4>
+                            <ul class="list-group list-group-flush">
+                                {{#each blogFeed}}
+                                    <li class="list-group-item">
+                                        <a href="{{this.link}}">
+                                            {{this.title}}
+                                        </a></br>
+                                        <small>von {{this.dc:creator}} am {{this.pubDate}}</small>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                            <a href="https://blog.schul-cloud.org" target="scblog" class="card-link pull-right pt-1">weitere Artikel <i class="fa  fa-angle-double-right" aria-hidden="true"></i></a>
+                        </div>
+                    </section>
+                    
+                    <section id="partner" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Projektdurchführung</h4>
+                            <div class="card-text">
+                                <a href="https://hpi.de" target="_blank">
+                                    <img src="/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid" style="padding: 20px;">
+                                </a>
+                                <a href="https://www.mint-ec.de/" target="_blank">
+                                    <img src="/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="img-fluid">
+                                </a>
+                                <a href="https://www.bmbf.de/" target="_blank">
+                                    <img src="/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+        {{#embed "lib/extended_footer"}}{{/embed}}
+        {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+            {{#content "fields"}}
+                {{> "authentication/forms/pwrecovery"}}
+            {{/content}}
+        {{/embed}}
+
+
+    {{/content}}
+{{/extend}}

@@ -84,12 +84,32 @@ router.all('/', function (req, res, next) {
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
-                    return res.render('authentication/login', {
+                    return res.render('authentication/home', {
                         schools,
                         blogFeed,
                         inline: true,
                         systems: []
                     });
+                });
+            });
+        }
+    });
+});
+
+router.all('/login/', function (req, res, next) {
+    authHelper.isAuthenticated(req).then(isAuthenticated => {
+        if (isAuthenticated) {
+            return res.redirect('/login/success/');
+        } else {
+            let schoolsPromise = getSelectOptions(req, 'schools');
+
+            Promise.all([
+                schoolsPromise
+            ]).then(([schools, systems]) => {
+                return res.render('authentication/login', {
+                    schools,
+                    inline: true,
+                    systems: []
                 });
             });
         }
@@ -118,9 +138,9 @@ router.get('/logout/', function (req, res, next) {
     api(req).del('/authentication')
         .then(_ => {
             res.clearCookie('jwt');
-            return res.redirect('/login/');
+            return res.redirect('/');
         }).catch(_ => {
-        return res.redirect('/login/');
+        return res.redirect('/');
     });
 });
 
