@@ -5,6 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
+const feedr = require('feedr').create();
 const authHelper = require('../helpers/authentication');
 
 
@@ -65,17 +66,32 @@ router.post('/login/', function (req, res, next) {
 });
 
 
-router.all('/login/', function (req, res, next) {
+router.all('/', function (req, res, next) {
     authHelper.isAuthenticated(req).then(isAuthenticated => {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            let schoolsPromise = getSelectOptions(req, 'schools');
+            feedr.readFeed('https://blog.schul-cloud.org/rss', {/* optional configuration */}, function (err, data, headers) {
+                let blogFeed = data.rss.channel[0].item.slice(0,5).map(function(e){
+                    var date = new Date(e.pubDate),
+                    locale = "en-us",
+                    month = date.toLocaleString(locale, { month: "long" });
+                    e.pubDate = date.getDate() + ". " + month;
+                    return e;
+                });
+                console.log(blogFeed[0]);
+                let schoolsPromise = getSelectOptions(req, 'schools');
 
-            Promise.all([
-                schoolsPromise
-            ]).then(([schools, systems]) => {
-                return res.render('authentication/login', {schools, systems: []});
+                Promise.all([
+                    schoolsPromise
+                ]).then(([schools, systems]) => {
+                    return res.render('authentication/login', {
+                        schools,
+                        blogFeed,
+                        inline: true,
+                        systems: []
+                    });
+                });
             });
         }
     });

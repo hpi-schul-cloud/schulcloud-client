@@ -48,81 +48,22 @@ body {
     }
     aside{
         #loginarea{
-            .btn-toggle-providers{
+            .btn{
                 word-wrap: break-word;
                 white-space: normal;
             }
+            input {
+                margin-bottom: 10px !import;
+            }
         }
-    }
-    
-    
-    
-    
-    
-    
-    h3 {
-        color: $colorHPIRed;
-        font-weight: bold;
-    }
-
-    hgroup {
-        text-align: center;
-        font-weight: bold;
-        margin: 100px 0px 60px;
-        width: 100%;
-        float: left;
-
-        &.huge-gap {
-            margin-bottom:100px;
+        #blogfeed{
+            .list-group-item{
+                padding: .75rem .25rem !important;
+            }
         }
-    }
-
-    .form-wrapper {
-        z-index: 10;
-        position: relative;
-        float: left;
-        width: 100%;
     }
 
     .login-providers {
         display:none;
     }
-
-    .select, .Select, select, input {
-        margin-bottom: 10px;
-    }
-
-    .bg-graphic {
-
-        position: absolute;
-        background: no-repeat center center;
-        background-size: contain;
-        z-index: 0;
-        width: 300px;
-        height: 300px;
-
-        @media screen and (max-width: 670px) {
-            display: none;
-        }
-
-        &.bg-graphic-left {
-            left: 10%;
-            top: 10%;
-            background-image: url(/images/login-left.png);
-            @media screen and (max-width: 820px) {
-                left: 1%;
-            }
-
-        }
-
-        &.bg-graphic-right {
-            right: 10%;
-            top: 30%;
-            background-image: url(/images/login-right.png);
-            @media screen and (max-width: 820px) {
-                right: 1%;
-            }
-        }
-    }
-
 }
