@@ -15,7 +15,7 @@ body {
             line-height: 1rem;
             padding: 1rem !important;
         }
-        .navbar-brand {
+        #title {
             font-size: 1.5rem;
             line-height: 1.5rem;
             font-weight: 700;
@@ -42,7 +42,8 @@ body {
         .illustration{
             min-width: 150px;
             width: 25vw;
-            max-width: 450px;
+            max-width: 350px;
+            max-height: 25vh;
         }
     }
     aside{
