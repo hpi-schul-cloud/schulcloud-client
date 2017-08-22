@@ -42,8 +42,8 @@ body {
         .illustration{
             min-width: 150px;
             width: 25vw;
-            max-width: 350px;
-            max-height: 25vh;
+            max-width: 300px;
+            shape-outside: circle(50%);
         }
     }
     aside{
@@ -74,5 +74,16 @@ body {
         background-color: #555;
         color: #fff;
         padding:2rem;
+        a{
+            color: #fff;
+            &:hover{
+                color:#fff!important;
+            }
+        }
+        ul {
+          list-style-type: none;
+          padding:0;
+          margin:0;
+        }
     }
 }
