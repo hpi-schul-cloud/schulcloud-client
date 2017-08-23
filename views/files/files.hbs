@@ -65,8 +65,8 @@
 								<a href="/files/directory/"
 								   target="_blank"
 								   data-method="delete"
-								   data-file-name="{{this.name}}"
-								   data-file-path="{{this.path}}">
+								   data-file-name="{{../this.name}}"
+								   data-file-path="{{../this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
                                 {{/userHasPermission}}
@@ -81,7 +81,7 @@
             {{#userHasPermission "FOLDER_CREATE"}}
             <section class="new-directory">
                 <div class="row">
-                    {{#if canCreateDir}}
+                    {{#if ../canCreateDir}}
                         <div class="col-sm-12">
 
                         </div>
