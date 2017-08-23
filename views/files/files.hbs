@@ -17,7 +17,7 @@
                 <section class="section-upload" data-path="{{path}}">
                     <div class="container-fluid">
                         <div class="row">
-                            <form class="form-upload dz-clickable" action="/files/upload/">
+                            <form class="form-upload dz-clickable" {{#userHasPermission "FILE_CREATE"}}action="/files/upload/"{{/userHasPermission}}>
                                 <div class="dz-default dz-message" data-dz-message="">
                                     <span><i class="fa fa-cloud-upload dz-clickable"></i> Dateien zum Hochladen ablegen.</span>
                                 </div>
@@ -61,6 +61,7 @@
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
 								</strong>
+                                {{#userHasPermission "FOLDER_DELETE"}}
 								<a href="/files/directory/"
 								   target="_blank"
 								   data-method="delete"
@@ -68,6 +69,7 @@
 								   data-file-path="{{this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
+                                {{/userHasPermission}}
 							</div>
 						</div>
                     {{/each}}
@@ -76,6 +78,7 @@
             {{#embed "files/file-viewer"}}{{/embed}}
             {{#embed "files/files-grid"}}{{/embed}}
 
+            {{#userHasPermission "FOLDER_CREATE"}}
             <section class="new-directory">
                 <div class="row">
                     {{#if canCreateDir}}
@@ -94,6 +97,7 @@
                     {{/if}}
                 </div>
             </section>
+            {{/userHasPermission}}
 
         </div>
     {{/content}}

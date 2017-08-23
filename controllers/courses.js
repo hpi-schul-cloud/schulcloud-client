@@ -88,8 +88,8 @@ const editCourseHandler = (req, res, next) => {
     }
 
     const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demo'], $limit: 1000});
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demo'], $limit: 1000});
 
     Promise.all([
         coursePromise,
