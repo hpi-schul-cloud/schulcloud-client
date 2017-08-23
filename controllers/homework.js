@@ -335,7 +335,6 @@ const getAverageRating = function (submissions, gradeSystem) {
 router.all('/', function (req, res, next) {
     var homeworkDesc = (req.query.desc == "true")?'-':'';
     var homeworkSort = (req.query.sort && req.query.sort!=="")?req.query.sort:'dueDate';
-    console.log("Sorting:", homeworkSort, ":", homeworkDesc);
 
     var sortmethods = getSortmethods();
     if (req.query.sort && req.query.sort!=="") {
