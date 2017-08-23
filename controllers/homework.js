@@ -434,14 +434,14 @@ router.all('/', function (req, res, next) {
                 }
                 // Render Overview
                 //Pagination in client, because filters are in afterhook
-                const itemsPerPage = 3;
+                const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
                 let pagination = {
                     currentPage,
                     numPages: Math.ceil(homeworks.length / itemsPerPage),
                     baseUrl: '/homework/?'
                                         +((req.query.sort)?('sort='+req.query.sort+'&'):'')
-                                        +((req.query.desc == "true")?('desc='+req.query.desc+'&'):'')+'p={{page}}'
+                                        +((homeworkDesc)?('desc='+req.query.desc+'&'):'')+'p={{page}}'
                 };
                 const end = currentPage * itemsPerPage;
                 homeworks = homeworks.slice(end - itemsPerPage, end);
