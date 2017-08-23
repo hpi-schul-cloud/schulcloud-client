@@ -43,6 +43,45 @@ const getTableActions = (item, path) => {
     ];
 };
 
+const getTableActionsSend = (item, path, state) => {
+    let actions = [];
+  if (state === 'submitted' || state === 'closed') {
+    actions.push(
+        {
+          class: 'disabled',
+          icon: 'edit'
+        },
+        {
+          class: 'disabled',
+          icon: 'ban'
+        },
+        {
+        class: 'disabled',
+        icon: 'paper-plane'
+    })
+  } else {
+          actions.push(
+              {
+                  link: path + item._id,
+                  class: 'btn-edit',
+                  icon: 'edit'
+              },
+              {
+                  link: path + item._id,
+                  class: 'btn-delete',
+                  icon: 'ban',
+                  method: 'delete'
+              },
+              {
+              link: path + item._id,
+              class: 'btn',
+              icon: 'paper-plane',
+              method: 'post'
+          });
+      }
+  return actions;
+};
+
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
  * @param data {object} - the plain data object
@@ -182,6 +221,77 @@ const getCreateHandler = (service) => {
             next(err);
         });
     };
+};
+
+/**
+ * send out problem to the sc helpdesk
+ * @param service currently only used for helpdesk
+ * @returns {Function}
+ */
+const getSendHelper = (service) => {
+  return function (req, res, next) {
+      api(req).get('/' + service + '/' + req.params.id)
+          .then(data => {
+              let user = res.locals.currentUser;
+              let email = user.email ? user.email : "";
+              let innerText = "Problem in Kategorie: " + data.category + "\n";
+              let content = {
+                  "text": "User: " + user.displayName + "\n"
+                  + "E-Mail: " + email + "\n"
+                  + "Schule: " + res.locals.currentSchoolData.name + "\n"
+                  + innerText
+                  + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
+              };
+              req.body.email = "schul-cloud-support@hpi.de";
+              req.body.subject = data.subject;
+              req.body.content = content;
+              
+              api(req).post('/mails', {json: req.body}).then(_ => {
+                  api(req).patch('/' + service + '/' + req.params.id, {
+                      json: {
+                          state: 'submitted',
+                          order: 1
+                      }
+                  });
+                  res.sendStatus(200);
+              }).catch(err => {
+                  res.status((err.statusCode || 500)).send(err);
+              });
+             console.log(data);
+             res.redirect(req.get('Referrer'));
+          });
+    };
+};
+
+/**
+ * Set state to closed of helpdesk problem
+ * @param service usually helpdesk, to disable instead of delete entry
+ * @returns {Function}
+ */
+const getDisableHandler = (service) => {
+    return function (req, res, next) {
+      api(req).patch('/' + service + '/' + req.params.id, {
+          json: {
+              state: 'closed',
+              order: 2
+          }
+      }).then(_ => {
+        res.redirect(req.get('Referrer'));
+      });
+    };
+};
+
+/**
+ * Truncates string to 25 chars
+ * @param string given string to truncate
+ * @returns {string}
+ */
+const truncate = (string) => {
+    if ((string || {}).length > 25) {
+        return string.substring(0, 25) + '...';
+    } else {
+        return string;
+    }
 };
 
 const getCSVImportHandler = (service) => {
@@ -504,7 +614,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
 router.patch('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getUpdateHandler('helpdesk'));
 router.get('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDetailHandler('helpdesk'));
-router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDeleteHandler('helpdesk'));
+router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDisableHandler('helpdesk'));
+router.post('/helpdesk/:id', permissionsHelper.permissionsChecker("HELPDESK_VIEW"), getSendHelper('helpdesk'));
 router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), function (req, res, next) {
 
     const itemsPerPage = 10;
@@ -514,7 +625,8 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
     api(req).get('/helpdesk', {
         qs: {
             $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: 'order'
         }
     }).then(data => {
         const head = [
@@ -529,13 +641,13 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 
         const body = data.data.map(item => {
             return [
-                item.subject,
-                item.currentState,
-                item.targetState,
+                truncate(item.subject),
+                truncate(item.currentState),
+                truncate(item.targetState),
                 item.category,
                 item.state,
-                item.notes,
-                getTableActions(item, '/administration/helpdesk/')
+                truncate(item.notes),
+                getTableActionsSend(item, '/administration/helpdesk/', item.state)
             ];
         });
 
