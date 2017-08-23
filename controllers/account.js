@@ -64,6 +64,7 @@ router.delete('/settings/device', function (req, res, next) {
 });
 
 router.get('/user', function (req, res, next) {
+    res.locals.currentUser.schoolName = res.locals.currentSchoolData.name;
     res.json(res.locals.currentUser);
 });
 

@@ -1,7 +1,7 @@
 var _paq = _paq || [];
 $.get('/account/user', (res) => {
     if (typeof (res || {}).firstName === 'string') {
-        _paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = res.schoolId]);
+        _paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = res.schoolName]);
         _paq.push(['setCustomDimension', customDimensionId = 2, customDimensionValue = res.gender]);
         _paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = res.roles[0].name]);
     }
