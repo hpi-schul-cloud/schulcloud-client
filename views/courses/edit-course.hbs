@@ -65,16 +65,6 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Bewertungssystem:</label>
-                    <fieldset>
-                        <input type="radio" name="gradeSystem" value="0" id="gradeSystem0" onchange="this.value=0" {{#unless course.gradeSystem}}checked{{/unless}} />
-                        <label for="gradeSystem0">Punkte</label>
-                        <input type="radio" name="gradeSystem" value="1" id="gradeSystem1" onchange="this.value=1" {{#if course.gradeSystem}}checked{{/if}} />
-                        <label for="gradeSystem1">Noten</label>
-                    </fieldset>
-                </div>
-
-                <div class="form-group">
                     <label>Klasse(n)</label>
 
                     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
