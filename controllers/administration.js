@@ -245,7 +245,7 @@ const getSendHelper = (service) => {
               req.body.email = "schul-cloud-support@hpi.de";
               req.body.subject = data.subject;
               req.body.content = content;
-              
+
               api(req).post('/mails', {json: req.body}).then(_ => {
                   api(req).patch('/' + service + '/' + req.params.id, {
                       json: {
@@ -332,7 +332,20 @@ const getCSVImportHandler = (service) => {
     };
 };
 
-
+const dictionary = {
+    open: 'Offen',
+    closed: "Geschlossen",
+    submitted: 'Gesendet',
+    dashboard: 'Übersicht',
+    courses: 'Kurse',
+    classes: 'Klassen',
+    homework: 'Aufgaben',
+    files: 'Dateien',
+    content: 'Materialien',
+    administration: 'Verwaltung',
+    login_registration: 'Anmeldung/Registrierung',
+    other: 'Sonstiges'
+};
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
@@ -644,8 +657,8 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.subject),
                 truncate(item.currentState),
                 truncate(item.targetState),
-                item.category,
-                item.state,
+                dictionary[item.category],
+                dictionary[item.state],
                 truncate(item.notes),
                 getTableActionsSend(item, '/administration/helpdesk/', item.state)
             ];
