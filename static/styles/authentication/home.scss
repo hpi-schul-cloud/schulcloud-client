@@ -7,6 +7,17 @@ body {
     width: 100%;
     height: 100%;
     
+    h4:not(:first-of-type){
+        margin-top: 1rem;
+    }
+    p{
+        margin: 0 0 10px 0;
+    }
+    ul {
+        list-style-type: none;
+        padding:0;
+        margin:0;
+    }
     header {
         background: $colorHPIRed;
         a {
@@ -50,6 +61,19 @@ body {
             max-width: 300px;
             shape-outside: circle(50%);
         }
+        li{
+            margin-top: 5px;
+            &:before{
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                content: "\f105";
+                margin-right: 5px;
+            }
+        }
     }
     #loginarea{
         .btn{
@@ -84,11 +108,6 @@ body {
             &:hover{
                 color:#fff!important;
             }
-        }
-        ul {
-          list-style-type: none;
-          padding:0;
-          margin:0;
         }
     }
 }
