@@ -147,41 +147,45 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-        if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-            req.body.courseId = null;
-            req.body.private = true;
-        }
-        if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-            req.body.lessonId = null;
-        }
-        if (!req.body.private) {
-            req.body.private = false;
-        }
-        if (!req.body.publicSubmissions) {
-            req.body.publicSubmissions = false;
-        }
+        if (service == "homework"){
+            if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+                req.body.courseId = null;
+                req.body.private = true;
+            }
+            if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+                req.body.lessonId = null;
+            }
+            if (!req.body.private) {
+                req.body.private = false;
+            }
+            if (!req.body.publicSubmissions) {
+                req.body.publicSubmissions = false;
+            }
 
-        // rewrite german format to ISO
-        req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
-        req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-        
-        let referrer = req.body.referrer.replace("/edit","");
-        delete req.body.referrer;
+            // rewrite german format to ISO
+            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
 
-        if(req.body.availableDate >= req.body.dueDate){
-            req.session.notification = {
-                type: 'danger',
-                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
-            };
-            res.redirect(referrer);
-            return;
+            var referrer = req.body.referrer.replace("/edit","");
+            delete req.body.referrer;
+
+            if(req.body.availableDate >= req.body.dueDate){
+                req.session.notification = {
+                    type: 'danger',
+                    message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+                };
+                res.redirect(referrer);
+                return;
+            }
         }
-        
+        if(service == "submissions"){
+            req.body.grade = parseInt(req.body.grade);
+        }
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            if (service == "submissions")
+            if (service == "submissions"){
                 api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
                     .then(homework => {
                     sendNotification(data.studentId,
@@ -192,7 +196,12 @@ const getUpdateHandler = (service) => {
                         req,
                         `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
+            }
+            if(referrer){
                 res.redirect(referrer);
+            }else{
+                res.sendStatus(200);
+            }
         }).catch(err => {
             next(err);
         });
