@@ -1,5 +1,6 @@
 ﻿{{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
             $(document).ready(function () {
@@ -44,25 +45,6 @@
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
-                config.toolbarGroups = [
-                    {name: 'basicstyles', groups: ['basicstyles', 'cleanup']},
-                    {name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph']},
-                    {name: 'links', groups: ['links']},
-                    {name: 'insert', groups: ['insert']},
-                    {name: 'document', groups: ['mode', 'document', 'doctools']},
-                    {name: 'clipboard', groups: ['clipboard', 'undo']},
-                    {name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing']},
-                    {name: 'forms', groups: ['forms']},
-                    {name: 'tools', groups: ['tools']},
-                    {name: 'others', groups: ['others']},
-                    {name: 'styles', groups: ['styles']},
-                    {name: 'colors', groups: ['colors']},
-                    {name: 'about', groups: ['about']}
-                ];
-                config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML',
-                config.extraPlugins = 'mathjax,html5video,html5audio',
-                config.removeDialogTabs = 'html5video:Upload;html5audio:Upload',
-                config.removeButtons = 'Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Scayt,Anchor,Maximize,Strike,Styles,Format,About,Source';
             });
         });
     </script>
@@ -73,6 +55,7 @@
     <link rel="stylesheet" href="/styles/homework/submissions.css"/>
     <link rel="stylesheet" href="/styles/homework/discussions.css"/>
     <link rel="stylesheet" href="/styles/homework/tabs.css"/>
+    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
 {{/content}}
 

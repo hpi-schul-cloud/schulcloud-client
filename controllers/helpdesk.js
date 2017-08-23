@@ -8,12 +8,13 @@ router.use(require('../helpers/authentication').authChecker);
 router.post('/', function (req, res, next) {
     let user = res.locals.currentUser;
     let currentLocation = req.get('Referrer');
-    let email = user.email ? user.email : req.body.modalEmail;
+    let email = user.email ? user.email : "";
+    let innerText = (req.body.type === 'feedback') ? "Bereich ausgewählt: " + req.body.category + "\n" : "Problem in Kategorie: " + req.body.category + "\n";
     let content = {
         "text": "User: " + user.displayName + "\n"
         + "E-Mail: " + email + "\n"
         + "Schule: " + res.locals.currentSchoolData.name + "\n"
-        + "Feedback geschickt von: " + currentLocation + "\n"
+        + innerText
         + "User schrieb folgendes: \n" + req.body.content.text
     };
     req.body.content = content;

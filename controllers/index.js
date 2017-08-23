@@ -24,6 +24,7 @@ router.use('/pwrecovery/', require('./pwrecovery'));
 router.use('/notification/', require('./notification'));
 router.use('/link/', require('./link'));
 router.use('/partner/', require('./partner'));
+router.use('/help/', require('./help'));
 
 router.use('/administration/', require('./administration'));
 

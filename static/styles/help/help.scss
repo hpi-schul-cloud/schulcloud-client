@@ -1,0 +1,62 @@
+@import '../lib/colors.scss';
+
+.changelog {
+  .author {
+    float: right
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+  }
+
+  h4 {
+    margin-bottom: 20px;
+    color: $colorHPIRed;
+  }
+
+  i {
+    padding-right: 5px;
+    color: $colorHPIRed;
+  }
+}
+
+.faqpanel {
+  .card-img-top {
+      height: auto;
+      width: 100%;
+  }
+
+  .card-footer {
+    text-align: center;
+  }
+
+  .h-100 {
+    margin-bottom: 0px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 75px;
+  }
+
+  .circular {
+    max-width: 300px;
+    max-height: 300px;
+    border-radius: 150px;
+    -webkit-border-radius: 150px;
+    -moz-border-radius: 150px;
+  }
+
+  .img-out {
+    padding-top: 20px;
+    display: inline-block;
+
+    .fa-bug {
+      font-size: 140px;
+      padding-top: 50px;
+      padding-bottom: 40px
+    }
+  }
+
+  padding-bottom: 20px;
+}

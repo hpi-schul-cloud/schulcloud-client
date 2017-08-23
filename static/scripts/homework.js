@@ -1,43 +1,10 @@
 $(document).ready(function() {
 
-    var $modals = $('.modal');
-    var $addModal = $('.add-modal');
-    var $editModal = $('.edit-modal');
-
-    $('.btn-add').on('click', function(e) {
-        e.preventDefault();
-        populateModalForm($addModal, {
-            title: 'Hinzufügen',
-            closeLabel: 'Schließen',
-            submitLabel: 'Hinzufügen',
-        });
-        $addModal.modal('show');
-    });
-
-    $('.btn-edit').on('click', function(e){
-        e.preventDefault();
-		var entry = $(this).attr('href');
-		$.getJSON(entry, function(result) {
-			if((!result.courseId)||(result.courseId && result.courseId.length<=2)){result.private = true;}
-			populateModalForm($editModal, {
-				action: entry,
-				title: 'Bearbeiten',
-				closeLabel: 'Schließen',
-				submitLabel: 'Speichern',
-				fields: result
-			});
-			$editModal.modal('show');
-        });
-    });
-
-    $modals.find('.close, .btn-close').on('click', function() {
-        $modals.modal('hide');
-    });
-
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
-        submitButtonText = submitButton.innerHTML || submitButton.value;
-        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>'
+        let submitButtonText = submitButton.innerHTML || submitButton.value;
+        submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
+        submitButton.innerHTML = submitButtonText+' <div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
         submitButton.style["display"]="inline-block";
@@ -46,7 +13,7 @@ $(document).ready(function() {
         const url     = element.attr("action");
         const method  = element.attr("method");
         // update value of ckeditor instances
-        ckeditorInstance = element.find('textarea.customckeditor').attr("id");
+        let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
         if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
         const content = element.serialize();
         let request = $.ajax({
@@ -54,7 +21,7 @@ $(document).ready(function() {
             url: url,
             data: content,
             context: element
-        })
+        });
         request.done(function(r) {
             submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
@@ -62,9 +29,8 @@ $(document).ready(function() {
             if(after) after(this);
         });
         request.fail(function(r) {
-            submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
-            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)'
+            submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
     }
 
@@ -90,24 +56,39 @@ $(document).ready(function() {
         if(e) e.preventDefault();
         if(confirm("Kommentar endgültig löschen?")){
             ajaxForm($(this),function(t){
-                console.log($(t).closest("li.comment"));
                 $(t).closest("li.comment").remove();
             });
         }
         return false;
     });
-    
-    function getSearchParams(k){
-        var p={};
-        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
-        return k?p[k]:p;
+
+    function updateSearchParameter(key, value) {
+        let url = window.location.search;
+        let reg = new RegExp('('+key+'=)[^\&]+');
+        window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    $('#desc').on('click', function(e){
-        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    $('#desc').on('click', function(){
+        updateSearchParameter("desc", escape($('#desc').val()));
+    });
+    $('#sortselection').on('change',  function(){
+        updateSearchParameter("sort", escape($('#sortselection').val()));
     });
 
-    $('#sortselection').on('change', function(e){
-        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    $('.importsubmission').on('click', function(e){
+        e.preventDefault();
+        const submissionid = this.getAttribute("data");
+        this.disabled = true;
+        this.innerHTML = 'importiere <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+        if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
+            $.ajax({
+                url: "/homework/submit/"+submissionid+"/import",
+                context: this
+            }).done(function(r) {
+                CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
+                this.disabled = false;
+                this.innerHTML = "Abgabe des Schülers importieren";
+            });
+        }
     });
 });

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const permissionsHelper = require('../../permissions');
 const moment = require('moment');
+const truncatehtml = require('truncate-html');
 moment.locale('de');
 
 module.exports = {
@@ -12,6 +13,9 @@ module.exports = {
             return options.inverse(item);
         }
     },
+    arrayLength: (array) => {
+        return array.length;
+    },
     truncate: (text = '', {length = 140} = {}) => {
         if (text.length <= length) {
             return text;
@@ -19,8 +23,26 @@ module.exports = {
         const subString = text.substr(0, length-1);
         return subString.substr(0, subString.lastIndexOf(' ')) + "...";
     },
+    truncateHTML: (text = '', {length = 140} = {}) => {
+        if (text.length <= length) {
+            return text;
+        }
+        return truncatehtml(text, 140);
+    },
+    conflictFreeHtml: (text = '') => {
+        text = text.replace(/style=["'][^"]*["']/g,'');
+        text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
+        return text;
+    },
     ifeq: (a, b, opts) => {
         if (a == b) {
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    },
+    ifneq: (a, b, opts) => {
+        if (a !== b) {
             return opts.fn(this);
         } else {
             return opts.inverse(this);
@@ -42,6 +64,15 @@ module.exports = {
     },
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
+    },
+    timeToString: (date, opts) => {
+        let now = moment();
+        let d = moment(date);
+        if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
+            return moment(date).format('DD.MM.YYYY') + "("+moment(date).format('HH:mm')+")";
+        } else {
+            return moment(date).fromNow();
+        }
     },
     log: (data) => {
         console.log(data);
