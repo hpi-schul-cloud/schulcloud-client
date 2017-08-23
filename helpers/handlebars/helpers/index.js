@@ -65,9 +65,6 @@ module.exports = {
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
     },
-    timeFromNow: (date, opts) => {
-        return moment(date).fromNow();
-    },
     timeToString: (date, opts) => {
         let now = moment();
         let d = moment(date);
