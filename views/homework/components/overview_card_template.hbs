@@ -53,15 +53,15 @@
         </div>
     </a>
     {{#userHasPermission "HOMEWORK_CREATE"}}
-    {{#ifvalue this.teacherId value=this.currentUser._id}}
-        {{#each this.actions}}
+    {{#ifvalue ../this.teacherId value=../this.currentUser._id}}
+        {{#each ../this.actions}}
             {{#if this.method}}
                     <a class="{{this.class}}"
                        href="{{this.link}}"
                        target="_blank"
                        data-method="delete-material"
-                       data-name="{{../name}}"
-                       alt="Löschen der Aufgabe: '{{../name}}'.">
+                       data-name="{{../../name}}"
+                       alt="Löschen der Aufgabe: '{{../../name}}'.">
                         <i class="fa fa-{{this.icon}}"></i>
                     </a>
             {{else}}
