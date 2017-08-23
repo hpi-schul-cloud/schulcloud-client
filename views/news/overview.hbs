@@ -8,7 +8,7 @@
                             {{#each news}}
                                 <div class="card card-block newsEntry">
                                     <strong class="card-text">{{this.title}}</strong>
-                                    <p class="card-text">{{{truncate this.content}}}</p>
+                                    <p class="card-text">{{{truncateHTML (conflictFreeHtml this.content)}}}</p>
                                     <p class="card-text"><small class="text-muted">{{this.timeString}}</small></p>
                                     <a href="/news/{{this._id}}"> weiterlesen</a>
                                 </div>
