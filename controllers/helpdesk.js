@@ -38,6 +38,23 @@ router.post('/', function (req, res, next) {
                 schoolId: res.locals.currentSchool._id
             }
         }).then(_ => {
+            api(req).get('/users', {qs: { roles: ['helpdesk']}})
+            .then(data => {
+                data.data.map(user => {
+                    api(req).post('/notification/messages', {
+                        json: {
+                            "title": "Ein neues Problem wurde gemeldet.",
+                            "body": "",
+                            "token": user._id,
+                            "priority": "high",
+                            "action": `${(req.headers.origin || process.env.HOST)}/administration/helpdesk`,
+                            "scopeIds": [
+                                user._id
+                            ]
+                        }
+                    });
+                });
+            });
             res.sendStatus(200);
         }).catch(err => {
             res.status((err.statusCode || 500)).send(err);
