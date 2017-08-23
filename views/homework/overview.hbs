@@ -10,10 +10,12 @@
     {{#content "page"}}
         <div class="route-homework">
             <section class="section-homework">
+                {{#userHasPermission "HOMEWORK_CREATE"}}
                 <a href="/homework/new" class="btn btn-primary btn-add create">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     <p>Aufgabe hinzufügen</p>
                 </a>
+                {{/userHasPermission}}
                 
                 <div class="form-group sort">
                     <select name="sort" id="sortselection" data-placeholder="Sortieren">
@@ -35,7 +37,7 @@
 
                 <ol class="homework">
                     <div class="row"><div class="col-lg-8">
-                        {{#each assignments}}
+                        {{#each homeworks}}
                             {{> 'homework/components/overview_card_template'}}
                         {{else}}
                             <p class="text-muted text-center">
