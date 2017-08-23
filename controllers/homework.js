@@ -49,10 +49,6 @@ const getActions = (item, path) => {
 const getSortmethods = () => {
     return [
         {
-            query: 'name',
-            title: 'Titel'
-        },
-        {
             query: 'dueDate',
             title: 'Abgabedatum',
             active: "selected"
