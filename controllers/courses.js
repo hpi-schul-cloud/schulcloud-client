@@ -256,7 +256,7 @@ router.get('/:courseId', function (req, res, next) {
         api(req).get('/lessons/', {
             qs: {
                 courseId: req.params.courseId,
-                $sort: { position: 1 }
+                $sort: 'position'
             }
         }),
         api(req).get('/homework/', {
