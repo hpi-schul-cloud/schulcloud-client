@@ -315,25 +315,11 @@ const getAverageRating = function (submissions, gradeSystem) {
         // Nur bewertete Abgaben einbeziehen 
         let submissiongrades = submissions.filter(function (sub) {
             return (sub.grade != null);
-        });
+        }).map(function(e){return e.grade});
         // Abgaben vorhanden?
         if (submissiongrades.length > 0) {
-            // Noten aus Abgabe auslesen (& in Notensystem umwandeln)
-            if (gradeSystem) {
-                submissiongrades = submissiongrades.map(function (sub) {
-                    return 6 - Math.ceil(sub.grade / 3);
-                });
-            } else {
-                submissiongrades = submissiongrades.map(function (sub) {
-                    return sub.grade;
-                });
-            }
             // Durchschnittsnote berechnen
-            let ratingsum = 0;
-            submissiongrades.forEach(function (e) {
-                ratingsum += e;
-            });
-            return (ratingsum / submissiongrades.length).toFixed(2);
+            return (submissiongrades.reduce((a, b) => a + b, 0) / submissiongrades.length).toFixed(2);
         }
     }
     return undefined;
@@ -628,27 +614,6 @@ router.get('/:assignmentId', function (req, res, next) {
                     return n.comment;
                 }).length;
                 assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
-
-                //generate select options for grades @ evaluation.hbs
-                const grades = (assignment.courseId.gradeSystem) ? ["1+", "1", "1-", "2+", "2", "2-", "3+", "3", "3-", "4+", "4", "4-", "5+", "5", "5-", "6"] : ["15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"];
-
-                let defaultOptions = "";
-                for (let i = 15; i >= 0; i--) {
-                    defaultOptions += ('<option value="' + i + '">' + grades[15 - i] + '</option>');
-                }
-                assignment.gradeOptions = defaultOptions;
-                submissions.map(function (sub) {
-                    let options = "";
-                    for (let i = 15; i >= 0; i--) {
-                        options += ('<option value="' + i + '" ' + ((sub.grade == i) ? "selected " : "") + '>' + grades[15 - i] + '</option>');
-                    }
-                    sub.gradeOptions = options;
-                    sub.gradeText = (sub.grade) ?   (
-                            ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade]
-                        ):(
-                            ((assignment.teacherId == res.locals.currentUser._id) && sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
-                    return sub;
-                });
 
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
