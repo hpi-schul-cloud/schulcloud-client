@@ -26,6 +26,7 @@
                                     <i class="fa fa-cloud-download"></i>
                                 </a>
 
+                                {{#userHasPermission "FILE_DELETE"}}
                                 <a href="/files/file/"
                                    target="_blank"
                                    data-method="delete"
@@ -33,6 +34,7 @@
                                    data-file-path="{{this.path}}">
                                     <i class="fa fa-trash-o"></i>
                                 </a>
+                                {{/userHasPermission}}
 
                                 <a href="#"
                                    class="btn-file-share"

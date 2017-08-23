@@ -233,6 +233,17 @@ header {
     }
 }
 
+.demo {
+    .alert-warning {
+        height: 57.375px;
+    }
+
+    marquee {
+        font-family: Impact;
+        letter-spacing: 1px
+    }
+}
+
 footer {
     width: 100%;
     position: inherit;
