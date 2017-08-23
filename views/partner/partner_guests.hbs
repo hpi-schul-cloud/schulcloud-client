@@ -10,19 +10,21 @@
             .partner-box {
                 background: white;
             }
+            a[href='/partner']{
+                background-color: #f8a41b;
+            }
         </style>
     {{/content}}
 
     {{#content "body"}}
         {{#embed "lib/header"}}{{/embed}}
         <div class="container">
-            <section class="section-title">
-                <div class="row">
-                    <div class="col-sm-12"><h4>Partner</h4></div>
+            <div class="card">
+                <div class="card-block">
+                    <div class="section-title"><h4>Partner</h4></div>
+                    {{#embed "partner/partner"}}{{/embed}}
                 </div>
-            </section>
-
-            {{#embed "partner/partner"}}{{/embed}}
+            </div>
         </div>
         {{#embed "lib/extended_footer"}}{{/embed}}
     {{/content}}
