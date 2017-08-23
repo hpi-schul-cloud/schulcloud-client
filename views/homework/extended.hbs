@@ -9,14 +9,14 @@
     </div>
         {{#ifvalue teacherId value=currentUser._id}}
             {{#userHasPermission "HOMEWORK_CREATE"}}
-            <a class="btn btn-primary btn-edit" href="/homework/{{_id}}/edit" alt="Aufgabe '{{title}}' bearbeiten.">Bearbeiten</a>
+            <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit" alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
             <a class="btn btn-primary btn-delete"
-               href="/homework/{{_id}}"
+               href="/homework/{{../_id}}"
                redirect="/homework"
                target="_blank"
                data-method="delete-material"
-               data-name="{{title}}"
-               alt="Löschen der Aufgabe: '{{title}}'.">
+               data-name="{{../title}}"
+               alt="Löschen der Aufgabe: '{{../title}}'.">
                 Löschen
             </a>
             {{/userHasPermission}}
