@@ -117,7 +117,7 @@ router.get('/', function (req, res, next) {
     const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
     ).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
-            news.timeString = moment(news.displayAt).fromNow();
+            news.date = moment(news.displayAt).fromNow();
             return news;
     }).sort(sortFunction).slice(0,3));
 
@@ -139,8 +139,8 @@ router.get('/', function (req, res, next) {
             title: 'Übersicht',
             events,
             eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-            homeworks: _.chunk(homeworks.filter(function(task){return !task.private;}).slice(0, 6), 3),
-            myhomeworks: _.chunk(homeworks.filter(function(task){return task.private;}).slice(0, 6), 3),
+            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 6),
+            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 6),
             news,
             hours,
             currentTimePercentage,

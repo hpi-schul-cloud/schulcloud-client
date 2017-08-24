@@ -64,9 +64,7 @@
                             </div>
                             <div class="tasks row card-deck-row">
                                 {{#each homeworks}}
-                                    {{#each this}}
-                                        {{> 'homework/components/dashboard_card_template'}}
-                                    {{/each}}
+                                    {{> 'homework/components/dashboard_card_template'}}
                                 {{/each}}
                             </div>
                         </div>
@@ -79,41 +77,13 @@
                             </div>
                             <div class="row tasks card-deck-row">
                                 {{#each myhomeworks}}
-                                    {{#each this}}
-                                        {{> 'homework/components/dashboard_card_template'}}
-                                    {{/each}}
+                                    {{> 'homework/components/dashboard_card_template'}}
                                 {{/each}}
                             </div>
                         </div>
                     </section>
-                    <section class="section-news">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-sm-12"><h5>Neuigkeiten</h5></div>
-                            </div>
-                            <div class="row tasks card-deck-row">
-                                {{#each news}}
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                        <article class="card h-100">
-                                            <div class="card-block assignment">
-                                                <div class="card-text">
-                                                    <small class="text-muted">{{timeString}}</small>
-                                                </div>
 
-                                                <div class="card-text"><strong>{{title}}</strong></div>
-                                                <div class="card-text description">
-                                                    {{{truncateHTML (conflictFreeHtml content)}}}
-                                                </div>
-                                            </div>
-                                            <div class="card-footer">
-                                                <a class="btn btn-primary btn-block" href="{{url}}" rel="canonical">Weiterlesen</a>
-                                            </div>
-                                        </article>
-                                    </div>
-                                {{/each}}
-                            </div>
-                        </div>
-                    </section>
+                    {{> 'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen"}}
                 </div>
             </div>
         </div>
