@@ -6,7 +6,7 @@ const rolesDisplayName = {
     'teacher': 'Lehrer',
     'student': 'Schüler',
     'administrator': 'Administrator',
-    'superhero': 'Schul-Cloud Mitarbeiter',
+    'superhero': 'Schul-Cloud Admin',
     'helpdesk': 'Helpdesk',
     'demo': 'Demo'
 };
