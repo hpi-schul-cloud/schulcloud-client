@@ -63,7 +63,7 @@ const getSortmethods = () => {
         },
         {
             query: 'updatedAt',
-            title: 'letzer Aktualisierung'
+            title: 'letze Aktualisierung'
         },
         {
             query: 'private',
