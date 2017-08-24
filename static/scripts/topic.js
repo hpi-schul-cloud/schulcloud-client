@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     $('.btn-create-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
