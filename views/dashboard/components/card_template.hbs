@@ -11,7 +11,29 @@
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary btn-block" href="{{url}}" rel="canonical">{{{link-text}}}</a>
+            <div class="input-group">
+                {{#userHasPermission "HOMEWORK_CREATE"}}
+                    <div class="btn-group left-btn-group">
+                        {{#each ../this.actions}}
+                            {{#if this.method}}
+                                    <a class="btn btn-secondary {{this.class}}"
+                                       href="{{this.link}}"
+                                       target="_blank"
+                                       data-method="delete-material"
+                                       data-name="{{../../title}}"
+                                       alt="Artikel '{{../../title}}' löschen">
+                                        <i class="fa fa-{{this.icon}}"></i>
+                                    </a>
+                            {{else}}
+                                <a class="btn btn-secondary {{this.class}}" href="{{this.link}}" alt="Artikel '{{../../title}}' {{this.alt}}.">
+                                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                                </a>
+                            {{/if}}
+                        {{/each}}
+                    </div>
+                {{/userHasPermission}}
+                <a class="btn btn-primary {{#userHasPermission "HOMEWORK_CREATE"}}ml-1{{/userHasPermission}} more" href="{{url}}" rel="canonical">{{{link-text}}}</a>
+            </div>
         </div>
     </article>
 </div>

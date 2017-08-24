@@ -13,6 +13,25 @@ moment.locale('de')
 
 router.use(authHelper.authChecker);
 
+const getActions = (item, path) => {
+    console.log(item);
+    return [
+        {
+            link: path + item._id + "/edit",
+            class: 'btn-edit',
+            icon: 'edit',
+            alt: 'bearbeiten'
+        },
+        {
+            link: path + item._id,
+            class: 'btn-delete',
+            icon: 'trash-o',
+            method: 'delete',
+            alt: 'löschen'
+        }
+    ];
+};
+
 const getDeleteHandler = (service) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
@@ -23,7 +42,8 @@ const getDeleteHandler = (service) => {
     };
 };
 
-router.post('/news/', function(req, res, next){
+router.post('/', function(req, res, next){
+    console.log("patch", req.post);
     if(req.body.displayAt) {
         // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
@@ -37,9 +57,10 @@ router.post('/news/', function(req, res, next){
         next(err);
     });
 });
-router.patch('/news/:id', function(req, res, next){
+router.patch('/:id', function(req, res, next){
+    console.log("patch", req.body);
     req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
-    api(req).patch('/news/', {
+    api(req).patch('/news/' + req.params.id, {
         // TODO: sanitize
         json: req.body
     }).then(data => {
@@ -48,7 +69,7 @@ router.patch('/news/:id', function(req, res, next){
         next(err);
     });
 });
-router.delete('/news/:id', getDeleteHandler('news'));
+router.delete('/:id', getDeleteHandler('news'));
 
 router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
@@ -60,6 +81,7 @@ router.all('/', function (req, res, next) {
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
             news.date = moment(news.displayAt).fromNow();
+            news.actions = getActions(news, '/news/');
             return news;
         });
         const pagination = {
@@ -67,10 +89,11 @@ router.all('/', function (req, res, next) {
             numPages: Math.ceil(totalNews / itemsPerPage),
             baseUrl: '/news/?p={{page}}'
         };
+        console.log( );
         res.render('news/overview', {
             title: 'Neuigkeiten',
             news, 
-            pagination
+            pagination,
         });
     });
 });

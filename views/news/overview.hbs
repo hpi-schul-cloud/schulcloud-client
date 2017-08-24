@@ -1,6 +1,9 @@
 {{#extend "news/news"}}
     {{#content "page"}}
         <div class="route-news">
+                <a href="/news/new" class="btn btn-primary btn-add create pull-right mb-1">
+                    <i class="fa fa-plus" aria-hidden="true"></i> News hinzufügen
+                </a>
             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
             <div class="container">
                 {{> "lib/components/pagination" settings=pagination }}
