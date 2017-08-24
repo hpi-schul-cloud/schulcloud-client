@@ -34,7 +34,7 @@ module.exports = (req, res, next) => {
         icon: 'th-large',
         link: '/dashboard/',
     }, {
-        name: 'News',
+        name: 'Neuigkeiten',
         icon: 'newspaper-o',
         link: '/news/'
     }, {

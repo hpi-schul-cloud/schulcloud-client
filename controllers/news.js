@@ -23,8 +23,55 @@ const getDetailHandler = (service) => {
     });
     };
 };
+const getDeleteHandler = (service) => {
+    return function (req, res, next) {
+        api(req).delete('/' + service + '/' + req.params.id).then(_ => {
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
 
 router.get('/:id/json', getDetailHandler('news'));
+
+router.post('/news/', function(req, res, next){
+    if(req.body.displayAt) {
+        // rewrite german format to ISO
+        req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    }
+    api(req).post('/news/', {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+});
+router.patch('/news/:id', function(req, res, next){
+    req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    api(req).patch('/news/', {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+});
+router.delete('/news/:id', getDeleteHandler('news'));
+
+router.get('/new', function (req, res, next) {
+    res.render('news/edit', {
+        title: "News erstellen",
+        submitLabel: 'Hinzufügen',
+        closeLabel: 'Schließen',
+        method: 'post',
+        action: '/news/',
+        referrer: req.header('Referer'),
+    });
+});
 
 router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
@@ -57,6 +104,22 @@ router.get('/:newsId', function (req, res, next) {
         news.url = '/news/' + news._id;
         news.timeString = moment(news.displayAt).fromNow();
         res.render('news/newsEntry', {title: news.title, news});
+    });
+});
+
+router.get('/:newsId/edit', function (req, res, next) {
+    api(req).get('/news/'+req.params.newsId, {
+    }).then(news => {
+        news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
+        res.render('news/edit', {
+            title: "News bearbeiten", 
+            submitLabel: 'Speichern',
+            closeLabel: 'Schließen',
+            method: 'patch',
+            action: '/news/'+req.params.newsId,
+            referrer: '/news/'+req.params.newsId,
+            news
+        });
     });
 });
 
