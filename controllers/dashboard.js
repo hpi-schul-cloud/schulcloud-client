@@ -89,20 +89,21 @@ router.get('/', function (req, res, next) {
 
     const homeworksPromise = api(req).get('/homework/', {
         qs: {
-            $populate: ['courseId']
+            $populate: ['courseId'],
+            $sort: 'dueDate'
         }
-    }).then(data => data.data.map(assignment => {
-        if (assignment.courseId != null) {
-            if (!assignment.private) {
-                assignment.userIds = assignment.courseId.userIds;
-            }
-            assignment.color = (assignment.courseId.color.length != 7) ? "#1DE9B6" : assignment.courseId.color;
+    }).then(data => data.data.map(homeworks => {
+        homeworks.date = "Fällig: "+ moment(homeworks.dueDate).fromNow();
+        if (homeworks.courseId != null) {
+            homeworks.title = '<span style="color:'+homeworks.courseId.color+'">●</span> ['+homeworks.courseId.name+'] ';
         } else {
-            assignment.color = "#1DE9B6";
-            assignment.private = true;
+            homeworks.title = '<span style="color:#1DE9B6">●</span> ';
+            homeworks.private = true;
         }
-        assignment.url = '/homework/' + assignment._id;
-        return assignment;
+        homeworks.title += homeworks.name
+        homeworks.url = '/homework/' + homeworks._id;
+        homeworks.content = homeworks.description;
+        return homeworks;
     }));
 
     function sortFunction(a, b) {

@@ -57,31 +57,8 @@
                         </section>
                     </div>
 
-                    <section class="section-tasks">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-sm-12"><h5>Gestellte Aufgaben</h5></div>
-                            </div>
-                            <div class="tasks row card-deck-row">
-                                {{#each homeworks}}
-                                    {{> 'homework/components/dashboard_card_template'}}
-                                {{/each}}
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="section-tasks">
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-sm-12"><h5>Meine Aufgaben</h5></div>
-                            </div>
-                            <div class="row tasks card-deck-row">
-                                {{#each myhomeworks}}
-                                    {{> 'homework/components/dashboard_card_template'}}
-                                {{/each}}
-                            </div>
-                        </div>
-                    </section>
+                    {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe"}}
+                    {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe"}}
 
                     {{> 'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen"}}
                 </div>

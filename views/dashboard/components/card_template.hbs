@@ -1,17 +1,17 @@
 <div class="col-md-4 col-sm-6 col-xs-12">
     <article class="card h-100">
-        <div class="card-block assignment">
-            <div class="card-text">
-                <small class="text-muted">{{this.date}}</small>
+        <div class="card-block">
+            <div class="pull-right">
+                <small class="text-muted">{{{this.date}}}</small>
             </div>
 
-            <div class="card-text"><strong>{{this.title}}</strong></div>
+            <div class="card-text"><strong>{{{this.title}}}</strong></div>
             <div class="card-text description">
                 {{{truncateHTML (conflictFreeHtml this.content)}}}
             </div>
         </div>
         <div class="card-footer">
-            <a class="btn btn-primary btn-block" href="{{url}}" rel="canonical">{{link-text}}</a>
+            <a class="btn btn-primary btn-block" href="{{url}}" rel="canonical">{{{link-text}}}</a>
         </div>
     </article>
 </div>
