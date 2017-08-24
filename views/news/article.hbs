@@ -1,14 +1,24 @@
 {{#extend "news/news"}}
     {{#content "page"}}
-            <p><small class="text-muted">{{news.timeString}}</small></p>
+            <p>
+                <small class="text-muted">{{timeFromNow news.displayAt}}</small>
+                <small class="text-muted">
+                    von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
+                    {{#if news.updaterId}}
+                        </br>zuletzt bearbeitet von {{news.updaterId.firstName}} {{news.updaterId.lastName}}
+                    {{/if}}
+                </small>
+            </p>
             <div class="ckcontent">
                 {{{news.content}}}
             </div>
-            <a class="btn btn-primary btn-edit" href="/news/{{news._id}}/edit" alt="Artikel '{{news.title}}' bearbeiten.">
-                Bearbeiten
-            </a>
-            <a class="btn btn-secondary btn-delete" href="/news/{{news._id}}" target="_blank" data-method="delete-material" data-name="{{news.title}}" alt="Artikel '{{news.title}}' löschen">
-                Löschen
-            </a>
+            <div class="mt-1">
+                <a class="btn btn-primary btn-edit" href="/news/{{news._id}}/edit" alt="Artikel '{{news.title}}' bearbeiten.">
+                    Bearbeiten
+                </a>
+                <a class="btn btn-secondary btn-delete" href="/news/{{news._id}}" target="_blank" data-method="delete-material" data-name="{{news.title}}" alt="Artikel '{{news.title}}' löschen">
+                    Löschen
+                </a>
+            </div>
     {{/content}}
 {{/extend}}

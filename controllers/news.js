@@ -46,6 +46,8 @@ router.post('/', function(req, res, next){
         // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
     }
+    req.body.creatorId = res.locals.currentUser._id;
+    req.body.lastUpdaterId = res.locals.currentUser._id;
     api(req).post('/news/', {
         // TODO: sanitize
         json: req.body
@@ -57,6 +59,7 @@ router.post('/', function(req, res, next){
 });
 router.patch('/:id', function(req, res, next){
     req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    req.body.lastUpdaterId = res.locals.currentUser._id;
     api(req).patch('/news/' + req.params.id, {
         // TODO: sanitize
         json: req.body
@@ -107,9 +110,9 @@ router.get('/new', function (req, res, next) {
 
 router.get('/:newsId', function (req, res, next) {
     api(req).get('/news/'+req.params.newsId, {
+        $populate: ['creatorId', 'lastUpdaterId']
     }).then(news => {
         news.url = '/news/' + news._id;
-        news.timeString = moment(news.displayAt).fromNow();
         res.render('news/article', {title: news.title, news});
     });
 });
