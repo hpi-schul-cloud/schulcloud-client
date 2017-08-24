@@ -10,7 +10,7 @@
         {{#ifvalue teacherId value=currentUser._id}}
             {{#userHasPermission "HOMEWORK_CREATE"}}
             <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit" alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
-            <a class="btn btn-primary btn-delete"
+            <a class="btn btn-secondary btn-delete"
                href="/homework/{{../_id}}"
                redirect="/homework"
                target="_blank"

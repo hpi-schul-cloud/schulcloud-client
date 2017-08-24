@@ -1,6 +1,14 @@
 {{#extend "news/news"}}
     {{#content "page"}}
             <p><small class="text-muted">{{news.timeString}}</small></p>
-            <p>{{{news.content}}}</p>
+            <div class="ckcontent">
+                {{{news.content}}}
+            </div>
+            <a class="btn btn-primary btn-edit" href="/news/{{news._id}}/edit" alt="Artikel '{{news.title}}' bearbeiten.">
+                Bearbeiten
+            </a>
+            <a class="btn btn-secondary btn-delete" href="/news/{{news._id}}" target="_blank" data-method="delete-material" data-name="{{news.title}}" alt="Artikel '{{news.title}}' löschen">
+                Löschen
+            </a>
     {{/content}}
 {{/extend}}
