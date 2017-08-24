@@ -93,14 +93,14 @@ router.get('/', function (req, res, next) {
             $sort: 'dueDate'
         }
     }).then(data => data.data.map(homeworks => {
-        homeworks.date = "Fällig: "+ moment(homeworks.dueDate).fromNow();
+        homeworks.date = moment(homeworks.dueDate).fromNow();
         if (homeworks.courseId != null) {
             homeworks.title = '<span style="color:'+homeworks.courseId.color+'">●</span> ['+homeworks.courseId.name+'] ';
         } else {
             homeworks.title = '<span style="color:#1DE9B6">●</span> ';
             homeworks.private = true;
         }
-        homeworks.title += homeworks.name
+        homeworks.title += homeworks.name;
         homeworks.url = '/homework/' + homeworks._id;
         homeworks.content = homeworks.description;
         return homeworks;

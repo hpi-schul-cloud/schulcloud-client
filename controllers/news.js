@@ -27,23 +27,27 @@ const getDetailHandler = (service) => {
 router.get('/:id/json', getDetailHandler('news'));
 
 router.all('/', function (req, res, next) {
+    const itemsPerPage = 9;
+    const currentPage = parseInt(req.query.p) || 1;
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
+    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime() + '&$limit='+itemsPerPage+'&$skip='+(itemsPerPage * (currentPage - 1))+'&$sort=-displayAt'
     ).then(news => {
+        const totalNews = news.total;
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
-            news.timeString = moment(news.displayAt).fromNow();
+            news.date = moment(news.displayAt).fromNow();
             return news;
         });
-        function sortFunction(a, b) {
-            if (a.displayAt === b.displayAt) {
-                return 0;
-            } else {
-                return (a.displayAt < b.displayAt) ? 1 : -1;
-            }
-        }
-        news = news.sort(sortFunction);
-        res.render('news/overview', {title: 'Neuigkeiten', news});
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(totalNews / itemsPerPage),
+            baseUrl: '/news/?p={{page}}'
+        };
+        res.render('news/overview', {
+            title: 'Neuigkeiten',
+            news, 
+            pagination
+        });
     });
 });
 

@@ -1,23 +1,15 @@
 @import '../lib/colors.scss';
 
 .section-news {
-	width:100%;
-	float:left;
-	padding: 15px 0px 50px;
-	line-height: 1.75rem;
-
-	h5 {
-		color: $colorHPIRed;
-		float: left;
-	}
-
-	a#showAll{
-		float: right;
-	}
-
-	.articles {
-		margin: 20px -15px;
-	}
+    .container-fluid{
+        padding:0;
+        .card-deck-row {
+            width: calc(100% + 30px);
+        }
+    }
+    p:last-of-type{
+        margin-bottom:0;
+    }
 }
 .newsEntry{
 	display: table !important;
