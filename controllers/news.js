@@ -13,16 +13,6 @@ moment.locale('de')
 
 router.use(authHelper.authChecker);
 
-const getDetailHandler = (service) => {
-    return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id).then(
-            data => {
-            res.json(data);
-    }).catch(err => {
-            next(err);
-    });
-    };
-};
 const getDeleteHandler = (service) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
@@ -32,8 +22,6 @@ const getDeleteHandler = (service) => {
         });
     };
 };
-
-router.get('/:id/json', getDetailHandler('news'));
 
 router.post('/news/', function(req, res, next){
     if(req.body.displayAt) {
@@ -62,17 +50,6 @@ router.patch('/news/:id', function(req, res, next){
 });
 router.delete('/news/:id', getDeleteHandler('news'));
 
-router.get('/new', function (req, res, next) {
-    res.render('news/edit', {
-        title: "News erstellen",
-        submitLabel: 'Hinzufügen',
-        closeLabel: 'Schließen',
-        method: 'post',
-        action: '/news/',
-        referrer: req.header('Referer'),
-    });
-});
-
 router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
@@ -98,12 +75,23 @@ router.all('/', function (req, res, next) {
     });
 });
 
+router.get('/new', function (req, res, next) {
+    res.render('news/edit', {
+        title: "News erstellen",
+        submitLabel: 'Hinzufügen',
+        closeLabel: 'Schließen',
+        method: 'post',
+        action: '/news/',
+        referrer: req.header('Referer'),
+    });
+});
+
 router.get('/:newsId', function (req, res, next) {
     api(req).get('/news/'+req.params.newsId, {
     }).then(news => {
         news.url = '/news/' + news._id;
         news.timeString = moment(news.displayAt).fromNow();
-        res.render('news/newsEntry', {title: news.title, news});
+        res.render('news/article', {title: news.title, news});
     });
 });
 
