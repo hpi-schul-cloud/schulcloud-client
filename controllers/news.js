@@ -9,12 +9,11 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
-moment.locale('de')
+moment.locale('de');
 
 router.use(authHelper.authChecker);
 
 const getActions = (item, path) => {
-    console.log(item);
     return [
         {
             link: path + item._id + "/edit",
@@ -43,7 +42,6 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', function(req, res, next){
-    console.log("patch", req.post);
     if(req.body.displayAt) {
         // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
@@ -52,19 +50,18 @@ router.post('/', function(req, res, next){
         // TODO: sanitize
         json: req.body
     }).then(data => {
-        res.redirect(req.header('Referer'));
+        res.redirect('/news');
     }).catch(err => {
         next(err);
     });
 });
 router.patch('/:id', function(req, res, next){
-    console.log("patch", req.body);
     req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
     api(req).patch('/news/' + req.params.id, {
         // TODO: sanitize
         json: req.body
     }).then(data => {
-        res.redirect(req.header('Referer'));
+        res.redirect('/news');
     }).catch(err => {
         next(err);
     });
@@ -74,6 +71,7 @@ router.delete('/:id', getDeleteHandler('news'));
 router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
+    //console.log(res.locals.currentUser.permissions);
     //Somehow $lte doesn't work in normal query so I manually put it into a request
     const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime() + '&$limit='+itemsPerPage+'&$skip='+(itemsPerPage * (currentPage - 1))+'&$sort=-displayAt'
     ).then(news => {
@@ -89,7 +87,6 @@ router.all('/', function (req, res, next) {
             numPages: Math.ceil(totalNews / itemsPerPage),
             baseUrl: '/news/?p={{page}}'
         };
-        console.log( );
         res.render('news/overview', {
             title: 'Neuigkeiten',
             news, 
@@ -105,7 +102,6 @@ router.get('/new', function (req, res, next) {
         closeLabel: 'Schließen',
         method: 'post',
         action: '/news/',
-        referrer: req.header('Referer'),
     });
 });
 
@@ -128,7 +124,6 @@ router.get('/:newsId/edit', function (req, res, next) {
             closeLabel: 'Schließen',
             method: 'patch',
             action: '/news/'+req.params.newsId,
-            referrer: '/news/'+req.params.newsId,
             news
         });
     });
