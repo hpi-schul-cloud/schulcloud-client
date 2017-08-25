@@ -5,8 +5,6 @@ const authHelper = require('../helpers/authentication');
 const api = require('../api');
 const rp = require('request-promise');
 
-const contentUrl = process.env.CONTENT_URL || 'http://localhost:4040/';
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -15,20 +13,41 @@ router.get('/', function (req, res, next) {
     const action = 'addToLesson';
     // Featured Content
     if (!query) {
-        return rp({
-            uri: contentUrl + 'featured',
-            json: true
-        }).then(featured => {
+        return Promise.all([
+            api(req)({
+                uri: '/content/resources/',
+                promoUntil: {
+                    $lt: new Date().getTime()
+                },
+                json: true
+            }),
+            api(req)({
+                uri: '/content/resources/',
+                featuredUntil: {
+                    $lt: new Date().getTime()
+                },
+                json: true
+            }),
+            api(req)({
+                uri: '/content/resources/',
+                $sort: {
+                    clickCount: -1
+                },
+                json: true
+            })
+        ]).then((promo, featured, trending) => {
             return res.render('content/store', {
                 title: 'Materialien',
+                promoContent: promo.data,
                 featuredContent: featured.data,
+                trendingContent: trending.data,
                 action
             });
         });
     // Search Results
     } else {
-        return rp({
-            uri: contentUrl + 'search',
+        return api(req)({
+            uri: '/content/search/',
             qs: { q: query },
             json: true
         }).then(results => {
@@ -53,8 +72,7 @@ router.get('/:id', function (req, res, next) {
             qs: {
                 teacherIds: res.locals.currentUser._id}
         }),
-        rp({
-            uri: contentUrl + 'content/' + req.params.id,
+        api(req).get('/content/resources/' + req.params.id, {
             json: true
         })
     ]).
