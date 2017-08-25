@@ -36,6 +36,15 @@ $(document).ready(function () {
                 "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
     };
 
+    /**
+     * creates the problem-message which will be sent to the Schul-Cloud helpdesk
+     * @param modal {object} - modal containing content from problem-form
+     */
+    const createProblemMessage = function(modal) {
+      return "Ist-Zustand: \n" + modal.find('#hasHappened').val() + "\n" +
+        "Soll-Zustand: \n" + modal.find('#supposedToHappen').val()
+    };
+
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
@@ -43,7 +52,7 @@ $(document).ready(function () {
 
         let email = 'schul-cloud-support@hpi.de';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = (type === 'feedback') ? createFeedbackMessage(modal) : modal.find('#message').val();
+        let text = (type === 'feedback') ? createFeedbackMessage(modal) : createProblemMessage(modal);
         let content = { text: text};
         let category = modal.find('#category').val();
 
@@ -74,7 +83,7 @@ $(document).ready(function () {
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'Feedback', 
+            title: 'User Story eingeben',
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });

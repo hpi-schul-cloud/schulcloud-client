@@ -1,12 +1,102 @@
+@import '../lib/colors.scss';
 @import '../lib/bootstrap/scss/bootstrap-flex';
+
 .homework {
-  .description {
-    margin: 10px 0;
-    min-height: 75px;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  clear: both; 
+}
+.assignment {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  text-decoration: none;
+  a {
     color: #373a3c;
-    a{
+    &:hover {
+      text-decoration: none !important;
+      color: #373a3c;
+    }
+  }
+  .dates {
+    float: right;
+    text-align: right;
+    color: grey;
+    .days {
+      color: $colorHPIYellow;
+    }
+    .hours {
+      color: $colorHPIOrange;
+      font-weight: bold;
+    }
+    .minutes {
+      color: $colorHPIRed;
+      font-weight: bold;
       text-decoration: underline;
     }
+    .submitted {
+      color: #61BD4F;
+      font-weight: normal;
+      text-decoration: none;
+      &::after {
+        content: " ✔";
+      }
+    }
+  }
+  .state {
+    float: right;
+    text-align: right;
+    clear: right;
+    color: grey;
+    position:relative;
+    .green {
+      color: #61BD4F;
+    }
+    .orange {
+      color: $colorHPIOrange;
+    }
+    .red {
+      color: red;
+    }
+    .textinfo{
+        transition: visibility 0s linear .3s,opacity .3s linear 0s;
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        top: 6px;
+        bottom: 6px;
+        right: 80px;
+        width:125px;
+        padding: 5px 9px;
+        border-radius: 3px;
+        font-size: 14px;
+        color: #fff;
+        background-color: #212121;
+        span{
+          display:block;
+        }
+    }
+    &:hover .textinfo{
+      transition-delay: 0s,0s;
+      opacity: .8;
+      visibility: visible;
+    }
+  }
+  &.private {
+    h5::before {
+      content: "🔒";
+    }
+  }
+  h5 {
+    margin: 0;
+    color: $colorHPIRed;
+  }
+  .description {
+    margin: 10px 0;
+    min-height: 50px;
+    color: #373a3c;
     text-decoration:none;
     &:hover{text-decoration:none;}
     word-break: break-all;
@@ -23,5 +113,15 @@
       border-left: 2px solid grey;
       padding-left: 5px;
     }
+  }
+  .more {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    padding: 5px 0 5px 10px;
+    clear: both;
+    text-align: right;
+    color: #b10438;
+    text-decoration: none;
   }
 }

@@ -45,6 +45,7 @@
                            placeholder="***************" required>
                 </div>
 
+                {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
                     <label>Neues Passwort</label>
                     <input type="password" name="password_new" id="password_new" class="form-control"
@@ -58,6 +59,7 @@
                     <input type="password" name="password_control" id="password_control"
                            class="form-control" placeholder="***************">
                 </div>
+                {{/userHasPermission}}
 
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary"/>

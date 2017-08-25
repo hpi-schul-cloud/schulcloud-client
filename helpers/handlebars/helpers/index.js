@@ -13,6 +13,9 @@ module.exports = {
             return options.inverse(item);
         }
     },
+    arrayLength: (array) => {
+        return array.length;
+    },
     truncate: (text = '', {length = 140} = {}) => {
         if (text.length <= length) {
             return text;
@@ -38,6 +41,13 @@ module.exports = {
             return opts.inverse(this);
         }
     },
+    ifneq: (a, b, opts) => {
+        if (a !== b) {
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    },
     userHasPermission: (permission, opts) => {
         if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
             return opts.fn(this);
@@ -54,6 +64,15 @@ module.exports = {
     },
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
+    },
+    timeToString: (date, opts) => {
+        let now = moment();
+        let d = moment(date);
+        if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
+            return moment(date).format('DD.MM.YYYY') + "("+moment(date).format('HH:mm')+")";
+        } else {
+            return moment(date).fromNow();
+        }
     },
     log: (data) => {
         console.log(data);

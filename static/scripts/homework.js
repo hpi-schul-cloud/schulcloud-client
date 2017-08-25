@@ -1,39 +1,5 @@
 $(document).ready(function() {
 
-    var $modals = $('.modal');
-    var $addModal = $('.add-modal');
-    var $editModal = $('.edit-modal');
-
-    $('.btn-add').on('click', function(e) {
-        e.preventDefault();
-        populateModalForm($addModal, {
-            title: 'Hinzufügen',
-            closeLabel: 'Schließen',
-            submitLabel: 'Hinzufügen',
-        });
-        $addModal.modal('show');
-    });
-
-    $('.btn-edit').on('click', function(e){
-        e.preventDefault();
-		var entry = $(this).attr('href');
-		$.getJSON(entry, function(result) {
-			if((!result.courseId)||(result.courseId && result.courseId.length<=2)){result.private = true;}
-			populateModalForm($editModal, {
-				action: entry,
-				title: 'Bearbeiten',
-				closeLabel: 'Schließen',
-				submitLabel: 'Speichern',
-				fields: result
-			});
-			$editModal.modal('show');
-        });
-    });
-
-    $modals.find('.close, .btn-close').on('click', function() {
-        $modals.modal('hide');
-    });
-
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
         let submitButtonText = submitButton.innerHTML || submitButton.value;
@@ -47,7 +13,7 @@ $(document).ready(function() {
         const url     = element.attr("action");
         const method  = element.attr("method");
         // update value of ckeditor instances
-        ckeditorInstance = element.find('textarea.customckeditor').attr("id");
+        let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
         if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
         const content = element.serialize();
         let request = $.ajax({
@@ -90,25 +56,23 @@ $(document).ready(function() {
         if(e) e.preventDefault();
         if(confirm("Kommentar endgültig löschen?")){
             ajaxForm($(this),function(t){
-                console.log($(t).closest("li.comment"));
                 $(t).closest("li.comment").remove();
             });
         }
         return false;
     });
-    
-    function getSearchParams(k){
-        var p={};
-        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
-        return k?p[k]:p;
+
+    function updateSearchParameter(key, value) {
+        let url = window.location.search;
+        let reg = new RegExp('('+key+'=)[^\&]+');
+        window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    $('#desc').on('click', function(e){
-        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    $('#desc').on('click', function(){
+        updateSearchParameter("desc", escape($('#desc').val()));
     });
-
-    $('#sortselection').on('change', function(e){
-        window.location.search = "?sort=" + escape($('#sortselection').val()) + "&desc=" + escape($('#desc').val());
+    $('#sortselection').on('change',  function(){
+        updateSearchParameter("sort", escape($('#sortselection').val()));
     });
 
     $('.importsubmission').on('click', function(e){
