@@ -3,7 +3,6 @@ const router = express.Router();
 
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
-const rp = require('request-promise');
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -41,11 +40,11 @@ router.get('/', function (req, res, next) {
                 action
             });
         });
-    // Search Results
+        // Search Results
     } else {
         return api(req)({
             uri: '/content/search/',
-            qs: { q: query },
+            qs: {q: query},
             json: true
         }).then(results => {
             // Include _id field in _source
@@ -67,13 +66,13 @@ router.get('/:id', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                teacherIds: res.locals.currentUser._id}
+                teacherIds: res.locals.currentUser._id
+            }
         }),
         api(req).get('/content/resources/' + req.params.id, {
             json: true
         })
-    ]).
-    then(([courses, content]) => {
+    ]).then(([courses, content]) => {
         // Fix "client" <==> "providerName"
         content.client = content.providerName;
         res.json({
@@ -86,19 +85,19 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/addToLesson', function (req, res, next) {
-   api(req).post('/materials/', {
-       json: req.body
-   }).then(material => {
-       api(req).patch('/lessons/' + req.body.lessonId, {
-           json: {
-               $push: {
-                   materialIds: material._id
-               }
-           }
-       }).then(result => {
-           res.redirect('/content/?q=' + req.body.query);
-       });
-   }); 
+    api(req).post('/materials/', {
+        json: req.body
+    }).then(material => {
+        api(req).patch('/lessons/' + req.body.lessonId, {
+            json: {
+                $push: {
+                    materialIds: material._id
+                }
+            }
+        }).then(result => {
+            res.redirect('/content/?q=' + req.body.query);
+        });
+    });
 });
 
 module.exports = router;
