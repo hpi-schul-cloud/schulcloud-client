@@ -19,6 +19,24 @@ h1, h3 {
 .carousel-item img, .card img {
     width: 100%;
 }
+/* Fix responsive Issue with Cards */
+.card {
+    display: flex;
+    flex: 1 0 0%;
+    flex-direction: column;
+}
+.card-block {
+    flex: 1 1 auto;
+}
+.row.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row.equal-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
 .card-img {
     cursor: pointer;
 }
@@ -45,15 +63,4 @@ h1, h3 {
 }
 .card-tags {
     margin-bottom: 10px;
-}
-
-@media(min-width:576px){
-    .card-columns {
-        column-count: 2;
-    }
-}
-@media(min-width:1200px){
-    .card-columns {
-        column-count: 3;
-    }
 }

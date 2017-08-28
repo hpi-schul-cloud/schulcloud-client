@@ -1,19 +1,8 @@
 <div class="card">
 
     <img class="card-img-top" src="{{{ thumbnail }}}" alt="Thumbnail">
-    <div class="card-img-overlay">
-        <span class="fa fa-video-camera"></span><span> 5:39</span>
-        <p class="m-0 pull-right">
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span class="fa fa-star-o"></span>
-            <span>(0)</span>
-        </p>
-    </div>
     <div class="card-block">
-        <a href="#"><h4 class="card-title">{{{ title }}}</h4></a>
+        <a href="{{{ url }}}" target="_blank"><h4 class="card-title">{{{ title }}}</h4></a>
         <div class="card-tags">
             {{#each tags}}
                 <span class="tag tag-default">{{{ this }}}</span>
