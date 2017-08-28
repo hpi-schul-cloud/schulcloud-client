@@ -16,29 +16,26 @@ router.get('/', function (req, res, next) {
         return Promise.all([
             api(req)({
                 uri: '/content/resources/',
-                promoUntil: {
-                    $lt: new Date().getTime()
+                qs: {
+                    featuredUntil: {
+                        $gte: new Date()
+                    }
                 },
                 json: true
             }),
             api(req)({
                 uri: '/content/resources/',
-                featuredUntil: {
-                    $lt: new Date().getTime()
-                },
-                json: true
-            }),
-            api(req)({
-                uri: '/content/resources/',
-                $sort: {
-                    clickCount: -1
+                qs: {
+                    $sort: {
+                        clickCount: -1
+                    },
+                    $limit: 3
                 },
                 json: true
             })
-        ]).then((promo, featured, trending) => {
+        ]).then(([featured, trending]) => {
             return res.render('content/store', {
                 title: 'Materialien',
-                promoContent: promo.data,
                 featuredContent: featured.data,
                 trendingContent: trending.data,
                 action
