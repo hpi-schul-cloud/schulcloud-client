@@ -36,15 +36,6 @@ $(document).ready(function () {
                 "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
     };
 
-    /**
-     * creates the problem-message which will be sent to the Schul-Cloud helpdesk
-     * @param modal {object} - modal containing content from problem-form
-     */
-    const createProblemMessage = function(modal) {
-      return "Ist-Zustand: \n" + modal.find('#hasHappened').val() + "\n" +
-        "Soll-Zustand: \n" + modal.find('#supposedToHappen').val()
-    };
-
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
@@ -52,9 +43,11 @@ $(document).ready(function () {
 
         let email = 'schul-cloud-support@hpi.de';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = (type === 'feedback') ? createFeedbackMessage(modal) : createProblemMessage(modal);
+        let text = createFeedbackMessage(modal);
         let content = { text: text};
         let category = modal.find('#category').val();
+        let currentState = modal.find('#hasHappened').val();
+        let targetState = modal.find('#supposedToHappen').val();
 
         $.ajax({
             url: '/helpdesk',
@@ -65,7 +58,9 @@ $(document).ready(function () {
                 subject: subject,
                 content: content,
                 type: type,
-                category: category
+                category: category,
+                currentState: currentState,
+                targetState: targetState
             },
             success: function(result) {
                 showAJAXSuccess("Feedback erfolgreich versendet!", modal)
