@@ -312,19 +312,20 @@ $(document).ready(function() {
     };
 
     let openSubTree = function (e) {
-        let $this = $(e.target);
-        let $parentDirElement = $this.parent().parent();
+        let $parent = $(e.target).parent();
+        let $parentDirElement = $parent.parent();
+        let $toggle = $parent.find('.toggle-icon');
         let $subMenu = $parentDirElement.children('.dir-sub-menu');
-        let isCollapsed = $this.hasClass('fa-plus-square-o');
+        let isCollapsed = $toggle.hasClass('fa-plus-square-o');
 
         if (isCollapsed) {
             $subMenu.css('display', 'block');
-            $this.removeClass('fa-plus-square-o');
-            $this.addClass('fa-minus-square-o');
+            $toggle.removeClass('fa-plus-square-o');
+            $toggle.addClass('fa-minus-square-o');
         } else {
             $subMenu.css('display', 'none');
-            $this.removeClass('fa-minus-square-o');
-            $this.addClass('fa-plus-square-o');
+            $toggle.removeClass('fa-minus-square-o');
+            $toggle.addClass('fa-plus-square-o');
         }
     };
 
@@ -336,9 +337,19 @@ $(document).ready(function() {
            let $toggle = $(`<i class="fa fa-plus-square-o toggle-icon"></i>`)
                .click(openSubTree.bind(this));
            let $dirSpan = $(`<span>${d.name}</span>`)
+               .click(openSubTree.bind(this));
+           // just displayed on hovering parent element
+           let $move = $(`<i class="fa ${d.path ? 'fa-share' :''}"></i>`)
                .click(d.path ? moveToDirectory.bind(this, $moveModal, d.path): '');
+
            $dirHeader.append($toggle);
            $dirHeader.append($dirSpan);
+           $dirHeader.hover(function() {
+               $move.css('display', 'inline');
+           }, function () {
+               $move.css('display', 'none');
+           });
+           $dirHeader.append($move);
 
            $dirElement.append($dirHeader);
 

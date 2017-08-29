@@ -283,6 +283,14 @@
     .toggle-icon:hover {
       cursor: pointer;
     }
+    .fa-share {
+      padding-left: 5px;
+      display: none;
+    }
+    .fa-share:hover {
+      cursor: pointer;
+      color: $colorHPIRed;
+    }
   }
 
   .dir-main-element {
