@@ -312,15 +312,27 @@ $(document).ready(function() {
     };
 
     let openSubTree = function (e) {
-        let $parentDirElement = $(e.target).parent().parent();
-        $parentDirElement.children('.dir-sub-menu').css('display', 'block');
+        let $this = $(e.target);
+        let $parentDirElement = $this.parent().parent();
+        let $subMenu = $parentDirElement.children('.dir-sub-menu');
+        let isCollapsed = $this.hasClass('fa-plus-square-o');
+
+        if (isCollapsed) {
+            $subMenu.css('display', 'block');
+            $this.removeClass('fa-plus-square-o');
+            $this.addClass('fa-minus-square-o');
+        } else {
+            $subMenu.css('display', 'none');
+            $this.removeClass('fa-minus-square-o');
+            $this.addClass('fa-plus-square-o');
+        }
     };
 
     let addDirTree = function ($parent, dirTree, isMainFolder = true) {
         dirTree.forEach(d => {
            let $dirElement =  $(`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'}-element" id="${d.path}" data-href="${d.path}"></div>`);
 
-           let $dirHeader = $('<div class="dir-header"></div>');
+           let $dirHeader = $(`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'}-header"></div>`);
            let $toggle = $(`<i class="fa fa-plus-square-o toggle-icon"></i>`)
                .click(openSubTree.bind(this));
            let $dirSpan = $(`<span>${d.name}</span>`)
@@ -334,6 +346,8 @@ $(document).ready(function() {
                let $newList = $('<div class="dir-sub-menu"></div>');
                addDirTree($newList, d.subDirs, false);
                $dirElement.append($newList);
+           } else {
+               $toggle.css('visibility', 'hidden');
            }
            $parent.append($dirElement);
         });

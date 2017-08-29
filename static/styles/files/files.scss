@@ -260,7 +260,6 @@
 
 .directories-tree {
   .dir-sub-menu {
-    padding-top: 5px;
     background-color: #dbd7d7;
     display: none;
   }
@@ -270,9 +269,6 @@
   }
 
   .dir-element {
-    * {
-      padding: 5px;
-    }
     span {
       color: $colorHPIRed;
     }
@@ -290,8 +286,14 @@
   }
 
   .dir-main-element {
-    font-weight: bold;
     border-bottom: 1px solid #9E9E9E;
+  }
+  .dir-main-header {
+    font-weight: bold;
+    padding: 10px;
+  }
+  .dir-sub-element {
+    padding: 10px 10px 10px 20px;
   }
 }
 
