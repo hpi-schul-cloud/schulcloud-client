@@ -93,6 +93,14 @@ module.exports = (req, res, next) => {
         ]
     });
 
+    // helpdesk views
+    res.locals.sidebarItems.push({
+       name: 'Helpdesk',
+       icon: 'cogs',
+       link: '/administration/helpdesk/',
+       permission: 'HELPDESK_VIEW'
+    });
+
     // admin views
     res.locals.sidebarItems.push({
         name: 'Administration',
