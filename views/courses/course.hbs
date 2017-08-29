@@ -119,10 +119,8 @@
                 </div>
 
                 <div class="col-sm-6">
-                    {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
+                        <a href="/courses/{{_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
-                    {{/userHasPermission}}
                     <h4>Tools</h4>
 
                     <div class="list-group">
