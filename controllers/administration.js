@@ -669,7 +669,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             baseUrl: '/administration/helpdesk/?p={{page}}'
         };
 
-        res.render('administration/helpdesk', {title: title + 'Lehrer', head, body, pagination});
+        res.render('administration/helpdesk', {title: title + 'Helpdesk', head, body, pagination});
     });
 });
 
