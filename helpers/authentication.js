@@ -7,8 +7,9 @@ const rolesDisplayName = {
     'student': 'Schüler',
     'administrator': 'Administrator',
     'superhero': 'Schul-Cloud Admin',
-    'helpdesk': 'Helpdesk',
-    'demo': 'Demo'
+    'demo': 'Demo',
+    'demoTeacher': 'Demo',
+    'demoStudent': 'Demo'
 };
 
 const isJWT = (req) => {

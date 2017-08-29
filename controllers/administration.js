@@ -444,7 +444,7 @@ const getStorageProviders = () => {
 const getSSOTypes = () => {
     return [
         {label: 'Moodle', value: 'moodle'},
-        {label: 'ITSLearning', value: 'itslearning'},
+        {label: 'itslearning', value: 'itslearning'},
         {label: 'LernSax', value: 'lernsax'}
     ];
 };
