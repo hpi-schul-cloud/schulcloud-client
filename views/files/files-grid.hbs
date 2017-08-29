@@ -42,13 +42,15 @@
                                     <i class="fa fa-share-alt"></i>
                                 </a>
 
+                                {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"
                                    class="btn-file-move"
-                                   data-file-path="{{this.path}}"
-                                   data-file-id="{{this._id}}"
-                                   data-file-name="{{this.name}}">
+                                   data-file-path="{{../path}}"
+                                   data-file-id="{{../_id}}"
+                                   data-file-name="{{../name}}">
                                     <i class="fa fa-share"></i>
                                 </a>
+                                {{/userHasPermission}}
                                 <small class="file-info" id="{{this.name}}"></small>
                             </div>
                         </div>

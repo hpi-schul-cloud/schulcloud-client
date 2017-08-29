@@ -311,15 +311,27 @@ $(document).ready(function() {
         });
     };
 
+    let openSubTree = function (e) {
+        let $parentDirElement = $(e.target).parent().parent();
+        $parentDirElement.children('.dir-sub-menu').css('display', 'block');
+    };
+
     let addDirTree = function ($parent, dirTree, isMainFolder = true) {
         dirTree.forEach(d => {
-           let $dirElement =  $(`<li id="${d.path} "data-href="${d.path}"></li>`);
-           let $dirSpan = $(`<span class="directory-${isMainFolder ? 'main' : 'sub'}">${d.name}</span>`)
+           let $dirElement =  $(`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'}-element" id="${d.path}" data-href="${d.path}"></div>`);
+
+           let $dirHeader = $('<div class="dir-header"></div>');
+           let $toggle = $(`<i class="fa fa-plus-square-o toggle-icon"></i>`)
+               .click(openSubTree.bind(this));
+           let $dirSpan = $(`<span>${d.name}</span>`)
                .click(d.path ? moveToDirectory.bind(this, $moveModal, d.path): '');
-           $dirElement.append($dirSpan);
+           $dirHeader.append($toggle);
+           $dirHeader.append($dirSpan);
+
+           $dirElement.append($dirHeader);
 
            if (d.subDirs.length) {
-               let $newList = $('<ul></ul>');
+               let $newList = $('<div class="dir-sub-menu"></div>');
                addDirTree($newList, d.subDirs, false);
                $dirElement.append($newList);
            }
@@ -345,7 +357,7 @@ $(document).ready(function() {
 
             // add folder structure recursively
             let $dirTree = $('.directories-tree');
-            let $dirTreeList = $('<ul class="super-list"></ul>');
+            let $dirTreeList = $('<div class="dir-main-menu"></div>');
             addDirTree($dirTreeList, result);
             $dirTree.append($dirTreeList);
             // remove modal-footer
