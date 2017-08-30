@@ -84,6 +84,23 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
+router.get('/redirect/:id', function (req, res, next) {
+    return api(req)({
+        uri: '/content/redirect-/' + req.params.id,
+        followRedirect: false,
+        resolveWithFullResponse: true,
+        simple: false
+    }).then(response => {
+        if(response.statusCode === 302) {
+            res.redirect(response.headers.location);
+        } else { // handle non 5xx, e.g. 404
+            next();
+        }
+    }).catch(err => {
+        next(err);
+    });
+});
+
 router.post('/addToLesson', function (req, res, next) {
     api(req).post('/materials/', {
         json: req.body
