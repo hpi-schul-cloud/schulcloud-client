@@ -75,6 +75,8 @@ router.get('/:id', function (req, res, next) {
     ]).then(([courses, content]) => {
         // Fix "client" <==> "providerName"
         content.client = content.providerName;
+        // Set URL for Redirect
+        content.url = '/content/redirect/' + content._id;
         res.json({
             courses: courses,
             content: content
