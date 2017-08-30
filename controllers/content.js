@@ -86,7 +86,7 @@ router.get('/:id', function (req, res, next) {
 
 router.get('/redirect/:id', function (req, res, next) {
     return api(req)({
-        uri: '/content/redirect-/' + req.params.id,
+        uri: '/content/redirect/' + req.params.id,
         followRedirect: false,
         resolveWithFullResponse: true,
         simple: false
