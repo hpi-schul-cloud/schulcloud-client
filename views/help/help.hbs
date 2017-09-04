@@ -11,6 +11,7 @@
     {{#content "page"}}
         <section class="faqpanel">
             <div class="container-fluid">
+        {{#ifneq this.currentRole "Demo"}}
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="card" style="text-align: center">
@@ -33,6 +34,7 @@
                             </div>
                     </div>
                 </div>
+        {{/ifneq}}
                 <div class="row">
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="card h-100">
