@@ -119,11 +119,13 @@
             </div>
         </div>
 
-        {{#embed "lib/components/modal" class="poll-modal"}}
+        {{#ifneq this.currentRole "Demo"}}
+            {{#embed "lib/components/modal" class="poll-modal"}}
             {{#content "body"}}
                 {{> "lib/forms/form-poll"}}
             {{/content}}
         {{/embed}}
+        {{/ifneq}}
 
     {{/content}}
 {{/extend}}
