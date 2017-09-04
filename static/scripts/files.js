@@ -1,7 +1,6 @@
 function getCurrentDir() {
     return $('.section-upload').data('path');
 }
-
 $(document).ready(function() {
     let $form = $(".form-upload");
     let $progressBar = $('.progress-bar');
@@ -284,6 +283,111 @@ $(document).ready(function() {
                     }
                 });
             }
+        });
+    });
+
+    $moveModal.on('hidden.bs.modal', function () {
+        // delete the directory-tree
+        $('.directories-tree').empty();
+    });
+
+    let moveToDirectory = function (modal, path) {
+        let fileId = modal.find('.modal-form').find("input[name='fileId']").val();
+        let fileName = modal.find('.modal-form').find("input[name='fileName']").val();
+        let fileOldPath = modal.find('.modal-form').find("input[name='filePath']").val();
+
+        $.ajax({
+            url: '/files/file/' + fileId,
+            type: 'PATCH',
+            data: {
+                fileName: fileName,
+                oldPath: fileOldPath,
+                newPath: path
+            },
+            success: function (result) {
+                reloadFiles();
+            },
+            error: showAJAXError
+        });
+    };
+
+    let openSubTree = function (e) {
+        let $parent = $(e.target).parent();
+        let $parentDirElement = $parent.parent();
+        let $toggle = $parent.find('.toggle-icon');
+        let $subMenu = $parentDirElement.children('.dir-sub-menu');
+        let isCollapsed = $toggle.hasClass('fa-plus-square-o');
+
+        if (isCollapsed) {
+            $subMenu.css('display', 'block');
+            $toggle.removeClass('fa-plus-square-o');
+            $toggle.addClass('fa-minus-square-o');
+        } else {
+            $subMenu.css('display', 'none');
+            $toggle.removeClass('fa-minus-square-o');
+            $toggle.addClass('fa-plus-square-o');
+        }
+    };
+
+    let addDirTree = function ($parent, dirTree, isMainFolder = true) {
+        dirTree.forEach(d => {
+           let $dirElement =  $(`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'}-element" id="${d.path}" data-href="${d.path}"></div>`);
+
+           let $dirHeader = $(`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'}-header"></div>`);
+           let $toggle = $(`<i class="fa fa-plus-square-o toggle-icon"></i>`)
+               .click(openSubTree.bind(this));
+           let $dirSpan = $(`<span>${d.name}</span>`)
+               .click(openSubTree.bind(this));
+           // just displayed on hovering parent element
+           let $move = $(`<i class="fa ${d.path ? 'fa-share' :''}"></i>`)
+               .click(d.path ? moveToDirectory.bind(this, $moveModal, d.path): '');
+
+           $dirHeader.append($toggle);
+           $dirHeader.append($dirSpan);
+           $dirHeader.hover(function() {
+               $move.css('display', 'inline');
+           }, function () {
+               $move.css('display', 'none');
+           });
+           $dirHeader.append($move);
+
+           $dirElement.append($dirHeader);
+
+           if (d.subDirs.length) {
+               let $newList = $('<div class="dir-sub-menu"></div>');
+               addDirTree($newList, d.subDirs, false);
+               $dirElement.append($newList);
+           } else {
+               $toggle.css('visibility', 'hidden');
+           }
+           $parent.append($dirElement);
+        });
+    };
+
+    $('.btn-file-move').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $context = $(this);
+
+        // fetch all directories the user is permitted to access
+        $.getJSON('/files/permittedDirectories/', function (result) {
+            populateModalForm($moveModal, {
+                title: 'Datei verschieben',
+                fields: {
+                    fileId: $context.attr('data-file-id'),
+                    fileName: $context.attr('data-file-name'),
+                    filePath: $context.attr('data-file-path')
+                }
+            });
+
+            // add folder structure recursively
+            let $dirTree = $('.directories-tree');
+            let $dirTreeList = $('<div class="dir-main-menu"></div>');
+            addDirTree($dirTreeList, result);
+            $dirTree.append($dirTreeList);
+            // remove modal-footer
+            $moveModal.find('.modal-footer').empty();
+            $moveModal.modal('show');
         });
     });
 
