@@ -82,7 +82,6 @@ $(document).ready(function () {
         $importModal.modal('show');
     });
 
-
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
     });
