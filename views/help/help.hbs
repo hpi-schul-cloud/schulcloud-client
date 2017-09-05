@@ -11,6 +11,7 @@
     {{#content "page"}}
         <section class="faqpanel">
             <div class="container-fluid">
+        {{#ifneq this.currentRole "Demo"}}
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="card" style="text-align: center">
@@ -18,10 +19,10 @@
                                 <div class="card-text">
                                     <h4 class="card-title">Befragung I im Projekt Schul-Cloud</h4>
                                     <p class="card-text">
-                                        Im Rahmen der Pilotphase I im Projekt Schul-Cloud möchten wir Sie bitten, an unserer circa 30-minütigen Online-Befragung teilzunehmen. Mit Hilfe der Befragung sollen Erwartungshaltungen und Erfolgsfaktoren gegenüber digitaler Medien in Schule und Unterricht allgemein und gegenüber der Schul-Cloud allgemein geprüft werden.
+                                        Im Rahmen der Pilotphase I im Projekt Schul-Cloud möchten wir Sie bitten, an unserer circa 30-minütigen Online-Befragung teilzunehmen. Mit Hilfe dieser sollen Erwartungshaltungen und Erfolgsfaktoren gegenüber digitaler Medien in Schule und Unterricht allgemein und gegenüber der Schul-Cloud geprüft werden.
                                     </p>
                                     <p class="card-text">
-                                        Hier können Sie bei unserer Befragung teilnehmen! Vielen Dank für Ihre Mitarbeit!
+                                        Vielen Dank für Ihre Mitarbeit!
                                     </p>
                                 </div>
                             </div>
@@ -33,6 +34,7 @@
                             </div>
                     </div>
                 </div>
+        {{/ifneq}}
                 <div class="row">
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="card h-100">

@@ -49,18 +49,26 @@ const getActions = (item, path) => {
 const getSortmethods = () => {
     return [
         {
-            functionname: 'availableDate',
+            query: 'dueDate',
+            title: 'Abgabedatum',
+            active: "selected"
+        },
+        {
+            query: 'availableDate',
             title: 'Verfügbarkeitsdatum'
         },
         {
-            functionname: 'dueDate',
-            title: 'Abgabedatum'
+            query: 'createdAt',
+            title: 'Erstelldatum'
         },
         {
-            functionname: '',
-            title: 'Erstelldatum',
-            active: "selected"
-        }
+            query: 'updatedAt',
+            title: 'letze Aktualisierung'
+        },
+        {
+            query: 'private',
+            title: 'private Aufgabe'
+        }        
     ];
 };
 
@@ -290,25 +298,7 @@ const formatremaining = function (dueDate) {
         "days": days
     };
 };
-// Sortierfunktionen
-const sortbyavailableDate = function (a, b) {
-    const c = new Date(a.availableDate), d = new Date(b.availableDate);
-    if (c === d) {
-        return 0;
-    }
-    else {
-        return (c < d) ? -1 : 1;
-    }
-};
-const sortbyDueDate = function (a, b) {
-    const c = new Date(a.dueDate), d = new Date(b.dueDate);
-    if (c === d) {
-        return 0;
-    }
-    else {
-        return (c < d) ? -1 : 1;
-    }
-};
+
 const getAverageRating = function (submissions, gradeSystem) {
     // Durchschnittsnote berechnen
     if (submissions.length > 0) {
@@ -339,9 +329,26 @@ const getAverageRating = function (submissions, gradeSystem) {
     return undefined;
 };
 router.all('/', function (req, res, next) {
+    var homeworkDesc = (req.query.desc == "true")?'-':'';
+    var homeworkSort = (req.query.sort && req.query.sort!=="")?req.query.sort:'dueDate';
+
+    var sortmethods = getSortmethods();
+    if (req.query.sort && req.query.sort!=="") {
+        // Aktueller Sortieralgorithmus für Anzeige aufbereiten
+        sortmethods = sortmethods.map(function (e) {
+            if (e.query == req.query.sort) {
+                e.active = 'selected';
+            } else {
+                delete e['active'];
+            }
+            return e;
+        });
+    }
+
     api(req).get('/homework/', {
         qs: {
             $populate: ['courseId'],
+            $sort: homeworkDesc+homeworkSort
         }
     }).then(homeworks => {
         homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
@@ -401,32 +408,6 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
 
-        // Hausaufgaben sortieren
-        
-        let sortmethods = getSortmethods();
-        let sorting = req.query.sort;
-        if (sorting) {
-            // Aktueller Sortieralgorithmus für Anzeige aufbereiten
-            sortmethods = sortmethods.map(function (e) {
-                if (e.functionname == sorting) {
-                    e.active = 'selected';
-                } else {
-                    delete e['active'];
-                }
-                return e;
-            });
-            // Sortieren der Aufgaben
-            if (sorting == "availableDate") {
-                homeworks.sort(sortbyavailableDate);
-            } else if (sorting == "dueDate") {
-                homeworks.sort(sortbyDueDate);
-            }
-        }
-        let desc = (req.query.desc == "true");
-        if (desc){
-            homeworks.reverse();
-        }
-
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
                 {userIds: res.locals.currentUser._id},
@@ -449,14 +430,14 @@ router.all('/', function (req, res, next) {
                 }
                 // Render Overview
                 //Pagination in client, because filters are in afterhook
-                const itemsPerPage = 3;
+                const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
                 let pagination = {
                     currentPage,
                     numPages: Math.ceil(homeworks.length / itemsPerPage),
                     baseUrl: '/homework/?'
                                         +((req.query.sort)?('sort='+req.query.sort+'&'):'')
-                                        +((req.query.desc == "true")?('desc='+req.query.desc+'&'):'')+'p={{page}}'
+                                        +((homeworkDesc)?('desc='+req.query.desc+'&'):'')+'p={{page}}'
                 };
                 const end = currentPage * itemsPerPage;
                 homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -468,7 +449,7 @@ router.all('/', function (req, res, next) {
                     courses,
                     isStudent,
                     sortmethods,
-                    desc
+                    desc: homeworkDesc
                 });
             });
         });
