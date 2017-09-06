@@ -8,8 +8,8 @@ $(document).ready(function() {
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
         submitButton.style["display"]="inline-block";
-        
-        
+
+
         const url     = element.attr("action");
         const method  = element.attr("method");
         // update value of ckeditor instances
@@ -40,7 +40,7 @@ $(document).ready(function() {
         ajaxForm($(this));
         return false;
     });
-    
+
     // Kommentar erstellen
     $('.discussionarea form[action="/homework/comment"]').on("submit",function(e){
         if(e) e.preventDefault();
@@ -50,7 +50,7 @@ $(document).ready(function() {
         });
         return false;
     });
-    
+
     // Kommentar löschen
     $('.discussionarea ul.comments form').on("submit",function(e){
         if(e) e.preventDefault();
