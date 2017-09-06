@@ -119,12 +119,14 @@
             </div>
         </div>
 
-        {{#ifneq this.currentRole "Demo"}}
+        {{#ifneq this.currentRole "Schüler"}}
+        {{#ifneq ../this.currentRole "Demo"}}
             {{#embed "lib/components/modal" class="poll-modal"}}
             {{#content "body"}}
                 {{> "lib/forms/form-poll"}}
             {{/content}}
         {{/embed}}
+        {{/ifneq}}
         {{/ifneq}}
 
     {{/content}}
