@@ -42,14 +42,15 @@
                             <div id="topic-list">
                             {{#each lessons}}
                                 {{#unless this.hidden}}
-                                    <div class="card card-topic" onclick="location.href='{{this.url}}'" 
+                                    <!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
+                                    <div class="card card-topic" onclick="location.href='{{this.url}}'"
                                     {{#userHasPermission "COURSE_EDIT"}}data-topicId="{{../_id}}"{{/userHasPermission}}>
                                         <div class="card-header">
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <a 
                                                         class="btn btn-secondary btn-sm btn-hidden-toggle" 
-                                                        href="{{../_id}}" 
+                                                        href="{{../_id}}"
                                                         data-toggle="tooltip" 
                                                         title="Thema verstecken">
                                                          <i class="fa fa-eye"></i>
@@ -76,8 +77,9 @@
                                         </div>
                                     </div>
                                 {{else}}
+                                    <!-- TOPIC IS HIDDEN, just teacher has access -->
                                     {{#userHasPermission "COURSE_EDIT"}}
-                                        <div class="card card-topic" onclick="location.href='{{this.url}}'" 
+                                        <div class="card card-topic" onclick="location.href='{{../url}}'"
                                         data-topicId="{{../_id}}">
                                             <div class="card-header">
                                                 <div class="input-group">
@@ -88,7 +90,7 @@
                                                         title="Thema sichtbar machen">
                                                         <i class="fa fa-eye-slash"></i>
                                                     </a>
-                                                    <p class="topic-label ml-1">{{this.name}}</p>
+                                                    <p class="topic-label ml-1">{{../name}}</p>
                                                     <div class="right-btn-group">
                                                         <a class="delete-topic btn btn-sm"
                                                            href="/courses/{{../courseId}}/topics/{{../_id}}"
@@ -119,10 +121,8 @@
                 </div>
 
                 <div class="col-sm-6">
-                    {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
+                        <a href="/courses/{{_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
-                    {{/userHasPermission}}
                     <h4>Tools</h4>
 
                     <div class="list-group">
@@ -133,10 +133,10 @@
                                     <p class="card-title-directory">
                                         {{#if logo_url}}
                                             <img src={{this.logo_url}} class="float-left"
-                                                 style="width:100px; height:auto;"/>
+                                                 style="width:auto; height:75px;"/>
                                         {{else}}
                                             <img src="/images/cloud.png" class="float-left"
-                                                 style="width:100px; height:auto;"/>
+                                                 style="width:auto; height:75px;"/>
                                         {{/if}}
                                         <span>{{this.name}}</span>
 
@@ -162,7 +162,7 @@
                 <hr/>
             <div class="row">
                 <div class="col-sm-6 container">
-                    {{#userHasPermission "HOMEWORK_CREATE" }}
+                    {{#userHasPermission "COURSE_EDIT" }}
                     <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
                         <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span>
                     </a>

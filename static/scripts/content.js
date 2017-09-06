@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 		$.getJSON(entry, function (result) {
 
-            var fields = result.content.data.attributes;
+            var fields = result.content;
             fields.query = query.val();
 
             if(window.isInline) {
@@ -46,7 +46,7 @@ $(document).ready(function () {
                 	url: fields.url,
                     title: fields.title,
 					description: fields.description,
-                    client: fields.client
+                    client: fields.providerName
 				});
                 window.close();
                 return;

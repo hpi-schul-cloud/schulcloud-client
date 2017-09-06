@@ -1,0 +1,66 @@
+.store.container {
+    margin: 0;
+    padding: 0;
+}
+.search-wrapper {
+    margin-bottom: 30px;
+}
+.card-block {
+    width: 100%;
+}
+h1, h3 {
+    margin-top: 30px;
+    color: #b10438;
+}
+.carousel-item, .card {
+    align-items: center;
+    width: 100%;
+}
+.carousel-item img, .card img {
+    width: 100%;
+}
+/* Fix responsive Issue with Cards */
+.card {
+    display: flex;
+    flex: 1 0 0%;
+    flex-direction: column;
+}
+.card-block {
+    flex: 1 1 auto;
+}
+.row.equal-height {
+    display: flex;
+    flex-wrap: wrap;
+}
+.row.equal-height > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img {
+    cursor: pointer;
+}
+.card-img-overlay {
+    color: #b10438;
+    padding: 10px;
+    bottom: auto;
+    z-index: 10;
+    font-weight: bold;
+}
+.card-img-overlay:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: lightgrey;
+    opacity: 0.7;
+    z-index: -1;
+}
+.card-title {
+    margin-bottom: 10px;
+}
+.card-tags {
+    margin-bottom: 10px;
+}
