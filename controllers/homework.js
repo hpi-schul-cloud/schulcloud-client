@@ -204,6 +204,8 @@ const getUpdateHandler = (service) => {
                         req,
                         `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
+
+                res.redirect(req.header('Referrer'));
             }
             if(referrer){
                 res.redirect(referrer);
