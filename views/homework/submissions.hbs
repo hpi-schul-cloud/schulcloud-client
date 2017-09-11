@@ -5,7 +5,7 @@
             <th>Vorname</th>
             <th>Nachname</th>
             <th>Abgegeben <span>{{submissionsCount}}/{{userCount}}</span></th>
-            <th>Bewertung {{#if averageRating}}<span>{{averageRating}}</span>{{/if}}</th>
+            <th>Bewertung {{#if averageRating}}<span>{{averageRating}}%</span>{{/if}}</th>
             <th/>
         </tr>
         </thead>
@@ -22,8 +22,16 @@
 					{{/if}}
 				</td>
 				<td>
-                    {{{submission.gradeText}}}
-					</td>
+                    {{#if submission.grade}}
+                        {{submission.grade}}%
+                    {{else}}
+                        {{#if submission.gradeComment}}
+                            {{#ifneq submission.gradeComment ''}}
+                                <i class="fa fa-check green" aria-hidden="true"></i>
+                            {{/ifneq}}
+                        {{/if}}
+                    {{/if}}
+                </td>
 				<td><i class="fa fa-chevron-left" aria-hidden="true"/></td>
 			</tr>
 			<tr class="evaluation">
