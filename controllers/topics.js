@@ -87,16 +87,35 @@ router.get('/:topicId', function (req, res, next) {
             qs: {
                 $populate: ['materialIds']
             }
+        }),
+        api(req).get('/homework/', {
+            qs: {
+                courseId: req.params.courseId,
+                lessonId: req.params.topicId,
+                $populate: ['courseId']
+            }
         })
-    ]).then(([course, lesson]) => {
+    ]).then(([course, lesson, homeworks]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
             return block;
         });
-
+        homeworks = (homeworks.data || []).map(assignment => {
+            assignment.url = '/homework/' + assignment._id;
+            return assignment;
+        });
+        homeworks.sort((a,b) => {
+            if(a.dueDate > b.dueDate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
         res.render('topic/topic', Object.assign({}, lesson, {
             title: lesson.name,
+            homeworks: homeworks.filter(function(task){return !task.private;}),
+            myhomeworks: homeworks.filter(function(task){return task.private;}),
             breadcrumb: [
                 {
                     title: 'Meine Kurse',
@@ -119,7 +138,8 @@ router.patch('/:topicId', function (req, res, next) {
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
-    if (!data.contents) data.contents = [];
+    // if not a simple hidden or position patch, set contents to empty array
+    if (!data.contents && !req.query.json) data.contents = [];
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize

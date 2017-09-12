@@ -1,0 +1,28 @@
+<section id="loginarea" class="card">
+    <div class="card-block">
+        <h4 class="card-title">Demo</h4>
+        <div class="card-text form-wrapper">
+            {{> "lib/components/notification"}}
+
+            <form method="post" action="https://schul-cloud.org/login/" class="login-form">
+                <input type="text" name="username" value="demo-schueler@schul-cloud.org" hidden>
+                <input type="password" name="password" value="schulcloud" hidden>
+                <input type="text" name="type" value="student" hidden>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block btn-primary btn-login" value="als Schüler einloggen" />
+                </div>
+            </form>
+
+            <form method="post" action="https://schul-cloud.org/login/" class="login-form">
+                <input type="text" name="username" value="demo-lehrer@schul-cloud.org" hidden>
+                <input type="password" name="password" value="schulcloud" hidden>
+                <input type="text" name="type" value="teacher" hidden>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block btn-primary btn-login" value="als Lehrer einloggen" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

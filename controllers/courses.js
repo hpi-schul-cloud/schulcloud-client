@@ -88,8 +88,8 @@ const editCourseHandler = (req, res, next) => {
     }
 
     const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
+    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demo'], $limit: 1000});
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demo'], $limit: 1000});
 
     Promise.all([
         coursePromise,
@@ -251,8 +251,7 @@ router.get('/:courseId/json', function (req, res, next) {
     ]).then(([course, lessons]) => res.json({course, lessons}));
 });
 
-router.get('/:courseId', function (req, res, next) {
-
+router.get('/:courseId', function (req, res, next) {        
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -262,10 +261,16 @@ router.get('/:courseId', function (req, res, next) {
         api(req).get('/lessons/', {
             qs: {
                 courseId: req.params.courseId,
-                $sort: { name: 1 }
+                $sort: 'position'
+            }
+        }),
+        api(req).get('/homework/', {
+            qs: {
+                courseId: req.params.courseId,
+                $populate: ['courseId']
             }
         })
-    ]).then(([course, lessons]) => {
+    ]).then(([course, lessons, homeworks]) => {
         let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
@@ -273,9 +278,23 @@ router.get('/:courseId', function (req, res, next) {
             });
         });
 
+        homeworks = (homeworks.data || []).map(assignment => {
+            assignment.url = '/homework/' + assignment._id;
+            return assignment;
+        });
+        homeworks.sort((a,b) => {
+            if(a.dueDate > b.dueDate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
+            homeworks: homeworks.filter(function(task){return !task.private;}),
+            myhomeworks: homeworks.filter(function(task){return task.private;}),
             ltiToolIds,
             breadcrumb: [
                 {
@@ -341,6 +360,17 @@ router.patch('/:courseId', function (req, res, next) {
     }).catch(error => {
         res.sendStatus(500);
     });
+});
+
+router.patch('/:courseId/positions', function (req, res, next) {
+    for(var elem in req.body) { 
+        api(req).patch('/lessons/' + elem, {
+            json: {
+                position : parseInt(req.body[elem]) 
+            }
+        });
+    }
+    res.sendStatus(200);
 });
 
 

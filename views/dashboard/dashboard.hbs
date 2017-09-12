@@ -4,6 +4,10 @@
         <link rel="stylesheet" href="/styles/dashboard/dashboard.css"/>
     {{/content}}
 
+    {{#content "scripts" mode="append"}}
+        <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
+    {{/content}}
+
     {{#content "page"}}
         <div class="row mobile-no-margin-right">
             <div class="row">
@@ -66,23 +70,7 @@
                             <div class="tasks row card-deck-row">
                                 {{#each homeworks}}
                                     {{#each this}}
-                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                            <div class="card h-100">
-                                                <div class="card-block homework">
-                                                    <div class="card-text">
-                                                        <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
-                                                    </div>
-
-                                                    <div class="card-text"><strong>{{#if courseId}}<span style="color:{{color}}">●</span> [{{courseId.name}}] {{/if}}{{name}}</strong></div>
-                                                    <div class="card-text description">
-                                                        {{{truncateHTML (conflictFreeHtml description)}}}
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{> 'homework/components/dashboard_card_template'}}
                                     {{/each}}
                                 {{/each}}
                             </div>
@@ -97,23 +85,7 @@
                             <div class="row tasks card-deck-row">
                                 {{#each myhomeworks}}
                                     {{#each this}}
-                                        <div class="col-md-4 col-sm-6 col-xs-12">
-                                            <div class="card h-100">
-                                                <div class="card-block homework">
-                                                    <div class="card-text">
-                                                        <small class="text-muted">Fällig: {{timeFromNow dueDate}}</small>
-                                                    </div>
-
-                                                    <div class="card-text"><strong>{{#if courseId}}<span style="color:{{color}}">●</span> [{{courseId.name}}] {{/if}}{{name}}</strong></div>
-                                                    <div class="card-text description">
-                                                        {{{truncateHTML (conflictFreeHtml description)}}}
-                                                    </div>
-                                                </div>
-                                                <div class="card-footer">
-                                                    <a class="btn btn-primary btn-block" href="{{url}}">Zur Aufgabe</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        {{> 'homework/components/dashboard_card_template'}}
                                     {{/each}}
                                 {{/each}}
                             </div>
@@ -146,5 +118,16 @@
                 </div>
             </div>
         </div>
+
+        {{#ifneq this.currentRole "Schüler"}}
+        {{#ifneq ../this.currentRole "Demo"}}
+            {{#embed "lib/components/modal" class="poll-modal"}}
+            {{#content "body"}}
+                {{> "lib/forms/form-poll"}}
+            {{/content}}
+        {{/embed}}
+        {{/ifneq}}
+        {{/ifneq}}
+
     {{/content}}
 {{/extend}}

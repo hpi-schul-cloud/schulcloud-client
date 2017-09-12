@@ -57,14 +57,14 @@ module.exports = (req, res, next) => {
         link: '/files/',
         children: [
             {
+                name: 'persönliche Dateien',
+                icon: 'folder-open-o',
+                link: '/files/my/'
+            },
+            {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
-            },
-            {
-                name: 'Klassen',
-                icon: 'folder-open-o',
-                link: '/files/classes/'
             }
         ]
     }, {
@@ -91,6 +91,14 @@ module.exports = (req, res, next) => {
                 link: '/administration/teachers/',
             },
         ]
+    });
+
+    // helpdesk views
+    res.locals.sidebarItems.push({
+       name: 'Helpdesk',
+       icon: 'cogs',
+       link: '/administration/helpdesk/',
+       permission: 'HELPDESK_VIEW'
     });
 
     // admin views

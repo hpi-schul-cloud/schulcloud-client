@@ -69,4 +69,21 @@ $(document).ready(function () {
         $modalForm.attr('action', `/courses/${courseId}/importTopic`);
         $importModal.modal('show');
     });
+    
+    $("#topic-list").sortable({
+        placeholder: "ui-state-highlight",
+        handle: '.move-handle',
+        update: function(event, ui) {
+            let positions = {};
+            $( "#topic-list .card-topic" ).each(function(i) {
+                positions[($( this ).attr("data-topicId"))] = i;
+            });
+            $.ajax({
+                type: "PATCH",
+                url: window.location.href + "/positions",
+                data: positions
+            });
+        },
+    });
+    $( "#topic-list" ).disableSelection();
 });

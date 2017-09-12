@@ -24,10 +24,24 @@ describe('Files tests', function () {
         this.server.close(done);
     });
 
-    it('GET /files', function () {
+    it('GET /files/', function () {
         return new Promise((resolve, reject) => {
             this.agent
                 .get('/files/')
+                .end((err, res) => {
+                    expect(res.statusCode).to.equal(200);
+                    expect(res.text).to.contain('Meine Dateien');
+                    expect(res.text).to.contain('Meine persönlichen Dateien');
+                    expect(res.text).to.contain('Meine Kurs-Dateien');
+                    resolve();
+                });
+        });
+    });
+
+    it('GET /files/my/', function () {
+        return new Promise((resolve, reject) => {
+            this.agent
+                .get('/files/my/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dateien');
