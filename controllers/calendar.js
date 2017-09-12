@@ -44,6 +44,13 @@ router.post('/events/', function (req, res, next) {
         delete req.body.courseId;
     }
 
+    // filter params
+    if (req.body.courseId && req.body.courseId !== '') {
+        req.body.scopeId = req.body.courseId;
+    } else {
+        delete req.body.courseId;
+    }
+
    api(req).post('/calendar/', {json: req.body}).then(event => {
       res.redirect('/calendar');
    });

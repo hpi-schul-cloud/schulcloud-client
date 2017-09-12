@@ -16,6 +16,20 @@ const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
 const _ = require('lodash');
 
+const filterOptions = [
+    {key: 'pics', label: 'Bilder'},
+    {key: 'videos', label: 'Videos'},
+    {key: 'pdfs', label: 'PDF Dokumente'},
+    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
+];
+
+const filterQueries = {
+    pics: {$regex: 'image'},
+    videos: {$regex: 'video'},
+    pdfs: {$regex: 'pdf'},
+    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
+};
+
 const thumbs = {
     default: "/images/thumbs/default.png",
     psd: "/images/thumbs/psds.png",
@@ -39,20 +53,6 @@ const thumbs = {
     docx: "/images/thumbs/docs.png",
     ai: "/images/thumbs/ais.png",
     tiff: "/images/thumbs/tiffs.png"
-};
-
-const filterOptions = [
-    {key: 'pics', label: 'Bilder'},
-    {key: 'videos', label: 'Videos'},
-    {key: 'pdfs', label: 'PDF Dokumente'},
-    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
-];
-
-const filterQueries = {
-    pics: {$regex: 'image'},
-    videos: {$regex: 'video'},
-    pdfs: {$regex: 'pdf'},
-    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
 };
 
 const requestSignedUrl = (req, data) => {
