@@ -82,20 +82,6 @@ $(document).ready(function () {
         $importModal.modal('show');
     });
 
-    $('.sso-type-selection').on('change', function (e) {
-        e.preventDefault();
-        // show oauth properties for iserv only (todo: later we need a extra field, if we have some more oauth providers)
-        let selectedType = $(this).find("option:selected").val();
-        selectedType === 'iserv'
-            ? $('.collapsePanel').css('display', 'block')
-            : $('.collapsePanel').css('display', 'none');
-    });
-
-    $(".edit-modal").on('shown.bs.modal', function() {
-        // when edit modal is opened, show oauth properties for iserv
-        let selectedType = $(this).find('.sso-type-selection').find("option:selected").val();
-        selectedType === 'iserv' ? $(this).find('.collapsePanel').css('display', 'block') : '';
-    });
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');

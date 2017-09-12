@@ -26,13 +26,11 @@
                     {{/if}}
                 </div>
 
-            {{#userHasPermission "COURSE_EDIT"}}
-            {{#embed "lib/components/modal-form" method="post" class="edit-modal" courseId=../courseId}}
+            {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
                 {{#content "fields"}}
                     {{> "courses/forms/form-tools"}}
                 {{/content}}
             {{/embed}}
-            {{/userHasPermission}}
         </section>
     {{/content}}
 

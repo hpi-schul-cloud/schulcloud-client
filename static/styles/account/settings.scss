@@ -1,12 +1,7 @@
 @import '../lib/colors.scss';
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
-.notification-div {
-  padding-top: 20px;
-}
-
 .notification {
-
   .btn-default {
     margin-top: 20px;
     background-color: $colorHPIRed;
@@ -25,17 +20,5 @@
 
   h4 {
     color: $colorHPIRed;
-  }
-}
-
-.route-account {
-  sup {
-    font-size: 16px;
-    color: red;
-  }
-
-  .hint {
-    font-size: 12px;
-    color: grey;
   }
 }

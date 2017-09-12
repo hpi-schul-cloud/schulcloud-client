@@ -1,9 +1,7 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework">
-        {{#if submission.grade}}
-            <b class="grade">{{submission.grade}}</b>
-        {{/if}}
-        
+        <b class="grade">{{{submission.gradeText}}}</b>
+
         <div class="comment">
             {{#if submission.gradeComment}}
                 {{{submission.gradeComment}}}

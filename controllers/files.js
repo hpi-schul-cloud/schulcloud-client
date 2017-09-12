@@ -76,7 +76,7 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
     return url.format(urlParts);
 };
 
-const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) => {
+const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/'} = {}) => {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
     let pathComponents = currentDir.split('/') || [];
@@ -110,7 +110,7 @@ const getStorageContext = (req, res, options = {}) => {
 
     let storageContext = urlParts.pathname.replace('/files/', '/');
 
-    if (storageContext === '/my/') {
+    if (storageContext === '/') {
         storageContext = 'users/' + res.locals.currentUser._id + '/';
     }
 
@@ -174,27 +174,6 @@ const getScopeDirs = (req, res, scope) => {
 };
 
 /**
- * generates a directory tree from a path recursively
- * @param rootPath
- */
-const getDirectoryTree = (req, rootPath) => {
-    return api(req).get('/directories/', {qs: {path: rootPath}}).then(dirs => {
-        if (!dirs.data.length) return [];
-        return Promise.all((dirs.data || []).map(d => {
-            let subDir = {
-                name: d.name,
-                path: d.key + '/',
-            };
-
-            return getDirectoryTree(req, subDir.path).then(subDirs => {
-                subDir.subDirs = subDirs;
-                return subDir;
-            });
-        }));
-    });
-};
-
-/**
  * register a new filePermission for the given user for the given file
  * @param userId {String} - the user which should be granted permission
  * @param filePath {String} - the file for which a new permission should be created
@@ -212,7 +191,7 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
         } else {
 
             let file = res.data[0];
-            if (!_.some(file.permissions, {userId: userId})) {
+            if (! _.some(file.permissions, {userId: userId})) {
                 file.permissions.push({
                     userId: userId,
                     permissions: ['can-read', 'can-write'] // todo: make it selectable
@@ -323,24 +302,6 @@ router.get('/file', function (req, res, next) {
     });
 });
 
-// move file
-router.patch('/file/:id', function (req, res, next) {
-    api(req).patch('/fileStorage/' + req.params.id, {
-        json: {
-            fileName: req.body.fileName,
-            path: req.body.oldPath,
-            destination: req.body.newPath
-        }
-    }).then(_ => {
-        req.session.notification = {
-            type: 'success',
-            message: 'Verschieben der Datei war erfolgreich!'
-        };
-        res.sendStatus(200);
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
-    });
-});
 
 // create directory
 router.post('/directory', function (req, res, next) {
@@ -374,7 +335,8 @@ router.delete('/directory', function (req, res) {
     });
 });
 
-router.get('/my/', FileGetter, function (req, res, next) {
+
+router.get('/', FileGetter, function (req, res, next) {
     let files = res.locals.files.files;
     files.map(file => {
         let ending = file.name.split('.').pop();
@@ -391,24 +353,6 @@ router.get('/my/', FileGetter, function (req, res, next) {
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor
     }, res.locals.files));
-});
-
-router.get('/', function (req, res, next) {
-    // get count of personal and course files/directories
-    let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
-    let courseFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^courses"}}});
-
-    Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
-        // filter shared files
-        myFiles = myFiles.data.filter(f => f.context !== 'geteilte Datei');
-        courseFiles = courseFiles.data.filter(f => f.context !== 'geteilte Datei');
-
-        res.render('files/files-overview', Object.assign({
-            title: 'Meine Dateien',
-            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length}
-        }));
-
-    });
 });
 
 
@@ -534,11 +478,11 @@ router.post('/permissions/', function (req, res, next) {
 });
 
 router.get('/search/', function (req, res, next) {
-    const {q, filter} = req.query;
+    const { q, filter } = req.query;
 
     let filterQuery = filter ?
         {type: filterQueries[filter]} :
-        {name: {$regex: _.escapeRegExp(q), $options: 'i'}};
+        {name: {$regex: _.escapeRegExp(q) , $options: 'i'}};
 
     api(req).get('/files/', {
         qs: filterQuery
@@ -558,44 +502,6 @@ router.get('/search/', function (req, res, next) {
             files: files
         });
     });
-});
-
-/** fetch all personal folders and all course folders in a directory-tree **/
-router.get('/permittedDirectories/', function (req, res, next) {
-    let userPath = `users/${res.locals.currentUser._id}/`;
-    let directoryTree = [{
-        name: 'Meine Dateien',
-        path: userPath,
-        subDirs: []
-    }, {
-        name: 'Meine Kurs-Dateien',
-        subDirs: []
-    }];
-    getDirectoryTree(req, userPath) // root folder personal files
-        .then(personalDirs => {
-            directoryTree[0].subDirs = personalDirs;
-
-            // fetch tree for all course folders
-            directoryTree.push()
-            getScopeDirs(req, res, 'courses').then(courses => {
-                Promise.all((courses || []).map(c => {
-                    let coursePath = `courses/${c._id}/`;
-                    let newCourseDir = {
-                        name: c.name,
-                        path: coursePath,
-                        subDirs: []
-                    };
-
-                    return getDirectoryTree(req, coursePath).then(dirs => {
-                        newCourseDir.subDirs = dirs;
-                        directoryTree[1].subDirs.push(newCourseDir);
-                        return;
-                    });
-                })).then(_ => {
-                    res.json(directoryTree);
-                });
-            });
-        });
 });
 
 /**** File and Directory proxy models ****/

@@ -5,7 +5,6 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
-const feedr = require('feedr').create();
 const authHelper = require('../helpers/authentication');
 
 
@@ -27,6 +26,13 @@ router.post('/login/', function (req, res, next) {
 
     return api(req).get('/accounts/', {qs: {username: username}})
         .then(account => {
+            if (account.length === 0 && !systemId) {
+                res.locals.notification = {
+                    'type': 'danger',
+                    'message': 'Login fehlgeschlagen.'
+                };
+                next();
+            }
             if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) { // undefined for currently existing users
                 res.locals.notification = {
                     'type': 'danger',
@@ -59,36 +65,6 @@ router.post('/login/', function (req, res, next) {
 });
 
 
-router.all('/', function (req, res, next) {
-    authHelper.isAuthenticated(req).then(isAuthenticated => {
-        if (isAuthenticated) {
-            return res.redirect('/login/success/');
-        } else {
-            feedr.readFeed('https://blog.schul-cloud.org/rss', {/* optional configuration */}, function (err, data, headers) {
-                let blogFeed = data.rss.channel[0].item.slice(0,5).map(function(e){
-                    var date = new Date(e.pubDate),
-                    locale = "en-us",
-                    month = date.toLocaleString(locale, { month: "long" });
-                    e.pubDate = date.getDate() + ". " + month;
-                    return e;
-                });
-                let schoolsPromise = getSelectOptions(req, 'schools');
-
-                Promise.all([
-                    schoolsPromise
-                ]).then(([schools, systems]) => {
-                    return res.render('authentication/home', {
-                        schools,
-                        blogFeed,
-                        inline: true,
-                        systems: []
-                    });
-                });
-            });
-        }
-    });
-});
-
 router.all('/login/', function (req, res, next) {
     authHelper.isAuthenticated(req).then(isAuthenticated => {
         if (isAuthenticated) {
@@ -99,11 +75,7 @@ router.all('/login/', function (req, res, next) {
             Promise.all([
                 schoolsPromise
             ]).then(([schools, systems]) => {
-                return res.render('authentication/login', {
-                    schools,
-                    inline: true,
-                    systems: []
-                });
+                return res.render('authentication/login', {schools, systems: []});
             });
         }
     });
@@ -131,9 +103,9 @@ router.get('/logout/', function (req, res, next) {
     api(req).del('/authentication')
         .then(_ => {
             res.clearCookie('jwt');
-            return res.redirect('/');
+            return res.redirect('/login/');
         }).catch(_ => {
-        return res.redirect('/');
+        return res.redirect('/login/');
     });
 });
 

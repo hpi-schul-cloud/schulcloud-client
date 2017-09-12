@@ -43,11 +43,9 @@ $(document).ready(function () {
 
         let email = 'schul-cloud-support@hpi.de';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = createFeedbackMessage(modal);
+        let text = (type === 'feedback') ? createFeedbackMessage(modal) : modal.find('#message').val();
         let content = { text: text};
         let category = modal.find('#category').val();
-        let currentState = modal.find('#hasHappened').val();
-        let targetState = modal.find('#supposedToHappen').val();
 
         $.ajax({
             url: '/helpdesk',
@@ -58,9 +56,7 @@ $(document).ready(function () {
                 subject: subject,
                 content: content,
                 type: type,
-                category: category,
-                currentState: currentState,
-                targetState: targetState
+                category: category
             },
             success: function(result) {
                 showAJAXSuccess("Feedback erfolgreich versendet!", modal)
@@ -78,7 +74,7 @@ $(document).ready(function () {
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'User Story eingeben',
+            title: 'Feedback', 
             closeLabel: 'Schließen',
             submitLabel: 'Senden'
         });

@@ -2,7 +2,6 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/homework/homework.css"/>
     {{/content}}
     {{#content "scripts" mode="append"}}
         <script src="/scripts/topic.js" defer></script>
@@ -75,57 +74,6 @@
                     </div>
                 </div>
             {{/userHasPermission}}
-
-            <hr/>
-
-            <div class="row">
-                <div class="col-sm-6 container">
-                    {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <a href="/homework/new?course={{../courseId}}&topic={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
-                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span>
-                    </a>
-                    {{/userHasPermission}}
-                    <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
-                        <h4>
-                            <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                            Gestellte Aufgaben 
-                            <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
-                        </h4>
-                    </a>
-                    <div id="homeworks" class="container-fluid collapse">
-                        <ol class="homework">
-                            <div class="row">
-                                {{#each homeworks}}
-                                    {{> 'homework/components/course_overview_card_template'}}
-                                {{/each}}
-                            </div>
-                        </ol>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="private Aufgabe hinzufügen">
-                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span>
-                    </a>
-                    {{/userHasPermission}}
-                    <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
-                        <h4>
-                            <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                            Meine Aufgaben 
-                            <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
-                        </h4>
-                    </a>
-                    <div id="myhomeworks" class="container-fluid collapse">
-                        <ol class="homework">
-                            <div class="row">
-                                {{#each myhomeworks}}
-                                    {{> 'homework/components/course_overview_card_template'}}
-                                {{/each}}
-                            </div>
-                        </ol>
-                    </div>
-                </div>
-            </div>
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                 {{#content "body"}}

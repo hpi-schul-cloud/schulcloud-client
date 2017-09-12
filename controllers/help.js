@@ -7,8 +7,6 @@ const showdown  = require('showdown');
 const converter = new showdown.Converter();
 const moment = require('moment');
 
-const faq = require('../helpers/content/faq.json');
-
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -32,29 +30,6 @@ router.get('/faq', function (req, res, next) {
 
    });
 });
-
-router.get('/faq/sso', function (req, res, next) {
-faq.ssoFAQ.map(faq => {
-   faq.content = converter.makeHtml(faq.content);
-});
-
-    res.render('help/sso-faq', {
-        faq: faq.ssoFAQ,
-        title: "Häufig gestellte Fragen zu SSO"
-    });
-});
-
-router.get('/faq/administration', function (req, res, next) {
-    let administration = faq.administration;
-
-    administration[0].content = converter.makeHtml(administration[0].content);
-
-    res.render('help/sso-faq', {
-        faq: administration,
-        title: "Wie kann ich neue Lehrkräfte und Schüler und Schülerinnen in der Schul-Cloud anlegen?"
-    });
-});
-
 
 router.get('/releases', function (req, res, next) {
     api(req).get('/releases', {qs: {$sort: '-createdAt'}})

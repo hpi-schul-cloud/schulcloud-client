@@ -1,82 +1,28 @@
+/*
+ * One Controller per layout view
+ */
+
+
+const url = require('url');
 const express = require('express');
 const router = express.Router();
-
-const authHelper = require('../helpers/authentication');
 const api = require('../api');
+const authHelper = require('../helpers/authentication');
+const _subjects = require('../helpers/content/subjects.json');
+const _ = require('lodash');
+const subjects = _.mapValues(_subjects, v => ({name: v}));
 
 // secure routes
 router.use(authHelper.authChecker);
-
-router.get('/', function (req, res, next) {
-    const query = req.query.q;
-    const action = 'addToLesson';
-    // Featured Content
-    if (!query) {
-        return Promise.all([
-            api(req)({
-                uri: '/content/resources/',
-                qs: {
-                    featuredUntil: {
-                        $gte: new Date()
-                    }
-                },
-                json: true
-            }),
-            api(req)({
-                uri: '/content/resources/',
-                qs: {
-                    $sort: {
-                        clickCount: -1
-                    },
-                    $limit: 3
-                },
-                json: true
-            })
-        ]).then(([featured, trending]) => {
-            return res.render('content/store', {
-                title: 'Materialien',
-                featuredContent: featured.data,
-                trendingContent: trending.data,
-                action
-            });
-        });
-        // Search Results
-    } else {
-        return api(req)({
-            uri: '/content/search/',
-            qs: {q: query},
-            json: true
-        }).then(results => {
-            // Include _id field in _source
-            const searchResults = results.hits.hits.map(x => {
-                x._source._id = x._id;
-                return x;
-            });
-            return res.render('content/search-results', {
-                title: 'Materialien',
-                query: query,
-                searchResults: searchResults,
-                action
-            });
-        });
-    }
-});
 
 router.get('/:id', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                teacherIds: res.locals.currentUser._id
-            }
+                teacherIds: res.locals.currentUser._id}
         }),
-        api(req).get('/content/resources/' + req.params.id, {
-            json: true
-        })
-    ]).then(([courses, content]) => {
-        // Fix "client" <==> "providerName"
-        content.client = content.providerName;
-        // Set URL for Redirect
-        content.url = '/content/redirect/' + content._id;
+        api(req).get('/contents/' + req.params.id)]).
+    then(([courses, content]) => {
         res.json({
             courses: courses,
             content: content
@@ -86,37 +32,99 @@ router.get('/:id', function (req, res, next) {
     });
 });
 
-router.get('/redirect/:id', function (req, res, next) {
-    return api(req)({
-        uri: '/content/redirect/' + req.params.id,
-        followRedirect: false,
-        resolveWithFullResponse: true,
-        simple: false
-    }).then(response => {
-        if(response.statusCode === 302) {
-            res.redirect(response.headers.location);
-        } else { // handle non 5xx, e.g. 404
-            next();
+router.get('/', function (req, res, next) {
+    const query = req.query.q;
+
+    const itemsPerPage = 12;
+    const currentPage = parseInt(req.query.p) || 1;
+
+    if(!query && !req.query.filter) {
+        res.render('content/search', {
+            title: 'Inhalte',
+            query,
+            results: [],
+            subjects,
+            suppressNoResultsMessage: true
+        });
+        return;
+    }
+
+    let selectedSubjects = _.cloneDeep(subjects);
+    let querySubjects = ((req.query.filter || {}).subjects || []);
+    if(!Array.isArray(querySubjects)) querySubjects = [querySubjects];
+    querySubjects.forEach(s => {selectedSubjects[s].selected = true;});
+
+    api(req).get('/contents/', {
+        qs: {
+            query,
+            filter: req.query.filter,
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1)
         }
-    }).catch(err => {
-        next(err);
-    });
+    }).then(result => {
+
+        const {meta = {}, data = []} = result;
+
+        // get base url with all filters and query
+        const urlParts = url.parse(req.originalUrl, true);
+        urlParts.query.p = '{{page}}';
+        delete urlParts.search;
+        const baseUrl = url.format(urlParts);
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil((meta.page || {}).total / itemsPerPage),
+            maxItems: 10,
+            baseUrl
+        };
+
+        const total = result.total || "keine";
+
+        const results = data.map(result => {
+            let res = result.attributes;
+            res.href = result.id;
+            return res;
+        });
+
+        let action = 'addToLesson';
+        res.render('content/search', {
+            title: 'Inhalte',
+            query,
+            results: _.chunk(results, 3),
+            pagination,
+            action,
+            subjects: selectedSubjects,
+            total
+        });
+
+    })
+        .catch(error => {
+            res.render('content/search', {
+                title: 'Inhalte',
+                query,
+                subjects: selectedSubjects,
+                notification: {
+                    type: 'danger',
+                    message: `${error.name} ${error.message}`
+                }
+            });
+        });
 });
 
 router.post('/addToLesson', function (req, res, next) {
-    api(req).post('/materials/', {
-        json: req.body
-    }).then(material => {
-        api(req).patch('/lessons/' + req.body.lessonId, {
-            json: {
-                $push: {
-                    materialIds: material._id
-                }
-            }
-        }).then(result => {
-            res.redirect('/content/?q=' + req.body.query);
-        });
-    });
+   api(req).post('/materials/', {
+       json: req.body
+   }).then(material => {
+       api(req).patch('/lessons/' + req.body.lessonId, {
+           json: {
+               $push: {
+                   materialIds: material._id
+               }
+           }
+       }).then(result => {
+           res.redirect('/content/?q=' + req.body.query);
+       });
+   }); 
 });
 
 module.exports = router;

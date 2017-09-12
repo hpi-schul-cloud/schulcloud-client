@@ -2,7 +2,6 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/partner/partner.css"/>
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
         <style>
             body {
                 background: #e6e2e2;
@@ -10,23 +9,25 @@
             .partner-box {
                 background: white;
             }
-            header a[href='/partner']{
-                background-color: #f8a41b;
-            }
         </style>
     {{/content}}
 
     {{#content "body"}}
         {{#embed "lib/header"}}{{/embed}}
         <div class="container">
-            <div class="card">
-                <div class="card-block">
-                    <div class="section-title"><h4>Partner</h4></div>
-                    {{#embed "partner/partner"}}{{/embed}}
+
+            <hgroup class="huge-gap">
+                <h3>Schul-Cloud <sup>ALPHA</sup></h3>
+            </hgroup>
+
+            <section class="section-title">
+                <div class="row">
+                    <div class="col-sm-12"><h4>Partner</h4></div>
                 </div>
-            </div>
+            </section>
+
+            {{#embed "partner/partner"}}{{/embed}}
         </div>
-        {{#embed "lib/extended_footer"}}{{/embed}}
     {{/content}}
 
     {{#content "scripts" mode="append"}}

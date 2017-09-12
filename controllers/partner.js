@@ -28,7 +28,6 @@ router.get('/', function (req, res, next) {
         res.render(template, {
             title: 'Partner',
             logo_prefix: "/images/partner/",
-            inline: true,
             partners: partners,
         })
     );

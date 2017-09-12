@@ -70,13 +70,6 @@
             </a>
         </aside>
 
-        {{#ifeq currentRole "Demo"}}
-            <section class="demo">
-                <div class="alert alert-warning" role="alert">
-                    <p>Dies ist ein Demoaccount. Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</p>
-                </div>
-            </section>
-        {{/ifeq}}
 
         <section class="content-wrapper">
             {{> "lib/components/notification"}}
@@ -146,11 +139,9 @@
                                                                                                 aria-hidden="true"></i><a
                                             href="/help/faq" class="link">FAQ</a></span></li>
                                     <div class="delimiter"></div>
-                                    {{#ifneq this.currentRole "Schüler"}}
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                 aria-hidden="true"></i></i>
-                                        <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
-                                    {{/ifneq}}
+                                        <a href="#" class="link submit-helpdesk">Feedback</a></span></li>
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
                                                                                                 aria-hidden="true"></i></i>
                                         <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
@@ -220,6 +211,11 @@
                     </div>
                 </div>
             </div>
+
+            <a class="submit-helpdesk hide-inline">
+                {{#embed "lib/components/feedback-button"}}
+                {{/embed}}
+            </a>
 
             {{#embed "lib/components/modal-form" class="feedback-modal"}}
                 {{#content "fields"}}

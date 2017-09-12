@@ -144,7 +144,7 @@ router.post('/register/', function (req, res, next) {
             return createAccount(req, {username, password, userId: user._id})
                 .then(account => {
                     api(req).post('/mails', {json: {email: username, subject: "Registrierung in der Schul-Cloud", content: {text:
-                        "Sehr geehrte/r " + name + ",\n\nBitte bestätigen Sie uns noch Ihre E-Mail Adresse unter folgendem Link:\n" + (req.headers.origin || process.env.HOST) + "/register/confirm/" + account._id + "\n\nMit freundlichen Grüßen,\nIhr Schul-Cloud Team"}}});
+                        "Sehr geehrte/r " + name + ",\n\nBitte bestätigen Sie uns noch Ihre E-Mail Adresse unter folgendem Link:\n" + req.headers.origin + "/register/confirm/" + account._id + "\n\nMit freundlichen Grüßen,\nIhr Schul-Cloud Team"}}});
                 });
         }).then(_ => {
             return res.render('registration/confirmation', {
