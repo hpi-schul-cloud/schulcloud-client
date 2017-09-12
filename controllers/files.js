@@ -600,6 +600,7 @@ router.get('/permittedDirectories/', function (req, res, next) {
 
 /**** File and Directory proxy models ****/
 router.post('/fileModel', function (req, res, next) {
+    req.body.schoolId = res.locals.currentSchool;
     api(req).post('/files/', {json: req.body}).then(file => res.json(file)).catch(err => next(err));
 });
 

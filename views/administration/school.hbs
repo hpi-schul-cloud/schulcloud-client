@@ -35,6 +35,13 @@
                                     <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 
                                 </form>
+
+                                {{#if ../school.fileStorageType}}
+                                    <div style="padding-top: 20px">
+                                        <label>Genutzter Datei-Speicherplatz in der Cloud</label>
+                                        <p>Derzeit bezieht Ihre Schule {{writeFileSizePretty ../totalStorage.totalSize}}.</p>
+                                    </div>
+                                {{/if}}
                             {{/userHasPermission}}
 
                             <!-- Teacher View -->
