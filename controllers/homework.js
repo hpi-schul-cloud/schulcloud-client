@@ -615,7 +615,9 @@ router.get('/:assignmentId', function (req, res, next) {
                     _id: assignment.courseId._id,
                     $populate: ['userIds']
                 });
+
                 Promise.resolve(coursePromise).then(course => {
+
                     var students = course[0].userIds;
                     assignment.userCount = students.length;
                     students = students.map(student => {
@@ -666,7 +668,11 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 });
             } else {
+                // file upload path, todo: maybe use subfolders
+                let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
+
                 if(assignment.submission){
+
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: {$in: assignment.submission._id},
@@ -693,7 +699,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                     {}
                                 ],
                                 comments,
-                                courses
+                                courses,
+                                path: submissionUploadPath
                             }));
                         });
                     });
@@ -706,7 +713,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                     url: '/homework'
                                 },
                                 {}
-                            ]
+                            ],
+                            path: submissionUploadPath
                     })); 
                 }
             }

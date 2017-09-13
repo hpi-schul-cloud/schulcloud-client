@@ -1,34 +1,39 @@
 <section id="submission" class="tab-content section-homeworkdetails">
     {{#if submittable}}
-        <div class="comment editor">
-			{{#if submission}}
-                <form class="form" method="post" action="/homework/submit/{{submission._id}}">
-                    <input type="hidden" name="_method" data-force-value="true" value="patch" />
-                    <div class="form-group">
-                        <textarea id="evaluation" name="comment" class="form-control customckeditor" placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
-                    </div>
-			{{else}}
-                <form class="form" method="post" action="/homework/submit">
-                    <input type="hidden" name="_method" data-force-value="true" value="post" />
-                    <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
-                    <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
-                    <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}" />
-                    <div class="form-group">
-                        <textarea id="evaluation" name="comment" class="form-control customckeditor" placeholder="Erstelle deine Abgabe..."></textarea>
-                    </div>
-			{{/if}}
+    <div class="comment editor">
+        {{#embed "files/file-upload" }}{{/embed}}
+        {{#if submission}}
+        <form class="form" method="post" action="/homework/submit/{{submission._id}}">
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+            <div class="form-group">
+                <textarea id="evaluation" name="comment" class="form-control customckeditor"
+                          placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
+            </div>
+        {{else}}
+        <form class="form" method="post" action="/homework/submit">
+            <input type="hidden" name="_method" data-force-value="true" value="post"/>
+            <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+            <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
+            <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
+            <div class="form-group">
+                <textarea id="evaluation" name="comment" class="form-control customckeditor"
+                          placeholder="Erstelle deine Abgabe..."></textarea>
+            </div>
+        {{/if}}
 
-    {{else}}
+        {{else}}
         <div class="comment">
-			{{#if submission.comment}}
-				{{{submission.comment}}}
-			{{else}}
-				<p>Keine Abgabe.</p>
-			{{/if}}
-    {{/if}}
+            {{#if submission.comment}}
+                {{{submission.comment}}}
+            {{else}}
+                <p>Keine Abgabe.</p>
+            {{/if}}
         </div>
-	{{#if submittable}}
-		<button type="submit" class="btn btn-primary btn-submit">Speichern</button>
-	</form>
-	{{/if}}
+        {{/if}}
+
+    {{#if submittable}}
+        <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+    {{/if}}
+    </form>
+    </div>
 </section>

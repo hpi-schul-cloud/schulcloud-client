@@ -1,4 +1,15 @@
+function getCurrentDir() {
+    return $('.section-upload').data('path');
+}
 $(document).ready(function() {
+
+    function showAJAXError(req, textStatus, errorThrown) {
+        if(textStatus==="timeout") {
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+        } else {
+            $.showNotification(errorThrown, "danger");
+        }
+    }
 
     function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
@@ -8,7 +19,6 @@ $(document).ready(function() {
         submitButton.disabled = true;
         const submitButtonStyleDisplay = submitButton.getAttribute("style");
         submitButton.style["display"]="inline-block";
-
 
         const url     = element.attr("action");
         const method  = element.attr("method");
@@ -91,4 +101,110 @@ $(document).ready(function() {
             });
         }
     });
+
+    // file upload stuff
+    let $uploadForm = $(".form-upload");
+    let $progressBar = $('.progress-bar');
+    let $progress = $progressBar.find('.bar');
+    let $percentage = $progressBar.find('.percent');
+
+    let progressBarActive = false;
+    let finishedFilesSize = 0;
+    $uploadForm.dropzone ? $uploadForm.dropzone({
+        accept: function (file, done) {
+            // get signed url before processing the file
+            // this is called on per-file basis
+
+            let currentDir = getCurrentDir();
+
+            $.post('/files/file', {
+                path: currentDir + file.name,
+                type: file.type
+            }, function (data) {
+                file.signedUrl = data.signedUrl;
+                done();
+            })
+                .fail(showAJAXError);
+        },
+        createImageThumbnails: false,
+        method: 'put',
+        init: function () {
+            // this is called on per-file basis
+            this.on("processing", function (file) {
+                if(!progressBarActive) {
+                    $progress.css('width', '0%');
+
+                    $uploadForm.fadeOut(50, function () {
+                        $progressBar.fadeIn(50);
+                    });
+
+                    progressBarActive = true;
+                }
+
+                this.options.url = file.signedUrl.url;
+                this.options.headers = file.signedUrl.header;
+            });
+
+            this.on("sending", function (file, xhr, formData) {
+                let _send = xhr.send;
+                xhr.send = function () {
+                    _send.call(xhr, file);
+                };
+            });
+
+            this.on("totaluploadprogress", function (progress, total, uploaded) {
+                const realProgress = (uploaded + finishedFilesSize) / ((total + finishedFilesSize) / 100);
+
+                $progress.stop().animate({'width': realProgress + '%'}, {
+                    step: function (now) {
+                        $percentage.html(Math.ceil(now) + '%');
+                    }
+                });
+            });
+
+            this.on("queuecomplete", function (file, response) {
+                progressBarActive = false;
+                finishedFilesSize = 0;
+
+                $progressBar.fadeOut(50, function () {
+                    $uploadForm.fadeIn(50);
+                    // todo: show uploaded file in submission
+                });
+            });
+
+            this.on("success", function (file, response) {
+                finishedFilesSize += file.size;
+
+                // post file meta to proxy file service for persisting data
+                $.post('/files/fileModel', {
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    path: file.signedUrl.header['x-amz-meta-path'] + '/',
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
+                    thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
+                });
+
+                this.removeFile(file);
+
+            });
+
+            this.on("dragover", function (file, response) {
+                $uploadForm.addClass('focus');
+            });
+
+            this.on("dragleave", function () {
+                $uploadForm.removeClass('focus');
+            });
+
+            this.on("dragend", function (file, response) {
+                $uploadForm.removeClass('focus');
+            });
+
+            this.on("drop", function (file, response) {
+                $uploadForm.removeClass('focus');
+            });
+        }
+    }) : '';
 });
