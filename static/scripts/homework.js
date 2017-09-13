@@ -110,6 +110,14 @@ $(document).ready(function() {
 
     let progressBarActive = false;
     let finishedFilesSize = 0;
+
+    function addNewUploadedFile(section, file) {
+        let filesCount = section.children().length === 0 ? -1 : section.children().length;
+        let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i>${file.name}</li>`)
+            .append(`<input type="hidden" name="fileIds[${filesCount + 1}]" value="${file._id}" />`);
+        section.append($fileListItem);
+    }
+
     $uploadForm.dropzone ? $uploadForm.dropzone({
         accept: function (file, done) {
             // get signed url before processing the file
@@ -196,7 +204,7 @@ $(document).ready(function() {
                            // todo: add permission for teachers
                        });
                     } else {
-                        // todo: add file to new submission form with id as hidden --> saved when submission was saved
+                        addNewUploadedFile($('.list-group-files'), data);
                     }
                 });
 

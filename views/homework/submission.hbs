@@ -38,6 +38,11 @@
             </div>
         {{else}}
         <form class="form" method="post" action="/homework/submit">
+            <div class="form-group section-uploaded-files">
+                <label>Zur Abgabe hochgeladene Dateien (ungespeichert!)</label>
+                <ul class="list-group list-group-files col-md-6 col-xs-12">
+                 </ul>
+            </div>
             <input type="hidden" name="_method" data-force-value="true" value="post"/>
             <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
             <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
