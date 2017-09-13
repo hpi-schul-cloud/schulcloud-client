@@ -191,7 +191,7 @@ $(document).ready(function() {
 
                     let submissionId = $("input[name='submissionId']").val();
                     if (submissionId) {
-                       $.post(`/homework/submit/${submissionId}/file`, {fileId: data._id})
+                       $.post(`/homework/submit/${submissionId}/file`, {fileId: data._id});
                     }
                 });
 
@@ -216,4 +216,42 @@ $(document).ready(function() {
             });
         }
     }) : '';
+
+    /**
+     * deletes a) the file itself, b) the reference to the submission
+     */
+    $('a[data-method="delete-file"]').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $buttonContext = $(this);
+        let $deleteModal = $('.delete-modal');
+        let fileId = $buttonContext.data('file-id');
+
+        $deleteModal.modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
+
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
+            $.ajax({
+                url: $buttonContext.attr('href'),
+                type: 'DELETE',
+                data: {
+                    name: $buttonContext.data('file-name'),
+                    dir: $buttonContext.data('file-path')
+                },
+                success: function (_) {
+                    // delete reference in submission
+                    let submissionId = $("input[name='submissionId']").val();
+                    $.ajax({
+                        url: `/homework/submit/${submissionId}/file`,
+                        data: {fileId: fileId},
+                        type: 'DELETE',
+                        success: function (_) {
+                            window.location.reload();
+                        }
+                    });
+                },
+                error: showAJAXError
+            });
+        });
+    });
 });

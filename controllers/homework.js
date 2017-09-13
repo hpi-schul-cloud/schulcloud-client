@@ -285,6 +285,19 @@ router.post('/submit/:id/file', function(req, res, next) {
        .catch(err => res.send(err));
 });
 
+router.delete('/submit/:id/file', function(req, res, next) {
+    let submissionId = req.params.id;
+    api(req).patch("/submissions/" + submissionId, {
+        json: {
+            $pull: {
+                fileIds: req.body.fileId
+            }
+        }
+    })
+        .then(result => res.json(result))
+        .catch(err => res.send(err));
+});
+
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
