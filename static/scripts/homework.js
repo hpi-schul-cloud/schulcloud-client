@@ -184,6 +184,15 @@ $(document).ready(function() {
                     size: file.size,
                     flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
                     thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
+                }, (data) => {
+                    // add submitted file reference to submission
+                    // hint: this only runs when an submission is already existing. if not, the file submission will be
+                    // only saved when hitting the the save button in the corresponding submission form
+
+                    let submissionId = $("input[name='submissionId']").val();
+                    if (submissionId) {
+                       $.post(`/homework/submit/${submissionId}/file`, {fileId: data._id})
+                    }
                 });
 
                 this.removeFile(file);
