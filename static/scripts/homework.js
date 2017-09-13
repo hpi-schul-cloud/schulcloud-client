@@ -102,7 +102,7 @@ $(document).ready(function() {
         }
     });
 
-    // file upload stuff
+    // file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
     let $uploadForm = $(".form-upload");
     let $progressBar = $('.progress-bar');
     let $progress = $progressBar.find('.bar');
@@ -168,7 +168,8 @@ $(document).ready(function() {
 
                 $progressBar.fadeOut(50, function () {
                     $uploadForm.fadeIn(50);
-                    // todo: show uploaded file in submission
+                    // just reload if submission already exists
+                    $("input[name='submissionId']").val() ? window.location.reload() : '';
                 });
             });
 
@@ -191,7 +192,11 @@ $(document).ready(function() {
 
                     let submissionId = $("input[name='submissionId']").val();
                     if (submissionId) {
-                       $.post(`/homework/submit/${submissionId}/file`, {fileId: data._id});
+                       $.post(`/homework/submit/${submissionId}/file`, {fileId: data._id}, _ => {
+                           // todo: add permission for teachers
+                       });
+                    } else {
+                        // todo: add file to new submission form with id as hidden --> saved when submission was saved
                     }
                 });
 
