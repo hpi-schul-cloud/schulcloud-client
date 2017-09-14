@@ -272,7 +272,7 @@ router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 
-router.post('/submit/:id/file', function(req, res, next) {
+router.post('/submit/:id/files', function(req, res, next) {
    let submissionId = req.params.id;
    api(req).patch("/submissions/" + submissionId, {
        json: {
@@ -285,7 +285,34 @@ router.post('/submit/:id/file', function(req, res, next) {
        .catch(err => res.send(err));
 });
 
-router.delete('/submit/:id/file', function(req, res, next) {
+/** adds shared permission for teacher in the corresponding homework **/
+router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
+    let submissionId = req.params.id;
+    let fileId = req.params.fileId;
+    let homeworkId = req.body.homeworkId;
+
+    // if homework is already given, just fetch homework
+    let homeworkPromise = homeworkId
+        ? api(req).get('/homework/' + homeworkId)
+        : api(req).get('/submissions/' + submissionId, {
+        qs: {
+            $populate: ['homeworkId'],
+        }
+        });
+    let filePromise = api(req).get('/files/' + fileId);
+    Promise.all([homeworkPromise, filePromise]).then(([homework, file]) => {
+        let teacherId = homeworkId ? homework.teacherId : homework.homeworkId.teacherId;
+        let newPermission = {
+            userId: teacherId,
+            permissions: ['can-read', 'can-write']
+        };
+        file.permissions.push(newPermission);
+
+        api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
+    }).catch(err => res.send(err));
+});
+
+router.delete('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).patch("/submissions/" + submissionId, {
         json: {

@@ -111,6 +111,11 @@ $(document).ready(function() {
     let progressBarActive = false;
     let finishedFilesSize = 0;
 
+    /**
+     * adds a new file item in the uploaded file section without reload, when no submission exists
+     * @param section - the major file list
+     * @param file - the new file
+     */
     function addNewUploadedFile(section, file) {
         let filesCount = section.children().length === 0 ? -1 : section.children().length;
         let $fileListItem = $(`<li class="list-group-item"><i class="fa fa-file" aria-hidden="true"></i>${file.name}</li>`)
@@ -197,16 +202,18 @@ $(document).ready(function() {
                     // add submitted file reference to submission
                     // hint: this only runs when an submission is already existing. if not, the file submission will be
                     // only saved when hitting the the save button in the corresponding submission form
-
                     let submissionId = $("input[name='submissionId']").val();
                     if (submissionId) {
-                       $.post(`/homework/submit/${submissionId}/file`, {fileId: data._id}, _ => {
-                           // todo: add permission for teachers
+                       $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id}, _ => {
+                           $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`);
                        });
                     } else {
                         addNewUploadedFile($('.list-group-files'), data);
+                        let homeworkId = $("input[name='homeworkId']").val();
+                        // 'empty' submissionId is ok because the route takes the homeworkId first
+                        $.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId});
                     }
-                });
+                }).fail(showAJAXError);
 
                 this.removeFile(file);
 
@@ -255,7 +262,7 @@ $(document).ready(function() {
                     // delete reference in submission
                     let submissionId = $("input[name='submissionId']").val();
                     $.ajax({
-                        url: `/homework/submit/${submissionId}/file`,
+                        url: `/homework/submit/${submissionId}/files`,
                         data: {fileId: fileId},
                         type: 'DELETE',
                         success: function (_) {

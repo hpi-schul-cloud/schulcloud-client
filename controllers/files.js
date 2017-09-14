@@ -576,7 +576,7 @@ router.get('/permittedDirectories/', function (req, res, next) {
             directoryTree[0].subDirs = personalDirs;
 
             // fetch tree for all course folders
-            directoryTree.push()
+            directoryTree.push();
             getScopeDirs(req, res, 'courses').then(courses => {
                 Promise.all((courses || []).map(c => {
                     let coursePath = `courses/${c._id}/`;
