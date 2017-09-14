@@ -34,7 +34,7 @@ h1, h3 {
 }
 .row.equal-height > [class*='col-'] {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .card-img {
