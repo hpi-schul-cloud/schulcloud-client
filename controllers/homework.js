@@ -431,7 +431,7 @@ router.all('/', function (req, res, next) {
             Promise.resolve(submissionPromise).then(submissions => {
                 if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
                     let submissionLength = submissions.filter(function (n) {
-                        return n.comment;
+                        return n;
                     }).length;
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
                     assignment.submissionStatsPerc = (assignment.userIds.length) ? Math.round((submissionLength / assignment.userIds.length) * 100) : 0;

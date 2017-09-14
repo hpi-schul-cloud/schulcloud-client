@@ -6,31 +6,7 @@
         <input name="submissionId" type="hidden" data-force-value="true" value="{{submission._id}}"/>
         <form class="form" method="post" action="/homework/submit/{{submission._id}}">
             <input type="hidden" name="_method" data-force-value="true" value="patch"/>
-            <div class="form-group section-uploaded-files">
-                <label>Zur Abgabe hochgeladene Dateien</label>
-                <ul class="list-group col-md-6 col-xs-12">
-                    {{#each submission.fileIds}}
-                        <li class="list-group-item">
-                            <i class="fa fa-file" aria-hidden="true"></i> {{this.name}}
-                            <span class="fa-active">
-                                 <a href="/files/file?download=1&file={{this.key}}"
-                                    target="_blank"
-                                    data-method="download">
-                                    <i class="fa fa-cloud-download"></i>
-                                </a>
-                                <a href="/files/file/"
-                                   target="_blank"
-                                   data-method="delete-file"
-                                   data-file-name="{{this.name}}"
-                                   data-file-path="{{this.path}}"
-                                   data-file-id="{{this._id}}">
-                                    <i class="fa fa-trash-o"></i>
-                                </a>
-                            </span>
-                        </li>
-                    {{/each}}
-                </ul>
-            </div>
+            {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
             <hr>
             <div class="form-group">
                 <textarea id="evaluation" name="comment" class="form-control customckeditor"
