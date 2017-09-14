@@ -2,9 +2,15 @@
 
     <img class="card-img-top" src="{{{ thumbnail }}}" alt="Thumbnail">
     <div class="card-block">
-        <a href="/content/redirect/{{{ _id }}}" target="_blank">
+
+        {{#userIsAllowedToViewContent nonOer}}
+            <a href="/content/redirect/{{{ _id }}}" target="_blank">
+                <h4 class="card-title">{{{ title }}}</h4>
+            </a>
+        {{else}}
             <h4 class="card-title">{{{ title }}}</h4>
-        </a>
+        {{/userIsAllowedToViewContent}}
+
         <div class="card-tags">
             {{#each tags}}
                 <span class="tag tag-default">{{{ this }}}</span>

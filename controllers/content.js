@@ -2,10 +2,22 @@ const express = require('express');
 const router = express.Router();
 
 const authHelper = require('../helpers/authentication');
+const permissionsHelper = require('../helpers/permissions');
 const api = require('../api');
 
 // secure routes
 router.use(authHelper.authChecker);
+
+// register handlebars helper
+const handlebars = require("handlebars");
+handlebars.registerHelper('userIsAllowedToViewContent', function (isNonOerContent = false, options) {
+    // Always allow nonOer content, otherwise check user is allowed to view nonOer content
+    if(permissionsHelper.userHasPermission(options.data.local.currentUser, "CONTENT_NON_OER_VIEW") || !isNonOerContent) {
+        return options.fn(this);
+    } else {
+        return options.inverse(this);
+    }
+});
 
 router.get('/', function (req, res, next) {
     const query = req.query.q;
