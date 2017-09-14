@@ -656,7 +656,7 @@ router.get('/:assignmentId', function (req, res, next) {
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
                 assignment.submissionsCount = submissions.filter(function (n) {
-                    return n.comment;
+                    return n;
                 }).length;
                 assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
