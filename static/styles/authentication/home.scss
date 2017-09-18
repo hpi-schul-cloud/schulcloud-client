@@ -109,5 +109,8 @@ body {
                 color:#fff!important;
             }
         }
+        .col-md-4:not(:last-of-type){
+            margin-bottom: 1rem;
+        }
     }
 }
