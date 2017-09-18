@@ -21,9 +21,9 @@
                     <select name="sort" id="sortselection" data-placeholder="Sortieren">
                         {{#each sortmethods}}
                             {{#if this.active}}
-                                <option value='{{this.functionname}}' selected="selected">{{this.title}}</option>
+                                <option value='{{this.query}}' selected="selected">{{this.title}}</option>
                             {{else}}
-                                <option value='{{this.functionname}}'>{{this.title}}</option>
+                                <option value='{{this.query}}'>{{this.title}}</option>
                             {{/if}}
                         {{/each}}
                     </select>

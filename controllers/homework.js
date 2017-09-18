@@ -49,18 +49,26 @@ const getActions = (item, path) => {
 const getSortmethods = () => {
     return [
         {
-            functionname: 'availableDate',
+            query: 'dueDate',
+            title: 'Abgabedatum',
+            active: "selected"
+        },
+        {
+            query: 'availableDate',
             title: 'Verfügbarkeitsdatum'
         },
         {
-            functionname: 'dueDate',
-            title: 'Abgabedatum'
+            query: 'createdAt',
+            title: 'Erstelldatum'
         },
         {
-            functionname: '',
-            title: 'Erstelldatum',
-            active: "selected"
-        }
+            query: 'updatedAt',
+            title: 'letze Aktualisierung'
+        },
+        {
+            query: 'private',
+            title: 'private Aufgabe'
+        }        
     ];
 };
 
@@ -147,41 +155,45 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-        if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-            req.body.courseId = null;
-            req.body.private = true;
-        }
-        if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-            req.body.lessonId = null;
-        }
-        if (!req.body.private) {
-            req.body.private = false;
-        }
-        if (!req.body.publicSubmissions) {
-            req.body.publicSubmissions = false;
-        }
+        if (service == "homework"){
+            if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+                req.body.courseId = null;
+                req.body.private = true;
+            }
+            if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+                req.body.lessonId = null;
+            }
+            if (!req.body.private) {
+                req.body.private = false;
+            }
+            if (!req.body.publicSubmissions) {
+                req.body.publicSubmissions = false;
+            }
 
-        // rewrite german format to ISO
-        req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
-        req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-        
-        let referrer = req.body.referrer.replace("/edit","");
-        delete req.body.referrer;
+            // rewrite german format to ISO
+            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
 
-        if(req.body.availableDate >= req.body.dueDate){
-            req.session.notification = {
-                type: 'danger',
-                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
-            };
-            res.redirect(referrer);
-            return;
+            var referrer = req.body.referrer.replace("/edit","");
+            delete req.body.referrer;
+
+            if(req.body.availableDate >= req.body.dueDate){
+                req.session.notification = {
+                    type: 'danger',
+                    message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+                };
+                res.redirect(referrer);
+                return;
+            }
         }
-        
+        if(service == "submissions"){
+            req.body.grade = parseInt(req.body.grade);
+        }
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            if (service == "submissions")
+            if (service == "submissions"){
                 api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
                     .then(homework => {
                     sendNotification(data.studentId,
@@ -192,7 +204,14 @@ const getUpdateHandler = (service) => {
                         req,
                         `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
+
+                res.redirect(req.header('Referrer'));
+            }
+            if(referrer){
                 res.redirect(referrer);
+            }else{
+                res.sendStatus(200);
+            }
         }).catch(err => {
             next(err);
         });
@@ -253,6 +272,59 @@ router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 
+router.post('/submit/:id/files', function(req, res, next) {
+   let submissionId = req.params.id;
+   api(req).patch("/submissions/" + submissionId, {
+       json: {
+           $push: {
+               fileIds: req.body.fileId
+           }
+       }
+   })
+       .then(result => res.json(result))
+       .catch(err => res.send(err));
+});
+
+/** adds shared permission for teacher in the corresponding homework **/
+router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
+    let submissionId = req.params.id;
+    let fileId = req.params.fileId;
+    let homeworkId = req.body.homeworkId;
+
+    // if homework is already given, just fetch homework
+    let homeworkPromise = homeworkId
+        ? api(req).get('/homework/' + homeworkId)
+        : api(req).get('/submissions/' + submissionId, {
+        qs: {
+            $populate: ['homeworkId'],
+        }
+        });
+    let filePromise = api(req).get('/files/' + fileId);
+    Promise.all([homeworkPromise, filePromise]).then(([homework, file]) => {
+        let teacherId = homeworkId ? homework.teacherId : homework.homeworkId.teacherId;
+        let newPermission = {
+            userId: teacherId,
+            permissions: ['can-read', 'can-write']
+        };
+        file.permissions.push(newPermission);
+
+        api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
+    }).catch(err => res.send(err));
+});
+
+router.delete('/submit/:id/files', function(req, res, next) {
+    let submissionId = req.params.id;
+    api(req).patch("/submissions/" + submissionId, {
+        json: {
+            $pull: {
+                fileIds: req.body.fileId
+            }
+        }
+    })
+        .then(result => res.json(result))
+        .catch(err => res.send(err));
+});
+
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
@@ -290,58 +362,43 @@ const formatremaining = function (dueDate) {
         "days": days
     };
 };
-// Sortierfunktionen
-const sortbyavailableDate = function (a, b) {
-    const c = new Date(a.availableDate), d = new Date(b.availableDate);
-    if (c === d) {
-        return 0;
-    }
-    else {
-        return (c < d) ? -1 : 1;
-    }
-};
-const sortbyDueDate = function (a, b) {
-    const c = new Date(a.dueDate), d = new Date(b.dueDate);
-    if (c === d) {
-        return 0;
-    }
-    else {
-        return (c < d) ? -1 : 1;
-    }
-};
+
 const getAverageRating = function (submissions, gradeSystem) {
     // Durchschnittsnote berechnen
     if (submissions.length > 0) {
         // Nur bewertete Abgaben einbeziehen 
         let submissiongrades = submissions.filter(function (sub) {
             return (sub.grade != null);
-        });
+        }).map(function(e){return e.grade;});
         // Abgaben vorhanden?
         if (submissiongrades.length > 0) {
-            // Noten aus Abgabe auslesen (& in Notensystem umwandeln)
-            if (gradeSystem) {
-                submissiongrades = submissiongrades.map(function (sub) {
-                    return 6 - Math.ceil(sub.grade / 3);
-                });
-            } else {
-                submissiongrades = submissiongrades.map(function (sub) {
-                    return sub.grade;
-                });
-            }
             // Durchschnittsnote berechnen
-            let ratingsum = 0;
-            submissiongrades.forEach(function (e) {
-                ratingsum += e;
-            });
-            return (ratingsum / submissiongrades.length).toFixed(2);
+            return (submissiongrades.reduce((a, b) => a + b, 0) / submissiongrades.length).toFixed(2);
         }
     }
     return undefined;
 };
 router.all('/', function (req, res, next) {
+    var homeworkDesc = (req.query.desc == "true")?'-':'';
+    var homeworkSort = (req.query.sort && req.query.sort!=="")?req.query.sort:'dueDate';
+
+    var sortmethods = getSortmethods();
+    if (req.query.sort && req.query.sort!=="") {
+        // Aktueller Sortieralgorithmus für Anzeige aufbereiten
+        sortmethods = sortmethods.map(function (e) {
+            if (e.query == req.query.sort) {
+                e.active = 'selected';
+            } else {
+                delete e['active'];
+            }
+            return e;
+        });
+    }
+
     api(req).get('/homework/', {
         qs: {
             $populate: ['courseId'],
+            $sort: homeworkDesc+homeworkSort
         }
     }).then(homeworks => {
         homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
@@ -374,7 +431,7 @@ router.all('/', function (req, res, next) {
             Promise.resolve(submissionPromise).then(submissions => {
                 if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
                     let submissionLength = submissions.filter(function (n) {
-                        return n.comment;
+                        return n;
                     }).length;
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
                     assignment.submissionStatsPerc = (assignment.userIds.length) ? Math.round((submissionLength / assignment.userIds.length) * 100) : 0;
@@ -401,32 +458,6 @@ router.all('/', function (req, res, next) {
             return assignment;
         });
 
-        // Hausaufgaben sortieren
-        
-        let sortmethods = getSortmethods();
-        let sorting = req.query.sort;
-        if (sorting) {
-            // Aktueller Sortieralgorithmus für Anzeige aufbereiten
-            sortmethods = sortmethods.map(function (e) {
-                if (e.functionname == sorting) {
-                    e.active = 'selected';
-                } else {
-                    delete e['active'];
-                }
-                return e;
-            });
-            // Sortieren der Aufgaben
-            if (sorting == "availableDate") {
-                homeworks.sort(sortbyavailableDate);
-            } else if (sorting == "dueDate") {
-                homeworks.sort(sortbyDueDate);
-            }
-        }
-        let desc = (req.query.desc == "true");
-        if (desc){
-            homeworks.reverse();
-        }
-
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
                 {userIds: res.locals.currentUser._id},
@@ -449,14 +480,14 @@ router.all('/', function (req, res, next) {
                 }
                 // Render Overview
                 //Pagination in client, because filters are in afterhook
-                const itemsPerPage = 3;
+                const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
                 let pagination = {
                     currentPage,
                     numPages: Math.ceil(homeworks.length / itemsPerPage),
                     baseUrl: '/homework/?'
                                         +((req.query.sort)?('sort='+req.query.sort+'&'):'')
-                                        +((req.query.desc == "true")?('desc='+req.query.desc+'&'):'')+'p={{page}}'
+                                        +((homeworkDesc)?('desc='+req.query.desc+'&'):'')+'p={{page}}'
                 };
                 const end = currentPage * itemsPerPage;
                 homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -468,7 +499,7 @@ router.all('/', function (req, res, next) {
                     courses,
                     isStudent,
                     sortmethods,
-                    desc
+                    desc: homeworkDesc
                 });
             });
         });
@@ -598,7 +629,7 @@ router.get('/:assignmentId', function (req, res, next) {
     }).then(assignment => {
         const submissionPromise = getSelectOptions(req, 'submissions', {
             homeworkId: assignment._id,
-            $populate: ['homeworkId']
+            $populate: ['homeworkId', 'fileIds']
         });
         Promise.resolve(submissionPromise).then(submissions => {
             // Kursfarbe setzen
@@ -625,30 +656,9 @@ router.get('/:assignmentId', function (req, res, next) {
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
                 assignment.submissionsCount = submissions.filter(function (n) {
-                    return n.comment;
+                    return n;
                 }).length;
                 assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
-
-                //generate select options for grades @ evaluation.hbs
-                const grades = (assignment.courseId.gradeSystem) ? ["1+", "1", "1-", "2+", "2", "2-", "3+", "3", "3-", "4+", "4", "4-", "5+", "5", "5-", "6"] : ["15", "14", "13", "12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"];
-
-                let defaultOptions = "";
-                for (let i = 15; i >= 0; i--) {
-                    defaultOptions += ('<option value="' + i + '">' + grades[15 - i] + '</option>');
-                }
-                assignment.gradeOptions = defaultOptions;
-                submissions.map(function (sub) {
-                    let options = "";
-                    for (let i = 15; i >= 0; i--) {
-                        options += ('<option value="' + i + '" ' + ((sub.grade == i) ? "selected " : "") + '>' + grades[15 - i] + '</option>');
-                    }
-                    sub.gradeOptions = options;
-                    sub.gradeText = (sub.grade) ?   (
-                            ((assignment.courseId.gradeSystem) ? "Note: " : "Punkte: ") + grades[15 - sub.grade]
-                        ):(
-                            ((assignment.teacherId == res.locals.currentUser._id) && sub.gradeComment) ? '<i class="fa fa-check green" aria-hidden="true"></i>' : "");
-                    return sub;
-                });
 
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
@@ -658,7 +668,9 @@ router.get('/:assignmentId', function (req, res, next) {
                     _id: assignment.courseId._id,
                     $populate: ['userIds']
                 });
+
                 Promise.resolve(coursePromise).then(course => {
+
                     var students = course[0].userIds;
                     assignment.userCount = students.length;
                     students = students.map(student => {
@@ -709,7 +721,11 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 });
             } else {
+                // file upload path, todo: maybe use subfolders
+                let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
+
                 if(assignment.submission){
+
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: {$in: assignment.submission._id},
@@ -736,7 +752,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                     {}
                                 ],
                                 comments,
-                                courses
+                                courses,
+                                path: submissionUploadPath
                             }));
                         });
                     });
@@ -749,7 +766,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                     url: '/homework'
                                 },
                                 {}
-                            ]
+                            ],
+                            path: submissionUploadPath
                     })); 
                 }
             }

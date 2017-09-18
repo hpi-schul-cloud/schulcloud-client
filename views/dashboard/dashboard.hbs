@@ -4,6 +4,10 @@
         <link rel="stylesheet" href="/styles/dashboard/dashboard.css"/>
     {{/content}}
 
+    {{#content "scripts" mode="append"}}
+        <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
+    {{/content}}
+
     {{#content "page"}}
         <div class="row mobile-no-margin-right">
             <div class="row">
@@ -64,5 +68,16 @@
                 </div>
             </div>
         </div>
+
+        {{#ifneq this.currentRole "Schüler"}}
+        {{#ifneq ../this.currentRole "Demo"}}
+            {{#embed "lib/components/modal" class="poll-modal"}}
+            {{#content "body"}}
+                {{> "lib/forms/form-poll"}}
+            {{/content}}
+        {{/embed}}
+        {{/ifneq}}
+        {{/ifneq}}
+
     {{/content}}
 {{/extend}}

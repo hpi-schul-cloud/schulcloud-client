@@ -1,0 +1,37 @@
+<div class="card">
+
+    <img class="card-img-top" src="{{{ thumbnail }}}" alt="Thumbnail">
+    <div class="card-block">
+
+        {{#userIsAllowedToViewContent nonOer}}
+            <a href="/content/redirect/{{{ ../_id }}}" target="_blank">
+                <h4 class="card-title">{{{ ../title }}}</h4>
+            </a>
+        {{else}}
+            <h4 class="card-title">{{{ ../title }}}</h4>
+        {{/userIsAllowedToViewContent}}
+
+        <div class="card-tags">
+            {{#each tags}}
+                <span class="tag tag-default">{{{ this }}}</span>
+            {{/each}}
+        </div>
+        <p class="card-text">{{{ description }}}</p>
+        {{#userIsAllowedToViewContent nonOer}}
+        {{else}}
+            <div class="alert alert-info" role="alert">
+                Inhalt aus Lizenzgründen im Demomodus nicht verfügbar.
+            </div>
+        {{/userIsAllowedToViewContent}}
+
+    </div>
+    <div class="card-footer text-muted w-100">
+        <span>via {{{ providerName }}}</span>
+        {{#userHasPermission "COURSE_EDIT"}}
+            <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">
+                <i class="fa fa-plus-square"></i>
+            </a>
+        {{/userHasPermission}}
+    </div>
+
+</div>

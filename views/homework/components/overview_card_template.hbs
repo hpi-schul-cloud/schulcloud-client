@@ -24,11 +24,7 @@
                     </span>
                     <span>
                         {{#if this.averageRating}}
-                            {{#if this.courseId.gradeSystem}}
-                                Ø: {{this.averageRating}}
-                            {{else}}
-                                Ø: {{this.averageRating}} Punkte
-                            {{/if}}
+                            Ø: {{this.averageRating}}%
                         {{else}}
                             Ø: -
                         {{/if}}
