@@ -124,29 +124,17 @@ router.get('/', function (req, res, next) {
     const newsPromise = new Promise((resolve, reject) => {
         resolve([{
             name: 'Willkommen im Schuljahr!',
-            summary: `Die Schulleitung heißt alle (neuen) Schüler im neuen Schuljahr 
-                willkommen. Auch dieses Jahr haben wir wieder viele neue Veranstaltungen für 
-                Euch geplant. Unter anderem ein Besuch bei der UNESCO und einen Schüleraustausch 
-                mit einer Schule im Silicon Valley der Klasse 10. Viel Erfolg wünscht Euch das 
-                Lehrerkolleg!`,
+            summary: `Die Schulleitung heißt alle (neuen) Schüler im neuen Schuljahr willkommen. Auch dieses Jahr haben wir wieder viele neue Veranstaltungen für Euch geplant. Unter anderem einen Besuch bei der UNESCO und einen Schüleraustausch mit einer Schule im Silicon Valley der Klasse 10. Viel Erfolg wünscht Euch das Lehrerkolleg!`,
             date: new Date(2017, 4, 29, 10),
             url: ''
         },{
             name: 'Preisverleihung Sommerfestspiele',
-            summary: `Auch in diesem Jahr gab es wieder herausragende sportliche
-                Leistungen. Unter Anderem ein neuer Schulrekord im 100m-Lauf bei den Mädchen und
-                beim Weitsprung der Jungen. Auch für die Versorgung mit Wasser und Energieriegel
-                wurde durch den Förderverein gesorgt. Die Urkundenübergabe findet am 30. Juli um
-                13 Uhr in der Sporthalle statt.`,
+            summary: `Auch in diesem Jahr gab es wieder herausragende sportliche Leistungen. Unter anderem ein neuer Schulrekord im 100m-Lauf bei den Mädchen und beim Weitsprung der Jungen. Auch für die Versorgung mit Wasser und Energieriegel wurde durch den Förderverein gesorgt. Die Urkundenübergabe findet am 30. Juli um 13 Uhr in der Sporthalle statt.`,
             date: new Date(2017, 4, 25, 10),
             url: ''
         },{
             name: 'Einführung der Schul-Cloud',
-            summary: `Um auch nächsten Jahrzehnt des 21. Jahrhunderts bildungsmäßig
-                spitze aufgestellt zu sein, nutzen wir ab sofort die Schul-Cloud. Diese
-                ermöglicht es unter Anderem, sich mit den bestehenden Moodle-Accounts
-                anzumelden, Office zu nutzen und auf Bildungsangebote zuzugreifen. Ebenfalls ist
-                es möglich, aktualisierte Stundenpläne und Aufgaben einzusehen.`,
+            summary: `Um auch im nächsten Jahrzehnt des 21. Jahrhunderts bildungsmäßig spitze aufgestellt zu sein, nutzen wir ab sofort die Schul-Cloud. Mit Hilfe der Schul-Cloud können wir uns unter anderem mit den bereits bestehenden Moodle-Accounts anmelden, viele Tools nutzen und auf Bildungsinhalte zugreifen. Weiterhin können wir auch die Stundenpläne online aktualisieren und Aufgaben erstellen.`,
             date: new Date(2017, 4, 20, 10),
             url: ''
         }]);

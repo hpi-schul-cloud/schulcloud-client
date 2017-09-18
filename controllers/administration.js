@@ -58,7 +58,7 @@ const getTableActionsSend = (item, path, state) => {
         {
         class: 'disabled',
         icon: 'paper-plane'
-    })
+    });
   } else {
           actions.push(
               {

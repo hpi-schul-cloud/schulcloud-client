@@ -369,7 +369,7 @@ const getAverageRating = function (submissions, gradeSystem) {
         // Nur bewertete Abgaben einbeziehen 
         let submissiongrades = submissions.filter(function (sub) {
             return (sub.grade != null);
-        }).map(function(e){return e.grade});
+        }).map(function(e){return e.grade;});
         // Abgaben vorhanden?
         if (submissiongrades.length > 0) {
             // Durchschnittsnote berechnen
