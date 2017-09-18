@@ -11,7 +11,9 @@
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
 			<div class="comment">
-                {{#if this.submission.comment}}
+                {{#if this.submission}}
+                    {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
+                    <hr>
                     {{{this.submission.comment}}}
                 {{else}}
                     Keine Abgabe.
