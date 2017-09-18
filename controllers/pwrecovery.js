@@ -66,7 +66,8 @@ router.get('/:pwId', function (req, res, next) {
             accountId: result.account._id,
             resetId: req.params.pwId,
             action: '/pwrecovery/reset/',
-            buttonLabel: 'Neues Passwort anlegen'
+            buttonLabel: 'Neues Passwort anlegen',
+            inline: true
         });
     });
 });
