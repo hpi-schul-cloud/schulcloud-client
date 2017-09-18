@@ -1,5 +1,6 @@
 {{#extend "lib/default"}}
     {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/authentication/home.css"/>
         <link rel="stylesheet" href="/styles/authentication/login.css"/>
     {{/content}}
 
@@ -8,45 +9,47 @@
     {{/content}}
 
     {{#content "body"}}
-        <div class="container">
+        {{#embed "lib/header"}}{{/embed}}
+        <main class="container">
             <div class="row">
-				<div class="col-xs-12">
-					{{> "lib/components/notification"}}
-				</div>
                 <div class="col-md-6 offset-md-3">
-                    <hgroup>
-                        <h3>{{title}}</h3>
-                        <h4>{{subtitle}}</h4>
-                    </hgroup>
-
-                    <div class="form-wrapper">
-                        <form method="post" class="registration-form" action="{{action}}">
-
-                            <input type="hidden" name="accountId" value="{{accountId}}" />
-                            <input type="hidden" name="resetId" value="{{resetId}}" />
-
-                            <div class="form-group">
-                                <label>Neues Passwort</label>
-                                <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                                       title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl oder Sonderzeichen" required>
+                    <section class="card">
+                        <div class="card-block">
+                            <div class="col-xs-12">
+                                {{> "lib/components/notification"}}
+                            </div>
+                            <div class="text-center">
+                                <h3>{{title}}</h3>
+                                <h4>{{subtitle}}</h4>
                             </div>
 
-                            <div class="form-group">
-                                <label>Zur Kontrolle</label>
-                                <input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" required>
+                            <div class="form-wrapper">
+                                <form method="post" class="registration-form" action="{{action}}">
+
+                                    <input type="hidden" name="accountId" value="{{accountId}}" />
+                                    <input type="hidden" name="resetId" value="{{resetId}}" />
+
+                                    <div class="form-group">
+                                        <label>Neues Passwort</label>
+                                        <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                                               title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl oder Sonderzeichen" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Zur Kontrolle</label>
+                                        <input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" required>
+                                    </div>
+
+
+                                    <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
+                                </form>
                             </div>
 
-
-                            <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
-                        </form>
-
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="bg-graphic bg-graphic-left"></div>
-        <div class="bg-graphic bg-graphic-right"></div>
-
+        </main>
+        {{#embed "lib/extended_footer"}}{{/embed}}
     {{/content}}
 {{/extend}}
