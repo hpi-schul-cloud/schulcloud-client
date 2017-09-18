@@ -57,9 +57,21 @@
       "padding": ""
     },
     {
+      "name": "MedienLB",
+      "url": "http://www.medienlb.de/",
+      "logo": "medienlb-logo.gif",
+      "padding": "20px"
+    },
+    {
       "name": "MeinUnterricht",
       "url": "https://www.meinunterricht.de/",
       "logo": "meinunterricht-logo.png",
+      "padding": "20px"
+    },
+    {
+      "name": "neXenio",
+      "url": "https://nexenio.com/",
+      "logo": "nexenio-logo.png",
       "padding": "20px"
     },
     {
@@ -99,12 +111,6 @@
       "url": "http://aeroaccess.de/index.php",
       "logo": "aeroaccess-logo.gif",
       "padding": ""
-    },
-    {
-      "name": "neXenio",
-      "url": "https://nexenio.com/",
-      "logo": "nexenio-logo.png",
-      "padding": "20px"
     },
     {
       "name": "Telekom",
@@ -153,6 +159,10 @@
     {
       "name": "LDA Brandenburg",
       "url": "http://www.lda.brandenburg.de/cms/detail.php?gsid=bb1.c.233960.de"
+    },
+    {
+      "name": "Cornelsen",
+      "url": "https://www.cornelsen.de/home/"
     }
   ]
 }
