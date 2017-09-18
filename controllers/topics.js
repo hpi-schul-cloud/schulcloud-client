@@ -138,7 +138,8 @@ router.patch('/:topicId', function (req, res, next) {
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
-    if (!data.contents) data.contents = [];
+    // if not a simple hidden or position patch, set contents to empty array
+    if (!data.contents && !req.query.json) data.contents = [];
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize

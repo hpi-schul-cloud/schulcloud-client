@@ -11,7 +11,9 @@
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
 			<div class="comment">
-                {{#if this.submission.comment}}
+                {{#if this.submission}}
+                    {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
+                    <hr>
                     {{{this.submission.comment}}}
                 {{else}}
                     Keine Abgabe.
@@ -32,11 +34,8 @@
                 {{/if}}
                 <div class="comment form-group">
                     <div class="form-group">
-                        <label>Note</label>
-                        <select name="grade" data-placeholder="Note auswählen">
-                                <option value="">Keine Bewertung</option>
-                                {{{this.submission.gradeOptions}}}
-                        </select>
+                        <label>Bewertung <small>in Prozent</small></label>
+                        <input type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}">
                     </div>
                     {{#if this.submission.comment}}
                         <button class="importsubmission btn btn-secondary btn-sm float-xs-right" data="{{this.submission._id}}">Abgabe des Schülers importieren</button>

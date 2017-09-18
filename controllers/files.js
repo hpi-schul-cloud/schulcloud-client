@@ -16,6 +16,20 @@ const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
 const _ = require('lodash');
 
+const filterOptions = [
+    {key: 'pics', label: 'Bilder'},
+    {key: 'videos', label: 'Videos'},
+    {key: 'pdfs', label: 'PDF Dokumente'},
+    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
+];
+
+const filterQueries = {
+    pics: {$regex: 'image'},
+    videos: {$regex: 'video'},
+    pdfs: {$regex: 'pdf'},
+    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
+};
+
 const thumbs = {
     default: "/images/thumbs/default.png",
     psd: "/images/thumbs/psds.png",
@@ -39,20 +53,6 @@ const thumbs = {
     docx: "/images/thumbs/docs.png",
     ai: "/images/thumbs/ais.png",
     tiff: "/images/thumbs/tiffs.png"
-};
-
-const filterOptions = [
-    {key: 'pics', label: 'Bilder'},
-    {key: 'videos', label: 'Videos'},
-    {key: 'pdfs', label: 'PDF Dokumente'},
-    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
-];
-
-const filterQueries = {
-    pics: {$regex: 'image'},
-    videos: {$regex: 'video'},
-    pdfs: {$regex: 'pdf'},
-    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
 };
 
 const requestSignedUrl = (req, data) => {
@@ -174,6 +174,27 @@ const getScopeDirs = (req, res, scope) => {
 };
 
 /**
+ * generates a directory tree from a path recursively
+ * @param rootPath
+ */
+const getDirectoryTree = (req, rootPath) => {
+    return api(req).get('/directories/', {qs: {path: rootPath}}).then(dirs => {
+        if (!dirs.data.length) return [];
+        return Promise.all((dirs.data || []).map(d => {
+            let subDir = {
+                name: d.name,
+                path: d.key + '/',
+            };
+
+            return getDirectoryTree(req, subDir.path).then(subDirs => {
+                subDir.subDirs = subDirs;
+                return subDir;
+            });
+        }));
+    });
+};
+
+/**
  * register a new filePermission for the given user for the given file
  * @param userId {String} - the user which should be granted permission
  * @param filePath {String} - the file for which a new permission should be created
@@ -191,7 +212,7 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
         } else {
 
             let file = res.data[0];
-            if (! _.some(file.permissions, {userId: userId})) {
+            if (!_.some(file.permissions, {userId: userId})) {
                 file.permissions.push({
                     userId: userId,
                     permissions: ['can-read', 'can-write'] // todo: make it selectable
@@ -302,6 +323,24 @@ router.get('/file', function (req, res, next) {
     });
 });
 
+// move file
+router.patch('/file/:id', function (req, res, next) {
+    api(req).patch('/fileStorage/' + req.params.id, {
+        json: {
+            fileName: req.body.fileName,
+            path: req.body.oldPath,
+            destination: req.body.newPath
+        }
+    }).then(_ => {
+        req.session.notification = {
+            type: 'success',
+            message: 'Verschieben der Datei war erfolgreich!'
+        };
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
+    });
+});
 
 // create directory
 router.post('/directory', function (req, res, next) {
@@ -495,11 +534,11 @@ router.post('/permissions/', function (req, res, next) {
 });
 
 router.get('/search/', function (req, res, next) {
-    const { q, filter } = req.query;
+    const {q, filter} = req.query;
 
     let filterQuery = filter ?
         {type: filterQueries[filter]} :
-        {name: {$regex: _.escapeRegExp(q) , $options: 'i'}};
+        {name: {$regex: _.escapeRegExp(q), $options: 'i'}};
 
     api(req).get('/files/', {
         qs: filterQuery
@@ -521,8 +560,47 @@ router.get('/search/', function (req, res, next) {
     });
 });
 
+/** fetch all personal folders and all course folders in a directory-tree **/
+router.get('/permittedDirectories/', function (req, res, next) {
+    let userPath = `users/${res.locals.currentUser._id}/`;
+    let directoryTree = [{
+        name: 'Meine Dateien',
+        path: userPath,
+        subDirs: []
+    }, {
+        name: 'Meine Kurs-Dateien',
+        subDirs: []
+    }];
+    getDirectoryTree(req, userPath) // root folder personal files
+        .then(personalDirs => {
+            directoryTree[0].subDirs = personalDirs;
+
+            // fetch tree for all course folders
+            directoryTree.push();
+            getScopeDirs(req, res, 'courses').then(courses => {
+                Promise.all((courses || []).map(c => {
+                    let coursePath = `courses/${c._id}/`;
+                    let newCourseDir = {
+                        name: c.name,
+                        path: coursePath,
+                        subDirs: []
+                    };
+
+                    return getDirectoryTree(req, coursePath).then(dirs => {
+                        newCourseDir.subDirs = dirs;
+                        directoryTree[1].subDirs.push(newCourseDir);
+                        return;
+                    });
+                })).then(_ => {
+                    res.json(directoryTree);
+                });
+            });
+        });
+});
+
 /**** File and Directory proxy models ****/
 router.post('/fileModel', function (req, res, next) {
+    req.body.schoolId = res.locals.currentSchool;
     api(req).post('/files/', {json: req.body}).then(file => res.json(file)).catch(err => next(err));
 });
 

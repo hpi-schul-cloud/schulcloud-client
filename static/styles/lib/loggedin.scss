@@ -234,11 +234,13 @@ header {
 }
 
 .demo {
+    text-align: center;
+    padding-left: 60px;
+
     .alert-warning {
         height: 57.375px;
     }
-
-    marquee {
+    p {
         padding-top: 7px;
         font-weight: 900;
     }
