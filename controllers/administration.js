@@ -530,7 +530,9 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
 
         let ssoTypes = getSSOTypes();
 
-        res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes});
+        api(req).get('/fileStorage/total').then(totalStorage => {
+            res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage});
+        });
     });
 });
 router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users'));

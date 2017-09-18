@@ -272,6 +272,59 @@ router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
 
+router.post('/submit/:id/files', function(req, res, next) {
+   let submissionId = req.params.id;
+   api(req).patch("/submissions/" + submissionId, {
+       json: {
+           $push: {
+               fileIds: req.body.fileId
+           }
+       }
+   })
+       .then(result => res.json(result))
+       .catch(err => res.send(err));
+});
+
+/** adds shared permission for teacher in the corresponding homework **/
+router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
+    let submissionId = req.params.id;
+    let fileId = req.params.fileId;
+    let homeworkId = req.body.homeworkId;
+
+    // if homework is already given, just fetch homework
+    let homeworkPromise = homeworkId
+        ? api(req).get('/homework/' + homeworkId)
+        : api(req).get('/submissions/' + submissionId, {
+        qs: {
+            $populate: ['homeworkId'],
+        }
+        });
+    let filePromise = api(req).get('/files/' + fileId);
+    Promise.all([homeworkPromise, filePromise]).then(([homework, file]) => {
+        let teacherId = homeworkId ? homework.teacherId : homework.homeworkId.teacherId;
+        let newPermission = {
+            userId: teacherId,
+            permissions: ['can-read', 'can-write']
+        };
+        file.permissions.push(newPermission);
+
+        api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
+    }).catch(err => res.send(err));
+});
+
+router.delete('/submit/:id/files', function(req, res, next) {
+    let submissionId = req.params.id;
+    api(req).patch("/submissions/" + submissionId, {
+        json: {
+            $pull: {
+                fileIds: req.body.fileId
+            }
+        }
+    })
+        .then(result => res.json(result))
+        .catch(err => res.send(err));
+});
+
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
@@ -378,7 +431,7 @@ router.all('/', function (req, res, next) {
             Promise.resolve(submissionPromise).then(submissions => {
                 if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
                     let submissionLength = submissions.filter(function (n) {
-                        return n.comment;
+                        return n;
                     }).length;
                     assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
                     assignment.submissionStatsPerc = (assignment.userIds.length) ? Math.round((submissionLength / assignment.userIds.length) * 100) : 0;
@@ -576,7 +629,7 @@ router.get('/:assignmentId', function (req, res, next) {
     }).then(assignment => {
         const submissionPromise = getSelectOptions(req, 'submissions', {
             homeworkId: assignment._id,
-            $populate: ['homeworkId']
+            $populate: ['homeworkId', 'fileIds']
         });
         Promise.resolve(submissionPromise).then(submissions => {
             // Kursfarbe setzen
@@ -603,7 +656,7 @@ router.get('/:assignmentId', function (req, res, next) {
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Anzahl der Abgaben -> Statistik in Abgabenübersicht
                 assignment.submissionsCount = submissions.filter(function (n) {
-                    return n.comment;
+                    return n;
                 }).length;
                 assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
 
@@ -615,7 +668,9 @@ router.get('/:assignmentId', function (req, res, next) {
                     _id: assignment.courseId._id,
                     $populate: ['userIds']
                 });
+
                 Promise.resolve(coursePromise).then(course => {
+
                     var students = course[0].userIds;
                     assignment.userCount = students.length;
                     students = students.map(student => {
@@ -666,7 +721,11 @@ router.get('/:assignmentId', function (req, res, next) {
 
                 });
             } else {
+                // file upload path, todo: maybe use subfolders
+                let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
+
                 if(assignment.submission){
+
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: {$in: assignment.submission._id},
@@ -693,7 +752,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                     {}
                                 ],
                                 comments,
-                                courses
+                                courses,
+                                path: submissionUploadPath
                             }));
                         });
                     });
@@ -706,7 +766,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                     url: '/homework'
                                 },
                                 {}
-                            ]
+                            ],
+                            path: submissionUploadPath
                     })); 
                 }
             }

@@ -16,6 +16,20 @@ const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
 const _ = require('lodash');
 
+const filterOptions = [
+    {key: 'pics', label: 'Bilder'},
+    {key: 'videos', label: 'Videos'},
+    {key: 'pdfs', label: 'PDF Dokumente'},
+    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
+];
+
+const filterQueries = {
+    pics: {$regex: 'image'},
+    videos: {$regex: 'video'},
+    pdfs: {$regex: 'pdf'},
+    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
+};
+
 const thumbs = {
     default: "/images/thumbs/default.png",
     psd: "/images/thumbs/psds.png",
@@ -39,20 +53,6 @@ const thumbs = {
     docx: "/images/thumbs/docs.png",
     ai: "/images/thumbs/ais.png",
     tiff: "/images/thumbs/tiffs.png"
-};
-
-const filterOptions = [
-    {key: 'pics', label: 'Bilder'},
-    {key: 'videos', label: 'Videos'},
-    {key: 'pdfs', label: 'PDF Dokumente'},
-    {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
-];
-
-const filterQueries = {
-    pics: {$regex: 'image'},
-    videos: {$regex: 'video'},
-    pdfs: {$regex: 'pdf'},
-    msoffice: {$regex: 'officedocument|msword|ms-excel|ms-powerpoint'}
 };
 
 const requestSignedUrl = (req, data) => {
@@ -576,7 +576,7 @@ router.get('/permittedDirectories/', function (req, res, next) {
             directoryTree[0].subDirs = personalDirs;
 
             // fetch tree for all course folders
-            directoryTree.push()
+            directoryTree.push();
             getScopeDirs(req, res, 'courses').then(courses => {
                 Promise.all((courses || []).map(c => {
                     let coursePath = `courses/${c._id}/`;
@@ -600,6 +600,7 @@ router.get('/permittedDirectories/', function (req, res, next) {
 
 /**** File and Directory proxy models ****/
 router.post('/fileModel', function (req, res, next) {
+    req.body.schoolId = res.locals.currentSchool;
     api(req).post('/files/', {json: req.body}).then(file => res.json(file)).catch(err => next(err));
 });
 

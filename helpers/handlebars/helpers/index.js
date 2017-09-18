@@ -84,5 +84,32 @@ module.exports = {
     },
     log: (data) => {
         console.log(data);
+    },
+    writeFileSizePretty: (fileSize) => {
+        let unit;
+        let iterator = 0;
+
+        while (fileSize > 1024) {
+            fileSize = Math.round((fileSize / 1024) * 100) / 100;
+            iterator++;
+        }
+        switch (iterator) {
+            case 0:
+                unit = "B";
+                break;
+            case 1:
+                unit = "KB";
+                break;
+            case 2:
+                unit = "MB";
+                break;
+            case 3:
+                unit = "GB";
+                break;
+            case 4:
+                unit = "TB";
+                break;
+        }
+        return (fileSize + ' ' + unit);
     }
 };
