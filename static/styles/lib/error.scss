@@ -16,18 +16,10 @@ body {
     }
     .error-card {
         position: relative;
-        .bg-graphic {
-          position: absolute;
-          bottom: -5rem;
-          right: -5rem;
-          background: no-repeat center center;
-          background-size: contain;
-          z-index: -1;
-          width: 600px;
-          height: 600px;      
-          &.bg-graphic-right {
-            background-image: url(/images/login-right.png);
-          }
+        .error-description{
+            max-height: 70vh;
+            overflow-y: auto;
+            word-wrap: break-word;
         }
     }
 }

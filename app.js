@@ -94,7 +94,7 @@ app.use(function (err, req, res, next) {
     // render the error page
     res.status(status);
     res.render('lib/error', {
-            loggedin: true,
+            loggedin: res.locals.loggedin,
             inline: !res.locals.loggedin
         });
 });
