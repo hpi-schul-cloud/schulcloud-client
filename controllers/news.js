@@ -42,12 +42,12 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', function(req, res, next){
-    if(req.body.displayAt) {
-        // rewrite german format to ISO
+    if(req.body.displayAt) { // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
     }
     req.body.creatorId = res.locals.currentUser._id;
-    req.body.lastUpdaterId = res.locals.currentUser._id;
+    req.body.createdAt = moment().toISOString();
+
     api(req).post('/news/', {
         // TODO: sanitize
         json: req.body
@@ -57,16 +57,47 @@ router.post('/', function(req, res, next){
         next(err);
     });
 });
-router.patch('/:id', function(req, res, next){
-    req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
-    req.body.lastUpdaterId = res.locals.currentUser._id;
-    api(req).patch('/news/' + req.params.id, {
-        // TODO: sanitize
-        json: req.body
-    }).then(data => {
-        res.redirect('/news');
-    }).catch(err => {
-        next(err);
+router.patch('/:newsId', function(req, res, next){
+    api(req).get('/news/'+req.params.newsId, {
+    }).then(orgNews => {
+        req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+
+        const historyEntry = {
+            "title": orgNews.title,
+            "content": orgNews.content,
+            "displayAt": orgNews.displayAt,
+            
+            "creatorId": (orgNews.updaterId)?(orgNews.updaterId):(orgNews.creatorId),
+            "parentId": req.params.newsId
+        }
+        
+        api(req).post('/newshistory/', {
+            // TODO: sanitize
+            json: historyEntry
+        }).then(data => {
+            console.log("SAVED-OLD",orgNews, data);
+            
+            
+            
+            req.body.updaterId = res.locals.currentUser._id;
+            req.body.updatedAt = moment().toISOString();
+            orgNews.history.push(data._id);
+            req.body.history = orgNews.history;
+
+            api(req).patch('/news/' + req.params.newsId, {
+                // TODO: sanitize
+                json: req.body
+            }).then(data => {
+                res.redirect('/news');
+            }).catch(err => {
+                next(err);
+            });
+
+
+        
+        }).catch(err => {
+            next(err);
+        });
     });
 });
 router.delete('/:id', getDeleteHandler('news'));
@@ -74,10 +105,13 @@ router.delete('/:id', getDeleteHandler('news'));
 router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
-    //console.log(res.locals.currentUser.permissions);
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime() + '&$limit='+itemsPerPage+'&$skip='+(itemsPerPage * (currentPage - 1))+'&$sort=-displayAt'
-    ).then(news => {
+    let requestUrl = '/news?schoolId=' + res.locals.currentSchool +
+                ((res.locals.currentUser.permissions.includes('NEWS_EDIT'))?'':('&displayAt[$lte]='+new Date().getTime()))+ 
+                '&$limit='+itemsPerPage + 
+                '&$skip='+(itemsPerPage * (currentPage - 1)) + 
+                '&$sort=-displayAt';
+    const newsPromise = api(req).get(requestUrl).then(news => {
         const totalNews = news.total;
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
@@ -110,7 +144,7 @@ router.get('/new', function (req, res, next) {
 
 router.get('/:newsId', function (req, res, next) {
     api(req).get('/news/'+req.params.newsId, {
-        $populate: ['creatorId', 'lastUpdaterId']
+        $populate: ['updaterId']
     }).then(news => {
         news.url = '/news/' + news._id;
         res.render('news/article', {title: news.title, news});

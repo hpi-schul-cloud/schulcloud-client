@@ -30,21 +30,7 @@ describe('News tests', function () {
                 .get('/news/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('News');
-                    resolve();
-                });
-        });
-    });
-
-    it('GET /news redirect to login if not logged in', function () {
-        return new Promise((resolve, reject) => {
-            chai.request(app)
-                .get('/news/')
-                .end((err, res) => {
-                    expect(res).to.redirect;
-                    expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Anmelden');
-                    expect(res.text).to.contain('Mit anderem System anmelden');
+                    expect(res.text).to.contain('Neuigkeiten');
                     resolve();
                 });
         });
