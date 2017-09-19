@@ -224,12 +224,6 @@
     }
 }
 
-@include media-breakpoint-down(xs) {
-    .mobile-no-margin-right {
-        margin-right: 0px;
-    }
-}
-
 .poll {
     text-align: center;
     padding-top: 8px;
