@@ -104,9 +104,8 @@ router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    let requestUrl = '/news?schoolId=' + res.locals.currentSchool +
+    let requestUrl = '/news?$limit='+itemsPerPage +
                 ((res.locals.currentUser.permissions.includes('NEWS_EDIT'))?'':('&displayAt[$lte]='+new Date().getTime()))+ 
-                '&$limit='+itemsPerPage + 
                 '&$skip='+(itemsPerPage * (currentPage - 1)) + 
                 '&$sort=-displayAt';
     const newsPromise = api(req).get(requestUrl).then(news => {
