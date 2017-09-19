@@ -75,10 +75,6 @@ router.patch('/:newsId', function(req, res, next){
             // TODO: sanitize
             json: historyEntry
         }).then(data => {
-            console.log("SAVED-OLD",orgNews, data);
-            
-            
-            
             req.body.updaterId = res.locals.currentUser._id;
             req.body.updatedAt = moment().toISOString();
             orgNews.history.push(data._id);

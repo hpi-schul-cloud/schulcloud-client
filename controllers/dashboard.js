@@ -16,7 +16,6 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-
     // we display time from 8 a.m. to 8 p.m.
     const timeStart = 8;
     const timeEnd = 18;
