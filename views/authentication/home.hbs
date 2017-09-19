@@ -14,6 +14,11 @@
         <div class="container">
             <div class="row">
                 <main class="col-md-8">
+                    <div class="hidden-md-up">
+                        {{> "authentication/forms/login"}}
+                        {{> "authentication/forms/demo-login"}}
+                    </div>
+                    
                     <section class="card">
                         <div class="card-block">
                             <h4>Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten</h4>
@@ -56,8 +61,10 @@
                     </section>
                 </main>
                 <aside class="col-md-4">
-                    {{> "authentication/forms/demo-login"}}
-                    {{> "authentication/forms/login"}}
+                    <div class="hidden-sm-down">
+                        {{> "authentication/forms/demo-login"}}
+                        {{> "authentication/forms/login"}}
+                    </div>
 
                     <section id="blogfeed" class="card">
                         <div class="card-block">
