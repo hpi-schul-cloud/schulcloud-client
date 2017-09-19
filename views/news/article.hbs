@@ -14,13 +14,15 @@
             <div class="ckcontent">
                 {{{news.content}}}
             </div>
-            <div class="mt-1">
-                <a class="btn btn-primary btn-edit" href="/news/{{news._id}}/edit" alt="Artikel '{{news.title}}' bearbeiten.">
-                    Bearbeiten
-                </a>
-                <a class="btn btn-secondary btn-delete" href="/news/{{news._id}}" target="_blank" data-method="delete-material" data-name="{{news.title}}" alt="Artikel '{{news.title}}' löschen">
-                    Löschen
-                </a>
-            </div>
+            {{#userHasPermission "NEWS_EDIT"}}
+                <div class="mt-1">
+                    <a class="btn btn-primary btn-edit" href="/news/{{news._id}}/edit" alt="Artikel '{{news.title}}' bearbeiten.">
+                        Bearbeiten
+                    </a>
+                    <a class="btn btn-secondary btn-delete" href="/news/{{news._id}}" target="_blank" data-method="delete-material" data-name="{{news.title}}" alt="Artikel '{{news.title}}' löschen">
+                        Löschen
+                    </a>
+                </div>
+            {{/userHasPermission}}
     {{/content}}
 {{/extend}}

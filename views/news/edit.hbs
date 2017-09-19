@@ -27,38 +27,40 @@
     </script>
 {{/content}}
 {{#extend "news/news"}}
-    {{#content "page"}}
-        <form class="modal-form" id="news-form" method="post" action="{{action}}">
-            {{#if method}}
-                <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
-            {{/if}}
+    {{#userHasPermission "NEWS_EDIT"}}
+        {{#content "page"}}
+            <form class="modal-form" id="news-form" method="post" action="{{action}}">
+                {{#if method}}
+                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+                {{/if}}
 
-            <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
-            <div class="form-group">
-                <label>Titel</label>
-                <input class="form-control" name="title" type="text" placeholder="Titel" value="{{news.title}}" required />
-            </div>
+                <div class="form-group">
+                    <label>Titel</label>
+                    <input class="form-control" name="title" type="text" placeholder="Titel" value="{{news.title}}" required />
+                </div>
 
-            <div class="form-group">
-                <label>Inhalt</label>
-                <textarea type="text" class="form-control customckeditor" name="content" placeholder="Inhalt der Nachricht..." required>{{news.content}}</textarea>
-            </div>
+                <div class="form-group">
+                    <label>Inhalt</label>
+                    <textarea type="text" class="form-control customckeditor" name="content" placeholder="Inhalt der Nachricht..." required>{{news.content}}</textarea>
+                </div>
 
-            <div class="form-group">
-                <label>Datum</label>
-                <input class="form-control" data-datetime name="displayAt" type="text" value="{{news.displayAt}}"/>
-            </div>
+                <div class="form-group">
+                    <label>Datum</label>
+                    <input class="form-control" data-datetime name="displayAt" type="text" value="{{news.displayAt}}"/>
+                </div>
 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
-                    {{closeLabel}}
-                </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
+                        {{closeLabel}}
+                    </button>
 
-                <button type="submit" class="btn btn-primary btn-submit">
-                    {{submitLabel}}
-                </button>
-            </div>
-        </form>
-    {{/content}}
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        {{submitLabel}}
+                    </button>
+                </div>
+            </form>
+        {{/content}}
+    {{/userHasPermission}}
 {{/extend}}
