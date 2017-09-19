@@ -188,6 +188,9 @@ const getUpdateHandler = (service) => {
         }
         if(service == "submissions"){
             req.body.grade = parseInt(req.body.grade);
+            if(req.body.grade < 0 || req.body.grade >100){
+                req.body.grade = 100;
+            }
         }
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
