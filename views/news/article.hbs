@@ -5,7 +5,9 @@
                 <small class="text-muted">
                     von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
                     {{#if news.updaterId}}
-                        </br>zuletzt bearbeitet von {{news.updaterId.firstName}} {{news.updaterId.lastName}}
+                        {{#ifneq {news.creatorId._id news.updaterId._id}}
+                            </br>zuletzt bearbeitet von {{news.updaterId.firstName}} {{news.updaterId.lastName}}
+                        {{/ifneq}}
                     {{/if}}
                 </small>
             </p>

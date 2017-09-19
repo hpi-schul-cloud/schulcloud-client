@@ -42,8 +42,10 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', function(req, res, next){
-    if(req.body.displayAt) { // rewrite german format to ISO
+    if(req.body.displayAt && req.body.displayAt != "__.__.____ __:__") { // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    }else{
+        req.body.displayAt = undefined;
     }
     req.body.creatorId = res.locals.currentUser._id;
     req.body.createdAt = moment().toISOString();
@@ -140,7 +142,9 @@ router.get('/new', function (req, res, next) {
 
 router.get('/:newsId', function (req, res, next) {
     api(req).get('/news/'+req.params.newsId, {
-        $populate: ['updaterId']
+        qs:{
+            $populate: ['creatorId','updaterId']
+        }
     }).then(news => {
         news.url = '/news/' + news._id;
         res.render('news/article', {title: news.title, news});
