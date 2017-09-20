@@ -6,6 +6,12 @@
         <div class="row tasks card-deck-row">
             {{#each content}}
                 {{> 'dashboard/components/card_template' link-text=../link-text}}
+            {{else}}
+                <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
+                    <div class="alert alert-info">
+                        <strong>Info!</strong> Keine Einträge vorhanden.
+                    </div>
+                </div>
             {{/each}}
         </div>
     </div>
