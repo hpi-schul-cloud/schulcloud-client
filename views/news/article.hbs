@@ -9,7 +9,7 @@
             <div class="ckcontent">
                 {{{news.content}}}
             </div>
-            {{#userHasPermission "NEWS_EDIT"}}
+            {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
                 <div class="mt-1">
                     <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="Artikel '{{../news.title}}' bearbeiten.">
                         Bearbeiten

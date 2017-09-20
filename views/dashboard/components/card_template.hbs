@@ -12,9 +12,8 @@
         </div>
         <div class="card-footer">
             <div class="input-group">
-                {{#userHasPermission "NEWS_EDIT"}}
                     <div class="btn-group left-btn-group">
-                        {{#each ../this.actions}}
+                        {{#each this.actions}}
                             {{#if this.method}}
                                     <a class="btn btn-secondary {{this.class}}"
                                        href="{{this.link}}"
@@ -31,8 +30,7 @@
                             {{/if}}
                         {{/each}}
                     </div>
-                {{/userHasPermission}}
-                <a class="btn btn-primary {{#userHasPermission "NEWS_EDIT"}}ml-1{{/userHasPermission}} more" href="{{url}}" rel="canonical">{{{link-text}}}</a>
+                <a class="btn btn-primary {{#if this.actions}}ml-1{{/if}} more" href="{{url}}" rel="canonical">{{{link-text}}}</a>
             </div>
         </div>
     </article>
