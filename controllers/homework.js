@@ -383,7 +383,6 @@ router.all('/', function (req, res, next) {
             if(assignment.teacherId != res.locals.currentUser._id){
                 assignment.stats = undefined;
             }
-            console.log(assignment);
             return assignment;
         });
 
