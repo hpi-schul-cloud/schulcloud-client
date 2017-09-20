@@ -46,7 +46,11 @@ $(document).ready(function() {
     });
 
     $school.on('change', function() {
-        loadSystems($school.val());
+        const id = $(this).val();
+        loadSystems( id );
+        $school.find("option").not("[value='"+id+"']").removeAttr('selected');
+        $school.find("option[value='"+id+"']").attr('selected',true);
+        $school.trigger('chosen:updated');
     });
 
     $('.submit-pwrecovery').on('click', function(e) {
