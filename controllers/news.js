@@ -34,7 +34,7 @@ const getActions = (item, path) => {
 const getDeleteHandler = (service) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.redirect(req.header('Referer'));
+            res.sendStatus(200);
         }).catch(err => {
             next(err);
         });
