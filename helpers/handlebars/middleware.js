@@ -53,16 +53,6 @@ module.exports = (req, res, next) => {
         link: '/homework/',
         children: [
             {
-                name: 'Meine Aufgaben',
-                icon: 'lock',
-                link: '/homework/my/'
-            },
-            {
-                name: 'Gestellte Aufgaben',
-                icon: 'bullhorn',
-                link: '/homework/asked/'
-            },
-            {
                 name: 'Archiv',
                 icon: 'archive',
                 link: '/homework/archiv/'
