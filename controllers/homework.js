@@ -40,8 +40,8 @@ const getActions = (item, path) => {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
-            method: 'delete',
-            alt: 'löschen'
+            method: 'delete-material',
+            alt: 'Löschen'
         }
     ];
 };
@@ -152,69 +152,97 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
     });
 };
 
+const patchFunction = function(service, req, res, next){
+    if(req.body.referrer){
+        var referrer = req.body.referrer.replace("/edit","");
+        delete req.body.referrer;
+    }
+    api(req).patch('/' + service + '/' + req.params.id, {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        if (service == "submissions"){
+            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                .then(homework => {
+                sendNotification(data.studentId,
+                    "Deine Abgabe im Fach " +
+                    homework.courseId.name + " wurde bewertet",
+                    " ",
+                    data.studentId,
+                    req,
+                    `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
+                });
 
+            res.redirect(req.header('Referrer'));
+        }
+        if(referrer){
+            res.redirect(referrer);
+        }else{
+            res.sendStatus(200);
+        }
+    }).catch(err => {
+        next(err);
+    });
+}
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
         if (service == "homework"){
-            if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-                req.body.courseId = null;
-                req.body.private = true;
-            }
-            if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-                req.body.lessonId = null;
-            }
-            if (!req.body.private) {
-                req.body.private = false;
-            }
-            if (!req.body.publicSubmissions) {
-                req.body.publicSubmissions = false;
-            }
-
-            // rewrite german format to ISO
-            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
-            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-
-            var referrer = req.body.referrer.replace("/edit","");
-            delete req.body.referrer;
-
-            if(req.body.availableDate >= req.body.dueDate){
-                req.session.notification = {
-                    type: 'danger',
-                    message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
-                };
-                res.redirect(referrer);
-                return;
-            }
-        }
-        if(service == "submissions"){
-            req.body.grade = parseInt(req.body.grade);
-        }
-        api(req).patch('/' + service + '/' + req.params.id, {
-            // TODO: sanitize
-            json: req.body
-        }).then(data => {
-            if (service == "submissions"){
-                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
-                    .then(homework => {
-                    sendNotification(data.studentId,
-                        "Deine Abgabe im Fach " +
-                        homework.courseId.name + " wurde bewertet",
-                        " ",
-                        data.studentId,
-                        req,
-                        `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
-                    });
-
-                res.redirect(req.header('Referrer'));
-            }
-            if(referrer){
-                res.redirect(referrer);
+            //check archived
+            if(req.body.archive){
+                api(req).get('/homework/' + req.params.id, {}).then(homework => {
+                    if(homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "open"){
+                        console.log("Remove");
+                        homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
+                    }else if(!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "done"){
+                        console.log("Add");
+                        homework.archived.push(res.locals.currentUser._id);
+                    }
+                    req.body.archived = homework.archived;
+                    delete req.body.archive;
+                    return patchFunction(service, req, res, next);
+                });
             }else{
-                res.sendStatus(200);
+                if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+                    req.body.courseId = null;
+                    req.body.private = true;
+                }
+                if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+                    req.body.lessonId = null;
+                }
+                if (!req.body.private) {
+                    req.body.private = false;
+                }
+                if (!req.body.publicSubmissions) {
+                    req.body.publicSubmissions = false;
+                }
+                // rewrite german format to ISO
+                if(req.body.availableDate){
+                    req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+                }
+                if(req.body.dueDate){
+                    req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+                }
+                if(req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate){
+                    req.session.notification = {
+                        type: 'danger',
+                        message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+                    };
+                    if(req.body.referrer){
+                        var referrer = req.body.referrer.replace("/edit","");
+                        delete req.body.referrer;
+                    }
+                    res.redirect(referrer);
+                    return;
+                }
+                return patchFunction(service, req, res, next);
             }
-        }).catch(err => {
-            next(err);
-        });
+        }else{
+            if(service == "submissions"){
+                req.body.grade = parseInt(req.body.grade);
+            }
+            return patchFunction(service, req, res, next);
+        }
+        
     };
 };
 
@@ -265,7 +293,6 @@ const getDeleteHandler = (service) => {
 
 router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
-router.get('/:id/json', getDetailHandler('homework')); // may remove cause its unused
 router.delete('/:id', getDeleteHandler('homework'));
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
@@ -394,11 +421,12 @@ router.all('/', function (req, res, next) {
             return e;
         });
     }
-
     api(req).get('/homework/', {
         qs: {
             $populate: ['courseId'],
-            $sort: homeworkDesc+homeworkSort
+            $sort: homeworkDesc+homeworkSort,
+            archived: {$ne: res.locals.currentUser._id }
+            //archived: res.locals.currentUser._id// archivseite
         }
     }).then(homeworks => {
         homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
@@ -452,7 +480,6 @@ router.all('/', function (req, res, next) {
                     }
                 }
             });
-
             assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
             return assignment;
@@ -465,42 +492,26 @@ router.all('/', function (req, res, next) {
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
-            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-            const userPromise = getSelectOptions(req, 'users', {
-                _id: res.locals.currentUser._id,
-                $populate: ['roles']
-            });
-            Promise.resolve(userPromise).then(user => {
-                const roles = user[0].roles.map(role => {
-                    return role.name;
-                });
-                let isStudent = true;
-                if (roles.indexOf('student') == -1) {
-                    isStudent = false;
-                }
-                // Render Overview
-                //Pagination in client, because filters are in afterhook
-                const itemsPerPage = 10;
-                const currentPage = parseInt(req.query.p) || 1;
-                let pagination = {
-                    currentPage,
-                    numPages: Math.ceil(homeworks.length / itemsPerPage),
-                    baseUrl: '/homework/?'
-                                        +((req.query.sort)?('sort='+req.query.sort+'&'):'')
-                                        +((homeworkDesc)?('desc='+req.query.desc+'&'):'')+'p={{page}}'
-                };
-                const end = currentPage * itemsPerPage;
-                homeworks = homeworks.slice(end - itemsPerPage, end);
-                //Render overview
-                res.render('homework/overview', {
-                    title: 'Meine Aufgaben',
-                    pagination,
-                    homeworks,
-                    courses,
-                    isStudent,
-                    sortmethods,
-                    desc: homeworkDesc
-                });
+            //Pagination in client, because filters are in afterhook
+            const itemsPerPage = 10;
+            const currentPage = parseInt(req.query.p) || 1;
+            let pagination = {
+                currentPage,
+                numPages: Math.ceil(homeworks.length / itemsPerPage),
+                baseUrl: '/homework/?'
+                                    +((req.query.sort)?('sort='+req.query.sort+'&'):'')
+                                    +((homeworkDesc)?('desc='+req.query.desc+'&'):'')+'p={{page}}'
+            };
+            const end = currentPage * itemsPerPage;
+            homeworks = homeworks.slice(end - itemsPerPage, end);
+            //Render overview
+            res.render('homework/overview', {
+                title: 'Meine Aufgaben',
+                pagination,
+                homeworks,
+                courses,
+                sortmethods,
+                desc: homeworkDesc
             });
         });
     });
@@ -561,7 +572,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
     }).then(assignment => {
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
-    
+
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
                 {userIds: res.locals.currentUser._id},

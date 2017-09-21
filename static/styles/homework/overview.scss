@@ -95,10 +95,8 @@
       }
     }
   }
-}
-
-.modal-body {
-  textarea {
-    min-height: 100px;
+  .disableable.disabled{
+    -webkit-filter: grayscale(100%) opacity(0.7);
+    filter: grayscale(100%) opacity(0.7);
   }
 }

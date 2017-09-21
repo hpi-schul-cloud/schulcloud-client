@@ -13,6 +13,13 @@ module.exports = {
             return options.inverse(item);
         }
     },
+    inArray: (item, array, opts) => {
+        if(array.includes(item)){
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    },
     arrayLength: (array) => {
         return array.length;
     },
