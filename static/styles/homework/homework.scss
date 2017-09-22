@@ -1,5 +1,5 @@
-@import '../lib/colors.scss';
-@import '../lib/bootstrap/scss/bootstrap-flex';
+﻿@import '../lib/colors.scss';
+@import '../lib/bootstrap/scss/bootstrap-grid';
 
 .homework {
   width: 100%;
@@ -24,26 +24,6 @@
     float: right;
     text-align: right;
     color: grey;
-    .days {
-      color: $colorHPIYellow;
-    }
-    .hours {
-      color: $colorHPIOrange;
-      font-weight: bold;
-    }
-    .minutes {
-      color: $colorHPIRed;
-      font-weight: bold;
-      text-decoration: underline;
-    }
-    .submitted {
-      color: #61BD4F;
-      font-weight: normal;
-      text-decoration: none;
-      &::after {
-        content: " ✔";
-      }
-    }
   }
   .state {
     float: right;
@@ -51,15 +31,6 @@
     clear: right;
     color: grey;
     position:relative;
-    .green {
-      color: #61BD4F;
-    }
-    .orange {
-      color: $colorHPIOrange;
-    }
-    .red {
-      color: red;
-    }
     .textinfo{
         transition: visibility 0s linear .3s,opacity .3s linear 0s;
         opacity: 0;
@@ -107,6 +78,7 @@
     h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
     h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
     p  {font-size: 1rem;margin-bottom:.25rem;}
+    a  {text-decoration: underline; color: $colorHPIRed;}
     blockquote{
       color: grey;
       margin-left: 1rem;
