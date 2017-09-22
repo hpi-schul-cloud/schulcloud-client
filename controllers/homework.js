@@ -338,46 +338,7 @@ const splitDate = function (date) {
         "time": timeF
     };
 };
-const formatremaining = function (dueDate) {
-    let diff = moment.duration(dueDate - Date.now());
-    let dueColor, dueString;
-    const days = Math.floor(diff.asDays());
-    const hours = diff.hours();
-    if (days <= 5 && diff.asSeconds() > 0) {
-        if (days > 1) {
-            dueColor = "days";
-        }
-        else if (days == 1 || hours > 2) {
-            dueColor = "hours";
-        }
-        else {
-            dueColor = "minutes";
-        }
-        dueString = moment(dueDate).fromNow();
-    }
-    return {
-        "colorClass": dueColor,
-        "str": dueString,
-        "diff": diff,
-        "days": days
-    };
-};
 
-const getAverageRating = function (submissions, gradeSystem) {
-    // Durchschnittsnote berechnen
-    if (submissions.length > 0) {
-        // Nur bewertete Abgaben einbeziehen 
-        let submissiongrades = submissions.filter(function (sub) {
-            return (sub.grade != null);
-        }).map(function(e){return e.grade;});
-        // Abgaben vorhanden?
-        if (submissiongrades.length > 0) {
-            // Durchschnittsnote berechnen
-            return (submissiongrades.reduce((a, b) => a + b, 0) / submissiongrades.length).toFixed(2);
-        }
-    }
-    return undefined;
-};
 router.all('/', function (req, res, next) {
     var homeworkDesc = (req.query.desc == "true")?'-':'';
     var homeworkSort = (req.query.sort && req.query.sort!=="")?req.query.sort:'dueDate';
@@ -416,45 +377,12 @@ router.all('/', function (req, res, next) {
 
             assignment.url = '/homework/' + assignment._id;
             assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
-            
-            // Anzeigetext + Farbe für verbleibende Zeit
-            const availableDateArray = splitDate(assignment.availableDate);
-            const dueDateArray = splitDate(assignment.dueDate);
-            const remainingF = formatremaining(dueDateArray["timestamp"]);
-            assignment.dueColor = remainingF["colorClass"];
-
-            // alle Abgaben auslesen -> um Statistiken anzeigen zu können
-            const submissionPromise = getSelectOptions(req, 'submissions', {
-                homeworkId: assignment._id,
-                $populate: ['studentId', 'homeworkId']
-            });
-            Promise.resolve(submissionPromise).then(submissions => {
-                if (assignment.teacherId === res.locals.currentUser._id) {  //teacher
-                    let submissionLength = submissions.filter(function (n) {
-                        return n;
-                    }).length;
-                    assignment.submissionStats = submissionLength + "/" + assignment.userIds.length;
-                    assignment.submissionStatsPerc = (assignment.userIds.length) ? Math.round((submissionLength / assignment.userIds.length) * 100) : 0;
-                    let submissionCount = (submissions.filter(function (a) {
-                        return ((a.gradeComment && a.gradeComment != '') || (a.grade && a.grade != null));
-                    })).length;
-                    assignment.gradedStats = submissionCount + "/" + assignment.userIds.length;               // Anzahl der Abgaben
-                    assignment.gradedStatsPerc = (assignment.userIds.length) ? Math.round((submissionCount / assignment.userIds.length) * 100) : 0; // -||- in Prozent
-
-                    assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
-
-                } else { //student
-                    const submission = submissions.filter(function (n) {
-                        return n.studentId._id == res.locals.currentUser._id;
-                    })[0];  // Abgabe des Schuelers heraussuchen
-                    if (submission && submission.comment !== "") { // Abgabe vorhanden?
-                        assignment.dueColor = "submitted";
-                    }
-                }
-            });
 
             assignment.currentUser = res.locals.currentUser;
             assignment.actions = getActions(assignment, '/homework/');
+            if(assignment.teacherId != res.locals.currentUser._id){
+                assignment.stats = undefined;
+            }
             return assignment;
         });
 
@@ -654,12 +582,6 @@ router.get('/:assignmentId', function (req, res, next) {
 
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
-                // Anzahl der Abgaben -> Statistik in Abgabenübersicht
-                assignment.submissionsCount = submissions.filter(function (n) {
-                    return n;
-                }).length;
-                assignment.averageRating = getAverageRating(submissions, assignment.courseId.gradeSystem);
-
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
 
@@ -670,9 +592,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
 
                 Promise.resolve(coursePromise).then(course => {
-
                     var students = course[0].userIds;
-                    assignment.userCount = students.length;
                     students = students.map(student => {
                         return {
                             student: student,
@@ -759,15 +679,15 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                 }else{
                     res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                            breadcrumb: [
-                                {
-                                    title: 'Meine Aufgaben',
-                                    url: '/homework'
-                                },
-                                {}
-                            ],
-                            path: submissionUploadPath
+                        title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                        breadcrumb: [
+                            {
+                                title: 'Meine Aufgaben',
+                                url: '/homework'
+                            },
+                            {}
+                        ],
+                        path: submissionUploadPath
                     })); 
                 }
             }

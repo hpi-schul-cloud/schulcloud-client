@@ -5,26 +5,26 @@
                 bis {{timeToString dueDate}}
         </div>
     </a>
-    {{#if this.submissionStats}}
+    {{#if this.stats}}
         <a class="content" href="{{this.url}}#activetabid=submissions" alt="Abgaben der Aufgabe: '{{this.name}}'">
             <div class="state">
                 <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70"
-                    data="{{this.submissionStatsPerc}}"
-                    {{#if this.gradedStats}}secdata="{{this.gradedStatsPerc}}" {{/if}}
+                    data="{{this.stats.submissionPercentage}}"
+                    {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}}
                     width="80" height="80">
                 </circular-progress>
                 <div class="textinfo">
-                    <span>Abgegeben: {{this.submissionStats}}</span>
+                    <span>Abgegeben: {{this.stats.submissionCount}} ({{this.stats.submissionPercentage}}%)</span>
                     <span>
-                    {{#if this.gradedStats}}
-                        Bewertet: {{this.gradedStats}}
+                    {{#if this.stats.gradeCount}}
+                        Bewertet: {{this.stats.gradeCount}} ({{this.stats.gradePercentage}}%)
                     {{else}}
                         Bewertet: -
                     {{/if}}
                     </span>
                     <span>
-                        {{#if this.averageRating}}
-                            Ø: {{this.averageRating}}%
+                        {{#if this.stats.averageGrade}}
+                            Ø: {{this.stats.averageGrade}}%
                         {{else}}
                             Ø: -
                         {{/if}}
