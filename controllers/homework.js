@@ -339,7 +339,8 @@ const splitDate = function (date) {
     };
 };
 
-router.all('/', function (req, res, next) {
+const overview = (title="") => {
+  return function (req, res, next) {
     var homeworkDesc = (req.query.desc == "true")?'-':'';
     var homeworkSort = (req.query.sort && req.query.sort!=="")?req.query.sort:'dueDate';
 
@@ -356,11 +357,17 @@ router.all('/', function (req, res, next) {
         });
     }
 
+    let query = {
+        $populate: ['courseId'],
+        $sort: homeworkDesc+homeworkSort,
+    }
+    if(req._parsedUrl.pathname.includes("private")){query.private = true;} 
+    if(req._parsedUrl.pathname.includes("asked")){
+        query.private = { $ne: true }
+    }
+
     api(req).get('/homework/', {
-        qs: {
-            $populate: ['courseId'],
-            $sort: homeworkDesc+homeworkSort
-        }
+        qs: query
     }).then(homeworks => {
         homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
             // kein Kurs -> Private Hausaufgabe
@@ -408,12 +415,13 @@ router.all('/', function (req, res, next) {
                 }
                 // Render Overview
                 //Pagination in client, because filters are in afterhook
+                console.log("URL:",req.baseUrl + req._parsedUrl.pathname);
                 const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
                 let pagination = {
                     currentPage,
                     numPages: Math.ceil(homeworks.length / itemsPerPage),
-                    baseUrl: '/homework/?'
+                    baseUrl: req.baseUrl + req._parsedUrl.pathname + '/?'
                                         +((req.query.sort)?('sort='+req.query.sort+'&'):'')
                                         +((homeworkDesc)?('desc='+req.query.desc+'&'):'')+'p={{page}}'
                 };
@@ -421,7 +429,7 @@ router.all('/', function (req, res, next) {
                 homeworks = homeworks.slice(end - itemsPerPage, end);
                 //Render overview
                 res.render('homework/overview', {
-                    title: 'Meine Aufgaben',
+                    title: title+' Aufgaben',
                     pagination,
                     homeworks,
                     courses,
@@ -432,7 +440,11 @@ router.all('/', function (req, res, next) {
             });
         });
     });
-});
+  }
+}
+router.get('/', overview(""));
+router.get('/asked', overview("Gestellte"));
+router.get('/private', overview("Meine"));
 
 router.get('/new', function (req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
@@ -627,7 +639,7 @@ router.get('/:assignmentId', function (req, res, next) {
                                 title: assignment.courseId.name + ' - ' + assignment.name,
                                 breadcrumb: [
                                     {
-                                        title: 'Meine Aufgaben',
+                                        title: 'Aufgaben',
                                         url: '/homework'
                                     },
                                     {}
