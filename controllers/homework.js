@@ -330,12 +330,10 @@ router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
 
 const splitDate = function (date) {
-    const dateF = moment(date).format('DD.MM.YYYY');
-    const timeF = moment(date).format('HH:mm');
     return {
         "timestamp": moment(date).valueOf(),
-        "date": dateF,
-        "time": timeF
+        "date": moment(date).format('DD.MM.YYYY'),
+        "time": moment(date).format('HH:mm')
     };
 };
 
@@ -567,44 +565,56 @@ router.get('/:assignmentId', function (req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
+        // Kursfarbe setzen
+        assignment.color = (assignment.courseId && assignment.courseId.color)?assignment.courseId.color:"#1DE9B6";
+
+        // Datum aufbereiten
+        const availableDateArray = splitDate(assignment.availableDate);
+        assignment.availableDateF = availableDateArray["date"];
+        assignment.availableTimeF = availableDateArray["time"];
+
+        const dueDateArray = splitDate(assignment.dueDate);
+        assignment.dueDateF = dueDateArray["date"];
+        assignment.dueTimeF = dueDateArray["time"];
+
+        // Abgabe noch möglich?
+        assignment.submittable = (dueDateArray["timestamp"] >= Date.now())
+        
+        if(req._parsedUrl.pathname.includes("private")){query.private = true;} 
+        if(req._parsedUrl.pathname.includes("asked")){
+            query.private = { $ne: true }
+        }
+        const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
+                        ?("Archivierte")
+                        :((assignment.private)
+                            ?("Meine")
+                            :("Gestellte"));
+        const breadcrumbUrl = ((assignment.archived || []).includes(res.locals.currentUser._id))
+                        ?("/homework/archiv")
+                        :((assignment.private)
+                            ?("/homework/private")
+                            :("/homework/asked"));
+        // Abgaben auslesen
         const submissionPromise = getSelectOptions(req, 'submissions', {
             homeworkId: assignment._id,
             $populate: ['homeworkId', 'fileIds']
         });
         Promise.resolve(submissionPromise).then(submissions => {
-            // Kursfarbe setzen
-            assignment.color = (assignment.courseId && assignment.courseId.color)?assignment.courseId.color:"#1DE9B6";
-
-            // Datum aufbereiten
-            const availableDateArray = splitDate(assignment.availableDate);
-            assignment.availableDateF = availableDateArray["date"];
-            assignment.availableTimeF = availableDateArray["time"];
-
-            const dueDateArray = splitDate(assignment.dueDate);
-            assignment.dueDateF = dueDateArray["date"];
-            assignment.dueTimeF = dueDateArray["time"];
-
-            // Abgabe noch möglich?
-            if (new Date(assignment.dueDate).getTime() < Date.now()) {
-                assignment.submittable = false;
-            } else {
-                assignment.submittable = true;
-            }
-            assignment.submission = submissions[0];
-
+            assignment.submission = submissions.filter(submission => {
+                    return submission.studentId == res.locals.currentUser._id;
+                })[0];
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions;
 
                 // Alle Teilnehmer des Kurses 
-                const coursePromise = getSelectOptions(req, 'courses', {
-                    _id: assignment.courseId._id,
-                    $populate: ['userIds']
-                });
-
-                Promise.resolve(coursePromise).then(course => {
-                    var students = course[0].userIds;
+                api(req).get('/courses/' + assignment.courseId._id, {
+                    qs: {
+                        $populate: ['userIds']
+                    }
+                }).then(course => {
+                    var students = course.userIds;
                     students = students.map(student => {
                         return {
                             student: student,
@@ -613,6 +623,7 @@ router.get('/:assignmentId', function (req, res, next) {
                             })[0]
                         };
                     });
+
                     // Kommentare zu Abgaben auslesen
                     const ids = assignment.submissions.map(n => n._id);
                     const commentPromise = getSelectOptions(req, 'comments', {
@@ -639,8 +650,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                 title: assignment.courseId.name + ' - ' + assignment.name,
                                 breadcrumb: [
                                     {
-                                        title: 'Aufgaben',
-                                        url: '/homework'
+                                        title: breadcrumbTitle + " Aufgaben",
+                                        url: breadcrumbUrl
                                     },
                                     {}
                                 ],
@@ -660,7 +671,7 @@ router.get('/:assignmentId', function (req, res, next) {
 
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
-                        submissionId: {$in: assignment.submission._id},
+                        submissionId: assignment.submission._id,
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
@@ -678,8 +689,8 @@ router.get('/:assignmentId', function (req, res, next) {
                                 title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                                 breadcrumb: [
                                     {
-                                        title: 'Meine Aufgaben',
-                                        url: '/homework'
+                                        title: breadcrumbTitle + " Aufgaben",
+                                        url: breadcrumbUrl
                                     },
                                     {}
                                 ],
@@ -694,8 +705,8 @@ router.get('/:assignmentId', function (req, res, next) {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [
                             {
-                                title: 'Meine Aufgaben',
-                                url: '/homework'
+                                title: breadcrumbTitle + " Aufgaben",
+                                url: breadcrumbUrl
                             },
                             {}
                         ],
