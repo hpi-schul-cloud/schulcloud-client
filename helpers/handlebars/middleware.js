@@ -134,10 +134,6 @@ module.exports = (req, res, next) => {
                 name: 'Authentifizierung',
                 icon: 'key',
                 link: '/administration/systems/'
-            },{
-                name: 'News',
-                icon: 'newspaper-o',
-                link: '/administration/news/'
             }
         ]
     });
