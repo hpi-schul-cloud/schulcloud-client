@@ -1,11 +1,13 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
     <div class="homework">
-        <div class="description">
-            {{#if this.description}}
-                {{{this.description}}}
-            {{else}}
-                keine Beschreibung vorhanden
-            {{/if}}
+        <div class="assignment row">
+            <div class="description col-xl-8">
+                {{#if this.description}}
+                    {{{this.description}}}
+                {{else}}
+                    keine Beschreibung vorhanden
+                {{/if}}
+            </div>
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
             {{#userHasPermission "HOMEWORK_CREATE"}}
