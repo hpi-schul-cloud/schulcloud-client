@@ -40,7 +40,7 @@
             {{/if}}
             {{this.name}}
         </h5>
-        <div class="description">
+        <div class="ckcontent">
             {{#if this.description}}
                 {{{truncateHTML (conflictFreeHtml this.description)}}}
             {{else}}
@@ -61,7 +61,7 @@
                         <i class="fa fa-{{this.icon}}"></i>
                     </a>
             {{else}}
-                <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../name}}' {{this.alt}}.">
+                <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../../name}}' {{this.alt}}.">
                     <i class="fa fa-{{this.icon}}"></i> {{this.label}}
                 </a>
             {{/if}}

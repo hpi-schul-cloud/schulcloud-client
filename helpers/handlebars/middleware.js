@@ -34,16 +34,18 @@ module.exports = (req, res, next) => {
         icon: 'th-large',
         link: '/dashboard/',
     }, {
+        name: 'Neuigkeiten',
+        icon: 'newspaper-o',
+        link: '/news/'
+    }, {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
-    },
-    {
+    }, {
         name: 'Klassen',
         icon: 'odnoklassniki',
         link: '/classes/'
-    },
-        {
+    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'

@@ -527,7 +527,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                     Promise.resolve(lessonsPromise).then(lessons => {
                         //Render overview
                         res.render('homework/edit', {
-                            title: 'Aufgabe hinzufügen',
+                            title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
                             closeLabel: 'Schließen',
                             method: 'patch',
