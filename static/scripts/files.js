@@ -250,16 +250,16 @@ $(document).ready(function() {
     $('.btn-file-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
-        let path = $(this).attr('data-file-path');
+        let fileId = $(this).attr('data-file-id');
         let $shareModal = $('.share-modal');
         $.ajax({
             type: "POST",
             url: "/files/permissions/",
             data: {
-                key: path
+                id: fileId
             },
             success: function(data) {
-                let target = `files/file?path=${data.key}&share=${data.shareToken}`;
+                let target = `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
