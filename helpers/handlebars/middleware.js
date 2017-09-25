@@ -63,6 +63,11 @@ module.exports = (req, res, next) => {
                 name: 'Meine Aufgaben',
                 icon: 'lock',
                 link: '/homework/private/'
+            },
+            {
+                name: 'Archiv',
+                icon: 'archive',
+                link: '/homework/archive/'
             }
         ]
     }, {
@@ -79,6 +84,11 @@ module.exports = (req, res, next) => {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
+            },
+            {
+                name: 'geteilte Dateien',
+                icon: 'folder-open-o',
+                link: '/files/shared/'
             }
         ]
     }, {

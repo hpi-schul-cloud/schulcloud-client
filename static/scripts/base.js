@@ -73,6 +73,9 @@ function populateModalForm(modal, data) {
 }
 
 $(document).ready(function () {
+    // Bootstrap Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     // notification stuff
     var $notification = $('.notification');
     var $notificationContent = $notification.find('.notification-content');

@@ -74,7 +74,44 @@ $(document).ready(function() {
         }
         return false;
     });
+   
+    $('a[data-method="delete-material"]').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $buttonContext = $(this);
 
+        $deleteModal.modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
+            
+        });
+    });
+    $('.btn-archive').on("click",function(e){
+        e.preventDefault();
+        // loading animation
+        let btntext = this.innerHTML;
+        $(this).find("i").attr("class", "fa fa-spinner fa-spin");
+        // send request to server
+        let request = $.ajax({
+            type: "PATCH",
+            url: this.getAttribute("href"),
+            data: this.getAttribute("data"),
+            context: this,
+            error: function(){showAJAXError(); this.innerHTML = btntext;}
+        });
+        request.done(function(r) {
+            // switch text (innerHTML <--> alt-text)
+            const temp = $(this).attr("alt-text");
+            $(this).attr("alt-text", btntext);
+            this.innerHTML = temp;
+            // grey out if removed from list
+            $(this).parents(".disableable").toggleClass("disabled");
+            // change data
+            $(this).attr("data",(this.getAttribute("data")=="archive=done")?"archive=open":"archive=done")
+        });
+        return false;
+    });
+    
     function updateSearchParameter(key, value) {
         let url = window.location.search;
         let reg = new RegExp('('+key+'=)[^\&]+');
