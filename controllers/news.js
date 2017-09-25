@@ -41,10 +41,10 @@ const getDeleteHandler = (service) => {
     };
 };
 
-router.post('/', function(req, res, next){
-    if(req.body.displayAt && req.body.displayAt != "__.__.____ __:__") { // rewrite german format to ISO
+router.post('/', function (req, res, next) {
+    if (req.body.displayAt && req.body.displayAt != "__.__.____ __:__") { // rewrite german format to ISO
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
-    }else{
+    } else {
         req.body.displayAt = undefined;
     }
     req.body.creatorId = res.locals.currentUser._id;
@@ -59,20 +59,19 @@ router.post('/', function(req, res, next){
         next(err);
     });
 });
-router.patch('/:newsId', function(req, res, next){
-    api(req).get('/news/'+req.params.newsId, {
-    }).then(orgNews => {
+router.patch('/:newsId', function (req, res, next) {
+    api(req).get('/news/' + req.params.newsId, {}).then(orgNews => {
         req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
 
         const historyEntry = {
             "title": orgNews.title,
             "content": orgNews.content,
             "displayAt": orgNews.displayAt,
-            
-            "creatorId": (orgNews.updaterId)?(orgNews.updaterId):(orgNews.creatorId),
+
+            "creatorId": (orgNews.updaterId) ? (orgNews.updaterId) : (orgNews.creatorId),
             "parentId": req.params.newsId
-        }
-        
+        };
+
         api(req).post('/newshistory/', {
             // TODO: sanitize
             json: historyEntry
@@ -92,7 +91,6 @@ router.patch('/:newsId', function(req, res, next){
             });
 
 
-        
         }).catch(err => {
             next(err);
         });
@@ -104,16 +102,16 @@ router.all('/', function (req, res, next) {
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    let requestUrl = '/news?$limit='+itemsPerPage +
-                ((res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT'))?'':('&displayAt[$lte]='+new Date().getTime()))+ 
-                '&$skip='+(itemsPerPage * (currentPage - 1)) + 
-                '&$sort=-displayAt';
+    let requestUrl = '/news?$limit=' + itemsPerPage +
+        ((res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? '' : ('&displayAt[$lte]=' + new Date().getTime())) +
+        '&$skip=' + (itemsPerPage * (currentPage - 1)) +
+        '&$sort=-displayAt';
     const newsPromise = api(req).get(requestUrl).then(news => {
         const totalNews = news.total;
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
             news.date = moment(news.displayAt).fromNow();
-            if(res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')){
+            if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
                 news.actions = getActions(news, '/news/');
             }
             return news;
@@ -125,7 +123,7 @@ router.all('/', function (req, res, next) {
         };
         res.render('news/overview', {
             title: 'Neuigkeiten',
-            news, 
+            news,
             pagination,
         });
     });
@@ -142,9 +140,9 @@ router.get('/new', function (req, res, next) {
 });
 
 router.get('/:newsId', function (req, res, next) {
-    api(req).get('/news/'+req.params.newsId, {
-        qs:{
-            $populate: ['creatorId','updaterId']
+    api(req).get('/news/' + req.params.newsId, {
+        qs: {
+            $populate: ['creatorId', 'updaterId']
         }
     }).then(news => {
         news.url = '/news/' + news._id;
@@ -153,15 +151,14 @@ router.get('/:newsId', function (req, res, next) {
 });
 
 router.get('/:newsId/edit', function (req, res, next) {
-    api(req).get('/news/'+req.params.newsId, {
-    }).then(news => {
+    api(req).get('/news/' + req.params.newsId, {}).then(news => {
         news.displayAt = moment(news.displayAt).format('DD.MM.YYYY HH:mm');
         res.render('news/edit', {
-            title: "News bearbeiten", 
+            title: "News bearbeiten",
             submitLabel: 'Speichern',
             closeLabel: 'Schließen',
             method: 'patch',
-            action: '/news/'+req.params.newsId,
+            action: '/news/' + req.params.newsId,
             news
         });
     });
