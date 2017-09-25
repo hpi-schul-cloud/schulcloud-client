@@ -138,6 +138,7 @@ const getCreateHandler = (service) => {
 };
 
 const sendNotification = (courseId, title, message, userId, req, link) => {
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
     api(req).post('/notification/messages', {
         json: {
             "title": title,
@@ -150,6 +151,7 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
             ]
         }
     });
+    }
 };
 
 const patchFunction = function(service, req, res, next){
