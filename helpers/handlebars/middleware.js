@@ -84,6 +84,11 @@ module.exports = (req, res, next) => {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
+            },
+            {
+                name: 'geteilte Dateien',
+                icon: 'folder-open-o',
+                link: '/files/shared/'
             }
         ]
     }, {

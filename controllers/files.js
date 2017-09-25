@@ -393,6 +393,31 @@ router.get('/my/', FileGetter, function (req, res, next) {
     }, res.locals.files));
 });
 
+router.get('/shared/', function (req, res, next) {
+    api(req).get('/files')
+        .then(files => {
+            files.files = files.data.filter(f => f.context === 'geteilte Datei');
+
+            files.files.map(file => {
+                file.file = file.path + file.name;
+                let ending = file.name.split('.').pop();
+                file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+            });
+
+            res.render('files/files', Object.assign({
+                title: 'Dateien',
+                path: '/',
+                breadcrumbs: getBreadcrumbs(req, {
+                    baseLabel: 'Mit mir geteilte Dateien'
+                }),
+                canUploadFile: false,
+                canCreateDir: false,
+                inline: req.query.inline || req.query.CKEditor,
+                CKEditor: req.query.CKEditor
+            }, files));
+        });
+});
+
 router.get('/', function (req, res, next) {
     // get count of personal and course files/directories
     let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
@@ -400,12 +425,25 @@ router.get('/', function (req, res, next) {
 
     Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
         // filter shared files
-        myFiles = myFiles.data.filter(f => f.context !== 'geteilte Datei');
-        courseFiles = courseFiles.data.filter(f => f.context !== 'geteilte Datei');
+        let sharedFiles = [];
+        myFiles = myFiles.data.filter(f => {
+            if (f.context !== 'geteilte Datei') {
+                return true;
+            } else {
+                sharedFiles.push(f);
+            }
+        });
+        courseFiles = courseFiles.data.filter(f => {
+            if (f.context !== 'geteilte Datei') {
+                return true;
+            } else {
+                sharedFiles.push(f);
+            }
+        });
 
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length}
+            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
     });
