@@ -439,7 +439,7 @@ const overview = (title = "") => {
                         addButton: (req._parsedUrl.pathname == "/" 
                                 || req._parsedUrl.pathname.includes("private") 
                                 || (req._parsedUrl.pathname.includes( "asked" ) 
-                                    && !isStudent) ) 
+                                    && !isStudent ) 
                                )
                     });
                 });
