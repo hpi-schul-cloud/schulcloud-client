@@ -413,7 +413,6 @@ const overview = (title="") => {
                 }
                 // Render Overview
                 //Pagination in client, because filters are in afterhook
-                console.log("URL:",req.baseUrl + req._parsedUrl.pathname);
                 const itemsPerPage = 10;
                 const currentPage = parseInt(req.query.p) || 1;
                 let pagination = {
@@ -580,10 +579,8 @@ router.get('/:assignmentId', function (req, res, next) {
         // Abgabe noch möglich?
         assignment.submittable = (dueDateArray["timestamp"] >= Date.now())
         
-        if(req._parsedUrl.pathname.includes("private")){query.private = true;} 
-        if(req._parsedUrl.pathname.includes("asked")){
-            query.private = { $ne: true }
-        }
+        if(req._parsedUrl.pathname.includes("private")){ const query.private = true; } 
+        if(req._parsedUrl.pathname.includes( "asked" )){ const query.private = { $ne: true } }
         const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
                         ?("Archivierte")
                         :((assignment.private)
