@@ -359,10 +359,8 @@ const overview = (title="") => {
         $populate: ['courseId'],
         $sort: homeworkDesc+homeworkSort,
     }
-    if(req._parsedUrl.pathname.includes("private")){query.private = true;} 
-    if(req._parsedUrl.pathname.includes("asked")){
-        query.private = { $ne: true }
-    }
+    if(req._parsedUrl.pathname.includes("private")){ query.private = true;} 
+    if(req._parsedUrl.pathname.includes( "asked" )){ query.private = { $ne: true } }
 
     api(req).get('/homework/', {
         qs: query
@@ -578,9 +576,7 @@ router.get('/:assignmentId', function (req, res, next) {
 
         // Abgabe noch möglich?
         assignment.submittable = (dueDateArray["timestamp"] >= Date.now())
-        
-        if(req._parsedUrl.pathname.includes("private")){ const query.private = true; } 
-        if(req._parsedUrl.pathname.includes( "asked" )){ const query.private = { $ne: true } }
+
         const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
                         ?("Archivierte")
                         :((assignment.private)
