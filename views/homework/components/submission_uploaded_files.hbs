@@ -1,6 +1,7 @@
 <div class="form-group section-uploaded-files">
     <label>Zur Abgabe hochgeladene Dateien</label>
-    <ul class="list-group col-md-6 col-xs-12">
+    <br>
+    <ul class="list-group-files d-flex flex-row">
         {{#each this.submission.fileIds}}
             <li class="list-group-item">
                 <i class="fa fa-file" aria-hidden="true"></i> {{this.name}}

@@ -3,9 +3,12 @@ function getCurrentDir() {
 }
 $(document).ready(function() {
 
+
     function showAJAXError(req, textStatus, errorThrown) {
-        if(textStatus==="timeout") {
-            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+        if (textStatus === "timeout") {
+            $.showNotification("Zeitüberschreitung der Anfrage", "danger");
+        } else if (errorThrown === "Conflict") {
+            $.showNotification("Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.", "danger");
         } else {
             $.showNotification(errorThrown, "danger");
         }
@@ -181,8 +184,11 @@ $(document).ready(function() {
 
                 $progressBar.fadeOut(50, function () {
                     $uploadForm.fadeIn(50);
-                    // just reload if submission already exists
-                    $("input[name='submissionId']").val() ? window.location.reload() : '';
+                    // delay for error messages
+                    setTimeout(function() {
+                        // just reload if submission already exists
+                        $("input[name='submissionId']").val() ? window.location.reload() : '';
+                    }, 1500);
                 });
             });
 
