@@ -304,13 +304,13 @@ router.get('/file', function (req, res, next) {
         action: 'getObject'
     };
 
-    let sharedPromise = share ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
+    let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
         return requestSignedUrl(req, data).then(signedUrl => {
             return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
-                if (download) {
+                if (download && download !== 'undefined') {
                     res.type('application/octet-stream');
-                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(file));
+                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(data.path));
                 } else if (signedUrl.header['Content-Type']) {
                     res.type(signedUrl.header['Content-Type']);
                 }
@@ -558,12 +558,11 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 });
 
 router.post('/permissions/', function (req, res, next) {
-    api(req).get('/files/', {qs: {key: req.body.key}}).then(files => {
-        if (files.data.length <= 0) {
+    api(req).get('/files/' + req.body.id).then(file => {
+        if (!file) {
             res.json({});
             return;
         }
-        let file = files.data[0];
         file.shareToken = file.shareToken || shortid.generate();
         api(req).patch("/files/" + file._id, {json: file}).then(filePermission => {
             res.json(filePermission);
@@ -640,6 +639,16 @@ router.get('/permittedDirectories/', function (req, res, next) {
 router.post('/fileModel', function (req, res, next) {
     req.body.schoolId = res.locals.currentSchool;
     api(req).post('/files/', {json: req.body}).then(file => res.json(file)).catch(err => next(err));
+});
+
+// get file by proxy id
+router.get('/fileModel/:id/proxy', function (req, res, next) {
+    let fileId = req.params.id;
+    const {download, share} = req.query;
+    api(req).get('/files/' + fileId).then(file => {
+        // redirects to real file getter
+        res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
+    });
 });
 
 
