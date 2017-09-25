@@ -17,6 +17,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 const parse = require('csv-parse/lib/sync');
+moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {

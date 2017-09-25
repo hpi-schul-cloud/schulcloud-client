@@ -34,16 +34,18 @@ module.exports = (req, res, next) => {
         icon: 'th-large',
         link: '/dashboard/',
     }, {
+        name: 'Neuigkeiten',
+        icon: 'newspaper-o',
+        link: '/news/'
+    }, {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
-    },
-    {
+    }, {
         name: 'Klassen',
         icon: 'odnoklassniki',
         link: '/classes/'
-    },
-        {
+    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'
@@ -53,9 +55,19 @@ module.exports = (req, res, next) => {
         link: '/homework/',
         children: [
             {
+                name: 'Gestellte Aufgaben',
+                icon: 'bullhorn',
+                link: '/homework/asked/'
+            },
+            {
+                name: 'Meine Aufgaben',
+                icon: 'lock',
+                link: '/homework/private/'
+            },
+            {
                 name: 'Archiv',
                 icon: 'archive',
-                link: '/homework/archiv/'
+                link: '/homework/archive/'
             }
         ]
     }, {
