@@ -657,7 +657,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 ? ("Meine")
                 : ("Gestellte"));
         const breadcrumbUrl = ((assignment.archived || []).includes(res.locals.currentUser._id))
-            ? ("/homework/archiv")
+            ? ("/homework/archive")
             : ((assignment.private)
                 ? ("/homework/private")
                 : ("/homework/asked"));
