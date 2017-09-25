@@ -1,4 +1,4 @@
-<li class="card assignment {{this.privateclass}} disableable" style="border-left:10px solid {{this.color}}">
+<li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
         <div class="dates">
             {{timeToString availableDate}}<br/>
@@ -11,7 +11,7 @@
                 <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70"
                     data="{{this.stats.submissionPercentage}}"
                     {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}}
-                    width="80" height="80">
+                    width="70" height="70">
                 </circular-progress>
                 <div class="textinfo">
                     <span>Abgegeben: {{this.stats.submissionCount}}</span>
@@ -48,6 +48,7 @@
             {{/if}}
         </div>
     </a>
+    <div class="action-group">
     {{#userHasPermission "HOMEWORK_CREATE"}}
         {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
         {{#ifvalue ../this.teacherId value=../this.currentUser._id}}
@@ -88,6 +89,7 @@
                 <i class='fa fa-archive'></i>
         </a>
     {{/inArray}}
+    </div>
     <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
         <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
     </a>
