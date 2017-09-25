@@ -26,6 +26,7 @@
                                     <i class="fa fa-cloud-download"></i>
                                 </a>
 
+                                {{#ifneq this.context 'geteilte Datei'}}
                                 {{#userHasPermission "FILE_DELETE"}}
                                 <a href="/files/file/"
                                    target="_blank"
@@ -38,7 +39,7 @@
 
                                 <a href="#"
                                    class="btn-file-share"
-                                   data-file-path="{{this.key}}">
+                                   data-file-path="{{../this.key}}">
                                     <i class="fa fa-share-alt"></i>
                                 </a>
 
@@ -51,6 +52,8 @@
                                     <i class="fa fa-share"></i>
                                 </a>
                                 {{/userHasPermission}}
+                                {{/ifneq}}
+
                                 <small class="file-info" id="{{this.name}}"></small>
                             </div>
                         </div>
