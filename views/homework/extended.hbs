@@ -10,7 +10,7 @@
             </div>
         </div>
         {{#ifvalue teacherId value=currentUser._id}}
-            {{#userHasPermission "HOMEWORK_CREATE"}}
+        {{#userHasPermission "HOMEWORK_CREATE"}}
             <a class="btn btn-primary btn-edit" href="/homework/{{../_id}}/edit" alt="Aufgabe '{{../title}}' bearbeiten.">Bearbeiten</a>
             <a class="btn btn-secondary btn-delete"
                href="/homework/{{../_id}}"
@@ -21,8 +21,28 @@
                alt="Löschen der Aufgabe: '{{../title}}'.">
                 Löschen
             </a>
-            {{/userHasPermission}}
+        {{/userHasPermission}}
         {{/ifvalue}}
+        
+        {{#inArray this.currentUser._id this.archived}}
+            <a class="btn btn-secondary btn-archive"
+                href="{{this.url}}"
+                target="_blank"
+                data="archive=open"
+                data-toggle="tooltip" title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv"
+                alt-text="<i class='fa fa-archive'></i> Archivieren">
+                    <i class='fa fa-mail-reply'></i> Wiederherstellen
+            </a>
+        {{else}}
+            <a class="btn btn-secondary btn-archive"
+                href="{{this.url}}"
+                target="_blank"
+                data="archive=done"
+                data-toggle="tooltip" title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv"
+                alt-text="<i class='fa fa-mail-reply'></i> Wiederherstellen">
+                    <i class='fa fa-archive'></i> Archivieren
+            </a>
+        {{/inArray}}
         {{#if courseId._id}}
             <a class="btn btn-secondary" href="/courses/{{courseId._id}}" alt="zum Kurs der Aufgabe">zum Kurs</a>
             {{#if lessonId}}

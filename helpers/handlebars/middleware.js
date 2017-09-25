@@ -63,6 +63,11 @@ module.exports = (req, res, next) => {
                 name: 'Meine Aufgaben',
                 icon: 'lock',
                 link: '/homework/private/'
+            },
+            {
+                name: 'Archiv',
+                icon: 'archive',
+                link: '/homework/archive/'
             }
         ]
     }, {

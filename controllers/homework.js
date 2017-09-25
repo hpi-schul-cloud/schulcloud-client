@@ -40,8 +40,8 @@ const getActions = (item, path) => {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
-            method: 'delete',
-            alt: 'löschen'
+            method: 'delete-material',
+            alt: 'Löschen'
         }
     ];
 };
@@ -152,40 +152,95 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
     });
 };
 
+const patchFunction = function(service, req, res, next){
+    if(req.body.referrer){
+        var referrer = req.body.referrer.replace("/edit","");
+        delete req.body.referrer;
+    }
+    api(req).patch('/' + service + '/' + req.params.id, {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        if (service == "submissions"){
+            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                .then(homework => {
+                sendNotification(data.studentId,
+                    "Deine Abgabe im Fach " +
+                    homework.courseId.name + " wurde bewertet",
+                    " ",
+                    data.studentId,
+                    req,
+                    `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
+                });
 
+            res.redirect(req.header('Referrer'));
+        }
+        if(referrer){
+            res.redirect(referrer);
+        }else{
+            res.sendStatus(200);
+        }
+    }).catch(err => {
+        next(err);
+    });
+}
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
-        if (service == "homework") {
-            if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-                req.body.courseId = null;
-                req.body.private = true;
+        if (service == "homework"){
+            //check archived
+            if(req.body.archive){
+                api(req).get('/homework/' + req.params.id, {}).then(homework => {
+                    if(homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "open"){
+                        homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
+                    }else if(!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "done"){
+                        homework.archived.push(res.locals.currentUser._id);
+                    }
+                    req.body.archived = homework.archived;
+                    delete req.body.archive;
+                    return patchFunction(service, req, res, next);
+                });
+            }else{
+                if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+                    req.body.courseId = null;
+                    req.body.private = true;
+                }
+                if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+                    req.body.lessonId = null;
+                }
+                if (!req.body.private) {
+                    req.body.private = false;
+                }
+                if (!req.body.publicSubmissions) {
+                    req.body.publicSubmissions = false;
+                }
+                // rewrite german format to ISO
+                if(req.body.availableDate){
+                    req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+                }
+                if(req.body.dueDate){
+                    req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+                }
+                if(req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate){
+                    req.session.notification = {
+                        type: 'danger',
+                        message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+                    };
+                    if(req.body.referrer){
+                        var referrer = req.body.referrer.replace("/edit","");
+                        delete req.body.referrer;
+                    }
+                    res.redirect(referrer);
+                    return;
+                }
+                return patchFunction(service, req, res, next);
             }
-            if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-                req.body.lessonId = null;
+        }else{
+            if(service == "submissions"){
+                req.body.grade = parseInt(req.body.grade);
             }
-            if (!req.body.private) {
-                req.body.private = false;
-            }
-            if (!req.body.publicSubmissions) {
-                req.body.publicSubmissions = false;
-            }
-
-            // rewrite german format to ISO
-            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
-            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-
-            var referrer = req.body.referrer.replace("/edit", "");
-            delete req.body.referrer;
-
-            if (req.body.availableDate >= req.body.dueDate) {
-                req.session.notification = {
-                    type: 'danger',
-                    message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
-                };
-                res.redirect(referrer);
-                return;
-            }
+            return patchFunction(service, req, res, next);
         }
+
         if (service == "submissions") {
             req.body.grade = parseInt(req.body.grade);
         }
@@ -265,7 +320,6 @@ const getDeleteHandler = (service) => {
 
 router.post('/', getCreateHandler('homework'));
 router.patch('/:id', getUpdateHandler('homework'));
-router.get('/:id/json', getDetailHandler('homework')); // may remove cause its unused
 router.delete('/:id', getDeleteHandler('homework'));
 
 router.get('/submit/:id/import', getImportHandler('submissions'));
@@ -358,12 +412,17 @@ const overview = (title = "") => {
         let query = {
             $populate: ['courseId'],
             $sort: homeworkDesc + homeworkSort,
+            archived : {$ne: res.locals.currentUser._id }
         };
         if (req._parsedUrl.pathname.includes("private")) {
             query.private = true;
         }
         if (req._parsedUrl.pathname.includes("asked")) {
             query.private = {$ne: true};
+        }
+
+        if (req._parsedUrl.pathname.includes("archive")) {
+            query.archived = res.locals.currentUser._id;
         }
 
         api(req).get('/homework/', {
@@ -450,6 +509,7 @@ const overview = (title = "") => {
 router.get('/', overview(""));
 router.get('/asked', overview("Gestellte"));
 router.get('/private', overview("Meine"));
+router.get('/archive', overview("Archivierte"));
 
 router.get('/new', function (req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
