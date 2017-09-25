@@ -72,28 +72,13 @@
       }
     }
   }
-  .search-wrapper {
-    float: left;
-    width: 50%;
-    margin: 10px 0 0;
-    @include media-breakpoint-down(xs) {
-      width: 100%;
-    }
+  .ckcontent{
+    margin-bottom: 35px;
   }
-  .section-search {
-    .filters {
-      clear: both;
-    }
-    padding: 10px 0;
-    .form-group {
-      margin: 0;
-    }
-    .card-block {
-      padding: 1rem;
-      > row {
-        margin: 0;
-      }
-    }
+  .action-group{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
   }
   .disableable.disabled{
     -webkit-filter: grayscale(100%) opacity(0.7);

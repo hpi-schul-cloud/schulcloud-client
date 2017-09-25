@@ -25,6 +25,9 @@
     text-align: right;
     color: grey;
   }
+  &.has-stats{
+    min-height: 165px;
+  }
   .state {
     float: right;
     text-align: right;
@@ -36,9 +39,9 @@
         opacity: 0;
         visibility: hidden;
         position: absolute;
-        top: 6px;
-        bottom: 6px;
-        right: 80px;
+        top: 1px;
+        bottom: 1px;
+        right: 70px;
         width:125px;
         padding: 5px 9px;
         border-radius: 3px;
