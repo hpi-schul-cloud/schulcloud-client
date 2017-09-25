@@ -430,7 +430,12 @@ const overview = (title="") => {
                     courses,
                     isStudent,
                     sortmethods,
-                    desc: homeworkDesc
+                    desc: homeworkDesc,
+                    addButton: (req._parsedUrl.pathname == "/" 
+                                || req._parsedUrl.pathname.includes("private") 
+                                || (req._parsedUrl.pathname.includes( "asked" ) 
+                                    && res.locals.currentUser.roles.filter(e => {return e.name != "student"}) ) 
+                               )
                 });
             });
         });
