@@ -27,14 +27,27 @@ aside.nav-sidebar {
     }
 
     .sc-branding {
-        padding: 0.7rem;
+        padding: 15px;
         font-size: 25px;
         background: $colorHPIRed;
         color: whitesmoke;
-        i {
-            margin-right: 0.8rem;
-            padding-left: 0.2rem;
+        @include media-breakpoint-down(md) {
+            padding: 10px;
+        }
+        .cloud-logo {
+            display: inline-block;
+            width: 45px;
+            height: 30px;
+            margin-bottom: -5px;
+            margin-right: 0.25rem;
+            background: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
+            background-size: contain;
             @include media-breakpoint-down(md) {
+                width: 100%;
+                margin-right: 0;
+            }
+            @include media-breakpoint-down(xs) {
+                width: 45px;
                 margin-right: 0;
             }
         }
