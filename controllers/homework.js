@@ -430,51 +430,49 @@ const overview = (title = "") => {
         api(req).get('/homework/', {
             qs: query
         }).then(homeworks => {
-            homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
-                // kein Kurs -> Private Hausaufgabe
-                if (assignment.courseId == null) {
-                    assignment.color = "#1DE9B6";
-                    assignment.private = true;
-                } else {
-                    if (!assignment.private) {
-                        assignment.userIds = assignment.courseId.userIds;
-                    }
-                    // Kursfarbe setzen
-                    assignment.color = assignment.courseId.color;
-                }
-
-                assignment.url = '/homework/' + assignment._id;
-                assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
-
-                assignment.currentUser = res.locals.currentUser;
-                assignment.actions = getActions(assignment, '/homework/');
-                if (assignment.teacherId != res.locals.currentUser._id) {
-                    assignment.stats = undefined;
-                }
-                return assignment;
-            });
-
-            const coursesPromise = getSelectOptions(req, 'courses', {
-                $or: [
-                    {userIds: res.locals.currentUser._id},
-                    {teacherIds: res.locals.currentUser._id}
-                ]
-            });
-            Promise.resolve(coursesPromise).then(courses => {
-                // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-                const userPromise = getSelectOptions(req, 'users', {
-                    _id: res.locals.currentUser._id,
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            api(req).get('/users/' + res.locals.currentUser._id, {
+                qs: {
                     $populate: ['roles']
+                }
+            }).then(user => {
+                const isStudent = (user.roles.map(role => {return role.name;}).indexOf('student') != -1);
+
+                homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
+                    // kein Kurs -> Private Hausaufgabe
+                    if (assignment.courseId == null) {
+                        assignment.color = "#1DE9B6";
+                        assignment.private = true;
+                    } else {
+                        if (!assignment.private) {
+                            assignment.userIds = assignment.courseId.userIds;
+                        }
+                        // Kursfarbe setzen
+                        assignment.color = assignment.courseId.color;
+                    }
+                    // Schüler sehen Beginndatum nicht in der Übersicht über gestellte Aufgaben (übersichtlicher)
+                    if(!assignment.private && isStudent){
+                        delete assignment.availableDate;
+                    }
+
+                    assignment.url = '/homework/' + assignment._id;
+                    assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
+
+                    assignment.currentUser = res.locals.currentUser;
+                    assignment.actions = getActions(assignment, '/homework/');
+                    if (assignment.teacherId != res.locals.currentUser._id) {
+                        assignment.stats = undefined;
+                    }
+                    return assignment;
                 });
 
-                Promise.resolve(userPromise).then(user => {
-                    const roles = user[0].roles.map(role => {
-                        return role.name;
-                    });
-                    let isStudent = true;
-                    if (roles.indexOf('student') == -1) {
-                        isStudent = false;
-                    }
+                const coursesPromise = getSelectOptions(req, 'courses', {
+                    $or: [
+                        {userIds: res.locals.currentUser._id},
+                        {teacherIds: res.locals.currentUser._id}
+                    ]
+                });
+                Promise.resolve(coursesPromise).then(courses => {
                     // Render Overview
                     //Pagination in client, because filters are in afterhook
                     const itemsPerPage = 10;
