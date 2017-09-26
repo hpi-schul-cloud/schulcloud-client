@@ -1,7 +1,7 @@
 <li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
         <div class="dates">
-            {{timeToString availableDate}}<br/>
+            {{#if this.availableDate}}{{timeToString availableDate}}<br/>{{/if}}
                 bis {{timeToString dueDate}}
         </div>
     </a>
