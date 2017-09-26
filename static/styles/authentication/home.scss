@@ -39,10 +39,11 @@ body {
             padding-bottom: .75rem !important;
             .cloud-logo {
                 display: inline-block;
-                width: 45px;
-                height: 30px;
-                margin-bottom: -5px;
-                margin-right: 0.5rem;
+                width: 2.5rem;
+                height: 2rem;
+                margin-top: -.25rem;
+                margin-bottom: -.5rem;
+                margin-right: .5rem;
                 background: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
                 background-size: contain;
                 @include media-breakpoint-down(xs) {
