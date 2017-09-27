@@ -473,7 +473,6 @@ const overview = (title = "") => {
                     ]
                 });
                 Promise.resolve(coursesPromise).then(courses => {
-                    // Render Overview
                     //Pagination in client, because filters are in afterhook
                     const itemsPerPage = 10;
                     const currentPage = parseInt(req.query.p) || 1;
@@ -503,6 +502,8 @@ const overview = (title = "") => {
                     });
                 });
             });
+        }).catch(err => {
+            next(err);
         });
     };
 };
@@ -627,6 +628,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                 }
             });
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -782,6 +785,8 @@ router.get('/:assignmentId', function (req, res, next) {
                 }
             }
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
