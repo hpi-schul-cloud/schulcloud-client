@@ -16,21 +16,20 @@
                     data-original-title="
                         Abgegeben: {{this.stats.submissionCount}}</br>
                         Bewertet: {{#if this.stats.gradeCount}}{{this.stats.gradeCount}}{{else}}-{{/if}}</br>
-                        Ø: {{#if this.stats.averageGrade}}{{this.stats.averageGrade}}%{{else}}-{{/if}}">
+                        Ø: {{#if this.stats.averageGrade}}{{this.stats.averageGrade}}% richtig gelöst{{else}}-{{/if}}">
                 </circular-progress>
             </div>
         </a>
-    {{else}}
-        {{#if this.grade}}
-            <a class="content" href="{{this.url}}#activetabid=feedback" alt="Bewertung der Aufgabe: '{{this.name}}'">
-                <div class="state">
-                    <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
-                        data="{{this.grade}}" width="70" height="70"
-                        data-toggle="tooltip" data-placement="left" data-original-title="Du hast {{this.grade}}% richtig gelöst.">
-                    </circular-progress>
-                </div>
-            </a>
-        {{/if}}
+    {{/if}}
+    {{#if this.grade}}
+        <a class="content" href="{{this.url}}#activetabid=feedback" alt="Bewertung der Aufgabe: '{{this.name}}'">
+            <div class="state">
+                <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
+                    data="{{this.grade}}" width="70" height="70"
+                    data-toggle="tooltip" data-placement="left" data-original-title="Du hast {{this.grade}}% richtig gelöst.">
+                </circular-progress>
+            </div>
+        </a>
     {{/if}}
     <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
         <h5 class="title">
