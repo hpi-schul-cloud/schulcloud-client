@@ -27,7 +27,7 @@ describe('Homework tests', function () {
     it('GET /homework', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/homeworks/')
+                .get('/homework/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Aufgaben');
@@ -39,7 +39,7 @@ describe('Homework tests', function () {
     it('GET /homework/asked', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/homeworks/asked')
+                .get('/homework/asked')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Gestellte Aufgaben');
@@ -51,7 +51,7 @@ describe('Homework tests', function () {
     it('GET /homework/private', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/homeworks/private')
+                .get('/homework/private')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Meine Aufgaben');
@@ -63,10 +63,11 @@ describe('Homework tests', function () {
     it('GET /homework/archive', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/homeworks/archive')
+                .get('/homework/archive')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Archivierte Aufgaben');
+                    expect(res.text).to.contain('Keine Aufgaben.');
                     resolve();
                 });
         });

@@ -185,7 +185,7 @@ const patchFunction = function(service, req, res, next){
     }).catch(err => {
         next(err);
     });
-}
+};
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
         if (service == "homework"){
