@@ -80,7 +80,7 @@ describe('Homework tests', function () {
     it('GET /homework/new', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/homework/archive')
+                .get('/homework/new')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Aufgabe hinzufügen');
@@ -101,10 +101,10 @@ describe('Homework tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain("Private Aufgabe von Ida - mit Kurs, abgelaufen");
-                    expect(res.text).to.contain("<span>Mathe</span>");
-                    expect(res.text).to.contain("<p>Aufgabenbeschreibung</p>");
-                    expect(res.text).to.contain('value="20.09.2016 13:00"');
-                    expect(res.text).to.contain('value="28.07.2017 15:00"');
+                    expect(res.text).to.contain("Mathe");
+                    expect(res.text).to.contain("Aufgabenbeschreibung");
+                    expect(res.text).to.contain('20.09.2016 13:00');
+                    expect(res.text).to.contain('28.07.2017 15:00');
                     resolve();
                 });
         });
