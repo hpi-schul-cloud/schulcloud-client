@@ -1,4 +1,4 @@
-<li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
+<li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br/>{{/if}}
@@ -8,28 +8,26 @@
     {{#if this.stats}}
         <a class="content" href="{{this.url}}#activetabid=submissions" alt="Abgaben der Aufgabe: '{{this.name}}'">
             <div class="state">
-                <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70"
+                <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#009688" accentcolor="lightgrey"
                     data="{{this.stats.submissionPercentage}}"
                     {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}}
-                    width="70" height="70">
+                    width="70" height="70"
+                    data-toggle="tooltip" data-placement="left" data-html="true" 
+                    data-original-title="
+                        Abgegeben: {{this.stats.submissionCount}}</br>
+                        Bewertet: {{#if this.stats.gradeCount}}{{this.stats.gradeCount}}{{else}}-{{/if}}</br>
+                        Ø: {{#if this.stats.averageGrade}}{{this.stats.averageGrade}}% richtig gelöst{{else}}-{{/if}}">
                 </circular-progress>
-                <div class="textinfo">
-                    <span>Abgegeben: {{this.stats.submissionCount}}</span>
-                    <span>
-                    {{#if this.stats.gradeCount}}
-                        Bewertet: {{this.stats.gradeCount}}
-                    {{else}}
-                        Bewertet: -
-                    {{/if}}
-                    </span>
-                    <span>
-                        {{#if this.stats.averageGrade}}
-                            Ø: {{this.stats.averageGrade}}%
-                        {{else}}
-                            Ø: -
-                        {{/if}}
-                    </span>
-                </div>
+            </div>
+        </a>
+    {{/if}}
+    {{#if this.grade}}
+        <a class="content" href="{{this.url}}#activetabid=feedback" alt="Bewertung der Aufgabe: '{{this.name}}'">
+            <div class="state">
+                <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
+                    data="{{this.grade}}" width="70" height="70"
+                    data-toggle="tooltip" data-placement="left" data-original-title="Du hast {{this.grade}}% richtig gelöst.">
+                </circular-progress>
             </div>
         </a>
     {{/if}}

@@ -34,29 +34,6 @@
     clear: right;
     color: grey;
     position:relative;
-    .textinfo{
-        transition: visibility 0s linear .3s,opacity .3s linear 0s;
-        opacity: 0;
-        visibility: hidden;
-        position: absolute;
-        top: 1px;
-        bottom: 1px;
-        right: 70px;
-        width:125px;
-        padding: 5px 9px;
-        border-radius: 3px;
-        font-size: 14px;
-        color: #fff;
-        background-color: #212121;
-        span{
-          display:block;
-        }
-    }
-    &:hover .textinfo{
-      transition-delay: 0s,0s;
-      opacity: .8;
-      visibility: visible;
-    }
   }
   &.private {
     h5::before {
