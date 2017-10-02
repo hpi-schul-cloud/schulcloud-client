@@ -118,11 +118,6 @@ describe('Homework tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Aufgabe hinzufügen');
-                    expect(res.text).to.contain('Titel');
-                    expect(res.text).to.contain('Kurs');
-                    expect(res.text).to.contain('Thema');
-                    expect(res.text).to.contain('Aufgabenstellung');
-                    expect(res.text).to.contain('Bearbeitungszeit');
                     resolve();
                 });
         });
@@ -134,11 +129,7 @@ describe('Homework tests', function () {
                 .get('/homework/59cce2c61113d1132c98dc06/edit')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain("Private Aufgabe von Ida - mit Kurs, abgelaufen");
-                    expect(res.text).to.contain("Mathe");
-                    expect(res.text).to.contain("Aufgabenbeschreibung");
-                    expect(res.text).to.contain('20.09.2016 13:00');
-                    expect(res.text).to.contain('28.07.2017 15:00');
+                    expect(res.text).to.contain('Aufgabe bearbeiten');
                     resolve();
                 });
         });
@@ -150,7 +141,7 @@ describe('Homework tests', function () {
                 .get('/homework/59cce3f6c6abf042248e888d/edit')
                 .end((err, res) => {
                     expect(res.statusCode).to.not.equal(200);
-                    expect(res.text).to.not.contain("Aufgabe an Ida (Mathe) - offen");
+                    expect(res.text).to.not.contain('Aufgabe bearbeiten');
                     resolve();
                 });
         });
