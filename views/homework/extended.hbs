@@ -1,8 +1,12 @@
 <section id="extended" class="tab-content section-homeworkdetails active">
     <div class="homework">
         <div class="assignment row">
-            <div class="description col-xl-8">
+            <div class="description col-xl-8 print">
                 {{#if this.description}}
+                    <div class="btn btn-secondary btn-print mb-1"
+                        data-toggle="tooltip" title="Aufgabenstellung drucken">
+                            <i class='fa fa-print'></i> Drucken
+                    </div>
                     {{{this.description}}}
                 {{else}}
                     keine Beschreibung vorhanden
