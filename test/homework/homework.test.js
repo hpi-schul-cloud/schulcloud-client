@@ -75,6 +75,40 @@ describe('Homework tests', function () {
                 });
         });
     });
+    // DETAIL VIEW
+    it('GET /homework/{users private task}', function () {
+        return new Promise((resolve, reject) => {
+            this.agent
+                .get('/homework/59cce1d381297026d02cdc4b')
+                .end((err, res) => {
+                    expect(res.statusCode).to.equal(200);
+                    expect(res.text).to.contain("Private Aufgabe von Ida");
+                    resolve();
+                });
+        });
+    });
+    it('GET /homework/{users asked task}', function () {
+        return new Promise((resolve, reject) => {
+            this.agent
+                .get('/homework/59d1f63ce0a06325e8b5288b')
+                .end((err, res) => {
+                    expect(res.statusCode).to.equal(200);
+                    expect(res.text).to.contain("Aufgabe an Ida");
+                    resolve();
+                });
+        });
+    });
+    it('GET /homework/{teachers private task}', function () {
+        return new Promise((resolve, reject) => {
+            this.agent
+                .get('/homework/59cce4c3c6abf042248e888e')
+                .end((err, res) => {
+                    expect(res.statusCode).to.not.equal(200);
+                    expect(res.text).to.not.contain("Private Aufgabe von Cord");
+                    resolve();
+                });
+        });
+    });
     
     // CREATE & EDIT TASKS
     it('GET /homework/new', function () {
