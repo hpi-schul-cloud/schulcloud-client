@@ -74,41 +74,43 @@ const getSortmethods = () => {
 
 const getCreateHandler = (service) => {
     return function (req, res, next) {
-        if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-            req.body.courseId = null;
-            req.body.private = true;
-        }
-        if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-            req.body.lessonId = null;
-        }
-        if (req.body.dueDate) {
-            // rewrite german format to ISO
-            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-        }
-
-        if (req.body.availableDate) {
-            // rewrite german format to ISO
-            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
-        }
-
-        if (!req.body.availableDate || !req.body.dueDate) {
-            let now = new Date();
-            if (!req.body.availableDate) {
-                req.body.availableDate = now.toISOString();
+        if(service=="homework"){
+            if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+                req.body.courseId = null;
+                req.body.private = true;
             }
-            if (!req.body.dueDate) {
-                now.setFullYear(now.getFullYear() + 9);
-                req.body.dueDate = now.toISOString();
+            if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+                req.body.lessonId = null;
             }
-        }
+            if (req.body.dueDate) {
+                // rewrite german format to ISO
+                req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+            }
 
-        if (req.body.availableDate >= req.body.dueDate) {
-            req.session.notification = {
-                type: 'danger',
-                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
-            };
-            res.redirect(req.header('Referer'));
-            return;
+            if (req.body.availableDate) {
+                // rewrite german format to ISO
+                req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+            }
+
+            if (!req.body.availableDate || !req.body.dueDate) {
+                let now = new Date();
+                if (!req.body.availableDate) {
+                    req.body.availableDate = now.toISOString();
+                }
+                if (!req.body.dueDate) {
+                    now.setFullYear(now.getFullYear() + 9);
+                    req.body.dueDate = now.toISOString();
+                }
+            }
+
+            if (req.body.availableDate >= req.body.dueDate) {
+                req.session.notification = {
+                    type: 'danger',
+                    message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+                };
+                res.redirect(req.header('Referer'));
+                return;
+            }
         }
         let referrer = (req.body.referrer) ?
             (req.body.referrer) :
