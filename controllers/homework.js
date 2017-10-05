@@ -215,6 +215,9 @@ const getUpdateHandler = (service) => {
                 if (!req.body.publicSubmissions) {
                     req.body.publicSubmissions = false;
                 }
+                if (!req.body.teamSubmissions) {
+                    req.body.teamSubmissions = false;
+                }
                 // rewrite german format to ISO
                 if(req.body.availableDate){
                     req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
