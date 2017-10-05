@@ -174,7 +174,6 @@ const patchFunction = function(service, req, res, next){
                     req,
                     `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                 });
-
             res.redirect(req.header('Referrer'));
         }
         if(referrer){
@@ -237,44 +236,22 @@ const getUpdateHandler = (service) => {
                     res.redirect(referrer);
                     return;
                 }
-                return patchFunction(service, req, res, next);
             }
         }else{
             if(service == "submissions"){
                 req.body.grade = parseInt(req.body.grade);
+                req.body.studentId = res.locals.currentUser._id;
+                if(req.body.coWorkers){
+                    if(!Array.isArray(req.body.coWorkers)){
+                        req.body.coWorkers = [req.body.coWorkers];
+                    }
+                    if(!req.body.coWorkers.includes(res.locals.currentUser._id)){
+                        req.body.coWorkers.push(res.locals.currentUser._id);
+                    }
+                }
             }
-            return patchFunction(service, req, res, next);
         }
-
-        if (service == "submissions") {
-            req.body.grade = parseInt(req.body.grade);
-        }
-        api(req).patch('/' + service + '/' + req.params.id, {
-            // TODO: sanitize
-            json: req.body
-        }).then(data => {
-            if (service == "submissions") {
-                api(req).get('/homework/' + data.homeworkId, {qs: {$populate: ["courseId"]}})
-                    .then(homework => {
-                        sendNotification(data.studentId,
-                            "Deine Abgabe im Fach " +
-                            homework.courseId.name + " wurde bewertet",
-                            " ",
-                            data.studentId,
-                            req,
-                            `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
-                    });
-
-                res.redirect(req.header('Referrer'));
-            }
-            if (referrer) {
-                res.redirect(referrer);
-            } else {
-                res.sendStatus(200);
-            }
-        }).catch(err => {
-            next(err);
-        });
+        return patchFunction(service, req, res, next);
     };
 };
 
@@ -685,7 +662,7 @@ router.get('/:assignmentId', function (req, res, next) {
         ]).then(([submissions, course]) => {
             assignment.submission = submissions.data.filter(submission => {
                 return (submission.studentId == res.locals.currentUser._id)
-                     ||(submission.coWorkers.includes(res.locals.currentUser._id));
+                     ||(submission.coWorkers.includes(res.locals.currentUser._id.toString()));
             })[0];
             const students = course.userIds;
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
@@ -697,8 +674,9 @@ router.get('/:assignmentId', function (req, res, next) {
                     return {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
+                            console.log((submission.studentId == student._id), (submission.coWorkers.includes(student._id.toString())));
                             return (submission.studentId == student._id)
-                                 ||(submission.coWorkers.includes(res.locals.currentUser._id));
+                                 ||(submission.coWorkers.includes(student._id.toString()));
                         })[0]
                     };
                 });
