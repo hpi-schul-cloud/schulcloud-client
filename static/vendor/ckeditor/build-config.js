@@ -72,6 +72,7 @@ var CKBUILDER_CONFIG = {
 		'maximize' : 1,
 		'pastefromword' : 1,
 		'pastetext' : 1,
+		'print' : 1,
 		'removeformat' : 1,
 		'resize' : 1,
 		'scayt' : 1,

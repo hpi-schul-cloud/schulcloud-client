@@ -14,15 +14,14 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'forms' },
 		{ name: 'insert' },
 		{ name: 'links' },
-		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'editing',  groups: [ 'find', 'selection', 'spellchecker' ] },
 		{ name: 'others' },
 		{ name: 'about' },
+		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
         { name: 'tools' },
 		'/',
 		{ name: 'styles' },
 		{ name: 'colors' , groups: [ 'colors' ] },
-		{ name: 'about' },
 		{ name: 'basicstyles', groups: [ 'basicstyles' ] },
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'colors', groups: [ 'colors' ] },
@@ -31,10 +30,10 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Underline,Subscript,Superscript,Source,PasteFromWord';
+	config.removeButtons = 'Subscript,Superscript,Source,PasteFromWord';
 
     // add color picker
-    config.extraPlugins = 'mathjax,colorbutton,colordialog';
+    config.extraPlugins = 'mathjax,colorbutton,colordialog,print';
     config.mathJaxLib = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML';
 
     // Set the most common block elements.
