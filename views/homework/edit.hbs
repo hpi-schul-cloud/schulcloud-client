@@ -54,10 +54,11 @@
                             for (var i = 0; i < r.lessons.data.length; i++){
                                 $('#lessonPicker').append('<option value="'+r.lessons.data[i]._id+'">'+r.lessons.data[i].name+'</option>');
                             }
+                            $('#lessonPicker').prop('disabled', false);
                         }else{
                             lessonPicker.append('<option value="">Keine Themen in diesem Kurs</option>');
                         }
-                        $('#lessonPicker').prop('disabled', false).trigger('chosen:updated');
+                        $('#lessonPicker').trigger('chosen:updated');
                     });
                 }else{
                     $('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
