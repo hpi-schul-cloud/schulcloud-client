@@ -1,10 +1,30 @@
 <section id="submission" class="tab-content section-homeworkdetails">
-    {{#if submittable}}
+  {{#if submittable}}
     <div class="comment editor">
         {{#embed "files/file-upload" }}{{/embed}}
-        {{#if submission}}
+
+      {{#if submission}}
         <input name="submissionId" type="hidden" data-force-value="true" value="{{submission._id}}"/>
         <form class="form" method="post" action="/homework/submit/{{submission._id}}">
+      {{else}}
+        <form class="form" method="post" action="/homework/submit">
+      {{/if}}
+      
+          {{#if teamSubmissions}}
+            <div class="form-group">
+                <label>Teammitglieder</label>
+                <select name="coWorkers" id="coWorkers" multiple="" data-placeholder="Teammitglieder auswählen">
+                    {{#each students}}
+                        <option value="{{this._id}}" {{#if @root.submission}}{{#inArray this._id @root.submission.coWorkers}}selected{{/inArray}}{{/if}}>{{this.firstName}} {{this.lastName}}</option>
+                    {{else}}
+                        <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
+                    {{/each}}
+                </select>
+            </div>
+          {{/if}}
+
+
+          {{#if submission}}
             <input type="hidden" name="_method" data-force-value="true" value="patch"/>
             {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
             <hr>
@@ -12,8 +32,7 @@
                 <textarea id="evaluation" name="comment" class="form-control customckeditor"
                           placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
             </div>
-        {{else}}
-        <form class="form" method="post" action="/homework/submit">
+          {{else}}
             <div class="form-group section-uploaded-files">
                 <label>Zur Abgabe hochgeladene Dateien (ungespeichert!)</label>
                 <ul class="list-group-files d-flex flex-row">
@@ -27,17 +46,16 @@
                 <textarea id="evaluation" name="comment" class="form-control customckeditor"
                           placeholder="Erstelle deine Abgabe..."></textarea>
             </div>
-        {{/if}}
-
+          {{/if}}
+  {{else}}
+    <div class="comment">
+        {{#if submission.comment}}
+            {{{submission.comment}}}
         {{else}}
-        <div class="comment">
-            {{#if submission.comment}}
-                {{{submission.comment}}}
-            {{else}}
-                <p>Keine Abgabe.</p>
-            {{/if}}
-        </div>
+            <p>Keine Abgabe.</p>
         {{/if}}
+    </div>
+  {{/if}}
 
     {{#if submittable}}
         <button type="submit" class="btn btn-primary btn-submit">Speichern</button>

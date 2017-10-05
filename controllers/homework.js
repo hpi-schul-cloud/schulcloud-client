@@ -667,74 +667,73 @@ router.get('/:assignmentId', function (req, res, next) {
             : ((assignment.private)
                 ? ("/homework/private")
                 : ("/homework/asked"));
-        // Abgaben auslesen
-        const submissionPromise = getSelectOptions(req, 'submissions', {
-            homeworkId: assignment._id,
-            $populate: ['homeworkId', 'fileIds']
-        });
-        Promise.resolve(submissionPromise).then(submissions => {
-            assignment.submission = submissions.filter(submission => {
-                return submission.studentId == res.locals.currentUser._id;
+                
+        Promise.all([
+            // Abgaben auslesen
+            api(req).get('/submissions/', {
+                qs: {
+                    homeworkId: assignment._id,
+                    $populate: ['homeworkId', 'fileIds']
+                }
+            }),
+            // Alle Teilnehmer des Kurses 
+            api(req).get('/courses/' + assignment.courseId._id, {
+                qs: {
+                    $populate: ['userIds']
+                }
+            })
+        ]).then(([submissions, course]) => {
+            assignment.submission = submissions.data.filter(submission => {
+                return (submission.studentId == res.locals.currentUser._id)
+                     ||(submission.coWorkers.includes(res.locals.currentUser._id));
             })[0];
+            const students = course.userIds;
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions;
+                assignment.submissions = submissions.data;
 
-                // Alle Teilnehmer des Kurses 
-                api(req).get('/courses/' + assignment.courseId._id, {
-                    qs: {
-                        $populate: ['userIds']
-                    }
-                }).then(course => {
-                    var students = course.userIds;
-                    students = students.map(student => {
-                        return {
-                            student: student,
-                            submission: assignment.submissions.filter(function (n) {
-                                return n.studentId == student._id;
-                            })[0]
-                        };
+                const studentSubmissions = students.map(student => {
+                    return {
+                        student: student,
+                        submission: assignment.submissions.filter(submission => {
+                            return (submission.studentId == student._id)
+                                 ||(submission.coWorkers.includes(res.locals.currentUser._id));
+                        })[0]
+                    };
+                });
+                // Kommentare zu Abgaben auslesen
+                const ids = assignment.submissions.map(n => n._id);
+                const commentPromise = getSelectOptions(req, 'comments', {
+                    submissionId: {$in: ids},
+                    $populate: ['author']
+                });
+                Promise.resolve(commentPromise).then(comments => {
+                    // -> Kommentare stehen nun in comments
+                    // ist der aktuelle Benutzer Schüler?
+                    const userPromise = getSelectOptions(req, 'users', {
+                        _id: res.locals.currentUser._id,
+                        $populate: ['roles']
                     });
-
-                    // Kommentare zu Abgaben auslesen
-                    const ids = assignment.submissions.map(n => n._id);
-                    const commentPromise = getSelectOptions(req, 'comments', {
-                        submissionId: {$in: ids},
-                        $populate: ['author']
-                    });
-                    Promise.resolve(commentPromise).then(comments => {
-                        // -> Kommentare stehen nun in comments
-                        // ist der aktuelle Benutzer Schüler?
-                        const userPromise = getSelectOptions(req, 'users', {
-                            _id: res.locals.currentUser._id,
-                            $populate: ['roles']
+                    Promise.resolve(userPromise).then(user => {
+                        const roles = user[0].roles.map(role => {
+                            return role.name;
                         });
-                        Promise.resolve(userPromise).then(user => {
-                            const roles = user[0].roles.map(role => {
-                                return role.name;
-                            });
-                            let isStudent = true;
-                            if (roles.indexOf('student') == -1) {
-                                isStudent = false;
-                            }
-                            // Render assignment.hbs
-                            res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: assignment.courseId.name + ' - ' + assignment.name,
-                                breadcrumb: [
-                                    {
-                                        title: breadcrumbTitle + " Aufgaben",
-                                        url: breadcrumbUrl
-                                    },
-                                    {}
-                                ],
-                                students,
-                                isStudent,
-                                comments
-                            }));
-                        });
+                        // Render assignment.hbs
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: assignment.courseId.name + ' - ' + assignment.name,
+                            breadcrumb: [
+                                {
+                                    title: breadcrumbTitle + " Aufgaben",
+                                    url: breadcrumbUrl
+                                },
+                                {}
+                            ],
+                            students:true,
+                            studentSubmissions,
+                            comments
+                        }));
                     });
-
                 });
             } else {
                 // file upload path, todo: maybe use subfolders
@@ -749,29 +748,19 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                     Promise.resolve(commentPromise).then(comments => {
                         // -> Kommentare stehen nun in comments
-                        // alle Kurse von aktuellem Benutzer auslesen
-                        const coursesPromise = getSelectOptions(req, 'courses', {
-                            $or: [
-                                {userIds: res.locals.currentUser._id},
-                                {teacherIds: res.locals.currentUser._id}
-                            ]
-                        });
-                        Promise.resolve(coursesPromise).then(courses => {
-                            // -> Kurse stehen nun in courses
-                            res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                                breadcrumb: [
-                                    {
-                                        title: breadcrumbTitle + " Aufgaben",
-                                        url: breadcrumbUrl
-                                    },
-                                    {}
-                                ],
-                                comments,
-                                courses,
-                                path: submissionUploadPath
-                            }));
-                        });
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                            breadcrumb: [
+                                {
+                                    title: breadcrumbTitle + " Aufgaben",
+                                    url: breadcrumbUrl
+                                },
+                                {}
+                            ],
+                            comments,
+                            students,
+                            path: submissionUploadPath
+                        }));
                     });
                 } else {
                     res.render('homework/assignment', Object.assign({}, assignment, {
@@ -783,6 +772,7 @@ router.get('/:assignmentId', function (req, res, next) {
                             },
                             {}
                         ],
+                        students,
                         path: submissionUploadPath
                     }));
                 }
