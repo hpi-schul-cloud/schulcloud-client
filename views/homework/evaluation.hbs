@@ -14,7 +14,13 @@
                 {{#if this.submission}}
                     {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
                     <hr>
-                    {{{this.submission.comment}}}
+                    <div class="ckcontent print">
+                        <div class="btn btn-secondary btn-print mb-1"
+                            data-toggle="tooltip" title="Abgabe drucken">
+                                <i class='fa fa-print'></i> Drucken
+                        </div>
+                        {{{this.submission.comment}}}
+                    </div>
                 {{else}}
                     Keine Abgabe.
                 {{/if}}
