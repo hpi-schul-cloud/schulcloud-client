@@ -135,6 +135,10 @@
                     Private Aufgabe (nur für mich sichtbar)
                 </label></br>
                 <label>
+                    <input name="teamSubmissions" type="checkbox" value="true" {{#if assignment.teamSubmissions}}checked="checked"{{/if}}/>
+                    Teamabgabe ermöglichen
+                </label></br>
+                <label>
                     <input name="publicSubmissions" type="checkbox" value="public" {{#if assignment.publicSubmissions}}checked="checked"{{/if}}/>
                     Schülerabgaben untereinander sichtbar
                 </label>
