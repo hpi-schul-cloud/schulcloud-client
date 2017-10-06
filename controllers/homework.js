@@ -243,14 +243,6 @@ const getUpdateHandler = (service) => {
             if(service == "submissions"){
                 req.body.grade = parseInt(req.body.grade);
                 req.body.studentId = res.locals.currentUser._id;
-                if(req.body.coWorkers){
-                    if(!Array.isArray(req.body.coWorkers)){
-                        req.body.coWorkers = [req.body.coWorkers];
-                    }
-                    if(!req.body.coWorkers.includes(res.locals.currentUser._id)){
-                        req.body.coWorkers.push(res.locals.currentUser._id);
-                    }
-                }
             }
         }
         return patchFunction(service, req, res, next);
