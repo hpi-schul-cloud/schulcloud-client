@@ -41,11 +41,22 @@ $(document).ready(function() {
             submitButton.setAttribute("style",submitButtonStyleDisplay);
             if(after) after(this);
         });
-        request.fail(function(r) {
+        request.fail(function() {
+            if(request.getResponseHeader("error-message")){
+                showAJAXError(undefined, undefined,request.getResponseHeader("error-message"));
+            }
             submitButton.disabled = false;
             submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
     }
+
+    $('form.submissionForm').on("submit",function(e){
+        if(e) e.preventDefault();
+        ajaxForm($(this),function(t){
+            $(t).find("textarea")[0].value = "";
+        });
+        return false;
+    });
 
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
