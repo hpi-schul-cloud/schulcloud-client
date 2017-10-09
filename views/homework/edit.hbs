@@ -128,18 +128,16 @@
 
                     {{#unless isStudent}}
                     <div class="form-group">
-                        <label>
-                            <input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true" {{#if assignment.teamSubmissions}}checked="checked"{{/if}}/>
-                            Teamabgabe ermöglichen
-                        </label></br>
-                        <div id="teamsize" class="row {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}">
+                        <div class="row {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>minimale Teamgröße:</label>
-                                    <input class="form-control" name="minCoWorkers" id="minCoWorkers" type="number" min="0" placeholder="1" value="{{assignment.minCoWorkers}}"/>
+                                    <label>
+                                        <input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true" {{#if assignment.teamSubmissions}}checked="checked"{{/if}}/>
+                                        Teamabgabe ermöglichen
+                                    </label>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6" id="teamsize">
                                 <div class="form-group">
                                     <label>maximale Teamgröße:</label>
                                     <input class="form-control" name="maxCoWorkers" id="maxCoWorkers" type="number" min="0" placeholder="5" value="{{assignment.maxCoWorkers}}"/>
