@@ -26,6 +26,7 @@
 
           {{#if submission}}
             <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+            <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
             {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
             <hr>
             <div class="form-group">
