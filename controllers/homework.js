@@ -186,7 +186,7 @@ const patchFunction = function(service, req, res, next){
     }).catch(err => {
         next(err);
     });
-}
+};
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
         if (service == "homework"){
@@ -668,7 +668,6 @@ router.get('/:assignmentId', function (req, res, next) {
                     return {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
-                            console.log((submission.studentId == student._id), (submission.coWorkers.includes(student._id.toString())));
                             return (submission.studentId == student._id)
                                  ||(submission.coWorkers.includes(student._id.toString()));
                         })[0]
