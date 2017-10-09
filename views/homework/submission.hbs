@@ -17,7 +17,7 @@
           
           {{#if teamSubmissions}}
             <div class="form-group">
-                <label>Teammitglieder (maximal {{maxCoWorkers}} Personen)</label>
+                <label>Teammitglieder (maximal <span id="maxCoWorkers">{{maxCoWorkers}}</span> Personen)</label>
                 <select name="coWorkers" id="coWorkers" multiple="" data-placeholder="Teammitglieder auswählen">
                     {{#each students}}
                         <option value="{{this._id}}" {{#if @root.submission}}{{#inArray this._id @root.submission.coWorkers}}selected{{/inArray}}{{/if}}>{{this.firstName}} {{this.lastName}}</option>

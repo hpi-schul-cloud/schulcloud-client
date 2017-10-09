@@ -10,7 +10,7 @@ $(document).ready(function() {
         } else if (errorThrown === "Conflict") {
             $.showNotification("Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.", "danger");
         } else {
-            $.showNotification(errorThrown, "danger");
+            $.showNotification(errorThrown, "danger", 15000);
         }
     }
 
@@ -49,13 +49,24 @@ $(document).ready(function() {
             submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
     }
-
+    // Abgabe speichern
     $('form.submissionForm').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this),function(t){
-            $(t).find("textarea")[0].value = "";
-        });
+        ajaxForm($(this));
         return false;
+    });
+
+    //validate coWorkers
+    var lastCoWorkers = null;
+    const maxCoWorkers = parseInt($("#maxCoWorkers").html());
+    $('#coWorkers').change(function(event) {
+        if ($(this).val().length > maxCoWorkers) {
+            $(this).val(lastCoWorkers);
+            $.showNotification("Die maximale Teamgröße beträgt " + maxCoWorkers + " Mitglieder", "warning", 5000);
+        } else {
+            lastCoWorkers = $(this).val();
+        }
+        $(this).chosen().trigger("chosen:updated");
     });
 
     // Bewertung speichern
