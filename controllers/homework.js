@@ -472,7 +472,8 @@ const overview = (title = "") => {
                                 || req._parsedUrl.pathname.includes("private") 
                                 || (req._parsedUrl.pathname.includes( "asked" ) 
                                     && !isStudent ) 
-                               )
+                               ),
+                       createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
                 });
             });
