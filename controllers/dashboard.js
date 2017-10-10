@@ -89,7 +89,8 @@ router.get('/', function (req, res, next) {
     const homeworksPromise = api(req).get('/homework/', {
         qs: {
             $populate: ['courseId'],
-            $sort: 'dueDate'
+            $sort: 'dueDate',
+            archived : {$ne: res.locals.currentUser._id }
         }
     }).then(data => data.data.map(homeworks => {
         homeworks.date = moment(homeworks.dueDate).fromNow();
