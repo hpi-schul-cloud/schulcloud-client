@@ -4,7 +4,7 @@
         {{#embed "files/file-upload" }}{{/embed}}
 
       {{#if submission}}
-        <form class="form submissionForm" method="post" action="/homework/submit/{{submission._id}}">
+        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{submission._id}}">
         <input name="submissionId" type="hidden" data-force-value="true" value="{{submission._id}}"/>
       {{else}}
         <form class="form submissionForm" method="post" action="/homework/submit">

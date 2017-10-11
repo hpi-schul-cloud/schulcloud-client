@@ -50,7 +50,7 @@ $(document).ready(function() {
         });
     }
     // Abgabe speichern
-    $('form.submissionForm').on("submit",function(e){
+    $('form.submissionForm.ajaxForm').on("submit",function(e){
         if(e) e.preventDefault();
         ajaxForm($(this));
         return false;
