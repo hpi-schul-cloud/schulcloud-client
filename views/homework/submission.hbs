@@ -20,7 +20,10 @@
                 <label>Teammitglieder {{#if maxCoWorkers}}(maximal <span id="maxCoWorkers">{{@root.maxCoWorkers}}</span> Personen){{/if}}</label>
                 <select name="coWorkers" id="coWorkers" multiple="" data-placeholder="Teammitglieder auswählen">
                     {{#each students}}
-                        <option value="{{this._id}}" {{#if @root.submission}}{{#inArray this._id @root.submission.coWorkers}}selected{{/inArray}}{{/if}}>{{this.firstName}} {{this.lastName}}</option>
+                        <option value="{{this._id}}" 
+                            {{#if @root.submission}}{{#inArray this._id @root.submission.coWorkers}}selected {{/inArray}}{{/if}}
+                            {{#ifeq this._id @root.currentUser._id}}selected disabled{{/ifeq}}
+                        >{{this.firstName}} {{this.lastName}}</option>
                     {{else}}
                         <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
                     {{/each}}
