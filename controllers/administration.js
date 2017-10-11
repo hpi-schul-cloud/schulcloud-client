@@ -820,17 +820,22 @@ router.all('/systems', function (req, res, next) {
             ''
         ];
 
-        let systems = data.systems.filter(system => system.type != 'local');
+        let body;
+        let systems;
+        if (data.systems) {
+            systems = data.systems.filter(system => system.type != 'local');
 
-        const body = systems.map(item => {
-            let name = getSSOTypes().filter(type => item.type === type.value);
-            return [
-                item.alias,
-                name,
-                item.url,
-                getTableActions(item, '/administration/systems/')
-            ];
-        });
+            body = systems.map(item => {
+                let name = getSSOTypes().filter(type => item.type === type.value);
+                return [
+                    item.alias,
+                    name,
+                    item.url,
+                    getTableActions(item, '/administration/systems/')
+                ];
+            });
+
+        }
 
         const availableSSOTypes = getSSOTypes();
 
