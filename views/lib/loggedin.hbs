@@ -20,8 +20,10 @@
 
         <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
-            setupFirebasePush();
             $('.sidebar-list').css({"height": window.innerHeight});
+            if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+                setupFirebasePush();
+            }
         });
         window.addEventListener("resize", function () {
             $('.sidebar-list').css({"height": window.innerHeight});

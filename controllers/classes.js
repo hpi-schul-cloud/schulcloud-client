@@ -44,8 +44,8 @@ router.get('/', function (req, res, next) {
         }
     }).then(classes => {
 
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher']});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent']});
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
 
         Promise.all([
             teachersPromise,
