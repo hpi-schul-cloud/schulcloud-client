@@ -34,10 +34,13 @@
         {{else}}
             {{#userHasPermission  "LESSONS_VIEW"}}
                 {{#userHasPermission "TOOL_NEW_VIEW"}}
-                    <i class="fa fa-plus-square pull-right"
+                    <i class="fa fa-plus-square pull-right tooltip-demo"
+                       style="cursor: pointer;"
                        data-toggle="tooltip"
                        data-placement="bottom"
-                       title="Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden." ></i>
+                       data-html="true"
+                       data-animation="true"
+                       title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
                 {{/userHasPermission}}
             {{/userHasPermission}}
         {{/userHasPermission}}
