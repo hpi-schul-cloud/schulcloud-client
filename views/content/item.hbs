@@ -31,6 +31,15 @@
             <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">
                 <i class="fa fa-plus-square"></i>
             </a>
+        {{else}}
+            {{#userHasPermission  "LESSONS_VIEW"}}
+                {{#userHasPermission "TOOL_NEW_VIEW"}}
+                    <i class="fa fa-plus-square pull-right"
+                       data-toggle="tooltip"
+                       data-placement="bottom"
+                       title="Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden." ></i>
+                {{/userHasPermission}}
+            {{/userHasPermission}}
         {{/userHasPermission}}
     </div>
 
