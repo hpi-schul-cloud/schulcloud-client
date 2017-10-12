@@ -13,6 +13,13 @@ module.exports = {
             return options.inverse(item);
         }
     },
+    inArray: (item, array, opts) => {
+        if(array.includes(item)){
+            return opts.fn(this);
+        } else {
+            return opts.inverse(this);
+        }
+    },
     arrayLength: (array) => {
         return array.length;
     },
@@ -55,6 +62,14 @@ module.exports = {
             return opts.inverse(this);
         }
     },
+    userIsAllowedToViewContent: (isNonOerContent = false, options) => {
+        // Always allow nonOer content, otherwise check user is allowed to view nonOer content
+        if(permissionsHelper.userHasPermission(options.data.local.currentUser, "CONTENT_NON_OER_VIEW") || !isNonOerContent) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
     ifvalue: (conditional, options) => {
         if (options.hash.value === conditional) {
             return options.fn(this);
@@ -76,5 +91,32 @@ module.exports = {
     },
     log: (data) => {
         console.log(data);
+    },
+    writeFileSizePretty: (fileSize) => {
+        let unit;
+        let iterator = 0;
+
+        while (fileSize > 1024) {
+            fileSize = Math.round((fileSize / 1024) * 100) / 100;
+            iterator++;
+        }
+        switch (iterator) {
+            case 0:
+                unit = "B";
+                break;
+            case 1:
+                unit = "KB";
+                break;
+            case 2:
+                unit = "MB";
+                break;
+            case 3:
+                unit = "GB";
+                break;
+            case 4:
+                unit = "TB";
+                break;
+        }
+        return (fileSize + ' ' + unit);
     }
 };

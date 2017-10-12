@@ -141,3 +141,16 @@
     transform: scale(1.0);
   }
 }
+
+.section-uploaded-files {
+  .fa {
+    margin-right: 10px;
+  }
+  .fa-active {
+    float: right;
+    .fa {
+      color: $colorHPIRed;
+      cursor: pointer;
+    }
+  }
+}

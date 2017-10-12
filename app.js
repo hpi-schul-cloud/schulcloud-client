@@ -93,7 +93,10 @@ app.use(function (err, req, res, next) {
         res.locals.loggedin = true;
     // render the error page
     res.status(status);
-    res.render('lib/error');
+    res.render('lib/error', {
+            loggedin: res.locals.loggedin,
+            inline: !res.locals.loggedin
+        });
 });
 
 module.exports = app;

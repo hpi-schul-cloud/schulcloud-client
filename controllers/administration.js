@@ -17,6 +17,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 const parse = require('csv-parse/lib/sync');
+moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -58,7 +59,7 @@ const getTableActionsSend = (item, path, state) => {
         {
         class: 'disabled',
         icon: 'paper-plane'
-    })
+    });
   } else {
           actions.push(
               {
@@ -445,7 +446,6 @@ const getSSOTypes = () => {
     return [
         {label: 'Moodle', value: 'moodle'},
         {label: 'itslearning', value: 'itslearning'},
-        {label: 'LernSax', value: 'lernsax'},
         {label: 'IServ', value: 'iserv'}
     ];
 };
@@ -530,7 +530,9 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
 
         let ssoTypes = getSSOTypes();
 
-        res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes});
+        api(req).get('/fileStorage/total').then(totalStorage => {
+            res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage});
+        });
     });
 });
 router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users'));
@@ -818,17 +820,22 @@ router.all('/systems', function (req, res, next) {
             ''
         ];
 
-        let systems = data.systems.filter(system => system.type != 'local');
+        let body;
+        let systems;
+        if (data.systems) {
+            systems = data.systems.filter(system => system.type != 'local');
 
-        const body = systems.map(item => {
-            let name = getSSOTypes().filter(type => item.type === type.value);
-            return [
-                item.alias,
-                name,
-                item.url,
-                getTableActions(item, '/administration/systems/')
-            ];
-        });
+            body = systems.map(item => {
+                let name = getSSOTypes().filter(type => item.type === type.value);
+                return [
+                    item.alias,
+                    name,
+                    item.url,
+                    getTableActions(item, '/administration/systems/')
+                ];
+            });
+
+        }
 
         const availableSSOTypes = getSSOTypes();
 

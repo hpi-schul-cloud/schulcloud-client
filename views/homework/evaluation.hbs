@@ -11,8 +11,16 @@
 	<div class="tabs">
 		<div id="submission" class="tab-content active">
 			<div class="comment">
-                {{#if this.submission.comment}}
-                    {{{this.submission.comment}}}
+                {{#if this.submission}}
+                    {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
+                    <hr>
+                    <div class="ckcontent print">
+                        <div class="btn btn-secondary btn-print mb-1"
+                            data-toggle="tooltip" title="Abgabe drucken">
+                                <i class='fa fa-print'></i> Drucken
+                        </div>
+                        {{{this.submission.comment}}}
+                    </div>
                 {{else}}
                     Keine Abgabe.
                 {{/if}}

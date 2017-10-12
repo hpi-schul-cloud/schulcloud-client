@@ -7,11 +7,13 @@ const authHelper = require('../helpers/authentication');
 router.use(authHelper.authChecker);
 
 const postRequest = (req, res, next) => {
-    api(req).post(res.locals.url, {
-        body: res.locals.body
-    }).then((response) => {
-        res.json(response);
-    });
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+        api(req).post(res.locals.url, {
+            body: res.locals.body
+        }).then((response) => {
+            res.json(response);
+        });
+    }
 };
 
 router.post('/devices', function (req, res, next) {

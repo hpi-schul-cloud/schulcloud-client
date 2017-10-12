@@ -1,5 +1,5 @@
 ﻿@import '../lib/colors.scss';
-@import '../lib/bootstrap/scss/bootstrap-flex';
+@import '../lib/bootstrap/scss/bootstrap-grid';
 @import 'homework.scss';
 
 .route-homework {
@@ -72,33 +72,19 @@
       }
     }
   }
-  .search-wrapper {
-    float: left;
-    width: 50%;
-    margin: 10px 0 0;
-    @include media-breakpoint-down(xs) {
-      width: 100%;
-    }
+  .ckcontent{
+    margin-bottom: 35px;
   }
-  .section-search {
-    .filters {
-      clear: both;
-    }
-    padding: 10px 0;
-    .form-group {
-      margin: 0;
-    }
-    .card-block {
-      padding: 1rem;
-      > row {
-        margin: 0;
-      }
-    }
+  .action-group{
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+  .disableable.disabled{
+    -webkit-filter: grayscale(100%) opacity(0.7);
+    filter: grayscale(100%) opacity(0.7);
   }
 }
-
-.modal-body {
-  textarea {
-    min-height: 100px;
-  }
+.tooltip .tooltip-inner{
+    text-align: right;
 }

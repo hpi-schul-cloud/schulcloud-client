@@ -18,7 +18,7 @@ router.use(authHelper.authChecker);
 router.get('/', function (req, res, next) {
     // we display time from 8 a.m. to 8 p.m.
     const timeStart = 8;
-    const timeEnd = 16;
+    const timeEnd = 18;
     const numHours = timeEnd - timeStart;
     const numMinutes = numHours * 60;
     const hours = [];
@@ -88,71 +88,39 @@ router.get('/', function (req, res, next) {
 
     const homeworksPromise = api(req).get('/homework/', {
         qs: {
-            $populate: ['courseId']
+            $populate: ['courseId'],
+            $sort: 'dueDate',
+            archived : {$ne: res.locals.currentUser._id }
         }
-    }).then(data => data.data.filter(assignment => {
-            if (new Date(assignment.availableDate).getTime() > Date.now()
-                && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
-            if (assignment.courseId != null) {
-                if (assignment.courseId.userIds.indexOf(res.locals.currentUser._id) == -1
-                    && assignment.teacherId != res.locals.currentUser._id) {
-                    return;
-                }
-                if (!assignment.private) {
-                    assignment.userIds = assignment.courseId.userIds;
-                }
-                assignment.color = (assignment.courseId.color.length != 7) ? "#1DE9B6" : assignment.courseId.color;
-            } else {
-                assignment.color = "#1DE9B6";
-                assignment.private = true;
-            }
-            if (assignment.private
-                && assignment.teacherId != res.locals.currentUser._id) {
-                return;
-            }
+    }).then(data => data.data.map(homeworks => {
+        homeworks.date = moment(homeworks.dueDate).fromNow();
+        if (homeworks.courseId != null) {
+            homeworks.title = '<span style="color:'+homeworks.courseId.color+'">●</span> ['+homeworks.courseId.name+'] ';
+        } else {
+            homeworks.title = '<span style="color:#1DE9B6">●</span> ';
+            homeworks.private = true;
+        }
+        homeworks.title += homeworks.name;
+        homeworks.url = '/homework/' + homeworks._id;
+        homeworks.content = homeworks.description;
+        return homeworks;
+    }));
 
-            return true;
-        }).map(assignment => {
-            assignment.url = '/homework/' + assignment._id;
-            return assignment;
-        }));
-
-
-    // TODO: Replace with real news service
-    const newsPromise = new Promise((resolve, reject) => {
-        resolve([{
-            name: 'Willkommen im Schuljahr!',
-            summary: `Die Schulleitung heißt alle (neuen) Schüler im neuen Schuljahr 
-                willkommen. Auch dieses Jahr haben wir wieder viele neue Veranstaltungen für 
-                Euch geplant. Unter anderem ein Besuch bei der UNESCO und einen Schüleraustausch 
-                mit einer Schule im Silicon Valley der Klasse 10. Viel Erfolg wünscht Euch das 
-                Lehrerkolleg!`,
-            date: new Date(2017, 4, 29, 10),
-            url: ''
-        },{
-            name: 'Preisverleihung Sommerfestspiele',
-            summary: `Auch in diesem Jahr gab es wieder herausragende sportliche
-                Leistungen. Unter Anderem ein neuer Schulrekord im 100m-Lauf bei den Mädchen und
-                beim Weitsprung der Jungen. Auch für die Versorgung mit Wasser und Energieriegel
-                wurde durch den Förderverein gesorgt. Die Urkundenübergabe findet am 30. Juli um
-                13 Uhr in der Sporthalle statt.`,
-            date: new Date(2017, 4, 25, 10),
-            url: ''
-        },{
-            name: 'Einführung der Schul-Cloud',
-            summary: `Um auch nächsten Jahrzehnt des 21. Jahrhunderts bildungsmäßig
-                spitze aufgestellt zu sein, nutzen wir ab sofort die Schul-Cloud. Diese
-                ermöglicht es unter Anderem, sich mit den bestehenden Moodle-Accounts
-                anzumelden, Office zu nutzen und auf Bildungsangebote zuzugreifen. Ebenfalls ist
-                es möglich, aktualisierte Stundenpläne und Aufgaben einzusehen.`,
-            date: new Date(2017, 4, 20, 10),
-            url: ''
-        }]);
-    });
-
-
+    function sortFunction(a, b) {
+        if (a.displayAt === b.displayAt) {
+            return 0;
+        }
+        else {
+            return (a.displayAt < b.displayAt) ? 1 : -1;
+        }
+    }
+    //Somehow $lte doesn't work in normal query so I manually put it into a request
+    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
+    ).then(news => news.data.map(news => {
+            news.url = '/news/' + news._id;
+            news.date = moment(news.displayAt).fromNow();
+            return news;
+    }).sort(sortFunction).slice(0,3));
 
     Promise.all([
         eventsPromise,
@@ -172,8 +140,8 @@ router.get('/', function (req, res, next) {
             title: 'Übersicht',
             events,
             eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-            homeworks: _.chunk(homeworks.filter(function(task){return !task.private;}).slice(0, 6), 3),
-            myhomeworks: _.chunk(homeworks.filter(function(task){return task.private;}).slice(0, 6), 3),
+            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 6),
+            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 6),
             news,
             hours,
             currentTimePercentage,

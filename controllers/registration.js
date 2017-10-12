@@ -43,7 +43,8 @@ router.get('/register/account/:userId', function (req, res, next) {
             subtitle: '',//'für ' + user.firstName + ' ' + user.lastName,
             action: '/register/account',
             userId: req.params.userId,
-            buttonLabel: 'Abschließen'
+            buttonLabel: 'Abschließen',
+            inline: true
         });
 });
 
@@ -63,7 +64,12 @@ router.post('/register/account', function (req, res, next) {
     }).then(_ => {
         return res.redirect('/login/success/');
     }).catch(err => {
-        return res.status(500).send(err);
+        req.session.notification = {
+            type: 'danger',
+            message: err.error.message || err.message
+        };
+        const referrer = req.get('Referrer');
+        res.redirect(referrer);
     });
 });
 
@@ -91,7 +97,8 @@ router.get('/register/user/:accountId', authHelper.authChecker, function (req, r
             action: '/register/user/',
             accountId: req.params.accountId,
             schoolId: school._id,
-            buttonLabel: 'Abschließen'
+            buttonLabel: 'Abschließen',
+            inline: true
         });
     });
 });
@@ -111,7 +118,12 @@ router.post('/register/user', authHelper.authChecker, function (req, res, next) 
     }).then(_ => {
         return res.redirect('/login/success/');
     }).catch(err => {
-        return res.status(500).send(err);
+        req.session.notification = {
+            type: 'danger',
+            message: err.error.message || err.message
+        };
+        const referrer = req.get('Referrer');
+        res.redirect(referrer);
     });
 });
 
@@ -128,7 +140,8 @@ router.get('/register/:schoolId', function (req, res, next) {
             subtitle: school.name,
             action: '/register/',
             schoolId: req.params.schoolId,
-            buttonLabel: 'Registrieren'
+            buttonLabel: 'Registrieren',
+            inline: true
         });
     });
 });
@@ -151,7 +164,8 @@ router.post('/register/', function (req, res, next) {
                 title: 'Vielen Dank für das Registrieren in der Schul-Cloud,\nbitte bestätigen Sie noch Ihre E-Mail Adresse',
                 subtitle: 'Sie werden in 10 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
                 origin: "../../login",
-                time: 10000
+                time: 10000,
+                inline: true
             });
         }).catch(err => {
             req.session.notification = {
@@ -177,7 +191,8 @@ router.get('/register/confirm/:accountId', function (req, res, next) {
                     title: 'Vielen Dank für das Bestätigen der Anmeldung',
                     subtitle: 'Sie werden in 5 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
                     origin: "../../login",
-                    time: 5000
+                    time: 5000,
+                    inline: true
                 });
             });
     }).catch(_ => {

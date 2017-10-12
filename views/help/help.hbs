@@ -11,7 +11,8 @@
     {{#content "page"}}
         <section class="faqpanel">
             <div class="container-fluid">
-        {{#ifneq this.currentRole "Demo"}}
+        {{#ifneq this.currentRole "Schüler"}}
+            {{#ifneq this.currentRole "Demo"}}
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="card" style="text-align: center">
@@ -35,6 +36,7 @@
                     </div>
                 </div>
         {{/ifneq}}
+        {{/ifneq}}
                 <div class="row">
                             <div class="col-md-4 col-sm-6 col-xs-12">
                                 <div class="card h-100">
@@ -48,7 +50,7 @@
                                         </div>
                                     </div>
                                     <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                        <a href="/help/faq" class="btn btn-primary">Zu den Fragen</a>
+                                        <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="btn btn-primary">Zu den Fragen</a>
                                     </div>
                                 </div>
                             </div>

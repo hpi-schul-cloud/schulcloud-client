@@ -1,35 +1,33 @@
-<li class="card assignment {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
+<li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
         <div class="dates">
-            {{timeToString availableDate}}<br/>
+            {{#if this.availableDate}}{{timeToString availableDate}}<br/>{{/if}}
                 bis {{timeToString dueDate}}
         </div>
     </a>
-    {{#if this.submissionStats}}
+    {{#if this.stats}}
         <a class="content" href="{{this.url}}#activetabid=submissions" alt="Abgaben der Aufgabe: '{{this.name}}'">
             <div class="state">
-                <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#61BD4F" accentcolor="#404F70"
-                    data="{{this.submissionStatsPerc}}"
-                    {{#if this.gradedStats}}secdata="{{this.gradedStatsPerc}}" {{/if}}
-                    width="80" height="80">
+                <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#009688" accentcolor="lightgrey"
+                    data="{{this.stats.submissionPercentage}}"
+                    {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}}
+                    width="70" height="70"
+                    data-toggle="tooltip" data-placement="left" data-html="true" 
+                    data-original-title="
+                        Abgegeben: {{this.stats.submissionCount}}</br>
+                        Bewertet: {{#if this.stats.gradeCount}}{{this.stats.gradeCount}}{{else}}-{{/if}}</br>
+                        Ø: {{#if this.stats.averageGrade}}{{this.stats.averageGrade}}% richtig gelöst{{else}}-{{/if}}">
                 </circular-progress>
-                <div class="textinfo">
-                    <span>Abgegeben: {{this.submissionStats}}</span>
-                    <span>
-                    {{#if this.gradedStats}}
-                        Bewertet: {{this.gradedStats}}
-                    {{else}}
-                        Bewertet: -
-                    {{/if}}
-                    </span>
-                    <span>
-                        {{#if this.averageRating}}
-                            Ø: {{this.averageRating}}%
-                        {{else}}
-                            Ø: -
-                        {{/if}}
-                    </span>
-                </div>
+            </div>
+        </a>
+    {{/if}}
+    {{#if this.grade}}
+        <a class="content" href="{{this.url}}#activetabid=feedback" alt="Bewertung der Aufgabe: '{{this.name}}'">
+            <div class="state">
+                <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
+                    data="{{this.grade}}" width="70" height="70"
+                    data-toggle="tooltip" data-placement="left" data-original-title="Du hast {{this.grade}}% richtig gelöst.">
+                </circular-progress>
             </div>
         </a>
     {{/if}}
@@ -40,7 +38,7 @@
             {{/if}}
             {{this.name}}
         </h5>
-        <div class="description">
+        <div class="ckcontent">
             {{#if this.description}}
                 {{{truncateHTML (conflictFreeHtml this.description)}}}
             {{else}}
@@ -48,26 +46,48 @@
             {{/if}}
         </div>
     </a>
+    <div class="action-group">
     {{#userHasPermission "HOMEWORK_CREATE"}}
-    {{#ifvalue ../this.teacherId value=../this.currentUser._id}}
-        {{#each ../this.actions}}
-            {{#if this.method}}
-                    <a class="{{this.class}}"
+        {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
+        {{#ifvalue ../this.teacherId value=../this.currentUser._id}}
+            {{#each ../this.actions}}
+                {{#if this.method}}
+                    <a class="btn btn-secondary btn-sm {{this.class}}"
                        href="{{this.link}}"
                        target="_blank"
-                       data-method="delete-material"
+                       data-method="{{this.method}}"
                        data-name="{{../../name}}"
-                       alt="Löschen der Aufgabe: '{{../../name}}'.">
+                       alt="{{this.alt}} der Aufgabe: '{{../../name}}'.">
                         <i class="fa fa-{{this.icon}}"></i>
                     </a>
-            {{else}}
-                <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../name}}' {{this.alt}}.">
-                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                </a>
-            {{/if}}
-        {{/each}}
-    {{/ifvalue}}
+                {{else}}
+                    <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../../name}}' {{this.alt}}.">
+                        <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                    </a>
+                {{/if}}
+            {{/each}}
+        {{/ifvalue}}
     {{/userHasPermission}}
+    {{#inArray this.currentUser._id this.archived}}
+        <a class="btn btn-secondary btn-sm btn-archive"
+            href="{{../url}}"
+            target="_blank"
+            data="archive=open"
+            data-toggle="tooltip" title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv"
+            alt-text="<i class='fa fa-archive'></i>">
+                <i class='fa fa-mail-reply'></i>
+        </a>
+    {{else}}
+        <a class="btn btn-secondary btn-sm btn-archive"
+            href="{{../url}}"
+            target="_blank"
+            data="archive=done"
+            data-toggle="tooltip" title="Verschiebe Aufgabe zwischen Übersichtsseite und Archiv"
+            alt-text="<i class='fa fa-mail-reply'></i>">
+                <i class='fa fa-archive'></i>
+        </a>
+    {{/inArray}}
+    </div>
     <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">
         <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
     </a>

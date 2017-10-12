@@ -1,7 +1,6 @@
 @import '../lib/colors.scss';
-@import '../lib/bootstrap/scss/bootstrap-flex';
+@import '../lib/bootstrap/scss/bootstrap-grid';
 @import 'homework.scss';
-
 .section-homework {
   width: 100%;
   clear: both;
@@ -19,38 +18,6 @@
   .maintabs > .tab-links .tab-link{
     @include media-breakpoint-up(sm) {
       margin-top: 1.5rem;
-    }
-  }
-  .edit {
-    float: right;
-    margin: 5px;
-    margin-right: 0;
-    padding: 5px 17px 5px 25px;
-    i.fa {
-      margin-left: 7px;
-    }
-  }
-  .description,
-  .feedback {
-    color: grey;
-    max-width:700px;
-    margin: .5rem 0;
-    word-break: break-all;
-    p {
-      margin-bottom:.25rem;
-    }
-  }
-  .feedback {
-    margin-right: 75px;
-    color: grey;
-    @include media-breakpoint-down(xs) {
-      margin-right: 25px;
-    }
-    textarea {
-      min-height: 100px;
-    }
-    h6 {
-      color: $colorHPIOrange;
     }
   }
 }

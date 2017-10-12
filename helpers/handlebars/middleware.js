@@ -34,23 +34,42 @@ module.exports = (req, res, next) => {
         icon: 'th-large',
         link: '/dashboard/',
     }, {
+        name: 'Neuigkeiten',
+        icon: 'newspaper-o',
+        link: '/news/'
+    }, {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
-    },
-    {
+    }, {
         name: 'Klassen',
         icon: 'odnoklassniki',
         link: '/classes/'
-    },
-        {
+    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/'
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
-        link: '/homework/'
+        link: '/homework/',
+        children: [
+            {
+                name: 'Gestellte Aufgaben',
+                icon: 'bullhorn',
+                link: '/homework/asked/'
+            },
+            {
+                name: 'Meine Aufgaben',
+                icon: 'lock',
+                link: '/homework/private/'
+            },
+            {
+                name: 'Archiv',
+                icon: 'archive',
+                link: '/homework/archive/'
+            }
+        ]
     }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
@@ -65,6 +84,11 @@ module.exports = (req, res, next) => {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
+            },
+            {
+                name: 'geteilte Dateien',
+                icon: 'folder-open-o',
+                link: '/files/shared/'
             }
         ]
     }, {
@@ -138,34 +162,42 @@ module.exports = (req, res, next) => {
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
-    const notificationsPromise = api(req).get('/notification', {qs: { $limit: 10, $sort: "-createdAt" }}).catch(_ => []);
+    let notificationsPromise = [];
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+        notificationsPromise = api(req).get('/notification', {
+            qs: {
+                $limit: 10,
+                $sort: "-createdAt"
+            }
+        }).catch(_ => []);
+        }
     let notificationCount = 0;
 
     Promise.all([
-        notificationsPromise
-    ]).then(([notifications]) => {
-        res.locals.notifications = (notifications.data || []).map(notification => {
-            const notificationId = notification._id;
-            const callbacks = notification.callbacks || [];
+            notificationsPromise
+        ]).then(([notifications]) => {
+            res.locals.notifications = (notifications.data || []).map(notification => {
+                const notificationId = notification._id;
+                const callbacks = notification.callbacks || [];
 
-            notification = notification.message;
-            notification.notificationId = notificationId;
+                notification = notification.message;
+                notification.notificationId = notificationId;
 
-            notification.date = new Date(notification.createdAt);  // make new date out of iso string
+                notification.date = new Date(notification.createdAt);  // make new date out of iso string
 
-            notification.read = false;
-            callbacks.forEach(callback => {
-                if (callback.type === "read")
-                    notification.read = true;
+                notification.read = false;
+                callbacks.forEach(callback => {
+                    if (callback.type === "read")
+                        notification.read = true;
+                });
+
+                if (!notification.read) {
+                    notificationCount++;
+                }
+
+                return notification;
             });
-
-            if (!notification.read) {
-                notificationCount++;
-            }
-
-            return notification;
+            res.locals.recentNotifications = notificationCount;
+            next();
         });
-        res.locals.recentNotifications = notificationCount;
-        next();
-    });
 };

@@ -73,6 +73,9 @@ function populateModalForm(modal, data) {
 }
 
 $(document).ready(function () {
+    // Bootstrap Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
     // notification stuff
     var $notification = $('.notification');
     var $notificationContent = $notification.find('.notification-content');
@@ -189,5 +192,16 @@ $(document).ready(function () {
 
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
+    });
+
+    // Print Button
+    $('.print .btn-print').click(function () {
+        console.log($(this).parent(".print").html())
+        $(this).html("");
+        w = window.open();
+        w.document.write($(this).parent(".print").html());
+        w.print();
+        w.close();
+        $(this).html("<i class='fa fa-print'></i> Drucken");
     });
 });

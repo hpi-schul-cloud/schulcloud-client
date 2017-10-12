@@ -10,13 +10,14 @@
     {{#content "page"}}
         <div class="route-homework">
             <section class="section-homework">
-                {{#userHasPermission "HOMEWORK_CREATE"}}
-                <a href="/homework/new" class="btn btn-primary btn-add create">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    <p>Aufgabe hinzufügen</p>
-                </a>
-                {{/userHasPermission}}
-                
+                {{#if addButton}}
+                    {{#userHasPermission "HOMEWORK_CREATE"}}
+                    <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <p>Aufgabe hinzufügen</p>
+                    </a>
+                    {{/userHasPermission}}
+                {{/if}}
                 <div class="form-group sort">
                     <select name="sort" id="sortselection" data-placeholder="Sortieren">
                         {{#each sortmethods}}

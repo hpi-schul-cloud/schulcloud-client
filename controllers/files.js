@@ -304,13 +304,13 @@ router.get('/file', function (req, res, next) {
         action: 'getObject'
     };
 
-    let sharedPromise = share ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
+    let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
         return requestSignedUrl(req, data).then(signedUrl => {
             return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
-                if (download) {
+                if (download && download !== 'undefined') {
                     res.type('application/octet-stream');
-                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(file));
+                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(data.path));
                 } else if (signedUrl.header['Content-Type']) {
                     res.type(signedUrl.header['Content-Type']);
                 }
@@ -393,6 +393,31 @@ router.get('/my/', FileGetter, function (req, res, next) {
     }, res.locals.files));
 });
 
+router.get('/shared/', function (req, res, next) {
+    api(req).get('/files')
+        .then(files => {
+            files.files = files.data.filter(f => f.context === 'geteilte Datei');
+
+            files.files.map(file => {
+                file.file = file.path + file.name;
+                let ending = file.name.split('.').pop();
+                file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+            });
+
+            res.render('files/files', Object.assign({
+                title: 'Dateien',
+                path: '/',
+                breadcrumbs: getBreadcrumbs(req, {
+                    baseLabel: 'Mit mir geteilte Dateien'
+                }),
+                canUploadFile: false,
+                canCreateDir: false,
+                inline: req.query.inline || req.query.CKEditor,
+                CKEditor: req.query.CKEditor
+            }, files));
+        });
+});
+
 router.get('/', function (req, res, next) {
     // get count of personal and course files/directories
     let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
@@ -400,12 +425,25 @@ router.get('/', function (req, res, next) {
 
     Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
         // filter shared files
-        myFiles = myFiles.data.filter(f => f.context !== 'geteilte Datei');
-        courseFiles = courseFiles.data.filter(f => f.context !== 'geteilte Datei');
+        let sharedFiles = [];
+        myFiles = myFiles.data.filter(f => {
+            if (f.context !== 'geteilte Datei') {
+                return true;
+            } else {
+                sharedFiles.push(f);
+            }
+        });
+        courseFiles = courseFiles.data.filter(f => {
+            if (f.context !== 'geteilte Datei') {
+                return true;
+            } else {
+                sharedFiles.push(f);
+            }
+        });
 
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length}
+            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
     });
@@ -520,12 +558,11 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
 });
 
 router.post('/permissions/', function (req, res, next) {
-    api(req).get('/files/', {qs: {key: req.body.key}}).then(files => {
-        if (files.data.length <= 0) {
+    api(req).get('/files/' + req.body.id).then(file => {
+        if (!file) {
             res.json({});
             return;
         }
-        let file = files.data[0];
         file.shareToken = file.shareToken || shortid.generate();
         api(req).patch("/files/" + file._id, {json: file}).then(filePermission => {
             res.json(filePermission);
@@ -576,7 +613,7 @@ router.get('/permittedDirectories/', function (req, res, next) {
             directoryTree[0].subDirs = personalDirs;
 
             // fetch tree for all course folders
-            directoryTree.push()
+            directoryTree.push();
             getScopeDirs(req, res, 'courses').then(courses => {
                 Promise.all((courses || []).map(c => {
                     let coursePath = `courses/${c._id}/`;
@@ -600,7 +637,18 @@ router.get('/permittedDirectories/', function (req, res, next) {
 
 /**** File and Directory proxy models ****/
 router.post('/fileModel', function (req, res, next) {
+    req.body.schoolId = res.locals.currentSchool;
     api(req).post('/files/', {json: req.body}).then(file => res.json(file)).catch(err => next(err));
+});
+
+// get file by proxy id
+router.get('/fileModel/:id/proxy', function (req, res, next) {
+    let fileId = req.params.id;
+    const {download, share} = req.query;
+    api(req).get('/files/' + fileId).then(file => {
+        // redirects to real file getter
+        res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
+    });
 });
 
 
