@@ -95,12 +95,12 @@ router.get('/', function (req, res, next) {
     }).then(data => data.data.map(homeworks => {
         homeworks.date = moment(homeworks.dueDate).fromNow();
         if (homeworks.courseId != null) {
-            homeworks.title = '<span style="color:'+homeworks.courseId.color+'">●</span> ['+homeworks.courseId.name+'] ';
+            homeworks.title = '['+homeworks.courseId.name+'] ' + homeworks.name;
+            homeworks.background = homeworks.courseId.color;
         } else {
-            homeworks.title = '<span style="color:#1DE9B6">●</span> ';
+            homeworks.title = homeworks.name;
             homeworks.private = true;
         }
-        homeworks.title += homeworks.name;
         homeworks.url = '/homework/' + homeworks._id;
         homeworks.content = homeworks.description;
         return homeworks;
@@ -119,6 +119,7 @@ router.get('/', function (req, res, next) {
     ).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
             news.date = moment(news.displayAt).fromNow();
+            news.background = 'url(https://images.unsplash.com/photo-1478562853135-c3c9e3ef7905?dpr=1&auto=compress,format&fit=crop&w=1500&h=&q=80&cs=tinysrgb&crop=) 0px/cover no-repeat';
             return news;
     }).sort(sortFunction).slice(0,3));
 
