@@ -100,12 +100,12 @@ aside.nav-sidebar {
                     text-decoration: none;
 
                     &.child-active {
-                        background-color: #rgba(255,255,255,0.80);
+                        background-color: rgba(0,0,0,.3);
                         border-bottom: 1px solid transparent;
                     }
 
                     &.subitem {
-                        background-color: #dbd7d7;
+                        background-color: rgba(0,0,0,.2);
                         height: 40px;
                         line-height: 40px;
                         border-bottom: 1px solid transparent;
@@ -138,6 +138,10 @@ aside.nav-sidebar {
                         background: rgba(255,255,255,0.80);
                         color: $colorHPIRed;
                         border-bottom: 1px solid transparent;
+                        font-weight: 700;
+                        span{
+                            font-weight: 700;
+                        }
                     }
 
                     &[href]:hover {
