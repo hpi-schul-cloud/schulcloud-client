@@ -639,13 +639,13 @@ router.get('/:assignmentId', function (req, res, next) {
             : ((assignment.private)
                 ? ("/homework/private")
                 : ("/homework/asked"));
-                
+
         Promise.all([
             // Abgaben auslesen
             api(req).get('/submissions/', {
                 qs: {
                     homeworkId: assignment._id,
-                    $populate: ['homeworkId', 'fileIds']
+                    $populate: ['homeworkId', 'fileIds','coWorkers','studentId']
                 }
             }),
             // Alle Teilnehmer des Kurses 
@@ -655,25 +655,30 @@ router.get('/:assignmentId', function (req, res, next) {
                 }
             })
         ]).then(([submissions, course]) => {
-            assignment.submission = submissions.data.filter(submission => {
-                return (submission.studentId == res.locals.currentUser._id)
-                     ||(submission.coWorkers.includes(res.locals.currentUser._id.toString()));
+            assignment.submission = submissions.data.map(submission => {
+                submission.coWorkerIds = submission.coWorkers.map(e => {return e._id;});
+                return submission;
+            }).filter(submission => {
+                return (submission.studentId._id == res.locals.currentUser._id)
+                     ||(submission.coWorkerIds.includes(res.locals.currentUser._id.toString()));
             })[0];
             const students = course.userIds;
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions.data;
-
-                const studentSubmissions = students.map(student => {
-                    return {
-                        student: student,
-                        submission: assignment.submissions.filter(submission => {
-                            return (submission.studentId == student._id)
-                                 ||(submission.coWorkers.includes(student._id.toString()));
-                        })[0]
-                    };
-                });
+                let studentSubmissions = false;
+                if(!assignment.teamSubmissions){
+                    studentSubmissions = students.map(student => {
+                        return {
+                            student: student,
+                            submission: assignment.submissions.filter(submission => {
+                                return (submission.studentId == student._id)
+                                     ||(submission.coWorkers.includes(student._id.toString()));
+                            })[0]
+                        };
+                    });
+                }
                 // Kommentare zu Abgaben auslesen
                 const ids = assignment.submissions.map(n => n._id);
                 const commentPromise = getSelectOptions(req, 'comments', {
@@ -692,6 +697,8 @@ router.get('/:assignmentId', function (req, res, next) {
                             return role.name;
                         });
                         // Render assignment.hbs
+                        assignment.submissions = assignment.submissions.map(s => {return {submission: s}; });
+                        console.log(assignment.submissions);
                         res.render('homework/assignment', Object.assign({}, assignment, {
                             title: assignment.courseId.name + ' - ' + assignment.name,
                             breadcrumb: [
