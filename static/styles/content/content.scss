@@ -1,3 +1,5 @@
+@import '../lib/colors.scss';
+
 .store.container {
     margin: 0;
     padding: 0;
@@ -63,4 +65,11 @@ h1, h3 {
 }
 .card-tags {
     margin-bottom: 10px;
+}
+.tooltip-inner {
+  color: white ;
+  background-color: $colorHPIRed;
+}
+.tooltip-arrow{
+  background-color: $colorHPIRed;
 }
