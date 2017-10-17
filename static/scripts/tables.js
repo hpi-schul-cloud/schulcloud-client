@@ -53,6 +53,4 @@ $('tr th').each(function(i,j) {
     });
 });
 
-
-
 });

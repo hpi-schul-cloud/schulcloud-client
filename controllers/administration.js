@@ -70,7 +70,7 @@ const getTableActionsSend = (item, path, state) => {
               },
               {
                   link: path + item._id,
-                  class: 'btn-delete',
+                  class: 'btn-disable',
                   icon: 'ban',
                   method: 'delete'
               },
@@ -644,7 +644,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 getTableActions(item, '/administration/students/')
             ];
         });
-                
+
         let sortQuery = '';
         if (req.query.sort) {
             sortQuery = '&sort=' + req.query.sort;

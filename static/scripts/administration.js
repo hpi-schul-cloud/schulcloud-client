@@ -5,6 +5,7 @@ $(document).ready(function () {
     var $editModal = $('.edit-modal');
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
+    var $deleteModal = $('.delete-modal');
 
     $('.btn-add').on('click', function (e) {
         e.preventDefault();
@@ -99,6 +100,22 @@ $(document).ready(function () {
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+    });
+
+    $('.btn-delete').on('click', function (e) {
+        e.preventDefault();
+        var entry = $(this).parent().attr('action');
+        $.getJSON(entry, function (result) {
+            populateModalForm($deleteModal, {
+                action: entry,
+                title: 'Löschen',
+                closeLabel: 'Schließen',
+                submitLabel: 'Löschen',
+                fields: result
+            });
+
+            $deleteModal.modal('show');
+        });
     });
 
 });
