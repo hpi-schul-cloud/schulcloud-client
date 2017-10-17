@@ -96,7 +96,7 @@ $(document).ready(function() {
         }
         return false;
     });
-   
+
     $('a[data-method="delete-material"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -105,7 +105,7 @@ $(document).ready(function() {
         $deleteModal.modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
-            
+
         });
     });
     $('.btn-archive').on("click",function(e){

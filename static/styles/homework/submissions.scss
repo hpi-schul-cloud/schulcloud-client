@@ -25,6 +25,10 @@
         content: ")";
       }
     }
+    .teamMembers span:not(:last-child):after{
+        display: inline;
+        content:",";
+    }
   }
   .usersubmission {
     border-top: 1px solid rgba(0, 0, 0, 0.125);

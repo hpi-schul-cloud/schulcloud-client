@@ -1,43 +1,96 @@
 <section id="submissions" class="tab-content section-homeworksubmissions">
     <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Abgegeben <span>{{stats.submissionCount}}/{{stats.userCount}}</span></th>
-            <th>Bewertung {{#if stats.averageGrade}}<span>{{stats.averageGrade}}%</span>{{/if}}</th>
-            <th/>
-        </tr>
-        </thead>
-		{{#each studentSubmissions}}
-			<tbody class="usersubmission">
-			<tr class="userinfo">
-				<td>{{this.student.firstName}}</td>
-				<td>{{this.student.lastName}}</td>
-				<td>
-					{{#if this.submission}}
-						<i class="fa fa-check green" aria-hidden="true"/>
-					{{else}}
-						<i class="fa fa-times red" aria-hidden="true"/>
-					{{/if}}
-				</td>
-				<td>
-                    {{#if submission.grade}}
-                        {{submission.grade}}%
-                    {{else}}
-                        {{#if submission.gradeComment}}
-                            {{#ifneq submission.gradeComment ''}}
-                                <i class="fa fa-check green" aria-hidden="true"></i>
-                            {{/ifneq}}
-                        {{/if}}
-                    {{/if}}
-                </td>
-				<td><i class="fa fa-chevron-left" aria-hidden="true"/></td>
-			</tr>
-			<tr class="evaluation">
-				<td colSpan="6">{{>"homework/evaluation"}}</td>
-			</tr>
-			</tbody>
-		{{/each}}
+        {{#if teamSubmissions}}
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th></th>
+                    <th>Abgegeben <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
+                    <th>Bewertung {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
+                    <th/>
+                </tr>
+            </thead>
+            {{#each @root.submissions}}
+                <tbody class="usersubmission">
+                    <tr class="userinfo">
+                        <td class="teamMembers">
+                            {{#each this.submission.coWorkers}}
+                                <span>{{this.firstName}} {{this.lastName}}</span>
+                            {{/each}}
+                        </td>
+                        <td></td>
+                        <td>
+                            {{#if this.submission}}
+                                <i class="fa fa-check green" aria-hidden="true"/>
+                            {{else}}
+                                <i class="fa fa-times red" aria-hidden="true"/>
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.submission.grade}}
+                                {{this.submission.grade}}%
+                            {{else}}
+                                {{#if submission.gradeComment}}
+                                    {{#ifneq this.submission.gradeComment ''}}
+                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                    {{/ifneq}}
+                                {{/if}}
+                            {{/if}}
+                        </td>
+                        <td><i class="fa fa-chevron-left" aria-hidden="true"/></td>
+                    </tr>
+                    <tr class="evaluation">
+                        <td colSpan="6">{{>"homework/evaluation"}}</td>
+                    </tr>
+                </tbody>
+            {{/each}}
+        {{else}}
+            <thead>
+                <tr>
+                    <th>Vorname</th>
+                    <th>Nachname</th>
+                    <th>Abgegeben <span>{{@root.stats.submissionCount}}/{{@root.stats.userCount}}</span></th>
+                    <th>Bewertung {{#if @root.stats.averageGrade}}<span>{{@root.stats.averageGrade}}%</span>{{/if}}</th>
+                    <th/>
+                </tr>
+            </thead>
+            {{#each @root.studentSubmissions}}
+                <tbody class="usersubmission">
+                    <tr class="userinfo">
+                        <td>{{this.student.firstName}}</td>
+                        <td>{{this.student.lastName}}</td>
+                        <td>
+                            {{#if this.submission}}
+                                <i class="fa fa-check green" aria-hidden="true"/>
+                            {{else}}
+                                <i class="fa fa-times red" aria-hidden="true"/>
+                            {{/if}}
+                        </td>
+                        <td>
+                            {{#if this.submission.grade}}
+                                {{this.submission.grade}}%
+                            {{else}}
+                                {{#if submission.gradeComment}}
+                                    {{#ifneq this.submission.gradeComment ''}}
+                                        <i class="fa fa-check green" aria-hidden="true"></i>
+                                    {{/ifneq}}
+                                {{/if}}
+                            {{/if}}
+                        </td>
+                        <td><i class="fa fa-chevron-left" aria-hidden="true"/></td>
+                    </tr>
+                    <tr class="evaluation">
+                        <td colSpan="6">{{>"homework/evaluation"}}</td>
+                    </tr>
+                </tbody>
+            {{/each}}
+        {{/if}}
     </table>
+    {{#ifArray @root.submissions}}
+        {{#unless (arrayLength @root.submissions)}}
+            <div class="alert alert-info">
+                <strong>Info!</strong> Keine Abgaben vorhanden.
+            </div>
+        {{/unless}}
+    {{/ifArray}}
 </section>
