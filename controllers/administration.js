@@ -631,7 +631,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
             'Vorname',
             'Nachname',
             'E-Mail-Adresse',
-            'Klassen',
+            'Klasse(n)',
             ''
         ];
 
@@ -810,7 +810,7 @@ router.all('/classes', function (req, res, next) {
         }
     }).then(data => {
         const head = [
-            'Bezeichnung',
+            'Name',
             'Lehrer',
             ''
         ];
