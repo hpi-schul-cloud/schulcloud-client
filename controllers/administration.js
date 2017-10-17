@@ -17,6 +17,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 const parse = require('csv-parse/lib/sync');
+const _ = require('lodash');
 moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -643,7 +644,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 getTableActions(item, '/administration/students/')
             ];
         });
-
+                
         let sortQuery = '';
         if (req.query.sort) {
             sortQuery = '&sort=' + req.query.sort;
@@ -875,6 +876,7 @@ router.all('/systems', function (req, res, next) {
         let body;
         let systems;
         if (data.systems) {
+            data.systems = _.orderBy(data.systems, req.query.sort, 'desc');
             systems = data.systems.filter(system => system.type != 'local');
 
             body = systems.map(item => {
