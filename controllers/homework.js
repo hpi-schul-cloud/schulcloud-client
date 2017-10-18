@@ -468,10 +468,10 @@ const overview = (title = "") => {
                         isStudent,
                         sortmethods,
                         desc: homeworkDesc,
-                        addButton: (req._parsedUrl.pathname == "/" 
-                                || req._parsedUrl.pathname.includes("private") 
-                                || (req._parsedUrl.pathname.includes( "asked" ) 
-                                    && !isStudent ) 
+                        addButton: (req._parsedUrl.pathname == "/"
+                                || req._parsedUrl.pathname.includes("private")
+                                || (req._parsedUrl.pathname.includes( "asked" )
+                                    && !isStudent )
                                ),
                        createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
@@ -648,7 +648,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     $populate: ['homeworkId', 'fileIds','coWorkers','studentId']
                 }
             }),
-            // Alle Teilnehmer des Kurses 
+            // Alle Teilnehmer des Kurses
             api(req).get('/courses/' + assignment.courseId._id, {
                 qs: {
                     $populate: ['userIds']
@@ -698,7 +698,6 @@ router.get('/:assignmentId', function (req, res, next) {
                         });
                         // Render assignment.hbs
                         assignment.submissions = assignment.submissions.map(s => {return {submission: s}; });
-                        console.log(assignment.submissions);
                         res.render('homework/assignment', Object.assign({}, assignment, {
                             title: assignment.courseId.name + ' - ' + assignment.name,
                             breadcrumb: [
