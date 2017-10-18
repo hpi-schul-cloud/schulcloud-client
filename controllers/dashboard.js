@@ -119,7 +119,8 @@ router.get('/', function (req, res, next) {
     ).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
             news.date = moment(news.displayAt).fromNow();
-            news.background = 'url(https://images.unsplash.com/photo-1478562853135-c3c9e3ef7905?dpr=1&auto=compress,format&fit=crop&w=1500&h=&q=80&cs=tinysrgb&crop=) 0px/cover no-repeat';
+            // ToDo: insert real Header Image from News
+            news.background = 'url(/images/news-fallback.jpg) center/cover no-repeat';
             return news;
     }).sort(sortFunction).slice(0,3));
 

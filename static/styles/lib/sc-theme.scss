@@ -1,16 +1,25 @@
 @import "colors";
 
 .sc-card {
-    border-radius: 2px;
-    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    max-width: 100% !important;
     height: 100%;
+    margin: 0;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,.125);
     .sc-card-header {
         display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
         position: relative;
         min-height: 6rem;
         padding: 1.5rem .5rem .5rem;
         color: #fff;
         background-color: #70b5ce;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
         .sc-card-title {
             align-self: flex-end;
             font-weight: 700;
@@ -46,8 +55,11 @@
         padding: .5rem .5rem 0rem;
         margin: 0;
         flex: 1 1 0;
+        width: 100%;
     }
     .sc-card-footer {
+        flex: 0 1 0;
+        width: 100%;
         padding: .5rem;
         a, button {
             float:right;
