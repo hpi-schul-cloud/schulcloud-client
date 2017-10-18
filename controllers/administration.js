@@ -17,6 +17,7 @@ const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 const parse = require('csv-parse/lib/sync');
+const _ = require('lodash');
 moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -28,18 +29,18 @@ const getSelectOptions = (req, service, query, values = []) => {
 };
 
 
-const getTableActions = (item, path) => {
+const getTableActions = (item, path, isAdmin = true, isTeacher = false) => {
     return [
         {
             link: path + item._id,
-            class: 'btn-edit',
+            class: `btn-edit ${isTeacher ? 'disabled' : ''}`,
             icon: 'edit'
         },
         {
             link: path + item._id,
-            class: 'btn-delete',
+            class: `${isAdmin ? 'btn-delete' : 'disabled'}`,
             icon: 'trash-o',
-            method: 'delete'
+            method: `${isAdmin ? 'delete' : ''}`
         }
     ];
 };
@@ -567,7 +568,11 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 item.firstName,
                 item.lastName,
                 item.email,
-                getTableActions(item, '/administration/teachers/')
+                getTableActions(
+                    item,
+                    '/administration/teachers/',
+                    _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
+                    _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
             ];
         });
 
@@ -613,7 +618,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 item.firstName,
                 item.lastName,
                 item.email,
-                getTableActions(item, '/administration/students/')
+                getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'))
             ];
         });
 
