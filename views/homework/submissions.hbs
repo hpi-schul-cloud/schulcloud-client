@@ -13,7 +13,7 @@
             {{#each @root.submissions}}
                 <tbody class="usersubmission">
                     <tr class="userinfo">
-                        <td class="teamMembers">
+                        <td class="groupNames">
                             {{#each this.submission.coWorkers}}
                                 <span>{{this.firstName}} {{this.lastName}}</span>
                             {{/each}}
@@ -86,11 +86,24 @@
             {{/each}}
         {{/if}}
     </table>
-    {{#ifArray @root.submissions}}
-        {{#unless (arrayLength @root.submissions)}}
-            <div class="alert alert-info">
-                <strong>Info!</strong> Keine Abgaben vorhanden.
+    {{#if teamSubmissions}}
+        {{#ifArray @root.submissions}}
+            {{#unless (arrayLength @root.submissions)}}
+                <div class="alert alert-info">
+                    <strong>Keine Abgaben vorhanden.</strong>
+                </div>
+            {{/unless}}
+        {{/ifArray}}
+        {{#ifArray @root.studentsWithoutSubmission}}
+            <hr>
+            <div class="alert alert-warning">
+                <strong>Bisher keine Abgabe von:</strong></br>
+                <div class="groupNames">
+                    {{#each @root.studentsWithoutSubmission}}
+                        <span>{{this.firstName}} {{this.lastName}}</span>
+                    {{/each}}
+                </div>
             </div>
-        {{/unless}}
-    {{/ifArray}}
+        {{/ifArray}}
+    {{/if}}
 </section>

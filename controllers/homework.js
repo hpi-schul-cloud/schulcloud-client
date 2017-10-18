@@ -667,18 +667,39 @@ router.get('/:assignmentId', function (req, res, next) {
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions.data;
-                let studentSubmissions = false;
-                if(!assignment.teamSubmissions){
-                    studentSubmissions = students.map(student => {
-                        return {
-                            student: student,
-                            submission: assignment.submissions.filter(submission => {
-                                return (submission.studentId == student._id)
-                                     ||(submission.coWorkers.includes(student._id.toString()));
+                const studentSubmissions = students.map(student => {
+                    return {
+                        student: student,
+                        submission: assignment.submissions.filter(submission => {
+                            return (submission.studentId == student._id)
+                                 ||(submission.coWorkers.includes(student._id.toString()));
+                        })[0]
+                    };
+                });
+                let studentsWithSubmission = [];
+                assignment.submissions.forEach(e => {
+                    if(e.coWorkers){
+                        e.coWorkers.forEach( c => {
+                            studentsWithSubmission.push(c.toString())
+                        });
+                    }else{
+                        studentsWithSubmission.push(e.studentId.toString());
+                    }
+                });
+                let studentsWithoutSubmission = [];
+                assignment.courseId.userIds.forEach(e => {
+                    if(!studentsWithSubmission.includes(e.toString())){
+                        console.log(e, "not included => missing")
+                        studentsWithoutSubmission.push(
+                            studentSubmissions.filter(s => {
+                                return (s.student._id.toString() == e.toString())
+                            }).map(s => {
+                                return s.student;
                             })[0]
-                        };
-                    });
-                }
+                        );
+                    }
+                });
+                console.log(studentsWithoutSubmission);
                 // Kommentare zu Abgaben auslesen
                 const ids = assignment.submissions.map(n => n._id);
                 const commentPromise = getSelectOptions(req, 'comments', {
@@ -709,6 +730,7 @@ router.get('/:assignmentId', function (req, res, next) {
                             ],
                             students:true,
                             studentSubmissions,
+                            studentsWithoutSubmission,
                             comments
                         }));
                     });
