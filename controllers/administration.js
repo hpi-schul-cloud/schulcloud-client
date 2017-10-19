@@ -510,17 +510,30 @@ const returnAdminPrefix = (roles) => {
     return prefix;
 };
 
-const getClasses = (user, classes) => {
+const getClasses = (user, classes, teacher) => {
     let userClasses = '';
-    classes.data.map(uClass => {
-        if (uClass.userIds.includes(user._id)) {
-            if (userClasses !== '') {
-                userClasses = userClasses + ' , ' + uClass.name
-            } else {
-                userClasses = uClass.name
+
+    if (teacher) {
+        classes.data.map(uClass => {
+            if (uClass.teacherIds.includes(user._id)) {
+                if (userClasses !== '') {
+                    userClasses = userClasses + ' , ' + uClass.name
+                } else {
+                    userClasses = uClass.name
+                }
             }
-        }
-    });
+        });
+    } else {
+        classes.data.map(uClass => {
+            if (uClass.userIds.includes(user._id)) {
+                if (userClasses !== '') {
+                    userClasses = userClasses + ' , ' + uClass.name
+                } else {
+                    userClasses = uClass.name
+                }
+            }
+        });
+    }
 
     return userClasses;
 };
@@ -572,10 +585,13 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             $sort: req.query.sort
         }
     }).then(data => {
+        api(req).get('/classes')
+            .then(classes => {
         const head = [
             'Vorname',
             'Nachname',
             'E-Mail-Adresse',
+            'Klasse(n)',
             ''
         ];
 
@@ -584,6 +600,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 item.firstName,
                 item.lastName,
                 item.email,
+                getClasses(item, classes, true),
                 getTableActions(item, '/administration/teachers/')
             ];
         });
@@ -600,6 +617,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         };
 
         res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination});
+
+            });
     });
 });
 
@@ -640,7 +659,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 item.firstName,
                 item.lastName,
                 item.email,
-                getClasses(item, classes),
+                getClasses(item, classes, false),
                 getTableActions(item, '/administration/students/')
             ];
         });
