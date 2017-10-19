@@ -709,10 +709,10 @@ router.all('/courses', function (req, res, next) {
             ''
         ];
 
-        const classesPromise = getSelectOptions(req, 'classes');
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
+        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
         Promise.all([
             classesPromise,
@@ -773,8 +773,8 @@ router.all('/classes', function (req, res, next) {
             ''
         ];
 
-        let teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-        let studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
+        let teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        let studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
         Promise.all([
             teachersPromise,
