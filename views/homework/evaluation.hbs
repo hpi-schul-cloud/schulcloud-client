@@ -50,7 +50,9 @@
                     <h6>Kommentar</h6>
                     <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Speichern</button>
+                {{#userHasPermission "HOMEWORK_CREATE"}}
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                {{/userHasPermission}}
                 </form>
             {{else}}
                 <b class="grade">{{{this.submission.gradeText}}}</b>
