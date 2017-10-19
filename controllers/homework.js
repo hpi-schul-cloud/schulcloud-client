@@ -680,7 +680,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submissions.forEach(e => {
                     if(e.coWorkers){
                         e.coWorkers.forEach( c => {
-                            studentsWithSubmission.push(c.toString())
+                            studentsWithSubmission.push(c._id.toString())
                         });
                     }else{
                         studentsWithSubmission.push(e.studentId.toString());
@@ -689,7 +689,6 @@ router.get('/:assignmentId', function (req, res, next) {
                 let studentsWithoutSubmission = [];
                 assignment.courseId.userIds.forEach(e => {
                     if(!studentsWithSubmission.includes(e.toString())){
-                        console.log(e, "not included => missing")
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
                                 return (s.student._id.toString() == e.toString())
@@ -699,7 +698,6 @@ router.get('/:assignmentId', function (req, res, next) {
                         );
                     }
                 });
-                console.log(studentsWithoutSubmission);
                 // Kommentare zu Abgaben auslesen
                 const ids = assignment.submissions.map(n => n._id);
                 const commentPromise = getSelectOptions(req, 'comments', {
