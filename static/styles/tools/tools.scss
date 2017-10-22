@@ -12,5 +12,16 @@
 
 .lti-frame {
   width: 100%;
-  height: 60rem;
+  height: 100%;
+  border: 1px solid grey;
+}
+
+// fix for kanzleramt
+.content-wrapper {
+  padding-right: 0px;
+}
+
+.container-fluid {
+  padding-right: 0px;
+  padding-left: 0px;
 }

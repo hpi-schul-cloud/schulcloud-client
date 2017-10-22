@@ -9,7 +9,7 @@ const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
 describe('Files tests', function () {
-    this.timeout(5000);
+    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
@@ -24,10 +24,24 @@ describe('Files tests', function () {
         this.server.close(done);
     });
 
-    it('GET /files', function () {
+    it('GET /files/', function () {
         return new Promise((resolve, reject) => {
             this.agent
                 .get('/files/')
+                .end((err, res) => {
+                    expect(res.statusCode).to.equal(200);
+                    expect(res.text).to.contain('Meine Dateien');
+                    expect(res.text).to.contain('Meine persönlichen Dateien');
+                    expect(res.text).to.contain('Meine Kurs-Dateien');
+                    resolve();
+                });
+        });
+    });
+
+    it('GET /files/my/', function () {
+        return new Promise((resolve, reject) => {
+            this.agent
+                .get('/files/my/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dateien');
@@ -44,7 +58,7 @@ describe('Files tests', function () {
                 .get('/files/courses/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Dateien aus meinen Fächern und Kursen');
+                    expect(res.text).to.contain('Dateien aus meinen Kursen');
                     resolve();
                 });
         });

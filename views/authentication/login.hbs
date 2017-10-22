@@ -1,68 +1,33 @@
 {{#extend "lib/default"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/login.css"/>
+        <link rel="stylesheet" href="/styles/authentication/home.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/login.js" type="text/javascript"></script>
+        <script src="/scripts/login.js" type="text/javascript" defer></script>
+        <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
     {{/content}}
 
     {{#content "body"}}
         {{#embed "lib/header"}}{{/embed}}
-        <div class="container">
+        <main class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <hgroup class="huge-gap">
-                        <h3>Schul-Cloud <sup>ALPHA</sup></h3>
-                    </hgroup>
 
-                    <div class="form-wrapper">
-                        {{> "lib/components/notification"}}
-
-                        <form method="post" action="/login/" class="login-form">
-                            <div class="form-group">
-                                <input type="text" name="username" class="form-control form-control-lg" placeholder="Email-Adresse oder Nutzername" required>
-                                <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort" required>
-                            </div>
-
-                            <div class="form-group toggle-providers">
-                                <a class="btn btn-block btn-secondary btn-toggle-providers">
-                                    Mit anderem System anmelden
-                                </a>
-                            </div>
-
-                            <div class="login-providers">
-                                <div class="form-group ">
-                                    <select name="schoolId" class="school" data-placeholder="Schule">
-                                        <option><!-- Empty option goes here. --><option>
-                                        {{#each schools}}
-                                            <option value="{{this._id}}">{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                                <div class="form-group ">
-                                    <select name="systemId" class="system" data-placeholder="System">
-                                        <option><!-- Empty option goes here. --><option>
-                                        {{#each systems}}
-                                            <option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
-                                        {{/each}}
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-block btn-primary" value="Anmelden" />
-                            </div>
-                        </form>
-
-                    </div>
+                    {{> "authentication/forms/login"}}
+                    
                 </div>
             </div>
-        </div>
+        </main>
 
-        <div class="bg-graphic bg-graphic-left"></div>
-        <div class="bg-graphic bg-graphic-right"></div>
+        {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+            {{#content "fields"}}
+                {{> "authentication/forms/pwrecovery"}}
+            {{/content}}
+        {{/embed}}
+        
+        {{#embed "lib/extended_footer"}}{{/embed}}
 
     {{/content}}
 {{/extend}}

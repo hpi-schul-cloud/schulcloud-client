@@ -1,26 +1,53 @@
 @import '../lib/colors.scss';
-@import '../lib/bootstrap/scss/bootstrap';
+@import '../lib/bootstrap/scss/bootstrap-flex';
+@import '../homework/homework.scss';
 
 @include media-breakpoint-down(xs) {
     .row.lesson-cards,
     .row.messages,
     .row.notices,
     .row.buttons,
-    .row.articles
-    {
+    .row.articles {
         margin: 5px -15px;
     }
-    .row.timeline{
-        display:none;
+    .row.timeline {
+        display: none;
     }
-    .row .lesson-cards .lesson-card{
+
+    .timetable {
+        border-top: none !important;
+    }
+
+    .timetable .row.lesson-cards {
+        height: auto;
+    }
+
+    .timetable .row.lesson-cards .lesson-card {
         padding: 10px 0;
+        position: relative !important;
+        left: 0px !important;
+        width: 100% !important;
     }
-    .section-messages{
+    .section-messages {
         padding: 15px 0 50px;
     }
 }
 
+@include media-breakpoint-down(lg) {
+    .section-messages .row.articles .card{
+        display: table !important;
+        border: 1px solid rgba(0, 0, 0, 0.125) !important;
+        width: 100%;
+    }
+}
+
+.section{
+    clear: both;
+}
+.more.btn.btn-primary, .more.btn.btn-secondary {
+    width: 100%;
+    margin-left: 0 !important;
+}
 
 .section-messages {
     width:100%;
@@ -30,6 +57,11 @@
 
     h5 {
         color: $colorHPIRed;
+        display: inline-block;
+    }
+
+    a#showAll {
+        float: right;
     }
 
     h6 {
@@ -52,95 +84,25 @@
     }
 }
 
-.section-news {
-    width:100%;
-    float:left;
-    padding: 15px 0px 50px;
-    line-height: 1.75rem;
-
-    h5 {
-        color: $colorHPIRed;
-    }
-
-    .articles {
-        margin: 20px -15px;
-    }
-}
-
-.section-tasks {
-    width:100%;
-    float:left;
-    padding: 15px 0px 50px;
-    line-height: 1.75rem;
-
-    h5 {
-        color: $colorHPIRed;
-        padding-bottom:10px;
-    }
-
-    .form-check-input {
-        margin-top: .4rem;
-    }
-}
-
-.section-tools {
-    width:100%;
-    float:left;
-    padding: 15px 0px 50px;
-    line-height: 1.75rem;
-
-    h5 {
-        color: $colorHPIRed;
-    }
-
-    .buttons {
-        margin:20px -15px;
-
-        .btn {
-            background: $colorHPIYellow;
-            color:#fff;
-            font-weight:600;
-
-            &:hover {
-                background: $colorHPIOrange;
-            }
-
-            .fa {
-                margin-right:10px;
-                display:inline-block;
-            }
-        }
-        @include media-breakpoint-down(xs) {
-            .btn{
-                margin: 5px 0;
-            }
-        }
-    }
-}
-
 .section-timetable {
     width: 100%;
     float: left;
     padding-top: 15px;
     line-height: 1.75rem;
 
-    h5 {
-        color: $colorHPIRed;
+    @include media-breakpoint-down(xs) {
+        display: none;
     }
 
-    .controls {
+    h5 {
+        color: $colorHPIRed;
+        float: left;
+    }
+
+    .selected-date {
         float: right;
-        color: #646464;
-
-        .selected-date {
-            float: left;
-            margin-right: 20px;
-            color: #969696;
-        }
-
-        .btn-toolbar {
-            float: left;
-        }
+        color: #969696;
+        line-height:22px;
     }
 }
 
@@ -148,16 +110,25 @@
 .timetable {
     width:100%;
     float:left;
-    padding: 0px 15px 20px;
+    padding: 0px 15px 0px;
     line-height: 1.75rem;
+    border-top:1px solid #c8c8c8;
 
     .lesson-cards {
         margin-top:40px;
-        margin-bottom:20px;
+        margin-bottom:30px;
+        height:170px;
+        position: relative;
 
         .lesson-card {
             padding:0px 1px;
+            top: 0px;
             text-decoration: none !important;
+            position: absolute;
+
+            .card-block {
+                padding: 0.5rem;
+            }
 
             .card {
                 border:0px;
@@ -166,17 +137,20 @@
                 border-bottom: 6px solid transparent;
                 color: #646464;
                 height:170px;
-                position: relative;
 
                 &:not(.disabled):hover {
                     background:#ddd;
                 }
+
 
                 .card-title {
                     font-size:1.063rem;
                     font-weight: 600;
                 }
 
+                .card-text{
+                    line-height: 130%;
+                }
                 .lesson-time {
                     margin-bottom: 0px;
                     margin-top: -15px;
@@ -211,8 +185,7 @@
         margin-top:3px;
         margin-bottom:20px;
 
-        &:before {
-            content: '';
+        .current-time {
             width: 100px;
             height: 3px;
             top: -3px;
@@ -220,16 +193,40 @@
             background: #696969;
             display: block;
             position: absolute;
+
+            &:before {
+                height: 245px;
+                content: '';
+                width: 2px;
+                background: $colorHPIRed;
+                right: 0px;
+                position: absolute;
+                bottom: 0px;
+            }
+
+            span {
+                font-size:10px;
+                padding: 0px 5px;
+                right: -15px;
+                position:absolute;
+                top: -28px;
+                background: #FFFFFF;
+                color: $colorHPIRed;
+                display: block;
+                z-index: 2;
+            }
         }
 
         .tick {
             font-size:10px;
-            left:0px;
-            position:absolute;
-            top:5px;
-            color:#969696;
+            color:#aaa;
         }
     }
 }
 
-
+.poll {
+    text-align: center;
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}

@@ -1,0 +1,27 @@
+@import '../lib/colors.scss';
+
+.section-news {
+    .container-fluid{
+        padding:0;
+        .card-deck-row {
+            width: calc(100% + 30px);
+        }
+    }
+    p:last-of-type{
+        margin-bottom:0;
+    }
+    .left-btn-group{
+        white-space: nowrap;
+        display: inherit;
+        a{
+            padding-left: .5rem;
+            padding-right: .5rem;
+            vertical-align: middle;
+        }
+    }
+    .more{
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+}

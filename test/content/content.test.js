@@ -9,7 +9,7 @@ const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
 describe('Content tests', function () {
-    this.timeout(5000);
+    this.timeout(10000);
     before(function (done) {
         this.server = app.listen(3031);
         this.server.once('listening', () => {
@@ -30,7 +30,7 @@ describe('Content tests', function () {
                 .get('/content/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Inhalte');
+                    expect(res.text).to.contain('Materialien');
                     resolve();
                 });
         });
@@ -42,11 +42,11 @@ describe('Content tests', function () {
                 .get('/content/?q=Mathe')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Inhalte');
+                    expect(res.text).to.contain('Materialien');
                     expect(res.text).to.contain('Suchergebnisse für \"Mathe\"');
                     expect(res.text).not.to.contain('keine Ergebnisse');
                     resolve();
                 });
         });
-    })
+    });
 });

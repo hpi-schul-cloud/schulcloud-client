@@ -32,13 +32,16 @@ const addToolHandler = (req, res, next) => {
     api(req).get('/ltiTools/')
     .then(tools => {
         const ltiTools = tools.data.filter(ltiTool => ltiTool.isTemplate == 'true');
-        res.render('courses/add-tool', {
-            action,
-            title: 'Tool anlegen',
-            submitLabel: 'Tool anlegen',
-            ltiTools,
-            courseId: req.params.courseId
-        });
+        api(req).get('/courses/' + req.params.courseId)
+            .then(course => {
+                res.render('courses/add-tool', {
+                    action,
+                    title: 'Tool anlegen für ' + course.name,
+                    submitLabel: 'Tool anlegen',
+                    ltiTools,
+                    courseId: req.params.courseId
+                });
+            });
     });
 };
 
@@ -92,7 +95,6 @@ const getDetailHandler = (req, res, next) => {
         api(req).get('/ltiTools/' + req.params.id)]).
     then(([courses, tool]) => {
         res.json({
-            courses: courses,
             tool: tool
         });
     }).catch(err => {
@@ -101,10 +103,16 @@ const getDetailHandler = (req, res, next) => {
 };
 
 const showToolHandler = (req, res, next) => {
-    api(req).get('/ltiTools/' + req.params.ltiToolId).then(tool => {
-        res.render('courses/run-lti', {
-            courseId: req.params.courseId,
-            title: tool.name,
+
+    Promise.all([
+        api(req).get('/ltiTools/' + req.params.ltiToolId),
+        api(req).get('/courses/' + req.params.courseId)
+    ])
+    .then(([tool, course]) => {
+        let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
+        res.render(renderPath, {
+            course: course,
+            title: `${tool.name}, Kurs/Fach: ${course.name}`,
             tool: tool
         });
     });

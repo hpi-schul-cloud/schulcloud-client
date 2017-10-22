@@ -1,22 +1,46 @@
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/calendar/fullcalendar.min.css"/>
+        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
         <link rel="stylesheet" href="/styles/calendar/calendar.css"/>
+        <link rel="stylesheet" href="/styles/lib/toggle/bootstrap-toogle.min.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/moment/moment.js" type="text/javascript"></script>
+        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
         <script>
-            moment().format();
+            window.addEventListener('DOMContentLoaded', function() {
+                moment().format();
+            });
         </script>
-        <script src="/scripts/fullcalendar/fullcalendar.min.js" type="text/javascript"></script>
-        <script src="/scripts/fullcalendar/de.js" type="text/javascript"></script>
-        <script src="/scripts/calendar.js" type="text/javascript"></script>
+        <script src="/scripts/fullcalendar/fullcalendar.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/fullcalendar/de.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/calendar.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
         <div class="route-calendar">
             <div class="fullcalendar" id="calendar"></div>
         </div>
+
+        {{#userHasPermission "CALENDAR_EVENT_CREATE"}}
+        {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" collapseId=1 userId=../userId}}
+            {{#content "fields"}}
+                {{> "calendar/forms/form-create-event"}}
+            {{/content}}
+        {{/embed}}
+        {{/userHasPermission}}
+
+        {{#embed "lib/components/modal-form" method="put" class="edit-event-modal" collapseId=2}}
+            {{#content "fields"}}
+                {{> "calendar/forms/form-create-event"}}
+            {{/content}}
+            {{#content "additional-actions"}}
+                    <button type="button" class="btn btn-primary btn-danger btn-delete">
+                        <i class="fa fa-trash-o"></i> Löschen
+                    </button>
+            {{/content}}
+        {{/embed}}
     {{/content}}
 {{/extend}}

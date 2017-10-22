@@ -2,12 +2,12 @@
 
 <div class="form-group">
     <label>Name des Kurses</label>
-    <input class="form-control" name="name" type="text" placeholder="10a" required />
+    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" required />
 </div>
 
 <div class="form-group">
     <label>Farbe des Kurses:</label>
-	<input name="color" list="coursecolors" type="color" placeholder="#ff0000" autocomplete=on required/>
+	<input name="color" list="coursecolors" type="color" value="{{#if course.color}}{{course.color}}{{else}}#ff0000{{/if}}" placeholder="#ff0000" autocomplete=on required/>
 	<datalist id="coursecolors">
 	  <option value="#F44336">
 	  <option value="#E91E63">
@@ -33,18 +33,7 @@
 </div>
 
 <div class="form-group">
-	<label>Bewertungssystem:</label>
-	<fieldset>
-		<input type="radio" name="gradeSystem" value="0" id="gradeSystem0" onchange="this.value=0"/>
-		<label for="gradeSystem0">Punkte</label>
-		<input type="radio" name="gradeSystem" value="1" id="gradeSystem1" onchange="this.value=1"/>
-		<label for="gradeSystem1">Noten</label>
-	</fieldset>
-</div>
-
-
-<div class="form-group">
-    <label>Klasse(n)</label>
+    <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
 
     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
         {{#each classes}}
@@ -58,7 +47,24 @@
 
     <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
         {{#each teachers}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Vertretungs Lehrer</label>
+    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
+        {{#each substitutions}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{this.firstName}} {{this.lastName}}
+            </option>
         {{/each}}
     </select>
 </div>
@@ -68,7 +74,76 @@
 
     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.lastName}}</option>
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
         {{/each}}
     </select>
+</div>
+
+<div class="panel-group">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a data-toggle="collapse" href="#collapse{{collapseId}}" class="collapse-toggle"><label>Termine auswählen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+        </div>
+        <div id="collapse{{collapseId}}" class="panel-collapse collapse">
+            <div class="times">
+                <label>Zeitraum (z.B. Schuljahr)</label>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label>Von</label>
+                        <input name="startDate" id="startDate" type="date" class="form-control" value="{{course.startDate}}"/>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Bis</label>
+                        <input name="untilDate" id="untilDate" type="date" class="form-control" value="{{course.untilDate}}"/>
+                    </div>
+                </div>
+
+                <table width="100%" cellpadding="5px">
+                    <thead>
+                    <th></th>
+                    <th><label>Wochentag</label></th>
+                    <th><label>Start der Schulstunde</label></th>
+                    <th><label>Dauer der Schulstunde</label></th>
+                    <th><label>Raum</label></th>
+                    </thead>
+                    <tbody class="add-course-times">
+                    <tr>
+                        <td>
+                            <i class="fa fa-plus new-course-time-add" data-timesref="#collapse{{collapseId}}"></i>
+                        </td>
+                        <td>
+                            <select class="new-weekday">
+                                <option value="0">Montag</option>
+                                <option value="1">Dienstag</option>
+                                <option value="2">Mittwoch</option>
+                                <option value="3">Donnerstag</option>
+                                <option value="4">Freitag</option>
+                                <option value="5">Samstag</option>
+                                <option value="6">Sonntag</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control new-start-time" type="time"/>
+                        </td>
+                        <td>
+                            <input class="form-control new-duration" type="number"
+                                   placeholder="in Minuten"/>
+                        </td>
+                        <td>
+                            <input class="form-control new-room" type="text"
+                                   placeholder="z.B. R-1.21"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

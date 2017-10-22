@@ -6,7 +6,11 @@ const rolesDisplayName = {
     'teacher': 'Lehrer',
     'student': 'Schüler',
     'administrator': 'Administrator',
-    'superhero': 'Schul-Cloud Mitarbeiter'
+    'superhero': 'Schul-Cloud Admin',
+    'demo': 'Demo',
+    'demoTeacher': 'Demo',
+    'demoStudent': 'Demo',
+    'helpdesk': 'Helpdesk'
 };
 
 const isJWT = (req) => {
@@ -87,5 +91,6 @@ module.exports = {
     isJWT,
     authChecker,
     isAuthenticated,
+    restrictSidebar,
     populateCurrentUser
 };

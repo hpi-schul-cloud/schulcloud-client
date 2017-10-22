@@ -11,21 +11,24 @@ const login = (req, res, options) => {
     });
 };
 
-const createUser = (req, {firstName, lastName, email, roles = ['student'], schoolId}) => {
+const createUser = (req, {firstName, lastName, email, roles = ['student'], schoolId, gender}) => {
+    (gender === '' || !gender) ? gender = null : "";
     return api(req).post('/users', {json: {
         firstName,
         lastName,
         email,
         roles,
-        schoolId
+        schoolId,
+        gender
     }});
 };
 
-const createAccount = (req, {username, password, userId}) => {
+const createAccount = (req, {username, password, userId, activated}) => {
     return api(req).post('/accounts', {json: {
         username,
         password,
-        userId
+        userId,
+        activated
     }});
 };
 
@@ -35,15 +38,14 @@ const createAccount = (req, {username, password, userId}) => {
  */
 
 router.get('/register/account/:userId', function (req, res, next) {
-    api(req).get('/users/' + req.params.userId).then(user => {
         res.render('registration/account', {
             title: 'Zugangsdaten eintragen',
-            subtitle: 'für ' + user.firstName + ' ' + user.lastName,
+            subtitle: '',//'für ' + user.firstName + ' ' + user.lastName,
             action: '/register/account',
             userId: req.params.userId,
-            buttonLabel: 'Abschließen'
+            buttonLabel: 'Abschließen',
+            inline: true
         });
-    });
 });
 
 
@@ -55,13 +57,19 @@ router.post('/register/account', function (req, res, next) {
     createAccount(req, {
         username,
         password,
-        userId
+        userId,
+        activated: true
     }).then(account => {
         return login(req, res, {strategy:'local', username, password});
     }).then(_ => {
         return res.redirect('/login/success/');
     }).catch(err => {
-        return res.status(500).send(err);
+        req.session.notification = {
+            type: 'danger',
+            message: err.error.message || err.message
+        };
+        const referrer = req.get('Referrer');
+        res.redirect(referrer);
     });
 });
 
@@ -89,7 +97,8 @@ router.get('/register/user/:accountId', authHelper.authChecker, function (req, r
             action: '/register/user/',
             accountId: req.params.accountId,
             schoolId: school._id,
-            buttonLabel: 'Abschließen'
+            buttonLabel: 'Abschließen',
+            inline: true
         });
     });
 });
@@ -100,7 +109,8 @@ router.post('/register/user', authHelper.authChecker, function (req, res, next) 
     createUser(req, req.body).then(user => {
         // update account with userId
         return api(req).patch('/accounts/' + req.body.accountId, {json: {
-            userId: user._id
+            userId: user._id,
+            activated: true
         }});
     }).then(_ => {
         // refresh AccessToken
@@ -108,7 +118,12 @@ router.post('/register/user', authHelper.authChecker, function (req, res, next) 
     }).then(_ => {
         return res.redirect('/login/success/');
     }).catch(err => {
-        return res.status(500).send(err);
+        req.session.notification = {
+            type: 'danger',
+            message: err.error.message || err.message
+        };
+        const referrer = req.get('Referrer');
+        res.redirect(referrer);
     });
 });
 
@@ -125,7 +140,8 @@ router.get('/register/:schoolId', function (req, res, next) {
             subtitle: school.name,
             action: '/register/',
             schoolId: req.params.schoolId,
-            buttonLabel: 'Registrieren'
+            buttonLabel: 'Registrieren',
+            inline: true
         });
     });
 });
@@ -134,16 +150,23 @@ router.get('/register/:schoolId', function (req, res, next) {
 router.post('/register/', function (req, res, next) {
     const username = req.body.email; // TODO: sanitize
     const password = req.body.password; // TODO: sanitize
+    const name = req.body.firstName + " " + req.body.lastName;
 
     createUser(req, req.body)
         .then(user => {
-            return createAccount(req, {username, password, userId: user._id});
-        })
-        .then(_ => {
-            // do login at this point already so we don't need to fuck around with passwords
-            return login(req, res, {strategy:'local', username, password});
+            return createAccount(req, {username, password, userId: user._id})
+                .then(account => {
+                    api(req).post('/mails', {json: {email: username, subject: "Registrierung in der Schul-Cloud", content: {text:
+                        "Sehr geehrte/r " + name + ",\n\nBitte bestätigen Sie uns noch Ihre E-Mail Adresse unter folgendem Link:\n" + (req.headers.origin || process.env.HOST) + "/register/confirm/" + account._id + "\n\nMit freundlichen Grüßen,\nIhr Schul-Cloud Team"}}});
+                });
         }).then(_ => {
-            return res.redirect('/login/success/');
+            return res.render('registration/confirmation', {
+                title: 'Vielen Dank für das Registrieren in der Schul-Cloud,\nbitte bestätigen Sie noch Ihre E-Mail Adresse',
+                subtitle: 'Sie werden in 10 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
+                origin: "../../login",
+                time: 10000,
+                inline: true
+            });
         }).catch(err => {
             req.session.notification = {
                 type: 'danger',
@@ -154,5 +177,27 @@ router.post('/register/', function (req, res, next) {
             });
 });
 
+/**
+ * Registration confirmation
+ */
+
+router.get('/register/confirm/:accountId', function (req, res, next) {
+    let account;
+    api(req).get('/accounts/' + req.params.accountId).then(data => {
+        account = data;
+        api(req).post('/accounts/confirm/', {json: {accountId: req.params.accountId}})
+            .then(_ => {
+                res.render('registration/confirmation', {
+                    title: 'Vielen Dank für das Bestätigen der Anmeldung',
+                    subtitle: 'Sie werden in 5 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
+                    origin: "../../login",
+                    time: 5000,
+                    inline: true
+                });
+            });
+    }).catch(_ => {
+        res.redirect('/login');
+    });
+});
 
 module.exports = router;

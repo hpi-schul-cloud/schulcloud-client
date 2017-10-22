@@ -2,10 +2,14 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/lessons.js" type="text/javascript"></script>
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
+        <script src="/scripts/courses.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -15,35 +19,110 @@
             <div class="row description">
                 <div class="col-sm-12">
                     <p class="lead">{{description}}</p>
+                    {{#if nextEvent}}<p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>{{/if}}
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-sm-6">
-                    <h4>Unterrichtsstunden</h4>
+                    {{#userHasPermission "COURSE_EDIT"}}
+                        <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Thema hinzufügen">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            <span class="hidden-lg-down">Thema hinzufügen</span>
+                        </a>
+                        <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic" data-toggle="tooltip" title="Thema importieren">
+                            <i class="fa fa-exchange" aria-hidden="true"></i>
+                            <span class="hidden-lg-down">Thema importieren</span>
+                        </a>
+                    {{/userHasPermission}}
+                    <h4>Themen</h4>
 
                     <div class="list-group">
                         {{#if lessons}}
+                            <div id="topic-list">
                             {{#each lessons}}
-                                <a href="{{this.url}}"
-                                   class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <span>{{this.name}}</span>
-                                    <small class="text-muted lesson-date float-right">{{this.date}}</small>
-                                </a>
+                                {{#unless this.hidden}}
+                                    <!-- TOPIC IS NOT HIDDEN, teacher and student has access -->
+                                    <div class="card card-topic" onclick="location.href='{{this.url}}'"
+                                    {{#userHasPermission "COURSE_EDIT"}}data-topicId="{{../_id}}"{{/userHasPermission}}>
+                                        <div class="card-header">
+                                            <div class="input-group">
+                                                {{#userHasPermission "COURSE_EDIT"}}
+                                                    <a 
+                                                        class="btn btn-secondary btn-sm btn-hidden-toggle" 
+                                                        href="{{../_id}}"
+                                                        data-toggle="tooltip" 
+                                                        title="Thema verstecken">
+                                                         <i class="fa fa-eye"></i>
+                                                    </a>
+                                                {{/userHasPermission}}
+                                                <p class="topic-label ml-1">{{this.name}}</p>
+                                                {{#userHasPermission "COURSE_EDIT"}}
+                                                    <div class="right-btn-group">
+                                                        <a class="delete-topic btn btn-sm"
+                                                            href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                            target="_blank"
+                                                            data-method="delete-material"
+                                                            data-name="{{../name}}"
+                                                            redirect="/courses/{{../courseId}}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                        <a class="btn btn-secondary btn-sm move-handle"
+                                                            href="{{../_id}}">
+                                                             <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                    </div>
+                                                {{/userHasPermission}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {{else}}
+                                    <!-- TOPIC IS HIDDEN, just teacher has access -->
+                                    {{#userHasPermission "COURSE_EDIT"}}
+                                        <div class="card card-topic" onclick="location.href='{{../url}}'"
+                                        data-topicId="{{../_id}}">
+                                            <div class="card-header">
+                                                <div class="input-group">
+                                                    <a 
+                                                        class="btn btn-secondary btn-sm btn-hidden-toggle"
+                                                        href="{{../_id}}"
+                                                        data-toggle="tooltip"
+                                                        title="Thema sichtbar machen">
+                                                        <i class="fa fa-eye-slash"></i>
+                                                    </a>
+                                                    <p class="topic-label ml-1">{{../name}}</p>
+                                                    <div class="right-btn-group">
+                                                        <a class="delete-topic btn btn-sm"
+                                                           href="/courses/{{../courseId}}/topics/{{../_id}}"
+                                                           target="_blank"
+                                                           data-method="delete-material"
+                                                           data-name="{{../name}}"
+                                                            redirect="/courses/{{../courseId}}">
+                                                            <i class="fa fa-trash-o"></i>
+                                                        </a>
+                                                        <a class="btn btn-secondary btn-sm move-handle"
+                                                            href="{{../_id}}">
+                                                             <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {{/userHasPermission}}
+                                {{/unless}}
                             {{/each}}
+                            </div>
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                                <span>Keine Unterrichtsstunden.</span>
+                                <span>Keine Themen.</span>
                             </p>
                         {{/if}}
-                        {{#userHasPermission "COURSE_EDIT"}}
-                            <a href="/courses/{{../_id}}/lessons/add" class="btn btn-secondary margin-top">Neue
-                                Unterrichtsstunde hinzufügen</a>
-                        {{/userHasPermission}}
                     </div>
                 </div>
 
                 <div class="col-sm-6">
+                        <a href="/courses/{{_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
+                            <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
                     <h4>Tools</h4>
 
                     <div class="list-group">
@@ -54,10 +133,10 @@
                                     <p class="card-title-directory">
                                         {{#if logo_url}}
                                             <img src={{this.logo_url}} class="float-left"
-                                                 style="width:100px; height:auto;"/>
+                                                 style="width:auto; height:75px;"/>
                                         {{else}}
                                             <img src="/images/cloud.png" class="float-left"
-                                                 style="width:100px; height:auto;"/>
+                                                 style="width:auto; height:75px;"/>
                                         {{/if}}
                                         <span>{{this.name}}</span>
 
@@ -78,20 +157,75 @@
                         {{/if}}
                     </div>
 
-                    {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary margin-top">Neues Tool
-                            hinzufügen</a>
+                </div>
+            </div>
+                <hr/>
+            <div class="row">
+                <div class="col-sm-6 container">
+                    {{#userHasPermission "COURSE_EDIT" }}
+                    <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span>
+                    </a>
                     {{/userHasPermission}}
+                    <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
+                        <h4>
+                            <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            Gestellte Aufgaben 
+                            <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
+                        </h4>
+                    </a>
+                    <div id="homeworks" class="container-fluid collapse">
+                        <ol class="homework">
+                            <div class="row">
+                                {{#each homeworks}}
+                                    {{> 'homework/components/course_overview_card_template'}}
+                                {{/each}}
+                            </div>
+                        </ol>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                {{#userHasPermission "HOMEWORK_CREATE" }}
+                    <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="private Aufgabe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span>
+                    </a>
+                {{/userHasPermission}}
+                    <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
+                        <h4>
+                            <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            Meine Aufgaben 
+                            <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
+                        </h4>
+                    </a>
+                    <div id="myhomeworks" class="container-fluid collapse">
+                        <ol class="homework">
+                            <div class="row">
+                                {{#each myhomeworks}}
+                                    {{> 'homework/components/course_overview_card_template'}}
+                                {{/each}}
+                            </div>
+                        </ol>
+                    </div>
                 </div>
             </div>
 
-            {{#userHasPermission "COURSE_EDIT"}}
-                <div class="row padding-top">
-                    <div class="col-sm-12">
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
-                    </div>
+                        <a href="/courses/{{../_id}}/"
+                           class="btn btn-delete-course btn-secondary"
+                           target="_blank"
+                           data-method="delete-material"
+                           data-name="{{../name}}"
+                           redirect="/courses/">Kurs löschen</a>
+                        <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
+                    {{/userHasPermission}}
+                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
-            {{/userHasPermission}}
+            </div>
+
+
 
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
@@ -106,6 +240,18 @@
                             Löschen
                         </button>
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-invitation"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-topic"}}
                 {{/content}}
             {{/embed}}
 

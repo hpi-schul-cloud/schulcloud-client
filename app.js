@@ -23,8 +23,6 @@ const wax = handlebarsWax(handlebars)
     .helpers(layouts)
     .helpers(handlebarsHelper.helpers);
 
-app.use(handlebarsHelper.middleware);
-
 app.engine("hbs", wax.engine);
 app.set("view engine", "hbs");
 
@@ -95,7 +93,10 @@ app.use(function (err, req, res, next) {
         res.locals.loggedin = true;
     // render the error page
     res.status(status);
-    res.render('lib/error');
+    res.render('lib/error', {
+            loggedin: res.locals.loggedin,
+            inline: !res.locals.loggedin
+        });
 });
 
 module.exports = app;

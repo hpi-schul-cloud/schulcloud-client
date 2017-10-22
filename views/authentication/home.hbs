@@ -1,0 +1,114 @@
+{{#extend "lib/default"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/authentication/home.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/login.js" type="text/javascript" defer></script>
+        <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
+    {{/content}}
+
+    {{#content "body"}}
+        {{#embed "lib/header"}}{{/embed}}
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8">
+                    <div class="hidden-md-up">
+                        {{> "authentication/forms/login"}}
+                        {{> "authentication/forms/demo-login"}}
+                    </div>
+                    
+                    <section class="card">
+                        <div class="card-block">
+                            <h4>Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten</h4>
+                            <img src="/images/login-left-cropped.png" alt="Schul-Cloud Illustration #1" class="pull-right illustration">
+                            <p>Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.</p>
+
+                            <h4>Ansatzpunkte der Schul-Cloud</h4>
+                            <p>Die Nutzung digitaler Medien und Lernmethoden stellt viele Schulen noch vor große Herausforderungen: veraltete Hard- sowie Software im abgeschlossenen Computerraum, fächverbindender Einsatz kaum möglich uvm.</p>
+
+                            <h4>Pilotprojekt zur Modernisierung des Schulunterrichts</h4>
+                            <p>Das Hasso-Plattner-Institut (HPI) entwickelt die Schul-Cloud unter Förderung durch das Bundesministerium für Bildung und Forschung (BMBF) sowie in Kooperation mit dem nationalen Excellence-Schulnetzwerk MINT-EC. </p>
+                            <img src="/images/login-right-cropped.png" alt="Schul-Cloud Illustration #1" class="pull-left illustration">
+                            
+                            <ul>
+                                <li>Mehr Informationen: <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf" title="Initiates file download" target="_blank">Kurzbeschreibung "Die Schul-Cloud" (.pdf)</a></li>
+                            </ul>
+                            
+                            <h4>Die Grundidee der Schul-Cloud</h4>
+                            <p>Webbasierte Anwendungen sowie Rechenressourcen und Speichermöglichkeiten per Cloud Computing ermöglichen einen effizienten Zugriff auf zeitgemäße IT-Dienste für einen großen Kreis an Nutzer/innen.</p>
+                            <p>Der spontane, bedarfsgerechte Einsatz in jedem beliebigen Unterrichtsfach wird dadurch erleichtert. Die aufwendige Installation von Software auf einzelnen Endgeräten der Nutzer/innen entfällt.</p>
+                            <p>Sämtliche Programme und das Benutzerprofil werden via Internet zur Verfügung gestellt. Um Zugang zu den digitalen Inhalten zu erlangen, braucht es lediglich einen Internetzugang, webfähige Anzeige- und Eingabegeräte, einen modernen Webbrowser sowie entsprechende Berechtigungen.</p>
+                            <p>Die Bereitstellung der Schul-Cloud ist ein entscheidender Schritt, um die Nutzung digitaler Medien in der Schule flächendeckend voranzubringen.</p>
+                            <ul>
+                                <li>Mehr Informationen: <a href="https://publishup.uni-potsdam.de/opus4-ubp/files/10385/tbhpi116.pdf" title="Initiates file download" target="_blank">Technischer Bericht "Die Schul-Cloud" (.pdf)</a></li>
+                            </ul>
+                            
+                            <h4>Vorteile der Schul-Cloud</h4>
+                            <ul>
+                                <li>Zeit- und ortsunabhängiger Zugang zu einem großen Angebot an digitalen Lerninhalten</li>
+                                <li>Digitale Bildung jenseits separater Computerräume</li>
+                                <li>Professionelle Wartung</li>
+                                <li>Ständige Verfügbarkeit neuester Software für Lehrer/innen und Schüler/innen</li>
+                                <li>IT-Anwendungen entsprechen aktuellsten Sicherheitsstandards</li>
+                                <li>Anlaufstelle für neue digitale Lernangebote</li>
+                                <li>Direktes Feedback durch die Nutzer/innen</li>
+                                <li>Anregung zu selbstbestimmtem Lernen</li>
+                                <li>Bereitstellung eigens entworfener Lernangebote</li><li>Erweiterung der Unterrichtsmethoden</li><li>Vernetzung unterschiedlicher Lernorte</li>
+                            </ul>
+                        <div>
+                    </section>
+                </main>
+                <aside class="col-md-4">
+                    <div class="hidden-sm-down">
+                        {{> "authentication/forms/demo-login"}}
+                        {{> "authentication/forms/login"}}
+                    </div>
+
+                    <section id="blogfeed" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Schul-Cloud Blog</h4>
+                            <ul class="list-group list-group-flush">
+                                {{#each blogFeed}}
+                                    <li class="list-group-item">
+                                        <a href="{{this.link}}" target="scblog">
+                                            {{this.title}}
+                                        </a></br>
+                                        <small>von {{this.dc:creator}} am {{this.pubDate}}</small>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                            <a href="https://blog.schul-cloud.org" target="scblog" class="card-link pull-right pt-1">weitere Artikel <i class="fa  fa-angle-double-right" aria-hidden="true"></i></a>
+                        </div>
+                    </section>
+                    
+                    <section id="partner" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Projektdurchführung</h4>
+                            <div class="card-text">
+                                <a href="https://hpi.de" target="_blank">
+                                    <img src="/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid" style="padding: 20px;">
+                                </a>
+                                <a href="https://www.mint-ec.de/" target="_blank">
+                                    <img src="/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="img-fluid">
+                                </a>
+                                <a href="https://www.bmbf.de/" target="_blank">
+                                    <img src="/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+        {{#embed "lib/extended_footer"}}{{/embed}}
+        {{#embed "lib/components/modal-form" action="/pwrecovery/" method="post" class="pwrecovery-modal"}}
+            {{#content "fields"}}
+                {{> "authentication/forms/pwrecovery"}}
+            {{/content}}
+        {{/embed}}
+
+
+    {{/content}}
+{{/extend}}

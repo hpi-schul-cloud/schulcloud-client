@@ -1,5 +1,5 @@
 @import './colors';
-@import './bootstrap/scss/bootstrap';
+@import './bootstrap/scss/bootstrap-flex';
 
 body {
     background: white !important;
@@ -26,6 +26,42 @@ aside.nav-sidebar {
         position: relative;
     }
 
+    .sc-branding {
+        padding: 15px;
+        font-size: 25px;
+        background: $colorHPIRed;
+        color: whitesmoke;
+        @include media-breakpoint-down(md) {
+            padding: 10px;
+        }
+        .cloud-logo {
+            display: inline-block;
+            width: 45px;
+            height: 30px;
+            margin-bottom: -5px;
+            margin-right: 0.25rem;
+            background: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
+            background-size: contain;
+            @include media-breakpoint-down(md) {
+                width: 100%;
+                margin-right: 0;
+            }
+            @include media-breakpoint-down(xs) {
+                width: 45px;
+                margin-right: 0;
+            }
+        }
+        span {
+            @include media-breakpoint-down(md) {
+                display: none;
+            }
+
+            @include media-breakpoint-down(xs) {
+                display: inline-block;
+            }
+        }
+    }
+
     nav {
         width: 100%;
         float: left;
@@ -47,6 +83,7 @@ aside.nav-sidebar {
             list-style-type: none;
             padding: 0px;
             margin: 0px;
+            overflow-y: auto;
 
             li {
                 width: 100%;
@@ -75,7 +112,7 @@ aside.nav-sidebar {
                         border-bottom: 1px solid transparent;
 
                         .fa {
-                            display: none;
+                            margin-left: 10px;
                         }
 
                         @include media-breakpoint-down(md) {
@@ -84,6 +121,7 @@ aside.nav-sidebar {
 
                             .fa {
                                 display: inline-block;
+                                margin-left: 0;
                             }
                         }
 
@@ -92,7 +130,7 @@ aside.nav-sidebar {
                             line-height: 40px;
 
                             .fa {
-                                display: none;
+                                margin-left: 10px;
                             }
                         }
                     }
@@ -113,9 +151,9 @@ aside.nav-sidebar {
                         font-size: 20px;
                         width: 20px;
                         margin-right: 20px;
-                        display: block;
-                        float: left;
-                        line-height: 60px;
+                        display: inline-block;
+                        text-align: center;
+                        vertical-align: middle;
                     }
 
                     span {
@@ -161,6 +199,10 @@ header {
     float:left;
 }
 
+.window-inline .content-wrapper {
+    padding: 20px !important;
+}
+
 .content-wrapper {
     width: 100%;
     min-height:calc(100vh - 104px);
@@ -202,6 +244,19 @@ header {
             margin: 0px 0px 30px 0px;
         }
 
+    }
+}
+
+.demo {
+    text-align: center;
+    padding-left: 60px;
+
+    .alert-warning {
+        height: 57.375px;
+    }
+    p {
+        padding-top: 7px;
+        font-weight: 900;
     }
 }
 
@@ -342,6 +397,105 @@ footer {
 
         @include media-breakpoint-down(xs) {
             background: transparent;
+        }
+    }
+}
+
+.dropdowns {
+    .btn-thin {
+        padding-left: 5px!important;
+        padding-right: 5px!important;
+    }
+}
+
+.qr-code-action {
+    .btn {
+        border: none;
+        line-height: 30px;
+    }
+
+    .dropdown-menu {
+        padding: 15px;
+        padding-bottom: 9px;
+    }
+}
+
+.help-drodown {
+    .btn {
+        border: none;
+        line-height: 30px;
+    }
+
+    .dropdown-menu {
+        width: 236px;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    .list-group-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+    }
+
+    .list-group-item:last-child {
+        border-bottom-right-radius: 0rem;
+        border-bottom-left-radius: 0rem;
+    }
+
+    .list-group-item:first-child {
+        border-bottom-right-radius: 0rem;
+        border-bottom-left-radius: 0rem;
+    }
+
+    .link {
+        padding-left: 8px;
+    }
+
+    .delimiter {
+        background-color: $colorGrey;
+        height: 12px;
+    }
+}
+
+.notification-dropdown {
+    .btn {
+        border: none;
+        line-height: 30px;
+
+        &.recent i {
+            color: $colorHPIRed;
+            margin-right: 5px;
+        }
+    }
+
+    .dropdown-toggle:not(.recent) .tag {
+        display: none;
+    }
+
+    .dropdown-menu {
+        padding: 0px;
+        width: 300px;
+        max-height: 300px;
+        overflow: auto;
+    }
+
+    .notification-item {
+        padding: 10px 15px;
+        font-size: 14px;
+
+        &.unread {
+            background: #fffbe4;
+        }
+
+        & + .notification-item {
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .notification-time {
+            color: #999;
+            font-size: 12px;
+            display: block;
         }
     }
 }

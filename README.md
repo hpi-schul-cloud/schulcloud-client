@@ -1,4 +1,4 @@
-# Schulcloud Client
+# Schul-Cloud Client
 _An implementation of the Schul-Cloud client with NodeJS and Express._
 
 Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>
@@ -6,9 +6,11 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 
 ## Requirements
 
-* node.js
+* node.js 6 or later (You can install it from https://nodejs.org/en/download/)
 
 ## Setup
+
+There are blog posts on how to setup [client](https://github.com/schul-cloud/schulcloud-client) and [server](https://github.com/schul-cloud/schulcloud-server) under [Windows](https://schul-cloud.github.io/blog/2017-05-18/setup-schul-cloud-client-and-sever-under-windows) and [Linux](https://schul-cloud.github.io/blog/2017-04-21/setup-development-under-ubuntu).
 
 1. Clone directory into local folder
 2. Go into the cloned folder and enter `npm install`
@@ -22,18 +24,13 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 4. run `npm run watch` to boot the application
 5. go to `http://localhost:3100`
 
-## Run with Docker
+For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.
 
-1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)
-2. Go into the project folder
-3. run `docker-compose up`
-
-## How to name your branch
-
-1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")
-2. Name the branch after the Trello id (e.g. "8-setup-feathers-js")
-
+For connecting to the [SchulCloud Notification-Service](https://github.com/schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.
 ## Testing
+
+**Information**: Please make sure that all your changes works on [Chrome](https://www.google.de/chrome/browser/desktop/index.html) , [Firefox](https://www.mozilla.org/de/firefox/new/) and [Safari](https://www.apple.com/de/safari/)!
+For html/css components please check [caniuse](https://caniuse.com/).
 
 1. Set the password for the demo user `schueler@schul-cloud.org`
     Ubuntu/Mac: `export SC_DEMO_USER_PASSWORD={PASSWORD}` (Without braces)
@@ -41,6 +38,11 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
 2. run `npm run test`
 3. If you want to use another backend url than localhost, set the `BACKEND_URL` environment variable (see 1)
 4. If you want to list the coverage, run `npm run coverage`
+
+## How to name your branch
+
+1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")
+2. Name the branch after the Trello id (e.g. "8-setup-feathers-js")
 
 ## Commiting
 

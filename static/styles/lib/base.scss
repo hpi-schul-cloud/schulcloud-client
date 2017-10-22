@@ -2,9 +2,11 @@
 @import "components";
 
 @import "./tether/tether.min.css";
-@import "./bootstrap/scss/bootstrap";
+@import "./bootstrap/scss/bootstrap-flex";
 @import "./fontawesome/font-awesome";
 @import "./chosen/bootstrap-chosen.scss";
+@import "./datetimepicker/jquery.datetimepicker.min.css";
+@import "./toggle/bootstrap-toogle.min.css";
 
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
@@ -18,6 +20,19 @@ a {
 	&:hover {
 		text-decoration: none;
 	}
+}
+
+a[data-toggle="collapse"],
+a[data-toggle="collapse"]:hover,
+a[data-toggle="collapse"]:active,
+a[data-toggle="collapse"]:focus{
+    color: inherit;
+    text-decoration:none !important;
+}
+
+p.small {
+	line-height: 18px;
+	font-size: 12px;
 }
 
 .no-padding {
@@ -38,6 +53,7 @@ label {
 
 .pagination-wrapper {
 	text-align: center;
+	width: 100%;
 }
 
 .btn-loading {
@@ -56,10 +72,11 @@ label {
 	}
 }
 
-footer {
+footer.small-footer {
 	width: 100%;
 	margin-top: 40px;
 	position: inherit;
+	@media screen and (max-height: 700px) { top: 510px; }
 	bottom: 0;
 	right: 0;
 	left: 0;
@@ -124,6 +141,11 @@ form.inline {
 	background-color: $colorGrey;
 }
 
+.btn-thin {
+	padding-left: 15px !important;
+	padding-right: 15px !important;
+}
+
 .alert-fixed {
   position:fixed;
   top: 0;
@@ -131,4 +153,70 @@ form.inline {
   width: 100%;
   z-index:9999;
   border-radius:0
+}
+
+.dropdown-item {
+	cursor: pointer;
+}
+
+.collapse-icon {
+	display:inline-block;
+    vertical-align: baseline;
+    text-align: center;
+    width: 1em;
+}
+
+.window-inline .hide-inline {
+	display: none;
+}
+
+.card-deck-row {
+    width: 100%;
+
+	& > div {
+		margin-bottom: 30px;
+	}
+
+	.card {
+		max-width: 100% !important;
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+
+		p {
+			word-wrap: break-word;
+		}
+
+		.card-block {
+			max-width: 100%;
+			width: 100%;
+			flex: 1 1 0;
+		}
+
+		.card-footer {
+			align-self: flex-end;
+			flex: 0 1 0;
+			width: 100%;
+		}
+	}
+}
+
+.ckcontent {
+    margin: 10px 0;
+    color: #373a3c;
+    text-decoration:none;
+    &:hover{text-decoration:none;}
+    word-break: break-all;
+    h1 {font-size: 1.3rem;font-weight:bold}
+    h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
+    h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
+    p  {font-size: 1rem;margin-bottom:.25rem;}
+    img, video{max-width: 100%;}
+    table{display: block; max-width:100%; overflow: auto;}
+    blockquote{
+      color: grey;
+      margin-left: 1rem;
+      border-left: 2px solid grey;
+      padding-left: 5px;
+    }
 }
