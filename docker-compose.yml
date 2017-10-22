@@ -18,6 +18,7 @@ services:
     volumes:
       - .:/home/node/app
       - /home/node/app/node_modules/
+      - /home/node/app/build/
     command: npm run debug
 
 networks:
