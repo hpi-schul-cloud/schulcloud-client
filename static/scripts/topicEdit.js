@@ -301,6 +301,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                     </div>
                 </div>
             </div>
@@ -342,6 +343,9 @@ class TopicBlock extends React.Component {
                 break;
             case 'geoGebra':
                 return TopicGeoGebra;
+                break;
+            case 'neXboard':
+                return TopicNexboard;
                 break;
         }
     }
@@ -717,6 +721,86 @@ class TopicGeoGebra extends TopicBlock {
     }
 };
 
+
+/**
+ * Class representing a neXboard
+ * @extends React.Component
+ */
+class TopicNexboard extends TopicBlock {
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            boards: []
+        };
+    }
+
+    componentDidMount() {
+        $.getJSON("nexboard/boards").then(boards => {
+            this.setState({boards});
+        });
+        $(".chosen-select").chosen();
+    }
+
+    componentDidUpdate() {
+        $(".chosen-select").trigger("chosen:updated");
+        console.log("didUpdate");
+    }
+
+    change() {
+        console.log("changed");
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in view mode.
+     */
+    static get component() {
+        return 'neXboard';
+    }
+
+    /**
+     * Render the block (an textarea)
+     */
+    render() {
+        return (
+            <div>
+                <div className="form-group">
+                    <label>Name des neXboards</label>
+                    <input className="form-control" name={`contents[${this.props.position}][content][title]`}
+                           type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
+                </div>
+                <div className="form-group">
+                    <label>Beschreibung des neXboards</label>
+                    <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
+                              placeholder="Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC ">
+                        {(this.props.content || {}).description}
+                    </textarea>
+                </div>
+                <div className="form-group">
+                    <label>neXboard auswählen</label>
+                    <select className="chosen-select" data-placeholder="neXboard auswählen" value={(this.props.content || {}).board}>
+                        <option></option>
+                        <optgroup label="Vorhandene Boards">
+                            {this.state.boards.map(board =>
+                                <option value={board.id}>{board.title}</option>
+                            )}
+                        </optgroup>
+                        <optgroup label="Neues Board">
+                            <option>Neues neXboard anlegen</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <input type="hidden" name={`contents[${this.props.position}][content][url]`}
+                       value="https://nexboard.nexenio.com/client/pub/2883/035e2407-p900-3fp1-m2c5-7770ku633928" />
+            </div>
+        );
+    }
+};
 
 /**
  * Render the virtual React DOM into an <div> in the current page.

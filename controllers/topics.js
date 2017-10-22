@@ -180,5 +180,21 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
+router.get('/:topicId/nexboard/boards', function (req, res, next) {
+    let userId = res.locals.currentUser._id;
+    res.json([
+        {
+            "id" : 2883,
+            "title": "Board 1",
+            "link": "https://nexboard.nexenio.com/client/pub/2883/843x9054-e580-4ce5-d1a5-7016qn257504"
+        },
+        {
+            "id" : 2884,
+            "title": "Board 2",
+            "link": "https://nexboard.nexenio.com/client/pub/2884/663g6577-v380-4mf2-s1x4-9686ja243862",
+        }
+    ]);
+});
+
 
 module.exports = router;
