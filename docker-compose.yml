@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile
     environment:
       NODE_ENV: development
-      BACKEND_URL: http://schulcloud-server:3030/
+      BACKEND_URL: https://schul-cloud.org:8080/
     ports:
       - 3100:3100
       - 9310:9310
@@ -21,7 +21,7 @@ services:
       - /home/node/app/build/
     command: npm run debug
 
-networks:
-  default:
-    external:
-      name: schulcloudserver_schulcloud-server-network
+#networks:
+#  default:
+#    external:
+#      name: schulcloudserver_schulcloud-server-network
