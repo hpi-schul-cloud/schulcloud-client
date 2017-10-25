@@ -41,6 +41,11 @@
                     {{/content}}
                 {{/embed}}
 
+                {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-delete-user"}}
+                    {{/content}}
+                {{/embed}}
 
             </section>
         </div>
