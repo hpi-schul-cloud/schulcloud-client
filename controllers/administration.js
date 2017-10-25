@@ -29,18 +29,18 @@ const getSelectOptions = (req, service, query, values = []) => {
 };
 
 
-const getTableActions = (item, path) => {
+const getTableActions = (item, path, isAdmin = true, isTeacher = false) => {
     return [
         {
             link: path + item._id,
-            class: 'btn-edit',
+            class: `btn-edit ${isTeacher ? 'disabled' : ''}`,
             icon: 'edit'
         },
         {
             link: path + item._id,
-            class: 'btn-delete',
+            class: `${isAdmin ? 'btn-delete' : 'disabled'}`,
             icon: 'trash-o',
-            method: 'delete'
+            method: `${isAdmin ? 'delete' : ''}`
         }
     ];
 };
@@ -601,7 +601,11 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 item.lastName,
                 item.email,
                 getClasses(item, classes, true),
-                getTableActions(item, '/administration/teachers/')
+                getTableActions(
+                    item,
+                    '/administration/teachers/',
+                    _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
+                    _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
             ];
         });
 
@@ -660,7 +664,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 item.lastName,
                 item.email,
                 getClasses(item, classes, false),
-                getTableActions(item, '/administration/students/')
+                getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'))
             ];
         });
 
@@ -764,10 +768,10 @@ router.all('/courses', function (req, res, next) {
             ''
         ];
 
-        const classesPromise = getSelectOptions(req, 'classes');
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
+        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
         Promise.all([
             classesPromise,
@@ -834,8 +838,8 @@ router.all('/classes', function (req, res, next) {
             ''
         ];
 
-        let teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher']});
-        let studentsPromise = getSelectOptions(req, 'users', {roles: ['student']});
+        let teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        let studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
         Promise.all([
             teachersPromise,

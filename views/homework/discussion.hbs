@@ -31,7 +31,9 @@
                 <input name="author" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}" />
                 <input name="submissionId" type="hidden" data-force-value="true" value="{{this.submission._id}}" />
                 <textarea name="comment" type="text" class="form-control" placeholder="Enter comment here..." cols="5"></textarea>
-                <button type="submit" class="btn btn-primary">senden</button>
+                {{#userHasPermission "HOMEWORK_CREATE" }}
+                    <button type="submit" class="btn btn-primary">senden</button>
+                {{/userHasPermission}}
             </form>
         </div>
     </div>
