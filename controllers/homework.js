@@ -241,8 +241,11 @@ const getUpdateHandler = (service) => {
             }
         }else{
             if(service == "submissions"){
-                req.body.grade = parseInt(req.body.grade);
-                req.body.studentId = res.locals.currentUser._id;
+                if(req.body.grade || req.body.gradeComment){
+                    req.body.grade = parseInt(req.body.grade);
+                } else{
+                    req.body.studentId = res.locals.currentUser._id;
+                }
             }
         }
         return patchFunction(service, req, res, next);
