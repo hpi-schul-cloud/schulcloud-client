@@ -674,7 +674,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     return {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
-                            return (submission.studentId == student._id)
+                            return (submission.studentId._id == student._id)
                                  ||(submission.coWorkers.includes(student._id.toString()));
                         })[0]
                     };
