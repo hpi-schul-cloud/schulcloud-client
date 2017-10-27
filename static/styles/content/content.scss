@@ -68,6 +68,9 @@ h1, h3 {
     text-overflow: ellipsis;
     margin-bottom: 10px;
 }
+.tag {
+    max-width: 100%;
+}
 .card-text {
     word-wrap: break-word;
 }
