@@ -1,37 +1,33 @@
-<div class="col-lg-4 col-md-6 col-sm-12">
-    <article class="card h-100">
-        <div class="card-block">
-            <div class="pull-right">
-                <small class="text-muted">{{{this.date}}}</small>
-            </div>
-
-            <div class="card-text"><strong>{{{this.title}}}</strong></div>
-            <div class="card-text ckcontent">
-                {{{truncateHTML (conflictFreeHtml this.content)}}}
-            </div>
+<article class="sc-card">
+    <div class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
+        <span class="sc-card-title">{{this.title}}</span>
+        
+        <div class="sc-card-menu">
+            {{#each this.actions}}
+                {{#if this.method}}
+                        <a class="{{this.class}}"
+                           href="{{this.link}}"
+                           target="_blank"
+                           data-method="delete-material"
+                           data-name="{{../title}}"
+                           alt="'{{../title}}' löschen">
+                            <i class="fa fa-{{this.icon}}"></i>
+                        </a>
+                {{else}}
+                    <a class="{{this.class}}" href="{{this.link}}" alt="'{{../../title}}' {{this.alt}}.">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
+                {{/if}}
+            {{/each}}
         </div>
-        <div class="card-footer">
-            <div class="input-group">
-                    <div class="btn-group left-btn-group">
-                        {{#each this.actions}}
-                            {{#if this.method}}
-                                    <a class="btn btn-secondary {{this.class}}"
-                                       href="{{this.link}}"
-                                       target="_blank"
-                                       data-method="delete-material"
-                                       data-name="{{../title}}"
-                                       alt="Artikel '{{../title}}' löschen">
-                                        <i class="fa fa-{{this.icon}}"></i>
-                                    </a>
-                            {{else}}
-                                <a class="btn btn-secondary {{this.class}}" href="{{this.link}}" alt="Artikel '{{../../title}}' {{this.alt}}.">
-                                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                                </a>
-                            {{/if}}
-                        {{/each}}
-                    </div>
-                <a class="btn btn-secondary {{#if this.actions}}ml-1{{/if}} more" href="{{url}}" rel="canonical">{{{link-text}}}</a>
-            </div>
+    </div>
+    <div class="sc-card-body ckcontent">
+        <div class="pull-right pl-1">
+            <small class="text-muted">{{{this.date}}}</small>
         </div>
-    </article>
-</div>
+        {{{truncateHTML (conflictFreeHtml this.content)}}}
+    </div>
+    <div class="sc-card-footer">
+        <a href="{{url}}" rel="canonical">{{{link-text}}}</a>
+    </div>
+</article>

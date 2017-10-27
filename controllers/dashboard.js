@@ -95,12 +95,12 @@ router.get('/', function (req, res, next) {
     }).then(data => data.data.map(homeworks => {
         homeworks.date = moment(homeworks.dueDate).fromNow();
         if (homeworks.courseId != null) {
-            homeworks.title = '<span style="color:'+homeworks.courseId.color+'">●</span> ['+homeworks.courseId.name+'] ';
+            homeworks.title = '['+homeworks.courseId.name+'] ' + homeworks.name;
+            homeworks.background = homeworks.courseId.color;
         } else {
-            homeworks.title = '<span style="color:#1DE9B6">●</span> ';
+            homeworks.title = homeworks.name;
             homeworks.private = true;
         }
-        homeworks.title += homeworks.name;
         homeworks.url = '/homework/' + homeworks._id;
         homeworks.content = homeworks.description;
         return homeworks;
@@ -115,10 +115,13 @@ router.get('/', function (req, res, next) {
         }
     }
     //Somehow $lte doesn't work in normal query so I manually put it into a request
+    const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
     const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
     ).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
             news.date = moment(news.displayAt).fromNow();
+            // ToDo: insert real Header Image from News
+            news.background = '#'+colors[(news.title||"").length % colors.length];
             return news;
     }).sort(sortFunction).slice(0,3));
 
@@ -140,8 +143,8 @@ router.get('/', function (req, res, next) {
             title: 'Übersicht',
             events,
             eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 6),
-            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 6),
+            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 4),
+            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 4),
             news,
             hours,
             currentTimePercentage,
