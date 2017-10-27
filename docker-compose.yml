@@ -17,7 +17,7 @@ services:
       - schulcloud-server:server
     volumes:
       - .:/home/node/app
-      - /home/node/app/node_modules/
+      - data-schulcloud-client-node-modules:/home/node/app/node_modules/
       - data-schulcloud-client-build:/home/node/app/build/
     command: npm run debug
 
@@ -25,12 +25,13 @@ services:
     image: node:8.7.0
     volumes:
       - .:/home/node/app
-      - /home/node/app/node_modules/
+      - data-schulcloud-client-node-modules:/home/node/app/node_modules/
       - data-schulcloud-client-build:/home/node/app/build/
     command: bash -c "npm install -gq gulp && cd /home/node/app && gulp watch"
 
 volumes:
   data-schulcloud-client-build:
+  data-schulcloud-client-node-modules:
 
 #networks:
 #  default:
