@@ -29,23 +29,18 @@
         width: 100% !important;
     }
 }
-@include media-breakpoint-down(sm) {
+@include media-breakpoint-down(md) {
     .sc-card-wrapper:nth-child(n+4) {
         display: none;  
     }
 }
-@include media-breakpoint-down(md) {
-    .sc-card-wrapper:nth-child(n+5) {
-        display: none;  
-    }
-}
 @include media-breakpoint-down(lg) {
-    .sc-card-wrapper:nth-child(n+7) {
+    .sc-card-wrapper:nth-child(n+4) {
         display: none;  
     }
 }
 @include media-breakpoint-down(xl) {
-    .sc-card-wrapper:nth-child(n+9) {
+    .sc-card-wrapper:nth-child(n+5) {
         display: none;  
     }
 }
