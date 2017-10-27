@@ -115,12 +115,13 @@ router.get('/', function (req, res, next) {
         }
     }
     //Somehow $lte doesn't work in normal query so I manually put it into a request
+    const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
     const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
     ).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
             news.date = moment(news.displayAt).fromNow();
             // ToDo: insert real Header Image from News
-            news.background = 'url(/images/news-fallback.jpg) center/cover no-repeat';
+            news.background = '#'+colors[(news.title||"").length % colors.length];
             return news;
     }).sort(sortFunction).slice(0,3));
 
