@@ -8,6 +8,9 @@ COPY . /home/node/app
 # Run npm install && gulp
 RUN cd /home/node/app && npm install && gulp
 
+VOLUME /home/node/app/build
+VOLUME /home/node/app/node_modules
+
 USER node
 WORKDIR /home/node/app
 
