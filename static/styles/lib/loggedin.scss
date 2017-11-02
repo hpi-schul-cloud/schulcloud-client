@@ -27,10 +27,12 @@ aside.nav-sidebar {
     }
 
     .sc-branding {
+        display: block;
         padding: 15px;
         font-size: 25px;
         background: $colorHPIRed;
         color: whitesmoke;
+        text-decoration: none;
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
@@ -89,7 +91,7 @@ aside.nav-sidebar {
                 width: 100%;
                 float: left;
 
-                a {
+                a:not(.sc-branding) {
                     width: 100%;
                     float: left;
                     height: 60px;
