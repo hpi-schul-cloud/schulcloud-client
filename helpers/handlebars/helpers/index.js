@@ -34,7 +34,10 @@ module.exports = {
         if (text.length <= length) {
             return text;
         }
-        return truncatehtml(text, 140);
+        return truncatehtml(text, length, {
+          stripTags: true,
+          decodeEntities: true,
+        });
     },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');
