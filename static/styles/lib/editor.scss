@@ -1,0 +1,24 @@
+@import "./colors";
+.cke_chrome{
+    border: 1px solid $colorHPIRed !important;
+}
+.cke_top{
+    background-color: #fff !important;
+}
+.cke_bottom{
+    background-color: $colorHPIRed !important;
+    border-top: none !important;
+    a.cke_path_item{
+        color: #fff !important;
+    }
+}
+.cke_resizer{
+    border-color: transparent #fff transparent transparent !important;
+}
+a.cke_dialog_ui_button{
+    border:none !important;
+}
+a.cke_dialog_ui_button_ok{
+    background: $colorHPIRed !important;
+    border: 1px solid $colorHPIRed !important;
+}
