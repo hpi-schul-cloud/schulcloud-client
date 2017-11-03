@@ -4,7 +4,9 @@
     <div class="card-block">
 
         {{#userIsAllowedToViewContent nonOer}}
-            <a href="/content/redirect/{{{ ../_id }}}" target="_blank">
+            <a class="external-link" href="#!"
+            data-external-link="/content/redirect/{{{ ../_id }}}"
+            data-provider="{{{ ../providerName }}}">
                 <h4 class="card-title">{{{ ../title }}}</h4>
             </a>
         {{else}}

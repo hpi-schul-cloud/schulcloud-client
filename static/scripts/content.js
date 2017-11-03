@@ -1,6 +1,7 @@
 $(document).ready(function () {
 	var $modals = $('.modal');
 	var $editModal = $('.edit-modal');
+	var $externalLinkModal = $('.external-link-modal');
 
 	var populateCourseSelection = function (modal, courses) {
 		var $selection = modal.find('.course-selection');
@@ -37,20 +38,19 @@ $(document).ready(function () {
 		var query = $('.search-field');
 
 		$.getJSON(entry, function (result) {
+			var fields = result.content;
+			fields.query = query.val();
 
-            var fields = result.content;
-            fields.query = query.val();
-
-            if(window.isInline) {
-                window.opener.addResource({
-                	url: fields.url,
-                    title: fields.title,
-					description: fields.description,
-                    client: fields.providerName
-				});
-                window.close();
-                return;
-            }
+			if(window.isInline) {
+					window.opener.addResource({
+						url: fields.url,
+						title: fields.title,
+						description: fields.description,
+						client: fields.providerName
+					});
+					window.close();
+					return;
+			}
 
 			populateModalForm($editModal, {
 				title: 'Material zu Thema hinzufügen',
@@ -71,7 +71,19 @@ $(document).ready(function () {
 		});
 	});
 
-	$modals.find('.close, .btn-close').on('click', function () {
+	$('.external-link').on('click', function () {
+		console.log('external-link clicked, redirect to: ', $(this).data('external-link'));
+		populateModalForm($externalLinkModal, {
+				title: 'Sie verlassen jetzt die Schul-Cloud',
+				closeLabel: 'Abbrechen',
+		});
+		$externalLinkModal.find('.external-link-btn').attr('href', $(this).data('external-link'));
+		var provider = $externalLinkModal.find('.provider')
+		provider.html($(this).data('provider') || provider.html());
+		$externalLinkModal.modal('show');
+	})
+
+	$modals.find('.close, .btn-close, .external-link-btn').on('click', function () {
 		$modals.modal('hide');
 	});
 });
