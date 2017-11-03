@@ -8,6 +8,7 @@
     height: 100%;
     margin: 0;
     border-radius: 2px;
+    overflow: hidden;
     .sc-card-header {
         display: flex;
         flex-direction: row;
@@ -32,6 +33,7 @@
         .sc-card-title {
             align-self: flex-end;
             font-weight: 700;
+            overflow: hidden;
             z-index: 9999;
             text-shadow: 0 0 10px rgba(0, 0, 0, .5);          
         }
@@ -69,6 +71,9 @@
         border: 1px solid rgba(0,0,0,.125);
         border-top-width: 0;
         border-bottom-width: 0;
+        p{
+            overflow: hidden;
+        }
         &:first-of-type{
             border-top-left-radius: 2px;
             border-top-right-radius: 2px;
