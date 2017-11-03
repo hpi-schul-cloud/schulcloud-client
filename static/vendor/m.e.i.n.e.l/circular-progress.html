@@ -9658,9 +9658,6 @@ var e,r,n=t[0].trace,a=i.select(this),o=u.hasMarkers(n),c=u.hasText(n),f=y(n),d=
                     var pathBackground = svg.append('path')
                         .attr('d', arc)
                         .style('fill', this.accentcolor);
-                   
-                    if(this.data == 100){this.primarycolor = "#00d900";}
-                    if(this.secdata&&this.secdata==100){this.secondarycolor = "#008c00";}
                     
                     if(this.secdata){                                            //  tx, ty, px, py,  fts,  fps                 
                         build_value(this.data,    this.primarycolor,   'gradient1', -20, 25, 6,-20, 0.30, 0.15);
