@@ -319,6 +319,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
     let submissionId = req.params.id;
     let fileId = req.params.fileId;
     let homeworkId = req.body.homeworkId;
+    let coWorkers = req.body.coWorkers || [];
 
     // if homework is already given, just fetch homework
     let homeworkPromise = homeworkId
@@ -336,6 +337,14 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
             permissions: ['can-read', 'can-write']
         };
         file.permissions.push(newPermission);
+
+        // if submission is a team submission, add permissions for any student
+        coWorkers.forEach(cw => {
+            file.permissions.push({
+                userId: cw,
+                permissions: ['can-read', 'can-write']
+            });
+        });
 
         api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
     }).catch(err => res.send(err));

@@ -266,17 +266,21 @@ $(document).ready(function() {
                 }, (data) => {
                     // add submitted file reference to submission
                     // hint: this only runs when an submission is already existing. if not, the file submission will be
-                    // only saved when hitting the the save button in the corresponding submission form
+                    // only saved when hitting the save button in the corresponding submission form
                     let submissionId = $("input[name='submissionId']").val();
+
+                    // try to get coWorkers for the current submission
+                    let coWorkers = $('#coWorkers').val();
+
                     if (submissionId) {
                        $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id}, _ => {
-                           $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`);
+                           $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {coWorkers: coWorkers});
                        });
                     } else {
                         addNewUploadedFile($('.list-group-files'), data);
                         let homeworkId = $("input[name='homeworkId']").val();
                         // 'empty' submissionId is ok because the route takes the homeworkId first
-                        $.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId});
+                        $.post(`/homework/submit/0/files/${data._id}/permissions`, {homeworkId: homeworkId, coWorkers: coWorkers});
                     }
                 }).fail(showAJAXError);
 
