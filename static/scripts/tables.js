@@ -76,6 +76,23 @@ $('tr th').each(function(i,j) {
     });
 });
 
+$('#limit').change(function changeLimit() {
+
+    let location = window.location.search.split('&');
+    let contained = false;
+
+    location = location.map(entity => {
+        if (entity.includes('limit')) {
+            entity = 'limit=' + $('#limit').val();
+            contained = true;
+        }
+        return entity;
+    });
+    if (!contained)
+        location.push('limit=' + $('#limit').val());
+    window.location.search = location.join('&');
+});
+
 let location = window.location.search.split('&');
 location.map(entity => {
    if (entity.includes('sort')) {
@@ -96,5 +113,4 @@ location.map(entity => {
        }
    }
 });
-
 });
