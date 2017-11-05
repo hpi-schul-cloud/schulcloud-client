@@ -177,10 +177,14 @@ form.inline {
 
 .card-deck-row {
     width: 100%;
-
 	& > div {
 		margin-bottom: 30px;
 	}
+    .col-sm-12{
+        padding: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
 
 	.card {
 		max-width: 100% !important;
