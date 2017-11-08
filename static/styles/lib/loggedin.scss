@@ -409,12 +409,27 @@ footer {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
+    .hidden-dropdown-toggle{
+        padding: 10px !important;
+        border-radius: 50%;
+        margin-left: -.75rem;
+        text-align: center;
+        .fa{
+            display: inline-block;
+            font-size: 20px;
+            line-height: 1em;
+            width: 1em;
+            height: 1em;
+        }
+        &:after{
+            display: none;
+        }
+    }
 }
 
 .qr-code-action {
     .btn {
         border: none;
-        line-height: 30px;
     }
 
     .dropdown-menu {
@@ -426,7 +441,6 @@ footer {
 .help-drodown {
     .btn {
         border: none;
-        line-height: 30px;
     }
 
     .dropdown-menu {
@@ -464,7 +478,6 @@ footer {
 .notification-dropdown {
     .btn {
         border: none;
-        line-height: 30px;
 
         &.recent i {
             color: $colorHPIRed;
@@ -481,6 +494,7 @@ footer {
         width: 300px;
         max-height: 300px;
         overflow: auto;
+        /* ADD triangle anywhere here*/
     }
 
     .notification-item {
