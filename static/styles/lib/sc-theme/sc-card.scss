@@ -57,6 +57,7 @@
                 line-height: 32px;
                 overflow: hidden;
                 opacity: .5;
+                transition: all .1s ease-in-out;
                 &:hover {
                     background: rgba(0,0,0,.2);
                 }
@@ -119,6 +120,7 @@
             text-decoration: none;
             text-align: center;
             line-height: 36px;
+            transition: all .1s ease-in-out;
             &:hover {
                 background-color: #eee;
             }
