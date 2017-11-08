@@ -92,6 +92,11 @@ module.exports = {
             return moment(date).fromNow();
         }
     },
+    concat: function(){
+        var arg = Array.prototype.slice.call(arguments,0);
+        arg.pop();
+        return arg.join('');
+    },
     log: (data) => {
         console.log(data);
     },
