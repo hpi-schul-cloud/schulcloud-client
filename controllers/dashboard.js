@@ -97,7 +97,7 @@ router.get('/', function (req, res, next) {
             }
         }
     }).then(data => data.data.map(homeworks => {
-        homeworks.menuInfo = moment(homeworks.dueDate).fromNow();
+        homeworks.secondaryTitle = moment(homeworks.dueDate).fromNow();
         if (homeworks.courseId != null) {
             homeworks.title = '['+homeworks.courseId.name+'] ' + homeworks.name;
             homeworks.background = homeworks.courseId.color;
@@ -129,7 +129,7 @@ router.get('/', function (req, res, next) {
         }
     }).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
-            news.menuInfo = moment(news.displayAt).fromNow();
+            news.secondaryTitle = moment(news.displayAt).fromNow();
             // ToDo: insert real Header Image from News
             news.background = '#'+colors[(news.title||"").length % colors.length];
             return news;
