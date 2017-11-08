@@ -1,18 +1,16 @@
 <section class="section section-{{section-id}}">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12"><h5>{{title}}</h5></div>
-        </div>
-        <div class="row tasks card-deck-row">
-            {{#each content}}
-                {{> 'dashboard/components/card_template' link-text=../link-text}}
-            {{else}}
-                <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-                    <div class="alert alert-info">
-                        <strong>Info!</strong> Keine Einträge vorhanden.
-                    </div>
+    <div class="row">
+        <div class="col-sm-12"><h5>{{title}}</h5></div>
+    </div>
+    <div class="row tasks card-deck-row">
+        {{#each content}}
+            {{> 'dashboard/components/card_template' link-text=../link-text}}
+        {{else}}
+            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
+                <div class="alert alert-info">
+                    <strong>Info!</strong> Keine Einträge vorhanden.
                 </div>
-            {{/each}}
-        </div>
+            </div>
+        {{/each}}
     </div>
 </section>
