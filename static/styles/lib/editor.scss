@@ -1,0 +1,63 @@
+@import "./colors";
+
+/* BASE */
+
+.cke_wysiwyg_frame::selection{
+    background-color: $colorHPIOrange;
+    color: #fff;
+}
+.cke_chrome{
+    border: 1px solid $colorHPIRed !important;
+}
+.cke_top{
+    background-color: #fff !important;
+}
+.cke_bottom{
+    background-color: $colorHPIRed !important;
+    border-top: none !important;
+    a.cke_path_item{
+        color: #fff !important;
+        &:active, 
+        &:focus, 
+        &:hover{
+            background-color: lighten($colorHPIRed, 10%) !important;
+        }
+    }
+}
+.cke_resizer{
+    border-color: transparent #fff transparent transparent !important;
+}
+
+/* DIALOG */
+
+a.cke_dialog_ui_button{
+    border:1px solid #ccc !important;
+}
+a.cke_dialog_ui_button_ok{
+    background: $colorHPIRed !important;
+    border: 1px solid $colorHPIRed !important;
+}
+input.cke_dialog_ui_input_password, 
+input.cke_dialog_ui_input_text, 
+select.cke_dialog_ui_input_select, 
+textarea.cke_dialog_ui_input_textarea{
+    &:focus{
+        border-color: $colorHPIRed !important;
+    }
+}
+a.cke_dialog_tab:focus{
+    border-color: $colorHPIRed !important;
+    border-bottom-color: #d1d1d1 !important;
+}
+.cke_dialog_title{
+    color: #fff !important;
+    background-color: $colorHPIRed !important;
+}
+.cke_dialog_footer{
+    background-color: #fff !important;
+    border-top: none !important;
+}
+a.cke_dialog_close_button{
+    filter: brightness(0) invert(1);
+    opacity: 1 !important;
+}

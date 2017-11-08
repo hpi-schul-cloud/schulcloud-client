@@ -56,6 +56,11 @@ label {
 	width: 100%;
 }
 
+label,
+.noselect{
+    user-select: none;
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;

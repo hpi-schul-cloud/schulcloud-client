@@ -70,7 +70,7 @@ const getTableActionsSend = (item, path, state) => {
               },
               {
                   link: path + item._id,
-                  class: 'btn-delete',
+                  class: 'btn-disable',
                   icon: 'ban',
                   method: 'delete'
               },
@@ -510,6 +510,34 @@ const returnAdminPrefix = (roles) => {
     return prefix;
 };
 
+const getClasses = (user, classes, teacher) => {
+    let userClasses = '';
+
+    if (teacher) {
+        classes.data.map(uClass => {
+            if (uClass.teacherIds.includes(user._id)) {
+                if (userClasses !== '') {
+                    userClasses = userClasses + ' , ' + uClass.name
+                } else {
+                    userClasses = uClass.name
+                }
+            }
+        });
+    } else {
+        classes.data.map(uClass => {
+            if (uClass.userIds.includes(user._id)) {
+                if (userClasses !== '') {
+                    userClasses = userClasses + ' , ' + uClass.name
+                } else {
+                    userClasses = uClass.name
+                }
+            }
+        });
+    }
+
+    return userClasses;
+};
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -544,7 +572,7 @@ router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VI
 
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = 10;
+    const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
@@ -553,13 +581,17 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             roles: ['teacher'],
             $populate: ['roles'],
             $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
         }
     }).then(data => {
+        api(req).get('/classes')
+            .then(classes => {
         const head = [
             'Vorname',
             'Nachname',
             'E-Mail-Adresse',
+            'Klasse(n)',
             ''
         ];
 
@@ -568,6 +600,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 item.firstName,
                 item.lastName,
                 item.email,
+                getClasses(item, classes, true),
                 getTableActions(
                     item,
                     '/administration/teachers/',
@@ -576,13 +609,25 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             ];
         });
 
+        let sortQuery = '';
+        if (req.query.sort) {
+            sortQuery = '&sort=' + req.query.sort;
+        }
+
+        let limitQuery = '';
+        if (req.query.limit) {
+            limitQuery = '&limit=' + req.query.limit;
+        }
+
         const pagination = {
             currentPage,
             numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/teachers/?p={{page}}'
+            baseUrl: '/administration/teachers/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination});
+        res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination, limit: true});
+
+            });
     });
 });
 
@@ -594,7 +639,7 @@ router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = 10;
+    const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
@@ -603,13 +648,18 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
             roles: ['student'],
             $populate: ['roles'],
             $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
         }
     }).then(data => {
+        api(req).get('/classes')
+            .then(classes => {
+
         const head = [
             'Vorname',
             'Nachname',
             'E-Mail-Adresse',
+            'Klasse(n)',
             ''
         ];
 
@@ -618,17 +668,30 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 item.firstName,
                 item.lastName,
                 item.email,
+                getClasses(item, classes, false),
                 getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'))
             ];
         });
 
+        let sortQuery = '';
+        if (req.query.sort) {
+            sortQuery = '&sort=' + req.query.sort;
+        }
+
+        let limitQuery = '';
+        if (req.query.limit) {
+            limitQuery = '&limit=' + req.query.limit;
+        }
+
         const pagination = {
             currentPage,
             numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/students/?p={{page}}'
+            baseUrl: '/administration/students/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/students', {title: title + 'Schüler', head, body, pagination});
+        res.render('administration/students', {title: title + 'Schüler', head, body, pagination, limit: true});
+
+            });
     });
 });
 
@@ -638,7 +701,7 @@ router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VI
 router.post('/helpdesk/:id', permissionsHelper.permissionsChecker("HELPDESK_VIEW"), getSendHelper('helpdesk'));
 router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), function (req, res, next) {
 
-    const itemsPerPage = 10;
+    const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
@@ -646,7 +709,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
-            $sort: 'order'
+            $sort: req.query.sort
         }
     }).then(data => {
         const head = [
@@ -671,13 +734,23 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             ];
         });
 
+        let sortQuery = '';
+        if (req.query.sort) {
+            sortQuery = '&sort=' + req.query.sort;
+        }
+
+        let limitQuery = '';
+        if (req.query.limit) {
+            limitQuery = '&limit=' + req.query.limit;
+        }
+
         const pagination = {
             currentPage,
             numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/helpdesk/?p={{page}}'
+            baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/helpdesk', {title: title + 'Helpdesk', head, body, pagination});
+        res.render('administration/helpdesk', {title: title + 'Helpdesk', head, body, pagination, limit: true});
     });
 });
 
@@ -692,14 +765,15 @@ router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('
 
 router.all('/courses', function (req, res, next) {
 
-    const itemsPerPage = 10;
+    const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
 
     api(req).get('/courses', {
         qs: {
             $populate: ['classIds', 'teacherIds'],
             $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
         }
     }).then(data => {
         const head = [
@@ -729,10 +803,20 @@ router.all('/courses', function (req, res, next) {
                 ];
             });
 
+            let sortQuery = '';
+            if (req.query.sort) {
+                sortQuery = '&sort=' + req.query.sort;
+            }
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/courses/?p={{page}}'
+                baseUrl: '/administration/courses/?p={{page}}' + sortQuery + limitQuery
             };
 
             res.render('administration/courses', {
@@ -743,7 +827,8 @@ router.all('/courses', function (req, res, next) {
                 teachers,
                 substitutions,
                 students,
-                pagination
+                pagination,
+                limit: true
             });
         });
     });
@@ -757,18 +842,19 @@ router.delete('/classes/:id', getDeleteHandler('classes'));
 
 router.all('/classes', function (req, res, next) {
 
-    const itemsPerPage = 10;
+    const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
 
     api(req).get('/classes', {
         qs: {
             $populate: ['teacherIds'],
             $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1)
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
         }
     }).then(data => {
         const head = [
-            'Bezeichnung',
+            'Name',
             'Lehrer',
             ''
         ];
@@ -788,10 +874,20 @@ router.all('/classes', function (req, res, next) {
                 ];
             });
 
+            let sortQuery = '';
+            if (req.query.sort) {
+                sortQuery = '&sort=' + req.query.sort;
+            }
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/classes/?p={{page}}'
+                baseUrl: '/administration/classes/?p={{page}}' + sortQuery + limitQuery
             };
 
             res.render('administration/classes', {
@@ -800,7 +896,8 @@ router.all('/classes', function (req, res, next) {
                 body,
                 teachers,
                 students,
-                pagination
+                pagination,
+                limit: true
             });
         });
     });
@@ -816,10 +913,11 @@ router.all('/systems', function (req, res, next) {
     api(req).get('/schools/' + res.locals.currentSchool, {
         qs: {
             $populate: ['systems'],
+            $sort: req.query.sort
         }
     }).then(data => {
         const head = [
-            'Name',
+            'Alias',
             'Typ',
             'Url',
             ''
@@ -828,6 +926,7 @@ router.all('/systems', function (req, res, next) {
         let body;
         let systems;
         if (data.systems) {
+            data.systems = _.orderBy(data.systems, req.query.sort, 'desc');
             systems = data.systems.filter(system => system.type != 'local');
 
             body = systems.map(item => {

@@ -1,10 +1,18 @@
-FROM node:7
+FROM node:8.7.0
 
-WORKDIR /schulcloud-client
-COPY . .
-RUN npm rebuild node-sass --force && \
-npm install && \
-npm i -g gulp && \
-gulp
+RUN npm install -g nodemon gulp
 
-CMD npm start
+# Copy current directory to container
+COPY . /home/node/app
+
+# Run npm install && gulp
+RUN cd /home/node/app && npm install && gulp
+
+VOLUME /home/node/app/build
+VOLUME /home/node/app/node_modules
+
+USER node
+WORKDIR /home/node/app
+
+EXPOSE 3100
+CMD ["node", "bin/www"]
