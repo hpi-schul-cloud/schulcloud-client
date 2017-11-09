@@ -552,6 +552,11 @@ router.get('/:assignmentId/edit', function (req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
+        if(assignment.teacherId != res.locals.currentUser._id){
+            let error = new Error("You don't have permissions!");
+            error.status = 403;
+            return next(error);
+        }
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
