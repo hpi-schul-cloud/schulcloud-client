@@ -49,18 +49,18 @@ router.get('/', function (req, res, next) {
             json: true
         }).then(results => {
             // Include _id field in _source
-            var searchResults = results.hits.hits.map(x => {
+            let searchResults = results.hits.hits.map(x => {
                 x._source._id = x._id;
                 return x;
             });
 
-            //Pagination in client, because filters are in afterhook
+            //TODO Should be changed to use pagination serversided and reduce traffic
             const itemsPerPage = 6;
             const currentPage = parseInt(req.query.p) || 1;
             let pagination = {
                 currentPage,
                 numPages: Math.ceil(searchResults.length / itemsPerPage),
-                baseUrl: req.baseUrl + req._parsedUrl.pathname + '/?' + 'q=' + query + '&p={{page}}'
+                baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
             };
             const end = currentPage * itemsPerPage;
             searchResults = searchResults.slice(end - itemsPerPage, end);
