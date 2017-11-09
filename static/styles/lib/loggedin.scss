@@ -388,9 +388,10 @@ footer {
         width: 32px;
         margin-right: 10px;
     }
-
+    .dropdown-toggle{
+        border:none;
+    }
     .account-toggle {
-        border: none;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -409,40 +410,64 @@ footer {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
-    .hidden-dropdown-toggle{
-        padding: 10px !important;
-        border-radius: 50%;
-        margin-left: -.75rem;
-        text-align: center;
-        .fa{
-            display: inline-block;
-            font-size: 20px;
-            line-height: 1em;
-            width: 1em;
-            height: 1em;
+    .minimal-dropdown{
+        .dropdown-toggle{
+            padding: 10px !important;
+            border-radius: 50%;
+            margin-left: -.75rem;
+            text-align: center;
+            background: transparent;
+            .fa{
+                display: inline-block;
+                font-size: 20px;
+                line-height: 1em;
+                width: 1em;
+                height: 1em;
+            }
+            .tag{
+                position: absolute;
+                border-radius: 50%;
+                top: 0;
+                right: 0px;
+            }
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+            }
+            &:after{
+                display: none;
+            }
         }
-        &:after{
-            display: none;
+        &.open{
+            .dropdown-toggle{
+               background-color: rgba(0,0,0,0.05);
+            }
+        }
+        .dropdown-menu{
+            padding: 0;
+            left: -25px;
+            &:before{
+                content: "";
+                position: absolute;
+                margin-top: -10px;
+                left: 20px;
+                z-index: 3;
+                border-top: 0 solid #fff;
+                border-left: 12px solid transparent;
+                border-right: 12px solid transparent;
+                border-bottom: 12px solid #fff;
+            }
         }
     }
 }
 
 .qr-code-action {
-    .btn {
-        border: none;
-    }
-
-    .dropdown-menu {
+    .qr-show {
         padding: 15px;
         padding-bottom: 9px;
     }
 }
 
 .help-drodown {
-    .btn {
-        border: none;
-    }
-
     .dropdown-menu {
         width: 236px;
         padding-bottom: 0px;
@@ -476,13 +501,9 @@ footer {
 }
 
 .notification-dropdown {
-    .btn {
-        border: none;
-
-        &.recent i {
-            color: $colorHPIRed;
-            margin-right: 5px;
-        }
+    .btn.recent i {
+        color: $colorHPIRed;
+        margin-right: 5px;
     }
 
     .dropdown-toggle:not(.recent) .tag {
@@ -494,7 +515,6 @@ footer {
         width: 300px;
         max-height: 300px;
         overflow: auto;
-        /* ADD triangle anywhere here*/
     }
 
     .notification-item {
