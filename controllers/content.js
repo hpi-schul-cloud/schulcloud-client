@@ -49,14 +49,27 @@ router.get('/', function (req, res, next) {
             json: true
         }).then(results => {
             // Include _id field in _source
-            const searchResults = results.hits.hits.map(x => {
+            let searchResults = results.hits.hits.map(x => {
                 x._source._id = x._id;
                 return x;
             });
+
+            //TODO Should be changed to use pagination serversided and reduce traffic
+            const itemsPerPage = 6;
+            const currentPage = parseInt(req.query.p) || 1;
+            let pagination = {
+                currentPage,
+                numPages: Math.ceil(searchResults.length / itemsPerPage),
+                baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
+            };
+            const end = currentPage * itemsPerPage;
+            searchResults = searchResults.slice(end - itemsPerPage, end);
+
             return res.render('content/search-results', {
                 title: 'Materialien',
                 query: query,
                 searchResults: searchResults,
+                pagination,
                 action
             });
         });
