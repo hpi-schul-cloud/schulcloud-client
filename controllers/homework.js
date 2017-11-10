@@ -9,6 +9,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
+const _ = require("lodash");
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -118,7 +119,7 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            if (data.courseId && !data.private && service == "homework") {
+            if (data.courseId && !data.private && service === "homework") {
                 api(req).get('/courses/' + data.courseId)
                     .then(course => {
                         sendNotification(data.courseId,
@@ -128,7 +129,13 @@ const getCreateHandler = (service) => {
                             `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`);
                     });
             }
-            res.redirect(referrer);
+            let promise = service === "submissions" ?
+                addFilePermissionsForCoWorkers(req, data.coWorkers, data.fileIds) :
+                Promise.resolve({});
+
+            return promise.then(_ => {
+                res.redirect(referrer);
+            });
         }).catch(err => {
             next(err);
         });
@@ -152,27 +159,57 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
     }
 };
 
+/**
+ * adds file permissions for co workers to a submission file
+ */
+const addFilePermissionsForCoWorkers = (req, coWorkers, fileIds) => {
+    return Promise.all(fileIds.map(f => {
+        return api(req).get('/files/' + f).then(file => {
+            return Promise.all(coWorkers.map(cw => {
+                let isAlreadyInside = _.filter(file.permissions, f => {
+                    return JSON.stringify(f.userId) === JSON.stringify(cw);
+                }).length > 0;
+
+                !isAlreadyInside ? file.permissions.push({
+                    userId: cw,
+                    permissions: ['can-read', 'can-write']
+                }) : '';
+
+                return file;
+            })).then(_ => {
+                return api(req).patch('/files/' + file._id, {json: file});
+            });
+        });
+    }));
+};
+
 const patchFunction = function(service, req, res, next){
     if(req.body.referrer){
-        var referrer = req.body.referrer.replace("/edit","");
+        let referrer = req.body.referrer.replace("/edit","");
         delete req.body.referrer;
     }
     api(req).patch('/' + service + '/' + req.params.id, {
         // TODO: sanitize
         json: req.body
     }).then(data => {
-        if (service == "submissions"){
-            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
-                .then(homework => {
-                sendNotification(data.studentId,
-                    "Deine Abgabe im Fach " +
-                    homework.courseId.name + " wurde bewertet",
-                    " ",
-                    data.studentId,
-                    req,
-                    `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
-                });
-            res.redirect(req.header('Referrer'));
+        if (service === "submissions"){
+            // add file permissions for co Worker
+            let fileIds = data.fileIds;
+            let coWorkers = data.coWorkers;
+            return addFilePermissionsForCoWorkers(req, coWorkers, fileIds).then(_ => {
+                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                    .then(homework => {
+                        sendNotification(data.studentId,
+                            "Deine Abgabe im Fach " +
+                            homework.courseId.name + " wurde bewertet",
+                            " ",
+                            data.studentId,
+                            req,
+                            `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
+                    });
+
+                res.redirect(req.header('Referrer'));
+            });
         }
         if(referrer){
             res.redirect(referrer);
@@ -319,7 +356,6 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
     let submissionId = req.params.id;
     let fileId = req.params.fileId;
     let homeworkId = req.body.homeworkId;
-    let coWorkers = req.body.coWorkers || [];
 
     // if homework is already given, just fetch homework
     let homeworkPromise = homeworkId
@@ -337,14 +373,6 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
             permissions: ['can-read', 'can-write']
         };
         file.permissions.push(newPermission);
-
-        // if submission is a team submission, add permissions for any student
-        coWorkers.forEach(cw => {
-            file.permissions.push({
-                userId: cw,
-                permissions: ['can-read', 'can-write']
-            });
-        });
 
         api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
     }).catch(err => res.send(err));
