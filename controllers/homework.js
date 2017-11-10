@@ -185,7 +185,7 @@ const addFilePermissionsForCoWorkers = (req, coWorkers, fileIds) => {
 
 const patchFunction = function(service, req, res, next){
     if(req.body.referrer){
-        let referrer = req.body.referrer.replace("/edit","");
+        var referrer = req.body.referrer.replace("/edit","");
         delete req.body.referrer;
     }
     api(req).patch('/' + service + '/' + req.params.id, {
