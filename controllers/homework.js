@@ -343,8 +343,9 @@ router.post('/submit/:id/files', function (req, res, next) {
     api(req).patch("/submissions/" + submissionId, {
         json: {
             $push: {
-                fileIds: req.body.fileId
-            }
+                fileIds: req.body.fileId,
+            },
+            coWorkers: req.body.coWorkers
         }
     })
         .then(result => res.json(result))
@@ -356,6 +357,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
     let submissionId = req.params.id;
     let fileId = req.params.fileId;
     let homeworkId = req.body.homeworkId;
+    let coWorkers = req.body.coWorkers;
 
     // if homework is already given, just fetch homework
     let homeworkPromise = homeworkId
@@ -365,6 +367,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
                 $populate: ['homeworkId'],
             }
         });
+
     let filePromise = api(req).get('/files/' + fileId);
     Promise.all([homeworkPromise, filePromise]).then(([homework, file]) => {
         let teacherId = homeworkId ? homework.teacherId : homework.homeworkId.teacherId;
@@ -374,7 +377,11 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
         };
         file.permissions.push(newPermission);
 
-        api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
+        return api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result)).then(_ => {
+            // if there is already an submission, it is more safe to add the permissions at this step (if the user
+            // forgets to click on save)
+            return coWorkers ? addFilePermissionsForCoWorkers(req, coWorkers, [fileId]) : Promise.resolve({});
+        });
     }).catch(err => res.send(err));
 });
 
@@ -384,7 +391,8 @@ router.delete('/submit/:id/files', function (req, res, next) {
         json: {
             $pull: {
                 fileIds: req.body.fileId
-            }
+            },
+            coWorkers: req.body.coWorkers
         }
     })
         .then(result => res.json(result))

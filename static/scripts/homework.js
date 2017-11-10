@@ -269,10 +269,11 @@ $(document).ready(function() {
                     // only saved when hitting the save button in the corresponding submission form
                     let submissionId = $("input[name='submissionId']").val();
 
+                    let coWorkers = $('#coWorkers').val();
                     if (submissionId) {
-                       $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id}, _ => {
-                           $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`);
-                       });
+                        $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id, coWorkers: coWorkers}, _ => {
+                            $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {coWorkers: coWorkers});
+                        });
                     } else {
                         addNewUploadedFile($('.list-group-files'), data);
                         let homeworkId = $("input[name='homeworkId']").val();
@@ -327,9 +328,10 @@ $(document).ready(function() {
                 success: function (_) {
                     // delete reference in submission
                     let submissionId = $("input[name='submissionId']").val();
+                    let coWorkers = $('#coWorkers').val();
                     $.ajax({
                         url: `/homework/submit/${submissionId}/files`,
-                        data: {fileId: fileId},
+                        data: {fileId: fileId, coWorkers: coWorkers},
                         type: 'DELETE',
                         success: function (_) {
                             window.location.reload();
