@@ -678,6 +678,9 @@ router.get('/:assignmentId', function (req, res, next) {
         // Abgabe noch möglich?
         assignment.submittable = (dueDateArray["timestamp"] >= Date.now());
 
+        // file upload path, todo: maybe use subfolders
+        let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
+
         const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
             ? ("Archivierte")
             : ((assignment.private)
@@ -778,13 +781,12 @@ router.get('/:assignmentId', function (req, res, next) {
                             students:true,
                             studentSubmissions,
                             studentsWithoutSubmission,
+                            path: submissionUploadPath,
                             comments
                         }));
                     });
                 });
             } else {
-                // file upload path, todo: maybe use subfolders
-                let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 
                 if (assignment.submission) {
 
