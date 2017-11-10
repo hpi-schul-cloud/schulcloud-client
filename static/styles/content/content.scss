@@ -29,6 +29,7 @@ h1, h3 {
 }
 .card-block {
     flex: 1 1 auto;
+    padding-bottom: 36px;
 }
 .row.equal-height {
     display: flex;
@@ -80,4 +81,19 @@ h1, h3 {
 }
 .tooltip-arrow{
   background-color: $colorHPIRed;
+}
+.tooltip-demo{
+  cursor: pointer;
+}
+.card-footer{
+  position: relative;
+}
+.report-link{
+  position: absolute;
+  top: -34px;
+  right: 18px;
+  color: lightgrey;
+}
+.report-link:hover{
+  color: $colorHPIRed;
 }
