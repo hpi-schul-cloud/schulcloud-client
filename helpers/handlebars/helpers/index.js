@@ -34,7 +34,10 @@ module.exports = {
         if (text.length <= length) {
             return text;
         }
-        return truncatehtml(text, 140);
+        return truncatehtml(text, length, {
+          stripTags: true,
+          decodeEntities: true,
+        });
     },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');
@@ -88,6 +91,11 @@ module.exports = {
         } else {
             return moment(date).fromNow();
         }
+    },
+    concat: function(){
+        var arg = Array.prototype.slice.call(arguments,0);
+        arg.pop();
+        return arg.join('');
     },
     log: (data) => {
         console.log(data);
