@@ -29,6 +29,15 @@ server.on('error', onError);
 server.on('listening', onListening);
 
 /**
+ * Gracefully stops server on SIGINT. Makes it possible to run tasks before exit.
+ */
+process.on('SIGINT', () => {
+    server.close();
+    process.exit();
+});
+
+
+/**
  * Normalize a port into a number, string, or false.
  */
 
