@@ -736,24 +736,40 @@ class TopicNexboard extends TopicBlock {
         super(props);
 
         this.state = {
+            newBoard : 0,
             boards: []
         };
+        this.handleChange = this.handleChange.bind(this);
+
     }
 
     componentDidMount() {
         $.getJSON("nexboard/boards").then(boards => {
-            this.setState({boards});
+            this.setState({boards:boards});
         });
         $(".chosen-select").chosen();
+        $('.chosen-select').on('change', this.handleChange);
     }
+
 
     componentDidUpdate() {
         $(".chosen-select").trigger("chosen:updated");
-        console.log("didUpdate");
     }
 
-    change() {
-        console.log("changed");
+    handleChange() {
+        var id = $(".chosen-select").find("option:selected").val();
+        if (id == this.state.newBoard){
+            return 0;
+        }
+        this.state.boards.map(board => {
+            if(board.boardId == id){
+                const content = this.props.content;
+                content.board = board.boardId;
+                content.url = "https://" + board.public_link;
+                this.props.onUpdate({
+                    content: content
+                });
+        }});
     }
 
     /**
@@ -769,7 +785,7 @@ class TopicNexboard extends TopicBlock {
     render() {
         return (
             <div>
-                <div className="form-group">
+                <div type="hidden" className="form-group">
                     <label>Name des neXboards</label>
                     <input className="form-control" name={`contents[${this.props.position}][content][title]`}
                            type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
@@ -783,24 +799,26 @@ class TopicNexboard extends TopicBlock {
                 </div>
                 <div className="form-group">
                     <label>neXboard auswählen</label>
-                    <select className="chosen-select" data-placeholder="neXboard auswählen" value={(this.props.content || {}).board}>
-                        <option></option>
+                    <select name={`contents[${this.props.position}][content][board]`}
+                            className="chosen-select"
+                            data-placeholder="neXboard auswählen"
+                            value={(this.props.content || {}).board}>
                         <optgroup label="Vorhandene Boards">
                             {this.state.boards.map(board =>
-                                <option value={board.id}>{board.title}</option>
+                                <option value={board.boardId}>{board.title}</option>
                             )}
                         </optgroup>
                         <optgroup label="Neues Board">
-                            <option>Neues neXboard anlegen</option>
+                            <option value={this.state.newBoard} >Neues neXboard anlegen</option>
                         </optgroup>
                     </select>
                 </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
-                       value="https://nexboard.nexenio.com/client/pub/2883/035e2407-p900-3fp1-m2c5-7770ku633928" />
+                       value={(this.props.content || {}).url } />
             </div>
         );
     }
-};
+}
 
 /**
  * Render the virtual React DOM into an <div> in the current page.
