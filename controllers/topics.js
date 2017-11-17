@@ -4,6 +4,7 @@ const express = require('express');
 const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
+const Nexbord = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -131,15 +132,27 @@ router.get('/:topicId', function (req, res, next) {
     });
 });
 
-
 router.patch('/:topicId', function (req, res, next) {
     const data = req.body;
-    
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     // if not a simple hidden or position patch, set contents to empty array
     if (!data.contents && !req.query.json) data.contents = [];
+
+    // create new Nexboard when necessary
+    data.contents.forEach(content =>{
+        if (content.component === "neXboard" && content.content.board == 0){
+            var board = getNexBoardAPI().createBoard(
+                content.content.title,
+                content.content.description,
+                getNexBoardProjectFromUser(req,res.locals.currentUser));
+            content.content.title = board.title;
+            content.content.board = board.boardId;
+            content.content.url = "https://" + board.public_link;
+            content.content.description = board.description;
+        }
+    });
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
@@ -180,21 +193,31 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-router.get('/:topicId/nexboard/boards', function (req, res, next) {
-    let userId = res.locals.currentUser._id;
-    res.json([
-        {
-            "id" : 2883,
-            "title": "Board 1",
-            "link": "https://nexboard.nexenio.com/client/pub/2883/843x9054-e580-4ce5-d1a5-7016qn257504"
-        },
-        {
-            "id" : 2884,
-            "title": "Board 2",
-            "link": "https://nexboard.nexenio.com/client/pub/2884/663g6577-v380-4mf2-s1x4-9686ja243862",
-        }
-    ]);
-});
+const getNexBoardAPI = () =>{
+    let userId = process.env.NEXBOARD_USER_ID;
+    let apikey = process.env.NEXBOARD_API_KEY;
+    return new Nexbord(apikey,userId);
+};
+
+const getNexBoardProjectFromUser = (req,user) =>{
+    var preferences = user.preferences || {};
+    if (typeof preferences.nexBoardProjectID === "undefined") {
+        var project = getNexBoardAPI().createProject(user._id,user._id);
+        preferences.nexBoardProjectID = project.id;
+        api(req).patch('/users/' + user._id, {json: {
+            preferences}});
+    }
+    return preferences.nexBoardProjectID;
+};
+
+const getNexBoards = (req,res,next) => {
+    res.json(getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser)));
+};
+
+router.get('/:topicId/nexboard/boards', getNexBoards);
+
+
+router.get('/nexboard/boards',getNexBoards);
 
 
 module.exports = router;
