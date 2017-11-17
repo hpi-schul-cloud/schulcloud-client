@@ -277,6 +277,7 @@ const getUpdateHandler = (service) => {
                 if(req.body.grade || req.body.gradeComment){
                     req.body.grade = parseInt(req.body.grade);
                 } else{
+                    //console.log("set studentId");
                     req.body.studentId = res.locals.currentUser._id;
                 }
             }
@@ -778,7 +779,7 @@ router.get('/:assignmentId', function (req, res, next) {
                                 },
                                 {}
                             ],
-                            students:true,
+                            students:students,
                             studentSubmissions,
                             studentsWithoutSubmission,
                             path: submissionUploadPath,
