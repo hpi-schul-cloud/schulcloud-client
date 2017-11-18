@@ -338,6 +338,8 @@ router.delete('/:id', getDeleteHandler('homework'));
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
+router.delete('/submit/:id', getDeleteHandlerR('submissions'));
+router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
 
 router.post('/submit/:id/files', function (req, res, next) {
     let submissionId = req.params.id;

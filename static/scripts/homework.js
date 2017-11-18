@@ -133,7 +133,7 @@ $(document).ready(function() {
         });
         return false;
     });
-    
+
     function updateSearchParameter(key, value) {
         let url = window.location.search;
         let reg = new RegExp('('+key+'=)[^\&]+');
