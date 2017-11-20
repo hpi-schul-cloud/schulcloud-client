@@ -213,6 +213,7 @@ header {
     float: left;
     padding-left: 260px;
     padding-right: 20px;
+    overflow: auto;
 
     @include media-breakpoint-down(md) {
         padding-left: 80px;
@@ -370,7 +371,7 @@ footer {
 
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;
-		padding-left: 50px !important;
+        padding-left: 50px !important;
         background: $colorBeige;
     }
 
@@ -445,16 +446,30 @@ footer {
         .dropdown-menu{
             padding: 0;
             left: -25px;
-            &:before{
-                content: "";
+            /* this CS forms the triangles */
+            &:after,
+            &:before {
+                content: '';
+                display: block;
                 position: absolute;
-                margin-top: -10px;
+                top: -10px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+            }
+            /* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+            &:after {
                 left: 20px;
-                z-index: 3;
-                border-top: 0 solid #fff;
-                border-left: 12px solid transparent;
-                border-right: 12px solid transparent;
-                border-bottom: 12px solid #fff;
+                border-color: transparent transparent #fff transparent;
+                border-width: 11px;
+                margin-top: -11px;
+            }
+            /* this border color controlls the outside, thin border */
+            &:before {
+                left: 20px;
+                border-color: transparent transparent rgba(0,0,0,.15) transparent;
+                border-width: 11px;
+                margin-top: -12px;
             }
         }
     }
@@ -467,39 +482,6 @@ footer {
     }
 }
 
-.help-drodown {
-    .dropdown-menu {
-        width: 236px;
-        padding-bottom: 0px;
-        padding-top: 0px;
-    }
-
-    .list-group-item {
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 14px;
-    }
-
-    .list-group-item:last-child {
-        border-bottom-right-radius: 0rem;
-        border-bottom-left-radius: 0rem;
-    }
-
-    .list-group-item:first-child {
-        border-bottom-right-radius: 0rem;
-        border-bottom-left-radius: 0rem;
-    }
-
-    .link {
-        padding-left: 8px;
-    }
-
-    .delimiter {
-        background-color: $colorGrey;
-        height: 12px;
-    }
-}
-
 .notification-dropdown {
     .btn.recent i {
         color: $colorHPIRed;
@@ -509,12 +491,13 @@ footer {
     .dropdown-toggle:not(.recent) .tag {
         display: none;
     }
-
-    .dropdown-menu {
-        padding: 0px;
+    
+    .dropdown-menu{
         width: 300px;
         max-height: 300px;
-        overflow: auto;
+        .content{
+            overflow: auto;
+        }
     }
 
     .notification-item {
@@ -534,5 +517,29 @@ footer {
             font-size: 12px;
             display: block;
         }
+    }
+}
+
+.help-drodown {
+    .dropdown-menu {
+        width: 236px;
+    }
+
+    .list-group-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 0;
+        font-size: 14px;
+        border-width: 0;
+        border-bottom-width: 1px;
+    }
+
+    .link {
+        padding-left: 8px;
+    }
+
+    .delimiter {
+        background-color: $colorGrey;
+        height: 12px;
     }
 }
