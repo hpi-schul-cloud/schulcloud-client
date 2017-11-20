@@ -56,10 +56,10 @@ $(document).ready(function() {
         return false;
     });
 
-    //validate coWorkers
+    //validate teamMembers
     var lastCoWorkers = null;
     const maxCoWorkers = parseInt($("#maxCoWorkers").html());
-    $('#coWorkers').change(function(event) {
+    $('#teamMembers').change(function(event) {
         if ($(this).val().length > maxCoWorkers) {
             $(this).val(lastCoWorkers);
             $.showNotification("Die maximale Teamgröße beträgt " + maxCoWorkers + " Mitglieder", "warning", 5000);
@@ -269,10 +269,10 @@ $(document).ready(function() {
                     // only saved when hitting the save button in the corresponding submission form
                     let submissionId = $("input[name='submissionId']").val();
 
-                    let coWorkers = $('#coWorkers').val();
+                    let teamMembers = $('#teamMembers').val();
                     if (submissionId) {
-                        $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id, coWorkers: coWorkers}, _ => {
-                            $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {coWorkers: coWorkers});
+                        $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id, teamMembers: teamMembers}, _ => {
+                            $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {teamMembers: teamMembers});
                         });
                     } else {
                         addNewUploadedFile($('.list-group-files'), data);
@@ -328,10 +328,10 @@ $(document).ready(function() {
                 success: function (_) {
                     // delete reference in submission
                     let submissionId = $("input[name='submissionId']").val();
-                    let coWorkers = $('#coWorkers').val();
+                    let teamMembers = $('#teamMembers').val();
                     $.ajax({
                         url: `/homework/submit/${submissionId}/files`,
-                        data: {fileId: fileId, coWorkers: coWorkers},
+                        data: {fileId: fileId, teamMembers: teamMembers},
                         type: 'DELETE',
                         success: function (_) {
                             window.location.reload();

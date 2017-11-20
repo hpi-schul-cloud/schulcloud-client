@@ -17,11 +17,11 @@
       {{#if teamSubmissions}}
         <div class="form-group">
             <label>Teammitglieder {{#if maxCoWorkers}}(maximal <span id="maxCoWorkers">{{@root.maxCoWorkers}}</span> Personen){{/if}}</label>
-            <select name="coWorkers" id="coWorkers" multiple data-placeholder="Teammitglieder auswählen">
+            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Teammitglieder auswählen">
                 {{#each students}}
                     <option value="{{this._id}}" 
                         {{#if @root.submission}}
-                            {{#inArray this._id @root.submission.coWorkerIds}}selected{{/inArray}}
+                            {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
                             {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
                         {{else}}
                             {{#ifeq this._id @root.currentUser._id}} selected disabled{{/ifeq}}
@@ -68,7 +68,7 @@
         {{/userHasPermission}}
 
         {{#if @root.submission}}
-            {{#inArray @root.currentUser._id @root.submission.coWorkerIds}}
+            {{#inArray @root.currentUser._id @root.submission.teamMemberIds}}
                 <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission">Löschen</a>
             {{/inArray}}
         {{/if}}

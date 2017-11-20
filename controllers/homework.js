@@ -130,7 +130,7 @@ const getCreateHandler = (service) => {
                     });
             }
             let promise = service === "submissions" ?
-                addFilePermissionsForCoWorkers(req, data.coWorkers, data.fileIds) :
+                addFilePermissionsForCoWorkers(req, data.teamMembers, data.fileIds) :
                 Promise.resolve({});
 
             return promise.then(_ => {
@@ -162,10 +162,10 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 /**
  * adds file permissions for co workers to a submission file
  */
-const addFilePermissionsForCoWorkers = (req, coWorkers, fileIds) => {
+const addFilePermissionsForCoWorkers = (req, teamMembers, fileIds) => {
     return Promise.all(fileIds.map(f => {
         return api(req).get('/files/' + f).then(file => {
-            return Promise.all(coWorkers.map(cw => {
+            return Promise.all(teamMembers.map(cw => {
                 let isAlreadyInside = _.filter(file.permissions, f => {
                     return JSON.stringify(f.userId) === JSON.stringify(cw);
                 }).length > 0;
@@ -195,8 +195,8 @@ const patchFunction = function(service, req, res, next){
         if (service === "submissions"){
             // add file permissions for co Worker
             let fileIds = data.fileIds;
-            let coWorkers = data.coWorkers;
-            return addFilePermissionsForCoWorkers(req, coWorkers, fileIds).then(_ => {
+            let teamMembers = data.teamMembers;
+            return addFilePermissionsForCoWorkers(req, teamMembers, fileIds).then(_ => {
                 api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
                     .then(homework => {
                         sendNotification(data.studentId,
@@ -345,7 +345,7 @@ router.post('/submit/:id/files', function (req, res, next) {
             $push: {
                 fileIds: req.body.fileId,
             },
-            coWorkers: req.body.coWorkers
+            teamMembers: req.body.teamMembers
         }
     })
         .then(result => res.json(result))
@@ -357,7 +357,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
     let submissionId = req.params.id;
     let fileId = req.params.fileId;
     let homeworkId = req.body.homeworkId;
-    let coWorkers = req.body.coWorkers;
+    let teamMembers = req.body.teamMembers;
 
     // if homework is already given, just fetch homework
     let homeworkPromise = homeworkId
@@ -380,7 +380,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
         return api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result)).then(_ => {
             // if there is already an submission, it is more safe to add the permissions at this step (if the user
             // forgets to click on save)
-            return coWorkers ? addFilePermissionsForCoWorkers(req, coWorkers, [fileId]) : Promise.resolve({});
+            return teamMembers ? addFilePermissionsForCoWorkers(req, teamMembers, [fileId]) : Promise.resolve({});
         });
     }).catch(err => res.send(err));
 });
@@ -392,7 +392,7 @@ router.delete('/submit/:id/files', function (req, res, next) {
             $pull: {
                 fileIds: req.body.fileId
             },
-            coWorkers: req.body.coWorkers
+            teamMembers: req.body.teamMembers
         }
     })
         .then(result => res.json(result))
@@ -697,7 +697,7 @@ router.get('/:assignmentId', function (req, res, next) {
             api(req).get('/submissions/', {
                 qs: {
                     homeworkId: assignment._id,
-                    $populate: ['homeworkId', 'fileIds','coWorkers','studentId']
+                    $populate: ['homeworkId', 'fileIds','teamMembers','studentId']
                 }
             }),
             // Alle Teilnehmer des Kurses
@@ -708,11 +708,11 @@ router.get('/:assignmentId', function (req, res, next) {
             })
         ]).then(([submissions, course]) => {
             assignment.submission = submissions.data.map(submission => {
-                submission.coWorkerIds = submission.coWorkers.map(e => {return e._id;});
+                submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
                 return submission;
             }).filter(submission => {
                 return (submission.studentId._id == res.locals.currentUser._id)
-                     ||(submission.coWorkerIds.includes(res.locals.currentUser._id.toString()));
+                     ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
             const students = course.userIds;
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
@@ -724,14 +724,14 @@ router.get('/:assignmentId', function (req, res, next) {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
                             return (submission.studentId._id == student._id)
-                                 ||(submission.coWorkers.includes(student._id.toString()));
+                                 ||(submission.teamMembers.includes(student._id.toString()));
                         })[0]
                     };
                 });
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
-                    if(e.coWorkers){
-                        e.coWorkers.forEach( c => {
+                    if(e.teamMembers){
+                        e.teamMembers.forEach( c => {
                             studentsWithSubmission.push(c._id.toString())
                         });
                     }else{
