@@ -20,20 +20,18 @@
             <select name="coWorkers" id="coWorkers" multiple data-placeholder="Teammitglieder auswählen">
                 {{#each students}}
                     <option value="{{this._id}}" 
-                        {{#if @root.submission}}{{#inArray this._id @root.submission.coWorkerIds}}selected {{/inArray}}{{/if}}
-                        {{#unless @root.submission}}
-                            {{#ifeq this._id @root.currentUser._id}}selected disabled{{/ifeq}}
-                        {{/unless}}
+                        {{#if @root.submission}}
+                            {{#inArray this._id @root.submission.coWorkerIds}}selected{{/inArray}}
+                            {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
+                        {{else}}
+                            {{#ifeq this._id @root.currentUser._id}} selected disabled{{/ifeq}}
+                        {{/if}}
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
                     <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
                 {{/each}}
             </select>
         </div>
-      {{else}}
-        <select name="coWorkers" type="hidden" id="coWorkers" multiple>
-            <option value="{{@root.currentUser._id}}" selected>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</option>
-        </select>
       {{/if}}
 
 

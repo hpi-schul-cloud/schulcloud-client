@@ -276,9 +276,6 @@ const getUpdateHandler = (service) => {
             if(service == "submissions"){
                 if(req.body.grade || req.body.gradeComment){
                     req.body.grade = parseInt(req.body.grade);
-                } else{
-                    //console.log("set studentId");
-                    req.body.studentId = res.locals.currentUser._id;
                 }
             }
         }
