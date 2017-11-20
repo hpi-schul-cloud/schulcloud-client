@@ -43,6 +43,12 @@
             {{/content}}
         {{/embed}}
 
+        {{#embed "lib/components/modal" class="external-link-modal"}}
+            {{#content "body"}}
+                {{> "content/forms/form-external-link"}}
+            {{/content}}
+        {{/embed}}
+
     {{/content}}
 
     {{#content "scripts" mode="append"}}

@@ -90,17 +90,21 @@ router.get('/', function (req, res, next) {
         qs: {
             $populate: ['courseId'],
             $sort: 'dueDate',
-            archived : {$ne: res.locals.currentUser._id }
+            archived : {$ne: res.locals.currentUser._id },
+            'dueDate': {
+                $gte: new Date().getTime(),
+                $lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
+            }
         }
     }).then(data => data.data.map(homeworks => {
-        homeworks.date = moment(homeworks.dueDate).fromNow();
+        homeworks.secondaryTitle = moment(homeworks.dueDate).fromNow();
         if (homeworks.courseId != null) {
-            homeworks.title = '<span style="color:'+homeworks.courseId.color+'">●</span> ['+homeworks.courseId.name+'] ';
+            homeworks.title = '['+homeworks.courseId.name+'] ' + homeworks.name;
+            homeworks.background = homeworks.courseId.color;
         } else {
-            homeworks.title = '<span style="color:#1DE9B6">●</span> ';
+            homeworks.title = homeworks.name;
             homeworks.private = true;
         }
-        homeworks.title += homeworks.name;
         homeworks.url = '/homework/' + homeworks._id;
         homeworks.content = homeworks.description;
         return homeworks;
@@ -115,10 +119,19 @@ router.get('/', function (req, res, next) {
         }
     }
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    const newsPromise = api(req).get('/news?schoolId=' + res.locals.currentSchool + '&displayAt[$lte]=' + new Date().getTime()
-    ).then(news => news.data.map(news => {
+    const colors = ["CDDC39","3F51B5","FF9800","00BCD4","FF5722","03A9F4","2196F3","F44336","FFC107","009688","E91E63","4CAF50"];
+    const newsPromise = api(req).get('/news/',{
+        qs: {
+            schoolId : res.locals.currentSchool,
+            'displayAt': {
+                $lte: new Date().getTime()
+            }
+        }
+    }).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
-            news.date = moment(news.displayAt).fromNow();
+            news.secondaryTitle = moment(news.displayAt).fromNow();
+            // ToDo: insert real Header Image from News
+            news.background = '#'+colors[(news.title||"").length % colors.length];
             return news;
     }).sort(sortFunction).slice(0,3));
 
@@ -140,8 +153,8 @@ router.get('/', function (req, res, next) {
             title: 'Übersicht',
             events,
             eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 6),
-            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 6),
+            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 4),
+            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 4),
             news,
             hours,
             currentTimePercentage,
