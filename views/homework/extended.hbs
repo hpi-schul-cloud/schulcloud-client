@@ -29,6 +29,7 @@
         {{/ifvalue}}
         
         {{#inArray this.currentUser._id this.archived}}
+            {{#userHasPermission "HOMEWORK_CREATE"}}
             <a class="btn btn-secondary btn-archive"
                 href="{{this.url}}"
                 target="_blank"
@@ -37,8 +38,10 @@
                 alt-text="<i class='fa fa-archive'></i> Archivieren">
                     <i class='fa fa-mail-reply'></i> Wiederherstellen
             </a>
+            {{/userHasPermission}}
         {{else}}
-            <a class="btn btn-secondary btn-archive"
+            {{#userHasPermission "HOMEWORK_CREATE"}}
+                <a class="btn btn-secondary btn-archive"
                 href="{{this.url}}"
                 target="_blank"
                 data="archive=done"
@@ -46,6 +49,7 @@
                 alt-text="<i class='fa fa-mail-reply'></i> Wiederherstellen">
                     <i class='fa fa-archive'></i> Archivieren
             </a>
+            {{/userHasPermission}}
         {{/inArray}}
         {{#if courseId._id}}
             <a class="btn btn-secondary" href="/courses/{{courseId._id}}" alt="zum Kurs der Aufgabe">zum Kurs</a>

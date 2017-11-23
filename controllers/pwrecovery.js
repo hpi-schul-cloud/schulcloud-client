@@ -78,7 +78,9 @@ router.post('/', function (req, res, next) {
         res.locals.result = result;
         next();
     }).catch(err => {
-        next(err);
+        let error = new Error("Ein Nutzer mit diesem Nutzernamen ist leider nicht vorhanden.");
+        error.status = 404;
+        next(error);
     });
 }, sendMailHandler);
 

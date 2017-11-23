@@ -20,8 +20,10 @@
 
         <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
-            setupFirebasePush();
             $('.sidebar-list').css({"height": window.innerHeight});
+            if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+                setupFirebasePush();
+            }
         });
         window.addEventListener("resize", function () {
             $('.sidebar-list').css({"height": window.innerHeight});
@@ -34,10 +36,10 @@
             <nav>
                 <ul class="sidebar-list">
                     <li>
-                        <div class="sc-branding">
+                        <a class="sc-branding" href="/">
                             <div class="cloud-logo"></div>
                             <span>Schul-Cloud</span>
-                        </div>
+                        </a>
                     </li>
                     {{#each sidebarItems}}
                         <li>
@@ -106,7 +108,7 @@
                         <div class="dropdown show">
                             <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
                                     recentNotifications}}recent{{/if}}" data-toggle="dropdown">
-                                <i class="fa fa-bolt"></i> {{#if recentNotifications}}
+                                <i class="fa fa-bell"></i> {{#if recentNotifications}}
                                 <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                             </a>
 

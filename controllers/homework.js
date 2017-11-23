@@ -64,10 +64,6 @@ const getSortmethods = () => {
         {
             query: 'updatedAt',
             title: 'letze Aktualisierung'
-        },
-        {
-            query: 'private',
-            title: 'private Aufgabe'
         }
     ];
 };
@@ -185,7 +181,7 @@ const patchFunction = function(service, req, res, next){
     }).catch(err => {
         next(err);
     });
-}
+};
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
         if (service == "homework"){
@@ -498,7 +494,8 @@ const overview = (title = "") => {
                                 || req._parsedUrl.pathname.includes("private") 
                                 || (req._parsedUrl.pathname.includes( "asked" ) 
                                     && !isStudent ) 
-                               )
+                               ),
+                       createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
                 });
             });
@@ -569,6 +566,11 @@ router.get('/:assignmentId/edit', function (req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
+        if(assignment.teacherId != res.locals.currentUser._id){
+            let error = new Error("You don't have permissions!");
+            error.status = 403;
+            return next(error);
+        }
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 

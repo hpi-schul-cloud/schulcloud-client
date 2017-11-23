@@ -69,7 +69,8 @@
         {{/ifvalue}}
     {{/userHasPermission}}
     {{#inArray this.currentUser._id this.archived}}
-        <a class="btn btn-secondary btn-sm btn-archive"
+        {{#userHasPermission "HOMEWORK_CREATE"}}
+            <a class="btn btn-secondary btn-sm btn-archive"
             href="{{../url}}"
             target="_blank"
             data="archive=open"
@@ -77,8 +78,10 @@
             alt-text="<i class='fa fa-archive'></i>">
                 <i class='fa fa-mail-reply'></i>
         </a>
+        {{/userHasPermission}}
     {{else}}
-        <a class="btn btn-secondary btn-sm btn-archive"
+        {{#userHasPermission "HOMEWORK_CREATE"}}
+            <a class="btn btn-secondary btn-sm btn-archive"
             href="{{../url}}"
             target="_blank"
             data="archive=done"
@@ -86,6 +89,7 @@
             alt-text="<i class='fa fa-mail-reply'></i>">
                 <i class='fa fa-archive'></i>
         </a>
+        {{/userHasPermission}}
     {{/inArray}}
     </div>
     <a href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'">

@@ -1,5 +1,6 @@
 @import "./colors";
 @import "components";
+@import "./sc-theme/sc-theme";
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
@@ -54,6 +55,11 @@ label {
 .pagination-wrapper {
 	text-align: center;
 	width: 100%;
+}
+
+label,
+.noselect{
+    user-select: none;
 }
 
 .btn-loading {
@@ -183,10 +189,6 @@ form.inline {
 		flex-wrap: wrap;
 		flex-direction: column;
 
-		p {
-			word-wrap: break-word;
-		}
-
 		.card-block {
 			max-width: 100%;
 			width: 100%;
@@ -206,7 +208,6 @@ form.inline {
     color: #373a3c;
     text-decoration:none;
     &:hover{text-decoration:none;}
-    word-break: break-all;
     h1 {font-size: 1.3rem;font-weight:bold}
     h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
     h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}

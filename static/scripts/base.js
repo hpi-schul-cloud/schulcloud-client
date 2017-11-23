@@ -204,4 +204,7 @@ $(document).ready(function () {
         w.close();
         $(this).html("<i class='fa fa-print'></i> Drucken");
     });
+    
+    $(".chosen-container-multi").off( "touchstart");
+    $(".chosen-container-multi").off( "touchend");
 });
