@@ -28,60 +28,25 @@
         left: 0px !important;
         width: 100% !important;
     }
-    .section-messages {
-        padding: 15px 0 50px;
+}
+@include media-breakpoint-down(md) {
+    .sc-card-wrapper:nth-child(n+4) {
+        display: none;  
     }
 }
-
 @include media-breakpoint-down(lg) {
-    .section-messages .row.articles .card{
-        display: table !important;
-        border: 1px solid rgba(0, 0, 0, 0.125) !important;
-        width: 100%;
+    .sc-card-wrapper:nth-child(n+4) {
+        display: none;  
+    }
+}
+@include media-breakpoint-down(xl) {
+    .sc-card-wrapper:nth-child(n+5) {
+        display: none;  
     }
 }
 
 .section{
     clear: both;
-}
-.more.btn.btn-primary {
-    width: 100%;
-    margin-left: 0 !important;
-}
-
-.section-messages {
-    width:100%;
-    float:left;
-    padding: 50px 0px 30px;
-    line-height: 1.75rem;
-
-    h5 {
-        color: $colorHPIRed;
-        display: inline-block;
-    }
-
-    a#showAll {
-        float: right;
-    }
-
-    h6 {
-        font-weight: bold;
-        @include media-breakpoint-down(xs) {
-            margin-top: 0.5rem;
-        }
-    }
-
-    .messages,
-    .notices {
-        margin: 20px -15px;
-    }
-
-    .avatar {
-        border-radius:50%;
-        height:32px;
-        width:32px;
-        margin-right:10px;
-    }
 }
 
 .section-timetable {
@@ -95,7 +60,6 @@
     }
 
     h5 {
-        color: $colorHPIRed;
         float: left;
     }
 

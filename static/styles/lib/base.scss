@@ -1,5 +1,6 @@
 @import "./colors";
 @import "components";
+@import "./sc-theme/sc-theme";
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
@@ -11,15 +12,15 @@
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
 }
 
 a {
-	text-decoration: none;
-	&:hover {
-		text-decoration: none;
-	}
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 a[data-toggle="collapse"],
@@ -54,6 +55,11 @@ label {
 .pagination-wrapper {
 	text-align: center;
 	width: 100%;
+}
+
+label,
+.noselect{
+    user-select: none;
 }
 
 .btn-loading {
@@ -171,7 +177,6 @@ form.inline {
 }
 
 .card-deck-row {
-    width: 100%;
 
 	& > div {
 		margin-bottom: 30px;
@@ -182,10 +187,6 @@ form.inline {
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction: column;
-
-		p {
-			word-wrap: break-word;
-		}
 
 		.card-block {
 			max-width: 100%;
@@ -206,7 +207,6 @@ form.inline {
     color: #373a3c;
     text-decoration:none;
     &:hover{text-decoration:none;}
-    word-break: break-all;
     h1 {font-size: 1.3rem;font-weight:bold}
     h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
     h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}

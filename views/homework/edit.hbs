@@ -1,4 +1,4 @@
-{{#content "styles" mode="append"}}>
+{{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
 {{/content}}
 {{#content "scripts" mode="append"}}
@@ -73,11 +73,8 @@
                 <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
             {{/if}}
 
-            
-
-
             {{#if referrer}}﻿<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
-            
+
             ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
             <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
