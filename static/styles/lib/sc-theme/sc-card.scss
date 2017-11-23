@@ -35,7 +35,8 @@
             font-weight: 700;
             overflow: hidden;
             z-index: 1;
-            text-shadow: 0 0 10px rgba(0, 0, 0, .5);          
+            text-shadow: 0 0 10px rgba(0, 0, 0, .5);
+            word-break: break-word;
         }
         .sc-card-menu {
             position: absolute;
@@ -86,7 +87,7 @@
         border-top-width: 0;
         border-bottom-width: 0;
         p{
-            overflow: hidden;
+            word-break: break-word;
         }
         &:first-of-type{
             border-top-left-radius: 2px;
