@@ -302,6 +302,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
                     </div>
                 </div>
             </div>
@@ -346,6 +347,9 @@ class TopicBlock extends React.Component {
                 break;
             case 'neXboard':
                 return TopicNexboard;
+                break;
+            case 'Etherpad':
+                return TopicEtherpad;
                 break;
         }
     }
@@ -793,7 +797,7 @@ class TopicNexboard extends TopicBlock {
                 <div className="form-group">
                     <label>Beschreibung des neXboards</label>
                     <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
-                              placeholder="Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC ">
+                              placeholder="Erstellt im nachfolgenden neXboard eine Pro-Contra-Liste zum Thema XYC ">
                         {(this.props.content || {}).description}
                     </textarea>
                 </div>
@@ -810,6 +814,104 @@ class TopicNexboard extends TopicBlock {
                         </optgroup>
                         <optgroup label="Neues Board">
                             <option value={this.state.newBoard} >Neues neXboard anlegen</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <input type="hidden" name={`contents[${this.props.position}][content][url]`}
+                       value={(this.props.content || {}).url } />
+            </div>
+        );
+    }
+}
+/**
+ * Class representing an Etherpad
+ * @extends React.Component
+ */
+class TopicEtherpad extends TopicBlock {
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            newPad : 0,
+            pads: []
+        };
+        this.handleChange = this.handleChange.bind(this);
+
+    }
+
+    componentDidMount() {
+        // TODO
+        $.getJSON("nexboard/boards").then(boards => {
+            this.setState({boards:boards});
+        });
+        $(".chosen-select").chosen();
+        $('.chosen-select').on('change', this.handleChange);
+    }
+
+
+    componentDidUpdate() {
+        $(".chosen-select").trigger("chosen:updated");
+    }
+
+    handleChange() {
+        var id = $(".chosen-select").find("option:selected").val();
+        if (id == this.state.newPad){
+            return 0;
+        }
+        this.state.pads.map(pad => {
+            if(pad.padId == id){
+                const content = this.props.content;
+                content.pad = pad.padId;
+                content.url = "https://" + pad.public_link;
+                this.props.onUpdate({
+                    content: content
+                });
+        }});
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in view mode.
+     */
+    static get component() {
+        return 'Etherpad';
+    }
+
+    /**
+     * Render the block (an textarea)
+     */
+    render() {
+        return (
+            <div>
+                <div type="hidden" className="form-group">
+                    <label>Name des Etherpads</label>
+                    <input className="form-control" name={`contents[${this.props.position}][content][title]`}
+                           type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
+                </div>
+                <div className="form-group">
+                    <label>Beschreibung des Etherpads</label>
+                    <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
+                              placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
+                        {(this.props.content || {}).description}
+                    </textarea>
+                </div>
+                <div className="form-group">
+                    <label>Etherpad auswählen</label>
+                    <select name={`contents[${this.props.position}][content][pad]`}
+                            className="chosen-select"
+                            data-placeholder="Etherpad auswählen"
+                            value={(this.props.content || {}).pad}>
+                        <optgroup label="Vorhandene Pads">
+                            {this.state.pads.map(pad =>
+                                <option value={pad.padId}>{pad.title}</option>
+                            )}
+                        </optgroup>
+                        <optgroup label="Neues Pad">
+                            <option value={this.state.newPoard} >Neues Etherpad anlegen</option>
                         </optgroup>
                     </select>
                 </div>
