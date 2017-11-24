@@ -223,6 +223,7 @@ const getNexBoards = (req,res,next) => {
 const getEtherpads = (req,res,next) => {
     //TODO
     console.log('getEtherpads was called')
+    res.json(getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser)));
 };
 
 router.get('/:topicId/nexboard/boards', getNexBoards);

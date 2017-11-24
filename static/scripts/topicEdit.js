@@ -846,7 +846,7 @@ class TopicEtherpad extends TopicBlock {
 
     componentDidMount() {
         console.log('componentDidMount')
-        // TODO
+        // TODO request existing pads from etherpad/pads endpoint
         // $.getJSON("nexboard/boards").then(boards => {
         //     this.setState({boards:boards});
         // });
