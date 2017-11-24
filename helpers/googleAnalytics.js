@@ -85,6 +85,7 @@ const middleware = (req, res, next) => {
         ds: 'web', // Data source
         dh: req.headers.origin || process.env.HOST || FALLBACK_HOST, // Document Host
         dl: url.parse(req.originalUrl).pathname, // Document location,
+        dr: req.headers['referer'], // Document Referrer
         cid: crypto.createHash('sha256').update(req.sessionID).digest('base64'), // User ID
         ua: req.headers['user-agent'], // User agent override
         uip: anonymizeIp(req.ip), // IP override
