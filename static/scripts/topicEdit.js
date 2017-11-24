@@ -845,12 +845,13 @@ class TopicEtherpad extends TopicBlock {
     }
 
     componentDidMount() {
+        console.log('componentDidMount')
         // TODO
-        $.getJSON("nexboard/boards").then(boards => {
-            this.setState({boards:boards});
-        });
-        $(".chosen-select").chosen();
-        $('.chosen-select').on('change', this.handleChange);
+        // $.getJSON("nexboard/boards").then(boards => {
+        //     this.setState({boards:boards});
+        // });
+        // $(".chosen-select").chosen();
+        // $('.chosen-select').on('change', this.handleChange);
     }
 
 

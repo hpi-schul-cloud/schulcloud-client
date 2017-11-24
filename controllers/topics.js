@@ -4,7 +4,7 @@ const express = require('express');
 const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
-const Nexbord = require("nexboard-api-js");
+const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -141,7 +141,7 @@ router.patch('/:topicId', function (req, res, next) {
     if (!data.contents && !req.query.json) data.contents = [];
 
     // create new Nexboard when necessary
-    data.contents.forEach(content =>{
+    data.contents.forEach(content => {
         if (content.component === "neXboard" && content.content.board == 0){
             var board = getNexBoardAPI().createBoard(
                 content.content.title,
@@ -151,6 +151,13 @@ router.patch('/:topicId', function (req, res, next) {
             content.content.board = board.boardId;
             content.content.url = "https://" + board.public_link;
             content.content.description = board.description;
+        }
+    });
+
+    // create new Etherpad when necessary
+    data.contents.forEach(content => {
+        if (content.component === "Etherpad" && content.content.board == 0){
+            console.log('new etherpad requested');
         }
     });
 
@@ -196,7 +203,7 @@ router.get('/:topicId/edit', editTopicHandler);
 const getNexBoardAPI = () =>{
     let userId = process.env.NEXBOARD_USER_ID;
     let apikey = process.env.NEXBOARD_API_KEY;
-    return new Nexbord(apikey,userId);
+    return new Nexboard(apikey,userId);
 };
 
 const getNexBoardProjectFromUser = (req,user) =>{
@@ -204,8 +211,7 @@ const getNexBoardProjectFromUser = (req,user) =>{
     if (typeof preferences.nexBoardProjectID === "undefined") {
         var project = getNexBoardAPI().createProject(user._id,user._id);
         preferences.nexBoardProjectID = project.id;
-        api(req).patch('/users/' + user._id, {json: {
-            preferences}});
+        api(req).patch('/users/' + user._id, {json: {preferences}});
     }
     return preferences.nexBoardProjectID;
 };
@@ -214,10 +220,15 @@ const getNexBoards = (req,res,next) => {
     res.json(getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser)));
 };
 
+const getEtherpads = (req,res,next) => {
+    //TODO
+    console.log('getEtherpads was called')
+};
+
 router.get('/:topicId/nexboard/boards', getNexBoards);
-
-
 router.get('/nexboard/boards',getNexBoards);
 
+router.get('/:topicId/etherpad/pads', getEtherpads);
+router.get('/etherpad/pads',getEtherpads);
 
 module.exports = router;
