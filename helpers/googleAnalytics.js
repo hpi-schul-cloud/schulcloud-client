@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
 const url = require('url');
+const path = require('path');
 const crypto = require('crypto');
+const maxmind = require('maxmind');
 const Request = require('request-promise');
 const ipaddr = require('ipaddr.js');
 const queryString = require('query-string');
@@ -77,37 +79,48 @@ const middleware = (req, res, next) => {
         return;
       }
 
-      let hit = {
-        v: 1, // Protocol version
-        tid: process.env.GOOGLE_ANALYTICS_TRACKING_ID, // Tracking ID
-        qt: Date.now(), // Queue time
-        t: 'pageview', // Hit type
-        ds: 'web', // Data source
-        dh: req.headers.origin || process.env.HOST || FALLBACK_HOST, // Document Host
-        dl: url.parse(req.originalUrl).pathname, // Document location,
-        dr: req.headers['referer'], // Document Referrer
-        cid: crypto.createHash('sha256').update(req.sessionID).digest('base64'), // User ID
-        ua: req.headers['user-agent'], // User agent override
-        uip: anonymizeIp(req.ip), // IP override
-      };
+      // Uses GeoLite2 data created by MaxMind (http://www.maxmind.com) for geoip lookup
+      maxmind.open(path.join(__dirname, '../data/geolite/GeoLite2-Country.mmdb'), (err, countryLookup) => {
+        let hit = {
+          v: 1, // Protocol version
+          tid: process.env.GOOGLE_ANALYTICS_TRACKING_ID, // Tracking ID
+          qt: Date.now(), // Queue time
+          t: 'pageview', // Hit type
+          ds: 'web', // Data source
+          dh: req.headers.origin || process.env.HOST || FALLBACK_HOST, // Document Host
+          dl: url.parse(req.originalUrl).pathname, // Document location,
+          dr: req.headers['referer'], // Document Referrer
+          cid: crypto.createHash('sha256').update(req.sessionID).digest('base64'), // User ID
+          ua: req.headers['user-agent'], // User agent override
+          uip: anonymizeIp(req.ip), // IP override
+        };
 
-      // If page is error page, send exception hit instead of pageview hit
-      if(res.locals.error) {
-        hit.t = 'exception';
-        hit.exd = res.locals.error.message;
-      }
+        // GeoIP lookup of user country
+        if(countryLookup) {
+          let geoIpResult = countryLookup.get(req.ip);
+          if(geoIpResult) {
+            hit.geoid = geoIpResult.country.iso_code;
+          }
+        }
 
-      // Custom dimensions
-      if(res.locals.currentSchoolData) {
-        hit.cd1 = res.locals.currentSchoolData.name;
-      }
-      if(res.locals.currentUser) {
-        hit.cd2 = res.locals.currentUser.gender;
-        hit.cd4 = res.locals.currentUser.roles[0].name;
-        hit.cd5 = res.locals.currentRole === 'Demo' ? 1 : 0;
-      }
+        // If page is error page, send exception hit instead of pageview hit
+        if(res.locals.error) {
+          hit.t = 'exception';
+          hit.exd = res.locals.error.message;
+        }
 
-      emit(hit);
+        // Custom dimensions
+        if(res.locals.currentSchoolData) {
+          hit.cd1 = res.locals.currentSchoolData.name;
+        }
+        if(res.locals.currentUser) {
+          hit.cd2 = res.locals.currentUser.gender;
+          hit.cd4 = res.locals.currentUser.roles[0].name;
+          hit.cd5 = res.locals.currentRole === 'Demo' ? 1 : 0;
+        }
+
+        emit(hit);
+      });
     });
   }
 
