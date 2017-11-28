@@ -14,7 +14,7 @@ const FALLBACK_HOST = 'https://schul-cloud.org';
 const BATCH_HITS_ENDPOINT = 'https://www.google-analytics.com/batch';
 
 let queue = [];
-let flushTimer = [];
+let flushTimer;
 const request = Request.defaults({
   forever: true,
   pool: {maxSockets: SOCKET_POOL_SIZE}
@@ -24,7 +24,7 @@ const emit = (hit) => {
   queue.push(hit);
   if(queue.length === MAX_BATCH_SIZE) {
     flush();
-  } else {
+  } else if(!flushTimer) {
     // Schedules flush if no event is triggered within MAX_QUEUE_TIME
     flushTimer = setTimeout(() => flush(), MAX_QUEUE_TIME);
   }
