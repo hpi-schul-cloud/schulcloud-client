@@ -130,7 +130,7 @@ const getCreateHandler = (service) => {
                     });
             }
             let promise = service === "submissions" ?
-                addFilePermissionsForCoWorkers(req, data.teamMembers, data.fileIds) :
+                addFilePermissionsForTeamMembers(req, data.teamMembers, data.fileIds) :
                 Promise.resolve({});
 
             return promise.then(_ => {
@@ -162,7 +162,7 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 /**
  * adds file permissions for co workers to a submission file
  */
-const addFilePermissionsForCoWorkers = (req, teamMembers, fileIds) => {
+const addFilePermissionsForTeamMembers = (req, teamMembers, fileIds) => {
     return Promise.all(fileIds.map(f => {
         return api(req).get('/files/' + f).then(file => {
             return Promise.all(teamMembers.map(cw => {
@@ -196,7 +196,7 @@ const patchFunction = function(service, req, res, next){
             // add file permissions for co Worker
             let fileIds = data.fileIds;
             let teamMembers = data.teamMembers;
-            return addFilePermissionsForCoWorkers(req, teamMembers, fileIds).then(_ => {
+            return addFilePermissionsForTeamMembers(req, teamMembers, fileIds).then(_ => {
                 api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
                     .then(homework => {
                         sendNotification(data.studentId,
@@ -380,7 +380,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
         return api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result)).then(_ => {
             // if there is already an submission, it is more safe to add the permissions at this step (if the user
             // forgets to click on save)
-            return teamMembers ? addFilePermissionsForCoWorkers(req, teamMembers, [fileId]) : Promise.resolve({});
+            return teamMembers ? addFilePermissionsForTeamMembers(req, teamMembers, [fileId]) : Promise.resolve({});
         });
     }).catch(err => res.send(err));
 });

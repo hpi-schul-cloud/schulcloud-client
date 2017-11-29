@@ -57,14 +57,14 @@ $(document).ready(function() {
     });
 
     //validate teamMembers
-    var lastCoWorkers = null;
-    const maxCoWorkers = parseInt($("#maxCoWorkers").html());
+    var lastTeamMembers = null;
+    const maxTeamMembers = parseInt($("#maxTeamMembers").html());
     $('#teamMembers').change(function(event) {
-        if ($(this).val().length > maxCoWorkers) {
-            $(this).val(lastCoWorkers);
-            $.showNotification("Die maximale Teamgröße beträgt " + maxCoWorkers + " Mitglieder", "warning", 5000);
+        if ($(this).val().length > maxTeamMembers) {
+            $(this).val(lastTeamMembers);
+            $.showNotification("Die maximale Teamgröße beträgt " + maxTeamMembers + " Mitglieder", "warning", 5000);
         } else {
-            lastCoWorkers = $(this).val();
+            lastTeamMembers = $(this).val();
         }
         $(this).chosen().trigger("chosen:updated");
     });
