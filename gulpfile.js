@@ -67,7 +67,7 @@ const buildStyles = (isWatch) => {
         .pipe(sass())
         .pipe(minify)
         .pipe(autoprefixer({
-            browsers: ['last 3 versions']
+            browsers: ['last 3 major versions']
         }))
         .pipe(gulp.dest('./build/styles'))
 };
@@ -96,6 +96,9 @@ const buildVendorImages = (isWatch) => {
     return getGulpTask('./static/vendor/**/*.{css,sass,scss}', isWatch)
         .pipe(sass())
         .pipe(minify)
+        .pipe(autoprefixer({
+            browsers: ['last 3 major versions']
+        }))
         .pipe(gulp.dest('./build/vendor'))
 };
 
