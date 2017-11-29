@@ -52,6 +52,7 @@
     "clean-css": "^4.0.8",
     "eslint": "^3.17.1",
     "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
     "gulp-babel": "^6.1.2",
     "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",

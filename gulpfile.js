@@ -12,6 +12,7 @@ const watch = require('gulp-watch');
 const optimizejs = require('gulp-optimize-js');
 const concat = require('gulp-concat');
 const count = require('gulp-count');
+const autoprefixer = require('gulp-autoprefixer');
 
 const baseScripts = [
     './static/scripts/jquery/jquery.min.js',
@@ -65,6 +66,9 @@ const buildStyles = (isWatch) => {
     return getGulpTask('./static/styles/**/*.{css,sass,scss}', isWatch)
         .pipe(sass())
         .pipe(minify)
+        .pipe(autoprefixer({
+            browsers: ['last 3 versions']
+        }))
         .pipe(gulp.dest('./build/styles'))
 };
 
