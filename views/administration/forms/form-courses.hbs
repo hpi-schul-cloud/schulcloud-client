@@ -105,7 +105,7 @@
                     </div>
                 </div>
 
-                <table width="100%" cellpadding="5px">
+                <table width="100%" cellpadding="5px" class="course-times">
                     <thead>
                     <th></th>
                     <th><label>Wochentag</label></th>
@@ -114,35 +114,10 @@
                     <th><label>Raum</label></th>
                     </thead>
                     <tbody class="add-course-times">
-                    <tr>
-                        <td>
-                            <i class="fa fa-plus new-course-time-add" data-timesref="#collapse{{collapseId}}"></i>
-                        </td>
-                        <td>
-                            <select class="new-weekday">
-                                <option value="0">Montag</option>
-                                <option value="1">Dienstag</option>
-                                <option value="2">Mittwoch</option>
-                                <option value="3">Donnerstag</option>
-                                <option value="4">Freitag</option>
-                                <option value="5">Samstag</option>
-                                <option value="6">Sonntag</option>
-                            </select>
-                        </td>
-                        <td>
-                            <input class="form-control new-start-time" type="time"/>
-                        </td>
-                        <td>
-                            <input class="form-control new-duration" type="number"
-                                   placeholder="in Minuten"/>
-                        </td>
-                        <td>
-                            <input class="form-control new-room" type="text"
-                                   placeholder="z.B. R-1.21"/>
-                        </td>
-                    </tr>
+                        {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                     </tbody>
                 </table>
+                <i class="fa fa-plus new-course-time-add" data-timesref="#collapse1"></i>
             </div>
         </div>
     </div>

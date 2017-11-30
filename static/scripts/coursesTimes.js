@@ -8,13 +8,14 @@ let guidGenerator = function guidGenerator() {
 };
 
 let populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
-    var $courseTimes = modal.find('.add-course-times');
+    let $courseTimes = modal.find('.course-times');
     // cleanup
-    $courseTimes.find("tr:gt(0)").remove();
+    $courseTimes.find("tr:gt(0)").not('.new-course-time-template').remove();
 
     // add new field
     courseTimes.forEach(function (time) {
-        populateCourseTime($courseTimes, time);
+        let $courseTime = addNewCourseTime($courseTimes);
+        populateCourseTime($courseTime, time);
     });
 };
 
@@ -22,6 +23,7 @@ let deleteCourseTime = function (courseTimeId) {
     $('#' + courseTimeId).remove();
 };
 
+/** creates a new empty course-time row **/
 let addNewCourseTime = function addNewCourseTime(div) {
     let $courseTimesTable = div.find('.add-course-times');
     let $newCourseTime = div.find('.new-course-time-template').clone();
@@ -46,27 +48,20 @@ let addNewCourseTime = function addNewCourseTime(div) {
     courseTimesCount++;
 
     $courseTimesTable.append($newCourseTime);
+    return $newCourseTime;
 };
 
-function populateCourseTime($courseTimes, field) {
-    if (!field.duration || field.duration == '') return;
-
-    var _id = guidGenerator();
-    var $field = $("<tr id='" + _id + "' class='course-time'></tr>")
-        .append($("<td><i class='fa fa-trash-o course-time-delete' /></td>")
-            .click(deleteCourseTime.bind(this, _id))
-        )
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][weekday]' value='" + field.weekday + "' type='text' ></input></td>"))
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][startTime]' value='" + field.startTime + "' type='time'></input></td>"))
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][duration]' value='" + field.duration + "' type='number'></input></td>"))
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][room]' value='" + field.room + "' type='text'></input></td>"));
-    $courseTimes.append($field);
-    courseTimesCount++;
+/** fills an empty course-time row with data **/
+let populateCourseTime = function($courseTimeRow, data) {
+    $courseTimeRow.find('.new-course-time-template-weekday').val(data.weekday);
+    $courseTimeRow.find('.new-course-time-template-startTime').val(data.startTime);
+    $courseTimeRow.find('.new-course-time-template-duration').val(data.duration);
+    $courseTimeRow.find('.new-course-time-template-room').val(data.room);
 };
 
 $('.new-course-time-add').click(function (e) {
     // fallback if multiple time-containers are on one page, e.g. in administration
-    var $timesContainer = $($(this).attr('data-timesref'));
+    let $timesContainer = $($(this).attr('data-timesref'));
     addNewCourseTime($timesContainer);
 });
 
