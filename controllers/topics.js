@@ -92,7 +92,8 @@ router.get('/:topicId', function (req, res, next) {
             qs: {
                 courseId: req.params.courseId,
                 lessonId: req.params.topicId,
-                $populate: ['courseId']
+                $populate: ['courseId'],
+                archived : {$ne: res.locals.currentUser._id }
             }
         })
     ]).then(([course, lesson, homeworks]) => {
