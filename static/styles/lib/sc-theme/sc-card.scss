@@ -31,6 +31,10 @@
             background-image: linear-gradient(to top, rgba(0,0,0,.1) 0%, transparent 85%);
         }
         .sc-card-title {
+            a {
+                color: inherit;
+                text-decoration: none !important;
+            }
             align-self: flex-end;
             font-weight: 700;
             overflow: hidden;
