@@ -24,7 +24,7 @@
                             {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
                             {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
                         {{else}}
-                            {{#ifeq this._id @root.currentUser._id}} selected disabled{{/ifeq}}
+                            {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
                         {{/if}}
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
