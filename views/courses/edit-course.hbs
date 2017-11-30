@@ -147,7 +147,7 @@
                                     </thead>
                                     <tbody class="add-course-times">
                                         {{#each course.times}}
-                                            <tr {{this._id}}>
+                                            <tr id="{{this._id}}" class="course-time">
                                                 <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
                                                 <td>
                                                     <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
@@ -173,11 +173,10 @@
                                                 </td>
                                             </tr>
                                         {{/each}}
-                                        <td>
-                                            <i class="fa fa-plus new-course-time-add" data-timesref="#collapse1"></i>
-                                        </td>
+                                        {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                                     </tbody>
                                 </table>
+                                <i class="fa fa-plus new-course-time-add" data-timesref="#collapse1"></i>
                             </div>
                         </div>
                     </div>

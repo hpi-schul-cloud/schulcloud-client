@@ -1,4 +1,13 @@
-var populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
+let courseTimesCount = $('.course-time').length;
+
+let guidGenerator = function guidGenerator() {
+    let S4 = function () {
+        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
+};
+
+let populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
     var $courseTimes = modal.find('.add-course-times');
     // cleanup
     $courseTimes.find("tr:gt(0)").remove();
@@ -9,35 +18,34 @@ var populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
     });
 };
 
-var addNewCourseTime = function addNewCourseTime(div) {
-    var $courseTimes = div.find('.add-course-times');
-    var $newWeekday = div.find('.new-weekday option:selected');
-    var $newStartTime = div.find('.new-start-time');
-    var $newDuration = div.find('.new-duration');
-    var $newRoom = div.find('.new-room');
-    populateCourseTime($courseTimes, {
-        weekday: $newWeekday.text(),
-        startTime: $newStartTime.val(),
-        duration: $newDuration.val(),
-        room: $newRoom.val()
-    });
-    $newWeekday.val("");
-    $newStartTime.val("");
-    $newDuration.val("");
-    $newRoom.val("");
+let deleteCourseTime = function (courseTimeId) {
+    $('#' + courseTimeId).remove();
 };
 
-var courseTimesCount = $('.course-time').length;
+let addNewCourseTime = function addNewCourseTime(div) {
+    let $courseTimesTable = div.find('.add-course-times');
+    let $newCourseTime = div.find('.new-course-time-template').clone();
+    let _id = guidGenerator();
 
-function guidGenerator() {
-    var S4 = function () {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-    };
-    return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}
+    $newCourseTime.find('.new-course-time-template-weekday').attr('name', `times[${courseTimesCount}][weekday]`);
+    $newCourseTime.find('.new-course-time-template-weekday').chosen();
 
-var deleteCourseTime = function (courseTimeId) {
-    $('#' + courseTimeId).remove();
+    $newCourseTime.find('.new-course-time-template-startTime').attr('name', `times[${courseTimesCount}][startTime]`);
+    $newCourseTime.find('.new-course-time-template-startTime').datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+
+    $newCourseTime.find('.new-course-time-template-duration').attr('name', `times[${courseTimesCount}][duration]`);
+    $newCourseTime.find('.new-course-time-template-room').attr('name', `times[${courseTimesCount}][room]`);
+    $newCourseTime.find('.course-time-delete').click(deleteCourseTime.bind(this, _id));
+
+    $newCourseTime.attr('id', _id);
+    $newCourseTime.removeClass('new-course-time-template');
+    $newCourseTime.addClass('course-time');
+    courseTimesCount++;
+
+    $courseTimesTable.append($newCourseTime);
 };
 
 function populateCourseTime($courseTimes, field) {
