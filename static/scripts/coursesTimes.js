@@ -23,6 +23,12 @@ let deleteCourseTime = function (courseTimeId) {
     $('#' + courseTimeId).remove();
 };
 
+/** fix the bootstrap-chosen solution **/
+let fixChosen = function (selectElement) {
+    selectElement.chosen({ width: "100%", height: "100%" });
+    selectElement.parent().find('.chosen-container-single-nosearch').remove();
+};
+
 /** creates a new empty course-time row **/
 let addNewCourseTime = function addNewCourseTime(div) {
     let $courseTimesTable = div.find('.add-course-times');
@@ -30,7 +36,7 @@ let addNewCourseTime = function addNewCourseTime(div) {
     let _id = guidGenerator();
 
     $newCourseTime.find('.new-course-time-template-weekday').attr('name', `times[${courseTimesCount}][weekday]`);
-    $newCourseTime.find('.new-course-time-template-weekday').chosen();
+    fixChosen($newCourseTime.find('.new-course-time-template-weekday'));
 
     $newCourseTime.find('.new-course-time-template-startTime').attr('name', `times[${courseTimesCount}][startTime]`);
     $newCourseTime.find('.new-course-time-template-startTime').datetimepicker({
