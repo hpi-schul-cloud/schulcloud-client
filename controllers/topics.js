@@ -56,6 +56,7 @@ router.get('/add', editTopicHandler);
 
 router.post('/', function (req, res, next) {
     const data = req.body;
+    data.contents = createNewNexBoards(req,res,data.contents);
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -141,18 +142,7 @@ router.patch('/:topicId', function (req, res, next) {
     if (!data.contents && !req.query.json) data.contents = [];
 
     // create new Nexboard when necessary
-    data.contents.forEach(content =>{
-        if (content.component === "neXboard" && content.content.board == 0){
-            var board = getNexBoardAPI().createBoard(
-                content.content.title,
-                content.content.description,
-                getNexBoardProjectFromUser(req,res.locals.currentUser));
-            content.content.title = board.title;
-            content.content.board = board.boardId;
-            content.content.url = "https://" + board.public_link;
-            content.content.description = board.description;
-        }
-    });
+    data.contents = createNewNexBoards(req,res,data.contents);
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
@@ -192,6 +182,22 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 
 router.get('/:topicId/edit', editTopicHandler);
+
+const createNewNexBoards = (req,res,contents) =>{
+    contents.forEach(content =>{
+        if (content.component === "neXboard" && content.content.board == 0){
+            var board = getNexBoardAPI().createBoard(
+                content.content.title,
+                content.content.description,
+                getNexBoardProjectFromUser(req,res.locals.currentUser));
+            content.content.title = board.title;
+            content.content.board = board.boardId;
+            content.content.url = "https://" + board.public_link;
+            content.content.description = board.description;
+        }
+    });
+    return contents;
+};
 
 const getNexBoardAPI = () =>{
     let userId = process.env.NEXBOARD_USER_ID;
