@@ -769,7 +769,7 @@ class TopicNexboard extends TopicBlock {
             if(board.boardId == id){
                 const content = this.props.content;
                 content.board = board.boardId;
-                content.url = "https://" + board.public_link;
+                content.url = "https://" + board.publicLink;
                 this.props.onUpdate({
                     content: content
                 });
@@ -867,7 +867,7 @@ class TopicEtherpad extends TopicBlock {
             if(pad.padId == id){
                 const content = this.props.content;
                 content.pad = pad.padId;
-                content.url = "https://" + pad.public_link;
+                content.url = pad.publicLink;
                 this.props.onUpdate({
                     content: content
                 });

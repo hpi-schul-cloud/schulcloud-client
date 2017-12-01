@@ -165,20 +165,20 @@ router.patch('/:topicId', function (req, res, next) {
                 getNexBoardProjectFromUser(req,res.locals.currentUser));
             content.content.title = board.title;
             content.content.board = board.boardId;
-            content.content.url = "https://" + board.public_link;
+            content.content.url = "https://" + board.publicLink;
             content.content.description = board.description;
         } else if (content.component === "Etherpad" && content.content.pad === '0'){
             // create new Etherpad when necessary
-            //TODO use hash from topic id or something for public link
+            const padId = shortid.generate();
             var pad = {
                 title: content.content.title,
-                padId: 123,
-                public_link: `${etherpadBaseUrl}${content.content.title}`,
+                padId: padId,
+                publicLink: `${etherpadBaseUrl}${padId}`,
                 description: content.content.description
             };
             content.content.title = pad.title;
             content.content.pad = pad.padId;
-            content.content.url = pad.public_link;
+            content.content.url = pad.publicLink;
             content.content.description = pad.description;
         }
     });
