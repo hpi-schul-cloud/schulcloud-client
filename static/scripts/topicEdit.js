@@ -835,44 +835,12 @@ class TopicEtherpad extends TopicBlock {
      */
     constructor(props) {
         super(props);
-
-        this.state = {
-            newPad : 0,
-            pads: []
-        };
-        this.handleChange = this.handleChange.bind(this);
-
     }
 
-    componentDidMount() {
-        // TODO request existing pads from etherpad/pads endpoint
-        $.getJSON("etherpad/pads").then(pads => {
-            this.setState({pads:pads});
-        });
-        $(".chosen-select").chosen();
-        $('.chosen-select').on('change', this.handleChange);
-    }
+    componentDidMount() {}
 
 
-    componentDidUpdate() {
-        $(".chosen-select").trigger("chosen:updated");
-    }
-
-    handleChange() {
-        var id = $(".chosen-select").find("option:selected").val();
-        if (id == this.state.newPad){
-            return 0;
-        }
-        this.state.pads.map(pad => {
-            if(pad.padId == id){
-                const content = this.props.content;
-                content.pad = pad.padId;
-                content.url = pad.publicLink;
-                this.props.onUpdate({
-                    content: content
-                });
-        }});
-    }
+    componentDidUpdate() {}
 
     /**
      * This function returns the name of the component that will be used to render the block in view mode.
@@ -898,22 +866,6 @@ class TopicEtherpad extends TopicBlock {
                               placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
                         {(this.props.content || {}).description}
                     </textarea>
-                </div>
-                <div className="form-group">
-                    <label>Etherpad auswählen</label>
-                    <select name={`contents[${this.props.position}][content][pad]`}
-                            className="chosen-select"
-                            data-placeholder="Etherpad auswählen"
-                            value={(this.props.content || {}).pad}>
-                        <optgroup label="Vorhandene Pads">
-                            {this.state.pads.map(pad =>
-                                <option value={pad.padId}>{pad.title}</option>
-                            )}
-                        </optgroup>
-                        <optgroup label="Neues Pad">
-                            <option value={this.state.newPad} >Neues Etherpad anlegen</option>
-                        </optgroup>
-                    </select>
                 </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
                        value={(this.props.content || {}).url } />

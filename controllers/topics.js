@@ -5,13 +5,6 @@ const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
 const Nexboard = require('nexboard-api-js');
-//TODO use or remove etherpad lite client
-// const EtherpadAPIFactory = require('etherpad-lite-client');
-// const EtherpadAPI = EtherpadAPIFactory.connect({
-//   apikey: 'UcCGa6fPpkLflvPVBysOKs9eeuWV08Ul',
-//   host: 'localhost',
-//   port: 9001,
-// });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -68,6 +61,8 @@ router.post('/', function (req, res, next) {
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
+
+    data.contents = createEtherpads(req.body);
 
     api(req).post('/lessons/', {
         json: data // TODO: sanitize
@@ -167,22 +162,10 @@ router.patch('/:topicId', function (req, res, next) {
             content.content.board = board.boardId;
             content.content.url = "https://" + board.publicLink;
             content.content.description = board.description;
-        } else if (content.component === "Etherpad" && content.content.pad === '0'){
-            // create new Etherpad when necessary
-            const padId = shortid.generate();
-            var pad = {
-                title: content.content.title,
-                padId: padId,
-                publicLink: `${etherpadBaseUrl}${padId}`,
-                description: content.content.description
-            };
-            content.content.title = pad.title;
-            content.content.pad = pad.padId;
-            content.content.url = pad.publicLink;
-            content.content.description = pad.description;
         }
     });
 
+    data.contents = createEtherpads(req.body);
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
@@ -197,6 +180,19 @@ router.patch('/:topicId', function (req, res, next) {
         res.sendStatus(500);
     });
 });
+
+const createEtherpads = req_body => {
+    const segments = req_body.contents || [];
+    segments
+        .filter(segment => segment.component === 'Etherpad')
+        .forEach(etherpadSegment => {
+            // create new Etherpad
+            const padId = shortid.generate();
+            etherpadSegment.content.pad = padId;
+            etherpadSegment.content.url = `${etherpadBaseUrl}${padId}`;
+        });
+    return segments;
+};
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
@@ -246,14 +242,5 @@ const getNexBoards = (req,res,next) => {
 
 router.get('/:topicId/nexboard/boards', getNexBoards);
 router.get('/nexboard/boards', getNexBoards);
-
-const getEtherpads = (req,res,next) => {
-    // TODO implement this
-    const pads = [];
-    res.json(pads);
-};
-
-router.get('/:topicId/etherpad/pads', getEtherpads);
-router.get('/etherpad/pads', getEtherpads);
 
 module.exports = router;
