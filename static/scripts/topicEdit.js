@@ -845,13 +845,12 @@ class TopicEtherpad extends TopicBlock {
     }
 
     componentDidMount() {
-        console.log('componentDidMount')
         // TODO request existing pads from etherpad/pads endpoint
-        // $.getJSON("nexboard/boards").then(boards => {
-        //     this.setState({boards:boards});
-        // });
-        // $(".chosen-select").chosen();
-        // $('.chosen-select').on('change', this.handleChange);
+        $.getJSON("etherpad/pads").then(pads => {
+            this.setState({pads:pads});
+        });
+        $(".chosen-select").chosen();
+        $('.chosen-select').on('change', this.handleChange);
     }
 
 
@@ -912,7 +911,7 @@ class TopicEtherpad extends TopicBlock {
                             )}
                         </optgroup>
                         <optgroup label="Neues Pad">
-                            <option value={this.state.newPoard} >Neues Etherpad anlegen</option>
+                            <option value={this.state.newPad} >Neues Etherpad anlegen</option>
                         </optgroup>
                     </select>
                 </div>

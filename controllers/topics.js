@@ -4,9 +4,18 @@ const express = require('express');
 const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
-const Nexboard = require("nexboard-api-js");
+const Nexboard = require('nexboard-api-js');
+//TODO use or remove etherpad lite client
+// const EtherpadAPIFactory = require('etherpad-lite-client');
+// const EtherpadAPI = EtherpadAPIFactory.connect({
+//   apikey: 'UcCGa6fPpkLflvPVBysOKs9eeuWV08Ul',
+//   host: 'localhost',
+//   port: 9001,
+// });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+
+const etherpadBaseUrl = 'https://tools.openhpi.de/etherpad/p/'
 
 
 const editTopicHandler = (req, res, next) => {
@@ -128,7 +137,12 @@ router.get('/:topicId', function (req, res, next) {
                 },
                 {}
             ]
-        }));
+        }), (error, html) => {
+            if(error) {
+                throw 'error in GET /:topicId - res.render: ' + error;
+            }
+            res.send(html);
+        });
     });
 });
 
@@ -138,11 +152,13 @@ router.patch('/:topicId', function (req, res, next) {
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     // if not a simple hidden or position patch, set contents to empty array
-    if (!data.contents && !req.query.json) data.contents = [];
+    if (!data.contents && !req.query.json){
+        data.contents = [];
+    }
 
-    // create new Nexboard when necessary
     data.contents.forEach(content => {
-        if (content.component === "neXboard" && content.content.board == 0){
+        if (content.component === "neXboard" && content.content.board === '0'){
+            // create new Nexboard when necessary
             var board = getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
@@ -151,15 +167,22 @@ router.patch('/:topicId', function (req, res, next) {
             content.content.board = board.boardId;
             content.content.url = "https://" + board.public_link;
             content.content.description = board.description;
+        } else if (content.component === "Etherpad" && content.content.pad === '0'){
+            // create new Etherpad when necessary
+            //TODO use hash from topic id or something for public link
+            var pad = {
+                title: content.content.title,
+                padId: 123,
+                public_link: `${etherpadBaseUrl}${content.content.title}`,
+                description: content.content.description
+            };
+            content.content.title = pad.title;
+            content.content.pad = pad.padId;
+            content.content.url = pad.public_link;
+            content.content.description = pad.description;
         }
     });
 
-    // create new Etherpad when necessary
-    data.contents.forEach(content => {
-        if (content.component === "Etherpad" && content.content.board == 0){
-            console.log('new etherpad requested');
-        }
-    });
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
@@ -167,13 +190,13 @@ router.patch('/:topicId', function (req, res, next) {
         if (req.query.json) {
             res.json(_);
         } else {
+            //sends a GET request, not a PATCH
             res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
         }
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
-
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
@@ -217,19 +240,20 @@ const getNexBoardProjectFromUser = (req,user) =>{
 };
 
 const getNexBoards = (req,res,next) => {
-    res.json(getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser)));
-};
-
-const getEtherpads = (req,res,next) => {
-    //TODO
-    console.log('getEtherpads was called')
-    res.json(getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser)));
+    const boards = getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser));
+    res.json(boards);
 };
 
 router.get('/:topicId/nexboard/boards', getNexBoards);
-router.get('/nexboard/boards',getNexBoards);
+router.get('/nexboard/boards', getNexBoards);
+
+const getEtherpads = (req,res,next) => {
+    // TODO implement this
+    const pads = [];
+    res.json(pads);
+};
 
 router.get('/:topicId/etherpad/pads', getEtherpads);
-router.get('/etherpad/pads',getEtherpads);
+router.get('/etherpad/pads', getEtherpads);
 
 module.exports = router;
