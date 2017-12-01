@@ -9,8 +9,13 @@ const api = require('../api');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
+
     const query = req.query.q;
     const action = 'addToLesson';
+
+    const itemsPerPage = (req.query.limit || 9);
+    const currentPage = parseInt(req.query.p) || 1;
+
     // Featured Content
     if (!query) {
         return Promise.all([
@@ -41,30 +46,22 @@ router.get('/', function (req, res, next) {
                 action
             });
         });
-        // Search Results
+    // Search Results
     } else {
         return api(req)({
             uri: '/content/search/',
-            qs: {q: query},
+            qs: {
+                _all: { $match: query },
+                $limit: itemsPerPage,
+                $skip: itemsPerPage * (currentPage - 1),
+            },
             json: true
-        }).then(results => {
-            // Include _id field in _source
-            let searchResults = results.hits.hits.map(x => {
-                x._source._id = x._id;
-                return x;
-            });
-
-            //TODO Should be changed to use pagination serversided and reduce traffic
-            const itemsPerPage = 6;
-            const currentPage = parseInt(req.query.p) || 1;
-            let pagination = {
+        }).then(searchResults => {
+            const pagination = {
                 currentPage,
-                numPages: Math.ceil(searchResults.length / itemsPerPage),
+                numPages: Math.ceil(searchResults.total / itemsPerPage),
                 baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
             };
-            const end = currentPage * itemsPerPage;
-            searchResults = searchResults.slice(end - itemsPerPage, end);
-
             return res.render('content/search-results', {
                 title: 'Materialien',
                 query: query,
