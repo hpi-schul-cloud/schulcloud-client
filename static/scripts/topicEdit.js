@@ -190,6 +190,7 @@ class TopicBlockList extends React.Component {
 
         this.state = {
             blocks: initialBlocks,
+            etherpadBaseUrl: $contentBlocksContainer.data('etherpadbaseurl'),
             onSortEndCallbacks: []
         };
     }
@@ -240,10 +241,12 @@ class TopicBlockList extends React.Component {
      * @param {Object} Block - Class reference to type of block.
      */
     addBlock(Block) {
+        //TODO dont set etherpadBaseUrl for all blocks...
         const blocks = this.state.blocks;
         blocks.push({
             type: Block,
             component: Block.component,
+            etherpadBaseUrl: this.state.etherpadBaseUrl,
             title: '',
             content: {},
             hidden: false
@@ -838,8 +841,7 @@ class TopicEtherpad extends TopicBlock {
         super(props);
         this.props.content = this.props.content || {};
         const randomId = Math.random().toString(36).substr(2, 5);
-        //TODO dont use openhpi etherpad
-        this.props.content.url = `https://tools.openhpi.de/etherpad/p/${randomId}`;
+        this.props.content.url = `${props.etherpadBaseUrl}${randomId}`;
     }
 
     /**

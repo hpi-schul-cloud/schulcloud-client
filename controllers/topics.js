@@ -8,6 +8,8 @@ const Nexboard = require('nexboard-api-js');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
+const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://tools.openhpi.de/etherpad/p/';
+
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
     if(req.params.topicId) {
@@ -35,7 +37,8 @@ const editTopicHandler = (req, res, next) => {
             title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
             submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
             lesson,
-            courseId: req.params.courseId
+            courseId: req.params.courseId,
+            etherpadBaseUrl: etherpadBaseUrl
         });
     });
 };
