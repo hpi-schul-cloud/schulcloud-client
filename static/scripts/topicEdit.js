@@ -301,7 +301,6 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicText)}>+ Text</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                     </div>
                 </div>
             </div>
@@ -343,9 +342,6 @@ class TopicBlock extends React.Component {
                 break;
             case 'geoGebra':
                 return TopicGeoGebra;
-                break;
-            case 'neXboard':
-                return TopicNexboard;
                 break;
         }
     }
@@ -721,104 +717,6 @@ class TopicGeoGebra extends TopicBlock {
     }
 };
 
-
-/**
- * Class representing a neXboard
- * @extends React.Component
- */
-class TopicNexboard extends TopicBlock {
-
-    /**
-     * Initialize the list.
-     * @param {Object} props - Properties from React Component.
-     */
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            newBoard : 0,
-            boards: []
-        };
-        this.handleChange = this.handleChange.bind(this);
-
-    }
-
-    componentDidMount() {
-        $.getJSON("nexboard/boards").then(boards => {
-            this.setState({boards:boards});
-        });
-        $(".chosen-select").chosen();
-        $('.chosen-select').on('change', this.handleChange);
-    }
-
-
-    componentDidUpdate() {
-        $(".chosen-select").trigger("chosen:updated");
-    }
-
-    handleChange() {
-        var id = $(".chosen-select").find("option:selected").val();
-        if (id == this.state.newBoard){
-            return 0;
-        }
-        this.state.boards.map(board => {
-            if(board.boardId == id){
-                const content = this.props.content;
-                content.board = board.boardId;
-                content.url = "https://" + board.public_link;
-                this.props.onUpdate({
-                    content: content
-                });
-        }});
-    }
-
-    /**
-     * This function returns the name of the component that will be used to render the block in view mode.
-     */
-    static get component() {
-        return 'neXboard';
-    }
-
-    /**
-     * Render the block (an textarea)
-     */
-    render() {
-        return (
-            <div>
-                <div type="hidden" className="form-group">
-                    <label>Name des neXboards</label>
-                    <input className="form-control" name={`contents[${this.props.position}][content][title]`}
-                           type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
-                </div>
-                <div className="form-group">
-                    <label>Beschreibung des neXboards</label>
-                    <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
-                              placeholder="Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC ">
-                        {(this.props.content || {}).description}
-                    </textarea>
-                </div>
-                <div className="form-group">
-                    <label>neXboard auswählen</label>
-                    <select name={`contents[${this.props.position}][content][board]`}
-                            className="chosen-select"
-                            data-placeholder="neXboard auswählen"
-                            value={(this.props.content || {}).board}>
-                        <optgroup label="Vorhandene Boards">
-                            {this.state.boards.map(board =>
-                                <option value={board.boardId}>{board.title}</option>
-                            )}
-                        </optgroup>
-                        <optgroup label="Neues Board">
-                            <option value={this.state.newBoard} >Neues neXboard anlegen</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <input type="hidden" name={`contents[${this.props.position}][content][url]`}
-                       value={(this.props.content || {}).url } />
-            </div>
-        );
-    }
-}
 
 /**
  * Render the virtual React DOM into an <div> in the current page.
