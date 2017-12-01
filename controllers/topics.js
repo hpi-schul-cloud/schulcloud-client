@@ -55,7 +55,10 @@ router.get('/add', editTopicHandler);
 
 
 router.post('/', function (req, res, next) {
+
     const data = req.body;
+
+    // Check for neXboard compontent
     data.contents = createNewNexBoards(req,res,data.contents);
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
@@ -184,9 +187,9 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-const createNewNexBoards = (req,res,contents) =>{
+const createNewNexBoards = (req,res,contents = []) =>{
     contents.forEach(content =>{
-        if (content.component === "neXboard" && content.content.board == 0){
+        if (content.component === "neXboard" && content.content.board === 0){
             var board = getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
