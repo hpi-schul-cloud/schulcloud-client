@@ -823,6 +823,7 @@ class TopicNexboard extends TopicBlock {
         );
     }
 }
+
 /**
  * Class representing an Etherpad
  * @extends React.Component
@@ -835,15 +836,15 @@ class TopicEtherpad extends TopicBlock {
      */
     constructor(props) {
         super(props);
+        this.props.content = this.props.content || {};
+        const randomId = Math.random().toString(36).substr(2, 5);
+        //TODO dont use openhpi etherpad
+        this.props.content.url = `https://tools.openhpi.de/etherpad/p/${randomId}`;
     }
 
-    componentDidMount() {}
-
-
-    componentDidUpdate() {}
-
     /**
-     * This function returns the name of the component that will be used to render the block in view mode.
+     * This function returns the name of the component that will be used to render the block in
+     * view mode.
      */
     static get component() {
         return 'Etherpad';
@@ -857,18 +858,21 @@ class TopicEtherpad extends TopicBlock {
             <div>
                 <div type="hidden" className="form-group">
                     <label>Name des Etherpads</label>
-                    <input className="form-control" name={`contents[${this.props.position}][content][title]`}
-                           type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
+                    <input className="form-control"
+                        name={`contents[${this.props.position}][content][title]`}
+                        type="text" placeholder="Brainstorming zum Thema XYZ"
+                        value={this.props.content.title}/>
                 </div>
                 <div className="form-group">
                     <label>Beschreibung des Etherpads</label>
-                    <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
-                              placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
-                        {(this.props.content || {}).description}
+                    <textarea className="form-control"
+                        name={`contents[${this.props.position}][content][description]`}
+                        placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
+                        {this.props.content.description}
                     </textarea>
                 </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
-                       value={(this.props.content || {}).url } />
+                       value={this.props.content.url} />
             </div>
         );
     }

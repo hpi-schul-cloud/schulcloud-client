@@ -8,9 +8,6 @@ const Nexboard = require('nexboard-api-js');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
-const etherpadBaseUrl = 'https://tools.openhpi.de/etherpad/p/'
-
-
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
     if(req.params.topicId) {
@@ -61,8 +58,6 @@ router.post('/', function (req, res, next) {
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
-
-    data.contents = createEtherpads(req.body);
 
     api(req).post('/lessons/', {
         json: data // TODO: sanitize
@@ -165,8 +160,6 @@ router.patch('/:topicId', function (req, res, next) {
         }
     });
 
-    data.contents = createEtherpads(req.body);
-
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
@@ -180,19 +173,6 @@ router.patch('/:topicId', function (req, res, next) {
         res.sendStatus(500);
     });
 });
-
-const createEtherpads = req_body => {
-    const segments = req_body.contents || [];
-    segments
-        .filter(segment => segment.component === 'Etherpad')
-        .forEach(etherpadSegment => {
-            // create new Etherpad
-            const padId = shortid.generate();
-            etherpadSegment.content.pad = padId;
-            etherpadSegment.content.url = `${etherpadBaseUrl}${padId}`;
-        });
-    return segments;
-};
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
