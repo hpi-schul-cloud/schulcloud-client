@@ -60,9 +60,11 @@ let addNewCourseTime = function addNewCourseTime(div) {
 /** fills an empty course-time row with data **/
 let populateCourseTime = function($courseTimeRow, data) {
     $courseTimeRow.find('.new-course-time-template-weekday').val(data.weekday);
+    $courseTimeRow.find('.new-course-time-template-weekday').trigger('chosen:updated');
     $courseTimeRow.find('.new-course-time-template-startTime').val(data.startTime);
     $courseTimeRow.find('.new-course-time-template-duration').val(data.duration);
     $courseTimeRow.find('.new-course-time-template-room').val(data.room);
+
 };
 
 $('.new-course-time-add').click(function (e) {
