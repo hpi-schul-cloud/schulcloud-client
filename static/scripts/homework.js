@@ -14,7 +14,7 @@ $(document).ready(function() {
         }
     }
 
-    function ajaxForm(element, after){
+    function ajaxForm(element, after, contentTest){
         const submitButton = element.find('[type=submit]')[0];
         let submitButtonText = submitButton.innerHTML || submitButton.value;
         submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
@@ -29,6 +29,12 @@ $(document).ready(function() {
         let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
         if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
         const content = element.serialize();
+        if(contentTest){
+            if(contentTest(content) == false){
+                showAJAXError(undefined, undefined,"Form validation failed");
+                return;
+            }
+        }
         let request = $.ajax({
             type: method,
             url: url,
@@ -85,7 +91,9 @@ $(document).ready(function() {
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this));
+        ajaxForm($(this),undefined,function(c){
+            return (c.grade || c.gradeComment);
+        });
         return false;
     });
 
