@@ -69,7 +69,12 @@
 
         {{#if @root.submission}}
             {{#inArray @root.currentUser._id @root.submission.teamMemberIds}}
-                <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission">Löschen</a>
+                <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
+                    target="_blank"
+                    data-method="delete-submission"
+                    data-name="deine Abgabe"
+                    alt="Abgabe löschen"
+                ><i class="fa fa-trash-o"></i> Löschen</a>
             {{/inArray}}
         {{/if}}
     {{/if}}
