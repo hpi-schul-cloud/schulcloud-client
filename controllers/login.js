@@ -65,15 +65,20 @@ router.all('/', function (req, res, next) {
             return res.redirect('/login/success/');
         } else {
             feedr.readFeed('https://blog.schul-cloud.org/rss', {/* optional configuration */}, function (err, data, headers) {
-                let blogFeed = data.rss.channel[0].item.slice(0,5).map(function(e){
-                    var date = new Date(e.pubDate),
-                    locale = "en-us",
-                    month = date.toLocaleString(locale, { month: "long" });
-                    e.pubDate = date.getDate() + ". " + month;
-                    return e;
-                });
-                let schoolsPromise = getSelectOptions(req, 'schools');
+                let blogFeed = [];
+                try {
+                    blogFeed = data.rss.channel[0].item.slice(0, 5).map(function (e) {
+                        let date = new Date(e.pubDate),
+                            locale = "en-us",
+                            month = date.toLocaleString(locale, {month: "long"});
+                        e.pubDate = date.getDate() + ". " + month;
+                        return e;
+                    });
+                } catch(e) {
+                    // just catching the blog-error
+                }
 
+                let schoolsPromise = getSelectOptions(req, 'schools');
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
