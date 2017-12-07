@@ -696,13 +696,16 @@ router.get('/:assignmentId', function (req, res, next) {
                         };
                     });
 
-                    // Kommentare zu Abgaben auslesen
+                    // Kommentare zu Abgaben auslesen - Nach Teamabgaben fixen. Kommentare sollten im Server zu einer Abgabe hinzugefügt werden.
+                    /*
                     const ids = assignment.submissions.map(n => n._id);
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: {$in: ids},
                         $populate: ['author']
                     });
                     Promise.resolve(commentPromise).then(comments => {
+                    */
+                        const comments = [];
                         // -> Kommentare stehen nun in comments
                         // ist der aktuelle Benutzer Schüler?
                         const userPromise = getSelectOptions(req, 'users', {
@@ -732,7 +735,7 @@ router.get('/:assignmentId', function (req, res, next) {
                                 comments
                             }));
                         });
-                    });
+                    //});
 
                 });
             } else {
