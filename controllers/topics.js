@@ -4,7 +4,6 @@ const express = require('express');
 const shortid = require('shortid');
 const router = express.Router({ mergeParams: true });
 const marked = require('marked');
-const Nexboard = require('nexboard-api-js');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -150,20 +149,6 @@ router.patch('/:topicId', function (req, res, next) {
         data.contents = [];
     }
 
-    data.contents.forEach(content => {
-        if (content.component === "neXboard" && content.content.board === '0'){
-            // create new Nexboard when necessary
-            var board = getNexBoardAPI().createBoard(
-                content.content.title,
-                content.content.description,
-                getNexBoardProjectFromUser(req,res.locals.currentUser));
-            content.content.title = board.title;
-            content.content.board = board.boardId;
-            content.content.url = "https://" + board.publicLink;
-            content.content.description = board.description;
-        }
-    });
-
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
@@ -200,31 +185,6 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
     });
 });
 
-
 router.get('/:topicId/edit', editTopicHandler);
-
-const getNexBoardAPI = () =>{
-    let userId = process.env.NEXBOARD_USER_ID;
-    let apikey = process.env.NEXBOARD_API_KEY;
-    return new Nexboard(apikey,userId);
-};
-
-const getNexBoardProjectFromUser = (req,user) =>{
-    var preferences = user.preferences || {};
-    if (typeof preferences.nexBoardProjectID === "undefined") {
-        var project = getNexBoardAPI().createProject(user._id,user._id);
-        preferences.nexBoardProjectID = project.id;
-        api(req).patch('/users/' + user._id, {json: {preferences}});
-    }
-    return preferences.nexBoardProjectID;
-};
-
-const getNexBoards = (req,res,next) => {
-    const boards = getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser));
-    res.json(boards);
-};
-
-router.get('/:topicId/nexboard/boards', getNexBoards);
-router.get('/nexboard/boards', getNexBoards);
 
 module.exports = router;

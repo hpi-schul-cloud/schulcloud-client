@@ -43,8 +43,7 @@
     "shortid": "^2.2.8",
     "showdown": "^1.7.1",
     "string_decoder": "^1.0.1",
-    "truncate-html": "^0.1.4",
-    "nexboard-api-js": "^1.0.5"
+    "truncate-html": "^0.1.4"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.23.0",
