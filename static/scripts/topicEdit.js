@@ -241,16 +241,18 @@ class TopicBlockList extends React.Component {
      * @param {Object} Block - Class reference to type of block.
      */
     addBlock(Block) {
-        //TODO dont set etherpadBaseUrl for all blocks...
-        const blocks = this.state.blocks;
-        blocks.push({
+        const block = {
             type: Block,
             component: Block.component,
-            etherpadBaseUrl: this.state.etherpadBaseUrl,
             title: '',
             content: {},
             hidden: false
-        });
+        };
+        if (block.component === 'Etherpad') {
+            block.etherpadBaseUrl = this.state.etherpadBaseUrl;
+        }
+        const blocks = this.state.blocks;
+        blocks.push(block);
         this.updateBlocks(blocks);
     }
 
