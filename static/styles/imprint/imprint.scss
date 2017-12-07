@@ -1,0 +1,12 @@
+@import '../lib/colors.scss';
+.section-imprint {
+    padding-top: 5px;
+    strong {
+      font-weight: bold;
+    }
+    ul {
+      list-style-type: disc !important;
+      padding: 10px !important;
+      margin: 5px !important;
+    }
+}

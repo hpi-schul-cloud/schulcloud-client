@@ -7,7 +7,7 @@ router.use(handlebarsHelper.middleware);
 
 // Track page views in Google Analytics
 const googleAnalyticsHelper = require('../helpers/googleAnalytics');
-router.use(googleAnalyticsHelper.middleware);
+router.use(googleAnalyticsHelper.middleware());
 
 router.use(require('./login'));
 router.use(require('./registration'));
@@ -29,6 +29,7 @@ router.use('/notification/', require('./notification'));
 router.use('/link/', require('./link'));
 router.use('/partner/', require('./partner'));
 router.use('/help/', require('./help'));
+router.use('/impressum/', require('./imprint'));
 
 router.use('/administration/', require('./administration'));
 
