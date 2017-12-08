@@ -7,7 +7,11 @@
                         data-toggle="tooltip" title="Aufgabenstellung drucken">
                             <i class='fa fa-print'></i> Drucken
                     </div>
-                    {{{this.description}}}
+                    <h1 class="print-only">{{{this.title}}}</h1>
+                    {{#if this.description}}
+                        <div>Maximale Teamgröße: <b>{{{this.maxTeamMembers}}} Mitglieder</b></div>
+                    {{/if}}
+                        <div>{{{this.description}}}</div>
                 {{else}}
                     keine Beschreibung vorhanden
                 {{/if}}
