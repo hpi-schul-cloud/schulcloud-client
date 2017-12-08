@@ -32,10 +32,20 @@
 
 a.cke_dialog_ui_button{
     border:1px solid #ccc !important;
+    &:hover{
+        text-decoration: none !important;
+        filter: brightness(110%);
+    }
+    &:focus{
+        box-shadow: none !important;
+        text-decoration: none !important;
+        padding: 4px 1px !important;
+    }
 }
 a.cke_dialog_ui_button_ok{
     background: $colorHPIRed !important;
     border: 1px solid $colorHPIRed !important;
+    color: #fff !important;
 }
 input.cke_dialog_ui_input_password, 
 input.cke_dialog_ui_input_text, 
