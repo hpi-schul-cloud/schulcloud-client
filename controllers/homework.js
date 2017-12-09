@@ -747,50 +747,48 @@ router.get('/:assignmentId', function (req, res, next) {
                             }).map(s => {
                                 return s.student;
                             })[0]
-                        };
-                    });
-
-                    // Kommentare zu Abgaben auslesen - Nach Teamabgaben fixen. Kommentare sollten im Server zu einer Abgabe hinzugefügt werden.
-                    /*
-                    const ids = assignment.submissions.map(n => n._id);
-                    const commentPromise = getSelectOptions(req, 'comments', {
-                        submissionId: {$in: ids},
-                        $populate: ['author']
-                    });
-                    Promise.resolve(commentPromise).then(comments => {
-                    */
-                        const comments = [];
-                        // -> Kommentare stehen nun in comments
-                        // ist der aktuelle Benutzer Schüler?
-                        const userPromise = getSelectOptions(req, 'users', {
-                            _id: res.locals.currentUser._id,
-                            $populate: ['roles']
-                        });
-                        Promise.resolve(userPromise).then(user => {
-                            const roles = user[0].roles.map(role => {
-                                return role.name;
-                            });
-                            let isStudent = true;
-                            if (roles.indexOf('student') == -1) {
-                                isStudent = false;
-                            }
-                            // Render assignment.hbs
-                            res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: assignment.courseId.name + ' - ' + assignment.name,
-                                breadcrumb: [
-                                    {
-                                        title: breadcrumbTitle + " Aufgaben",
-                                        url: breadcrumbUrl
-                                    },
-                                    {}
-                                ],
-                                students,
-                                isStudent,
-                                comments
-                            }));
-                        });
-                    //});
+                        );
+                    }
                 });
+                /*
+                // Kommentare zu Abgaben auslesen
+                const ids = assignment.submissions.map(n => n._id);
+                const commentPromise = getSelectOptions(req, 'comments', {
+                    submissionId: {$in: ids},
+                    $populate: ['author']
+                });
+                Promise.resolve(commentPromise).then(comments => {
+                */
+                    comments = [];
+                    // -> Kommentare stehen nun in comments
+                    // ist der aktuelle Benutzer Schüler?
+                    const userPromise = getSelectOptions(req, 'users', {
+                        _id: res.locals.currentUser._id,
+                        $populate: ['roles']
+                    });
+                    Promise.resolve(userPromise).then(user => {
+                        const roles = user[0].roles.map(role => {
+                            return role.name;
+                        });
+                        // Render assignment.hbs
+                        assignment.submissions = assignment.submissions.map(s => {return {submission: s}; });
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: assignment.courseId.name + ' - ' + assignment.name,
+                            breadcrumb: [
+                                {
+                                    title: breadcrumbTitle + " Aufgaben",
+                                    url: breadcrumbUrl
+                                },
+                                {}
+                            ],
+                            students:students,
+                            studentSubmissions,
+                            studentsWithoutSubmission,
+                            path: submissionUploadPath,
+                            comments
+                        }));
+                    });
+                //});
             } else {
 
                 if (assignment.submission) {
