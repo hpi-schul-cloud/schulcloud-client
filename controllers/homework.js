@@ -759,7 +759,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
                 Promise.resolve(commentPromise).then(comments => {
                 */
-                    comments = [];
+                    const comments = [];
                     // -> Kommentare stehen nun in comments
                     // ist der aktuelle Benutzer Schüler?
                     const userPromise = getSelectOptions(req, 'users', {
