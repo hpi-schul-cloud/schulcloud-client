@@ -10,11 +10,11 @@ $(document).ready(function() {
         } else if (errorThrown === "Conflict") {
             $.showNotification("Dieser Dateiname existiert bereits in Ihren Dateien. Bitte benennen Sie die Datei um.", "danger");
         } else {
-            $.showNotification(errorThrown, "danger", 15000);
+            $.showNotification(errorThrown, "danger");
         }
     }
 
-    function ajaxForm(element, after, contentTest){
+    function ajaxForm(element, after){
         const submitButton = element.find('[type=submit]')[0];
         let submitButtonText = submitButton.innerHTML || submitButton.value;
         submitButtonText = submitButtonText.replace(' <i class="fa fa-close" aria-hidden="true"></i> (error)',"");
@@ -29,12 +29,6 @@ $(document).ready(function() {
         let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
         if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
         const content = element.serialize();
-        if(contentTest){
-            if(contentTest(content) == false){
-                showAJAXError(undefined, undefined,"Form validation failed");
-                return;
-            }
-        }
         let request = $.ajax({
             type: method,
             url: url,
@@ -47,53 +41,16 @@ $(document).ready(function() {
             submitButton.setAttribute("style",submitButtonStyleDisplay);
             if(after) after(this);
         });
-        request.fail(function() {
-            if(request.getResponseHeader("error-message")){
-                showAJAXError(undefined, undefined,request.getResponseHeader("error-message"));
-            }
+        request.fail(function(r) {
             submitButton.disabled = false;
             submitButton.innerHTML = submitButtonText+' <i class="fa fa-close" aria-hidden="true"></i> (error)';
         });
     }
-    // Abgabe speichern
-    $('form.submissionForm.ajaxForm').on("submit",function(e){
-        if(e) e.preventDefault();
-        ajaxForm($(this));
-        return false;
-    });
-
-    // Abgabe löschen
-    $('a[data-method="delete-submission"]').on('click', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        var $buttonContext = $(this);
-        let $deleteModal = $('.delete-modal');
-        $deleteModal.modal('show');
-        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
-        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
-            window.location.href = $buttonContext.attr('href');
-        });
-    });
-
-    //validate teamMembers
-    var lastTeamMembers = null;
-    const maxTeamMembers = parseInt($("#maxTeamMembers").html());
-    $('#teamMembers').change(function(event) {
-        if ($(this).val().length > maxTeamMembers) {
-            $(this).val(lastTeamMembers);
-            $.showNotification("Die maximale Teamgröße beträgt " + maxTeamMembers + " Mitglieder", "warning", 5000);
-        } else {
-            lastTeamMembers = $(this).val();
-        }
-        $(this).chosen().trigger("chosen:updated");
-    });
 
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this),undefined,function(c){
-            return (c.grade || c.gradeComment);
-        });
+        ajaxForm($(this));
         return false;
     });
 
@@ -117,7 +74,18 @@ $(document).ready(function() {
         }
         return false;
     });
+   
+    $('a[data-method="delete-material"]').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var $buttonContext = $(this);
 
+        $deleteModal.modal('show');
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
+        $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
+            
+        });
+    });
     $('.btn-archive').on("click",function(e){
         e.preventDefault();
         // loading animation
@@ -143,7 +111,7 @@ $(document).ready(function() {
         });
         return false;
     });
-
+    
     function updateSearchParameter(key, value) {
         let url = window.location.search;
         let reg = new RegExp('('+key+'=)[^\&]+');
@@ -276,14 +244,12 @@ $(document).ready(function() {
                 }, (data) => {
                     // add submitted file reference to submission
                     // hint: this only runs when an submission is already existing. if not, the file submission will be
-                    // only saved when hitting the save button in the corresponding submission form
+                    // only saved when hitting the the save button in the corresponding submission form
                     let submissionId = $("input[name='submissionId']").val();
-
-                    let teamMembers = $('#teamMembers').val();
                     if (submissionId) {
-                        $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id, teamMembers: teamMembers}, _ => {
-                            $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`, {teamMembers: teamMembers});
-                        });
+                       $.post(`/homework/submit/${submissionId}/files`, {fileId: data._id}, _ => {
+                           $.post(`/homework/submit/${submissionId}/files/${data._id}/permissions`);
+                       });
                     } else {
                         addNewUploadedFile($('.list-group-files'), data);
                         let homeworkId = $("input[name='homeworkId']").val();
@@ -338,10 +304,9 @@ $(document).ready(function() {
                 success: function (_) {
                     // delete reference in submission
                     let submissionId = $("input[name='submissionId']").val();
-                    let teamMembers = $('#teamMembers').val();
                     $.ajax({
                         url: `/homework/submit/${submissionId}/files`,
-                        data: {fileId: fileId, teamMembers: teamMembers},
+                        data: {fileId: fileId},
                         type: 'DELETE',
                         success: function (_) {
                             window.location.reload();

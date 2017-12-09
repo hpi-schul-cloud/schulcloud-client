@@ -1,91 +1,60 @@
 <section id="submission" class="tab-content section-homeworkdetails">
-  {{#if submittable}}
+    {{#if submittable}}
     <div class="comment editor">
         {{#embed "files/file-upload" }}{{/embed}}
-
-      {{#if submission}}
-        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{submission._id}}">
+        {{#if submission}}
         <input name="submissionId" type="hidden" data-force-value="true" value="{{submission._id}}"/>
-      {{else}}
-        <form class="form submissionForm" method="post" action="/homework/submit">
-      {{/if}}
-        
-      {{#if submission}}
-        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
-        <hr>
-      {{/if}}
-      {{#if teamSubmissions}}
-        <div class="form-group">
-            <label>Teammitglieder {{#if maxTeamMembers}}(maximal <span id="maxTeamMembers">{{@root.maxTeamMembers}}</span> Personen){{/if}}</label>
-            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Teammitglieder auswählen">
-                {{#each students}}
-                    <option value="{{this._id}}" 
-                        {{#if @root.submission}}
-                            {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
-                            {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
-                        {{else}}
-                            {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
-                        {{/if}}
-                    >{{this.firstName}} {{this.lastName}}</option>
-                {{else}}
-                    <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
-                {{/each}}
-            </select>
-        </div>
-      {{/if}}
-
-
-      {{#if submission}}
-        <input type="hidden" name="_method" data-force-value="true" value="patch"/>
-      {{else}}
-        <div class="form-group section-uploaded-files">
-            <label>Zur Abgabe hochgeladene Dateien (ungespeichert!)</label>
-            <ul class="list-group-files d-flex flex-row"></ul>
-        </div>
-        <input type="hidden" name="_method" data-force-value="true" value="post"/>
-        <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
-      {{/if}}
-        <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
-        <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
-        <div class="form-group">
-            <textarea id="evaluation" name="comment" class="form-control customckeditor"
-                  placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
-        </div>
-  {{else}}
-    <div class="comment">
-        {{#if submission.comment}}
-            {{{submission.comment}}}
+        <form class="form" method="post" action="/homework/submit/{{submission._id}}">
+            <input type="hidden" name="_method" data-force-value="true" value="patch"/>
+            {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
+            <hr>
+            <div class="form-group">
+                <textarea id="evaluation" name="comment" class="form-control customckeditor"
+                          placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
+            </div>
         {{else}}
-            <p>Keine Abgabe.</p>
+        <form class="form" method="post" action="/homework/submit">
+            <div class="form-group section-uploaded-files">
+                <label>Zur Abgabe hochgeladene Dateien (ungespeichert!)</label>
+                <ul class="list-group-files d-flex flex-row">
+                 </ul>
+            </div>
+            <input type="hidden" name="_method" data-force-value="true" value="post"/>
+            <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+            <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
+            <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
+            <div class="form-group">
+                <textarea id="evaluation" name="comment" class="form-control customckeditor"
+                          placeholder="Erstelle deine Abgabe..."></textarea>
+            </div>
         {{/if}}
-    </div>
-  {{/if}}
+
+        {{else}}
+        <div class="comment">
+            {{#if submission.comment}}
+                {{{submission.comment}}}
+            {{else}}
+                <p>Keine Abgabe.</p>
+            {{/if}}
+        </div>
+        {{/if}}
 
     {{#if submittable}}
         {{#userHasPermission "HOMEWORK_CREATE"}}
-            <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+        <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
         {{/userHasPermission}}
-
-        {{#if @root.submission}}
-            {{#inArray @root.currentUser._id @root.submission.teamMemberIds}}
-                <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
-                    target="_blank"
-                    data-method="delete-submission"
-                    data-name="deine Abgabe"
-                    alt="Abgabe löschen"
-                ><i class="fa fa-trash-o"></i> Löschen</a>
-            {{/inArray}}
-        {{/if}}
     {{/if}}
     </form>
     </div>
 
     {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
         {{#content "body"}}
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-close">
                     Abbrechen
                 </button>
+
                 <button type="submit" class="btn btn-primary btn-submit">
                     Löschen
                 </button>
