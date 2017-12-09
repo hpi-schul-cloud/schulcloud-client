@@ -750,6 +750,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         );
                     }
                 });
+                /*
                 // Kommentare zu Abgaben auslesen
                 const ids = assignment.submissions.map(n => n._id);
                 const commentPromise = getSelectOptions(req, 'comments', {
@@ -757,6 +758,8 @@ router.get('/:assignmentId', function (req, res, next) {
                     $populate: ['author']
                 });
                 Promise.resolve(commentPromise).then(comments => {
+                */
+                    const comments = [];
                     // -> Kommentare stehen nun in comments
                     // ist der aktuelle Benutzer Schüler?
                     const userPromise = getSelectOptions(req, 'users', {
@@ -785,7 +788,7 @@ router.get('/:assignmentId', function (req, res, next) {
                             comments
                         }));
                     });
-                });
+                //});
             } else {
 
                 if (assignment.submission) {

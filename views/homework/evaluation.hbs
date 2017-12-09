@@ -24,9 +24,9 @@
                 {{else}}
                     Keine Abgabe.
                 {{/if}}
-			</div>
-		</div>
-		<div id="comment" class="tab-content">
+            </div>
+        </div>
+        <div id="comment" class="tab-content">
             {{#ifvalue @root.teacherId value=@root.currentUser._id}}
                 {{#if this.submission}}
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
