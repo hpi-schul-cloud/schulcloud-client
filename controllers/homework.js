@@ -9,6 +9,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
 const moment = require("moment");
+const _ = require("lodash");
 
 handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
@@ -70,41 +71,43 @@ const getSortmethods = () => {
 
 const getCreateHandler = (service) => {
     return function (req, res, next) {
-        if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
-            req.body.courseId = null;
-            req.body.private = true;
-        }
-        if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
-            req.body.lessonId = null;
-        }
-        if (req.body.dueDate) {
-            // rewrite german format to ISO
-            req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
-        }
-
-        if (req.body.availableDate) {
-            // rewrite german format to ISO
-            req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
-        }
-
-        if (!req.body.availableDate || !req.body.dueDate) {
-            let now = new Date();
-            if (!req.body.availableDate) {
-                req.body.availableDate = now.toISOString();
+        if(service=="homework"){
+            if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
+                req.body.courseId = null;
+                req.body.private = true;
             }
-            if (!req.body.dueDate) {
-                now.setFullYear(now.getFullYear() + 9);
-                req.body.dueDate = now.toISOString();
+            if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
+                req.body.lessonId = null;
             }
-        }
+            if (req.body.dueDate) {
+                // rewrite german format to ISO
+                req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+            }
 
-        if (req.body.availableDate >= req.body.dueDate) {
-            req.session.notification = {
-                type: 'danger',
-                message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
-            };
-            res.redirect(req.header('Referer'));
-            return;
+            if (req.body.availableDate) {
+                // rewrite german format to ISO
+                req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+            }
+
+            if (!req.body.availableDate || !req.body.dueDate) {
+                let now = new Date();
+                if (!req.body.availableDate) {
+                    req.body.availableDate = now.toISOString();
+                }
+                if (!req.body.dueDate) {
+                    now.setFullYear(now.getFullYear() + 9);
+                    req.body.dueDate = now.toISOString();
+                }
+            }
+
+            if (req.body.availableDate >= req.body.dueDate) {
+                req.session.notification = {
+                    type: 'danger',
+                    message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
+                };
+                res.redirect(req.header('Referer'));
+                return;
+            }
         }
         let referrer = (req.body.referrer) ?
             (req.body.referrer) :
@@ -116,7 +119,7 @@ const getCreateHandler = (service) => {
             // TODO: sanitize
             json: req.body
         }).then(data => {
-            if (data.courseId && !data.private && service == "homework") {
+            if (data.courseId && !data.private && service === "homework") {
                 api(req).get('/courses/' + data.courseId)
                     .then(course => {
                         sendNotification(data.courseId,
@@ -126,7 +129,13 @@ const getCreateHandler = (service) => {
                             `${(req.headers.origin || process.env.HOST)}/homework/${data._id}`);
                     });
             }
-            res.redirect(referrer);
+            let promise = service === "submissions" ?
+                addFilePermissionsForTeamMembers(req, data.teamMembers, data.fileIds) :
+                Promise.resolve({});
+
+            return promise.then(_ => {
+                res.redirect(referrer);
+            });
         }).catch(err => {
             next(err);
         });
@@ -150,6 +159,30 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
     }
 };
 
+/**
+ * adds file permissions for co workers to a submission file
+ */
+const addFilePermissionsForTeamMembers = (req, teamMembers, fileIds) => {
+    return Promise.all(fileIds.map(f => {
+        return api(req).get('/files/' + f).then(file => {
+            return Promise.all(teamMembers.map(cw => {
+                let isAlreadyInside = _.filter(file.permissions, f => {
+                    return JSON.stringify(f.userId) === JSON.stringify(cw);
+                }).length > 0;
+
+                !isAlreadyInside ? file.permissions.push({
+                    userId: cw,
+                    permissions: ['can-read', 'can-write']
+                }) : '';
+
+                return file;
+            })).then(_ => {
+                return api(req).patch('/files/' + file._id, {json: file});
+            });
+        });
+    }));
+};
+
 const patchFunction = function(service, req, res, next){
     if(req.body.referrer){
         var referrer = req.body.referrer.replace("/edit","");
@@ -159,19 +192,24 @@ const patchFunction = function(service, req, res, next){
         // TODO: sanitize
         json: req.body
     }).then(data => {
-        if (service == "submissions"){
-            api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
-                .then(homework => {
-                sendNotification(data.studentId,
-                    "Deine Abgabe im Fach " +
-                    homework.courseId.name + " wurde bewertet",
-                    " ",
-                    data.studentId,
-                    req,
-                    `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
-                });
+        if (service === "submissions"){
+            // add file permissions for co Worker
+            let fileIds = data.fileIds;
+            let teamMembers = data.teamMembers;
+            return addFilePermissionsForTeamMembers(req, teamMembers, fileIds).then(_ => {
+                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                    .then(homework => {
+                        sendNotification(data.studentId,
+                            "Deine Abgabe im Fach " +
+                            homework.courseId.name + " wurde bewertet",
+                            " ",
+                            data.studentId,
+                            req,
+                            `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
+                    });
 
-            res.redirect(req.header('Referrer'));
+                res.redirect(req.header('Referrer'));
+            });
         }
         if(referrer){
             res.redirect(referrer);
@@ -211,6 +249,9 @@ const getUpdateHandler = (service) => {
                 if (!req.body.publicSubmissions) {
                     req.body.publicSubmissions = false;
                 }
+                if (!req.body.teamSubmissions) {
+                    req.body.teamSubmissions = false;
+                }
                 // rewrite german format to ISO
                 if(req.body.availableDate){
                     req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
@@ -230,44 +271,15 @@ const getUpdateHandler = (service) => {
                     res.redirect(referrer);
                     return;
                 }
-                return patchFunction(service, req, res, next);
             }
         }else{
             if(service == "submissions"){
-                req.body.grade = parseInt(req.body.grade);
+                if(req.body.grade || req.body.gradeComment){
+                    req.body.grade = parseInt(req.body.grade);
+                }
             }
-            return patchFunction(service, req, res, next);
         }
-
-        if (service == "submissions") {
-            req.body.grade = parseInt(req.body.grade);
-        }
-        api(req).patch('/' + service + '/' + req.params.id, {
-            // TODO: sanitize
-            json: req.body
-        }).then(data => {
-            if (service == "submissions") {
-                api(req).get('/homework/' + data.homeworkId, {qs: {$populate: ["courseId"]}})
-                    .then(homework => {
-                        sendNotification(data.studentId,
-                            "Deine Abgabe im Fach " +
-                            homework.courseId.name + " wurde bewertet",
-                            " ",
-                            data.studentId,
-                            req,
-                            `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
-                    });
-
-                res.redirect(req.header('Referrer'));
-            }
-            if (referrer) {
-                res.redirect(referrer);
-            } else {
-                res.sendStatus(200);
-            }
-        }).catch(err => {
-            next(err);
-        });
+        return patchFunction(service, req, res, next);
     };
 };
 
@@ -323,14 +335,17 @@ router.delete('/:id', getDeleteHandler('homework'));
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
+router.delete('/submit/:id', getDeleteHandlerR('submissions'));
+router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
 
 router.post('/submit/:id/files', function (req, res, next) {
     let submissionId = req.params.id;
     api(req).patch("/submissions/" + submissionId, {
         json: {
             $push: {
-                fileIds: req.body.fileId
-            }
+                fileIds: req.body.fileId,
+            },
+            teamMembers: req.body.teamMembers
         }
     })
         .then(result => res.json(result))
@@ -342,6 +357,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
     let submissionId = req.params.id;
     let fileId = req.params.fileId;
     let homeworkId = req.body.homeworkId;
+    let teamMembers = req.body.teamMembers;
 
     // if homework is already given, just fetch homework
     let homeworkPromise = homeworkId
@@ -351,6 +367,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
                 $populate: ['homeworkId'],
             }
         });
+
     let filePromise = api(req).get('/files/' + fileId);
     Promise.all([homeworkPromise, filePromise]).then(([homework, file]) => {
         let teacherId = homeworkId ? homework.teacherId : homework.homeworkId.teacherId;
@@ -360,7 +377,11 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
         };
         file.permissions.push(newPermission);
 
-        api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result));
+        return api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result)).then(_ => {
+            // if there is already an submission, it is more safe to add the permissions at this step (if the user
+            // forgets to click on save)
+            return teamMembers ? addFilePermissionsForTeamMembers(req, teamMembers, [fileId]) : Promise.resolve({});
+        });
     }).catch(err => res.send(err));
 });
 
@@ -370,7 +391,8 @@ router.delete('/submit/:id/files', function (req, res, next) {
         json: {
             $pull: {
                 fileIds: req.body.fileId
-            }
+            },
+            teamMembers: req.body.teamMembers
         }
     })
         .then(result => res.json(result))
@@ -490,10 +512,10 @@ const overview = (title = "") => {
                         isStudent,
                         sortmethods,
                         desc: homeworkDesc,
-                        addButton: (req._parsedUrl.pathname == "/" 
-                                || req._parsedUrl.pathname.includes("private") 
-                                || (req._parsedUrl.pathname.includes( "asked" ) 
-                                    && !isStudent ) 
+                        addButton: (req._parsedUrl.pathname == "/"
+                                || req._parsedUrl.pathname.includes("private")
+                                || (req._parsedUrl.pathname.includes( "asked" )
+                                    && !isStudent )
                                ),
                        createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
@@ -656,6 +678,9 @@ router.get('/:assignmentId', function (req, res, next) {
         // Abgabe noch möglich?
         assignment.submittable = (dueDateArray["timestamp"] >= Date.now());
 
+        // file upload path, todo: maybe use subfolders
+        let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
+
         const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
             ? ("Archivierte")
             : ((assignment.private)
@@ -666,32 +691,61 @@ router.get('/:assignmentId', function (req, res, next) {
             : ((assignment.private)
                 ? ("/homework/private")
                 : ("/homework/asked"));
-        // Abgaben auslesen
-        const submissionPromise = getSelectOptions(req, 'submissions', {
-            homeworkId: assignment._id,
-            $populate: ['homeworkId', 'fileIds']
-        });
-        Promise.resolve(submissionPromise).then(submissions => {
-            assignment.submission = submissions.filter(submission => {
-                return submission.studentId == res.locals.currentUser._id;
+
+        Promise.all([
+            // Abgaben auslesen
+            api(req).get('/submissions/', {
+                qs: {
+                    homeworkId: assignment._id,
+                    $populate: ['homeworkId', 'fileIds','teamMembers','studentId']
+                }
+            }),
+            // Alle Teilnehmer des Kurses
+            api(req).get('/courses/' + assignment.courseId._id, {
+                qs: {
+                    $populate: ['userIds']
+                }
+            })
+        ]).then(([submissions, course]) => {
+            assignment.submission = submissions.data.map(submission => {
+                submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
+                return submission;
+            }).filter(submission => {
+                return (submission.studentId._id == res.locals.currentUser._id)
+                     ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
+            const students = course.userIds;
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions;
-
-                // Alle Teilnehmer des Kurses 
-                api(req).get('/courses/' + assignment.courseId._id, {
-                    qs: {
-                        $populate: ['userIds']
+                assignment.submissions = submissions.data;
+                const studentSubmissions = students.map(student => {
+                    return {
+                        student: student,
+                        submission: assignment.submissions.filter(submission => {
+                            return (submission.studentId._id == student._id)
+                                 ||(submission.teamMembers.includes(student._id.toString()));
+                        })[0]
+                    };
+                });
+                let studentsWithSubmission = [];
+                assignment.submissions.forEach(e => {
+                    if(e.teamMembers){
+                        e.teamMembers.forEach( c => {
+                            studentsWithSubmission.push(c._id.toString())
+                        });
+                    }else{
+                        studentsWithSubmission.push(e.studentId.toString());
                     }
-                }).then(course => {
-                    var students = course.userIds;
-                    students = students.map(student => {
-                        return {
-                            student: student,
-                            submission: assignment.submissions.filter(function (n) {
-                                return n.studentId == student._id;
+                });
+                let studentsWithoutSubmission = [];
+                assignment.courseId.userIds.forEach(e => {
+                    if(!studentsWithSubmission.includes(e.toString())){
+                        studentsWithoutSubmission.push(
+                            studentSubmissions.filter(s => {
+                                return (s.student._id.toString() == e.toString())
+                            }).map(s => {
+                                return s.student;
                             })[0]
                         };
                     });
@@ -736,11 +790,8 @@ router.get('/:assignmentId', function (req, res, next) {
                             }));
                         });
                     //});
-
                 });
             } else {
-                // file upload path, todo: maybe use subfolders
-                let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 
                 if (assignment.submission) {
 
@@ -751,29 +802,19 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                     Promise.resolve(commentPromise).then(comments => {
                         // -> Kommentare stehen nun in comments
-                        // alle Kurse von aktuellem Benutzer auslesen
-                        const coursesPromise = getSelectOptions(req, 'courses', {
-                            $or: [
-                                {userIds: res.locals.currentUser._id},
-                                {teacherIds: res.locals.currentUser._id}
-                            ]
-                        });
-                        Promise.resolve(coursesPromise).then(courses => {
-                            // -> Kurse stehen nun in courses
-                            res.render('homework/assignment', Object.assign({}, assignment, {
-                                title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                                breadcrumb: [
-                                    {
-                                        title: breadcrumbTitle + " Aufgaben",
-                                        url: breadcrumbUrl
-                                    },
-                                    {}
-                                ],
-                                comments,
-                                courses,
-                                path: submissionUploadPath
-                            }));
-                        });
+                        res.render('homework/assignment', Object.assign({}, assignment, {
+                            title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                            breadcrumb: [
+                                {
+                                    title: breadcrumbTitle + " Aufgaben",
+                                    url: breadcrumbUrl
+                                },
+                                {}
+                            ],
+                            comments,
+                            students,
+                            path: submissionUploadPath
+                        }));
                     });
                 } else {
                     res.render('homework/assignment', Object.assign({}, assignment, {
@@ -785,6 +826,7 @@ router.get('/:assignmentId', function (req, res, next) {
                             },
                             {}
                         ],
+                        students,
                         path: submissionUploadPath
                     }));
                 }

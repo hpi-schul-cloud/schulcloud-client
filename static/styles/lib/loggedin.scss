@@ -102,7 +102,9 @@ aside.nav-sidebar {
                     padding: 0px 20px;
                     font-size: 14px;
                     text-decoration: none;
-
+                    overflow-x: visible;
+                    white-space: nowrap;
+    
                     &.child-active {
                         background-color: #dbd7d7;
                         border-bottom: 1px solid transparent;
