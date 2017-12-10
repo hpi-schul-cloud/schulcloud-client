@@ -12,15 +12,16 @@
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    hyphens: auto;
 }
 
 a {
-	text-decoration: none;
-	&:hover {
-		text-decoration: none;
-	}
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 a[data-toggle="collapse"],
@@ -177,7 +178,6 @@ form.inline {
 }
 
 .card-deck-row {
-    width: 100%;
 
 	& > div {
 		margin-bottom: 30px;
@@ -201,6 +201,11 @@ form.inline {
 			width: 100%;
 		}
 	}
+}
+
+.print-only{display:none;}
+@media print {
+    .print-only{display:initial;}
 }
 
 .ckcontent {

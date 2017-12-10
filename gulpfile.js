@@ -12,6 +12,7 @@ const optimizejs = require('gulp-optimize-js')
 const concat = require('gulp-concat')
 const count = require('gulp-count')
 const changed = require('gulp-changed-in-place')
+const autoprefixer = require('gulp-autoprefixer')
 
 const cCSS = new cleancss()
 //wrapped in a function so it works with gulp.watch (+consistency)
@@ -63,6 +64,7 @@ gulp.task('styles', () => {
     beginPipe('./static/styles/**/*.{css,sass,scss}')
         .pipe(sass())
         .pipe(minify())
+        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest('./build/styles'))
 })
 
@@ -104,6 +106,7 @@ gulp.task('vendor-styles', () => {
     beginPipe('./static/vendor/**/*.{css,sass,scss}')
         .pipe(sass())
         .pipe(minify())
+        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest('./build/vendor'))
 })
 

@@ -267,7 +267,8 @@ router.get('/:courseId', function (req, res, next) {
         api(req).get('/homework/', {
             qs: {
                 courseId: req.params.courseId,
-                $populate: ['courseId']
+                $populate: ['courseId'],
+                archived : {$ne: res.locals.currentUser._id }
             }
         })
     ]).then(([course, lessons, homeworks]) => {
