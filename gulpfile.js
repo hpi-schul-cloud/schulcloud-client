@@ -35,7 +35,7 @@ const baseScripts = [
 const getGulpTask = (src, isWatch = false) => {
     let task = gulp.src(src);
     if(isWatch) {
-        task = task.pipe(watch(src));
+        task = task.pipe(watch(src, {interval: 1000, usePolling: true}));
     }
     return task
         .pipe(filelog())
