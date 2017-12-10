@@ -11,7 +11,7 @@ const plumber = require('gulp-plumber')
 const optimizejs = require('gulp-optimize-js')
 const concat = require('gulp-concat')
 const count = require('gulp-count')
-const changed = require('gulp-changed-in-place')
+const changed = require('gulp-changed-smart')
 const autoprefixer = require('gulp-autoprefixer')
 
 const cCSS = new cleancss()
@@ -34,23 +34,15 @@ const baseScripts = [
 const nonBaseScripts = ['./static/scripts/**/*.js']
     .concat(baseScripts.map(script => '!' + script))
 
-let buildChangedOnly = false
 //used by all gulp tasks instead of gulp.src(...)
 //plumber prevents pipes from stopping when errors occur
 //changed only passes on files that were modified since last time
 //filelog logs and counts all processed files
-const beginPipe = (src) => {
-    if(buildChangedOnly){
-        return gulp.src(src)
-            .pipe(plumber())
-            .pipe(changed({howToDetermineDifference: 'modification-time'}))
-            .pipe(filelog())
-    }else{
-        return gulp.src(src)
-            .pipe(plumber())
-            .pipe(filelog())
-    }
-}
+const beginPipe = src =>
+    gulp.src(src)
+        .pipe(plumber())
+        .pipe(changed(gulp))
+        .pipe(filelog())
 
 //minify images
 gulp.task('images', () => {
@@ -141,9 +133,7 @@ gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
 //watch and run corresponding task on change, process changed files only
-gulp.task('watch', () => {
-    buildChangedOnly = true
-    gulp.run('build-all')
+gulp.task('watch', ['build-all'], () => {
     gulp.watch('./static/images/**/*.*', ['images'])
     gulp.watch('./static/styles/**/*.{css,sass,scss}', ['styles'])
     gulp.watch('./static/fonts/**/*.*', ['fonts'])

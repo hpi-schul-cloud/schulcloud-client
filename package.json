@@ -56,7 +56,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
     "gulp-babel": "^6.1.2",
-    "gulp-changed-in-place": "^2.3.0",
+    "gulp-changed-smart": "^1.1.0",
     "gulp-clean-css": "^3.0.3",
     "gulp-concat": "^2.6.1",
     "gulp-count": "^0.3.0",
