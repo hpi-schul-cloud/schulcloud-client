@@ -1,5 +1,6 @@
 @import './colors';
 @import './bootstrap/scss/bootstrap-flex';
+@import "./editor";
 
 body {
     background: white !important;
@@ -27,10 +28,12 @@ aside.nav-sidebar {
     }
 
     .sc-branding {
+        display: block;
         padding: 15px;
         font-size: 25px;
         background: $colorHPIRed;
         color: whitesmoke;
+        text-decoration: none;
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
@@ -89,7 +92,7 @@ aside.nav-sidebar {
                 width: 100%;
                 float: left;
 
-                a {
+                a:not(.sc-branding) {
                     width: 100%;
                     float: left;
                     height: 60px;
@@ -99,7 +102,9 @@ aside.nav-sidebar {
                     padding: 0px 20px;
                     font-size: 14px;
                     text-decoration: none;
-
+                    overflow-x: visible;
+                    white-space: nowrap;
+    
                     &.child-active {
                         background-color: #dbd7d7;
                         border-bottom: 1px solid transparent;
@@ -210,6 +215,7 @@ header {
     float: left;
     padding-left: 260px;
     padding-right: 20px;
+    overflow: auto;
 
     @include media-breakpoint-down(md) {
         padding-left: 80px;
@@ -367,7 +373,7 @@ footer {
 
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;
-		padding-left: 50px !important;
+        padding-left: 50px !important;
         background: $colorBeige;
     }
 
@@ -385,9 +391,10 @@ footer {
         width: 32px;
         margin-right: 10px;
     }
-
+    .dropdown-toggle{
+        border:none;
+    }
     .account-toggle {
-        border: none;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -406,78 +413,93 @@ footer {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
+    .minimal-dropdown{
+        .dropdown-toggle{
+            padding: 10px !important;
+            border-radius: 50%;
+            margin-left: -.75rem;
+            text-align: center;
+            background: transparent;
+            .fa{
+                display: inline-block;
+                font-size: 20px;
+                line-height: 1em;
+                width: 1em;
+                height: 1em;
+            }
+            .tag{
+                position: absolute;
+                border-radius: 50%;
+                top: 0;
+                right: 0px;
+            }
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+            }
+            &:after{
+                display: none;
+            }
+        }
+        &.open{
+            .dropdown-toggle{
+               background-color: rgba(0,0,0,0.05);
+            }
+        }
+        .dropdown-menu{
+            padding: 0;
+            left: -25px;
+            /* this CS forms the triangles */
+            &:after,
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: -10px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+            }
+            /* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+            &:after {
+                left: 20px;
+                border-color: transparent transparent #fff transparent;
+                border-width: 11px;
+                margin-top: -11px;
+            }
+            /* this border color controlls the outside, thin border */
+            &:before {
+                left: 20px;
+                border-color: transparent transparent rgba(0,0,0,.15) transparent;
+                border-width: 11px;
+                margin-top: -12px;
+            }
+        }
+    }
 }
 
 .qr-code-action {
-    .btn {
-        border: none;
-        line-height: 30px;
-    }
-
-    .dropdown-menu {
+    .qr-show {
         padding: 15px;
         padding-bottom: 9px;
     }
 }
 
-.help-drodown {
-    .btn {
-        border: none;
-        line-height: 30px;
-    }
-
-    .dropdown-menu {
-        width: 236px;
-        padding-bottom: 0px;
-        padding-top: 0px;
-    }
-
-    .list-group-item {
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 14px;
-    }
-
-    .list-group-item:last-child {
-        border-bottom-right-radius: 0rem;
-        border-bottom-left-radius: 0rem;
-    }
-
-    .list-group-item:first-child {
-        border-bottom-right-radius: 0rem;
-        border-bottom-left-radius: 0rem;
-    }
-
-    .link {
-        padding-left: 8px;
-    }
-
-    .delimiter {
-        background-color: $colorGrey;
-        height: 12px;
-    }
-}
-
 .notification-dropdown {
-    .btn {
-        border: none;
-        line-height: 30px;
-
-        &.recent i {
-            color: $colorHPIRed;
-            margin-right: 5px;
-        }
+    .btn.recent i {
+        color: $colorHPIRed;
+        margin-right: 5px;
     }
 
     .dropdown-toggle:not(.recent) .tag {
         display: none;
     }
-
-    .dropdown-menu {
-        padding: 0px;
+    
+    .dropdown-menu{
         width: 300px;
         max-height: 300px;
-        overflow: auto;
+        .content{
+            overflow: auto;
+        }
     }
 
     .notification-item {
@@ -497,5 +519,29 @@ footer {
             font-size: 12px;
             display: block;
         }
+    }
+}
+
+.help-drodown {
+    .dropdown-menu {
+        width: 236px;
+    }
+
+    .list-group-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 0;
+        font-size: 14px;
+        border-width: 0;
+        border-bottom-width: 1px;
+    }
+
+    .link {
+        padding-left: 8px;
+    }
+
+    .delimiter {
+        background-color: $colorGrey;
+        height: 12px;
     }
 }

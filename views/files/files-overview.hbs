@@ -10,68 +10,39 @@
     {{/content}}
 
     {{#content "page"}}
-
         <div class="route-files-overview">
             <div class="row card-deck-row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="card h-100">
-                        <div class="card-block">
-                            <div class="card-text">
-                                <small class="text-muted">
-                                    <i class="fa fa-hashtag text-red"></i> {{this.counter.myFiles}} Dateien
-                                </small>
-                            </div>
-                            <h4 class="card-title"><i class="fa fa-user"></i> Meine persönlichen Dateien</h4>
-                            <div class="card-text">
-                                Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-primary btn-block" href="/files/my/">Dateien öffnen</a>
-                        </div>
-                    </div>
+                <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
+                    {{> 'lib/components/sc-card' 
+                        title='<i class="fa fa-user"></i> Meine persönlichen Dateien'
+                        secondaryTitle=(concat this.counter.myFiles ' Dateien')
+                        url='/files/my/'
+                        link-text='Dateien öffnen'
+                        content='Hier findest du alle deine persönlichen Dateien. Auf diese Dateien hast nur du Zugriff, du kannst sie aber auch mit anderen Nutzern teilen.'
+                        background="#283E56"
+                    }}
                 </div>
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="card h-100">
-                        <div class="card-block">
-                            <div class="card-text">
-                                <small class="text-muted">
-                                    <i class="fa fa-hashtag text-red"></i> {{this.counter.courseFiles}} Dateien
-                                </small>
-                            </div>
-                            <h4 class="card-title"><i class="fa fa-graduation-cap"></i> Meine Kurs-Dateien</h4>
-                            <div class="card-text">
-                                Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-primary btn-block" href="/files/courses/">Dateien öffnen</a>
-                        </div>
-                    </div>
+                <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
+                    {{> 'lib/components/sc-card' 
+                        title='<i class="fa fa-graduation-cap"></i> Meine Kurs-Dateien'
+                        secondaryTitle=(concat this.counter.courseFiles ' Dateien')
+                        url='/files/courses/'
+                        link-text='Dateien öffnen'
+                        content='Hier findest du alle Dateien, die in den jeweiligen Kursen im Unterricht verwendet werden. Alle Teilnehmer des Kurses, also der Lehrer und die Schüler, haben auf diese Dateien Zugriff.'
+                        background="#1989AC"
+                    }}
+                </div>
+                <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
+                    {{> 'lib/components/sc-card' 
+                        title='<i class="fa fa-share-alt"></i> Mit mir geteilte Dateien'
+                        secondaryTitle=(concat this.counter.sharedFiles ' Dateien')
+                        url='/files/shared/'
+                        link-text='Dateien öffnen'
+                        content='Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.'
+                        background="#00B8A9"
+                    }}
                 </div>
             </div>
-
-            <div class="row card-deck-row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="card h-100">
-                        <div class="card-block">
-                            <div class="card-text">
-                                <small class="text-muted">
-                                    <i class="fa fa-hashtag text-red"></i> {{this.counter.sharedFiles}} Dateien
-                                </small>
-                            </div>
-                            <h4 class="card-title"><i class="fa fa-user"></i> Mit mir geteilte Dateien</h4>
-                            <div class="card-text">
-                                Hier findest du alle mit dir geteilten Dateien. Dies sind Dateien die von anderen Nutzern zur Verfügung gestellt worden sind.
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a class="btn btn-primary btn-block" href="/files/shared/">Dateien öffnen</a>
-                        </div>
-                    </div>
-                </div>
-        </div>
         </div>
     {{/content}}
 {{/extend}}

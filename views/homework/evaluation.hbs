@@ -1,7 +1,7 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
 		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
-		{{#ifvalue teacherId value=currentUser._id}}
+		{{#ifvalue @root.teacherId value=@root.currentUser._id}}
 			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
 		{{/ifvalue}}
         {{#if this.submission}}
@@ -24,18 +24,19 @@
                 {{else}}
                     Keine Abgabe.
                 {{/if}}
-			</div>
-		</div>
-		<div id="comment" class="tab-content">
+            </div>
+        </div>
+        <div id="comment" class="tab-content">
             {{#ifvalue @root.teacherId value=@root.currentUser._id}}
                 {{#if this.submission}}
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
+                        <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                 {{else}}
                     <form class="form" method="post" action="/homework/submit">
                         <input type="hidden" name="_method" data-force-value="true" value="post" />
-                        <input name="schoolId" type="hidden" data-force-value="true" value="{{this.student.schoolId}}" />
-                        <input name="studentId" type="hidden" data-force-value="true" value="{{this.student._id}}" />
+                        <input name="schoolId" type="hidden" data-force-value="true" value="{{this.submission.studentId.schoolId}}" />
+                        <input name="studentId" type="hidden" data-force-value="true" value="{{this.submission.studentId._id}}" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
                 {{/if}}
                 <div class="comment form-group">
@@ -49,7 +50,9 @@
                     <h6>Kommentar</h6>
                     <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Speichern</button>
+                {{#userHasPermission "HOMEWORK_CREATE"}}
+                    <button type="submit" class="btn btn-primary">Speichern</button>
+                {{/userHasPermission}}
                 </form>
             {{else}}
                 <b class="grade">{{{this.submission.gradeText}}}</b>

@@ -1,3 +1,5 @@
+@import '../lib/colors.scss';
+
 .store.container {
     margin: 0;
     padding: 0;
@@ -27,6 +29,7 @@ h1, h3 {
 }
 .card-block {
     flex: 1 1 auto;
+    padding-bottom: 36px;
 }
 .row.equal-height {
     display: flex;
@@ -62,5 +65,32 @@ h1, h3 {
     margin-bottom: 10px;
 }
 .card-tags {
+    overflow: hidden;
+    text-overflow: ellipsis;
     margin-bottom: 10px;
+}
+.tag {
+    max-width: 100%;
+}
+.card-text {
+    word-wrap: break-word;
+}
+.tooltip-inner {
+  color: white ;
+  background-color: $colorHPIRed;
+}
+.tooltip-arrow{
+  background-color: $colorHPIRed;
+}
+.tooltip-demo{
+  cursor: pointer;
+}
+.card-footer{
+  position: relative;
+}
+.report-link{
+  position: absolute;
+  top: -34px;
+  right: 18px;
+  color: lightgrey;
 }

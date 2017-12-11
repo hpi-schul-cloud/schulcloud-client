@@ -27,6 +27,9 @@ There are blog posts on how to setup [client](https://github.com/schul-cloud/sch
 For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.
 
 For connecting to the [SchulCloud Notification-Service](https://github.com/schul-cloud/node-notification-service) you have to set `export NOTIFICATION_SERVICE_ENABLED=true`.
+
+For activating Google Analytics tracking you have to set `export GOOGLE_ANALYTICS_TRACKING_ID={TRACKING_ID}`.
+
 ## Testing
 
 **Information**: Please make sure that all your changes works on [Chrome](https://www.google.de/chrome/browser/desktop/index.html) , [Firefox](https://www.mozilla.org/de/firefox/new/) and [Safari](https://www.apple.com/de/safari/)!
