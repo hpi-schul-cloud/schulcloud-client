@@ -76,7 +76,10 @@
       background: transparent;
     }
   }
-
+  .groupNames span:not(:last-child):after{
+    display: inline;
+    content:",";
+  }
 }
 
 .section-evaluation {
