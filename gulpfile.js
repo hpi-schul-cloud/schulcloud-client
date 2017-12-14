@@ -44,6 +44,11 @@ const beginPipe = src =>
         .pipe(changed(gulp))
         .pipe(filelog())
 
+const beginPipeAll = src =>
+    gulp.src(src)
+        .pipe(plumber())
+        .pipe(filelog())
+
 //minify images
 gulp.task('images', () => {
     beginPipe('./static/images/**/*.*')
@@ -81,7 +86,7 @@ gulp.task('scripts', () => {
 
 //compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
 gulp.task('base-scripts', () => {
-    beginPipe(baseScripts)
+    beginPipeAll(baseScripts)
         .pipe(count('## js-files selected'))
         .pipe(babel({
             presets: [["es2015", { modules: false }]],
