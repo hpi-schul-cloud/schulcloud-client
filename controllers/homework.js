@@ -109,6 +109,9 @@ const getCreateHandler = (service) => {
                 return;
             }
         }
+        if (req.body.teamMembers && typeof req.body.teamMembers == "string") {
+            req.body.teamMembers = [req.body.teamMembers];
+        }
         let referrer = (req.body.referrer) ?
             (req.body.referrer) :
             ((req.header('Referer').indexOf("homework/new") !== -1) ?
@@ -207,7 +210,6 @@ const patchFunction = function(service, req, res, next){
                             req,
                             `${(req.headers.origin || process.env.HOST)}/homework/${homework._id}`);
                     });
-
                 res.redirect(req.header('Referrer'));
             });
         }
@@ -274,7 +276,10 @@ const getUpdateHandler = (service) => {
             }
         }else{
             if(service == "submissions"){
-                if(req.body.grade || req.body.gradeComment){
+                if (req.body.teamMembers && typeof req.body.teamMembers == "string") {
+                    req.body.teamMembers = [req.body.teamMembers];
+                }
+                if(req.body.grade){
                     req.body.grade = parseInt(req.body.grade);
                 }
             }
