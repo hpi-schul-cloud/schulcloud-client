@@ -93,7 +93,6 @@ const mapEventProps = (data, service) => {
     if (service === 'courses') {
         // map course times to fit into UI
         (data.times || []).forEach((time, count) => {
-            time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             time.duration = time.duration / 1000 / 60;
             time.startTime = moment(time.startTime, "x").format("HH:mm");
             time.count = count;
@@ -141,7 +140,6 @@ const mapTimeProps = (req, res, next) => {
     // map course times to fit model
     req.body.times = req.body.times || [];
     (req.body.times || []).forEach(time => {
-        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });

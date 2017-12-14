@@ -1,64 +1,75 @@
-var populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
-    var $courseTimes = modal.find('.add-course-times');
-    // cleanup
-    $courseTimes.find("tr:gt(0)").remove();
+let courseTimesCount = $('.course-time').length;
 
-    // add new field
-    courseTimes.forEach(function (time) {
-        populateCourseTime($courseTimes, time);
-    });
-};
-
-var addNewCourseTime = function addNewCourseTime(div) {
-    var $courseTimes = div.find('.add-course-times');
-    var $newWeekday = div.find('.new-weekday option:selected');
-    var $newStartTime = div.find('.new-start-time');
-    var $newDuration = div.find('.new-duration');
-    var $newRoom = div.find('.new-room');
-    populateCourseTime($courseTimes, {
-        weekday: $newWeekday.text(),
-        startTime: $newStartTime.val(),
-        duration: $newDuration.val(),
-        room: $newRoom.val()
-    });
-    $newWeekday.val("");
-    $newStartTime.val("");
-    $newDuration.val("");
-    $newRoom.val("");
-};
-
-var courseTimesCount = $('.course-time').length;
-
-function guidGenerator() {
-    var S4 = function () {
+let guidGenerator = function guidGenerator() {
+    let S4 = function () {
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     };
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
-}
+};
 
-var deleteCourseTime = function (courseTimeId) {
+let populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
+    let $courseTimes = modal.find('.course-times');
+    // cleanup
+    $courseTimes.find("tr:gt(0)").not('.new-course-time-template').remove();
+
+    // add new field
+    courseTimes.forEach(function (time) {
+        let $courseTime = addNewCourseTime($courseTimes);
+        populateCourseTime($courseTime, time);
+    });
+};
+
+let deleteCourseTime = function (courseTimeId) {
     $('#' + courseTimeId).remove();
 };
 
-function populateCourseTime($courseTimes, field) {
-    if (!field.duration || field.duration == '') return;
+/** fix the bootstrap-chosen solution **/
+let fixChosen = function (selectElement) {
+    selectElement.chosen({ width: "100%", height: "100%" });
+    selectElement.parent().find('.chosen-container-single-nosearch').remove();
+};
 
-    var _id = guidGenerator();
-    var $field = $("<tr id='" + _id + "' class='course-time'></tr>")
-        .append($("<td><i class='fa fa-trash-o course-time-delete' /></td>")
-            .click(deleteCourseTime.bind(this, _id))
-        )
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][weekday]' value='" + field.weekday + "' type='text' ></input></td>"))
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][startTime]' value='" + field.startTime + "' type='time'></input></td>"))
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][duration]' value='" + field.duration + "' type='number'></input></td>"))
-        .append($("<td class='form-group disabled'><input class='form-control' name='times[" + courseTimesCount + "][room]' value='" + field.room + "' type='text'></input></td>"));
-    $courseTimes.append($field);
+/** creates a new empty course-time row **/
+let addNewCourseTime = function addNewCourseTime(div) {
+    let $courseTimesTable = div.find('.add-course-times');
+    let $newCourseTime = div.find('.new-course-time-template').clone();
+    let _id = guidGenerator();
+
+    $newCourseTime.find('.new-course-time-template-weekday').attr('name', `times[${courseTimesCount}][weekday]`);
+    fixChosen($newCourseTime.find('.new-course-time-template-weekday'));
+
+    $newCourseTime.find('.new-course-time-template-startTime').attr('name', `times[${courseTimesCount}][startTime]`);
+    $newCourseTime.find('.new-course-time-template-startTime').datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+
+    $newCourseTime.find('.new-course-time-template-duration').attr('name', `times[${courseTimesCount}][duration]`);
+    $newCourseTime.find('.new-course-time-template-room').attr('name', `times[${courseTimesCount}][room]`);
+    $newCourseTime.find('.course-time-delete').click(deleteCourseTime.bind(this, _id));
+
+    $newCourseTime.attr('id', _id);
+    $newCourseTime.removeClass('new-course-time-template');
+    $newCourseTime.addClass('course-time');
     courseTimesCount++;
+
+    $courseTimesTable.append($newCourseTime);
+    return $newCourseTime;
+};
+
+/** fills an empty course-time row with data **/
+let populateCourseTime = function($courseTimeRow, data) {
+    $courseTimeRow.find('.new-course-time-template-weekday').val(data.weekday);
+    $courseTimeRow.find('.new-course-time-template-weekday').trigger('chosen:updated');
+    $courseTimeRow.find('.new-course-time-template-startTime').val(data.startTime);
+    $courseTimeRow.find('.new-course-time-template-duration').val(data.duration);
+    $courseTimeRow.find('.new-course-time-template-room').val(data.room);
+
 };
 
 $('.new-course-time-add').click(function (e) {
     // fallback if multiple time-containers are on one page, e.g. in administration
-    var $timesContainer = $($(this).attr('data-timesref'));
+    let $timesContainer = $($(this).attr('data-timesref'));
     addNewCourseTime($timesContainer);
 });
 
