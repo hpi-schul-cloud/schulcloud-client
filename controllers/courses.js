@@ -198,7 +198,6 @@ router.get('/json', function (req, res, next) {
 router.post('/', function (req, res, next) {
     // map course times to fit model
     (req.body.times || []).forEach(time => {
-        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
