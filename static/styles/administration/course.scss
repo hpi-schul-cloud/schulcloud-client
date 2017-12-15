@@ -18,5 +18,16 @@
     .disabled > * {
         pointer-events: none;
     }
+    .new-course-time-add {
+        display: inline-block;
+        margin-top: 10px;
+        padding-left: 5px;
+        cursor: pointer;
+        color: $colorHPIRed;
+    }
+}
+
+.new-course-time-template {
+    display: none;
 }
 
