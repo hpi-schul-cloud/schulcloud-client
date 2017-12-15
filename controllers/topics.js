@@ -187,10 +187,10 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-const createNewNexBoards = (req,res,contents = []) =>{
-    contents.forEach(content =>{
-        if (content.component === "neXboard" && content.content.board === 0){
-            var board = getNexBoardAPI().createBoard(
+const createNewNexBoards = (req,res,contents = []) => {
+    contents.forEach(content => {
+        if (content.component === "neXboard" && content.content.board === '0'){
+            const board = getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
                 getNexBoardProjectFromUser(req,res.locals.currentUser));
@@ -203,16 +203,16 @@ const createNewNexBoards = (req,res,contents = []) =>{
     return contents;
 };
 
-const getNexBoardAPI = () =>{
-    let userId = process.env.NEXBOARD_USER_ID;
-    let apikey = process.env.NEXBOARD_API_KEY;
+const getNexBoardAPI = () => {
+    const userId = process.env.NEXBOARD_USER_ID;
+    const apikey = process.env.NEXBOARD_API_KEY;
     return new Nexbord(apikey,userId);
 };
 
-const getNexBoardProjectFromUser = (req,user) =>{
-    var preferences = user.preferences || {};
+const getNexBoardProjectFromUser = (req,user) => {
+    const preferences = user.preferences || {};
     if (typeof preferences.nexBoardProjectID === "undefined") {
-        var project = getNexBoardAPI().createProject(user._id,user._id);
+        const project = getNexBoardAPI().createProject(user._id,user._id);
         preferences.nexBoardProjectID = project.id;
         api(req).patch('/users/' + user._id, {json: {
             preferences}});
