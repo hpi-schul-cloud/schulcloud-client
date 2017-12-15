@@ -740,7 +740,7 @@ class TopicEtherpad extends TopicBlock {
         super(props);
         this.props.content = this.props.content || {};
         const randomId = Math.random().toString(36).substr(2, 5);
-        this.props.content.url = `${props.etherpadBaseUrl}${randomId}`;
+        this.props.content.url = this.props.content.url || `${props.etherpadBaseUrl}${randomId}`;
     }
 
     /**
