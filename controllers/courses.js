@@ -105,7 +105,6 @@ const editCourseHandler = (req, res, next) => {
 
         // map course times to fit into UI
         (course.times || []).forEach((time, count) => {
-            time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             time.duration = time.duration / 1000 / 60;
             const duration = moment.duration(time.startTime);
             time.startTime = ("00" + duration.hours()).slice(-2) + ':' + ("00" + duration.minutes()).slice(-2);
@@ -199,7 +198,6 @@ router.get('/json', function (req, res, next) {
 router.post('/', function (req, res, next) {
     // map course times to fit model
     (req.body.times || []).forEach(time => {
-        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
@@ -317,7 +315,6 @@ router.patch('/:courseId', function (req, res, next) {
     // map course times to fit model
     req.body.times = req.body.times || [];
     req.body.times.forEach(time => {
-        time.weekday = recurringEventsHelper.getNumberForWeekday(time.weekday);
         time.startTime = moment.duration(time.startTime).asMilliseconds();
         time.duration = time.duration * 60 * 1000;
     });
