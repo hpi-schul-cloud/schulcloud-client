@@ -744,9 +744,10 @@ class TopicNexboard extends TopicBlock {
     }
 
     componentDidMount() {
-        $.getJSON("nexboard/boards").then(boards => {
-            this.setState({boards:boards});
-        });
+        $.getJSON("nexboard/boards")
+            .then(boards => {
+                this.setState({boards:boards});
+            })
         $(".chosen-select").chosen();
         $('.chosen-select').on('change', this.handleChange);
     }
