@@ -3,7 +3,6 @@ function getCurrentDir() {
 }
 $(document).ready(function() {
 
-
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "danger");
@@ -42,9 +41,13 @@ $(document).ready(function() {
             context: element
         });
         request.done(function(r) {
-            submitButton.innerHTML = submitButtonText;
-            submitButton.disabled = false;
-            submitButton.setAttribute("style",submitButtonStyleDisplay);
+            var saved = setInterval(_ => {
+                submitButton.innerHTML = submitButtonText;
+                submitButton.disabled = false;
+                submitButton.setAttribute("style",submitButtonStyleDisplay);
+                clearInterval(saved);
+            }, 2500);
+            submitButton.innerHTML = "gespeichert 😊";
             if(after) after(this);
         });
         request.fail(function() {
@@ -91,7 +94,9 @@ $(document).ready(function() {
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this),undefined,function(c){
+        ajaxForm($(this),function(c){
+            $.showNotification("Bewertung wurde gespeichert!", "success", 5000);
+        },function(c){
             return (c.grade || c.gradeComment);
         });
         return false;
