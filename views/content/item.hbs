@@ -14,7 +14,7 @@
         {{/userIsAllowedToViewContent}}
 
         <div class="card-tags">
-            {{#each tags}}
+            {{#each (truncateArray tags 15)}}
                 <span class="tag tag-default">{{{ this }}}</span>
             {{/each}}
         </div>

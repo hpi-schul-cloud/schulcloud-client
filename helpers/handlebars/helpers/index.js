@@ -46,6 +46,13 @@ module.exports = {
         const subString = text.substr(0, length);
         return ((subString.indexOf(" ")>-1)? subString.substr(0, subString.lastIndexOf(' ')) : subString )+ "...";
     },
+    truncateArray: (rawArray = [], length = 0) => {
+        let truncatedArray = rawArray;
+        if(length > 0 && length <= truncatedArray.length) {
+            truncatedArray.length=length;
+        }
+        return truncatedArray;
+    },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');
         text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
