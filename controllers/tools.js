@@ -106,12 +106,13 @@ const getDetailHandler = (req, res, next) => {
 };
 
 const showToolHandler = (req, res, next) => {
-
     Promise.all([
         api(req).get('/ltiTools/' + req.params.ltiToolId),
         api(req).get('/courses/' + req.params.courseId)
     ])
     .then(([tool, course]) => {
+        tool.url = tool.pseudonymizedUrl || tool.url;
+        console.log(tool.url);
         let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
         res.render(renderPath, {
             course: course,
