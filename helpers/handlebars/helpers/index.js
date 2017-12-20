@@ -2,6 +2,7 @@
 const permissionsHelper = require('../../permissions');
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
+const stripHtml = require('string-strip-html');
 moment.locale('de');
 
 module.exports = {
@@ -52,6 +53,9 @@ module.exports = {
             truncatedArray.length=length;
         }
         return truncatedArray;
+    },
+    stripHTMLTags: (htmlText = '') => {
+        return stripHtml(htmlText);
     },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');

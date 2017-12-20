@@ -18,7 +18,7 @@
                 <span class="tag tag-default">{{{ this }}}</span>
             {{/each}}
         </div>
-        <p class="card-text">{{{ truncateLength description 500}}}</p>
+        <p class="card-text">{{{ truncateLength (stripHTMLTags description) 500}}}</p>
         {{#userIsAllowedToViewContent nonOer}}
         {{else}}
             <div class="alert alert-info" role="alert">
