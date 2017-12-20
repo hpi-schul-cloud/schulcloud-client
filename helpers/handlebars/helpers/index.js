@@ -39,6 +39,13 @@ module.exports = {
           decodeEntities: true,
         });
     },
+    truncateLength: (text = '', length = 140) => {
+        if (text.length <= length) {
+            return text;
+        }
+        const subString = text.substr(0, length);
+        return ((subString.indexOf(" ")>-1)? subString.substr(0, subString.lastIndexOf(' ')) : subString )+ "...";
+    },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');
         text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
