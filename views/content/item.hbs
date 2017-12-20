@@ -41,6 +41,17 @@
             </a>
         {{/userIsAllowedToViewContent}}
 
+        <div class="rate-link">
+            <div class="star-rating">
+                <span class="fa fa-star" data-rating="1"></span>
+                <span class="fa fa-star" data-rating="2"></span>
+                <span class="fa fa-star" data-rating="3"></span>
+                <span class="fa fa-star" data-rating="4"></span>
+                <span class="fa fa-star-half-full" data-rating="5"></span>
+                <span> (4,5)</span>
+            </div>
+        </div>
+
         <span>via {{{ providerName }}}</span>
         {{#userHasPermission "COURSE_EDIT"}}
             <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">

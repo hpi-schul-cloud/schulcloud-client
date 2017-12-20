@@ -2,6 +2,22 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/content/content.css"/>
+        <style type="text/css">
+            .filter {
+                float: left;
+                display: flex;
+            }
+            .chosen-container {
+                margin-right: 10px;
+            }
+            .chosen-single {
+                min-width: 150px;
+            }
+            .rate-link {
+                color: #b10438;
+            }
+
+        </style>
     {{/content}}
 
     {{#content "page"}}
@@ -10,6 +26,53 @@
             <div class="row">
                 <div class="col-sm-12">
                     {{> "content/forms/form-search" }}
+
+                    <div class="form-group filter">
+                        <select data-placeholder="Fächer">
+                            <option selected></option>
+                            <option>Politik</option>
+                            <option>Mathe</option>
+                            <option>Deutsch</option>
+                            <option>Englisch</option>
+                            <option>Physik</option>
+                            <option>Biologie</option>
+                            <option>Erdkunde</option>
+                        </select>
+                        <select data-placeholder="Jahrgangsstufe">
+                            <option selected></option>
+                            <option>Sek. I</option>
+                            <option>Sek. II</option>
+                        </select>
+                        <select data-placeholder="Medium">
+                            <option selected></option>
+                            <option>Bild</option>
+                            <option>Video</option>
+                            <option>Audi</option>
+                            <option>Text</option>
+                            <option>Tool</option>
+                        </select>
+                        <select data-placeholder="Anbieter" style="width: 200px; ">
+                            <option selected></option>
+                            <option>Antares</option>
+                            <option>Bettermarks</option>
+                            <option>Cornelsen</option>
+                            <option>Deutsche Digitale Bibliothek</option>
+                            <option>GeoGebra</option>
+                            <option>Khan Academy</option>
+                            <option>MedienLB</option>
+                            <option>Mein Unterricht</option>
+                            <option>Nexenio</option>
+                            <option>Serlo</option>
+                            <option>Westermann</option>
+                            <option>Wikimedia Commons</option>
+                            <option>Wikipdeia</option>
+                            <option>YouTube</option>
+                        </select>
+                    </div>
+
+                    <div style="clear: both"></div>
+                    <hr>
+
                     {{#if query }}
                         {{#if searchResults}}
                             <h5>Suchergebnisse für "{{ query }}"</h5>
@@ -20,6 +83,7 @@
                     {{/if}}
                 </div>
             </div>
+
 
             <div class="row equal-height">
                 {{#each searchResults.data}}
