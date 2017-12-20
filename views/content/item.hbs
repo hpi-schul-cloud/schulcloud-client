@@ -14,11 +14,11 @@
         {{/userIsAllowedToViewContent}}
 
         <div class="card-tags">
-            {{#each tags}}
+            {{#each (truncateArray tags 15)}}
                 <span class="tag tag-default">{{{ this }}}</span>
             {{/each}}
         </div>
-        <p class="card-text">{{{ description }}}</p>
+        <p class="card-text">{{{ truncateLength (stripHTMLTags description) 500}}}</p>
         {{#userIsAllowedToViewContent nonOer}}
         {{else}}
             <div class="alert alert-info" role="alert">
