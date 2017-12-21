@@ -269,8 +269,14 @@ router.get('/:courseId', function (req, res, next) {
                 $populate: ['courseId'],
                 archived : {$ne: res.locals.currentUser._id }
             }
+        }),
+        api(req).get('/courseGroups/', {
+            qs: {
+                courseId: req.params.courseId,
+                $populate: ['courseId'],
+            }
         })
-    ]).then(([course, lessons, homeworks]) => {
+    ]).then(([course, lessons, homeworks, courseGroups]) => {
         let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
@@ -289,13 +295,14 @@ router.get('/:courseId', function (req, res, next) {
                 return -1;
             }
         });
-
+        
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
             homeworks: homeworks.filter(function(task){return !task.private;}),
             myhomeworks: homeworks.filter(function(task){return task.private;}),
             ltiToolIds,
+            courseGroups: courseGroups.data || [],
             breadcrumb: [
                 {
                     title: 'Meine Kurse',
