@@ -147,7 +147,6 @@ router.patch('/:topicId', function (req, res, next) {
 
     // create new Nexboard when necessary
     data.contents = createNewNexBoards(req,res,data.contents);
-
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
@@ -187,9 +186,9 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-const createNewNexBoards = (req,res,contents = []) =>{
+const createNewNexBoards = (req,res,contents) =>{
     contents.forEach(content =>{
-        if (content.component === "neXboard" && content.content.board === 0){
+        if (content.component === "neXboard" && content.content.board == 0){
             var board = getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
@@ -221,7 +220,15 @@ const getNexBoardProjectFromUser = (req,user) =>{
 };
 
 const getNexBoards = (req,res,next) => {
-    res.json(getNexBoardAPI().getBoardsByProject(getNexBoardProjectFromUser(req,res.locals.currentUser)));
+   api(req).get('/lessons/contents/neXboard' ,{
+        qs:{
+            type : 'neXboard',
+            user : res.locals.currentUser._id
+        }
+    })
+        .then(boards => {
+            res.json(boards);
+        });
 };
 
 router.get('/:topicId/nexboard/boards', getNexBoards);

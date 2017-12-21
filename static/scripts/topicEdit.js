@@ -101,6 +101,16 @@ class TopicBlockWrapper extends React.Component {
                                 type="hidden"
                                 name={`contents[${this.props.position}][component]`}
                             />
+                            <input
+                                value={this.props.user}
+                                type="hidden"
+                                name={`contents[${this.props.position}][user]`}
+                            />
+                            <input
+                                value={this.props._id}
+                                type="hidden"
+                                name={`contents[${this.props.position}][_id]`}
+                            />
 
                             <div className="input-group-btn">
                                 <button className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
@@ -130,6 +140,7 @@ TopicBlockWrapper.defaultProps = {
     title: '',
     content: {},
     hidden: false,
+    user : '',
     index: 0
 };
 
@@ -734,6 +745,7 @@ class TopicNexboard extends TopicBlock {
      */
     constructor(props) {
         super(props);
+       // console.log(content);
 
         this.state = {
             newBoard : 0,
@@ -805,7 +817,7 @@ class TopicNexboard extends TopicBlock {
                             value={(this.props.content || {}).board}>
                         <optgroup label="Vorhandene Boards">
                             {this.state.boards.map(board =>
-                                <option value={board.boardId}>{board.title}</option>
+                                <option value={board.content.board}>{board.content.title}</option>
                             )}
                         </optgroup>
                         <optgroup label="Neues Board">
