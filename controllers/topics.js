@@ -211,7 +211,7 @@ const createNewNexBoards = (req,res,contents = []) => {
 const getNexBoardAPI = () => {
     if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
         //TODO handle error properly
-        console.error("NEXBOARD_USER_ID and NEXBOARD_API_KEY environment variables are required");
+
     }
     return new Nexboard(process.env.NEXBOARD_API_KEY,process.env.NEXBOARD_USER_ID);
 };
