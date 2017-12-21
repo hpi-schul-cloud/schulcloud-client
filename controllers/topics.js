@@ -1,10 +1,8 @@
-const _ = require('lodash');
 const moment = require('moment');
 const express = require('express');
-const shortid = require('shortid');
+const shortId = require('shortid');
 const router = express.Router({ mergeParams: true });
-const marked = require('marked');
-const Nexbord = require("nexboard-api-js");
+const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -76,7 +74,7 @@ router.post('/', function (req, res, next) {
 router.post('/:id/share', function (req, res, next) {
     // if lesson already has shareToken, do not generate a new one
     api(req).get('/lessons/' + req.params.id).then(topic => {
-        topic.shareToken = topic.shareToken || shortid.generate();
+        topic.shareToken = topic.shareToken || shortId.generate();
         api(req).patch("/lessons/" + req.params.id, {json: topic})
             .then(result => res.json(result))
             .catch(err => {res.err(err);});
@@ -186,10 +184,17 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
+<<<<<<< HEAD
 const createNewNexBoards = (req,res,contents) =>{
     contents.forEach(content =>{
         if (content.component === "neXboard" && content.content.board == 0){
             var board = getNexBoardAPI().createBoard(
+=======
+const createNewNexBoards = (req,res,contents = []) => {
+    contents.forEach(content => {
+        if (content.component === "neXboard" && content.content.board === '0'){
+            const board = getNexBoardAPI().createBoard(
+>>>>>>> 69d3c4c54739353143e2b4afb7b69968c09b722b
                 content.content.title,
                 content.content.description,
                 getNexBoardProjectFromUser(req,res.locals.currentUser));
@@ -202,24 +207,27 @@ const createNewNexBoards = (req,res,contents) =>{
     return contents;
 };
 
-const getNexBoardAPI = () =>{
-    let userId = process.env.NEXBOARD_USER_ID;
-    let apikey = process.env.NEXBOARD_API_KEY;
-    return new Nexbord(apikey,userId);
+const getNexBoardAPI = () => {
+    if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
+        //TODO handle error properly
+        console.error("NEXBOARD_USER_ID and NEXBOARD_API_KEY environment variables are required");
+        // throw new Error("NEXBOARD_USER_ID and NEXBOARD_API_KEY environment variables are required");
+    }
+    return new Nexboard(process.env.NEXBOARD_API_KEY,process.env.NEXBOARD_USER_ID);
 };
 
-const getNexBoardProjectFromUser = (req,user) =>{
-    var preferences = user.preferences || {};
-    if (typeof preferences.nexBoardProjectID === "undefined") {
-        var project = getNexBoardAPI().createProject(user._id,user._id);
+const getNexBoardProjectFromUser = (req,user) => {
+    const preferences = user.preferences || {};
+    if (typeof preferences.nexBoardProjectID === 'undefined') {
+        const project = getNexBoardAPI().createProject(user._id,user._id);
         preferences.nexBoardProjectID = project.id;
-        api(req).patch('/users/' + user._id, {json: {
-            preferences}});
+        api(req).patch('/users/' + user._id, { json: { preferences } });
     }
     return preferences.nexBoardProjectID;
 };
 
 const getNexBoards = (req,res,next) => {
+<<<<<<< HEAD
    api(req).get('/lessons/contents/neXboard' ,{
         qs:{
             type : 'neXboard',
@@ -229,6 +237,11 @@ const getNexBoards = (req,res,next) => {
         .then(boards => {
             res.json(boards);
         });
+=======
+    const nexBoardProject = getNexBoardProjectFromUser(req,res.locals.currentUser);
+    const nexBoards = getNexBoardAPI().getBoardsByProject(nexBoardProject);
+    res.json(nexBoards);
+>>>>>>> 69d3c4c54739353143e2b4afb7b69968c09b722b
 };
 
 router.get('/:topicId/nexboard/boards', getNexBoards);

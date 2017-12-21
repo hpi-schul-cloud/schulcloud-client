@@ -146,56 +146,39 @@
                                     <th><label>Raum</label></th>
                                     </thead>
                                     <tbody class="add-course-times">
-                                    <tr>
-                                        <td>
-                                            <i class="fa fa-plus new-course-time-add" data-timesref="#collapse1"></i>
-                                        </td>
-                                        <td>
-                                            <select class="new-weekday">
-                                                <option value="0">Montag</option>
-                                                <option value="1">Dienstag</option>
-                                                <option value="2">Mittwoch</option>
-                                                <option value="3">Donnerstag</option>
-                                                <option value="4">Freitag</option>
-                                                <option value="5">Samstag</option>
-                                                <option value="6">Sonntag</option>
-                                            </select>
-                                        </td>
-                                        <td>
-                                            <input class="form-control new-start-time" data-time type="text"/>
-                                        </td>
-                                        <td>
-                                            <input class="form-control new-duration" type="number"
-                                                   placeholder="in Minuten"/>
-                                        </td>
-                                        <td>
-                                            <input class="form-control new-room" type="text"
-                                                   placeholder="z.B. R-1.21"/>
-                                        </td>
-                                    </tr>
-                                    {{#each course.times}}
-                                        <tr id="{{this._id}}" class="course-time">
-                                            <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
-                                            <td class="form-group disabled"><input class="form-control"
-                                                                                   name="times[{{this.count}}][weekday]"
-                                                                                   value="{{this.weekday}}"
-                                                                                   type="text"></td>
-                                            <td class="form-group disabled"><input class="form-control"
-                                                                                   name="times[{{this.count}}][startTime]"
-                                                                                   value="{{this.startTime}}"
-                                                                                   type="text" data-time></td>
-                                            <td class="form-group disabled"><input class="form-control"
-                                                                                   name="times[{{this.count}}][duration]"
-                                                                                   value="{{this.duration}}"
-                                                                                   type="number"></td>
-                                            <td class="form-group disabled"><input class="form-control"
-                                                                                   name="times[{{this.count}}][room]"
-                                                                                   value="{{this.room}}"
-                                                                                   type="text"></td>
-                                        </tr>
-                                    {{/each}}
+                                        {{#each course.times}}
+                                            <tr id="{{this._id}}" class="course-time">
+                                                <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
+                                                <td>
+                                                    <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
+                                                        <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
+                                                        <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
+                                                        <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
+                                                        <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag</option>
+                                                        <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag</option>
+                                                        <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag</option>
+                                                        <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" name="times[{{this.count}}][startTime]"  value="{{this.startTime}}" data-time type="text"/>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" name="times[{{this.count}}][duration]" type="number"
+                                                           value="{{this.duration}}" placeholder="in Minuten"/>
+                                                </td>
+                                                <td>
+                                                    <input class="form-control" type="text"
+                                                           name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
+                                                </td>
+                                            </tr>
+                                        {{/each}}
+                                        {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                                     </tbody>
                                 </table>
+                                <span class="new-course-time-add" data-timesref="#collapse1">
+                                    <i class="fa fa-plus-circle fa-6"></i> Neuen Termin hinzufügen
+                                </span>
                             </div>
                         </div>
                     </div>
