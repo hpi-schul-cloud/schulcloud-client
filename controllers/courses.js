@@ -272,7 +272,7 @@ router.get('/:courseId', function (req, res, next) {
         api(req).get('/courseGroups/', {
             qs: {
                 courseId: req.params.courseId,
-                $populate: ['courseId'],
+                $populate: ['courseId', 'userIds'],
             }
         })
     ]).then(([course, lessons, homeworks, courseGroups]) => {
