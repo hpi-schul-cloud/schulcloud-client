@@ -23,6 +23,7 @@
                 </div>
             </div>
 
+            <!-- Themen -->
             <div class="row">
                 <div class="col-sm-6">
                     {{#userHasPermission "COURSE_EDIT"}}
@@ -118,6 +119,7 @@
                     </div>
                 </div>
 
+                <!-- Tools -->
                 <div class="col-sm-6">
                         <a href="/courses/{{_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
@@ -157,7 +159,33 @@
 
                 </div>
             </div>
-                <hr/>
+            <hr/>
+            <!-- Gruppen -->
+            <div class="row">
+                <div class="col-sm-6">
+                    <a href="/courses/{{../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Gruppe hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Gruppe hinzufügen</span>
+                    </a>
+                    <a data-toggle="collapse" class="collapse-toggle" href="#courseGroups">
+                        <h4>
+                            <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            Schülergruppen
+                            <small>({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
+                        </h4>
+                    </a>
+                    <div id="courseGroups" class="container-fluid collapse">
+                        <ol class="courseGroup">
+                            <div class="row">
+                                {{#each courseGroups}}
+                                    {{> 'courses/components/courseGroup-card'}}
+                                {{/each}}
+                            </div>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <!--- Aufgaben -->
             <div class="row">
                 <div class="col-sm-6 container">
                     {{#userHasPermission "COURSE_EDIT" }}
@@ -206,7 +234,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row padding-top">
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
