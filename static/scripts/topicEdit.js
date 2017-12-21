@@ -201,6 +201,7 @@ class TopicBlockList extends React.Component {
 
         this.state = {
             blocks: initialBlocks,
+            etherpadBaseUrl: $contentBlocksContainer.data('etherpadbaseurl'),
             onSortEndCallbacks: []
         };
     }
@@ -251,14 +252,18 @@ class TopicBlockList extends React.Component {
      * @param {Object} Block - Class reference to type of block.
      */
     addBlock(Block) {
-        const blocks = this.state.blocks;
-        blocks.push({
+        const block = {
             type: Block,
             component: Block.component,
             title: '',
             content: {},
             hidden: false
-        });
+        };
+        if (block.component === 'Etherpad') {
+            block.etherpadBaseUrl = this.state.etherpadBaseUrl;
+        }
+        const blocks = this.state.blocks;
+        blocks.push(block);
         this.updateBlocks(blocks);
     }
 
@@ -313,6 +318,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicGeoGebra)}>+ GeoGebra Arbeitsblatt</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
                     </div>
                 </div>
             </div>
@@ -357,6 +363,8 @@ class TopicBlock extends React.Component {
                 break;
             case 'neXboard':
                 return TopicNexboard;
+            case 'Etherpad':
+                return TopicEtherpad;
                 break;
         }
     }
@@ -732,6 +740,58 @@ class TopicGeoGebra extends TopicBlock {
     }
 };
 
+/**
+ * Class representing an Etherpad
+ * @extends React.Component
+ */
+class TopicEtherpad extends TopicBlock {
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+        this.props.content = this.props.content || {};
+        const randomId = Math.random().toString(36).substr(2, 5);
+        this.props.content.url = this.props.content.url || `${props.etherpadBaseUrl}${randomId}`;
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in
+     * view mode.
+     */
+    static get component() {
+        return 'Etherpad';
+    }
+
+    /**
+     * Render the block (an textarea)
+     */
+    render() {
+        return (
+            <div>
+                <div type="hidden" className="form-group">
+                    <label>Name des Etherpads</label>
+                    <input className="form-control"
+                        name={`contents[${this.props.position}][content][title]`}
+                        type="text" placeholder="Brainstorming zum Thema XYZ"
+                        value={this.props.content.title}/>
+                </div>
+                <div className="form-group">
+                    <label>Beschreibung des Etherpads</label>
+                    <textarea className="form-control"
+                        name={`contents[${this.props.position}][content][description]`}
+                        placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
+                        {this.props.content.description}
+                    </textarea>
+                </div>
+                <input type="hidden" name={`contents[${this.props.position}][content][url]`}
+                       value={this.props.content.url} />
+            </div>
+        );
+    }
+}
 
 /**
  * Class representing a neXboard

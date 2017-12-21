@@ -15,6 +15,7 @@ const handlebarsWax = require('handlebars-wax');
 
 const app = express();
 app.use(compression());
+app.set('trust proxy', true);
 
 // view engine setup
 const handlebarsHelper = require('./helpers/handlebars');

@@ -6,6 +6,7 @@ const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
+const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://tools.openhpi.de/etherpad/p/';
 
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
@@ -34,7 +35,8 @@ const editTopicHandler = (req, res, next) => {
             title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
             submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
             lesson,
-            courseId: req.params.courseId
+            courseId: req.params.courseId,
+            etherpadBaseUrl: etherpadBaseUrl
         });
     });
 };
@@ -131,7 +133,12 @@ router.get('/:topicId', function (req, res, next) {
                 },
                 {}
             ]
-        }));
+        }), (error, html) => {
+            if(error) {
+                throw 'error in GET /:topicId - res.render: ' + error;
+            }
+            res.send(html);
+        });
     });
 });
 
@@ -141,7 +148,9 @@ router.patch('/:topicId', function (req, res, next) {
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     // if not a simple hidden or position patch, set contents to empty array
-    if (!data.contents && !req.query.json) data.contents = [];
+    if (!data.contents && !req.query.json){
+        data.contents = [];
+    }
 
     // create new Nexboard when necessary
     data.contents = createNewNexBoards(req,res,data.contents);
@@ -151,13 +160,13 @@ router.patch('/:topicId', function (req, res, next) {
         if (req.query.json) {
             res.json(_);
         } else {
+            //sends a GET request, not a PATCH
             res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
         }
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
-
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
@@ -180,7 +189,6 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
         });
     });
 });
-
 
 router.get('/:topicId/edit', editTopicHandler);
 
@@ -246,8 +254,6 @@ const getNexBoards = (req,res,next) => {
 
 router.get('/:topicId/nexboard/boards', getNexBoards);
 
-
 router.get('/nexboard/boards',getNexBoards);
-
 
 module.exports = router;
