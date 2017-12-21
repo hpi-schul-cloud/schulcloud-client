@@ -321,6 +321,7 @@ const getDeleteHandlerR = (service) => {
 const getDeleteHandler = (service) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
+            res.sendStatus(200);
             res.redirect('/' + service);
         }).catch(err => {
             next(err);

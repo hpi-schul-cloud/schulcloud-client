@@ -150,18 +150,18 @@ $(document).ready(function () {
     var $modals = $('.modal');
     var $deleteModal = $('.delete-modal');
 
-    const nextPage = function(href=null) {
-        if(href==null){
-            window.location.reload();
-        }else{
+    const nextPage = function(href) {
+        if(href){
             window.location.href = href;
+        }else{
+            window.location.reload();
         }
     };
 
     function showAJAXError(req, textStatus, errorThrown) {
         $deleteModal.modal('hide');
         if(textStatus==="timeout") {
-            $.showNotification("Zeitüberschreitung der Anfrage", "warn");
+            $.showNotification("Zeitüberschreitung der Anfrage", "warn", 30000);
         } else {
             $.showNotification(errorThrown, "danger");
         }
@@ -196,7 +196,6 @@ $(document).ready(function () {
 
     // Print Button
     $('.print .btn-print').click(function () {
-        console.log($(this).parent(".print").html())
         $(this).html("");
         w = window.open();
         w.document.write($(this).parent(".print").html());
