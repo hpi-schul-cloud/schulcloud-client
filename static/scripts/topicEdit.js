@@ -106,11 +106,7 @@ class TopicBlockWrapper extends React.Component {
                                 type="hidden"
                                 name={`contents[${this.props.position}][user]`}
                             />
-                            <input
-                                value={this.props._id}
-                                type="hidden"
-                                name={`contents[${this.props.position}][_id]`}
-                            />
+
 
                             <div className="input-group-btn">
                                 <button className="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">

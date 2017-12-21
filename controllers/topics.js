@@ -192,17 +192,10 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-<<<<<<< HEAD
-const createNewNexBoards = (req,res,contents) =>{
-    contents.forEach(content =>{
-        if (content.component === "neXboard" && content.content.board == 0){
-            var board = getNexBoardAPI().createBoard(
-=======
 const createNewNexBoards = (req,res,contents = []) => {
     contents.forEach(content => {
         if (content.component === "neXboard" && content.content.board === '0'){
             const board = getNexBoardAPI().createBoard(
->>>>>>> 69d3c4c54739353143e2b4afb7b69968c09b722b
                 content.content.title,
                 content.content.description,
                 getNexBoardProjectFromUser(req,res.locals.currentUser));
@@ -219,7 +212,6 @@ const getNexBoardAPI = () => {
     if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
         //TODO handle error properly
         console.error("NEXBOARD_USER_ID and NEXBOARD_API_KEY environment variables are required");
-        // throw new Error("NEXBOARD_USER_ID and NEXBOARD_API_KEY environment variables are required");
     }
     return new Nexboard(process.env.NEXBOARD_API_KEY,process.env.NEXBOARD_USER_ID);
 };
@@ -235,7 +227,6 @@ const getNexBoardProjectFromUser = (req,user) => {
 };
 
 const getNexBoards = (req,res,next) => {
-<<<<<<< HEAD
    api(req).get('/lessons/contents/neXboard' ,{
         qs:{
             type : 'neXboard',
@@ -245,11 +236,6 @@ const getNexBoards = (req,res,next) => {
         .then(boards => {
             res.json(boards);
         });
-=======
-    const nexBoardProject = getNexBoardProjectFromUser(req,res.locals.currentUser);
-    const nexBoards = getNexBoardAPI().getBoardsByProject(nexBoardProject);
-    res.json(nexBoards);
->>>>>>> 69d3c4c54739353143e2b4afb7b69968c09b722b
 };
 
 router.get('/:topicId/nexboard/boards', getNexBoards);
