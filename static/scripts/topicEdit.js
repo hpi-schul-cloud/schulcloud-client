@@ -831,13 +831,15 @@ class TopicNexboard extends TopicBlock {
             return 0;
         }
         this.state.boards.map(board => {
-            if(board.boardId == id){
+            board = board.content;
+            if(board.board === id){
                 const content = this.props.content;
                 content.board = board.boardId;
-                content.url = "https://" + board.public_link;
+                content.url = board.url;
                 this.props.onUpdate({
                     content: content
                 });
+                return 0;
         }});
     }
 
