@@ -7,6 +7,7 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
+const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://tools.openhpi.de/etherpad/p/';
 
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
@@ -35,7 +36,8 @@ const editTopicHandler = (req, res, next) => {
             title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
             submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
             lesson,
-            courseId: req.params.courseId
+            courseId: req.params.courseId,
+            etherpadBaseUrl: etherpadBaseUrl
         });
     });
 };
@@ -128,19 +130,24 @@ router.get('/:topicId', function (req, res, next) {
                 },
                 {}
             ]
-        }));
+        }), (error, html) => {
+            if(error) {
+                throw 'error in GET /:topicId - res.render: ' + error;
+            }
+            res.send(html);
+        });
     });
 });
 
-
 router.patch('/:topicId', function (req, res, next) {
     const data = req.body;
-    
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     // if not a simple hidden or position patch, set contents to empty array
-    if (!data.contents && !req.query.json) data.contents = [];
+    if (!data.contents && !req.query.json){
+        data.contents = [];
+    }
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
@@ -148,13 +155,13 @@ router.patch('/:topicId', function (req, res, next) {
         if (req.query.json) {
             res.json(_);
         } else {
+            //sends a GET request, not a PATCH
             res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
         }
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
-
 
 router.delete('/:topicId', function (req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
@@ -178,8 +185,6 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
     });
 });
 
-
 router.get('/:topicId/edit', editTopicHandler);
-
 
 module.exports = router;
