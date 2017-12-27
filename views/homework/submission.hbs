@@ -26,6 +26,7 @@
                         {{else}}
                             {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
                         {{/if}}
+                        {{#ifeq this._id @root.currentUser._id}} class="me"{{/ifeq}}
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
                     <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>

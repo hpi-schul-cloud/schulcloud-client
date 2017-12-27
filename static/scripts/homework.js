@@ -31,7 +31,7 @@ $(document).ready(function() {
         const content = element.serialize();
         if(contentTest){
             if(contentTest(content) == false){
-                showAJAXError(undefined, undefined,"Form validation failed");
+                $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
         }
@@ -45,7 +45,8 @@ $(document).ready(function() {
             submitButton.innerHTML = submitButtonText;
             submitButton.disabled = false;
             submitButton.setAttribute("style",submitButtonStyleDisplay);
-            if(after) after(this);
+
+            if(after) after(this, element.serializeArray());
         });
         request.fail(function() {
             if(request.getResponseHeader("error-message")){
@@ -58,7 +59,17 @@ $(document).ready(function() {
     // Abgabe speichern
     $('form.submissionForm.ajaxForm').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this));
+        ajaxForm($(this), function(element, content){
+            let teamMembers = [];
+            content.forEach(e => {
+                if(e.name == "teamMembers"){
+                    teamMembers.push(e.value);
+                }
+            })
+            if(!teamMembers.includes($(".me").val())){
+                location.reload();
+            }
+        });
         return false;
     });
 
@@ -89,7 +100,6 @@ $(document).ready(function() {
     });
 
     $('#teamMembers').chosen().change(function(event, data) {
-        console.log(data.deselected , $('.owner').val());
         if(data.deselected && data.deselected == $('.owner').val()){
             $(".owner").prop('selected', true);
             $('#teamMembers').trigger("chosen:updated");
