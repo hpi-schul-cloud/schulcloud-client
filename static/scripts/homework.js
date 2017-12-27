@@ -88,6 +88,15 @@ $(document).ready(function() {
         $(this).chosen().trigger("chosen:updated");
     });
 
+    $('#teamMembers').chosen().change(function(event, data) {
+        console.log(data.deselected , $('.owner').val());
+        if(data.deselected && data.deselected == $('.owner').val()){
+            $(".owner").prop('selected', true);
+            $('#teamMembers').trigger("chosen:updated");
+            $.showNotification("Du darfst den Ersteller der Aufgabe nicht entfernen!", "warning", 5000);
+        }
+    });
+
     // Bewertung speichern
     $('.evaluation #comment form').on("submit",function(e){
         if(e) e.preventDefault();
