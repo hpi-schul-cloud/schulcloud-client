@@ -1,4 +1,4 @@
-function getCurrentDir() {
+﻿function getCurrentDir() {
     return $('.section-upload').data('path');
 }
 $(document).ready(function() {
@@ -68,7 +68,7 @@ $(document).ready(function() {
                     teamMembers.push(e.value);
                 }
             })
-            if(!teamMembers.includes($(".me").val())){
+            if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
                 location.reload();
             }
         });
