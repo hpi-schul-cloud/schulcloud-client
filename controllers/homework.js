@@ -718,7 +718,7 @@ router.get('/:assignmentId', function (req, res, next) {
         }
         Promise.all(promises).then((values) => {
             //[submissions, course]
-            submissions = values[0];
+            let submissions = values[0];
             assignment.submission = submissions.data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
                 return submission;
