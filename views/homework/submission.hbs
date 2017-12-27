@@ -22,11 +22,14 @@
                     <option value="{{this._id}}" 
                         {{#if @root.submission}}
                             {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
-                            {{#ifeq this._id @root.submission.studentId._id}} selected class="owner"{{/ifeq}}
+                            {{#ifeq this._id @root.submission.studentId._id}} selected{{/ifeq}}
                         {{else}}
                             {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
                         {{/if}}
-                        {{#ifeq this._id @root.currentUser._id}} class="me"{{/ifeq}}
+                        class="
+                            {{#ifeq this._id @root.submission.studentId._id}} owner{{/ifeq}}
+                            {{#ifeq this._id @root.currentUser._id}} me{{/ifeq}}
+                        "
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
                     <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
