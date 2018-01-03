@@ -30,6 +30,7 @@ router.use('/link/', require('./link'));
 router.use('/partner/', require('./partner'));
 router.use('/help/', require('./help'));
 router.use('/impressum/', require('./imprint'));
+router.use('/team', require('./team'));
 
 router.use('/administration/', require('./administration'));
 
