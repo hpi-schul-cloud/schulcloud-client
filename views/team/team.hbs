@@ -6,32 +6,45 @@
             {{#each this.team}}
                 <div id="modal-container-{{id}}">
                     <div class="modal-background">
-                        <div class="modal">
-                            <div class="row">
-                                <div class="col-md-3">
-                                <div class="image-shadow js-tilt-container" style="background-image: url({{pictureUrl}});">
-                                </div>
-                                </div>
-                                <div class="col-md-2"></div>
-                                <div class="col-md-7">
-                            <h2 class="person-title" style="text-align: left">{{title}} {{firstName}} {{lastName}}</h2>
-                            <h5 class="person-desc" style="text-align: left">{{position}}</h5>
-                            <p style="text-align: left">{{description}}</p>
+                        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="image-shadow js-tilt-container" style="background-image: url({{pictureUrl}});">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2"></div>
+                                            <div class="col-md-7">
+                                                <h2 class="person-title" style="text-align: left">{{title}} {{firstName}} {{lastName}}</h2>
+                                                <h5 class="person-desc" style="text-align: left">{{position}}</h5>
+                                                <p style="text-align: left">{{description}}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="content" style="margin-bottom: 20px">
-                    <div class="person-wrapper col-md-4 col-sm-6 col-xs-12">
+                <div class="content col-md-4 col-sm-6 col-xs-12">
+                    <div class="person-wrapper">
                         <div class="buttons">
                             <div id="two" class="button{{id}}">
-                                <div class="card h-100 person" style="width: 20rem;">
+                                <div class="card h-100 person">
                                     <img class="card-img-top circular" src="{{pictureUrl}}">
                                     <div class="card-block">
                                         <h4 class="person-title card-title">{{firstName}} {{lastName}}</h4>
                                         <p class="person-desc card-text">{{position}}</p>
-
                                     </div>
                                 </div>
                             </div>
