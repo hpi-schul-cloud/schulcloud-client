@@ -6,7 +6,6 @@ $(document).ready(function () {
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteModal = $('.delete-modal');
-    var $cancelModal = $('.cancel-modal');
 
     $('.btn-add').on('click', function (e) {
         e.preventDefault();
