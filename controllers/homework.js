@@ -480,10 +480,8 @@ const overview = (title = "") => {
                     assignment.currentUser = res.locals.currentUser;
                     assignment.actions = getActions(assignment, '/homework/');
                     if (assignment.teacherId != res.locals.currentUser._id && !((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString())) {
-                        console.log("remove stats", assignment.currentUser._id.toString(), ((assignment.courseId||{}).substitutionIds||[]));
                         assignment.stats = undefined;
                     }
-                    console.log(assignment.stats);
                     return assignment;
                 });
 
