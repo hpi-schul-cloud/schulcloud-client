@@ -571,7 +571,7 @@ router.get('/new', function (req, res, next) {
                 res.render('homework/edit', {
                     title: 'Aufgabe hinzufügen',
                     submitLabel: 'Hinzufügen',
-                    closeLabel: 'Schließen',
+                    closeLabel: 'Abbrechen',
                     method: 'post',
                     action: '/homework/',
                     referrer: req.header('Referer'),
@@ -630,7 +630,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
-                            closeLabel: 'Schließen',
+                            closeLabel: 'Abbrechen',
                             method: 'patch',
                             action: '/homework/' + req.params.assignmentId,
                             referrer: '/homework/' + req.params.assignmentId,
@@ -645,7 +645,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                     res.render('homework/edit', {
                         title: 'Aufgabe hinzufügen',
                         submitLabel: 'Speichern',
-                        closeLabel: 'Schließen',
+                        closeLabel: 'Abbrechen',
                         method: 'patch',
                         action: '/homework/' + req.params.assignmentId,
                         referrer: '/homework/' + req.params.assignmentId,

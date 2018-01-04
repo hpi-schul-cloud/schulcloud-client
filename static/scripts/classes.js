@@ -9,7 +9,7 @@ $(document).ready(function() {
         $.getJSON('/classes/currentTeacher/', function (teacher) {
             populateModalForm($addModal, {
                 title: 'Klasse hinzufügen',
-                closeLabel: 'Schließen',
+                closeLabel: 'Abbrechen',
                 submitLabel: 'Hinzufügen',
                 fields: {teacherIds: [teacher]}
             });
@@ -24,7 +24,7 @@ $(document).ready(function() {
             populateModalForm($editModal, {
                 action: entry,
                 title: 'Klasse bearbeiten',
-                closeLabel: 'Schließen',
+                closeLabel: 'Abbrechen',
                 submitLabel: 'Speichern',
                 fields: result
             });

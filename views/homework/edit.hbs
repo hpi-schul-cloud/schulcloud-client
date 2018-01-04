@@ -187,7 +187,7 @@
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
+                        <button class="btn btn-add btn-secondary btn-cancel">
                             {{closeLabel}}
                         </button>
 
@@ -196,6 +196,11 @@
                         </button>
                     </div>
                 </form>
+
+                {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+
+                {{/embed}}
+
             </div>
         </div>
     {{/content}}

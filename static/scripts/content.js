@@ -54,7 +54,7 @@ $(document).ready(function () {
 
 			populateModalForm($editModal, {
 				title: 'Material zu Thema hinzufügen',
-				closeLabel: 'Schließen',
+				closeLabel: 'Abbrechen',
 				submitLabel: 'Senden',
 				fields: fields
 			});
