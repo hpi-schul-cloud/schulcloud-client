@@ -479,16 +479,19 @@ const overview = (title = "") => {
 
                     assignment.currentUser = res.locals.currentUser;
                     assignment.actions = getActions(assignment, '/homework/');
-                    if (assignment.teacherId != res.locals.currentUser._id) {
+                    if (assignment.teacherId != res.locals.currentUser._id && !((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString())) {
+                        console.log("remove stats", assignment.currentUser._id.toString(), ((assignment.courseId||{}).substitutionIds||[]));
                         assignment.stats = undefined;
                     }
+                    console.log(assignment.stats);
                     return assignment;
                 });
 
                 const coursesPromise = getSelectOptions(req, 'courses', {
                     $or: [
                         {userIds: res.locals.currentUser._id},
-                        {teacherIds: res.locals.currentUser._id}
+                        {teacherIds: res.locals.currentUser._id},
+                        {substitutionIds: res.locals.currentUser._id}
                     ]
                 });
                 Promise.resolve(coursesPromise).then(courses => {
@@ -536,10 +539,12 @@ router.get('/new', function (req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
         $or: [
             {userIds: res.locals.currentUser._id},
-            {teacherIds: res.locals.currentUser._id}
+            {teacherIds: res.locals.currentUser._id},
+            {substitutionIds: res.locals.currentUser._id}
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
+        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
         const lessonsPromise = getSelectOptions(req, 'lessons', {
             courseId: req.query.course
         });
@@ -600,7 +605,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
                 {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
+                {teacherIds: res.locals.currentUser._id},
+                {substitutionIds: res.locals.currentUser._id}
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
@@ -717,10 +723,10 @@ router.get('/:assignmentId', function (req, res, next) {
             })[0];
             const students = course.userIds;
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
-            if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
+            if (!assignment.private && ((assignment.teacherId == res.locals.currentUser._id || ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id)) && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions.data;
-                const studentSubmissions = students.map(student => {
+                let studentSubmissions = students.map(student => {
                     return {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
@@ -790,10 +796,8 @@ router.get('/:assignmentId', function (req, res, next) {
                         }));
                     });
                 //});
-            } else {
-
+            } else {// normale Schüleransicht
                 if (assignment.submission) {
-
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: assignment.submission._id,
