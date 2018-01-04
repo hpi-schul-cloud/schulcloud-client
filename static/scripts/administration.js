@@ -11,7 +11,7 @@ $(document).ready(function () {
         e.preventDefault();
         populateModalForm($addModal, {
             title: 'Hinzufügen',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             submitLabel: 'Hinzufügen'
         });
         $addModal.modal('show');
@@ -24,7 +24,7 @@ $(document).ready(function () {
             populateModalForm($editModal, {
                 action: entry,
                 title: 'Bearbeiten',
-                closeLabel: 'Schließen',
+                closeLabel: 'Abbrechen',
                 submitLabel: 'Speichern',
                 fields: result
             });
@@ -58,7 +58,7 @@ $(document).ready(function () {
             success: function(data) {
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
-                    closeLabel: 'Schließen',
+                    closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
                     fields: {invitation: data.newUrl}
                 });
@@ -77,7 +77,7 @@ $(document).ready(function () {
         e.preventDefault();
         populateModalForm($importModal, {
             title: 'CSV Importieren',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             submitLabel: 'Importieren'
         });
         $importModal.modal('show');
@@ -109,7 +109,7 @@ $(document).ready(function () {
             populateModalForm($deleteModal, {
                 action: entry,
                 title: 'Löschen',
-                closeLabel: 'Schließen',
+                closeLabel: 'Abbrechen',
                 submitLabel: 'Löschen',
                 fields: result
             });
@@ -117,5 +117,7 @@ $(document).ready(function () {
             $deleteModal.modal('show');
         });
     });
+
+
 
 });
