@@ -135,7 +135,7 @@ router.get('/new', function (req, res, next) {
     res.render('news/edit', {
         title: "News erstellen",
         submitLabel: 'Hinzufügen',
-        closeLabel: 'Schließen',
+        closeLabel: 'Abbrechen',
         method: 'post',
         action: '/news/',
     });
@@ -158,7 +158,7 @@ router.get('/:newsId/edit', function (req, res, next) {
         res.render('news/edit', {
             title: "News bearbeiten",
             submitLabel: 'Speichern',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             method: 'patch',
             action: '/news/' + req.params.newsId,
             news

@@ -34,6 +34,7 @@ const editTopicHandler = (req, res, next) => {
             method,
             title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
             submitLabel: req.params.topicId ? 'Änderungen speichern' : 'Thema anlegen',
+            closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
             etherpadBaseUrl: etherpadBaseUrl
