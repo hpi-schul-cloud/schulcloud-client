@@ -1,6 +1,6 @@
 {
   "high": {
-    "name": "High",
+    "name": "",
     "team": [
       {
         "id": 0,
@@ -8,14 +8,15 @@
         "firstName": "Christoph",
         "lastName": "Meinel",
         "position": "CEO und Direktor des HPI",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "description": "Christoph Meinel (Univ.-Prof., Dr. sc. nat., Dr. rer. nat., 1954) ist wissenschaftlicher Direktor und Geschäftsführer des <a href=\"http://hpi.de/de.html\" target=\"_blank\">Hasso-Plattner-Instituts für Softwaresystemtechnik GmbH</a> (HPI). Christoph Meinel ist ordentlicher Professor (C4) für Informatik und hat den Lehrstuhl für <a href=\"http://hpi.de/meinel/lehrstuhl.html\" target=\"_blank\">Internet-Technologien und Systeme</a>  am HPI inne. Seine besonderen Forschungsinteressen liegen in den Bereichen Internet- und Informationssicherheit und Web 3.0: Semantic, Social, Service Web, sowie im Bereich innovativer Internetanwendungen und Systeme, vor allem zum e-Learning & Tele-Teaching und zur Telemedizin. Daneben ist er aktiv in der Innovationsforschung rund um die Stanforder Innovationsmethode des Design Thinking. Frühere Forschungsinteressen lagen im Bereich der theoretischen Grundlagen der Informatik in den Gebieten Komplexitätstheorie und effiziente OBDD-basierte Algorithmen und Datenstrukturen.<br><br>Christoph Meinel lehrt am HPI in den Bachelor- und Masterstudiengängen \"IT-Systems Engineering\" und in der School of Design Thinking. Er bietet MOOCs an auf der openHPI-Plattform und betreut zahlreiche Doktoranden. Zudem ist er Honorarprofessor an der Informatik-Fakultät der Technischen Universität Peking und lehrt als Gastprofessor an der Shanghai Universität. An der Universität Luxembourg ist er Research Fellow am <a href=\"http://wwwde.uni.lu/snt\" target=\"_blank\">interdisziplinären Zentrum</a>  (SnT). Zusammen mit Prof. Larry Leifer von der Stanford University ist er Programmdirektor des <a href=\"http://hpi.de/de/dtrp/programm/uebersicht.html\" target=\"_blank\">HPI-Stanford Design Thinking Research Programms</a>.<br><br>Christoph Meinel ist Autor bzw. Co-Autor von 9 <a href=\"http://hpi.de/meinel/publikationen/books.html?L=0\" target=\"_blank\">Büchern</a>  und 4 Anthologien sowie diversen Tagungsbänden. Er hat mehr als 400 wissenschaftliche Arbeiten in angesehenen wissenschaftlichen Journalen und auf internationalen Konferenzen veröffentlicht. Darüber hinaus ist er Herausgeber der elektronischen Fachzeitschriften ECCC – Electronic Colloquium on Computational Complexity, ECDTR - Electronic Colloquium on Design Thinking Research, des <a href=\"https://it-gipfelblog.hpi-web.de/\" target=\"_blank\">IT-Gipfelblogs</a>  und des <a href=\"http://www.tele-task.de/\" target=\"_blank\">tele-TASK-Archivs</a>.",
         "pictureUrl": "/images/team/Christoph_Meinel.png",
         "priority": 0,
         "social": {
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": "10vh"
       },
       {
         "id": 1,
@@ -30,7 +31,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 2,
@@ -45,12 +47,13 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       }
     ]
   },
   "medium": {
-    "name": "Medium",
+    "name": "Projektleitung und wissenschaftliche Mitarbeiter",
     "team": [
       {
         "id": 3,
@@ -58,14 +61,15 @@
         "firstName": "Jan",
         "lastName": "Renz",
         "position": "Technischer Leiter",
-        "description": "Bevor er die akademische Laufbahn als Diplom Medieninformatiker (Beuth Hochschule) einschlug, arbeitete er über 10 Jahre als CTO einer Internetagentur. Seit 6 Jahren unterrichtet er Studenten sowohl on-, als auch offline. 2013 kam er zum Web Research Team des HPI und arbeitet seitdem daran, die Lernerfahrung in MOOCs zu verbessern. Seine Forschung konzentriert sich auf die nutzerzentrierte Optimisierung von großen E-Learning Anwendungen. Zuletzt veröffentlichte er Forschungsberichte zu mobilem Lernen, Gamification, interaktiven Programmieraufgaben, sozialem Lernen und Learning Analytics. Darüber hinaus entwickelt er auch aktiv Open Source. Im Projekt Schul-Cloud ist er als technischer Leiter für die Koordination und Vision rund um die Technik zuständig. Zudem betreut der die Mitarbeiter und Studierenden.  In seiner Freizeit joggt und musiziert er gerne oder setzt DIY Projekte um. Außerdem veranstaltet er den Berliner Ableger der \"Nerd Nite\", einer weltweiten Vortragsreihe, die es bereits in mehr als 90 Städten gibt und die unter dem Motto \"Discovery Channel with beer\" steht.",
+        "description": "Bevor er die akademische Laufbahn als Diplom Medieninformatiker (Beuth Hochschule) einschlug, arbeitete er über 10 Jahre als CTO einer Internetagentur. Seit 6 Jahren unterrichtet er Studenten sowohl on-, als auch offline. 2013 kam er zum Web Research Team des HPI und arbeitet seitdem daran, die Lernerfahrung in MOOCs zu verbessern. Seine Forschung konzentriert sich auf die nutzerzentrierte Optimisierung von großen E-Learning Anwendungen. Zuletzt veröffentlichte er Forschungsberichte zu mobilem Lernen, Gamification, interaktiven Programmieraufgaben, sozialem Lernen und Learning Analytics. Darüber hinaus entwickelt er auch aktiv Open Source. Im Projekt Schul-Cloud ist er als technischer Leiter für die Koordination und Vision rund um die Technik zuständig. Zudem betreut der die Mitarbeiter und Studierenden.<br> In seiner Freizeit joggt und musiziert er gerne oder setzt DIY Projekte um. Außerdem veranstaltet er den Berliner Ableger der \"Nerd Nite\", einer weltweiten Vortragsreihe, die es bereits in mehr als 90 Städten gibt und die unter dem Motto \"Discovery Channel with beer\" steht.",
         "pictureUrl": "/images/team/Jan_Renz.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": "5vh"
       },
       {
         "id": 4,
@@ -80,7 +84,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 5,
@@ -95,7 +100,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 6,
@@ -110,7 +116,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 7,
@@ -118,14 +125,15 @@
         "firstName": "Nils",
         "lastName": "Karn",
         "position": "Pädagogischer Koordinator",
-        "description": "Nils absolvierte seinen Magister in Erwachsenenpädagogik mit Nebenfächern Psychologie und BWL. Zusätzlich schloss er mit viel Freude die Ausbildung zum Design Thinker bei uns am HPI ab. Im Projekt Schul-Cloud ist er seit der ersten Stunde (Juli 2016) mit dabei und kümmert sich um alle Angelegenheiten die mit Nutzern und deren Umfeld zu tun haben. Er hält gerne Präsentationen sowie Talks zur Schul-Cloud und setzt Weiterentwicklungen mittels Design Thinking Methoden um. In seiner Freizeit fährt er gern Rad und mit seiner Ducati Monster, schwimmt und läuft. Im Team Schul-Cloud spielt er gern Beachvolleyball und ist als Chief Happiness Officer für alle Aktivitäten zum Teambuilding zuständig.",
+        "description": "Nils absolvierte seinen Magister in Erwachsenenpädagogik mit Nebenfächern Psychologie und BWL. Zusätzlich schloss er mit viel Freude die Ausbildung zum Design Thinker bei uns am HPI ab. Im Projekt Schul-Cloud ist er seit der ersten Stunde (Juli 2016) mit dabei und kümmert sich um alle Angelegenheiten die mit Nutzern und deren Umfeld zu tun haben. Er hält gerne Präsentationen sowie Talks zur Schul-Cloud und setzt Weiterentwicklungen mittels Design Thinking Methoden um.<br><br>In seiner Freizeit fährt er gern Rad und mit seiner Ducati Monster, schwimmt und läuft. Im Team Schul-Cloud spielt er gern Beachvolleyball und ist als Chief Happiness Officer für alle Aktivitäten zum Teambuilding zuständig.",
         "pictureUrl": "/images/team/Nils_Karn.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 8,
@@ -140,7 +148,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 9,
@@ -155,7 +164,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 10,
@@ -170,7 +180,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 11,
@@ -185,7 +196,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 12,
@@ -200,7 +212,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 13,
@@ -215,12 +228,13 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       }
     ]
   },
   "low": {
-    "name": "Low",
+    "name": "Studentische Hilfskräfte",
     "team": [
       {
         "id": 14,
@@ -235,7 +249,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 15,
@@ -250,7 +265,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 16,
@@ -265,7 +281,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 17,
@@ -280,7 +297,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 18,
@@ -295,7 +313,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 19,
@@ -310,7 +329,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 20,
@@ -325,7 +345,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 21,
@@ -340,7 +361,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 22,
@@ -355,7 +377,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 23,
@@ -370,7 +393,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 24,
@@ -385,7 +409,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 25,
@@ -400,7 +425,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 26,
@@ -409,13 +435,14 @@
         "lastName": "Lehnert",
         "position": "Studentische Hilfskraft",
         "description": "Elias ist Schüler an dem Emmy-Noether-Gymnasium und entwickelt die Android App der Schul-Cloud mit. In seiner Freizeit arbeitet er gerne an verschiedenen Projekten mit Programmiersprachen wie C++ oder Python.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Elias_Lehnert.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       },
       {
         "id": 27,
@@ -430,7 +457,8 @@
           "facebook": "",
           "twitter": "",
           "linkedin": ""
-        }
+        },
+        "longDesc": false
       }
     ]
   }

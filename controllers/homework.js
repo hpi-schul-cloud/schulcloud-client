@@ -760,7 +760,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submissions.forEach(e => {
                     if(e.teamMembers){
                         e.teamMembers.forEach( c => {
-                            studentsWithSubmission.push(c._id.toString())
+                            studentsWithSubmission.push(c._id.toString());
                         });
                     }else{
                         studentsWithSubmission.push(e.studentId.toString());
@@ -771,7 +771,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     if(!studentsWithSubmission.includes(e.toString())){
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
-                                return (s.student._id.toString() == e.toString())
+                                return (s.student._id.toString() == e.toString());
                             }).map(s => {
                                 return s.student;
                             })[0]
