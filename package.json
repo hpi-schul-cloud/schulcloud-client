@@ -10,7 +10,8 @@
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test/ --recursive",
-    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js"
+    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js",
+    "gulp-watch": "gulp watch"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -70,6 +71,7 @@
     "gulp-uglify": "^2.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "nodemon": "^1.14.7",
     "pump": "^1.0.2",
     "video.js": "^5.19.2",
     "vinyl-map": "^1.0.2"
