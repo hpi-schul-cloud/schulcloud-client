@@ -338,7 +338,7 @@ router.get('/:courseId', function (req, res, next) {
 
         courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
             ? courseGroups.data || []
-            : (courseGroups.data || []).filter(cg => cg.userIds.includes(res.locals.currentUser._id));
+            : (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
         
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
