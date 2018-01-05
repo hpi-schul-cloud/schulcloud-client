@@ -834,7 +834,7 @@ class TopicNexboard extends TopicBlock {
             board = board.content;
             if(board.board === id){
                 const content = this.props.content;
-                content.board = board.boardId;
+                content.board = board.board;
                 content.url = board.url;
                 this.props.onUpdate({
                     content: content
