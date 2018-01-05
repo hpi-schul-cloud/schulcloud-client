@@ -79,7 +79,7 @@ const editCourseHandler = (req, res, next) => {
         method = 'patch';
         coursePromise = api(req).get('/courses/' + req.params.courseId, {
             qs: {
-                $populate: ['lessonIds', 'ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
+                $populate: ['ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
             }
         });
     } else {
@@ -135,6 +135,44 @@ const editCourseHandler = (req, res, next) => {
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
             students: markSelected(students, _.map(course.userIds, '_id'))
+        });
+    });
+};
+
+const editCourseGroupHandler = (req, res, next) => {
+    let courseGroupId = req.params.courseGroupId;
+    let courseId = req.params.courseId;
+
+    let courseGroupPromise, action, method;
+    if (courseGroupId) {
+        action = `/courses/${courseId}/groups/${courseGroupId}`;
+        method = 'patch';
+        courseGroupPromise = api(req).get('/courseGroups/', {
+            qs: {
+                $populate: ['userIds']
+            }
+        });
+    } else {
+        action = `/courses/${courseId}/groups`;
+        method = 'post';
+        courseGroupPromise = Promise.resolve({});
+    }
+
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+    Promise.all([
+        courseGroupPromise,
+        studentsPromise
+    ]).then(([courseGroup, students]) => {
+        students = students.filter(s => s.schoolId === res.locals.currentSchool);
+        res.render('courses/edit-courseGroup', {
+            action,
+            method,
+            courseGroup,
+            courseId,
+            students: markSelected(students, _.map(courseGroup.userIds, '_id')),
+            title: req.params.courseGroupId ? 'Schülergruppe bearbeiten' : 'Schülergruppe anlegen',
+            submitLabel: req.params.courseGroupId ? 'Änderungen speichern' : 'Schülergruppe anlegen',
+            closeLabel: 'Abbrechen'
         });
     });
 };
@@ -297,7 +335,7 @@ router.get('/:courseId', function (req, res, next) {
                 return -1;
             }
         });
-        
+
         courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
             ? courseGroups.data || []
             : (courseGroups.data || []).filter(cg => cg.userIds.includes(res.locals.currentUser._id));
@@ -469,5 +507,20 @@ router.post('/:courseId/importTopic', function (req, res, next) {
 
 router.get('/:courseId/edit', editCourseHandler);
 
+/*
+ * Course groups
+ */
+
+router.get('/:courseId/groups/add', editCourseGroupHandler);
+
+router.post('/:courseId/groups', function (req, res, next) {
+    api(req).post('/courseGroups/', {
+        json: req.body // TODO: sanitize
+    }).then(courseGroup => {
+        res.redirect('/courses/' + req.params.courseId);
+    }).catch(err => {
+        res.sendStatus(500);
+    });
+});
 
 module.exports = router;
