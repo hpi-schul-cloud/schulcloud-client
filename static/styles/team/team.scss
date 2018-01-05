@@ -239,7 +239,7 @@ div[id^='modal-container-'] {
   }
 
   .image-shadow:after {
-    transform: scale(0.95) translateY(36px) translateZ(-30px);
+    transform: scale(0.95) translateY(30px) translateZ(-30px) translateX(-50px);
     filter: blur(20px);
     opacity: 0.9;
     content: '';
@@ -294,6 +294,9 @@ div[id^='modal-container-'] {
   }
 
   .modal-body {
+    @media screen and (max-width: 767px) {
+      padding-top: 15vh !important;
+    }
     max-height: calc(100vh - 210px);
     overflow-y: auto;
     overflow-x: hidden;
@@ -306,5 +309,15 @@ div[id^='modal-container-'] {
   h5 {
     color: $colorHPIRed;
     margin-top: 20px;
+  }
+
+}
+
+.section-title {
+  h4 {
+    color: $colorHPIRed;
+    margin-bottom: 0;
+    margin-right: 20px;
+    font-weight: 700;
   }
 }

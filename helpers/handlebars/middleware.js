@@ -22,7 +22,7 @@ const makeActive = (items, currentUrl) => {
         if(item.children && item.childActive) {
             item.children = makeActive(item.children, currentUrl);
             
-            if(item.children.filter(child => {return child.class == 'active'}).length == 0){
+            if(item.children.filter(child => {return child.class == 'active';}).length == 0){
                 item.class += ' active';
             }
         }

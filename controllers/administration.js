@@ -515,9 +515,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.teacherIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.name
+                    userClasses = userClasses + ' , ' + uClass.name;
                 } else {
-                    userClasses = uClass.name
+                    userClasses = uClass.name;
                 }
             }
         });
@@ -525,9 +525,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.userIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.name
+                    userClasses = userClasses + ' , ' + uClass.name;
                 } else {
-                    userClasses = uClass.name
+                    userClasses = uClass.name;
                 }
             }
         });
