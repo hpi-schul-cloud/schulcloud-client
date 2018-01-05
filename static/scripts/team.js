@@ -14,7 +14,17 @@ $(document).ready(function () {
                     $('#modal-container-' + i).removeAttr('class');
                 }, 250);
         });
-    }
+        }
+
+        $('.modal-content').click(function (e) {
+            if ($(e.target).is('a'))
+                return true;
+
+            if ($(e.target).is('i.fa.fa-times'))
+                return true;
+
+            return false;
+        });
 
     $(document).on('mousemove', function(e){
         $('.light').css({
