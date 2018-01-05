@@ -5,6 +5,7 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
+const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -288,6 +289,7 @@ router.get('/:courseId', function (req, res, next) {
             assignment.url = '/homework/' + assignment._id;
             return assignment;
         });
+
         homeworks.sort((a,b) => {
             if(a.dueDate > b.dueDate) {
                 return 1;
@@ -296,13 +298,17 @@ router.get('/:courseId', function (req, res, next) {
             }
         });
         
+        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+            ? courseGroups.data || []
+            : (courseGroups.data || []).filter(cg => cg.userIds.includes(res.locals.currentUser._id));
+        
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
             homeworks: homeworks.filter(function(task){return !task.private;}),
             myhomeworks: homeworks.filter(function(task){return task.private;}),
             ltiToolIds,
-            courseGroups: courseGroups.data || [],
+            courseGroups,
             breadcrumb: [
                 {
                     title: 'Meine Kurse',

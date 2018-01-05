@@ -170,8 +170,8 @@
                     </a>
                     <a data-toggle="collapse" class="collapse-toggle" href="#courseGroups">
                         <h4>
-                            <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                            Schülergruppen
+                            <small data-toggle="tooltip" title="Schülergruppen ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            {{#userHasPermission "COURSE_EDIT" }}Schülergruppen{{else}}Meine Schülergruppen{{/userHasPermission}}
                             <small>({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
                         </h4>
                     </a>
