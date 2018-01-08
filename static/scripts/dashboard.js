@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     populateModalForm($pollModal, {
         title: 'Befragung I im Projekt Schul-Cloud',
-        closeLabel: 'Schließen'
+        closeLabel: 'Abbrechen'
     });
 
     let cookies = getCookiesMap(document.cookie);

@@ -96,7 +96,7 @@ $(document).ready(function () {
                 createLocalTool($editModal, result.tool);
             } else {
                 populateModalForm($editModal, {
-                    closeLabel: 'Schließen',
+                    closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
                     fields: result.tool
                 });

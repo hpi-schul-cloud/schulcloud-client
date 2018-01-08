@@ -128,6 +128,7 @@ const editCourseHandler = (req, res, next) => {
             method,
             title: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
+            closeLabel: 'Abbrechen',
             course,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),

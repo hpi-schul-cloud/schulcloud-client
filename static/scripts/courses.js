@@ -36,7 +36,7 @@ $(document).ready(function () {
             success: function(data) {
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
-                    closeLabel: 'Schließen',
+                    closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
                     fields: {invitation: data.newUrl}
                 });
@@ -59,7 +59,7 @@ $(document).ready(function () {
         let $importModal = $('.import-modal');
         populateModalForm($importModal, {
             title: 'Thema importieren',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             submitLabel: 'Speichern',
             fields: {courseId: courseId}
         });
@@ -68,7 +68,8 @@ $(document).ready(function () {
         $modalForm.attr('action', `/courses/${courseId}/importTopic`);
         $importModal.modal('show');
     });
-    
+
+
     $("#topic-list").sortable({
         placeholder: "ui-state-highlight",
         handle: '.move-handle',
