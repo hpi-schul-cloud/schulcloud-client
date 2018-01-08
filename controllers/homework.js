@@ -574,7 +574,7 @@ router.get('/new', function (req, res, next) {
                 res.render('homework/edit', {
                     title: 'Aufgabe hinzufügen',
                     submitLabel: 'Hinzufügen',
-                    closeLabel: 'Schließen',
+                    closeLabel: 'Abbrechen',
                     method: 'post',
                     action: '/homework/',
                     referrer: req.header('Referer'),
@@ -631,7 +631,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
-                            closeLabel: 'Schließen',
+                            closeLabel: 'Abbrechen',
                             method: 'patch',
                             action: '/homework/' + req.params.assignmentId,
                             referrer: '/homework/' + req.params.assignmentId,
@@ -646,7 +646,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                     res.render('homework/edit', {
                         title: 'Aufgabe hinzufügen',
                         submitLabel: 'Speichern',
-                        closeLabel: 'Schließen',
+                        closeLabel: 'Abbrechen',
                         method: 'patch',
                         action: '/homework/' + req.params.assignmentId,
                         referrer: '/homework/' + req.params.assignmentId,
@@ -697,8 +697,7 @@ router.get('/:assignmentId', function (req, res, next) {
             : ((assignment.private)
                 ? ("/homework/private")
                 : ("/homework/asked"));
-
-        Promise.all([
+        let promises = [
             // Abgaben auslesen
             api(req).get('/submissions/', {
                 qs: {
@@ -706,13 +705,20 @@ router.get('/:assignmentId', function (req, res, next) {
                     $populate: ['homeworkId', 'fileIds','teamMembers','studentId']
                 }
             }),
-            // Alle Teilnehmer des Kurses
-            api(req).get('/courses/' + assignment.courseId._id, {
-                qs: {
-                    $populate: ['userIds']
-                }
-            })
-        ]).then(([submissions, course]) => {
+        ]
+        if(assignment.courseId && assignment.courseId._id){
+            promises.push(
+                // Alle Teilnehmer des Kurses
+                api(req).get('/courses/' + assignment.courseId._id, {
+                    qs: {
+                        $populate: ['userIds']
+                    }
+                })
+            );
+        }
+        Promise.all(promises).then((values) => {
+            //[submissions, course]
+            let submissions = values[0];
             assignment.submission = submissions.data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
                 return submission;
@@ -720,7 +726,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 return (submission.studentId._id == res.locals.currentUser._id)
                      ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
-            const students = course.userIds;
+            const students = (values[1]||{}).userIds || [];
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
@@ -730,7 +736,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
                             return (submission.studentId._id == student._id)
-                                 ||(submission.teamMembers.includes(student._id.toString()));
+                                 ||(submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
                         })[0]
                     };
                 });
@@ -796,9 +802,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                 //});
             } else {
-
                 if (assignment.submission) {
-
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
                         submissionId: assignment.submission._id,

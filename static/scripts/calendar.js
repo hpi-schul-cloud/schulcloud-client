@@ -71,7 +71,7 @@ $(document).ready(function () {
 
                 populateModalForm($editEventModal, {
                     title: 'Termin - Details',
-                    closeLabel: 'Schließen',
+                    closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
                     fields: event,
                     action: '/calendar/events/' + event.attributes.uid
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
             populateModalForm($createEventModal, {
                 title: 'Termin hinzufügen',
-                closeLabel: 'Schließen',
+                closeLabel: 'Abbrechen',
                 submitLabel: 'Hinzufügen',
                 fields: {
                     startDate: _startDate,

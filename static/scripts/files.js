@@ -269,7 +269,7 @@ $(document).ready(function() {
                     success: function(data) {
                         populateModalForm($shareModal, {
                             title: 'Einladungslink generiert!',
-                            closeLabel: 'Schließen',
+                            closeLabel: 'Abbrechen',
                             submitLabel: 'Speichern',
                             fields: {invitation: data.newUrl}
                         });
