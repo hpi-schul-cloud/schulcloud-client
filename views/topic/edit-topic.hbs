@@ -36,8 +36,14 @@
                     <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}"></div>
                 </div>
 
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="{{submitLabel}}" />
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
+                        {{closeLabel}}
+                    </button>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        {{submitLabel}}
+                    </button>
                 </div>
 
             </form>
