@@ -805,6 +805,7 @@ class TopicNexboard extends TopicBlock {
 
         this.state = {
             newBoard : 0,
+            id : Math.random().toString(36).substr(2, 5),
             boards: []
         };
         this.handleChange = this.handleChange.bind(this);
@@ -816,8 +817,8 @@ class TopicNexboard extends TopicBlock {
             .then(boards => {
                 this.setState({boards:boards});
             })
-        $(".chosen-select").chosen();
-        $('.chosen-select').on('change', this.handleChange);
+        $("select[id="+this.state.id+"]").chosen();
+        $("select[id="+this.state.id+"]").on('change', this.handleChange);
     }
 
 
@@ -826,13 +827,14 @@ class TopicNexboard extends TopicBlock {
     }
 
     handleChange() {
-        var id = $(".chosen-select").find("option:selected").val();
+        var id = $("select[id="+this.state.id+"]").find("option:selected").val();
+
         if (id == this.state.newBoard){
             return 0;
         }
         this.state.boards.map(board => {
             board = board.content;
-            if(board.board === id){
+            if(board.board === id && board.title != ""){
                 const content = this.props.content;
                 content.board = board.board;
                 content.url = board.url;
@@ -873,6 +875,7 @@ class TopicNexboard extends TopicBlock {
                     <select name={`contents[${this.props.position}][content][board]`}
                             className="chosen-select"
                             data-placeholder="neXboard auswählen"
+                            id={(this.state.id)}
                             value={(this.props.content || {}).board}>
                         <optgroup label="Vorhandene Boards">
                             {this.state.boards.map(board =>
