@@ -242,7 +242,7 @@
         "firstName": "Fabien",
         "lastName": "Charle",
         "position": "Studentische Hilfskraft",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "description": "Fabien ist Bachelor Student am HPI. Zuvor hat er eine Ausbildung zum Fachinformatiker im Fachbereich Anwendungsentwicklung absolviert. Seit fast einem Jahr ist er im Schul-Cloud-Projekt für die Umsetzung neuer Features und das Beheben von Bugs zuständig.<br>Fabien ist Karateka und bereitet sich momentan auf seine Schwarzgurtprüfung vor.",
         "pictureUrl": "/images/login-left-cropped.png",
         "priority": 0,
         "social": {
