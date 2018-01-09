@@ -7,6 +7,7 @@ const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
 const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://tools.openhpi.de/etherpad/p/';
+const arsnovaClickBaseUrl = process.env.ARSNOVA_CLICK_BASE_URL || 'https://arsnova.click/';
 
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
@@ -37,7 +38,8 @@ const editTopicHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
-            etherpadBaseUrl: etherpadBaseUrl
+            etherpadBaseUrl: etherpadBaseUrl,
+            arsnovaClickBaseUrl: arsnovaClickBaseUrl
         });
     });
 };

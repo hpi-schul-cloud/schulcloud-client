@@ -198,6 +198,7 @@ class TopicBlockList extends React.Component {
         this.state = {
             blocks: initialBlocks,
             etherpadBaseUrl: $contentBlocksContainer.data('etherpadbaseurl'),
+            arsnovaClickBaseUrl: $contentBlocksContainer.data('arsnovaclickbaseurl'),
             onSortEndCallbacks: []
         };
     }
@@ -258,6 +259,10 @@ class TopicBlockList extends React.Component {
         if (block.component === 'Etherpad') {
             block.etherpadBaseUrl = this.state.etherpadBaseUrl;
         }
+
+        if (block.component === 'arsnovaClick') {
+            block.arsnovaClickBaseUrl = this.state.arsnovaClickBaseUrl;
+        }
         const blocks = this.state.blocks;
         blocks.push(block);
         this.updateBlocks(blocks);
@@ -315,6 +320,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicArsnovaClick)}>+ arsnova.click</button>
                     </div>
                 </div>
             </div>
@@ -359,8 +365,12 @@ class TopicBlock extends React.Component {
                 break;
             case 'neXboard':
                 return TopicNexboard;
+                break;
             case 'Etherpad':
                 return TopicEtherpad;
+                break;
+            case 'arsnovaClick':
+                return TopicArsnovaClick;
                 break;
         }
     }
@@ -790,6 +800,58 @@ class TopicEtherpad extends TopicBlock {
 }
 
 /**
+* Class representing an arsnova.click quiz
+* @extends React.Component
+*/
+class TopicArsnovaClick extends TopicBlock {
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+        this.props.content = this.props.content || {};
+        this.props.content.baseUrl = this.props.content.baseUrl || props.arsnovaClickBaseUrl;
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in
+     * view mode.
+     */
+    static get component() {
+        return 'arsnovaClick';
+    }
+
+    /**
+     * Render the block
+     */
+    render() {
+        return (
+            <div>
+                <div type="hidden" className="form-group">
+                    <label>Name des arsnova.click Quiz</label>
+                    <input className="form-control"
+                           name={`contents[${this.props.position}][content][title]`}
+                           type="text" placeholder="Bitte vollständigen Namen eines bestehenden Quiz eingeben!"
+                           value={this.props.content.title}/>
+                </div>
+                <div className="form-group">
+                    <label>Beschreibung des arsnova.click Quiz</label>
+                    <textarea className="form-control"
+                              name={`contents[${this.props.position}][content][description]`}
+                              placeholder="Bestreitet das nachfolgende Quiz im Unterricht!">
+                        {this.props.content.description}
+                    </textarea>
+                </div>
+                <input type="hidden" name={`contents[${this.props.position}][content][baseUrl]`}
+                       value={this.props.content.baseUrl} />
+            </div>
+        );
+    }
+}
+
+/**
  * Class representing a neXboard
  * @extends React.Component
  */
@@ -801,7 +863,6 @@ class TopicNexboard extends TopicBlock {
      */
     constructor(props) {
         super(props);
-       // console.log(content);
 
         this.state = {
             newBoard : 0,
