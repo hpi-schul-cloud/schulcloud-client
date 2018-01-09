@@ -1,9 +1,8 @@
-const _ = require('lodash');
 const moment = require('moment');
 const express = require('express');
-const shortid = require('shortid');
+const shortId = require('shortid');
 const router = express.Router({ mergeParams: true });
-const marked = require('marked');
+const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
@@ -57,7 +56,11 @@ router.get('/add', editTopicHandler);
 
 
 router.post('/', function (req, res, next) {
+
     const data = req.body;
+
+    // Check for neXboard compontent
+    data.contents = createNewNexBoards(req,res,data.contents);
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -74,7 +77,7 @@ router.post('/', function (req, res, next) {
 router.post('/:id/share', function (req, res, next) {
     // if lesson already has shareToken, do not generate a new one
     api(req).get('/lessons/' + req.params.id).then(topic => {
-        topic.shareToken = topic.shareToken || shortid.generate();
+        topic.shareToken = topic.shareToken || shortId.generate();
         api(req).patch("/lessons/" + req.params.id, {json: topic})
             .then(result => res.json(result))
             .catch(err => {res.err(err);});
@@ -150,6 +153,8 @@ router.patch('/:topicId', function (req, res, next) {
         data.contents = [];
     }
 
+    // create new Nexboard when necessary
+    data.contents = createNewNexBoards(req,res,data.contents);
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
@@ -187,5 +192,55 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 });
 
 router.get('/:topicId/edit', editTopicHandler);
+
+const createNewNexBoards = (req,res,contents = []) => {
+    contents.forEach(content => {
+        if (content.component === "neXboard" && content.content.board === '0'){
+            const board = getNexBoardAPI().createBoard(
+                content.content.title,
+                content.content.description,
+                getNexBoardProjectFromUser(req,res.locals.currentUser));
+            content.content.title = board.title;
+            content.content.board = board.boardId;
+            content.content.url = "https://" + board.public_link;
+            content.content.description = board.description;
+        }
+    });
+    return contents;
+};
+
+const getNexBoardAPI = () => {
+    if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
+        //TODO handle error properly
+
+    }
+    return new Nexboard(process.env.NEXBOARD_API_KEY,process.env.NEXBOARD_USER_ID);
+};
+
+const getNexBoardProjectFromUser = (req,user) => {
+    const preferences = user.preferences || {};
+    if (typeof preferences.nexBoardProjectID === 'undefined') {
+        const project = getNexBoardAPI().createProject(user._id,user._id);
+        preferences.nexBoardProjectID = project.id;
+        api(req).patch('/users/' + user._id, { json: { preferences } });
+    }
+    return preferences.nexBoardProjectID;
+};
+
+const getNexBoards = (req,res,next) => {
+   api(req).get('/lessons/contents/neXboard' ,{
+        qs:{
+            type : 'neXboard',
+            user : res.locals.currentUser._id
+        }
+    })
+        .then(boards => {
+            res.json(boards);
+        });
+};
+
+router.get('/:topicId/nexboard/boards', getNexBoards);
+
+router.get('/nexboard/boards',getNexBoards);
 
 module.exports = router;

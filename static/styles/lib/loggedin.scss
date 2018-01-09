@@ -5,6 +5,15 @@
 body {
     background: white !important;
 }
+.navtooltips{
+    display: none;
+    @include media-breakpoint-down(md) {
+        display: initial;
+    }
+    @include media-breakpoint-down(xs) {
+        display:none;
+    }
+}
 aside.nav-sidebar {
     color: #727272;
     position: fixed;
