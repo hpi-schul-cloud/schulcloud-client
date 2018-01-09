@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 
-// Partners
+// Team
 const team = require('../helpers/content/team.json');
 
 router.get('/', function (req, res, next) {
