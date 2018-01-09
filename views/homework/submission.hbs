@@ -26,6 +26,10 @@
                         {{else}}
                             {{#ifeq this._id @root.currentUser._id}} selected{{/ifeq}}
                         {{/if}}
+                        class="
+                            {{#ifeq this._id @root.submission.studentId._id}} owner{{/ifeq}}
+                            {{#ifeq this._id @root.currentUser._id}} me{{/ifeq}}
+                        "
                     >{{this.firstName}} {{this.lastName}}</option>
                 {{else}}
                     <option value="" disabled>keine weiteren Schüler in deinem Kurs</option>
@@ -44,8 +48,8 @@
         </div>
         <input type="hidden" name="_method" data-force-value="true" value="post"/>
         <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
-      {{/if}}
         <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
+      {{/if}}
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
         <div class="form-group">
             <textarea id="evaluation" name="comment" class="form-control customckeditor"
@@ -67,14 +71,14 @@
         {{/userHasPermission}}
 
         {{#if @root.submission}}
-            {{#inArray @root.currentUser._id @root.submission.teamMemberIds}}
+            {{#ifeq @root.currentUser._id @root.submission.studentId._id}}
                 <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
                     target="_blank"
                     data-method="delete-submission"
                     data-name="deine Abgabe"
                     alt="Abgabe löschen"
                 ><i class="fa fa-trash-o"></i> Löschen</a>
-            {{/inArray}}
+            {{/ifeq}}
         {{/if}}
     {{/if}}
     </form>
