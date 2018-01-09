@@ -545,10 +545,12 @@ router.get('/new', function (req, res, next) {
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
+        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
         const lessonsPromise = getSelectOptions(req, 'lessons', {
             courseId: req.query.course
         });
         Promise.resolve(lessonsPromise).then(lessons => {
+            (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -609,6 +611,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
+            courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -627,6 +630,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         courseId: assignment.courseId._id
                     });
                     Promise.resolve(lessonsPromise).then(lessons => {
+                        (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
                         //Render overview
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
@@ -726,12 +730,19 @@ router.get('/:assignmentId', function (req, res, next) {
                 return (submission.studentId._id == res.locals.currentUser._id)
                      ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
-            const students = (values[1]||{}).userIds || [];
+            const students = ((values[1]||{}).userIds || []).sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
+                                                            .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions.data;
-                const studentSubmissions = students.map(student => {
+                assignment.submissions = submissions.data.sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
+                                                         .sort((a,b)=>{return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase())?-1:1;})
+                                                         .map(sub => {
+                                                             sub.teamMembers.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
+                                                                            .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;})
+                                                             return sub;
+                                                         });
+                let studentSubmissions = students.map(student => {
                     return {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
@@ -740,6 +751,9 @@ router.get('/:assignmentId', function (req, res, next) {
                         })[0]
                     };
                 });
+                /*studentSubmissions.sort((a,b)=>{return (a.student.lastName.toUpperCase()  < b.student.lastName.toUpperCase())?-1:1;})
+                                  .sort((a,b)=>{return (a.student.firstName.toUpperCase() < b.student.firstName.toUpperCase())?-1:1;});
+                */
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
                     if(e.teamMembers){
@@ -762,6 +776,8 @@ router.get('/:assignmentId', function (req, res, next) {
                         );
                     }
                 });
+                studentsWithoutSubmission.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
+                                         .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
                 /*
                 // Kommentare zu Abgaben auslesen
                 const ids = assignment.submissions.map(n => n._id);
@@ -801,7 +817,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         }));
                     });
                 //});
-            } else {
+            } else { // normale Schüleransicht
                 if (assignment.submission) {
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
