@@ -815,6 +815,10 @@ class TopicArsnovaClick extends TopicBlock {
         this.props.content.baseUrl = this.props.content.baseUrl || props.arsnovaClickBaseUrl;
     }
 
+    componentDidMount() {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
     /**
      * This function returns the name of the component that will be used to render the block in
      * view mode.
@@ -829,12 +833,24 @@ class TopicArsnovaClick extends TopicBlock {
     render() {
         return (
             <div>
-                <div type="hidden" className="form-group">
+                <div className="form-group">
                     <label>Name des arsnova.click Quiz</label>
-                    <input className="form-control"
-                           name={`contents[${this.props.position}][content][title]`}
-                           type="text" placeholder="Bitte vollständigen Namen eines bestehenden Quiz eingeben!"
-                           value={this.props.content.title}/>
+                    <div className="input-group">
+                        <span className="input-group-btn">
+                            <a
+                                className="btn btn-secondary geo-gebra-info"
+                                href="#"
+                                data-toggle="tooltip"
+                                data-placement="top"
+                                title="Geben Sie hier bitte den Namen eines bereits existierenden Quiz auf arsnova.click ein, z.B. 'Demo Quiz 1880'"><i className="fa fa-info-circle" /></a>
+                        </span>
+                        <input
+                            className="form-control"
+                            value={(this.props.content || {}).title}
+                            placeholder="Demo Quiz 1880"
+                            name={`contents[${this.props.position}][content][title]`}
+                        />
+                    </div>
                 </div>
                 <div className="form-group">
                     <label>Beschreibung des arsnova.click Quiz</label>
