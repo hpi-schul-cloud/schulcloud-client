@@ -112,7 +112,6 @@ const showToolHandler = (req, res, next) => {
     ])
     .then(([tool, course]) => {
         tool.url = tool.pseudonymizedUrl || tool.url;
-        console.log(tool.url);
         let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
         res.render(renderPath, {
             course: course,
