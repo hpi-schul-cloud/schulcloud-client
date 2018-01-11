@@ -44,7 +44,8 @@
     "showdown": "^1.7.1",
     "string-strip-html": "^1.1.0",
     "string_decoder": "^1.0.1",
-    "truncate-html": "^0.1.4"
+    "truncate-html": "^0.1.4",
+    "nexboard-api-js": "^1.0.5"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.23.0",
