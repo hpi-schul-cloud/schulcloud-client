@@ -99,7 +99,7 @@ router.get('/:id', function (req, res, next) {
 
 router.get('/redirect/:id', function (req, res, next) {
     return api(req)({
-        uri: `${req.originalUrl}`,
+        uri: req.originalUrl,
         followRedirect: false,
         resolveWithFullResponse: true,
         simple: false
