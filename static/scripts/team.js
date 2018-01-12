@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    for (let i = 0; i <= 27; i++) {
+    for (let i = 0; i <= 30; i++) {
         $('.button' + i).click(function () {
             let buttonId = 'two';
             $('#modal-container-' + i).removeAttr('class').addClass(buttonId);
