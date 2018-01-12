@@ -106,6 +106,10 @@ router.get('/:topicId', function (req, res, next) {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
+            block.content.resources.forEach(resource => {
+                resource.url += `?courseId=${course._id}&topicId=${lesson._id}`;
+            }) ;
+
             return block;
         });
         homeworks = (homeworks.data || []).map(assignment => {
