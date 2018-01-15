@@ -40,6 +40,15 @@
                 melden <i class="fa fa-flag" aria-hidden="true"></i>
             </a>
         {{/userIsAllowedToViewContent}}
+        <div class="rating-star">
+            <span class="fa fa-star-o" data-rating="1" readonly="true" id="{{{ _id }}}"></span>
+            <span class="fa fa-star-o" data-rating="2" readonly="true" id="{{{ _id }}}" ></span>
+            <span class="fa fa-star-o" data-rating="3" readonly="true" id="{{{ _id }}}"></span>
+            <span class="fa fa-star-o" data-rating="4" readonly="true" id="{{{ _id }}}"></span>
+            <span class="fa fa-star-o" data-rating="5" readonly="true" id="{{{ _id }}}"></span>
+            <input type="hidden" id="{{{ _id }}}" class="rating-value" value="{{{rating}}}">
+        </div>
+
 
         <span>via {{{ providerName }}}</span>
         {{#if @root.isCourseGroupTopic}}
