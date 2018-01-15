@@ -457,7 +457,7 @@ const overview = (title = "") => {
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             api(req).get('/users/' + res.locals.currentUser._id, {
                 qs: {
-                    $populate: ['roles']
+                    $populate: ['roles','courseId']
                 }
             }).then(user => {
                 const isStudent = (user.roles.map(role => {return role.name;}).indexOf('student') != -1);
@@ -483,10 +483,16 @@ const overview = (title = "") => {
                     assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
 
                     assignment.currentUser = res.locals.currentUser;
+
+                    assignment.isSubstitution = !assignment.private && ((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString());
+                    assignment.isTeacher = assignment.isSubstitution
+                                         ||((assignment.courseId||{}).teacherIds||[]).includes(assignment.currentUser._id.toString())
+                                         ||assignment.teacherId == res.locals.currentUser._id;
                     assignment.actions = getActions(assignment, '/homework/');
-                    if (assignment.teacherId != res.locals.currentUser._id && !((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString())) {
+                    if (!assignment.isTeacher) {
                         assignment.stats = undefined;
                     }
+                    console.log(assignment.isTeacher);
                     return assignment;
                 });
 
