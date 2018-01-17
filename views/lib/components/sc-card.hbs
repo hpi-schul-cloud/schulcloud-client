@@ -1,7 +1,7 @@
 <article class="sc-card">
-    <div class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
+    <div class="sc-card-header" {{#if this.link}}onclick="document.location.href='{{this.link}}'"{{/if}} {{#if this.background}}style="background:{{this.background}};"{{/if}}>
         <span class="sc-card-title">
-            <a href="{{url}}" rel="canonical">{{{this.title}}}</a>
+            <a href="{{this.url}}" rel="canonical">{{{this.title}}}</a>
             {{#if this.secondaryTitle}}
                 <small class="d-block">{{{this.secondaryTitle}}}</small>
             {{/if}}
