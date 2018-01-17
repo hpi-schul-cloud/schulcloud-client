@@ -1,4 +1,4 @@
-function getCurrentDir() {
+﻿function getCurrentDir() {
     return $('.section-upload').data('path');
 }
 $(document).ready(function() {
@@ -30,7 +30,7 @@ $(document).ready(function() {
         const content = element.serialize();
         if(contentTest){
             if(contentTest(content) == false){
-                showAJAXError(undefined, undefined,"Form validation failed");
+                $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
         }
@@ -48,7 +48,7 @@ $(document).ready(function() {
                 clearInterval(saved);
             }, 2500);
             submitButton.innerHTML = "gespeichert 😊";
-            if(after) after(this);
+            if(after){after(this, element.serializeArray());}
         });
         request.fail(function() {
             if(request.getResponseHeader("error-message")){
@@ -61,7 +61,17 @@ $(document).ready(function() {
     // Abgabe speichern
     $('form.submissionForm.ajaxForm').on("submit",function(e){
         if(e) e.preventDefault();
-        ajaxForm($(this));
+        ajaxForm($(this), function(element, content){
+            let teamMembers = [];
+            content.forEach(e => {
+                if(e.name == "teamMembers"){
+                    teamMembers.push(e.value);
+                }
+            })
+            if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
+                location.reload();
+            }
+        });
         return false;
     });
 
@@ -89,6 +99,14 @@ $(document).ready(function() {
             lastTeamMembers = $(this).val();
         }
         $(this).chosen().trigger("chosen:updated");
+    });
+
+    $('#teamMembers').chosen().change(function(event, data) {
+        if(data.deselected && data.deselected == $('.owner').val()){
+            $(".owner").prop('selected', true);
+            $('#teamMembers').trigger("chosen:updated");
+            $.showNotification("Du darfst den Ersteller der Aufgabe nicht entfernen!", "warning", 5000);
+        }
     });
 
     // Bewertung speichern
