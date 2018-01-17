@@ -6,7 +6,7 @@ const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
-const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p';
+const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
