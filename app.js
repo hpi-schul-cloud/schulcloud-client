@@ -23,11 +23,16 @@ const wax = handlebarsWax(handlebars)
     .partials(path.join(__dirname, 'views/**/*.{hbs,js}'))
     .helpers(layouts)
     .helpers(handlebarsHelper.helpers);
+//if theme is set
+//wax.partials(path.join(__dirname, 'theme/**/*.{hbs,js}'))
 
+var viewDirs = [path.join(__dirname, 'views')]
+//if theme is set
+// viewDirs.unshift(path.join(__dirname, 'theme'))
+
+app.set('views', viewDirs);
 app.engine("hbs", wax.engine);
 app.set("view engine", "hbs");
-
-app.set('views', path.join(__dirname, 'views'));
 
 app.set('view cache', true);
 
