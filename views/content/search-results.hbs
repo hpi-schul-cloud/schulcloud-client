@@ -12,7 +12,7 @@
                     {{> "content/forms/form-search" }}
                     {{#if query }}
                         {{#if searchResults}}
-                            <h5>Suchergebnisse für "{{ query }}"</h5>
+                            <h5>{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h5>
                         {{else}}
                             <h5>Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h5>
                         {{/if}}
