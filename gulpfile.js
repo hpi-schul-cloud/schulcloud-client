@@ -41,7 +41,7 @@ const nonBaseScripts = ['./static/scripts/**/*.js']
 const beginPipe = src =>
     gulp.src(src)
         .pipe(plumber())
-        .pipe(changed())
+        .pipe(changed(gulp))
         .pipe(filelog())
 
 const beginPipeAll = src =>
