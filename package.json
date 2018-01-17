@@ -1,6 +1,6 @@
 {
-  "name": "schulcloud-express",
-  "version": "0.0.0",
+  "name": "schulcloud-client",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -34,6 +34,7 @@
     "moment": "^2.17.1",
     "morgan": "~1.7.0",
     "multer": "^1.3.0",
+    "nexboard-api-js": "^1.0.5",
     "oauth-1.0a": "^2.1.0",
     "path.join": "^1.0.0",
     "query-string": "^5.0.1",
@@ -44,8 +45,7 @@
     "showdown": "^1.7.1",
     "string-strip-html": "^1.1.0",
     "string_decoder": "^1.0.1",
-    "truncate-html": "^0.1.4",
-    "nexboard-api-js": "^1.0.5"
+    "truncate-html": "^0.1.4"
   },
   "devDependencies": {
     "babel-plugin-transform-react-jsx": "^6.23.0",
@@ -56,13 +56,14 @@
     "clean-css": "^4.0.8",
     "eslint": "^3.17.1",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
+    "gulp-autoprefixer": "^4.1.0",
     "gulp-babel": "^6.1.2",
     "gulp-changed-smart": "^1.1.1",
-    "gulp-clean-css": "^3.0.3",
+    "gulp-clean-css": "^3.9.2",
     "gulp-concat": "^2.6.1",
     "gulp-count": "^0.3.0",
     "gulp-filelog": "^0.4.1",
+    "gulp-header": "^2.0.1",
     "gulp-imagemin": "^3.1.1",
     "gulp-optimize-js": "^1.1.0",
     "gulp-plumber": "^1.1.0",

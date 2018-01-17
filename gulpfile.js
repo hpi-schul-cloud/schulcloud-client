@@ -13,7 +13,7 @@ const concat = require('gulp-concat')
 const count = require('gulp-count')
 const changed = require('gulp-changed-smart')
 const autoprefixer = require('gulp-autoprefixer')
-
+const header = require('gulp-header');
 const cCSS = new cleancss()
 //wrapped in a function so it works with gulp.watch (+consistency)
 const minify = () => map((buff, filename) =>
@@ -41,7 +41,7 @@ const nonBaseScripts = ['./static/scripts/**/*.js']
 const beginPipe = src =>
     gulp.src(src)
         .pipe(plumber())
-        .pipe(changed(gulp))
+        .pipe(changed())
         .pipe(filelog())
 
 const beginPipeAll = src =>
@@ -56,9 +56,14 @@ gulp.task('images', () => {
         .pipe(gulp.dest('./build/images'))
 })
 
-//compile SASS/SCSS to CSS and minify it
+//compile SASS/SCSS to CSS and minify it 
+//        .pipe(header('$colorHPIRed: #b10438\n'))
+
 gulp.task('styles', () => {
     beginPipe('./static/styles/**/*.{css,sass,scss}')
+        .pipe(header("$colorHPIRed: #FF0000;\n"))
+        .pipe(header("$colorHPIOrange: #FF0000;\n"))
+        .pipe(header("$colorHPIYellow: #FF0000;\n"))
         .pipe(sass())
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
