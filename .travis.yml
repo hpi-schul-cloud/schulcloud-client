@@ -1,12 +1,22 @@
 language: node_js
 node_js:
   - "6"
-services:
-  - mongodb
+sudo: required
 env:
   - BACKEND_URL=https://schul-cloud.org:8080/ SC_DEMO_USER_PASSWORD=schulcloud
+before_install:
+  - "npm install pm2 -g"
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+  - "gulp"
+  - "BACKEND_URL=htts://beta.schul-cloud.org:9000 pm2 start bin/www"
+before_script:
+  - "sleep 15" 
 script:
   - npm test
+  - ./diff.sh
+  - ./frontend_test.sh
   - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 after_success:
   - bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)

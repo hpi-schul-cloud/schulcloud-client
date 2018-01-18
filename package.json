@@ -1,16 +1,17 @@
 {
-  "name": "schulcloud-express",
-  "version": "0.0.0",
+  "name": "schulcloud-client",
+  "version": "0.11.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch build/ --ext js,hbs ./bin/www",
     "debug": "nodemon --inspect=0.0.0.0:9310 --watch controllers/ --watch helpers/ --watch views/ --ext js,hbs ./bin/www",
-    "lint": "eslint ./bin ./controllers ./helpers ./test ./api.js ./app.js --ext .js --fix",
+    "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run lint && npm run mocha",
-    "mocha": "mocha test/ --recursive",
-    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js"
+    "mocha": "mocha test/mocha/ --recursive",
+    "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js",
+    "frontend": "./node_modules/.bin/nightwatch --config nightwatch.conf.js"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -73,6 +74,10 @@
     "mocha": "^3.2.0",
     "pump": "^1.0.2",
     "video.js": "^5.19.2",
-    "vinyl-map": "^1.0.2"
+    "vinyl-map": "^1.0.2",
+    "nightwatch": "^0.9.19",
+    "selenium-server": "^3.8.1",
+    "chromedriver": "^2.33.2",
+    "env2": "^2.2.0"
   }
 }
