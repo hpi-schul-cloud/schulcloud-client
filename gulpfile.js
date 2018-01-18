@@ -63,8 +63,8 @@ gulp.task('styles', () => {
     beginPipe('./static/styles/**/*.{css,sass,scss}')
         .pipe(header("$colorHPIRed: #FF0000;\n"))
         .pipe(header("$colorHPIOrange: #FF0000;\n"))
-        .pipe(header("$colorHPIYellow: #FF0000;\n"))
-        .pipe(sass())
+        .pipe(header("$colorHPIYellow: #b10438;\n"))
+        .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest('./build/styles'))
@@ -139,7 +139,7 @@ gulp.task('clean', () => {
 })
 
 //run all tasks, processing all files (not just changed)
-gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
+gulp.task('build-all', ['clean', 'images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
 //watch and run corresponding task on change, process changed files only
