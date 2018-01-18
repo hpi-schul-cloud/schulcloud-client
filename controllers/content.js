@@ -34,8 +34,7 @@ router.get('/', function (req, res, next) {
                     $sort: {
                         clickCount: -1
                     },
-                    $limit: 3,
-                    getCount: true
+                    $limit: 3
                 },
                 json: true
             })
@@ -44,7 +43,7 @@ router.get('/', function (req, res, next) {
                 title: 'Materialien',
                 featuredContent: featured.data,
                 trendingContent: trending.data,
-                totalCount: trending.count,
+                totalCount: trending.total,
                 action
             });
         });
