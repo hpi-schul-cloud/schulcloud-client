@@ -25,9 +25,8 @@ const wax = handlebarsWax(handlebars)
     .helpers(handlebarsHelper.helpers);
 
 wax.partials(path.join(__dirname, `theme/${themeName}/**/*.{hbs,js}`))
-console.log(`Using Theme ${themeName}`);
 
-var viewDirs = [path.join(__dirname, 'views')]
+const viewDirs = [path.join(__dirname, 'views')];
 viewDirs.unshift(path.join(__dirname, `theme/${themeName}/`))
 
 app.set('views', viewDirs);
