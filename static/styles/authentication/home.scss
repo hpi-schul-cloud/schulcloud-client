@@ -19,7 +19,7 @@ body {
         margin:0;
     }
     header {
-        background: $colorHPIRed;
+        background: $primaryColor;
         a {
             color:#fff !important;
             font-size: 1rem;
@@ -58,7 +58,7 @@ body {
             .nav-link {
                 transition: background-color .3s ease-in-out;
                 &:hover{
-                    background-color: $colorHPIYellow;
+                    background-color: $accentColor;
                 }
             }
         }
