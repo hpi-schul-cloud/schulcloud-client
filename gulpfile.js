@@ -42,19 +42,20 @@ const nonBaseScripts = ['./static/scripts/**/*.js']
 //filelog logs and counts all processed files
 
 function withTheme(src){
+    return src;
     if(typeof src == "string"){
         return [src, `./theme/${themeName()}/${src.slice(2)}`];
     }else{
-        return src.map(e => {
+        return src.concat(src.map(e => {
             return `./theme/${themeName()}/${e.slice(2)}`;
-        });
+        }));
     }
 }
 
 const beginPipe = src =>
     gulp.src(withTheme(src))
         .pipe(plumber())
-        /* .pipe(changed(gulp)) */
+        .pipe(changed(gulp))
         .pipe(filelog())
 
 const beginPipeAll = src =>
@@ -144,14 +145,14 @@ gulp.task('vendor-assets', () => {
         .pipe(gulp.dest('./build/vendor'))
 })
 
-//clear build folder
-gulp.task('clean', () => {
-    gulp.src('./build/*', { read: false })
+//clear build folder + smart cache
+gulp.task('clear', () => {
+    gulp.src(['./build/*', './.gulp-changed-smart.json'], { read: false })
         .pipe(rimraf())
 })
 
-//run all tasks, processing all files (not just changed)
-gulp.task('build-all', ['clean', 'images', 'styles', 'fonts', 'scripts', 'base-scripts',
+//run all tasks, processing changed files
+gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
 //watch and run corresponding task on change, process changed files only
