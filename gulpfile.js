@@ -42,7 +42,6 @@ const nonBaseScripts = ['./static/scripts/**/*.js']
 //filelog logs and counts all processed files
 
 function withTheme(src){
-    return src;
     if(typeof src == "string"){
         return [src, `./theme/${themeName()}/${src.slice(2)}`];
     }else{
