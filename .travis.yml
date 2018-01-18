@@ -13,6 +13,8 @@ before_install:
   - "BACKEND_URL=htts://beta.schul-cloud.org:9000 pm2 start bin/www"
 before_script:
   - "sleep 15" 
+  - chmod +x diff.sh
+  - chmod +x frontend_test.sh
 script:
   - npm test
   - ./diff.sh
