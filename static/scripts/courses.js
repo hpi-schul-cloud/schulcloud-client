@@ -69,6 +69,9 @@ $(document).ready(function () {
         $importModal.modal('show');
     });
 
+    $(".move-handle").click(function(e) {
+        e.stopPropagation();
+    });
 
     $("#topic-list").sortable({
         placeholder: "ui-state-highlight",
