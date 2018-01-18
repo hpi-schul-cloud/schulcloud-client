@@ -1,4 +1,4 @@
-const config = require('../../nightwatch.conf.js');
+const config = require('../../../nightwatch.conf.js');
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 
 module.exports = {
