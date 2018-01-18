@@ -15,6 +15,8 @@ const changed = require('gulp-changed-smart')
 const autoprefixer = require('gulp-autoprefixer')
 const header = require('gulp-header');
 const cCSS = new cleancss()
+const fs = require('fs')
+const gulpif = require('gulp-if');
 //wrapped in a function so it works with gulp.watch (+consistency)
 const minify = () => map((buff, filename) =>
     cCSS.minify(buff.toString()).styles)
@@ -58,12 +60,13 @@ gulp.task('images', () => {
 
 //compile SASS/SCSS to CSS and minify it 
 //        .pipe(header('$colorHPIRed: #b10438\n'))
-
+function themeName(){
+    return 'n21'
+}
 gulp.task('styles', () => {
+    var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
-        .pipe(header("$colorHPIRed: #FF0000;\n"))
-        .pipe(header("$colorHPIOrange: #FF0000;\n"))
-        .pipe(header("$colorHPIYellow: #b10438;\n"))
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
