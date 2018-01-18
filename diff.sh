@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 read -r -d '' CHANGED_FILES << EOM
 $(git diff --name-only HEAD HEAD~1)
 EOM
