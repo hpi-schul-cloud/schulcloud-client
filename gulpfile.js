@@ -13,8 +13,10 @@ const concat = require('gulp-concat')
 const count = require('gulp-count')
 const changed = require('gulp-changed-smart')
 const autoprefixer = require('gulp-autoprefixer')
-
+const header = require('gulp-header');
 const cCSS = new cleancss()
+const fs = require('fs')
+const gulpif = require('gulp-if');
 //wrapped in a function so it works with gulp.watch (+consistency)
 const minify = () => map((buff, filename) =>
     cCSS.minify(buff.toString()).styles)
@@ -56,10 +58,14 @@ gulp.task('images', () => {
         .pipe(gulp.dest('./build/images'))
 })
 
-//compile SASS/SCSS to CSS and minify it
+function themeName(){
+    return process.env.SC_THEME || 'default';
+}
 gulp.task('styles', () => {
+    var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
-        .pipe(sass())
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
+        .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest('./build/styles'))
@@ -134,7 +140,7 @@ gulp.task('clean', () => {
 })
 
 //run all tasks, processing all files (not just changed)
-gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
+gulp.task('build-all', ['clean', 'images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
 //watch and run corresponding task on change, process changed files only

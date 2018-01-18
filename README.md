@@ -30,6 +30,10 @@ For connecting to the [SchulCloud Notification-Service](https://github.com/schul
 
 For activating Google Analytics tracking you have to set `export GOOGLE_ANALYTICS_TRACKING_ID={TRACKING_ID}`.
 
+## Theming
+
+Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory.
+
 ## Testing
 
 **Information**: Please make sure that all your changes works on [Chrome](https://www.google.de/chrome/browser/desktop/index.html) , [Firefox](https://www.mozilla.org/de/firefox/new/) and [Safari](https://www.apple.com/de/safari/)!
