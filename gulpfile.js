@@ -53,7 +53,7 @@ const beginPipeAll = src =>
 
 //minify images
 gulp.task('images', () => {
-    beginPipe('./static/images/**/*.*')
+    beginPipe(['./static/images/**/*.*', `./theme/${themeName()}/static/images/**/*.*`])
         .pipe(imagemin())
         .pipe(gulp.dest('./build/images'))
 })
