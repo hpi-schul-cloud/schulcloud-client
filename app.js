@@ -16,7 +16,7 @@ const handlebarsWax = require('handlebars-wax');
 const app = express();
 app.use(compression());
 app.set('trust proxy', true);
-const themeName = process.config.themeName || 'default';
+const themeName = process.env.SC_THEME || 'default';
 // view engine setup
 const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
@@ -24,11 +24,11 @@ const wax = handlebarsWax(handlebars)
     .helpers(layouts)
     .helpers(handlebarsHelper.helpers);
 
-wax.partials(path.join(__dirname, `theme/$themeName/**/*.{hbs,js}`))
-
+wax.partials(path.join(__dirname, `theme/${themeName}/**/*.{hbs,js}`))
+console.log(`Using Theme ${themeName}`);
 
 var viewDirs = [path.join(__dirname, 'views')]
-viewDirs.unshift(path.join(__dirname, `theme/$themeName/`))
+viewDirs.unshift(path.join(__dirname, `theme/${themeName}/`))
 
 app.set('views', viewDirs);
 app.engine("hbs", wax.engine);

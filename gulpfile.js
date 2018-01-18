@@ -58,10 +58,8 @@ gulp.task('images', () => {
         .pipe(gulp.dest('./build/images'))
 })
 
-//compile SASS/SCSS to CSS and minify it 
-//        .pipe(header('$colorHPIRed: #b10438\n'))
 function themeName(){
-    return 'n21'
+    return process.env.SC_THEME || 'default';
 }
 gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
