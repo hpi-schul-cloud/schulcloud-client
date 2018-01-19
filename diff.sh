@@ -1,6 +1,6 @@
 #!/bin/bash
 read -r -d '' CHANGED_FILES << EOM
-$(git diff --name-only HEAD HEAD~1)
+$(git diff --name-only $TRAVIS_COMMIT_RANGE)
 EOM
 for i in $CHANGED_FILES; do
 	if [[ $i =~ "views/homework" ]];
