@@ -32,7 +32,7 @@
           "twitter": "",
           "linkedin": ""
         },
-        "longDesc": false
+        "longDesc": "5vh"
       },
       {
         "id": 2,
@@ -40,7 +40,7 @@
         "firstName": "Wolfgang",
         "lastName": "Gollub",
         "position": "Vorstandsvorsitzender MINT-EC",
-        "description": "Wolfgang Gollub ist seit 2009 Vorstandsvorsitzender des nationalen Excellence-Schulnetzwerks MINT-EC (www.mint-ec.de) und Leiter der Nachwuchssicherung des Arbeitgeberverbandes Gesamtmetall (www.gesamtmetall.de). Er hat Erwachsenenbildung und Politikwissenschaften an der Helmut-Schmidt-Universität in Hamburg studiert und ist nach zwölf Jahren als Bundeswehroffizier seit 1989 bei Gesamtmetall tätig. Dort hat er die nachwuchssichernde Öffentlichkeitsarbeit für die Metall- und Elektro-Industrie (www.meberufe.info), die Ingenieur-Kampagne think ING. (www.think-ing.de) sowie die breit angelegte MINT-Förderung des Verbandes aufgebaut. Die Steigerung des Mädchenanteils in naturwissenschaftlichen und technischen Studiengängen und Berufen sowie die Digitalisierung in der Bildung sind ihm dabei besondere Anliegen, die er auch in einer Reihe von ehrenamtlichen Funktionen im MINT-Bereich verfolgt.<br>In seiner Freizeit ist er seit vielen Jahren als begeisterter Marathonläufer in aller Welt unterwegs, reist und fotografiert gern.",
+        "description": "Wolfgang Gollub ist seit 2009 Vorstandsvorsitzender des nationalen Excellence-Schulnetzwerks <a href=\"https://mint-ec.de\" target=\"_blank\">MINT-EC</a> und Leiter der Nachwuchssicherung des Arbeitgeberverbandes <a href=\"https://gesamtmetall.de\" target=\"_blank\">Gesamtmetall</a>. Er hat Erwachsenenbildung und Politikwissenschaften an der Helmut-Schmidt-Universität in Hamburg studiert und ist nach zwölf Jahren als Bundeswehroffizier seit 1989 bei Gesamtmetall tätig. Dort hat er die nachwuchssichernde Öffentlichkeitsarbeit für die <a href=\"http://meberufe.info\" target=\"_blank\">Metall- und Elektro-Industrie</a>, die Ingenieur-Kampagne <a href=\"https://think-ing.de\" target=\"_blank\">think ING</a>, sowie die breit angelegte MINT-Förderung des Verbandes aufgebaut. Die Steigerung des Mädchenanteils in naturwissenschaftlichen und technischen Studiengängen und Berufen sowie die Digitalisierung in der Bildung sind ihm dabei besondere Anliegen, die er auch in einer Reihe von ehrenamtlichen Funktionen im MINT-Bereich verfolgt.<br>In seiner Freizeit ist er seit vielen Jahren als begeisterter Marathonläufer in aller Welt unterwegs, reist und fotografiert gern.",
         "pictureUrl": "/images/team/Wolfgang_Gollub.jpg",
         "priority": 0,
         "social": {
@@ -48,7 +48,7 @@
           "twitter": "",
           "linkedin": ""
         },
-        "longDesc": false
+        "longDesc": "5vh"
       }
     ]
   },
