@@ -24,8 +24,8 @@
         "firstName": "Niki",
         "lastName": "Sarantidou",
         "position": "Gesamtmanagement Schul-Cloud bei MINT-EC",
-        "description": "Niki Sarantidou ist Geschäftsführerin des nationalen Excellence-Schulnetzwerks MINT-EC.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "description": "Niki Sarantidou ist Geschäftsführerin des nationalen Excellence-Schulnetzwerks MINT-EC. Ihr politikwissenschaftliches Studium und ihre Promotion drehten sich hauptsächlich um die europäische Integration und die Wirksamkeit europäischer Institutionen. Sie war 12 Jahre Leiterin des Studienförderwerks Klaus Murmann der Stiftung der Deutschen Wirtschaft.<br>Seit 2011 befasst sie sich bei MINT-EC mit der Optimierung der MINT-Bildung an Schulen mit Sekundarstufe II. Schul- und Unterrichtsentwicklung sowie Studien- und Berufsorientierung gehören genauso zu ihren Arbeitsfeldern wie die Berücksichtigung wissenschaftlicher und technologischer Entwicklungen an Schulen, die Schülerinnen und Schüler auf ihrem Weg in die berufliche Zukunft unterstützen können.<br>Im Rahmen der Schul-Cloud ist sie die Projektleiterin von Seiten MINT-EC und zuständig für die konzeptionelle Entwicklung der Cloud-Strukturen.",
+        "pictureUrl": "/images/team/Niki_Sarantidou.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -40,8 +40,8 @@
         "firstName": "Wolfgang",
         "lastName": "Gollub",
         "position": "Vorstandsvorsitzender MINT-EC",
-        "description": "Wolfgang Gollub ist Vorstandsvorsitzender des nationalen Excellence-Schulnetzwerks MINT-EC und Leiter der Nachwuchssicherung des Arbeitgeberverbandes Gesamtmetall.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "description": "Wolfgang Gollub ist seit 2009 Vorstandsvorsitzender des nationalen Excellence-Schulnetzwerks MINT-EC (www.mint-ec.de) und Leiter der Nachwuchssicherung des Arbeitgeberverbandes Gesamtmetall (www.gesamtmetall.de). Er hat Erwachsenenbildung und Politikwissenschaften an der Helmut-Schmidt-Universität in Hamburg studiert und ist nach zwölf Jahren als Bundeswehroffizier seit 1989 bei Gesamtmetall tätig. Dort hat er die nachwuchssichernde Öffentlichkeitsarbeit für die Metall- und Elektro-Industrie (www.meberufe.info), die Ingenieur-Kampagne think ING. (www.think-ing.de) sowie die breit angelegte MINT-Förderung des Verbandes aufgebaut. Die Steigerung des Mädchenanteils in naturwissenschaftlichen und technischen Studiengängen und Berufen sowie die Digitalisierung in der Bildung sind ihm dabei besondere Anliegen, die er auch in einer Reihe von ehrenamtlichen Funktionen im MINT-Bereich verfolgt.<br>In seiner Freizeit ist er seit vielen Jahren als begeisterter Marathonläufer in aller Welt unterwegs, reist und fotografiert gern.",
+        "pictureUrl": "/images/team/Wolfgang_Gollub.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -78,7 +78,7 @@
         "lastName": "John",
         "position": "Projektkoordinatorin",
         "description": "Catrina hat einen Masterabschluss der Freien Universität Berlin in Soziologie und ist Projektkoordinatorin der Projekt Schul-Cloud. Im Rahmen ihrer Promotion beschäftigt sie sich mit Gender Diversity im Rahmen digital unterstützter Bildung. Einen Großteil ihrer Freizeit verbringt sie im Tischtennisverein.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Catrina_John.png",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -105,22 +105,6 @@
       },
       {
         "id": 6,
-        "title": "Dr.",
-        "firstName": "Martin",
-        "lastName": "Hense",
-        "position": "Projektleiter Schul-Cloud bei MINT-EC",
-        "description": "Martin Hense hat Informatik und Literaturwissenschaften studiert, war in Forschung und Lehre tätig und hat als Teamleiter für Trainingsprogramme bei einer internationalen Unternehmensberatungen bereits verschiedenste Organisationen bei der Einführung von cloud-basierten Systemen unterstützt. Im Schul-Cloud-Projekt plant und koordiniert er die Arbeit der Pilotschulen auf Seiten des nationalen Excellence-Schulnetzwerks MINT-EC und vermittelt zwischen den Belangen der Anwender und Entwickler. Martin ist ein passionierter Bergsteiger und Langstreckenhiker.",
-        "pictureUrl": "/images/team/Martin_Hense.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 7,
         "title": "",
         "firstName": "Nils",
         "lastName": "Karn",
@@ -136,7 +120,7 @@
         "longDesc": false
       },
       {
-        "id": 8,
+        "id": 7,
         "title": "",
         "firstName": "Max",
         "lastName": "Bothe",
@@ -152,13 +136,13 @@
         "longDesc": false
       },
       {
-        "id": 9,
+        "id": 8,
         "title": "",
         "firstName": "Christiane",
         "lastName": "Hagedorn",
         "position": "Wissenschaftliche Mitarbeiterin",
         "description": "Christiane hat Medieninformatik an der Beuth Hochschule für Technik Berlin studiert. Jetzt promoviert sie am Hasso-Plattner-Institut und erforscht dabei die Möglichkeiten von spielbasiertem Lernen. Das Schul-Cloud-Projekt unterstützt sie als wissenschaftliche Mitarbeiterin in den Bereichen Testing und technischer Support. In ihrer Freizeit bereist Christiane die Welt und entspannt gerne bei analogen und digitalen Spielen.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Christiane_Hagedorn.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -168,7 +152,7 @@
         "longDesc": false
       },
       {
-        "id": 10,
+        "id": 9,
         "title": "",
         "firstName": "Alexander",
         "lastName": "Kremer",
@@ -184,7 +168,7 @@
         "longDesc": false
       },
       {
-        "id": 11,
+        "id": 10,
         "title": "",
         "firstName": "Franz",
         "lastName": "Liedke",
@@ -200,7 +184,7 @@
         "longDesc": false
       },
       {
-        "id": 12,
+        "id": 11,
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
@@ -216,12 +200,12 @@
         "longDesc": false
       },
       {
-        "id": 13,
+        "id": 12,
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
         "position": "Wissenschaftliche Mitarbeiterin",
-        "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Projektmanagement und die Planung von Veranstaltungen, wie dem Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
+        "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter oder  und die Planung von Veranstaltungen, wie dem Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
         "pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
         "priority": 0,
         "social": {
@@ -232,13 +216,13 @@
         "longDesc": false
       },
       {
-        "id": 14,
+        "id": 13,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
         "position": "Admin",
         "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Matthias_Wiesner.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -250,10 +234,10 @@
     ]
   },
   "low": {
-    "name": "Studentische Hilfskräfte",
+    "name": "Studierende",
     "team": [
       {
-        "id": 15,
+        "id": 14,
         "title": "",
         "firstName": "Fabien",
         "lastName": "Charlé",
@@ -269,7 +253,7 @@
         "longDesc": false
       },
       {
-        "id": 16,
+        "id": 15,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
@@ -285,7 +269,7 @@
         "longDesc": false
       },
       {
-        "id": 17,
+        "id": 16,
         "title": "",
         "firstName": "Pascal",
         "lastName": "Führlich",
@@ -301,7 +285,7 @@
         "longDesc": false
       },
       {
-        "id": 18,
+        "id": 17,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -317,7 +301,7 @@
         "longDesc": false
       },
       {
-        "id": 19,
+        "id": 18,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -333,7 +317,7 @@
         "longDesc": false
       },
       {
-        "id": 20,
+        "id": 19,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -349,13 +333,13 @@
         "longDesc": false
       },
       {
-        "id": 21,
+        "id": 20,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
         "position": "Studentische Hilfskraft",
         "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Lasse_Jahn.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -365,7 +349,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 21,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -381,7 +365,39 @@
         "longDesc": false
       },
       {
+        "id": 22,
+        "title": "",
+        "firstName": "Karolina",
+        "lastName": "Kaminski-Rokosa",
+        "position": "Studentische Hilfskraft",
+        "description": "Karolina studiert Rechtswissenschaften an der Universität Potsdam und ist im Schul-Cloud-Projekt für datenschutzrechtliche Fragen zuständig. In ihrer Freizeit entspannt sie sich gern mit Yoga oder bei einem guten Buch.",
+        "pictureUrl": "/images/login-left-cropped.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
         "id": 23,
+        "title": "",
+        "firstName": "Jonas",
+        "lastName": "Keutel",
+        "position": "Masterstudent",
+        "description": "Jonas Schwerpunkt im Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. Die Idee hinter seiner Masterarbeit ist, Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann.",
+        "pictureUrl": "/images/team/Jonas_Keutel.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 24,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -397,7 +413,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -413,7 +429,39 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
+        "title": "",
+        "firstName": "Sophie",
+        "lastName": "Krüger",
+        "position": "Studentische Hilfskraft",
+        "description": "Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team Schul-Cloud unterstützt sie unter anderem bei der Planung und Koordination von Veranstaltungen, sowie bei der Evaluation der Lehrkräfte an den Pilotschulen. In ihrer Freizeit engagiert sie sich ehrenamtlich im Fachschaftsrat Lehramt und in einem studentischen Verein. Außerdem liest, reist und kocht sie sehr gerne.",
+        "pictureUrl": "/images/login-left-cropped.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 27,
+        "title": "",
+        "firstName": "Nicco",
+        "lastName": "Kunzmann",
+        "position": "Masterstudent",
+        "description": "In seiner Masterarbeit interessiert Nicco, wie externe zur Schul-Cloud beitragen können, also sowohl technisch Beiträge zu erleichtern als auch sozial den Weg zu ebnen. In seiner Freizeit umgibt er sich gern mit Menschen, die ihr Umfeld aktiv gestalten, so auch ihr digitales. Deswegen organisiert er auch das <a href=\"https://hpi.de/veranstaltungen/schuelerveranstaltungen/2014/coder-dojo-offene-programmier-samstage-am-hpi.html\" target=\"_blank\">CoderDojo am HPI</a> mit, bei #tec, dem <a href=\"https://opentechsummit.net/\" target=\"_blank\">OpenTechSummit</a>, bei <a href=\"https://blog.freifunk-potsdam.de/\" target=\"_blank\">Freifunk</a> und <a href=\"https://gci17.fossasia.org/\" target=\"_blank\">FOSSASIA</a>.",
+        "pictureUrl": "/images/team/Nicco_Kunzmann.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 28,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -429,7 +477,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 29,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -445,7 +493,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 30,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -461,7 +509,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 31,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -475,30 +523,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      }
-    ]
-  },
-  "master": {
-    "name": "Masterarbeiten im Projekt Schul-Cloud",
-    "team": [
-      {
-        "id": 29,
-        "title": "",
-        "firstName": "Jonas",
-        "lastName": "Keutel",
-        "position": "Masterstudent",
-        "description": "Jonas Schwerpunkt im Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Diese beiden Schwerpunkte zu verbinden und in interdisziplinären Teams an interessanten Problemstellungen anzuwenden bereitet ihm viel Spaß. In Praktika in den Niederlanden und den USA hat er schon viel Erfahrung sammeln können. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen.Die Idee hinter seiner Masterarbeit ist, Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Bisher nimmt diese Planung viel Zeit in Anspruch, und fertige Planungen werden höchstens mit anderen Lehrern der gleichen Schule geteilt bzw. besprochen und verlassen nur in Ausnahmefällen das Schulgebäude. Darin liegt eine große Chance. Durch das Teilen ihrer Planung ermöglichen Lehrer ihren Kollegen, die Vorbereitung wiederzuverwenden und dadurch viel Stress und Zeit zu sparen. Mindestens genauso großes Potential liegt darin, die Expertise der Fachlehrer zu bündeln. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann.",
-        "pictureUrl": "/images/team/Jonas_Keutel.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": "5vh"
       },
       {
-        "id": 30,
+        "id": 32,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
