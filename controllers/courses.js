@@ -36,19 +36,21 @@ const createEventsForCourse = (req, res, course) => {
     // can just run if a calendar service is running on the environment
     if (process.env.CALENDAR_SERVICE_ENABLED) {
         return Promise.all(course.times.map(time => {
-            return api(req).post("/calendar", { json: {
-                summary: course.name,
-                location: time.room,
-                description: course.description,
-                startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
-                duration: time.duration,
-                repeat_until: course.untilDate,
-                frequency: "WEEKLY",
-                weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
-                scopeId: course._id,
-                courseId: course._id,
-                courseTimeId: time._id
-            }});
+            return api(req).post("/calendar", {
+                json: {
+                    summary: course.name,
+                    location: time.room,
+                    description: course.description,
+                    startDate: new Date(new Date(course.startDate).getTime() + time.startTime).toLocalISOString(),
+                    duration: time.duration,
+                    repeat_until: course.untilDate,
+                    frequency: "WEEKLY",
+                    weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+                    scopeId: course._id,
+                    courseId: course._id,
+                    courseTimeId: time._id
+                }
+            });
         }));
     }
 
@@ -88,9 +90,9 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
-    const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
-    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
+    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
     Promise.all([
         coursePromise,
@@ -148,21 +150,22 @@ router.use(authHelper.authChecker);
  */
 
 
-router.get('/', function (req, res, next) {
+router.get('/', function(req, res, next) {
     Promise.all([
-    api(req).get('/courses/', {
-        qs: {
-            substitutionIds: res.locals.currentUser._id
-        }
-    }),
-    api(req).get('/courses/', {
-        qs: {
-            $or: [
-                {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
-            ]
-        }
-    })]).then(([substitutionCourses, courses]) => {
+        api(req).get('/courses/', {
+            qs: {
+                substitutionIds: res.locals.currentUser._id
+            }
+        }),
+        api(req).get('/courses/', {
+            qs: {
+                $or: [
+                    { userIds: res.locals.currentUser._id },
+                    { teacherIds: res.locals.currentUser._id }
+                ]
+            }
+        })
+    ]).then(([substitutionCourses, courses]) => {
         substitutionCourses = substitutionCourses.data.map(course => {
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
@@ -192,12 +195,12 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/json', function (req, res, next) {
+router.get('/json', function(req, res, next) {
 
 });
 
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
     // map course times to fit model
     (req.body.times || []).forEach(time => {
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
@@ -236,7 +239,7 @@ router.get('/add/', editCourseHandler);
  * Single Course
  */
 
-router.get('/:courseId/json', function (req, res, next) {
+router.get('/:courseId/json', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -248,10 +251,10 @@ router.get('/:courseId/json', function (req, res, next) {
                 courseId: req.params.courseId
             }
         })
-    ]).then(([course, lessons]) => res.json({course, lessons}));
+    ]).then(([course, lessons]) => res.json({ course, lessons }));
 });
 
-router.get('/:courseId', function (req, res, next) {        
+router.get('/:courseId', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -268,7 +271,7 @@ router.get('/:courseId', function (req, res, next) {
             qs: {
                 courseId: req.params.courseId,
                 $populate: ['courseId'],
-                archived : {$ne: res.locals.currentUser._id }
+                archived: { $ne: res.locals.currentUser._id }
             }
         }),
         api(req).get('/courseGroups/', {
@@ -290,27 +293,26 @@ router.get('/:courseId', function (req, res, next) {
             return assignment;
         });
 
-        homeworks.sort((a,b) => {
-            if(a.dueDate > b.dueDate) {
+        homeworks.sort((a, b) => {
+            if (a.dueDate > b.dueDate) {
                 return 1;
             } else {
                 return -1;
             }
         });
 
-        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
-            ? courseGroups.data || []
-            : (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
-        
+        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
+            courseGroups.data || [] :
+            (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+
         res.render('courses/course', Object.assign({}, course, {
             title: course.name,
             lessons,
-            homeworks: homeworks.filter(function(task){return !task.private;}),
-            myhomeworks: homeworks.filter(function(task){return task.private;}),
+            homeworks: homeworks.filter(function(task) { return !task.private; }),
+            myhomeworks: homeworks.filter(function(task) { return task.private; }),
             ltiToolIds,
             courseGroups,
-            breadcrumb: [
-                {
+            breadcrumb: [{
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
@@ -325,7 +327,7 @@ router.get('/:courseId', function (req, res, next) {
 });
 
 
-router.patch('/:courseId', function (req, res, next) {
+router.patch('/:courseId', function(req, res, next) {
     // map course times to fit model
     req.body.times = req.body.times || [];
     req.body.times.forEach(time => {
@@ -353,13 +355,6 @@ router.patch('/:courseId', function (req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
-    if (!req.body.classIds)
-        req.body.classIds = [];
-    if (!req.body.userIds)
-        req.body.userIds = [];
-    if (!req.body.substitutionIds)
-        req.body.substitutionIds = [];
-
     // first delete all old events for the course
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
         api(req).patch('/courses/' + req.params.courseId, {
@@ -374,11 +369,11 @@ router.patch('/:courseId', function (req, res, next) {
     });
 });
 
-router.patch('/:courseId/positions', function (req, res, next) {
-    for(var elem in req.body) { 
+router.patch('/:courseId/positions', function(req, res, next) {
+    for (var elem in req.body) {
         api(req).patch('/lessons/' + elem, {
             json: {
-                position : parseInt(req.body[elem]) 
+                position: parseInt(req.body[elem])
             }
         });
     }
@@ -386,7 +381,7 @@ router.patch('/:courseId/positions', function (req, res, next) {
 });
 
 
-router.delete('/:courseId', function (req, res, next) {
+router.delete('/:courseId', function(req, res, next) {
     deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
         api(req).delete('/courses/' + req.params.courseId).then(_ => {
             res.sendStatus(200);
@@ -396,7 +391,7 @@ router.delete('/:courseId', function (req, res, next) {
     });
 });
 
-router.get('/:courseId/addStudent', function (req, res, next) {
+router.get('/:courseId/addStudent', function(req, res, next) {
     let currentUser = res.locals.currentUser;
     // if currentUser isn't a student don't add to course-students
     if (currentUser.roles.filter(r => r.name === 'student').length <= 0) {
@@ -435,18 +430,18 @@ router.get('/:courseId/addStudent', function (req, res, next) {
     });
 });
 
-router.post('/:courseId/importTopic', function (req, res, next) {
+router.post('/:courseId/importTopic', function(req, res, next) {
     let shareToken = req.body.shareToken;
     // try to find topic for given shareToken
-    api(req).get("/lessons/", {qs: {shareToken: shareToken}}).then(result => {
-       if (result.data.length <= 0) {
-           req.session.notification = {
-               type: 'danger',
-               message: 'Es wurde kein Thema für diesen Code gefunden.'
-           };
+    api(req).get("/lessons/", { qs: { shareToken: shareToken } }).then(result => {
+        if (result.data.length <= 0) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Es wurde kein Thema für diesen Code gefunden.'
+            };
 
-           res.redirect(req.header('Referer'));
-       }
+            res.redirect(req.header('Referer'));
+        }
 
         // copy topic to course
         let topic = result.data[0];
@@ -455,7 +450,7 @@ router.post('/:courseId/importTopic', function (req, res, next) {
         delete topic.shareToken;
         topic.courseId = req.params.courseId;
 
-        api(req).post("/lessons/", {json: topic}).then(topic => {
+        api(req).post("/lessons/", { json: topic }).then(topic => {
             req.session.notification = {
                 type: 'success',
                 message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
