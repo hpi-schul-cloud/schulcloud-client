@@ -19,7 +19,7 @@ const editCourseGroupHandler = (req, res, next) => {
     if (courseGroupId) {
         action = `/courses/${courseId}/groups/${courseGroupId}`;
         method = 'patch';
-        courseGroupPromise = api(req).get('/courseGroups/', {
+        courseGroupPromise = api(req).get('/courseGroups/' + courseGroupId, {
             qs: {
                 $populate: ['userIds']
             }
@@ -113,6 +113,23 @@ router.get('/:courseGroupId/', function(req, res, next) {
         }));
     });
 });
+
+router.patch('/:courseGroupId', function(req, res, next) {
+
+    if (!req.body.userIds)
+        req.body.userIds = [];
+
+    api(req).patch('/courseGroups/' + req.params.courseGroupId, {
+        json: req.body // TODO: sanitize
+    }).then(_ => {
+        res.redirect('/courses/' + req.params.courseId + '/groups/' + req.params.courseGroupId);
+    }).catch(error => {
+        res.sendStatus(500);
+    });
+});
+
+
+router.get('/:courseGroupId/edit', editCourseGroupHandler);
 
 router.delete('/:courseGroupId', function(req, res, next) {
     api(req).delete('/courseGroups/' + req.params.courseGroupId).then(_ => {
