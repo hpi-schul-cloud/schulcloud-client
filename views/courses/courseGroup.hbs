@@ -1,82 +1,98 @@
-{{#extend "lib/loggedin"}} {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/courses/course.css" />
-<link rel="stylesheet" href="/styles/homework/homework.css" />
-<link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" /> {{/content}} {{#content "scripts" mode="append"}}
-<script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
-<script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-<script src="/scripts/courses.js" type="text/javascript" defer></script> {{/content}} {{#content "page"}}
+{{#extend "lib/loggedin"}} 
 
-<div class="row description">
-    <div class="col-sm-12 col-md-6">
-        <p class="lead">Gruppenteilnehmer: {{#each userIds }}
-            <span class="tag tag-primary">{{ displayName }}</span>
-            {{/each}}</p>
-    </div>
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css" />
+        <link rel="stylesheet" href="/styles/homework/homework.css" />
+        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css" /> 
+    {{/content}} 
 
-    <div class="col-sm-12 col-md-6">
-        <p class="lead">Verantwortliche Lehrer: {{#each course.teacherIds }}
-            <span class="tag tag-primary">{{ displayName }}</span>
-            {{/each}}</p>
-    </div>
-</div>
+    {{#content "scripts" mode="append"}}
+    <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
+    <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
+    <script src="/scripts/courses.js" type="text/javascript" defer></script> 
 
-<!-- Themen -->
-<div class="row">
-    <div class="col-sm-6">
-        <a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
-            title="Thema hinzufügen">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-            <span class="hidden-lg-down">Thema hinzufügen</span>
-        </a>
-        <h4>Themen</h4>
+    {{/content}} 
 
-        <div class="list-group">
-            {{#if lessons}}
-            <div id="topic-list">
-                {{#each lessons}}
-                    <div class="card card-topic" onclick="location.href='{{this.url}}'">
-                        <div class="card-header">
-                            <div class="input-group">
-                                <p class="topic-label ml-1">{{this.name}}</p>
-                            
-                                <div class="right-btn-group">
-                                    <a class="delete-topic btn btn-sm" href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}" target="_blank" data-method="delete-material"
-                                        data-name="{{this.name}}" redirect="/courses/{{../courseId}}/groups/{{../id}}">
-                                        <i class="fa fa-trash-o"></i>
-                                    </a>
-                                    <a class="btn btn-secondary btn-sm move-handle" href="{{_id}}">
-                                        <i class="fa fa-arrows"></i>
-                                    </a>
+    {{#content "page"}}
+
+        <div class="row description">
+            <div class="col-sm-12 col-md-12">
+                <p class="lead">Gruppenteilnehmer: {{#each userIds }}
+                    <span class="tag tag-primary">{{ displayName }}</span>
+                    {{/each}}</p>
+            </div>
+
+            <div class="col-sm-12 col-md-12">
+                <p class="lead">Verantwortliche Lehrer: {{#each course.teacherIds }}
+                    <span class="tag tag-primary">{{ displayName }}</span>
+                    {{/each}}</p>
+            </div>
+        </div>
+
+        <!-- Themen -->
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
+                    title="Thema hinzufügen">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                    <span class="hidden-lg-down">Thema hinzufügen</span>
+                </a>
+                <h4>Themen</h4>
+
+                <div class="list-group">
+                    {{#if lessons}}
+                    <div id="topic-list">
+                        {{#each lessons}}
+                            <div class="card card-topic" onclick="location.href='{{this.url}}'">
+                                <div class="card-header">
+                                    <div class="input-group">
+                                        <p class="topic-label ml-1">{{this.name}}</p>
+                                    
+                                        <div class="right-btn-group">
+                                            <a class="delete-topic btn btn-sm" href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}" target="_blank" data-method="delete-material"
+                                                data-name="{{this.name}}" redirect="/courses/{{../courseId}}/groups/{{../_id}}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                {{/each}}
-            {{else}}
-            <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                <span>Keine Themen.</span>
-            </p>
-            {{/if}}
+                        {{/each}}
+                    {{else}}
+                    <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+                        <span>Keine Themen.</span>
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
         </div>
+
 
         <!-- Actions -->
         <div class="row padding-top">
-            <div class="col-sm-12">
+            <div class="col-sm-12 col-md-12">
                 <a href="/courses/{{courseId}}/groups/{{_id}}/edit" class="btn btn-add btn-primary">Schülergruppe bearbeiten</a>
                 <a href="/courses/{{courseId}}/groups/{{_id}}" class="btn btn-delete-course btn-secondary" target="_blank" data-method="delete-material"
                     data-name="{{../name}}" redirect="/courses/{{courseId}}">Schülergruppe löschen</a>
             </div>
         </div>
 
-        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}} {{#content "body"}}
+        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}} 
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary btn-close">
-                Abbrechen
-            </button>
+            {{#content "body"}}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close">
+                        Abbrechen
+                    </button>
 
-            <button type="submit" class="btn btn-primary btn-submit">
-                Löschen
-            </button>
-        </div>
-        {{/content}} {{/embed}} {{/content}} {{/extend}}
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        Löschen
+                    </button>
+                </div>
+            {{/content}}
+
+        {{/embed}} 
+        
+    {{/content}}
+ 
+ {{/extend}}
