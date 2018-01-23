@@ -44,7 +44,7 @@ body {
                 margin-top: -.25rem;
                 margin-bottom: -.5rem;
                 margin-right: .5rem;
-                background: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
+                background: $logoBackground;
                 background-size: contain;
                 @include media-breakpoint-down(xs) {
                     display:none;
