@@ -33,6 +33,7 @@ For activating Google Analytics tracking you have to set `export GOOGLE_ANALYTIC
 ## Theming
 
 Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of directory.
+then clear build files and gulp cache with `gulp clear`
 
 ### Windows
  run `set SC_THEME={themeName}` without spaces around the equal sign!
