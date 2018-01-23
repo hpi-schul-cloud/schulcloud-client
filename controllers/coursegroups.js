@@ -4,14 +4,6 @@ const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
-const getSelectOptions = (req, service, query, values = []) => {
-    return api(req).get('/' + service, {
-        qs: query
-    }).then(data => {
-        return data.data;
-    });
-};
-
 const markSelected = (options, values = []) => {
     return options.map(option => {
         option.selected = values.includes(option._id);
@@ -38,12 +30,19 @@ const editCourseGroupHandler = (req, res, next) => {
         courseGroupPromise = Promise.resolve({});
     }
 
-    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+    const coursePromise = api(req).get('/courses/' + courseId, {
+        qs: {
+            $populate: ['userIds']
+        }
+    });
+
     Promise.all([
         courseGroupPromise,
-        studentsPromise
-    ]).then(([courseGroup, students]) => {
-        students = students.filter(s => s.schoolId === res.locals.currentSchool);
+        coursePromise
+    ]).then(([courseGroup, course]) => {
+        let students = course.userIds.filter(s => s.schoolId === res.locals.currentSchool);
+        _.each(students, s => s.displayName = `${s.firstName} ${s.lastName}`);
+
         res.render('courses/edit-courseGroup', {
             action,
             method,
