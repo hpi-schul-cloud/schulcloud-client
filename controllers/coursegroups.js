@@ -91,7 +91,11 @@ router.get('/:courseGroupId/', function(req, res, next) {
             }
         })
     ]).then(([courseGroup, lessons, course]) => {
-        lessons = lessons.data || [];
+        lessons = (lessons.data || []).map(lesson => {
+            return Object.assign(lesson, {
+                url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '?courseGroup=' + req.params.courseGroupId
+            });
+        });
 
         // get display names for teachers and students
         _.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);

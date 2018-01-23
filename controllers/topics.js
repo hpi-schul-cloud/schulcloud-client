@@ -105,8 +105,11 @@ router.get('/:topicId', function(req, res, next) {
                 $populate: ['courseId'],
                 archived: { $ne: res.locals.currentUser._id }
             }
-        })
-    ]).then(([course, lesson, homeworks]) => {
+        }),
+        req.query.courseGroup ?
+        api(req).get('/courseGroups/' + req.query.courseGroup) :
+        Promise.resolve({})
+    ]).then(([course, lesson, homeworks, courseGroup]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
@@ -127,6 +130,8 @@ router.get('/:topicId', function(req, res, next) {
             title: lesson.name,
             homeworks: homeworks.filter(function(task) { return !task.private; }),
             myhomeworks: homeworks.filter(function(task) { return task.private; }),
+            courseId: req.params.courseId,
+            isCourseGroupTopic: courseGroup._id !== undefined,
             breadcrumb: [{
                     title: 'Meine Kurse',
                     url: '/courses'
@@ -135,7 +140,10 @@ router.get('/:topicId', function(req, res, next) {
                     title: course.name,
                     url: '/courses/' + course._id
                 },
-                {}
+                courseGroup._id ? {
+                    title: courseGroup.name,
+                    url: '/courses/' + course._id + '/groups/' + courseGroup._id
+                } : {}
             ]
         }), (error, html) => {
             if (error) {
