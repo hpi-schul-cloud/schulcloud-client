@@ -1,5 +1,6 @@
 const config = require('../../../nightwatch.conf.js');
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
+const sauce = require('../../sauce');
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
@@ -79,5 +80,6 @@ module.exports = {
     },
     'Schul-Cloud End': function (browser) {
         browser.end();
-    }
+    },
+    tearDown: sauce
 };
