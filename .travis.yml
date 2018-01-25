@@ -1,36 +1,42 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 sudo: required
 env:
-  - BACKEND_URL=https://schul-cloud.org:8080/ SC_DEMO_USER_PASSWORD=schulcloud
+- BACKEND_URL=https://schul-cloud.org:8080/ SC_DEMO_USER_PASSWORD=schulcloud
 before_install:
-  - "npm install pm2 -g"
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+- npm install pm2 -g
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
+  --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
 install:
-  - "npm install"
+- npm install
 before_script:
-  - "gulp"
-  - "BACKEND_URL=https://beta.schul-cloud.org:9000 pm2 start bin/www"
-  - "sleep 5" 
-  - chmod +x diff.sh
-  - chmod +x frontend_test.sh
+- gulp
+- BACKEND_URL=https://beta.schul-cloud.org:9000 pm2 start bin/www
+- sleep 5
+- chmod +x diff.sh
+- chmod +x frontend_test.sh
 script:
-  - npm test
-  - ./diff.sh
-  - ./frontend_test.sh
-  - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH; else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
+- npm test
+- ./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --env ie11,safari,ios,ffox,default
+- export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
+  else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 after_success:
-  - bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)
+- bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)
 notifications:
   slack:
     rooms:
-      - secure: "fgpxKHtMJYafHSdAG0kJWLTJOqOkGMAJCCP2FBC/CIxtKs+DCvS3AzSa+W7VRmXg9wgtIyfjHRTD6G3C6LriG1jNnRt+uUK5g13TXhZyIxLGj4U6Ng/rs1rWD31NcSH2NhK8kytSn6+xIeDj9kFjNwE7NCTdmbbh/UckhFLsS6ayGn8oGi1kbdc1VU3G9R4e+yFgmA3fLAMYE8/nRPf4/kIyN2UERR2CSzK2ib7ODoTlrA3Eb6uVKk/Vw+wf6Md1JXiv3k46YRuyXxZUj2ouWVcH7glO5cIUNX6+CRO2syEX+ABOxNJnPP0h5AGDawZriRna7SGSQFczYB+Nbc57/O/fECrVwXtBps9Wec3/OFsViwEmtJ+ylLC4n7hWGuBMYQjNp74H6fPZJqIuowuBrbQKs5SY3q5U1jucgnoG77kPnaPfibr3ynJt8zJS23hUhnObYTgyGDMZ7/p45OQTEZa1hizJveynoDwfP/sNGMUEuRKE4M2yU36GK1l/xtu0HqoF+fxhmX+CpHsGTvDX9Zm/v49LUXYx5+m4Ys5H/Tb93lop5MAki65zk7pyt6B1N0ajNkcgxQ4Y3dL8BCZJWWMCf/rNpfkdn0YBBAj/A9W0N4muEMCXQ/vMdmKfzKm/5oM7gOTt0jX3RGtb0kU11xGHxMA/YFggyR0d3QQKlVI="
+    - secure: fgpxKHtMJYafHSdAG0kJWLTJOqOkGMAJCCP2FBC/CIxtKs+DCvS3AzSa+W7VRmXg9wgtIyfjHRTD6G3C6LriG1jNnRt+uUK5g13TXhZyIxLGj4U6Ng/rs1rWD31NcSH2NhK8kytSn6+xIeDj9kFjNwE7NCTdmbbh/UckhFLsS6ayGn8oGi1kbdc1VU3G9R4e+yFgmA3fLAMYE8/nRPf4/kIyN2UERR2CSzK2ib7ODoTlrA3Eb6uVKk/Vw+wf6Md1JXiv3k46YRuyXxZUj2ouWVcH7glO5cIUNX6+CRO2syEX+ABOxNJnPP0h5AGDawZriRna7SGSQFczYB+Nbc57/O/fECrVwXtBps9Wec3/OFsViwEmtJ+ylLC4n7hWGuBMYQjNp74H6fPZJqIuowuBrbQKs5SY3q5U1jucgnoG77kPnaPfibr3ynJt8zJS23hUhnObYTgyGDMZ7/p45OQTEZa1hizJveynoDwfP/sNGMUEuRKE4M2yU36GK1l/xtu0HqoF+fxhmX+CpHsGTvDX9Zm/v49LUXYx5+m4Ys5H/Tb93lop5MAki65zk7pyt6B1N0ajNkcgxQ4Y3dL8BCZJWWMCf/rNpfkdn0YBBAj/A9W0N4muEMCXQ/vMdmKfzKm/5oM7gOTt0jX3RGtb0kU11xGHxMA/YFggyR0d3QQKlVI=
     on_success: change
     on_failure: always
     on_pull_requests: false
 cache:
   directories:
-    - node_modules
+  - node_modules
+addons:
+  sauce_connect:
+    username: $SAUCE_USERNAME
+  jwt:
+    secure: qfklPf+pEhDvz2kn1+uCdwpDCVGgkom5+kjzredJyEiFboMBD5IQ6yUFed9wxwUI1zRXnAKcTu+qrSbrSqv51baaMDz18X9Wvvk3aMfVhRjoO2yLw8h6wcVsgB5aF3AaLvHXjSL64J/G0+QHfg6qgCrfheXw7CdgVcVa1zZX7xeqgpeo0wOk6fJlD9YISmRmPd7dQHTmEyYi4uy5kpr7xFenwgbnVOKxNxEDVQ3ecjwyxyjdBnnkCvmigz/dT5zniHmaNhQy1JPRTb/ffzZ8hC/AvWDHARy56QTwIMWp3ahQVGY8GQueRg2tJR3l5ANGY2aaV085yUpNNKphtQQYB9JlEBOOz6IHIzDz2JGmh7QqJXa1BYWFFQgMRrDwW7EjHH5NI3PVxOD6I9B2Xc96dzieSpkeYTw4AjElGztBwrQuj6pdUpZehK4VbsrQSvAWtmg6SgZnbvPnEF7H8xPAjRjWi+95qXmpSAw2ddZ1jaEBDAZSgqgSBQ4gzXTMJrMNtJ0zHeQo8tSmQCp87qvYWhp9SGL+uu3iQjuQdi8PAQSDU1DWOb4TIzQDnpowjbPTmFWgQ+ZmPZ+jhY38cfc/dPuud57FH9w9IvQb2ciV45Lpx8Hu5TTKekIGIRsVAHZETRlMQEirk18opb9j7Dzq+ODXf/zpIMACEb3nop5bhBk=
