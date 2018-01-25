@@ -221,7 +221,7 @@
         "firstName": "Matthias",
         "lastName": "Wiesner",
         "position": "Admin",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "description": "Matthias hat an der FH Brandenburg und der FH Potsdam studiert und ist nun als Web-Administrator am HPI angestellt. Für das Schul-Cloud Projekt baut er an der IT Infrastruktur und hält diese am Leben. Ein Kesselflicker eben.<br>Die Freizeit verbringt er mit der Familie und schaut lustige Filme, wenn er nicht gerade in einer Bar sitzt.",
         "pictureUrl": "/images/team/Matthias_Wiesner.jpg",
         "priority": 0,
         "social": {
@@ -338,7 +338,7 @@
         "firstName": "Lasse",
         "lastName": "Jahn",
         "position": "Studentische Hilfskraft",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        "description": "Lasse studiert IT-Systems Engineering im Bachelor am Hasso-Plattner-Institut. Er verknüpft seine Studieninhalte mit der Arbeit und ist so in Entwicklung unterstützend tätig. Seit seiner Jugend war er sehr interessiert an dem deutschen Bildungssystem und freut sich daher, dass er nun die Möglichkeit hat auf dieses mit einzuwirken. In seiner Freizeit engagiert sich Lasse ehrenamtlich in der politischen Kinder- und Jugendarbeit und ist interessiert an dem kulturellen lateinamerikanischen Kampftanz Capoeira.",
         "pictureUrl": "/images/team/Lasse_Jahn.jpg",
         "priority": 0,
         "social": {
