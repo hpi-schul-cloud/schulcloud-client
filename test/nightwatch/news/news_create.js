@@ -1,4 +1,3 @@
-const config = require('../../../nightwatch.conf.js');
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
@@ -23,15 +22,16 @@ module.exports = {
             .pause(1000);
     },
     'Schul-Cloud Checkups': function (browser) {
-        browser.expect.element('h4').text.to.contain('Übersicht');
-        browser.expect.element('h5').text.to.contain('Stundenplan');
-        browser
-            .waitForElementVisible('.feature-modal', false)
-            .click('button[type=button]');
+        browser.setCookie({
+           name: "releaseDate",
+           value: "9999-12-09T16:36:20.000Z",
+           path: "/",
+           expiry: "253373565499"
+        });
     },
     'Create News': function (browser) {
         browser.url(base_url + 'news/');
-        browser.expect.element('h4').text.to.contain('Neuigkeiten');
+        browser.expect.element('h4').text.to.contain('Neuigkeiten').before(10000);
         browser
             .click('.create')
             .pause(1000)
@@ -43,7 +43,7 @@ module.exports = {
             )
             .click('.btn-submit')
             .pause(1000);
-        browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum');
+        browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum').before(10000);
     },
     'Delete News': function (browser) {
         browser.useXpath().click("//*[contains(text(), 'Test News')]");

@@ -4,7 +4,7 @@ _An implementation of the Schul-Cloud client with NodeJS and Express._
 Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>
 Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=production)
 
-[![Build Status](https://saucelabs.com/browser-matrix/Langelu.svg)](https://saucelabs.com/beta/builds/bf953d79d4a14c7987d7eb77cbafb409)
+[![Build Status](https://saucelabs.com/buildstatus/Langelu)](https://saucelabs.com/beta/builds/93d41c42d21342909b33ebdd51a71a21)
 
 ## Requirements
 

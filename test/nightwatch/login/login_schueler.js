@@ -1,4 +1,3 @@
-const config = require('../../../nightwatch.conf.js');
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const student_name = process.env.STUDENT_NAME || 'schueler@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
@@ -23,8 +22,8 @@ module.exports = {
             .pause(1000);
     },
     'Schul-Cloud Checkups': function (browser) {
-        browser.expect.element('h4').text.to.contain('Übersicht');
-        browser.expect.element('h5').text.to.contain('Stundenplan');
+        browser.expect.element('h4').text.to.contain('Übersicht').before(10000);
+        browser.expect.element('h5').text.to.contain('Stundenplan').before(10000);
         browser
             .waitForElementVisible('.feature-modal', false)
             .click('button[type=button]');
@@ -32,53 +31,53 @@ module.exports = {
     'Schul-Cloud Visit Every Subpage': function (browser) {
         //News
         browser.url(base_url + 'news/');
-        browser.expect.element('h4').text.to.contain('Neuigkeiten');
+        browser.expect.element('h4').text.to.contain('Neuigkeiten').before(10000);
 
         //Courses
         browser.url(base_url + 'courses/');
-        browser.expect.element('h4').text.to.contain('Meine Kurse');
+        browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
 
         //Classes
         browser.url(base_url + 'classes/');
-        browser.expect.element('h4').text.to.contain('Meine Klassen');
+        browser.expect.element('h4').text.to.contain('Meine Klassen').before(10000);
 
         //Calendar
         browser.url(base_url + 'calendar/');
-        browser.expect.element('h4').text.to.contain('Kalender');
+        browser.expect.element('h4').text.to.contain('Kalender').before(10000);
 
         //Homework
         browser.url(base_url + 'homework/');
-        browser.expect.element('h4').text.to.contain('Aufgaben');
+        browser.expect.element('h4').text.to.contain('Aufgaben').before(10000);
 
         browser.url(base_url + 'homework/asked/');
-        browser.expect.element('h4').text.to.contain('Gestellte Aufgaben');
+        browser.expect.element('h4').text.to.contain('Gestellte Aufgaben').before(10000);
 
         browser.url(base_url + 'homework/private/');
-        browser.expect.element('h4').text.to.contain('Meine Aufgaben');
+        browser.expect.element('h4').text.to.contain('Meine Aufgaben').before(10000);
 
         browser.url(base_url + 'homework/archive/');
-        browser.expect.element('h4').text.to.contain('Archivierte Aufgaben');
+        browser.expect.element('h4').text.to.contain('Archivierte Aufgaben').before(10000);
 
         //Files
         browser.url(base_url + 'files/');
-        browser.expect.element('h4').text.to.contain('Meine Dateien');
+        browser.expect.element('h4').text.to.contain('Meine Dateien').before(10000);
 
         browser.url(base_url + 'files/my/');
-        browser.expect.element('h4').text.to.contain('Dateien');
+        browser.expect.element('h4').text.to.contain('Dateien').before(10000);
 
         browser.url(base_url + 'files/courses/');
-        browser.expect.element('h4').text.to.contain('Dateien');
+        browser.expect.element('h4').text.to.contain('Dateien').before(10000);
 
         browser.url(base_url + 'files/shared/');
-        browser.expect.element('h4').text.to.contain('Dateien');
+        browser.expect.element('h4').text.to.contain('Dateien').before(10000);
 
         //Content
         browser.url(base_url + 'content/');
-        browser.expect.element('h4').text.to.contain('Materialien');
+        browser.expect.element('h4').text.to.contain('Materialien').before(10000);
 
         //Settings
         browser.url(base_url + 'account/');
-        browser.expect.element('h4').text.to.contain('Dein Account');
+        browser.expect.element('h4').text.to.contain('Dein Account').before(10000);
     },
     'Schul-Cloud End': function (browser) {
         browser.end();

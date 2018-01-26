@@ -1,21 +1,28 @@
 #!/bin/bash
 read -r -d '' CHANGED_FILES << EOM
-$(git diff --name-only origin/master)
+if [[ $TRAVIS_PULL_REQUEST ]]
+then
+    $(git diff --name-only origin/master)
+else
+    $(git diff --name-only HEAD HEAD~1)
+fi
 EOM
 for i in $CHANGED_FILES; do
-	if [[ $i =~ "views/homework" ]];
+	if [[ $i =~ "views/homework" && ! $HOMEWORK ]];
 	then
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/homework/homework_create.js --env ie11,safari,ffox,default" >> frontend_test.sh
-	elif [[ $i =~ "views/courses" ]];
+	    export HOMEWORK=true
+		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/homework/ --env ffoxLinux,ffoxWin,default" >> frontend_test.sh
+	elif [[ $i =~ "views/courses" && ! $COURSES ]];
 	then
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/courses/courses_create.js --env ie11,safari,ffox,default" >> frontend_test.sh
-	elif [[ $i =~ "views/news" ]];
+	    export COURSES=true
+		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/courses/ --env safari,ffoxLinux,ffoxWin,default" >> frontend_test.sh
+	elif [[ $i =~ "views/news" && ! $NEWS ]];
 	then
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/news/news_create.js --env ie11,safari,ffox,default" >> frontend_test.sh
-	elif [[ $i =~ "views/authentication" ]];
+	    export NEWS=true
+		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/news/ --env ffoxLinux,ffoxWin,default" >> frontend_test.sh
+	elif [[ $i =~ "views/authentication" && ! $AUTHENTICATION ]];
 	then
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/login/login_demo_lehrer.js --env ie11,safari,ffox,default" >> frontend_test.sh
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/login/login_demo_schueler.js --env ie11,safari,ffox,default" >> frontend_test.sh
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/login/login_schueler.js --env ie11,safari,ffox,default" >> frontend_test.sh
+	    export AUTHENTICATION=true
+		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.remote.json --test test/nightwatch/login/ --env ffoxLinux,ffoxWin,default" >> frontend_test.sh
 	fi
 done

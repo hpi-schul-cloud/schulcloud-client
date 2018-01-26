@@ -1,4 +1,3 @@
-const config = require('../../../nightwatch.conf.js');
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
@@ -23,15 +22,16 @@ module.exports = {
             .pause(1000);
     },
     'Schul-Cloud Checkups': function (browser) {
-        browser.expect.element('h4').text.to.contain('Übersicht');
-        browser.expect.element('h5').text.to.contain('Stundenplan');
-        browser
-            .waitForElementVisible('.feature-modal', false)
-            .click('button[type=button]');
+        browser.setCookie({
+            name: "releaseDate",
+            value: "9999-12-09T16:36:20.000Z",
+            path: "/",
+            expiry: "253373565499"
+        });
     },
     'Create Homework': function (browser) {
         browser.url(base_url + 'homework/new/');
-        browser.expect.element('h4').text.to.contain('Aufgabe hinzufügen');
+        browser.expect.element('h4').text.to.contain('Aufgabe hinzufügen').before(10000);
         browser
             .setValue('input[name=name]', 'Test Aufgabe')
             .click('button[type=submit]:nth-child(2)')

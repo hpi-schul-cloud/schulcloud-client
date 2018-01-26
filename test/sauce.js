@@ -2,6 +2,8 @@
 const https = require('https');
 
 module.exports = function sauce(callback) {
+    if (this.client.globals.TRAVIS) {
+
     const currentTest = this.client.currentTest;
     const username = this.client.options.username;
     const sessionId = this.client.capabilities['webdriver.remote.sessionid'];
@@ -59,6 +61,9 @@ module.exports = function sauce(callback) {
         req.end();
     } catch (error) {
         console.log('Error', error);
+        callback();
+    }
+    } else {
         callback();
     }
 };

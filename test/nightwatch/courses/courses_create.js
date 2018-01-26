@@ -1,4 +1,3 @@
-const config = require('../../../nightwatch.conf.js');
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
@@ -23,15 +22,16 @@ module.exports = {
             .pause(1000);
     },
     'Schul-Cloud Checkups': function (browser) {
-        browser.expect.element('h4').text.to.contain('Übersicht');
-        browser.expect.element('h5').text.to.contain('Stundenplan');
-        browser
-            .waitForElementVisible('.feature-modal', false)
-            .click('button[type=button]');
+        browser.setCookie({
+            name: "releaseDate",
+            value: "9999-12-09T16:36:20.000Z",
+            path: "/",
+            expiry: "253373565499"
+        });
     },
     'Create Course': function (browser) {
         browser.url(base_url + 'courses/');
-        browser.expect.element('h4').text.to.contain('Meine Kurse');
+        browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
         browser
             .click('.btn-add')
             .pause(1000)
@@ -39,7 +39,7 @@ module.exports = {
             .setValue('textarea[name=description]', 'Test Beschreibung')
             .click('.btn-submit')
             .pause(1000);
-        browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung');
+        browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
     },
     'Delete Course': function (browser) {
         browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");

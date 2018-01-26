@@ -5,13 +5,15 @@
     "custom_assertions_path" : "",
     "page_objects_path" : "",
     "globals_path" : "",
-
+    "globals": {
+      "TRAVIS": "TRUE"
+    },
     "selenium" : {
         "start_process" : false,
         "host": "ondemand.saucelabs.com",
         "port": 80
     },
-
+    "test_workers" : {"enabled" : true, "workers" : "auto"},
     "test_settings" : {
         "default" : {
             "launch_url" : "https://beta.schul-cloud.org",
@@ -21,19 +23,24 @@
             "selenium_port": 80,
             "username": "${SAUCE_USERNAME}",
             "access_key": "${SAUCE_ACCESS_KEY}",
+            "globals": {
+                "waitForConditionTimeout": 20000
+            },
             "desiredCapabilities": {
                 "build": "build-${TRAVIS_JOB_NUMBER}",
                 "tunnel-identifier": "${TRAVIS_JOB_NUMBER}",
                 "browserName": "chrome",
                 "platform": "Windows 10",
-                "version": "48"
+                "version": "latest",
+                "javascriptEnabled": true,
+                "acceptSslCerts": true
             }
         },
         "ie11" : {
             "desiredCapabilities": {
                 "browserName": "internet explorer",
                 "platform": "Windows 10",
-                "version": "11.0"
+                "version": "latest"
             }
         },
         "safari" : {
@@ -47,14 +54,21 @@
             "desiredCapabilities": {
                 "browserName": "MicrosoftEdge",
                 "platform": "Windows 10",
-                "version": "13.10586"
+                "version": "latest"
             }
         },
-        "ffox" : {
+        "ffoxLinux" : {
             "desiredCapabilities": {
                 "browserName": "firefox",
                 "platform": "Linux",
-                "version": "45.0"
+                "version": "latest"
+            }
+        },
+        "ffoxWin" : {
+            "desiredCapabilities": {
+                "browserName": "firefox",
+                "platform": "Windows 10",
+                "version": "latest"
             }
         },
         "ios" : {
