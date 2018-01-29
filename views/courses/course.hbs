@@ -166,7 +166,7 @@
             <hr/>
             <!-- Gruppen -->
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <a href="/courses/{{../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Gruppe hinzufügen">
                         <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Gruppe hinzufügen</span>
                     </a>
@@ -181,7 +181,9 @@
                         <ol class="courseGroup">
                             <div class="row">
                                 {{#each courseGroups}}
-                                    {{> 'courses/components/courseGroup-card'}}
+                                    <div class="col-sm-6 col-xs-12">
+                                        {{> 'courses/components/courseGroup-card'}}
+                                    </div>
                                 {{/each}}
                             </div>
                         </ol>
