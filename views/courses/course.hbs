@@ -121,8 +121,10 @@
 
                 <!-- Tools -->
                 <div class="col-sm-6">
-                        <a href="/courses/{{_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
+                        {{#userHasPermission "TOOL_CREATE" }}
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
+                        {{/userHasPermission}}
                     <h4>Tools</h4>
 
                     <div class="list-group">
@@ -140,13 +142,15 @@
                                         {{/if}}
                                         <span>{{this.name}}</span>
 
-                                        <a class="delete-tool"
-                                           href="/courses/{{../_id}}/tools/delete/{{this._id}}"
-                                           target="_blank"
-                                           data-method="delete-material"
-                                           data-name="{{this.name}}">
-                                            <i class="fa fa-trash-o"></i>
-                                        </a>
+                                        {{#userHasPermission "TOOL_CREATE" }}
+                                            <a class="delete-tool"
+                                            href="/courses/{{../../_id}}/tools/delete/{{../_id}}"
+                                            target="_blank"
+                                            data-method="delete-material"
+                                            data-name="{{../name}}">
+                                                <i class="fa fa-trash-o"></i>
+                                            </a>
+                                        {{/userHasPermission}}
                                     </p>
                                 </div>
                             {{/each}}
