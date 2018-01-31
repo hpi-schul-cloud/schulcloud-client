@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const permissionHelper = require('../helpers/permissions');
 
 const markSelected = (options, values = []) => {
     return options.map(option => {
@@ -43,6 +44,12 @@ const editCourseGroupHandler = (req, res, next) => {
         let students = course.userIds.filter(s => s.schoolId === res.locals.currentSchool);
         _.each(students, s => s.displayName = `${s.firstName} ${s.lastName}`);
 
+        // if not a teacher, automatically add student to group, just when adding courseGroups
+        if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') && !courseGroupId) {
+            courseGroup.userIds = [];
+            courseGroup.userIds.push(res.locals.currentUser);
+        }
+
         res.render('courses/edit-courseGroup', {
             action,
             method,
@@ -62,6 +69,18 @@ router.use(authHelper.authChecker);
 router.get('/add', editCourseGroupHandler);
 
 router.post('/', function(req, res, next) {
+
+    // if not a teacher, automatically add student to group
+    if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')) {
+        if (!_.some(req.body.userIds, u => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
+
+            if (!req.body.userIds)
+                req.body.userIds = [];
+
+            req.body.userIds.push(res.locals.currentUser._id);
+        }
+    }
+
     api(req).post('/courseGroups/', {
         json: req.body // TODO: sanitize
     }).then(courseGroup => {
@@ -122,6 +141,13 @@ router.patch('/:courseGroupId', function(req, res, next) {
 
     if (!req.body.userIds)
         req.body.userIds = [];
+
+    // if not a teacher, automatically add student to group
+    if (!permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')) {
+        if (!_.some(req.body.userIds, u => JSON.stringify(u) === JSON.stringify(res.locals.currentUser._id))) {
+            req.body.userIds.push(res.locals.currentUser._id);
+        }
+    }
 
     api(req).patch('/courseGroups/' + req.params.courseGroupId, {
         json: req.body // TODO: sanitize
