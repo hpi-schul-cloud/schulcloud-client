@@ -722,12 +722,12 @@ router.get('/:assignmentId', function (req, res, next) {
         }
         Promise.all(promises).then((values) => {
             //[submissions, course]
-            let submissions = values[0];
+            let submissions = (values[0]||{});
             assignment.submission = submissions.data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
                 return submission;
             }).filter(submission => {
-                return (submission.studentId._id == res.locals.currentUser._id)
+                return ((submission.studentId||{})._id == res.locals.currentUser._id)
                      ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
             const students = ((values[1]||{}).userIds || []).sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
