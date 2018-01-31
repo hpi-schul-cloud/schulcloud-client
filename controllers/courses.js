@@ -164,18 +164,28 @@ router.get('/', function (req, res, next) {
     })]).then(([substitutionCourses, courses]) => {
         substitutionCourses = substitutionCourses.data.map(course => {
             course.url = '/courses/' + course._id;
+            course.title = course.name;
+            course.content = course.description.substr(0, 140);
+            course.secondaryTitle = '';
+            course.background = course.color;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+                course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
             return course;
         });
 
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
+            course.title = course.name;
+            course.content = course.description.substr(0, 140);
+            course.secondaryTitle = '';
+            course.background = course.color;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+                course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
             return course;
         });
@@ -184,8 +194,8 @@ router.get('/', function (req, res, next) {
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
-                courses: _.chunk(courses, 3),
-                substitutionCourses: _.chunk(substitutionCourses, 3)
+                courses,
+                substitutionCourses
             });
         }
     });

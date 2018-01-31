@@ -4,36 +4,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="row results card-deck-row">
-                        {{#each courses}}
-                            {{#each this}}
-                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <div class="card h-100" style="border-left: 10px solid {{this.color}}">
-                                        <div class="card-block">
-                                            <h4 class="card-title">
-                                                <a href="{{this.url}}">
-                                                    {{this.name}}
-                                                </a>
-                                            </h4>
-                                            <p class="card-text">{{truncate this.description}}</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            {{#each this.times}}
-                                                <small class="text-muted">
-                                                    {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
-                                                </small>
-                                                <br>
-                                            {{/each}}
-                                        </div>
-                                    </div>
-                                </div>
-                            {{/each}}
+                        {{#if courses}}
+                            {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen"}}
                         {{else}}
                             <div class="col-xs-12">
                                 <p class="text-muted text-center">
                                     <span>Keine Kurse.</span>
                                 </p>
                             </div>
-                        {{/each}}
+                        {{/if}}
                     </div>
                 </div>
 
@@ -45,37 +24,15 @@
                     </div>
                     <div class="row">
                         <div class="row results card-deck-row ">
-
-                            {{#each ../substitutionCourses}}
-                                {{#each this}}
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                        <div class="card h-100" style="border-left: 10px solid {{this.color}}">
-                                            <div class="card-block">
-                                                <h4 class="card-title">
-                                                    <a href="{{this.url}}">
-                                                        {{this.name}}
-                                                    </a>
-                                                </h4>
-                                                <p class="card-text">{{truncate this.description}}</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                {{#each this.times}}
-                                                    <small class="text-muted">
-                                                        {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
-                                                    </small>
-                                                    <br>
-                                                {{/each}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{/each}}
+                            {{#if ../substitutionCourses}}
+                                {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
                             {{else}}
                                 <div class="col-xs-12">
                                     <p class="text-muted text-center">
                                         <span>Keine Kurse.</span>
                                     </p>
                                 </div>
-                            {{/each}}
+                            {{/if}}
                         </div>
                     </div>
 
