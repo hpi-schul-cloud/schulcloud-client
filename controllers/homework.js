@@ -730,7 +730,8 @@ router.get('/:assignmentId', function (req, res, next) {
                 return ((submission.studentId||{})._id == res.locals.currentUser._id)
                      ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
-            const students = ((values[1]||{}).userIds || []).sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
+            const students = ((values[1]||{}).userIds || []).filter(user => {return (user.firstName && user.lastName)})
+                                                            .sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
                                                             .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
