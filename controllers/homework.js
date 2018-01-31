@@ -735,7 +735,8 @@ router.get('/:assignmentId', function (req, res, next) {
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions.data.sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
+                assignment.submissions = submissions.data.filter(submission => {return submission.studentId;})
+                                                         .sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
                                                          .sort((a,b)=>{return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase())?-1:1;})
                                                          .map(sub => {
                                                              sub.teamMembers.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
