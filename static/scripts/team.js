@@ -20,6 +20,9 @@ $(document).ready(function () {
             if ($(e.target).is('a'))
                 return true;
 
+            if ($(e.target).is('button.close'))
+                return true;
+
             if ($(e.target).is('i.fa.fa-times'))
                 return true;
 
