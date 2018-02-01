@@ -43,6 +43,7 @@ router.get('/', function (req, res, next) {
                 title: 'Materialien',
                 featuredContent: featured.data,
                 trendingContent: trending.data,
+                totalCount: trending.total,
                 action
             });
         });
