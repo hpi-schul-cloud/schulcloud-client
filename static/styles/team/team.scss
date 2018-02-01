@@ -383,3 +383,13 @@
   margin-right:20px;
   font-weight:700
 }
+@media (max-width: 990px) {
+  .section-team .modal-padding {
+    padding-left: 60px;
+  }
+}
+@media (min-width: 991px)  {
+  .section-team .modal-padding {
+    padding-left: 240px;
+  }
+}
