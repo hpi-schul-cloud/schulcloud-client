@@ -5,12 +5,12 @@
                 <div class="row">
             {{#each this.team}}
                 <div id="modal-container-{{id}}">
-                    <div class="modal-background">
+                    <div class="modal-background {{#if ../../loggedin}}modal-padding{{/if}}">
                         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <br />
+                                        <br>
                                     </div>
                                     <div class="modal-body" {{#if longDesc}}style="padding-top: {{longDesc}}"{{/if}}>
                                         <div class="row">
