@@ -98,11 +98,12 @@
   height:100%;
   background:rgba(0,0,0,.8);
   text-align:center;
-  vertical-align:middle
+  vertical-align:middle;
+  padding-top: 20px;
 }
 .section-team div[id^=modal-container-] .modal-background .modal{
   width:100%;
-  display:inline-block;
+  display:inline;
   border-radius:3px;
   font-weight:300;
   position:relative
@@ -356,7 +357,7 @@
 }
 @media screen and (min-width:767px){
   .section-team .modal-content{
-    padding:75px 50px 20px 50px
+    padding:0px 50px 20px 50px
   }
 }
 .section-team .modal-body{

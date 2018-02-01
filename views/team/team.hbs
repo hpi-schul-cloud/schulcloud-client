@@ -7,12 +7,14 @@
                 <div id="modal-container-{{id}}">
                     <div class="modal-background {{#if ../../loggedin}}modal-padding{{/if}}">
                         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog" {{#if longDesc}}style="margin-top: {{longDesc}}"{{/if}} role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <br>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </button>
                                     </div>
-                                    <div class="modal-body" {{#if longDesc}}style="padding-top: {{longDesc}}"{{/if}}>
+                                    <div class="modal-body">
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <div class="image-shadow js-tilt-container" style="background-image: url({{pictureUrl}});">
@@ -25,11 +27,6 @@
                                                 <p style="text-align: left">{{{description}}}</p>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <i class="fa fa-times" aria-hidden="true"></i>
-                                        </button>
                                     </div>
                                 </div>
                             </div>
