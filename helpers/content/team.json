@@ -239,10 +239,10 @@
       {
         "id": 14,
         "title": "",
-        "firstName": "Fabien",
-        "lastName": "Charlé",
+        "firstName": "Raoul",
+        "lastName": "Baron",
         "position": "Studentische Hilfskraft",
-        "description": "Fabien ist Bachelor Student am HPI. Zuvor hat er eine Ausbildung zum Fachinformatiker im Fachbereich Anwendungsentwicklung absolviert. Seit fast einem Jahr ist er im Schul-Cloud-Projekt für die Umsetzung neuer Features und das Beheben von Bugs zuständig.<br>Fabien ist Karateka und bereitet sich momentan auf seine Schwarzgurtprüfung vor.",
+        "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
         "pictureUrl": "/images/login-left-cropped.png",
         "priority": 0,
         "social": {
@@ -255,10 +255,10 @@
       {
         "id": 15,
         "title": "",
-        "firstName": "Raoul",
-        "lastName": "Baron",
+        "firstName": "Fabien",
+        "lastName": "Charlé",
         "position": "Studentische Hilfskraft",
-        "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
+        "description": "Fabien ist Bachelor Student am HPI. Zuvor hat er eine Ausbildung zum Fachinformatiker im Fachbereich Anwendungsentwicklung absolviert. Seit fast einem Jahr ist er im Schul-Cloud-Projekt für die Umsetzung neuer Features und das Beheben von Bugs zuständig.<br>Fabien ist Karateka und bereitet sich momentan auf seine Schwarzgurtprüfung vor.",
         "pictureUrl": "/images/login-left-cropped.png",
         "priority": 0,
         "social": {
@@ -495,6 +495,27 @@
       {
         "id": 30,
         "title": "",
+        "firstName": "Tobias",
+        "lastName": "Wollowski",
+        "position": "Masterstudent",
+        "description": "Tobias hat vor seinem Master-Studium am HPI an der Technischen Hochschule in Brandenburg Applied Computer Science studiert. Während seines Studiums konzentrierte er sich auf Verteilte Systeme und verbrachte ein Semester an der German Jordanian University in Amman, Jordanien.<br>Am HPI vertiefte er u.a. sein Wissen über Progressive-Web-Apps und Page-Speed-Optimization und moderne Web-Technologien. Im Projekt Schul-Cloud schreibt er derzeit seine Masterarbeit und forscht an Strategien zur Offline-Verfügbarkeit von Web-Anwendungen und Peer-2-Peer Technologien.<br>In seiner Freizeit trainiert Tobias im Potsdamer Seglerverein Kinder und Jugendliche im Segeln.",
+        "pictureUrl": "/images/team/Tobias_Wollowski.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      }
+    ]
+  },
+  "below" : {
+    "name": "",
+    "team": [
+      {
+        "id": 31,
+        "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
         "position": "Schüler Hilfskraft",
@@ -509,29 +530,13 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
         "position": "Schüler Hilfskraft",
         "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Privat klettert und schwimmt er gerne.",
         "pictureUrl": "/images/team/Jonas_Wanke.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 32,
-        "title": "",
-        "firstName": "Tobias",
-        "lastName": "Wollowski",
-        "position": "Masterstudent",
-        "description": "Tobias hat vor seinem Master-Studium am HPI an der Technischen Hochschule in Brandenburg Applied Computer Science studiert. Während seines Studiums konzentrierte er sich auf Verteilte Systeme und verbrachte ein Semester an der German Jordanian University in Amman, Jordanien.<br>Am HPI vertiefte er u.a. sein Wissen über Progressive-Web-Apps und Page-Speed-Optimization und moderne Web-Technologien. Im Projekt Schul-Cloud schreibt er derzeit seine Masterarbeit und forscht an Strategien zur Offline-Verfügbarkeit von Web-Anwendungen und Peer-2-Peer Technologien.<br>In seiner Freizeit trainiert Tobias im Potsdamer Seglerverein Kinder und Jugendliche im Segeln.",
-        "pictureUrl": "/images/team/Tobias_Wollowski.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
