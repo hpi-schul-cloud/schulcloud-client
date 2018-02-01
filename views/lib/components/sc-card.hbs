@@ -1,12 +1,12 @@
 <article class="sc-card">
-    <div class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
+    <a href="{{this.url}}" rel="canonical" class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
         <span class="sc-card-title">
-            <a href="{{url}}" rel="canonical">{{{this.title}}}</a>
+            <span class="title">{{{this.title}}}</span>
             {{#if this.secondaryTitle}}
                 <small class="d-block">{{{this.secondaryTitle}}}</small>
             {{/if}}
         </span>
-        
+
         <div class="sc-card-menu">
             {{#each this.actions}}
                 {{#if this.method}}
@@ -29,7 +29,7 @@
                 {{/if}}
             {{/each}}
         </div>
-    </div>
+    </a>
     <div class="sc-card-body ckcontent">
         {{{truncateHTML (conflictFreeHtml this.content)}}}
     </div>

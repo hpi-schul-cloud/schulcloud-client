@@ -503,7 +503,7 @@ const overview = (title = "") => {
                     let pagination = {
                         currentPage,
                         numPages: Math.ceil(homeworks.length / itemsPerPage),
-                        baseUrl: req.baseUrl + req._parsedUrl.pathname + '/?'
+                        baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
                         + ((req.query.sort) ? ('sort=' + req.query.sort + '&') : '')
                         + ((homeworkDesc) ? ('desc=' + req.query.desc + '&') : '') + 'p={{page}}'
                     };
