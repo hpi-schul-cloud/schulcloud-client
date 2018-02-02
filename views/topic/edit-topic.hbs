@@ -21,6 +21,8 @@
                 {{/if}}
 
                 <input name="courseId" type="hidden" data-force-value="true" value="{{courseId}}" />
+
+                <input name="courseGroupId" type="hidden" data-force-value="true" value="{{courseGroupId}}" />
                 
                 <input name="position" type="hidden" data-force-value="true" value="{{lesson.position}}" />
 
@@ -36,7 +38,9 @@
                     <div id="content-blocks"
                          data-value="{{lesson.contents}}"
                          data-etherpadbaseurl="{{etherpadBaseUrl}}"
-                         data-arsnovaclickbaseurl="{{arsnovaClickBaseUrl}}"></div>
+                         data-arsnovaclickbaseurl="{{arsnovaClickBaseUrl}}"
+                         data-iscoursegroup="{{courseGroupId}}">
+                    </div>
                 </div>
 
                 <div class="modal-footer">

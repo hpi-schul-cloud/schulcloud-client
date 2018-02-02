@@ -27,7 +27,7 @@
     line-height: 50px;
     padding: 0 15px 0 65px;
     white-space: nowrap;
-    background: $colorHPIRed;
+    background: $primaryColor;
     color: #ffffff;
     font-size: large;
   }
@@ -40,6 +40,6 @@
     }
   }
   &:hover span {
-    background: $colorHPIOrange;
+    background: $secondaryColor;
   }
 }

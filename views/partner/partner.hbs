@@ -30,34 +30,44 @@
         </div>
     </div>
 
-    <h5>Pilotpartner Lerninhalte</h5>
+    <h5>Pilotpartner für Lerninhalte</h5>
     <div class="container">
         <div class="row">
-            {{#each partners.content_partners}}
-            <div class="partner-box-wrapper col-xs-6 col-md-3">
-                <div class="partner-box">
-                    <a href="{{{url}}}" target="_blank">
-                        <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                    </a>
-                </div>
+            <div class="col-md-12">
+                <p>Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die Schul-Cloud erfahrbar wird.</p>
             </div>
+        </div>  
+        <div class="row">
+            {{#each partners.content_partners}}
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="{{{url}}}" target="_blank">
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                        </a>
+                    </div>
+                </div>
             {{/each}}
         </div>
     </div>
 
-    <h5>Unterstützer</h5>
+    <h5>Unterstützer für Schulinfrastruktur</h5>
     <div class="container">
         <div class="row">
-            {{#each partners.sponsors}}
-            <div class="partner-box-wrapper col-xs-6 col-md-3">
-                <div class="partner-box">
-                    <a href="{{{url}}}" target="_blank">
-                        <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                    </a>
-                </div>
+            <div class="col-md-12">
+                <p>Wir danken unseren Unterstützern für Schulinfrastruktur.</p>
             </div>
+        </div>    
+        <div class="row">
+            {{#each partners.sponsors}}
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="{{{url}}}" target="_blank">
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                        </a>
+                    </div>
+                </div>
             {{/each}}
         </div>
     </div>
