@@ -73,7 +73,7 @@ router.get('/:pwId', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    let username = req.body.username;
+    let username = req.body.username.toLowerCase();
     api(req).post('/passwordRecovery', {json: {username: username}}).then((result) => {
         res.locals.result = result;
         next();
