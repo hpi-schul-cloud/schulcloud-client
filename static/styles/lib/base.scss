@@ -89,7 +89,7 @@ footer.small-footer {
 	left: 0;
 	clear: both;
 	padding: 30px 0px;
-
+	font-size: 0.9em;
 	@include media-breakpoint-down(xs) {
 		background: $colorBeige;
 
@@ -107,7 +107,7 @@ footer.small-footer {
 		}
         img{
             width: auto;
-            max-width: 235px;
+            max-width: 175px;
             height: auto;
             max-height: 44px;
         }
