@@ -18,6 +18,7 @@ router.use('/content/', require('./content'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
+router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/classes/', require('./classes'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
