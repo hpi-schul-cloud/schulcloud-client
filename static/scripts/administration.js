@@ -121,7 +121,7 @@ $(document).ready(function () {
 
     $('.btn-pw').on('click', function (e) {
         e.preventDefault();
-        var entry = $(this).parent().attr('action');
+        var entry = $(this).attr('href');
             populateModalForm($pwModal, {
                 action: entry,
                 title: 'Passwort ändern',

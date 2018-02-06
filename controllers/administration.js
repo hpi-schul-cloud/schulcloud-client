@@ -45,8 +45,7 @@ const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStuden
         {
             link: isStudentAction ? path + 'pw/' + item._id : '',
             class: isStudentAction ? 'btn-pw' : 'invisible',
-            icon: isStudentAction ? 'key' : '',
-            method: isStudentAction ? 'edit' : ''
+            icon: isStudentAction ? 'key' : ''
         }
     ];
 };
@@ -551,9 +550,7 @@ const userIdtoAccountIdUpdate = (service) => {
                     // TODO: sanitize
                     json: req.body
                 }).then(data => {
-                    createEventsForData(data, service, req, res).then(_ => {
                         res.redirect(req.header('Referer'));
-                    });
                 }).catch(err => {
                     next(err);
                 });
