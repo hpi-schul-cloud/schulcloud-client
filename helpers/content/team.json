@@ -205,7 +205,7 @@
         "firstName": "Jacqueline",
         "lastName": "Thorns",
         "position": "Wissenschaftliche Mitarbeiterin",
-        "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter oder  und die Planung von Veranstaltungen, wie dem Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
+        "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
         "pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
         "priority": 0,
         "social": {
@@ -518,7 +518,7 @@
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
-        "position": "Schüler Hilfskraft",
+        "position": "Studentische Hilfskraft/ Schüler",
         "description": "Elias ist Schüler an dem Emmy-Noether-Gymnasium und entwickelt die Android App der Schul-Cloud mit. In seiner Freizeit arbeitet er gerne an verschiedenen Projekten mit Programmiersprachen wie C++ oder Python.",
         "pictureUrl": "/images/team/Elias_Lehnert.jpg",
         "priority": 0,
@@ -534,8 +534,8 @@
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
-        "position": "Schüler Hilfskraft",
-        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Privat klettert und schwimmt er gerne.",
+        "position": "Studentische Hilfskraft/ Schüler",
+        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
         "pictureUrl": "/images/team/Jonas_Wanke.png",
         "priority": 0,
         "social": {
