@@ -13,14 +13,14 @@ const createToolHandler = (req, res, next) => {
         json: req.body
     }).then(tool => {
         if (tool._id) {
-            api(req).patch('/courses/' + req.body.courseId, {
+            api(req).patch('/courses/' + req.params.courseId, {
                 json: {
                     $push: {
                         ltiToolIds: tool._id
                     }
                 }
             }).then(course => {
-               res.redirect('/courses/' + course._id);
+               res.send(course._id);
             });
         }
     });
@@ -29,9 +29,7 @@ const createToolHandler = (req, res, next) => {
 const addToolHandler = (req, res, next) => {
     let action = '/courses/' + req.params.courseId + '/tools/add';
 
-    api(req).get({
-      url: '/ltiTools',
-      qs: {isTemplate: true}
+    api(req).get('/ltiTools', { qs: {isTemplate: true}
     }).then(tools => {
         api(req).get('/courses/' + req.params.courseId)
             .then(course => {
