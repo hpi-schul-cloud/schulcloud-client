@@ -42,10 +42,12 @@ module.exports = {
         browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
     },
     'Delete Course': function (browser) {
+        browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kur').before(10000);
         browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");
         browser.useCss()
+            .waitForElementVisible('.btn-delete-course', 1000)
             .click('.btn-delete-course')
-            .waitForElementVisible('.delete-modal')
+            .waitForElementVisible('.delete-modal', 1000)
             .waitForElementVisible('.btn-submit', 1000)
             .click('.btn-submit')
             .pause(1000);
