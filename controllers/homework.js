@@ -11,7 +11,7 @@ const handlebars = require("handlebars");
 const moment = require("moment");
 const _ = require("lodash");
 
-handlebars.registerHelper('ifvalue', function (conditional, options) {
+handlebars.registerHelper('ifvalue', function(conditional, options) {
     if (options.hash.value === conditional) {
         return options.fn(this);
     } else {
@@ -30,8 +30,7 @@ const getSelectOptions = (req, service, query, values = []) => {
 };
 
 const getActions = (item, path) => {
-    return [
-        {
+    return [{
             link: path + item._id + "/edit",
             class: 'btn-edit',
             icon: 'edit',
@@ -48,8 +47,7 @@ const getActions = (item, path) => {
 };
 
 const getSortmethods = () => {
-    return [
-        {
+    return [{
             query: 'dueDate',
             title: 'Abgabedatum',
             active: "selected"
@@ -70,8 +68,8 @@ const getSortmethods = () => {
 };
 
 const getCreateHandler = (service) => {
-    return function (req, res, next) {
-        if(service=="homework"){
+    return function(req, res, next) {
+        if (service == "homework") {
             if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
                 req.body.courseId = null;
                 req.body.private = true;
@@ -147,18 +145,18 @@ const getCreateHandler = (service) => {
 
 const sendNotification = (courseId, title, message, userId, req, link) => {
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
-    api(req).post('/notification/messages', {
-        json: {
-            "title": title,
-            "body": message,
-            "token": userId,
-            "priority": "high",
-            "action": link,
-            "scopeIds": [
-                courseId
-            ]
-        }
-    });
+        api(req).post('/notification/messages', {
+            json: {
+                "title": title,
+                "body": message,
+                "token": userId,
+                "priority": "high",
+                "action": link,
+                "scopeIds": [
+                    courseId
+                ]
+            }
+        });
     }
 };
 
@@ -180,27 +178,27 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, fileIds) => {
 
                 return file;
             })).then(_ => {
-                return api(req).patch('/files/' + file._id, {json: file});
+                return api(req).patch('/files/' + file._id, { json: file });
             });
         });
     }));
 };
 
-const patchFunction = function(service, req, res, next){
-    if(req.body.referrer){
-        var referrer = req.body.referrer.replace("/edit","");
+const patchFunction = function(service, req, res, next) {
+    if (req.body.referrer) {
+        var referrer = req.body.referrer.replace("/edit", "");
         delete req.body.referrer;
     }
     api(req).patch('/' + service + '/' + req.params.id, {
         // TODO: sanitize
         json: req.body
     }).then(data => {
-        if (service === "submissions"){
+        if (service === "submissions") {
             // add file permissions for co Worker
             let fileIds = data.fileIds;
             let teamMembers = data.teamMembers;
             return addFilePermissionsForTeamMembers(req, teamMembers, fileIds).then(_ => {
-                api(req).get('/homework/' + data.homeworkId, { qs: {$populate: ["courseId"]}})
+                api(req).get('/homework/' + data.homeworkId, { qs: { $populate: ["courseId"] } })
                     .then(homework => {
                         sendNotification(data.studentId,
                             "Deine Abgabe im Fach " +
@@ -213,9 +211,9 @@ const patchFunction = function(service, req, res, next){
                 res.redirect(req.header('Referrer'));
             });
         }
-        if(referrer){
+        if (referrer) {
             res.redirect(referrer);
-        }else{
+        } else {
             res.sendStatus(200);
         }
     }).catch(err => {
@@ -223,21 +221,21 @@ const patchFunction = function(service, req, res, next){
     });
 };
 const getUpdateHandler = (service) => {
-    return function (req, res, next) {
-        if (service == "homework"){
+    return function(req, res, next) {
+        if (service == "homework") {
             //check archived
-            if(req.body.archive){
+            if (req.body.archive) {
                 api(req).get('/homework/' + req.params.id, {}).then(homework => {
-                    if(homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "open"){
+                    if (homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "open") {
                         homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
-                    }else if(!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "done"){
+                    } else if (!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "done") {
                         homework.archived.push(res.locals.currentUser._id);
                     }
                     req.body.archived = homework.archived;
                     delete req.body.archive;
                     return patchFunction(service, req, res, next);
                 });
-            }else{
+            } else {
                 if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
                     req.body.courseId = null;
                     req.body.private = true;
@@ -255,31 +253,31 @@ const getUpdateHandler = (service) => {
                     req.body.teamSubmissions = false;
                 }
                 // rewrite german format to ISO
-                if(req.body.availableDate){
+                if (req.body.availableDate) {
                     req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
                 }
-                if(req.body.dueDate){
+                if (req.body.dueDate) {
                     req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
                 }
-                if(req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate){
+                if (req.body.availableDate && req.body.dueDate && req.body.availableDate >= req.body.dueDate) {
                     req.session.notification = {
                         type: 'danger',
                         message: "Das Beginndatum muss vor dem Abgabedatum liegen!"
                     };
-                    if(req.body.referrer){
-                        var referrer = req.body.referrer.replace("/edit","");
+                    if (req.body.referrer) {
+                        var referrer = req.body.referrer.replace("/edit", "");
                         delete req.body.referrer;
                     }
                     res.redirect(referrer);
                     return;
                 }
             }
-        }else{
-            if(service == "submissions"){
+        } else {
+            if (service == "submissions") {
                 if (req.body.teamMembers && typeof req.body.teamMembers == "string") {
                     req.body.teamMembers = [req.body.teamMembers];
                 }
-                if(req.body.grade){
+                if (req.body.grade) {
                     req.body.grade = parseInt(req.body.grade);
                 }
             }
@@ -289,7 +287,7 @@ const getUpdateHandler = (service) => {
 };
 
 const getDetailHandler = (service) => {
-    return function (req, res, next) {
+    return function(req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
             data => {
                 data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
@@ -302,7 +300,7 @@ const getDetailHandler = (service) => {
 };
 
 const getImportHandler = (service) => {
-    return function (req, res, next) {
+    return function(req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
             data => {
                 res.json(data);
@@ -314,7 +312,7 @@ const getImportHandler = (service) => {
 
 
 const getDeleteHandlerR = (service) => {
-    return function (req, res, next) {
+    return function(req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
             res.redirect(req.header('Referer'));
         }).catch(err => {
@@ -324,7 +322,7 @@ const getDeleteHandlerR = (service) => {
 };
 
 const getDeleteHandler = (service) => {
-    return function (req, res, next) {
+    return function(req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
             res.sendStatus(200);
             res.redirect('/' + service);
@@ -344,31 +342,31 @@ router.post('/submit', getCreateHandler('submissions'));
 router.delete('/submit/:id', getDeleteHandlerR('submissions'));
 router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
 
-router.post('/submit/:id/files', function (req, res, next) {
+router.post('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).patch("/submissions/" + submissionId, {
-        json: {
-            $push: {
-                fileIds: req.body.fileId,
-            },
-            teamMembers: req.body.teamMembers
-        }
-    })
+            json: {
+                $push: {
+                    fileIds: req.body.fileId,
+                },
+                teamMembers: req.body.teamMembers
+            }
+        })
         .then(result => res.json(result))
         .catch(err => res.send(err));
 });
 
 /** adds shared permission for teacher in the corresponding homework **/
-router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
+router.post('/submit/:id/files/:fileId/permissions', function(req, res, next) {
     let submissionId = req.params.id;
     let fileId = req.params.fileId;
     let homeworkId = req.body.homeworkId;
     let teamMembers = req.body.teamMembers;
 
     // if homework is already given, just fetch homework
-    let homeworkPromise = homeworkId
-        ? api(req).get('/homework/' + homeworkId)
-        : api(req).get('/submissions/' + submissionId, {
+    let homeworkPromise = homeworkId ?
+        api(req).get('/homework/' + homeworkId) :
+        api(req).get('/submissions/' + submissionId, {
             qs: {
                 $populate: ['homeworkId'],
             }
@@ -383,7 +381,7 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
         };
         file.permissions.push(newPermission);
 
-        return api(req).patch('/files/' + file._id, {json: file}).then(result => res.json(result)).then(_ => {
+        return api(req).patch('/files/' + file._id, { json: file }).then(result => res.json(result)).then(_ => {
             // if there is already an submission, it is more safe to add the permissions at this step (if the user
             // forgets to click on save)
             return teamMembers ? addFilePermissionsForTeamMembers(req, teamMembers, [fileId]) : Promise.resolve({});
@@ -391,16 +389,16 @@ router.post('/submit/:id/files/:fileId/permissions', function (req, res, next) {
     }).catch(err => res.send(err));
 });
 
-router.delete('/submit/:id/files', function (req, res, next) {
+router.delete('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).patch("/submissions/" + submissionId, {
-        json: {
-            $pull: {
-                fileIds: req.body.fileId
-            },
-            teamMembers: req.body.teamMembers
-        }
-    })
+            json: {
+                $pull: {
+                    fileIds: req.body.fileId
+                },
+                teamMembers: req.body.teamMembers
+            }
+        })
         .then(result => res.json(result))
         .catch(err => res.send(err));
 });
@@ -409,7 +407,7 @@ router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
 
-const splitDate = function (date) {
+const splitDate = function(date) {
     return {
         "timestamp": moment(date).valueOf(),
         "date": moment(date).format('DD.MM.YYYY'),
@@ -418,14 +416,14 @@ const splitDate = function (date) {
 };
 
 const overview = (title = "") => {
-    return function (req, res, next) {
+    return function(req, res, next) {
         var homeworkDesc = (req.query.desc == "true") ? '-' : '';
         var homeworkSort = (req.query.sort && req.query.sort !== "") ? req.query.sort : 'dueDate';
 
         var sortmethods = getSortmethods();
         if (req.query.sort && req.query.sort !== "") {
             // Aktueller Sortieralgorithmus für Anzeige aufbereiten
-            sortmethods = sortmethods.map(function (e) {
+            sortmethods = sortmethods.map(function(e) {
                 if (e.query == req.query.sort) {
                     e.active = 'selected';
                 } else {
@@ -438,13 +436,13 @@ const overview = (title = "") => {
         let query = {
             $populate: ['courseId'],
             $sort: homeworkDesc + homeworkSort,
-            archived : {$ne: res.locals.currentUser._id }
+            archived: { $ne: res.locals.currentUser._id }
         };
         if (req._parsedUrl.pathname.includes("private")) {
             query.private = true;
         }
         if (req._parsedUrl.pathname.includes("asked")) {
-            query.private = {$ne: true};
+            query.private = { $ne: true };
         }
 
         if (req._parsedUrl.pathname.includes("archive")) {
@@ -460,7 +458,7 @@ const overview = (title = "") => {
                     $populate: ['roles']
                 }
             }).then(user => {
-                const isStudent = (user.roles.map(role => {return role.name;}).indexOf('student') != -1);
+                const isStudent = (user.roles.map(role => { return role.name; }).indexOf('student') != -1);
 
                 homeworks = homeworks.data.map(assignment => { // alle Hausaufgaben aus DB auslesen
                     // kein Kurs -> Private Hausaufgabe
@@ -475,7 +473,7 @@ const overview = (title = "") => {
                         assignment.color = assignment.courseId.color;
                     }
                     // Schüler sehen Beginndatum nicht in der Übersicht über gestellte Aufgaben (übersichtlicher)
-                    if(!assignment.private && isStudent){
+                    if (!assignment.private && isStudent) {
                         delete assignment.availableDate;
                     }
 
@@ -492,8 +490,8 @@ const overview = (title = "") => {
 
                 const coursesPromise = getSelectOptions(req, 'courses', {
                     $or: [
-                        {userIds: res.locals.currentUser._id},
-                        {teacherIds: res.locals.currentUser._id}
+                        { userIds: res.locals.currentUser._id },
+                        { teacherIds: res.locals.currentUser._id }
                     ]
                 });
                 Promise.resolve(coursesPromise).then(courses => {
@@ -503,9 +501,9 @@ const overview = (title = "") => {
                     let pagination = {
                         currentPage,
                         numPages: Math.ceil(homeworks.length / itemsPerPage),
-                        baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
-                        + ((req.query.sort) ? ('sort=' + req.query.sort + '&') : '')
-                        + ((homeworkDesc) ? ('desc=' + req.query.desc + '&') : '') + 'p={{page}}'
+                        baseUrl: req.baseUrl + req._parsedUrl.pathname + '?' +
+                            ((req.query.sort) ? ('sort=' + req.query.sort + '&') : '') +
+                            ((homeworkDesc) ? ('desc=' + req.query.desc + '&') : '') + 'p={{page}}'
                     };
                     const end = currentPage * itemsPerPage;
                     homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -518,12 +516,12 @@ const overview = (title = "") => {
                         isStudent,
                         sortmethods,
                         desc: homeworkDesc,
-                        addButton: (req._parsedUrl.pathname == "/"
-                                || req._parsedUrl.pathname.includes("private")
-                                || (req._parsedUrl.pathname.includes( "asked" )
-                                    && !isStudent )
-                               ),
-                       createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
+                        addButton: (req._parsedUrl.pathname == "/" ||
+                            req._parsedUrl.pathname.includes("private") ||
+                            (req._parsedUrl.pathname.includes("asked") &&
+                                !isStudent)
+                        ),
+                        createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
                 });
             });
@@ -537,21 +535,21 @@ router.get('/asked', overview("Gestellte"));
 router.get('/private', overview("Meine"));
 router.get('/archive', overview("Archivierte"));
 
-router.get('/new', function (req, res, next) {
+router.get('/new', function(req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
         $or: [
-            {userIds: res.locals.currentUser._id},
-            {teacherIds: res.locals.currentUser._id}
+            { userIds: res.locals.currentUser._id },
+            { teacherIds: res.locals.currentUser._id }
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
-        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
+        courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; })
         const lessonsPromise = getSelectOptions(req, 'lessons', {
             courseId: req.query.course
         });
         Promise.resolve(lessonsPromise).then(lessons => {
-            (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
-            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; })
+                // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
                 $populate: ['roles']
@@ -565,9 +563,9 @@ router.get('/new', function (req, res, next) {
                     isStudent = false;
                 }
 
-                let assignment = {"private": (req.query.private == 'true')};
+                let assignment = { "private": (req.query.private == 'true') };
                 if (req.query.course) {
-                    assignment["courseId"] = {"_id": req.query.course};
+                    assignment["courseId"] = { "_id": req.query.course };
                 }
                 if (req.query.topic) {
                     assignment["lessonId"] = req.query.topic;
@@ -590,13 +588,13 @@ router.get('/new', function (req, res, next) {
     });
 });
 
-router.get('/:assignmentId/edit', function (req, res, next) {
+router.get('/:assignmentId/edit', function(req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
         }
     }).then(assignment => {
-        if(assignment.teacherId != res.locals.currentUser._id){
+        if (assignment.teacherId != res.locals.currentUser._id) {
             let error = new Error("You don't have permissions!");
             error.status = 403;
             return next(error);
@@ -606,13 +604,13 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
-                {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
+                { userIds: res.locals.currentUser._id },
+                { teacherIds: res.locals.currentUser._id }
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
-            courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
-            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; })
+                // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
                 $populate: ['roles']
@@ -630,8 +628,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         courseId: assignment.courseId._id
                     });
                     Promise.resolve(lessonsPromise).then(lessons => {
-                        (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
-                        //Render overview
+                        (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; })
+                            //Render overview
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
@@ -667,7 +665,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
     });
 });
 
-router.get('/:assignmentId', function (req, res, next) {
+router.get('/:assignmentId', function(req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
@@ -691,26 +689,27 @@ router.get('/:assignmentId', function (req, res, next) {
         // file upload path, todo: maybe use subfolders
         let submissionUploadPath = `users/${res.locals.currentUser._id}/`;
 
-        const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id))
-            ? ("Archivierte")
-            : ((assignment.private)
-                ? ("Meine")
-                : ("Gestellte"));
-        const breadcrumbUrl = ((assignment.archived || []).includes(res.locals.currentUser._id))
-            ? ("/homework/archive")
-            : ((assignment.private)
-                ? ("/homework/private")
-                : ("/homework/asked"));
+        const breadcrumbTitle = ((assignment.archived || []).includes(res.locals.currentUser._id)) ?
+            ("Archivierte") :
+            ((assignment.private) ?
+                ("Meine") :
+                ("Gestellte"));
+        const breadcrumbUrl = ((assignment.archived || []).includes(res.locals.currentUser._id)) ?
+            ("/homework/archive") :
+            ((assignment.private) ?
+                ("/homework/private") :
+                ("/homework/asked"));
         let promises = [
             // Abgaben auslesen
             api(req).get('/submissions/', {
                 qs: {
                     homeworkId: assignment._id,
-                    $populate: ['homeworkId', 'fileIds','teamMembers','studentId']
+                    $populate: ['homeworkId', 'fileIds', 'teamMembers', 'studentId']
                 }
-            }),
-        ]
-        if(assignment.courseId && assignment.courseId._id){
+            })
+        ];
+
+        if (assignment.courseId && assignment.courseId._id) {
             promises.push(
                 // Alle Teilnehmer des Kurses
                 api(req).get('/courses/' + assignment.courseId._id, {
@@ -719,37 +718,47 @@ router.get('/:assignmentId', function (req, res, next) {
                     }
                 })
             );
+
+            promises.push(
+                // Schülergruppen für Kurs
+                api(req).get('/courseGroups/', {
+                    qs: {
+                        courseId: assignment.courseId._id,
+                        $populate: ['userIds']
+                    }
+                })
+            );
         }
-        Promise.all(promises).then((values) => {
-            //[submissions, course]
-            let submissions = (values[0]||{});
-            assignment.submission = submissions.data.map(submission => {
-                submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
+
+        Promise.all(promises).then(([submissions, course, courseGroups]) => {
+            courseGroups = ((courseGroups || {}).data || []);
+            assignment.submission = (submissions || {}).data.map(submission => {
+                submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
                 return submission;
             }).filter(submission => {
-                return ((submission.studentId||{})._id == res.locals.currentUser._id)
-                     ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
+                return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
+                    (submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
-            const students = ((values[1]||{}).userIds || []).filter(user => {return (user.firstName && user.lastName)})
-                                                            .sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
-                                                            .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
+            const students = ((course || {}).userIds || []).filter(user => { return (user.firstName && user.lastName) })
+                .sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
+                .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions.data.filter(submission => {return submission.studentId;})
-                                                         .sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
-                                                         .sort((a,b)=>{return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase())?-1:1;})
-                                                         .map(sub => {
-                                                             sub.teamMembers.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
-                                                                            .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;})
-                                                             return sub;
-                                                         });
+                assignment.submissions = submissions.data.filter(submission => { return submission.studentId; })
+                    .sort((a, b) => { return (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1; })
+                    .sort((a, b) => { return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase()) ? -1 : 1; })
+                    .map(sub => {
+                        sub.teamMembers.sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
+                            .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; })
+                        return sub;
+                    });
                 let studentSubmissions = students.map(student => {
                     return {
                         student: student,
                         submission: assignment.submissions.filter(submission => {
-                            return (submission.studentId._id == student._id)
-                                 ||(submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
+                            return (submission.studentId._id == student._id) ||
+                                (submission.teamMembers && submission.teamMembers.includes(student._id.toString()));
                         })[0]
                     };
                 });
@@ -758,17 +767,17 @@ router.get('/:assignmentId', function (req, res, next) {
                 */
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
-                    if(e.teamMembers){
-                        e.teamMembers.forEach( c => {
+                    if (e.teamMembers) {
+                        e.teamMembers.forEach(c => {
                             studentsWithSubmission.push(c._id.toString());
                         });
-                    }else{
+                    } else {
                         studentsWithSubmission.push(e.studentId.toString());
                     }
                 });
                 let studentsWithoutSubmission = [];
                 assignment.courseId.userIds.forEach(e => {
-                    if(!studentsWithSubmission.includes(e.toString())){
+                    if (!studentsWithSubmission.includes(e.toString())) {
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
                                 return (s.student._id.toString() == e.toString());
@@ -778,8 +787,8 @@ router.get('/:assignmentId', function (req, res, next) {
                         );
                     }
                 });
-                studentsWithoutSubmission.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
-                                         .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
+                studentsWithoutSubmission.sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
+                    .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
                 /*
                 // Kommentare zu Abgaben auslesen
                 const ids = assignment.submissions.map(n => n._id);
@@ -789,35 +798,35 @@ router.get('/:assignmentId', function (req, res, next) {
                 });
                 Promise.resolve(commentPromise).then(comments => {
                 */
-                    const comments = [];
-                    // -> Kommentare stehen nun in comments
-                    // ist der aktuelle Benutzer Schüler?
-                    const userPromise = getSelectOptions(req, 'users', {
-                        _id: res.locals.currentUser._id,
-                        $populate: ['roles']
+                const comments = [];
+                // -> Kommentare stehen nun in comments
+                // ist der aktuelle Benutzer Schüler?
+                const userPromise = getSelectOptions(req, 'users', {
+                    _id: res.locals.currentUser._id,
+                    $populate: ['roles']
+                });
+                Promise.resolve(userPromise).then(user => {
+                    const roles = user[0].roles.map(role => {
+                        return role.name;
                     });
-                    Promise.resolve(userPromise).then(user => {
-                        const roles = user[0].roles.map(role => {
-                            return role.name;
-                        });
-                        // Render assignment.hbs
-                        assignment.submissions = assignment.submissions.map(s => {return {submission: s}; });
-                        res.render('homework/assignment', Object.assign({}, assignment, {
-                            title: assignment.courseId.name + ' - ' + assignment.name,
-                            breadcrumb: [
-                                {
-                                    title: breadcrumbTitle + " Aufgaben",
-                                    url: breadcrumbUrl
-                                },
-                                {}
-                            ],
-                            students:students,
-                            studentSubmissions,
-                            studentsWithoutSubmission,
-                            path: submissionUploadPath,
-                            comments
-                        }));
-                    });
+                    // Render assignment.hbs
+                    assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
+                    res.render('homework/assignment', Object.assign({}, assignment, {
+                        title: assignment.courseId.name + ' - ' + assignment.name,
+                        breadcrumb: [{
+                                title: breadcrumbTitle + " Aufgaben",
+                                url: breadcrumbUrl
+                            },
+                            {}
+                        ],
+                        students: students,
+                        studentSubmissions,
+                        studentsWithoutSubmission,
+                        path: submissionUploadPath,
+                        courseGroups,
+                        comments
+                    }));
+                });
                 //});
             } else { // normale Schüleransicht
                 if (assignment.submission) {
@@ -830,8 +839,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         // -> Kommentare stehen nun in comments
                         res.render('homework/assignment', Object.assign({}, assignment, {
                             title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                            breadcrumb: [
-                                {
+                            breadcrumb: [{
                                     title: breadcrumbTitle + " Aufgaben",
                                     url: breadcrumbUrl
                                 },
@@ -839,21 +847,22 @@ router.get('/:assignmentId', function (req, res, next) {
                             ],
                             comments,
                             students,
-                            path: submissionUploadPath
+                            path: submissionUploadPath,
+                            courseGroups
                         }));
                     });
                 } else {
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                        breadcrumb: [
-                            {
+                        breadcrumb: [{
                                 title: breadcrumbTitle + " Aufgaben",
                                 url: breadcrumbUrl
                             },
                             {}
                         ],
                         students,
-                        path: submissionUploadPath
+                        path: submissionUploadPath,
+                        courseGroups
                     }));
                 }
             }
