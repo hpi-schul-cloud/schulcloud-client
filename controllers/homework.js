@@ -503,7 +503,7 @@ const overview = (title = "") => {
                     let pagination = {
                         currentPage,
                         numPages: Math.ceil(homeworks.length / itemsPerPage),
-                        baseUrl: req.baseUrl + req._parsedUrl.pathname + '/?'
+                        baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
                         + ((req.query.sort) ? ('sort=' + req.query.sort + '&') : '')
                         + ((homeworkDesc) ? ('desc=' + req.query.desc + '&') : '') + 'p={{page}}'
                     };
@@ -722,20 +722,22 @@ router.get('/:assignmentId', function (req, res, next) {
         }
         Promise.all(promises).then((values) => {
             //[submissions, course]
-            let submissions = values[0];
+            let submissions = (values[0]||{});
             assignment.submission = submissions.data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
                 return submission;
             }).filter(submission => {
-                return (submission.studentId._id == res.locals.currentUser._id)
+                return ((submission.studentId||{})._id == res.locals.currentUser._id)
                      ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
-            const students = ((values[1]||{}).userIds || []).sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
+            const students = ((values[1]||{}).userIds || []).filter(user => {return (user.firstName && user.lastName)})
+                                                            .sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
                                                             .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
-                assignment.submissions = submissions.data.sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
+                assignment.submissions = submissions.data.filter(submission => {return submission.studentId;})
+                                                         .sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
                                                          .sort((a,b)=>{return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase())?-1:1;})
                                                          .map(sub => {
                                                              sub.teamMembers.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
@@ -758,7 +760,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submissions.forEach(e => {
                     if(e.teamMembers){
                         e.teamMembers.forEach( c => {
-                            studentsWithSubmission.push(c._id.toString())
+                            studentsWithSubmission.push(c._id.toString());
                         });
                     }else{
                         studentsWithSubmission.push(e.studentId.toString());
@@ -769,7 +771,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     if(!studentsWithSubmission.includes(e.toString())){
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
-                                return (s.student._id.toString() == e.toString())
+                                return (s.student._id.toString() == e.toString());
                             }).map(s => {
                                 return s.student;
                             })[0]

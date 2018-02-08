@@ -42,22 +42,28 @@
         {{/userIsAllowedToViewContent}}
 
         <span>via {{{ providerName }}}</span>
-        {{#userHasPermission "COURSE_EDIT"}}
-            <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">
+        {{#if @root.isCourseGroupTopic}}
+            <a class="add-to-lesson pull-right" href="{{{ _id }}}">
                 <i class="fa fa-plus-square"></i>
             </a>
         {{else}}
-            {{#userHasPermission  "LESSONS_VIEW"}}
-                {{#userHasPermission "TOOL_NEW_VIEW"}}
-                    <i class="fa fa-plus-square pull-right tooltip-demo"
-                       data-toggle="tooltip"
-                       data-placement="bottom"
-                       data-html="true"
-                       data-animation="true"
-                       title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
+            {{#userHasPermission "COURSE_EDIT"}}
+                <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">
+                    <i class="fa fa-plus-square"></i>
+                </a>
+            {{else}}
+                {{#userHasPermission  "LESSONS_VIEW"}}
+                    {{#userHasPermission "TOOL_NEW_VIEW"}}
+                        <i class="fa fa-plus-square pull-right tooltip-demo"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        data-html="true"
+                        data-animation="true"
+                        title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
+                    {{/userHasPermission}}
                 {{/userHasPermission}}
             {{/userHasPermission}}
-        {{/userHasPermission}}
+        {{/if}}
     </div>
 
 </div>
