@@ -67,6 +67,10 @@ const getSortmethods = () => {
     ];
 };
 
+const handleTeamSubmissionsBody = (body, currentUser) => {
+    body.teamSubmissionOptions === 'courseGroup' ? body.teamMembers = [currentUser._id] : body.courseGroupId = null;
+};
+
 const getCreateHandler = (service) => {
     return function(req, res, next) {
         if (service == "homework") {
@@ -107,6 +111,9 @@ const getCreateHandler = (service) => {
                 return;
             }
         }
+
+        handleTeamSubmissionsBody(req.body, res.locals.currentUser);
+        
         if (req.body.teamMembers && typeof req.body.teamMembers == "string") {
             req.body.teamMembers = [req.body.teamMembers];
         }
@@ -280,6 +287,7 @@ const getUpdateHandler = (service) => {
                 if (req.body.grade) {
                     req.body.grade = parseInt(req.body.grade);
                 }
+                handleTeamSubmissionsBody(req.body, res.locals.currentUser);
             }
         }
         return patchFunction(service, req, res, next);
@@ -731,7 +739,6 @@ router.get('/:assignmentId', function(req, res, next) {
         }
 
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
-            courseGroups = ((courseGroups || {}).data || []);
             assignment.submission = (submissions || {}).data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
                 return submission;
@@ -739,6 +746,10 @@ router.get('/:assignmentId', function(req, res, next) {
                 return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
                     (submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
+
+            courseGroups = ((courseGroups || {}).data || []);
+            const courseGroupSelected = (assignment.submission || {}).courseGroupId;
+
             const students = ((course || {}).userIds || []).filter(user => { return (user.firstName && user.lastName); })
                 .sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
                 .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
@@ -824,6 +835,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         studentsWithoutSubmission,
                         path: submissionUploadPath,
                         courseGroups,
+                        courseGroupSelected,
                         comments
                     }));
                 });
@@ -848,7 +860,8 @@ router.get('/:assignmentId', function(req, res, next) {
                             comments,
                             students,
                             path: submissionUploadPath,
-                            courseGroups
+                            courseGroups,
+                            courseGroupSelected
                         }));
                     });
                 } else {
@@ -862,7 +875,8 @@ router.get('/:assignmentId', function(req, res, next) {
                         ],
                         students,
                         path: submissionUploadPath,
-                        courseGroups
+                        courseGroups,
+                        courseGroupSelected
                     }));
                 }
             }
