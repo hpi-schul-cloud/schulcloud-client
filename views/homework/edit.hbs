@@ -50,6 +50,7 @@
                     }).done(function( r ) {
                         let lessonPicker = $('#lessonPicker').empty();
                         if(r.lessons.data.length > 0){
+                            (r.lessons.data||[]).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
                             lessonPicker.append('<option value="">Keine Zuordnung</option>');
                             for (var i = 0; i < r.lessons.data.length; i++){
                                 $('#lessonPicker').append('<option value="'+r.lessons.data[i]._id+'">'+r.lessons.data[i].name+'</option>');
@@ -78,7 +79,7 @@
 {{#extend "homework/homework"}}
     {{#content "page"}}
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
                 <form class="modal-form" id="homework-form" method="post" action="{{action}}">
                     {{#if method}}
                         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
@@ -186,7 +187,7 @@
 
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close" onclick="window.history.back();">
+                        <button class="btn btn-add btn-secondary btn-cancel">
                             {{closeLabel}}
                         </button>
 
@@ -195,6 +196,11 @@
                         </button>
                     </div>
                 </form>
+
+                {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+
+                {{/embed}}
+
             </div>
         </div>
     {{/content}}

@@ -56,6 +56,12 @@
                     {{/content}}
                 {{/embed}}
 
+                {{#embed "lib/components/modal-form" method="patch" class="pw-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-account-password"}}
+                    {{/content}}
+                {{/embed}}
+
             </section>
         </div>
     {{/content}}

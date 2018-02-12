@@ -1,18 +1,25 @@
-const gulp = require('gulp');
-const sass = require('gulp-sass');
-const rimraf = require('gulp-rimraf');
-const uglify = require('gulp-uglify');
-const cleanCSS = require('clean-css');
-const map = require('vinyl-map');
-const imagemin = require('gulp-imagemin');
-const babel = require('gulp-babel');
-const filelog = require('gulp-filelog');
-const plumber = require('gulp-plumber');
-const watch = require('gulp-watch');
-const optimizejs = require('gulp-optimize-js');
-const concat = require('gulp-concat');
-const count = require('gulp-count');
-const autoprefixer = require('gulp-autoprefixer');
+const gulp = require('gulp')
+const sass = require('gulp-sass')
+const rimraf = require('gulp-rimraf')
+const uglify = require('gulp-uglify')
+const cleancss = require('clean-css')
+const map = require('vinyl-map')
+const imagemin = require('gulp-imagemin')
+const babel = require('gulp-babel')
+const filelog = require('gulp-filelog')
+const plumber = require('gulp-plumber')
+const optimizejs = require('gulp-optimize-js')
+const concat = require('gulp-concat')
+const count = require('gulp-count')
+const changed = require('gulp-changed-smart')
+const autoprefixer = require('gulp-autoprefixer')
+const header = require('gulp-header');
+const cCSS = new cleancss()
+const fs = require('fs')
+const gulpif = require('gulp-if');
+//wrapped in a function so it works with gulp.watch (+consistency)
+const minify = () => map((buff, filename) =>
+    cCSS.minify(buff.toString()).styles)
 
 const baseScripts = [
     './static/scripts/jquery/jquery.min.js',
@@ -24,121 +31,66 @@ const baseScripts = [
     './static/scripts/toggle/bootstrap-toggle.min.js',
     './static/scripts/mailchimp/mailchimp.js',
     './static/scripts/qrcode/kjua-0.1.1.min.js'
-];
+]
 
-/**
- * Initialize a new gulp task for a given src and optionally watch it
- * @param {string|Array} src - Path to the directory.
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns gulp instance
- */
-const getGulpTask = (src, isWatch = false) => {
-    let task = gulp.src(src);
-    if(isWatch) {
-        task = task.pipe(watch(src));
+const nonBaseScripts = ['./static/scripts/**/*.js']
+    .concat(baseScripts.map(script => '!' + script))
+
+//used by all gulp tasks instead of gulp.src(...)
+//plumber prevents pipes from stopping when errors occur
+//changed only passes on files that were modified since last time
+//filelog logs and counts all processed files
+
+function withTheme(src){
+    if(typeof src == "string"){
+        return [src, `./theme/${themeName()}/${src.slice(2)}`];
+    }else{
+        return src.concat(src.map(e => {
+            return `./theme/${themeName()}/${e.slice(2)}`;
+        }));
     }
-    return task
-        .pipe(filelog())
-        .pipe(plumber());
-};
+}
 
-/**
- * Minify images
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildImages = (isWatch) => {
-    return getGulpTask('./static/images/**/*.*', isWatch)
+const beginPipe = src =>
+    gulp.src(withTheme(src))
+        .pipe(plumber())
+        .pipe(changed(gulp))
+        .pipe(filelog())
+
+const beginPipeAll = src =>
+    gulp.src(withTheme(src))
+        .pipe(plumber())
+        .pipe(filelog())
+
+//minify images
+gulp.task('images', () => {
+    beginPipe('./static/images/**/*.*')
         .pipe(imagemin())
         .pipe(gulp.dest('./build/images'))
-};
+})
 
-/**
- * Compile SASS/SCSS to CSS and minify it
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildStyles = (isWatch) => {
-    const minify = map(function (buff, filename) {
-        return new cleanCSS().minify(buff.toString()).styles;
-    });
-
-    return getGulpTask('./static/styles/**/*.{css,sass,scss}', isWatch)
-        .pipe(sass())
-        .pipe(minify)
-        .pipe(autoprefixer({
-            browsers: ['last 3 major versions']
-        }))
+function themeName(){
+    return process.env.SC_THEME || 'default';
+}
+gulp.task('styles', () => {
+    var themeFile = `./theme/${themeName()}/style.scss`;
+    beginPipe('./static/styles/**/*.{css,sass,scss}')
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
+        .pipe(sass({sourceMap: false}))
+        .pipe(minify())
+        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest('./build/styles'))
-};
+})
 
-
-/**
- * Copy fonts to build folder
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildFonts = (isWatch) => {
-    return getGulpTask('./static/fonts/**/*.*', isWatch)
+//copy fonts
+gulp.task('fonts', () => {
+    beginPipe('./static/fonts/**/*.*')
         .pipe(gulp.dest('./build/fonts'))
-};
+})
 
-/**
- * Copy vendor files to output folder
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildVendorImages = (isWatch) => {
-    const minify = map(function (buff, filename) {
-        return new cleanCSS().minify(buff.toString()).styles;
-    });
-
-    return getGulpTask('./static/vendor/**/*.{css,sass,scss}', isWatch)
-        .pipe(sass())
-        .pipe(minify)
-        .pipe(autoprefixer({
-            browsers: ['last 3 major versions']
-        }))
-        .pipe(gulp.dest('./build/vendor'))
-};
-
-/**
- * Copy vendor files to output folder
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildVendorScripts = (isWatch) => {
-    return getGulpTask('./static/vendor/**/*.js', isWatch)
-        .pipe(babel({
-            compact: false,
-            presets: [["es2015", { modules: false }]],
-            plugins: ["transform-react-jsx"]
-        }))
-        .pipe(optimizejs())
-        .pipe(uglify())
-        .pipe(gulp.dest('./build/vendor'))
-        .on('error', catchError)
-};
-
-/**
- * Copy vendor files to output folder
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildVendorAssets = (isWatch) => {
-    return getGulpTask(['./static/vendor/**/*.*', '!./static/vendor/**/*.js', '!./static/vendor/**/*.{css,sass,scss}'], isWatch)
-        .pipe(gulp.dest('./build/vendor'))
-        .on('error', catchError)
-};
-
-
-/**
- * Compile/Transpile JSX and ES6 to ES5 and minify scripts.
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildScripts = (isWatch) => {
-    return getGulpTask(['./static/scripts/**/*.js'].concat(baseScripts.map(script => '!' + script)), isWatch)
+//compile/transpile JSX and ES6 to ES5 and minify scripts
+gulp.task('scripts', () => {
+    beginPipe(nonBaseScripts)
         .pipe(babel({
             presets: [["es2015", { modules: false }]],
             plugins: ["transform-react-jsx"]
@@ -146,17 +98,12 @@ const buildScripts = (isWatch) => {
         .pipe(optimizejs())
         .pipe(uglify())
         .pipe(gulp.dest('./build/scripts'))
-        .on('error', catchError)
-};
+})
 
 
-/**
- * For "base scripts": Compile/Transpile JSX and ES6 to ES5 and minify scripts.
- * @param {boolean} isWatch - To watch or not to watch.
- * @returns populated gulp instance
- */
-const buildBaseScripts = (isWatch) => {
-    return getGulpTask(baseScripts, false)
+//compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
+gulp.task('base-scripts', () => {
+    beginPipeAll(baseScripts)
         .pipe(count('## js-files selected'))
         .pipe(babel({
             presets: [["es2015", { modules: false }]],
@@ -166,39 +113,59 @@ const buildBaseScripts = (isWatch) => {
         .pipe(uglify())
         .pipe(concat('all.js'))
         .pipe(gulp.dest('./build/scripts'))
-        .on('error', catchError)
-};
+})
 
-/**
- * Prevent gulp from crashing when there are errors while bundling (e.g. in js-files)
- * @param error {Error} - the error which is thrown and has to be handled
- */
-const catchError = (error) => {
-    console.log(error.toString());
-};
+//compile vendor SASS/SCSS to CSS and minify it
+gulp.task('vendor-styles', () => {
+    beginPipe('./static/vendor/**/*.{css,sass,scss}')
+        .pipe(sass())
+        .pipe(minify())
+        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
+        .pipe(gulp.dest('./build/vendor'))
+})
 
-/**
- * Clear build folder
- * @returns populated gulp instance
- */
-gulp.task('clean', function() {
-    return gulp.src('./build/*', { read: false }).pipe(rimraf());
-});
+//compile/transpile vendor JSX and ES6 to ES5 and minify scripts
+gulp.task('vendor-scripts', () => {
+    beginPipe('./static/vendor/**/*.js')
+        .pipe(babel({
+            compact: false,
+            presets: [["es2015", { modules: false }]],
+            plugins: ["transform-react-jsx"]
+        }))
+        .pipe(optimizejs())
+        .pipe(uglify())
+        .pipe(gulp.dest('./build/vendor'))
+})
 
-/**
- * Run all the tasks and pass isWatch to them
- * @param {boolean} isWatch - To watch or not to watch.
- */
-const getGulpTasks = (isWatch = false) => {
-    buildImages(isWatch);
-    buildStyles(isWatch);
-    buildFonts(isWatch);
-    buildScripts(isWatch);
-    buildBaseScripts(isWatch);
-    buildVendorImages(isWatch);
-    buildVendorScripts(isWatch);
-    buildVendorAssets(isWatch);
-};
+//copy other vendor files
+gulp.task('vendor-assets', () => {
+    beginPipe(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
+        '!./static/vendor/**/*.{css,sass,scss}'])
+        .pipe(gulp.dest('./build/vendor'))
+})
 
-gulp.task('watch', ['clean'], getGulpTasks.bind(this, true));
-gulp.task('default', ['clean'], getGulpTasks.bind(this, false));
+//clear build folder + smart cache
+gulp.task('clear', () => {
+    gulp.src(['./build/*', './.gulp-changed-smart.json'], { read: false })
+        .pipe(rimraf())
+})
+
+//run all tasks, processing changed files
+gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
+                        'vendor-styles', 'vendor-scripts', 'vendor-assets'])
+
+//watch and run corresponding task on change, process changed files only
+gulp.task('watch', ['build-all'], () => {
+    gulp.watch(withTheme('./static/images/**/*.*'), ['images'])
+    gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles'])
+    gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts'])
+    gulp.watch(withTheme(nonBaseScripts), ['scripts'])
+    gulp.watch(withTheme(baseScripts), ['base-scripts'])
+    gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles'])
+    gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts'])
+    gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
+                '!./static/vendor/**/*.{css,sass,scss}'], ['vendor-assets'])
+})
+
+//run this if only "gulp" is run on the commandline with no task specified
+gulp.task('default', ['build-all'])
