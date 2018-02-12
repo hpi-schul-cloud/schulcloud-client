@@ -7,6 +7,7 @@ const router = express.Router();
 const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const permissionHelper = require('../helpers/permissions');
 const handlebars = require("handlebars");
 const moment = require("moment");
 const _ = require("lodash");
@@ -113,7 +114,7 @@ const getCreateHandler = (service) => {
         }
 
         handleTeamSubmissionsBody(req.body, res.locals.currentUser);
-        
+
         if (req.body.teamMembers && typeof req.body.teamMembers == "string") {
             req.body.teamMembers = [req.body.teamMembers];
         }
@@ -712,7 +713,7 @@ router.get('/:assignmentId', function(req, res, next) {
             api(req).get('/submissions/', {
                 qs: {
                     homeworkId: assignment._id,
-                    $populate: ['homeworkId', 'fileIds', 'teamMembers', 'studentId']
+                    $populate: ['homeworkId', 'fileIds', 'teamMembers', 'studentId', 'courseGroupId']
                 }
             })
         ];
@@ -741,14 +742,18 @@ router.get('/:assignmentId', function(req, res, next) {
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
             assignment.submission = (submissions || {}).data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
+                submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
                 return submission;
             }).filter(submission => {
                 return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
-                    (submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
+                    (submission.teamMemberIds.includes(res.locals.currentUser._id.toString())) ||
+                    (submission.courseGroupMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
 
-            courseGroups = ((courseGroups || {}).data || []);
-            const courseGroupSelected = (assignment.submission || {}).courseGroupId;
+            courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
+                (courseGroups.data || {}) || [] :
+                ((courseGroups.data || {}) || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+            const courseGroupSelected = ((assignment.submission || {}).courseGroupId || {})._id;
 
             const students = ((course || {}).userIds || []).filter(user => { return (user.firstName && user.lastName); })
                 .sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })

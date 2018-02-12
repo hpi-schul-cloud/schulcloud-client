@@ -53,7 +53,7 @@
             <label for="courseGroup1">Schülergruppe auswählen</label>
             <select name="courseGroupId" id="courseGroupId" data-placeholder="Schülergruppe auswählen">
                 {{#each courseGroups}}
-                    <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId}}selected{{/ifeq}}>{{this.name}}</option>
+                    <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId._id}}selected{{/ifeq}}>{{this.name}}</option>
                 {{else}}
                     <option value="" disabled>keine Schülergruppen in diesem Kurs</option>
                 {{/each}}
