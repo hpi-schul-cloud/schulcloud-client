@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
+const moment = require('moment');
 const router = express.Router({ mergeParams: true });
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -114,20 +115,42 @@ router.get('/:courseGroupId/', function(req, res, next) {
                 courseGroupId: req.params.courseGroupId,
                 $populate: ['homeworkId']
             }
+        }),
+        api(req).get('/homework/', {
+            qs: {
+                courseId: req.params.courseId
+            }
         })
-    ]).then(([courseGroup, lessons, course, submissions]) => {
-        submissions = (submissions.data || []).map(s => {
-            s.title = s.homeworkId.name;
+    ]).then(([courseGroup, lessons, course, doneSubmissions, openSubmissions]) => {
+
+        // set params for sc-cards
+        doneSubmissions = (doneSubmissions.data || []).map(s => {
+            s.title = 'Hausaufgabe: ' + s.homeworkId.name;
             s.content = s.homeworkId.description.substr(0, 140);
-            s.secondaryTitle = '';
+            s.secondaryTitle = 'Abgabe: ' + moment(s.updatedAt).format('DD.MM.YY HH:mm');
             s.background = course.color;
+            s.url = '/homework/' +  s.homeworkId._id + '/#activetabid=submission';
             return s;
         });
+        
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
                 url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '?courseGroup=' + req.params.courseGroupId
             });
         });
+
+        // get team-homework which does not have an group-submission from this group
+        openSubmissions = (openSubmissions.data || [])
+            .filter(os => os.teamSubmissions)
+            .filter(os => _.every(doneSubmissions, s => JSON.stringify(s.homeworkId._id) !== JSON.stringify(os._id)))
+            .map(os => {
+                os.title = 'Hausaufgabe: ' + os.name;
+                os.content = os.description.substr(0, 140);
+                os.secondaryTitle = 'bis zum: ' + moment(os.dueDate).format('DD.MM.YY HH:mm');
+                os.background = course.color;
+                os.url = '/homework/' +  os._id;
+                return os;
+            });
 
         // get display names for teachers and students
         _.each(courseGroup.userIds, u => u.displayName = `${u.firstName} ${u.lastName}`);
@@ -137,7 +160,8 @@ router.get('/:courseGroupId/', function(req, res, next) {
             course,
             title: courseGroup.name,
             lessons,
-            submissions,
+            doneSubmissions,
+            openSubmissions,
             breadcrumb: [{
                     title: 'Meine Kurse',
                     url: '/courses'

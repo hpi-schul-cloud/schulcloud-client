@@ -30,7 +30,7 @@
         </div>
 
         <!-- Themen -->
-        <div class="row">
+        <div class="row section-course-group">
             <div class="col-sm-12 col-md-12">
                 <a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
                     title="Thema hinzufügen">
@@ -68,21 +68,42 @@
             </div>
         </div>
 
-        <!-- Submissions -->
-        <div class="row">
+        <!-- Done Submissions -->
+        <div class="row section-course-group">
             <div class="col-sm-12 col-md-12">
-                <h4>Gruppenabgaben im Aufgabenbereich</h4>
+                <h4>getätigte Gruppenabgaben</h4>
 
                 <div class="list-group">
-                    {{#if submissions}}
-                        {{#each submissions}}
-                            <div class="sc-card-wrapper col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    {{#if doneSubmissions}}
+                        {{#each doneSubmissions}}
+                            <div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
                                 {{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
                             </div>
                         {{/each}}
                     {{else}}
                     <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
                         <span>Keine Abgaben bisher durch diese Gruppe.</span>
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+
+        <!-- Open Submissions -->
+        <div class="row section-course-group">
+            <div class="col-sm-12 col-md-12">
+                <h4>offene (mögliche) Gruppenabgaben</h4>
+
+                <div class="list-group">
+                    {{#if openSubmissions}}
+                        {{#each openSubmissions}}
+                            <div class="sc-card-wrapper col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                                {{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
+                            </div>
+                        {{/each}}
+                    {{else}}
+                    <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+                        <span>Keine weiteren Gruppenabgaben möglich.</span>
                     </p>
                     {{/if}}
                 </div>
