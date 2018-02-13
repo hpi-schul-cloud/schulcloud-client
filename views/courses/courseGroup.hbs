@@ -58,6 +58,7 @@
                                 </div>
                             </div>
                         {{/each}}
+                    </div>
                     {{else}}
                     <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
                         <span>Keine Themen.</span>
@@ -67,6 +68,26 @@
             </div>
         </div>
 
+        <!-- Submissions -->
+        <div class="row">
+            <div class="col-sm-12 col-md-12">
+                <h4>Gruppenabgaben im Aufgabenbereich</h4>
+
+                <div class="list-group">
+                    {{#if submissions}}
+                        {{#each submissions}}
+                            <div class="sc-card-wrapper col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                {{> 'lib/components/sc-card' link-text="Zur Aufgabe"}}
+                            </div>
+                        {{/each}}
+                    {{else}}
+                    <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
+                        <span>Keine Abgaben bisher durch diese Gruppe.</span>
+                    </p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
 
         <!-- Actions -->
         <div class="row padding-top">

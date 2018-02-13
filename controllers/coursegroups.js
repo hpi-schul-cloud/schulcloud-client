@@ -108,8 +108,21 @@ router.get('/:courseGroupId/', function(req, res, next) {
             qs: {
                 $populate: ['teacherIds']
             }
+        }),
+        api(req).get('/submissions/', {
+            qs: {
+                courseGroupId: req.params.courseGroupId,
+                $populate: ['homeworkId']
+            }
         })
-    ]).then(([courseGroup, lessons, course]) => {
+    ]).then(([courseGroup, lessons, course, submissions]) => {
+        submissions = (submissions.data || []).map(s => {
+            s.title = s.homeworkId.name;
+            s.content = s.homeworkId.description.substr(0, 140);
+            s.secondaryTitle = '';
+            s.background = course.color;
+            return s;
+        });
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
                 url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '?courseGroup=' + req.params.courseGroupId
@@ -124,6 +137,7 @@ router.get('/:courseGroupId/', function(req, res, next) {
             course,
             title: courseGroup.name,
             lessons,
+            submissions,
             breadcrumb: [{
                     title: 'Meine Kurse',
                     url: '/courses'
