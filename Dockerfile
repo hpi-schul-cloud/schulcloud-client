@@ -15,4 +15,4 @@ USER node
 WORKDIR /home/node/app
 
 EXPOSE 3100
-CMD ["node", "bin/www"]
+CMD ["sh", "-c", "gulp && node bin/www"]
