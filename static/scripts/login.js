@@ -77,3 +77,11 @@ $(document).ready(function() {
     }
 
 });
+
+var startIntro = function() {
+    introJs().setOptions({
+        nextLabel: "Weiter",
+        prevLabel: "Zurück",
+        doneLabel: "Fertig"
+    }).start();
+}
