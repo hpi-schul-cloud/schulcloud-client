@@ -492,7 +492,6 @@ const overview = (title = "") => {
                     if (!assignment.isTeacher) {
                         assignment.stats = undefined;
                     }
-                    console.log(assignment.isTeacher);
                     return assignment;
                 });
 
@@ -604,7 +603,9 @@ router.get('/:assignmentId/edit', function (req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
-        if(assignment.teacherId != res.locals.currentUser._id){
+        const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || assignment.courseId.teacherIds.includes(res.locals.currentUser._id);
+        const isSubstitution = assignment.courseId.substitutionIds.includes(res.locals.currentUser._id);
+        if(!isTeacher && !isSubstitution){
             let error = new Error("You don't have permissions!");
             error.status = 403;
             return next(error);
@@ -640,7 +641,6 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                     });
                     Promise.resolve(lessonsPromise).then(lessons => {
                         (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
-                        //Render overview
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
@@ -651,11 +651,11 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             assignment,
                             courses,
                             lessons,
-                            isStudent
+                            isStudent,
+                            isSubstitution
                         });
                     });
                 } else {
-                    //Render overview
                     res.render('homework/edit', {
                         title: 'Aufgabe hinzufügen',
                         submitLabel: 'Speichern',
@@ -666,7 +666,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         assignment,
                         courses,
                         lessons: false,
-                        isStudent
+                        isStudent,
+                        isSubstitution
                     });
                 }
             });

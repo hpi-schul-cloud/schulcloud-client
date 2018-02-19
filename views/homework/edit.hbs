@@ -99,8 +99,8 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Kurs</label>
-                                <select name="courseId" id="coursePicker" data-placeholder="Kurs auswählen" >
+                                <label>Kurs {{#if isSubstitution}}<small class="text-secondary">(Vertretungslehrer dürfen den Kurs nicht ändern)</small>{{/if}}</label>
+                                <select name="courseId" id="coursePicker" data-placeholder="Kurs auswählen" {{#if isSubstitution}}disabled="true"{{/if}}>
                                     <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
                                     {{#each courses}}
                                         <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
