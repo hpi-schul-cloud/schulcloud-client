@@ -1,16 +1,16 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
-		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
-		{{#if @root.isTeacher}}
-			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
-		{{/if}}
+        <a id="submission-tab-link" class="tab-link active">Abgabe</a>
+        {{#if @root.isTeacher}}
+            <a id="comment-tab-link" 	class="tab-link">Bewertung</a>
+        {{/if}}
         {{#if this.submission}}
             <a id="discussion-tab-link" class="tab-link">Diskussion</a>
         {{/if}}
-	</nav>
-	<div class="tabs">
-		<div id="submission" class="tab-content active">
-			<div class="comment">
+    </nav>
+    <div class="tabs">
+        <div id="submission" class="tab-content active">
+            <div class="comment">
                 {{#if this.submission}}
                     {{#ifneq 0 (arrayLength this.submission.fileIds)}}
                         {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
@@ -66,7 +66,7 @@
                     {{/if}}
                 </div>
             {{/if}}
-		</div>
+        </div>
         {{#if this.submission}}
             {{> 'homework/discussion'}}
         {{/if}}

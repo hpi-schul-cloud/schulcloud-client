@@ -859,7 +859,6 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                 } else {
                 */
-                    console.log(assignment,"~~~~~~~~~~~");
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [
