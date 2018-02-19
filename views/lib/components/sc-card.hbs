@@ -10,18 +10,20 @@
         <div class="sc-card-menu">
             {{#each this.actions}}
                 {{#if this.method}}
-                        <a class="sc-card-menu-action {{this.class}}"
-                           href="{{this.link}}"
+                        <button class="sc-card-menu-action {{this.class}}"
+                           
                            target="_blank"
                            data-method="delete-material"
                            data-name="{{../title}}"
                            alt="'{{../title}}' löschen">
                             <i class="fa fa-{{this.icon}}"></i>
-                        </a>
+                        </button>
                 {{else}}
-                    <a class="sc-card-menu-action {{this.class}}" href="{{this.link}}" alt="'{{../../title}}' {{this.alt}}.">
+                    <button class="sc-card-menu-action {{this.class}}" 
+                      onClick="window.open({{this.link}})"
+                      alt="'{{../../title}}' {{this.alt}}.">
                         <i class="fa fa-{{this.icon}}"></i>
-                    </a>
+                    </button>
                 {{/if}}
             {{else}}
                 {{#if this.menuInfo}}
