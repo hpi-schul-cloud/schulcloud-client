@@ -1,11 +1,21 @@
 {{#extend "lib/loggedin"}}
     {{#content "page"}}
         <section class="section-courses">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="row results card-deck-row">
-                        {{#if courses}}
-                            {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen"}}
+                {{#if courses}}
+                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen"}}
+                {{else}}
+                    <div class="col-xs-12">
+                        <p class="text-muted text-center">
+                            <span>Keine Kurse.</span>
+                        </p>
+                    </div>
+                {{/if}}
+
+                {{#userHasPermission "COURSE_EDIT"}}
+                    <section>
+                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
+                        {{#if ../substitutionCourses}}
+                            {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
                         {{else}}
                             <div class="col-xs-12">
                                 <p class="text-muted text-center">
@@ -13,38 +23,15 @@
                                 </p>
                             </div>
                         {{/if}}
-                    </div>
-                </div>
-
-                {{#userHasPermission "COURSE_EDIT"}}
-                    <div class="row">
-                        <section class="section-title">
-                            <h4>Meine Vertretungen</h4>
-                        </section>
-                    </div>
-                    <div class="row">
-                        <div class="row results card-deck-row ">
-                            {{#if ../substitutionCourses}}
-                                {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
-                            {{else}}
-                                <div class="col-xs-12">
-                                    <p class="text-muted text-center">
-                                        <span>Keine Kurse.</span>
-                                    </p>
-                                </div>
-                            {{/if}}
                         </div>
-                    </div>
-
+                    </section>
                 {{/userHasPermission}}
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
                         <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                     </div>
-                {{/userHasPermission}}
-            </div>
-
+            {{/userHasPermission}}
         </section>
     {{/content}}
 {{/extend}}

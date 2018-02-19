@@ -169,7 +169,7 @@ router.get('/', function(req, res, next) {
         substitutionCourses = substitutionCourses.data.map(course => {
             course.url = '/courses/' + course._id;
             course.title = course.name;
-            course.content = course.description.substr(0, 140);
+            course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
             (course.times || []).forEach(time => {
@@ -183,7 +183,7 @@ router.get('/', function(req, res, next) {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             course.title = course.name;
-            course.content = course.description.substr(0, 140);
+            course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
             (course.times || []).forEach(time => {
