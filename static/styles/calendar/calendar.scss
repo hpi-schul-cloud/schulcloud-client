@@ -34,15 +34,15 @@
             }
 
             &.fc-time-grid-event {
-                border-top: 6px solid $colorHPIYellow;
+                border-top: 6px solid $accentColor;
                 border-bottom: 6px solid transparent;
 
                 &.fc-event-cancelled {
                     border-top: 6px solid transparent;
-                    border-bottom: 6px solid $colorHPIRed;
+                    border-bottom: 6px solid $primaryColor;
 
                     &:after {
-                        color: $colorHPIRed;
+                        color: $primaryColor;
                         content: attr(data-status);
                         bottom: 5px;
                         right: 10px;
