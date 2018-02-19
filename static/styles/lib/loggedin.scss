@@ -219,7 +219,10 @@ header {
 
 .content-wrapper {
     width: 100%;
-    min-height:calc(100vh - 104px);
+    min-height:calc(100vh - 112px);
+    @include media-breakpoint-down(xs) {
+        min-height:calc(100vh - 143px);
+    }
     height:auto;
     float: left;
     padding-left: 260px;
