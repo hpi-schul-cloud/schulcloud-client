@@ -89,7 +89,9 @@
                     
                     ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
-                    <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
+                    {{#unless isSubstitution}}
+                        <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
+                    {{/unless}}
 
                     <div class="form-group">
                         <label>Titel</label>
@@ -99,13 +101,18 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Kurs {{#if isSubstitution}}<small class="text-secondary">(Vertretungslehrer dürfen den Kurs nicht ändern)</small>{{/if}}</label>
-                                <select name="courseId" id="coursePicker" data-placeholder="Kurs auswählen" {{#if isSubstitution}}disabled="true"{{/if}}>
-                                    <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
-                                    {{#each courses}}
-                                        <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
-                                    {{/each}}
-                                </select>
+                                <label>Kurs</label>
+                                {{#unless isSubstitution}}
+                                    <select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
+                                        <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
+                                        {{#each courses}}
+                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
+                                        {{/each}}
+                                    </select>
+                                {{else}}
+                                    <input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
+                                    <div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">(Vertretungslehrer dürfen den Kurs nicht ändern)</small></div>
+                                {{/unless}}
                             </div>
                         </div>
                         <div class="col-md-6">

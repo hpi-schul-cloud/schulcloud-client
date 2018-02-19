@@ -1,9 +1,9 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
 		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
-		{{#ifvalue @root.teacherId value=@root.currentUser._id}}
+		{{#if @root.isTeacher}}
 			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
-		{{/ifvalue}}
+		{{/if}}
         {{#if this.submission}}
             <a id="discussion-tab-link" class="tab-link">Diskussion</a>
         {{/if}}
@@ -12,8 +12,10 @@
 		<div id="submission" class="tab-content active">
 			<div class="comment">
                 {{#if this.submission}}
-                    {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
-                    <hr>
+                    {{#ifneq 0 (arrayLength this.submission.fileIds)}}
+                        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
+                        <hr>
+                    {{/ifneq}}
                     <div class="ckcontent print">
                         <div class="btn btn-secondary btn-print mb-1"
                             data-toggle="tooltip" title="Abgabe drucken">
@@ -27,7 +29,7 @@
             </div>
         </div>
         <div id="comment" class="tab-content">
-            {{#ifvalue @root.teacherId value=@root.currentUser._id}}
+            {{#if @root.isTeacher}}
                 {{#if this.submission}}
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
@@ -63,7 +65,7 @@
                         <p>Kein Bewertungstext vorhanden.</p>
                     {{/if}}
                 </div>
-            {{/ifvalue}}
+            {{/if}}
 		</div>
         {{#if this.submission}}
             {{> 'homework/discussion'}}
