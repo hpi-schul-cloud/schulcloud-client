@@ -64,7 +64,9 @@ $(document).ready(function () {
         var courseId = $modalForm.find("input[name='courseId']").val();
         // cleaning
         tool.isTemplate = false;
-        tool.courseId = courseId;
+        tool.originTool = tool._id;
+        delete tool.createdAt;
+        delete tool.updatedAt;
         delete tool._id;
 
         $.ajax({
@@ -72,7 +74,7 @@ $(document).ready(function () {
             data: tool,
             method: 'POST',
             success: function(result) {
-                window.location.href = "/courses/" + courseId;
+                window.location.href = "/courses/" + result;
             }
         });
     };

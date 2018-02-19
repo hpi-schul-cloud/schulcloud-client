@@ -13,14 +13,14 @@ const createToolHandler = (req, res, next) => {
         json: req.body
     }).then(tool => {
         if (tool._id) {
-            api(req).patch('/courses/' + req.body.courseId, {
+            api(req).patch('/courses/' + req.params.courseId, {
                 json: {
                     $push: {
                         ltiToolIds: tool._id
                     }
                 }
             }).then(course => {
-               res.redirect('/courses/' + course._id);
+               res.send(course._id);
             });
         }
     });
@@ -29,16 +29,15 @@ const createToolHandler = (req, res, next) => {
 const addToolHandler = (req, res, next) => {
     let action = '/courses/' + req.params.courseId + '/tools/add';
 
-    api(req).get('/ltiTools/')
-    .then(tools => {
-        const ltiTools = tools.data.filter(ltiTool => ltiTool.isTemplate == 'true');
+    api(req).get('/ltiTools', { qs: {isTemplate: true}
+    }).then(tools => {
         api(req).get('/courses/' + req.params.courseId)
             .then(course => {
                 res.render('courses/add-tool', {
                     action,
                     title: 'Tool anlegen für ' + course.name,
                     submitLabel: 'Tool anlegen',
-                    ltiTools,
+                    ltiTools: tools.data,
                     courseId: req.params.courseId
                 });
             });
@@ -49,20 +48,22 @@ const runToolHandler = (req, res, next) => {
     let currentUser = res.locals.currentUser;
     Promise.all([
         api(req).get('/ltiTools/' + req.params.ltiToolId),
-        api(req).get('/roles/' + currentUser.roles[0]._id)
-    ]).then(([tool, role]) => {
+        api(req).get('/roles/' + currentUser.roles[0]._id),
+        api(req).get('/pseudonym?userId=' + currentUser._id + '&toolId=' + req.params.ltiToolId)
+    ]).then(([tool, role, pseudonym]) => {
        let customer = new ltiCustomer.LTICustomer();
        let consumer = customer.createConsumer(tool.key, tool.secret);
+       let user_id = pseudonym.data[0].token; // use provider specific pseudonym instead of user_id
        let payload = {
            lti_version: tool.lti_version,
            lti_message_type: tool.lti_message_type,
-           resource_link_id: req.params.courseId  || tool.resource_link_id,
+           resource_link_id: tool.resource_link_id || req.params.courseId,
            roles: customer.mapSchulcloudRoleToLTIRole(role.name),
            launch_presentation_document_target: 'window',
            launch_presentation_locale: 'en',
-           lis_person_name_full: currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`,
-           lis_person_contact_email_primary: currentUser.username ? `${currentUser.username}@schul-cloud.org` : 'jbaird@uni.ac.uk',
-           user_id: currentUser._id
+           // lis_person_name_full: currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`,
+           // lis_person_contact_email_primary: currentUser.username ? `${currentUser.username}@schul-cloud.org` : 'jbaird@uni.ac.uk',
+           user_id
        };
        tool.customs.forEach((custom) => {
            payload[customer.customFieldToString(custom)] = custom.value;
@@ -103,12 +104,12 @@ const getDetailHandler = (req, res, next) => {
 };
 
 const showToolHandler = (req, res, next) => {
-
     Promise.all([
         api(req).get('/ltiTools/' + req.params.ltiToolId),
         api(req).get('/courses/' + req.params.courseId)
     ])
     .then(([tool, course]) => {
+        tool.url = tool.pseudonymizedUrl || tool.url;
         let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
         res.render(renderPath, {
             course: course,

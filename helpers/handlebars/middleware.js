@@ -32,32 +32,44 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-    res.locals.themeTitle = process.env.SC_TITLE || 'Schul-Cloud';
+    res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
     // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',
         icon: 'th-large',
         link: '/dashboard/',
+        step: "10",
+        intro: "Hiermit gelangen sie stets auf ihr persönliches Dashboard zurück, auf welchem Sie auch direkt nach dem Login landen."
     }, {
         name: 'Neuigkeiten',
         icon: 'newspaper-o',
-        link: '/news/'
+        link: '/news/',
+        step: "11",
+        intro: "Hier können Sie noch einmal auf Ihre Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
     }, {
         name: 'Kurse',
         icon: 'graduation-cap',
-        link: '/courses/'
+        link: '/courses/',
+        step: "12",
+        intro: "Hier gelangen Sie zu ihren Kursen, die sie einsehen, verwalten und neu anlegen können."
     }, {
         name: 'Klassen',
         icon: 'odnoklassniki',
-        link: '/classes/'
+        link: '/classes/',
+        step: "13",
+        intro: "Hier können Sie ihre Klassen einsehen, verwalten oder eine neue Klasse erstellen."
     }, {
         name: 'Termine',
         icon: 'table',
-        link: '/calendar/'
+        link: '/calendar/',
+        step: "14",
+        intro: "Hier haben Sie Einsicht in Ihren persönlichen Kalender. In diesem sind bisher Ihre persönlichen Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
         link: '/homework/',
+        step: "15",
+        intro: "Hier gelangen Sie zur Aufgabenübersicht. Unter diesem Menüpunkt finden Sie die von Ihnen gestellten Aufgaben, ihre persönlichen Aufgaben sowie das Aufgabenarchiv. Sie können außerdem die Status der einzelnen Aufgaben einsehen und ihren Schüler*innen Feedback geben.",
         children: [
             {
                 name: 'Gestellte Aufgaben',
@@ -79,6 +91,8 @@ module.exports = (req, res, next) => {
         name: 'Meine Dateien',
         icon: 'folder-open',
         link: '/files/',
+        step: "16",
+        intro: "Hier gelangen Sie zu ihren Dateien, die Sie in der Schul-Cloud uploaden können. Sie haben an dieser Stelle die Möglichkeit zwischen Ihren persönlichen Dateien, Kursdateien und mit Ihnen geteilten Dateien zu wählen.",
         children: [
             {
                 name: 'persönliche Dateien',
@@ -99,7 +113,9 @@ module.exports = (req, res, next) => {
     }, {
         name: 'Materialien',
         icon: 'search',
-        link: '/content/'
+        link: '/content/',
+        step: "17",
+        intro: "Hier gelangen Sie zur Materialsuche, bei der Sie in der Datenbank der Schul-Cloud nach Materialien für Ihre Unterrichtsstunde suchen können."
     }];
 
     // teacher views
