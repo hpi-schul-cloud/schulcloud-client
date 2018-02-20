@@ -37,7 +37,6 @@ $(document).ready(function () {
                 '#757de8',
                 '#819ca9',
                 '#a98274']
-
         ],
         change: function(color) {
             $(this).val(color.toHexString());
