@@ -278,17 +278,31 @@ header {
     }
 }
 
-main#main-content.fullscreen{
-    position: absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right: 0;
-    z-index: 101;
-    padding: 16px;
-    background: #fff;
-}
+
 body.fullscreen{
+    .btn-fullscreen{
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        z-index: 99999;
+        color: #fff !important;
+        background-color: $secondaryColor !important;
+        opacity: .5;
+        transition: all .3s ease-in-out;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    main#main-content{
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        z-index: 101;
+        padding: 16px;
+        background: #fff;
+    }
     .modal-backdrop{
         display: none
     }
@@ -507,19 +521,6 @@ footer {
     }
 }
 
-.btn-fullscreen.fullscreen{
-    position: fixed;
-    top: 8px;
-    right: 8px;
-    z-index: 99999;
-    color: #fff !important;
-    background-color: $secondaryColor !important;
-    opacity: .5;
-    transition: all .3s ease-in-out;
-    &:hover{
-        opacity: 1;
-    }
-}
 .qr-code-action {
     .qr-show {
         padding: 15px;

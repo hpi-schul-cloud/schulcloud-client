@@ -131,8 +131,6 @@ $(document).ready(function () {
         const contentArea = $('#main-content');
         const toggleButton = $('.btn-fullscreen');
         $('body').toggleClass('fullscreen');
-        contentArea.toggleClass('fullscreen');
-        toggleButton.toggleClass('fullscreen');
         toggleButton.children('i').toggleClass('fa-compress');
         toggleButton.children('i').toggleClass('fa-expand');
     }
