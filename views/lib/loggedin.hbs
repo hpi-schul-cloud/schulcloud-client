@@ -2,6 +2,7 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
+        <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -17,6 +18,7 @@
                 src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"
                 defer></script>
         <script type="text/javascript" src="/scripts/notificationService/index.js" defer></script>
+        <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
         <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
@@ -28,6 +30,16 @@
         window.addEventListener("resize", function () {
             $('.sidebar-list').css({"height": window.innerHeight});
         });
+        function startIntro() {
+            introJs()
+            .setOptions({
+                nextLabel: "Weiter",
+                prevLabel: "Zurück",
+                doneLabel: "Fertig",
+                skipLabel: "Überspringen"
+            })
+            .start();
+        }
         </script>
     {{/content}}
 
@@ -38,8 +50,8 @@
                 <ul class="sidebar-list">
                     <li>
                         <a class="sc-branding" href="/">
-                            <div class="cloud-logo"></div>
-                            <span>{{themeTitle}}</span>
+                            <table><tr><td><div class="cloud-logo"></div>
+                            </td><td><span>{{themeTitle}}</span></td></tr></table>
                         </a>
                     </li>
                     {{#each sidebarItems}}
@@ -97,8 +109,8 @@
                     </ol>
                 {{/if}}
 
-                <ul class="nav navbar-nav float-xs-right dropdowns">
-                    <li class="nav-item qr-code-action">
+                <ul class="nav navbar-nav float-xs-right dropdowns" data-step="1" data-intro="Hier finden Sie übergreifende Informationen">
+                    <li class="nav-item qr-code-action" data-step="2" data-intro="Ganz einfach QR-Codes erstellen!">
                         <div class="dropdown minimal-dropdown">
                             <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" data-toggle="dropdown">
                                 <i class="fa fa-qrcode"></i>
@@ -108,7 +120,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="nav-item notification-dropdown">
+                    <li class="nav-item notification-dropdown" data-step="3" data-intro="Hier erhalten sie Benachrichtigungen">
                         <div class="dropdown minimal-dropdown">
                             <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
                                     recentNotifications}}recent{{/if}}" data-toggle="dropdown">
@@ -138,7 +150,7 @@
                         </div>
                     </li>
 
-                    <li class="nav-item help-drodown">
+                    <li class="nav-item help-drodown" data-step="4" data-intro="Hilfebereich für Ihre Fragen und Probleme">
                         <div class="dropdown minimal-dropdown">
                             <a class="btn btn-secondary btn-thin dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-question"></i>
@@ -153,7 +165,11 @@
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
                                                                                                 aria-hidden="true"></i><a
                                             href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a></span></li>
-                                    <div class="delimiter"></div>
+                                    <li class="list-group-item list-group-item-action intro-trigger" onclick="startIntro()">
+                                        <span><i class="fa fa-play" aria-hidden="true"></i><a
+                                            href="#" class="link">Intro</a></span>
+                                    </li>
+                                            <div class="delimiter"></div>
                                     {{#ifneq this.currentRole "Schüler"}}
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                 aria-hidden="true"></i></i>
@@ -174,7 +190,7 @@
                         {{/if}}
                     {{/if}}
 
-                    <li class="nav-item">
+                    <li class="nav-item" data-step="5" data-intro="Einstellungen und Log-Out">
                         <div class="btn-group">
                             <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
