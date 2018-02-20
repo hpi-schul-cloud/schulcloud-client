@@ -4,7 +4,15 @@ $accentColor: #b10438;
 
 $logoBackground: url("../../images/logo/logo-wt.png") no-repeat center;
 
-aside.nav-sidebar .sc-branding{
-    font-size: 18px;
-    max-width: 240px;
+aside.nav-sidebar{
+    .sc-branding{
+        font-size: 18px;
+        max-width: 240px;
+        .cloud-logo{
+            vertical-align: bottom;
+        }
+        .sc-title {
+            max-width: calc(100% - 54px) !important;
+        }
+    }
 }
