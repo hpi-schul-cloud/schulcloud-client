@@ -79,5 +79,12 @@ $(document).ready(function() {
 });
 
 function startIntro() {
-    introJs().start();
+    introJs()
+    .setOptions({
+        nextLabel: "Weiter",
+        prevLabel: "Zurück",
+        doneLabel: "Fertig",
+        skipLabel: "Überspringen"
+    })
+    .start();
 }

@@ -31,7 +31,14 @@
             $('.sidebar-list').css({"height": window.innerHeight});
         });
         function startIntro() {
-            introJs().start();
+            introJs()
+            .setOptions({
+                nextLabel: "Weiter",
+                prevLabel: "Zurück",
+                doneLabel: "Fertig",
+                skipLabel: "Überspringen"
+            })
+            .start();
         }
         </script>
     {{/content}}
@@ -158,7 +165,11 @@
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
                                                                                                 aria-hidden="true"></i><a
                                             href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a></span></li>
-                                    <div class="delimiter"></div>
+                                    <li class="list-group-item list-group-item-action intro-trigger" onclick="startIntro()">
+                                        <span><i class="fa fa-play" aria-hidden="true"></i><a
+                                            href="#" class="link">Intro</a></span>
+                                    </li>
+                                            <div class="delimiter"></div>
                                     {{#ifneq this.currentRole "Schüler"}}
                                     <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                 aria-hidden="true"></i></i>
@@ -189,12 +200,6 @@
                                 <a class="dropdown-item" href="/account/">Einstellungen</a>
                                 <a class="dropdown-item" href="/logout/">Abmelden</a>
                             </div>
-                        </div>
-                    </li>
-
-                    <li class="nav-item school-data intro-trigger">
-                        <div class="btn-group">
-                            <a href="#" onclick="startIntro()">Intro</span>
                         </div>
                     </li>
                 </ul>
