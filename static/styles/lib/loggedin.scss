@@ -46,8 +46,12 @@ aside.nav-sidebar {
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
+        @include media-breakpoint-down(xs) {
+            max-width: 100% !important;
+        }
         .cloud-logo {
             display: inline-block;
+            vertical-align: top;
             width: 45px;
             height: 30px;
             margin-bottom: -5px;
@@ -63,11 +67,13 @@ aside.nav-sidebar {
                 margin-right: 0;
             }
         }
-        span {
+        .sc-title{
+            display: inline-block;
+            max-width: calc(100% - 4px);
+            word-break: break-word;
             @include media-breakpoint-down(md) {
                 display: none;
             }
-
             @include media-breakpoint-down(xs) {
                 display: inline-block;
             }
