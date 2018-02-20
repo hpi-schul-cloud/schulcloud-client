@@ -126,6 +126,23 @@ $(document).ready(function () {
         $qrbox.append(el);
     });
 
+    var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
+    function togglePresentationMode(){
+        const contentArea = $('#main-content');
+        const toggleButton = $('.btn-fullscreen');
+        $('body').toggleClass('fullscreen');
+        contentArea.toggleClass('fullscreen');
+        toggleButton.toggleClass('fullscreen');
+        toggleButton.children('i').toggleClass('fa-compress');
+        toggleButton.children('i').toggleClass('fa-expand');
+    }
+    if(fullscreen){togglePresentationMode()}
+    $('.btn-fullscreen').on('click', function(){
+        togglePresentationMode();
+        fullscreen = !fullscreen;
+        sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
+    });
+
     $('.btn-cancel').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
