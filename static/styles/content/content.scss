@@ -96,8 +96,19 @@ h1, h3 {
   color: lightgrey;
 }
 
-.star-raiting {
+.rate {
+  cursor:pointer;
 }
-.fa-star-half-o,.fa-star,.fa-star-o {
+.rate-item {
+  color: $colorHPIRed;
+  cursor:pointer;
+}
+.rate-item-active{
+  font-size: x-large;
+}
+.rate-item-active:hover ~ .rate-item-active {
+  color:$colorBeige;
+}
+.content-path{
   color: $colorHPIRed
 }
