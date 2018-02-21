@@ -284,6 +284,36 @@ header {
     }
 }
 
+
+body.fullscreen{
+    .btn-fullscreen{
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        z-index: 99999;
+        color: #fff !important;
+        background-color: $secondaryColor !important;
+        opacity: .5;
+        transition: all .3s ease-in-out;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    main#main-content{
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        z-index: 101;
+        padding: 16px;
+        background: #fff;
+    }
+    .modal-backdrop{
+        display: none
+    }
+}
+
 footer {
     width: 100%;
     position: inherit;
@@ -426,15 +456,16 @@ footer {
     }
 }
 
-.dropdowns {
+.navbar-nav {
     .btn-thin {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
-    .minimal-dropdown{
+    .minimal-button{
         .dropdown-toggle{
             padding: 10px !important;
             border-radius: 50%;
+            border: none;
             margin-left: -.75rem;
             text-align: center;
             background: transparent;
@@ -451,6 +482,7 @@ footer {
                 top: 0;
                 right: 0px;
             }
+
             &:hover{
                 background-color: rgba(0,0,0,0.1);
             }
