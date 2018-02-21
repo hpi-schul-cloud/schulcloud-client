@@ -145,3 +145,15 @@
         } 
     } 
 }
+
+/* IE8-11 specific styles go here */
+@media screen\0 {
+    .sc-card {
+        display: block;
+        .sc-card-footer{
+            a, button {
+                float: none \0;
+            }
+        }
+    }
+}
