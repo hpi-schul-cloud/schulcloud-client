@@ -1,6 +1,6 @@
-var $stars = $('.rating-star .fa');
+var $stars = $('.rate .rate-item');
 
-var initStars = function() {
+function initStars(stars) {
     return $stars.each(function(star) {
         var raitingValue = parseFloat($stars.siblings('input.rating-value[id='+ $stars[star].id +']').val());
         var starValue    = parseInt($(this).data('rating'));
@@ -18,15 +18,43 @@ var initStars = function() {
     });
 };
 
-$stars.on('click', function(star) {
-    if(this.readonly == true){
+function onStarClick() {
+    if( this.getAttribute("readonly") === "false"){
         $stars.siblings('input.rating-value[id='+ this.id +']').val($(this).data('rating'));
         return initStars();
     }
-});
+}
+$stars.on('click', onStarClick);
 
 initStars();
 
+$('.btn-send-rate').on('click', function () {
+
+   var ratings = {data :[]};
+   var inputs = $('.rating-value');
+   inputs.each((item) =>{
+       if(this.id === inputs[item].id){
+           var rate = {};
+           rate.ID = inputs[item].id;
+           rate.value = inputs[item].value;
+           ratings.data.push(rate);
+           $('.content[id='+this.id+']').remove();
+       }
+   });
+   $.ajax({
+        url: '/content/rate',
+        type: 'post',
+        data : ratings,
+        dataType: 'json'
+    });
+});
+
+
 $(document).ready(function() {
+
+    $('#InboxContent').on('show.bs.modal', function (event) { // id of the modal with event
+        $(this).load("/content/rate/rating");
+
+    });
 
 });

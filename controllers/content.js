@@ -39,6 +39,14 @@ router.get('/', function (req, res, next) {
                 json: true
             })
         ]).then(([featured, trending]) => {
+
+            /* Fake dummy data for rating */
+            featured.data.map(function (item) {
+                item.rating = Math.round(Math.random() * 100) % 50 /10;
+            })
+            trending.data.map(function (item) {
+                item.rating = Math.round(Math.random() * 100) % 50 / 10;
+            })
             return res.render('content/store', {
                 title: 'Materialien',
                 featuredContent: featured.data,
@@ -114,6 +122,26 @@ router.get('/redirect/:id', function (req, res, next) {
     });
 });
 
+router.get('/rate/rating',function (req,res,next) {
+    console.log("TEST");
+    api(req)({
+        uri: '/content/resources/',
+        qs: {
+            featuredUntil: {
+                $gte: new Date()
+            }
+        },
+        json: true
+    }).then(ratings => {
+        var ratingContent = [];
+        return res.render('content/rating', {
+            title: 'Bewerte deine Materialien',
+            content : ratings.data
+        });
+    });
+
+});
+
 router.post('/addToLesson', function (req, res, next) {
     api(req).post('/materials/', {
         json: req.body
@@ -128,6 +156,22 @@ router.post('/addToLesson', function (req, res, next) {
             res.redirect('/content/?q=' + req.body.query);
         });
     });
+});
+
+router.post('/rate',function (req,res,next) {
+    var isTeacher = false;
+    res.locals.currentUser.roles.forEach((role,idx) => {
+       isTeacher = isTeacher || role.name === "teacher";
+    });
+    req.body.data = req.body.data.map((item) =>{
+       return {
+           materialId : item.ID,
+           rating : Number(item.value),
+           isTeacher : isTeacher
+       };
+    });
+    console.log(req.body);
+    res.send();
 });
 
 module.exports = router;
