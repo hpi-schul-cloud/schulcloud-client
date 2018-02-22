@@ -1,4 +1,13 @@
 {{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/courses.js" type="text/javascript" defer></script>
+    {{/content}}
+
     {{#content "page"}}
         <section class="section-courses">
             <div class="container-fluid">
@@ -17,6 +26,22 @@
                                             <p class="card-text">{{truncate this.description}}</p>
                                         </div>
                                         <div class="card-footer">
+                                            <a href="" row="{{@../index}}" column="{{@index}}" class="btn-member pull-right tooltip-demo" data-html="true" data-toggle="tooltip" data-placement="right"
+                                               data-title=" {{#each this.students}}
+
+                                                                   {{#if this.displayName}}
+                                                                        {{this.displayName}}
+                                                                   {{else}}
+                                                                       {{this.firstName}} {{this.lastName}}
+                                                                   {{/if}}
+                                                                    </br>
+                                                            {{/each}}
+                                                        {{#if this.students}}
+                                                        {{else}}
+                                                            Keine Teilnehmer
+                                                        {{/if}}">
+                                                {{this.studentsAmount}} <i class="fa fa-user"></i></a>
+
                                             {{#each this.times}}
                                                 <small class="text-muted">
                                                     {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
@@ -83,10 +108,28 @@
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
-                        <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
+                        <a href="/courses/add" class="btn btn-primary">Kurs anlegen</a>
                     </div>
                 {{/userHasPermission}}
             </div>
+
+
+            {{#embed "lib/components/modal-form" class="member-modal"}}
+                {{#content "body"}}
+                    <div class="modal-body">
+                        <div class="form-group">
+                            {{#each courses.[ {{row}} ].[ {{column}} ].students}} {{! row und column sind nicht gesetzt, aber konkrete Werte funktionieren}}
+                                    <p>
+                                        {{#if this.displayName}}
+                                            {{this.displayName}}
+                                        {{else}}
+                                            {{this.firstName}} {{this.lastName}}
+                                        {{/if}}
+                                    </p>
+                            {{/each}}
+                        </div>
+                {{/content}}
+            {{/embed}}
 
         </section>
     {{/content}}

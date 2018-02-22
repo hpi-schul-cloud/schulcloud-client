@@ -1,4 +1,18 @@
 $(document).ready(function () {
+
+    var $memberModal = $('.member-modal');
+
+    $('.btn-member').on('click', function (e) {
+        e.preventDefault();
+        var row = $(this).attr('row');
+        var column = $(this).attr('column');
+        populateModalForm($memberModal, {
+            title: 'Teilnehmer von Kurs'.concat(' ', row.toString(), ' ', column.toString()) ,
+            fields: {row: [row], column: [column]}
+        });
+        $memberModal.modal('show');
+    });
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -21,6 +35,7 @@ $(document).ready(function () {
             }
         });
     });
+
 
     $('.btn-create-invitation').click(function (e) {
         e.stopPropagation();

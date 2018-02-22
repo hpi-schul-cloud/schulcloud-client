@@ -148,6 +148,8 @@ router.use(authHelper.authChecker);
 
 
 router.get('/', function (req, res, next) {
+    const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+
     Promise.all([
     api(req).get('/courses/', {
         qs: {
@@ -161,7 +163,9 @@ router.get('/', function (req, res, next) {
                 {teacherIds: res.locals.currentUser._id}
             ]
         }
-    })]).then(([substitutionCourses, courses]) => {
+    }),
+    studentsPromise
+    ]).then(([substitutionCourses, courses, students]) => {
         substitutionCourses = substitutionCourses.data.map(course => {
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
@@ -172,20 +176,30 @@ router.get('/', function (req, res, next) {
         });
 
         courses = courses.data.map(course => {
+
             course.url = '/courses/' + course._id;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
             });
+
+            //MemberCounter + Members
+            let studentsOfCourse;
+            studentsOfCourse = students.filter(s => s.schoolId == res.locals.currentSchool);
+            studentsOfCourse = studentsOfCourse.filter(s => course.userIds.includes(s._id));
+            course.students = studentsOfCourse;
+            course.studentsAmount = studentsOfCourse.length;
             return course;
         });
+
+
         if (req.query.json) {
             res.json(courses);
         } else {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
                 courses: _.chunk(courses, 3),
-                substitutionCourses: _.chunk(substitutionCourses, 3)
+                substitutionCourses: _.chunk(substitutionCourses, 3),
             });
         }
     });
