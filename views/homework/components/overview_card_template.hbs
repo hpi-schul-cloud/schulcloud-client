@@ -52,7 +52,7 @@
         {{#ifvalue ../this.teacherId value=../this.currentUser._id}}
             {{#each ../this.actions}}
                 {{#if this.method}}
-                    <a class="btn btn-secondary btn-sm {{this.class}}"
+                    <a class="sc-btn sc-btn-secondary sc-btn-sm {{this.class}}"
                        href="{{this.link}}"
                        target="_blank"
                        data-method="{{this.method}}"
@@ -61,7 +61,7 @@
                         <i class="fa fa-{{this.icon}}"></i>
                     </a>
                 {{else}}
-                    <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../../name}}' {{this.alt}}.">
+                    <a class="sc-btn sc-btn-secondary sc-btn-sm {{this.class}}" href="{{this.link}}" alt="Aufgabe '{{../../name}}' {{this.alt}}.">
                         <i class="fa fa-{{this.icon}}"></i> {{this.label}}
                     </a>
                 {{/if}}
@@ -70,7 +70,7 @@
     {{/userHasPermission}}
     {{#inArray this.currentUser._id this.archived}}
         {{#userHasPermission "HOMEWORK_CREATE"}}
-            <a class="btn btn-secondary btn-sm btn-archive"
+            <a class="sc-btn sc-btn-secondary sc-btn-sm btn-archive"
             href="{{../url}}"
             target="_blank"
             data="archive=open"
@@ -81,7 +81,7 @@
         {{/userHasPermission}}
     {{else}}
         {{#userHasPermission "HOMEWORK_CREATE"}}
-            <a class="btn btn-secondary btn-sm btn-archive"
+            <a class="sc-btn sc-btn-secondary sc-btn-sm btn-archive"
             href="{{../url}}"
             target="_blank"
             data="archive=done"

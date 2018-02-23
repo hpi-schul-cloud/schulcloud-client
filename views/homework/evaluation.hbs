@@ -1,21 +1,21 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
-		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
-		{{#ifvalue @root.teacherId value=@root.currentUser._id}}
-			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
-		{{/ifvalue}}
+        <a id="submission-tab-link" class="tab-link active">Abgabe</a>
+        {{#ifvalue @root.teacherId value=@root.currentUser._id}}
+            <a id="comment-tab-link" 	class="tab-link">Bewertung</a>
+        {{/ifvalue}}
         {{#if this.submission}}
             <a id="discussion-tab-link" class="tab-link">Diskussion</a>
         {{/if}}
-	</nav>
-	<div class="tabs">
-		<div id="submission" class="tab-content active">
-			<div class="comment">
+    </nav>
+    <div class="tabs">
+        <div id="submission" class="tab-content active">
+            <div class="comment">
                 {{#if this.submission}}
                     {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
                     <hr>
                     <div class="ckcontent print">
-                        <div class="btn btn-secondary btn-print mb-1"
+                        <div class="sc-btn sc-btn-secondary btn-print mb-1"
                             data-toggle="tooltip" title="Abgabe drucken">
                                 <i class='fa fa-print'></i> Drucken
                         </div>
@@ -51,7 +51,7 @@
                     <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
                 {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <button type="submit" class="btn btn-primary">Speichern</button>
+                    <button type="submit" class="sc-btn sc-btn-primary">Speichern</button>
                 {{/userHasPermission}}
                 </form>
             {{else}}
@@ -64,7 +64,7 @@
                     {{/if}}
                 </div>
             {{/ifvalue}}
-		</div>
+        </div>
         {{#if this.submission}}
             {{> 'homework/discussion'}}
         {{/if}}

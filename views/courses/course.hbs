@@ -245,16 +245,16 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
+                        <a href="/courses/{{../_id}}/edit" class="sc-btn btn-add sc-btn-primary">Kurs bearbeiten</a>
                         <a href="/courses/{{../_id}}/"
-                           class="btn btn-delete-course btn-secondary"
+                           class="sc-btn btn-delete-course sc-btn-secondary"
                            target="_blank"
                            data-method="delete-material"
                            data-name="{{../name}}"
                            redirect="/courses/">Kurs löschen</a>
-                        <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
+                        <a data-href="courses/{{../_id}}/" href="#" class="sc-btn btn-add sc-btn-secondary btn-create-invitation">zum Kurs einladen</a>
                     {{/userHasPermission}}
-                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
+                    <a href="{{filesUrl}}" class="sc-btn btn-add sc-btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
             </div>
 
@@ -265,11 +265,11 @@
                 {{#content "body"}}
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
+                        <button type="button" class="sc-btn sc-btn-secondary btn-close">
                             Abbrechen
                         </button>
 
-                        <button type="submit" class="btn btn-primary btn-submit">
+                        <button type="submit" class="sc-btn sc-btn-primary btn-submit">
                             Löschen
                         </button>
                     </div>
