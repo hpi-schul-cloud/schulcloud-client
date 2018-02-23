@@ -1,5 +1,6 @@
 @import './colors';
 @import './bootstrap/scss/bootstrap-flex';
+@import "./sc-theme/sc-theme";
 @import "./editor";
 
 body {
@@ -25,7 +26,7 @@ aside.nav-sidebar {
     margin-top: 0;
     margin-bottom: 0;
     background-image:url('/images/testbg.png');
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     background-color: #b91f4d;
     z-index: 100;
     float: left;
