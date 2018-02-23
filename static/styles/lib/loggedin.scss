@@ -25,6 +25,7 @@ aside.nav-sidebar {
     margin-top: 0;
     margin-bottom: 0;
     background-image:url('/images/testbg.png');
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
     background-color: #b91f4d;
     z-index: 100;
     float: left;
@@ -121,7 +122,7 @@ aside.nav-sidebar {
                     text-decoration: none;
                     overflow-x: visible;
                     white-space: nowrap;
-    
+                    text-shadow: 2px 2px 5px rgba(0,0,0,.6);
                     &.child-active {
                         background-color: rgba(0,0,0,.3);
                         border-bottom: 1px solid transparent;
@@ -162,6 +163,7 @@ aside.nav-sidebar {
                         color: $primaryColor;
                         border-bottom: 1px solid transparent;
                         font-weight: 700;
+                        text-shadow: 2px 2px 5px rgba(0,0,0,.3);
                         span{
                             font-weight: 700;
                         }
