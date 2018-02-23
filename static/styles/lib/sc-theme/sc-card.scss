@@ -8,6 +8,7 @@
     height: 100%;
     margin: 0;
     border-radius: 2px;
+    overflow: hidden;
     .sc-card-header {
         display: flex;
         flex-direction: row;
@@ -16,6 +17,7 @@
         min-height: 6rem;
         padding: 1.5rem .5rem .5rem;
         color: #fff;
+        text-decoration: none !important;
         background-color: #70b5ce;
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
@@ -23,6 +25,7 @@
             content: " ";
             display: block;
             position: absolute;
+            z-index: 5;
             top: 0;
             bottom: 0;
             left: 0;
@@ -30,24 +33,32 @@
             background-image: linear-gradient(to top, rgba(0,0,0,.1) 0%, transparent 85%);
         }
         .sc-card-title {
+            .title {
+                color: inherit;
+            }
             align-self: flex-end;
             font-weight: 700;
-            z-index: 9999;
-            text-shadow: 0 0 10px rgba(0, 0, 0, .5);          
+            overflow: hidden;
+            z-index: 100;
+            text-shadow: 2px 2px 5px rgba(0,0,0,.6);
+            padding-right: 5px;
+            word-break: break-all;
+            word-break: break-word;
         }
         .sc-card-menu {
             position: absolute;
             right: 8px;
             top: 8px;
             font-size: 0;
-            opacity: .5;
-            a, button {
+            .sc-card-menu-action {
                 display: inline-block;
                 width: 32px;
                 height: 32px;
                 padding: 0;
                 margin: 0;
                 border-radius: 50%;
+                border: none;
+                background: none;
                 color: #fff;
                 font-size: 20px;
                 text-decoration: none;
@@ -55,9 +66,24 @@
                 vertical-align: middle;
                 line-height: 32px;
                 overflow: hidden;
+                opacity: .5;
+                transition: all .1s ease-in-out;
                 &:hover {
-                    background: rgba(0,0,0,.5);
+                    background: rgba(0,0,0,.3);
                 }
+            }
+            .sc-card-menu-info {
+                display: inline-block;
+                padding: 0;
+                margin: 0;
+                color: #fff;
+                font-size: 14px;
+                overflow: hidden;
+            }
+        }
+        &:hover{
+            .sc-card-menu-action{
+                opacity: 1;
             }
         }
     }
@@ -69,6 +95,10 @@
         border: 1px solid rgba(0,0,0,.125);
         border-top-width: 0;
         border-bottom-width: 0;
+        p{
+            word-break: break-all;
+            word-break: break-word;
+        }
         &:first-of-type{
             border-top-left-radius: 2px;
             border-top-right-radius: 2px;
@@ -90,7 +120,7 @@
         border-bottom-right-radius: 2px;
         a, button {
             float:right;
-            color: $colorHPIRed;
+            color: $primaryColor;
             border: none;
             border-radius: 2px;
             min-width: 64px;
@@ -101,6 +131,7 @@
             text-decoration: none;
             text-align: center;
             line-height: 36px;
+            transition: all .1s ease-in-out;
             &:hover {
                 background-color: #eee;
             }
@@ -112,5 +143,17 @@
                 opacity: 1;
             }
         } 
-    } 
+    }
+}
+
+/* IE8-11 specific styles go here */
+@media screen\0 {
+    .sc-card {
+        display: block;
+        .sc-card-footer{
+            a, button {
+                float: none;
+            }
+        }
+    }
 }

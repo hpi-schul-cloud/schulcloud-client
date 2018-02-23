@@ -5,6 +5,10 @@ const router = express.Router();
 const handlebarsHelper = require('../helpers/handlebars');
 router.use(handlebarsHelper.middleware);
 
+// Track page views in Google Analytics
+const googleAnalyticsHelper = require('../helpers/googleAnalytics');
+router.use(googleAnalyticsHelper.middleware());
+
 router.use(require('./login'));
 router.use(require('./registration'));
 
@@ -14,6 +18,7 @@ router.use('/content/', require('./content'));
 router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
+router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/classes/', require('./classes'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
@@ -25,6 +30,8 @@ router.use('/notification/', require('./notification'));
 router.use('/link/', require('./link'));
 router.use('/partner/', require('./partner'));
 router.use('/help/', require('./help'));
+router.use('/impressum/', require('./imprint'));
+router.use('/team', require('./team'));
 
 router.use('/administration/', require('./administration'));
 

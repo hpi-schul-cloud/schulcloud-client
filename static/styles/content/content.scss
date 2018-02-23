@@ -12,7 +12,7 @@
 }
 h1, h3 {
     margin-top: 30px;
-    color: #b10438;
+    color: $primaryColor;
 }
 .carousel-item, .card {
     align-items: center;
@@ -29,6 +29,7 @@ h1, h3 {
 }
 .card-block {
     flex: 1 1 auto;
+    padding-bottom: 36px;
 }
 .row.equal-height {
     display: flex;
@@ -43,7 +44,7 @@ h1, h3 {
     cursor: pointer;
 }
 .card-img-overlay {
-    color: #b10438;
+    color: $primaryColor;
     padding: 10px;
     bottom: auto;
     z-index: 10;
@@ -62,6 +63,7 @@ h1, h3 {
 }
 .card-title {
     margin-bottom: 10px;
+    word-wrap: break-word;
 }
 .card-tags {
     overflow: hidden;
@@ -76,8 +78,20 @@ h1, h3 {
 }
 .tooltip-inner {
   color: white ;
-  background-color: $colorHPIRed;
+  background-color: $primaryColor;
 }
 .tooltip-arrow{
-  background-color: $colorHPIRed;
+  background-color: $primaryColor;
+}
+.tooltip-demo{
+  cursor: pointer;
+}
+.card-footer{
+  position: relative;
+}
+.report-link{
+  position: absolute;
+  top: -34px;
+  right: 18px;
+  color: lightgrey;
 }

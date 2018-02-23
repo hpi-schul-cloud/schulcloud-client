@@ -111,7 +111,7 @@ router.all('/', function (req, res, next) {
         const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
-            news.date = moment(news.displayAt).fromNow();
+            news.secondaryTitle = moment(news.displayAt).fromNow();
             news.background = '#'+colors[(news.title||"").length % colors.length];
             if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
                 news.actions = getActions(news, '/news/');
@@ -135,7 +135,7 @@ router.get('/new', function (req, res, next) {
     res.render('news/edit', {
         title: "News erstellen",
         submitLabel: 'Hinzufügen',
-        closeLabel: 'Schließen',
+        closeLabel: 'Abbrechen',
         method: 'post',
         action: '/news/',
     });
@@ -158,7 +158,7 @@ router.get('/:newsId/edit', function (req, res, next) {
         res.render('news/edit', {
             title: "News bearbeiten",
             submitLabel: 'Speichern',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             method: 'patch',
             action: '/news/' + req.params.newsId,
             news

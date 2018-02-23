@@ -79,7 +79,7 @@ $(document).ready(function () {
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
             title: 'User Story eingeben',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
 
@@ -94,7 +94,7 @@ $(document).ready(function () {
         $('.problem-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($problemModal, {
             title: 'Problem melden',
-            closeLabel: 'Schließen',
+            closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
 
@@ -126,6 +126,32 @@ $(document).ready(function () {
         $qrbox.append(el);
     });
 
+    var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
+    function togglePresentationMode(){
+        const contentArea = $('#main-content');
+        const toggleButton = $('.btn-fullscreen');
+        $('body').toggleClass('fullscreen');
+        toggleButton.children('i').toggleClass('fa-compress');
+        toggleButton.children('i').toggleClass('fa-expand');
+    }
+    if(fullscreen){togglePresentationMode()}
+    $('.btn-fullscreen').on('click', function(){
+        togglePresentationMode();
+        fullscreen = !fullscreen;
+        sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
+    });
+
+    $('.btn-cancel').on('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $cancelModal = $('.cancel-modal');
+        populateModalForm($cancelModal, {
+            title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
+        });
+        let $modalForm = $cancelModal.find(".modal-form");
+        $cancelModal.modal('show');
+    });
+
     $.ajax({
         url: '/help/releases',
         type: 'GET',
@@ -133,7 +159,7 @@ $(document).ready(function () {
             let cookies = getCookiesMap(document.cookie);
             populateModalForm($featureModal, {
                 title: 'Neue Features sind verfügbar',
-                closeLabel: 'Schließen'
+                closeLabel: 'Abbrechen'
             });
             if (cookies['releaseDate']) {
                 if (release.createdAt > cookies['releaseDate']) {

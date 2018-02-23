@@ -15,7 +15,8 @@ const handlebarsWax = require('handlebars-wax');
 
 const app = express();
 app.use(compression());
-
+app.set('trust proxy', true);
+const themeName = process.env.SC_THEME || 'default';
 // view engine setup
 const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
@@ -23,10 +24,14 @@ const wax = handlebarsWax(handlebars)
     .helpers(layouts)
     .helpers(handlebarsHelper.helpers);
 
+wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`))
+
+const viewDirs = [path.join(__dirname, 'views')];
+viewDirs.unshift(path.join(__dirname, `theme/${themeName}/views/`))
+
+app.set('views', viewDirs);
 app.engine("hbs", wax.engine);
 app.set("view engine", "hbs");
-
-app.set('views', path.join(__dirname, 'views'));
 
 app.set('view cache', true);
 
@@ -83,10 +88,12 @@ app.use(function (req, res, next) {
 app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     let status = err.status || err.statusCode;
-    if (err.statusCode)
+    if (err.statusCode) {
+        res.setHeader("error-message", err.error.message);
         res.locals.message = err.error.message;
-    else
+    }else {
         res.locals.message = err.message;
+    }
     res.locals.error = req.app.get('env') === 'development' ? err : {status};
 
     if (res.locals.currentUser)

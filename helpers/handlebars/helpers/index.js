@@ -2,6 +2,7 @@
 const permissionsHelper = require('../../permissions');
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
+const stripHtml = require('string-strip-html');
 moment.locale('de');
 
 module.exports = {
@@ -34,7 +35,27 @@ module.exports = {
         if (text.length <= length) {
             return text;
         }
-        return truncatehtml(text, 140);
+        return truncatehtml(text, length, {
+          stripTags: true,
+          decodeEntities: true,
+        });
+    },
+    truncateLength: (text = '', length = 140) => {
+        if (text.length <= length) {
+            return text;
+        }
+        const subString = text.substr(0, length);
+        return ((subString.indexOf(" ")>-1)? subString.substr(0, subString.lastIndexOf(' ')) : subString )+ "...";
+    },
+    truncateArray: (rawArray = [], length = 0) => {
+        let truncatedArray = rawArray;
+        if(length > 0 && length <= truncatedArray.length) {
+            truncatedArray.length=length;
+        }
+        return truncatedArray;
+    },
+    stripHTMLTags: (htmlText = '') => {
+        return stripHtml(htmlText);
     },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');
@@ -88,6 +109,11 @@ module.exports = {
         } else {
             return moment(date).fromNow();
         }
+    },
+    concat: function(){
+        var arg = Array.prototype.slice.call(arguments,0);
+        arg.pop();
+        return arg.join('');
     },
     log: (data) => {
         console.log(data);

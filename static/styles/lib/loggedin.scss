@@ -1,8 +1,18 @@
 @import './colors';
 @import './bootstrap/scss/bootstrap-flex';
+@import "./editor";
 
 body {
     background: white !important;
+}
+.navtooltips{
+    display: none;
+    @include media-breakpoint-down(md) {
+        display: initial;
+    }
+    @include media-breakpoint-down(xs) {
+        display:none;
+    }
 }
 aside.nav-sidebar {
     color: #fff;
@@ -29,19 +39,27 @@ aside.nav-sidebar {
     }
 
     .sc-branding {
+        display: block;
         padding: 15px;
-        font-size: 25px;
+        font-size: 24px;
+        background: $primaryColor;
+        opacity: .8;
         color: whitesmoke;
+        text-decoration: none;
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
+        @include media-breakpoint-down(xs) {
+            max-width: 100% !important;
+        }
         .cloud-logo {
             display: inline-block;
+            vertical-align: top;
             width: 45px;
             height: 30px;
             margin-bottom: -5px;
             margin-right: 0.25rem;
-            background: url("/images/logo/cloud-transparent-mono.svg") no-repeat center;
+            background: $logoBackground;
             background-size: contain;
             @include media-breakpoint-down(md) {
                 width: 100%;
@@ -52,11 +70,13 @@ aside.nav-sidebar {
                 margin-right: 0;
             }
         }
-        span {
+        .sc-title{
+            display: inline-block;
+            max-width: calc(100% - 4px);
+            word-break: break-word;
             @include media-breakpoint-down(md) {
                 display: none;
             }
-
             @include media-breakpoint-down(xs) {
                 display: inline-block;
             }
@@ -90,7 +110,7 @@ aside.nav-sidebar {
                 width: 100%;
                 float: left;
 
-                a {
+                a:not(.sc-branding) {
                     width: 100%;
                     float: left;
                     height: 50px;
@@ -99,7 +119,9 @@ aside.nav-sidebar {
                     padding: 0px 20px;
                     font-size: 14px;
                     text-decoration: none;
-
+                    overflow-x: visible;
+                    white-space: nowrap;
+    
                     &.child-active {
                         background-color: rgba(0,0,0,.3);
                         border-bottom: 1px solid transparent;
@@ -136,8 +158,8 @@ aside.nav-sidebar {
                     }
 
                     &.active {
-                        background: rgba(255,255,255,0.80);
-                        color: $colorHPIRed;
+                        background: #fffc;
+                        color: $primaryColor;
                         border-bottom: 1px solid transparent;
                         font-weight: 700;
                         span{
@@ -209,11 +231,15 @@ header {
 
 .content-wrapper {
     width: 100%;
-    min-height:calc(100vh - 104px);
+    min-height:calc(100vh - 112px);
+    @include media-breakpoint-down(xs) {
+        min-height:calc(100vh - 143px);
+    }
     height:auto;
     float: left;
     padding-left: 260px;
     padding-right: 20px;
+    overflow: auto;
 
     @include media-breakpoint-down(md) {
         padding-left: 80px;
@@ -244,7 +270,7 @@ header {
         }
 
         h5 {
-            color: $colorHPIRed;
+            color: $primaryColor;
             margin: 0px 0px 30px 0px;
         }
 
@@ -261,6 +287,36 @@ header {
     p {
         padding-top: 7px;
         font-weight: 900;
+    }
+}
+
+
+body.fullscreen{
+    .btn-fullscreen{
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        z-index: 99999;
+        color: #fff !important;
+        background-color: $secondaryColor !important;
+        opacity: .5;
+        transition: all .3s ease-in-out;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    main#main-content{
+        position: absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right: 0;
+        z-index: 101;
+        padding: 16px;
+        background: #fff;
+    }
+    .modal-backdrop{
+        display: none
     }
 }
 
@@ -299,7 +355,7 @@ footer {
     line-height: 1.75rem;
 
     h4 {
-        color: $colorHPIRed;
+        color: $primaryColor;
         float: left;
         margin-bottom: 0px;
         margin-right: 20px;
@@ -309,7 +365,7 @@ footer {
     .location-info {
         float: left;
         a {
-            color: $colorHPIYellow;
+            color: $accentColor;
         }
     }
 
@@ -371,7 +427,7 @@ footer {
 
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;
-		padding-left: 50px !important;
+        padding-left: 50px !important;
         background: $colorBeige;
     }
 
@@ -389,9 +445,10 @@ footer {
         width: 32px;
         margin-right: 10px;
     }
-
+    .dropdown-toggle{
+        border:none;
+    }
     .account-toggle {
-        border: none;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -405,83 +462,100 @@ footer {
     }
 }
 
-.dropdowns {
+.navbar-nav {
     .btn-thin {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
+    .minimal-button{
+        .dropdown-toggle{
+            padding: 10px !important;
+            border-radius: 50%;
+            border: none;
+            margin-left: -.75rem;
+            text-align: center;
+            background: transparent;
+            .fa{
+                display: inline-block;
+                font-size: 20px;
+                line-height: 1em;
+                width: 1em;
+                height: 1em;
+            }
+            .tag{
+                position: absolute;
+                border-radius: 50%;
+                top: 0;
+                right: 0px;
+            }
+
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+            }
+            &:after{
+                display: none;
+            }
+        }
+        &.open{
+            .dropdown-toggle{
+               background-color: rgba(0,0,0,0.05);
+            }
+        }
+        .dropdown-menu{
+            padding: 0;
+            left: -25px;
+            /* this CS forms the triangles */
+            &:after,
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: -10px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+            }
+            /* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+            &:after {
+                left: 20px;
+                border-color: transparent transparent #fff transparent;
+                border-width: 11px;
+                margin-top: -11px;
+            }
+            /* this border color controlls the outside, thin border */
+            &:before {
+                left: 20px;
+                border-color: transparent transparent rgba(0,0,0,.15) transparent;
+                border-width: 11px;
+                margin-top: -12px;
+            }
+        }
+    }
 }
 
 .qr-code-action {
-    .btn {
-        border: none;
-        line-height: 30px;
-    }
-
-    .dropdown-menu {
+    .qr-show {
         padding: 15px;
         padding-bottom: 9px;
     }
 }
 
-.help-drodown {
-    .btn {
-        border: none;
-        line-height: 30px;
-    }
-
-    .dropdown-menu {
-        width: 236px;
-        padding-bottom: 0px;
-        padding-top: 0px;
-    }
-
-    .list-group-item {
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 14px;
-    }
-
-    .list-group-item:last-child {
-        border-bottom-right-radius: 0rem;
-        border-bottom-left-radius: 0rem;
-    }
-
-    .list-group-item:first-child {
-        border-bottom-right-radius: 0rem;
-        border-bottom-left-radius: 0rem;
-    }
-
-    .link {
-        padding-left: 8px;
-    }
-
-    .delimiter {
-        background-color: $colorGrey;
-        height: 12px;
-    }
-}
-
 .notification-dropdown {
-    .btn {
-        border: none;
-        line-height: 30px;
-
-        &.recent i {
-            color: $colorHPIRed;
-            margin-right: 5px;
-        }
+    .btn.recent i {
+        color: $primaryColor;
+        margin-right: 5px;
     }
 
     .dropdown-toggle:not(.recent) .tag {
         display: none;
     }
-
-    .dropdown-menu {
-        padding: 0px;
+    
+    .dropdown-menu{
         width: 300px;
         max-height: 300px;
-        overflow: auto;
+        .content{
+            overflow: auto;
+        }
     }
 
     .notification-item {
@@ -501,5 +575,29 @@ footer {
             font-size: 12px;
             display: block;
         }
+    }
+}
+
+.help-drodown {
+    .dropdown-menu {
+        width: 236px;
+    }
+
+    .list-group-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 0;
+        font-size: 14px;
+        border-width: 0;
+        border-bottom-width: 1px;
+    }
+
+    .link {
+        padding-left: 8px;
+    }
+
+    .delimiter {
+        background-color: $colorGrey;
+        height: 12px;
     }
 }

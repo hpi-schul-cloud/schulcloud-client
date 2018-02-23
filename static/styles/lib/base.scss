@@ -1,6 +1,10 @@
 @import "./colors";
 @import "components";
+<<<<<<< HEAD
 @import "./sc-theme";
+=======
+@import "./sc-theme/sc-theme";
+>>>>>>> refs/remotes/origin/master
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
@@ -12,15 +16,16 @@
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    hyphens: auto;
 }
 
 a {
-	text-decoration: none;
-	&:hover {
-		text-decoration: none;
-	}
+    text-decoration: none;
+    &:hover {
+        text-decoration: none;
+    }
 }
 
 a[data-toggle="collapse"],
@@ -57,6 +62,11 @@ label {
 	width: 100%;
 }
 
+label,
+.noselect{
+    user-select: none;
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;
@@ -83,7 +93,7 @@ footer.small-footer {
 	left: 0;
 	clear: both;
 	padding: 30px 0px;
-
+	font-size: 0.9em;
 	@include media-breakpoint-down(xs) {
 		background: $colorBeige;
 
@@ -99,6 +109,12 @@ footer.small-footer {
 			text-align: center;
 			align-items: center;
 		}
+        img{
+            width: auto;
+            max-width: 175px;
+            height: auto;
+            max-height: 44px;
+        }
 	}
 }
 
@@ -172,7 +188,6 @@ form.inline {
 }
 
 .card-deck-row {
-    width: 100%;
 
 	& > div {
 		margin-bottom: 30px;
@@ -198,6 +213,11 @@ form.inline {
 	}
 }
 
+.print-only{display:none;}
+@media print {
+    .print-only{display:initial;}
+}
+
 .ckcontent {
     margin: 10px 0;
     color: #373a3c;
@@ -215,4 +235,9 @@ form.inline {
       border-left: 2px solid grey;
       padding-left: 5px;
     }
+}
+
+.container .jumbotron{
+	padding: 2rem 2rem;
+	margin: 2rem 0rem;
 }

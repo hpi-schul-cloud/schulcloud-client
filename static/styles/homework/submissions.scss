@@ -76,7 +76,10 @@
       background: transparent;
     }
   }
-
+  .groupNames span:not(:last-child):after{
+    display: inline;
+    content:",";
+  }
 }
 
 .section-evaluation {
@@ -88,7 +91,7 @@
   }
 
   .nav-item.active {
-    border-bottom: 1px solid $colorHPIOrange;
+    border-bottom: 1px solid $secondaryColor;
   }
   .feedback {
     max-width: 100%;
@@ -149,7 +152,7 @@
   .fa-active {
     float: right;
     .fa {
-      color: $colorHPIRed;
+      color: $primaryColor;
       cursor: pointer;
     }
   }

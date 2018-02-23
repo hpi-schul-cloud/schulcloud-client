@@ -12,7 +12,7 @@
                     {{> "content/forms/form-search" }}
                     {{#if query }}
                         {{#if searchResults}}
-                            <h5>Suchergebnisse für "{{ query }}"</h5>
+                            <h5>{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h5>
                         {{else}}
                             <h5>Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h5>
                         {{/if}}
@@ -22,13 +22,14 @@
             </div>
 
             <div class="row equal-height">
-                {{#each searchResults}}
-                    {{#with _source}}
-                        <div class="col-md-6 col-lg-4">
-                            {{> "content/item" }}
-                        </div>
-                    {{/with}}
+                {{#each searchResults.data}}
+                    <div class="col-md-6 col-lg-4">
+                        {{> "content/item" }}
+                    </div>
                 {{/each}}
+            </div>
+            <div class="row">
+                {{> "lib/components/pagination" settings=pagination }}
             </div>
 
         </section>
@@ -36,6 +37,12 @@
         {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
             {{#content "fields"}}
                 {{> "content/forms/form-add-lesson" }}
+            {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal" class="external-link-modal"}}
+            {{#content "body"}}
+                {{> "content/forms/form-external-link"}}
             {{/content}}
         {{/embed}}
 

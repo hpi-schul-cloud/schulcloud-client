@@ -73,12 +73,14 @@ router.get('/:pwId', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-    let username = req.body.username;
+    let username = req.body.username.toLowerCase();
     api(req).post('/passwordRecovery', {json: {username: username}}).then((result) => {
         res.locals.result = result;
         next();
     }).catch(err => {
-        next(err);
+        let error = new Error("Ein Nutzer mit diesem Nutzernamen ist leider nicht vorhanden.");
+        error.status = 404;
+        next(error);
     });
 }, sendMailHandler);
 
