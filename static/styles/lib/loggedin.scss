@@ -287,10 +287,7 @@ header {
 
 .demo {
     text-align: center;
-    margin-left: 60px;
-    @include media-breakpoint-down(xs) {
-        margin-left: 0;
-    }
+    margin-left: 240px;
     .alert-warning {
         margin: 0;
         background: linear-gradient(10deg, #668095, #49718f);
@@ -304,6 +301,15 @@ header {
         font-weight: 900;
         margin: 0;
         padding: 0;
+    }
+    @include media-breakpoint-down(md) {
+        margin-left: 60px;
+    }
+    @include media-breakpoint-down(xs) {
+        margin-left: 0;
+        .alert-warning{
+            padding-left: 50px;
+        }
     }
 }
 
