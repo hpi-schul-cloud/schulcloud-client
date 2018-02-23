@@ -13,6 +13,61 @@
   }
 }
 
+.file-preview{
+  *{ box-sizing: border-box;}
+  position: relative;
+  background-color: #283E56;
+  margin-bottom: 16px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.5);
+  &.file{
+    background-color: #1989AC;
+  }
+  .preview-image{
+    position: relative;
+    display: block;
+    width: 100%;
+    padding-top: 56%;
+    font-size: 48px;
+    color: #fff;
+    background-size: auto 50%;      /* TODO change to "contain" when real thumbnails are available */
+    background-repeat: no-repeat;
+    background-position: center 15%;  /* TODO change to "center" when real thumbnails are available */
+    i{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, calc(-50% - .5rem));
+    }
+  }
+  .footbar{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    padding: 4px 8px;
+    color: white;
+    background: rgba(0,0,0,.5);
+
+    display: flex;
+    justify-content: space-between;
+    .filename{
+      word-break: break-all;
+    }
+    .actions{
+      display: inline-block;
+      text-align: right;
+      a{
+        display: inline-block;
+        color: #fff;
+        padding: 0 4px;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
 .directories {
   width: 100%;
   float: left;
@@ -24,21 +79,6 @@
   h5 {
     color: $primaryColor;
     padding: 10px 0px 20px;
-  }
-
-  .card.folder {
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-      background: #f9f9f9;
-      cursor: pointer;
-    }
-
-    .fa {
-      margin-right: 15px;
-      color: #ccc;
-    }
   }
 
   input {
@@ -102,55 +142,6 @@
   .modal-body {
     button {
       margin-left: 5px;
-    }
-  }
-
-  .card.file {
-    min-height: 80px;
-    color: $primaryColor;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    cursor: pointer;
-
-    &:hover {
-      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-      background: #f9f9f9;
-    }
-
-    .file-preview {
-      width: 90%;
-      height: 65px;
-      float: left;
-      margin-right: 5px;
-      background: no-repeat center center;
-      background-size: cover;
-    }
-
-    .fa {
-      margin-top: 10px;
-      margin-right: 15px;
-      color: #ccc;
-      &:hover {
-        color: $primaryColor;
-      }
-    }
-    .title {
-      position: absolute;
-      white-space: nowrap;
-    }
-    .file-preview {
-      @media screen and (max-width: 575px) {
-        display: none;
-      }
-    }
-    .card-text {
-      line-height: 2;
-    }
-
-    .file-location {
-      color: darkgrey;
-      padding-top: 5px;
-      line-height: 1;
     }
   }
 }
