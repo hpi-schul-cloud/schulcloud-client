@@ -214,11 +214,14 @@ aside.nav-sidebar {
         position: absolute;
         left: 0px;
         padding-top: 5px;
+        color: #373a3c;
         font-size: 22px;
         line-height: 50px;
         text-align: center;
         cursor: pointer;
-
+        &:hover{
+            color: #373a3c;
+        }
         @include media-breakpoint-down(xs) {
             display: block;
         }
@@ -284,14 +287,23 @@ header {
 
 .demo {
     text-align: center;
-    padding-left: 60px;
-
+    margin-left: 60px;
+    @include media-breakpoint-down(xs) {
+        margin-left: 0;
+    }
     .alert-warning {
-        height: 57.375px;
+        margin: 0;
+        background: linear-gradient(10deg, #668095, #49718f);
+        color: #fff;
+        border: none;
+        border-radius: 0;
+        text-shadow: 1px 1px 10px rgba(0,0,0,.6);
     }
     p {
         padding-top: 7px;
         font-weight: 900;
+        margin: 0;
+        padding: 0;
     }
 }
 
