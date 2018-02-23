@@ -107,6 +107,7 @@ aside.nav-sidebar {
             padding: 0px;
             margin: 0px;
             overflow-y: auto;
+            overflow-x: hidden;
 
             li {
                 width: 100%;
@@ -234,7 +235,7 @@ header {
 
 .content-wrapper {
     width: 100%;
-    min-height:calc(100vh - 112px);
+    min-height:calc(100vh - 113px);
     @include media-breakpoint-down(xs) {
         min-height:calc(100vh - 143px);
     }
