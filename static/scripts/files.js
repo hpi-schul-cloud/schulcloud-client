@@ -19,6 +19,10 @@ $(document).ready(function() {
         window.location.reload();
     };
 
+    function showAJAXSuccess(message) {
+        $.showNotification(message, "success", 30000);
+    }
+
     function showAJAXError(req, textStatus, errorThrown) {
         $deleteModal.modal('hide');
         $moveModal.modal('hide');
@@ -99,7 +103,10 @@ $(document).ready(function() {
 
                 $progressBar.fadeOut(50, function () {
                     $form.fadeIn(50);
-                    reloadFiles();
+                    showAJAXSuccess("Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.");
+                    setTimeout(function () {
+                        reloadFiles(); // waiting for success message
+                    }, 2000);
                 });
             });
 

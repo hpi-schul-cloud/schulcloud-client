@@ -1,12 +1,12 @@
 <section id="feedback" class="tab-content section-homeworkdetails">
     <div class="homework print">
-        {{#if submission.grade}}
-            Du hast <b class="grade">{{submission.grade}}%</b> richtig gelöst.
+        {{#if @root.submission.grade}}
+            Du hast <b class="grade">{{@root.submission.grade}}%</b> richtig gelöst.
         {{/if}}
         
         <div class="comment ckcontent">
-            {{#if submission.gradeComment}}
-                {{{submission.gradeComment}}}
+            {{#if @root.submission.gradeComment}}
+                {{{@root.submission.gradeComment}}}
             {{else}}
                 <p>Kein Bewertungstext vorhanden.</p>
             {{/if}}
