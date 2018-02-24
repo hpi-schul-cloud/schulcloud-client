@@ -1,0 +1,36 @@
+
+/* Source: https://codepen.io/adrianjost/pen/mXGLOm */
+
+input[type="radio"]{
+  visibility: hidden;
+  margin-right: .3em;
+  font-size: 1em;
+  height: .8em;
+  width: .8em;
+  &:after {
+    /* default checkbox */
+    visibility: visible;
+    content: '';
+    display: inline-block;
+    touch-action: manipulation;
+    cursor: pointer;
+
+    /* position */
+    margin-bottom: .25em;
+    margin-left: .25em;
+    width: .5em;
+    height: .5em;
+
+    /* design */
+    border-radius: 50%;
+    background-color: transparent;
+    box-shadow: 0 0 0 .1em white,
+                0 0 0 .2em grey;
+    transition: all .3s ease-in-out;
+  }
+  &:checked:after{
+    background-color: $primaryColor;
+    box-shadow: 0 0 0 .1em white,
+                0 0 0 .2em $primaryColor;
+  }
+}

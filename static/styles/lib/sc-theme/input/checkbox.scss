@@ -1,0 +1,48 @@
+
+/* Source: https://codepen.io/adrianjost/pen/qxMoYG */
+
+input[type="checkbox"]{
+  visibility: hidden;
+  position: relative;
+  margin-right: .4em;
+  font-size: 1em;
+  height: .9em;
+  width: .9em;
+  &:before, &:after {
+    /* default checkbox */
+    visibility: visible;
+    display: inline-block;
+    content: '';
+    touch-action: manipulation;
+    cursor: pointer;
+
+    width: .7em;
+    height: .7em;
+    vertical-align: top;
+
+    /* position */
+    position: absolute;
+    top: 0;
+    left:0;
+
+    /* style */
+    border: .1em solid grey;
+    border-radius: .1em;
+    transition: all .3s ease-in-out;
+  }
+  &:after{
+    transition: all .3s ease-in-out, border-top, border-right;
+    transition-delay: 0s, .3s, .3s;
+    z-index: 2;
+  }
+  &:checked:after{
+    height: .5em;
+    border-top: none;
+    border-right: none;
+    border-width: .15em;
+    border-radius: 0px;
+    border-color: $primaryColor;
+    transform: rotate(-45deg) translate(.15em, .15em) scale(1.1);
+    box-shadow: -0.05em 0.08em 0.1em rgba(0, 0, 0, 0.5)
+  }
+}
