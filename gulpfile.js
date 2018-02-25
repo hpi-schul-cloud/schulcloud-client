@@ -1,5 +1,7 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
+const sassGrapher = require('gulp-sass-grapher');
+const path = require('path');
 const rimraf = require('gulp-rimraf')
 const uglify = require('gulp-uglify')
 const cleancss = require('clean-css')
@@ -72,9 +74,13 @@ gulp.task('images', () => {
 function themeName(){
     return process.env.SC_THEME || 'default';
 }
+
+var loadPaths = path.resolve('./static/styles/');
+sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
 gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
+        .pipe(sassGrapher.ancestors())
         .pipe(header(fs.readFileSync(themeFile, 'utf8')))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
