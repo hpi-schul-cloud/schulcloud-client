@@ -1,4 +1,4 @@
-﻿@import '../lib/colors.scss';
+﻿@import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-grid';
 
 .homework {
@@ -6,13 +6,15 @@
   list-style: none;
   margin: 0;
   padding: 10px 0;
-  clear: both; 
+  clear: both;
 }
 .assignment {
   width: 100%;
   position: relative;
   padding: 10px;
   text-decoration: none;
+  border-radius: 2px !important;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.2);
   a {
     color: #373a3c;
     &:hover {
