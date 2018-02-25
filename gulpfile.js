@@ -81,7 +81,7 @@ gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
         .pipe(sassGrapher.ancestors())
-        .pipe(header(fs.readFileSync(themeFile, 'utf8')+"// don't remove me! "))
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')+"// don't remove me! \n")) // READ: https://github.com/schul-cloud/schulcloud-client/pull/588
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
