@@ -77,14 +77,3 @@ $(document).ready(function() {
     }
 
 });
-
-function startIntro() {
-    introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Fertig",
-        skipLabel: "Überspringen"
-    })
-    .start();
-}
