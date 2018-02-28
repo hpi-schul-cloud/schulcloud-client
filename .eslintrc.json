@@ -32,6 +32,7 @@
     ],
     "no-unused-vars": [
       0
-    ]
+    ],
+    "unicode-bom": ["error", "never"]
   }
 }
