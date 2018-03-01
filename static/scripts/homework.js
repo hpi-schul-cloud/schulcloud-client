@@ -375,4 +375,27 @@ $(document).ready(function() {
             });
         });
     });
+
+    dd = new diffDOM();
+    //import apply from "apply-html";
+
+    function applyFilter(feathersQuery, selector){
+        const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(feathersQuery));
+        $.ajax({
+            type: "GET",
+            url: newurl
+        }).done(function(r) {
+            // render new page
+            parser = new DOMParser()
+            const newPage = parser.parseFromString(r, "text/html").querySelector(selector);
+            const oldPage = document.querySelector(selector);
+            const diff = dd.diff(oldPage, newPage);
+            const result = dd.apply(oldPage, diff);
+        });
+    }
+    /* FEATHERS FILTER MODULE */
+    document.getElementById("filter").addEventListener('newFilter', (e) => {
+        filter = e.detail;
+        applyFilter(filter[0], ".homework");
+    })
 });

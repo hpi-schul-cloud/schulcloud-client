@@ -5,6 +5,8 @@
 {{#content "scripts" mode="append"}}
     <script src="/vendor/webcomponents-lite.min.js" defer></script>
     <script src="/scripts/moment/moment.js" defer></script>
+    <script src="/scripts/filter/feathers-filter.js" defer></script>
+    <script src="/scripts/diffDOM/diffDOM.js" defer></script>
 {{/content}}
 {{#extend "homework/homework"}}
     {{#content "page"}}
@@ -18,6 +20,9 @@
                     </a>
                     {{/userHasPermission}}
                 {{/if}}
+                <div><feathers-filter id="filter"
+                                 filter='{{@root.filterSettings}}'
+                /></div>
                 <div class="form-group sort">
                     <select name="sort" id="sortselection" data-placeholder="Sortieren">
                         {{#each sortmethods}}
