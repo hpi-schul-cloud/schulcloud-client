@@ -47,28 +47,6 @@ const getActions = (item, path) => {
     ];
 };
 
-const getSortmethods = () => {
-    return [
-        {
-            query: 'dueDate',
-            title: 'Abgabedatum',
-            active: "selected"
-        },
-        {
-            query: 'availableDate',
-            title: 'Verfügbarkeitsdatum'
-        },
-        {
-            query: 'createdAt',
-            title: 'Erstelldatum'
-        },
-        {
-            query: 'updatedAt',
-            title: 'letze Aktualisierung'
-        }
-    ];
-};
-
 const getCreateHandler = (service) => {
     return function (req, res, next) {
         if(service=="homework"){
@@ -420,25 +398,8 @@ const splitDate = function (date) {
 const overview = (title = "") => {
     return function (req, res, next) {
 
-        var homeworkDesc = (req.query.desc == "true") ? '-' : '';
-        var homeworkSort = (req.query.sort && req.query.sort !== "") ? req.query.sort : 'dueDate';
-
-        var sortmethods = getSortmethods();
-        if (req.query.sort && req.query.sort !== "") {
-            // Aktueller Sortieralgorithmus für Anzeige aufbereiten
-            sortmethods = sortmethods.map(function (e) {
-                if (e.query == req.query.sort) {
-                    e.active = 'selected';
-                } else {
-                    delete e['active'];
-                }
-                return e;
-            });
-        }
-
         let query = {
             $populate: ['courseId'],
-            $sort: homeworkDesc + homeworkSort,
             archived : {$ne: res.locals.currentUser._id }
         };
         if(req.query.ajaxContent){
@@ -512,6 +473,17 @@ const overview = (title = "") => {
                     });
                     const filterSettings = JSON.stringify(
                         [{
+                            type: "sort",
+                            title: 'Sortierung',
+                            displayTemplate: 'Sortieren nach: %1',
+                            options: [
+                                ["createdAt", "Erstelldatum"],
+                                ["updatedAt", "letze Aktualisierung"],
+                                ["availableDate", "Verfügbarkeitsdatum"],
+                                ["dueDate", "Abgabedatum"]
+                            ]
+                        },
+                        {
                             type: "select",
                             title: 'Kurse',
                             displayTemplate: 'Kurse: %1',
@@ -524,7 +496,7 @@ const overview = (title = "") => {
                             title: 'Abgabedatum',
                             displayTemplate: 'Abgabe vom %1 bis %2',
                             property: 'dueDate',
-                            mode: 2
+                            mode: 'fromto'
                         }]
                     );
                     //Pagination in client, because filters are in afterhook
@@ -534,8 +506,7 @@ const overview = (title = "") => {
                         currentPage,
                         numPages: Math.ceil(homeworks.length / itemsPerPage),
                         baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
-                        + ((req.query.sort) ? ('sort=' + req.query.sort + '&') : '')
-                        + ((homeworkDesc) ? ('desc=' + req.query.desc + '&') : '') + 'p={{page}}'
+                        + 'p={{page}}'
                     };
                     const end = currentPage * itemsPerPage;
                     homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -546,8 +517,6 @@ const overview = (title = "") => {
                         homeworks,
                         courses,
                         isStudent,
-                        sortmethods,
-                        desc: homeworkDesc,
                         filterSettings,
                         addButton: (req._parsedUrl.pathname == "/"
                                 || req._parsedUrl.pathname.includes("private")

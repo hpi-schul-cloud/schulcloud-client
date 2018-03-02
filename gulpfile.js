@@ -80,7 +80,6 @@ sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
 gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
-        .pipe(sassGrapher.ancestors())
         .pipe(header(fs.readFileSync(themeFile, 'utf8')))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())

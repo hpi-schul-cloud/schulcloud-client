@@ -173,13 +173,6 @@ $(document).ready(function() {
         window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    $('#desc').on('click', function(){
-        updateSearchParameter("desc", escape($('#desc').val()));
-    });
-    $('#sortselection').on('change',  function(){
-        updateSearchParameter("sort", escape($('#sortselection').val()));
-    });
-
     $('.importsubmission').on('click', function(e){
         e.preventDefault();
         const submissionid = this.getAttribute("data");
@@ -379,8 +372,7 @@ $(document).ready(function() {
     dd = new diffDOM();
     //import apply from "apply-html";
 
-    function applyFilter(feathersQuery, selector){
-        const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(feathersQuery));
+    function softNavigate(newurl, selector){
         $.ajax({
             type: "GET",
             url: newurl
@@ -391,11 +383,17 @@ $(document).ready(function() {
             const oldPage = document.querySelector(selector);
             const diff = dd.diff(oldPage, newPage);
             const result = dd.apply(oldPage, diff);
+
+            $(selector+" a").on("click", function(e){
+                softNavigate($(this).attr('href'), selector);
+                e.preventDefault();
+            });
         });
     }
     /* FEATHERS FILTER MODULE */
     document.getElementById("filter").addEventListener('newFilter', (e) => {
         filter = e.detail;
-        applyFilter(filter[0], ".homework");
+        const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
+        softNavigate(newurl, ".homework");
     })
 });

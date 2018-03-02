@@ -23,23 +23,6 @@
                 <div><feathers-filter id="filter"
                                  filter='{{@root.filterSettings}}'
                 /></div>
-                <div class="form-group sort">
-                    <select name="sort" id="sortselection" data-placeholder="Sortieren">
-                        {{#each sortmethods}}
-                            {{#if this.active}}
-                                <option value='{{this.query}}' selected="selected">{{this.title}}</option>
-                            {{else}}
-                                <option value='{{this.query}}'>{{this.title}}</option>
-                            {{/if}}
-                        {{/each}}
-                    </select>
-                    {{#if this.desc}}
-                        <button id="desc" type="submit" name="desc" value="false">▲</button>
-                    {{else}}
-                        <button id="desc" type="submit" name="desc" value="true">▼</button>
-                    {{/if}}
-                </div>
-
 
                 <ol class="homework">
                     <div class="row"><div class="col-xl-12">
