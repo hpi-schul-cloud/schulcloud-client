@@ -369,27 +369,6 @@ $(document).ready(function() {
         });
     });
 
-    dd = new diffDOM();
-    //import apply from "apply-html";
-
-    function softNavigate(newurl, selector){
-        $.ajax({
-            type: "GET",
-            url: newurl
-        }).done(function(r) {
-            // render new page
-            parser = new DOMParser()
-            const newPage = parser.parseFromString(r, "text/html").querySelector(selector);
-            const oldPage = document.querySelector(selector);
-            const diff = dd.diff(oldPage, newPage);
-            const result = dd.apply(oldPage, diff);
-
-            $(selector+" a").on("click", function(e){
-                softNavigate($(this).attr('href'), selector);
-                e.preventDefault();
-            });
-        });
-    }
     /* FEATHERS FILTER MODULE */
     document.getElementById("filter").addEventListener('newFilter', (e) => {
         filter = e.detail;

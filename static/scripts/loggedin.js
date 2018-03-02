@@ -3,6 +3,26 @@ if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
 
+const diffDOM = new diffDOM();
+function softNavigate(newurl, selector){
+    $.ajax({
+        type: "GET",
+        url: newurl
+    }).done(function(r) {
+        // render new page
+        parser = new DOMParser()
+        const newPage = parser.parseFromString(r, "text/html").querySelector(selector);
+        const oldPage = document.querySelector(selector);
+        const diff = diffDOM.diff(oldPage, newPage);
+        const result = diffDOM.apply(oldPage, diff);
+
+        $(selector+" a").on("click", function(e){
+            softNavigate($(this).attr('href'), selector);
+            e.preventDefault();
+        });
+    });
+}
+
 $(document).ready(function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
