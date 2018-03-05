@@ -1,6 +1,5 @@
 @import './colors';
 @import './bootstrap/scss/bootstrap-flex';
-@import "./sc-theme/sc-theme";
 @import "./editor";
 
 body {
@@ -16,19 +15,15 @@ body {
     }
 }
 aside.nav-sidebar {
-    color: #fff;
+    color: #727272;
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     width: 240px;
-    font-weight: 400;
     margin-top: 0;
     margin-bottom: 0;
-    background-image:url('/images/sidebar.png');
-    background-size: cover;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    background-color: #b91f4d;
+    background-color: #c3c1c1;
     z-index: 100;
     float: left;
 
@@ -46,7 +41,6 @@ aside.nav-sidebar {
         padding: 15px;
         font-size: 24px;
         background: $primaryColor;
-        opacity: .8;
         color: whitesmoke;
         text-decoration: none;
         @include media-breakpoint-down(md) {
@@ -108,7 +102,6 @@ aside.nav-sidebar {
             padding: 0px;
             margin: 0px;
             overflow-y: auto;
-            overflow-x: hidden;
 
             li {
                 width: 100%;
@@ -117,22 +110,23 @@ aside.nav-sidebar {
                 a:not(.sc-branding) {
                     width: 100%;
                     float: left;
-                    height: 50px;
-                    line-height: 50px;
-                    color: #fff;
+                    height: 60px;
+                    line-height: 60px;
+                    border-bottom: 1px solid #adadad;
+                    color: #727272;
                     padding: 0px 20px;
                     font-size: 14px;
                     text-decoration: none;
                     overflow-x: visible;
                     white-space: nowrap;
-                    text-shadow: 2px 2px 5px rgba(0,0,0,.6);
+    
                     &.child-active {
-                        background-color: rgba(0,0,0,.3);
+                        background-color: #dbd7d7;
                         border-bottom: 1px solid transparent;
                     }
 
                     &.subitem {
-                        background-color: rgba(0,0,0,.2);
+                        background-color: #dbd7d7;
                         height: 40px;
                         line-height: 40px;
                         border-bottom: 1px solid transparent;
@@ -162,14 +156,9 @@ aside.nav-sidebar {
                     }
 
                     &.active {
-                        background: #fffc;
+                        background: #fff;
                         color: $primaryColor;
                         border-bottom: 1px solid transparent;
-                        font-weight: 700;
-                        text-shadow: 2px 2px 5px rgba(0,0,0,.3);
-                        span{
-                            font-weight: 700;
-                        }
                     }
 
                     &[href]:hover {
@@ -190,7 +179,7 @@ aside.nav-sidebar {
                     span {
                         display: inline-block;
                         text-transform: uppercase;
-                        font-weight: 400;
+                        font-weight: bold;
                         text-decoration: none;
 
                         @include media-breakpoint-down(md) {
@@ -214,14 +203,11 @@ aside.nav-sidebar {
         position: absolute;
         left: 0px;
         padding-top: 5px;
-        color: #373a3c;
         font-size: 22px;
         line-height: 50px;
         text-align: center;
         cursor: pointer;
-        &:hover{
-            color: #373a3c;
-        }
+
         @include media-breakpoint-down(xs) {
             display: block;
         }
@@ -239,7 +225,7 @@ header {
 
 .content-wrapper {
     width: 100%;
-    min-height:calc(100vh - 113px);
+    min-height:calc(100vh - 112px);
     @include media-breakpoint-down(xs) {
         min-height:calc(100vh - 143px);
     }
@@ -287,29 +273,14 @@ header {
 
 .demo {
     text-align: center;
-    margin-left: 240px;
+    padding-left: 60px;
+
     .alert-warning {
-        margin: 0;
-        background: linear-gradient(10deg, #668095, #49718f);
-        color: #fff;
-        border: none;
-        border-radius: 0;
-        text-shadow: 1px 1px 10px rgba(0,0,0,.6);
+        height: 57.375px;
     }
     p {
         padding-top: 7px;
         font-weight: 900;
-        margin: 0;
-        padding: 0;
-    }
-    @include media-breakpoint-down(md) {
-        margin-left: 60px;
-    }
-    @include media-breakpoint-down(xs) {
-        margin-left: 0;
-        .alert-warning{
-            padding-left: 50px;
-        }
     }
 }
 

@@ -44,8 +44,8 @@ describe('Homework tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Gestellte Aufgaben');
-                    expect(res.text).to.not.contain('sc-btn sc-btn-secondary sc-btn-sm btn-edit');
-                    expect(res.text).to.not.contain('sc-btn sc-btn-secondary sc-btn-sm btn-delete');
+                    expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-edit');
+                    expect(res.text).to.not.contain('btn btn-secondary btn-sm btn-delete');
                     resolve();
                 });
         });
@@ -57,8 +57,8 @@ describe('Homework tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Meine Aufgaben');
-                    expect(res.text).to.contain('sc-btn sc-btn-secondary sc-btn-sm btn-edit');
-                    expect(res.text).to.contain('sc-btn sc-btn-secondary sc-btn-sm btn-delete');
+                    expect(res.text).to.contain('btn btn-secondary btn-sm btn-edit');
+                    expect(res.text).to.contain('btn btn-secondary btn-sm btn-delete');
                     resolve();
                 });
         });

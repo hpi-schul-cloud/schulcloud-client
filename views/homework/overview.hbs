@@ -12,8 +12,7 @@
             <section class="section-homework">
                 {{#if addButton}}
                     {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="sc-btn sc-btn-primary btn-add create"
-                       data-toggle="tooltip" data-placement="left" data-title="Aufgabe hinzufügen" >
+                    <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         <p>Aufgabe hinzufügen</p>
                     </a>

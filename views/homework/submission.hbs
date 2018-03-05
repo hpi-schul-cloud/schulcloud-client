@@ -67,12 +67,12 @@
 
     {{#if @root.submittable}}
         {{#userHasPermission "HOMEWORK_CREATE"}}
-            <button type="submit" class="sc-btn sc-btn-primary btn-submit">Speichern</button>
+            <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
         {{/userHasPermission}}
 
         {{#if @root.submission}}
             {{#ifeq @root.currentUser._id @root.submission.studentId._id}}
-                <a href="/homework/submit/{{@root.submission._id}}/delete" class="sc-btn sc-btn-secondary btn-delete-submission"
+                <a href="/homework/submit/{{@root.submission._id}}/delete" class="btn btn-secondary btn-delete-submission" 
                     target="_blank"
                     data-method="delete-submission"
                     data-name="deine Abgabe"
@@ -87,10 +87,10 @@
     {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
         {{#content "body"}}
             <div class="modal-footer">
-                <button type="button" class="sc-btn sc-btn-secondary btn-close">
+                <button type="button" class="btn btn-secondary btn-close">
                     Abbrechen
                 </button>
-                <button type="submit" class="sc-btn sc-btn-primary btn-submit">
+                <button type="submit" class="btn btn-primary btn-submit">
                     Löschen
                 </button>
             </div>
