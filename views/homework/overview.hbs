@@ -20,7 +20,10 @@
                     {{/userHasPermission}}
                 {{/if}}
                 <div><feathers-filter id="filter"
-                                 filter='{{@root.filterSettings}}'
+                        filter='{{@root.filterSettings}}'
+                        add-label='Filter hinzufügen'
+                        apply-label='Übernehmen'
+                        cancle-label='Abbrechen'
                 /></div>
 
                 <ol class="homework">

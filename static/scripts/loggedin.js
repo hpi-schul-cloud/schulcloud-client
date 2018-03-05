@@ -4,25 +4,39 @@ if (window.opener && window.opener !== window) {
 }
 
 const diffDOM = new diffDOM();
-function softNavigate(newurl, selector){
+function softNavigate(newurl, selector, listener){
     $.ajax({
         type: "GET",
         url: newurl
     }).done(function(r) {
         // render new page
         parser = new DOMParser()
-        const newPage = parser.parseFromString(r, "text/html").querySelector(selector);
-        const oldPage = document.querySelector(selector);
-        const diff = diffDOM.diff(oldPage, newPage);
-        const result = diffDOM.apply(oldPage, diff);
-
-        $(selector+" a").on("click", function(e){
-            softNavigate($(this).attr('href'), selector);
-            e.preventDefault();
-        });
+        const newPage = parser.parseFromString(r, "text/html")
+        // apply new page
+        try{
+            const newPagePart = newPage.querySelector(selector);
+            const oldPagePart = document.querySelector(selector);
+            const diff = diffDOM.diff(oldPagePart, newPagePart);
+            const result = diffDOM.apply(oldPagePart, diff);
+            document.querySelectorAll((listener||selector)+" a").forEach(link => {
+                link.addEventListener("click", function(e){
+                    softNavigate($(this).attr('href'), selector, listener);
+                    e.preventDefault();
+                    return false;
+                })
+            })
+            // scroll to top
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            // TODO: eventListener aren't applied again. For example the archive-button
+            dispatchEvent(new Event('load'));
+            jQuery(window).trigger('load');
+        }catch(e){
+            console.error(e);
+            window.location =newurl;
+        }
     });
 }
-
 $(document).ready(function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');

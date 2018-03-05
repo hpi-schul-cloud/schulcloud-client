@@ -497,6 +497,15 @@ const overview = (title = "") => {
                             displayTemplate: 'Abgabe vom %1 bis %2',
                             property: 'dueDate',
                             mode: 'fromto'
+                        },
+                        {
+                            type: "boolean",
+                            title: 'Mehr',
+                            options: {
+                                "private": "private Aufgabe",
+                                "publicSubmissions": "Öffentliche Abgaben",
+                                "teamSubmissions": "Teamabgaben"
+                            }
                         }]
                     );
                     //Pagination in client, because filters are in afterhook

@@ -141,8 +141,9 @@ $(document).ready(function() {
         return false;
     });
 
-    $('.btn-archive').on("click",function(e){
+    $('.btn-archive').on("click", function(e){
         e.preventDefault();
+        e.stopPropagation();
         // loading animation
         let btntext = this.innerHTML;
         $(this).find("i").attr("class", "fa fa-spinner fa-spin");
@@ -373,6 +374,6 @@ $(document).ready(function() {
     document.getElementById("filter").addEventListener('newFilter', (e) => {
         filter = e.detail;
         const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
-        softNavigate(newurl, ".homework");
+        softNavigate(newurl, ".homework", ".pagination");
     })
 });
