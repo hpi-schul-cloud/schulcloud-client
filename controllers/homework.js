@@ -759,7 +759,7 @@ router.get('/:assignmentId', function(req, res, next) {
             }).filter(submission => {
                 return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
                     (submission.teamMemberIds.includes(res.locals.currentUser._id.toString())) ||
-                    (submission.courseGroupMemberIds.includes(res.locals.currentUser._id.toString()));
+                    ((submission.courseGroupMemberIds || []).includes(res.locals.currentUser._id.toString()));
             })[0];
 
             courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
