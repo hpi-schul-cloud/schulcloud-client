@@ -1,17 +1,17 @@
 <section id="submission" class="tab-content section-homeworkdetails">
-  {{#if submittable}}
+  {{#if @root.submittable}}
     <div class="comment editor">
       <p class="submissionLabel"><i class="fa fa-folder-open"></i>Dateiabgabe</p>
       {{#embed "files/file-upload" }}{{/embed}}
 
-      {{#if submission}}
+      {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{submission._id}}">
         <input name="submissionId" type="hidden" data-force-value="true" value="{{submission._id}}"/>
       {{else}}
         <form class="form submissionForm" method="post" action="/homework/submit">
       {{/if}}
         
-      {{#if submission}}
+      {{#if @root.submission}}
         {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
          <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
@@ -23,7 +23,8 @@
         <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
         <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
       {{/if}}
-      {{#if teamSubmissions}}
+
+      {{#if @root.teamSubmissions}}
         <hr>
         <p class="submissionLabel"><i class="fa fa-users"></i>Teamabgabe {{#if maxTeamMembers}}(maximal <span id="maxTeamMembers">{{@root.maxTeamMembers}}</span> Personen){{/if}}</p>
         <div class="form-group">
@@ -63,21 +64,22 @@
       {{/if}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>Textabgabe</p>
         <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
+
         <div class="form-group">
             <textarea id="evaluation" name="comment" class="form-control customckeditor"
-                  placeholder="Erstelle deine Abgabe...">{{submission.comment}}</textarea>
+                  placeholder="Erstelle deine Abgabe...">{{@root.submission.comment}}</textarea>
         </div>
   {{else}}
     <div class="comment">
-        {{#if submission.comment}}
-            {{{submission.comment}}}
+        {{#if @root.submission.comment}}
+            {{{@root.submission.comment}}}
         {{else}}
             <p>Keine Abgabe.</p>
         {{/if}}
     </div>
   {{/if}}
 
-    {{#if submittable}}
+    {{#if @root.submittable}}
         {{#userHasPermission "HOMEWORK_CREATE"}}
             <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
         {{/userHasPermission}}

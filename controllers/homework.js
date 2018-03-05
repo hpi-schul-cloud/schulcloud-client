@@ -464,7 +464,7 @@ const overview = (title = "") => {
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             api(req).get('/users/' + res.locals.currentUser._id, {
                 qs: {
-                    $populate: ['roles']
+                    $populate: ['roles','courseId']
                 }
             }).then(user => {
                 const isStudent = (user.roles.map(role => { return role.name; }).indexOf('student') != -1);
@@ -490,8 +490,13 @@ const overview = (title = "") => {
                     assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
 
                     assignment.currentUser = res.locals.currentUser;
+
+                    assignment.isSubstitution = !assignment.private && ((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString());
+                    assignment.isTeacher = assignment.isSubstitution
+                                         ||((assignment.courseId||{}).teacherIds||[]).includes(assignment.currentUser._id.toString())
+                                         ||assignment.teacherId == res.locals.currentUser._id;
                     assignment.actions = getActions(assignment, '/homework/');
-                    if (assignment.teacherId != res.locals.currentUser._id) {
+                    if (!assignment.isTeacher) {
                         assignment.stats = undefined;
                     }
                     return assignment;
@@ -500,7 +505,8 @@ const overview = (title = "") => {
                 const coursesPromise = getSelectOptions(req, 'courses', {
                     $or: [
                         { userIds: res.locals.currentUser._id },
-                        { teacherIds: res.locals.currentUser._id }
+                        { teacherIds: res.locals.currentUser._id },
+                        { substitutionIds: res.locals.currentUser._id }
                     ]
                 });
                 Promise.resolve(coursesPromise).then(courses => {
@@ -548,7 +554,8 @@ router.get('/new', function(req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
         $or: [
             { userIds: res.locals.currentUser._id },
-            { teacherIds: res.locals.currentUser._id }
+            { teacherIds: res.locals.currentUser._id },
+            { substitutionIds: res.locals.currentUser._id }
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
@@ -603,18 +610,23 @@ router.get('/:assignmentId/edit', function(req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
-        if (assignment.teacherId != res.locals.currentUser._id) {
+
+        const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || ((assignment.courseId||{}).teacherIds||[]).includes(res.locals.currentUser._id);
+        const isSubstitution = ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id);
+        if(!isTeacher && !isSubstitution){
             let error = new Error("You don't have permissions!");
             error.status = 403;
             return next(error);
         }
+
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
-                { userIds: res.locals.currentUser._id },
-                { teacherIds: res.locals.currentUser._id }
+                {userIds: res.locals.currentUser._id},
+                {teacherIds: res.locals.currentUser._id},
+                {substitutionIds: res.locals.currentUser._id}
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
@@ -649,11 +661,11 @@ router.get('/:assignmentId/edit', function(req, res, next) {
                             assignment,
                             courses,
                             lessons,
-                            isStudent
+                            isStudent,
+                            isSubstitution
                         });
                     });
                 } else {
-                    //Render overview
                     res.render('homework/edit', {
                         title: 'Aufgabe hinzufügen',
                         submitLabel: 'Speichern',
@@ -664,7 +676,8 @@ router.get('/:assignmentId/edit', function(req, res, next) {
                         assignment,
                         courses,
                         lessons: false,
-                        isStudent
+                        isStudent,
+                        isSubstitution
                     });
                 }
             });
@@ -738,7 +751,6 @@ router.get('/:assignmentId', function(req, res, next) {
                 })
             );
         }
-
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
             assignment.submission = (submissions || {}).data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
@@ -759,7 +771,11 @@ router.get('/:assignmentId', function(req, res, next) {
                 .sort((a, b) => { return (a.lastName.toUpperCase() < b.lastName.toUpperCase()) ? -1 : 1; })
                 .sort((a, b) => { return (a.firstName.toUpperCase() < b.firstName.toUpperCase()) ? -1 : 1; });
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
-            if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
+            if (!assignment.private
+                && ((assignment.teacherId == res.locals.currentUser._id
+                    || ((assignment.courseId||{}).teacherIds||[]).includes(res.locals.currentUser._id)
+                    || ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id))
+                && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions.data.filter(submission => { return submission.studentId; })
                     .sort((a, b) => { return (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1; })
@@ -846,6 +862,7 @@ router.get('/:assignmentId', function(req, res, next) {
                 });
                 //});
             } else { // normale Schüleransicht
+                /*
                 if (assignment.submission) {
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
@@ -870,6 +887,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         }));
                     });
                 } else {
+                */
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [{
@@ -883,7 +901,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         courseGroups,
                         courseGroupSelected
                     }));
-                }
+                //}
             }
         });
     }).catch(err => {
