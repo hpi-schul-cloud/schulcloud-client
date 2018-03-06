@@ -1,8 +1,3 @@
-if (window.opener && window.opener !== window) {
-    document.body.classList.add('window-inline');
-    window.isInline = true;
-}
-
 $(document).ready(function () {
     var $modals = $('.modal');
     var $pollModal = $('.poll-modal');
