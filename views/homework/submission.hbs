@@ -5,8 +5,8 @@
       {{#embed "files/file-upload" }}{{/embed}}
 
       {{#if @root.submission}}
-        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{submission._id}}">
-        <input name="submissionId" type="hidden" data-force-value="true" value="{{submission._id}}"/>
+        <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">
+        <input name="submissionId" type="hidden" data-force-value="true" value="{{@root.submission._id}}"/>
       {{else}}
         <form class="form submissionForm" method="post" action="/homework/submit">
       {{/if}}
@@ -20,8 +20,8 @@
             <ul class="list-group-files d-flex flex-row"></ul>
         </div>
         <input type="hidden" name="_method" data-force-value="true" value="post"/>
-        <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
-        <input name="studentId" type="hidden" data-force-value="true" value="{{currentUser._id}}"/>
+        <input name="schoolId" type="hidden" data-force-value="true" value="{{@root.currentSchool}}"/>
+        <input name="studentId" type="hidden" data-force-value="true" value="{{@root.currentUser._id}}"/>
       {{/if}}
 
       {{#if @root.teamSubmissions}}
@@ -30,8 +30,8 @@
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
             <label for="teamMembers1">Teammitglieder auswählen</label>
-            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Teammitglieder auswählen">
-                {{#each students}}
+            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Mitstreiter auswählen">
+                {{#each @root.students}}
                     <option value="{{this._id}}" 
                         {{#if @root.submission}}
                             {{#inArray this._id @root.submission.teamMemberIds}}selected{{/inArray}}
@@ -52,8 +52,8 @@
         <div class="form-group">
             <input name="teamSubmissionOptions" value="courseGroup" type="radio" id="courseGroup1" {{#if @root.courseGroupSelected}}checked{{/if}}/>
             <label for="courseGroup1">Schülergruppe auswählen</label>
-            <select name="courseGroupId" id="courseGroupId" data-placeholder="Schülergruppe auswählen">
-                {{#each courseGroups}}
+            <select name="courseGroupId" id="courseGroupId" data-placeholder="Mitstreiter auswählen">
+                {{#each @root.courseGroups}}
                     <option value="{{this._id}}" {{#ifeq this._id @root.submission.courseGroupId._id}}selected{{/ifeq}}>{{this.name}}</option>
                 {{else}}
                     <option value="" disabled>keine Schülergruppen in diesem Kurs</option>
@@ -63,7 +63,7 @@
         <hr>
       {{/if}}
         <p class="submissionLabel"><i class="fa fa-text-width"></i>Textabgabe</p>
-        <input name="homeworkId" type="hidden" data-force-value="true" value="{{_id}}"/>
+        <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}"/>
 
         <div class="form-group">
             <textarea id="evaluation" name="comment" class="form-control customckeditor"
