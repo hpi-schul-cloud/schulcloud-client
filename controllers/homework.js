@@ -457,7 +457,7 @@ const overview = (title = "") => {
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             api(req).get('/users/' + res.locals.currentUser._id, {
                 qs: {
-                    $populate: ['roles']
+                    $populate: ['roles','courseId']
                 }
             }).then(user => {
                 const isStudent = (user.roles.map(role => {return role.name;}).indexOf('student') != -1);
@@ -483,8 +483,13 @@ const overview = (title = "") => {
                     assignment.privateclass = assignment.private ? "private" : ""; // Symbol für Private Hausaufgabe anzeigen?
 
                     assignment.currentUser = res.locals.currentUser;
+
+                    assignment.isSubstitution = !assignment.private && ((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString());
+                    assignment.isTeacher = assignment.isSubstitution
+                                         ||((assignment.courseId||{}).teacherIds||[]).includes(assignment.currentUser._id.toString())
+                                         ||assignment.teacherId == res.locals.currentUser._id;
                     assignment.actions = getActions(assignment, '/homework/');
-                    if (assignment.teacherId != res.locals.currentUser._id) {
+                    if (!assignment.isTeacher) {
                         assignment.stats = undefined;
                     }
                     return assignment;
@@ -493,7 +498,8 @@ const overview = (title = "") => {
                 const coursesPromise = getSelectOptions(req, 'courses', {
                     $or: [
                         {userIds: res.locals.currentUser._id},
-                        {teacherIds: res.locals.currentUser._id}
+                        {teacherIds: res.locals.currentUser._id},
+                        {substitutionIds: res.locals.currentUser._id}
                     ]
                 });
                 Promise.resolve(coursesPromise).then(courses => {
@@ -541,16 +547,17 @@ router.get('/new', function (req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
         $or: [
             {userIds: res.locals.currentUser._id},
-            {teacherIds: res.locals.currentUser._id}
+            {teacherIds: res.locals.currentUser._id},
+            {substitutionIds: res.locals.currentUser._id}
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
-        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
+        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
         const lessonsPromise = getSelectOptions(req, 'lessons', {
             courseId: req.query.course
         });
         Promise.resolve(lessonsPromise).then(lessons => {
-            (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
+            (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -596,22 +603,26 @@ router.get('/:assignmentId/edit', function (req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
-        if(assignment.teacherId != res.locals.currentUser._id){
+        const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || ((assignment.courseId||{}).teacherIds||[]).includes(res.locals.currentUser._id);
+        const isSubstitution = ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id);
+        if(!isTeacher && !isSubstitution){
             let error = new Error("You don't have permissions!");
             error.status = 403;
             return next(error);
         }
+
         assignment.availableDate = moment(assignment.availableDate).format('DD.MM.YYYY HH:mm');
         assignment.dueDate = moment(assignment.dueDate).format('DD.MM.YYYY HH:mm');
 
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
                 {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
+                {teacherIds: res.locals.currentUser._id},
+                {substitutionIds: res.locals.currentUser._id}
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
-            courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
+            courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -630,8 +641,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         courseId: assignment.courseId._id
                     });
                     Promise.resolve(lessonsPromise).then(lessons => {
-                        (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;})
-                        //Render overview
+                        (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
@@ -642,11 +652,11 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             assignment,
                             courses,
                             lessons,
-                            isStudent
+                            isStudent,
+                            isSubstitution
                         });
                     });
                 } else {
-                    //Render overview
                     res.render('homework/edit', {
                         title: 'Aufgabe hinzufügen',
                         submitLabel: 'Speichern',
@@ -657,7 +667,8 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         assignment,
                         courses,
                         lessons: false,
-                        isStudent
+                        isStudent,
+                        isSubstitution
                     });
                 }
             });
@@ -706,10 +717,10 @@ router.get('/:assignmentId', function (req, res, next) {
             api(req).get('/submissions/', {
                 qs: {
                     homeworkId: assignment._id,
-                    $populate: ['homeworkId', 'fileIds','teamMembers','studentId']
+                    $populate: ['homeworkId','fileIds','teamMembers','studentId']
                 }
             }),
-        ]
+        ];
         if(assignment.courseId && assignment.courseId._id){
             promises.push(
                 // Alle Teilnehmer des Kurses
@@ -721,7 +732,6 @@ router.get('/:assignmentId', function (req, res, next) {
             );
         }
         Promise.all(promises).then((values) => {
-            //[submissions, course]
             let submissions = (values[0]||{});
             assignment.submission = submissions.data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => {return e._id;});
@@ -730,18 +740,22 @@ router.get('/:assignmentId', function (req, res, next) {
                 return ((submission.studentId||{})._id == res.locals.currentUser._id)
                      ||(submission.teamMemberIds.includes(res.locals.currentUser._id.toString()));
             })[0];
-            const students = ((values[1]||{}).userIds || []).filter(user => {return (user.firstName && user.lastName)})
+            const students = ((values[1]||{}).userIds || []).filter(user => {return (user.firstName && user.lastName);})
                                                             .sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
                                                             .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
-            if (!assignment.private && (assignment.teacherId == res.locals.currentUser._id && assignment.courseId != null || assignment.publicSubmissions)) {
+            if (!assignment.private
+                && ((assignment.teacherId == res.locals.currentUser._id
+                    || ((assignment.courseId||{}).teacherIds||[]).includes(res.locals.currentUser._id)
+                    || ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id))
+                && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions.data.filter(submission => {return submission.studentId;})
                                                          .sort((a,b)=>{return (a.studentId.lastName.toUpperCase()  < b.studentId.lastName.toUpperCase())?-1:1;})
                                                          .sort((a,b)=>{return (a.studentId.firstName.toUpperCase() < b.studentId.firstName.toUpperCase())?-1:1;})
                                                          .map(sub => {
                                                              sub.teamMembers.sort((a,b)=>{return (a.lastName.toUpperCase()  < b.lastName.toUpperCase())?-1:1;})
-                                                                            .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;})
+                                                                            .sort((a,b)=>{return (a.firstName.toUpperCase() < b.firstName.toUpperCase())?-1:1;});
                                                              return sub;
                                                          });
                 let studentSubmissions = students.map(student => {
@@ -760,7 +774,7 @@ router.get('/:assignmentId', function (req, res, next) {
                 assignment.submissions.forEach(e => {
                     if(e.teamMembers){
                         e.teamMembers.forEach( c => {
-                            studentsWithSubmission.push(c._id.toString())
+                            studentsWithSubmission.push(c._id.toString());
                         });
                     }else{
                         studentsWithSubmission.push(e.studentId.toString());
@@ -771,7 +785,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     if(!studentsWithSubmission.includes(e.toString())){
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
-                                return (s.student._id.toString() == e.toString())
+                                return (s.student._id.toString() == e.toString());
                             }).map(s => {
                                 return s.student;
                             })[0]
@@ -820,6 +834,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     });
                 //});
             } else { // normale Schüleransicht
+                /*
                 if (assignment.submission) {
                     // Kommentare zu Abgabe auslesen
                     const commentPromise = getSelectOptions(req, 'comments', {
@@ -843,6 +858,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         }));
                     });
                 } else {
+                */
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [
@@ -855,7 +871,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         students,
                         path: submissionUploadPath
                     }));
-                }
+                //}
             }
         });
     }).catch(err => {

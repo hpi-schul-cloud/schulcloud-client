@@ -1,5 +1,7 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
+const sassGrapher = require('gulp-sass-grapher');
+const path = require('path');
 const rimraf = require('gulp-rimraf')
 const uglify = require('gulp-uglify')
 const cleancss = require('clean-css')
@@ -72,14 +74,21 @@ gulp.task('images', () => {
 function themeName(){
     return process.env.SC_THEME || 'default';
 }
+
+var loadPaths = path.resolve('./static/styles/');
+sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
+var firstRun = true;
 gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
-        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
+        .pipe(gulpif(!firstRun, sassGrapher.ancestors()))
+        .pipe(header(fs.readFileSync(themeFile, 'utf8'))) // READ: https://github.com/schul-cloud/schulcloud-client/pull/588
+        .pipe(filelog("PROCESS: "))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
-        .pipe(gulp.dest('./build/styles'))
+        .pipe(gulp.dest('./build/styles'));
+    firstRun = false;
 })
 
 //copy fonts

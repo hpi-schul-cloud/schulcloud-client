@@ -24,10 +24,10 @@ const wax = handlebarsWax(handlebars)
     .helpers(layouts)
     .helpers(handlebarsHelper.helpers);
 
-wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`))
+wax.partials(path.join(__dirname, `theme/${themeName}/views/**/*.{hbs,js}`));
 
 const viewDirs = [path.join(__dirname, 'views')];
-viewDirs.unshift(path.join(__dirname, `theme/${themeName}/views/`))
+viewDirs.unshift(path.join(__dirname, `theme/${themeName}/views/`));
 
 app.set('views', viewDirs);
 app.engine("hbs", wax.engine);
