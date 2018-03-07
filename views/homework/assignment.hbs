@@ -103,7 +103,7 @@
                         {{#ifvalue teacherId value=currentUser._id}}
 {{> 'homework/submissions'}}
                         {{else}}
-                            {{#inArray courseId.substitutionIds currentUser._id}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
 {{> 'homework/submissions'}}
                             {{else}}
 {{> 'homework/feedback'}}
