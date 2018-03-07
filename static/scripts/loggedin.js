@@ -153,10 +153,10 @@ $(document).ready(function () {
 
     $('.btn-create-qr').on('click', function () {
         // create qr code for current page
-        let el = kjua({text: window.location.href, render: 'canvas'});
+        let image = kjua({text: window.location.href, render: 'image'});
         let $qrbox = $('.qr-show');
         $qrbox.empty();
-        $qrbox.append(el);
+        $qrbox.append(image);
     });
 
     var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
