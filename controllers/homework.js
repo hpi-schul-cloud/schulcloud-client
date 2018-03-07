@@ -559,13 +559,13 @@ router.get('/new', function(req, res, next) {
         ]
     });
     Promise.resolve(coursesPromise).then(courses => {
-        courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
+        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
         const lessonsPromise = getSelectOptions(req, 'lessons', {
             courseId: req.query.course
         });
         Promise.resolve(lessonsPromise).then(lessons => {
-            (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
-                // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
                 $populate: ['roles']
@@ -630,8 +630,8 @@ router.get('/:assignmentId/edit', function(req, res, next) {
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
-            courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
-                // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
                 $populate: ['roles']
@@ -649,8 +649,7 @@ router.get('/:assignmentId/edit', function(req, res, next) {
                         courseId: assignment.courseId._id
                     });
                     Promise.resolve(lessonsPromise).then(lessons => {
-                        (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
-                            //Render overview
+                        (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
