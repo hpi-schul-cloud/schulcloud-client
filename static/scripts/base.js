@@ -196,14 +196,14 @@ $(document).ready(function () {
 
     // Print Button
     $('.print .btn-print').click(function () {
-        $(this).html("");
+        $(this).hide();
         w = window.open();
         w.document.write($(this).parent(".print").html());
         w.print();
         w.close();
-        $(this).html("<i class='fa fa-print'></i> Drucken");
+        $(this).show();
     });
-    
+
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
 });
