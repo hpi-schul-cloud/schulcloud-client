@@ -159,10 +159,7 @@ router.post('/addToLesson', function (req, res, next) {
 
 router.post('/rate',function (req, res, next) {
     const rating = req.body;
-    rating.isTeacherRating = false;
-    res.locals.currentUser.roles.forEach((role, idx) => {
-        rating.isTeacherRating = rating.isTeacherRating || role.name === "teacher";
-    });
+    rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
     // TODO send proper courseId and topicId
     rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
     rating.topicId = "5a7318d67bbd9f1b32e6bc16";
