@@ -6,7 +6,7 @@ const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
-const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://tools.openhpi.de/etherpad/p/';
+const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
@@ -99,13 +99,18 @@ router.get('/:topicId', function (req, res, next) {
                 courseId: req.params.courseId,
                 lessonId: req.params.topicId,
                 $populate: ['courseId'],
-                archived : {$ne: res.locals.currentUser._id }
+                archived : {$ne: res.locals.currentUser._id}
             }
         })
     ]).then(([course, lesson, homeworks]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
+            // TODO better place to send this data?
+            (block.content.resources || []).forEach(resource => {
+                resource.url += `?courseId=${course._id}&topicId=${lesson._id}&userId=${res.locals.currentUser._id}`;
+            });
+
             return block;
         });
         homeworks = (homeworks.data || []).map(assignment => {

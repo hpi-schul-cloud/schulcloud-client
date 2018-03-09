@@ -1,5 +1,4 @@
 $(document).ready(function () {
-	var $modals = $('.modal');
 	var $editModal = $('.edit-modal');
 	var $externalLinkModal = $('.external-link-modal');
 
@@ -80,9 +79,5 @@ $(document).ready(function () {
 		var provider = $externalLinkModal.find('.provider');
 		provider.html($(this).data('provider') || provider.html());
 		$externalLinkModal.modal('show');
-	});
-
-	$modals.find('.close, .btn-close, .external-link-btn').on('click', function () {
-		$modals.modal('hide');
 	});
 });

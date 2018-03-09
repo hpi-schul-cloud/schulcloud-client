@@ -51,6 +51,7 @@ router.get('/', function (req, res, next) {
                 title: 'Materialien',
                 featuredContent: featured.data,
                 trendingContent: trending.data,
+                totalCount: trending.total,
                 action
             });
         });
@@ -107,7 +108,7 @@ router.get('/:id', function (req, res, next) {
 
 router.get('/redirect/:id', function (req, res, next) {
     return api(req)({
-        uri: '/content/redirect/' + req.params.id,
+        uri: req.originalUrl,
         followRedirect: false,
         resolveWithFullResponse: true,
         simple: false
