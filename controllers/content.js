@@ -43,10 +43,10 @@ router.get('/', function (req, res, next) {
             /* Fake dummy data for rating */
             featured.data.map(function (item) {
                 item.rating = Math.round(Math.random() * 100) % 50 /10;
-            })
+            });
             trending.data.map(function (item) {
                 item.rating = Math.round(Math.random() * 100) % 50 / 10;
-            })
+            });
             return res.render('content/store', {
                 title: 'Materialien',
                 featuredContent: featured.data,
@@ -127,8 +127,7 @@ router.get('/redirect/:id', function (req, res, next) {
     });
 });
 
-router.get('/rate/rating',function (req,res,next) {
-    console.log("TEST");
+router.get('/rate/rating',function (req, res, next) {
     api(req)({
         uri: '/content/resources/',
         qs: {
@@ -138,7 +137,6 @@ router.get('/rate/rating',function (req,res,next) {
         },
         json: true
     }).then(ratings => {
-        var ratingContent = [];
         return res.render('content/rating', {
             title: 'Bewerte deine Materialien',
             content : ratings.data
@@ -163,20 +161,19 @@ router.post('/addToLesson', function (req, res, next) {
     });
 });
 
-router.post('/rate',function (req,res,next) {
-    var isTeacher = false;
-    res.locals.currentUser.roles.forEach((role,idx) => {
-       isTeacher = isTeacher || role.name === "teacher";
+router.post('/rate',function (req, res, next) {
+    const rating = req.body;
+    rating.isTeacherRating = false;
+    res.locals.currentUser.roles.forEach((role, idx) => {
+        rating.isTeacherRating = rating.isTeacherRating || role.name === "teacher";
     });
-    req.body.data = req.body.data.map((item) =>{
-       return {
-           materialId : item.ID,
-           rating : Number(item.value),
-           isTeacher : isTeacher
-       };
+    // TODO send proper courseId and topicId
+    rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
+    rating.topicId = "5a7318d67bbd9f1b32e6bc16";
+    api(req).post({
+        uri: '/content/ratings',
+        json: rating
     });
-    console.log(req.body);
-    res.send();
 });
 
 module.exports = router;
