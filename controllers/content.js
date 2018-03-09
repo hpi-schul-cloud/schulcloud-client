@@ -40,7 +40,7 @@ router.get('/', function (req, res, next) {
             })
         ]).then(([featured, trending]) => {
 
-            /* Fake dummy data for rating */
+            // TODO replace Fake dummy data for rating
             featured.data.map(function (item) {
                 item.rating = Math.round(Math.random() * 100) % 50 /10;
             });
