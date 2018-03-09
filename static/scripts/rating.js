@@ -29,24 +29,24 @@ $stars.on('click', onStarClick);
 initStars();
 
 $('.btn-send-rate').on('click', function () {
-
-   var ratings = {data :[]};
-   var inputs = $('.rating-value');
-   inputs.each((item) =>{
+   let rating = {};
+   const inputs = $('.rating-value');
+   inputs.each(item => {
        if(this.id === inputs[item].id){
-           var rate = {};
-           rate.ID = inputs[item].id;
-           rate.value = inputs[item].value;
-           ratings.data.push(rate);
+           rating.materialId = inputs[item].id;
+           rating.rating = Number(inputs[item].value);
            $('.content[id='+this.id+']').remove();
        }
    });
+   if($.isEmptyObject(rating)) {
+       return;
+   }
    $.ajax({
-        url: '/content/rate',
-        type: 'post',
-        data : ratings,
-        dataType: 'json'
-    });
+       url: '/content/rate',
+       type: 'post',
+       data : rating,
+       dataType: 'json'
+   });
 });
 
 
