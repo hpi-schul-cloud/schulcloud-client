@@ -351,7 +351,9 @@ router.post('/submit/:id/files', function (req, res, next) {
             $push: {
                 fileIds: req.body.fileId,
             },
-            teamMembers: req.body.teamMembers
+            $set: {
+                teamMembers: req.body.teamMembers || [res.locals.currentUser._id]
+            }
         }
     })
         .then(result => res.json(result))
@@ -398,7 +400,9 @@ router.delete('/submit/:id/files', function (req, res, next) {
             $pull: {
                 fileIds: req.body.fileId
             },
-            teamMembers: req.body.teamMembers
+            $set: {
+                teamMembers: req.body.teamMembers || [res.locals.currentUser._id]
+            }
         }
     })
         .then(result => res.json(result))
