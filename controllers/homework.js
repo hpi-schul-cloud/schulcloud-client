@@ -79,6 +79,12 @@ const getCreateHandler = (service) => {
             if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
                 req.body.lessonId = null;
             }
+            if(req.body.dueDate == "__.__.____ __:__"){
+                req.body.dueDate = undefined
+            }
+            if(req.body.availableDate == "__.__.____ __:__"){
+                req.body.availableDate = undefined
+            }
             if (req.body.dueDate) {
                 // rewrite german format to ISO
                 req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
