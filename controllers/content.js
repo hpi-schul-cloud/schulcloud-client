@@ -137,6 +137,7 @@ router.get('/rate/rating',function (req, res, next) {
         },
         json: true
     }).then(ratings => {
+        var ratingContent = [];
         return res.render('content/rating', {
             title: 'Bewerte deine Materialien',
             content : ratings.data
@@ -161,16 +162,19 @@ router.post('/addToLesson', function (req, res, next) {
     });
 });
 
-router.post('/rate',function (req, res, next) {
-    const rating = req.body;
-    rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
-    // TODO send proper courseId and topicId
-    rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
-    rating.topicId = "5a7318d67bbd9f1b32e6bc16";
-    api(req).post({
-        uri: '/content/ratings',
-        json: rating
+router.post('/rate',function (req,res,next) {
+    var isTeacher = false;
+    res.locals.currentUser.roles.forEach((role,idx) => {
+       isTeacher = isTeacher || role.name === "teacher";
     });
+    req.body.data = req.body.data.map((item) =>{
+       return {
+           materialId : item.ID,
+           rating : Number(item.value),
+           isTeacher : isTeacher
+       };
+    });
+    res.send();
 });
 
 module.exports = router;
