@@ -1,0 +1,21 @@
+{
+    "name": "Niedersächsische BildungsCloud",
+    "short_name": "BildungsCloud",
+    "icons": [
+        {
+            "src": "/images/logo/app-logo-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-logo-1024.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/?homescreen=1&theme=n21",
+    "scope": "/",
+    "theme_color": "#78aae5",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

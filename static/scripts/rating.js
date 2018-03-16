@@ -29,22 +29,23 @@ $stars.on('click', onStarClick);
 initStars();
 
 $('.btn-send-rate').on('click', function () {
+    const input = $(`.rating-value[data-actualid=rating${this.id}]`);
+    console.log(input)
+    if(input.length === 0){
+        return;
+    }
 
-   var ratings = {data :[]};
-   var inputs = $('.rating-value');
-   inputs.each((item) =>{
-       if(this.id === inputs[item].id){
-           var rate = {};
-           rate.ID = inputs[item].id;
-           rate.value = inputs[item].value;
-           ratings.data.push(rate);
-           $('.content[id='+this.id+']').remove();
-       }
-   });
-   $.ajax({
+    const rating = {
+        materialId: input[0].id,
+        rating: Number(input[0].value || 0)
+    };
+    $(`#${this.id}`).remove();
+
+
+    $.ajax({
         url: '/content/rate',
         type: 'post',
-        data : ratings,
+        data : rating,
         dataType: 'json'
     });
 });

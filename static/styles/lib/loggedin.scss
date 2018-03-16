@@ -39,8 +39,8 @@ aside.nav-sidebar {
     .sc-branding {
         display: block;
         padding: 15px;
-        font-size: 25px;
-        background: $colorHPIRed;
+        font-size: 24px;
+        background: $primaryColor;
         color: whitesmoke;
         text-decoration: none;
         @include media-breakpoint-down(md) {
@@ -52,7 +52,7 @@ aside.nav-sidebar {
             height: 30px;
             margin-bottom: -5px;
             margin-right: 0.25rem;
-            background: url("../../images/logo/cloud-transparent-mono.svg") no-repeat center;
+            background: $logoBackground;
             background-size: contain;
             @include media-breakpoint-down(md) {
                 width: 100%;
@@ -151,7 +151,7 @@ aside.nav-sidebar {
 
                     &.active {
                         background: #fff;
-                        color: $colorHPIRed;
+                        color: $primaryColor;
                         border-bottom: 1px solid transparent;
                     }
 
@@ -255,7 +255,7 @@ header {
         }
 
         h5 {
-            color: $colorHPIRed;
+            color: $primaryColor;
             margin: 0px 0px 30px 0px;
         }
 
@@ -310,7 +310,7 @@ footer {
     line-height: 1.75rem;
 
     h4 {
-        color: $colorHPIRed;
+        color: $primaryColor;
         float: left;
         margin-bottom: 0px;
         margin-right: 20px;
@@ -320,7 +320,7 @@ footer {
     .location-info {
         float: left;
         a {
-            color: $colorHPIYellow;
+            color: $accentColor;
         }
     }
 
@@ -495,7 +495,7 @@ footer {
 
 .notification-dropdown {
     .btn.recent i {
-        color: $colorHPIRed;
+        color: $primaryColor;
         margin-right: 5px;
     }
 

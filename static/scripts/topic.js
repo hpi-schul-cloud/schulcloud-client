@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    var $modals = $('.modal');
+    var $externalLinkModal = $('.external-link-modal');
+
     $('.btn-create-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -24,5 +27,20 @@ $(document).ready(function () {
 
             }
         });
+    });
+
+    $('.external-link').on('click', function () {
+        populateModalForm($externalLinkModal, {
+                title: 'Sie verlassen jetzt die Schul-Cloud',
+                closeLabel: 'Abbrechen',
+        });
+        $externalLinkModal.find('.external-link-btn').attr('href', $(this).data('external-link'));
+        var provider = $externalLinkModal.find('.provider');
+        provider.html($(this).data('provider') || provider.html());
+        $externalLinkModal.modal('show');
+    });
+
+    $modals.find('.close, .btn-close, .external-link-btn').on('click', function () {
+        $modals.modal('hide');
     });
 });

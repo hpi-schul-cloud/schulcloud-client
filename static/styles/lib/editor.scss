@@ -3,24 +3,24 @@
 /* BASE */
 
 .cke_wysiwyg_frame::selection{
-    background-color: $colorHPIOrange;
+    background-color: $secondaryColor;
     color: #fff;
 }
 .cke_chrome{
-    border: 1px solid $colorHPIRed !important;
+    border: 1px solid $primaryColor !important;
 }
 .cke_top{
     background-color: #fff !important;
 }
 .cke_bottom{
-    background-color: $colorHPIRed !important;
+    background-color: $primaryColor !important;
     border-top: none !important;
     a.cke_path_item{
         color: #fff !important;
         &:active, 
         &:focus, 
         &:hover{
-            background-color: lighten($colorHPIRed, 10%) !important;
+            background-color: lighten($primaryColor, 10%) !important;
         }
     }
 }
@@ -43,8 +43,8 @@ a.cke_dialog_ui_button{
     }
 }
 a.cke_dialog_ui_button_ok{
-    background: $colorHPIRed !important;
-    border: 1px solid $colorHPIRed !important;
+    background: $primaryColor !important;
+    border: 1px solid $primaryColor !important;
     color: #fff !important;
 }
 input.cke_dialog_ui_input_password, 
@@ -52,16 +52,16 @@ input.cke_dialog_ui_input_text,
 select.cke_dialog_ui_input_select, 
 textarea.cke_dialog_ui_input_textarea{
     &:focus{
-        border-color: $colorHPIRed !important;
+        border-color: $primaryColor !important;
     }
 }
 a.cke_dialog_tab:focus{
-    border-color: $colorHPIRed !important;
+    border-color: $primaryColor !important;
     border-bottom-color: #d1d1d1 !important;
 }
 .cke_dialog_title{
     color: #fff !important;
-    background-color: $colorHPIRed !important;
+    background-color: $primaryColor !important;
 }
 .cke_dialog_footer{
     background-color: #fff !important;

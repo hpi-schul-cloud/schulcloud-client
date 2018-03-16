@@ -19,14 +19,14 @@
   border-top-right-radius:5px;
   &.active {
     font-weight: 700;
-    color: $colorHPIRed !important;
-    border-color: $colorHPIRed;
+    color: $primaryColor !important;
+    border-color: $primaryColor;
     border-bottom-color: #fff;
   }
   &:hover, &:focus{
     text-decoration: none;
     font-weight: 700;
-    color: $colorHPIRed !important;
+    color: $primaryColor !important;
   }
 }
 .tab-content {
@@ -40,7 +40,7 @@
   > h5 {
     font-size: 1.2rem;
     font-weight: 700;
-    color: $colorHPIOrange;
+    color: $secondaryColor;
   }
 }
 
