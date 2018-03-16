@@ -2,7 +2,7 @@
   {{#if @root.submittable}}
     <div class="comment editor">
       <p class="submissionLabel"><i class="fa fa-folder-open"></i>Dateiabgabe</p>
-      {{#embed "files/file-upload" }}{{/embed}}
+      {{#embed "files/file-upload" path=@root.path}}{{/embed}}
 
       {{#if @root.submission}}
         <form class="form submissionForm ajaxForm" method="post" action="/homework/submit/{{@root.submission._id}}">

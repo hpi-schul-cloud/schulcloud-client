@@ -354,13 +354,15 @@ router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
 router.post('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).patch("/submissions/" + submissionId, {
-            json: {
-                $push: {
-                    fileIds: req.body.fileId,
-                },
-                teamMembers: req.body.teamMembers
+        json: {
+            $push: {
+                fileIds: req.body.fileId,
+            },
+            $set: {
+                teamMembers: req.body.teamMembers || [res.locals.currentUser._id]
             }
-        })
+        }
+    })
         .then(result => res.json(result))
         .catch(err => res.send(err));
 });
@@ -401,13 +403,15 @@ router.post('/submit/:id/files/:fileId/permissions', function(req, res, next) {
 router.delete('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).patch("/submissions/" + submissionId, {
-            json: {
-                $pull: {
-                    fileIds: req.body.fileId
-                },
-                teamMembers: req.body.teamMembers
+        json: {
+            $pull: {
+                fileIds: req.body.fileId
+            },
+            $set: {
+                teamMembers: req.body.teamMembers || [res.locals.currentUser._id]
             }
-        })
+        }
+    })
         .then(result => res.json(result))
         .catch(err => res.send(err));
 });
