@@ -170,7 +170,6 @@ router.post('/rate',function (req,res,next) {
            isTeacher : isTeacher
        };
     });
-    console.log(req.body);
     res.send();
 });
 
