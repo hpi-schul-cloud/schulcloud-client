@@ -485,7 +485,8 @@ const overview = (title = "") => {
                                 ["updatedAt", "letze Aktualisierung"],
                                 ["availableDate", "Verfügbarkeitsdatum"],
                                 ["dueDate", "Abgabedatum"]
-                            ]
+                            ],
+                            defaultSelection: "dueDate"
                         },
                         {
                             type: "select",
