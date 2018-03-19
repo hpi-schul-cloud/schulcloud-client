@@ -52,8 +52,6 @@ router.get('/', function (req, res, next) {
                 featuredContent: featured.data,
                 trendingContent: trending.data,
                 totalCount: trending.total,
-                isCourseGroupTopic: req.query.isCourseGroupTopic,
-                inline: req.query.inline,
                 action
             });
         });
@@ -73,13 +71,11 @@ router.get('/', function (req, res, next) {
                 numPages: Math.ceil(searchResults.total / itemsPerPage),
                 baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
             };
-
             return res.render('content/search-results', {
                 title: 'Materialien',
                 query: query,
                 searchResults: searchResults,
                 pagination,
-                isCourseGroupTopic: req.query.isCourseGroupTopic,
                 action
             });
         });
@@ -128,16 +124,7 @@ router.get('/redirect/:id', function (req, res, next) {
 });
 
 router.get('/rate/rating',function (req, res, next) {
-    api(req)({
-        uri: '/content/resources/',
-        qs: {
-            featuredUntil: {
-                $gte: new Date()
-            }
-        },
-        json: true
-    }).then(ratings => {
-        var ratingContent = [];
+    api(req).get('/content/ratingrequest/'+ res.locals.currentUser._id).then(ratings => {
         return res.render('content/rating', {
             title: 'Bewerte deine Materialien',
             content : ratings.data
@@ -162,19 +149,16 @@ router.post('/addToLesson', function (req, res, next) {
     });
 });
 
-router.post('/rate',function (req,res,next) {
-    var isTeacher = false;
-    res.locals.currentUser.roles.forEach((role,idx) => {
-       isTeacher = isTeacher || role.name === "teacher";
+router.post('/rate',function (req, res, next) {
+    const rating = req.body;
+    rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
+    // TODO send proper courseId and topicId
+    rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
+    rating.topicId = "5a7318d67bbd9f1b32e6bc16";
+    api(req).post({
+        uri: '/content/ratings',
+        json: rating
     });
-    req.body.data = req.body.data.map((item) =>{
-       return {
-           materialId : item.ID,
-           rating : Number(item.value),
-           isTeacher : isTeacher
-       };
-    });
-    res.send();
 });
 
 module.exports = router;
