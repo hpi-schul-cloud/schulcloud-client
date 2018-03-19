@@ -42,6 +42,7 @@ router.get('/', function (req, res, next) {
 
             // TODO replace Fake dummy data for rating
             featured.data.map(function (item) {
+                console.log(item);
                 item.rating = Math.round(Math.random() * 100) % 50 /10;
             });
             trending.data.map(function (item) {
@@ -124,15 +125,7 @@ router.get('/redirect/:id', function (req, res, next) {
 });
 
 router.get('/rate/rating',function (req, res, next) {
-    api(req)({
-        uri: '/content/resources/',
-        qs: {
-            featuredUntil: {
-                $gte: new Date()
-            }
-        },
-        json: true
-    }).then(ratings => {
+    api(req).get('/content/ratingrequest/'+ res.locals.currentUser._id).then(ratings => {
         return res.render('content/rating', {
             title: 'Bewerte deine Materialien',
             content : ratings.data
