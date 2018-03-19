@@ -139,7 +139,7 @@ const getCreateHandler = (service) => {
                     });
             }
             let promise = service === "submissions" ?
-                addFilePermissionsForTeamMembers(req, data.teamMembers, data.fileIds) :
+                addFilePermissionsForTeamMembers(req, data.teamMembers, data.courseGroupId, data.fileIds) :
                 Promise.resolve({});
 
             return promise.then(_ => {
@@ -171,25 +171,37 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
 /**
  * adds file permissions for co workers to a submission file
  */
-const addFilePermissionsForTeamMembers = (req, teamMembers, fileIds) => {
-    return Promise.all(fileIds.map(f => {
-        return api(req).get('/files/' + f).then(file => {
-            return Promise.all(teamMembers.map(cw => {
-                let isAlreadyInside = _.filter(file.permissions, f => {
-                    return JSON.stringify(f.userId) === JSON.stringify(cw);
-                }).length > 0;
+const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileIds) => {
 
-                !isAlreadyInside ? file.permissions.push({
-                    userId: cw,
-                    permissions: ['can-read', 'can-write']
-                }) : '';
+    // if submission has an courseGroup, use the corresponding users instead of teamMembers
+    let courseGroupPromise = courseGroupId ?
+        api(req).get('/courseGroups/' + courseGroupId, {
+            qs: {$populate: ['userIds']}
+        }) :
+        Promise.resolve({userIds: teamMembers});
 
-                return file;
-            })).then(_ => {
-                return api(req).patch('/files/' + file._id, { json: file });
+    return courseGroupPromise.then(response => {
+        teamMembers = response.userIds;
+
+        return Promise.all(fileIds.map(f => {
+            return api(req).get('/files/' + f).then(file => {
+                return Promise.all(teamMembers.map(cw => {
+                    let isAlreadyInside = _.filter(file.permissions, f => {
+                        return JSON.stringify(f.userId) === JSON.stringify(cw);
+                    }).length > 0;
+    
+                    !isAlreadyInside ? file.permissions.push({
+                        userId: cw,
+                        permissions: ['can-read', 'can-write']
+                    }) : '';
+    
+                    return file;
+                })).then(_ => {
+                    return api(req).patch('/files/' + file._id, { json: file });
+                });
             });
-        });
-    }));
+        }));
+    });
 };
 
 const patchFunction = function(service, req, res, next) {
@@ -205,7 +217,9 @@ const patchFunction = function(service, req, res, next) {
             // add file permissions for co Worker
             let fileIds = data.fileIds;
             let teamMembers = data.teamMembers;
-            return addFilePermissionsForTeamMembers(req, teamMembers, fileIds).then(_ => {
+            let courseGroupId = data.courseGroupId;
+
+            return addFilePermissionsForTeamMembers(req, teamMembers, courseGroupId, fileIds).then(_ => {
                 api(req).get('/homework/' + data.homeworkId, { qs: { $populate: ["courseId"] } })
                     .then(homework => {
                         sendNotification(data.studentId,
@@ -353,18 +367,14 @@ router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
 
 router.post('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
-    api(req).patch("/submissions/" + submissionId, {
-        json: {
-            $push: {
-                fileIds: req.body.fileId,
-            },
-            $set: {
-                teamMembers: req.body.teamMembers || [res.locals.currentUser._id]
-            }
-        }
+    api(req).get("/submissions/" + submissionId).then(submission => {
+        submission.fileIds.push(req.body.fileId);
+        return api(req).patch("/submissions/" + submissionId, { 
+            json: submission 
+        });
     })
-        .then(result => res.json(result))
-        .catch(err => res.send(err));
+    .then(result => res.json(result))
+    .catch(err => res.send(err));
 });
 
 /** adds shared permission for teacher in the corresponding homework **/
@@ -395,25 +405,21 @@ router.post('/submit/:id/files/:fileId/permissions', function(req, res, next) {
         return api(req).patch('/files/' + file._id, { json: file }).then(result => res.json(result)).then(_ => {
             // if there is already an submission, it is more safe to add the permissions at this step (if the user
             // forgets to click on save)
-            return teamMembers ? addFilePermissionsForTeamMembers(req, teamMembers, [fileId]) : Promise.resolve({});
+            return teamMembers ? addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId]) : Promise.resolve({});
         });
     }).catch(err => res.send(err));
 });
 
 router.delete('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
-    api(req).patch("/submissions/" + submissionId, {
-        json: {
-            $pull: {
-                fileIds: req.body.fileId
-            },
-            $set: {
-                teamMembers: req.body.teamMembers || [res.locals.currentUser._id]
-            }
-        }
+    api(req).get("/submissions/" + submissionId).then(submission => {
+        submission.fileIds = _.filter(submission.fileIds, id => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
+        return api(req).patch("/submissions/" + submissionId, { 
+            json: submission 
+        });
     })
-        .then(result => res.json(result))
-        .catch(err => res.send(err));
+    .then(result => res.json(result))
+    .catch(err => res.send(err));
 });
 
 router.post('/comment', getCreateHandler('comments'));
