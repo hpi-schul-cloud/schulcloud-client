@@ -3,37 +3,52 @@ if (window.opener && window.opener !== window) {
 }
 
 const diffDOM = new diffDOM();
-function softNavigate(newurl, selector, listener){
+function softNavigate(newurl, selector, listener, callback){
     $.ajax({
         type: "GET",
         url: newurl
     }).done(function(r) {
         // render new page
         parser = new DOMParser()
-        const newPage = parser.parseFromString(r, "text/html")
+        const newPage = parser.parseFromString(r, "text/html");
         // apply new page
         try{
             const newPagePart = newPage.querySelector(selector);
             const oldPagePart = document.querySelector(selector);
             const diff = diffDOM.diff(oldPagePart, newPagePart);
             const result = diffDOM.apply(oldPagePart, diff);
+            console.log(listener, listener||selector);
             document.querySelectorAll((listener||selector)+" a").forEach(link => {
-                link.addEventListener("click", function(e){
-                    softNavigate($(this).attr('href'), selector, listener);
-                    e.preventDefault();
-                    return false;
-                })
+                link.addEventListener("click", softNavigateLinkTag)
             })
             // scroll to top
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-            // TODO: eventListener aren't applied again. For example the archive-button
-            //jQuery(window).trigger('pageload');
+            jQuery(document).trigger('pageload');
+            if(callback){callback();}
         }catch(e){
             console.error(e);
-            window.location =newurl;
+            $.showNotification("Fehler bei AJAX-Navigation", "danger", true);
         }
     });
+}
+function softNavigateLinkTag(e){
+    softNavigate($(this).attr('href'), selector, listener);
+    e.preventDefault();
+    e.stopPropagation();
+    return false;
+}
+function togglePresentationMode(){
+    const contentArea = $('#main-content');
+    const toggleButton = $('.btn-fullscreen');
+    $('body').toggleClass('fullscreen');
+    toggleButton.children('i').toggleClass('fa-compress');
+    toggleButton.children('i').toggleClass('fa-expand');
+}
+function fullscreenBtnClicked(){
+    togglePresentationMode();
+    fullscreen = !fullscreen;
+    sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 $(document).on("pageload", function () {
     var $modals = $('.modal');
@@ -159,20 +174,8 @@ $(document).on("pageload", function () {
     });
 
     var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
-    function togglePresentationMode(){
-        const contentArea = $('#main-content');
-        const toggleButton = $('.btn-fullscreen');
-        $('body').toggleClass('fullscreen');
-        toggleButton.children('i').toggleClass('fa-compress');
-        toggleButton.children('i').toggleClass('fa-expand');
-    }
     if(fullscreen){togglePresentationMode()}
-    $('.btn-fullscreen').on('click', function(){
-        togglePresentationMode();
-        fullscreen = !fullscreen;
-        sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
-    });
-
+    $('.btn-fullscreen').on('click', fullscreenBtnClicked);
     $('.btn-cancel').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -204,7 +207,7 @@ $(document).on("pageload", function () {
             }
         },
         error: function(err) {
-            console.log(err);
+            console.error(err);
         }
     });
 });
