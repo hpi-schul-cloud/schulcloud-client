@@ -3,7 +3,7 @@ if (window.opener && window.opener !== window) {
 }
 
 const diffDOM = new diffDOM();
-function softNavigate(newurl, selector, listener, callback){
+function softNavigate(newurl, selector = 'html', listener, callback){
     $.ajax({
         type: "GET",
         url: newurl
@@ -18,7 +18,14 @@ function softNavigate(newurl, selector, listener, callback){
             const diff = diffDOM.diff(oldPagePart, newPagePart);
             const result = diffDOM.apply(oldPagePart, diff);
             document.querySelectorAll((listener||selector)+" a").forEach(link => {
-                link.addEventListener("click", softNavigateLinkTag)
+                linkClone = link.cloneNode(true);
+                linkClone.addEventListener("click", function (e){
+                    softNavigate($(this).attr('href'), selector, listener);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                })
+                link.parentNode.replaceChild(linkClone, link);
             })
             // scroll to top
             document.body.scrollTop = 0; // For Safari
@@ -30,12 +37,6 @@ function softNavigate(newurl, selector, listener, callback){
             $.showNotification("Fehler bei AJAX-Navigation", "danger", true);
         }
     });
-}
-function softNavigateLinkTag(e){
-    softNavigate($(this).attr('href'), selector, listener);
-    e.preventDefault();
-    e.stopPropagation();
-    return false;
 }
 function togglePresentationMode(){
     const contentArea = $('#main-content');
