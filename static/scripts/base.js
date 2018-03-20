@@ -72,10 +72,15 @@ function populateModalForm(modal, data) {
     });
 }
 
+var customReady = jQuery.fn.ready;
+jQuery.fn.ready = function(handler) {
+    document.addEventListener("pageload", handler);
+    return customReady.apply(this, arguments);
+};
 $( window ).on( "load", function () {
     $(document).trigger("pageload");
 })
-$(document).on("pageload", function () {
+$(document).ready(function () {
     // Bootstrap Tooltips
     $('[data-toggle="tooltip"]').tooltip();
 

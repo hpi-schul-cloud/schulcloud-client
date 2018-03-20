@@ -55,7 +55,7 @@ window.addEventListener("DOMContentLoaded", function(){
     })
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
-$(document).on("pageload", function() {
+$(document).ready(function() {
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "danger");
