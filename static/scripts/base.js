@@ -71,10 +71,9 @@ function populateModalForm(modal, data) {
         }
     });
 }
-
 var customReady = jQuery.fn.ready;
 jQuery.fn.ready = function(handler) {
-    document.addEventListener("pageload", handler);
+    $(document).on("pageload", handler);
     return customReady.apply(this, arguments);
 };
 $( window ).on( "load", function () {

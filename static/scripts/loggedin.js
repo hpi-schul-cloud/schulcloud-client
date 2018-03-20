@@ -17,7 +17,6 @@ function softNavigate(newurl, selector, listener, callback){
             const oldPagePart = document.querySelector(selector);
             const diff = diffDOM.diff(oldPagePart, newPagePart);
             const result = diffDOM.apply(oldPagePart, diff);
-            console.log(listener, listener||selector);
             document.querySelectorAll((listener||selector)+" a").forEach(link => {
                 link.addEventListener("click", softNavigateLinkTag)
             })
