@@ -52,8 +52,8 @@ $('.btn-send-rate').on('click', function () {
 
 
 $(document).ready(function() {
-
-    $('#InboxContent').on('show.bs.modal', function (event) { // id of the modal with event
+    $('#InboxContent').off('show.bs.modal');
+    $('#InboxContent').on('show.bs.modal', function (event) {
         $(this).load("/content/rate/rating");
 
     });
