@@ -28,15 +28,14 @@ function softNavigate(newurl, selector, listener){
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
             // TODO: eventListener aren't applied again. For example the archive-button
-            dispatchEvent(new Event('load'));
-            jQuery(window).trigger('load');
+            //jQuery(window).trigger('pageload');
         }catch(e){
             console.error(e);
             window.location =newurl;
         }
     });
 }
-$(document).ready(function () {
+$(document).on("pageload", function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');

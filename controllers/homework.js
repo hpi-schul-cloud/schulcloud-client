@@ -409,14 +409,14 @@ const overview = (title = "") => {
         if(req.query.ajaxContent){
             const filterQuery = JSON.parse(unescape(req.query.filterQuery));
             query = Object.assign(query, filterQuery);
+        }else{
+            if (req._parsedUrl.pathname.includes("private")) {
+                query.private = true;
+            }
+            if (req._parsedUrl.pathname.includes("asked")) {
+                query.private = {$ne: true};
+            }
         }
-        if (req._parsedUrl.pathname.includes("private")) {
-            query.private = true;
-        }
-        if (req._parsedUrl.pathname.includes("asked")) {
-            query.private = {$ne: true};
-        }
-
         if (req._parsedUrl.pathname.includes("archive")) {
             query.archived = res.locals.currentUser._id;
         }
@@ -475,7 +475,7 @@ const overview = (title = "") => {
                     const courseList = courses.map(course => {
                         return [course._id, course.name];
                     });
-                    const filterSettings = JSON.stringify(
+                    const filterSettings =
                         [{
                             type: "sort",
                             title: 'Sortierung',
@@ -493,7 +493,7 @@ const overview = (title = "") => {
                             title: 'Kurse',
                             displayTemplate: 'Kurse: %1',
                             property: 'courseId',
-                            multiple: false,
+                            multiple: true,
                             options: courseList
                         },
                         {
@@ -508,11 +508,18 @@ const overview = (title = "") => {
                             title: 'Mehr',
                             options: {
                                 "private": "private Aufgabe",
-                                "publicSubmissions": "Öffentliche Abgaben",
+                                "publicSubmissions": "Schüler können Abgaben untereinander sehen",
                                 "teamSubmissions": "Teamabgaben"
+                            },
+                            defaultSelection: {
+                                "private": ((query.private !== undefined)?((query.private === true)?true:false):undefined)
+                            },
+                            applyNegated: {
+                                "private": [true, false],
+                                "publicSubmissions": [true, false],
+                                "teamSubmissions": [true, false]
                             }
-                        }]
-                    );
+                        }];
                     //Pagination in client, because filters are in afterhook
                     const itemsPerPage = 10;
                     const currentPage = parseInt(req.query.p) || 1;
@@ -531,7 +538,7 @@ const overview = (title = "") => {
                         homeworks,
                         courses,
                         isStudent,
-                        filterSettings,
+                        filterSettings: JSON.stringify(filterSettings),
                         addButton: (req._parsedUrl.pathname == "/"
                                 || req._parsedUrl.pathname.includes("private")
                                 || (req._parsedUrl.pathname.includes( "asked" )

@@ -1,8 +1,17 @@
 ﻿function getCurrentDir() {
     return $('.section-upload').data('path');
 }
-$(document).ready(function() {
 
+window.addEventListener("DOMContentLoaded", function(){
+    /* FEATHERS FILTER MODULE */
+    document.getElementById("filter").addEventListener('newFilter', (e) => {
+        filter = e.detail;
+        const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
+        softNavigate(newurl, ".homework", ".pagination");
+    })
+    document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+});
+$(document).on("pageload", function() {
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "danger");
@@ -370,11 +379,4 @@ $(document).ready(function() {
             });
         });
     });
-
-    /* FEATHERS FILTER MODULE */
-    document.getElementById("filter").addEventListener('newFilter', (e) => {
-        filter = e.detail;
-        const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
-        softNavigate(newurl, ".homework", ".pagination");
-    })
 });
