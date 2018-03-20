@@ -40,7 +40,7 @@ $(document).ready(function () {
 
         let type = (modal[0].className.includes('feedback-modal')) ? 'feedback' : 'problem';
 
-        let email = 'schul-cloud-support@hpi.de';
+        let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
         let text = createFeedbackMessage(modal);
         let content = { text: text};
