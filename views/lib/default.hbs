@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{#if title}}{{title}} - {{/if}}Schul-Cloud</title>
+    <title>{{#if title}}{{title}} - {{/if}}{{themeTitle}}</title>
 
     {{#block "meta"}}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
-        <meta name="apple-mobile-web-app-title" content="Schul-Cloud">
+        <meta name="apple-mobile-web-app-title" content="{{themeTitle}}">
         <meta name="theme-color" content="#b10438">
-        <meta name="application-name" content="Schul-Cloud">
+        <meta name="application-name" content="{{themeTitle}}">
     {{/block}}
 
     {{#block "styles"}}
@@ -17,7 +17,6 @@
         <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin>
-        <link rel="preload" href="/images/hpi-logo.png" as="image" crossorigin>
         <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438">
         <link rel="apple-touch-icon" href= "/images/logo/app-icon-512.png">
         <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/app-icon-120.png">
@@ -38,7 +37,7 @@
     {{/block}}
 
 </head>
-<body>
+<body {{#if inline}}class="window-inline"{{/if}}>
     {{#block "body"}}{{/block}}
 
     {{#unless inline}}

@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 
 .times {
     padding: 16px;
@@ -23,7 +23,7 @@
         margin-top: 10px;
         padding-left: 5px;
         cursor: pointer;
-        color: $colorHPIRed;
+        color: $primaryColor;
     }
 }
 

@@ -1,7 +1,7 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 
 h3 {
-    color: $colorHPIRed;
+    color: $primaryColor;
     font-weight: bold;
 }
 hgroup {
@@ -16,7 +16,7 @@ hgroup {
     padding: 10px 0 20px;
     line-height: 1.75rem;
     h4 {
-        color: $colorHPIRed;
+        color: $primaryColor;
         margin-bottom: 0;
         margin-right: 20px;
         font-weight: 700;
@@ -25,11 +25,11 @@ hgroup {
 
 .section-partner {
     h5 {
-        color: $colorHPIRed;
+        color: $primaryColor;
         margin-top: 20px;
     }
     ul {
-        color: $colorHPIRed;
+        color: $primaryColor;
         padding-left: 20px;
     }
     .container {

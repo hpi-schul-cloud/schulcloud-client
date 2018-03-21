@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 
 .changelog {
   .author {
@@ -13,12 +13,12 @@
 
   h4 {
     margin-bottom: 20px;
-    color: $colorHPIRed;
+    color: $primaryColor;
   }
 
   i {
     padding-right: 5px;
-    color: $colorHPIRed;
+    color: $primaryColor;
   }
 }
 
