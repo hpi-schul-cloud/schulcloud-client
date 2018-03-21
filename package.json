@@ -11,7 +11,7 @@
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test/mocha/ --recursive",
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js",
-    "frontend": "./node_modules/.bin/nightwatch --config nightwatch.conf.js"
+    "frontend": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -54,8 +54,11 @@
     "babel-preset-react": "^6.23.0",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
+    "chromedriver": "^2.37.0",
     "clean-css": "^4.0.8",
+    "env2": "^2.2.0",
     "eslint": "^3.17.1",
+    "geckodriver": "^1.11.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.1.0",
     "gulp-babel": "^6.1.2",
@@ -75,13 +78,11 @@
     "gulp-uglify": "^2.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "nightwatch": "^0.9.19",
     "node-sass": "^4.7.2",
     "pump": "^1.0.2",
-    "video.js": "^5.19.2",
-    "vinyl-map": "^1.0.2",
-    "nightwatch": "^0.9.19",
     "selenium-server": "^3.11.0",
-    "chromedriver": "^2.37.0",
-    "env2": "^2.2.0"
+    "video.js": "^5.19.2",
+    "vinyl-map": "^1.0.2"
   }
 }
