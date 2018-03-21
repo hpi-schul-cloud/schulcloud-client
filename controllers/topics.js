@@ -166,8 +166,8 @@ router.patch('/:topicId', function(req, res, next) {
 
     req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
 
-    // create new Nexboard when necessary
-    data.contents = createNewNexBoards(req, res, data.contents);
+    // create new Nexboard when necessary, if not simple hidden or position patch
+    data.contents ? data.contents = createNewNexBoards(req, res, data.contents) : '';
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {

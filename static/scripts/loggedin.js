@@ -1,5 +1,4 @@
 if (window.opener && window.opener !== window) {
-    document.body.classList.add('window-inline');
     window.isInline = true;
 }
 
@@ -120,10 +119,25 @@ $(document).ready(function () {
 
     $('.btn-create-qr').on('click', function () {
         // create qr code for current page
-        let el = kjua({text: window.location.href, render: 'canvas'});
+        let image = kjua({text: window.location.href, render: 'image'});
         let $qrbox = $('.qr-show');
         $qrbox.empty();
-        $qrbox.append(el);
+        $qrbox.append(image);
+    });
+
+    var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
+    function togglePresentationMode(){
+        const contentArea = $('#main-content');
+        const toggleButton = $('.btn-fullscreen');
+        $('body').toggleClass('fullscreen');
+        toggleButton.children('i').toggleClass('fa-compress');
+        toggleButton.children('i').toggleClass('fa-expand');
+    }
+    if(fullscreen){togglePresentationMode()}
+    $('.btn-fullscreen').on('click', function(){
+        togglePresentationMode();
+        fullscreen = !fullscreen;
+        sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
     });
 
     $('.btn-cancel').on('click', function(e) {

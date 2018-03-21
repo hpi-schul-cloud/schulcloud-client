@@ -79,15 +79,19 @@
                         {{#ifvalue teacherId value=currentUser._id}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                         {{else}}
-                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
-                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
-                            {{#if publicSubmissions}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                             {{else}}
-                                {{#if submission}}
-                                    <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
+                                <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
+                                <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
+                                {{#if publicSubmissions}}
+                                    <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
+                                {{else}}
+                                    {{#if submission}}
+                                        <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
+                            {{/inArray}}
                         {{/ifvalue}}
                     {{/if}}
                 </nav>
@@ -99,15 +103,19 @@
                         {{#ifvalue teacherId value=currentUser._id}}
 {{> 'homework/submissions'}}
                         {{else}}
-{{> 'homework/submission'}}
-{{> 'homework/feedback'}}
-                            {{#if publicSubmissions}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
 {{> 'homework/submissions'}}
                             {{else}}
-                                {{#if submission}}
+{{> 'homework/feedback'}}
+{{> 'homework/submission'}}
+                                {{#if publicSubmissions}}
+{{> 'homework/submissions'}}
+                                {{else}}
+                                    {{#if submission}}
 {{> 'homework/discussion'}}
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
+                            {{/inArray}}
                         {{/ifvalue}}
                     {{/if}}
                 </div>

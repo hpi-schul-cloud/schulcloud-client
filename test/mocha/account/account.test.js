@@ -31,9 +31,9 @@ describe('Account tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dein Account');
-                    expect(res.text).to.contain('Vorname');
+                    expect(res.text).to.not.contain('Vorname');
                     expect(res.text).to.contain('Ida');
-                    expect(res.text).to.contain('Nachname');
+                    expect(res.text).to.not.contain('Nachname');
                     expect(res.text).to.contain('Renz');
                     resolve();
                 });

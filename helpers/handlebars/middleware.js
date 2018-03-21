@@ -32,7 +32,7 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-    res.locals.themeTitle = process.env.SC_TITLE || 'Schul-Cloud';
+    res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
     // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',
