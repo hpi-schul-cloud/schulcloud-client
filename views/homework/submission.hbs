@@ -12,7 +12,7 @@
       {{/if}}
         
       {{#if @root.submission}}
-        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true}}{{/embed}}
+        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=true submission=@root.submission}}{{/embed}}
          <input type="hidden" name="_method" data-force-value="true" value="patch"/>
       {{else}}
         <div class="form-group section-uploaded-files">
