@@ -14,9 +14,16 @@
                 <tbody class="usersubmission">
                     <tr class="userinfo">
                         <td class="groupNames">
-                            {{#each this.submission.teamMembers}}
-                                <span>{{this.firstName}} {{this.lastName}}</span>
-                            {{/each}}
+                            {{#if this.submission.courseGroupId}}
+                                <b>{{this.submission.courseGroupId.name}}: </b>
+                                {{#each this.submission.courseGroupMembers}}
+                                    <span>{{this.firstName}} {{this.lastName}}</span>
+                                {{/each}}
+                            {{else}}
+                                {{#each this.submission.teamMembers}}
+                                    <span>{{this.firstName}} {{this.lastName}}</span>
+                                {{/each}}
+                            {{/if}}
                         </td>
                         <td></td>
                         <td>

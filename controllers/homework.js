@@ -764,6 +764,7 @@ router.get('/:assignmentId', function(req, res, next) {
             assignment.submission = (submissions || {}).data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
                 submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
+                submission.courseGroupMembers = (_.find(courseGroups.data, cg => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
                 return submission;
             }).filter(submission => {
                 return ((submission.studentId || {})._id == res.locals.currentUser._id) ||
@@ -803,12 +804,14 @@ router.get('/:assignmentId', function(req, res, next) {
                         })[0]
                     };
                 });
-                /*studentSubmissions.sort((a,b)=>{return (a.student.lastName.toUpperCase()  < b.student.lastName.toUpperCase())?-1:1;})
-                                  .sort((a,b)=>{return (a.student.firstName.toUpperCase() < b.student.firstName.toUpperCase())?-1:1;});
-                */
+          
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
-                    if (e.teamMembers) {
+                    if (e.courseGroupId) {
+                        e.courseGroupMembers.forEach(c => {
+                            studentsWithSubmission.push(c._id.toString());
+                        });
+                    } else if (e.teamMembers) {
                         e.teamMembers.forEach(c => {
                             studentsWithSubmission.push(c._id.toString());
                         });
