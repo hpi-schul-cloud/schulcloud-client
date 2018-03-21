@@ -80,8 +80,8 @@
     "video.js": "^5.19.2",
     "vinyl-map": "^1.0.2",
     "nightwatch": "^0.9.19",
-    "selenium-server": "^3.8.1",
-    "chromedriver": "^2.33.2",
+    "selenium-server": "^3.11.0",
+    "chromedriver": "^2.37.0",
     "env2": "^2.2.0"
   }
 }
