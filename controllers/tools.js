@@ -20,7 +20,11 @@ const createToolHandler = (req, res, next) => {
                     }
                 }
             }).then(course => {
-               res.send(course._id);
+                if(tool.isLocal) {
+                  res.send(course._id);
+                } else {
+                  res.redirect('/courses/' + course._id);
+                }
             });
         }
     });
@@ -31,6 +35,7 @@ const addToolHandler = (req, res, next) => {
 
     api(req).get('/ltiTools', { qs: {isTemplate: true}
     }).then(tools => {
+        console.log(tools);
         api(req).get('/courses/' + req.params.courseId)
             .then(course => {
                 res.render('courses/add-tool', {
@@ -76,7 +81,8 @@ const runToolHandler = (req, res, next) => {
        };
 
         var formData = consumer.authorize(request_data);
-
+        console.log(formData);
+        console.log(tool.url);
         res.render('courses/components/run-lti-frame', {
             url: tool.url,
             method: 'POST',
