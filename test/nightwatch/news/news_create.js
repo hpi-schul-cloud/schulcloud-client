@@ -5,7 +5,6 @@ const sauce = require('../../sauce');
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
-        browser.deleteCookies();
         browser
             .url(base_url + 'login/')
             .waitForElementVisible('body', 1000);

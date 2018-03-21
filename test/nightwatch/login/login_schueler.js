@@ -5,7 +5,6 @@ const sauce = require('../../sauce');
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
-        browser.deleteCookies();
         browser
             .url(base_url + 'login/')
             .waitForElementVisible('body', 1000);
@@ -25,9 +24,12 @@ module.exports = {
     'Schul-Cloud Checkups': function (browser) {
         browser.expect.element('h4').text.to.contain('Übersicht').before(10000);
         browser.expect.element('h5').text.to.contain('Stundenplan').before(10000);
-        browser
-            .waitForElementVisible('.feature-modal', false)
-            .click('button[type=button]');
+        browser.setCookie({
+            name: "releaseDate",
+            value: "9999-12-09T16:36:20.000Z",
+            path: "/",
+            expiry: "253373565499"
+        });
     },
     'Schul-Cloud Visit Every Subpage': function (browser) {
         //News

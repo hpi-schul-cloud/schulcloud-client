@@ -1,7 +1,7 @@
 /*
  * One Controller per layout view
  */
- 
+
 const express = require('express');
 const router = express.Router();
 const marked = require('marked');
