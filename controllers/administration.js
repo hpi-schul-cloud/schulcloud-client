@@ -561,6 +561,35 @@ const userIdtoAccountIdUpdate = (service) => {
     };
 };
 
+const userFilterSettings = [
+    {
+        type: "sort",
+        title: 'Sortierung',
+        displayTemplate: 'Sortieren nach: %1',
+        options: [
+            ["firstName", "Vorname"],
+            ["lastName", "Nachname"],
+            ["email", "E-Mail-Adresse"]
+        ],
+        defaultSelection: "firstName",
+        defaultOrder: "DESC"
+    },
+    {
+        type: "select",
+        title: 'Geschlecht',
+        displayTemplate: 'Geschlecht: %1',
+        property: 'gender',
+        multiple: true,
+        expanded: true,
+        options: [
+            ["male", "Männlich"],
+            ["female", "Weiblich"],
+            ["other", "Anderes"],
+            [null, "nicht Angegeben"]
+        ]
+    },
+];
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -599,58 +628,59 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
+    let query = {
+        roles: ['teacher'],
+        $populate: ['roles'],
+        $limit: itemsPerPage,
+        $skip: itemsPerPage * (currentPage - 1),
+    };
+    if(req.query.ajaxContent){
+        query = Object.assign(query, JSON.parse(unescape(req.query.filterQuery)));
+    }
+
     api(req).get('/users', {
-        qs: {
-            roles: ['teacher'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
+        qs: query
     }).then(data => {
-        api(req).get('/classes')
-            .then(classes => {
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            'Klasse(n)',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getClasses(item, classes, true),
-                getTableActions(
-                    item,
-                    '/administration/teachers/',
-                    _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
-                    _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
+        api(req).get('/classes').then(classes => {
+            const head = [
+                'Vorname',
+                'Nachname',
+                'E-Mail-Adresse',
+                'Klasse(n)',
+                ''
             ];
-        });
 
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
-
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/teachers/?p={{page}}' + sortQuery + limitQuery
-        };
-
-        res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination, limit: true});
-
+            const body = data.data.map(item => {
+                return [
+                    item.firstName,
+                    item.lastName,
+                    item.email,
+                    getClasses(item, classes, true),
+                    getTableActions(
+                        item,
+                        '/administration/teachers/',
+                        _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
+                        _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
+                ];
             });
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/teachers/?p={{page}}' + limitQuery
+            };
+
+            res.render('administration/teachers', {
+                title: title + 'Lehrer',
+                head, body, pagination,
+                filterSettings: JSON.stringify(userFilterSettings)
+            });
+        });
     });
 });
 
@@ -667,55 +697,56 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
+    let query = {
+        roles: ['student'],
+        $populate: ['roles'],
+        $limit: itemsPerPage,
+        $skip: itemsPerPage * (currentPage - 1),
+    };
+    if(req.query.ajaxContent){
+        query = Object.assign(query, JSON.parse(unescape(req.query.filterQuery)));
+    }
+
     api(req).get('/users', {
-        qs: {
-            roles: ['student'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
+        qs: query
     }).then(data => {
-        api(req).get('/classes')
-            .then(classes => {
+        api(req).get('/classes').then(classes => {
 
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            'Klasse(n)',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getClasses(item, classes, false),
-                getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'), false, true)
+            const head = [
+                'Vorname',
+                'Nachname',
+                'E-Mail-Adresse',
+                'Klasse(n)',
+                ''
             ];
-        });
 
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
-
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/students/?p={{page}}' + sortQuery + limitQuery
-        };
-
-        res.render('administration/students', {title: title + 'Schüler', head, body, pagination, limit: true});
-
+            const body = data.data.map(item => {
+                return [
+                    item.firstName,
+                    item.lastName,
+                    item.email,
+                    getClasses(item, classes, false),
+                    getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'), false, true)
+                ];
             });
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/students/?p={{page}}' + limitQuery
+            };
+
+            res.render('administration/students', {
+                title: title + 'Schüler',
+                head, body, pagination,
+                filterSettings: JSON.stringify(userFilterSettings)
+            });
+        });
     });
 });
 

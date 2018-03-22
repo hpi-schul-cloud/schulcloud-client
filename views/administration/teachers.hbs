@@ -2,8 +2,15 @@
     {{#content "page"}}
         <div class="route-administration">
             <section class="section-school section-default">
+                <div><feathers-filter id="filter"
+                                      filter='{{filterSettings}}'
+                                      add-label='Filter hinzufügen'
+                                      apply-label='Übernehmen'
+                                      cancle-label='Abbrechen'
+                                      handle-url='true'
+                /></div>
                 <div class="container-fluid">
-                    <div class="row">
+                    <div class="row ajaxcontent">
                         <div class="col-sm-12 no-padding">
                             {{> "lib/components/table" head=head body=body}}
                         </div>
