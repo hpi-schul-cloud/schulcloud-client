@@ -494,6 +494,7 @@ const overview = (title = "") => {
                             displayTemplate: 'Kurse: %1',
                             property: 'courseId',
                             multiple: true,
+                            expanded: true,
                             options: courseList
                         },
                         {
@@ -501,7 +502,9 @@ const overview = (title = "") => {
                             title: 'Abgabedatum',
                             displayTemplate: 'Abgabe vom %1 bis %2',
                             property: 'dueDate',
-                            mode: 'fromto'
+                            mode: 'fromto',
+                            fromLabel: 'vom',
+                            toLabel: 'bis'
                         },
                         {
                             type: "boolean",
