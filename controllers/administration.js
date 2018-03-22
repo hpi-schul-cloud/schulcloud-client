@@ -247,7 +247,7 @@ const getSendHelper = (service) => {
                   + innerText
                   + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
               };
-              req.body.email = "schul-cloud-support@hpi.de";
+              req.body.email = "ticketsystem@schul-cloud.org";
               req.body.subject = data.subject;
               req.body.content = content;
 
