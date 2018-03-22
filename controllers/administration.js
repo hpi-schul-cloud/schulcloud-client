@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
-const multer = require('multer');
+const multer  = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
@@ -52,41 +52,41 @@ const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStuden
 
 const getTableActionsSend = (item, path, state) => {
     let actions = [];
-    if (state === 'submitted' || state === 'closed') {
-        actions.push(
-            {
-                class: 'disabled',
-                icon: 'edit'
-            },
-            {
-                class: 'disabled',
-                icon: 'ban'
-            },
-            {
-                class: 'disabled',
-                icon: 'paper-plane'
-            });
-    } else {
-        actions.push(
-            {
-                link: path + item._id,
-                class: 'btn-edit',
-                icon: 'edit'
-            },
-            {
-                link: path + item._id,
-                class: 'btn-disable',
-                icon: 'ban',
-                method: 'delete'
-            },
-            {
-                link: path + item._id,
-                class: 'btn',
-                icon: 'paper-plane',
-                method: 'post'
-            });
-    }
-    return actions;
+  if (state === 'submitted' || state === 'closed') {
+    actions.push(
+        {
+          class: 'disabled',
+          icon: 'edit'
+        },
+        {
+          class: 'disabled',
+          icon: 'ban'
+        },
+        {
+        class: 'disabled',
+        icon: 'paper-plane'
+    });
+  } else {
+          actions.push(
+              {
+                  link: path + item._id,
+                  class: 'btn-edit',
+                  icon: 'edit'
+              },
+              {
+                  link: path + item._id,
+                  class: 'btn-disable',
+                  icon: 'ban',
+                  method: 'delete'
+              },
+              {
+              link: path + item._id,
+              class: 'btn',
+              icon: 'paper-plane',
+              method: 'post'
+          });
+      }
+  return actions;
 };
 
 /**
@@ -179,7 +179,7 @@ const createEventsForData = (data, service, req, res) => {
                     courseId: data._id,
                     courseTimeId: time._id
                 },
-                qs: { userId: data.teacherIds[0] }
+                qs: {userId: data.teacherIds[0]}
             });
         }));
     }
@@ -201,7 +201,7 @@ const deleteEventsForData = (service) => {
                 }
                 return Promise.all((course.times || []).map(t => {
                     if (t.eventId) {
-                        return api(req).delete('calendar/' + t.eventId, { qs: { userId: course.teacherIds[0] } });
+                        return api(req).delete('calendar/' + t.eventId, {qs: {userId: course.teacherIds[0]}});
                     }
                 })).then(_ => next());
             });
@@ -234,36 +234,36 @@ const getCreateHandler = (service) => {
  * @returns {Function}
  */
 const getSendHelper = (service) => {
-    return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id)
-            .then(data => {
-                let user = res.locals.currentUser;
-                let email = user.email ? user.email : "";
-                let innerText = "Problem in Kategorie: " + data.category + "\n";
-                let content = {
-                    "text": "User: " + user.displayName + "\n"
-                        + "E-Mail: " + email + "\n"
-                        + "Schule: " + res.locals.currentSchoolData.name + "\n"
-                        + innerText
-                        + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
-                };
-                req.body.email = "ticketsystem@schul-cloud.org";
-                req.body.subject = data.subject;
-                req.body.content = content;
+  return function (req, res, next) {
+      api(req).get('/' + service + '/' + req.params.id)
+          .then(data => {
+              let user = res.locals.currentUser;
+              let email = user.email ? user.email : "";
+              let innerText = "Problem in Kategorie: " + data.category + "\n";
+              let content = {
+                  "text": "User: " + user.displayName + "\n"
+                  + "E-Mail: " + email + "\n"
+                  + "Schule: " + res.locals.currentSchoolData.name + "\n"
+                  + innerText
+                  + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
+              };
+              req.body.email = "ticketsystem@schul-cloud.org";
+              req.body.subject = data.subject;
+              req.body.content = content;
 
-                api(req).post('/mails', { json: req.body }).then(_ => {
-                    api(req).patch('/' + service + '/' + req.params.id, {
-                        json: {
-                            state: 'submitted',
-                            order: 1
-                        }
-                    });
-                    res.sendStatus(200);
-                }).catch(err => {
-                    res.status((err.statusCode || 500)).send(err);
-                });
-                res.redirect(req.get('Referrer'));
-            });
+              api(req).post('/mails', {json: req.body}).then(_ => {
+                  api(req).patch('/' + service + '/' + req.params.id, {
+                      json: {
+                          state: 'submitted',
+                          order: 1
+                      }
+                  });
+                  res.sendStatus(200);
+              }).catch(err => {
+                  res.status((err.statusCode || 500)).send(err);
+              });
+             res.redirect(req.get('Referrer'));
+          });
     };
 };
 
@@ -274,14 +274,14 @@ const getSendHelper = (service) => {
  */
 const getDisableHandler = (service) => {
     return function (req, res, next) {
-        api(req).patch('/' + service + '/' + req.params.id, {
-            json: {
-                state: 'closed',
-                order: 2
-            }
-        }).then(_ => {
-            res.redirect(req.get('Referrer'));
-        });
+      api(req).patch('/' + service + '/' + req.params.id, {
+          json: {
+              state: 'closed',
+              order: 2
+          }
+      }).then(_ => {
+        res.redirect(req.get('Referrer'));
+      });
     };
 };
 
@@ -305,8 +305,8 @@ const getCSVImportHandler = (service) => {
 
         try {
             csvData = decoder.write(req.file.buffer);
-            records = parse(csvData, { columns: true, delimiter: ',' });
-        } catch (err) {
+            records = parse(csvData, {columns: true, delimiter: ','});
+        } catch(err) {
             req.session.notification = {
                 type: 'danger',
                 message: 'Import fehlgeschlagen.'
@@ -425,7 +425,7 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
 };
 
 const createSystemHandler = (req, res, next) => {
-    api(req).post('/systems/', { json: req.body }).then(system => {
+    api(req).post('/systems/', {json: req.body}).then(system => {
         api(req).patch('/schools/' + req.body.schoolId, {
             json: {
                 $push: {
@@ -442,15 +442,15 @@ const createSystemHandler = (req, res, next) => {
 
 const getStorageProviders = () => {
     return [
-        { label: 'AWS S3', value: 'awsS3' }
+        {label: 'AWS S3', value: 'awsS3'}
     ];
 };
 
 const getSSOTypes = () => {
     return [
-        { label: 'Moodle', value: 'moodle' },
-        { label: 'itslearning', value: 'itslearning' },
-        { label: 'IServ', value: 'iserv' }
+        {label: 'Moodle', value: 'moodle'},
+        {label: 'itslearning', value: 'itslearning'},
+        {label: 'IServ', value: 'iserv'}
     ];
 };
 
@@ -458,15 +458,15 @@ const createBucket = (req, res, next) => {
     if (req.body.fileStorageType) {
         Promise.all([
             api(req).post('/fileStorage', {
-                json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
+                json: {fileStorageType: req.body.fileStorageType, schoolId: req.params.id}
             }),
             api(req).patch('/schools/' + req.params.id, {
                 json: req.body
             })]).then(data => {
-                res.redirect(req.header('Referer'));
-            }).catch(err => {
-                next(err);
-            });
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
     }
 };
 
@@ -486,9 +486,9 @@ const sendMailHandler = (user, req) => {
             let content = {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
-                    "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
-                    "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
+                "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+                (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
+                "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
             api(req).post('/mails', {
@@ -508,7 +508,7 @@ const sendMailHandler = (user, req) => {
 const returnAdminPrefix = (roles) => {
     let prefix;
     roles.map(role => {
-        (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
+      (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
     });
     return prefix;
 };
@@ -550,7 +550,7 @@ const userIdtoAccountIdUpdate = (service) => {
                     // TODO: sanitize
                     json: req.body
                 }).then(data => {
-                    res.redirect(req.header('Referer'));
+                        res.redirect(req.header('Referer'));
                 }).catch(err => {
                     next(err);
                 });
@@ -561,36 +561,41 @@ const userIdtoAccountIdUpdate = (service) => {
     };
 };
 
-const userFilterSettings = function (defaultSort) {
-    return [
-        {
-            type: "sort",
-            title: 'Sortierung',
-            displayTemplate: 'Sortieren nach: %1',
-            options: [
-                ["firstName", "Vorname"],
-                ["lastName", "Nachname"],
-                ["email", "E-Mail-Adresse"]
-            ],
-            defaultSelection: defaultSort ? defaultSort : "firstName",
-            defaultOrder: "DESC"
-        },
-        {
-            type: "select",
-            title: 'Geschlecht',
-            displayTemplate: 'Geschlecht: %1',
-            property: 'gender',
-            multiple: true,
-            expanded: true,
-            options: [
-                ["male", "Männlich"],
-                ["female", "Weiblich"],
-                ["other", "Anderes"],
-                [null, "nicht Angegeben"]
-            ]
-        },
-    ];
-};
+const userFilterSettings = [
+    {
+        type: "sort",
+        title: 'Sortierung',
+        displayTemplate: 'Sortieren nach: %1',
+        options: [
+            ["firstName", "Vorname"],
+            ["lastName", "Nachname"],
+            ["email", "E-Mail-Adresse"]
+        ],
+        defaultSelection: "firstName",
+        defaultOrder: "DESC"
+    },
+    {
+        type: "limit",
+        title: 'Einträge pro Seite',
+        displayTemplate: 'Einträge pro Seite: %1',
+        options: [10, 25, 50, 100],
+        defaultSelection: 25
+    },
+    {
+        type: "select",
+        title: 'Geschlecht',
+        displayTemplate: 'Geschlecht: %1',
+        property: 'gender',
+        multiple: true,
+        expanded: true,
+        options: [
+            ["male", "Männlich"],
+            ["female", "Weiblich"],
+            ["other", "Anderes"],
+            [null, "nicht Angegeben"]
+        ]
+    },
+];
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -614,7 +619,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         let ssoTypes = getSSOTypes();
 
         api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', { title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage });
+            res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage});
         });
     });
 });
@@ -626,7 +631,15 @@ router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VI
 
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
+    let itemsPerPage = 25;
+    let filterQuery = {}
+    if(req.query.ajaxContent && req.query.filterQuery){
+        filterQuery = JSON.parse(unescape(req.query.filterQuery));
+        if(filterQuery["$limit"]){
+            itemsPerPage = filterQuery["$limit"];
+            delete filterQuery["$limit"];
+        }
+    }
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
@@ -636,8 +649,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         $limit: itemsPerPage,
         $skip: itemsPerPage * (currentPage - 1),
     };
-    if (req.query.ajaxContent) {
-        query = Object.assign(query, JSON.parse(unescape(req.query.filterQuery)));
+    if(filterQuery){
+        query = Object.assign(query, filterQuery);
     }
 
     api(req).get('/users', {
@@ -680,7 +693,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             res.render('administration/teachers', {
                 title: title + 'Lehrer',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings('lastName'))
+                filterSettings: JSON.stringify(userFilterSettings)
             });
         });
     });
@@ -695,7 +708,16 @@ router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
+    let itemsPerPage = 25;
+    let filterQuery = {}
+    if(req.query.ajaxContent && req.query.filterQuery){
+        filterQuery = JSON.parse(unescape(req.query.filterQuery));
+        if(filterQuery["$limit"]){
+            itemsPerPage = filterQuery["$limit"];
+            delete filterQuery["$limit"];
+        }
+    }
+
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
@@ -705,8 +727,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         $limit: itemsPerPage,
         $skip: itemsPerPage * (currentPage - 1),
     };
-    if (req.query.ajaxContent) {
-        query = Object.assign(query, JSON.parse(unescape(req.query.filterQuery)));
+    if(filterQuery){
+        query = Object.assign(query, filterQuery);
     }
 
     api(req).get('/users', {
@@ -746,7 +768,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings())
+                filterSettings: JSON.stringify(userFilterSettings)
             });
         });
     });
@@ -807,7 +829,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
+        res.render('administration/helpdesk', {title: title + 'Helpdesk', head, body, pagination, limit: true});
     });
 });
 
@@ -840,10 +862,10 @@ router.all('/courses', function (req, res, next) {
             ''
         ];
 
-        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-        const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
         Promise.all([
             classesPromise,
@@ -916,8 +938,8 @@ router.all('/classes', function (req, res, next) {
             ''
         ];
 
-        let teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        let studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+        let teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
+        let studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
 
         Promise.all([
             teachersPromise,
