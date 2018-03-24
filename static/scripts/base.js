@@ -71,6 +71,16 @@ function populateModalForm(modal, data) {
         }
     });
 }
+
+function printPart(){
+    $(this).hide();
+    w = window.open();
+    w.document.write($(this).parent(".print").html());
+    w.print();
+    w.close();
+    $(this).show();
+}
+
 var customReady = jQuery.fn.ready;
 jQuery.fn.ready = function(handler) {
     $(document).on("pageload", handler);
@@ -202,14 +212,9 @@ $(document).ready(function () {
     });
 
     // Print Button
-    $('.print .btn-print').click(function () {
-        $(this).hide();
-        w = window.open();
-        w.document.write($(this).parent(".print").html());
-        w.print();
-        w.close();
-        $(this).show();
-    });
+    document.querySelectorAll('.print .btn-print').forEach(btn => {
+        btn.addEventListener("click", printPart);
+    })
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
