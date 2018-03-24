@@ -695,7 +695,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             res.render('administration/teachers', {
                 title: title + 'Lehrer',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings())
+                filterSettings: JSON.stringify(userFilterSettings('lastName'))
             });
         });
     });
