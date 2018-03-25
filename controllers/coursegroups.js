@@ -142,6 +142,7 @@ router.get('/:courseGroupId/', function(req, res, next) {
         // get team-homework which does not have an group-submission from this group
         openSubmissions = (openSubmissions.data || [])
             .filter(os => os.teamSubmissions)
+            .filter(os => os.maxTeamMembers >= (courseGroup.userIds || []).length)
             .filter(os => _.every(doneSubmissions, s => JSON.stringify(s.homeworkId._id) !== JSON.stringify(os._id)))
             .map(os => {
                 os.title = 'Hausaufgabe: ' + os.name;
