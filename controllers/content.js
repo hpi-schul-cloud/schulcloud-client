@@ -124,13 +124,12 @@ router.get('/redirect/:id', function (req, res, next) {
 });
 
 router.get('/rate/rating',function (req, res, next) {
-    api(req).get('/content/ratingrequest/'+ res.locals.currentUser._id).then(ratings => {
+    api(req)({ uri: `/content/ratingrequest/${res.locals.currentUser._id}` }).then(resourcesToRate => {
         return res.render('content/rating', {
             title: 'Bewerte deine Materialien',
-            content : ratings.data
+            content : resourcesToRate
         });
-    });
-
+    }, console.error);
 });
 
 router.post('/addToLesson', function (req, res, next) {
@@ -149,13 +148,14 @@ router.post('/addToLesson', function (req, res, next) {
     });
 });
 
-router.post('/rate',function (req, res, next) {
+router.post('/rate/:id',function (req, res, next) {
     const rating = req.body;
     rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
     // TODO send proper courseId and topicId
     rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
     rating.topicId = "5a7318d67bbd9f1b32e6bc16";
     api(req).post({
+        //TODO send ratingrequestid as param
         uri: '/content/ratings',
         json: rating
     });
