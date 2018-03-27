@@ -50,7 +50,7 @@ window.addEventListener("DOMContentLoaded", function(){
     document.getElementById("filter").addEventListener('newFilter', (e) => {
         document.querySelectorAll("circular-progress").forEach(graphic => {graphic.remove();});
         filter = e.detail;
-        const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
+        const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
         softNavigate(newurl, ".homework", ".pagination");
     })
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));

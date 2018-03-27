@@ -634,7 +634,7 @@ router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VI
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
     const tempOrgQuery = (req.query||{}).filterQuery;
-    const filterQueryString = (tempOrgQuery)?('&filterQuery= '+ escape(tempOrgQuery)):'';
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 
     let itemsPerPage = 25;
     let filterQuery = {}
@@ -707,7 +707,7 @@ router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
     const tempOrgQuery = (req.query||{}).filterQuery;
-    const filterQueryString = (tempOrgQuery)?('&filterQuery= '+ escape(tempOrgQuery)):'';
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 
     let itemsPerPage = 25;
     let filterQuery = {}
