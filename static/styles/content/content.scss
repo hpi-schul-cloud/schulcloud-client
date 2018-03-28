@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+
 
 .store.container {
     margin: 0;
@@ -100,15 +100,15 @@ h1, h3 {
   cursor:pointer;
 }
 .rate-item {
-  color: $colorHPIRed;
+  color: $primaryColor;
   cursor:pointer;
 }
 .rate-item-active{
   font-size: x-large;
 }
 .rate-item-active:hover ~ .rate-item-active {
-  color:$colorBeige;
+  color:#E6E2E2;
 }
 .content-path{
-  color: $colorHPIRed
+  color: $primaryColor
 }
