@@ -38,6 +38,12 @@ const getActions = (item, path) => {
             alt: 'bearbeiten'
         },
         {
+            link: path + item._id + "/copy",
+            class: 'btn-copy',
+            icon: 'copy',
+            alt: 'Kopieren'
+        },
+        {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
@@ -611,6 +617,33 @@ router.get('/new', function (req, res, next) {
                     isStudent
                 });
             });
+        });
+    });
+});
+
+router.get('/:assignmentId/copy', function (req, res, next) {
+    api(req).get('/homework/' + req.params.assignmentId, {
+        qs: {
+            $populate: ['courseId']
+        }
+    }).then(assignment => {
+        delete assignment._id;
+        delete assignment.stats;
+        delete assignment.isTeacher;
+        delete assignment.archived;
+        delete assignment.__v;
+        if((assignment.courseId||{})._id){
+            assignment.courseId = assignment.courseId._id;
+        }else{
+            delete assignment.courseId
+        }
+        assignment.private = true;
+        api(req).post('/homework/', {
+            json: assignment
+        }).then(data => {
+            return res.redirect("/homework/"+data._id+"/edit");
+        }).catch(err => {
+            next(err);
         });
     });
 });
