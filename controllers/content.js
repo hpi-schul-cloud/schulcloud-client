@@ -40,7 +40,7 @@ router.get('/', function (req, res, next) {
             })
         ]).then(([featured, trending]) => {
 
-            // TODO replace Fake dummy data for rating
+            // TODO X replace Fake dummy data for rating
             featured.data.map(function (item) {
                 item.rating = Math.round(Math.random() * 100) % 50 /10;
             });
@@ -151,11 +151,10 @@ router.post('/addToLesson', function (req, res, next) {
 router.post('/rate/:id',function (req, res, next) {
     const rating = req.body;
     rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
-    // TODO send proper courseId and topicId
+    // TODO X send proper courseId and topicId, send ratingrequestid as param
     rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
     rating.topicId = "5a7318d67bbd9f1b32e6bc16";
     api(req).post({
-        //TODO send ratingrequestid as param
         uri: '/content/ratings',
         json: rating
     });
