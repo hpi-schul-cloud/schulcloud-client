@@ -30,7 +30,6 @@ initStars();
 
 $('.btn-send-rate').on('click', function () {
     const input = $(`.rating-value[data-actualid=rating${this.id}]`);
-    console.log(input)
     if(input.length === 0){
         return;
     }
@@ -43,7 +42,7 @@ $('.btn-send-rate').on('click', function () {
 
 
     $.ajax({
-        url: '/content/rate',
+        url: `/content/rate/${input[0].data('ratingrequestid')}`,
         type: 'post',
         data : rating,
         dataType: 'json'
