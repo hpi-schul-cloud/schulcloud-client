@@ -16,7 +16,7 @@ function initStars(stars) {
             }
         }
     });
-}
+};
 
 function onStarClick() {
     if( this.getAttribute("readonly") === "false"){
