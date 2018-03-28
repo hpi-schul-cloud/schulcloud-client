@@ -627,6 +627,12 @@ router.get('/:assignmentId/copy', function (req, res, next) {
             $populate: ['courseId']
         }
     }).then(assignment => {
+        if(!assignment.isTeacher){
+            let error = new Error("You don't have permissions!");
+            error.status = 403;
+            return next(error);
+        }
+        // sanitize before copy
         delete assignment._id;
         delete assignment.stats;
         delete assignment.isTeacher;
