@@ -41,13 +41,7 @@ router.get('/', function (req, res, next) {
         ]).then(([featured, trending]) => {
 
             // TODO X replace Fake dummy data for rating
-            featured.data.map(function (item) {
-                console.log(item);
-                item.rating = Math.round(Math.random() * 100) % 50 /10;
-            });
-            trending.data.map(function (item) {
-                item.rating = Math.round(Math.random() * 100) % 50 / 10;
-            });
+
             return res.render('content/store', {
                 title: 'Materialien',
                 featuredContent: featured.data,
@@ -130,7 +124,7 @@ router.get('/rate/rating',function (req, res, next) {
             title: 'Bewerte deine Materialien',
             content : resourcesToRate
         });
-    }, console.error);
+    }, console.error); //TODO remove
 });
 
 router.post('/addToLesson', function (req, res, next) {
@@ -152,9 +146,6 @@ router.post('/addToLesson', function (req, res, next) {
 router.post('/rate/:id',function (req, res, next) {
     const rating = req.body;
     rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
-    // TODO X send proper courseId and topicId, send ratingrequestid as param
-    rating.courseId = "0000dcfbfb5c7a3f00bf21ab";
-    rating.topicId = "5a7318d67bbd9f1b32e6bc16";
     api(req).post({
         uri: '/content/ratings',
         json: rating

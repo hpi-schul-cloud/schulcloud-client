@@ -27,9 +27,8 @@
                         <span class="fa fa-star-o rate-item rate-item-active" data-rating="3" readonly="false" id="{{ _id }}" ></span>
                         <span class="fa fa-star-o rate-item rate-item-active" data-rating="4" readonly="false" id="{{ _id }}" ></span>
                         <span class="fa fa-star-o rate-item rate-item-active" data-rating="5" readonly="false" id="{{ _id }}" ></span>
-                        <!-- TODO use data- prefix -->
                         <input type="hidden" id="{{ _id }}" data-actualid="rating{{ _id }}" class="rating-value"
-                            value="{{rating}}" course="{{courseId}}" topic="{{topicId}}" content="{{materialId}}" >
+                            value="{{rating}}" data-courseId="{{courseId}}" data-topicId="{{topicId}}" data-contentId="{{materialId}}" >
                     </span>
                     </td>
                     <td width="10%">
