@@ -17,8 +17,7 @@
                             <h3>{{title}}</h3>
                         </div>
 
-                        <!--TODO X dynamic content path-->
-                        <div class="content-path"> Mathe/Algebra/</div>
+                        <div class="content-path"> {{courseTitle}} / {{topicTitle}}</div>
                         via {{ providerName }}
                     </td>
                     <td width="20%">
@@ -28,22 +27,17 @@
                         <span class="fa fa-star-o rate-item rate-item-active" data-rating="3" readonly="false" id="{{ _id }}" ></span>
                         <span class="fa fa-star-o rate-item rate-item-active" data-rating="4" readonly="false" id="{{ _id }}" ></span>
                         <span class="fa fa-star-o rate-item rate-item-active" data-rating="5" readonly="false" id="{{ _id }}" ></span>
-                        <input type="hidden" id="{{ _id }}" data-actualid="rating{{ _id }}"
-                               data-ratingrequestid="{{ ratingrequestid }}" class="rating-value" value="{{rating}}">
+                        <input type="hidden" id="{{ _id }}" data-actualid="rating{{ _id }}" class="rating-value" value="{{rating}}" course="{{courseId}}" topic="{{topicId}}" content="{{materialId}}" >
                     </span>
                     </td>
                     <td width="10%">
-                        <div class="pull-right btn btn-primary btn-send-rate" id="{{ _id }}"> bewerten </div>
+                        <div class="pull-right btn btn-primary btn-send-rate" id="{{ _id }}"> send </div>
                     </td>
 
                 </tr>
             {{/each}}
             </table>
         </div>
-        <!--<div class="modal-footer">
-
-          <button  class="btn btn-primary btn-send-rate" data-dismiss="modal"> send </button>
-        </div>-->
     </div>
 
 </div>
