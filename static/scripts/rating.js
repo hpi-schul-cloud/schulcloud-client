@@ -35,14 +35,17 @@ $('.btn-send-rate').on('click', function () {
     }
 
     const rating = {
-        materialId: input[0].id,
-        rating: Number(input[0].value || 0)
+        _id: input[0].id,
+        rating: Number(input[0].value || 0),
+        courseId : input[0].getAttribute("course") || 0,
+        topicId : input[0].getAttribute("topic") || 0,
+        materialId : input[0].getAttribute("content") || 0
     };
     $(`#${this.id}`).remove();
 
 
     $.ajax({
-        url: `/content/rate/${input[0].data('ratingrequestid')}`,
+        url: '/content/rate',
         type: 'post',
         data : rating,
         dataType: 'json'
