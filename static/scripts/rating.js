@@ -37,9 +37,9 @@ $('.btn-send-rate').on('click', function () {
     const rating = {
         _id: input[0].id,
         rating: Number(input[0].value || 0),
-        courseId : input[0].getAttribute("course") || 0,
-        topicId : input[0].getAttribute("topic") || 0,
-        materialId : input[0].getAttribute("content") || 0
+        courseId : input[0].getAttribute("data-courseId") || 0,
+        topicId : input[0].getAttribute("data-topicId") || 0,
+        materialId : input[0].getAttribute("data-contentId") || 0
     };
     $(`#${this.id}`).remove();
 
