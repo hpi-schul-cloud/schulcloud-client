@@ -40,7 +40,6 @@ router.get('/', function (req, res, next) {
             })
         ]).then(([featured, trending]) => {
 
-            // TODO X replace Fake dummy data for rating
 
             return res.render('content/store', {
                 title: 'Materialien',
