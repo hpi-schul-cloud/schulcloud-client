@@ -2,7 +2,7 @@ var $stars = $('.rate .rate-item');
 
 function initStars(stars) {
     return $stars.each(function(star) {
-        var raitingValue = parseFloat($stars.siblings('input.rating-value[id='+ $stars[star].id +']').val());
+        var raitingValue = parseFloat($(this).closest('.rate').find('Input.rating-value')[0].value);
         var starValue    = parseInt($(this).data('rating'));
         if (raitingValue >= starValue) {
             return $(this).removeClass('fa-star-o').removeClass('fa-star-half-o').addClass('fa-star');
@@ -16,7 +16,7 @@ function initStars(stars) {
             }
         }
     });
-};
+}
 
 function onStarClick() {
     if( this.getAttribute("readonly") === "false"){
