@@ -412,8 +412,16 @@ const overview = (title = "") => {
             $populate: ['courseId'],
             archived : {$ne: res.locals.currentUser._id }
         };
-        if(req.query.ajaxContent){
+
+        const tempOrgQuery = (req.query||{}).filterQuery;
+        const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
+        let itemsPerPage = 10;
+        if(tempOrgQuery){
             const filterQuery = JSON.parse(unescape(req.query.filterQuery));
+            if (filterQuery["$limit"]) {
+                itemsPerPage = filterQuery["$limit"];
+            }
             query = Object.assign(query, filterQuery);
         }else{
             if (req._parsedUrl.pathname.includes("private")) {
@@ -429,7 +437,7 @@ const overview = (title = "") => {
         api(req).get('/homework/', {
             qs: query
         }).then(homeworks => {
-            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+            // ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
             api(req).get('/users/' + res.locals.currentUser._id, {
                 qs: {
                     $populate: ['roles','courseId']
@@ -530,13 +538,12 @@ const overview = (title = "") => {
                             }
                         }];
                     //Pagination in client, because filters are in afterhook
-                    const itemsPerPage = 10;
                     const currentPage = parseInt(req.query.p) || 1;
                     let pagination = {
                         currentPage,
                         numPages: Math.ceil(homeworks.length / itemsPerPage),
                         baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
-                        + 'p={{page}}'
+                        + 'p={{page}}' + filterQueryString
                     };
                     const end = currentPage * itemsPerPage;
                     homeworks = homeworks.slice(end - itemsPerPage, end);
