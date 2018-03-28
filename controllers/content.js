@@ -118,7 +118,7 @@ router.get('/redirect/:id', function (req, res, next) {
     });
 });
 
-router.get('/rate/rating',function (req, res, next) {
+router.get('/rating/ratingrequests',function (req, res, next) {
     api(req)({ uri: `/content/ratingrequest/${res.locals.currentUser._id}` }).then(resourcesToRate => {
         return res.render('content/rating', {
             title: 'Bewerte deine Materialien',
@@ -144,7 +144,7 @@ router.post('/addToLesson', function (req, res, next) {
 });
 
 //TODO X change to patch ratingrequest
-router.post('/rate',function (req, res, next) {
+router.post('/ratingrequest',function (req, res, next) {
     const rating = req.body;
     rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
     api(req).post({
