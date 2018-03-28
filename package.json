@@ -36,6 +36,7 @@
     "multer": "^1.3.0",
     "nexboard-api-js": "^1.0.5",
     "oauth-1.0a": "^2.1.0",
+    "ory-hydra-sdk": "^0.11.9",
     "path.join": "^1.0.0",
     "query-string": "^5.0.1",
     "request": "^2.79.0",
@@ -43,6 +44,7 @@
     "serve-favicon": "~2.3.2",
     "shortid": "^2.2.8",
     "showdown": "^1.7.1",
+    "simple-oauth2": "^1.5.2",
     "string-strip-html": "^1.1.0",
     "string_decoder": "^1.0.1",
     "truncate-html": "^0.1.4"

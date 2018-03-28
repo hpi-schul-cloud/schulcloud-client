@@ -24,6 +24,7 @@ router.post('/login/', function (req, res, next) {
     const username = req.body.username; // TODO: sanitize
     const password = req.body.password; // TODO: sanitize
     const systemId = req.body.systemId;
+    const consent = req.body.consent;
 
     return api(req).get('/accounts/', {qs: {username: username}})
         .then(account => {
@@ -35,9 +36,10 @@ router.post('/login/', function (req, res, next) {
                 next();
             } else {
                 const login = (data) => {
-                    return api(req).post('/authentication', {json: data}).then(data => {
-                        res.cookie('jwt', data.accessToken, {expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)});
-                        res.redirect('/login/success/');
+                    return api(req).post('/authentication', {json: data}).then(sessionData => {
+                        res.cookie('jwt', sessionData.accessToken, {expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)});
+                        console.log(data);
+                        res.redirect((data.consent ? `consent/consent?consent=${data.consent}` : '/login/success/'));
                     }).catch(_ => {
                         res.locals.notification = {
                             'type': 'danger',
@@ -49,10 +51,10 @@ router.post('/login/', function (req, res, next) {
 
                 if (systemId) {
                     return api(req).get('/systems/' + req.body.systemId).then(system => {
-                        return login({strategy: system.type, username, password, systemId});
+                        return login({strategy: system.type, username, password, systemId, consent});
                     });
                 } else {
-                    return login({strategy: 'local', username, password});
+                    return login({strategy: 'local', username, password, consent});
                 }
             }
         });
@@ -107,7 +109,8 @@ router.all('/login/', function (req, res, next) {
                 return res.render('authentication/login', {
                     schools,
                     inline: true,
-                    systems: []
+                    systems: [],
+                    consent: req.query.consent
                 });
             });
         }
