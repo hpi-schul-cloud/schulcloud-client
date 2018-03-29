@@ -10,21 +10,21 @@ const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul
 
 const editTopicHandler = (req, res, next) => {
     let lessonPromise, action, method;
-    if(req.params.topicId) {
-        action = '/courses/' + req.params.courseId + '/topics/' + req.params.topicId;
+    if (req.params.topicId) {
+        action = '/courses/' + req.params.courseId + '/topics/' + req.params.topicId +
+            (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'patch';
         lessonPromise = api(req).get('/lessons/' + req.params.topicId);
     } else {
-        action = '/courses/' + req.params.courseId + '/topics/';
+        action = '/courses/' + req.params.courseId + '/topics' +
+            (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'post';
         lessonPromise = Promise.resolve({});
     }
 
 
-    Promise.all([
-        lessonPromise
-    ]).then(([lesson]) => {
-        if(lesson.contents) {
+    lessonPromise.then(lesson => {
+        if (lesson.contents) {
             // so we can share the content through data-value to the react component
             lesson.contents = JSON.stringify(lesson.contents);
         }
@@ -37,6 +37,7 @@ const editTopicHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
+            courseGroupId: req.query.courseGroup,
             etherpadBaseUrl: etherpadBaseUrl
         });
     });
@@ -55,37 +56,40 @@ router.get('/', (req, res, next) => {
 router.get('/add', editTopicHandler);
 
 
-router.post('/', function (req, res, next) {
+router.post('/', function(req, res, next) {
 
     const data = req.body;
 
     // Check for neXboard compontent
-    data.contents = createNewNexBoards(req,res,data.contents);
+    data.contents = createNewNexBoards(req, res, data.contents);
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
+    req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+
     api(req).post('/lessons/', {
         json: data // TODO: sanitize
     }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId + '/topics/');
+        res.redirect('/courses/' + req.params.courseId +
+            (req.query.courseGroup ? '/groups/' + req.query.courseGroup : ''));
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
 
-router.post('/:id/share', function (req, res, next) {
+router.post('/:id/share', function(req, res, next) {
     // if lesson already has shareToken, do not generate a new one
     api(req).get('/lessons/' + req.params.id).then(topic => {
         topic.shareToken = topic.shareToken || shortId.generate();
-        api(req).patch("/lessons/" + req.params.id, {json: topic})
+        api(req).patch("/lessons/" + req.params.id, { json: topic })
             .then(result => res.json(result))
-            .catch(err => {res.err(err);});
+            .catch(err => { res.err(err); });
     });
 });
 
 
-router.get('/:topicId', function (req, res, next) {
+router.get('/:topicId', function(req, res, next) {
 
     Promise.all([
         api(req).get('/courses/' + req.params.courseId),
@@ -99,17 +103,19 @@ router.get('/:topicId', function (req, res, next) {
                 courseId: req.params.courseId,
                 lessonId: req.params.topicId,
                 $populate: ['courseId'],
-                archived : {$ne: res.locals.currentUser._id}
+                archived: { $ne: res.locals.currentUser._id }
             }
-        })
-    ]).then(([course, lesson, homeworks]) => {
+        }),
+        req.query.courseGroup ?
+        api(req).get('/courseGroups/' + req.query.courseGroup) :
+        Promise.resolve({})
+    ]).then(([course, lesson, homeworks, courseGroup]) => {
         // decorate contents
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
-            // TODO better place to send this data?
             (block.content.resources || []).forEach(resource => {
-                resource.url += `?courseId=${course._id}&topicId=${lesson._id}&userId=${res.locals.currentUser._id}`;
-            });
+                resource.url += `?courseId=${course._id}&topicId=${lesson._id}`;
+            }) ;
 
             return block;
         });
@@ -117,8 +123,8 @@ router.get('/:topicId', function (req, res, next) {
             assignment.url = '/homework/' + assignment._id;
             return assignment;
         });
-        homeworks.sort((a,b) => {
-            if(a.dueDate > b.dueDate) {
+        homeworks.sort((a, b) => {
+            if (a.dueDate > b.dueDate) {
                 return 1;
             } else {
                 return -1;
@@ -126,10 +132,11 @@ router.get('/:topicId', function (req, res, next) {
         });
         res.render('topic/topic', Object.assign({}, lesson, {
             title: lesson.name,
-            homeworks: homeworks.filter(function(task){return !task.private;}),
-            myhomeworks: homeworks.filter(function(task){return task.private;}),
-            breadcrumb: [
-                {
+            homeworks: homeworks.filter(function(task) { return !task.private; }),
+            myhomeworks: homeworks.filter(function(task) { return task.private; }),
+            courseId: req.params.courseId,
+            isCourseGroupTopic: courseGroup._id !== undefined,
+            breadcrumb: [{
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
@@ -137,10 +144,13 @@ router.get('/:topicId', function (req, res, next) {
                     title: course.name,
                     url: '/courses/' + course._id
                 },
-                {}
+                courseGroup._id ? {
+                    title: courseGroup.name,
+                    url: '/courses/' + course._id + '/groups/' + courseGroup._id
+                } : {}
             ]
         }), (error, html) => {
-            if(error) {
+            if (error) {
                 throw 'error in GET /:topicId - res.render: ' + error;
             }
             res.send(html);
@@ -148,18 +158,20 @@ router.get('/:topicId', function (req, res, next) {
     });
 });
 
-router.patch('/:topicId', function (req, res, next) {
+router.patch('/:topicId', function(req, res, next) {
     const data = req.body;
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     // if not a simple hidden or position patch, set contents to empty array
-    if (!data.contents && !req.query.json){
+    if (!data.contents && !req.query.json) {
         data.contents = [];
     }
 
-    // create new Nexboard when necessary
-    data.contents = createNewNexBoards(req,res,data.contents);
+    req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+
+    // create new Nexboard when necessary, if not simple hidden or position patch
+    data.contents ? data.contents = createNewNexBoards(req, res, data.contents) : '';
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
@@ -167,14 +179,15 @@ router.patch('/:topicId', function (req, res, next) {
             res.json(_);
         } else {
             //sends a GET request, not a PATCH
-            res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId);
+            res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId +
+                (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : ''));
         }
     }).catch(_ => {
         res.sendStatus(500);
     });
 });
 
-router.delete('/:topicId', function (req, res, next) {
+router.delete('/:topicId', function(req, res, next) {
     api(req).delete('/lessons/' + req.params.topicId).then(_ => {
         res.sendStatus(200);
     }).catch(err => {
@@ -182,7 +195,7 @@ router.delete('/:topicId', function (req, res, next) {
     });
 });
 
-router.delete('/:topicId/materials/:materialId', function (req, res, next) {
+router.delete('/:topicId/materials/:materialId', function(req, res, next) {
     api(req).patch('/lessons/' + req.params.topicId, {
         json: {
             $pull: {
@@ -198,13 +211,13 @@ router.delete('/:topicId/materials/:materialId', function (req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-const createNewNexBoards = (req,res,contents = []) => {
+const createNewNexBoards = (req, res, contents = []) => {
     contents.forEach(content => {
-        if (content.component === "neXboard" && content.content.board === '0'){
+        if (content.component === "neXboard" && content.content.board === '0') {
             const board = getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
-                getNexBoardProjectFromUser(req,res.locals.currentUser));
+                getNexBoardProjectFromUser(req, res.locals.currentUser));
             content.content.title = board.title;
             content.content.board = board.boardId;
             content.content.url = "https://" + board.public_link;
@@ -219,26 +232,26 @@ const getNexBoardAPI = () => {
         //TODO handle error properly
 
     }
-    return new Nexboard(process.env.NEXBOARD_API_KEY,process.env.NEXBOARD_USER_ID);
+    return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
 };
 
-const getNexBoardProjectFromUser = (req,user) => {
+const getNexBoardProjectFromUser = (req, user) => {
     const preferences = user.preferences || {};
     if (typeof preferences.nexBoardProjectID === 'undefined') {
-        const project = getNexBoardAPI().createProject(user._id,user._id);
+        const project = getNexBoardAPI().createProject(user._id, user._id);
         preferences.nexBoardProjectID = project.id;
         api(req).patch('/users/' + user._id, { json: { preferences } });
     }
     return preferences.nexBoardProjectID;
 };
 
-const getNexBoards = (req,res,next) => {
-   api(req).get('/lessons/contents/neXboard' ,{
-        qs:{
-            type : 'neXboard',
-            user : res.locals.currentUser._id
-        }
-    })
+const getNexBoards = (req, res, next) => {
+    api(req).get('/lessons/contents/neXboard', {
+            qs: {
+                type: 'neXboard',
+                user: res.locals.currentUser._id
+            }
+        })
         .then(boards => {
             res.json(boards);
         });
@@ -246,6 +259,6 @@ const getNexBoards = (req,res,next) => {
 
 router.get('/:topicId/nexboard/boards', getNexBoards);
 
-router.get('/nexboard/boards',getNexBoards);
+router.get('/nexboard/boards', getNexBoards);
 
 module.exports = router;

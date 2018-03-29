@@ -40,46 +40,63 @@
                 melden <i class="fa fa-flag" aria-hidspanden="true"></i>
             </a>
         {{/userIsAllowedToViewContent}}
-        <div class="rate">
-            <span> Lehrer Bewertung : </span>
-            <span class="fa fa-star-o rate-item" data-rating="1" readonly="true" id="{{{ _id }}}"></span>
-            <span class="fa fa-star-o rate-item" data-rating="2" readonly="true" id="{{{ _id }}}" ></span>
-            <span class="fa fa-star-o rate-item" data-rating="3" readonly="true" id="{{{ _id }}}"></span>
-            <span class="fa fa-star-o rate-item" data-rating="4" readonly="true" id="{{{ _id }}}"></span>
-            <span class="fa fa-star-o rate-item" data-rating="5" readonly="true" id="{{{ _id }}}"></span>
-            <input type="hidden" id="{{{ _id }}}" class="rating-value" value="{{{rating}}}">
-            <span > ( {{{rating}}})</span>
-        </div>
+        <table>
+            {{#if teacherRating}}
+                <tr class="rate">
+                    <td> Lehrer Bewertung : </td>
+                    <td>
+                    <span class="fa fa-star-o rate-item" data-rating="1" readonly="true" id="{{{ _id }}}"></span>
+                    <span class="fa fa-star-o rate-item" data-rating="2" readonly="true" id="{{{ _id }}}" ></span>
+                    <span class="fa fa-star-o rate-item" data-rating="3" readonly="true" id="{{{ _id }}}"></span>
+                    <span class="fa fa-star-o rate-item" data-rating="4" readonly="true" id="{{{ _id }}}"></span>
+                    <span class="fa fa-star-o rate-item" data-rating="5" readonly="true" id="{{{ _id }}}"></span>
+                    <input type="hidden" id="{{{ _id }}}" class="rating-value" value="{{{teacherRating}}}">
+                    <span > ( {{{teacherRating}}})</span>
+                    </td>
+                </tr>
+            {{/if}}
 
-        <div class="rate">
-            <span> Schüler Bewertung :  </span>
-            <span class="fa fa-star-o rate-item" data-rating="1" readonly="true" id="{{{ _id }}}"></span>
-            <span class="fa fa-star-o rate-item" data-rating="2" readonly="true" id="{{{ _id }}}" ></span>
-            <span class="fa fa-star-o rate-item" data-rating="3" readonly="true" id="{{{ _id }}}"></span>
-            <span class="fa fa-star-o rate-item" data-rating="4" readonly="true" id="{{{ _id }}}"></span>
-            <span class="fa fa-star-o rate-item" data-rating="5" readonly="true" id="{{{ _id }}}"></span>
-            <input type="hidden" id="{{{ _id }}}" class="rating-value" value="{{{rating}}}">
-            <span > ( {{{rating}}})</span>
-        </div>
+            {{#if studentRating}}
+                <tr class="rate">
+                    <td> Schüler Bewertung :  </td>
+                    <td>
+                    <span class="fa fa-star-o rate-item" data-rating="1" readonly="true" id="{{{ _id }}}"></span>
+                    <span class="fa fa-star-o rate-item" data-rating="2" readonly="true" id="{{{ _id }}}" ></span>
+                    <span class="fa fa-star-o rate-item" data-rating="3" readonly="true" id="{{{ _id }}}"></span>
+                    <span class="fa fa-star-o rate-item" data-rating="4" readonly="true" id="{{{ _id }}}"></span>
+                    <span class="fa fa-star-o rate-item" data-rating="5" readonly="true" id="{{{ _id }}}"></span>
+                    <input type="hidden" id="{{{ _id }}}" class="rating-value" value="{{{studentRating}}}">
+                    <span > ( {{{studentRating}}})</span>
+                    </td>
+                </tr>
+            {{/if}}
+
+        </table>
 
 
         <span>via {{{ providerName }}}</span>
-        {{#userHasPermission "COURSE_EDIT"}}
-            <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">
+        {{#if @root.isCourseGroupTopic}}
+            <a class="add-to-lesson pull-right" href="{{{ _id }}}">
                 <i class="fa fa-plus-square"></i>
             </a>
         {{else}}
-            {{#userHasPermission  "LESSONS_VIEW"}}
-                {{#userHasPermission "TOOL_NEW_VIEW"}}
-                    <i class="fa fa-plus-square pull-right tooltip-demo"
-                       data-toggle="tooltip"
-                       data-placement="bottom"
-                       data-html="true"
-                       data-animation="true"
-                       title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
+            {{#userHasPermission "COURSE_EDIT"}}
+                <a class="add-to-lesson pull-right" href="{{{ ../_id }}}">
+                    <i class="fa fa-plus-square"></i>
+                </a>
+            {{else}}
+                {{#userHasPermission  "LESSONS_VIEW"}}
+                    {{#userHasPermission "TOOL_NEW_VIEW"}}
+                        <i class="fa fa-plus-square pull-right tooltip-demo"
+                        data-toggle="tooltip"
+                        data-placement="bottom"
+                        data-html="true"
+                        data-animation="true"
+                        title="<h5>Inhalt kann im Demomodus nicht zu Kursen hinzugefügt werden.</h5>" ></i>
+                    {{/userHasPermission}}
                 {{/userHasPermission}}
             {{/userHasPermission}}
-        {{/userHasPermission}}
+        {{/if}}
     </div>
 
 </div>

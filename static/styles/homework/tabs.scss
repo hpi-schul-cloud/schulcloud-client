@@ -1,7 +1,8 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-grid';
 
 .tab-links{
+  padding-bottom: 1px;
   border-bottom: 1px solid lightgrey;
 }
 .tab-link {
@@ -14,14 +15,13 @@
     font-size: 1.2rem;
   }
   margin-bottom: -2px;
-  border: 2px solid transparent;
+  border-bottom: 4px solid transparent;
   border-top-left-radius:5px;
   border-top-right-radius:5px;
   &.active {
     font-weight: 700;
     color: $primaryColor !important;
-    border-color: $primaryColor;
-    border-bottom-color: #fff;
+    border-bottom: 4px solid $primaryColor;
   }
   &:hover, &:focus{
     text-decoration: none;

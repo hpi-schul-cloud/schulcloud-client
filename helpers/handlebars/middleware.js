@@ -22,7 +22,7 @@ const makeActive = (items, currentUrl) => {
         if(item.children && item.childActive) {
             item.children = makeActive(item.children, currentUrl);
             
-            if(item.children.filter(child => {return child.class == 'active'}).length == 0){
+            if(item.children.filter(child => {return child.class == 'active';}).length == 0){
                 item.class += ' active';
             }
         }
@@ -32,7 +32,7 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-    res.locals.themeTitle = process.env.SC_TITLE || 'Schul-Cloud';
+    res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
     // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',

@@ -1,3 +1,16 @@
+window.addEventListener("DOMContentLoaded", function(){
+    /* FEATHERS FILTER MODULE */
+    const filterModule = document.getElementById("filter");
+    if(filterModule){
+        filterModule.addEventListener('newFilter', (e) => {
+            filter = e.detail;
+            const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
+            softNavigate(newurl, ".ajaxcontent", ".pagination");
+        })
+        document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+    }
+});
+
 $(document).ready(function () {
 
     var $modals = $('.modal');
@@ -6,6 +19,7 @@ $(document).ready(function () {
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteModal = $('.delete-modal');
+    var $pwModal = $('.pw-modal');
 
     $('.btn-add').on('click', function (e) {
         e.preventDefault();
@@ -118,6 +132,18 @@ $(document).ready(function () {
         });
     });
 
+    $('.btn-pw').on('click', function (e) {
+        e.preventDefault();
+        var entry = $(this).attr('href');
+            populateModalForm($pwModal, {
+                action: entry,
+                title: 'Passwort ändern',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Speichern',
+                fields: undefined
+            });
 
+            $pwModal.modal('show');
+    });
 
 });

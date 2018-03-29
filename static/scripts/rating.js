@@ -2,7 +2,7 @@ var $stars = $('.rate .rate-item');
 
 function initStars(stars) {
     return $stars.each(function(star) {
-        var raitingValue = parseFloat($stars.siblings('input.rating-value[id='+ $stars[star].id +']').val());
+        var raitingValue = parseFloat($(this).closest('.rate').find('Input.rating-value')[0].value);
         var starValue    = parseInt($(this).data('rating'));
         if (raitingValue >= starValue) {
             return $(this).removeClass('fa-star-o').removeClass('fa-star-half-o').addClass('fa-star');
@@ -56,7 +56,7 @@ $('.btn-send-rate').on('click', function () {
 $(document).ready(function() {
     $('#InboxContent').off('show.bs.modal');
     $('#InboxContent').on('show.bs.modal', function (event) {
-        $(this).load("/content/rate/rating");
+        $(this).load("/content/rating/ratingrequests");
 
     });
 
