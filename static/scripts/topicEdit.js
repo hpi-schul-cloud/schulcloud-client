@@ -315,6 +315,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicSchulCloud)}>+ Schul-Cloud</button>
                     </div>
                 </div>
             </div>
@@ -361,6 +362,9 @@ class TopicBlock extends React.Component {
                 return TopicNexboard;
             case 'Etherpad':
                 return TopicEtherpad;
+                break;
+            case 'SchulCloud':
+                return TopicSchulCloud;
                 break;
         }
     }
@@ -736,6 +740,44 @@ class TopicGeoGebra extends TopicBlock {
         );
     }
 };
+
+/**
+ * Class representing an internal link
+ * @extends React.Component
+ */
+class TopicSchulCloud extends TopicBlock {
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in
+     * view mode.
+     */
+    static get component() {
+        return 'SchulCloud';
+    }
+
+    /**
+     * Render the block (an input field)
+     */
+    render() {
+        return (
+            <div>
+                <div type="hidden" className="form-group">
+                    <label>Schul-Cloud Link</label>
+                    <input className="form-control" name={`contents[${this.props.position}][content][url]`}
+                    type="url" placeholder="https://schul-cloud.org/homework/5aba1085b0efc43a64f1f5d2" value={(this.props.content || {}).url}/>
+                </div>
+            </div>
+        );
+    }
+}
 
 /**
  * Class representing an Etherpad
