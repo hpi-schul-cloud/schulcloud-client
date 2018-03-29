@@ -629,35 +629,17 @@ router.get('/new', function (req, res, next) {
 });
 
 router.get('/:assignmentId/copy', function (req, res, next) {
-    api(req).get('/homework/' + req.params.assignmentId, {
-        qs: {
-            $populate: ['courseId']
-        }
-    }).then(assignment => {
-        if(!assignment.isTeacher){
-            let error = new Error("You don't have permissions!");
-            error.status = 403;
+    api(req).get('/homework/copy/' + req.params.assignmentId)
+    .then(assignment => {
+        if(assignment._id){
+            return res.redirect("/homework/"+assignment._id+"/edit");
+        }else{
+            let error = new Error("Failed to copy task!");
+            error.status = 500;
             return next(error);
         }
-        // sanitize before copy
-        delete assignment._id;
-        delete assignment.stats;
-        delete assignment.isTeacher;
-        delete assignment.archived;
-        delete assignment.__v;
-        if((assignment.courseId||{})._id){
-            assignment.courseId = assignment.courseId._id;
-        }else{
-            delete assignment.courseId
-        }
-        assignment.private = true;
-        api(req).post('/homework/', {
-            json: assignment
-        }).then(data => {
-            return res.redirect("/homework/"+data._id+"/edit");
-        }).catch(err => {
-            next(err);
-        });
+    }).catch(err => {
+        next(err);
     });
 });
 
