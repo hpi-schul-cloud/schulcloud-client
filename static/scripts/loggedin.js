@@ -1,8 +1,56 @@
 if (window.opener && window.opener !== window) {
-    document.body.classList.add('window-inline');
     window.isInline = true;
 }
 
+const diffDOM = new diffDOM();
+function softNavigate(newurl, selector = 'html', listener, callback){
+    $.ajax({
+        type: "GET",
+        url: newurl
+    }).done(function(r) {
+        // render new page
+        parser = new DOMParser()
+        const newPage = parser.parseFromString(r, "text/html");
+        // apply new page
+        try{
+            const newPagePart = newPage.querySelector(selector);
+            const oldPagePart = document.querySelector(selector);
+            const diff = diffDOM.diff(oldPagePart, newPagePart);
+            const result = diffDOM.apply(oldPagePart, diff);
+            document.querySelectorAll((listener||selector)+" a").forEach(link => {
+                linkClone = link.cloneNode(true);
+                linkClone.addEventListener("click", function (e){
+                    softNavigate($(this).attr('href'), selector, listener);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                })
+                link.parentNode.replaceChild(linkClone, link);
+            })
+            // scroll to top
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+            jQuery(document).trigger('pageload');
+            if(callback){callback();}
+        }catch(e){
+            console.error(e);
+            $.showNotification("Fehler bei AJAX-Navigation", "danger", true);
+        }
+    });
+}
+function togglePresentationMode(){
+    const contentArea = $('#main-content');
+    const toggleButton = $('.btn-fullscreen');
+    $('body').toggleClass('fullscreen');
+    toggleButton.children('i').toggleClass('fa-compress');
+    toggleButton.children('i').toggleClass('fa-expand');
+}
+var fullscreen = false;
+function fullscreenBtnClicked(){
+    togglePresentationMode();
+    fullscreen = !fullscreen;
+    sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
+}
 $(document).ready(function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
@@ -41,7 +89,7 @@ $(document).ready(function () {
 
         let type = (modal[0].className.includes('feedback-modal')) ? 'feedback' : 'problem';
 
-        let email = 'schul-cloud-support@hpi.de';
+        let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
         let text = createFeedbackMessage(modal);
         let content = { text: text};
@@ -120,26 +168,17 @@ $(document).ready(function () {
 
     $('.btn-create-qr').on('click', function () {
         // create qr code for current page
-        let el = kjua({text: window.location.href, render: 'canvas'});
+        let image = kjua({text: window.location.href, render: 'image'});
         let $qrbox = $('.qr-show');
         $qrbox.empty();
-        $qrbox.append(el);
+        $qrbox.append(image);
     });
 
-    var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
-    function togglePresentationMode(){
-        const contentArea = $('#main-content');
-        const toggleButton = $('.btn-fullscreen');
-        $('body').toggleClass('fullscreen');
-        toggleButton.children('i').toggleClass('fa-compress');
-        toggleButton.children('i').toggleClass('fa-expand');
+    if(!fullscreen){
+        fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
+        if(fullscreen){togglePresentationMode()}
     }
-    if(fullscreen){togglePresentationMode()}
-    $('.btn-fullscreen').on('click', function(){
-        togglePresentationMode();
-        fullscreen = !fullscreen;
-        sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
-    });
+    document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
 
     $('.btn-cancel').on('click', function(e) {
         e.stopPropagation();
@@ -172,7 +211,7 @@ $(document).ready(function () {
             }
         },
         error: function(err) {
-            console.log(err);
+            console.error(err);
         }
     });
 });
