@@ -24,26 +24,26 @@
                     </div>
                 </div>
                 <button class="btn btn-primary float-right" type="submit">Suchen</button>
-			</form>
-		</section>
-		<section class="search-results">
-			{{#if query }}
-				{{#if files}}
-					<hr>
-					<h5>Suchergebnisse für "{{ query }}"</h5>
-				{{/if}}
-			{{else}}
-				{{#if files}}
-					<hr>
-					<h5>Suchergebnisse</h5>
-				{{/if}}
-			{{/if}}
-			{{#unless files}}{{#unless suppressNoResultsMessage}}
-				<hr>
-				<h5 class="text-muted text-center">
-					<span>Keine Suchergebnisse</span>
-				</h5>
-			{{/unless}}{{/unless}}
+            </form>
+        </section>
+        <section class="search-results">
+            {{#if query }}
+                {{#if files}}
+                    <hr>
+                    <h5>Suchergebnisse für "{{ query }}"</h5>
+                {{/if}}
+            {{else}}
+                {{#if files}}
+                    <hr>
+                    <h5>Suchergebnisse</h5>
+                {{/if}}
+            {{/if}}
+            {{#unless files}}{{#unless suppressNoResultsMessage}}
+                <hr>
+                <h5 class="text-muted text-center">
+                    <span>Keine Suchergebnisse</span>
+                </h5>
+            {{/unless}}{{/unless}}
 
             {{#embed "files/file-viewer"}}{{/embed}}
             {{#embed "files/files-grid"}}{{/embed}}

@@ -45,7 +45,6 @@ router.get('/', function (req, res, next) {
                 trendingContent: trending.data,
                 totalCount: trending.total,
                 isCourseGroupTopic: req.query.isCourseGroupTopic,
-                inline: req.query.inline,
                 action
             });
         });

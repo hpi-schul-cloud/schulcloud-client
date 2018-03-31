@@ -1,0 +1,88 @@
+﻿Revert "Merge remote-tracking branch 'refs/remotes/origin/master' into design-tweaks"
+
+This reverts commit df121f2e9139288e8c2c9a947a90b87dcd00c195, reversing
+changes made to 7da7dd3cd74c52da3dcdf37dc368e037bafe0220.
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch design-tweaks
+# Your branch is up-to-date with 'origin/design-tweaks'.
+#
+# Changes to be committed:
+#	modified:   controllers/administration.js
+#	modified:   controllers/content.js
+#	modified:   controllers/dashboard.js
+#	modified:   controllers/helpdesk.js
+#	modified:   controllers/homework.js
+#	modified:   gulpfile.js
+#	modified:   helpers/handlebars/helpers/index.js
+#	modified:   helpers/handlebars/middleware.js
+#	new file:   static/images/sidebar.png
+#	new file:   static/images/testbg.png
+#	modified:   static/scripts/administration.js
+#	modified:   static/scripts/base.js
+#	modified:   static/scripts/dashboard.js
+#	deleted:    static/scripts/diffDOM/diffDOM.js
+#	modified:   static/scripts/files.js
+#	deleted:    static/scripts/filter/feathers-filter.js
+#	modified:   static/scripts/help.js
+#	modified:   static/scripts/homework.js
+#	modified:   static/scripts/loggedin.js
+#	modified:   static/styles/files/files.scss
+#	modified:   static/styles/files/upload.scss
+#	modified:   static/styles/homework/homework.scss
+#	modified:   static/styles/homework/overview.scss
+#	modified:   static/styles/lib/base.scss
+#	new file:   static/styles/lib/chosen/chosen-material-theme.scss
+#	new file:   static/styles/lib/components.scss
+#	deleted:    static/styles/lib/filter/filter.scss
+#	modified:   static/styles/lib/loggedin.scss
+#	new file:   static/styles/lib/sc-theme/input/checkbox.scss
+#	new file:   static/styles/lib/sc-theme/input/radio.scss
+#	new file:   static/styles/lib/sc-theme/sc-btn.scss
+#	modified:   static/styles/lib/sc-theme/sc-card.scss
+#	new file:   static/styles/lib/sc-theme/sc-input.scss
+#	new file:   static/styles/lib/sc-theme/sc-scrollbar.scss
+#	modified:   static/styles/lib/sc-theme/sc-theme.scss
+#	modified:   static/styles/partner/partner.scss
+#	modified:   test/homework/homework.test.js
+#	modified:   views/administration/administration.hbs
+#	modified:   views/administration/classes.hbs
+#	modified:   views/administration/courses.hbs
+#	modified:   views/administration/school.hbs
+#	modified:   views/administration/students.hbs
+#	modified:   views/administration/systems.hbs
+#	modified:   views/administration/teachers.hbs
+#	modified:   views/classes/overview.hbs
+#	modified:   views/courses/course.hbs
+#	modified:   views/courses/courseGroup.hbs
+#	modified:   views/courses/edit-course.hbs
+#	modified:   views/courses/edit-courseGroup.hbs
+#	modified:   views/courses/overview.hbs
+#	new file:   views/dashboard/components/card_template.hbs
+#	modified:   views/files/file-viewer.hbs
+#	modified:   views/files/files-grid.hbs
+#	modified:   views/files/files.hbs
+#	modified:   views/files/search.hbs
+#	modified:   views/homework/assignment.hbs
+#	modified:   views/homework/components/overview_card_template.hbs
+#	modified:   views/homework/components/submission_uploaded_files.hbs
+#	modified:   views/homework/edit.hbs
+#	modified:   views/homework/evaluation.hbs
+#	modified:   views/homework/extended.hbs
+#	modified:   views/homework/feedback.hbs
+#	modified:   views/homework/overview.hbs
+#	modified:   views/homework/submission.hbs
+#	modified:   views/lib/components/modal-cancel.hbs
+#	modified:   views/lib/components/modal-form.hbs
+#	modified:   views/lib/default.hbs
+#	modified:   views/lib/loggedin.hbs
+#	modified:   views/news/article.hbs
+#	modified:   views/news/edit.hbs
+#	modified:   views/news/overview.hbs
+#	modified:   views/registration/account.hbs
+#	modified:   views/registration/full.hbs
+#	modified:   views/registration/registration.hbs
+#	modified:   views/registration/user.hbs
+#
+
