@@ -45,7 +45,7 @@ $('.btn-send-rate').on('click', function () {
 
 
     $.ajax({
-        url: '/content/rate',
+        url: '/content/rating',
         type: 'post',
         data : rating,
         dataType: 'json'
