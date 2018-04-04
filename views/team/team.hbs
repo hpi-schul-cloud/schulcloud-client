@@ -1,9 +1,9 @@
 <section class="section-team">
-            {{#each teams}}
+            {{#each teams as team}}
                 <h5>{{name}}</h5>
             <div class="container">
                 <div class="row">
-            {{#each this.team}}
+            {{#each team}}
                 <div id="modal-container-{{id}}">
                     <div class="modal-background {{#if ../../loggedin}}modal-padding{{/if}}">
                         <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -34,7 +34,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="content col-md-4 col-sm-6 col-xs-12">
+               
+                <div class="content {{#if team.style=="small"}}col-md-3 teamsmall {{else}}col-md-4 {{/if}} col-sm-6 col-xs-12">
                     <div class="person-wrapper">
                         <div class="buttons">
                             <div id="two" class="button{{id}}">
