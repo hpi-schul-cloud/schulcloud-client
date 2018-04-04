@@ -72,6 +72,23 @@ function populateModalForm(modal, data) {
     });
 }
 
+function printPart(){
+    $(this).hide();
+    w = window.open();
+    w.document.write($(this).parent(".print").html());
+    w.print();
+    w.close();
+    $(this).show();
+}
+
+var customReady = jQuery.fn.ready;
+jQuery.fn.ready = function(handler) {
+    $(document).on("pageload", handler);
+    return customReady.apply(this, arguments);
+};
+$( window ).on( "load", function () {
+    $(document).trigger("pageload");
+})
 $(document).ready(function () {
     // Bootstrap Tooltips
     $('[data-toggle="tooltip"]').tooltip();
@@ -195,15 +212,10 @@ $(document).ready(function () {
     });
 
     // Print Button
-    $('.print .btn-print').click(function () {
-        $(this).html("");
-        w = window.open();
-        w.document.write($(this).parent(".print").html());
-        w.print();
-        w.close();
-        $(this).html("<i class='fa fa-print'></i> Drucken");
-    });
-    
+    document.querySelectorAll('.print .btn-print').forEach(btn => {
+        btn.addEventListener("click", printPart);
+    })
+
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
 });

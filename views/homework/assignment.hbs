@@ -79,7 +79,7 @@
                         {{#ifvalue teacherId value=currentUser._id}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                         {{else}}
-                            {{#inArray courseId.substitutionIds currentUser._id}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                             {{else}}
                                 <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
@@ -103,7 +103,7 @@
                         {{#ifvalue teacherId value=currentUser._id}}
 {{> 'homework/submissions'}}
                         {{else}}
-                            {{#inArray courseId.substitutionIds currentUser._id}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
 {{> 'homework/submissions'}}
                             {{else}}
 {{> 'homework/feedback'}}
