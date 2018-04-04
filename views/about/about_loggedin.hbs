@@ -1,0 +1,12 @@
+{{#extend "lib/loggedin" hideSearch="true"}}
+
+    {{#content "styles" mode="append"}}
+    {{/content}}
+
+    {{#content "page"}}
+        {{#embed "about/about" loggedin="true"}}{{/embed}}
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+    {{/content}}
+{{/extend}}

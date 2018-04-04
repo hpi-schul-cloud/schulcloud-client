@@ -1,7 +1,7 @@
 {
   "high": {
     "name": "Gremium",
-    "style": "stanmdard",
+    "style": "standard",
     "team": [
       {
         "id": 0,
@@ -55,7 +55,7 @@
   },
   "medium": {
     "name": "Projektleitung und wissenschaftliche Mitarbeiter",
-    "style": "stanmdard",
+    "style": "standard",
     "team": [
       {
         "id": 3,
