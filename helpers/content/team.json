@@ -246,6 +246,22 @@
           "linkedin": ""
         },
         "longDesc": false
+      },
+      {
+        "id": 15,
+        "title": "",
+        "firstName": "Jessica",
+        "lastName": "Pfarr",
+        "position": "Juristische Unterstützung",
+        "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
+        "pictureUrl": "/images/login-left-cropped.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       }
     ]
   },
@@ -253,7 +269,7 @@
     "name": "Studierende",
     "team": [
       {
-        "id": 15,
+        "id": 16,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
@@ -269,7 +285,7 @@
         "longDesc": false
       },
       {
-        "id": 16,
+        "id": 17,
         "title": "",
         "firstName": "Fabien",
         "lastName": "Charlé",
@@ -285,7 +301,7 @@
         "longDesc": false
       },
       {
-        "id": 17,
+        "id": 18,
         "title": "",
         "firstName": "Pascal",
         "lastName": "Führlich",
@@ -301,7 +317,7 @@
         "longDesc": false
       },
       {
-        "id": 18,
+        "id": 19,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -317,7 +333,7 @@
         "longDesc": false
       },
       {
-        "id": 19,
+        "id": 20,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -333,7 +349,7 @@
         "longDesc": false
       },
       {
-        "id": 20,
+        "id": 21,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -349,7 +365,7 @@
         "longDesc": false
       },
       {
-        "id": 21,
+        "id": 22,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -365,7 +381,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 23,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -381,13 +397,13 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "id": 24,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
         "position": "Studentische Hilfskraft",
         "description": "Karolina studiert Rechtswissenschaften an der Universität Potsdam und ist im Schul-Cloud-Projekt für datenschutzrechtliche Fragen zuständig. In ihrer Freizeit entspannt sie sich gern mit Yoga oder bei einem guten Buch.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Karolina_K.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -397,7 +413,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -413,7 +429,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -429,7 +445,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 27,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -445,7 +461,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -461,7 +477,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
@@ -477,7 +493,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -493,7 +509,7 @@
         "longDesc": false
       },
       {
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -509,7 +525,7 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -530,7 +546,7 @@
     "name": "",
     "team": [
       {
-        "id": 32,
+        "id": 33,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -546,7 +562,7 @@
         "longDesc": false
       },
       {
-        "id": 33,
+        "id": 34,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
