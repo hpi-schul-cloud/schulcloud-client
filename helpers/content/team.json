@@ -1,13 +1,13 @@
 {
   "high": {
-    "name": "Gremium",
+    "name": "Gremium und Projektleitung",
     "team": [
       {
         "id": 0,
         "title": "Prof. Dr.",
         "firstName": "Christoph",
         "lastName": "Meinel",
-        "position": "CEO und Direktor des HPI",
+        "position": "Projektleiter Schul-Cloud und CEO des HPI",
         "description": "Christoph Meinel (Univ.-Prof., Dr. sc. nat., Dr. rer. nat., 1954) ist wissenschaftlicher Direktor und Geschäftsführer des <a href=\"http://hpi.de/\" target=\"_blank\">Hasso-Plattner-Instituts für Softwaresystemtechnik GmbH</a> (HPI). Christoph Meinel ist ordentlicher Professor (C4) für Informatik und hat den Lehrstuhl für <a href=\"http://hpi.de/meinel/lehrstuhl.html\" target=\"_blank\">Internet-Technologien und Systeme</a>  am HPI inne. Seine besonderen Forschungsinteressen liegen in den Bereichen Internet- und Informationssicherheit und Web 3.0: Semantic, Social, Service Web, sowie im Bereich innovativer Internetanwendungen und Systeme, vor allem zum e-Learning & Tele-Teaching und zur Telemedizin. Daneben ist er aktiv in der Innovationsforschung rund um die Stanforder Innovationsmethode des Design Thinking. Frühere Forschungsinteressen lagen im Bereich der theoretischen Grundlagen der Informatik in den Gebieten Komplexitätstheorie und effiziente OBDD-basierte Algorithmen und Datenstrukturen.<br><br>Christoph Meinel lehrt am HPI in den Bachelor- und Masterstudiengängen \"IT-Systems Engineering\" und in der School of Design Thinking. Er bietet MOOCs an auf der openHPI-Plattform und betreut zahlreiche Doktoranden. Zudem ist er Honorarprofessor an der Informatik-Fakultät der Technischen Universität Peking und lehrt als Gastprofessor an der Shanghai Universität. An der Universität Luxembourg ist er Research Fellow am <a href=\"http://wwwde.uni.lu/snt\" target=\"_blank\">interdisziplinären Zentrum</a>  (SnT). Zusammen mit Prof. Larry Leifer von der Stanford University ist er Programmdirektor des <a href=\"http://hpi.de/de/dtrp/programm/uebersicht.html\" target=\"_blank\">HPI-Stanford Design Thinking Research Programms</a>.<br><br>Christoph Meinel ist Autor bzw. Co-Autor von 9 <a href=\"http://hpi.de/meinel/publikationen/books.html?L=0\" target=\"_blank\">Büchern</a>  und 4 Anthologien sowie diversen Tagungsbänden. Er hat mehr als 400 wissenschaftliche Arbeiten in angesehenen wissenschaftlichen Journalen und auf internationalen Konferenzen veröffentlicht. Darüber hinaus ist er Herausgeber der elektronischen Fachzeitschriften ECCC – Electronic Colloquium on Computational Complexity, ECDTR - Electronic Colloquium on Design Thinking Research, des <a href=\"https://it-gipfelblog.hpi-web.de/\" target=\"_blank\">IT-Gipfelblogs</a>  und des <a href=\"http://www.tele-task.de/\" target=\"_blank\">tele-TASK-Archivs</a>.",
         "pictureUrl": "/images/team/Christoph_Meinel.png",
         "priority": 0,
@@ -23,7 +23,7 @@
         "title": "Dr.",
         "firstName": "Niki",
         "lastName": "Sarantidou",
-        "position": "Gesamtmanagement Schul-Cloud bei MINT-EC",
+        "position": "Geschäftsführerin MINT-EC",
         "description": "Niki Sarantidou ist Geschäftsführerin des nationalen Excellence-Schulnetzwerks MINT-EC. Ihr politikwissenschaftliches Studium und ihre Promotion drehten sich hauptsächlich um die europäische Integration und die Wirksamkeit europäischer Institutionen. Sie war 12 Jahre Leiterin des Studienförderwerks Klaus Murmann der Stiftung der Deutschen Wirtschaft.<br>Seit 2011 befasst sie sich bei MINT-EC mit der Optimierung der MINT-Bildung an Schulen mit Sekundarstufe II. Schul- und Unterrichtsentwicklung sowie Studien- und Berufsorientierung gehören genauso zu ihren Arbeitsfeldern wie die Berücksichtigung wissenschaftlicher und technologischer Entwicklungen an Schulen, die Schülerinnen und Schüler auf ihrem Weg in die berufliche Zukunft unterstützen können.<br>Im Rahmen der Schul-Cloud ist sie die Projektleiterin von Seiten MINT-EC und zuständig für die konzeptionelle Entwicklung der Cloud-Strukturen.",
         "pictureUrl": "/images/team/Niki_Sarantidou.jpg",
         "priority": 0,
@@ -53,14 +53,14 @@
     ]
   },
   "medium": {
-    "name": "Projektleitung und wissenschaftliche Mitarbeiter",
+    "name": "Projektkoordination und wissenschaftliche Mitarbeiter",
     "team": [
       {
         "id": 3,
         "title": "",
         "firstName": "Jan",
         "lastName": "Renz",
-        "position": "Technischer Leiter",
+        "position": "Technischer Leiter, HPI",
         "description": "Bevor er die akademische Laufbahn als Diplom Medieninformatiker (Beuth Hochschule) einschlug, arbeitete er über 10 Jahre als CTO einer Internetagentur. Seit 6 Jahren unterrichtet er Studenten sowohl on-, als auch offline. 2013 kam er zum Web Research Team des HPI und arbeitet seitdem daran, die Lernerfahrung in MOOCs zu verbessern. Seine Forschung konzentriert sich auf die nutzerzentrierte Optimierung von großen E-Learning Anwendungen. Zuletzt veröffentlichte er Forschungsberichte zu mobilem Lernen, Gamification, interaktiven Programmieraufgaben, sozialem Lernen und Learning Analytics. Darüber hinaus entwickelt er auch aktiv Open Source. Im Projekt Schul-Cloud ist er als technischer Leiter für die Koordination und Vision rund um die Technik zuständig. Zudem betreut der die Mitarbeiter und Studierenden.<br> In seiner Freizeit joggt und musiziert er gerne oder setzt DIY Projekte um. Außerdem veranstaltet er den Berliner Ableger der \"Nerd Nite\", einer weltweiten Vortragsreihe, die es bereits in mehr als 90 Städten gibt und die unter dem Motto \"Discovery Channel with beer\" steht.",
         "pictureUrl": "/images/team/Jan_Renz.jpg",
         "priority": 0,
@@ -76,7 +76,7 @@
         "title": "",
         "firstName": "Catrina",
         "lastName": "John",
-        "position": "Projektkoordinatorin",
+        "position": "Projektkoordinatorin, HPI",
         "description": "Catrina hat einen Masterabschluss der Freien Universität Berlin in Soziologie und ist Projektkoordinatorin der Projekt Schul-Cloud. Im Rahmen ihrer Promotion beschäftigt sie sich mit Gender Diversity im Rahmen digital unterstützter Bildung. Einen Großteil ihrer Freizeit verbringt sie im Tischtennisverein.",
         "pictureUrl": "/images/team/Catrina_John.png",
         "priority": 0,
@@ -92,7 +92,7 @@
         "title": "",
         "firstName": "Vivien",
         "lastName": "Malyska",
-        "position": "Projektkoordination und bildungswissenschaftliche Mitarbeiterin",
+        "position": "Projektkoordination und bildungswissenschaftliche Mitarbeiterin, HPI",
         "description": "Vivien ist Erziehungswissenschaftlerin (M.A., Universität Potsdam) und befasst sich insbesondere aus bildungswissenschaftlicher Perspektive mit dem Thema Digitale Bildung an Schulen. Im Projekt Schul-Cloud ist sie hauptsächlich für die Durchführung der Evaluation und den Austausch mit den Pilotschulen zuständig. In ihrer Freizeit findet man sie meistens auf dem Volleyballfeld oder im Grünen.",
         "pictureUrl": "/images/team/Vivien_Malyska.jpg",
         "priority": 0,
@@ -108,7 +108,7 @@
         "title": "",
         "firstName": "Nils",
         "lastName": "Karn",
-        "position": "Operative Projektleitung MINT-EC",
+        "position": "Projektkoordination, MINT-EC",
         "description": "Nils absolvierte seinen Magister in Erwachsenenpädagogik mit Nebenfächern Psychologie und BWL. Zusätzlich schloss er mit viel Freude die Ausbildung zum Design Thinker am HPI ab. Im Projekt Schul-Cloud ist er seit der ersten Stunde (Juli 2016) mit dabei und kümmert sich um alle Angelegenheiten die mit Nutzern und deren Umfeld zu tun haben. Er hält gerne Präsentationen sowie Talks zur Schul-Cloud und setzt Weiterentwicklungen mittels Design Thinking Methoden um.<br><br>In seiner Freizeit fährt er gern Rad und mit seiner Ducati Monster, schwimmt und läuft. Im Team Schul-Cloud spielt er gern Beachvolleyball und ist als Chief Happiness Officer für alle Aktivitäten zum Teambuilding zuständig.",
         "pictureUrl": "/images/team/Nils_Karn.jpg",
         "priority": 0,
@@ -124,7 +124,7 @@
         "title": "",
         "firstName": "Max",
         "lastName": "Bothe",
-        "position": "Wissenschaftlicher Mitarbeiter",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
         "description": "Max hat am Hasso-Plattner-Institut seinen Bachelor und Master absolviert und arbeitet nun für sein Doktor-Studium im Schul-Cloud-Projekt. Hier überschaut er unter anderem die Entwicklung der mobilen Apps. In der Freizeit versucht er immer etwas Sport unterzubringen - egal ob draußen oder drinnen - oder probiert neue Rezepte aus.",
         "pictureUrl": "/images/team/Max_Bothe.jpg",
         "priority": 0,
@@ -140,7 +140,7 @@
         "title": "",
         "firstName": "Christiane",
         "lastName": "Hagedorn",
-        "position": "Wissenschaftliche Mitarbeiterin",
+        "position": "Wissenschaftliche Mitarbeiterin, HPI",
         "description": "Christiane hat Medieninformatik an der Beuth Hochschule für Technik Berlin studiert. Jetzt promoviert sie am Hasso-Plattner-Institut und erforscht dabei die Möglichkeiten von spielbasiertem Lernen. Das Schul-Cloud-Projekt unterstützt sie als wissenschaftliche Mitarbeiterin in den Bereichen Testing und technischer Support. In ihrer Freizeit bereist Christiane die Welt und entspannt gerne bei analogen und digitalen Spielen.",
         "pictureUrl": "/images/team/Christiane_Hagedorn.jpg",
         "priority": 0,
@@ -156,7 +156,7 @@
         "title": "",
         "firstName": "Alexander",
         "lastName": "Kremer",
-        "position": "Wissenschaftlicher Mitarbeiter",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
         "description": "Alex hat Angewandte Informatik an der HTW Berlin im Master studiert und ist im Projekt Schul-Cloud als wissenschaftlicher Mitarbeiter tätig. Hier programmiert er an diversen Diensten und sorgt unter anderem dafür, dass externe Inhalte in die Schul-Cloud kommen. Neben der Arbeit stehen sein Hund Dexter und das neu gewonnene Hobby Segeln im Fokus.",
         "pictureUrl": "/images/team/Alexander_Kremer.jpg",
         "priority": 0,
@@ -172,7 +172,7 @@
         "title": "",
         "firstName": "Franz",
         "lastName": "Liedke",
-        "position": "Wissenschaftlicher Mitarbeiter",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
         "description": "Franz hat sein Master-Studium in IT-Systems Engineering am Hasso-Plattner-Institut abgeschlossen und ist nun als Software-Entwickler angestellt. Als solcher entwickelt er Bugs und behebt Features. Oder andersrum. Ist dann noch Raum für Freizeit, verbringt er diese mit seiner kleinen Familie, auf dem Fußballplatz oder an verschiedenen Open-Source-Projekten.",
         "pictureUrl": "/images/team/Franz_Liedke.jpg",
         "priority": 0,
@@ -188,7 +188,7 @@
         "title": "",
         "firstName": "Florian",
         "lastName": "Morel",
-        "position": "Wissenschaftlicher Mitarbeiter",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
         "description": "Florian kommt gebürtig aus Frankreich und hat seinen Bachelor in Computer Science an der Universität Le Havre abgeschlossen. Bevor er 2018 ans HPI kam, hat er fünf Jahre als Mobile Engineer gearbeitet und sich auf die IOS Plattform spezialisiert. Im Projekt Schul-Cloud ist Florian daher für die Entwicklung der IOS Version der Schul-Cloud App zuständig. In seiner Freizeit genießt er das Leben mit seiner jungen Familie, sportlichen Aktivitäten und Gin Tonics.",
         "pictureUrl": "/images/team/Florian_Morel.jpg",
         "priority": 0,
@@ -204,7 +204,7 @@
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
-        "position": "Content Manager",
+        "position": "Content Manager, HPI",
         "description": "Arne ist Physiker (Diplom, TU Berlin) und war bisher Physikdidaktiker und Produktentwickler einer Reihe von Web- und Elearning-Projekten. Er managt im Team der Schul-Cloud das Content-Angebot von der ersten Idee bis zur Tür der Entwickler. Privat engagiert er sich im Projekt \"Schulkontext.de\", spielt Volleyball, oder programmiert erfrischende Synthesizersounds.",
         "pictureUrl": "/images/team/Arne_Oberländer.jpg",
         "priority": 0,
@@ -220,7 +220,7 @@
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
-        "position": "Wissenschaftliche Mitarbeiterin",
+        "position": "Projektreferentin, HPI",
         "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
         "pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
         "priority": 0,
@@ -236,7 +236,7 @@
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
-        "position": "Admin",
+        "position": "Admin, HPI",
         "description": "Matthias hat an der FH Brandenburg und der FH Potsdam studiert und ist nun als Web-Administrator am HPI angestellt. Für das Schul-Cloud Projekt baut er an der IT Infrastruktur und hält diese am Leben. Ein Kesselflicker eben.<br>Die Freizeit verbringt er mit der Familie und schaut lustige Filme, wenn er nicht gerade in einer Bar sitzt.",
         "pictureUrl": "/images/team/Matthias_Wiesner.jpg",
         "priority": 0,
@@ -252,9 +252,9 @@
         "title": "",
         "firstName": "Jessica",
         "lastName": "Pfarr",
-        "position": "Juristische Unterstützung",
+        "position": "Juristische Unterstützung, HPI",
         "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Jessica_Pfarr.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -287,22 +287,6 @@
       {
         "id": 17,
         "title": "",
-        "firstName": "Fabien",
-        "lastName": "Charlé",
-        "position": "Studentische Hilfskraft",
-        "description": "Fabien ist Bachelor Student am HPI. Zuvor hat er eine Ausbildung zum Fachinformatiker im Fachbereich Anwendungsentwicklung absolviert. Seit fast einem Jahr ist er im Schul-Cloud-Projekt für die Umsetzung neuer Features und das Beheben von Bugs zuständig.<br>Fabien ist Karateka und bereitet sich momentan auf seine Schwarzgurtprüfung vor.",
-        "pictureUrl": "/images/login-left-cropped.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 18,
-        "title": "",
         "firstName": "Pascal",
         "lastName": "Führlich",
         "position": "Studentische Hilfskraft",
@@ -317,7 +301,7 @@
         "longDesc": false
       },
       {
-        "id": 19,
+        "id": 18,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -333,23 +317,7 @@
         "longDesc": false
       },
       {
-        "id": 20,
-        "title": "",
-        "firstName": "Max",
-        "lastName": "Haubold",
-        "position": "Studentische Hilfskraft",
-        "description": "Max studiert IT Systems Engineering am Hasso Plattner Institut. Im Schul-Cloud Bachelorprojekt Team beschäftigt er sich mit Contenterstellung für Lehrer und philosophiert nebenbei gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
-        "pictureUrl": "/images/team/Max_Haubold.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 21,
+        "id": 19,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -365,7 +333,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 20,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -381,7 +349,7 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "id": 21,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -397,7 +365,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 22,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
@@ -413,7 +381,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 23,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -429,7 +397,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 24,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -445,7 +413,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 25,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -461,7 +429,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 26,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -477,7 +445,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 27,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
@@ -493,7 +461,7 @@
         "longDesc": false
       },
       {
-        "id": 30,
+        "id": 28,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -509,7 +477,7 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 29,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -525,7 +493,7 @@
         "longDesc": false
       },
       {
-        "id": 32,
+        "id": 30,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -546,7 +514,7 @@
     "name": "",
     "team": [
       {
-        "id": 33,
+        "id": 31,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -562,7 +530,7 @@
         "longDesc": false
       },
       {
-        "id": 34,
+        "id": 32,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
