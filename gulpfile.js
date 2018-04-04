@@ -31,6 +31,7 @@ const baseScripts = [
     './static/scripts/chosen/chosen.jquery.min.js',
     './static/scripts/base.js',
     './static/scripts/toggle/bootstrap-toggle.min.js',
+    './static/scripts/diffDOM/diffDOM.js',
     './static/scripts/mailchimp/mailchimp.js',
     './static/scripts/qrcode/kjua-0.1.1.min.js'
 ]
@@ -77,15 +78,18 @@ function themeName(){
 
 var loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
+var firstRun = true;
 gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
-        .pipe(sassGrapher.ancestors())
-        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
+        .pipe(gulpif(!firstRun, sassGrapher.ancestors()))
+        .pipe(header(fs.readFileSync(themeFile, 'utf8'))) // READ: https://github.com/schul-cloud/schulcloud-client/pull/588
+        .pipe(filelog("PROCESS: "))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
-        .pipe(gulp.dest('./build/styles'))
+        .pipe(gulp.dest('./build/styles'));
+    firstRun = false;
 })
 
 //copy fonts
