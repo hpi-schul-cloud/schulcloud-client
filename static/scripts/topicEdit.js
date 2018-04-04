@@ -315,7 +315,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicSchulCloud)}>+ Schul-Cloud</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Interne Komponente</button>
                     </div>
                 </div>
             </div>
@@ -363,8 +363,8 @@ class TopicBlock extends React.Component {
             case 'Etherpad':
                 return TopicEtherpad;
                 break;
-            case 'SchulCloud':
-                return TopicSchulCloud;
+            case 'internal':
+                return TopicInternal;
                 break;
         }
     }
@@ -745,7 +745,7 @@ class TopicGeoGebra extends TopicBlock {
  * Class representing an internal link
  * @extends React.Component
  */
-class TopicSchulCloud extends TopicBlock {
+class TopicInternal extends TopicBlock {
 
     /**
      * Initialize the list.
@@ -753,6 +753,16 @@ class TopicSchulCloud extends TopicBlock {
      */
     constructor(props) {
         super(props);
+
+        // set baseUrl for validation
+        this.state = {
+            baseUrl: window.location.origin
+        };
+    }
+
+
+    componentDidMount() {
+        $('[data-toggle="tooltip"]').tooltip();
     }
 
     /**
@@ -760,7 +770,23 @@ class TopicSchulCloud extends TopicBlock {
      * view mode.
      */
     static get component() {
-        return 'SchulCloud';
+        return 'internal';
+    }
+
+    /**
+     * Keep state in sync with input.
+     */
+    updateUrl(event) {
+        const value = typeof(event) == 'string' ? event : ((event || {}).target || {}).value;
+        this.setState({
+            baseUrl: window.location.origin
+        });
+
+        this.props.onUpdate({
+            content: {
+                url: value
+            }
+        });
     }
 
     /**
@@ -769,10 +795,25 @@ class TopicSchulCloud extends TopicBlock {
     render() {
         return (
             <div>
-                <div type="hidden" className="form-group">
-                    <label>Schul-Cloud Link</label>
-                    <input className="form-control" name={`contents[${this.props.position}][content][url]`}
-                    type="url" placeholder="https://schul-cloud.org/homework/5aba1085b0efc43a64f1f5d2" value={(this.props.content || {}).url}/>
+                <label>Interner Link</label><br/>
+                <div className="input-group">
+                    <span className="input-group-btn">
+                        <a
+                            className="btn btn-secondary geo-gebra-info"
+                            href="#"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen!`}><i className="fa fa-info-circle" /></a>
+                    </span>
+                    <input 
+                        className="form-control" 
+                        name={`contents[${this.props.position}][content][url]`} 
+                        pattern={`(${this.state.baseUrl}).*`} 
+                        onChange={this.updateUrl.bind(this)}
+                        type="url" 
+                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
+                        value={(this.props.content || {}).url}
+                    />
                 </div>
             </div>
         );
