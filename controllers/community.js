@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
     }).then( template =>
         res.render(template, {
             title: 'Mitmachen',
-            inline: true
+            inline: !!template.includes('guest')
         })
     );
 });
