@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
     }).then(template => {
             res.render(template, {
                 title: 'Impressum',
-                inline: true
+                inline: !!template.includes('guest')
             });
     });
 });

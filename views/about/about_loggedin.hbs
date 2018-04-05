@@ -1,16 +1,12 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/team/team.css"/>
     {{/content}}
 
     {{#content "page"}}
         {{#embed "about/about" loggedin="true"}}{{/embed}}
-        {{#embed "lib/footer"}}{{/embed}}
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="/scripts/team.js" defer></script>
-        <script type="text/javascript" src="/vendor/vanilla-tilt.min.js" defer></script>
     {{/content}}
 {{/extend}}
