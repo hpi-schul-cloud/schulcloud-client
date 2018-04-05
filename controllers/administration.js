@@ -12,7 +12,7 @@ const fs = require('fs');
 const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
-const multer  = require('multer');
+const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
@@ -29,7 +29,7 @@ const getSelectOptions = (req, service, query, values = []) => {
 };
 
 
-const getTableActions = (item, path, isAdmin = true, isTeacher = false) => {
+const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStudentAction = false) => {
     return [
         {
             link: path + item._id,
@@ -41,47 +41,52 @@ const getTableActions = (item, path, isAdmin = true, isTeacher = false) => {
             class: `${isAdmin ? 'btn-delete' : 'disabled'}`,
             icon: 'trash-o',
             method: `${isAdmin ? 'delete' : ''}`
+        },
+        {
+            link: isStudentAction ? path + 'pw/' + item._id : '',
+            class: isStudentAction ? 'btn-pw' : 'invisible',
+            icon: isStudentAction ? 'key' : ''
         }
     ];
 };
 
 const getTableActionsSend = (item, path, state) => {
     let actions = [];
-  if (state === 'submitted' || state === 'closed') {
-    actions.push(
-        {
-          class: 'disabled',
-          icon: 'edit'
-        },
-        {
-          class: 'disabled',
-          icon: 'ban'
-        },
-        {
-        class: 'disabled',
-        icon: 'paper-plane'
-    });
-  } else {
-          actions.push(
-              {
-                  link: path + item._id,
-                  class: 'btn-edit',
-                  icon: 'edit'
-              },
-              {
-                  link: path + item._id,
-                  class: 'btn-disable',
-                  icon: 'ban',
-                  method: 'delete'
-              },
-              {
-              link: path + item._id,
-              class: 'btn',
-              icon: 'paper-plane',
-              method: 'post'
-          });
-      }
-  return actions;
+    if (state === 'submitted' || state === 'closed') {
+        actions.push(
+            {
+                class: 'disabled',
+                icon: 'edit'
+            },
+            {
+                class: 'disabled',
+                icon: 'ban'
+            },
+            {
+                class: 'disabled',
+                icon: 'paper-plane'
+            });
+    } else {
+        actions.push(
+            {
+                link: path + item._id,
+                class: 'btn-edit',
+                icon: 'edit'
+            },
+            {
+                link: path + item._id,
+                class: 'btn-disable',
+                icon: 'ban',
+                method: 'delete'
+            },
+            {
+                link: path + item._id,
+                class: 'btn',
+                icon: 'paper-plane',
+                method: 'post'
+            });
+    }
+    return actions;
 };
 
 /**
@@ -174,7 +179,7 @@ const createEventsForData = (data, service, req, res) => {
                     courseId: data._id,
                     courseTimeId: time._id
                 },
-                qs: {userId: data.teacherIds[0]}
+                qs: { userId: data.teacherIds[0] }
             });
         }));
     }
@@ -196,7 +201,7 @@ const deleteEventsForData = (service) => {
                 }
                 return Promise.all((course.times || []).map(t => {
                     if (t.eventId) {
-                        return api(req).delete('calendar/' + t.eventId, {qs: {userId: course.teacherIds[0]}});
+                        return api(req).delete('calendar/' + t.eventId, { qs: { userId: course.teacherIds[0] } });
                     }
                 })).then(_ => next());
             });
@@ -229,36 +234,36 @@ const getCreateHandler = (service) => {
  * @returns {Function}
  */
 const getSendHelper = (service) => {
-  return function (req, res, next) {
-      api(req).get('/' + service + '/' + req.params.id)
-          .then(data => {
-              let user = res.locals.currentUser;
-              let email = user.email ? user.email : "";
-              let innerText = "Problem in Kategorie: " + data.category + "\n";
-              let content = {
-                  "text": "User: " + user.displayName + "\n"
-                  + "E-Mail: " + email + "\n"
-                  + "Schule: " + res.locals.currentSchoolData.name + "\n"
-                  + innerText
-                  + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
-              };
-              req.body.email = "schul-cloud-support@hpi.de";
-              req.body.subject = data.subject;
-              req.body.content = content;
+    return function (req, res, next) {
+        api(req).get('/' + service + '/' + req.params.id)
+            .then(data => {
+                let user = res.locals.currentUser;
+                let email = user.email ? user.email : "";
+                let innerText = "Problem in Kategorie: " + data.category + "\n";
+                let content = {
+                    "text": "User: " + user.displayName + "\n"
+                        + "E-Mail: " + email + "\n"
+                        + "Schule: " + res.locals.currentSchoolData.name + "\n"
+                        + innerText
+                        + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
+                };
+                req.body.email = "ticketsystem@schul-cloud.org";
+                req.body.subject = data.subject;
+                req.body.content = content;
 
-              api(req).post('/mails', {json: req.body}).then(_ => {
-                  api(req).patch('/' + service + '/' + req.params.id, {
-                      json: {
-                          state: 'submitted',
-                          order: 1
-                      }
-                  });
-                  res.sendStatus(200);
-              }).catch(err => {
-                  res.status((err.statusCode || 500)).send(err);
-              });
-             res.redirect(req.get('Referrer'));
-          });
+                api(req).post('/mails', { json: req.body }).then(_ => {
+                    api(req).patch('/' + service + '/' + req.params.id, {
+                        json: {
+                            state: 'submitted',
+                            order: 1
+                        }
+                    });
+                    res.sendStatus(200);
+                }).catch(err => {
+                    res.status((err.statusCode || 500)).send(err);
+                });
+                res.redirect(req.get('Referrer'));
+            });
     };
 };
 
@@ -269,14 +274,14 @@ const getSendHelper = (service) => {
  */
 const getDisableHandler = (service) => {
     return function (req, res, next) {
-      api(req).patch('/' + service + '/' + req.params.id, {
-          json: {
-              state: 'closed',
-              order: 2
-          }
-      }).then(_ => {
-        res.redirect(req.get('Referrer'));
-      });
+        api(req).patch('/' + service + '/' + req.params.id, {
+            json: {
+                state: 'closed',
+                order: 2
+            }
+        }).then(_ => {
+            res.redirect(req.get('Referrer'));
+        });
     };
 };
 
@@ -300,8 +305,8 @@ const getCSVImportHandler = (service) => {
 
         try {
             csvData = decoder.write(req.file.buffer);
-            records = parse(csvData, {columns: true, delimiter: ','});
-        } catch(err) {
+            records = parse(csvData, { columns: true, delimiter: ',' });
+        } catch (err) {
             req.session.notification = {
                 type: 'danger',
                 message: 'Import fehlgeschlagen.'
@@ -420,7 +425,7 @@ const removeSystemFromSchoolHandler = (req, res, next) => {
 };
 
 const createSystemHandler = (req, res, next) => {
-    api(req).post('/systems/', {json: req.body}).then(system => {
+    api(req).post('/systems/', { json: req.body }).then(system => {
         api(req).patch('/schools/' + req.body.schoolId, {
             json: {
                 $push: {
@@ -437,15 +442,15 @@ const createSystemHandler = (req, res, next) => {
 
 const getStorageProviders = () => {
     return [
-        {label: 'AWS S3', value: 'awsS3'}
+        { label: 'AWS S3', value: 'awsS3' }
     ];
 };
 
 const getSSOTypes = () => {
     return [
-        {label: 'Moodle', value: 'moodle'},
-        {label: 'itslearning', value: 'itslearning'},
-        {label: 'IServ', value: 'iserv'}
+        { label: 'Moodle', value: 'moodle' },
+        { label: 'itslearning', value: 'itslearning' },
+        { label: 'IServ', value: 'iserv' }
     ];
 };
 
@@ -453,15 +458,15 @@ const createBucket = (req, res, next) => {
     if (req.body.fileStorageType) {
         Promise.all([
             api(req).post('/fileStorage', {
-                json: {fileStorageType: req.body.fileStorageType, schoolId: req.params.id}
+                json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
             }),
             api(req).patch('/schools/' + req.params.id, {
                 json: req.body
             })]).then(data => {
-            res.redirect(req.header('Referer'));
-        }).catch(err => {
-            next(err);
-        });
+                res.redirect(req.header('Referer'));
+            }).catch(err => {
+                next(err);
+            });
     }
 };
 
@@ -481,9 +486,9 @@ const sendMailHandler = (user, req) => {
             let content = {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
-                "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
-                "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
+                    "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+                    (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
+                    "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
             api(req).post('/mails', {
@@ -503,7 +508,7 @@ const sendMailHandler = (user, req) => {
 const returnAdminPrefix = (roles) => {
     let prefix;
     roles.map(role => {
-      (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
+        (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
     });
     return prefix;
 };
@@ -515,9 +520,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.teacherIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.name
+                    userClasses = userClasses + ' , ' + uClass.name;
                 } else {
-                    userClasses = uClass.name
+                    userClasses = uClass.name;
                 }
             }
         });
@@ -525,9 +530,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.userIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.name
+                    userClasses = userClasses + ' , ' + uClass.name;
                 } else {
-                    userClasses = uClass.name
+                    userClasses = uClass.name;
                 }
             }
         });
@@ -535,6 +540,64 @@ const getClasses = (user, classes, teacher) => {
 
     return userClasses;
 };
+
+// with userId to accountId
+const userIdtoAccountIdUpdate = (service) => {
+    return function (req, res, next) {
+        api(req).get('/' + service + '/?userId=' + req.params.id)
+            .then(users => {
+                api(req).patch('/' + service + '/' + users[0]._id, {
+                    // TODO: sanitize
+                    json: req.body
+                }).then(data => {
+                    res.redirect(req.header('Referer'));
+                }).catch(err => {
+                    next(err);
+                });
+            })
+            .catch(err => {
+                next(err);
+            });
+    };
+};
+
+const userFilterSettings = function (defaultOrder) {
+    return [
+        {
+            type: "sort",
+            title: 'Sortierung',
+            displayTemplate: 'Sortieren nach: %1',
+            options: [
+                ["firstName", "Vorname"],
+                ["lastName", "Nachname"],
+                ["email", "E-Mail-Adresse"]
+            ],
+            defaultSelection: (defaultOrder? defaultOrder : "firstName"),
+            defaultOrder: "DESC"
+        },
+        {
+            type: "limit",
+            title: 'Einträge pro Seite',
+            displayTemplate: 'Einträge pro Seite: %1',
+            options: [10, 25, 50, 100],
+            defaultSelection: 25
+        },
+        {
+            type: "select",
+            title: 'Geschlecht',
+            displayTemplate: 'Geschlecht: %1',
+            property: 'gender',
+            multiple: true,
+            expanded: true,
+            options: [
+                ["male", "Männlich"],
+                ["female", "Weiblich"],
+                ["other", "Anderes"],
+                [null, "nicht Angegeben"]
+            ]
+        },
+    ];
+}
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -558,7 +621,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         let ssoTypes = getSSOTypes();
 
         api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', {title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage});
+            res.render('administration/school', { title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage });
         });
     });
 });
@@ -570,126 +633,137 @@ router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VI
 
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
+    const tempOrgQuery = (req.query||{}).filterQuery;
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
+    let itemsPerPage = 25;
+    let filterQuery = {}
+    if (tempOrgQuery) {
+        filterQuery = JSON.parse(unescape(req.query.filterQuery));
+        if (filterQuery["$limit"]) {
+            itemsPerPage = filterQuery["$limit"];
+        }
+    }
+
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
+    let query = {
+        roles: ['teacher'],
+        $populate: ['roles'],
+        $limit: itemsPerPage,
+        $skip: itemsPerPage * (currentPage - 1),
+    };
+    query = Object.assign(query, filterQuery);
+
     api(req).get('/users', {
-        qs: {
-            roles: ['teacher'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
+        qs: query
     }).then(data => {
-        api(req).get('/classes')
-            .then(classes => {
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            'Klasse(n)',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getClasses(item, classes, true),
-                getTableActions(
-                    item,
-                    '/administration/teachers/',
-                    _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
-                    _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
+        api(req).get('/classes').then(classes => {
+            const head = [
+                'Vorname',
+                'Nachname',
+                'E-Mail-Adresse',
+                'Klasse(n)',
+                ''
             ];
-        });
 
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
-
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/teachers/?p={{page}}' + sortQuery + limitQuery
-        };
-
-        res.render('administration/teachers', {title: title + 'Lehrer', head, body, pagination, limit: true});
-
+            const body = data.data.map(item => {
+                return [
+                    item.firstName,
+                    item.lastName,
+                    item.email,
+                    getClasses(item, classes, true),
+                    getTableActions(
+                        item,
+                        '/administration/teachers/',
+                        _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
+                        _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
+                ];
             });
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
+            };
+
+            res.render('administration/teachers', {
+                title: title + 'Lehrer',
+                head, body, pagination,
+                filterSettings: JSON.stringify(userFilterSettings('lastName'))
+            });
+        });
     });
 });
 
 router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getCreateHandler('users'));
 router.patch('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getUpdateHandler('users'));
+router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
+    const tempOrgQuery = (req.query||{}).filterQuery;
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
+    let itemsPerPage = 25;
+    let filterQuery = {}
+    if (tempOrgQuery) {
+        filterQuery = JSON.parse(unescape(req.query.filterQuery));
+        if (filterQuery["$limit"]) {
+            itemsPerPage = filterQuery["$limit"];
+        }
+    }
+
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
+    let query = {
+        roles: ['student'],
+        $populate: ['roles'],
+        $limit: itemsPerPage,
+        $skip: itemsPerPage * (currentPage - 1),
+    };
+    query = Object.assign(query, filterQuery);
+
     api(req).get('/users', {
-        qs: {
-            roles: ['student'],
-            $populate: ['roles'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
+        qs: query
     }).then(data => {
-        api(req).get('/classes')
-            .then(classes => {
+        api(req).get('/classes').then(classes => {
 
-        const head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            'Klasse(n)',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                item.firstName,
-                item.lastName,
-                item.email,
-                getClasses(item, classes, false),
-                getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'))
+            const head = [
+                'Vorname',
+                'Nachname',
+                'E-Mail-Adresse',
+                'Klasse(n)',
+                ''
             ];
-        });
 
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
-
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/students/?p={{page}}' + sortQuery + limitQuery
-        };
-
-        res.render('administration/students', {title: title + 'Schüler', head, body, pagination, limit: true});
-
+            const body = data.data.map(item => {
+                return [
+                    item.firstName,
+                    item.lastName,
+                    item.email,
+                    getClasses(item, classes, false),
+                    getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'), false, true)
+                ];
             });
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/students/?p={{page}}' + filterQueryString
+            };
+
+            res.render('administration/students', {
+                title: title + 'Schüler',
+                head, body, pagination,
+                filterSettings: JSON.stringify(userFilterSettings())
+            });
+        });
     });
 });
 
@@ -748,7 +822,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/helpdesk', {title: title + 'Helpdesk', head, body, pagination, limit: true});
+        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
     });
 });
 
@@ -781,10 +855,10 @@ router.all('/courses', function (req, res, next) {
             ''
         ];
 
-        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000});
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
-        const substitutionPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
+        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+        const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
 
         Promise.all([
             classesPromise,
@@ -857,8 +931,8 @@ router.all('/classes', function (req, res, next) {
             ''
         ];
 
-        let teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher'], $limit: 1000});
-        let studentsPromise = getSelectOptions(req, 'users', {roles: ['student'], $limit: 1000});
+        let teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        let studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
 
         Promise.all([
             teachersPromise,

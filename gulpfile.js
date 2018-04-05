@@ -1,5 +1,7 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
+const sassGrapher = require('gulp-sass-grapher');
+const path = require('path');
 const rimraf = require('gulp-rimraf')
 const uglify = require('gulp-uglify')
 const cleancss = require('clean-css')
@@ -13,8 +15,10 @@ const concat = require('gulp-concat')
 const count = require('gulp-count')
 const changed = require('gulp-changed-smart')
 const autoprefixer = require('gulp-autoprefixer')
-
+const header = require('gulp-header');
 const cCSS = new cleancss()
+const fs = require('fs')
+const gulpif = require('gulp-if');
 //wrapped in a function so it works with gulp.watch (+consistency)
 const minify = () => map((buff, filename) =>
     cCSS.minify(buff.toString()).styles)
@@ -27,6 +31,7 @@ const baseScripts = [
     './static/scripts/chosen/chosen.jquery.min.js',
     './static/scripts/base.js',
     './static/scripts/toggle/bootstrap-toggle.min.js',
+    './static/scripts/diffDOM/diffDOM.js',
     './static/scripts/mailchimp/mailchimp.js',
     './static/scripts/qrcode/kjua-0.1.1.min.js'
 ]
@@ -38,14 +43,25 @@ const nonBaseScripts = ['./static/scripts/**/*.js']
 //plumber prevents pipes from stopping when errors occur
 //changed only passes on files that were modified since last time
 //filelog logs and counts all processed files
+
+function withTheme(src){
+    if(typeof src == "string"){
+        return [src, `./theme/${themeName()}/${src.slice(2)}`];
+    }else{
+        return src.concat(src.map(e => {
+            return `./theme/${themeName()}/${e.slice(2)}`;
+        }));
+    }
+}
+
 const beginPipe = src =>
-    gulp.src(src)
+    gulp.src(withTheme(src))
         .pipe(plumber())
         .pipe(changed(gulp))
         .pipe(filelog())
 
 const beginPipeAll = src =>
-    gulp.src(src)
+    gulp.src(withTheme(src))
         .pipe(plumber())
         .pipe(filelog())
 
@@ -56,13 +72,24 @@ gulp.task('images', () => {
         .pipe(gulp.dest('./build/images'))
 })
 
-//compile SASS/SCSS to CSS and minify it
+function themeName(){
+    return process.env.SC_THEME || 'default';
+}
+
+var loadPaths = path.resolve('./static/styles/');
+sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
+var firstRun = true;
 gulp.task('styles', () => {
+    var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
-        .pipe(sass())
+        .pipe(gulpif(!firstRun, sassGrapher.ancestors()))
+        .pipe(header(fs.readFileSync(themeFile, 'utf8'))) // READ: https://github.com/schul-cloud/schulcloud-client/pull/588
+        .pipe(filelog("PROCESS: "))
+        .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
-        .pipe(gulp.dest('./build/styles'))
+        .pipe(gulp.dest('./build/styles'));
+    firstRun = false;
 })
 
 //copy fonts
@@ -127,25 +154,25 @@ gulp.task('vendor-assets', () => {
         .pipe(gulp.dest('./build/vendor'))
 })
 
-//clear build folder
-gulp.task('clean', () => {
-    gulp.src('./build/*', { read: false })
+//clear build folder + smart cache
+gulp.task('clear', () => {
+    gulp.src(['./build/*', './.gulp-changed-smart.json'], { read: false })
         .pipe(rimraf())
 })
 
-//run all tasks, processing all files (not just changed)
+//run all tasks, processing changed files
 gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
-    gulp.watch('./static/images/**/*.*', ['images'])
-    gulp.watch('./static/styles/**/*.{css,sass,scss}', ['styles'])
-    gulp.watch('./static/fonts/**/*.*', ['fonts'])
-    gulp.watch(nonBaseScripts, ['scripts'])
-    gulp.watch(baseScripts, ['base-scripts'])
-    gulp.watch('./static/vendor/**/*.{css,sass,scss}', ['vendor-styles'])
-    gulp.watch('./static/vendor/**/*.js', ['vendor-scripts'])
+    gulp.watch(withTheme('./static/images/**/*.*'), ['images'])
+    gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles'])
+    gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts'])
+    gulp.watch(withTheme(nonBaseScripts), ['scripts'])
+    gulp.watch(withTheme(baseScripts), ['base-scripts'])
+    gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles'])
+    gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts'])
     gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
                 '!./static/vendor/**/*.{css,sass,scss}'], ['vendor-assets'])
 })

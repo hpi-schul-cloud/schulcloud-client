@@ -1,4 +1,4 @@
-﻿@import '../lib/colors.scss';
+@import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-grid';
 
 .homework {
@@ -6,7 +6,7 @@
   list-style: none;
   margin: 0;
   padding: 10px 0;
-  clear: both; 
+  clear: both;
 }
 .assignment {
   width: 100%;
@@ -42,7 +42,7 @@
   }
   h5 {
     margin: 0;
-    color: $colorHPIRed;
+    color: $primaryColor;
   }
   .description {
     margin: 10px 0;
@@ -59,7 +59,7 @@
     h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
     h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
     p  {font-size: 1rem;margin-bottom:.25rem;}
-    a  {text-decoration: underline; color: $colorHPIRed;}
+    a  {text-decoration: underline; color: $primaryColor;}
     blockquote{
       color: grey;
       margin-left: 1rem;
@@ -74,7 +74,7 @@
     padding: 5px 0 5px 10px;
     clear: both;
     text-align: right;
-    color: #b10438;
+    color: $primaryColor;
     text-decoration: none;
   }
 }

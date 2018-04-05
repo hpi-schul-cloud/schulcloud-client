@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 @import url('https://vjs.zencdn.net/5.19.2/video-js.css');
 @import "./upload";
 
@@ -22,7 +22,7 @@
   }
 
   h5 {
-    color: $colorHPIRed;
+    color: $primaryColor;
     padding: 10px 0px 20px;
   }
 
@@ -46,7 +46,7 @@
   }
 
   .card-title-directory {
-    color: $colorHPIRed;
+    color: $primaryColor;
   }
 }
 
@@ -95,7 +95,7 @@
   margin-bottom: 40px;
 
   h5 {
-    color: $colorHPIRed;
+    color: $primaryColor;
     padding: 10px 0px 20px;
   }
 
@@ -107,7 +107,7 @@
 
   .card.file {
     min-height: 80px;
-    color: $colorHPIRed;
+    color: $primaryColor;
     text-overflow: ellipsis;
     overflow: hidden;
     cursor: pointer;
@@ -131,7 +131,7 @@
       margin-right: 15px;
       color: #ccc;
       &:hover {
-        color: $colorHPIRed;
+        color: $primaryColor;
       }
     }
     .title {
@@ -172,7 +172,7 @@
     cursor: pointer;
   }
   .filter-option:hover {
-    background-color: $colorHPIRed;
+    background-color: $primaryColor;
     color: white;
   }
 }
@@ -186,7 +186,7 @@
       text-align: justify;
     }
     .text-red {
-      color: $colorHPIRed;
+      color: $primaryColor;
     }
   }
 }
@@ -203,14 +203,14 @@
 
   .dir-element {
     span {
-      color: $colorHPIRed;
+      color: $primaryColor;
     }
     span:hover {
       cursor: pointer;
     }
 
     .toggle-icon {
-      color: $colorHPIRed;
+      color: $primaryColor;
       margin-right: 5px;
     }
     .toggle-icon:hover {
@@ -222,7 +222,7 @@
     }
     .fa-share:hover {
       cursor: pointer;
-      color: $colorHPIRed;
+      color: $primaryColor;
     }
   }
 

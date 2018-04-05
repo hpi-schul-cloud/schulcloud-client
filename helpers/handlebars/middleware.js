@@ -22,7 +22,7 @@ const makeActive = (items, currentUrl) => {
         if(item.children && item.childActive) {
             item.children = makeActive(item.children, currentUrl);
             
-            if(item.children.filter(child => {return child.class == 'active'}).length == 0){
+            if(item.children.filter(child => {return child.class == 'active';}).length == 0){
                 item.class += ' active';
             }
         }
@@ -32,6 +32,7 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
+    res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
     // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',
@@ -45,10 +46,6 @@ module.exports = (req, res, next) => {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/'
-    }, {
-        name: 'Klassen',
-        icon: 'odnoklassniki',
-        link: '/classes/'
     }, {
         name: 'Termine',
         icon: 'table',
@@ -110,14 +107,19 @@ module.exports = (req, res, next) => {
         children: [
             {
                 name: 'Schüler',
-                icon: 'users',
+                icon: 'odnoklassniki',
                 link: '/administration/students/',
             },
             {
                 name: 'Lehrer',
-                icon: 'users',
+                icon: 'odnoklassniki',
                 link: '/administration/teachers/',
             },
+            {
+                name: 'Klassen',
+                icon: 'users',
+                link: '/classes/'
+            }
         ]
     });
 
@@ -137,6 +139,16 @@ module.exports = (req, res, next) => {
         permission: 'ADMIN_VIEW',
         children: [
             {
+                name: 'Schüler',
+                icon: 'odnoklassniki',
+                link: '/administration/students/'
+            },
+            {
+                name: 'Lehrer',
+                icon: 'odnoklassniki',
+                link: '/administration/teachers/'
+            },
+            {
                 name: 'Kurse',
                 icon: 'users',
                 link: '/administration/courses/'
@@ -145,16 +157,6 @@ module.exports = (req, res, next) => {
                 name: 'Klassen',
                 icon: 'users',
                 link: '/administration/classes/'
-            },
-            {
-                name: 'Lehrer',
-                icon: 'users',
-                link: '/administration/teachers/'
-            },
-            {
-                name: 'Schüler',
-                icon: 'users',
-                link: '/administration/students/'
             },
             {
                 name: 'Authentifizierung',

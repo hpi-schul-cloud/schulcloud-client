@@ -39,7 +39,7 @@
                     <li>
                         <a class="sc-branding" href="/">
                             <div class="cloud-logo"></div>
-                            <span>Schul-Cloud</span>
+                            <div class="sc-title"><span>{{themeTitle}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
@@ -98,18 +98,28 @@
                 {{/if}}
 
                 <ul class="nav navbar-nav float-xs-right dropdowns">
+                    <li class="nav-item fullscreen-action">
+                        <div class="dropdown minimal-button">
+                            <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" data-toggle="dropdown">
+                                <i class="fa fa-expand"></i>
+                            </a>
+                        </div>
+                    </li>
                     <li class="nav-item qr-code-action">
-                        <div class="dropdown minimal-dropdown">
+                        <div class="dropdown minimal-button">
                             <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" data-toggle="dropdown">
                                 <i class="fa fa-qrcode"></i>
                             </a>
-                            <div class="dropdown-menu">
+                            <div class="dropdown-menu print">
                                 <div class="content qr-show"></div>
+                                <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
+                                    <i class="fa fa-print"></i> Drucken
+                                </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item notification-dropdown">
-                        <div class="dropdown minimal-dropdown">
+                        <div class="dropdown minimal-button">
                             <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
                                     recentNotifications}}recent{{/if}}" data-toggle="dropdown">
                                 <i class="fa fa-bell"></i> {{#if recentNotifications}}
@@ -139,7 +149,7 @@
                     </li>
 
                     <li class="nav-item help-drodown">
-                        <div class="dropdown minimal-dropdown">
+                        <div class="dropdown minimal-button">
                             <a class="btn btn-secondary btn-thin dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-question"></i>
                             </a>
@@ -221,13 +231,9 @@
                 </div>
             </section>
 
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        {{#block "page"}}{{/block}}
-                    </div>
-                </div>
-            </div>
+            <main id="main-content" class="container-fluid">
+                {{#block "page"}}{{/block}}
+            </main>
 
             {{#embed "lib/components/modal-form" class="feedback-modal"}}
                 {{#content "fields"}}

@@ -1,136 +1,37 @@
 {{#extend "lib/loggedin"}}
-
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-    {{/content}}
-
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/courses.js" type="text/javascript" defer></script>
-    {{/content}}
-
     {{#content "page"}}
         <section class="section-courses">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="row results card-deck-row">
-                        {{#each courses}}
-                            {{#each this}}
-                                <div class="col-md-4 col-sm-6 col-xs-12">
-                                    <div class="card h-100" style="border-left: 10px solid {{this.color}}">
-                                        <div class="card-block">
-                                            <h4 class="card-title">
-                                                <a href="{{this.url}}">
-                                                    {{this.name}}
-                                                </a>
-                                            </h4>
-                                            <p class="card-text">{{truncate this.description}}</p>
-                                        </div>
-                                        <div class="card-footer">
-                                            <a href="" row="{{@../index}}" column="{{@index}}" class="btn-member pull-right tooltip-demo" data-html="true" data-toggle="tooltip" data-placement="right"
-                                               data-title=" {{#each this.students}}
+                {{#if courses}}
+                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen"}}
+                {{else}}
+                    <div class="col-xs-12">
+                        <p class="text-muted text-center">
+                            <span>Keine Kurse.</span>
+                        </p>
+                    </div>
+                {{/if}}
 
-                                                                   {{#if this.displayName}}
-                                                                        {{this.displayName}}
-                                                                   {{else}}
-                                                                       {{this.firstName}} {{this.lastName}}
-                                                                   {{/if}}
-                                                                    </br>
-                                                            {{/each}}
-                                                        {{#if this.students}}
-                                                        {{else}}
-                                                            Keine Teilnehmer
-                                                        {{/if}}">
-                                                {{this.studentsAmount}} <i class="fa fa-user"></i></a>
-
-                                            {{#each this.times}}
-                                                <small class="text-muted">
-                                                    {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
-                                                </small>
-                                                <br>
-                                            {{/each}}
-                                        </div>
-                                    </div>
-                                </div>
-                            {{/each}}
+                {{#userHasPermission "COURSE_EDIT"}}
+                    <section>
+                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
+                        {{#if ../substitutionCourses}}
+                            {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
                         {{else}}
                             <div class="col-xs-12">
                                 <p class="text-muted text-center">
                                     <span>Keine Kurse.</span>
                                 </p>
                             </div>
-                        {{/each}}
-                    </div>
-                </div>
-
-                {{#userHasPermission "COURSE_EDIT"}}
-                    <div class="row">
-                        <section class="section-title">
-                            <h4>Meine Vertretungen</h4>
-                        </section>
-                    </div>
-                    <div class="row">
-                        <div class="row results card-deck-row ">
-
-                            {{#each ../substitutionCourses}}
-                                {{#each this}}
-                                    <div class="col-md-4 col-sm-6 col-xs-12">
-                                        <div class="card h-100" style="border-left: 10px solid {{this.color}}">
-                                            <div class="card-block">
-                                                <h4 class="card-title">
-                                                    <a href="{{this.url}}">
-                                                        {{this.name}}
-                                                    </a>
-                                                </h4>
-                                                <p class="card-text">{{truncate this.description}}</p>
-                                            </div>
-                                            <div class="card-footer">
-                                                {{#each this.times}}
-                                                    <small class="text-muted">
-                                                        {{this.weekday}} {{this.startTime}} {{#if this.room}}| {{this.room}}{{/if}}
-                                                    </small>
-                                                    <br>
-                                                {{/each}}
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{/each}}
-                            {{else}}
-                                <div class="col-xs-12">
-                                    <p class="text-muted text-center">
-                                        <span>Keine Kurse.</span>
-                                    </p>
-                                </div>
-                            {{/each}}
+                        {{/if}}
                         </div>
-                    </div>
-
+                    </section>
                 {{/userHasPermission}}
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
-                        <a href="/courses/add" class="btn btn-primary">Kurs anlegen</a>
+                        <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                     </div>
-                {{/userHasPermission}}
-            </div>
-
-
-            {{#embed "lib/components/modal-form" class="member-modal"}}
-                {{#content "body"}}
-                    <div class="modal-body">
-                        <div class="form-group">
-                            {{#each courses.[ {{row}} ].[ {{column}} ].students}} {{! row und column sind nicht gesetzt, aber konkrete Werte funktionieren}}
-                                    <p>
-                                        {{#if this.displayName}}
-                                            {{this.displayName}}
-                                        {{else}}
-                                            {{this.firstName}} {{this.lastName}}
-                                        {{/if}}
-                                    </p>
-                            {{/each}}
-                        </div>
-                {{/content}}
-            {{/embed}}
-
+            {{/userHasPermission}}
         </section>
     {{/content}}
 {{/extend}}

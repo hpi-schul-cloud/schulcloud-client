@@ -5,6 +5,7 @@
 {{#content "scripts" mode="append"}}
     <script src="/vendor/webcomponents-lite.min.js" defer></script>
     <script src="/scripts/moment/moment.js" defer></script>
+    <script src="/scripts/filter/feathers-filter.js" defer></script>
 {{/content}}
 {{#extend "homework/homework"}}
     {{#content "page"}}
@@ -18,26 +19,16 @@
                     </a>
                     {{/userHasPermission}}
                 {{/if}}
-                <div class="form-group sort">
-                    <select name="sort" id="sortselection" data-placeholder="Sortieren">
-                        {{#each sortmethods}}
-                            {{#if this.active}}
-                                <option value='{{this.query}}' selected="selected">{{this.title}}</option>
-                            {{else}}
-                                <option value='{{this.query}}'>{{this.title}}</option>
-                            {{/if}}
-                        {{/each}}
-                    </select>
-                    {{#if this.desc}}
-                        <button id="desc" type="submit" name="desc" value="false">▲</button>
-                    {{else}}
-                        <button id="desc" type="submit" name="desc" value="true">▼</button>
-                    {{/if}}
-                </div>
-
+                <div><feathers-filter id="filter"
+                        filter='{{@root.filterSettings}}'
+                        add-label='Filter hinzufügen'
+                        apply-label='Übernehmen'
+                        cancle-label='Abbrechen'
+                        handle-url='true'
+                /></div>
 
                 <ol class="homework">
-                    <div class="row"><div class="col-lg-8">
+                    <div class="row"><div class="col-xl-12">
                         {{#each homeworks}}
                             {{> 'homework/components/overview_card_template'}}
                         {{else}}

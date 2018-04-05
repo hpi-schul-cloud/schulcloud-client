@@ -7,29 +7,7 @@
 
 <div class="form-group">
     <label>Farbe des Kurses:</label>
-	<input name="color" list="coursecolors" type="color" value="{{#if course.color}}{{course.color}}{{else}}#ff0000{{/if}}" placeholder="#ff0000" autocomplete=on required/>
-	<datalist id="coursecolors">
-	  <option value="#F44336">
-	  <option value="#E91E63">
-	  <option value="#9C27B0">
-	  <option value="#673AB7">
-	  <option value="#304FFE">
-	  <option value="#2196F3">
-	  <option value="#03A9F4">
-	  <option value="#00BCD4">
-	  <option value="#009688">
-	  <option value="#4CAF50">
-	  <option value="#8BC34A">
-	  <option value="#CDDC39">
-	  <option value="#FFEB3B">
-	  <option value="#FFC107">
-	  <option value="#FF9800">
-	  <option value="#FF5722">
-	  <option value="#795548">
-	  <option value="#9E9E9E">
-	  <option value="#607D8B">
-	  <option value="#000000">
-	</datalist>
+    <input name="color" type="color" value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
 </div>
 
 <div class="form-group">

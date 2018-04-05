@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
 .tab-content#submissions {
@@ -91,7 +91,7 @@
   }
 
   .nav-item.active {
-    border-bottom: 1px solid $colorHPIOrange;
+    border-bottom: 1px solid $secondaryColor;
   }
   .feedback {
     max-width: 100%;
@@ -152,7 +152,7 @@
   .fa-active {
     float: right;
     .fa {
-      color: $colorHPIRed;
+      color: $primaryColor;
       cursor: pointer;
     }
   }

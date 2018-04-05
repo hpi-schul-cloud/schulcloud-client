@@ -1,9 +1,9 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 
 .teacher-option {
   h4 {
     padding-top: 20px;
-    color: $colorHPIRed
+    color: $primaryColor
   }
   text-align: center;
   cursor: pointer;

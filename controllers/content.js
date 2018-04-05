@@ -43,6 +43,9 @@ router.get('/', function (req, res, next) {
                 title: 'Materialien',
                 featuredContent: featured.data,
                 trendingContent: trending.data,
+                totalCount: trending.total,
+                isCourseGroupTopic: req.query.isCourseGroupTopic,
+                inline: req.query.inline,
                 action
             });
         });
@@ -62,11 +65,13 @@ router.get('/', function (req, res, next) {
                 numPages: Math.ceil(searchResults.total / itemsPerPage),
                 baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
             };
+
             return res.render('content/search-results', {
                 title: 'Materialien',
                 query: query,
                 searchResults: searchResults,
                 pagination,
+                isCourseGroupTopic: req.query.isCourseGroupTopic,
                 action
             });
         });

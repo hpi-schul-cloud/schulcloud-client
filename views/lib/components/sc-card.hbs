@@ -1,27 +1,29 @@
 <article class="sc-card">
-    <div class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
+    <a href="{{this.url}}" rel="canonical" class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
         <span class="sc-card-title">
-            <a href="{{url}}" rel="canonical">{{{this.title}}}</a>
+            <span class="title">{{{this.title}}}</span>
             {{#if this.secondaryTitle}}
                 <small class="d-block">{{{this.secondaryTitle}}}</small>
             {{/if}}
         </span>
-        
+
         <div class="sc-card-menu">
             {{#each this.actions}}
                 {{#if this.method}}
-                        <a class="sc-card-menu-action {{this.class}}"
-                           href="{{this.link}}"
+                        <button class="sc-card-menu-action {{this.class}}"
+                           
                            target="_blank"
                            data-method="delete-material"
                            data-name="{{../title}}"
                            alt="'{{../title}}' löschen">
                             <i class="fa fa-{{this.icon}}"></i>
-                        </a>
+                        </button>
                 {{else}}
-                    <a class="sc-card-menu-action {{this.class}}" href="{{this.link}}" alt="'{{../../title}}' {{this.alt}}.">
+                    <button class="sc-card-menu-action {{this.class}}" 
+                      onClick="window.open({{this.link}})"
+                      alt="'{{../../title}}' {{this.alt}}.">
                         <i class="fa fa-{{this.icon}}"></i>
-                    </a>
+                    </button>
                 {{/if}}
             {{else}}
                 {{#if this.menuInfo}}
@@ -29,7 +31,7 @@
                 {{/if}}
             {{/each}}
         </div>
-    </div>
+    </a>
     <div class="sc-card-body ckcontent">
         {{{truncateHTML (conflictFreeHtml this.content)}}}
     </div>
