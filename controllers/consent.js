@@ -7,28 +7,24 @@ const api = require('../api')
 const auth = require('../helpers/authentication')
 
 const scope = 'hydra.consent'
-console.log(qs.escape(process.env.HYDRA_CLIENT_ID), qs.escape(process.env.HYDRA_CLIENT_SECRET), process.env.HYDRA_URL);
 const oauth2 = OAuth2.create({
   client: {
-    id: qs.escape(process.env.HYDRA_CLIENT_ID),
-    secret: qs.escape(process.env.HYDRA_CLIENT_SECRET)
+    id: qs.escape('consent-app'),
+    secret: qs.escape('consent-secret')
   },
   auth: {
-    tokenHost: endpoint = process.env.HYDRA_URL,
+    tokenHost: endpoint = 'http://ory-hydra-example--hydra:4444',
     authorizePath: authorizePath = '/oauth2/auth',
     tokenPath: tokenPath = '/oauth2/token'
   },
   options: {
     useBodyAuth: false,
-    useBasicAuthorizationHeader: true,
-    rejectUnauthorized : false
+    useBasicAuthorizationHeader: true
   }
 })
 
-// Instantiating a hydra config. If you provide no config, the hydra-js library will try to figure them out
-// from the environment variables, such as HYDRA_CLIENT_ID, HYDRA_CLIENT_SECRET, and HYDRA_URL.
 
-Hydra.ApiClient.instance.basePath = process.env.HYDRA_URL
+Hydra.ApiClient.instance.basePath = 'http://ory-hydra-example--hydra:4444'
 
 const hydra = new Hydra.OAuth2Api()
 
@@ -41,7 +37,7 @@ const refreshToken = () => oauth2.clientCredentials
     return Promise.resolve(token)
   })
   .catch((error) => {
-    console.log('Access Token error', error.message);
+    console.error('Could not refresh access token', error.message);
   });
 
 refreshToken().then()
@@ -67,7 +63,6 @@ const user = {
 }
 
 const resolver = (resolve, reject) => (error, data, response) => {
-  console.log(response, data)
   if (error) {
     return reject(error)
   } else if (response.statusCode < 200 || response.statusCode >= 400) {
@@ -79,7 +74,7 @@ const resolver = (resolve, reject) => (error, data, response) => {
 
 // This get's executed when we want to tell hydra that the user is authenticated and that he authorized the application
 const resolveConsent = (r, w, consent, grantScopes = []) => {
-  const { email, email_verified, user_id: subject, name, nickname } = user
+  const subject = w.locals.currentUser._id
   const idTokenExtra = {}
 
   // Sometimes the body parser doesn't return an array, so let's fix that.
@@ -87,16 +82,10 @@ const resolveConsent = (r, w, consent, grantScopes = []) => {
     grantScopes = [grantScopes]
   }
 
+  // TODO: include users pseudonym specific for consumer
   // This is the openid 'profile' scope which should include some user profile data. (optional)
-  if (grantScopes.indexOf('profile') >= 0) {
-    idTokenExtra.name = name
-    idTokenExtra.nickname = nickname
-  }
-
-  // This is to fulfill the openid 'email' scope which returns the user's email address. (optional)
-  if (grantScopes.indexOf('email') >= 0) {
-    idTokenExtra.email = email
-    idTokenExtra.email_verified = email_verified
+  if (grantScopes.indexOf('pseudonym') >= 0) {
+    idTokenExtra.pseudonym = 'achdbsd'
   }
 
   refreshToken().then(() => {
@@ -118,7 +107,7 @@ const resolveConsent = (r, w, consent, grantScopes = []) => {
   })
 }
 
-router.get('/consent', auth.authChecker, (r, w) => {
+router.get('/consent', (r, w) => {
   // This endpoint is hit when hydra initiates the consent flow
   if (r.query.error) {
     // An error occurred (at hydra)
@@ -140,7 +129,15 @@ router.get('/consent', auth.authChecker, (r, w) => {
       // }
 
       // render the consent screen
-      w.render('consent', { scopes: consentRequest.requestedScopes })
+      return w.render('consent/consent', {
+        inline: true,
+        title: 'Login mit Schul-Cloud',
+        subtitle: '',
+        client: consentRequest.clientId,
+        action: `/consent/consent?consent=${r.query.consent}`,
+        buttonLabel: 'Akzeptieren',
+        scopes: consentRequest.requestedScopes
+      });
 
     }, catcher(w)))
   })

@@ -10,9 +10,6 @@ services:
     environment:
       NODE_ENV: development
       BACKEND_URL: http://schulcloud-server:3030/
-      HYDRA_URL: https://ory-hydra-example--hydra:4444
-      HYDRA_CLIENT_ID: consent-app
-      HYDRA_CLIENT_SECRET: consent-secret
     ports:
       - 3100:3100
       - 9310:9310
