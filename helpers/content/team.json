@@ -273,7 +273,7 @@
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
-        "position": "Studentische Hilfskraft",
+        "position": "Student",
         "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
         "pictureUrl": "/images/login-left-cropped.png",
         "priority": 0,
@@ -306,7 +306,7 @@
         "firstName": "Dominik",
         "lastName": "Glandorf",
         "position": "Studentische Hilfskraft",
-        "description": "Dominik ist Teil des Bachelorprojekts 2017/18 und studiert IT-Systems Engineering am HPI. Er kümmert sich in der Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
+        "description": "Dominik ist Studentische Hilfskraft und Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
         "pictureUrl": "/images/team/Dominik_Glandorf.jpg",
         "priority": 0,
         "social": {
@@ -321,7 +321,7 @@
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
-        "position": "Studentische Hilfskraft",
+        "position": "Student",
         "description": "Dominik ist im fünften Semester am Hasso-Plattner-Institut und im Team des Bachelorprojektes. Dort schreibt er die Blogs und arbeitet am Content-Editor. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
         "pictureUrl": "/images/team/Dominik_Jaekel.jpg",
         "priority": 0,
@@ -385,8 +385,8 @@
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
-        "position": "Masterstudent",
-        "description": "Jonas Schwerpunkt im Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. Die Idee hinter seiner Masterarbeit ist, Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann.",
+        "position": "Student",
+        "description": "Jonas schreibt seine Masterarbeit im Projekt Schul-Cloud. Der Schwerpunkt in seinem Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Die Idee hinter seiner Masterarbeit ist Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. ",
         "pictureUrl": "/images/team/Jonas_Keutel.jpg",
         "priority": 0,
         "social": {
@@ -417,7 +417,7 @@
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
-        "position": "Studentische Hilfskraft",
+        "position": "Studentin",
         "description": "Juliane arbeitet für das Bachelorprojek-Team und studiert im fünften Semester am HPI. Sie ist verantwortlich für die Integration und die Funktionalitäten des Content-Editors. Ansonsten ist sie sportlich aktiv und spielt am liebsten Tennis.",
         "pictureUrl": "/images/team/Juliane_Kleinknecht2.jpg",
         "priority": 0,
@@ -447,22 +447,6 @@
       {
         "id": 27,
         "title": "",
-        "firstName": "Nicco",
-        "lastName": "Kunzmann",
-        "position": "Masterstudent",
-        "description": "In seiner Masterarbeit interessiert Nicco, wie externe zur Schul-Cloud beitragen können, also sowohl technisch Beiträge zu erleichtern als auch sozial den Weg zu ebnen. In seiner Freizeit umgibt er sich gern mit Menschen, die ihr Umfeld aktiv gestalten, so auch ihr digitales. Deswegen organisiert er auch das <a href=\"https://hpi.de/veranstaltungen/schuelerveranstaltungen/2014/coder-dojo-offene-programmier-samstage-am-hpi.html\" target=\"_blank\">CoderDojo am HPI</a> mit, bei #tec, dem <a href=\"https://opentechsummit.net/\" target=\"_blank\">OpenTechSummit</a>, bei <a href=\"https://blog.freifunk-potsdam.de/\" target=\"_blank\">Freifunk</a> und <a href=\"https://gci17.fossasia.org/\" target=\"_blank\">FOSSASIA</a>.",
-        "pictureUrl": "/images/team/Nicco_Kunzmann.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 28,
-        "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
         "position": "Studentische Hilfskraft",
@@ -477,11 +461,11 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 28,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
-        "position": "Studentische Hilfskraft",
+        "position": "Student",
         "description": "Über das Bachelorprojekt 2017/18 ist Florian Wirtz Mitglied im Team der Schulcloud. Seine Arbeit dort wird vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
         "pictureUrl": "/images/team/Florian_Wiertz.jpg",
         "priority": 0,
@@ -493,11 +477,11 @@
         "longDesc": false
       },
       {
-        "id": 30,
+        "id": 29,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
-        "position": "Masterstudent",
+        "position": "Student",
         "description": "Tobias hat vor seinem Master-Studium am HPI an der Technischen Hochschule in Brandenburg Applied Computer Science studiert. Während seines Studiums konzentrierte er sich auf Verteilte Systeme und verbrachte ein Semester an der German Jordanian University in Amman, Jordanien.<br>Am HPI vertiefte er u.a. sein Wissen über Progressive-Web-Apps und Page-Speed-Optimization und moderne Web-Technologien. Im Projekt Schul-Cloud schreibt er derzeit seine Masterarbeit und forscht an Strategien zur Offline-Verfügbarkeit von Web-Anwendungen und Peer-2-Peer Technologien.<br>In seiner Freizeit trainiert Tobias im Potsdamer Seglerverein Kinder und Jugendliche im Segeln.",
         "pictureUrl": "/images/team/Tobias_Wollowski.jpg",
         "priority": 0,
@@ -514,7 +498,7 @@
     "name": "",
     "style": "small",
     "team": [{
-        "id": 31,
+        "id": 30,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -530,7 +514,7 @@
         "longDesc": false
       },
       {
-        "id": 32,
+        "id": 31,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -545,6 +529,27 @@
         },
         "longDesc": false
       }
+    ]
+  },
+  "low": {
+    "name": "Alumni",
+    "style": "small",
+    "team": [{
+      "id": 32,
+      "title": "",
+      "firstName": "Nicco",
+      "lastName": "Kunzmann",
+      "position": "ehem. Masterstudent",
+      "description": "In seiner Masterarbeit erforschte Nicco, wie externe zur Schul-Cloud beitragen können, also sowohl technisch Beiträge zu erleichtern als auch sozial den Weg zu ebnen. In seiner Freizeit umgibt er sich gern mit Menschen, die ihr Umfeld aktiv gestalten, so auch ihr digitales. Deswegen organisiert er auch das <a href=\"https://hpi.de/veranstaltungen/schuelerveranstaltungen/2014/coder-dojo-offene-programmier-samstage-am-hpi.html\" target=\"_blank\">CoderDojo am HPI</a> mit, bei #tec, dem <a href=\"https://opentechsummit.net/\" target=\"_blank\">OpenTechSummit</a>, bei <a href=\"https://blog.freifunk-potsdam.de/\" target=\"_blank\">Freifunk</a> und <a href=\"https://gci17.fossasia.org/\" target=\"_blank\">FOSSASIA</a>.",
+      "pictureUrl": "/images/team/Nicco_Kunzmann.jpg",
+      "priority": 0,
+      "social": {
+        "facebook": "",
+        "twitter": "",
+        "linkedin": ""
+      },
+      "longDesc": false
+       }
     ]
   }
 }
