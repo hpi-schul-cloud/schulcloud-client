@@ -531,7 +531,7 @@
       }
     ]
   },
-  "low": {
+  "end": {
     "name": "Alumni",
     "style": "small",
     "team": [{
