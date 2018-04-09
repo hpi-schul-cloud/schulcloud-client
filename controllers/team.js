@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
         return Promise.resolve(template);
     }).then( template =>
         res.render(template, {
-            title: 'Team',
+            title: 'Das Schul-Cloud Team',
             inline: !!template.includes('guest'),
             teams: team,
         })
