@@ -44,22 +44,9 @@ refreshToken().then()
 
 // A simple error helper
 const catcher = (w) => (error) => {
-  console.error(error)
-  w.render('error', { error })
+  w.send(error)
   w.status(500)
   return Promise.reject(error)
-}
-
-// This is a mock object for the user. Usually, you would fetch this from, for example, mysql, or mongodb, or somewhere else.
-// The data is arbitrary, but will require a unique user id.
-const user = {
-  email: 'dan@acme.com',
-  password: 'secret',
-
-  email_verified: true,
-  user_id: 'user:12345:dandean',
-  name: 'Dan Dean',
-  nickname: 'Danny',
 }
 
 const resolver = (resolve, reject) => (error, data, response) => {
@@ -107,7 +94,7 @@ const resolveConsent = (r, w, consent, grantScopes = []) => {
   })
 }
 
-router.get('/consent', (r, w) => {
+router.get('/consent', auth.authChecker, (r, w) => {
   // This endpoint is hit when hydra initiates the consent flow
   if (r.query.error) {
     // An error occurred (at hydra)
@@ -146,22 +133,5 @@ router.get('/consent', (r, w) => {
 router.post('/consent', auth.authChecker, (r, w) => {
   resolveConsent(r, w, r.query.consent, r.body.allowed_scopes)
 })
-
-router.get('/login', (r, w) => {
-  w.render('login', { error: r.query.error, user, consent: r.query.consent })
-})
-
-router.post('/login', (r, w) => {
-  const form = r.body
-  // TODO: request login
-  if (form.email !== user.email || form.password !== user.password) {
-    w.redirect('/login?error=Wrong+credentials+provided&consent=' + form.consent)
-  }
-
-  r.session.isAuthenticated = true
-  w.redirect('/consent?consent=' + r.body.consent)
-})
-
-router.get('/', (r, w) => w.send('This is an exemplary consent app for Hydra. Please read the hydra docs on how to use this router.'))
 
 module.exports = router

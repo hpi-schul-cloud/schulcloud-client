@@ -38,8 +38,7 @@ router.post('/login/', function (req, res, next) {
                 const login = (data) => {
                     return api(req).post('/authentication', {json: data}).then(sessionData => {
                         res.cookie('jwt', sessionData.accessToken, {expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)});
-                        console.log(data);
-                        res.redirect((data.consent ? `consent/consent?consent=${data.consent}` : '/login/success/'));
+                        res.redirect((data.consent !== '/' ? `/consent/consent?consent=${data.consent}` : '/login/success/'));
                     }).catch(_ => {
                         res.locals.notification = {
                             'type': 'danger',

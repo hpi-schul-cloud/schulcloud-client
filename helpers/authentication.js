@@ -46,7 +46,7 @@ const authChecker = (req, res, next) => {
                         next();
                     });
             } else {
-                res.redirect(`/login?consent=${req.body.consent}`);
+                res.redirect(`/login?consent=${req.query.consent}`);
             }
         });
 };
