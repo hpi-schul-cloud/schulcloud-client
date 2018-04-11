@@ -316,8 +316,25 @@
         },
         "longDesc": false
       },
-      {
+     {
         "id": 19,
+        "title": "",
+        "firstName": "Max",
+        "lastName": "Haubold",
+        "position": "Student",
+        "description": "Max studiert IT Systems Engineering am Hasso Plattner Institut. Im Schul-Cloud Bachelorprojekt Team beschäftigt er sich mit Contenterstellung für Lehrer und philosophiert nebenbei gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
+        "pictureUrl": "/images/team/Max_Haubold.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },        
+             
+      {
+        "id": 20,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -333,7 +350,7 @@
         "longDesc": false
       },
       {
-        "id": 20,
+        "id": 21,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -349,7 +366,7 @@
         "longDesc": false
       },
       {
-        "id": 21,
+        "id": 22,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -365,7 +382,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 23,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
@@ -381,7 +398,7 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "id": 24,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -397,7 +414,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -413,7 +430,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -429,7 +446,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 27,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -445,7 +462,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -461,7 +478,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -477,7 +494,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -498,7 +515,7 @@
     "name": "",
     "style": "small",
     "team": [{
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -514,7 +531,7 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -531,11 +548,11 @@
       }
     ]
   },
-  "low": {
+  "end": {
     "name": "Alumni",
     "style": "small",
     "team": [{
-      "id": 32,
+      "id": 33,
       "title": "",
       "firstName": "Nicco",
       "lastName": "Kunzmann",
