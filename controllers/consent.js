@@ -21,15 +21,16 @@ const resolver = (resolve, reject) => (error, data, response) => {
 }
 
 // This get's executed when we want to tell hydra that the user is authenticated and that he authorized the application
-const resolveConsent = (r, w, consent, grantScopes = []) => {
+const resolveConsent = (r, w, consent, grantScopes = [], clientId) => {
   // Sometimes the body parser doesn't return an array, so let's fix that.
   if (!Array.isArray(grantScopes)) {
     grantScopes = [grantScopes]
   }
 
-  return api(r).patch('/oauth2proxy/consentRequest/' + r.query.consent, {
+  return api(r).patch('/oauth2proxy/consentRequest/' + consent, {
     json: {
       subject: w.locals.currentUser._id,
+      clientId,
       grantScopes
     }
   }).then(consentRequest => w.redirect(consentRequest.redirectUrl));
@@ -56,7 +57,7 @@ router.get('/consent', auth.authChecker, (r, w) => {
 })
 
 router.post('/consent', auth.authChecker, (r, w) => {
-  resolveConsent(r, w, r.query.consent, r.body.allowed_scopes)
+  resolveConsent(r, w, r.query.consent, r.body.allowed_scopes, r.body.client_id)
 })
 
 module.exports = router
