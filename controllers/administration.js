@@ -633,15 +633,18 @@ router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VI
 
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
+    const tempOrgQuery = (req.query||{}).filterQuery;
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
     let itemsPerPage = 25;
     let filterQuery = {}
-    if (req.query.ajaxContent && req.query.filterQuery) {
+    if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
         if (filterQuery["$limit"]) {
             itemsPerPage = filterQuery["$limit"];
-            delete filterQuery["$limit"];
         }
     }
+
     const currentPage = parseInt(req.query.p) || 1;
     let title = returnAdminPrefix(res.locals.currentUser.roles);
 
@@ -651,9 +654,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         $limit: itemsPerPage,
         $skip: itemsPerPage * (currentPage - 1),
     };
-    if (filterQuery) {
-        query = Object.assign(query, filterQuery);
-    }
+    query = Object.assign(query, filterQuery);
 
     api(req).get('/users', {
         qs: query
@@ -681,15 +682,10 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 ];
             });
 
-            let limitQuery = '';
-            if (req.query.limit) {
-                limitQuery = '&limit=' + req.query.limit;
-            }
-
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/teachers/?p={{page}}' + limitQuery
+                baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
             };
 
             res.render('administration/teachers', {
@@ -710,13 +706,15 @@ router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
+    const tempOrgQuery = (req.query||{}).filterQuery;
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
     let itemsPerPage = 25;
     let filterQuery = {}
-    if (req.query.ajaxContent && req.query.filterQuery) {
+    if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
         if (filterQuery["$limit"]) {
             itemsPerPage = filterQuery["$limit"];
-            delete filterQuery["$limit"];
         }
     }
 
@@ -729,9 +727,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         $limit: itemsPerPage,
         $skip: itemsPerPage * (currentPage - 1),
     };
-    if (filterQuery) {
-        query = Object.assign(query, filterQuery);
-    }
+    query = Object.assign(query, filterQuery);
 
     api(req).get('/users', {
         qs: query
@@ -756,15 +752,10 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 ];
             });
 
-            let limitQuery = '';
-            if (req.query.limit) {
-                limitQuery = '&limit=' + req.query.limit;
-            }
-
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/students/?p={{page}}' + limitQuery
+                baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
 
             res.render('administration/students', {

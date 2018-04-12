@@ -4,7 +4,7 @@ window.addEventListener("DOMContentLoaded", function(){
     if(filterModule){
         filterModule.addEventListener('newFilter', (e) => {
             filter = e.detail;
-            const newurl = "?ajaxContent=true&filterQuery=" + escape(JSON.stringify(filter[0]));
+            const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
             softNavigate(newurl, ".ajaxcontent", ".pagination");
         })
         document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));

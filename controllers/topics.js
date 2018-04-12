@@ -114,7 +114,7 @@ router.get('/:topicId', function(req, res, next) {
         lesson.contents = (lesson.contents || []).map(block => {
             block.component = 'topic/components/content-' + block.component;
             (block.content.resources || []).forEach(resource => {
-                resource.url += `?courseId=${course._id}&topicId=${lesson._id}`;
+                resource.url += `?courseId=${course._id}&topicId=${lesson._id}&userId=${res.locals.currentUser._id}`;
             }) ;
 
             return block;

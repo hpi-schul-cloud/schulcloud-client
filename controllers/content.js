@@ -39,8 +39,6 @@ router.get('/', function (req, res, next) {
                 json: true
             })
         ]).then(([featured, trending]) => {
-
-
             return res.render('content/store', {
                 title: 'Materialien',
                 featuredContent: featured.data,
@@ -123,7 +121,7 @@ router.get('/rating/ratingrequests',function (req, res, next) {
             title: 'Bewerte deine Materialien',
             content : resourcesToRate
         });
-    }, console.error); //TODO remove
+    });
 });
 
 router.post('/addToLesson', function (req, res, next) {
@@ -142,8 +140,7 @@ router.post('/addToLesson', function (req, res, next) {
     });
 });
 
-//TODO X change to patch ratingrequest
-router.post('/ratingrequest',function (req, res, next) {
+router.post('/rating',function (req, res, next) {
     const rating = req.body;
     rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
     api(req).post({

@@ -45,7 +45,7 @@ function togglePresentationMode(){
     toggleButton.children('i').toggleClass('fa-compress');
     toggleButton.children('i').toggleClass('fa-expand');
 }
-var fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
+var fullscreen = false;
 function fullscreenBtnClicked(){
     togglePresentationMode();
     fullscreen = !fullscreen;
@@ -174,8 +174,11 @@ $(document).ready(function () {
         $qrbox.append(image);
     });
 
-    if(fullscreen){togglePresentationMode()}
-    $('.btn-fullscreen').on('click', fullscreenBtnClicked);
+    if(!fullscreen){
+        fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
+        if(fullscreen){togglePresentationMode()}
+    }
+    document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
 
     $('.btn-cancel').on('click', function(e) {
         e.stopPropagation();
