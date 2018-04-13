@@ -3,23 +3,6 @@ const router = express.Router();
 const auth = require('../helpers/authentication');
 const api = require('../api');
 
-// A simple error helper
-const catcher = (w) => (error) => {
-  w.send(error)
-  w.status(500)
-  return Promise.reject(error)
-}
-
-const resolver = (resolve, reject) => (error, data, response) => {
-  if (error) {
-    return reject(error)
-  } else if (response.statusCode < 200 || response.statusCode >= 400) {
-    return reject(new Error('Consent endpoint gave status code ' + response.statusCode + ', but status code 200 was expected.'))
-  }
-
-  resolve(data)
-}
-
 // This get's executed when we want to tell hydra that the user is authenticated and that he authorized the application
 const resolveConsent = (r, w, consent, grantScopes = [], clientId) => {
   // Sometimes the body parser doesn't return an array, so let's fix that.
