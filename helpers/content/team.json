@@ -432,6 +432,22 @@
       {
         "id": 26,
         "title": "",
+        "firstName": "Katrin",
+        "lastName": "Klein",
+        "position": "Studentische Hilfskraft",
+        "description": "Katrin studiert im 4. Bachelorsemester IT-Systems Engineering am Hasso-Plattner-Institut und unterstützt das Team Schul-Cloud seit März 2018 in der Entwicklung. In Ihrer Freizeit probiert sie sich in unterschiedlichen Sportarten aus und spielt in einer Band.",
+        "pictureUrl": "/images/team/Katrin_Klein.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
+      {
+        "id": 27,
+        "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
         "position": "Studentin",
@@ -446,7 +462,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -462,7 +478,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -478,7 +494,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -494,7 +510,7 @@
         "longDesc": false
       },
       {
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -515,7 +531,7 @@
     "name": "",
     "style": "small",
     "team": [{
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -531,7 +547,7 @@
         "longDesc": false
       },
       {
-        "id": 32,
+        "id": 33,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -552,13 +568,13 @@
     "name": "Alumni",
     "style": "small",
     "team": [{
-      "id": 33,
+      "id": 34,
       "title": "",
-      "firstName": "Nicco",
-      "lastName": "Kunzmann",
-      "position": "ehem. Masterstudent",
-      "description": "In seiner Masterarbeit erforschte Nicco, wie externe zur Schul-Cloud beitragen können, also sowohl technisch Beiträge zu erleichtern als auch sozial den Weg zu ebnen. In seiner Freizeit umgibt er sich gern mit Menschen, die ihr Umfeld aktiv gestalten, so auch ihr digitales. Deswegen organisiert er auch das <a href=\"https://hpi.de/veranstaltungen/schuelerveranstaltungen/2014/coder-dojo-offene-programmier-samstage-am-hpi.html\" target=\"_blank\">CoderDojo am HPI</a> mit, bei #tec, dem <a href=\"https://opentechsummit.net/\" target=\"_blank\">OpenTechSummit</a>, bei <a href=\"https://blog.freifunk-potsdam.de/\" target=\"_blank\">Freifunk</a> und <a href=\"https://gci17.fossasia.org/\" target=\"_blank\">FOSSASIA</a>.",
-      "pictureUrl": "/images/team/Nicco_Kunzmann.jpg",
+      "firstName": "Carl",
+      "lastName": "Gödecken",
+      "position": "Ehem. Bachelorstudent",
+      "description": "Carl war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Schul-Cloud for iOS: Adapting a browser-based learning platform for mobile devices.",
+      "pictureUrl": "/images/team/Carl_Gödecken.jpg",
       "priority": 0,
       "social": {
         "facebook": "",
@@ -566,7 +582,55 @@
         "linkedin": ""
       },
       "longDesc": false
-       }
+       },
+     {
+        "id": 35,
+        "title": "",
+        "firstName": "Nico",
+        "lastName": "Knoll",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Nico war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Using Embedded React to enable complex yet performant web applications.",
+        "pictureUrl": "/images/team/Nico_Knoll.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+     {
+        "id": 36,
+        "title": "",
+        "firstName": "David",
+        "lastName": "Kreidler",
+        "position": "Ehem. Bachelorstudent",
+        "description": "David war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Making User flow and User interface on Education Sites efficient.",
+        "pictureUrl": "/images/team/David_Kreidler.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 37,
+        "title": "",
+        "firstName": "Nicco",
+        "lastName": "Kunzmann",
+        "position": "Ehem. Masterstudent",
+        "description": "In seiner Masterarbeit erforschte Nicco, wie externe zur Schul-Cloud beitragen können, also sowohl technisch Beiträge zu erleichtern als auch sozial den Weg zu ebnen. In seiner Freizeit umgibt er sich gern mit Menschen, die ihr Umfeld aktiv gestalten, so auch ihr digitales. Deswegen organisiert er auch das <a href=\"https://hpi.de/veranstaltungen/schuelerveranstaltungen/2014/coder-dojo-offene-programmier-samstage-am-hpi.html\" target=\"_blank\">CoderDojo am HPI</a> mit, bei #tec, dem <a href=\"https://opentechsummit.net/\" target=\"_blank\">OpenTechSummit</a>, bei <a href=\"https://blog.freifunk-potsdam.de/\" target=\"_blank\">Freifunk</a> und <a href=\"https://gci17.fossasia.org/\" target=\"_blank\">FOSSASIA</a>.",
+        "pictureUrl": "/images/team/Nicco_Kunzmann.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      }
     ]
   }
 }
