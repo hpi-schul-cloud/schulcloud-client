@@ -748,15 +748,26 @@ class TopicGeoGebra extends TopicBlock {
 class TopicInternal extends TopicBlock {
 
     /**
+     * generates the url-pattern with following criteria
+     * - has to be in the current system
+     * - it's not the topic itself (todo!)
+     * - no personal links (personal files, settings, admin-area) (todo!)
+     * - /edit and /new pages (todo!)
+     */
+    generatePattern() {
+        return `(${window.location.origin}).*`;
+    }
+
+    /**
      * Initialize the list.
      * @param {Object} props - Properties from React Component.
      */
     constructor(props) {
         super(props);
 
-        // set baseUrl for validation
         this.state = {
-            baseUrl: window.location.origin
+            baseUrl: window.location.origin,
+            pattern: this.generatePattern()
         };
     }
 
@@ -779,7 +790,8 @@ class TopicInternal extends TopicBlock {
     updateUrl(event) {
         const value = typeof(event) == 'string' ? event : ((event || {}).target || {}).value;
         this.setState({
-            baseUrl: window.location.origin
+            baseUrl: window.location.origin,
+            pattern: this.generatePattern()
         });
 
         this.props.onUpdate({
@@ -808,9 +820,10 @@ class TopicInternal extends TopicBlock {
                     <input 
                         className="form-control" 
                         name={`contents[${this.props.position}][content][url]`} 
-                        pattern={`(${this.state.baseUrl}).*`} 
+                        pattern={this.state.pattern} 
                         onChange={this.updateUrl.bind(this)}
                         type="url" 
+                        required
                         placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
                         value={(this.props.content || {}).url}
                     />
