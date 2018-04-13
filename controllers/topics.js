@@ -30,6 +30,7 @@ const editTopicHandler = (req, res, next) => {
         }
 
         res.render('topic/edit-topic', {
+            topicId: req.params.topicId,
             action,
             method,
             title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',

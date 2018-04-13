@@ -749,13 +749,15 @@ class TopicInternal extends TopicBlock {
 
     /**
      * generates the url-pattern with following criteria
-     * - has to be in the current system
-     * - it's not the topic itself (todo!)
-     * - no personal links (personal files, settings, admin-area) (todo!)
-     * - /edit and /new pages (todo!)
+     * a) it's not the topic itself
+     * b) has to be in the current system
+     * c) no personal links (personal files, settings, admin-area) (todo!)
+     * d) /edit and /new pages (todo!)
      */
     generatePattern() {
-        return `(${window.location.origin}).*`;
+        let topicId = $contentBlocksContainer.data('topicid') || 'undefined'; // set String for prevent blocking a newly created topic
+        return `((?!.*topics/${topicId}).*)` + // a
+        `((${window.location.origin}).*)`; // b
     }
 
     /**
@@ -815,7 +817,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen!`}><i className="fa fa-info-circle" /></a>
+                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie die aktuelle Themenseite nicht gestattet.`}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input 
                         className="form-control" 
