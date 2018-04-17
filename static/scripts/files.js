@@ -78,6 +78,10 @@ $(document).ready(function() {
 
                 this.options.url = file.signedUrl.url;
                 this.options.headers = file.signedUrl.header;
+                this.options.headers['x-amz-meta-name'] = encodeURIComponent(file.name);
+                this.options.headers['x-amz-meta-flat-name'] = encodeURIComponent(this.options.headers['x-amz-meta-flat-name']);
+
+                console.log(this.options);
             });
 
             this.on("sending", function (file, xhr, formData) {
@@ -115,7 +119,7 @@ $(document).ready(function() {
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', {
-                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
                     path: file.signedUrl.header['x-amz-meta-path'] + '/',
                     name: file.name,
                     type: file.type,
@@ -408,6 +412,7 @@ function videoClick(e) {
 
 function fileViewer(filetype, file, key) {
     $('#my-video').css("display","none");
+    console.log(file);
     switch (filetype) {
         case 'application/pdf':
             $('#file-view').hide();
@@ -440,7 +445,6 @@ function fileViewer(filetype, file, key) {
             let gviewer ="https://docs.google.com/viewer?url=";
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             file = file.substring(file.lastIndexOf('/')+1);
-
             $.post('/files/file?file=', {
                 path: (getCurrentDir()) ? getCurrentDir() + file : key,
                 type: filetype,

@@ -133,7 +133,7 @@ const FileGetter = (req, res, next) => {
         let {files, directories} = data;
 
         files = files.map(file => {
-            file.file = pathUtils.join(file.path, file.name);
+            file.file = file.key;
             return file;
         });
 
@@ -307,6 +307,7 @@ router.get('/file', function (req, res, next) {
     let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
         return requestSignedUrl(req, data).then(signedUrl => {
+            console.log(signedUrl); // todo: here a wrong signed-url is processed!
             return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
                 if (download && download !== 'undefined') {
                     res.type('application/octet-stream');
@@ -377,6 +378,7 @@ router.delete('/directory', function (req, res) {
 router.get('/my/', FileGetter, function (req, res, next) {
     let files = res.locals.files.files;
     files.map(file => {
+        console.log(file);
         let ending = file.name.split('.').pop();
         file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
     });
