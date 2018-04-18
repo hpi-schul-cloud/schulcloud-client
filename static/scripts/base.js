@@ -81,6 +81,21 @@ function printPart(){
     $(this).show();
 }
 
+function toggleMobileNav(){
+    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+}
+
+function toggleMobileSearch(){
+    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
+    const icon = document.querySelector('.search-wrapper .mobile-search-toggle .fa');
+    icon.classList.toggle('fa-search');
+    icon.classList.toggle('fa-times');
+}
+
+function isTouchDevice() {
+    return 'ontouchstart' in document.documentElement;
+}
+
 var customReady = jQuery.fn.ready;
 jQuery.fn.ready = function(handler) {
     $(document).on("pageload", handler);
@@ -91,7 +106,9 @@ $( window ).on( "load", function () {
 })
 $(document).ready(function () {
     // Bootstrap Tooltips
-    $('[data-toggle="tooltip"]').tooltip();
+    if(isTouchDevice()){
+        $('[data-toggle="tooltip"]').tooltip();
+    }
 
     // notification stuff
     var $notification = $('.notification');
@@ -141,15 +158,9 @@ $(document).ready(function () {
 
 
     // Init mobile nav
-    $('.mobile-nav-toggle').click(function (e) {
-        $('aside.nav-sidebar nav:first-child').toggleClass('active');
-    });
+    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
 
-    $('.mobile-search-toggle').click(function (e) {
-        $('.search-wrapper .input-group').toggleClass('active');
-        $('.search-wrapper .mobile-search-toggle .fa').toggleClass('fa-search').toggleClass('fa-times');
-    });
-
+    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
 
     (function (a, b, c) {
         if (c in b && b[c]) {
