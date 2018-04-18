@@ -47,7 +47,9 @@ function importSubmission(e){
 
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
-    document.getElementById("filter").addEventListener('newFilter', (e) => {
+    const filterModule = document.getElementById("filter");
+    if(!filterModule){return;}
+    filterModule.addEventListener('newFilter', (e) => {
         document.querySelectorAll("circular-progress").forEach(graphic => {graphic.remove();});
         filter = e.detail;
         const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
