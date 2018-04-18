@@ -394,6 +394,14 @@ footer {
 
             .input-group {
                 display: none;
+                .search-field{
+                    width: calc(100% - 33px);
+                    display: inline-block;
+                    margin-top: -2px;
+                }
+                .btn-secondary{
+                    float: none;
+                }
             }
 
             .input-group.active {
