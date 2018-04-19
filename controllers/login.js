@@ -64,7 +64,9 @@ router.all('/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            feedr.readFeed('https://blog.schul-cloud.org/rss', {/* optional configuration */}, function (err, data, headers) {
+            feedr.readFeed('https://blog.schul-cloud.org/rss', {
+                requestOptions: {timeout:2000}
+            }, function (err, data, headers) {
                 let blogFeed = [];
                 try {
                     blogFeed = data.rss.channel[0].item.slice(0, 5).map(function (e) {
@@ -75,6 +77,7 @@ router.all('/', function (req, res, next) {
                         return e;
                     });
                 } catch(e) {
+                    console.log(e);
                     // just catching the blog-error
                 }
 
