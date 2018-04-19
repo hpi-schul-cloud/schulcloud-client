@@ -163,7 +163,7 @@ $(document).ready(function() {
                 url: $buttonContext.attr('href'),
                 type: 'DELETE',
                 data: {
-                    key: $buttonContext.data('file-key'),
+                    key: $buttonContext.data('file-key')
                 },
                 success: function (result) {
                     reloadFiles();
