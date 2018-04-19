@@ -796,7 +796,8 @@ router.get('/:assignmentId', function(req, res, next) {
 
             courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
                 (courseGroups.data || {}) || [] :
-                ((courseGroups.data || {}) || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+                ((courseGroups.data || {}) || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id))
+                .filter(cg => cg.userIds.length <= assignment.maxTeamMembers); // filter to big courseGroups
             const courseGroupSelected = ((assignment.submission || {}).courseGroupId || {})._id;
 
             const students = ((course || {}).userIds || []).filter(user => { return (user.firstName && user.lastName); })
