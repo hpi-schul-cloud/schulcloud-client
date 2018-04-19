@@ -405,7 +405,7 @@ function videoClick(e) {
     e.preventDefault();
 }
 
-function fileViewer(filetype, file, key) {
+function fileViewer(filetype, file, key, name) {
     $('#my-video').css("display","none");
     switch (filetype) {
         case 'application/pdf':
@@ -437,10 +437,10 @@ function fileViewer(filetype, file, key) {
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
             $('#file-view').css('display','');
             let gviewer ="https://docs.google.com/viewer?url=";
+            let showAJAXError = showAJAXError; // for deeply use
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            file = file.substring(file.lastIndexOf('/')+1);
             $.post('/files/file?file=', {
-                path: (getCurrentDir()) ? getCurrentDir() + file : key,
+                path: (getCurrentDir()) ? getCurrentDir() + name : key,
                 type: filetype,
                 action: "getObject"
             }, function (data) {
