@@ -78,10 +78,6 @@ $(document).ready(function() {
 
                 this.options.url = file.signedUrl.url;
                 this.options.headers = file.signedUrl.header;
-                this.options.headers['x-amz-meta-name'] = encodeURIComponent(file.name);
-                this.options.headers['x-amz-meta-flat-name'] = encodeURIComponent(this.options.headers['x-amz-meta-flat-name']);
-
-                console.log(this.options);
             });
 
             this.on("sending", function (file, xhr, formData) {
@@ -167,8 +163,7 @@ $(document).ready(function() {
                 url: $buttonContext.attr('href'),
                 type: 'DELETE',
                 data: {
-                    name: $buttonContext.data('file-name'),
-                    dir: $buttonContext.data('file-path')
+                    key: $buttonContext.data('file-key'),
                 },
                 success: function (result) {
                     reloadFiles();
@@ -412,7 +407,6 @@ function videoClick(e) {
 
 function fileViewer(filetype, file, key) {
     $('#my-video').css("display","none");
-    console.log(file);
     switch (filetype) {
         case 'application/pdf':
             $('#file-view').hide();

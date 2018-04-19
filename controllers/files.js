@@ -202,9 +202,8 @@ const getDirectoryTree = (req, rootPath) => {
  */
 const registerSharedPermission = (userId, filePath, shareToken, req) => {
     // check whether sharing is enabled for given file
-    return api(req).get('/files/', {qs: {key: filePath, shareToken: shareToken}}).then(res => {
+    return api(req).get('/files/', {qs: {key: encodeURI(filePath), shareToken: shareToken}}).then(res => {
         let file = res.data[0];
-
         // verify given share token
         if (!file || file.shareToken !== shareToken) {
             // owner permits sharing of given file
@@ -277,9 +276,8 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
 
 // delete file
 router.delete('/file', function (req, res, next) {
-    const {name, dir = ''} = req.body;
     const data = {
-        path: dir + name,
+        path: req.body.key,
         fileType: null,
         action: null
     };
@@ -307,11 +305,10 @@ router.get('/file', function (req, res, next) {
     let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
         return requestSignedUrl(req, data).then(signedUrl => {
-            console.log(signedUrl); // todo: here a wrong signed-url is processed!
             return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
                 if (download && download !== 'undefined') {
                     res.type('application/octet-stream');
-                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(data.path));
+                    res.set('Content-Disposition', 'attachment;filename=' + encodeURI(pathUtils.basename(data.path)));
                 } else if (signedUrl.header['Content-Type']) {
                     res.type(signedUrl.header['Content-Type']);
                 }
@@ -378,7 +375,6 @@ router.delete('/directory', function (req, res) {
 router.get('/my/', FileGetter, function (req, res, next) {
     let files = res.locals.files.files;
     files.map(file => {
-        console.log(file);
         let ending = file.name.split('.').pop();
         file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
     });
