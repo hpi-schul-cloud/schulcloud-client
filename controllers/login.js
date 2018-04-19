@@ -77,7 +77,6 @@ router.all('/', function (req, res, next) {
                         return e;
                     });
                 } catch(e) {
-                    console.log(e);
                     // just catching the blog-error
                 }
 
