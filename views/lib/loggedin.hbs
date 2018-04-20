@@ -45,7 +45,7 @@
                     {{#each sidebarItems}}
                         <li>
                             <a class="{{this.class}}" href="{{this.link}}"
-                                data-container=".navtooltips" data-toggle="tooltip" data-placement="right" data-title="{{this.name}}">
+                                 title="{{this.name}}">
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -56,7 +56,7 @@
                                         {{#each this.children}}
                                             <li>
                                                 <a class="subitem {{this.class}}" href="{{this.link}}"
-                                                    data-container=".navtooltips" data-toggle="tooltip" data-placement="right" data-title="{{this.name}}">
+                                                    title="{{this.name}}">
                                                     <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                                     <span class="link-name">{{this.name}}</span>
                                                 </a>
@@ -78,7 +78,7 @@
         {{#ifeq currentRole "Demo"}}
             <section class="demo">
                 <div class="alert alert-warning" role="alert">
-                    <p>Dies ist ein Demoaccount. Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</p>
+                    <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
                 </div>
             </section>
         {{/ifeq}}

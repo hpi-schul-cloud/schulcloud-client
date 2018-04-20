@@ -2,7 +2,7 @@
     <label>Zur Abgabe hochgeladene Dateien</label>
     <br>
     <ul class="list-group-files d-flex flex-row">
-        {{#each @root.submission.fileIds}}
+        {{#each this.submission.fileIds}}
             <li class="list-group-item">
                 <i class="fa fa-file" aria-hidden="true"></i> {{this.name}}
                 <span class="fa-active">
@@ -11,14 +11,16 @@
                     data-method="download">
                     <i class="fa fa-cloud-download"></i>
                     </a>
+                    {{#if ../deletionAllowed}}
                         <a href="/files/file/"
                             target="_blank"
                             data-method="delete-file"
                             data-file-name="{{this.name}}"
-                            data-file-path="{{this.path}}"
+                            data-file-key="{{this.key}}"
                             data-file-id="{{this._id}}">
                         <i class="fa fa-trash-o"></i>
                     </a>
+                    {{/if}}
                 </span>
             </li>
         {{/each}}
