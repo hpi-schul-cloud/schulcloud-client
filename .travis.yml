@@ -17,7 +17,7 @@ install:
 - npm install
 before_script:
 - gulp
-- BACKEND_URL=https://beta.schul-cloud.org:9000 pm2 start bin/www
+- pm2 start bin/www
 - sleep 5
 - chmod +x diff.sh
 - chmod +x frontend_test.sh
