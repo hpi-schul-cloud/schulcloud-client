@@ -304,6 +304,7 @@ body.fullscreen{
         top:0;
         left:0;
         right: 0;
+        min-height: 100vh;
         z-index: 101;
         padding: 16px;
         background: #fff;
@@ -393,6 +394,14 @@ footer {
 
             .input-group {
                 display: none;
+                .search-field{
+                    width: calc(100% - 33px);
+                    display: inline-block;
+                    margin-top: -2px;
+                }
+                .btn-secondary{
+                    float: none;
+                }
             }
 
             .input-group.active {

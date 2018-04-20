@@ -6,7 +6,7 @@ addons:
   chrome: stable
   firefox: latest
 env:
-- BACKEND_URL=https://schul-cloud.org:8080/ SC_DEMO_USER_PASSWORD=schulcloud
+- SC_DEMO_USER_PASSWORD=schulcloud
 before_install:
 - npm install pm2 -g
 - export DISPLAY=:99.0
