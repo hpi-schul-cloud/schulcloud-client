@@ -1,6 +1,6 @@
 {
   "name": "schulcloud-client",
-  "version": "0.1.0",
+  "version": "0.12.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
@@ -69,7 +69,8 @@
     "gulp-optimize-js": "^1.1.0",
     "gulp-plumber": "^1.1.0",
     "gulp-rimraf": "^0.2.1",
-    "gulp-sass": "git+https://github.com/schul-cloud/gulp-sass.git",
+    "gulp-sass": "^4.0.1",
+    "gulp-sass-grapher": "^0.1.4",
     "gulp-uglify": "^2.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",

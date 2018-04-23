@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 
 h3 {
     color: $primaryColor;
@@ -25,7 +25,12 @@ hgroup {
 
 .section-partner {
     h5 {
+        color: $primaryColor !important;
+        margin-top: 20px;
+    }
+    h4 {
         color: $primaryColor;
+        font-weight: bold;
         margin-top: 20px;
     }
     ul {

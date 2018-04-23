@@ -1,19 +1,21 @@
 <section class="section-evaluation tab-view">
     <nav class="tab-links">
-		<a id="submission-tab-link" class="tab-link active">Abgabe</a>
-		{{#ifvalue @root.teacherId value=@root.currentUser._id}}
-			<a id="comment-tab-link" 	class="tab-link">Bewertung</a>
-		{{/ifvalue}}
+        <a id="submission-tab-link" class="tab-link active">Abgabe</a>
+        {{#if @root.isTeacher}}
+            <a id="comment-tab-link" 	class="tab-link">Bewertung</a>
+        {{/if}}
         {{#if this.submission}}
             <a id="discussion-tab-link" class="tab-link">Diskussion</a>
         {{/if}}
-	</nav>
-	<div class="tabs">
-		<div id="submission" class="tab-content active">
-			<div class="comment">
+    </nav>
+    <div class="tabs">
+        <div id="submission" class="tab-content active">
+            <div class="comment">
                 {{#if this.submission}}
-                    {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false}}{{/embed}}
-                    <hr>
+                    {{#ifneq 0 (arrayLength this.submission.fileIds)}}
+                        {{#embed "homework/components/submission_uploaded_files" deletionAllowed=false submission=../submission}}{{/embed}}
+                        <hr>
+                    {{/ifneq}}
                     <div class="ckcontent print">
                         <div class="btn btn-secondary btn-print mb-1"
                             data-toggle="tooltip" title="Abgabe drucken">
@@ -27,11 +29,15 @@
             </div>
         </div>
         <div id="comment" class="tab-content">
-            {{#ifvalue @root.teacherId value=@root.currentUser._id}}
+            {{#if @root.isTeacher}}
                 {{#if this.submission}}
                     <form class="form" method="post" action="/homework/submit/{{this.submission._id}}">
                         <input type="hidden" name="_method" data-force-value="true" value="patch" />
                         <input name="homeworkId" type="hidden" data-force-value="true" value="{{@root._id}}" />
+                        {{#if this.submission.courseGroupId}}
+                            <input name="courseGroupId" type="hidden" value="{{this.submission.courseGroupId._id}}"/>
+                            <input name="teamSubmissionOptions" type="hidden" value="courseGroup"/>
+                        {{/if}}
                 {{else}}
                     <form class="form" method="post" action="/homework/submit">
                         <input type="hidden" name="_method" data-force-value="true" value="post" />
@@ -63,8 +69,8 @@
                         <p>Kein Bewertungstext vorhanden.</p>
                     {{/if}}
                 </div>
-            {{/ifvalue}}
-		</div>
+            {{/if}}
+        </div>
         {{#if this.submission}}
             {{> 'homework/discussion'}}
         {{/if}}

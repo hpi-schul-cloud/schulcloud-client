@@ -46,8 +46,12 @@ aside.nav-sidebar {
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
+        @include media-breakpoint-down(xs) {
+            max-width: 100% !important;
+        }
         .cloud-logo {
             display: inline-block;
+            vertical-align: top;
             width: 45px;
             height: 30px;
             margin-bottom: -5px;
@@ -63,11 +67,13 @@ aside.nav-sidebar {
                 margin-right: 0;
             }
         }
-        span {
+        .sc-title{
+            display: inline-block;
+            max-width: calc(100% - 4px);
+            word-break: break-word;
             @include media-breakpoint-down(md) {
                 display: none;
             }
-
             @include media-breakpoint-down(xs) {
                 display: inline-block;
             }
@@ -219,7 +225,10 @@ header {
 
 .content-wrapper {
     width: 100%;
-    min-height:calc(100vh - 104px);
+    min-height:calc(100vh - 112px);
+    @include media-breakpoint-down(xs) {
+        min-height:calc(100vh - 143px);
+    }
     height:auto;
     float: left;
     padding-left: 260px;
@@ -272,6 +281,36 @@ header {
     p {
         padding-top: 7px;
         font-weight: 900;
+    }
+}
+
+
+body.fullscreen{
+    .btn-fullscreen{
+        position: fixed;
+        top: 8px;
+        right: 8px;
+        z-index: 99999;
+        color: #fff !important;
+        background-color: $secondaryColor !important;
+        opacity: .5;
+        transition: all .3s ease-in-out;
+        &:hover{
+            opacity: 1;
+        }
+    }
+    main#main-content{
+        position: absolute;
+        top:0;
+        left:0;
+        right: 0;
+        min-height: 100vh;
+        z-index: 101;
+        padding: 16px;
+        background: #fff;
+    }
+    .modal-backdrop{
+        display: none
     }
 }
 
@@ -355,6 +394,14 @@ footer {
 
             .input-group {
                 display: none;
+                .search-field{
+                    width: calc(100% - 33px);
+                    display: inline-block;
+                    margin-top: -2px;
+                }
+                .btn-secondary{
+                    float: none;
+                }
             }
 
             .input-group.active {
@@ -417,15 +464,16 @@ footer {
     }
 }
 
-.dropdowns {
+.navbar-nav {
     .btn-thin {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
-    .minimal-dropdown{
+    .minimal-button{
         .dropdown-toggle{
             padding: 10px !important;
             border-radius: 50%;
+            border: none;
             margin-left: -.75rem;
             text-align: center;
             background: transparent;
@@ -442,6 +490,7 @@ footer {
                 top: 0;
                 right: 0px;
             }
+
             &:hover{
                 background-color: rgba(0,0,0,0.1);
             }

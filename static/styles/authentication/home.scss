@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap';
 
 body {
@@ -125,5 +125,11 @@ body {
         .col-md-4{
             margin-bottom: 2rem;
         }
+    }
+    .partner-img {
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 70%
     }
 }

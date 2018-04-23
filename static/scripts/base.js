@@ -72,6 +72,32 @@ function populateModalForm(modal, data) {
     });
 }
 
+function printPart(){
+    $(this).hide();
+    w = window.open();
+    w.document.write($(this).parent(".print").html());
+    w.print();
+    w.close();
+    $(this).show();
+}
+
+function toggleMobileNav(){
+    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+}
+function toggleMobileSearch(){
+    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
+}
+
+var customReady = jQuery.fn.ready;
+jQuery.fn.ready = function(handler) {
+    $(document).on("pageload", handler);
+    return customReady.apply(this, arguments);
+};
+$( window ).on( "load", function () {
+    $(document).trigger("pageload");
+})
 $(document).ready(function () {
     // Bootstrap Tooltips
     $('[data-toggle="tooltip"]').tooltip();
@@ -124,14 +150,8 @@ $(document).ready(function () {
 
 
     // Init mobile nav
-    $('.mobile-nav-toggle').click(function (e) {
-        $('aside.nav-sidebar nav:first-child').toggleClass('active');
-    });
-
-    $('.mobile-search-toggle').click(function (e) {
-        $('.search-wrapper .input-group').toggleClass('active');
-        $('.search-wrapper .mobile-search-toggle .fa').toggleClass('fa-search').toggleClass('fa-times');
-    });
+    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
+    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
 
 
     (function (a, b, c) {
@@ -195,15 +215,10 @@ $(document).ready(function () {
     });
 
     // Print Button
-    $('.print .btn-print').click(function () {
-        $(this).html("");
-        w = window.open();
-        w.document.write($(this).parent(".print").html());
-        w.print();
-        w.close();
-        $(this).html("<i class='fa fa-print'></i> Drucken");
-    });
-    
+    document.querySelectorAll('.print .btn-print').forEach(btn => {
+        btn.addEventListener("click", printPart);
+    })
+
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
 });

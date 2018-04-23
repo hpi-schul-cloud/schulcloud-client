@@ -34,7 +34,7 @@
     <a class="content" href="{{this.url}}" alt="Details der Aufgabe: '{{this.name}}'"> 
         <h5 class="title">
             {{#if this.courseId}}
-                [<span>{{this.courseId.name}}</span>] -
+                [<span>{{this.courseId.name}}</span>{{#if this.isSubstitution}} <sub>Vertretung</sub>{{/if}}] -
             {{/if}}
             {{this.name}}
         </h5>
@@ -49,7 +49,7 @@
     <div class="action-group">
     {{#userHasPermission "HOMEWORK_CREATE"}}
         {{! Maybe Teachers create Tasks for other Teachers -> prevent editing by them }}
-        {{#ifvalue ../this.teacherId value=../this.currentUser._id}}
+        {{#if ../this.isTeacher}}
             {{#each ../this.actions}}
                 {{#if this.method}}
                     <a class="btn btn-secondary btn-sm {{this.class}}"
@@ -66,7 +66,7 @@
                     </a>
                 {{/if}}
             {{/each}}
-        {{/ifvalue}}
+        {{/if}}
     {{/userHasPermission}}
     {{#inArray this.currentUser._id this.archived}}
         {{#userHasPermission "HOMEWORK_CREATE"}}

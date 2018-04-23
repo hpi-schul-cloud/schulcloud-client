@@ -1,4 +1,4 @@
-@import '../lib/colors.scss';
+@import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
 .tab-content#submissions {
@@ -155,5 +155,14 @@
       color: $primaryColor;
       cursor: pointer;
     }
+  }
+}
+
+.submissionLabel {
+  color: $primaryColor;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  .fa {
+    padding-right: 0.5rem;
   }
 }
