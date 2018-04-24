@@ -1,92 +1,127 @@
 <section class="section-about">
     <h4>Über die HPI Schul-Cloud</h4>
     <p>Das
-        <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen
+        <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter
+        der Leitung von Prof. Dr. Christoph Meinel zusammen
         mit dem
-        <a href="https://www.mint-ec.de/" target="_blank">MINT EC</a>, einem bundesweiten Exzellenznetzwerk von knapp 300 Schulen und unterstützt vom Bundesministerium für
-        Forschung und Bildung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrer und Schüler
-        in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, so zwar so, wie Apps über Smartphones
+        <a href="https://www.mint-ec.de/" target="_blank">MINT EC</a>, einem bundesweiten Exzellenznetzwerk von knapp
+        300 Schulen und unterstützt vom Bundesministerium für
+        Forschung und Bildung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrer und
+        Schüler
+        in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, so zwar so, wie Apps über
+        Smartphones
         oder Tabletts nutzbar sind.</p>
     <ul>
         <li>Mehr Informationen:
             <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf"
-                title="Initiates file download" target="_blank">Kurzbeschreibung "Die Schul-Cloud" (.pdf)</a>
+               title="Initiates file download" target="_blank">Kurzbeschreibung "Die Schul-Cloud" (.pdf)</a>
         </li>
     </ul>
-    <br /> 
-        <p>Das Projekt Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die Pilotphase, in der 27 MINT-EC-Schulen die Schul-Cloud testen und nutzen. Ab Mai 2018 startet die Roll-out-Phase, in der die Nutzung und Testung der Schul-Cloud stufenweise auf alle 300 Schulen aus dem nationalen Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Seit dem wächst auch unser <a href="https://schul-cloud.org/team">Team</a> stetig!</p>
-    <br />
-    <h4>Unsere Pilotschulen</h4>
+    <br/>
+    <p>Das Projekt Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die
+        Pilotphase, in der 27 MINT-EC-Schulen die Schul-Cloud testen und nutzen. Ab Mai 2018 startet die Roll-out-Phase,
+        in der die Nutzung und Testung der Schul-Cloud stufenweise auf alle 300 Schulen aus dem nationalen
+        Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Seit dem wächst auch unser <a
+                href="https://schul-cloud.org/team">Team</a> stetig!</p>
+    <br/>
+    <div class="section-partner">
+        <h4>Pilotschulen</h4>
+        <h5>Best Practice Schulen</h5>
+        <div class="container">
+            <div class="row">
+                {{#each schools.bp}}
+                    <div class="partner-box-wrapper col-xs-6 col-md-3">
+                        <div class="partner-box">
+                            <a href="{{{url}}}" target="_blank">
+                                <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                    {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                            </a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+
+        <h5>weitere Pilotschulen</h5>
+        <div class="container">
+            <div class="row">
+                {{#each schools.others}}
+                    <div class="partner-box-wrapper col-xs-6 col-md-3">
+                        <div class="partner-box">
+                            <a href="{{{url}}}" target="_blank">
+                                <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                    {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                            </a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+    <br/>
+    <p>Im Rahmen des Projekts wird die Schul-Cloud durch drei Arbeitsgruppen des MINT-EC-Themenclusters Schul-Cloud
+        unterstützt: AG IT, Schulleitung & Unterricht.</p><br/>
+    <p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer Pilotschullehrkräfte
+        bedanken!</p>
+    <br/>
+    <h4>Bildungswissenschaftliche Begleitung</h4>
+    <p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die
+        Unterrichtsgestaltung
+        mit verfügbarem digitalen Lernmaterial aus der Schul-Cloud und dem Erkenntnisgewinn über die digitale
+        Unterrichtsgestaltung
+        mit der Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die
+        <a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142">Universität Tübingen</a> eine
+        wissenschaftliche
+        Befragung der Pilotschulen zu Potenzialen der Schul-Cloud durch. Zum anderen gestaltet das
+        <a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html">Georg-Eckert-Institut</a>
+        aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
+        Nutzungskonzept für
+        die pädagogisch-didaktisch sinnvolle Anwendung der Schul-Cloud.</p>
+    <br/>
+    <h4>Veröffentlichungen</h4>
+    <br/>
+    <p><b>2017</b></p>
     <ul>
-        <li><a href="https://www.dg-info.de/" target="_blank">Dientzenhofer-Gymnasium</a></li>
-        <li> <a href="http://www.elisabethenschule.net/eli-news.html" target="_blank">Elisabethenschule Frankfurt am Main</a></li>
-        <li><a href="https://www.fsg-arnsberg.de/" target="_blank">Franz-Stock-Gymnasium Arnsberg</a></li>
-        <li><a href="http://www.gauss-worms.de/index.php?id=2" target="_blank">Gauß-Gymnasium Worms</a></li>
-        <li><a href="http://www.gts-bellevue.de/ganztagsschule/" target="_blank">Gemeinschaftsschule Bellevue Saarbrücken</a></li>
-        <li><a href="http://lg-ks.de/" target="_blank">Georg-Christoph-Lichtenberg-Schule Kassel</a></li>
-        <li><a href="https://www.carolinum.de" target="_blank">Gymnasium Carolinum Neustrelitz</a></li>
-        <li><a href="http://www.marianum-meppen.de/" target="_blank">Gymnasium Marianum Meppen</a></li>
-        <li><a href="https://www.gymnasium-saarburg.de/" target="_blank">Gymnasium Saarburg</a></li>
-        <li><a href="https://www.hhgym.de/" target="_blank">Heinrich-Hertz-Gymnasium Berlin</a></li>
-        <li><a href="https://www.hsg-kl.de/" target="_blank">Hohenstaufen-Gymnasium Kaiserslautern</a></li>
-       <li><a href="https://www.jkg-lebach.de/jkg/" target="_blank">Johannes-Kepler-Gymnasium Lebach</a></li>
-       <li> <a href="http://www.sailer-gymnasium.de/" target="_blank">Johann-Michael-Sailer-Gymnasium Dillingen</a></li>
-       <li><a href="http://www.klaus-groth-schule.de/" target="_blank">Klaus-Groth-Schule Neumünster</a></li>
-      <li><a href="http://www.lgh-gmuend.de/" target="_blank">Landesgymnasium für Hochbegabte Schwäbisch Gmünd</a></li>
-      <li><a href="https://www.landesschule-pforta.de/index.php" target="_blank">Landesschule Pforta Naumburg</a></li>
-      <li><a href="http://leiningergymnasium.de/" target="_blank">Leininger-Gymnasium Grünstadt</a></li>
-      <li><a href="http://mcgym.de/startseite.html" target="_blank">Marie-Curie-Gymnasium Ludwigsfelde</a></li>
-      <li><a href="http://www.mls-marburg.de/" target="_blank">Martin-Luther-Schule Marburg</a></li>
-      <li><a href="http://osg-mainz.de/" target="_blank">Otto-Schott-Gymnasium Mainz-Gonsenheim</a></li>
-      <li><a href="http://www.ratsgymnasium-wolfsburg.de/" target="_blank">Ratsgymnasium Wolfsburg</a></li>
-      <li><a href="http://www.schillerschule-hannover.de/" target="_blank">Schillerschule Hannover</a></li>
-      <li><a href="https://www.stiftsgymnasium.de/" target="_blank">Stiftsgymnasium Sindelfingen</a></li>
-      <li><a href="http://www.ursulaschule.de/" target="_blank">Ursulaschule Osnabrück</a></li>
-      <li><a href="https://www.wilhelm-gym.de/" target="_blank">Wilhelm-Gymnasium Braunschweig</a></li>
-      <li><a href="http://www.wilhelm-hittorf-gymnasium.de/aktuelles/" target="_blank">Wilhelm-Hittorf-Gymnasium Münster</a></li>
-      <li><a href="https://www.ostwaldgymnasium.de/index.php" target="_blank">Wilhelm-Ostwald-Schule Gymnasium</a></li>
-    </ul>
-    <br />
-  <p>Im Rahmen des Projekts wird die Schul-Cloud durch drei Arbeitsgruppen des MINT-EC-Themenclusters Schul-Cloud unterstützt: AG IT, Schulleitung & Unterricht.</p><br /> 
- <p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer Pilotschullehrkräfte bedanken!</p> 
-<br /> 
-<h4>Bildungswissenschaftliche Begleitung</h4>  
- <p>Zur pädagogisch-didaktischen Unterstützung des Projekts im Sinne der Entwicklung von Beispielen für die Unterrichtsgestaltung 
- mit verfügbarem digitalen Lernmaterial aus der Schul-Cloud und dem Erkenntnisgewinn über die digitale Unterrichtsgestaltung
- mit der Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die
- <a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142">Universität Tübingen</a> eine wissenschaftliche
- Befragung der Pilotschulen zu Potenzialen der Schul-Cloud durch. Zum anderen gestaltet das
- <a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html">Georg-Eckert-Institut</a> 
- aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein Nutzungskonzept für 
- die pädagogisch-didaktisch sinnvolle Anwendung der Schul-Cloud.</p>     
- <br /> 
- <h4>Veröffentlichungen</h4>
- <br /> 
- <p><b>2017</b></p>
- <ul>
-        <li>Meinel, C., Renz, J., Grella, C., Karn, N. & Hagedorn, C. (2017). <a href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/10385/file/tbhpi116.pdf"
-                title="Initiates file download" target="_blank">Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der Schul-Cloud.</a> Technische Berichte Nr. 116. Potsdam: Universitätsverlag </li>
-                <br /> 
+        <li>Meinel, C., Renz, J., Grella, C., Karn, N. & Hagedorn, C. (2017). <a
+                href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/10385/file/tbhpi116.pdf"
+                title="Initiates file download" target="_blank">Die Cloud für Schulen in Deutschland: Konzept und
+            Pilotierung der Schul-Cloud.</a> Technische Berichte Nr. 116. Potsdam: Universitätsverlag
+        </li>
+        <br/>
         <li>Malyska, V. & Meinel, C. (2017). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
-        <br /> 
-        <li>Grella, C., Karn, N., Renz, J., & Meinel, C. (2017). <a href="https://dl.gi.de/bitstream/handle/20.500.12116/4881/B7%20Schulrechner%20wandern%20in%20die%20Cloud.pdf?sequence=1&isAllowed=y"
-                title="Initiates file download" target="_blank">Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?</a> In: C. Igel et al.(Hrsg.), Bildungsräume, DeLFI 2017 -Die 15. e-Learning Fachtagung Informatik, Lecture Notes in Informatics (LNI) (S. 87 – 98), Bonn: Gesellschaft für Informatik.</li>
-      </ul>
-    <br />
-  <p><b>2018</b></p>
-   <ul>
-        <li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft – Projekt Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule 4.0 (Vol. 37, S. 75–83). München: Oldenbourg.</li>
-        <br />
+        <br/>
+        <li>Grella, C., Karn, N., Renz, J., & Meinel, C. (2017). <a
+                href="https://dl.gi.de/bitstream/handle/20.500.12116/4881/B7%20Schulrechner%20wandern%20in%20die%20Cloud.pdf?sequence=1&isAllowed=y"
+                title="Initiates file download" target="_blank">Schulrechner wandern in die Cloud – Was bedeutet das für
+            die unterschiedlichen Stakeholder?</a> In: C. Igel et al.(Hrsg.), Bildungsräume, DeLFI 2017 -Die 15.
+            e-Learning Fachtagung Informatik, Lecture Notes in Informatics (LNI) (S. 87 – 98), Bonn: Gesellschaft für
+            Informatik.
+        </li>
+    </ul>
+    <br/>
+    <p><b>2018</b></p>
+    <ul>
+        <li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft – Projekt
+            Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule 4.0 (Vol.
+            37, S. 75–83). München: Oldenbourg.
+        </li>
+        <br/>
         <li>Malyska, V. & Meinel, C. (2018). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
     </ul>
-    <br /> 
+    <br/>
     <h4>Aufzeichnungen von Vorträgen</h4>
     <ul>
-     <li><a href="https://www.tele-task.de/series/1149/" target="_blank">Vorträge des 1. Schul-Cloud-Forums (April 2017)</a></li>
-     <li><a href="https://www.tele-task.de/series/1196/" target="_blank">Vorträge des 2. Schul-Cloud-Forums (März 2018)</a></li>
-       </ul>
-    <br /> 
-     <h4>Unsere Auszeichnungen</h4>
-    <p>Ernennung zum <a href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html" target="_blank">„Ausgezeichneten Ort“</a> im bundesweiten Wettbewerb <a href="https://land-der-ideen.de" target="_blank">„Land der Ideen“</a>.</p> 
-    
+        <li><a href="https://www.tele-task.de/series/1149/" target="_blank">Vorträge des 1. Schul-Cloud-Forums (April
+            2017)</a></li>
+        <li><a href="https://www.tele-task.de/series/1196/" target="_blank">Vorträge des 2. Schul-Cloud-Forums (März
+            2018)</a></li>
+    </ul>
+    <br/>
+    <h4>Unsere Auszeichnungen</h4>
+    <p>Ernennung zum <a
+            href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html"
+            target="_blank">„Ausgezeichneten Ort“</a> im bundesweiten Wettbewerb <a href="https://land-der-ideen.de"
+                                                                                    target="_blank">„Land der Ideen“</a>.
+    </p>
+
 </section>
