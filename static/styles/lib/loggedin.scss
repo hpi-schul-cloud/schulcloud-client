@@ -213,7 +213,7 @@ aside.nav-sidebar {
     position: absolute;
     z-index: 5;
     top: 8px;
-    left: 8px;
+    left: 12px;
     padding: 8px;
     font-size: 22px;
     line-height: 22px;
@@ -233,6 +233,12 @@ aside.nav-sidebar {
     }
 }
 
+.content-min-height{
+    min-height: calc(100vh - 154px);
+    @include media-breakpoint-down(xs) {
+        min-height: calc(100vh - 203px);
+    }
+}
 header {
     width:100%;
     float:left;
@@ -243,6 +249,7 @@ header {
 }
 
 .content-wrapper {
+    position: relative;
     display: inline-block;
     width: calc(100vw - 240px);
     height: 100vh;
@@ -466,7 +473,10 @@ footer {
         padding-left: 10px;
         padding-right: 10px;
     }
-
+    .navbar-nav .nav-item {
+        float: none;
+        display: inline-block;
+    }
     .nav-item button, .nav-link {
         line-height: 30px;
 
