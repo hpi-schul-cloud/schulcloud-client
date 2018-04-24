@@ -549,6 +549,22 @@
     "team": [{
         "id": 33,
         "title": "",
+        "firstName": "Thomas",
+        "lastName": "Feldtkeller",
+        "position": "Praktikant",
+        "description": "Thomas hat sein Bachelorstudium am HPI abgeschlossen und arbeitet seit November 2017 bei der Schul-Cloud. Hier kümmert er sich um die Verarbeitung von Daten im Backend und baut Schnittstellen zu anderen Systemen. Privat jongliert er und spielt kompetitiv sowie kooperativ Videospiele.",
+        "pictureUrl": "/images/team/Thomas_Feldtkeller.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 34,
+        "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
         "position": "Studentische Hilfskraft/ Schüler",
@@ -561,9 +577,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },
+      },       
       {
-        "id": 34,
+        "id": 35,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -584,7 +600,7 @@
     "name": "Alumni",
     "style": "small",
     "team": [{
-      "id": 35,
+      "id": 36,
       "title": "",
       "firstName": "Carl",
       "lastName": "Gödecken",
@@ -600,7 +616,7 @@
       "longDesc": false
        },
      {
-        "id": 36,
+        "id": 37,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -616,7 +632,7 @@
         "longDesc": false
       },
      {
-        "id": 37,
+        "id": 38,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -632,7 +648,7 @@
         "longDesc": false
       },
       {
-        "id": 38,
+        "id": 39,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
