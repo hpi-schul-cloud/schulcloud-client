@@ -291,7 +291,7 @@
         "lastName": "Baron",
         "position": "Student",
         "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
-        "pictureUrl": "/images/login-left-cropped.png",
+        "pictureUrl": "/images/team/Raoul_Baron.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -302,22 +302,6 @@
       },
       {
         "id": 18,
-        "title": "",
-        "firstName": "Pascal",
-        "lastName": "Führlich",
-        "position": "Studentische Hilfskraft",
-        "description": "Pascal hat am Hasso-Plattner-Institut seinen Bachelor in IT-Systems Enginering abgeschlossen und ist nun Master-Student am HPI. Seit Oktober 2017 ist er als studentische Hilfskraft an der Software-Entwicklung der Schul-Cloud beteiligt. Zu seinen Hobbys gehören Volleyball, Billard und Gitarre spielen, außerdem begeistert er sich für Gesellschaftsspiele.",
-        "pictureUrl": "/images/team/Pascal_Fuehrlich.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 19,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -333,7 +317,7 @@
         "longDesc": false
       },
      {
-        "id": 20,
+        "id": 19,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -350,7 +334,7 @@
       },        
              
       {
-        "id": 21,
+        "id": 20,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -366,7 +350,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 21,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -382,7 +366,7 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "id": 22,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -398,7 +382,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 23,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
@@ -414,7 +398,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 24,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -430,7 +414,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 25,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -446,7 +430,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 26,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -462,7 +446,7 @@
         "longDesc": false
       },       
       {
-        "id": 28,
+        "id": 27,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -478,7 +462,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 28,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -493,6 +477,22 @@
         },
         "longDesc": false
       },
+       {
+        "id": 29,
+        "title": "",
+        "firstName": "Florian Michael",
+        "lastName": "Kunz",
+        "position": "Studentische Hilfskraft",
+        "description": "Florian arbeitete über 20 Jahre als Geschäftsführer bei einem Internetdienstleister, bevor er 2017 das BWL-Studium an der Universität Potsdam begann. Neben dem Studium arbeitet er für das Projekt Schul-Cloud, wobei zu seinen Aufgaben die Recherche und Dokumentation zählen. In seiner Freizeit ist er häufig mit dem Fahrrad unterwegs oder treibt Sport in und auf dem Wasser.",
+        "pictureUrl": "/images/team/Florian_Kunz.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
       {
         "id": 30,
         "title": "",
