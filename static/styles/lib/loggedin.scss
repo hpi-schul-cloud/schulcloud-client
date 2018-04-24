@@ -4,6 +4,13 @@
 
 body {
     background: white !important;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0 !important;
+}
+body > * {
+    font-size: 1rem;
+    white-space: normal;
 }
 .navtooltips{
     display: none;
@@ -16,16 +23,11 @@ body {
 }
 aside.nav-sidebar {
     color: #727272;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    display: inline-block;
     width: 240px;
-    margin-top: 0;
-    margin-bottom: 0;
+    height: 100vh;
+    margin: 0;
     background-color: #c3c1c1;
-    z-index: 100;
-    float: left;
 
     @include media-breakpoint-down(md) {
         width: 60px;
@@ -33,7 +35,8 @@ aside.nav-sidebar {
 
     @include media-breakpoint-down(xs) {
         width: 100%;
-        position: relative;
+        height: 0;
+        display: block;
     }
 
     .sc-branding {
@@ -88,10 +91,20 @@ aside.nav-sidebar {
         @include media-breakpoint-down(xs) {
             overflow: hidden;
             max-height: 0px;
-            transition: all 0.4s;
-
+            position: absolute;
+            z-index: 1;
+            background: lightgrey;
+            transition: max-height .3s ease-in-out;
+            .sc-branding{
+                box-sizing: border-box;
+                padding-left: 54px;
+                .cloud-logo{
+                    display: none;
+                }
+            }
             &.active {
-                max-height: 800px;
+                transition: max-height .3s ease-in-out;
+                max-height: 100vh;
             }
         }
 
@@ -194,23 +207,29 @@ aside.nav-sidebar {
             }
         }
     }
-
-    .mobile-nav-toggle {
-        display: none;
-        bottom: -55px;
-        height: 55px;
-        width: 50px;
-        position: absolute;
-        left: 0px;
-        padding-top: 5px;
-        font-size: 22px;
-        line-height: 50px;
-        text-align: center;
-        cursor: pointer;
-
-        @include media-breakpoint-down(xs) {
-            display: block;
+}
+.mobile-nav-toggle {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 8px;
+    left: 8px;
+    padding: 8px;
+    font-size: 22px;
+    line-height: 22px;
+    cursor: pointer;
+    transition: all .2s linear;
+    .fa{
+        transition: all .2s linear;
+    }
+    &.active{
+        transform: rotate(90deg);
+        .fa{
+            color: #fff;
         }
+    }
+    @include media-breakpoint-down(xs) {
+        display: block;
     }
 }
 
@@ -224,24 +243,18 @@ header {
 }
 
 .content-wrapper {
-    width: 100%;
-    min-height:calc(100vh - 112px);
-    @include media-breakpoint-down(xs) {
-        min-height:calc(100vh - 143px);
-    }
-    height:auto;
-    float: left;
-    padding-left: 260px;
-    padding-right: 20px;
+    display: inline-block;
+    width: calc(100vw - 240px);
+    height: 100vh;
     overflow: auto;
+    padding: 0;
 
     @include media-breakpoint-down(md) {
-        padding-left: 80px;
+        width: calc(100vw - 60px);
     }
 
     @include media-breakpoint-down(xs) {
-        padding-left: 0px;
-        padding-right: 0px;
+        width: 100vw;
     }
 
     .school-data {
@@ -273,7 +286,6 @@ header {
 
 .demo {
     text-align: center;
-    padding-left: 60px;
 
     .alert-warning {
         height: 57.375px;

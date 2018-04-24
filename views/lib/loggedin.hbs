@@ -70,20 +70,20 @@
                     {{/each}}
                 </ul>
             </nav>
+        </aside>
+
+        <section class="content-wrapper">
             <a class="mobile-nav-toggle">
                 <i class="fa fa-bars"></i>
             </a>
-        </aside>
+            {{#ifeq currentRole "Demo"}}
+                <section class="demo">
+                    <div class="alert alert-warning" role="alert">
+                        <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
+                    </div>
+                </section>
+            {{/ifeq}}
 
-        {{#ifeq currentRole "Demo"}}
-            <section class="demo">
-                <div class="alert alert-warning" role="alert">
-                    <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
-                </div>
-            </section>
-        {{/ifeq}}
-
-        <section class="content-wrapper">
             {{> "lib/components/notification"}}
             <nav class="topbar navbar hide-inline">
 
@@ -234,6 +234,10 @@
             <main id="main-content" class="container-fluid">
                 {{#block "page"}}{{/block}}
             </main>
+
+            {{#unless inline}}
+                {{#embed "lib/footer"}}{{/embed}}
+            {{/unless}}
 
             {{#embed "lib/components/modal-form" class="feedback-modal"}}
                 {{#content "fields"}}
