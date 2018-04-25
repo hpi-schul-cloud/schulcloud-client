@@ -5,7 +5,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const fs = require('fs');
 
 const session = require('express-session');
 
@@ -59,8 +58,6 @@ app.use(function(req, res, next){
     delete req.session.notification;
     next();
 });
-
-app.locals.criticalLogedinCss = fs.readFileSync(__dirname + '/build/styles/lib/loggedin.critical.css', "utf8");
 
 const methodOverride = require('method-override');
 app.use(methodOverride('_method')); // for GET requests

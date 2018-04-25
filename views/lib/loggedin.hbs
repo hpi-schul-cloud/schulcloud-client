@@ -2,7 +2,7 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
-        <style>{{{@root.criticalLogedinCss}}}</style>
+        <style>body{background:#fff!important;overflow:hidden;white-space:nowrap;font-size:0!important}body>*{font-size:1rem;white-space:normal}aside.nav-sidebar{color:#727272;display:inline-block;width:240px;height:100vh;margin:0;background-color:#c3c1c1;vertical-align:top}aside.nav-sidebar ul.sidebar-list{height:100vh;margin:0;padding:0}@media (max-width:991px){aside.nav-sidebar{width:60px}}@media (max-width:575px){aside.nav-sidebar{width:100%;height:0;display:block}}.content-wrapper{position:relative;display:inline-block;width:calc(100vw - 240px);height:100vh;overflow:auto;padding:0}@media (max-width:991px){.content-wrapper{width:calc(100vw - 60px)}}@media (max-width:575px){.content-wrapper{width:100vw}}</style>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
