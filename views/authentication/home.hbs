@@ -27,13 +27,15 @@
 
                             <h4>Herzlich willkommen bei der Schul-Cloud !</h4>
                             <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von knapp 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+                            <!-- TODO: use a red theme as soon as available -->
                             <video-player
                                 configuration='{
                                     "streams" : [
                                       {
                                         "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
                                         "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
-                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg"
+                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
+                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
                                       }
                                     ],
                                     "language": "de",
@@ -42,8 +44,9 @@
                                     "initialState": {
                                       "volume": 0.75
                                     },
+                                    "videoPreload": false,
                                     "userPreferences" : {
-                                      "quality" : "hd",
+                                      "quality" : "sd",
                                       "playbackRate" : 1.0
                                     }
                                 }'>
@@ -70,13 +73,15 @@
                                 <li>Mehr Informationen: <a href="https://publishup.uni-potsdam.de/opus4-ubp/files/10385/tbhpi116.pdf" title="Initiates file download" target="_blank">Technischer Bericht "Die Schul-Cloud" (.pdf)</a></li>
                             </ul>
                             <br />
+                            <!-- TODO: use a red theme as soon as available -->
                             <video-player
                                 configuration='{
                                     "streams" : [
                                       {
                                         "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
                                         "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
-                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg"
+                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
+                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
                                       }
                                     ],
                                     "language": "de",
@@ -85,8 +90,9 @@
                                     "initialState": {
                                       "volume": 0.75
                                     },
+                                    "videoPreload": false,
                                     "userPreferences" : {
-                                      "quality" : "hd",
+                                      "quality" : "sd",
                                       "playbackRate" : 1.0
                                     }
                                 }'>
