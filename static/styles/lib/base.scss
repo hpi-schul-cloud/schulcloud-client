@@ -108,8 +108,19 @@ footer.small-footer {
             width: auto;
             max-width: 175px;
             height: auto;
-            max-height: 44px;
+            max-height: 44px; 	
         }
+	}
+}
+
+@-webkit-keyframes fa-spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+		transform: rotate(0deg);
+	}
+	100% {
+		-webkit-transform: rotate(359deg);
+		transform: rotate(359deg);
 	}
 }
 

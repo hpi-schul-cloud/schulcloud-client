@@ -61,6 +61,11 @@ function fullscreenBtnClicked(){
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 $(document).ready(function () {
+    window.addEventListener("beforeunload", function(e){
+        const loaderClassList = document.querySelector(".preload-screen").classList;
+        loaderClassList.remove("hidden");
+    })
+
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');
