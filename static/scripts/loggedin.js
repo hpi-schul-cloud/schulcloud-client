@@ -38,6 +38,15 @@ function softNavigate(newurl, selector = 'html', listener, callback){
         }
     });
 }
+function toggleMobileNav(){
+    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+    this.classList.toggle('active');
+}
+function toggleMobileSearch(){
+    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
+}
 function togglePresentationMode(){
     const contentArea = $('#main-content');
     const toggleButton = $('.btn-fullscreen');
@@ -173,6 +182,10 @@ $(document).ready(function () {
         $qrbox.empty();
         $qrbox.append(image);
     });
+
+    // Init mobile nav
+    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
+    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
 
     if(!fullscreen){
         fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
