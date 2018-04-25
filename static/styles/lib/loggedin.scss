@@ -28,6 +28,7 @@ aside.nav-sidebar {
     height: 100vh;
     margin: 0;
     background-color: #c3c1c1;
+    vertical-align: top;
 
     @include media-breakpoint-down(md) {
         width: 60px;
