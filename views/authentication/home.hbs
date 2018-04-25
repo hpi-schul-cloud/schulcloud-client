@@ -6,6 +6,9 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/login.js" type="text/javascript" defer></script>
+
+        <script src="/scripts/video-player/load-video-player.js" type="text/javascript" defer></script>
+
         <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
     {{/content}}
 
@@ -24,9 +27,27 @@
 
                             <h4>Herzlich willkommen bei der Schul-Cloud!</h4>
                             <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von knapp 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
-                            <p class="embed-responsive embed-responsive-16by9">
-                                <iframe src="https://www.youtube.com/embed/nS4a_bTv5_Y?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="" class="embed-responsive-item"></iframe>
-                            </p>
+                            <video-player
+                                configuration='{
+                                    "streams" : [
+                                      {
+                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
+                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
+                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg"
+                                      }
+                                    ],
+                                    "language": "de",
+                                    "theme" : "light-green",
+                                    "videoAlignment" : "height",
+                                    "initialState": {
+                                      "volume": 0.75
+                                    },
+                                    "userPreferences" : {
+                                      "quality" : "hd",
+                                      "playbackRate" : 1.0
+                                    }
+                                }'>
+                            </video-player>
                             
 
                             <ul>
@@ -49,9 +70,27 @@
                                 <li>Mehr Informationen: <a href="https://publishup.uni-potsdam.de/opus4-ubp/files/10385/tbhpi116.pdf" title="Initiates file download" target="_blank">Technischer Bericht "Die Schul-Cloud" (.pdf)</a></li>
                             </ul>
                             <br />
-                            <p class="embed-responsive embed-responsive-16by9">
-                                <iframe src="https://www.youtube.com/embed/QHLJERDWW5s?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen="" class="embed-responsive-item"></iframe>
-                            </p>
+                            <video-player
+                                configuration='{
+                                    "streams" : [
+                                      {
+                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
+                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
+                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg"
+                                      }
+                                    ],
+                                    "language": "de",
+                                    "theme" : "light-green",
+                                    "videoAlignment" : "height",
+                                    "initialState": {
+                                      "volume": 0.75
+                                    },
+                                    "userPreferences" : {
+                                      "quality" : "hd",
+                                      "playbackRate" : 1.0
+                                    }
+                                }'>
+                            </video-player>
                             
                             <h4>Vorteile der Schul-Cloud</h4>
                             <ul>
