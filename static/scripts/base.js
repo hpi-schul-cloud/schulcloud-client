@@ -83,6 +83,7 @@ function printPart(){
 
 function toggleMobileNav(){
     document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+    this.classList.toggle('active');
 }
 function toggleMobileSearch(){
     document.querySelector('.search-wrapper .input-group').classList.toggle('active');
