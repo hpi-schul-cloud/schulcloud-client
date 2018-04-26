@@ -92,12 +92,13 @@ aside.nav-sidebar {
 
         @include media-breakpoint-down(xs) {
             overflow: hidden;
-            max-height: 0px;
+            height: 100vh;
             position: absolute;
             z-index: 9998;
             background: lightgrey;
             box-shadow: 0 2px 5px rgba(0,0,0,.26);
-            transition: max-height .3s ease-in-out;
+            transform: translateY(-102%);
+            transition: transform .3s ease-in-out;
             .sc-branding{
                 box-sizing: border-box;
                 padding-left: 54px;
@@ -106,8 +107,8 @@ aside.nav-sidebar {
                 }
             }
             &.active {
-                transition: max-height .3s ease-in-out;
-                max-height: 100vh;
+                transition: transform .3s ease-in-out;
+                transform: none;
             }
         }
 
@@ -221,13 +222,13 @@ aside.nav-sidebar {
     font-size: 22px;
     line-height: 22px;
     cursor: pointer;
-    transition: transform .2s linear, z-index 0s linear .2s;
+    transition: transform .3s linear, z-index 0s linear .3s;
     .fa{
-        transition: color .2s linear;
+        transition: color .1s linear .1s;
     }
     &.active{
         z-index: 9999;
-        transition: transform .2s linear;
+        transition: transform .3s linear;
         transform: rotate(90deg);
         .fa{
             color: #fff;
