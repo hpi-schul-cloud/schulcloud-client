@@ -38,6 +38,12 @@ const getActions = (item, path) => {
             alt: 'bearbeiten'
         },
         {
+            link: path + item._id + "/copy",
+            class: 'btn-copy',
+            icon: 'copy',
+            alt: 'Kopieren'
+        },
+        {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
@@ -636,7 +642,22 @@ router.get('/new', function(req, res, next) {
     });
 });
 
-router.get('/:assignmentId/edit', function(req, res, next) {
+router.get('/:assignmentId/copy', function (req, res, next) {
+    api(req).get('/homework/copy/' + req.params.assignmentId)
+    .then(assignment => {
+        if(assignment._id){
+            return res.redirect("/homework/" + assignment._id + "/edit");
+        }else{
+            let error = new Error("Failed to copy task!");
+            error.status = 500;
+            return next(error);
+        }
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.get('/:assignmentId/edit', function (req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
