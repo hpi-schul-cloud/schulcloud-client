@@ -13,7 +13,7 @@
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <section>
-                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
+                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4>
                         {{#if ../substitutionCourses}}
                             {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
                         {{else}}
@@ -28,10 +28,12 @@
                 {{/userHasPermission}}
 
                 {{#userHasPermission "COURSE_EDIT"}}
+                <div class="col-xs-12">
                     <div class="row padding-top">
                         <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                     </div>
-            {{/userHasPermission}}
+                </div>    
+                {{/userHasPermission}}
         </section>
     {{/content}}
 {{/extend}}
