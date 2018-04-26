@@ -271,11 +271,11 @@
     "team": [{
       "id": 16,
       "title": "",
-      "firstName": "Jessica",
-      "lastName": "Pfarr",
-      "position": "Juristische Unterstützung, HPI",
-      "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
-      "pictureUrl": "/images/team/Jessica_Pfarr.jpg",
+      "firstName": "Boris",
+      "lastName": " Andreev",
+      "position": "Studentische Hilfskraft",
+      "description": "Boris kommt ursprünglich aus Bulgarien und macht derzeit seinen Bachelor in IT-Systems Engineering am Hasso-Plattner-Institut. Im Projekt Schul-Cloud ist im Bereich des Web Developments angestellt. Neben dem Studium und der Arbeit nutzt er seine Freizeit indem er viel reist und Freunde im Ausland besucht. Auch bereitet es ihm viel Freude seine Meme Seite Веро мемета auf Facebook am laufen zu halten.",
+      "pictureUrl": "/images/team/Boris_Andreev.jpg",
       "priority": 0,
       "social": {
         "facebook": "",
@@ -339,7 +339,7 @@
         "firstName": "Dominik",
         "lastName": "Jaekel",
         "position": "Student",
-        "description": "Dominik ist im fünften Semester am Hasso-Plattner-Institut und im Team des Bachelorprojektes. Dort schreibt er die Blogs und arbeitet am Content-Editor. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
+        "description": "Dominik ist im sechsten Semester am Hasso-Plattner-Institut und im Team des Bachelorprojektes. Dort schreibt er die Blogs und arbeitet am Content-Editor. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
         "pictureUrl": "/images/team/Dominik_Jaekel.jpg",
         "priority": 0,
         "social": {
@@ -451,7 +451,7 @@
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
         "position": "Studentin",
-        "description": "Juliane arbeitet für das Bachelorprojek-Team und studiert im fünften Semester am HPI. Sie ist verantwortlich für die Integration und die Funktionalitäten des Content-Editors. Ansonsten ist sie sportlich aktiv und spielt am liebsten Tennis.",
+        "description": "Juliane arbeitet für das Bachelorprojek-Team und studiert im sechsten Semester am HPI. Sie ist verantwortlich für die Integration und die Funktionalitäten des Content-Editors. Ansonsten ist sie sportlich aktiv und spielt am liebsten Tennis.",
         "pictureUrl": "/images/team/Juliane_Kleinknecht2.jpg",
         "priority": 0,
         "social": {
@@ -577,9 +577,25 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 35,
+        "title": "",
+        "firstName": "Jessica",
+        "lastName": "Pfarr",
+        "position": "Juristische Unterstützung",
+        "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
+        "pictureUrl": "/images/team/Jessica_Pfarr.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
+      {
+        "id": 36,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -600,7 +616,7 @@
     "name": "Alumni",
     "style": "small",
     "team": [{
-      "id": 36,
+      "id": 37,
       "title": "",
       "firstName": "Carl",
       "lastName": "Gödecken",
@@ -616,7 +632,7 @@
       "longDesc": false
        },
      {
-        "id": 37,
+        "id": 38,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -632,7 +648,7 @@
         "longDesc": false
       },
      {
-        "id": 38,
+        "id": 39,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -648,7 +664,7 @@
         "longDesc": false
       },
       {
-        "id": 39,
+        "id": 40,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
