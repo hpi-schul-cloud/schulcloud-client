@@ -360,7 +360,7 @@ router.post('/directory', function (req, res, next) {
 // delete directory
 router.delete('/directory', function (req, res) {
     const data = {
-        path: req.body.dir
+        path: req.body.key
     };
 
     api(req).delete('/fileStorage/directories/', {
