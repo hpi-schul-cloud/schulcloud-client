@@ -64,7 +64,11 @@ $(document).ready(function () {
     window.addEventListener("beforeunload", function(e){
         const loaderClassList = document.querySelector(".preload-screen").classList;
         loaderClassList.remove("hidden");
-    })
+    });
+    window.addEventListener("pageshow", function(e){
+        const loaderClassList = document.querySelector(".preload-screen").classList;
+        loaderClassList.add("hidden");
+    });
 
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
