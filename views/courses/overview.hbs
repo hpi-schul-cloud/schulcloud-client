@@ -1,8 +1,16 @@
 {{#extend "lib/loggedin"}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/courses.js" type="text/javascript" defer></script>
+    {{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+    {{/content}}
+
     {{#content "page"}}
         <section class="section-courses">
                 {{#if courses}}
-                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen"}}
+                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
                 {{else}}
                     <div class="col-xs-12">
                         <p class="text-muted text-center">
@@ -32,6 +40,17 @@
                         <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                     </div>
             {{/userHasPermission}}
+
+
+            {{#embed "lib/components/modal" class="member-modal"}}
+                {{#content "body"}}
+                        <ol id="member-modal-body">
+
+                        </ol>
+                {{/content}}
+            {{/embed}}
+
+
         </section>
     {{/content}}
 {{/extend}}

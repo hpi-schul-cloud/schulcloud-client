@@ -194,8 +194,8 @@ router.get('/', function(req, res, next) {
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
-            course.students = course.userIds;
-            course.studentsAmount = course.userIds.length;
+            course.members = course.userIds;
+            course.memberAmount = course.userIds.length;
 
             return course;
         });

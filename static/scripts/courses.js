@@ -1,4 +1,19 @@
 $(document).ready(function () {
+
+
+    $('.btn-member').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var courseName = $(this).attr('data-name');
+        let modalData = $(this).attr('data-modal');
+        let $memberModal = $('.member-modal');
+
+        populateModal($memberModal, '.modal-title', 'Teilnehmer vom Kurs: '.concat(courseName));
+        populateModal($memberModal, '#member-modal-body', modalData);
+
+        $memberModal.modal('show');
+    });
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
