@@ -86,6 +86,16 @@ function printPart(){
     $(this).show();
 }
 
+function toggleMobileNav(){
+    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+    this.classList.toggle('active');
+}
+function toggleMobileSearch(){
+    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
+}
+
 var customReady = jQuery.fn.ready;
 jQuery.fn.ready = function(handler) {
     $(document).on("pageload", handler);
@@ -146,14 +156,8 @@ $(document).ready(function () {
 
 
     // Init mobile nav
-    $('.mobile-nav-toggle').click(function (e) {
-        $('aside.nav-sidebar nav:first-child').toggleClass('active');
-    });
-
-    $('.mobile-search-toggle').click(function (e) {
-        $('.search-wrapper .input-group').toggleClass('active');
-        $('.search-wrapper .mobile-search-toggle .fa').toggleClass('fa-search').toggleClass('fa-times');
-    });
+    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
+    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
 
 
     (function (a, b, c) {
