@@ -4,6 +4,10 @@
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
     {{/content}}
 
+    {{#content "critical-styles" mode="append"}}
+        {{{inline "/styles/lib/loggedin.critical.css"}}}
+    {{/content}}
+
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
 

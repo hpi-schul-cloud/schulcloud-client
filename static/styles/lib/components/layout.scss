@@ -1,0 +1,38 @@
+@import "./bootstrap/scss/_variables";
+@import "./bootstrap/scss/mixins/_breakpoints";
+
+body{
+    background: white !important;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0 !important;
+    margin: 0;
+}
+body > * {
+    font-size: 1rem;
+    white-space: normal;
+}
+
+.content-wrapper {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: calc(100vw - 240px);
+    height: 100vh;
+    overflow: auto;
+    padding: 0;
+
+    @include media-breakpoint-down(md) {
+        width: calc(100vw - 60px);
+    }
+
+    @include media-breakpoint-down(xs) {
+        width: 100vw;
+    }
+    .content-min-height{
+        min-height: calc(100vh - 159px);
+        @include media-breakpoint-down(xs) {
+            min-height: calc(100vh - 208px);
+        }
+    }
+}
