@@ -1,4 +1,7 @@
 {{#extend "lib/loggedin"}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inline "/styles/courses/course-overview.critical.css"}}}
+    {{/content}}
     {{#content "page"}}
         <section class="section-courses">
                 {{#if courses}}

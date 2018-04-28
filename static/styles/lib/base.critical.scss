@@ -2,9 +2,6 @@
 @import "./fontawesome/font-awesome";
 
 * {
-    /* This value replaces fallback when font has loaded */
-    font-display: swap;
-
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
     hyphens: auto;
@@ -14,4 +11,7 @@
 }
 .modal{
     display: none;
+}
+.card-deck-row>div {
+    margin-bottom: 30px;
 }

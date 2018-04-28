@@ -1,7 +1,4 @@
 @import '../lib/colors';
-.move-handle {
-    cursor: move;
-}
 
 .section-course {
     h4 {
@@ -10,9 +7,6 @@
     .lesson-date {
         line-height: 24px;
         float: right;
-    }
-    .description {
-        margin-bottom: 40px;
     }
     .delete-material {
         float: right;
@@ -67,30 +61,6 @@
     }
     .new-course-time-template {
         display: none;
-    }
-}
-
-.card-topic {
-    cursor: pointer;
-    .card-header {
-        padding: .5rem .75rem;
-    }
-    .btn-hidden-toggle {
-        font-size: 20px;
-    }
-    .topic-label {
-        margin: 0;
-    }
-    .input-group-btn {
-        padding-right: 10px;
-        float: right;
-    }
-    .input-group {
-        align-items: center;
-    }
-    .right-btn-group {
-        margin-left: auto;
-        white-space: nowrap;
     }
 }
 
