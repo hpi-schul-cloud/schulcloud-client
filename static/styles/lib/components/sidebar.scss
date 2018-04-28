@@ -1,5 +1,6 @@
-@import "./bootstrap/scss/_variables";
-@import "./bootstrap/scss/mixins/_breakpoints";
+@import '../colors';
+@import "../bootstrap/scss/_variables";
+@import "../bootstrap/scss/mixins/_breakpoints";
 
 aside.nav-sidebar {
     color: #727272;

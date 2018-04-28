@@ -1,3 +1,6 @@
+@import '../colors';
+@import "../bootstrap/scss/_variables";
+@import "../bootstrap/scss/mixins/_breakpoints";
 footer {
     width: 100%;
     position: inherit;
