@@ -11,8 +11,9 @@
                                      fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}','{{this.name}}');">
                             <div class="card-title">
                                 <div class="col-sm-3 no-padding">
-                                    <div class="file-preview"
-                                         style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
+                                    <noscript class="lazyload">
+                                        <div class="file-preview" style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px; background-size: 50px;"></div>
+                                    </noscript>
                                 </div>
                                 <a class="title">
                                     {{this.name}}
