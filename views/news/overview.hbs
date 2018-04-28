@@ -1,4 +1,7 @@
 {{#extend "news/news"}}
+    {{#content "critical-styles" mode="append"}}
+        {{inline "/styles/news/news.critical.css"}}
+    {{/content}}
     {{#content "page"}}
         <div class="route-news">
                 {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
