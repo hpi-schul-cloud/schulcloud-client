@@ -14,6 +14,7 @@ const layouts = require("handlebars-layouts");
 const handlebarsWax = require('handlebars-wax');
 
 const app = express();
+global.__basedir = __dirname;
 app.use(compression());
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';

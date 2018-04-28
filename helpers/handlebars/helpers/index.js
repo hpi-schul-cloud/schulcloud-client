@@ -4,13 +4,12 @@ const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 const fs = require('fs');
-const path = require('path');
 moment.locale('de');
 
 module.exports = {
     pagination: require('./pagination'),
     inline: (filename, options) => {
-        const prefix = path.dirname(require.main.filename)+"/../build";
+        const prefix = __basedir + "/build";
         console.log("include critical css:",prefix+filename);
         //return true;
         return fs.readFileSync(prefix + filename, 'utf-8');
