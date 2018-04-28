@@ -9,7 +9,7 @@ moment.locale('de');
 module.exports = {
     pagination: require('./pagination'),
     inline: (filename, options) => {
-        const prefix = __basedir + "/build";
+        const prefix = global.__basedir + "/build";
         console.log("include critical css:",prefix+filename);
         //return true;
         return fs.readFileSync(prefix + filename, 'utf-8');

@@ -597,7 +597,7 @@ const userFilterSettings = function (defaultOrder) {
             ]
         },
     ];
-}
+};
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -637,7 +637,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 
     let itemsPerPage = 25;
-    let filterQuery = {}
+    let filterQuery = {};
     if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
         if (filterQuery["$limit"]) {
@@ -710,7 +710,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 
     let itemsPerPage = 25;
-    let filterQuery = {}
+    let filterQuery = {};
     if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
         if (filterQuery["$limit"]) {
