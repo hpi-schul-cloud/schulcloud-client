@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
+    "gulp": "gulp watch",
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch build/ --ext js,hbs ./bin/www",
     "debug": "nodemon --inspect=0.0.0.0:9310 --watch controllers/ --watch helpers/ --watch views/ --ext js,hbs ./bin/www",
     "lint": "eslint ./bin ./controllers ./helpers ./test ./api.js ./app.js --ext .js --fix",
     "startd": "echo 'Do you mean 'npm run watch'?'",
-    "test": "npm run lint && npm run mocha",
+    "test": "npm run lint && gulp && npm run mocha",
     "mocha": "mocha test/ --recursive",
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js"
   },
