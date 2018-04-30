@@ -31,7 +31,6 @@
             line-height: 50px;
             text-align: center;
             cursor: pointer;
-
         }
 
         @include media-breakpoint-down(xs) {
@@ -61,4 +60,8 @@
             }
         }
     }
+}
+.pagination-wrapper {
+    text-align: center;
+    width: 100%;
 }
