@@ -1,0 +1,71 @@
+@import '../lib/colors';
+
+.section-team {
+  .team-container {
+    box-sizing: border-box;
+    max-width: 1400px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    height: auto;
+    @media screen and (min-width: 767px) {
+      padding: 0 30px;
+    }
+  }
+  .h-100 {
+    text-align: center;
+    position: relative;
+    min-height: 350px;
+    width: 100%;
+  }
+  .img-out {
+    padding-top: 20px;
+    display: inline-block;
+    text-align: center;
+  }
+  .circular {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 150px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+  .person-wrapper {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  .person {
+    border: 1px solid #d3d3d3;
+    height: 150px;
+    text-align: center;
+    transition: all .5s;
+    cursor: pointer;
+    overflow: hidden;
+    &:hover {
+      z-index: 1;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
+      transition: box-shadow .2s ease,transform .2s ease,z-index 0s 0s ease;
+    }
+  }
+  .person-title {
+    color: #000;
+    font-size: 2em;
+  }
+  .person-desc {
+    color: rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-size: .8em;
+    letter-spacing: 2px;
+  }
+  .container {
+    margin-left: 0;
+  }
+  h5 {
+    color: $primaryColor;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

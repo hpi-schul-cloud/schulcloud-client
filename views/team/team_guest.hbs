@@ -4,6 +4,13 @@
         <link rel="stylesheet" href="/styles/authentication/home.css"/>
         <link rel="stylesheet" href="/styles/team/team.css"/>
     {{/content}}
+     {{#content "critical-styles" mode="append"}}
+        {{{inline "/styles/authentication/home.critical.css"}}}
+        {{{inline "/styles/team/team.critical.css"}}}
+        header a[href='/team']{
+            background-color: #f8a41b;
+        }
+    {{/content}}
 
     {{#content "scripts" mode="append"}}
         <script type="text/javascript" src="/scripts/team.js" defer></script>

@@ -3,6 +3,9 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/team/team.css"/>
     {{/content}}
+     {{#content "critical-styles" mode="append"}}
+        {{{inline "/styles/team/team.critical.css"}}}
+    {{/content}}
 
     {{#content "page"}}
         {{#embed "team/team" loggedin="true"}}{{/embed}}
