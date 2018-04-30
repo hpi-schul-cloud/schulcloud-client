@@ -55,6 +55,7 @@ body > * {
 aside.nav-sidebar {
     color: #727272;
     display: inline-block;
+    vertical-align: top;
     width: 240px;
     height: 100vh;
     margin: 0;
@@ -285,6 +286,7 @@ header {
 .content-wrapper {
     position: relative;
     display: inline-block;
+    vertical-align: top;
     width: calc(100vw - 240px);
     height: 100vh;
     overflow: auto;
@@ -296,7 +298,7 @@ header {
 
     @include media-breakpoint-down(xs) {
         width: 100vw;
-    
+    }
     .school-data {
         padding-top: 11px;
     }
@@ -338,7 +340,6 @@ header {
 
 
 body.fullscreen{
-    
     .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle{
         display: none;
     }
