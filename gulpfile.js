@@ -92,6 +92,16 @@ gulp.task('styles', () => {
     firstRun = false;
 })
 
+gulp.task('critical-styles', () => {
+    var themeFile = `./theme/${themeName()}/style.scss`;
+    beginPipe('./static/styles/**/*.critical.{css,sass,scss}')
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
+        .pipe(sass({sourceMap: false}))
+        .pipe(minify())
+        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
+        .pipe(gulp.dest('./build/styles'));
+})
+
 //copy fonts
 gulp.task('fonts', () => {
     beginPipe('./static/fonts/**/*.*')
