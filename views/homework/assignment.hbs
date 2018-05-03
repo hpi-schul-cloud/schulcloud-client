@@ -3,43 +3,41 @@
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
     <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-            $(document).ready(function () {
-                $('.userinfo').click(function () {
-                    $(this).parent('.usersubmission.active').addClass('clicked');
-                    $('.usersubmission.active').removeClass('active');
-                    $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
-                    $('.usersubmission.clicked').removeClass('clicked');
+        window.addEventListener('load', function() {
+            $('.userinfo').click(function () {
+                $(this).parent('.usersubmission.active').addClass('clicked');
+                $('.usersubmission.active').removeClass('active');
+                $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
+                $('.usersubmission.clicked').removeClass('clicked');
 
-                    $('.usersubmission td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-left');
-                    $('.usersubmission.active td:last-of-type i.fa-chevron-left').removeClass('fa-chevron-left').addClass('fa-chevron-down');
-                });
-
-                // change tab
-                $('.tab-view>.tab-links>.tab-link').click(function (e) {
-                    var range = $(this).closest(".tab-view");
-                    range.find('>.tab-links .tab-link.active').removeClass('active');
-                    $(this).addClass('active');
-                    range.find('>.tabs>.tab-content.active').removeClass('active');
-                    range.find(">.tabs" + ">#" + this.id.replace("-tab-link", "") + ".tab-content").addClass('active');
-                });
-
-
-                //set initial tab-view by URL-Parameter
-                function getParameterByName(name) {
-                    return decodeURIComponent(window.location.hash.replace("#activetabid=", ""));
-                }
-
-                if (getParameterByName('activetabid')) {
-                    var id = getParameterByName('activetabid')
-                    var range = $('#' + id).closest(".tab-view");
-                    range.find('>.tab-links .tab-link.active').removeClass('active');
-                    range.find('>.tabs>.tab-content.active').removeClass('active');
-
-                    range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
-                    $('#' + id).addClass('active');
-                }
+                $('.usersubmission td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-left');
+                $('.usersubmission.active td:last-of-type i.fa-chevron-left').removeClass('fa-chevron-left').addClass('fa-chevron-down');
             });
+
+            // change tab
+            $('.tab-view>.tab-links>.tab-link').click(function (e) {
+                var range = $(this).closest(".tab-view");
+                range.find('>.tab-links .tab-link.active').removeClass('active');
+                $(this).addClass('active');
+                range.find('>.tabs>.tab-content.active').removeClass('active');
+                range.find(">.tabs" + ">#" + this.id.replace("-tab-link", "") + ".tab-content").addClass('active');
+            });
+
+
+            //set initial tab-view by URL-Parameter
+            function getParameterByName(name) {
+                return decodeURIComponent(window.location.hash.replace("#activetabid=", ""));
+            }
+
+            if (getParameterByName('activetabid')) {
+                var id = getParameterByName('activetabid')
+                var range = $('#' + id).closest(".tab-view");
+                range.find('>.tab-links .tab-link.active').removeClass('active');
+                range.find('>.tabs>.tab-content.active').removeClass('active');
+
+                range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
+                $('#' + id).addClass('active');
+            }
         });
     </script>
     <script>
@@ -79,15 +77,19 @@
                         {{#ifvalue teacherId value=currentUser._id}}
                             <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                         {{else}}
-                            <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
-                            <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
-                            {{#if publicSubmissions}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
                                 <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
                             {{else}}
-                                {{#if submission}}
-                                    <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
+                                <a id="submission-tab-link" class="tab-link" href="#activetabid=submission" alt="Deine Abgabe">Abgabe</a>
+                                <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
+                                {{#if publicSubmissions}}
+                                    <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
+                                {{else}}
+                                    {{#if submission}}
+                                        <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
+                            {{/inArray}}
                         {{/ifvalue}}
                     {{/if}}
                 </nav>
@@ -99,15 +101,19 @@
                         {{#ifvalue teacherId value=currentUser._id}}
 {{> 'homework/submissions'}}
                         {{else}}
-{{> 'homework/submission'}}
-{{> 'homework/feedback'}}
-                            {{#if publicSubmissions}}
+                            {{#inArray currentUser._id courseId.substitutionIds}}
 {{> 'homework/submissions'}}
                             {{else}}
-                                {{#if submission}}
+{{> 'homework/feedback'}}
+{{> 'homework/submission'}}
+                                {{#if publicSubmissions}}
+{{> 'homework/submissions'}}
+                                {{else}}
+                                    {{#if submission}}
 {{> 'homework/discussion'}}
+                                    {{/if}}
                                 {{/if}}
-                            {{/if}}
+                            {{/inArray}}
                         {{/ifvalue}}
                     {{/if}}
                 </div>

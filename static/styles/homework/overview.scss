@@ -1,6 +1,7 @@
-﻿@import '../lib/colors.scss';
+@import '../lib/colors';
+@import '../lib/filter/filter';
 @import '../lib/bootstrap/scss/bootstrap-grid';
-@import 'homework.scss';
+@import 'homework';
 
 .route-homework {
   position: relative;
@@ -86,5 +87,5 @@
   }
 }
 .tooltip .tooltip-inner{
-    text-align: right;
+  text-align: right;
 }

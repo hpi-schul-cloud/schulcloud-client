@@ -1,11 +1,10 @@
 @import "./colors";
-@import "components";
 @import "./sc-theme/sc-theme";
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
 @import "./fontawesome/font-awesome";
-@import "./chosen/bootstrap-chosen.scss";
+@import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
 @import "./toggle/bootstrap-toogle.min.css";
 
@@ -90,6 +89,7 @@ footer.small-footer {
 	clear: both;
 	padding: 30px 0px;
 	font-size: 0.9em;
+	margin-bottom: 5px;
 	@include media-breakpoint-down(xs) {
 		background: $colorBeige;
 

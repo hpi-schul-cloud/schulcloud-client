@@ -8,6 +8,9 @@
     {{#content "scripts" mode="append"}}
         <script src="/vendor/introjs/intro.min.js" type="text/javascript" defer></script>
         <script src="/scripts/login.js" type="text/javascript" defer></script>
+
+        <script src="/scripts/video-player/load-video-player.js" type="text/javascript" defer></script>
+
         <script type="text/javascript" src="/vendor/mailchimp.js" data-dojo-config="usePlainJson: true, isDebug: false" defer></script>
     {{/content}}
 
@@ -26,26 +29,40 @@
                             <div class="intro" data-step="1" data-intro="Hier können Sie einen Überblick über die Vorteile der Arbeit mit der Schul-Cloud einsehen. Außerdem erhalten Sie hier allgemeine Informationen über unser Projekt.">
 
                             <h4>Herzlich willkommen bei der Schul-Cloud !</h4>
-                            <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit dem <a href="https://www.mint-ec.de/" target="_blank">MINT EC</a>, einem bundesweiten Exzellenznetzwerk von knapp 300 Schulen und unterstützt vom Bundesministerium für Forschung und Bildung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrer und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, so zwar so, wie Apps über Smartphones oder Tabletts nutzbar sind.</p>
+                            <p>Das  <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter der Leitung von Prof. Dr. Christoph Meinel zusammen mit <a href="https://www.mint-ec.de/" target="_blank">MINT-EC</a>, dem nationalen Excellence-Schulnetzwerk von knapp 300 Schulen bundesweit und unterstützt vom Bundesministerium für Bildung und Forschung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrkräfte und Schüler in jedem Unterrichtsfach auch moderne digitale Lehr- und Lerninhalte nutzen können, und zwar so, wie Apps über Smartphones oder Tablets nutzbar sind.</p>
+                            <!-- TODO: use a red theme as soon as available -->
+                            <video-player
+                                configuration='{
+                                    "streams" : [
+                                      {
+                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hd/video.mp4",
+                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/sd/video.mp4",
+                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/trailer-poster.jpg",
+                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/trailer2018/hls/video.m3u8"
+                                      }
+                                    ],
+                                    "language": "de",
+                                    "theme" : "dark-red",
+                                    "loadFontAwesome" : false,
+                                    "videoAlignment" : "height",
+                                    "initialState": {
+                                      "volume": 0.75,
+                                      "quality" : "hls",
+                                      "playbackRate" : 1.0
+                                    },
+                                    "videoPreload": false,
+                                    "userPreferences" : {
+                                    },
+                                    "slides": []
+                                }'>
+                            </video-player>
+                            
+
                             <ul>
                                 <li>Mehr Informationen: <a href="https://hpi.de/fileadmin/user_upload/hpi/dokumente/publikationen/projekte/schul-cloud_beschreibung_website.pdf" title="Initiates file download" target="_blank">Kurzbeschreibung "Die Schul-Cloud" (.pdf)</a></li>
                             </ul>
 
-                            <div class="jumbotron">
-                                <h4>Einladung zum Schul-Cloud-Forum am 1. und 2. März</h4>
-                                
-                                <p>Bevor im Sommer 2018 die Ausweitung des Schul-Cloud-Projekts auf 300 MINT-EC Schulen eingeleitet wird, lädt das Hasso-Plattner-Institut alle interessierten MINT-EC Schulen, Schulträger, Kultusministerien, Inhalte-Anbieter und die Fachöffentlichkeit zum Schul-Cloud-Forum 2018 ein. Neben der Vorstellung der bisherigen Ergebnisse des Projekts und der Vorhaben der nächsten Phase sollen die Möglichkeiten des Einsatzes von Cloud-Strukturen und -Diensten an Schulen sowie die Digitalisierung im Bildungswesen diskutiert werden:</p>
-                                
-                                <p>01. März 2018 (ca. 12.30-17:30 Uhr): Für alle interessieren Gäste stehen Good Practice Beispiele für den effektiven Einsatz von Technologie im Unterricht im Mittelpunkt. Zudem werden weitere Impulse zur Digitalisierung in der (schulischen) Bildung aus politischer und wissenschaftlicher Sicht gegeben.</p>
-
-                                <p>02. März 2018 (ca. 09.00-15:00 Uhr): Für alle MINT-EC Schulen werden unterschiedliche Workshops rund um die Schul-Cloud veranstaltet, von einer ersten Einführung in die Nutzung bis zur Anwendung konkreter Tools und Funktionen.</p>
-                                
-                                <p><a href="https://hpi.de/nc/veranstaltungen/hpi-veranstaltungen/2018/schul-cloud-forum-2018/anmeldung.html" target="_blank">Hier geht’s zur Anmeldung</a>. Wir freuen uns über Ihre Teilnahme</p>
-                            </div>
-                        </div>
-
                             <h4>Niedrigschwelliger Zugang zu digitalen Unterrichtsinhalten</h4>
-                            <img src="/images/login-left-cropped.png" alt="Schul-Cloud Illustration #1" class="pull-right illustration">
                             <p>Eine moderne Lehr- und Lerninfrastruktur ist unabdingbar, um die digitale Transformation im Bildungssektor zum Erfolg zu führen und Kinder schon im Schulalter optimal auf das Leben in einer zunehmend digitalen Gesellschaft vorzubereiten.</p>
 
                             <h4>Ansatzpunkte der Schul-Cloud</h4>
@@ -60,6 +77,33 @@
                             <ul>
                                 <li>Mehr Informationen: <a href="https://publishup.uni-potsdam.de/opus4-ubp/files/10385/tbhpi116.pdf" title="Initiates file download" target="_blank">Technischer Bericht "Die Schul-Cloud" (.pdf)</a></li>
                             </ul>
+                            <br />
+                            <!-- TODO: use a red theme as soon as available -->
+                            <video-player
+                                configuration='{
+                                    "streams" : [
+                                      {
+                                        "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hd/video.mp4",
+                                        "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/sd/video.mp4",
+                                        "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/explainer-poster.jpg",
+                                        "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/SCHUL-CLOUD/explainer2018/hls/video.m3u8"
+                                      }
+                                    ],
+                                    "language": "de",
+                                    "theme" : "dark-red",
+                                    "loadFontAwesome" : false,
+                                    "videoAlignment" : "height",
+                                    "initialState": {
+                                      "volume": 0.75,
+                                      "quality" : "hls",
+                                      "playbackRate" : 1.0
+                                    },
+                                    "videoPreload": false,
+                                    "userPreferences" : {
+                                    },
+                                    "slides": []
+                                }'>
+                            </video-player>
                             
                             <h4>Vorteile der Schul-Cloud</h4>
                             <ul>
@@ -104,7 +148,7 @@
                     <section id="partner" class="card">
                         <div class="card-block">
                             <h4 class="card-title">Projektdurchführung</h4>
-                            <div class="card-text">
+                            <div class="card-text partner-img">
                                 <a href="https://hpi.de" target="_blank">
                                     <img src="/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid" style="padding: 20px;">
                                 </a>
