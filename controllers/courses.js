@@ -157,14 +157,14 @@ router.get('/', function(req, res, next) {
                 substitutionIds: res.locals.currentUser._id
             }
         }),
-	  	api(req).get('/courses/', {
-	  		qs: {
-				$or: [
-					{ userIds: res.locals.currentUser._id },
-					{ teacherIds: res.locals.currentUser._id }
-		  		]
-			}
-	  	})
+        api(req).get('/courses/', {
+            qs: {
+                $or: [
+                    { userIds: res.locals.currentUser._id },
+                    { teacherIds: res.locals.currentUser._id }
+               ]
+            }
+        })
     ]).then(([substitutionCourses, courses]) => {
         substitutionCourses = substitutionCourses.data.map(course => {
             course.url = '/courses/' + course._id;
