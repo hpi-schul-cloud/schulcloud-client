@@ -83,7 +83,7 @@ gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
         .pipe(gulpif(!firstRun, sassGrapher.ancestors()))
-        .pipe(header(fs.readFileSync(themeFile, 'utf8'))) // READ: https://github.com/schul-cloud/schulcloud-client/pull/588
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
         .pipe(filelog("PROCESS: "))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
