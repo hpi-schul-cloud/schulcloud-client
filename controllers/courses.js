@@ -157,6 +157,14 @@ router.get('/', function(req, res, next) {
                 substitutionIds: res.locals.currentUser._id
             }
         }),
+        api(req).post('/mails/', {
+            json: {
+                headers: {},
+                email: "katrin.klein@student.hpi.de",
+                subject: "Schul cloud testmail",
+                content: "test für nodejs mai"
+            }
+        }),
         api(req).get('/courses/', {
             qs: {
                 $or: [
@@ -177,8 +185,10 @@ router.get('/', function(req, res, next) {
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
+        
             return course;
         });
+
 
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
