@@ -1,7 +1,6 @@
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
-const sauce = require('../../sauce');
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
@@ -33,9 +32,9 @@ module.exports = {
         browser.url(base_url + 'homework/new/');
         browser.expect.element('h4').text.to.contain('Aufgabe hinzufügen').before(10000);
         browser
-            .setValue('input[name=name]', 'Test Aufgabe')
-            .click('button[type=submit]:nth-child(2)')
-            .pause(1000);
+            .setValue('input[name=name]', 'Test Aufgabe');
+        browser.useXpath().click('//*[@id="homework-form"]/div[7]/button[2]');
+        browser.expect.element('h4').text.to.contain('Aufgaben').before(10000);
     },
     'Delete Homework': function (browser) {
         browser.useXpath().click("//*[contains(text(), 'Test Aufgabe')]");
@@ -48,6 +47,5 @@ module.exports = {
     },
     'Schul-Cloud End': function (browser) {
         browser.end();
-    },
-    tearDown: sauce
+    }
 };

@@ -11,8 +11,8 @@ for i in $CHANGED_FILES; do
 	if [[ $i =~ "views/homework" && ! $HOMEWORK ]] || [[ $i =~ "controllers/homework.js" && ! $HOMEWORK ]];
 	then
 	    export HOMEWORK=true
-		echo "./node_modules/.bin/nightwatch -c nightwatch.conf.js --test test/nightwatch/homework/homework_create.js --env chrome" >> frontend_test.sh
-	    echo "Added homework tests"
+		#echo "./node_modules/.bin/nightwatch -c nightwatch.conf.js --test test/nightwatch/homework/homework_create.js --env chrome" >> frontend_test.sh
+	    echo "Deprecated for now"
 	elif [[ $i =~ "views/courses" && ! $COURSES ]] || [[ $i =~ "controllers/courses.js" && ! $COURSES ]];
 	then
 	    export COURSES=true

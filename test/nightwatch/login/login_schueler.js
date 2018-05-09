@@ -1,7 +1,6 @@
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const student_name = process.env.STUDENT_NAME || 'schueler@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
-const sauce = require('../../sauce');
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
@@ -84,6 +83,5 @@ module.exports = {
     },
     'Schul-Cloud End': function (browser) {
         browser.end();
-    },
-    tearDown: sauce
+    }
 };

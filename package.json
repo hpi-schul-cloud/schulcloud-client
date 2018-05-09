@@ -11,7 +11,7 @@
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test/mocha/ --recursive",
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js",
-    "frontend": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
+    "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -78,7 +78,7 @@
     "gulp-uglify": "^2.0.1",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
-    "nightwatch": "^0.9.19",
+    "nightwatch": "^0.9.21",
     "node-sass": "^4.7.2",
     "pump": "^1.0.2",
     "selenium-server": "^3.11.0",
