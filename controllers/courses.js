@@ -170,7 +170,7 @@ router.get('/', function(req, res, next) {
                 $or: [
                     { userIds: res.locals.currentUser._id },
                     { teacherIds: res.locals.currentUser._id }
-                ]
+               ]
             }
         })
     ]).then(([substitutionCourses, courses]) => {

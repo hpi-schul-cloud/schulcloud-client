@@ -236,9 +236,9 @@ aside.nav-sidebar {
 }
 
 .content-min-height{
-    min-height: calc(100vh - 154px);
+    min-height: calc(100vh - 159px);
     @include media-breakpoint-down(xs) {
-        min-height: calc(100vh - 203px);
+        min-height: calc(100vh - 208px);
     }
 }
 header {
@@ -632,5 +632,12 @@ footer {
     .delimiter {
         background-color: $colorGrey;
         height: 12px;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .intro-trigger {
+        display: none;
     }
 }
