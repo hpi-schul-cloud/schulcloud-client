@@ -749,17 +749,15 @@ class TopicInternal extends TopicBlock {
 
     /**
      * generates the url-pattern with following criteria
-     * a) it's not the topic itself
-     * b) no personal links (personal files, settings, admin-area)
-     * c) /edit, /new and /add pages
-     * d) has to be in the current system
+     * a) has to be in the current system
+     * b) /edit, /new and /add pages
+     * c) no personal links (personal files, settings, admin-area)
+     * d) it's not the topic itself
      */
     generatePattern() {
-        let topicId = $contentBlocksContainer.data('topicid') || 'undefined'; // set String for prevent blocking a newly created topic
-        return `((?!.*topics/${topicId}).*)` + // a
-        `((?!.*/files/my).*)((?!.*/account).*)((?!.*/administration).*)` + // b
-        `((?!.*/edit).*)((?!.*/new/).*)((?!.*/add).*)` + // c
-        `((${window.location.origin}).*)`; // d
+        const topicId = $contentBlocksContainer.data('topicid') || 'undefined'; // set String for prevent blocking a newly created topic
+        //                  a)                           b)        c)                                d)
+        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|account|administration|topics\/${topicId})).*`
     }
 
     /**
