@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
 
+// Schools
+const schools = require('../helpers/content/schools.json');
+
 router.get('/', function (req, res, next) {
 
     authHelper.isAuthenticated(req).then(isAuthenticated => {
@@ -14,7 +17,8 @@ router.get('/', function (req, res, next) {
         return Promise.resolve(template);
     }).then( template =>
         res.render(template, {
-            inline: !!template.includes('guest')
+            inline: !!template.includes('guest'),
+            schools
         })
     );
 });

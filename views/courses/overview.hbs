@@ -23,15 +23,16 @@
                                 </p>
                             </div>
                         {{/if}}
-                        </div>
                     </section>
                 {{/userHasPermission}}
 
                 {{#userHasPermission "COURSE_EDIT"}}
+                <div class="col-xs-12">
                     <div class="row padding-top">
                         <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                     </div>
-            {{/userHasPermission}}
+                </div>    
+                {{/userHasPermission}}
         </section>
     {{/content}}
 {{/extend}}

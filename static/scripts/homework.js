@@ -298,7 +298,7 @@ $(document).ready(function() {
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', {
-                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
                     path: file.signedUrl.header['x-amz-meta-path'] + '/',
                     name: file.name,
                     type: file.type,
@@ -365,8 +365,7 @@ $(document).ready(function() {
                 url: $buttonContext.attr('href'),
                 type: 'DELETE',
                 data: {
-                    name: $buttonContext.data('file-name'),
-                    dir: $buttonContext.data('file-path')
+                    key: $buttonContext.data('file-key')
                 },
                 success: function (_) {
                     // delete reference in submission
