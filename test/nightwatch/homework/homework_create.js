@@ -34,7 +34,9 @@ module.exports = {
         browser
             .setValue('input[name=name]', 'Test Aufgabe');
         browser.useXpath().click('//*[@id="homework-form"]/div[7]/button[2]');
-        browser.expect.element('h4').text.to.contain('Aufgaben').before(10000);
+        browser.useCss().waitForElementPresent("#titlebar h4", 10000);
+        browser.assert.containsText("#titlebar h4", "Aufgaben");
+        browser.assert.title("Aufgaben - Schul-Cloud");
     },
     'Delete Homework': function (browser) {
         browser.useXpath().click("//*[contains(text(), 'Test Aufgabe')]");

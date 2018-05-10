@@ -7,6 +7,7 @@ addons:
   firefox: latest
 env:
 - SC_DEMO_USER_PASSWORD=schulcloud
+- NIGHTWATCH=true
 before_install:
 - npm install pm2 -g
 - export DISPLAY=:99.0
