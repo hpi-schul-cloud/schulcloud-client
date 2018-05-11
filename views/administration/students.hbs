@@ -2,7 +2,14 @@
     {{#content "page"}}
         <div class="route-administration">
             <section class="section-school section-default">
-                <div class="container-fluid">
+                <div><feathers-filter id="filter"
+                                      filter='{{filterSettings}}'
+                                      add-label='Filter hinzufügen'
+                                      apply-label='Übernehmen'
+                                      cancle-label='Abbrechen'
+                                      handle-url='true'
+                /></div>
+                <div class="container-fluid ajaxcontent">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             {{> "lib/components/table" head=head body=body}}
@@ -13,13 +20,13 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <button type="submit" class="sc-btn sc-btn-primary btn-add">
+                            <button type="submit" class="sc-btn sc-btn-primary sc-btn-add">
                                 Schüler hinzufügen
                             </button>
-                            <button class="sc-btn sc-btn-secondary btn-invitation-link">
+                            <button class="sc-btn sc-btn-secondary sc-btn-invitation-link">
                                 Einladungslink generieren
                             </button>
-                            <button class="sc-btn sc-btn-secondary btn-import">
+                            <button class="sc-btn sc-btn-secondary sc-btn-import">
                                 Schüler importieren
                             </button>
                         </div>
