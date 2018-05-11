@@ -26,11 +26,9 @@
     <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin />
     <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin />
-    <style>
-        {{#block "critical-styles"}}
-            {{{inline "/styles/lib/base.critical.css"}}}
-        {{/block}}
-    </style>
+    {{#block "critical-styles"}}
+        <link rel="stylesheet" href="/styles/lib/base.critical.css" />
+    {{/block}}
     <noscript class="lazyload">
         {{#block "styles"}}
             <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438" />

@@ -12,6 +12,12 @@
         box-shadow: 0 2px 5px rgba(0,0,0,.26);
     }
 
+    .navbar-nav .nav-item+.nav-item {
+        margin-left: .5rem;
+    }
+    .federal-state {
+        height: 1.5em;
+    }
     .breadcrumb {
         float: left;
         padding: 0px;

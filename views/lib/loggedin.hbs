@@ -6,7 +6,7 @@
     {{/content}}
 
     {{#content "critical-styles" mode="append"}}
-        {{{inline "/styles/lib/loggedin.critical.css"}}}
+        <link rel="stylesheet" href="/styles/lib/loggedin.critical.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -30,9 +30,6 @@
             if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
                 setupFirebasePush();
             }
-        });
-        window.addEventListener("resize", function () {
-            $('.sidebar-list').css({"height": window.innerHeight});
         });
         function startIntro() {
             introJs()
@@ -195,12 +192,13 @@
                         </li>
 
                         {{#if currentSchoolData}}
-                            <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                            <li class="nav-item school-data">{{ currentSchoolData.name }}
                             {{#if currentSchoolData.federalState}}
                                 <noscript class="lazyload">
                                     <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
                                 </noscript>
                             {{/if}}
+                            </li>
                         {{/if}}
 
                         <li class="nav-item" data-step="6" data-intro="Einstellungen und Log-Out">
