@@ -1,4 +1,3 @@
-const api = require('../api');
 
 if (window.opener && window.opener !== window) {
     window.isInline = true;
@@ -123,7 +122,6 @@ $(document).ready(function () {
 
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
-        
         $('.feedback-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
