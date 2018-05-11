@@ -1,8 +1,63 @@
 ﻿function getCurrentDir() {
     return $('.section-upload').data('path');
 }
-$(document).ready(function() {
 
+function archiveTask(e){
+    e.preventDefault();
+    e.stopPropagation();
+    // loading animation
+    let btntext = this.innerHTML;
+    $(this).find("i").attr("class", "fa fa-spinner fa-spin");
+    // send request to server
+    let request = $.ajax({
+        type: "PATCH",
+        url: this.getAttribute("href"),
+        data: this.getAttribute("data"),
+        context: this,
+        error: function(){showAJAXError(); this.innerHTML = btntext;}
+    });
+    request.done(function(r) {
+        // switch text (innerHTML <--> alt-text)
+        const temp = $(this).attr("alt-text");
+        $(this).attr("alt-text", btntext);
+        this.innerHTML = temp;
+        // grey out if removed from list
+        $(this).parents(".disableable").toggleClass("disabled");
+        // change data
+        $(this).attr("data",(this.getAttribute("data")=="archive=done")?"archive=open":"archive=done")
+    });
+    return false;
+}
+function importSubmission(e){
+    e.preventDefault();
+    const submissionid = this.getAttribute("data");
+    this.disabled = true;
+    this.innerHTML = 'importiere <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
+    if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
+        $.ajax({
+            url: "/homework/submit/"+submissionid+"/import",
+            context: this
+        }).done(function(r) {
+            CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
+            this.disabled = false;
+            this.innerHTML = "Abgabe des Schülers importieren";
+        });
+    }
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+    /* FEATHERS FILTER MODULE */
+    const filterModule = document.getElementById("filter");
+    if(!filterModule){return;}
+    filterModule.addEventListener('newFilter', (e) => {
+        document.querySelectorAll("circular-progress").forEach(graphic => {graphic.remove();});
+        filter = e.detail;
+        const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
+        softNavigate(newurl, ".homework", ".pagination");
+    })
+    document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+});
+$(document).ready(function() {
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "danger");
@@ -141,31 +196,7 @@ $(document).ready(function() {
         return false;
     });
 
-    $('.btn-archive').on("click",function(e){
-        e.preventDefault();
-        // loading animation
-        let btntext = this.innerHTML;
-        $(this).find("i").attr("class", "fa fa-spinner fa-spin");
-        // send request to server
-        let request = $.ajax({
-            type: "PATCH",
-            url: this.getAttribute("href"),
-            data: this.getAttribute("data"),
-            context: this,
-            error: function(){showAJAXError(); this.innerHTML = btntext;}
-        });
-        request.done(function(r) {
-            // switch text (innerHTML <--> alt-text)
-            const temp = $(this).attr("alt-text");
-            $(this).attr("alt-text", btntext);
-            this.innerHTML = temp;
-            // grey out if removed from list
-            $(this).parents(".disableable").toggleClass("disabled");
-            // change data
-            $(this).attr("data",(this.getAttribute("data")=="archive=done")?"archive=open":"archive=done")
-        });
-        return false;
-    });
+    document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask)})
 
     function updateSearchParameter(key, value) {
         let url = window.location.search;
@@ -173,29 +204,7 @@ $(document).ready(function() {
         window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    $('#desc').on('click', function(){
-        updateSearchParameter("desc", escape($('#desc').val()));
-    });
-    $('#sortselection').on('change',  function(){
-        updateSearchParameter("sort", escape($('#sortselection').val()));
-    });
-
-    $('.importsubmission').on('click', function(e){
-        e.preventDefault();
-        const submissionid = this.getAttribute("data");
-        this.disabled = true;
-        this.innerHTML = 'importiere <style>.loadingspinner>div{background-color:#000;}</style><div class="loadingspinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
-        if(confirm("Möchten Sie wirklich Ihre Bewertung durch die Abgabe des Schülers ersetzen?")){
-            $.ajax({
-                url: "/homework/submit/"+submissionid+"/import",
-                context: this
-            }).done(function(r) {
-                CKEDITOR.instances["evaluation "+submissionid].setData( r.comment );
-                this.disabled = false;
-                this.innerHTML = "Abgabe des Schülers importieren";
-            });
-        }
-    });
+    document.querySelectorAll('.importsubmission').forEach(btn => {btn.addEventListener("click", importSubmission)})
 
     // file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
     let $uploadForm = $(".form-upload");
@@ -289,7 +298,7 @@ $(document).ready(function() {
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', {
-                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
                     path: file.signedUrl.header['x-amz-meta-path'] + '/',
                     name: file.name,
                     type: file.type,
@@ -356,8 +365,7 @@ $(document).ready(function() {
                 url: $buttonContext.attr('href'),
                 type: 'DELETE',
                 data: {
-                    name: $buttonContext.data('file-name'),
-                    dir: $buttonContext.data('file-path')
+                    key: $buttonContext.data('file-key')
                 },
                 success: function (_) {
                     // delete reference in submission
