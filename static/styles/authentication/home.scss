@@ -126,6 +126,13 @@ body {
             margin-bottom: 2rem;
         }
     }
+}
+
+@media (max-width: 1024px) {
+    .intro-trigger {
+        display: none;
+  }
+      
     .partner-img {
         position: relative;
         left: 50%;
