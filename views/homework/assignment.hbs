@@ -3,43 +3,41 @@
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
     <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-            $(document).ready(function () {
-                $('.userinfo').click(function () {
-                    $(this).parent('.usersubmission.active').addClass('clicked');
-                    $('.usersubmission.active').removeClass('active');
-                    $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
-                    $('.usersubmission.clicked').removeClass('clicked');
+        window.addEventListener('load', function() {
+            $('.userinfo').click(function () {
+                $(this).parent('.usersubmission.active').addClass('clicked');
+                $('.usersubmission.active').removeClass('active');
+                $(this).parent('.usersubmission:not(.clicked)').toggleClass('active');
+                $('.usersubmission.clicked').removeClass('clicked');
 
-                    $('.usersubmission td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-left');
-                    $('.usersubmission.active td:last-of-type i.fa-chevron-left').removeClass('fa-chevron-left').addClass('fa-chevron-down');
-                });
-
-                // change tab
-                $('.tab-view>.tab-links>.tab-link').click(function (e) {
-                    var range = $(this).closest(".tab-view");
-                    range.find('>.tab-links .tab-link.active').removeClass('active');
-                    $(this).addClass('active');
-                    range.find('>.tabs>.tab-content.active').removeClass('active');
-                    range.find(">.tabs" + ">#" + this.id.replace("-tab-link", "") + ".tab-content").addClass('active');
-                });
-
-
-                //set initial tab-view by URL-Parameter
-                function getParameterByName(name) {
-                    return decodeURIComponent(window.location.hash.replace("#activetabid=", ""));
-                }
-
-                if (getParameterByName('activetabid')) {
-                    var id = getParameterByName('activetabid')
-                    var range = $('#' + id).closest(".tab-view");
-                    range.find('>.tab-links .tab-link.active').removeClass('active');
-                    range.find('>.tabs>.tab-content.active').removeClass('active');
-
-                    range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
-                    $('#' + id).addClass('active');
-                }
+                $('.usersubmission td:last-of-type i.fa-chevron-down').removeClass('fa-chevron-down').addClass('fa-chevron-left');
+                $('.usersubmission.active td:last-of-type i.fa-chevron-left').removeClass('fa-chevron-left').addClass('fa-chevron-down');
             });
+
+            // change tab
+            $('.tab-view>.tab-links>.tab-link').click(function (e) {
+                var range = $(this).closest(".tab-view");
+                range.find('>.tab-links .tab-link.active').removeClass('active');
+                $(this).addClass('active');
+                range.find('>.tabs>.tab-content.active').removeClass('active');
+                range.find(">.tabs" + ">#" + this.id.replace("-tab-link", "") + ".tab-content").addClass('active');
+            });
+
+
+            //set initial tab-view by URL-Parameter
+            function getParameterByName(name) {
+                return decodeURIComponent(window.location.hash.replace("#activetabid=", ""));
+            }
+
+            if (getParameterByName('activetabid')) {
+                var id = getParameterByName('activetabid')
+                var range = $('#' + id).closest(".tab-view");
+                range.find('>.tab-links .tab-link.active').removeClass('active');
+                range.find('>.tabs>.tab-content.active').removeClass('active');
+
+                range.find(">.tab-links" + ">#" + id + "-tab-link").addClass('active');
+                $('#' + id).addClass('active');
+            }
         });
     </script>
     <script>

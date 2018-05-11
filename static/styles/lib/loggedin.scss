@@ -5,6 +5,13 @@
 
 body {
     background: white !important;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 0 !important;
+}
+body > * {
+    font-size: 1rem;
+    white-space: normal;
 }
 .navtooltips{
     display: none;
@@ -17,11 +24,10 @@ body {
 }
 aside.nav-sidebar {
     color: #fff;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    left: 0;
+    display: inline-block;
     width: 240px;
+    height: 100vh;
+    margin: 0;
     font-weight: 400;
     margin-top: 0;
     margin-bottom: 0;
@@ -38,7 +44,8 @@ aside.nav-sidebar {
 
     @include media-breakpoint-down(xs) {
         width: 100%;
-        position: relative;
+        height: 0;
+        display: block;
     }
 
     .sc-branding {
@@ -46,7 +53,6 @@ aside.nav-sidebar {
         padding: 15px;
         font-size: 24px;
         background: $primaryColor;
-        opacity: .8;
         color: whitesmoke;
         text-decoration: none;
         @include media-breakpoint-down(md) {
@@ -88,16 +94,26 @@ aside.nav-sidebar {
 
     nav {
         width: 100%;
-        float: left;
         overflow-y: auto;
 
         @include media-breakpoint-down(xs) {
             overflow: hidden;
             max-height: 0px;
-            transition: all 0.4s;
-
+            position: absolute;
+            z-index: 9998;
+            background: lightgrey;
+            box-shadow: 0 2px 5px rgba(0,0,0,.26);
+            transition: max-height .3s ease-in-out;
+            .sc-branding{
+                box-sizing: border-box;
+                padding-left: 54px;
+                .cloud-logo{
+                    display: none;
+                }
+            }
             &.active {
-                max-height: 800px;
+                transition: max-height .3s ease-in-out;
+                max-height: 100vh;
             }
         }
 
@@ -205,29 +221,40 @@ aside.nav-sidebar {
             }
         }
     }
-
-    .mobile-nav-toggle {
-        display: none;
-        bottom: -55px;
-        height: 55px;
-        width: 50px;
-        position: absolute;
-        left: 0px;
-        padding-top: 5px;
-        color: #373a3c;
-        font-size: 22px;
-        line-height: 50px;
-        text-align: center;
-        cursor: pointer;
-        &:hover{
-            color: #373a3c;
+}
+.mobile-nav-toggle {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    top: 8px;
+    left: 12px;
+    padding: 8px;
+    font-size: 22px;
+    line-height: 22px;
+    cursor: pointer;
+    transition: transform .2s linear, z-index 0s linear .2s;
+    .fa{
+        transition: color .2s linear;
+    }
+    &.active{
+        z-index: 9999;
+        transition: transform .2s linear;
+        transform: rotate(90deg);
+        .fa{
+            color: #fff;
         }
-        @include media-breakpoint-down(xs) {
-            display: block;
-        }
+    }
+    @include media-breakpoint-down(xs) {
+        display: block;
     }
 }
 
+.content-min-height{
+    min-height: calc(100vh - 159px);
+    @include media-breakpoint-down(xs) {
+        min-height: calc(100vh - 208px);
+    }
+}
 header {
     width:100%;
     float:left;
@@ -238,24 +265,19 @@ header {
 }
 
 .content-wrapper {
-    width: 100%;
-    min-height:calc(100vh - 113px);
-    @include media-breakpoint-down(xs) {
-        min-height:calc(100vh - 143px);
-    }
-    height:auto;
-    float: left;
-    padding-left: 260px;
-    padding-right: 20px;
+    position: relative;
+    display: inline-block;
+    width: calc(100vw - 240px);
+    height: 100vh;
     overflow: auto;
+    padding: 0;
 
     @include media-breakpoint-down(md) {
-        padding-left: 80px;
+        width: calc(100vw - 60px);
     }
 
     @include media-breakpoint-down(xs) {
-        padding-left: 0px;
-        padding-right: 0px;
+        width: 100vw;
     }
 
     .school-data {
@@ -287,7 +309,6 @@ header {
 
 .demo {
     text-align: center;
-    margin-left: 240px;
     .alert-warning {
         margin: 0;
         background: linear-gradient(10deg, #668095, #49718f);
@@ -315,8 +336,27 @@ header {
 
 
 body.fullscreen{
+    
+    .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle{
+        display: none;
+    }
+    #titlebar{
+        width: 100%;
+    }
+    .topbar.navbar{
+        visibility: hidden;
+        height: 0;
+        padding: 0;
+    }
+    .content-wrapper{
+        width: 100vw;
+        .content-min-height{
+            min-height: 100vh;
+        }
+    }
     .btn-fullscreen{
         position: fixed;
+        visibility: visible;
         top: 8px;
         right: 8px;
         z-index: 99999;
@@ -327,19 +367,6 @@ body.fullscreen{
         &:hover{
             opacity: 1;
         }
-    }
-    main#main-content{
-        position: absolute;
-        top:0;
-        bottom:0;
-        left:0;
-        right: 0;
-        z-index: 101;
-        padding: 16px;
-        background: #fff;
-    }
-    .modal-backdrop{
-        display: none
     }
 }
 
@@ -423,6 +450,14 @@ footer {
 
             .input-group {
                 display: none;
+                .search-field{
+                    width: calc(100% - 33px);
+                    display: inline-block;
+                    margin-top: -2px;
+                }
+                .btn-secondary{
+                    float: none;
+                }
             }
 
             .input-group.active {
@@ -452,6 +487,7 @@ footer {
         margin-bottom: 15px;
         padding-left: 50px !important;
         background: $colorBeige;
+        box-shadow: 0 2px 5px rgba(0,0,0,.26);
     }
 
     .breadcrumb {
@@ -475,7 +511,10 @@ footer {
         padding-left: 10px;
         padding-right: 10px;
     }
-
+    .navbar-nav .nav-item {
+        float: none;
+        display: inline-block;
+    }
     .nav-item button, .nav-link {
         line-height: 30px;
 
@@ -622,5 +661,12 @@ footer {
     .delimiter {
         background-color: $colorGrey;
         height: 12px;
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .intro-trigger {
+        display: none;
     }
 }

@@ -90,6 +90,7 @@ footer.small-footer {
     clear: both;
     padding: 30px 0px;
     font-size: 0.9em;
+    margin-bottom: 5px;
     @include media-breakpoint-down(xs) {
         background: $colorBeige;
 

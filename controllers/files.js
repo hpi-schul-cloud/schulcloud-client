@@ -133,7 +133,7 @@ const FileGetter = (req, res, next) => {
         let {files, directories} = data;
 
         files = files.map(file => {
-            file.file = pathUtils.join(file.path, file.name);
+            file.file = file.key;
             return file;
         });
 
@@ -202,9 +202,8 @@ const getDirectoryTree = (req, rootPath) => {
  */
 const registerSharedPermission = (userId, filePath, shareToken, req) => {
     // check whether sharing is enabled for given file
-    return api(req).get('/files/', {qs: {key: filePath, shareToken: shareToken}}).then(res => {
+    return api(req).get('/files/', {qs: {key: encodeURI(filePath), shareToken: shareToken}}).then(res => {
         let file = res.data[0];
-
         // verify given share token
         if (!file || file.shareToken !== shareToken) {
             // owner permits sharing of given file
@@ -277,9 +276,8 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
 
 // delete file
 router.delete('/file', function (req, res, next) {
-    const {name, dir = ''} = req.body;
     const data = {
-        path: dir + name,
+        path: req.body.key,
         fileType: null,
         action: null
     };
@@ -310,7 +308,7 @@ router.get('/file', function (req, res, next) {
             return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
                 if (download && download !== 'undefined') {
                     res.type('application/octet-stream');
-                    res.set('Content-Disposition', 'attachment;filename=' + pathUtils.basename(data.path));
+                    res.set('Content-Disposition', 'attachment;filename=' + encodeURI(pathUtils.basename(data.path)));
                 } else if (signedUrl.header['Content-Type']) {
                     res.type(signedUrl.header['Content-Type']);
                 }
@@ -362,7 +360,7 @@ router.post('/directory', function (req, res, next) {
 // delete directory
 router.delete('/directory', function (req, res) {
     const data = {
-        path: req.body.dir
+        path: req.body.key
     };
 
     api(req).delete('/fileStorage/directories/', {

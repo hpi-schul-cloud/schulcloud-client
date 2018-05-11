@@ -31,6 +31,7 @@ const baseScripts = [
     './static/scripts/chosen/chosen.jquery.min.js',
     './static/scripts/base.js',
     './static/scripts/toggle/bootstrap-toggle.min.js',
+    './static/scripts/diffDOM/diffDOM.js',
     './static/scripts/mailchimp/mailchimp.js',
     './static/scripts/qrcode/kjua-0.1.1.min.js'
 ]
@@ -82,7 +83,7 @@ gulp.task('styles', () => {
     var themeFile = `./theme/${themeName()}/style.scss`;
     beginPipe('./static/styles/**/*.{css,sass,scss}')
         .pipe(gulpif(!firstRun, sassGrapher.ancestors()))
-        .pipe(header(fs.readFileSync(themeFile, 'utf8'))) // READ: https://github.com/schul-cloud/schulcloud-client/pull/588
+        .pipe(header(fs.readFileSync(themeFile, 'utf8')))
         .pipe(filelog("PROCESS: "))
         .pipe(sass({sourceMap: false}))
         .pipe(minify())

@@ -115,7 +115,7 @@ $(document).ready(function() {
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', {
-                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + file.name,
+                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
                     path: file.signedUrl.header['x-amz-meta-path'] + '/',
                     name: file.name,
                     type: file.type,
@@ -163,8 +163,7 @@ $(document).ready(function() {
                 url: $buttonContext.attr('href'),
                 type: 'DELETE',
                 data: {
-                    name: $buttonContext.data('file-name'),
-                    dir: $buttonContext.data('file-path')
+                    key: $buttonContext.data('file-key')
                 },
                 success: function (result) {
                     reloadFiles();
@@ -406,7 +405,7 @@ function videoClick(e) {
     e.preventDefault();
 }
 
-function fileViewer(filetype, file, key) {
+function fileViewer(filetype, file, key, name) {
     $('#my-video').css("display","none");
     switch (filetype) {
         case 'application/pdf':
@@ -438,11 +437,10 @@ function fileViewer(filetype, file, key) {
         case 'text/plain': //only in Google Docs Viewer                                     //.txt
             $('#file-view').css('display','');
             let gviewer ="https://docs.google.com/viewer?url=";
+            let showAJAXError = showAJAXError; // for deeply use
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            file = file.substring(file.lastIndexOf('/')+1);
-
             $.post('/files/file?file=', {
-                path: (getCurrentDir()) ? getCurrentDir() + file : key,
+                path: (getCurrentDir()) ? getCurrentDir() + name : key,
                 type: filetype,
                 action: "getObject"
             }, function (data) {

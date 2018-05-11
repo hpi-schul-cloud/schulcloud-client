@@ -3,10 +3,11 @@
         {{#each files}}
             <div class="col-sm-6 col-xs-12 col-md-4">
                 <div class="file-preview file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}"
-                     onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
-                     onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''"
-                     onclick="location.href='#file-view';
-                             fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}');">
+                    onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
+                    onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''"
+                    onclick="location.href='#file-view';
+                            fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}');"
+                    style="background-image: url({{this.thumbnail}});">
                     <div class="preview-image" style="background-image: url({{this.thumbnail}});">
                     </div>
                     <div class="footbar">
@@ -29,8 +30,8 @@
                                     <a href="/files/file/"
                                        target="_blank"
                                        data-method="delete"
-                                       data-file-name="{{../this.name}}"
-                                       data-file-path="{{../this.path}}">
+                                       data-file-key="{{../this.key}}"
+                                       data-file-name="{{../this.name}}">
                                         <i class="fa fa-trash-o"></i>
                                     </a>
                                 {{/userHasPermission}}
