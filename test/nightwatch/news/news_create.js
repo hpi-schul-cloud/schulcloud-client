@@ -40,6 +40,7 @@ module.exports = {
                     CKEDITOR.instances["content"].setData('Lorem Ipsum');
                 }
             )
+            .moveToElement('.btn-submit', 10, 10)
             .click('.btn-submit')
             .pause(1000);
         browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum').before(10000);

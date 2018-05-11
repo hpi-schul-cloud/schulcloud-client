@@ -32,7 +32,8 @@ module.exports = {
         browser.url(base_url + 'homework/new/');
         browser.expect.element('h4').text.to.contain('Aufgabe hinzufügen').before(10000);
         browser
-            .setValue('input[name=name]', 'Test Aufgabe');
+            .setValue('input[name=name]', 'Test Aufgabe')
+            .useXpath().moveToElement('//*[@id="homework-form"]/div[7]/button[2]', 10, 10);
         browser.useXpath().click('//*[@id="homework-form"]/div[7]/button[2]');
         browser.useCss().waitForElementPresent("#titlebar h4", 10000);
         browser.assert.containsText("#titlebar h4", "Aufgaben");
