@@ -58,10 +58,10 @@
             </div>
         </section>
 
-        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe"}}
-        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe"}}
+        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="6" intro="Hier finden Sie eine Übersicht über Ihren Stundenplan und anstehende Termine."}}
+        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe" step="7" intro="Hier finden Sie eine Übersicht über Ihre gestellten Aufgaben. Diese Aufgaben sind mit ihren Schüler*innen geteilt und für diese sichtbar. Sie können unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
 
-        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen"}}
+        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" step="8" intro="An dieser Stelle finden Sie eine Übersicht über ihre private “To Do” Liste. Die Aufgaben, die sie hier sehen, können Sie selbst unter “Aufgaben” auswählen und bearbeiten. Ihre “To Do” Liste ist privat und daher nur für sie einsehbar. "}}
 
         {{#ifneq this.currentRole "Schüler"}}
         {{#ifneq ../this.currentRole "Demo"}}
