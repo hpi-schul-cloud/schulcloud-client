@@ -26,8 +26,7 @@ module.exports = {
         browser.setCookie({
             name: "releaseDate",
             value: "9999-12-09T16:36:20.000Z",
-            path: "/",
-            expiry: "253373565499"
+            path: "/"
         });
     },
     'Schul-Cloud Visit Every Subpage': function (browser) {

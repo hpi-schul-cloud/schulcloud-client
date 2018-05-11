@@ -7,40 +7,51 @@ const SCREENSHOT_PATH = path.join(__dirname, "/screenshots/");
 
 // we use a nightwatch.conf.js file so we can include comments and helper functions
 module.exports = {
-    "src_folders": ["test/nightwatch"],
-    "output_folder": "./reports", // reports (test outcome) output by nightwatch
-    "selenium": {
-        "start_process": true, // tells nightwatch to start/stop the selenium process
-        "server_path": seleniumServer.path,
-        "host": "127.0.0.1",
-        "port": 4444, // standard selenium port
-        "cli_args": {
-            "webdriver.chrome.driver": chromedriver.path,
-            "webdriver.gecko.driver": geckodriver.path
+    "src_folders" : ["test/nightwatch"],
+    "output_folder" : "./reports",
+    "custom_commands_path" : "",
+    "custom_assertions_path" : "",
+    "page_objects_path" : "",
+    "globals_path" : "",
+
+    "selenium" : {
+        "start_process" : true,
+        "server_path" : seleniumServer.path,
+        "log_path" : "",
+        "port" : 4444,
+        "cli_args" : {
+            "webdriver.chrome.driver" : chromedriver.path,
+            "webdriver.gecko.driver" : geckodriver.path
         }
     },
-    "test_settings": {
-        "default": {
-            "screenshots": {
-                "enabled": true, // if you want to keep screenshots
+
+    "test_settings" : {
+        "default" : {
+            "selenium_port"  : 4444,
+            "selenium_host"  : "localhost",
+            "silent": true,
+            "screenshots" : {
+                "enabled" : true,
                 "on_failure": true,
                 "on_error": true,
-                "path": SCREENSHOT_PATH // save screenshots here
+                "path" : SCREENSHOT_PATH
             },
             "globals": {
-                "waitForConditionTimeout": 20000 // sometimes internet is slow so wait.
+                "waitForConditionTimeout": 20000
             },
-            "desiredCapabilities": { // use Chrome as the default browser for tests
+            "desiredCapabilities": {
                 "browserName": "chrome"
             }
         },
-        "chrome": {
+
+        "chrome" : {
             "desiredCapabilities": {
                 "browserName": "chrome",
-                "javascriptEnabled": true // turn off to test progressive enhancement
+                "javascriptEnabled": true
             }
         },
-        "firefox": {
+
+        "firefox" : {
             "desiredCapabilities": {
                 "browserName": "firefox",
                 "javascriptEnabled": true
