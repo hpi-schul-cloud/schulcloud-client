@@ -180,16 +180,7 @@ router.get('/', function(req, res, next) {
         
             return course;
         });
-    
-        api(req).post('/mails/', {
-            json: {
-                headers: {},
-                email: "katrin.klein@student.hpi.de",
-                subject: "Schul cloud testmail",
-                content: {"html":"a","text":"test für nodejs mai"}
-            }
-        });
-        
+
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             course.title = course.name;
