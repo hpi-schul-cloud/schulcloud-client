@@ -75,7 +75,8 @@ $(document).ready(function () {
     }
 
     /**
-     * creates the feedback-message which will be sent to the Schul-Cloud helpdesk
+     * FEEDBACK / PROBLEM
+     * creates the feedback-message which will be sent to the helpdesk
      * @param modal {object} - modal containing content from feedback-form
      */
     const createFeedbackMessage = function(modal) {
@@ -112,7 +113,7 @@ $(document).ready(function () {
                 targetState: targetState
             },
             success: function(result) {
-                showAJAXSuccess("Feedback erfolgreich versendet!", modal)
+                showAJAXSuccess("Feedback erfolgreich versendet!", modal);
             },
             error: showAJAXError
         });
@@ -120,36 +121,49 @@ $(document).ready(function () {
         $('.feedback-modal').find('.btn-submit').prop("disabled", true);
     };
 
+    // FEEDBACK
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
         $('.feedback-modal').find('.btn-submit').prop("disabled", false);
+        //TODO: fix area preselection
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
+        let titleEnum = {"Übersicht":"dashboard",
+            "Kurse":"courses",
+            "Klassen":"classes",
+            "Termine":"calendar",
+            "Aufgaben":"homework",
+            "Meine Dateien":"files",
+            "Materialien":"content",
+            "Verwaltung":"administration",
+            "Sonstiges":"other"};
+        $feedbackModal.find('#category').val(titleEnum.area).trigger("chosen:updated");
         populateModalForm($feedbackModal, {
             title: 'User Story eingeben',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
 
-        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         
         $feedbackModal.modal('show');
-        $feedbackModal.find('#title-area').html(area);
     });
-
+    //TODO: check this for double submit bug - some kind of event bubbling?
+    $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
+    
+    // PROBLEM
     $('.submit-problem').on('click', function (e) {
         e.preventDefault();
-
         $('.problem-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($problemModal, {
             title: 'Problem melden',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Senden'
+            submitLabel: 'Senden',
+            action: "return false;"
         });
         
         $problemModal.modal('show');
-    });
-    
+    })
+    //TODO: check this for double submit bug - some kind of event bubbling?
     $problemModal.find('.modal-form').on('submit', sendFeedback.bind(this, $problemModal));
 
     $modals.find('.close, .btn-close').on('click', function () {
