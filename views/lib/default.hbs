@@ -28,19 +28,17 @@
     <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin />
     {{#block "critical-styles"}}
         <link rel="stylesheet" href="/styles/lib/base.critical.css" />
+        <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438" />
     {{/block}}
     <noscript class="lazyload">
         {{#block "styles"}}
-            <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438" />
-            <link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
-            <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.css" />
             <link rel="stylesheet" href="/styles/lib/base.css" />
         {{/block}}
     </noscript>
 
     {{#block "scripts"}}
         <script>
-        window.addEventListener('load', _ => {
+        window.addEventListener('DOMContentLoaded', _ => {
             const lazyloads = document.querySelectorAll('noscript.lazyload');
             // This container is the HTML parser
             const container = document.createElement('div');
