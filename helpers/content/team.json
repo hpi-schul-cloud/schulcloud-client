@@ -348,7 +348,7 @@
         },
         "longDesc": false
       },        
-             
+         
       {
         "id": 21,
         "title": "",
@@ -528,6 +528,38 @@
       {
         "id": 32,
         "title": "",
+        "firstName": "Elias",
+        "lastName": "Lehnert",
+        "position": "Studentische Hilfskraft/ Schüler",
+        "description": "Elias ist Schüler an dem Emmy-Noether-Gymnasium und entwickelt die Android App der Schul-Cloud mit. In seiner Freizeit arbeitet er gerne an verschiedenen Projekten mit Programmiersprachen wie C++ oder Python.",
+        "pictureUrl": "/images/team/Elias_Lehnert.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
+      {
+        "id": 33,
+        "title": "",
+        "firstName": "Andrea",
+        "lastName": "Nathansen",
+        "position": "Studentische Hilfskraft",
+        "description": "Andrea studiert Bachelor IT-Systems Engineering am HPI. Seit Mai 2018 ist sie im Bereich der Android App-Entwicklung im Schul-Cloud Projekt tätig. In ihrer Freizeit zeichnet sie und ist in den Sportarten historischer Schwertkampf und historische Tänze aktiv.",
+        "pictureUrl": "/images/team/Andrea_Nathansen.JPG",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
+      {
+        "id": 34,
+        "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
         "position": "Student",
@@ -541,8 +573,24 @@
         },
         "longDesc": false
       },
+     {
+        "id": 35,
+        "title": "",
+        "firstName": "Jonas",
+        "lastName": "Wanke",
+        "position": "Studentische Hilfskraft/ Schüler",
+        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
+        "pictureUrl": "/images/team/Jonas_Wanke.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },        
       {
-        "id": 33,
+        "id": 36,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -563,7 +611,7 @@
     "name": "",
     "style": "small",
     "team": [{
-        "id": 34,
+        "id": 37,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -579,13 +627,13 @@
         "longDesc": false
       },
       {
-        "id": 35,
+        "id": 38,
         "title": "",
-        "firstName": "Elias",
-        "lastName": "Lehnert",
-        "position": "Studentische Hilfskraft/ Schüler",
-        "description": "Elias ist Schüler an dem Emmy-Noether-Gymnasium und entwickelt die Android App der Schul-Cloud mit. In seiner Freizeit arbeitet er gerne an verschiedenen Projekten mit Programmiersprachen wie C++ oder Python.",
-        "pictureUrl": "/images/team/Elias_Lehnert.jpg",
+        "firstName": "Marvin",
+        "lastName": "Fischer",
+        "position": "Schüler",
+        "description": "Marvin ist derzeit Schüler der Jahrgansstufe 12 des Albert Einstein Gymnasiums Neubrandenburg und arbeitet an der Entwicklung der Android App mit. Seit er 13 Jahre alt ist, bringt er sich das Programmieren und Web-Designen bei. Im Jahr 2017 hat Marvin am nationalen Wettbewerb WorldSkills Germany im Skill 09 teilgenommen. In seiner Freizeit beschäftigt er sich mit der Programmierung von Windows, Android und Web Anwendungen, sowie mit dem Entwickeln von Web Designs.",
+        "pictureUrl": "/images/team/Marvin_Fischer.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -595,7 +643,7 @@
         "longDesc": false
       },
       {
-        "id": 36,
+        "id": 39,
         "title": "",
         "firstName": "Jessica",
         "lastName": "Pfarr",
@@ -609,30 +657,14 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
-      {
-        "id": 37,
-        "title": "",
-        "firstName": "Jonas",
-        "lastName": "Wanke",
-        "position": "Studentische Hilfskraft/ Schüler",
-        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
-        "pictureUrl": "/images/team/Jonas_Wanke.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      }
+      }    
     ]
   },
   "end": {
     "name": "Alumni",
     "style": "small",
     "team": [{
-      "id": 38,
+      "id": 40,
       "title": "",
       "firstName": "Carl",
       "lastName": "Gödecken",
@@ -648,7 +680,7 @@
       "longDesc": false
        },
      {
-        "id": 39,
+        "id": 41,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -664,7 +696,7 @@
         "longDesc": false
       },
      {
-        "id": 40,
+        "id": 42,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -680,7 +712,7 @@
         "longDesc": false
       },
       {
-        "id": 41,
+        "id": 43,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
