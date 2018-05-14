@@ -21,7 +21,7 @@
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <section>
-                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4>
+                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
                         {{#if ../substitutionCourses}}
                             {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
                         {{else}}
@@ -31,7 +31,6 @@
                                 </p>
                             </div>
                         {{/if}}
-                        </div>
                     </section>
                 {{/userHasPermission}}
 
