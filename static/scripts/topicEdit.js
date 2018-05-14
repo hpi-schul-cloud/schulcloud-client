@@ -757,7 +757,7 @@ class TopicInternal extends TopicBlock {
     generatePattern() {
         const topicId = $contentBlocksContainer.data('topicid') || 'undefined'; // set String for prevent blocking a newly created topic
         //                  a)                           b)        c)                                d)
-        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|account|administration|topics\/${topicId})).*`
+        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|account|administration|topics\/${topicId})).*`;
     }
 
     /**
