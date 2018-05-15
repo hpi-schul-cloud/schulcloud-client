@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             {{#each currentteam.team}}
+            {{#if subheader_before}}<h6>{{subheader_before}}</h6>{{/if}}
             <div id="modal-container-{{id}}">
                 <div class="modal-background {{#if ../../loggedin}}modal-padding{{/if}}">
                     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
