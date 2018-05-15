@@ -51,7 +51,7 @@ function fullscreenBtnClicked(){
     fullscreen = !fullscreen;
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
-$(document).ready(function () {
+window.addEventListener("load", function () {
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');

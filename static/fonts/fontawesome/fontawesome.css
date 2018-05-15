@@ -1,7 +1,10 @@
 @font-face {
 	font-family: 'FontAwesome';
-	src: local('fontawesome'),
-		url('fontawesome-webfont.woff') format('woff');
+	src: url('fontawesome-webfont.eot'); /* IE9 Compat Modes */
+	src: local('fontawesome'), /* local */
+        url('fontawesome-webfont.woff2') format('woff2'), /* Super Modern Browsers */
+        url('fontawesome-webfont.woff') format('woff'); /* Pretty Modern Browsers */
 	font-weight: normal;
 	font-style: normal;
+	font-display: swap;
 }
