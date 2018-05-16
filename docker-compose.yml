@@ -33,7 +33,7 @@ volumes:
   data-schulcloud-client-build:
   data-schulcloud-client-node-modules:
 
-networks:
- default:
-   external:
-     name: schulcloudserver_schulcloud-server-network
+#networks:
+#  default:
+#    external:
+#      name: schulcloudserver_schulcloud-server-network
