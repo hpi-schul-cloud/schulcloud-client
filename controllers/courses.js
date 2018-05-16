@@ -177,7 +177,6 @@ router.get('/', function(req, res, next) {
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
-        
             return course;
         });
 
