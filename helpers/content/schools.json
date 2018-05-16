@@ -1,0 +1,343 @@
+{
+    "bp": [
+      {
+        "name": "Elisabethenschule Frankfurt am Main",
+        "logo": "/images/schools/bp/Elisabethenschule-Frankfurt-am-Main.png",
+        "url": "http://www.elisabethenschule.net/eli-news.html"
+      },
+      {
+        "name": "Georg-Christoph-Lichtenberg-Schule Kassel",
+        "logo": "/images/schools/bp/Georg-Christoph-Lichtenberg-Schule Kassel.jpg",
+        "url": "http://lg-ks.de/"
+      },
+      {
+        "name": "Gymnasium Carolinum Neustrelitz",
+        "logo": "/images/schools/bp/Gymnasium Carolinum Neustrelitz.jpg",
+        "url": "https://www.carolinum.de/"
+      },
+      {
+        "name": "Gymnasium Marianum Meppen",
+        "logo": "/images/schools/bp/Gymnasium Marianum Meppen.jpg",
+        "url": "http://www.marianum-meppen.de/"
+      },
+      {
+        "name": "Hohenstaufen-Gymnasium Kaiserslautern",
+        "logo": "/images/schools/bp/Hohenstaufen-Gymnasium Kaiserslautern.png",
+        "url": "https://www.hsg-kl.de/"
+      },
+      {
+        "name": "Johann-Michael-Sailer-Gymnasium Dillingen",
+        "logo": "/images/schools/bp/Johann-Michael-Sailer-Gymnasium Dillingen.png",
+        "url": "http://www.sailer-gymnasium.de/"
+      },
+      {
+        "name": "Wilhelm-Hittorf-Gymnasium Münster",
+        "logo": "/images/schools/bp/Wilhelm-Hittorf-Gymnasium Münster.png",
+        "url": "http://www.wilhelm-hittorf-gymnasium.de/aktuelles/"
+      }
+    ],
+    "march2017": [
+      {
+        "name": "Dientzenhofer-Gymnasium",
+        "logo": "/images/schools/march2017/Dientzenhofer-Gymnasium.png",
+        "url": "https://www.dg-info.de/"
+      },
+      {
+        "name": "Franz-Stock-Gymnasium Arnsberg",
+        "logo": "/images/schools/march2017/Franz-Stock-Gymnasium Arnsberg.jpg",
+        "url": "https://www.fsg-arnsberg.de/"
+      },
+      {
+        "name": "Gauß-Gymnasium Worms",
+        "logo": "/images/schools/march2017/Gauß-Gymnasium Worms.png",
+        "url": "http://www.gauss-worms.de/index.php?id=2"
+      },
+      {
+        "name": "Gemeinschaftsschule Bellevue Saarbrücken",
+        "logo": "/images/schools/march2017/Gemeinschaftsschule Bellevue Saarbrücken.png",
+        "url": "http://www.gts-bellevue.de/ganztagsschule/"
+      },
+      {
+        "name": "Gymnasium Saarburg",
+        "logo": "/images/schools/march2017/Gymnasium Saarburg.gif",
+        "url": "https://www.gymnasium-saarburg.de/"
+      },
+      {
+        "name": "Heinrich-Hertz-Gymnasium Berlin",
+        "logo": "/images/schools/march2017/Heinrich-Hertz-Gymnasium Berlin.png",
+        "url": "https://www.hhgym.de/"
+      },
+      {
+        "name": "Johannes-Kepler-Gymnasium Lebach",
+        "logo": "/images/schools/march2017/Johannes-Kepler-Gymnasium Lebach.jpg",
+        "url": "https://www.jkg-lebach.de/jkg/"
+      },
+      {
+        "name": "Klaus-Gorth-Schule",
+        "logo": "/images/schools/march2017/Klaus-Gorth-Schule.JPG",
+        "url": "http://www.klaus-groth-schule.de/"
+      },
+      {
+        "name": "Landesgymnasium für Hochbegabte Schwäbisch Gmünd",
+        "logo": "/images/schools/march2017/Landesgymnasium für Hochbegabte Schwäbisch Gmünd.png",
+        "url": "http://www.lgh-gmuend.de/"
+      },
+      {
+        "name": "Landesschule Pforta Naumburg",
+        "logo": "/images/schools/march2017/Landesschule Pforta Naumburg.jpg",
+        "url": "https://www.landesschule-pforta.de/index.php"
+      },
+      {
+        "name": "Leininger-Gymnasium Grünstadt",
+        "logo": "/images/schools/march2017/Leininger-Gymnasium Grünstadt.png",
+        "url": "http://leiningergymnasium.de/"
+      },
+      {
+        "name": "Marie-Curie-Gymnasium Ludwigsfelde",
+        "logo": "/images/schools/march2017/Marie-Curie-Gymnasium Ludwigsfelde.png",
+        "url": "http://mcgym.de/startseite.html"
+      },
+      {
+        "name": "Martin-Luther-Schule Marburg",
+        "logo": "/images/schools/march2017/Martin-Luther-Schule Marburg.jpg",
+        "url": "http://www.mls-marburg.de/"
+      },
+      {
+        "name": "Otto-Schott-Gymnasium Mainz",
+        "logo": "/images/schools/march2017/Otto-Schott-Gymnasium Mainz.png",
+        "url": "http://osg-mainz.de/"
+      },
+      {
+        "name": "Ratsgymnasium Wolfsburg",
+        "logo": "/images/schools/march2017/Ratsgymnasium Wolfsburg.jpg",
+        "url": "http://www.ratsgymnasium-wolfsburg.de/"
+      },
+      {
+        "name": "Schillerschule Hannover",
+        "logo": "/images/schools/march2017/Schillerschule Hannover.png",
+        "url": "http://www.schillerschule-hannover.de/"
+      },
+      {
+        "name": "Stiftsgymnasium Sindelfingen",
+        "logo": "/images/schools/march2017/Stiftsgymnasium Sindelfingen.png",
+        "url": "https://www.stiftsgymnasium.de/"
+      },
+      {
+        "name": "Ursulaschule Osnabrück",
+        "logo": "/images/schools/march2017/Gymnasium Ursulaschule Osnabrück.jpg",
+        "url": "http://www.ursulaschule.de/"
+      },
+      {
+        "name": "Wilhelm-Gymnasium Braunschweig",
+        "logo": "/images/schools/march2017/Wilhelm-Gymnasium Braunschweig.jpg",
+        "url": "https://www.wilhelm-gym.de/"
+      },
+      {
+        "name": "Wilhelm-Ostwald-Schule Gymnasium",
+        "logo": "/images/schools/march2017/Wilhelm-Ostwald-Schule Gymnasium.png",
+        "url": "https://www.ostwaldgymnasium.de/index.php"
+      }
+    ],
+  "mai2018": [
+    {
+      "name": "Peutinger-Gymnasium, Ellwangen",
+      "logo": "/images/schools/mai2018/Peutinger-Gymnasium Ellwangen.png",
+      "url": "https://peutinger-gymnasium.de/"
+    },
+    {
+      "name": "Ferdinand-Porsche-Gymnasium Zuffenhausen",
+      "logo": "/images/schools/mai2018/Ferdinand-Porsche-Gymnasium Zuffenhausen.png",
+      "url": "https://www.ferdinand-porsche-gymnasium.de/"
+    },
+    {
+      "name": "Gymnasium Spaichingen",
+      "logo": "/images/schools/mai2018/Gymnasium Spaichingen.jpg",
+      "url": "https://www.gymnasium-spaichingen.de/"
+    },
+    {
+      "name": "Gymnasium Höchstadt",
+      "logo": "/images/schools/mai2018/Gymnasium Höchstadt.jpg",
+      "url": "https://www.gymnasium-hoechstadt.de/"
+    },
+    {
+      "name": "Friedrich-Dessauer-Gymnasium",
+      "logo": "/images/schools/mai2018/Friedrich-Dessauer-Gymnasium.png",
+      "url": "http://fdg-ab.de/"
+    },
+    {
+      "name": "Johann-Michael-Fischer-Gymnasium",
+      "logo": "/images/schools/mai2018/Johann-Michael-Fischer-Gymnasium.png",
+      "url": "http://www.jmf-gym.org/"
+    },
+    {
+      "name": "Archenhold-Gymnasium",
+      "logo": "/images/schools/mai2018/Archenhold Gymnasium_Berlin_1.jpg",
+      "url": "http://pi.archenhold.de/"
+    },
+    {
+      "name": "Käthe-Kollwitz-Gymnasium",
+      "logo": "/images/schools/mai2018/Käthe Kollwitz Gymnasium_Berlin.png",
+      "url": "https://www.kaethe-kollwitz-gymnasium.de/"
+    },
+    {
+      "name": "Primo-Levi-Gymnasium",
+      "logo": "/images/schools/mai2018/Primo-Levi-Schule_Berlin2.jpg",
+      "url": "http://www.plg-berlin.de/"
+    },
+    {
+      "name": "Marie-Curie-Gymnasium, Dallgow-Döberitz",
+      "logo": "/images/schools/mai2018/Marie-Curie-Gymasnium_Dallgow-Döberitz.jpg",
+      "url": "http://marie-curie-gymnasium-dallgow.de/"
+    },
+    {
+      "name": "Winfriedschule Fulda",
+      "logo": "/images/schools/mai2018/Winfried Schule Fulda.jpg",
+      "url": "http://www.winfriedschule-fulda.de/startseite.html"
+    },
+    {
+      "name": "Gutenbergschule Gymnasium Wiesbaden",
+      "logo": "/images/schools/mai2018/Gutenbergschule Wiesbaden.jpg",
+      "url": "http://www.gutenberg-gym.de/dieschule/gbs-auf-einen-blick/"
+    },
+    {
+      "name": "Graf-Stauffenberg-Gymnasium",
+      "logo": "/images/schools/mai2018/Graf Stauffenberg Gymnasium_Flörsheim am Main.png",
+      "url": "http://www.graf-stauffenberg-gymnasium.de/"
+    },
+    {
+      "name": "Lichtenbergschule",
+      "logo": "/images/schools/mai2018/Lichtenbergschule_Darmstadt.jpg",
+      "url": "http://ls.cabacos.de/"
+    },
+    {
+      "name": "Albert-Schweitzer-Schule",
+      "logo": "/images/schools/mai2018/Albert-Schweitzer-Schule_Offenbach am Main.jpg",
+      "url": "http://albert-offenbach.de/"
+    },
+    {
+      "name": "Albert-Einstein-Gymnasium",
+      "logo": "/images/schools/mai2018/Albert-Einstein-Gymnasium_Neubrandenburg.jpg",
+      "url": "http://www.aeg-nb.de/"
+    },
+    {
+      "name": "Schulzentrum am Sund",
+      "logo": "/images/schools/mai2018/Schulzentrum am Sund_Stralsund.jpg",
+      "url": "http://schulzentrum-am-sund.de/startseite.html"
+    },
+    {
+      "name": "Gerhart-Hauptmann-Gymnasium",
+      "logo": "/images/schools/mai2018/Gerhart-Hauptmann-Gymnasium_Wismar.jpg",
+      "url": "http://87.140.69.12/ghg/"
+    },
+    {
+      "name": "Felix-Klein-Gymnasium",
+      "logo": "/images/schools/mai2018/Felix-Klein-Gymnasium_Göttingen.jpg",
+      "url": "http://www.fkg-goettingen.de/"
+    },
+    {
+      "name": "Windthorst Gymnasium",
+      "logo": "/images/schools/mai2018/Windthorst Gymnasium_Meppen.png",
+      "url": "http://windthorst-gymnasium.de/"
+    },
+    {
+      "name": "Gymnasium am Kattenberge",
+      "logo": "/images/schools/mai2018/Gymnasium am Kattenberge_Buchholz.jpg",
+      "url": "http://www.gak-buchholz.de/"
+    },
+    {
+      "name": "Franziskusgymnasium Lingen",
+      "logo": "/images/schools/mai2018/Franziskus Gymnasium Lingen.png",
+      "url": "http://www.franziskusgymnasium.de/"
+    },
+    {
+      "name": "Theodor-Heuss-Gymnasium",
+      "logo": "/images/schools/mai2018/Theodor Heuss Gymnasium_Göttingen.png",
+      "url": "http://www2.iserv.thg-goettingen.de/"
+    },
+    {
+      "name": "Pascal-Gymnasium",
+      "logo": "/images/schools/mai2018/Pascal-Gymnasium_Münster-WEISSE SCHRIFT.png",
+      "url": "http://www.pascal-gym.de/"
+    },
+    {
+      "name": "Einhard Gymnasium",
+      "logo": "/images/schools/mai2018/Einhard Gymnasium_Aachen.jpg",
+      "url": "http://einhard-gymnasium.de/"
+    },
+    {
+      "name": "Fichte-Gymnasium",
+      "logo": "/images/schools/mai2018/Fichte-Gymnasium_Hagen.png",
+      "url": "http://www.fichte-gym.de/"
+    },
+    {
+      "name": "Gymnasium Leopoldinum",
+      "logo": "/images/schools/mai2018/Gymnasium Leopoldinum_Detmold.jpg",
+      "url": "http://www.gymnasium-leopoldinum-detmold.de/"
+    },
+    {
+      "name": "Steinhagener Gymnasium",
+      "logo": "/images/schools/mai2018/Steinhagener Gymnasium_Steinhagen.jpg",
+      "url": "http://www.steingy.de/"
+    },
+    {
+      "name": "Gymnasium Wolbeck",
+      "logo": "/images/schools/mai2018/gymnasium Wolbeck Münster.jpg",
+      "url": "http://www.muenster.org/gw2/GymWol/"
+    },
+    {
+      "name": "Gymnasium der Stadt Kerpen - Europaschule",
+      "logo": "/images/schools/mai2018/Gymnasium_der_Stadt_Kerpen.png",
+      "url": "http://www.gymnasium-kerpen.eu/"
+    },
+    {
+      "name": "Andreas-Vesalius-Gymnasium",
+      "logo": "/images/schools/mai2018/Andreas-Vesalius-Gymnasium_Wesel.png",
+      "url": "http://www.avg-wesel.de/"
+    },
+    {
+      "name": "Europaschule Bornheim",
+      "logo": "/images/schools/mai2018/Europaschule Bornheim_Bornheim.png",
+      "url": "http://www.europaschule-bornheim.de/contao/index.php/start.html"
+    },
+    {
+      "name": "Maria-Wächtler-Gymnasium Essen",
+      "logo": "/images/schools/mai2018/Maria-Wächtler-Gymnasium_Essen.png",
+      "url": "http://www.mwg-essen.de/willkommen"
+    },
+    {
+      "name": "Josef-Albers-Gymnasium",
+      "logo": "/images/schools/mai2018/Josef-Albers-Gymnasium_Bottrop.png",
+      "url": "http://www.jag-bottrop.de/"
+    },
+    {
+      "name": "Graf-Engelbert-Schule",
+      "logo": "/images/schools/mai2018/Graf-Engelbert-Schule.jpg",
+      "url": "https://www.graf-engelbert-schule.de/"
+    },
+    {
+      "name": "Rudolph-Brandes-Gymnasium",
+      "logo": "/images/schools/mai2018/Rudolph-Brandes-Gymnasium_Bad Salzuflen.jpg",
+      "url": "http://www.rudolph-brandes-gymnasium.de/"
+    },
+    {
+      "name": "St.-Willibrord-Gymnasium",
+      "logo": "/images/schools/mai2018/St.-Willibrord-Gymnasium_Bitburg.jpg",
+      "url": "http://www.st-willi.de/"
+    },
+    {
+      "name": "Max-von-Laue-Gymnasium",
+      "logo": "/images/schools/mai2018/Max-von-Laue-Gymnasium_Koblenz.png",
+      "url": "https://www.mvlg.de/"
+    },
+    {
+      "name": "Kurfürst-Balduin-Gymnasium",
+      "logo": "/images/schools/mai2018/Kurfürst-Balduin-Gymnasium_Münstermaifeld.png",
+      "url": "http://kubagym.org/"
+    },
+    {
+      "name": "Hermann-Tast-Schule",
+      "logo": "/images/schools/mai2018/Hermann-Tast-Schule_Husum.jpg",
+      "url": "https://hermann-tast-schule.lernnetz.de/"
+    }
+  ]
+}
