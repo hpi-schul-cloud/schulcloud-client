@@ -60,6 +60,13 @@
 
         {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen"}}
 
+        {{#ifeq this.currentRole "Schüler"}}
+            {{#embed "courses/components/lrs-activitylog" ../lrs}}
+                Coundn't find
+            {{/embed}}
+        {{/ifeq}}
+
+
         {{#ifneq this.currentRole "Schüler"}}
         {{#ifneq ../this.currentRole "Demo"}}
             {{#embed "lib/components/modal" class="poll-modal"}}
