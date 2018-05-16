@@ -150,23 +150,15 @@ router.get('/', function (req, res, next) {
             }
         });
 
-        try{//catch if there are no lrs statements
+        if (lrs.statements) {
             //filter lrs statements by currentUser -> TODO: put this in the lrs request
             lrs.statements = lrs.statements.filter(statement => {
-                try{
-                    return statement.actor.account.name = res.locals.currentUser._id;
-                }
-                catch (e) {
-                    return false;
-                }
+                    return statement.actor.account.name == res.locals.currentUser._id;
             });
 
             lrs.statements.map(statement => {
                 statement.actor.account.displayName = "You";
             });
-        }
-        catch (e) {
-            console.log(e);
         }
 
         res.render('dashboard/dashboard', {

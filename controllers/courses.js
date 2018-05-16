@@ -317,7 +317,7 @@ router.get('/:courseId', function(req, res, next) {
             }
         });
 
-        try{//catch if there are no lrs statements
+        if(lrs.statements){
             //filter lrs statements by coursid -> TODO: put this in the lrs request and modify url
             lrs.statements = lrs.statements.filter(statement => {
                 try{
@@ -336,9 +336,6 @@ router.get('/:courseId', function(req, res, next) {
                     }
                 });
             });
-        }
-        catch (e) {
-            console.log(e);
         }
 
         courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
