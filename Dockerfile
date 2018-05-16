@@ -16,4 +16,5 @@ VOLUME /home/node/app/node_modules
 WORKDIR /home/node/app
 
 EXPOSE 3100
-CMD ["npm", "run", "watch"]
+
+CMD ["sh", "-c", "gulp && node bin/www"]
