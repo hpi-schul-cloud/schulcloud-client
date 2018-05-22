@@ -118,8 +118,7 @@ router.get('/', function (req, res, next) {
             return (a.displayAt < b.displayAt) ? 1 : -1;
         }
     }
-    //Somehow $lte doesn't work in normal query so I manually put it into a request
-    const colors = ["CDDC39","3F51B5","FF9800","00BCD4","FF5722","03A9F4","2196F3","F44336","FFC107","009688","E91E63","4CAF50"];
+    const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
     const newsPromise = api(req).get('/news/',{
         qs: {
             schoolId : res.locals.currentSchool,

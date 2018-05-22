@@ -14,7 +14,8 @@
             <section class="section-homework">
                 {{#if addButton}}
                     {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="btn btn-primary btn-add create">
+                    <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}" class="sc-btn sc-btn-primary btn-add create"
+                       data-toggle="tooltip" data-placement="left" data-title="Aufgabe hinzufügen" >
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         <p>Aufgabe hinzufügen</p>
                     </a>
@@ -27,6 +28,7 @@
                         cancle-label='Abbrechen'
                         handle-url='true'
                 /></div>
+
 
                 <ol class="homework">
                     <div class="row"><div class="col-xl-12">

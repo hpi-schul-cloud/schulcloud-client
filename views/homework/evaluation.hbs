@@ -2,7 +2,7 @@
     <nav class="tab-links">
         <a id="submission-tab-link" class="tab-link active">Abgabe</a>
         {{#if @root.isTeacher}}
-            <a id="comment-tab-link" 	class="tab-link">Bewertung</a>
+            <a id="comment-tab-link" class="tab-link">Bewertung</a>
         {{/if}}
         {{#if this.submission}}
             <a id="discussion-tab-link" class="tab-link">Diskussion</a>
@@ -17,7 +17,7 @@
                         <hr>
                     {{/ifneq}}
                     <div class="ckcontent print">
-                        <div class="btn btn-secondary btn-print mb-1"
+                        <div class="sc-btn sc-btn-secondary btn-print mb-1"
                             data-toggle="tooltip" title="Abgabe drucken">
                                 <i class='fa fa-print'></i> Drucken
                         </div>
@@ -57,7 +57,7 @@
                     <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
                 {{#userHasPermission "HOMEWORK_CREATE"}}
-                    <button type="submit" class="btn btn-primary">Speichern</button>
+                    <button type="submit" class="sc-btn sc-btn-primary">Speichern</button>
                 {{/userHasPermission}}
                 </form>
             {{else}}

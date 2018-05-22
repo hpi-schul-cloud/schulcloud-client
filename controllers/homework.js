@@ -1,4 +1,4 @@
-﻿/*
+/*
  * One Controller per layout view
  */
 

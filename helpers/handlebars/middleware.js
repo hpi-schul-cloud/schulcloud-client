@@ -3,7 +3,7 @@ const moment = require('moment');
 const api = require('../../api');
 
 const makeActive = (items, currentUrl) => {
-	currentUrl += "/";		
+    currentUrl += "/";
     return items.map(item => {
         const regex = new RegExp("^" + item.link, "i");
 
@@ -21,7 +21,7 @@ const makeActive = (items, currentUrl) => {
 
         if(item.children && item.childActive) {
             item.children = makeActive(item.children, currentUrl);
-            
+
             if(item.children.filter(child => {return child.class == 'active';}).length == 0){
                 item.class += ' active';
             }

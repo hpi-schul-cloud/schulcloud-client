@@ -17,6 +17,7 @@
         <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin>
+        <link rel="preload" href="/images/sidebar.png" as="image" type="image/png" crossorigin>
         <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438">
         <link rel="apple-touch-icon" href= "/images/logo/app-icon-512.png">
         <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/app-icon-120.png">
@@ -37,7 +38,7 @@
     {{/block}}
 
 </head>
-<body {{#if inline}}class="window-inline"{{/if}}>
+<body>
     {{#block "body"}}{{/block}}
 
     {{#embed "lib/piwik"}}{{/embed}}
