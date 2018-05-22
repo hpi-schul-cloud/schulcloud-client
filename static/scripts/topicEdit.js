@@ -755,9 +755,8 @@ class TopicInternal extends TopicBlock {
      * d) it's not the topic itself
      */
     generatePattern() {
-        const topicId = $contentBlocksContainer.data('topicid') || 'undefined'; // set String for prevent blocking a newly created topic
         //                  a)                           b)        c)                                d)
-        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|account|administration|topics\/${topicId})).*`;
+        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`;
     }
 
     /**
@@ -817,7 +816,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie die aktuelle Themenseite nicht gestattet.`}><i className="fa fa-info-circle" /></a>
+                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie Themenseiten und direkte Verlinkungen von Dateien nicht gestattet.`}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input 
                         className="form-control" 

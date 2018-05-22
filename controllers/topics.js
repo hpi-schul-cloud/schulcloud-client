@@ -30,7 +30,6 @@ const editTopicHandler = (req, res, next) => {
         }
 
         res.render('topic/edit-topic', {
-            topicId: req.params.topicId,
             action,
             method,
             title: req.params.topicId ? 'Thema bearbeiten' : 'Thema anlegen',
@@ -44,8 +43,8 @@ const editTopicHandler = (req, res, next) => {
     });
 };
 
-const checkInternalComponents = (data, baseUrl, topicId = 'undefined') => {
-	let pattern = new RegExp(`(${baseUrl})(?!.*\/(edit|new|add|files\/my|account|administration|topics\/${topicId})).*`);
+const checkInternalComponents = (data, baseUrl) => {
+	let pattern = new RegExp(`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`);
 	(data.contents || []).map(c => {
 		if (c.component === 'internal' && !pattern.test((c.content || {}).url)) {
             (c.content || {}).url = baseUrl;
@@ -183,7 +182,7 @@ router.patch('/:topicId', function(req, res, next) {
     data.contents ? data.contents = createNewNexBoards(req, res, data.contents) : '';
 
     // recheck internal components by pattern
-    checkInternalComponents(data, req.headers.origin, req.params.topicId);
+    checkInternalComponents(data, req.headers.origin);
 
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
