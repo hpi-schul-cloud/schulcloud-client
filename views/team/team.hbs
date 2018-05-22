@@ -4,6 +4,7 @@
     <div class="container">
         <div class="row">
             {{#each currentteam.team}}
+            {{#if subheader_before}}<h6>{{subheader_before}}</h6>{{/if}}
             <div id="modal-container-{{id}}">
                 <div class="modal-background {{#if ../../loggedin}}modal-padding{{/if}}">
                     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -34,7 +35,10 @@
                 </div>
             </div>
 
-            <div class="content {{#ifvalue currentteam.style value="small"}} teamsmall col-md-3 {{/ifvalue}} {{#ifvalue currentteam.style value="standard"}} col-md-4 {{/ifvalue}}   col-sm-6 col-xs-12">
+            <div class="content 
+                {{#ifvalue currentteam.style value="small"}} teamsmall col-lg-3 col-md-4 {{/ifvalue}}
+                {{#ifvalue currentteam.style value="standard"}} col-md-4 {{/ifvalue}}
+                col-sm-6 col-xs-12">
                 <div class="person-wrapper">
                     <div class="buttons">
                         <div id="two" class="button{{id}}">

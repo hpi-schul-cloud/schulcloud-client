@@ -56,6 +56,7 @@
     "name": "Projektkoordination und wissenschaftliche Mitarbeiter",
     "style": "standard",
     "team": [{
+        "subheader_before": "Hasso-Plattner-Institut",
         "id": 3,
         "title": "",
         "firstName": "Jan",
@@ -106,22 +107,6 @@
       {
         "id": 6,
         "title": "",
-        "firstName": "Nils",
-        "lastName": "Karn",
-        "position": "Projektkoordination, MINT-EC",
-        "description": "Nils absolvierte seinen Magister in Erwachsenenpädagogik mit Nebenfächern Psychologie und BWL. Zusätzlich schloss er mit viel Freude die Ausbildung zum Design Thinker am HPI ab. Im Projekt Schul-Cloud ist er seit der ersten Stunde (Juli 2016) mit dabei und kümmert sich um alle Angelegenheiten die mit Nutzern und deren Umfeld zu tun haben. Er hält gerne Präsentationen sowie Talks zur Schul-Cloud und setzt Weiterentwicklungen mittels Design Thinking Methoden um.<br><br>In seiner Freizeit fährt er gern Rad und mit seiner Ducati Monster, schwimmt und läuft. Im Team Schul-Cloud spielt er gern Beachvolleyball und ist als Chief Happiness Officer für alle Aktivitäten zum Teambuilding zuständig.",
-        "pictureUrl": "/images/team/Nils_Karn.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 7,
-        "title": "",
         "firstName": "Max",
         "lastName": "Bothe",
         "position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -136,7 +121,7 @@
         "longDesc": false
       },
       {
-        "id": 8,
+        "id": 7,
         "title": "",
         "firstName": "Christiane",
         "lastName": "Hagedorn",
@@ -152,7 +137,7 @@
         "longDesc": false
       },
        {
-        "id": 9,
+        "id": 8,
         "title": "",
         "firstName": "Konstantin",
         "lastName": "Kaiser",
@@ -168,7 +153,7 @@
         "longDesc": false
       },
       {
-        "id": 10,
+        "id": 9,
         "title": "",
         "firstName": "Alexander",
         "lastName": "Kremer",
@@ -184,7 +169,7 @@
         "longDesc": false
       },
       {
-        "id": 11,
+        "id": 10,
         "title": "",
         "firstName": "Franz",
         "lastName": "Liedke",
@@ -200,7 +185,7 @@
         "longDesc": false
       },
       {
-        "id": 12,
+        "id": 11,
         "title": "",
         "firstName": "Florian",
         "lastName": "Morel",
@@ -216,7 +201,7 @@
         "longDesc": false
       },
       {
-        "id": 13,
+        "id": 12,
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
@@ -232,7 +217,7 @@
         "longDesc": false
       },
       {
-        "id": 14,
+        "id": 13,
         "title": "",
         "firstName": "Hannes",
         "lastName": "Schurig",
@@ -248,7 +233,7 @@
         "longDesc": false
       },
       {
-        "id": 15,
+        "id": 14,
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
@@ -264,7 +249,7 @@
         "longDesc": false
       },
       {
-        "id": 16,
+        "id": 15,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
@@ -278,14 +263,47 @@
           "linkedin": ""
         },
         "longDesc": false
-      }
+      },
+      {
+        "subheader_before": "Das nationale Excellence-Schulnetzwerk MINT-EC",
+        "id": 16,
+        "title": "",
+        "firstName": "Nils",
+        "lastName": "Karn",
+        "position": "Projektkoordination, MINT-EC",
+        "description": "Nils absolvierte seinen Magister in Erwachsenenpädagogik mit Nebenfächern Psychologie und BWL. Zusätzlich schloss er mit viel Freude die Ausbildung zum Design Thinker am HPI ab. Im Projekt Schul-Cloud ist er seit der ersten Stunde (Juli 2016) mit dabei und kümmert sich um alle Angelegenheiten die mit Nutzern und deren Umfeld zu tun haben. Er hält gerne Präsentationen sowie Talks zur Schul-Cloud und setzt Weiterentwicklungen mittels Design Thinking Methoden um.<br><br>In seiner Freizeit fährt er gern Rad und mit seiner Ducati Monster, schwimmt und läuft. Im Team Schul-Cloud spielt er gern Beachvolleyball und ist als Chief Happiness Officer für alle Aktivitäten zum Teambuilding zuständig.",
+        "pictureUrl": "/images/team/Nils_Karn.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+       {
+        "id": 17,
+        "title": "",
+        "firstName": "Sigrid",
+        "lastName": "Stobbe",
+        "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
+        "description": "Sigrid ist Bildungswissenschaftlerin (M.A., Freie Universität Berlin) und rechtzeitig zum Start der II. Pilotierungsphase seit Mai 2018 konzeptionelle Mitarbeiterin im Projekt Schul-Cloud auf Seiten von MINT-EC. Vor ihrem Masterabschluss arbeitete Sigrid in der Qualitätsentwicklung & Evaluation in der Fort- und Weiterbildung von Erwachsenen und forschte in verschiedenen Bildungsbereichen zur Qualität in Lern- und Bildungsprozessen (offline und online). Im Projekt Schul-Cloud wirkt sie insbesondere bei der Betreuung der Pilotschulen sowie der konzeptionellen Entwicklung der Schul-Cloud mit. Außerhalb der Arbeitszeit verbringt sie viel Zeit in den Boulder- und Kletterhallen ihrer Heimatstadt Berlin und sucht sportlichen Ausgleich beim Yoga.",
+        "pictureUrl": "/images/team/Sigrid_Stobbe.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      }       
     ]
   },
   "low": {
     "name": "Studierende",
     "style": "small",
     "team": [{
-      "id": 17,
+      "id": 18,
       "title": "",
       "firstName": "Boris",
       "lastName": " Andreev",
@@ -301,7 +319,7 @@
       "longDesc": false
     },
     {
-        "id": 18,
+        "id": 19,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
@@ -317,7 +335,7 @@
         "longDesc": false
       },
       {
-        "id": 19,
+        "id": 20,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -333,7 +351,7 @@
         "longDesc": false
       },
      {
-        "id": 20,
+        "id": 21,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -348,9 +366,9 @@
         },
         "longDesc": false
       },        
-             
+         
       {
-        "id": 21,
+        "id": 22,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -366,7 +384,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 23,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -382,7 +400,7 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "id": 24,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -398,7 +416,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
@@ -414,7 +432,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -430,7 +448,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 27,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -446,7 +464,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -462,7 +480,7 @@
         "longDesc": false
       },       
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -478,7 +496,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -494,7 +512,7 @@
         "longDesc": false
       },
        {
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Florian Michael",
         "lastName": "Kunz",
@@ -510,7 +528,7 @@
         "longDesc": false
       },       
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -526,7 +544,39 @@
         "longDesc": false
       },
       {
-        "id": 32,
+        "id": 33,
+        "title": "",
+        "firstName": "Elias",
+        "lastName": "Lehnert",
+        "position": "Studentische Hilfskraft/ Schüler",
+        "description": "Elias ist Schüler an dem Emmy-Noether-Gymnasium und entwickelt die Android App der Schul-Cloud mit. In seiner Freizeit arbeitet er gerne an verschiedenen Projekten mit Programmiersprachen wie C++ oder Python.",
+        "pictureUrl": "/images/team/Elias_Lehnert.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
+      {
+        "id": 34,
+        "title": "",
+        "firstName": "Andrea",
+        "lastName": "Nathansen",
+        "position": "Studentische Hilfskraft",
+        "description": "Andrea studiert Bachelor IT-Systems Engineering am HPI. Seit Mai 2018 ist sie im Bereich der Android App-Entwicklung im Schul-Cloud Projekt tätig. In ihrer Freizeit zeichnet sie und ist in den Sportarten historischer Schwertkampf und historische Tänze aktiv.",
+        "pictureUrl": "/images/team/Andrea_Nathansen.JPG",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },       
+      {
+        "id": 35,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -541,8 +591,24 @@
         },
         "longDesc": false
       },
+     {
+        "id": 36,
+        "title": "",
+        "firstName": "Jonas",
+        "lastName": "Wanke",
+        "position": "Studentische Hilfskraft/ Schüler",
+        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
+        "pictureUrl": "/images/team/Jonas_Wanke.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },        
       {
-        "id": 33,
+        "id": 37,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -560,10 +626,10 @@
     ]
   },
   "below": {
-    "name": "",
+    "name": "Weitere Mitarbeiter",
     "style": "small",
     "team": [{
-        "id": 34,
+        "id": 38,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -579,13 +645,13 @@
         "longDesc": false
       },
       {
-        "id": 35,
+        "id": 39,
         "title": "",
-        "firstName": "Elias",
-        "lastName": "Lehnert",
-        "position": "Studentische Hilfskraft/ Schüler",
-        "description": "Elias ist Schüler an dem Emmy-Noether-Gymnasium und entwickelt die Android App der Schul-Cloud mit. In seiner Freizeit arbeitet er gerne an verschiedenen Projekten mit Programmiersprachen wie C++ oder Python.",
-        "pictureUrl": "/images/team/Elias_Lehnert.jpg",
+        "firstName": "Marvin",
+        "lastName": "Fischer",
+        "position": "Schüler",
+        "description": "Marvin ist derzeit Schüler der Jahrgansstufe 12 des Albert Einstein Gymnasiums Neubrandenburg und arbeitet an der Entwicklung der Schul-Cloud Android App mit. Seit er 13 Jahre alt ist, bringt er sich das Programmieren und Web-Designen bei. Im Jahr 2017 hat Marvin an der deutschen Berufs-Meisterschaft WorldSkillsGermany im Skill 09 teilgenommen. In seiner Freizeit beschäftigt er sich mit der Programmierung von Windows, Android und Web Anwendungen, sowie mit dem Entwickeln von Web Designs.",
+        "pictureUrl": "/images/team/Marvin_Fischer.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -595,7 +661,7 @@
         "longDesc": false
       },
       {
-        "id": 36,
+        "id": 40,
         "title": "",
         "firstName": "Jessica",
         "lastName": "Pfarr",
@@ -609,30 +675,14 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
-      {
-        "id": 37,
-        "title": "",
-        "firstName": "Jonas",
-        "lastName": "Wanke",
-        "position": "Studentische Hilfskraft/ Schüler",
-        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
-        "pictureUrl": "/images/team/Jonas_Wanke.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      }
+      }    
     ]
   },
   "end": {
     "name": "Alumni",
     "style": "small",
     "team": [{
-      "id": 38,
+      "id": 41,
       "title": "",
       "firstName": "Carl",
       "lastName": "Gödecken",
@@ -648,7 +698,7 @@
       "longDesc": false
        },
      {
-        "id": 39,
+        "id": 42,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -664,7 +714,7 @@
         "longDesc": false
       },
      {
-        "id": 40,
+        "id": 43,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -680,7 +730,7 @@
         "longDesc": false
       },
       {
-        "id": 41,
+        "id": 44,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
