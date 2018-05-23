@@ -35,20 +35,20 @@ const getActions = (item, path) => {
             link: path + item._id + "/edit",
             class: 'btn-edit',
             icon: 'edit',
-            alt: 'bearbeiten'
+            title: 'bearbeiten'
         },
         {
             link: path + item._id + "/copy",
             class: 'btn-copy',
             icon: 'copy',
-            alt: 'Kopieren'
+            title: 'kopieren'
         },
         {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
             method: 'delete-material',
-            alt: 'Löschen'
+            title: 'löschen'
         }
     ];
 };
