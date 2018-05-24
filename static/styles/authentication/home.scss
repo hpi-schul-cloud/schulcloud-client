@@ -46,9 +46,6 @@ body {
                 margin-right: .5rem;
                 background: $logoBackground;
                 background-size: contain;
-                @include media-breakpoint-down(xs) {
-                    display:none;
-                }
             }
         }
         .nav-item{
@@ -64,6 +61,17 @@ body {
         }
         .nav-item:last-of-type{
             padding-right: 0;
+        }
+        @include media-breakpoint-down(md) {
+            text-align: center;
+            #title, ul.nav{
+                float: none;
+                display: block;
+            }
+            ul.nav .nav-item{
+                float: none;
+                display: inline-block;
+            }
         }
     }
     main{

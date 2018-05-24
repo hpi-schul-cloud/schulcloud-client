@@ -193,9 +193,17 @@
     margin-top: 20px;
     margin-bottom: 20px;
   }
+  h6 {
+    color: $primaryColor;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+    font-size: 1.1rem;
+  }
   .image {
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: auto;
     border-radius: 10px;
   }
 }
