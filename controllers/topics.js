@@ -158,6 +158,10 @@ router.patch('/:topicId', function(req, res, next) {
     const data = req.body;
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
+    
+    if (!data.courseId && !req.query.courseGroup) {
+        data.courseId = req.params.courseId;
+    }
 
     // if not a simple hidden or position patch, set contents to empty array
     if (!data.contents && !req.query.json) {
