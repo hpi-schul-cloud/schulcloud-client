@@ -63,6 +63,10 @@ label,
     user-select: none;
 }
 
+.hidden{
+	display: none;
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;
