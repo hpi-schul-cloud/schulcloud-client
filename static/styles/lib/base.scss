@@ -63,6 +63,17 @@ label,
     user-select: none;
 }
 
+.intro-trigger {
+	display: none;
+}
+
+.hidden{
+	display: none;
+}
+.show{
+	display: initial;
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;

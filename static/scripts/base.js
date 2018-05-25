@@ -149,12 +149,6 @@ $(document).ready(function () {
         }
     });
 
-
-    // Init mobile nav
-    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
-
-
     (function (a, b, c) {
         if (c in b && b[c]) {
             var d, e = a.location, f = /^(a|html)$/i;
@@ -218,7 +212,13 @@ $(document).ready(function () {
     // Print Button
     document.querySelectorAll('.print .btn-print').forEach(btn => {
         btn.addEventListener("click", printPart);
-    })
+    });
+
+    if (document.querySelector("*[data-intro]") && screen.width > 1024) {
+        document.querySelectorAll(".intro-trigger").forEach((trigger)=>{
+            trigger.classList.add("show");
+        });
+    };
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
