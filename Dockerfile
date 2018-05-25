@@ -17,4 +17,13 @@ WORKDIR /home/node/app
 
 EXPOSE 3100
 
-CMD ["sh", "-c", "gulp && node bin/www"]
+RUN gulp
+RUN rm .gulp-changed-smart.json
+#build n21 theme
+ENV SC_THEME n21
+RUN gulp
+
+#reset ENV
+ENV SC_THEME default
+
+CMD node bin/www
