@@ -90,12 +90,12 @@ function toggleMobileSearch(){
     document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
     document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
 }
-
-var customReady = jQuery.fn.ready;
-jQuery.fn.ready = function(handler) {
-    $(document).on("pageload", handler);
-    return customReady.apply(this, arguments);
-};
+var originalReady = jQuery.fn.ready;
+$.fn.extend({
+    ready: function(handler) {
+        $(document).on("pageload", handler);
+    }
+});
 $( window ).on( "load", function () {
     $(document).trigger("pageload");
 })
