@@ -43,6 +43,15 @@ const editTopicHandler = (req, res, next) => {
     });
 };
 
+const checkInternalComponents = (data, baseUrl) => {
+	let pattern = new RegExp(`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`);
+	(data.contents || []).map(c => {
+		if (c.component === 'internal' && !pattern.test((c.content || {}).url)) {
+            (c.content || {}).url = baseUrl;
+        }
+	});
+};
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -67,6 +76,9 @@ router.post('/', function(req, res, next) {
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
     req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+
+    // recheck internal components by pattern
+    checkInternalComponents(data, req.headers.origin);
 
     api(req).post('/lessons/', {
         json: data // TODO: sanitize
@@ -158,6 +170,10 @@ router.patch('/:topicId', function(req, res, next) {
     const data = req.body;
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
+    
+    if (!data.courseId && !req.query.courseGroup) {
+        data.courseId = req.params.courseId;
+    }
 
     // if not a simple hidden or position patch, set contents to empty array
     if (!data.contents && !req.query.json) {
@@ -168,6 +184,10 @@ router.patch('/:topicId', function(req, res, next) {
 
     // create new Nexboard when necessary, if not simple hidden or position patch
     data.contents ? data.contents = createNewNexBoards(req, res, data.contents) : '';
+
+    // recheck internal components by pattern
+    checkInternalComponents(data, req.headers.origin);
+
     api(req).patch('/lessons/' + req.params.topicId, {
         json: data // TODO: sanitize
     }).then(_ => {
