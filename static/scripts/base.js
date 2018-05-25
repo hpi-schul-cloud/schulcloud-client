@@ -216,7 +216,7 @@ $(document).ready(function () {
 
     if (document.querySelector("*[data-intro]") && screen.width > 1024) {
         document.querySelectorAll(".intro-trigger").forEach((trigger)=>{
-            trigger.classList.remove("hidden");
+            trigger.classList.add("show");
         });
     };
 
