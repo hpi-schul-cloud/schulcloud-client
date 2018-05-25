@@ -8,10 +8,10 @@ COPY . /home/node/app
 # Run npm install 
 RUN cd /home/node/app && npm install 
 
-VOLUME /home/node/app/build
+
 VOLUME /home/node/app/node_modules
 
-#USER node
+# USER node
 
 WORKDIR /home/node/app
 
@@ -19,11 +19,11 @@ EXPOSE 3100
 
 RUN gulp
 RUN rm .gulp-changed-smart.json
-#build n21 theme
+# build n21 theme
 ENV SC_THEME n21
 RUN gulp
-
-#reset ENV
+# we could remove identical files in the build dir with symlinks later if the image gets too fat
+# reset ENV
 ENV SC_THEME default
-
+VOLUME /home/node/app/build
 CMD node bin/www
