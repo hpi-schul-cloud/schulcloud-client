@@ -17,7 +17,7 @@ function checkBrowserEsSupport() {
 if (checkBrowserEsSupport()) {
     // ES6 Browser, use better ES6 version of the player
     var s1 = document.createElement('script');
-    s1.src = "/scripts/video-player/webcomponents-lite.js";
+    s1.src = "/vendor/webcomponents-lite-player.js";
     document.head.appendChild(s1);
     var page_es6 = document.createElement('link');
     page_es6.href = "/vendor/video-player/video-player-es6.html";

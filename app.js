@@ -55,6 +55,7 @@ app.use(session({
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.notification = req.session.notification;
+    res.locals.inline = req.query.inline || false;
     delete req.session.notification;
     next();
 });
