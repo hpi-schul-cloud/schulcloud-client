@@ -28,3 +28,41 @@
     }
   }
 }
+
+.embed-pdf {
+  .single-pdf:hover {
+
+  }
+  .single-pdf:first-child {
+    border: 1px solid #d3d3d3;
+  }
+  .single-pdf {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #d3d3d3;
+    border-right: 1px solid #d3d3d3;
+    border-bottom: 1px solid #d3d3d3;
+    border-left: none;
+
+    a {
+      text-decoration: none;
+
+      .single-pdf-wrapper {
+        padding: 10px;
+      }
+      .single-pdf-title {
+
+      }
+      .single-pdf-thumbnail {
+        margin-top: 10px;
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}

@@ -219,6 +219,15 @@ $(document).ready(function () {
             trigger.classList.add("show");
         });
     };
+    
+    /*$(".embed-pdf .single-pdf").click(e => {
+        e.preventDefault();
+        var elem = e.target;
+        if(elem.attr("data-pdf")&&elem.attr("data-pdf").endsWith(".pdf")) {
+            elem.parent(".embed-pdf-row").append("<div>TEST</div>");
+        }
+        alert("a");
+    });*/
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
