@@ -33,6 +33,11 @@
             max-width: 100%;
             height: auto !important;
         }
+        iframe{
+            border: 1px solid $primaryColor;
+            border-radius: 5px;
+            outline: none;
+        }
     }
     .disabled {
         cursor: not-allowed;
@@ -78,6 +83,9 @@
         .geo-gebra-info {
             color: white;
             background-color: $primaryColor;
+        }
+        input{
+            width: 100%;
         }
     }
 }

@@ -51,13 +51,19 @@ label,
     user-select: none;
 }
 
+.hidden{
+	display: none;
+}
+.show{
+	display: initial;
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;
 
 	&:before {
 		content: "\f1ce";
-		-webkit-animation: fa-spin 2s infinite linear;
 		animation: fa-spin 2s infinite linear;
 		font-family: "FontAwesome";
 		display: inline-block;
@@ -67,13 +73,11 @@ label,
 	}
 }
 
-@-webkit-keyframes fa-spin {
+@keyframes fa-spin {
 	0% {
-		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
 	100% {
-		-webkit-transform: rotate(359deg);
 		transform: rotate(359deg);
 	}
 }
@@ -81,8 +85,7 @@ label,
 form.inline {
 	display: inline;
 
-	button {
-		-webkit-appearance: none;
+	button:not(.no-inline-styling){
 		appearance: none;
 		background: transparent;
 		border: 0px;

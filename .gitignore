@@ -78,3 +78,8 @@ typings/
 
 # VS Code configuration files
 \.vscode/
+
+# Nightwatch
+screenshots/
+reports/
+selenium-debug.log

@@ -34,18 +34,21 @@ const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStuden
         {
             link: path + item._id,
             class: `btn-edit ${isTeacher ? 'disabled' : ''}`,
-            icon: 'edit'
+            icon: 'edit',
+            title: 'Eintrag bearbeiten'
         },
         {
             link: path + item._id,
             class: `${isAdmin ? 'btn-delete' : 'disabled'}`,
             icon: 'trash-o',
-            method: `${isAdmin ? 'delete' : ''}`
+            method: `${isAdmin ? 'delete' : ''}`,
+            title: 'Eintrag löschen'
         },
         {
             link: isStudentAction ? path + 'pw/' + item._id : '',
             class: isStudentAction ? 'btn-pw' : 'invisible',
-            icon: isStudentAction ? 'key' : ''
+            icon: isStudentAction ? 'key' : '',
+            title: 'Passwort zurücksetzen'
         }
     ];
 };
@@ -71,19 +74,22 @@ const getTableActionsSend = (item, path, state) => {
             {
                 link: path + item._id,
                 class: 'btn-edit',
-                icon: 'edit'
+                icon: 'edit',
+                title: 'Eintrag bearbeiten'
             },
             {
                 link: path + item._id,
                 class: 'btn-disable',
                 icon: 'ban',
-                method: 'delete'
+                method: 'delete',
+                title: 'Eintrag löschen'
             },
             {
                 link: path + item._id,
                 class: 'btn',
                 icon: 'paper-plane',
-                method: 'post'
+                method: 'post',
+                title: 'Eintrag löschen'
             });
     }
     return actions;

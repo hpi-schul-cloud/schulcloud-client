@@ -51,7 +51,14 @@ function fullscreenBtnClicked(){
     fullscreen = !fullscreen;
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
-window.addEventListener("load", function () {
+
+$(document).ready(function () {
+
+    // Init mobile nav
+    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
+    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+
+    // Init modals
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');
