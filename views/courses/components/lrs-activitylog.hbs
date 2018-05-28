@@ -10,7 +10,9 @@
             {{/if}}
             {{verb.display.en-US}}
             <a href="{{object.id}}">{{object.definition.name.de}}</a>
-            ({{object.definition.description.de}})
+            {{#if object.definition.description.de}}
+                ({{object.definition.description.de}})
+            {{/if}}
             <small>{{timeFromNow timestamp}}</small>
         </div>
     {{/each}}
