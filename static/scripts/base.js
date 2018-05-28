@@ -81,11 +81,12 @@ function printPart(){
     $(this).show();
 }
 
-var customReady = jQuery.fn.ready;
-jQuery.fn.ready = function(handler) {
-    $(document).on("pageload", handler);
-    return customReady.apply(this, arguments);
-};
+var originalReady = jQuery.fn.ready;
+$.fn.extend({
+    ready: function(handler) {
+        $(document).on("pageload", handler);
+    }
+});
 $( window ).on( "load", function () {
     $(document).trigger("pageload");
 })
@@ -202,7 +203,13 @@ $(document).ready(function () {
     // Print Button
     document.querySelectorAll('.print .btn-print').forEach(btn => {
         btn.addEventListener("click", printPart);
-    })
+    });
+
+    if (document.querySelector("*[data-intro]") && screen.width > 1024) {
+        document.querySelectorAll(".intro-trigger").forEach((trigger)=>{
+            trigger.classList.add("show");
+        });
+    };
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
