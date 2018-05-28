@@ -36,7 +36,7 @@ router.get('/consent', auth.authChecker, (r, w) => {
       buttonLabel: 'Akzeptieren',
       scopes: consentRequest.requestedScopes
     })
-  }).catch(error => console.log(error))
+  })
 })
 
 router.post('/consent', auth.authChecker, (r, w) => {

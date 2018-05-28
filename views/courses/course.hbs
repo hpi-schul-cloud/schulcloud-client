@@ -242,6 +242,26 @@
                     </div>
                 </div>
             </div>
+            <hr/>
+            <!-- Lern-Cockpit -->
+            <div class="row">
+                <div class="col-sm-12">
+                    {{#userHasPermission "COURSE_EDIT" }}
+                        <a data-toggle="collapse" class="collapse-toggle" href="#lerncockpit">
+                            <h4>
+                                <small data-toggle="tooltip" title="Lerncockpit ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                                Lerncockpit
+                            </h4>
+                        </a>
+                    {{/userHasPermission}}
+
+                    <div id="lerncockpit" class="container-fluid collapse">
+                        {{#embed "courses/components/lrs-activitylog" lrs}}
+                        {{/embed}}
+                    </div>
+                </div>
+            </div>
+            <!--Kurs-Buttons -->
             <div class="row padding-top">
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
