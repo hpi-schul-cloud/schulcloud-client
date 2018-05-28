@@ -1,4 +1,7 @@
 {{#extend "lib/loggedin"}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/news/news.critical.css"}}}
+    {{/content}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/news/news.css"/>
     {{/content}}

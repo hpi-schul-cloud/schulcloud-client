@@ -71,22 +71,3 @@ a.cke_dialog_close_button{
     filter: brightness(0) invert(1);
     opacity: 1 !important;
 }
-
-.ckcontent {
-    margin: 10px 0;
-    color: #373a3c;
-    text-decoration:none;
-    &:hover{text-decoration:none;}
-    h1 {font-size: 1.3rem;font-weight:bold}
-    h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
-    h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
-    p  {font-size: 1rem;margin-bottom:.25rem;}
-    img, video{max-width: 100%;}
-    table{display: block; max-width:100%; overflow: auto;}
-    blockquote{
-      color: grey;
-      margin-left: 1rem;
-      border-left: 2px solid grey;
-      padding-left: 5px;
-    }
-}
