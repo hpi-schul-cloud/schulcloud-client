@@ -336,6 +336,7 @@ router.get('/:courseId', function(req, res, next) {
                     }
                 });
             });
+            lrs.statements = lrs.statements.slice(0, 10);
         }
 
         courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
