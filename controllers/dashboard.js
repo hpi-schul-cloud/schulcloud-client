@@ -159,6 +159,7 @@ router.get('/', function (req, res, next) {
             lrs.statements.map(statement => {
                 statement.actor.account.displayName = "You";
             });
+            lrs.statements = lrs.statements.slice(0, 10);
         }
 
         res.render('dashboard/dashboard', {
