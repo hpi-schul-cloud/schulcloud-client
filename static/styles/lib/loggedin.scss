@@ -21,39 +21,14 @@ body > * {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
-    .overlay-card{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 200vmax;
-        height: 200vmax;
-        transform-origin: 0 100%;
-        transition-property: transform;
-        transition-timing-function: ease-in;
-        will-change: transform;
-        &:nth-of-type(1){
-            background-color: #fee1b5;
-            transition-delay: .5s;
-            transition-duration: .6s;
-        }
-        &:nth-of-type(2){
-            background-color: #fed599;
-            transition-delay: .8s;
-            transition-duration: .5s;
-        }
-        &:nth-of-type(3){
-            background-color: #fdbd6d;
-            transition-delay: 1.0s;
-            transition-duration: .4s;
-        }
-    }
+    background-color: rgba(0,0,0,.4);
     .content{
         position: absolute;
         bottom: 0;
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: radial-gradient(farthest-corner, transparent 45%, rgba(217, 140, 6, .5));
+        background: radial-gradient(farthest-corner, transparent 45%, rgba(0, 0, 0, .2));
         transition: opacity .3s ease-in-out 1.3s;
         text-shadow: 2px 2px 5px rgba(0,0,0,.3);
         .center-wrapper{
