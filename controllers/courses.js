@@ -321,7 +321,7 @@ router.get('/:courseId', function(req, res, next) {
             //filter lrs statements by coursid -> TODO: put this in the lrs request and modify url
             lrs.statements = lrs.statements.filter(statement => {
                 try{
-                    return statement.context.contextActivities.parent[0].id == ("https://bp.schul-cloud.org/courses/"+req.params.courseId);
+                    return statement.context.contextActivities.grouping[0].id == ("https://bp.schul-cloud.org/courses/"+req.params.courseId);
                 }
                 catch (e) {
                     return false;

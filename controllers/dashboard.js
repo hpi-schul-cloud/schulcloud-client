@@ -157,7 +157,7 @@ router.get('/', function (req, res, next) {
             });
 
             lrs.statements.map(statement => {
-                statement.actor.account.displayName = "You";
+                statement.actor.account.displayName = res.locals.currentUser.displayName;
             });
             lrs.statements = lrs.statements.slice(0, 10);
         }
