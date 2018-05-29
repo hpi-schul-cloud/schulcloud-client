@@ -321,6 +321,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicArsnovaClick)}>+ arsnova.click</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Interne Komponente</button>
                     </div>
                 </div>
             </div>
@@ -371,6 +372,9 @@ class TopicBlock extends React.Component {
                 break;
             case 'arsnovaClick':
                 return TopicArsnovaClick;
+                break;
+            case 'internal':
+                return TopicInternal;
                 break;
         }
     }
@@ -746,6 +750,99 @@ class TopicGeoGebra extends TopicBlock {
         );
     }
 };
+
+/**
+ * Class representing an internal link
+ * @extends React.Component
+ */
+class TopicInternal extends TopicBlock {
+
+    /**
+     * generates the url-pattern with following criteria
+     * a) has to be in the current system
+     * b) /edit, /new and /add pages
+     * c) no personal links (personal files, settings, admin-area)
+     * d) it's not the topic itself
+     */
+    generatePattern() {
+        //                  a)                           b)        c)                                d)
+        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`;
+    }
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            baseUrl: window.location.origin,
+            pattern: this.generatePattern()
+        };
+    }
+
+
+    componentDidMount() {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in
+     * view mode.
+     */
+    static get component() {
+        return 'internal';
+    }
+
+    /**
+     * Keep state in sync with input.
+     */
+    updateUrl(event) {
+        const value = typeof(event) == 'string' ? event : ((event || {}).target || {}).value;
+        this.setState({
+            baseUrl: window.location.origin,
+            pattern: this.generatePattern()
+        });
+
+        this.props.onUpdate({
+            content: {
+                url: value
+            }
+        });
+    }
+
+    /**
+     * Render the block (an input field)
+     */
+    render() {
+        return (
+            <div>
+                <label>Interner Link</label><br/>
+                <div className="input-group">
+                    <span className="input-group-btn">
+                        <a
+                            className="btn btn-secondary geo-gebra-info"
+                            href="#"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie Themenseiten und direkte Verlinkungen von Dateien nicht gestattet.`}><i className="fa fa-info-circle" /></a>
+                    </span>
+                    <input 
+                        className="form-control" 
+                        name={`contents[${this.props.position}][content][url]`} 
+                        pattern={this.state.pattern} 
+                        onChange={this.updateUrl.bind(this)}
+                        type="url" 
+                        required
+                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
+                        value={(this.props.content || {}).url}
+                    />
+                </div>
+            </div>
+        );
+    }
+}
 
 /**
  * Class representing an Etherpad

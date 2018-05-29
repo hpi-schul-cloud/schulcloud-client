@@ -42,10 +42,26 @@
             </div>
         </div>
 
-        <h5>weitere Pilotschulen</h5>
+        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start März 2017)</span></h5>
+        <div class="container">
+        <div class="row">
+            {{#each schools.march2017}}
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="{{{url}}}" target="_blank">
+                            <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start Mai 2018)</span></h5>
+
         <div class="container">
             <div class="row">
-                {{#each schools.others}}
+                {{#each schools.mai2018}}
                     <div class="partner-box-wrapper col-xs-6 col-md-3">
                         <div class="partner-box">
                             <a href="{{{url}}}" target="_blank">
