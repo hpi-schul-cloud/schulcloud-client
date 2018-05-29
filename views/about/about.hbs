@@ -93,35 +93,36 @@
        Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der Schul-Cloud. Außerdem hat das HPI zusammen mit der <a href="https://www.presse.uni-augsburg.de/unipressedienst/2018/jan-maerz/2018_003/" target="_blank">Universität Augsburg</a> 
        einen MOOC zu dem Thema <a href="https://mooc.house/courses/lernen40-2018" target="_blank">Lernen 4.0 - Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
     <br/>
-    <script>
-        function teste(e) {
-            //e.preventDefault();
-            var elem = e;
-            console.log(e);
-            console.log(elem);
-            if($(elem).attr("data-pdf")&&$(elem).attr("data-pdf").endsWith(".pdf")) {
-                $(elem).parent(".embed-pdf-row").next(".viewer").show();
-            }
-            alert("abc");
-        }
-    </script>
     <div class="container embed-pdf">
         <div class="row embed-pdf-row">
-            <div class="single-pdf col-xs-6 col-md-4">
-                <a href="#" onclick='teste(this);'>
+            <div class="single-pdf col-xs-6 col-md-4 mee" data-pdf="/vendor/GEI-Broschuere-web.pdf">
+                <a href="#">
                     <div class="single-pdf-wrapper">
                         <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
                             und Methoden</b>
                         <br/>
-                        <span>Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
+                        <span data-pdf="a">Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
                         <br/>
                         <div class="single-pdf-thumbnail">
-                            <img src="/images/embed-pdf-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
+                            <img src="/images/pdf-thumbnail-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="single-pdf col-xs-6 col-md-4">
+            <div class="single-pdf col-xs-6 col-md-4" data-pdf="/vendor/fact-sheet.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Schul-Cloud Fact Sheet</b>
+                        <br/>
+                        <span>Was ist die Schul-Cloud? Was ist die Schul-Cloud nicht?</span>
+                        <br/>
+                        <div class="single-pdf-thumbnail">
+                            <img src="/images/pdf-thumbnail-schul-cloud-fact-sheet.jpg" />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="single-pdf col-xs-6 col-md-4" data-pdf="/vendor/GEI-Broschuere-web.pdf">
                 <a href="#">
                     <div class="single-pdf-wrapper">
                         <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
@@ -130,43 +131,41 @@
                         <span>Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
                         <br/>
                         <div class="single-pdf-thumbnail">
-                            <img src="/images/embed-pdf-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
+                            <img src="/images/pdf-thumbnail-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
                         </div>
-                        <!--<object data="/vendor/GEI-Broschuere-web.pdf" type="application/pdf" style="width:100%; height:700px;" >
-                            <iframe src="/vendor/GEI-Broschuere-web.pdf" style="width:100%; height:700px; border: none;">
-                            <p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="/vendor/GEI-Broschuere-web.pdf" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>
-                            </iframe>
-                        </object>-->
                     </div>
                 </a>
             </div>
-            <div class="single-pdf col-xs-6 col-md-4">
-                <a href="#">
-                    <div class="single-pdf-wrapper" data-pdf="/vendor/GEI-Broschuere-web.pdf">
-                        <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
-                            und Methoden</b>
-                        <br/>
-                        <span>Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
-                        <br/>
-                        <div class="single-pdf-thumbnail">
-                            <img src="/images/embed-pdf-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
-                        </div>
-                        <!--<object data="/vendor/GEI-Broschuere-web.pdf" type="application/pdf" style="width:100%; height:700px;" >
-                            <iframe src="/vendor/GEI-Broschuere-web.pdf" style="width:100%; height:700px; border: none;">
-                            <p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="/vendor/GEI-Broschuere-web.pdf" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>
-                            </iframe>
-                        </object>-->
-                    </div>
-                </a>
-            </div>
-        </div>
-        <object class="viewer" data="/vendor/GEI-Broschuere-web.pdf" type="application/pdf" style="display: none; width:100%; height:700px;" >
-            <iframe src="/vendor/GEI-Broschuere-web.pdf" style="width:100%; height:700px; border: none;">
-            <p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="/vendor/GEI-Broschuere-web.pdf" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>
-            </iframe>
-        </object>
+        </div> <!-- .row.embed-pdf-row -->
         <div class="row embed-pdf-row">
-            <div class="single-pdf col-xs-6 col-md-4">
+            <div class="single-pdf col-xs-6 col-md-4" data-pdf="/vendor/GEI-Broschuere-web.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
+                            und Methoden</b>
+                        <br/>
+                        <span data-pdf="a">Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
+                        <br/>
+                        <div class="single-pdf-thumbnail">
+                            <img src="/images/pdf-thumbnail-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="single-pdf col-xs-6 col-md-4" data-pdf="/vendor/fact-sheet.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Schul-Cloud Fact Sheet</b>
+                        <br/>
+                        <span>Was ist die Schul-Cloud? Was ist die Schul-Cloud nicht?</span>
+                        <br/>
+                        <div class="single-pdf-thumbnail">
+                            <img src="/images/pdf-thumbnail-schul-cloud-fact-sheet.jpg" />
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="single-pdf col-xs-6 col-md-4" data-pdf="/vendor/GEI-Broschuere-web.pdf">
                 <a href="#">
                     <div class="single-pdf-wrapper">
                         <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
@@ -175,50 +174,12 @@
                         <span>Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
                         <br/>
                         <div class="single-pdf-thumbnail">
-                            <img src="/images/embed-pdf-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
+                            <img src="/images/pdf-thumbnail-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
                         </div>
                     </div>
                 </a>
             </div>
-            <div class="single-pdf col-xs-6 col-md-4">
-                <a href="#">
-                    <div class="single-pdf-wrapper">
-                        <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
-                            und Methoden</b>
-                        <br/>
-                        <span>Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
-                        <br/>
-                        <div class="single-pdf-thumbnail">
-                            <img src="/images/embed-pdf-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
-                        </div>
-                        <!--<object data="/vendor/GEI-Broschuere-web.pdf" type="application/pdf" style="width:100%; height:700px;" >
-                            <iframe src="/vendor/GEI-Broschuere-web.pdf" style="width:100%; height:700px; border: none;">
-                            <p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="/vendor/GEI-Broschuere-web.pdf" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>
-                            </iframe>
-                        </object>-->
-                    </div>
-                </a>
-            </div>
-            <div class="single-pdf col-xs-6 col-md-4">
-                <a href="#">
-                    <div class="single-pdf-wrapper" data-pdf="/vendor/GEI-Broschuere-web.pdf">
-                        <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
-                            und Methoden</b>
-                        <br/>
-                        <span>Ergebnisse der bildungswissenschaftlichen Begleitforschung des Georg-Eckert-Instituts</span>
-                        <br/>
-                        <div class="single-pdf-thumbnail">
-                            <img src="/images/embed-pdf-fachuebergreifende-unterrichtsszenarien-begleitforschung-Georg-Eckert-Institut.jpg" />
-                        </div>
-                        <!--<object data="/vendor/GEI-Broschuere-web.pdf" type="application/pdf" style="width:100%; height:700px;" >
-                            <iframe src="/vendor/GEI-Broschuere-web.pdf" style="width:100%; height:700px; border: none;">
-                            <p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="/vendor/GEI-Broschuere-web.pdf" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>
-                            </iframe>
-                        </object>-->
-                    </div>
-                </a>
-            </div>
-        </div>
+        </div> <!-- .row.embed-pdf-row -->
     </div>
     <br/>
     <h4>Veröffentlichungen</h4>

@@ -220,14 +220,33 @@ $(document).ready(function () {
         });
     };
     
-    /*$(".embed-pdf .single-pdf").click(e => {
+    $(".embed-pdf .single-pdf").click(e => {
         e.preventDefault();
         var elem = e.target;
-        if(elem.attr("data-pdf")&&elem.attr("data-pdf").endsWith(".pdf")) {
-            elem.parent(".embed-pdf-row").append("<div>TEST</div>");
+        var pdf = $(elem).parents(".single-pdf").attr("data-pdf");
+        //TODO: perhaps check if file exists and status==200
+        if(pdf&&pdf.endsWith(".pdf")) {
+            //TODO: for better reusability, create hbs and render instead of inline
+            var viewerHtml = '<object class="viewer" data="'+pdf+'" type="application/pdf" style="width:100%; height:700px;" >\n' +
+                '<iframe src="'+pdf+'" style="width:100%; height:700px; border: none;">\n' +
+                '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
+                '</iframe>\n' +
+                '</object>';
+            var thisrow = $(elem).parents(".embed-pdf-row");
+            var container = $(elem).parents(".container.embed-pdf");
+            if(thisrow.find(".viewer:visible").length>0) {
+                // viewer opened in this row, rewrite pdf source
+                thisrow.find(".viewer").attr("data", pdf);
+            } else if (container.find(".viewer:visible").length>0) {
+                // if viewer is opened in another row
+                container.find(".viewer:visible").remove();
+                thisrow.append(viewerHtml);
+            } else {
+                // no viewer is opened
+                thisrow.append(viewerHtml);
+            }
         }
-        alert("a");
-    });*/
+    });
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
