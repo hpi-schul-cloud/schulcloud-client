@@ -233,13 +233,13 @@ $(document).ready(function () {
                 '</iframe>\n' +
                 '</object>';
             var thisrow = $(elem).parents(".embed-pdf-row");
-            var container = $(elem).parents(".container.embed-pdf");
+            var page = $(elem).parents(".container.embed-pdf").parent();
             if(thisrow.find(".viewer:visible").length>0) {
                 // viewer opened in this row, rewrite pdf source
                 thisrow.find(".viewer").attr("data", pdf);
-            } else if (container.find(".viewer:visible").length>0) {
+            } else if (page.find(".viewer:visible").length>0) {
                 // if viewer is opened in another row
-                container.find(".viewer:visible").remove();
+                page.find(".viewer:visible").remove();
                 thisrow.append(viewerHtml);
             } else {
                 // no viewer is opened
