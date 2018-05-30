@@ -421,6 +421,7 @@ footer {
 
             .input-group {
                 display: none;
+                white-space: nowrap;
                 .search-field{
                     width: calc(100% - 33px);
                     display: inline-block;
