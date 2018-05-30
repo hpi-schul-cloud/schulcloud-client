@@ -19,10 +19,11 @@ There are blog posts on how to setup [client](https://github.com/schul-cloud/sch
 ## Run  
   
 1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)  
-2. Go into project folder  
-3. run `gulp watch` to run gulp  
-4. run `npm run watch` to boot the application  
-5. go to `http://localhost:3100`  
+2. Go into project folder
+3. run `gulp watch` to run gulp
+4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`)
+5. run `npm run watch` to boot the application
+6. go to `http://localhost:3100`
   
 For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   
