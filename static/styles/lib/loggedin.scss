@@ -256,6 +256,7 @@ header {
     width: calc(100vw - 240px);
     height: 100vh;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 0;
 
     @include media-breakpoint-down(md) {
@@ -421,6 +422,7 @@ footer {
 
             .input-group {
                 display: none;
+                white-space: nowrap;
                 .search-field{
                     width: calc(100% - 33px);
                     display: inline-block;
