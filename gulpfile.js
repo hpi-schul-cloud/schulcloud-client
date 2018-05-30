@@ -170,6 +170,8 @@ gulp.task('clear', () => {
 gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
+gulp.task('build-theme-files', ['styles'])
+
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
     gulp.watch(withTheme('./static/images/**/*.*'), ['images'])
