@@ -34,20 +34,30 @@ h5 {
 }
 
 .embed-pdf {
+  .viewer {
+    width: 97%;
+    height: 700px;
+    margin-top: 10px;
+  }
   div.row {
     margin-bottom: 10px;
   }
-  .single-pdf:first-child {
-    border: 1px solid #d3d3d3;
-  }
   .single-pdf {
-    margin: 0;
-    padding: 0;
-    border-top: 1px solid #d3d3d3;
-    border-right: 1px solid #d3d3d3;
-    border-bottom: 1px solid #d3d3d3;
-    border-left: none;
-
+    width: 31%;
+    max-width: 31%;
+    margin: 0 10px;
+    padding: 3px 6px 3px 6px;
+    border: 1px solid #d3d3d3;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+    &.opened {
+      border: 1px solid #b10438;
+    }
     a {
       text-decoration: none;
 

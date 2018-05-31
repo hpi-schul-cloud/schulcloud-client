@@ -75,12 +75,12 @@ gulp.task('images', () => {
         .pipe(gulp.dest(`./build/${themeName()}/images`))
 })
 
-//minify images
+//minify static/other
 gulp.task('other', () => {
     beginPipe('./static/other/**/*.*')
         .pipe(imagemin())
-        .pipe(gulp.dest(`./build/${themeName()}/other`))
-})
+        .pipe(gulp.dest(`./build/${themeName()}/other`));
+});
 
 var loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', { loadPaths: loadPaths });

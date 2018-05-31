@@ -224,10 +224,11 @@ $(document).ready(function () {
         e.preventDefault();
         var elem = e.target;
         var pdf = $(elem).parents(".single-pdf").attr("data-pdf");
+        var opened = true;
         //TODO: perhaps check if file exists and status==200
         if(pdf&&pdf.endsWith(".pdf")) {
             //TODO: for better reusability, create hbs and render instead of inline
-            var viewerHtml = '<object class="viewer" data="'+pdf+'" type="application/pdf" style="width:100%; height:700px;" >\n' +
+            var viewerHtml = '<object class="viewer" data="'+pdf+'" type="application/pdf" >\n' +
                 '<iframe src="'+pdf+'" style="width:100%; height:700px; border: none;">\n' +
                 '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
                 '</iframe>\n' +
@@ -236,7 +237,13 @@ $(document).ready(function () {
             var page = $(elem).parents(".container.embed-pdf").parent();
             if(thisrow.find(".viewer:visible").length>0) {
                 // viewer opened in this row, rewrite pdf source
+                if(thisrow.find(".viewer").attr("data")===pdf) {
+                    // same document, close
+                    thisrow.find(".viewer:visible").remove();
+                    opened = false;
+                }
                 thisrow.find(".viewer").attr("data", pdf);
+                page.find(".opened").removeClass("opened");
             } else if (page.find(".viewer:visible").length>0) {
                 // if viewer is opened in another row
                 page.find(".viewer:visible").remove();
@@ -244,6 +251,11 @@ $(document).ready(function () {
             } else {
                 // no viewer is opened
                 thisrow.append(viewerHtml);
+            }
+            if (opened) {
+                $(elem).parents(".single-pdf").addClass("opened");
+            } else {
+                $(elem).parents(".single-pdf").removeClass("opened");
             }
         }
     });
