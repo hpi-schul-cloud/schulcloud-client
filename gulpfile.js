@@ -65,16 +65,16 @@ const beginPipeAll = src =>
         .pipe(plumber())
         .pipe(filelog())
 
+function themeName(){
+    return process.env.SC_THEME || 'default';
+}
 //minify images
 gulp.task('images', () => {
     beginPipe('./static/images/**/*.*')
         .pipe(imagemin())
-        .pipe(gulp.dest('./build/images'))
+        .pipe(gulp.dest(`./build/${themeName()}/images`))
 })
 
-function themeName(){
-    return process.env.SC_THEME || 'default';
-}
 
 var loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
@@ -88,14 +88,14 @@ gulp.task('styles', () => {
         .pipe(sass({sourceMap: false}))
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
-        .pipe(gulp.dest('./build/styles'));
+        .pipe(gulp.dest(`./build/${themeName()}/styles`));
     firstRun = false;
 })
 
 //copy fonts
 gulp.task('fonts', () => {
     beginPipe('./static/fonts/**/*.*')
-        .pipe(gulp.dest('./build/fonts'))
+        .pipe(gulp.dest(`./build/${themeName()}/fonts`))
 })
 
 //compile/transpile JSX and ES6 to ES5 and minify scripts
@@ -107,7 +107,7 @@ gulp.task('scripts', () => {
         }))
         .pipe(optimizejs())
         .pipe(uglify())
-        .pipe(gulp.dest('./build/scripts'))
+        .pipe(gulp.dest(`./build/${themeName()}/scripts`))
 })
 
 
@@ -122,7 +122,7 @@ gulp.task('base-scripts', () => {
         .pipe(optimizejs())
         .pipe(uglify())
         .pipe(concat('all.js'))
-        .pipe(gulp.dest('./build/scripts'))
+        .pipe(gulp.dest(`./build/${themeName()}/scripts`))
 })
 
 //compile vendor SASS/SCSS to CSS and minify it
@@ -131,7 +131,7 @@ gulp.task('vendor-styles', () => {
         .pipe(sass())
         .pipe(minify())
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
-        .pipe(gulp.dest('./build/vendor'))
+        .pipe(gulp.dest(`./build/${themeName()}/vendor`))
 })
 
 //compile/transpile vendor JSX and ES6 to ES5 and minify scripts
@@ -144,14 +144,14 @@ gulp.task('vendor-scripts', () => {
         }))
         .pipe(optimizejs())
         .pipe(uglify())
-        .pipe(gulp.dest('./build/vendor'))
+        .pipe(gulp.dest(`./build/${themeName()}/vendor`))
 })
 
 //copy other vendor files
 gulp.task('vendor-assets', () => {
     beginPipe(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
         '!./static/vendor/**/*.{css,sass,scss}'])
-        .pipe(gulp.dest('./build/vendor'))
+        .pipe(gulp.dest(`./build/${themeName()}/vendor`))
 })
 
 //clear build folder + smart cache
@@ -163,6 +163,8 @@ gulp.task('clear', () => {
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
+
+gulp.task('build-theme-files', ['styles'])
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {

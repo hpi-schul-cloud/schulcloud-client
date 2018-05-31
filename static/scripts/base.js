@@ -90,12 +90,12 @@ function toggleMobileSearch(){
     document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
     document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
 }
-
-var customReady = jQuery.fn.ready;
-jQuery.fn.ready = function(handler) {
-    $(document).on("pageload", handler);
-    return customReady.apply(this, arguments);
-};
+var originalReady = jQuery.fn.ready;
+$.fn.extend({
+    ready: function(handler) {
+        $(document).on("pageload", handler);
+    }
+});
 $( window ).on( "load", function () {
     $(document).trigger("pageload");
 })
@@ -148,12 +148,6 @@ $(document).ready(function () {
             $collapseToggle.find('.collapse-icon').addClass("fa-chevron-right");
         }
     });
-
-
-    // Init mobile nav
-    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
-
 
     (function (a, b, c) {
         if (c in b && b[c]) {
@@ -218,7 +212,13 @@ $(document).ready(function () {
     // Print Button
     document.querySelectorAll('.print .btn-print').forEach(btn => {
         btn.addEventListener("click", printPart);
-    })
+    });
+
+    if (document.querySelector("*[data-intro]") && screen.width > 1024) {
+        document.querySelectorAll(".intro-trigger").forEach((trigger)=>{
+            trigger.classList.add("show");
+        });
+    };
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");

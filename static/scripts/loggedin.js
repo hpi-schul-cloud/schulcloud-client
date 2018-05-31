@@ -52,6 +52,18 @@ function fullscreenBtnClicked(){
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 $(document).ready(function () {
+
+    // Init mobile nav
+    var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    var mobileSearchToggle = document.querySelector('.mobile-search-toggle');
+    if(mobileNavToggle){
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+    }
+    if(mobileSearchToggle){
+        mobileSearchToggle.addEventListener('click', toggleMobileSearch);
+    }
+
+    // Init modals
     var $modals = $('.modal');
     var $feedbackModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');

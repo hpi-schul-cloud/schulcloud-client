@@ -122,47 +122,73 @@
   "advisers": [
     {
       "name": "SAP",
-      "url": "https://www.sap.com/germany/index.html"
+      "url": "https://www.sap.com/germany/index.html",
+      "logo": "SAP.png"
     },
     {
       "name": "Verband Bildungsmedien",
-      "url": "http://www.bildungsmedien.de/"
+      "url": "http://www.bildungsmedien.de/",
+      "logo": "Verband bildungsmedien.jpg"
     },
     {
       "name": "Bündnis für Bildung e.V.",
-      "url": "http://www.b-f-b.net/"
+      "url": "http://www.b-f-b.net/",
+      "logo": "bfb_logo_slogan.png"
     },
     {
       "name": "m2more",
-      "url": "http://m2more.de/"
+      "url": "http://m2more.de/",
+      "logo": "m2more.jpg"
     },
     {
       "name": "Arbeitskreis Technik in der Konferenz der Datenschutzbeauftragten von Bund und Ländern",
-      "url": "https://datenschutz-berlin.de/content/technik/ratgeber/arbeitskreis-technik-der-konferenz-der-datenschutzbeauftragten"
+      "url": "",
+      "logo": "DSK_Technik.JPG"
     },
     {
       "name": "Gymnasium Carolinum",
-      "url": "http://www.carolinum.de/"
+      "url": "http://www.carolinum.de/",
+      "logo": "gymcaro.png"
     },
     {
       "name": "KMK",
-      "url": "https://www.kmk.org/"
+      "url": "https://www.kmk.org/",
+      "logo": "kmk-logo.png"
     },
     {
-      "name": "Thüringer Landesbeauftragter für den Datenschutz",
-      "url": "https://www.tlfdi.de/tlfdi/"
+      "name": "Arbeitskreis Datenschutz und Bildung der Konferenz der Datenschutzbauftragten",
+      "url": "",
+      "logo": "DSK_DatenschutzBildung.JPG"
     },
     {
       "name": "MBJS Brandenburg",
-      "url": "https://mbjs.brandenburg.de/sixcms/detail.php/lbm1.c.227195.de"
+      "url": "https://mbjs.brandenburg.de/wir-ueber-uns.html",
+      "logo": "logo_land_brandenburg_mit_mbjs.jpg"
     },
     {
       "name": "LDA Brandenburg",
-      "url": "http://www.lda.brandenburg.de/cms/detail.php?gsid=bb1.c.233960.de"
+      "url": "http://www.lda.brandenburg.de/cms/detail.php?gsid=bb1.c.233960.de",
+      "logo": "LDA.JPG"
     },
     {
       "name": "Cornelsen",
-      "url": "https://www.cornelsen.de/home/"
+      "url": "https://www.cornelsen.de/home/",
+      "logo": "Cornelsen_Verlag_Logo.svg.png"
+    },
+    {
+      "name": "iServ",
+      "url": "https://iserv.eu/",
+      "logo": "iserv.png"
+    },
+    {
+      "name": "t-Systems",
+      "url": "https://www.t-systems.com/de/de",
+      "logo": "T-SYSTEMS-LOGO2013.svg.png"
+    },
+    {
+      "name": "n-21",
+      "url": "http://www.n-21.de/index.php",
+      "logo": "N21-Logo.png.jpg"
     }
   ]
 }
