@@ -90,6 +90,12 @@ label,
 	}
 }
 
+header .navbar-nav{
+	overflow-y: auto;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
+}
+
 footer.small-footer {
 	width: 100%;
 	margin-top: 40px;
