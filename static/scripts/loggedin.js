@@ -54,8 +54,14 @@ function fullscreenBtnClicked(){
 $(document).ready(function () {
 
     // Init mobile nav
-    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+    var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    var mobileSearchToggle = document.querySelector('.mobile-search-toggle');
+    if(mobileNavToggle){
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+    }
+    if(mobileSearchToggle){
+        mobileSearchToggle.addEventListener('click', toggleMobileSearch);
+    }
 
     // Init modals
     var $modals = $('.modal');
