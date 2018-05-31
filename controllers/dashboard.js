@@ -138,8 +138,9 @@ router.get('/', function (req, res, next) {
     Promise.all([
         eventsPromise,
         homeworksPromise,
-        newsPromise
-    ]).then(([events, homeworks, news]) => {
+        newsPromise,
+        api(req).get('/lrs/')
+    ]).then(([events, homeworks, news, lrs]) => {
 
         homeworks.sort((a,b) => {
             if(a.dueDate > b.dueDate) {
@@ -148,6 +149,23 @@ router.get('/', function (req, res, next) {
                 return -1;
             }
         });
+
+        if (lrs.statements) {
+            //filter lrs statements by currentUser -> TODO: put this in the lrs request
+            lrs.statements = lrs.statements.filter(statement => {
+                if(statement.actor.account){
+                    return statement.actor.account.name == res.locals.currentUser._id;
+                }
+                else{
+                    return false;
+                }
+            });
+
+            lrs.statements.map(statement => {
+                statement.actor.account.displayName = res.locals.currentUser.displayName;
+            });
+            lrs.statements = lrs.statements.slice(0, 10);
+        }
 
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
@@ -158,7 +176,8 @@ router.get('/', function (req, res, next) {
             news,
             hours,
             currentTimePercentage,
-            currentTime: moment(currentTime).format('kk:mm')
+            currentTime: moment(currentTime).format('kk:mm'),
+            lrs
         });
     });
 });

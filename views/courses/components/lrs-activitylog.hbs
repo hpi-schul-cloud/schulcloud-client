@@ -1,0 +1,22 @@
+<div class="list-group list-group-flush">
+    <h5>Aktivitätenlog</h5>
+    {{#each statements}}
+        <div class="list-group-item">
+            {{#if actor.account.displayName}}
+                {{actor.account.displayName}}
+            {{else}}
+                Unbekannt
+            {{/if}}
+            {{#if verb.display.de-DE}}
+                {{verb.display.de-DE}}
+            {{else}}
+                {{verb.display.en-US}}
+            {{/if}}
+            <a href="{{object.id}}">{{object.definition.name.de}}</a>
+            {{#if object.definition.description.de}}
+                ({{object.definition.description.de}})
+            {{/if}}
+            <small>{{timeFromNow timestamp}}</small>
+        </div>
+    {{/each}}
+</div>

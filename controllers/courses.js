@@ -289,8 +289,14 @@ router.get('/:courseId', function(req, res, next) {
                 courseId: req.params.courseId,
                 $populate: ['courseId', 'userIds'],
             }
-        })
-    ]).then(([course, lessons, homeworks, courseGroups]) => {
+        }),
+        api(req).get('/users/', {
+            qs: {
+                roles: ['student', 'demoStudent']
+            }
+        }),
+        api(req).get('/lrs/')
+    ]).then(([course, lessons, homeworks, courseGroups, students, lrs]) => {
         let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
         lessons = (lessons.data || []).map(lesson => {
             return Object.assign(lesson, {
@@ -311,6 +317,28 @@ router.get('/:courseId', function(req, res, next) {
             }
         });
 
+        if(lrs.statements){
+            //filter lrs statements by coursid -> TODO: put this in the lrs request and modify url
+            lrs.statements = lrs.statements.filter(statement => {
+                try{
+                    return statement.context.contextActivities.grouping[0].id == ("https://bp.schul-cloud.org/courses/"+req.params.courseId);
+                }
+                catch (e) {
+                    return false;
+                }
+            });
+
+            //maped account.name (id) auf schüler -> in account ist dann alles von schüler
+            lrs.statements.map(statement => {
+                statement.actor.account = students.data.find(student => {
+                    if(student._id == statement.actor.account.name){
+                        return student;
+                    }
+                });
+            });
+            lrs.statements = lrs.statements.slice(0, 10);
+        }
+
         courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
             courseGroups.data || [] :
             (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
@@ -329,7 +357,8 @@ router.get('/:courseId', function(req, res, next) {
                 {}
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
-            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
+            lrs
         }));
     }).catch(err => {
         next(err);

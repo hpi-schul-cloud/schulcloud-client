@@ -60,6 +60,13 @@
 
         {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" step="8" intro="An dieser Stelle finden Sie eine Übersicht über ihre private “To Do” Liste. Die Aufgaben, die sie hier sehen, können Sie selbst unter “Aufgaben” auswählen und bearbeiten. Ihre “To Do” Liste ist privat und daher nur für sie einsehbar. "}}
 
+        {{#ifeq this.currentRole "Schüler"}}
+            {{#embed "courses/components/lrs-activitylog" ../lrs}}
+                Coundn't find
+            {{/embed}}
+        {{/ifeq}}
+
+
         {{#ifneq this.currentRole "Schüler"}}
         {{#ifneq ../this.currentRole "Demo"}}
             {{#embed "lib/components/modal" class="poll-modal"}}
