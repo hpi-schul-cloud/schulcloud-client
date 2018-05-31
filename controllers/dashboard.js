@@ -153,7 +153,12 @@ router.get('/', function (req, res, next) {
         if (lrs.statements) {
             //filter lrs statements by currentUser -> TODO: put this in the lrs request
             lrs.statements = lrs.statements.filter(statement => {
+                if(statement.actor.account){
                     return statement.actor.account.name == res.locals.currentUser._id;
+                }
+                else{
+                    return false;
+                }
             });
 
             lrs.statements.map(statement => {
