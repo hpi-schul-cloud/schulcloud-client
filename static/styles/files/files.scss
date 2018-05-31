@@ -134,6 +134,11 @@
         color: $primaryColor;
       }
     }
+    .card-block {
+      a:hover {
+        text-decoration: none;
+      }
+    }
     .title {
       position: absolute;
       white-space: nowrap;

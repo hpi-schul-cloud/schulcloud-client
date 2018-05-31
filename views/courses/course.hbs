@@ -10,6 +10,7 @@
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
+        <script src="/scripts/topic.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -70,6 +71,12 @@
                                                         </a>
                                                         <a class="btn btn-secondary btn-sm move-handle">
                                                              <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                        <a href="#"
+                                                           data-href="{{../_id}}"
+                                                           data-courseId="{{../courseId}}"
+                                                           class="btn btn-secondary btn-sm btn-create-share">
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </div>
                                                 {{/userHasPermission}}
@@ -285,6 +292,12 @@
             {{#embed "lib/components/modal-form" class="import-modal"}}
                 {{#content "fields"}}
                     {{> "courses/forms/form-import-topic"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="share-modal"}}
+                {{#content "fields"}}
+                    {{> "topic/forms/form-share"}}
                 {{/content}}
             {{/embed}}
 
