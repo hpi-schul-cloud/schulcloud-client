@@ -44,8 +44,6 @@ router.get('/', function (req, res, next) {
                 featuredContent: featured.data,
                 trendingContent: trending.data,
                 totalCount: trending.total,
-                isCourseGroupTopic: req.query.isCourseGroupTopic,
-                inline: req.query.inline,
                 action
             });
         });
@@ -65,13 +63,11 @@ router.get('/', function (req, res, next) {
                 numPages: Math.ceil(searchResults.total / itemsPerPage),
                 baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
             };
-
             return res.render('content/search-results', {
                 title: 'Materialien',
                 query: query,
                 searchResults: searchResults,
                 pagination,
-                isCourseGroupTopic: req.query.isCourseGroupTopic,
                 action
             });
         });
@@ -104,7 +100,7 @@ router.get('/:id', function (req, res, next) {
 
 router.get('/redirect/:id', function (req, res, next) {
     return api(req)({
-        uri: '/content/redirect/' + req.params.id,
+        uri: req.originalUrl,
         followRedirect: false,
         resolveWithFullResponse: true,
         simple: false
@@ -116,6 +112,15 @@ router.get('/redirect/:id', function (req, res, next) {
         }
     }).catch(err => {
         next(err);
+    });
+});
+
+router.get('/rating/ratingrequests',function (req, res, next) {
+    api(req)({ uri: `/content/ratingrequest/${res.locals.currentUser._id}` }).then(resourcesToRate => {
+        return res.render('content/rating', {
+            title: 'Bewerte deine Materialien',
+            content : resourcesToRate
+        });
     });
 });
 
@@ -132,6 +137,15 @@ router.post('/addToLesson', function (req, res, next) {
         }).then(result => {
             res.redirect('/content/?q=' + req.body.query);
         });
+    });
+});
+
+router.post('/rating',function (req, res, next) {
+    const rating = req.body;
+    rating.isTeacherRating = res.locals.currentUser.roles.some(role => role.name === 'teacher');
+    api(req).post({
+        uri: '/content/ratings',
+        json: rating
     });
 });
 

@@ -1,4 +1,4 @@
-@import '../lib/colors';
+
 
 .store.container {
     margin: 0;
@@ -94,4 +94,21 @@ h1, h3 {
   top: -34px;
   right: 18px;
   color: lightgrey;
+}
+
+.rate {
+  cursor:pointer;
+}
+.rate-item {
+  color: $primaryColor;
+  cursor:pointer;
+}
+.rate-item-active{
+  font-size: x-large;
+}
+.rate-item-active:hover ~ .rate-item-active {
+  color:#E6E2E2;
+}
+.content-path{
+  color: $primaryColor
 }
