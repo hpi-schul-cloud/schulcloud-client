@@ -144,5 +144,8 @@ module.exports = {
                 break;
         }
         return (fileSize + ' ' + unit);
+    },
+    json: (data) => {
+        return JSON.stringify(data);
     }
 };
