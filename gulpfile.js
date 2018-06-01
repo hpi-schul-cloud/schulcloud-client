@@ -72,13 +72,12 @@ function themeName(){
 gulp.task('images', () => {
     beginPipe('./static/images/**/*.*')
         .pipe(imagemin())
-        .pipe(gulp.dest(`./build/${themeName()}/images`))
-})
+        .pipe(gulp.dest(`./build/${themeName()}/images`));
+});
 
 //minify static/other
 gulp.task('other', () => {
-    beginPipe('./static/other/**/*.*')
-        .pipe(imagemin())
+    gulp.src('./static/other/**/*.*')
         .pipe(gulp.dest(`./build/${themeName()}/other`));
 });
 
@@ -167,7 +166,7 @@ gulp.task('clear', () => {
 })
 
 //run all tasks, processing changed files
-gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
+gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
 
 gulp.task('build-theme-files', ['styles'])
