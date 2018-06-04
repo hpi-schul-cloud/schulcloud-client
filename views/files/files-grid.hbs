@@ -2,9 +2,7 @@
     <div class="row">
         {{#each files}}
             <div class="col-sm-6 col-xs-12 col-md-4">
-                <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}"
-                     onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
-                     onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
+                <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
@@ -15,7 +13,7 @@
                                          style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
                                 </div>
                                 <a class="title">
-                                    {{this.name}}
+                                    {{this.name}} <i data-file-id={{this._id}} class="fa fa-edit file-name-edit"></i>
                                 </a>
                             </div>
                             <div class="card-text">
@@ -58,7 +56,7 @@
                                 {{/userHasPermission}}
                                 {{/ifneq}}
 
-                                <small class="file-info" id="{{this.name}}"></small>
+                                <small class="file-info" id="{{this._id}}"></small>
                             </div>
                         </div>
                     </div>
@@ -98,5 +96,11 @@
 {{#embed "lib/components/modal-form" class="move-modal"}}
     {{#content "fields"}}
         {{> "files/forms/form-move"}}
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="rename-modal"}}
+    {{#content "fields"}}
+        {{> "files/forms/form-name-edit"}}
     {{/content}}
 {{/embed}}

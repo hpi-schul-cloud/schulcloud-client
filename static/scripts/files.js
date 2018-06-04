@@ -11,6 +11,7 @@ $(document).ready(function() {
     let $editModal = $('.edit-modal');
     let $deleteModal = $('.delete-modal');
     let $moveModal = $('.move-modal');
+    let $renameModal = $('.rename-modal');
 
     let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -179,6 +180,7 @@ $(document).ready(function() {
 
     $('.create-directory').on('click', function () {
         $editModal.modal('show');
+        $renameModal.modal('hide');
     });
 
     $('.card.file').on('click', function () {
@@ -251,6 +253,27 @@ $(document).ready(function() {
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
+    });
+
+    $('.file').mouseover(function (e) {
+        let size = $(this).attr('data-file-size');
+        let id = $(this).attr('data-file-id');
+
+        $('#' + id).html(writeFileSizePretty(size));
+        $(this).find('.file-name-edit').css('display', 'inline');
+    });
+
+    $('.file').mouseout(function (e) {
+        let id = $(this).attr('data-file-id');
+
+        $('#' + id).html('');
+        $(this).find('.file-name-edit').css('display', 'none');
+    });
+
+    $('.file-name-edit').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
     });
 
     $('.btn-file-share').click(function (e) {
