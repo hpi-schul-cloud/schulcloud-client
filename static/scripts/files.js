@@ -270,18 +270,12 @@ $(document).ready(function() {
         $(this).find('.file-name-edit').css('display', 'none');
     });
 
-    $('.file-name-edit').click(function (e) {
-        e.stopPropagation();
-        e.preventDefault();
-        let fileId = $(this).attr('data-file-id');
-        let oldName = $(this).attr('data-file-name');
-        let path = $(this).attr('data-file-path');
-
+    let populateRenameModal = function(oldName, path, action, title) {
         let form = $renameModal.find('.modal-form');
-        form.attr('action', '/files/fileModel/' + fileId +  '/update');
+        form.attr('action', action);
 
         populateModalForm($renameModal, {
-            title: 'Datei umbenennen',
+            title: title,
             closeLabel: 'Abbrechen',
             submitLabel: 'Speichern',
             fields: {
@@ -291,6 +285,34 @@ $(document).ready(function() {
         });
 
         $renameModal.modal('show');
+    };
+
+    $('.file-name-edit').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let oldName = $(this).attr('data-file-name');
+        let path = $(this).attr('data-file-path');
+
+        populateRenameModal(
+            oldName, 
+            path, 
+            '/files/fileModel/' + fileId +  '/update',
+            'Datei umbenennen');
+    });
+
+    $('a[data-method="dir-rename"]').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let dirId = $(this).attr('data-directory-id');
+        let oldName = $(this).attr('data-directory-name');
+        let path = $(this).attr('data-directory-path');
+
+        populateRenameModal(
+            oldName, 
+            path, 
+            '/files/directoryModel/' + dirId +  '/update',
+            'Ordner umbenennen');
     });
 
     $('.btn-file-share').click(function (e) {

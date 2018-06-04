@@ -140,6 +140,7 @@ const FileGetter = (req, res, next) => {
         directories = directories.map(dir => {
             const targetUrl = pathUtils.join(currentDir, dir.name);
             dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+            dir.originalPath = path;
             dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
@@ -651,8 +652,14 @@ router.get('/fileModel/:id/proxy', function (req, res, next) {
 
 router.post('/fileModel/:id/update', function(req, res, next) {
     let fileId = req.params.id;
-    if(req.body.name) req.body.key = req.body.key || req.body.path + req.body.name;
+    if(req.body.name) req.body.key = req.body.key || req.body.path + req.body.name; // when renaming, also update file-key
     api(req).patch('/files/' + fileId, {json: req.body}).then(_ => res.redirect(req.header('Referer')));
+});
+
+router.post('/directoryModel/:id/update', function(req, res, next) {
+    let directoryId = req.params.id;
+    if(req.body.name) req.body.key = req.body.key || req.body.path + req.body.name; // when renaming, also update directory-key
+    api(req).patch('/directories/' + directoryId, {json: req.body}).then(_ => res.redirect(req.header('Referer')));
 });
 
 
