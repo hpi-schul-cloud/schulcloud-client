@@ -274,6 +274,23 @@ $(document).ready(function() {
         e.stopPropagation();
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
+        let oldName = $(this).attr('data-file-name');
+        let path = $(this).attr('data-file-path');
+
+        let form = $renameModal.find('.modal-form');
+        form.attr('action', '/files/fileModel/' + fileId +  '/update');
+
+        populateModalForm($renameModal, {
+            title: 'Datei umbenennen',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Speichern',
+            fields: {
+                name: oldName,
+                path: path
+            }
+        });
+
+        $renameModal.modal('show');
     });
 
     $('.btn-file-share').click(function (e) {
