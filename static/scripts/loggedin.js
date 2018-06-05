@@ -203,22 +203,33 @@ $(document).ready(function () {
         $cancelModal.modal('show');
     });
 
+    let prefs = $('#preferences').html();
+
+    let parsedPrefs = prefs === "" ? {} : JSON.parse($('#preferences').html());
+
     $.ajax({
         url: '/help/releases',
         type: 'GET',
         success: function(release) {
-            let cookies = getCookiesMap(document.cookie);
             populateModalForm($featureModal, {
                 title: 'Neue Features sind verfügbar',
                 closeLabel: 'Abbrechen'
             });
-            if (cookies['releaseDate']) {
-                if (release.createdAt > cookies['releaseDate']) {
-                    document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+            if (parsedPrefs.releaseDate) {
+                if (release.createdAt > parsedPrefs.releaseDate) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/account/preferences",
+                        data: { attribute: { key: "releaseDate", value: release.createdAt } }
+                    });
                     $featureModal.modal('show');
                 }
             } else {
-                document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+                $.ajax({
+                    type: "POST",
+                    url: "/account/preferences",
+                    data: { attribute: { key: "releaseDate", value: release.createdAt } }
+                });
                 $featureModal.modal('show');
             }
         },
