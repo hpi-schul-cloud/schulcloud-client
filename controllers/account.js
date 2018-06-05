@@ -77,4 +77,26 @@ router.get('/user', function (req, res, next) {
     res.json(res.locals.currentUser);
 });
 
+router.get('/username/:pseudonym', (req, res, next) => {
+  api(req).get('/pseudonym/', {
+    qs: {
+      token: req.params.pseudonym,
+      $populate: ['userId'],
+    }
+  }).then(pseudonym => {
+    let shortName, completeName, anonymousName = '???';
+    shortName = completeName = anonymousName;
+    if (pseudonym.data.length) {
+      completeName = `${pseudonym.data[0].userId.firstName} ${pseudonym.data[0].userId.lastName}`
+      shortName = `${pseudonym.data[0].userId.firstName} ${pseudonym.data[0].userId.lastName.charAt(0)}.`
+    }
+    res.render('account/username', {
+      completeName,
+      shortName,
+      infoText: 'Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser hier direkt aus ' +
+      'der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver ' +
+      'anzeigen kann.'});
+  });
+});
+
 module.exports = router;
