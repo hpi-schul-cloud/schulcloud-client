@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    let socket = io('http://localhost:3030');
+    let url = window.location.href.includes('localhost') ? 'http://localhost:3030' : 'https://schul-cloud.org:8080';
+    let socket = io(url);
     let client = feathers()
         .configure(feathers.socketio(socket));
 
