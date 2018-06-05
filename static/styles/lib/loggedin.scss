@@ -12,6 +12,52 @@ body > * {
     font-size: 1rem;
     white-space: normal;
 }
+
+.preload-screen{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 99999999;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: rgba(0,0,0,.4);
+    .content{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(farthest-corner, transparent 45%, rgba(0, 0, 0, .2));
+        transition: opacity .3s ease-in-out 1.3s;
+        text-shadow: 2px 2px 5px rgba(0,0,0,.3);
+        .center-wrapper{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #fff;
+            font-size: 1.2rem;
+            .fa{
+                font-size: 2em;
+                margin-bottom: 1rem;
+                -webkit-animation: fa-spin 1.5s infinite linear;
+                animation: fa-spin 1.5s infinite linear;
+            }
+        }
+    }
+    &.hidden{
+        visibility: hidden;
+        .overlay-card{
+            transform: rotate(-90deg);
+        }
+        .content{
+            opacity: 0;
+        }
+    }
+}
+
 .navtooltips{
     display: none;
     @include media-breakpoint-down(md) {
@@ -24,6 +70,7 @@ body > * {
 aside.nav-sidebar {
     color: #727272;
     display: inline-block;
+    vertical-align: top;
     width: 240px;
     height: 100vh;
     margin: 0;
@@ -89,12 +136,13 @@ aside.nav-sidebar {
 
         @include media-breakpoint-down(xs) {
             overflow: hidden;
-            max-height: 0px;
+            height: 100vh;
             position: absolute;
             z-index: 9998;
             background: lightgrey;
             box-shadow: 0 2px 5px rgba(0,0,0,.26);
-            transition: max-height .3s ease-in-out;
+            transform: translateY(-102%);
+            transition: transform .3s ease-in-out;
             .sc-branding{
                 box-sizing: border-box;
                 padding-left: 54px;
@@ -103,8 +151,8 @@ aside.nav-sidebar {
                 }
             }
             &.active {
-                transition: max-height .3s ease-in-out;
-                max-height: 100vh;
+                transition: transform .3s ease-in-out;
+                transform: none;
             }
         }
 
@@ -218,13 +266,13 @@ aside.nav-sidebar {
     font-size: 22px;
     line-height: 22px;
     cursor: pointer;
-    transition: transform .2s linear, z-index 0s linear .2s;
+    transition: transform .3s linear, z-index 0s linear .3s;
     .fa{
-        transition: color .2s linear;
+        transition: color .1s linear .1s;
     }
     &.active{
         z-index: 9999;
-        transition: transform .2s linear;
+        transition: transform .3s linear;
         transform: rotate(90deg);
         .fa{
             color: #fff;
@@ -253,9 +301,11 @@ header {
 .content-wrapper {
     position: relative;
     display: inline-block;
+    vertical-align: top;
     width: calc(100vw - 240px);
     height: 100vh;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     padding: 0;
 
     @include media-breakpoint-down(md) {
@@ -265,7 +315,6 @@ header {
     @include media-breakpoint-down(xs) {
         width: 100vw;
     }
-
     .school-data {
         padding-top: 11px;
     }
@@ -307,7 +356,6 @@ header {
 
 
 body.fullscreen{
-    
     .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle{
         display: none;
     }
@@ -421,6 +469,7 @@ footer {
 
             .input-group {
                 display: none;
+                white-space: nowrap;
                 .search-field{
                     width: calc(100% - 33px);
                     display: inline-block;
@@ -634,7 +683,6 @@ footer {
         height: 12px;
     }
 }
-
 
 @media (max-width: 1024px) {
     .intro-trigger {

@@ -63,6 +63,17 @@ label,
     user-select: none;
 }
 
+.intro-trigger {
+	display: none;
+}
+
+.hidden{
+	display: none;
+}
+.show{
+	display: initial;
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;
@@ -110,7 +121,7 @@ footer.small-footer {
             width: auto;
             max-width: 175px;
             height: auto;
-            max-height: 44px;
+            max-height: 44px; 	
         }
 	}
 }
