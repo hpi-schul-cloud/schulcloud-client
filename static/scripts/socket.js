@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    let socket = io('http://localhost:3030');
+    let socket = io('https://schul-cloud.org:8080');
     let client = feathers()
         .configure(feathers.socketio(socket));
 
