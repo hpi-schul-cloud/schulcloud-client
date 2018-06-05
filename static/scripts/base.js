@@ -81,15 +81,6 @@ function printPart(){
     $(this).show();
 }
 
-function toggleMobileNav(){
-    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
-    this.classList.toggle('active');
-}
-function toggleMobileSearch(){
-    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
-    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
-    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
-}
 var originalReady = jQuery.fn.ready;
 $.fn.extend({
     ready: function(handler) {
