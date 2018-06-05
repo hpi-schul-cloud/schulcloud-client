@@ -457,37 +457,60 @@ router.post('/:courseId/importTopic', function(req, res, next) {
         // copy topic to course
         let topic = result.data[0];
         topic.originalTopic = JSON.parse(JSON.stringify(topic._id)); // copy value, not reference
+        let originalCourseId = JSON.parse(JSON.stringify(topic.courseId)); // copy value, not reference
+        let originalShareToken = JSON.parse(JSON.stringify(topic.shareToken)); // copy value, not reference
         delete topic._id;
         delete topic.shareToken;
         topic.courseId = req.params.courseId;
-        
-        /*const basePath = '/files/courses/';
-        api(req).get('/files/', { qs: { path: "courses/0000dcfbfb5c7a3f00bf21ab/" } }).then(files => {
-            let courseFiles = files.data;
-            files.map(file => {
-                let ending = file.name.split('.').pop();
-                file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-            });
-    
-            const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
-    
-            breadcrumbs.unshift({
-                label: 'Dateien aus meinen Kursen',
-                url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
-            }, {
-                label: record.name,
-                url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
-            });
-        });*/
 
+        // we need to get all files of that one lesson, we need multiple steps to do this
         api(req).post("/lessons/", { json: topic }).then(topic => {
-            req.session.notification = {
-                type: 'success',
-                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
-            };
-
-            res.redirect(req.header('Referer'));
+            // get all files of that lessons course
+            api(req).get('/files/', { qs: { path: { $regex: originalCourseId} }
+            }).then(files => {
+                // search each file in all lessons of that course to identify files of a specific lesson
+                if (files && files.data && files.data.length>0) {
+                    return Promise.all(files.data.map(file => {
+                        return api(req).get("/lessons/", { qs:
+                                    { $and:
+                                        [
+                                         { 'contents.content.text': { $regex: file.key }},
+                                         { shareToken: originalShareToken }
+                                        ]
+                                    }
+                        }).then(lessons => {
+                            if (lessons && lessons.data.length>0 && lessons.data[0].courseId === originalCourseId) {
+                                return file;
+                            }
+                        }).catch(err => {
+                            res.sendStatus(500);
+                        });
+                    })).then(lessonFiles => {
+                        //TODO: clone files to new lesson and clone files in aws as well
+                        if(lessonFiles.length>0) {
+                            
+                            req.session.notification = {
+                                type: 'success',
+                                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
+                            };
+                            res.redirect(req.header('Referer'));
+                        }
+                    });
+                } else {
+                    req.session.notification = {
+                        type: 'success',
+                        message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
+                    };
+                    res.redirect(req.header('Referer'));
+                }
+            }).catch(err => {
+                res.sendStatus(500);
+            });
+        }).catch(err => {
+            res.sendStatus(500);
         });
+    }).catch(err => {
+        res.sendStatus(500);
     });
 });
 
