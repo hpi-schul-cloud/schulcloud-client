@@ -1,9 +1,9 @@
 $(document).ready(function () {
-    let socket = io('https://schul-cloud.org:8080');
+    let socket = io('http://localhost:3030');
     let client = feathers()
         .configure(feathers.socketio(socket));
 
-    socket.on('releaseTrigger', (res) => {
+    socket.on('newReleaseAvailable', (res) => {
         if (res.bool) {
             $.ajax({
                 type: "POST",
