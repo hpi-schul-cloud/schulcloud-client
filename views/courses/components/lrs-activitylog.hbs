@@ -16,6 +16,9 @@
             {{#if object.definition.description.de}}
                 ({{object.definition.description.de}})
             {{/if}}
+            {{# if result.score}}
+                mit {{result.score.raw}}/{{result.score.max}}
+            {{/if}}
             <small>{{timeFromNow timestamp}}</small>
         </div>
     {{/each}}
