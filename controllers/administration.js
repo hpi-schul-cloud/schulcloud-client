@@ -627,7 +627,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         let ssoTypes = getSSOTypes();
 
         api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', { title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage });
+            res.render('administration/school', { title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage, hideSearch:true });
         });
     });
 });
@@ -697,7 +697,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             res.render('administration/teachers', {
                 title: title + 'Lehrer',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings('lastName'))
+                filterSettings: JSON.stringify(userFilterSettings('lastName')),
+                hideSearch:true
             });
         });
     });
@@ -767,7 +768,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings())
+                filterSettings: JSON.stringify(userFilterSettings()),
+                hideSearch:true
             });
         });
     });
@@ -828,7 +830,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
+        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true, hideSearch:true });
     });
 });
 
@@ -906,7 +908,8 @@ router.all('/courses', function (req, res, next) {
                 substitutions,
                 students,
                 pagination,
-                limit: true
+                limit: true,
+                hideSearch:true
             });
         });
     });
@@ -975,7 +978,8 @@ router.all('/classes', function (req, res, next) {
                 teachers,
                 students,
                 pagination,
-                limit: true
+                limit: true,
+                hideSearch:true
             });
         });
     });
@@ -1026,7 +1030,8 @@ router.all('/systems', function (req, res, next) {
             head,
             body,
             systems,
-            availableSSOTypes
+            availableSSOTypes,
+            hideSearch:true
         });
     });
 });

@@ -195,8 +195,10 @@ $(document).ready(function () {
     });
 
     // Init mobile nav
-    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+    if (document.getElementById('searchBar') instanceof Object) {
+        document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
+        document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+    }
 
     if(!fullscreen){
         fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
