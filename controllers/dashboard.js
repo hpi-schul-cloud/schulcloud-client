@@ -158,7 +158,8 @@ router.get('/', function (req, res, next) {
             news,
             hours,
             currentTimePercentage,
-            currentTime: moment(currentTime).format('kk:mm')
+            currentTime: moment(currentTime).format('kk:mm'),
+            hideSearch:true
         });
     });
 });

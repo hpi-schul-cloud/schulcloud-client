@@ -136,7 +136,8 @@ const editCourseHandler = (req, res, next) => {
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
-            students: markSelected(students, _.map(course.userIds, '_id'))
+            students: markSelected(students, _.map(course.userIds, '_id')),
+            hideSearch:true
         });
     });
 };
@@ -151,18 +152,29 @@ router.use(authHelper.authChecker);
 
 
 router.get('/', function(req, res, next) {
+    const query = req.query.q || '';
+
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                substitutionIds: res.locals.currentUser._id
+                $and: [
+                    { substitutionIds: res.locals.currentUser._id },
+                    { name: {$regex: query, $options: 'i'}}
+                ]
             }
         }),
         api(req).get('/courses/', {
             qs: {
-                $or: [
-                    { userIds: res.locals.currentUser._id },
-                    { teacherIds: res.locals.currentUser._id }
-               ]
+                $and: [
+                    {
+                        $or: [
+                            {userIds: res.locals.currentUser._id},
+                            {teacherIds: res.locals.currentUser._id}
+                        ]
+                    },
+                    {
+                        name: {$regex: query, $options: 'i'}
+                    }]
             }
         })
     ]).then(([substitutionCourses, courses]) => {
@@ -199,16 +211,13 @@ router.get('/', function(req, res, next) {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
                 courses,
-                substitutionCourses
+                substitutionCourses,
+                searchLabel: 'Suche nach Kursen',
+                searchAction: '/courses'
             });
         }
     });
 });
-
-router.get('/json', function(req, res, next) {
-
-});
-
 
 router.post('/', function(req, res, next) {
     // map course times to fit model
@@ -329,7 +338,8 @@ router.get('/:courseId', function(req, res, next) {
                 {}
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
-            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
+            hideSearch:true
         }));
     }).catch(err => {
         next(err);

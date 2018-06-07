@@ -38,7 +38,8 @@ const editTopicHandler = (req, res, next) => {
             lesson,
             courseId: req.params.courseId,
             courseGroupId: req.query.courseGroup,
-            etherpadBaseUrl: etherpadBaseUrl
+            etherpadBaseUrl: etherpadBaseUrl,
+            hideSearch:true
         });
     });
 };
@@ -156,7 +157,8 @@ router.get('/:topicId', function(req, res, next) {
                     title: courseGroup.name,
                     url: '/courses/' + course._id + '/groups/' + courseGroup._id
                 } : {}
-            ]
+            ],
+            hideSearch:true
         }), (error, html) => {
             if (error) {
                 throw 'error in GET /:topicId - res.render: ' + error;

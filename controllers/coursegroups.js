@@ -59,7 +59,8 @@ const editCourseGroupHandler = (req, res, next) => {
             students: markSelected(students, _.map(courseGroup.userIds, '_id')),
             title: req.params.courseGroupId ? 'Schülergruppe bearbeiten' : 'Schülergruppe anlegen',
             submitLabel: req.params.courseGroupId ? 'Änderungen speichern' : 'Schülergruppe anlegen',
-            closeLabel: 'Abbrechen'
+            closeLabel: 'Abbrechen',
+            hideSearch:true
         });
     });
 };
@@ -172,6 +173,7 @@ router.get('/:courseGroupId/', function(req, res, next) {
                     url: '/courses/' + course._id
                 }
             ],
+            hideSearch:true
         }));
     });
 });

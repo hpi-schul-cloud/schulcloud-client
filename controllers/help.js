@@ -22,14 +22,15 @@ router.get('/', function (req, res, next) {
 
             res.render('help/help', {
                 title: 'Hilfebereich',
-                release: releases.data
+                release: releases.data,
+                hideSearch:true
             });
         });
 });
 
 router.get('/faq', function (req, res, next) {
    res.render('help/faq', {
-
+        hideSearch:true
    });
 });
 
@@ -40,7 +41,8 @@ faq.ssoFAQ.map(faq => {
 
     res.render('help/sso-faq', {
         faq: faq.ssoFAQ,
-        title: "Häufig gestellte Fragen zu SSO"
+        title: "Häufig gestellte Fragen zu SSO",
+        hideSearch:true
     });
 });
 
@@ -51,7 +53,8 @@ router.get('/faq/administration', function (req, res, next) {
 
     res.render('help/sso-faq', {
         faq: administration,
-        title: "Wie kann ich neue Lehrkräfte und Schüler und Schülerinnen in der Schul-Cloud anlegen?"
+        title: "Wie kann ich neue Lehrkräfte und Schüler und Schülerinnen in der Schul-Cloud anlegen?",
+        hideSearch:true
     });
 });
 
