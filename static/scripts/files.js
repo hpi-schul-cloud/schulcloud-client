@@ -280,7 +280,8 @@ $(document).ready(function() {
             submitLabel: 'Speichern',
             fields: {
                 name: oldName,
-                path: path
+                path: path,
+                key: path + oldName
             }
         });
 
@@ -311,7 +312,7 @@ $(document).ready(function() {
         populateRenameModal(
             oldName, 
             path, 
-            '/files/directoryModel/' + dirId +  '/update',
+            '/files/directoryModel/' + dirId +  '/rename',
             'Ordner umbenennen');
     });
 

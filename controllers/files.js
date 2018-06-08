@@ -656,10 +656,11 @@ router.post('/fileModel/:id/update', function(req, res, next) {
     api(req).patch('/files/' + fileId, {json: req.body}).then(_ => res.redirect(req.header('Referer')));
 });
 
-router.post('/directoryModel/:id/update', function(req, res, next) {
-    let directoryId = req.params.id;
-    if(req.body.name) req.body.key = req.body.key || req.body.path + req.body.name; // when renaming, also update directory-key
-    api(req).patch('/directories/' + directoryId, {json: req.body}).then(_ => res.redirect(req.header('Referer')));
+router.post('/directoryModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/directories/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }}).then(_ => res.redirect(req.header('Referer')));
 });
 
 
