@@ -250,4 +250,21 @@ $(document).ready(function () {
         const loaderClassList = document.querySelector(".preload-screen").classList;
         loaderClassList.add("hidden");
     });
+    
+    // from: https://stackoverflow.com/a/187557
+    jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function(arg) {
+        return function( elem ) {
+            return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+    });
+    // js course search/filter
+    $("input.js-search").on("keyup", e => {
+        if(e.key === "Escape") $(e.target).val("");
+        if(e.key === "Unidentified") {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        $(".sc-card-title").find('.title:not(:Contains("' + $(e.target).val() + '"))').parents(".sc-card-wrapper").fadeOut(400);
+        $(".sc-card-title").find('.title:Contains("' + $(e.target).val() + '")').parents(".sc-card-wrapper").fadeIn(400);
+    });
 });
