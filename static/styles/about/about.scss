@@ -34,27 +34,21 @@ h5 {
 }
 
 .embed-pdf {
+  padding-left: 0;
+
   .viewer {
     width: 97%;
     height: 700px;
-    margin-top: 10px;
+    margin: 0 0 0 15px;
   }
   div.row {
     margin-bottom: 10px;
   }
   .single-pdf {
-    width: 31%;
-    max-width: 31%;
-    margin: 0 10px;
+    margin: 0 15px 15px;
     padding: 3px 6px 3px 6px;
     border: 1px solid #d3d3d3;
     box-shadow: 2px 2px 5px rgba(0,0,0,.1);
-    &:first-child {
-      margin-left: 0;
-    }
-    &:last-child {
-      margin-right: 0;
-    }
     &.opened {
       border: 1px solid #b10438;
     }
