@@ -235,7 +235,7 @@ async function createNewNexBoards(req, res, contents = []) {
             const board = await getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
-                getNexBoardProjectFromUser(req, res.locals.currentUser),
+                await getNexBoardProjectFromUser(req, res.locals.currentUser),
                 'demo');
             content.content.title = board.title;
             content.content.board = board.id;
