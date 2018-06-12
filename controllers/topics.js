@@ -185,8 +185,6 @@ router.patch('/:topicId', async function(req, res, next) {
     // create new Nexboard when necessary, if not simple hidden or position patch
     data.contents ? data.contents = await createNewNexBoards(req, res, data.contents) : '';
 
-    console.log(data.contents);
-
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
 
@@ -245,7 +243,7 @@ async function createNewNexBoards(req, res, contents = []) {
             return content;
         }
     }));
-};
+}
 
 const getNexBoardAPI = () => {
     if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
