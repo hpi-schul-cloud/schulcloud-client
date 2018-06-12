@@ -61,8 +61,7 @@ router.get('/', function (req, res, next) {
                 title: 'Meine Klassen',
                 classes,
                 teachers,
-                students,
-                hideSearch:true
+                students
             });
         });
     });

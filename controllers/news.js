@@ -137,7 +137,8 @@ router.all('/', function (req, res, next) {
             news,
             pagination,
             searchLabel: 'Suche nach Neuigkeiten',
-            searchAction: '/news/'
+            searchAction: '/news/',
+            showSearch: true
         });
     });
 });
@@ -148,8 +149,7 @@ router.get('/new', function (req, res, next) {
         submitLabel: 'Hinzufügen',
         closeLabel: 'Abbrechen',
         method: 'post',
-        action: '/news/',
-        hideSearch: true
+        action: '/news/'
     });
 });
 
@@ -160,7 +160,7 @@ router.get('/:newsId', function (req, res, next) {
         }
     }).then(news => {
         news.url = '/news/' + news._id;
-        res.render('news/article', {title: news.title, news, hideSearch:true});
+        res.render('news/article', {title: news.title, news });
     });
 });
 
@@ -173,8 +173,7 @@ router.get('/:newsId/edit', function (req, res, next) {
             closeLabel: 'Abbrechen',
             method: 'patch',
             action: '/news/' + req.params.newsId,
-            news,
-            hideSearch:true
+            news
         });
     });
 });

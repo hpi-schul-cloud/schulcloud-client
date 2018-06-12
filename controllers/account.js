@@ -56,8 +56,7 @@ router.get('/', function (req, res, next) {
     } else {
         res.render('account/settings', {
             title: 'Dein Account',
-            userId: res.locals.currentUser._id,
-            hideSearch:true
+            userId: res.locals.currentUser._id
         });
     }
 });

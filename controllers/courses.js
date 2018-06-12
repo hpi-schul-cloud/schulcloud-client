@@ -136,8 +136,7 @@ const editCourseHandler = (req, res, next) => {
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
-            students: markSelected(students, _.map(course.userIds, '_id')),
-            hideSearch:true
+            students: markSelected(students, _.map(course.userIds, '_id'))
         });
     });
 };
@@ -213,7 +212,8 @@ router.get('/', function(req, res, next) {
                 courses,
                 substitutionCourses,
                 searchLabel: 'Suche nach Kursen',
-                searchAction: '/courses'
+                searchAction: '/courses',
+                showSearch: true
             });
         }
     });
@@ -338,8 +338,7 @@ router.get('/:courseId', function(req, res, next) {
                 {}
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
-            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
-            hideSearch:true
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
         }));
     }).catch(err => {
         next(err);

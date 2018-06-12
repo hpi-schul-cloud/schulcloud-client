@@ -14,8 +14,7 @@ router.use(require('../helpers/authentication').authChecker);
 router.get('/', function (req, res, next) {
     res.render('calendar/calendar', {
         title: 'Kalender',
-        userId: res.locals.currentUser._id,
-        hideSearch:true
+        userId: res.locals.currentUser._id
     });
 });
 

@@ -39,8 +39,7 @@ const addToolHandler = (req, res, next) => {
                     title: 'Tool anlegen für ' + course.name,
                     submitLabel: 'Tool anlegen',
                     ltiTools,
-                    courseId: req.params.courseId,
-                    hideSearch:true
+                    courseId: req.params.courseId
                 });
             });
     });
@@ -82,8 +81,7 @@ const runToolHandler = (req, res, next) => {
             method: 'POST',
             formData: Object.keys(formData).map(key => {
                 return {name: key, value: formData[key]};
-            }),
-            hideSearch:true
+            })
         });
     });
 };
@@ -115,8 +113,7 @@ const showToolHandler = (req, res, next) => {
         res.render(renderPath, {
             course: course,
             title: `${tool.name}, Kurs/Fach: ${course.name}`,
-            tool: tool,
-            hideSearch:true
+            tool: tool
         });
     });
 };

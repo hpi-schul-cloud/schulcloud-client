@@ -574,8 +574,7 @@ const overview = (title = "") => {
                                 || (req._parsedUrl.pathname.includes( "asked" )
                                     && !isStudent )
                                ),
-                       createPrivate: req._parsedUrl.pathname.includes("private") || isStudent,
-                        hideSearch:true
+                       createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
                 });
             });
@@ -636,8 +635,7 @@ router.get('/new', function(req, res, next) {
                     assignment,
                     courses,
                     lessons: (req.query.course) ? lessons : false,
-                    isStudent,
-                    hideSearch:true
+                    isStudent
                 });
             });
         });
@@ -716,8 +714,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                             courses,
                             lessons,
                             isStudent,
-                            isSubstitution,
-                            hideSearch:true
+                            isSubstitution
                         });
                     });
                 } else {
@@ -732,8 +729,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         courses,
                         lessons: false,
                         isStudent,
-                        isSubstitution,
-                        hideSearch:true
+                        isSubstitution
                     });
                 }
             });
@@ -917,8 +913,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         path: submissionUploadPath,
                         courseGroups,
                         courseGroupSelected,
-                        comments,
-                        hideSearch:true
+                        comments
                     }));
                 });
                 //});
@@ -960,8 +955,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         students,
                         path: submissionUploadPath,
                         courseGroups,
-                        courseGroupSelected,
-                        hideSearch:true
+                        courseGroupSelected
                     }));
                 //}
             }
