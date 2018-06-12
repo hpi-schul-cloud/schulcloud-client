@@ -660,7 +660,9 @@ router.post('/directoryModel/:id/rename', function(req, res, next) {
     api(req).post('/fileStorage/directories/rename', {json: {
         path: req.body.key,
         newName: req.body.name
-    }}).then(_ => res.redirect(req.header('Referer')));
+    }})
+        .then(_ => res.redirect(req.header('Referer')))
+        .catch(e => next(e));
 });
 
 
