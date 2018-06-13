@@ -241,7 +241,8 @@ async function createNewNexBoards(req, res, contents = []) {
             content.content.description = board.description;
 
             return content;
-        }
+        } else
+            return content;
     }));
 }
 
