@@ -493,12 +493,12 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                                 let fileData = {
                                     filename: lessonFile.name,
                                     oldPath: lessonFile.key,
-                                    newPath: "courses/" + topic.courseId,
+                                    newPath: "courses/" + topic.courseId+"/",
                                     type: lessonFile.type
                                 };
                                 // copy file
                                 //api(req).post('/fileStorage/copy' + lessonFile._id, { qs: fileData } , function(data) {
-                                return api(req).patch('/fileStorage/copy' + lessonFile._id, { qs: fileData } , function(data) {
+                                api(req).patch('/fileStorage/copy/' + lessonFile._id, { qs: fileData } , function(data) {
                                     let a = data;
                                 });
                             })).then(() => {
