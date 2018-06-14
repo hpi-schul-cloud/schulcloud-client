@@ -419,7 +419,7 @@ router.get('/shared/', function (req, res, next) {
 
 router.get('/', function (req, res, next) {
     // get count of personal and course files/directories
-    let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
+    /*let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
     let courseFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^courses"}}});
 
     Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
@@ -439,13 +439,13 @@ router.get('/', function (req, res, next) {
                 sharedFiles.push(f);
             }
         });
-
+    */
         res.render('files/files-overview', Object.assign({
-            title: 'Meine Dateien',
-            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
+            title: 'Meine Dateien'
+            //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
-    });
+    //});
 });
 
 
