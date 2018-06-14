@@ -456,13 +456,19 @@ router.post('/:courseId/importTopic', function(req, res, next) {
 
         // copy topic to course
         let originalTopic = result.data[0];
-        let originalShareToken = JSON.parse(JSON.stringify(originalTopic.shareToken)); // copy value, not reference
         let originalCourseId = JSON.parse(JSON.stringify(originalTopic.courseId)); // copy value, not reference
         originalTopic.originalTopic = JSON.parse(JSON.stringify(originalTopic._id)); // copy value, not reference
         delete originalTopic._id;
         delete originalTopic.shareToken;
         originalTopic.courseId = req.params.courseId;
-
+    
+        // rewrite courseid in text to fit new file paths
+        originalTopic.contents.map(content => {
+            if(content.component==="text"&&content.content.text) {
+                content.content.text = content.content.text.replace(new RegExp(originalCourseId, "g"), req.params.courseId);
+            }
+        });
+        
         // we need to get all files of that one lesson, we need multiple steps to do this
         api(req).post("/lessons/", { json: originalTopic }).then(topic => {
             // get all files of that lessons course
@@ -471,22 +477,15 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                 // search each file in all lessons of that course to identify files of a specific lesson
                 if (files && files.data && files.data.length>0) {
                     return Promise.all(files.data.map(file => {
-                        return api(req).get("/lessons/", { qs:
-                                    { $and:
-                                        [
-                                         { 'contents.content.text': { $regex: file.key }},
-                                         { shareToken: originalShareToken }
-                                        ]
-                                    }
-                        }).then(lessons => {
-                            if (lessons && lessons.data.length>0 && lessons.data[0].name === originalTopic.name) {
-                                return file;
-                            } else {
-                                return;
+                        let fileInTopic = false;
+                        let newPath = file.key.replace(originalCourseId, req.params.courseId);
+                        originalTopic.contents.map(content => {
+                            if (content.component==="text"&&content.content.text&&_.includes(content.content.text, newPath)) {
+                               fileInTopic = true;
                             }
-                        }).catch(err => {
-                            res.status((err.statusCode || 500)).send(err);
                         });
+                        if (fileInTopic) return file;
+                        return;
                     })).then(lessonFiles => {
                         if(lessonFiles.length>0) {
                             return Promise.all(lessonFiles.filter(x => x !== undefined).map(lessonFile => {
@@ -499,14 +498,13 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                                 // copy file
                                 //api(req).post('/fileStorage/copy' + lessonFile._id, { qs: fileData } , function(data) {
                                 api(req).patch('/fileStorage/copy/' + lessonFile._id, { qs: fileData } , function(data) {
-                                    let a = data;
+                                    
                                 });
-                            })).then(() => {
+                            })).then(_ => {
                                 req.session.notification = {
                                     type: 'success',
                                     message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
                                 };
-                                res.redirect(req.header('Referer'));
                             }).catch(err => {
                                 res.status((err.statusCode || 500)).send(err);
                             });
@@ -519,7 +517,6 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                         type: 'success',
                         message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
                     };
-                    res.redirect(req.header('Referer'));
                 }
             }).catch(err => {
                 res.status((err.statusCode || 500)).send(err);
@@ -527,6 +524,8 @@ router.post('/:courseId/importTopic', function(req, res, next) {
         }).catch(err => {
             res.status((err.statusCode || 500)).send(err);
         });
+        
+        res.redirect(req.header('Referer'));
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
     });
