@@ -5,87 +5,95 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
+
     {{/content}}
 
     {{#content "page"}}
         <section class="faqpanel">
             <div class="container-fluid">
-        {{#ifneq this.currentRole "Schüler"}}
-            {{#ifneq this.currentRole "Demo"}}
+                {{#if this.currentSchoolData.pilot}}
+                    {{#ifneq this.currentRole "Schüler"}}
+                        {{#ifneq this.currentRole "Demo"}}
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="card" style="text-align: center">
+                                        <div class="card-block">
+                                            <div class="card-text">
+                                                <h4 class="card-title">Befragung II im Projekt Schul-Cloud</h4>
+                                                <p class="card-text">
+                                                    Die nächste Befragung zum Projekt Schul-Cloud ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen.
+                                                </p>
+                                                <p class="card-text">
+                                                    Vielen Dank für Ihre Unterstützung!
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <a href="https://tools.openhpi.de/survey/index.php?r=survey/index&sid=345643&newtest=Y&lang=de"
+                                               target="_blank">
+                                                <button class="btn btn-primary btn-poll">Zur Umfrage</button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{/ifneq}}
+                    {{/ifneq}}
+                {{/if}}
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="card" style="text-align: center">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="card h-100">
+                            <div class="img-out">
+                                <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
+                            </div>
                             <div class="card-block">
                                 <div class="card-text">
-                                    <h4 class="card-title">Befragung I im Projekt Schul-Cloud</h4>
-                                    <p class="card-text">
-                                        Im Rahmen der Pilotphase I im Projekt Schul-Cloud möchten wir Sie bitten, an unserer circa 30-minütigen Online-Befragung teilzunehmen. Mit Hilfe dieser sollen Erwartungshaltungen und Erfolgsfaktoren gegenüber digitaler Medien in Schule und Unterricht allgemein und gegenüber der Schul-Cloud geprüft werden.
-                                    </p>
-                                    <p class="card-text">
-                                        Vielen Dank für Ihre Mitarbeit!
-                                    </p>
+                                    <h4 class="card-title">Häufig gestellte Fragen</h4>
+                                    <p class="card-text">Hier finden Sie Antworten auf häufig gestellte Fragen rund zum
+                                        Thema Schul-Cloud.</p>
                                 </div>
                             </div>
-                            <div class="card-footer">
-                                <a href="https://tools.openhpi.de/survey/index.php?r=survey/index&sid=137936&newtest=Y&lang=de" target="_blank" >
-                                    <button class="btn btn-primary btn-poll">Zur Umfrage</button>
-                                </a>
+                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="btn btn-primary">Zu
+                                    den Fragen</a>
                             </div>
-                            </div>
+                        </div>
                     </div>
-                </div>
-        {{/ifneq}}
-        {{/ifneq}}
-                <div class="row">
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="card h-100">
-                                    <div class="img-out">
-                                        <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
-                                    </div>
-                                    <div class="card-block">
-                                        <div class="card-text">
-                                            <h4 class="card-title">Häufig gestellte Fragen</h4>
-                                            <p class="card-text">Hier finden Sie Antworten auf häufig gestellte Fragen rund zum Thema Schul-Cloud.</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                        <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="btn btn-primary">Zu den Fragen</a>
-                                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="card h-100">
+                            <div class="img-out">
+                                <img class="card-img-top circular" src="/images/login-right.png" alt="Card image cap">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">
+                                    <h4 class="card-title">SSO in der Schul-Cloud</h4>
+                                    <p class="card-text">Hier finden Sie Erläuterungen zum SSO generell sowie zum SSO in
+                                        der Schul-Cloud.</p>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="card h-100">
-                                    <div class="img-out">
-                                        <img class="card-img-top circular" src="/images/login-right.png" alt="Card image cap">
-                                    </div>
-                                    <div class="card-block">
-                                        <div class="card-text">
-                                            <h4 class="card-title">SSO in der Schul-Cloud</h4>
-                                            <p class="card-text">Hier finden Sie Erläuterungen zum SSO generell sowie zum SSO in der Schul-Cloud.</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                        <a href="/help/faq/sso" class="btn btn-primary">Zu den Fragen</a>
-                                    </div>
+                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                <a href="/help/faq/sso" class="btn btn-primary">Zu den Fragen</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="card h-100">
+                            <div class="img-out">
+                                <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
+                            </div>
+                            <div class="card-block">
+                                <div class="card-text">
+                                    <h4 class="card-title">Anleitung zur Verwaltung von Lehrkräften und Schülern und
+                                        Schülerinnen</h4>
+                                    <p class="card-text">Hier finden Sie Erklärungen zum Anlegen und zur allgemeinen
+                                        Verwaltung von Schülern und Schülerinnen und Lehrkräften.</p>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-xs-12">
-                                <div class="card h-100">
-                                    <div class="img-out">
-                                        <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
-                                    </div>
-                                    <div class="card-block">
-                                        <div class="card-text">
-                                            <h4 class="card-title">Anleitung zur Verwaltung von Lehrkräften und Schülern und Schülerinnen</h4>
-                                            <p class="card-text">Hier finden Sie Erklärungen zum Anlegen und zur allgemeinen Verwaltung von Schülern und Schülerinnen und Lehrkräften.</p>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                        <a href="/help/faq/administration" class="btn btn-primary">Zur Erklärung</a>
-                                    </div>
-                                </div>
+                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
+                                <a href="/help/faq/administration" class="btn btn-primary">Zur Erklärung</a>
                             </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="row" style="padding-top: 20px">
                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -96,7 +104,8 @@
                             <div class="card-block">
                                 <div class="card-text">
                                     <h4 class="card-title">Problem melden</h4>
-                                    <p class="card-text">Sie haben ein Problem in der Schul-Cloud gefunden? Schreiben Sie uns doch! Für Ihre Hinweise sind wir dankbar!</p>
+                                    <p class="card-text">Sie haben ein Problem in der Schul-Cloud gefunden? Schreiben
+                                        Sie uns doch! Für Ihre Hinweise sind wir dankbar!</p>
                                 </div>
                             </div>
                             <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
@@ -107,16 +116,22 @@
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <div class="card h-100">
                             <div class="img-out">
-                                <img class="mooc-house card-img-top circular" src="/images/logo-mooc-house.png" alt="MOOC House Schul-Cloud Kurs">
+                                <img class="mooc-house card-img-top circular" src="/images/logo-mooc-house.png"
+                                     alt="MOOC House Schul-Cloud Kurs">
                             </div>
                             <div class="card-block">
                                 <div class="card-text">
                                     <h4 class="card-title">Schul-Cloud MOOC</h4>
-                                    <p class="card-text">Um Sie bei Ihren ersten Klicks in der Schul-Cloud zu begleiten, haben wir diesen Kurs zusammengestellt und auf der etablierten Bildungsplattform mooc.house für Sie bereitgestellt. Er soll Sie durch die Schul-Cloud lotsen und Sie bei der Testung der Schul-Cloud anhand einzelner Kursabschnitte unterstützen.</p>
+                                    <p class="card-text">Um Sie bei Ihren ersten Klicks in der Schul-Cloud zu begleiten,
+                                        haben wir diesen Kurs zusammengestellt und auf der etablierten Bildungsplattform
+                                        mooc.house für Sie bereitgestellt. Er soll Sie durch die Schul-Cloud lotsen und
+                                        Sie bei der Testung der Schul-Cloud anhand einzelner Kursabschnitte
+                                        unterstützen.</p>
                                 </div>
                             </div>
                             <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                <a href="https://mooc.house/courses/schulcloud2018" target="_blank" class="btn btn-primary">Zum openHPI Kurs</a>
+                                <a href="https://mooc.house/courses/schulcloud2018" target="_blank"
+                                   class="btn btn-primary">Zum openHPI Kurs</a>
                             </div>
                         </div>
                     </div>
@@ -124,7 +139,7 @@
             </div>
         </section>
         <section class="changelog" id="changelog">
-            <h4>Neuste Funktionen</h4>
+            <h4>Neueste Funktionen</h4>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12">
@@ -147,13 +162,15 @@
                                         </h5>
                                     </div>
                                     <div id="collapse-{{@index}}" class="collapse"
-                                         role="tabpanel" aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
+                                         role="tabpanel" aria-labelledby="heading-{{@index}}"
+                                         {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
                                         <div class="card-block">
                                             {{{this.body}}}
                                         </div>
                                         <div class="card-footer">
                                             <a href="{{this.url}}" target="_blank">Weiterlesen</a>
-                                            <span class="author"><i class="fa fa-user"></i><a href="{{this.authorUrl}}" target="_blank">{{this.author}}</a></span>
+                                            <span class="author"><i class="fa fa-user"></i><a href="{{this.authorUrl}}"
+                                                                                              target="_blank">{{this.author}}</a></span>
                                         </div>
                                     </div>
                                 </div>
