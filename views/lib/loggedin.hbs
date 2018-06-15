@@ -237,7 +237,7 @@
                                             <i class="fa fa-search"></i>
                                         </a>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="js-search form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
                                                     <i class="fa fa-search"></i>

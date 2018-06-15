@@ -151,29 +151,20 @@ router.use(authHelper.authChecker);
 
 
 router.get('/', function(req, res, next) {
-    const query = req.query.q || '';
-
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                $and: [
-                    { substitutionIds: res.locals.currentUser._id },
-                    { name: {$regex: query, $options: 'i'}}
-                ]
+                substitutionIds: res.locals.currentUser._id,
+                $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
-                $and: [
-                    {
-                        $or: [
-                            {userIds: res.locals.currentUser._id},
-                            {teacherIds: res.locals.currentUser._id}
-                        ]
-                    },
-                    {
-                        name: {$regex: query, $options: 'i'}
-                    }]
+                $or: [
+                    {userIds: res.locals.currentUser._id},
+                    {teacherIds: res.locals.currentUser._id}
+                ],
+                $limit: 75
             }
         })
     ]).then(([substitutionCourses, courses]) => {
@@ -213,7 +204,8 @@ router.get('/', function(req, res, next) {
                 substitutionCourses,
                 searchLabel: 'Suche nach Kursen',
                 searchAction: '/courses',
-                showSearch: true
+                showSearch: true,
+                liveSearch: true
             });
         }
     });
