@@ -81,15 +81,6 @@ function printPart(){
     $(this).show();
 }
 
-function toggleMobileNav(){
-    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
-    this.classList.toggle('active');
-}
-function toggleMobileSearch(){
-    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
-    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
-    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
-}
 var originalReady = jQuery.fn.ready;
 $.fn.extend({
     ready: function(handler) {
@@ -220,6 +211,11 @@ $(document).ready(function () {
         });
     };
     
+    // from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
+    function isMobileDevice() {
+        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+    };
+    
     $(".embed-pdf .single-pdf").click(e => {
         e.preventDefault();
         var elem = e.target;
@@ -227,35 +223,41 @@ $(document).ready(function () {
         var opened = true;
         //TODO: perhaps check if file exists and status==200
         if(pdf&&pdf.endsWith(".pdf")) {
-            //TODO: for better reusability, create hbs and render instead of inline
-            var viewerHtml = '<object class="viewer" data="'+pdf+'" type="application/pdf" >\n' +
-                '<iframe src="'+pdf+'" style="width:100%; height:700px; border: none;">\n' +
-                '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
-                '</iframe>\n' +
-                '</object>';
-            var thisrow = $(elem).parents(".embed-pdf-row");
-            var page = $(elem).parents(".container.embed-pdf").parent();
-            if(thisrow.find(".viewer:visible").length>0) {
-                // viewer opened in this row, rewrite pdf source
-                if(thisrow.find(".viewer").attr("data")===pdf) {
-                    // same document, close
-                    thisrow.find(".viewer:visible").remove();
-                    opened = false;
+            if (isMobileDevice()) {
+                window.open(window.location.origin+pdf, '_blank', 'fullscreen=yes');
+                return false;
+            } else {
+                //TODO: for better reusability, create hbs and render instead of inline
+                var viewerHtml = '<object class="viewer" data="'+pdf+'" type="application/pdf" >\n' +
+                    '<iframe src="'+pdf+'" style="width:100%; height:700px; border: none;">\n' +
+                    '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
+                    '</iframe>\n' +
+                    '</object>';
+    
+                var thisrow = $(elem).parents(".embed-pdf-row");
+                var page = $(elem).parents(".container.embed-pdf").parent();
+                if(thisrow.find(".viewer:visible").length>0) {
+                    // viewer opened in this row, rewrite pdf source
+                    if(thisrow.find(".viewer").attr("data")===pdf) {
+                        // same document, close
+                        thisrow.find(".viewer:visible").remove();
+                        opened = false;
+                    }
+                    thisrow.find(".viewer").attr("data", pdf);
+                    page.find(".opened").removeClass("opened");
+                } else if (page.find(".viewer:visible").length>0) {
+                    // if viewer is opened in another row
+                    page.find(".viewer:visible").remove();
+                    thisrow.append(viewerHtml);
+                } else {
+                    // no viewer is opened
+                    thisrow.append(viewerHtml);
                 }
-                thisrow.find(".viewer").attr("data", pdf);
-                page.find(".opened").removeClass("opened");
-            } else if (page.find(".viewer:visible").length>0) {
-                // if viewer is opened in another row
-                page.find(".viewer:visible").remove();
-                thisrow.append(viewerHtml);
-            } else {
-                // no viewer is opened
-                thisrow.append(viewerHtml);
-            }
-            if (opened) {
-                $(elem).parents(".single-pdf").addClass("opened");
-            } else {
-                $(elem).parents(".single-pdf").removeClass("opened");
+                if (opened) {
+                    $(elem).parents(".single-pdf").addClass("opened");
+                } else {
+                    $(elem).parents(".single-pdf").removeClass("opened");
+                }
             }
         }
     });
