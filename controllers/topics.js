@@ -65,12 +65,12 @@ router.get('/', (req, res, next) => {
 router.get('/add', editTopicHandler);
 
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
 
     const data = req.body;
 
     // Check for neXboard compontent
-    data.contents = createNewNexBoards(req, res, data.contents);
+    data.contents = await createNewNexBoards(req, res, data.contents);
 
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -166,7 +166,7 @@ router.get('/:topicId', function(req, res, next) {
     });
 });
 
-router.patch('/:topicId', function(req, res, next) {
+router.patch('/:topicId', async function(req, res, next) {
     const data = req.body;
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
@@ -183,7 +183,7 @@ router.patch('/:topicId', function(req, res, next) {
     req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
 
     // create new Nexboard when necessary, if not simple hidden or position patch
-    data.contents ? data.contents = createNewNexBoards(req, res, data.contents) : '';
+    data.contents ? data.contents = await createNewNexBoards(req, res, data.contents) : '';
 
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
@@ -227,21 +227,24 @@ router.delete('/:topicId/materials/:materialId', function(req, res, next) {
 
 router.get('/:topicId/edit', editTopicHandler);
 
-const createNewNexBoards = (req, res, contents = []) => {
-    contents.forEach(content => {
+async function createNewNexBoards(req, res, contents = []) {
+    return await Promise.all(contents.map(async content => {
         if (content.component === "neXboard" && content.content.board === '0') {
-            const board = getNexBoardAPI().createBoard(
+            const board = await getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
-                getNexBoardProjectFromUser(req, res.locals.currentUser));
+                await getNexBoardProjectFromUser(req, res.locals.currentUser),
+                'demo');
             content.content.title = board.title;
-            content.content.board = board.boardId;
-            content.content.url = "https://" + board.public_link;
+            content.content.board = board.id;
+            content.content.url = board.publicLink;
             content.content.description = board.description;
-        }
-    });
-    return contents;
-};
+
+            return content;
+        } else
+            return content;
+    }));
+}
 
 const getNexBoardAPI = () => {
     if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
@@ -251,10 +254,10 @@ const getNexBoardAPI = () => {
     return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
 };
 
-const getNexBoardProjectFromUser = (req, user) => {
+const getNexBoardProjectFromUser = async (req, user) => {
     const preferences = user.preferences || {};
     if (typeof preferences.nexBoardProjectID === 'undefined') {
-        const project = getNexBoardAPI().createProject(user._id, user._id);
+        const project = await getNexBoardAPI().createProject(user._id, user._id);
         preferences.nexBoardProjectID = project.id;
         api(req).patch('/users/' + user._id, { json: { preferences } });
     }
