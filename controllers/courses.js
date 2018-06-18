@@ -491,13 +491,11 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                             return Promise.all(lessonFiles.filter(x => x !== undefined).map(lessonFile => {
                                 let fileData = {
                                     filename: lessonFile.name,
-                                    oldPath: lessonFile.key,
-                                    newPath: "courses/" + topic.courseId+"/",
-                                    type: lessonFile.type
+                                    oldPath: lessonFile.path,
+                                    newPath: "courses/" + topic.courseId+"/"
                                 };
                                 // copy file
-                                //api(req).post('/fileStorage/copy' + lessonFile._id, { qs: fileData } , function(data) {
-                                api(req).patch('/fileStorage/copy/' + lessonFile._id, { qs: fileData } , function(data) {
+                                api(req).post('/fileStorage/copy/' + lessonFile._id, { qs: fileData } , function(data) {
                                     
                                 });
                             })).then(_ => {
