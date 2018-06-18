@@ -444,8 +444,8 @@ router.get('/:courseId/addStudent', function(req, res, next) {
 router.post('/:courseId/importTopic', function(req, res, next) {
     let shareToken = req.body.shareToken;
     // try to find topic for given shareToken
-    api(req).get("/lessons/", { qs: { shareToken: shareToken } }).then(result => {
-        if (result.data.length <= 0) {
+    api(req).get("/lessons/", { qs: { shareToken: shareToken, $populate: ['courseId'] } }).then(lessons => {
+        if ((lessons.data || []).length <= 0) {
             req.session.notification = {
                 type: 'danger',
                 message: 'Es wurde kein Thema für diesen Code gefunden.'
@@ -455,8 +455,10 @@ router.post('/:courseId/importTopic', function(req, res, next) {
         }
 
         // copy topic to course
-        let originalTopic = result.data[0];
-        let originalCourseId = JSON.parse(JSON.stringify(originalTopic.courseId)); // copy value, not reference
+        let originalTopic = lessons.data[0];
+        let originalTopicId = originalTopic._id;
+        let originalSchoolId = originalTopic.courseId.schoolId;
+        let originalCourseId = JSON.parse(JSON.stringify(originalTopic.courseId._id)); // copy value, not reference
         originalTopic.originalTopic = JSON.parse(JSON.stringify(originalTopic._id)); // copy value, not reference
         delete originalTopic._id;
         delete originalTopic.shareToken;
@@ -464,81 +466,52 @@ router.post('/:courseId/importTopic', function(req, res, next) {
     
         // rewrite courseid in text to fit new file paths
         originalTopic.contents.map(content => {
-            if(content.component==="text"&&content.content.text) {
+            if (content.component === "text" && content.content.text) {
                 content.content.text = content.content.text.replace(new RegExp(originalCourseId, "g"), req.params.courseId);
             }
         });
         
         // we need to get all files of that one lesson, we need multiple steps to do this
-        api(req).post("/lessons/", { json: originalTopic }).then(topic => {
+        return api(req).post('/lessons/', { json: originalTopic }).then(topic => {
+
             // get all files of that lessons course
-            api(req).get('/files/', { qs: { path: { $regex: originalCourseId} }
-            }).then(files => {
-                // search each file in all lessons of that course to identify files of a specific lesson
-                if (files && files.data && files.data.length > 0) {
-                    return Promise.all(files.data.map(file => {
-                        let fileInTopic = false;
-                        let newPath = file.key.replace(originalCourseId, req.params.courseId);
-                        originalTopic.contents.map(content => {
-                            if (content.component === "text" && content.content.text && _.includes(content.content.text, newPath)) {
-                               fileInTopic = true;
-                            }
-                        });
-                        if (fileInTopic) return file;
-                        return;
-                    })).then(lessonFiles => {
-                        if (lessonFiles.length > 0) {
-                            return Promise.all(lessonFiles.filter(x => x !== undefined).map(lessonFile => {
-                                let fileData = {
-                                    fileName: lessonFile.name,
-                                    oldPath: lessonFile.path,
-                                    newPath: `courses/${topic.courseId}/`
-                                };
+            return api(req).get('/lessons/' + originalTopicId + '/files', { qs: { shareToken: shareToken} }).then(lessonFiles => {
+                return Promise.all(lessonFiles.map(f => {     
 
-                                // add permission for teacher to each file
-                                let isAlreadyInside = _.filter(lessonFile.permissions, f => {
-                                    return JSON.stringify(f.userId) === JSON.stringify(res.locals.currentUser._id);
-                                }).length > 0;
-                
-                                !isAlreadyInside ? lessonFile.permissions.push({
-                                    userId: res.locals.currentUser._id,
-                                    permissions: ['can-read', 'can-write']
-                                }) : '';
+                    // add permission for teacher to each file
+                    let isAlreadyInside = _.filter(f.permissions, f => {
+                        return JSON.stringify(f.userId) === JSON.stringify(res.locals.currentUser._id);
+                    }).length > 0;
 
-                                return api(req).patch('/files/' + lessonFile._id, { json : lessonFile})
-                                    .then(_ => {
-                                        // copy file
-                                        return api(req).post('/fileStorage/copy/', { json: fileData });
-                                    });
-                            })).then(_ => {
-                                req.session.notification = {
-                                    type: 'success',
-                                    message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
-                                };
-                            }).catch(err => {
-                                res.status((err.statusCode || 500)).send(err);
-                            });
-                        } else {
-                            res.sendStatus(500);
-                        }
+                    !isAlreadyInside ? f.permissions.push({
+                        userId: res.locals.currentUser._id,
+                        permissions: ['can-read', 'can-write']
+                    }) : '';
+
+                    return api(req).patch('/files/' + f._id, { json: f}).then(_ => {
+
+                        // copy file
+                        let fileData = {
+                            fileName: f.name,
+                            oldPath: f.path,
+                            newPath: `courses/${topic.courseId}/`,
+                            externalSchoolId: originalSchoolId
+                        };
+
+                        return api(req).post('/fileStorage/copy/', { json: fileData});
                     });
-                } else {
+
+                })).then(_ => {
                     req.session.notification = {
                         type: 'success',
                         message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
                     };
-                }
-            }).catch(err => {
-                res.status((err.statusCode || 500)).send(err);
+
+                    res.redirect(req.header('Referer'));
+                });
             });
-        }).catch(err => {
-            res.status((err.statusCode || 500)).send(err);
         });
-        
-        res.redirect(req.header('Referer'));
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
-    });
+    }).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
 
