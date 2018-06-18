@@ -6,10 +6,12 @@ $(document).ready(function () {
         e.preventDefault();
         var courseName = $(this).attr('data-name');
         let modalData = $(this).attr('data-modal');
+        let courseId = $(this).attr('data-id');
         let $memberModal = $('.member-modal');
 
         populateModal($memberModal, '.modal-title', 'Teilnehmer vom Kurs: '.concat(courseName));
         populateModal($memberModal, '#member-modal-body', modalData);
+        populateModal($memberModal, '#course-edit', '<a href="/courses/'.concat(courseId).concat('/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>'));
 
         $memberModal.modal('show');
     });
