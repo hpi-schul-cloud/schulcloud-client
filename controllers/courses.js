@@ -475,29 +475,41 @@ router.post('/:courseId/importTopic', function(req, res, next) {
             api(req).get('/files/', { qs: { path: { $regex: originalCourseId} }
             }).then(files => {
                 // search each file in all lessons of that course to identify files of a specific lesson
-                if (files && files.data && files.data.length>0) {
+                if (files && files.data && files.data.length > 0) {
                     return Promise.all(files.data.map(file => {
                         let fileInTopic = false;
                         let newPath = file.key.replace(originalCourseId, req.params.courseId);
                         originalTopic.contents.map(content => {
-                            if (content.component==="text"&&content.content.text&&_.includes(content.content.text, newPath)) {
+                            if (content.component === "text" && content.content.text && _.includes(content.content.text, newPath)) {
                                fileInTopic = true;
                             }
                         });
                         if (fileInTopic) return file;
                         return;
                     })).then(lessonFiles => {
-                        if(lessonFiles.length>0) {
+                        if (lessonFiles.length > 0) {
                             return Promise.all(lessonFiles.filter(x => x !== undefined).map(lessonFile => {
                                 let fileData = {
-                                    filename: lessonFile.name,
+                                    fileName: lessonFile.name,
                                     oldPath: lessonFile.path,
-                                    newPath: "courses/" + topic.courseId+"/"
+                                    newPath: `courses/${topic.courseId}/`
                                 };
-                                // copy file
-                                api(req).post('/fileStorage/copy/' + lessonFile._id, { qs: fileData } , function(data) {
-                                    
-                                });
+
+                                // add permission for teacher to each file
+                                let isAlreadyInside = _.filter(lessonFile.permissions, f => {
+                                    return JSON.stringify(f.userId) === JSON.stringify(res.locals.currentUser._id);
+                                }).length > 0;
+                
+                                !isAlreadyInside ? lessonFile.permissions.push({
+                                    userId: res.locals.currentUser._id,
+                                    permissions: ['can-read', 'can-write']
+                                }) : '';
+
+                                return api(req).patch('/files/' + lessonFile._id, { json : lessonFile})
+                                    .then(_ => {
+                                        // copy file
+                                        return api(req).post('/fileStorage/copy/', { json: fileData });
+                                    });
                             })).then(_ => {
                                 req.session.notification = {
                                     type: 'success',
