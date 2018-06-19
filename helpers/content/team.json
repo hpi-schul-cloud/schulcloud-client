@@ -2,7 +2,8 @@
   "high": {
     "name": "Gremium und Projektleitung",
     "style": "standard",
-    "team": [{
+    "team": [
+      {
         "id": 0,
         "title": "Prof. Dr.",
         "firstName": "Christoph",
@@ -55,7 +56,8 @@
   "medium": {
     "name": "Projektkoordination und wissenschaftliche Mitarbeiter",
     "style": "standard",
-    "team": [{
+    "team": [
+      {
         "subheader_before": "Hasso-Plattner-Institut",
         "id": 3,
         "title": "",
@@ -136,7 +138,7 @@
         },
         "longDesc": false
       },
-       {
+      {
         "id": 8,
         "title": "",
         "firstName": "Konstantin",
@@ -184,7 +186,7 @@
         },
         "longDesc": false
       },
-       {
+      {
         "id": 11,
         "title": "",
         "firstName": "Martin",
@@ -199,7 +201,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 12,
         "title": "",
@@ -263,7 +265,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 16,
         "title": "",
@@ -313,7 +315,7 @@
         },
         "longDesc": false
       },
-       {
+      {
         "id": 19,
         "title": "",
         "firstName": "Sigrid",
@@ -328,29 +330,30 @@
           "linkedin": ""
         },
         "longDesc": false
-      }       
+      }
     ]
   },
   "low": {
     "name": "Studierende",
     "style": "small",
-    "team": [{
-      "id": 20,
-      "title": "",
-      "firstName": "Boris",
-      "lastName": " Andreev",
-      "position": "Studentische Hilfskraft",
-      "description": "Boris kommt ursprünglich aus Bulgarien und macht derzeit seinen Bachelor in IT-Systems Engineering am Hasso-Plattner-Institut. Im Projekt Schul-Cloud ist im Bereich des Web Developments angestellt. Neben dem Studium und der Arbeit nutzt er seine Freizeit indem er viel reist und Freunde im Ausland besucht. Auch bereitet es ihm viel Freude seine Meme Seite Веро мемета auf Facebook am laufen zu halten.",
-      "pictureUrl": "/images/team/Boris_Andreev.jpg",
-      "priority": 0,
-      "social": {
-        "facebook": "",
-        "twitter": "",
-        "linkedin": ""
+    "team": [
+      {
+        "id": 20,
+        "title": "",
+        "firstName": "Boris",
+        "lastName": " Andreev",
+        "position": "Studentische Hilfskraft",
+        "description": "Boris kommt ursprünglich aus Bulgarien und macht derzeit seinen Bachelor in IT-Systems Engineering am Hasso-Plattner-Institut. Im Projekt Schul-Cloud ist im Bereich des Web Developments angestellt. Neben dem Studium und der Arbeit nutzt er seine Freizeit indem er viel reist und Freunde im Ausland besucht. Auch bereitet es ihm viel Freude seine Meme Seite Веро мемета auf Facebook am laufen zu halten.",
+        "pictureUrl": "/images/team/Boris_Andreev.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       },
-      "longDesc": false
-    },
-    {
+      {
         "id": 21,
         "title": "",
         "firstName": "Raoul",
@@ -382,7 +385,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "id": 23,
         "title": "",
         "firstName": "Max",
@@ -397,8 +400,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },        
-         
+      },
       {
         "id": 24,
         "title": "",
@@ -510,7 +512,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 31,
         "title": "",
@@ -543,7 +545,7 @@
         },
         "longDesc": false
       },
-       {
+      {
         "id": 33,
         "title": "",
         "firstName": "Florian Michael",
@@ -558,7 +560,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 34,
         "title": "",
@@ -590,7 +592,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 36,
         "title": "",
@@ -606,7 +608,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
         "id": 37,
         "title": "",
@@ -623,7 +625,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "id": 38,
         "title": "",
         "firstName": "Jonas",
@@ -638,7 +640,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },        
+      },
       {
         "id": 39,
         "title": "",
@@ -660,7 +662,8 @@
   "below": {
     "name": "Weitere Mitarbeiter",
     "style": "small",
-    "team": [{
+    "team": [
+      {
         "id": 40,
         "title": "",
         "firstName": "Thomas",
@@ -707,29 +710,30 @@
           "linkedin": ""
         },
         "longDesc": false
-      }    
+      }
     ]
   },
   "end": {
     "name": "Alumni",
     "style": "small",
-    "team": [{
-      "id": 43,
-      "title": "",
-      "firstName": "Carl",
-      "lastName": "Gödecken",
-      "position": "Ehem. Bachelorstudent",
-      "description": "Carl war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Schul-Cloud for iOS: Adapting a browser-based learning platform for mobile devices.",
-      "pictureUrl": "/images/team/Carl_Gödecken.jpg",
-      "priority": 0,
-      "social": {
-        "facebook": "",
-        "twitter": "",
-        "linkedin": ""
+    "team": [
+      {
+        "id": 43,
+        "title": "",
+        "firstName": "Carl",
+        "lastName": "Gödecken",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Carl war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Schul-Cloud for iOS: Adapting a browser-based learning platform for mobile devices.",
+        "pictureUrl": "/images/team/Carl_Gödecken.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       },
-      "longDesc": false
-       },
-     {
+      {
         "id": 44,
         "title": "",
         "firstName": "Nico",
@@ -745,7 +749,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "id": 45,
         "title": "",
         "firstName": "David",
