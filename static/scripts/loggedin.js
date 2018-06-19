@@ -194,15 +194,13 @@ $(document).ready(function () {
         $qrbox.append(image);
     });
 
-    // Init mobile nav
-    document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-    document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
-
     if(!fullscreen){
         fullscreen = JSON.parse(sessionStorage.getItem("fullscreen"))||false;
         if(fullscreen){togglePresentationMode()}
     }
-    document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
+    if(document.querySelector('.btn-fullscreen')){
+        document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
+    }
 
     $('.btn-cancel').on('click', function(e) {
         e.stopPropagation();
