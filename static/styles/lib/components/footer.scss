@@ -1,6 +1,7 @@
 @import '../colors';
 @import "../bootstrap/scss/_variables";
 @import "../bootstrap/scss/mixins/_breakpoints";
+
 footer {
     width: 100%;
     position: inherit;
@@ -43,13 +44,11 @@ footer {
             background: $colorBeige;
         }
     
-        .imprint {
-            img{
-                width: auto;
-                max-width: 175px;
-                height: auto;
-                max-height: 44px;
-            }
+        .imprint img{
+            width: auto;
+            max-width: 175px;
+            height: auto;
+            max-height: 44px;
         }
     }
 }

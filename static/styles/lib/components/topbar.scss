@@ -33,10 +33,7 @@
         padding-left: 10px;
         padding-right: 10px;
     }
-}
-
-.navbar-nav {
-    .nav-item {
+    .navbar-nav .nav-item {
         float: none !important;
         display: inline-block;
     }
@@ -184,5 +181,11 @@
     .delimiter {
         background-color: $colorGrey;
         height: 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .intro-trigger {
+        display: none;
     }
 }

@@ -19,7 +19,7 @@
       float: left;
       margin-right: 5px;
       background: no-repeat center center;
-      background-size: cover;
+      background-size: contain;
       @media screen and (max-width: 575px) {
         display: none;
       }
