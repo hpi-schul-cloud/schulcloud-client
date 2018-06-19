@@ -488,7 +488,7 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                         permissions: ['can-read', 'can-write']
                     }) : '';
 
-                    return api(req).patch('/files/' + f._id, { json: f}).then(_ => {
+                    return api(req).patch('/files/' + f._id, { json: f }).then(_ => {
 
                         // copy file
                         let fileData = {
@@ -498,7 +498,11 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                             externalSchoolId: originalSchoolId
                         };
 
-                        return api(req).post('/fileStorage/copy/', { json: fileData});
+                        return api(req).post('/fileStorage/copy/', { json: fileData }).then(newFile => {
+                            f.permissions = newFile.permissions = [];
+                            api(req).patch('/files/' + f._id, { json: f });
+                            return api(req).patch('/files/' + newFile._id, { json: newFile });
+                        });
                     });
 
                 })).then(_ => {
