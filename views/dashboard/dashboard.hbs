@@ -8,6 +8,7 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
+        <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -62,6 +63,7 @@
 
         {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" step="8" intro="An dieser Stelle finden Sie eine Übersicht über ihre private “To Do” Liste. Die Aufgaben, die sie hier sehen, können Sie selbst unter “Aufgaben” auswählen und bearbeiten. Ihre “To Do” Liste ist privat und daher nur für sie einsehbar. "}}
 
+        {{#if this.currentSchoolData.pilot}}
         {{#ifneq this.currentRole "Schüler"}}
         {{#ifneq ../this.currentRole "Demo"}}
             {{#embed "lib/components/modal" class="poll-modal"}}
@@ -71,6 +73,7 @@
         {{/embed}}
         {{/ifneq}}
         {{/ifneq}}
+        {{/if}}
 
     {{/content}}
 {{/extend}}

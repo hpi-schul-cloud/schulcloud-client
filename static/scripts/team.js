@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    for (let i = 0; i <= 45; i++) {
+    let teamLength = $('#teamLength').text();
+    for (let i = 0; i <= teamLength; i++) {
         $('.button' + i).click(function () {
             let buttonId = 'two';
             $('#modal-container-' + i).removeAttr('class').addClass(buttonId);

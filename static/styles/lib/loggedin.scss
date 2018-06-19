@@ -1,5 +1,6 @@
 @import './colors';
 @import "./editor";
+@import "./components/preload-screen";
 
 header {
     width:100%;
@@ -54,15 +55,5 @@ body.fullscreen{
         &:hover{
             opacity: 1;
         }
-    }
-}
-
-/* ---- special --- */
-
-@include media-breakpoint-down(xs) {
-    .topbar + .section-title {
-        border-bottom: 1px solid #ddd;
-        padding: 10px 0px;
-        margin-bottom: 25px;
     }
 }

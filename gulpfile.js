@@ -72,9 +72,14 @@ function themeName(){
 gulp.task('images', () => {
     beginPipe('./static/images/**/*.*')
         .pipe(imagemin())
-        .pipe(gulp.dest(`./build/${themeName()}/images`))
-})
+        .pipe(gulp.dest(`./build/${themeName()}/images`));
+});
 
+//minify static/other
+gulp.task('other', () => {
+    gulp.src('./static/other/**/*.*')
+        .pipe(gulp.dest(`./build/${themeName()}/other`));
+});
 
 var loadPaths = path.resolve('./static/styles/');
 sassGrapher.init('./static/styles/', { loadPaths: loadPaths });
@@ -171,12 +176,15 @@ gulp.task('clear', () => {
 })
 
 //run all tasks, processing changed files
-gulp.task('build-all', ['images', 'styles', 'fonts', 'scripts', 'base-scripts',
+gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets'])
+
+gulp.task('build-theme-files', ['styles'])
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
     gulp.watch(withTheme('./static/images/**/*.*'), ['images'])
+    gulp.watch(withTheme('./static/other/**/*.*'), ['other'])
     gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles'])
     gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts'])
     gulp.watch(withTheme(nonBaseScripts), ['scripts'])
