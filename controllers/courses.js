@@ -476,17 +476,7 @@ router.post('/:courseId/importTopic', function(req, res, next) {
 
             // get all files of that lessons course
             return api(req).get('/lessons/' + originalTopicId + '/files', { qs: { shareToken: shareToken} }).then(lessonFiles => {
-                return Promise.all(lessonFiles.map(f => {     
-
-                    // add permission for teacher to each file
-                    let isAlreadyInside = _.filter(f.permissions, f => {
-                        return JSON.stringify(f.userId) === JSON.stringify(res.locals.currentUser._id);
-                    }).length > 0;
-
-                    !isAlreadyInside ? f.permissions.push({
-                        userId: res.locals.currentUser._id,
-                        permissions: ['can-read', 'can-write']
-                    }) : '';
+                return Promise.all(lessonFiles.map(f => {
 
                     return api(req).patch('/files/' + f._id, { json: f }).then(_ => {
 
@@ -498,11 +488,7 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                             externalSchoolId: originalSchoolId
                         };
 
-                        return api(req).post('/fileStorage/copy/', { json: fileData }).then(newFile => {
-                            f.permissions = newFile.permissions = [];
-                            api(req).patch('/files/' + f._id, { json: f });
-                            return api(req).patch('/files/' + newFile._id, { json: newFile });
-                        });
+                        return api(req).post('/fileStorage/copy/', { json: fileData });
                     });
 
                 })).then(_ => {
