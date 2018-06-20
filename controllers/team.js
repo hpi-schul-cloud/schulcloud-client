@@ -6,6 +6,7 @@ const authHelper = require('../helpers/authentication');
 const team = require('../helpers/content/team.json');
 
 router.get('/', function (req, res, next) {
+    let teamLength = team.below.team.length + team.end.team.length + team.high.team.length + team.low.team.length + team.medium.team.length;
 
     authHelper.isAuthenticated(req).then(isAuthenticated => {
         let template = isAuthenticated ? 'team/team_loggedin' : 'team/team_guest';
@@ -20,6 +21,7 @@ router.get('/', function (req, res, next) {
             title: 'Das Schul-Cloud Team',
             inline: !!template.includes('guest'),
             teams: team,
+            teamLength
         })
     );
 });

@@ -2,7 +2,8 @@
   "high": {
     "name": "Gremium und Projektleitung",
     "style": "standard",
-    "team": [{
+    "team": [
+      {
         "id": 0,
         "title": "Prof. Dr.",
         "firstName": "Christoph",
@@ -55,7 +56,8 @@
   "medium": {
     "name": "Projektkoordination und wissenschaftliche Mitarbeiter",
     "style": "standard",
-    "team": [{
+    "team": [
+      {
         "subheader_before": "Hasso-Plattner-Institut",
         "id": 3,
         "title": "",
@@ -136,7 +138,7 @@
         },
         "longDesc": false
       },
-       {
+      {
         "id": 8,
         "title": "",
         "firstName": "Konstantin",
@@ -187,6 +189,22 @@
       {
         "id": 11,
         "title": "",
+        "firstName": "Martin",
+        "lastName": "Malchow",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
+        "description": "Martin hat im Bachelor „Angewandte Informatik“ studiert und einen Masterabschluss in „Automotive Software Engineering“. Er unterrichtete während dieser Zeit bereits einige Jahre die Grundlagen von eingebetteten Systemen in der Automobilindustrie. Derzeit ist er Mitarbeiter am Lehrstuhl für Internet-Technologien und Systeme und zuständig für das tele-TASK Portal des Hasso-Plattner-Instituts. Außerdem unterrichtet er HPI-Studenten unter anderem in den Fächern „Internet- und WWW-Technologien“ sowie „Web-Programmierung und Web-Frameworks“. Nach Abgabe seiner Dissertation, in der sich alles um die Unterstützung und Motivation im E-Learning dreht, unterstützt er das Schul-Cloud-Team im Bereich des Video-Streamings und der Webdienstanbindung. In der Freizeit findet man Martin meist im Leichtathletik-Stadion, bei einer Aktivität in/auf der Havel oder beim Bereisen der Welt.",
+        "pictureUrl": "/images/team/Martin_Malchow.jpeg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 12,
+        "title": "",
         "firstName": "Florian",
         "lastName": "Morel",
         "position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -201,7 +219,7 @@
         "longDesc": false
       },
       {
-        "id": 12,
+        "id": 13,
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
@@ -217,7 +235,7 @@
         "longDesc": false
       },
       {
-        "id": 13,
+        "id": 14,
         "title": "",
         "firstName": "Hannes",
         "lastName": "Schurig",
@@ -233,7 +251,7 @@
         "longDesc": false
       },
       {
-        "id": 14,
+        "id": 15,
         "title": "",
         "firstName": "Julian",
         "lastName": "Taraz",
@@ -247,9 +265,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
-        "id": 15,
+        "id": 16,
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
@@ -265,7 +283,7 @@
         "longDesc": false
       },
       {
-        "id": 16,
+        "id": 17,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
@@ -282,7 +300,7 @@
       },
       {
         "subheader_before": "Das nationale Excellence-Schulnetzwerk MINT-EC",
-        "id": 17,
+        "id": 18,
         "title": "",
         "firstName": "Nils",
         "lastName": "Karn",
@@ -297,8 +315,8 @@
         },
         "longDesc": false
       },
-       {
-        "id": 18,
+      {
+        "id": 19,
         "title": "",
         "firstName": "Sigrid",
         "lastName": "Stobbe",
@@ -312,30 +330,31 @@
           "linkedin": ""
         },
         "longDesc": false
-      }       
+      }
     ]
   },
   "low": {
     "name": "Studierende",
     "style": "small",
-    "team": [{
-      "id": 19,
-      "title": "",
-      "firstName": "Boris",
-      "lastName": " Andreev",
-      "position": "Studentische Hilfskraft",
-      "description": "Boris kommt ursprünglich aus Bulgarien und macht derzeit seinen Bachelor in IT-Systems Engineering am Hasso-Plattner-Institut. Im Projekt Schul-Cloud ist im Bereich des Web Developments angestellt. Neben dem Studium und der Arbeit nutzt er seine Freizeit indem er viel reist und Freunde im Ausland besucht. Auch bereitet es ihm viel Freude seine Meme Seite Веро мемета auf Facebook am laufen zu halten.",
-      "pictureUrl": "/images/team/Boris_Andreev.jpg",
-      "priority": 0,
-      "social": {
-        "facebook": "",
-        "twitter": "",
-        "linkedin": ""
-      },
-      "longDesc": false
-    },
-    {
+    "team": [
+      {
         "id": 20,
+        "title": "",
+        "firstName": "Boris",
+        "lastName": " Andreev",
+        "position": "Studentische Hilfskraft",
+        "description": "Boris kommt ursprünglich aus Bulgarien und macht derzeit seinen Bachelor in IT-Systems Engineering am Hasso-Plattner-Institut. Im Projekt Schul-Cloud ist er im Bereich des Web Developments angestellt. Neben dem Studium und der Arbeit nutzt er seine Freizeit, indem er viel reist und Freunde im Ausland besucht. Auch bereitet es ihm viel Freude, seine Meme Seite Веро мемета auf Facebook am laufen zu halten.",
+        "pictureUrl": "/images/team/Boris_Andreev.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 21,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
@@ -351,7 +370,7 @@
         "longDesc": false
       },
       {
-        "id": 21,
+        "id": 22,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -366,8 +385,8 @@
         },
         "longDesc": false
       },
-     {
-        "id": 22,
+      {
+        "id": 23,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -381,10 +400,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },        
-         
+      },
       {
-        "id": 23,
+        "id": 24,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -400,7 +418,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -416,7 +434,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -432,7 +450,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 27,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
@@ -448,7 +466,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -464,7 +482,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -480,7 +498,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -494,9 +512,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -512,7 +530,7 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -527,8 +545,8 @@
         },
         "longDesc": false
       },
-       {
-        "id": 32,
+      {
+        "id": 33,
         "title": "",
         "firstName": "Florian Michael",
         "lastName": "Kunz",
@@ -542,9 +560,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
-        "id": 33,
+        "id": 34,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -560,7 +578,7 @@
         "longDesc": false
       },
       {
-        "id": 34,
+        "id": 35,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -574,9 +592,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
-        "id": 35,
+        "id": 36,
         "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
@@ -590,9 +608,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },       
+      },
       {
-        "id": 36,
+        "id": 37,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -607,8 +625,8 @@
         },
         "longDesc": false
       },
-     {
-        "id": 37,
+      {
+        "id": 38,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -622,9 +640,9 @@
           "linkedin": ""
         },
         "longDesc": false
-      },        
+      },
       {
-        "id": 38,
+        "id": 39,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -644,8 +662,9 @@
   "below": {
     "name": "Weitere Mitarbeiter",
     "style": "small",
-    "team": [{
-        "id": 39,
+    "team": [
+      {
+        "id": 40,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -661,7 +680,7 @@
         "longDesc": false
       },
       {
-        "id": 40,
+        "id": 41,
         "title": "",
         "firstName": "Marvin",
         "lastName": "Fischer",
@@ -677,7 +696,7 @@
         "longDesc": false
       },
       {
-        "id": 41,
+        "id": 42,
         "title": "",
         "firstName": "Jessica",
         "lastName": "Pfarr",
@@ -691,30 +710,31 @@
           "linkedin": ""
         },
         "longDesc": false
-      }    
+      }
     ]
   },
   "end": {
     "name": "Alumni",
     "style": "small",
-    "team": [{
-      "id": 42,
-      "title": "",
-      "firstName": "Carl",
-      "lastName": "Gödecken",
-      "position": "Ehem. Bachelorstudent",
-      "description": "Carl war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Schul-Cloud for iOS: Adapting a browser-based learning platform for mobile devices.",
-      "pictureUrl": "/images/team/Carl_Gödecken.jpg",
-      "priority": 0,
-      "social": {
-        "facebook": "",
-        "twitter": "",
-        "linkedin": ""
-      },
-      "longDesc": false
-       },
-     {
+    "team": [
+      {
         "id": 43,
+        "title": "",
+        "firstName": "Carl",
+        "lastName": "Gödecken",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Carl war Mitglied des Bachlorprojektes 2016/2017, das aktiv an dem ersten Prototypen der Schul-Cloud gearbeitet hat. Seine Bachelorarbeit trug den Titel: Schul-Cloud for iOS: Adapting a browser-based learning platform for mobile devices.",
+        "pictureUrl": "/images/team/Carl_Gödecken.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 44,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -729,8 +749,8 @@
         },
         "longDesc": false
       },
-     {
-        "id": 44,
+      {
+        "id": 45,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -746,7 +766,7 @@
         "longDesc": false
       },
       {
-        "id": 45,
+        "id": 46,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
