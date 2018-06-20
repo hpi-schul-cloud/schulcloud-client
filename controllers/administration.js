@@ -354,7 +354,8 @@ const dictionary = {
     content: 'Materialien',
     administration: 'Verwaltung',
     login_registration: 'Anmeldung/Registrierung',
-    other: 'Sonstiges'
+    other: 'Sonstiges',
+    technical_problems: 'Techn. Probleme'
 };
 
 const getUpdateHandler = (service) => {
