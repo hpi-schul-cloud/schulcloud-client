@@ -13,9 +13,6 @@
                         </ol>
                     {{else}}
                         Noch keine Teilnehmer
-                        {{#userHasPermission "COURSE_EDIT"}}
-                            <div id='course-edit'></div>
-                        {{/userHasPermission}}
                     {{/if}}"
        data-title="{{#each (truncateArray this.members 10)}}
            {{#if this.displayName}}

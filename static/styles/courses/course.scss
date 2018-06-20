@@ -156,9 +156,12 @@
     }
 }
 
-#member-list {
+#member-modal-body {
     columns: 3;
     word-break: break-all;
+}
+
+#member-list {
     li {
         padding: 0px;
         margin: 0px;
