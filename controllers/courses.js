@@ -463,13 +463,7 @@ router.post('/:courseId/importTopic', function(req, res, next) {
         delete originalTopic._id;
         delete originalTopic.shareToken;
         originalTopic.courseId = req.params.courseId;
-    
-        // rewrite courseid in text to fit new file paths
-        originalTopic.contents.map(content => {
-            if (content.component === "text" && content.content.text) {
-                content.content.text = content.content.text.replace(new RegExp(originalCourseId, "g"), req.params.courseId);
-            }
-        });
+        let fileChangelog = [];
         
         // we need to get all files of that one lesson, we need multiple steps to do this
         return api(req).post('/lessons/', { json: originalTopic }).then(topic => {
@@ -488,16 +482,28 @@ router.post('/:courseId/importTopic', function(req, res, next) {
                             externalSchoolId: originalSchoolId
                         };
 
-                        return api(req).post('/fileStorage/copy/', { json: fileData });
+                        return api(req).post('/fileStorage/copy/', { json: fileData }).then(newFile => {
+                            fileChangelog.push({"old": `${originalCourseId}/${f.name}`, "new": `${topic.courseId}/${newFile.name}` });
+                        });
+                    });
+                })).then(_ => {
+                    // rewrite courseid in text to fit new file paths and patch db afterwards
+                    topic.contents.map(content => {
+                        if (content.component === "text" && content.content.text) {
+                            fileChangelog.map(change => {
+                                content.content.text = content.content.text.replace(new RegExp(change.old, "g"), change.new);
+                            });
+                        }
                     });
 
-                })).then(_ => {
-                    req.session.notification = {
-                        type: 'success',
-                        message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
-                    };
-
-                    res.redirect(req.header('Referer'));
+                    return api(req).patch('/lessons/'+topic._id, { json: topic }).then(_ => {
+                        req.session.notification = {
+                            type: 'success',
+                            message: `Thema '${topic.name}' wurde erfolgreich zum Kurs hinzugefügt.`
+                        };
+    
+                        res.redirect(req.header('Referer'));
+                    });
                 });
             });
         });
