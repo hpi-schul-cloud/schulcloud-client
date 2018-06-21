@@ -73,10 +73,10 @@
                 {{#each partners.advisers}}
                     <div class="partner-box-wrapper col-xs-6 col-md-3">
                         <div class="partner-box">
-                            <a href="{{{url}}}" target="_blank">
+                            {{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
                                 <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
                                     {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                            </a>
+                            {{#if url}}</a>{{/if}}
                         </div>
                     </div>
                 {{/each}}
