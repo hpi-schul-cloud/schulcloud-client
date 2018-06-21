@@ -154,15 +154,17 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                substitutionIds: res.locals.currentUser._id
+                substitutionIds: res.locals.currentUser._id,
+                $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
                 $or: [
-                    { userIds: res.locals.currentUser._id },
-                    { teacherIds: res.locals.currentUser._id }
-               ]
+                    {userIds: res.locals.currentUser._id},
+                    {teacherIds: res.locals.currentUser._id}
+                ],
+                $limit: 75
             }
         })
     ]).then(([substitutionCourses, courses]) => {
@@ -199,16 +201,15 @@ router.get('/', function(req, res, next) {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
                 courses,
-                substitutionCourses
+                substitutionCourses,
+                searchLabel: 'Suche nach Kursen',
+                searchAction: '/courses',
+                showSearch: true,
+                liveSearch: true
             });
         }
     });
 });
-
-router.get('/json', function(req, res, next) {
-
-});
-
 
 router.post('/', function(req, res, next) {
     // map course times to fit model
