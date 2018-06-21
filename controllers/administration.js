@@ -829,7 +829,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
+        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true});
     });
 });
 

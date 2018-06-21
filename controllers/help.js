@@ -29,7 +29,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/faq', function (req, res, next) {
    res.render('help/faq', {
-
    });
 });
 
