@@ -171,7 +171,7 @@ router.get('/:courseGroupId/', function(req, res, next) {
                     title: course.name,
                     url: '/courses/' + course._id
                 }
-            ],
+            ]
         }));
     });
 });
