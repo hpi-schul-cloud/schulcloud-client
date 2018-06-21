@@ -202,7 +202,7 @@ $(document).ready(function () {
         $qrbox.empty();
         $qrbox.append(image);
     });
-
+  
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
         document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
@@ -215,7 +215,9 @@ $(document).ready(function () {
             togglePresentationMode()
         }
     }
-    document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
+    if(document.querySelector('.btn-fullscreen')){
+        document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
+    }
 
     $('.btn-cancel').on('click', function (e) {
         e.stopPropagation();
