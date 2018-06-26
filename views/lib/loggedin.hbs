@@ -20,6 +20,9 @@
         <script type="text/javascript" src="/scripts/notificationService/index.js" defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
+        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
+        <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
+
         <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
             if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
@@ -252,6 +255,7 @@
                 </section>
 
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
+                <p id="backendUrl" hidden>{{ backendUrl }}</p>
 
                 <main id="main-content" class="container-fluid">
                     {{#block "page"}}{{/block}}
