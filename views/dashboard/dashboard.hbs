@@ -56,6 +56,29 @@
             </div>
         </section>
 
+        {{#ifeq this.currentRole "Beta"}}
+            <section class="section section-my-material" data-step="8" data-intro="Hier finden Sie eine Übersicht über Ihre Materialien.">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12"><h5>Meine Materialien</h5></div>
+                    </div>
+                    <div class="row tasks card-deck-row">
+                        {{#each myMaterials}}
+                            <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                                {{> 'lib/components/sc-card' link-text=../link-text}}
+                            </div>
+                        {{else}}
+                            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
+                                <div class="alert">
+                                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kollegen holen. Schauen Sie doch im <a href="/my-material">"Meine Materialien"-Abschnitt</a> vorbei.
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+        {{/ifeq}}
+
         {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="6" intro="Hier finden Sie eine Übersicht über Ihren Stundenplan und anstehende Termine."}}
         {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe" step="7" intro="Hier finden Sie eine Übersicht über Ihre gestellten Aufgaben. Diese Aufgaben sind mit ihren Schüler*innen geteilt und für diese sichtbar. Sie können unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
 
