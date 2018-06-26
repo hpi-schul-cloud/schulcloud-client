@@ -11,7 +11,7 @@ $(document).ready(function () {
                 url: "/account/preferences",
                 data: { attribute: { key: "releaseDate", value: res.createdAt } }
             });
-            $('.feature-modal').modal('show');
+            $('.feature-modal').appendTo('body').modal('show');
         }
     });
 });
