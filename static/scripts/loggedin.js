@@ -230,30 +230,11 @@ $(document).ready(function () {
         $cancelModal.modal('show');
     });
 
-    $.ajax({
-        url: '/help/releases',
-        type: 'GET',
-        success: function (release) {
-            let cookies = getCookiesMap(document.cookie);
-            populateModalForm($featureModal, {
-                title: 'Neue Features sind verfügbar',
-                closeLabel: 'Abbrechen'
-            });
-            if (cookies['releaseDate']) {
-                if (release.createdAt > cookies['releaseDate']) {
-                    document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-                    $featureModal.modal('show');
-                }
-            } else {
-                document.cookie = "releaseDate=" + release.createdAt + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-                $featureModal.modal('show');
-            }
-        },
-        error: function (err) {
-            console.error(err);
-        }
+    populateModalForm($featureModal, {
+        title: 'Neue Features sind verfügbar',
+        closeLabel: 'Abbrechen'
     });
-
+  
     // loading animation
     window.addEventListener("beforeunload", function (e) {
         const loaderClassList = document.querySelector(".preload-screen").classList;
