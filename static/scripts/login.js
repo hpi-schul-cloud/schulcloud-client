@@ -60,7 +60,7 @@ $(document).ready(function() {
             closeLabel: 'Abbrechen',
             submitLabel: 'Abschicken'
         });
-        $pwRecoveryModal.modal('show');
+        $pwRecoveryModal.appendTo('body').modal('show');
     });
 
     $modals.find('.close, .btn-close').on('click', function() {
