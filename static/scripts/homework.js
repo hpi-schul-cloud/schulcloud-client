@@ -136,7 +136,7 @@ $(document).ready(function() {
         e.preventDefault();
         var $buttonContext = $(this);
         let $deleteModal = $('.delete-modal');
-        $deleteModal.modal('show');
+        $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             window.location.href = $buttonContext.attr('href');
@@ -357,7 +357,7 @@ $(document).ready(function() {
         let $deleteModal = $('.delete-modal');
         let fileId = $buttonContext.data('file-id');
 
-        $deleteModal.modal('show');
+        $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
