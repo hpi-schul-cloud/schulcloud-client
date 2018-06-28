@@ -1,0 +1,32 @@
+/* Calendar Topbar */
+.fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1em;
+    .fc-left {
+        float: left;
+    }
+    .fc-right {
+        float: right;
+    }
+}
+.fc button .fc-icon {
+    position: relative;
+    top: -.05em;
+    margin: 0 .2em;
+    vertical-align: middle;
+}
+.fc-icon-left-single-arrow:after {
+    content: "\02039"; /* < */
+}
+.fc-icon-right-single-arrow:after {
+    content: "\0203A"; /* > */
+}
+
+/* Calendar Table */
+.fc table {
+    width: 100%;
+    box-sizing: border-box;
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 1em;
+}

@@ -66,7 +66,11 @@ Adding new tests:
 
 Add your test to `diff.sh`:
 `diff.sh` compares the PR Branch with the Master Branch and then adds the tests in case any files where changed for which a test exists.
-  
+
+
+## Documentation
+ - [.critical.scss - why? above the fold optimization](https://docs.schul-cloud.org/display/SCDOK/Above+the+Fold+optimization).
+
 ## How to name your branch  
   
 1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")  

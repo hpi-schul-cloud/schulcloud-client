@@ -1,0 +1,191 @@
+@import '../colors';
+@import "../bootstrap/scss/_variables";
+@import "../bootstrap/scss/mixins/_breakpoints";
+
+.topbar {
+    text-align: right;
+
+    @include media-breakpoint-down(xs) {
+        margin-bottom: 15px;
+        padding-left: 50px !important;
+        background: $colorBeige;
+        box-shadow: 0 2px 5px rgba(0,0,0,.26);
+    }
+
+    .breadcrumb {
+        float: left;
+        padding: 0px;
+        margin: 0px;
+        background: transparent;
+        line-height: 46px;
+    }
+
+    .avatar {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+        margin-right: 10px;
+    }
+    .dropdown-toggle{
+        border:none;
+    }
+    .account-toggle {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .navbar-nav .nav-item {
+        float: none !important;
+        display: inline-block;
+    }
+    .nav-item button, .nav-link {
+        line-height: 30px;
+
+        @include media-breakpoint-down(xs) {
+            background: transparent;
+        }
+    }
+    .btn-thin {
+        padding-left: 5px!important;
+        padding-right: 5px!important;
+    }
+    .minimal-button{
+        .dropdown-toggle{
+            padding: 10px !important;
+            border-radius: 50%;
+            border: none;
+            margin-left: -.75rem;
+            text-align: center;
+            background: transparent;
+            .fa{
+                display: inline-block;
+                font-size: 20px;
+                line-height: 1em;
+                width: 1em;
+                height: 1em;
+            }
+            .tag{
+                position: absolute;
+                border-radius: 50%;
+                top: 0;
+                right: 0px;
+            }
+
+            &:hover{
+                background-color: rgba(0,0,0,0.1);
+            }
+            &:after{
+                display: none;
+            }
+        }
+        &.open{
+            .dropdown-toggle{
+               background-color: rgba(0,0,0,0.05);
+            }
+        }
+        .dropdown-menu{
+            padding: 0;
+            left: -25px;
+            /* this CS forms the triangles */
+            &:after,
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: -10px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+            }
+            /* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
+            &:after {
+                left: 20px;
+                border-color: transparent transparent #fff transparent;
+                border-width: 11px;
+                margin-top: -11px;
+            }
+            /* this border color controlls the outside, thin border */
+            &:before {
+                left: 20px;
+                border-color: transparent transparent rgba(0,0,0,.15) transparent;
+                border-width: 11px;
+                margin-top: -12px;
+            }
+        }
+    }
+}
+
+
+.qr-code-action {
+    .qr-show {
+        padding: 15px;
+        padding-bottom: 9px;
+    }
+}
+
+.notification-dropdown {
+    .btn.recent i {
+        color: $primaryColor;
+        margin-right: 5px;
+    }
+
+    .dropdown-toggle:not(.recent) .tag {
+        display: none;
+    }
+    
+    .dropdown-menu{
+        width: 300px;
+        max-height: 300px;
+        .content{
+            overflow: auto;
+        }
+    }
+
+    .notification-item {
+        padding: 10px 15px;
+        font-size: 14px;
+
+        &.unread {
+            background: #fffbe4;
+        }
+
+        & + .notification-item {
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .notification-time {
+            color: #999;
+            font-size: 12px;
+            display: block;
+        }
+    }
+}
+
+.help-drodown {
+    .dropdown-menu {
+        width: 236px;
+    }
+
+    .list-group-item {
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 0;
+        font-size: 14px;
+        border-width: 0;
+        border-bottom-width: 1px;
+    }
+
+    .link {
+        padding-left: 8px;
+    }
+
+    .delimiter {
+        background-color: $colorGrey;
+        height: 12px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .intro-trigger {
+        display: none;
+    }
+}

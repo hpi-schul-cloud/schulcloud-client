@@ -124,47 +124,48 @@ module.exports = (req, res, next) => {
         ]
     });
 
-    // helpdesk views
-    res.locals.sidebarItems.push({
-       name: 'Helpdesk',
-       icon: 'cogs',
-       link: '/administration/helpdesk/',
-       permission: 'HELPDESK_VIEW'
-    });
+    let adminPages = [
+        {
+            name: 'Schüler',
+            icon: 'odnoklassniki',
+            link: '/administration/students/'
+        },
+        {
+            name: 'Lehrer',
+            icon: 'user',
+            link: '/administration/teachers/'
+        },
+        {
+            name: 'Kurse',
+            icon: 'users',
+            link: '/administration/courses/'
+        },
+        {
+            name: 'Klassen',
+            icon: 'users',
+            link: '/administration/classes/'
+        },
+        {
+            name: 'Authentifizierung',
+            icon: 'key',
+            link: '/administration/systems/'
+        }
+    ];
 
+    // helpdesk views
+    adminPages.unshift({
+        name: 'Helpdesk',
+        icon: 'bug',
+        link: '/administration/helpdesk/',
+        permission: 'HELPDESK_VIEW'
+        });
     // admin views
     res.locals.sidebarItems.push({
         name: 'Administration',
         icon: 'cogs',
         link: '/administration/',
         permission: 'ADMIN_VIEW',
-        children: [
-            {
-                name: 'Schüler',
-                icon: 'odnoklassniki',
-                link: '/administration/students/'
-            },
-            {
-                name: 'Lehrer',
-                icon: 'odnoklassniki',
-                link: '/administration/teachers/'
-            },
-            {
-                name: 'Kurse',
-                icon: 'users',
-                link: '/administration/courses/'
-            },
-            {
-                name: 'Klassen',
-                icon: 'users',
-                link: '/administration/classes/'
-            },
-            {
-                name: 'Authentifizierung',
-                icon: 'key',
-                link: '/administration/systems/'
-            }
-        ]
+        children: adminPages
     });
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);

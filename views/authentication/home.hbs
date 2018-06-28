@@ -4,6 +4,9 @@
         <link rel="stylesheet" href="/styles/authentication/home.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css" /> 
     {{/content}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/authentication/home.critical.css"}}}
+    {{/content}}
 
     {{#content "scripts" mode="append"}}
         <script src="/vendor/introjs/intro.min.js" type="text/javascript" defer></script>

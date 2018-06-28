@@ -1,0 +1,26 @@
+.card-topic{
+    cursor: pointer;
+    .card-header {
+        padding: .5rem .75rem;
+    }
+    .topic-label {
+        margin: 0;
+    }
+    .input-group-btn {
+        padding-right: 10px;
+        float: right;
+    }
+    .input-group {
+        align-items: center;
+    }
+    .btn-hidden-toggle {
+        font-size: 20px;
+    }
+    .right-btn-group {
+        margin-left: auto;
+        white-space: nowrap;
+    }
+    .move-handle {
+        cursor: move;
+    }
+}

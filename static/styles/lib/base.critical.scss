@@ -1,0 +1,27 @@
+@import './bootstrap/scss/bootstrap-flex';
+@import "./fontawesome/font-awesome";
+
+* {
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    hyphens: auto;
+}
+
+.notification.hidden {
+	display:none;
+}
+.modal{
+    display: none;
+}
+.card-deck-row>div {
+    margin-bottom: 30px;
+}
+
+.intro-trigger {
+	display: none;
+}
+
+.notification.hidden {
+	display:none;
+}

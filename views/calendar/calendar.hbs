@@ -6,6 +6,10 @@
         <link rel="stylesheet" href="/styles/lib/toggle/bootstrap-toogle.min.css"/>
     {{/content}}
 
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/calendar/calendar.critical.css"}}}
+    {{/content}}
+
     {{#content "scripts" mode="append"}}
         <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
         <script>

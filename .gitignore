@@ -75,6 +75,9 @@ typings/
 # IntelliJ IDEA configuration files
 \.idea/
 
+# VS Code configuration files
+\.vscode/
+
 # Nightwatch
 screenshots/
 reports/

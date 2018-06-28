@@ -5,6 +5,10 @@
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
     {{/content}}
 
+    {{#content "critical-styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/lib/loggedin.critical.css"/>
+    {{/content}}
+
     {{#content "scripts" mode="append"}}
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
 
@@ -29,9 +33,6 @@
                 setupFirebasePush();
             }
         });
-        window.addEventListener("resize", function () {
-            $('.sidebar-list').css({"height": window.innerHeight});
-        });
         function startIntro() {
             introJs()
             .setOptions({
@@ -46,14 +47,6 @@
     {{/content}}
 
     {{#content "body"}}
-        <div class="preload-screen hidden">
-            <div class="content">
-                <div class="center-wrapper">
-                    <i class="fa fa-spinner" aria-hidden="true"></i>
-                    <p>laden...</p>
-                </div>
-            </div>
-        </div>
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -201,10 +194,13 @@
                         </li>
 
                         {{#if currentSchoolData}}
-                            <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                            <li class="nav-item school-data">{{ currentSchoolData.name }}
                             {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                <noscript class="lazyload">
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                </noscript>
                             {{/if}}
+                            </li>
                         {{/if}}
 
                         <li class="nav-item" data-step="6" data-intro="Einstellungen und Log-Out">
@@ -283,5 +279,13 @@
                 {{/content}}
             {{/embed}}
         </section>
+        <div class="preload-screen hidden">
+            <div class="content">
+                <div class="center-wrapper">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                    <p>laden...</p>
+                </div>
+            </div>
+        </div>
     {{/content}}
 {{/extend}}

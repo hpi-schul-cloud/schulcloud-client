@@ -1,81 +1,5 @@
-@import '../lib/colors';
-@import '../lib/bootstrap/scss/bootstrap';
-
 body {
-    background: $colorBeige;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    
-    h4:not(:first-of-type){
-        margin-top: 1rem;
-    }
-    p{
-        margin: 0 0 10px 0;
-    }
-    ul {
-        list-style-type: none;
-        padding:0;
-        margin:0;
-    }
-    header {
-        background: $primaryColor;
-        a {
-            color:#fff !important;
-            font-size: 1rem;
-            line-height: 1rem;
-            padding: 1rem !important;
-            text-decoration: none; 
-        }
-        #title {
-            font-size: 1.5rem;
-            line-height: 1.5rem;
-            font-weight: 400;
-            &:hover{
-                text-decoration: none;
-            }
-            padding-left: 0 !important;
-            padding-top: .75rem !important;
-            padding-bottom: .75rem !important;
-            .cloud-logo {
-                display: inline-block;
-                width: 2.5rem;
-                height: 2rem;
-                margin-top: -.25rem;
-                margin-bottom: -.5rem;
-                margin-right: .5rem;
-                background: $logoBackground;
-                background-size: contain;
-            }
-        }
-        .nav-item{
-            margin: 0 !important;
-            min-width: 4rem;
-            text-align: center;
-            .nav-link {
-                transition: background-color .3s ease-in-out;
-                &:hover{
-                    background-color: $accentColor;
-                }
-            }
-        }
-        .nav-item:last-of-type{
-            padding-right: 0;
-        }
-        @include media-breakpoint-down(md) {
-            text-align: center;
-            #title, ul.nav{
-                float: none;
-                display: block;
-            }
-            ul.nav .nav-item{
-                float: none;
-                display: inline-block;
-            }
-        }
-    }
     main{
-        min-height: calc(100vh - 228px );
         .illustration{
             min-width: 150px;
             width: 25vw;
@@ -112,7 +36,8 @@ body {
     }
     aside{
         .card-title{
-            break-word: break-all;
+            word-break: break-all;
+            word-break: breake-word;
         }
         #blogfeed{
             .list-group-item{

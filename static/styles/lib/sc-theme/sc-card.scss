@@ -22,7 +22,7 @@
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
         &::before {
-            content: " ";
+            content: "";
             display: block;
             position: absolute;
             z-index: 5;

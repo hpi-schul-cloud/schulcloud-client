@@ -1,0 +1,48 @@
+@import '../lib/colors';
+
+.directories-tree {
+  .dir-sub-menu {
+    background-color: #dbd7d7;
+    display: none;
+  }
+
+  .dir-main-menu {
+    background-color: #C3C1C1;
+  }
+
+  .dir-element {
+    span {
+      color: $primaryColor;
+    }
+    span:hover {
+      cursor: pointer;
+    }
+
+    .toggle-icon {
+      color: $primaryColor;
+      margin-right: 5px;
+    }
+    .toggle-icon:hover {
+      cursor: pointer;
+    }
+    .fa-share {
+      padding-left: 5px;
+      display: none;
+    }
+    .fa-share:hover {
+      cursor: pointer;
+      color: $primaryColor;
+    }
+  }
+
+  .dir-main-element {
+    border-bottom: 1px solid #9E9E9E;
+  }
+  .dir-main-header {
+    font-weight: bold;
+    padding: 10px;
+  }
+  .dir-sub-element {
+    padding: 10px 10px 10px 20px;
+  }
+}

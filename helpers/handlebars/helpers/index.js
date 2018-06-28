@@ -3,10 +3,17 @@ const permissionsHelper = require('../../permissions');
 const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
+const handlebars = require("handlebars");
+const fs = require('fs');
 moment.locale('de');
 
 module.exports = {
     pagination: require('./pagination'),
+    inlineStyle: (filename, options) => {
+        const prefix = global.__basedir + "/build/" + (process.env.SC_THEME || 'default');
+        const styles = fs.readFileSync(prefix + filename, 'utf-8');
+        return new handlebars.SafeString(`<style>${styles}</style>`);
+    },
     ifArray: (item, options) => {
         if(Array.isArray(item)) {
             return options.fn(item);

@@ -1,3 +1,7 @@
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/homework/assignment.css"/>
+    <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
+{{/content}}
 <section id="extended" class="tab-content section-homeworkdetails active">
     <div class="homework">
         <div class="assignment row">

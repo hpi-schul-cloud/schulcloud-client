@@ -8,6 +8,12 @@
             }
         </style>
     {{/content}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/authentication/home.critical.css"}}}
+        <style>header a[href='/community']{
+            background-color: #f8a41b;
+        }</style>
+    {{/content}}
 
     {{#content "scripts" mode="append"}}
     {{/content}}

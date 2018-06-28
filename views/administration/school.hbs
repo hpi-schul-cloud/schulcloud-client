@@ -2,6 +2,9 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/administration/school.css"/>
     {{/content}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/administration/school.critical.css"}}}
+    {{/content}}
 
     {{#content "page"}}
         <div class="route-administration">
@@ -67,7 +70,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             {{/userHasPermission}}
 
 

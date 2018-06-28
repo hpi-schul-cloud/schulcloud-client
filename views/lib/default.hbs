@@ -10,14 +10,7 @@
         <meta name="apple-mobile-web-app-title" content="{{themeTitle}}">
         <meta name="theme-color" content="#b10438">
         <meta name="application-name" content="{{themeTitle}}">
-    {{/block}}
 
-    {{#block "styles"}}
-        <link rel="preload" href="/fonts/ptsans/ptsans-regular.woff" as="font" type="font/woff" crossorigin>
-        <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin>
-        <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin>
-        <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin>
-        <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438">
         <link rel="apple-touch-icon" href= "/images/logo/app-icon-512.png">
         <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/app-icon-120.png">
         <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/app-icon-152.png">
@@ -27,12 +20,39 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16.png">
         <link rel="manifest" href="/images/manifest.json">
+    {{/block}}
+    
+    <link rel="preload" href="/fonts/ptsans/ptsans-regular.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff2" as="font" type="font/woff2" crossorigin />
+    {{#block "critical-styles"}}
+        <link rel="stylesheet" href="/styles/lib/base.critical.css" />
+        <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438" />
         <link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
         <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.css" />
-        <link rel="stylesheet" href="/styles/lib/base.css" />
     {{/block}}
+    <noscript class="lazyload">
+        {{#block "styles"}}
+            <link rel="stylesheet" href="/styles/lib/base.css" />
+        {{/block}}
+    </noscript>
 
     {{#block "scripts"}}
+        <script>
+        window.addEventListener('load', _ => {
+            const lazyloads = document.querySelectorAll('noscript.lazyload');
+            // This container is the HTML parser
+            const container = document.createElement('div');
+            Array.from(lazyloads).forEach(lazyload => {
+                const parent = lazyload.parentNode;
+                container.innerHTML = lazyload.textContent;
+                Array.from(container.children).forEach(n =>
+                    parent.insertBefore(n, lazyload)
+                );
+            });
+        });
+        </script>
         <script src="/scripts/all.js" type="text/javascript" defer></script>
     {{/block}}
 

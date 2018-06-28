@@ -1,5 +1,6 @@
 @import '../lib/colors';
-@import '../lib/bootstrap/scss/bootstrap-grid';
+@import "../lib/bootstrap/scss/_variables";
+@import "../lib/bootstrap/scss/mixins/_breakpoints";
 @import 'homework';
 
 .section-homework {

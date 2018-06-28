@@ -3,17 +3,12 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/partner/partner.css"/>
         <link rel="stylesheet" href="/styles/authentication/home.css"/>
-        <style>
-            body {
-                background: #e6e2e2;
-            }
-            .partner-box {
-                background: white;
-            }
-            header a[href='/partner']{
-                background-color: #f8a41b;
-            }
-        </style>
+    {{/content}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/authentication/home.critical.css"}}}
+        <style>header a[href='/partner']{
+            background-color: #f8a41b;
+        }</style>
     {{/content}}
 
     {{#content "body"}}

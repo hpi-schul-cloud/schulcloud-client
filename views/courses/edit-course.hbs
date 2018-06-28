@@ -5,6 +5,9 @@
         <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
         <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     {{/content}}
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/lib/chosen/bootstrap-chosen.css"}}}
+    {{/content}}
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>

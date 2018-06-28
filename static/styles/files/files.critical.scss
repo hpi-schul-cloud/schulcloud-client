@@ -1,0 +1,40 @@
+@import "./folder";
+@import "./file";
+@import "./upload";
+
+.files {
+  width: 100%;
+  float: left;
+  margin-bottom: 40px;
+
+  h5 {
+    color: $primaryColor;
+    padding: 10px 0px 20px;
+  }
+
+  .modal-body {
+    button {
+      margin-left: 5px;
+    }
+  }
+}
+
+.section-title {
+  .active {
+    font-weight: bold;
+  }
+
+  h5 {
+    width: auto;
+    float: left;
+  }
+}
+
+.new-directory {
+  width: 100%;
+  float: left;
+}
+
+.lightbox {
+  display: none;
+}

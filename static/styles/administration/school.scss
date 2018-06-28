@@ -1,10 +1,1 @@
-@import '../lib/colors';
-
-.teacher-option {
-  h4 {
-    padding-top: 20px;
-    color: $primaryColor
-  }
-  text-align: center;
-  cursor: pointer;
-}
+@import "../lib/chosen/bootstrap-chosen";

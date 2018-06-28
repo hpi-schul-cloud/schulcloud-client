@@ -1,5 +1,8 @@
 {{#extend "lib/loggedin"}}
 
+    {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/dashboard/dashboard.critical.css"}}}
+    {{/content}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/dashboard/dashboard.css"/>
     {{/content}}

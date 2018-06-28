@@ -9,6 +9,13 @@
             }
         </style>
     {{/content}}
+     {{#content "critical-styles" mode="append"}}
+        {{{inlineStyle "/styles/authentication/home.critical.css"}}}
+        {{{inlineStyle "/styles/team/team.critical.css"}}}
+        <style>header a[href='/team']{
+            background-color: #f8a41b;
+        }</style>
+    {{/content}}
 
     {{#content "scripts" mode="append"}}
         <script type="text/javascript" src="/scripts/team.js" defer></script>

@@ -1,0 +1,10 @@
+@import "../lib/sc-theme/sc-card";
+
+.section-news {
+    .container-fluid{
+        padding:0;
+        .card-deck-row {
+            width: calc(100% + 30px);
+        }
+    }
+}
