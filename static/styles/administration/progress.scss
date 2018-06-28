@@ -19,7 +19,7 @@ input[type="radio"] {
 
 .stages label {
   background: #ffffff;
-  border: solid 5px #c0c0c0;
+  border: solid 3px #c0c0c0;
   border-radius: 50%;
   cursor: pointer;
   display: inline-block;
@@ -45,27 +45,39 @@ input[type="radio"] {
   color: $primaryColor;
   display: inline-block;
   font-size: 16px;
+  box-sizing: content-box;
 }
 
 
 
-@for $i from 1 through 6{
+@for $i from 1 through 10{
   /* current circle = primary Color */
   #section-#{$i}:checked ~ .stages label[for="section-#{$i}"]{
     border-color: $primaryColor;
   }
-  #section-#{$i}:checked ~ .stages label[for="section-#{$i}"] ~ label {
+  /* show the step number inside the cicle */
+  #section-#{$i}:checked ~ .stages label[for="section-#{max($i - 1, 1)}"] ~ label {
     font-size: 1rem;
   }
-  #section-#{$i}:checked ~ .stages label[for="section-#{$i}"] ~ label:after {
+  /* hide the questionmark for steps behind current */
+  #section-#{$i}:checked ~ .stages label[for="section-#{max($i - 1, 1)}"] ~ label:after {
     display: none;
   }
-  #section-#{$i}:checked ~ .progress span {
+  /* draw progressbar */
+  #section-#{$i}:checked ~ .progressbar {
     width: calc(100% / 5 * (#{$i} - 1));
   }
+  /* sow content */
   #section-#{$i}:checked ~ .panels [data-panel="section-#{$i}"] {
     display: block;
   }
+}
+/* for initial state */
+#section-1:checked ~ .stages label{
+    font-size: 1rem;
+    &:after{
+        display: none;
+    }
 }
 
 /*
@@ -73,15 +85,18 @@ input[type="radio"] {
   border-color: purple !important;
 }*/
 
-.progress > span {
+.progressbar {
   background: #c0c0c0;
   display: inline-block;
-  height: 5px;
-  transform: translateY(-2.75em);
+  height: 3px;
+  transform: translateY(-3em);
   transition: 0.3s;
   width: 0;
 }
 
-.panels div {
+.panels > section {
   display: none;
+  border-top: solid 1px #c0c0c0;
+  margin: 1em 0 0;
+  padding: 1em 0 0;
 }
