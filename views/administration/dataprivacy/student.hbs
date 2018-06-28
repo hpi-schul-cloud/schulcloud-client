@@ -1,0 +1,60 @@
+{{#extend "lib/loggedin"}}
+  {{#content "scripts" mode="append"}}
+      <script src="/scripts/dataprivacy.js" type="text/javascript" defer></script>
+  {{/content}}
+  {{#content "styles" mode="append"}}
+      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+  {{/content}}
+
+  {{#content "page"}}
+  <div>
+    <input id="section-1" type="radio" name="stage" checked="checked" />
+    <input id="section-2" type="radio" name="stage" />
+    <input id="section-3" type="radio" name="stage" />
+    <input id="section-4" type="radio" name="stage" />
+    <input id="section-5" type="radio" name="stage" />
+    <input id="section-6" type="radio" name="stage" />
+
+    <div class="stages">
+      <label for="section-1">1</label>
+      <label for="section-2">2</label>
+      <label for="section-3">3</label>
+      <label for="section-4">4</label>
+      <label for="section-5">5</label>
+      <label for="section-6">6</label>
+    </div>
+
+    <span class="progress"><span></span></span>
+
+    <div class="panels">
+      <div data-panel="section-1">
+        <h4>Stage 1</h4>
+        <input type="text" placeholder="First Name" />
+      </div>
+      <div data-panel="section-2">
+        <h4>Stage 2</h4>
+        <input type="text" placeholder="Last Name" />
+      </div>
+      <div data-panel="section-3">
+        <h4>Stage 3</h4>
+        <input type="text" placeholder="Address" />
+      </div>
+      <div data-panel="section-4">
+        <h4>Stage 4</h4>
+        <input type="text" placeholder="Email" />
+      </div>
+      <div data-panel="section-5">
+        <h4>Stage 5</h4>
+        <input type="text" placeholder="Phone Number" />
+      </div>
+      <div data-panel="section-6">
+        <h4>Stage 6</h4>
+        <input type="text" placeholder="Comment" />
+      </div>
+    </div>
+
+    <button id="previousSection" class="btn btn-secondary">Previous</button>
+    <button id="nextSection" class="btn btn-primary">Next</button>
+  </div>
+  {{/content}}
+{{/extend}}

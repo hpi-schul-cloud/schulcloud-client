@@ -1032,4 +1032,10 @@ router.all('/systems', function (req, res, next) {
     });
 });
 
+router.get('/dataprivacy/student', function (req, res, next) {
+    res.render('administration/dataprivacy/student', {
+        title: 'Datenerfassung: Einverständniserklärung'
+    });
+});
+
 module.exports = router;

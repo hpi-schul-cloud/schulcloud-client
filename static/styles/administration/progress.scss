@@ -1,0 +1,87 @@
+@import '../lib/colors';
+
+.stages {
+  font-size: 0;
+  text-align: justify;
+}
+
+.stages:after {
+  content: '';
+  display: inline-block;
+  font-size: 0;
+  text-align: justify;
+  width: 100%;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.stages label {
+  background: #ffffff;
+  border: solid 5px #c0c0c0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 0;
+  font-weight: 700;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  text-align: center;
+  vertical-align: top;
+  width: 50px;
+  z-index: 1;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.stages label:after {
+  content: '\2713';
+  color: $primaryColor;
+  display: inline-block;
+  font-size: 16px;
+}
+
+
+
+@for $i from 1 through 6{
+  /* current circle = primary Color */
+  #section-#{$i}:checked ~ .stages label[for="section-#{$i}"]{
+    border-color: $primaryColor;
+  }
+  #section-#{$i}:checked ~ .stages label[for="section-#{$i}"] ~ label {
+    font-size: 1rem;
+  }
+  #section-#{$i}:checked ~ .stages label[for="section-#{$i}"] ~ label:after {
+    display: none;
+  }
+  #section-#{$i}:checked ~ .progress span {
+    width: calc(100% / 5 * (#{$i} - 1));
+  }
+  #section-#{$i}:checked ~ .panels [data-panel="section-#{$i}"] {
+    display: block;
+  }
+}
+
+/*
+.stages label.active{
+  border-color: purple !important;
+}*/
+
+.progress > span {
+  background: #c0c0c0;
+  display: inline-block;
+  height: 5px;
+  transform: translateY(-2.75em);
+  transition: 0.3s;
+  width: 0;
+}
+
+.panels div {
+  display: none;
+}
