@@ -25,12 +25,12 @@ input[type="radio"] {
   display: inline-block;
   font-size: 0;
   font-weight: 700;
-  height: 50px;
-  line-height: 50px;
+  height: 3rem;
+  line-height: 3rem;
   position: relative;
   text-align: center;
   vertical-align: top;
-  width: 50px;
+  width: 3rem;
   z-index: 1;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -64,10 +64,12 @@ input[type="radio"] {
     display: none;
   }
   /* draw progressbar */
-  #section-#{$i}:checked ~ .progressbar {
-    width: calc(100% / 5 * (#{$i} - 1));
+  @for $k from 1 through 10{
+    .sections-#{$k} #section-#{$i}:checked ~ .progressbar {
+      width: calc(100% / #{$k - 1} * (#{$i - 1}));
+    }
   }
-  /* sow content */
+  /* show content */
   #section-#{$i}:checked ~ .panels [data-panel="section-#{$i}"] {
     display: block;
   }
