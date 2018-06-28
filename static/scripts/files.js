@@ -155,7 +155,7 @@ $(document).ready(function() {
         e.preventDefault();
         let $buttonContext = $(this);
 
-        $deleteModal.modal('show');
+        $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
@@ -178,7 +178,7 @@ $(document).ready(function() {
     });
 
     $('.create-directory').on('click', function () {
-        $editModal.modal('show');
+        $editModal.appendTo('body').modal('show');
     });
 
     $('.card.file').on('click', function () {
@@ -284,7 +284,7 @@ $(document).ready(function() {
                             $(this).select();
                         });
 
-                        $shareModal.modal('show');
+                        $shareModal.appendTo('body').modal('show');
 
                     }
                 });
@@ -393,7 +393,7 @@ $(document).ready(function() {
             $dirTree.append($dirTreeList);
             // remove modal-footer
             $moveModal.find('.modal-footer').empty();
-            $moveModal.modal('show');
+            $moveModal.appendTo('body').modal('show');
         });
     });
 
@@ -469,7 +469,7 @@ function openInIframe(source){
             $('#link').css("display","");
         }
         else {
-            $openModal.modal('show');
+            $openModal.appendTo('body').modal('show');
             $openModal.find('.btn-submit').unbind('click').on('click', function () {
                 $.cookie($("input.box").attr("name"), $("input.box").prop('checked'), {
                     path: '/',

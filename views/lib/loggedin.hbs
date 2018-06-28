@@ -20,9 +20,11 @@
         <script type="text/javascript" src="/scripts/notificationService/index.js" defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
+        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
+        <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
+
         <script type="text/javascript">
         window.addEventListener('DOMContentLoaded', function() {
-            $('.sidebar-list').css({"height": window.innerHeight});
             if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
                 setupFirebasePush();
             }
@@ -44,6 +46,14 @@
     {{/content}}
 
     {{#content "body"}}
+        <div class="preload-screen hidden">
+            <div class="content">
+                <div class="center-wrapper">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                    <p>laden...</p>
+                </div>
+            </div>
+        </div>
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -223,28 +233,29 @@
                                     {{subtitle}}
                                 </div>
                             </div>
-                            {{#unless hideSearch}}
-                                <div class="col-sm-3 hide-inline">
-                                    <form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">
+                            {{#if showSearch}}
+                                <div id="searchBar" class="col-sm-3 hide-inline">
+                                    {{#unless liveSearch}}<form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">{{/unless}}
                                         <a class="mobile-search-toggle">
-                                            <i class="fa fa-search"></i>
+                                            {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
                                         </a>
                                         <div class="input-group input-group-sm">
-                                            <input type="text" class="form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{searchLabel}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
                                             <span class="input-group-btn">
                                                 <button type="submit" class="btn btn-secondary">
                                                     <i class="fa fa-search"></i>
                                                 </button>
                                             </span>
                                         </div>
-                                    </form>
+                                    {{#unless liveSearch}}</form>{{/unless}}
                                 </div>
-                            {{/unless}}
+                            {{/if}}
                         </div>
                     </div>
                 </section>
 
                 <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
+                <p id="backendUrl" hidden>{{ backendUrl }}</p>
 
                 <main id="main-content" class="container-fluid">
                     {{#block "page"}}{{/block}}

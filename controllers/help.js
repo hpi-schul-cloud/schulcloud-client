@@ -29,7 +29,6 @@ router.get('/', function (req, res, next) {
 
 router.get('/faq', function (req, res, next) {
    res.render('help/faq', {
-
    });
 });
 
@@ -44,14 +43,14 @@ faq.ssoFAQ.map(faq => {
     });
 });
 
-router.get('/faq/administration', function (req, res, next) {
-    let administration = faq.administration;
+router.get('/faq/documents', function (req, res, next) {
+    let documents = faq.documents;
 
-    administration[0].content = converter.makeHtml(administration[0].content);
+    documents[0].content = converter.makeHtml(documents[0].content);
 
     res.render('help/sso-faq', {
-        faq: administration,
-        title: "Wie kann ich neue Lehrkräfte und Schüler und Schülerinnen in der Schul-Cloud anlegen?"
+        faq: documents,
+        title: "Dokumente des Willkommensordners zum Download"
     });
 });
 
