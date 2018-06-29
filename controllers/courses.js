@@ -181,7 +181,7 @@ router.get('/', function(req, res, next) {
             });
             return course;
         });
-        console.log(courses);
+
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             course.title = course.name;
