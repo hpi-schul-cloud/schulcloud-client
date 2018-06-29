@@ -1037,5 +1037,10 @@ router.get('/dataprivacy/student', function (req, res, next) {
         title: 'Datenerfassung: Einverständniserklärung'
     });
 });
+router.get('/dataprivacy/teacher', function (req, res, next) {
+    res.render('administration/dataprivacy/teacher', {
+        title: 'Datenerfassung: Einverständniserklärung'
+    });
+});
 
 module.exports = router;

@@ -41,7 +41,7 @@ input[type="radio"] {
 }
 
 .stages label:after {
-  content: '\2713';
+  content: '\2713'; /* Check Symbol */
   color: $primaryColor;
   display: inline-block;
   font-size: 16px;
@@ -101,4 +101,21 @@ input[type="radio"] {
   border-top: solid 1px #c0c0c0;
   margin: 1em 0 0;
   padding: 1em 0 0;
+}
+
+button#prevSection{
+  border:none;
+  color: #222;
+}
+button#nextSection{
+  background: $logoGradient;
+  color: #fff;
+  border: none;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all .2s ease-in-out;
+  outline: none;
+  &:hover, &:focus{
+      filter: opacity(.9);
+      box-shadow: 0 7px 28px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.22);
+  }
 }

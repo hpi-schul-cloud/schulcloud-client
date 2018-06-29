@@ -154,5 +154,22 @@ module.exports = {
     },
     json: (data) => {
         return JSON.stringify(data);
+    },
+    times: (n, block)=>{
+        var accum = '';
+        for(var i = 0; i < n; ++i){
+            accum += block.fn(i);
+        }
+        return accum;
+    },
+    for: (from, to, incr, block) => {
+        var accum = '';
+        for(var i = from; i < to; i += incr){
+            accum += block.fn(i);
+        }
+        return accum;
+    },
+    add: (a, b) => {
+        return a + b;
     }
 };

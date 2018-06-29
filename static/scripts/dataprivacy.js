@@ -1,13 +1,35 @@
+/* HELPER */
+
+if (!NodeList.prototype.addEventListener) {
+    NodeList.prototype.addEventListener = function(events, callback, useCapture) {
+        this.forEach((entry)=>{
+            events.split(" ").forEach((event)=>{
+                entry.addEventListener(event, callback, useCapture);
+            });
+        });
+        return this;
+    };
+}
+if (!NodeList.prototype.indexOf) {
+    NodeList.prototype.indexOf = function(node) {
+        return Array.from(this).indexOf(node);
+    }
+}
+
+
+/* MULTIPAGE INPUT FORM */
 
 function getMaxSelectionIndex(){
-	return document.querySelector(".stages").childElementCount;
+    return document.querySelector(".stages").childElementCount;
 }
-
 function getSelectionIndex(){
-    var radioButtons = $('.form input:radio');
-	return radioButtons.index(radioButtons.filter(':checked')) + 1;
+    var radioButtons = document.querySelectorAll('.form input:radio');
+    return radioButtons.indexOf(radioButtons.filter(':checked')) + 1;
 }
-
+function setSelectionByIndex(index){
+    document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
+    updateButton(index);
+}
 function updateButton(selectedIndex){
     if(selectedIndex == getMaxSelectionIndex()){
         document.querySelector('#nextSection').innerHTML = 'Submit';
@@ -23,31 +45,46 @@ function updateButton(selectedIndex){
     document.querySelector(".content-wrapper").scrollTo(0,0);
 }
 
-function nextSection(){
-    
-    const selectedIndex = Math.min(getSelectionIndex() + 1, getMaxSelectionIndex());
-    document.querySelector('.form input[type="radio"]:nth-of-type(' + selectedIndex + ')').checked = true;
-	updateButton(selectedIndex);
-
-    /* TODO - submit form when selectedIndex == document.querySelector(".stages").childElementCount */
+function nextSection(event){
+    const selectedIndex = getSelectionIndex() + 1;
+    if(selectedIndex <= getMaxSelectionIndex()){
+        event.preventDefault();
+        setSelectionByIndex(selectedIndex);
+    }
 }
-
-function prevSection() {
+function prevSection(event) {
     const selectedIndex = getSelectionIndex() - 1;
-    document.querySelector('.form input[type="radio"]:nth-of-type(' + selectedIndex + ')').checked = true;
-    updateButton(selectedIndex);
+    setSelectionByIndex(selectedIndex);
 }
-window.addEventListener('load', function() {
-    $('.form .stages label').click(function() {
-        var stages = $('.form .stages label');
-        updateButton(stages.index(this) + 1);
+window.addEventListener('DOMContentLoaded', ()=>{
+    // Stepper
+    document.querySelectorAll('.form .stages label').addEventListener("click", function() {
+        updateButton(document.querySelectorAll('.form .stages label').indexOf(this) + 1);
     });
-    document.querySelector('.form #prevSection').addEventListener("click", prevSection)
-    document.querySelector('.form #nextSection').addEventListener("click", nextSection)
+    document.querySelector('.form #prevSection').addEventListener("click", prevSection);
+    document.querySelector('.form #nextSection').addEventListener("click", nextSection);
+});
 
+
+
+/* INPUT LINKING */
+function linkInputs(event){
+    const linkedInputs = document.querySelectorAll(`input[data-from="${this.id}"]`);
+    linkedInputs.forEach((input)=>{
+        input.value = this.value;
+    });
+}
+window.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll(".linked").addEventListener("change keyup paste click", linkInputs);
+});
+
+
+
+/* OTHER STUFF */
+window.addEventListener('load', ()=>{
     // TIME Picker
     $.datetimepicker.setLocale('de');
-    $('input[data-datetime]').datetimepicker({
+    $('input[data-datetime]').datetimepicker({ 
         format:'d.m.Y H:i',
         mask: '39.19.9999 29:59'
     });
