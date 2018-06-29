@@ -50,7 +50,7 @@ module.exports = {
             .waitForElementVisible('.btn-delete-course', 1000)
             .click('.btn-delete-course')
             .waitForElementVisible('.delete-modal', 1000)
-            .waitForElementVisible('.btn-submit', 1000)
+            .waitForElementVisible('.delete-modal.in .btn-submit', 1000)
             .click('.btn-submit')
             .pause(1000);
     },
