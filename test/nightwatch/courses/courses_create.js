@@ -51,7 +51,7 @@ module.exports = {
             .click('.btn-delete-course')
             .waitForElementVisible('.delete-modal', 1000)
             .waitForElementVisible('.delete-modal.in .btn-submit', 1000)
-            .click('.btn-submit')
+            .click('.delete-modal.in .btn-submit')
             .pause(1000);
     },
     'Schul-Cloud End': function (browser) {
