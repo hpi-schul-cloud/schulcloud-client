@@ -13,7 +13,7 @@ $(document).ready(function() {
                 submitLabel: 'Hinzufügen',
                 fields: {teacherIds: [teacher]}
             });
-            $addModal.modal('show');
+            $addModal.appendTo('body').modal('show');
         });
     });
 
@@ -28,7 +28,7 @@ $(document).ready(function() {
                 submitLabel: 'Speichern',
                 fields: result
             });
-            $editModal.modal('show');
+            $editModal.appendTo('body').modal('show');
         });
     });
 

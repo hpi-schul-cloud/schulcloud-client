@@ -82,7 +82,7 @@ $(document).ready(function () {
                     $(this).select();
                 });
 
-                $invitationModal.modal('show');
+                $invitationModal.appendTo('body').modal('show');
 
             }
         });
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
         let $modalForm = $importModal.find(".modal-form");
         $modalForm.attr('action', `/courses/${courseId}/importTopic`);
-        $importModal.modal('show');
+        $importModal.appendTo('body').modal('show');
     });
 
     $(".move-handle").click(function(e) {

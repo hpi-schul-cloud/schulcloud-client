@@ -31,6 +31,13 @@ module.exports = {
         const subString = text.substr(0, length-1);
         return subString.substr(0, subString.lastIndexOf(' ')) + "...";
     },
+    truncatePure: (text = '', length = 140) => {
+        if (text.length <= length) {
+            return text;
+        }
+        const subString = text.substr(0, length-1);
+        return subString + "...";
+    },
     truncateHTML: (text = '', {length = 140} = {}) => {
         if (text.length <= length) {
             return text;
