@@ -1,34 +1,6 @@
 {{#if this.memberAmount includeZero=true}}
-    <a href="" class="btn-member tooltip-demo" data-name="{{this.title}}" data-html="true" data-toggle="tooltip" data-placement="right"
-       data-id="{{this._id}}"
-       data-modal=" {{#if this.members}}
-                        <ol id='member-list'>
-                        {{#each this.members}}
-                        {{#if this.displayName}}
-                          <li>{{this.displayName}}</li>
-                        {{else}}
-                          <li>{{this.firstName}} {{this.lastName}}</li>
-                         {{/if}}
-                        {{/each}}
-                        </ol>
-                    {{else}}
-                        Noch keine Teilnehmer
-                    {{/if}}"
-       data-title="{{#each (truncateArray this.members 10)}}
-           {{#if this.displayName}}
-               {{this.displayName}}
-           {{else}}
-               {{this.firstName}} {{this.lastName}}
-           {{/if}}
-                     </br>
-                    {{/each}}
-
-           {{#ifgt this.memberAmount 10}}
-                          <i> {{diff ../this.memberAmount 10}} weiter(e) </i>
-                      {{/ifgt}}
-           {{#if this.members}}
-           {{else}}
-                        Noch keine Teilnehmer
-                    {{/if}}">
+    <a href="" class="btn-member"
+       data-name="{{this.title}}"
+       data-id="{{this._id}}">
         {{this.memberAmount}} <i class="fa fa-user"></i></a>
 {{/if}}

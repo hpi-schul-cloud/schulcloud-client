@@ -162,9 +162,6 @@ router.get('/', function(req, res, next) {
                 $or: [
                     { userIds: res.locals.currentUser._id },
                     { teacherIds: res.locals.currentUser._id }
-                ],
-                $populate: [
-                    'userIds'
                 ]
             }
         })
@@ -194,7 +191,6 @@ router.get('/', function(req, res, next) {
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
-            course.members = course.userIds;
             course.memberAmount = course.userIds.length;
 
             return course;
@@ -259,7 +255,7 @@ router.get('/:courseId/json', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
-                $populate: ['ltiToolIds']
+                $populate: ['ltiToolIds', 'userIds']
             }
         }),
         api(req).get('/lessons/', {
