@@ -15,6 +15,11 @@ if (!NodeList.prototype.indexOf) {
         return Array.from(this).indexOf(node);
     }
 }
+if (!NodeList.prototype.filter) {
+    NodeList.prototype.filter = function(fct) {
+        return Array.from(this).filter(fct);
+    }
+}
 
 
 /* MULTIPAGE INPUT FORM */
@@ -23,8 +28,8 @@ function getMaxSelectionIndex(){
     return document.querySelector(".stages").childElementCount;
 }
 function getSelectionIndex(){
-    var radioButtons = document.querySelectorAll('.form input:radio');
-    return radioButtons.indexOf(radioButtons.filter(':checked')) + 1;
+    var radioButtons = document.querySelectorAll('.form input[type=radio]');
+    return radioButtons.indexOf(radioButtons.filter((node)=>{return node.checked;})[0]) + 1;
 }
 function setSelectionByIndex(index){
     document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
@@ -69,9 +74,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
 /* INPUT LINKING */
 function linkInputs(event){
-    const linkedInputs = document.querySelectorAll(`input[data-from="${this.id}"]`);
+    const linkedInputs = document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`);
     linkedInputs.forEach((input)=>{
-        input.value = this.value;
+        if(input.getAttribute("type")){
+            input.value = this.value;
+        }else{
+            input.innerHTML = this.value;
+        }
     });
 }
 window.addEventListener('DOMContentLoaded', ()=>{

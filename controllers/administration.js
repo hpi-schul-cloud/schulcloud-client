@@ -1042,5 +1042,15 @@ router.get('/dataprivacy/teacher', function (req, res, next) {
         title: 'Datenerfassung: Einverständniserklärung'
     });
 });
+router.get('/dataprivacy/firstLogin', function (req, res, next) {
+    res.render('administration/dataprivacy/firstLogin', {
+        title: 'Willkommen'
+    });
+});
+router.get('/dataprivacy/registration', function (req, res, next) {
+    res.render('administration/dataprivacy/registration', {
+        title: 'Willkommen'
+    });
+});
 
 module.exports = router;
