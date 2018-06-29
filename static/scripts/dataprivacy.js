@@ -20,6 +20,7 @@ function updateButton(selectedIndex){
     }else{
         document.querySelector('.form #prevSection').removeAttribute("disabled");
     }
+    document.querySelector(".content-wrapper").scrollTo(0,0);
 }
 
 function nextSection(){
