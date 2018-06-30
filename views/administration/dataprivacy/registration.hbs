@@ -24,37 +24,42 @@
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
         </p>
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <label>Vorname: *</label>
-            <input class="form-control linked" name="student-firstname" type="text" placeholder="Richtigen Vornamen hier eingeben, keine Spitznamen o.ä." required/>
-        </div>
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <label>Nachname: *</label>
-            <input class="form-control linked" name="student-secondname" type="text" placeholder="Nachname hier eingeben" required/>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+              <label>Vorname: *</label>
+              <input class="form-control linked" name="student-firstname" type="text" placeholder="Richtigen Vornamen hier eingeben, keine Spitznamen o.ä." required/>
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+              <label>Nachname: *</label>
+              <input class="form-control linked" name="student-secondname" type="text" placeholder="Nachname hier eingeben" required/>
+          </div>
         </div>
 
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
+
+        <div class="form-group">
             <label>Geburtsdatum *</label>
-            <input class="form-control" data-date name="dueDate" id="dueDate" type="text"/>
+            <input class="form-control" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="dueDate" id="dueDate" type="text"/>
         </div>
 
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <div class="form-group">
             <label>E-Mail Adresse des Schülers (optional)</label>
             <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org"></input>
         </div>
         <p>
           Die E-Mail Adresse ermöglicht das Versenden von Benachrichtigungen und vereinfacht das zurücksetzen des Passworts.
         </p>
-
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-          <span><Label>Geschlecht</Label>
-          <p class="text-muted" style="display: inline"> (optional)</p></span>
-          <select class="form-control form-control-lg" type="text" name="gender">
-            <option value="">Geschlecht auswählen</option>
-            <option value="male">Männlich</option>
-            <option value="female">Weiblich</option>
-            <option value="other">Anderes</option>
-          </select>
+        <div class="row">
+          <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <span><Label>Geschlecht</Label>
+            <p class="text-muted" style="display: inline"> (optional)</p></span>
+            <select class="form-control form-control-lg" type="text" name="gender">
+              <option value="">Geschlecht auswählen</option>
+              <option value="male">Männlich</option>
+              <option value="female">Weiblich</option>
+              <option value="other">Anderes</option>
+              <option value="other">keine Angabe</option>
+            </select>
+          </div>
         </div>
         <p>Erhebung erfolgt zu Forschungszwecken</p>
       </section>
@@ -67,16 +72,18 @@
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
         </p>
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <label>Vorname: *</label>
-            <input class="form-control" name="firstname" type="text" placeholder="Richtigen Vornamen hier eingeben, keine Spitznamen o.ä." required/>
-        </div>
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <label>Nachname: *</label>
-            <input class="form-control" name="secondname" type="text" placeholder="Nachname hier eingeben" required/>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+              <label>Vorname: *</label>
+              <input class="form-control" name="firstname" type="text" placeholder="Richtigen Vornamen hier eingeben, keine Spitznamen o.ä." required/>
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+              <label>Nachname: *</label>
+              <input class="form-control" name="secondname" type="text" placeholder="Nachname hier eingeben" required/>
+          </div>
         </div>
 
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
+        <div class="form-group">
             <label>Ihre E-Mail Adresse (optional)</label>
             <input class="form-control" type="email" placeholder="schueler@schul-cloud.org"></input>
         </div>
@@ -85,15 +92,16 @@
         </p>
 
         <p><b>Alternativ zur Angabe der E-Mail...</b></p>
+        <div class="row"> 
+          <div class="form-group col-md-6 col-sm-12">
+              <label>Geburtsdatum</label>
+              <input class="form-control" data-date name="birthdate" type="text"/>
+          </div>
 
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <label>Geburtsdatum</label>
-            <input class="form-control" data-date name="birthdate" type="text"/>
-        </div>
-
-        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <label>Geburtsort</label>
-            <input class="form-control" name="geburtsort" type="text" placeholder="Berlin"/>
+          <div class="form-group col-md-6 col-sm-12">
+              <label>Geburtsort</label>
+              <input class="form-control" name="geburtsort" type="text" placeholder="Berlin"/>
+          </div>
         </div>
       </section>
 

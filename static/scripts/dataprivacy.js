@@ -37,9 +37,9 @@ function setSelectionByIndex(index){
 }
 function updateButton(selectedIndex){
     if(selectedIndex == getMaxSelectionIndex()){
-        document.querySelector('#nextSection').innerHTML = 'Submit';
+        document.querySelector('#nextSection').innerHTML = document.querySelector('#nextSection').dataset.submitLabel;
     }else{
-        document.querySelector('#nextSection').innerHTML = 'Next';
+        document.querySelector('#nextSection').innerHTML = document.querySelector('#nextSection').dataset.nextLabel;
     }
 
     if(selectedIndex == 1){
@@ -71,7 +71,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
 });
 
 
-
 /* INPUT LINKING */
 function linkInputs(event){
     const linkedInputs = document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`);
@@ -88,10 +87,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
 });
 
 
-
 /* OTHER STUFF */
 window.addEventListener('load', ()=>{
     // TIME Picker
+    // https://xdsoft.net/jqplugins/datetimepicker/
     $.datetimepicker.setLocale('de');
     $('input[data-datetime]').datetimepicker({ 
         format:'d.m.Y H:i',
@@ -99,6 +98,10 @@ window.addEventListener('load', ()=>{
     });
     $('input[data-date]').datetimepicker({
         format:'d.m.Y',
-        mask: '39.19.9999'
+        timepicker:false,
+        mask: '39.19.9999',
+        startDate: ($('input[data-date]').data('startDate') || false),
+        minDate: ($('input[data-date]').data('minDate') || 'yesterday'), //yesterday is minimum date(for today use 0 or -1970/01/01)
+        maxDate: ($('input[data-date]').data('maxDate') || 'tomorrow')  //tomorrow is maximum date calendar
     });
 });
