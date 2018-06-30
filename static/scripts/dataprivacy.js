@@ -20,6 +20,11 @@ if (!NodeList.prototype.filter) {
         return Array.from(this).filter(fct);
     }
 }
+if (!NodeList.prototype.some) {
+    NodeList.prototype.some = function(fct) {
+        return Array.from(this).some(fct);
+    }
+}
 
 
 /* MULTIPAGE INPUT FORM */
@@ -31,9 +36,14 @@ function getSelectionIndex(){
     var radioButtons = document.querySelectorAll('.form input[type=radio]');
     return radioButtons.indexOf(radioButtons.filter((node)=>{return node.checked;})[0]) + 1;
 }
-function setSelectionByIndex(index){
-    document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
-    updateButton(index);
+function setSelectionByIndex(index, event){
+    if(isSectionValid(getSelectionIndex())){
+        document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
+        updateButton(index);
+    }else{
+        event.preventDefault();
+        document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.add("showInvalid");
+    }
 }
 function updateButton(selectedIndex){
     if(selectedIndex == getMaxSelectionIndex()){
@@ -50,21 +60,29 @@ function updateButton(selectedIndex){
     document.querySelector(".content-wrapper").scrollTo(0,0);
 }
 
+function isSectionValid(sectionIndex){
+    // negation is needed, because some() returns false on a blank array.
+    return !document.querySelectorAll(`section[data-panel="section-${sectionIndex}"] input`).some((input)=>{
+        return !input.checkValidity();
+    });
+}
+
 function nextSection(event){
     const selectedIndex = getSelectionIndex() + 1;
     if(selectedIndex <= getMaxSelectionIndex()){
         event.preventDefault();
-        setSelectionByIndex(selectedIndex);
+        setSelectionByIndex(selectedIndex, event);
     }
 }
 function prevSection(event) {
     const selectedIndex = getSelectionIndex() - 1;
-    setSelectionByIndex(selectedIndex);
+    setSelectionByIndex(selectedIndex, event);
 }
 window.addEventListener('DOMContentLoaded', ()=>{
     // Stepper
-    document.querySelectorAll('.form .stages label').addEventListener("click", function() {
-        updateButton(document.querySelectorAll('.form .stages label').indexOf(this) + 1);
+    document.querySelectorAll('.form .stages label').addEventListener("click", function(event) {
+        const selectedIndex = document.querySelectorAll('.form .stages label').indexOf(this) + 1;
+        setSelectionByIndex(selectedIndex, event);
     });
     document.querySelector('.form #prevSection').addEventListener("click", prevSection);
     document.querySelector('.form #nextSection').addEventListener("click", nextSection);
@@ -73,12 +91,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
 /* INPUT LINKING */
 function linkInputs(event){
-    const linkedInputs = document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`);
-    linkedInputs.forEach((input)=>{
-        if(input.getAttribute("type")){
-            input.value = this.value;
+    document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`).forEach((changeTarget)=>{
+        if(changeTarget.tagName == "INPUT"){
+            changeTarget.value = this.value;
         }else{
-            input.innerHTML = this.value;
+            changeTarget.innerHTML = this.value;
         }
     });
 }

@@ -1,6 +1,16 @@
 @import 'progress';
 @import '../lib/colors';
 
-form.panels{
+.panels{
     /* insert custom css for the forms here */
+    .showInvalid{
+        input:invalid:not([type="checkbox"]):not([type="radio"]){
+            box-shadow: 0 0 5px #f55;
+        }
+        input[type="checkbox"]:invalid + span,
+        input[type="radio"]:invalid + span{
+            color: #f55;
+            font-weight: bold;
+        }
+    }
 }
