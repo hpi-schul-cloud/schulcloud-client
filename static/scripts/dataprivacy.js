@@ -13,17 +13,17 @@ if (!NodeList.prototype.addEventListener) {
 if (!NodeList.prototype.indexOf) {
     NodeList.prototype.indexOf = function(node) {
         return Array.from(this).indexOf(node);
-    }
+    };
 }
 if (!NodeList.prototype.filter) {
     NodeList.prototype.filter = function(fct) {
         return Array.from(this).filter(fct);
-    }
+    };
 }
 if (!NodeList.prototype.some) {
     NodeList.prototype.some = function(fct) {
         return Array.from(this).some(fct);
-    }
+    };
 }
 
 
@@ -37,15 +37,13 @@ function getSelectionIndex(){
     return radioButtons.indexOf(radioButtons.filter((node)=>{return node.checked;})[0]) + 1;
 }
 function setSelectionByIndex(index, event){
-    if(isSectionValid(getSelectionIndex())){
+    if(event){ event.preventDefault(); }
+    if(isSectionValid(getSelectionIndex()) || !event){
         document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
         updateButton(index);
     }else{
         document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.add("showInvalid");
-        if(event){
-            event.preventDefault();
-            document.querySelector(".content-wrapper").scrollTo(0,0);
-        }
+        document.querySelector(".content-wrapper").scrollTo(0,0);
     }
 }
 function updateButton(selectedIndex){
@@ -79,10 +77,11 @@ function nextSection(event){
 }
 function prevSection(event) {
     const selectedIndex = getSelectionIndex() - 1;
-    setSelectionByIndex(selectedIndex); // don't give this method to prevent, to don't prevent on invalid state (back should always be possible)
+    setSelectionByIndex(selectedIndex); // don't give this method the event to prevent, to don't prevent on invalid state (back should always be possible)
 }
 function goToSection(event){
     const selectedIndex = document.querySelectorAll('.form .stages label').indexOf(this) + 1;
+    // don't give this method the event if new section is before current to always allow to go back)
     setSelectionByIndex(selectedIndex, (selectedIndex >= getSelectionIndex())?event:undefined);
 }
 window.addEventListener('DOMContentLoaded', ()=>{
@@ -108,27 +107,28 @@ window.addEventListener('DOMContentLoaded', ()=>{
 });
 
 /* DATE PICKER */
-function readPickerConfig(input){
-    return {
-        format: ($(input).data('datetime')?'d.m.Y H:i':'d.m.Y'),
-        mask: ($(input).data('datetime')?'39.19.9999 29:59':'39.19.9999'),
-        timepicker: ($(input).data('datetime') || false),
-        startDate: ($(input).data('startDate') || false),
-        minDate: ($(input).data('minDate') || 'yesterday'), //yesterday is minimum date(for today use 0 or -1970/01/01)
-        maxDate: ($(input).data('maxDate') || 'tomorrow')  //tomorrow is maximum date calendar
-    }
-}
 window.addEventListener('load', ()=>{
+    function readPickerConfig(input){
+        return {
+            format:     (input.dataset.datetime?'d.m.Y H:i':'d.m.Y'),
+            mask:       (input.dataset.datetime?'39.19.9999 29:59':'39.19.9999'),
+            timepicker: (input.dataset.datetime  || false),
+            startDate:  (input.dataset.startDate || false),
+            minDate:    (input.dataset.minDate || 'yesterday'), //yesterday is minimum date(for today use 0 or -1970/01/01)
+            maxDate:    (input.dataset.maxDate || 'tomorrow')   //tomorrow is maximum date calendar
+        };
+    }
     // https://xdsoft.net/jqplugins/datetimepicker/
     $.datetimepicker.setLocale('de');
     document.querySelectorAll('input[data-date], input[data-datetime]').forEach((input)=>{
         $(input).datetimepicker(readPickerConfig(input));
         input.setAttribute("autocomplete","off");
         // modified regex from: https://www.regextester.com/97612
-        input.setAttribute("pattern",$(input).data('datetime')?
-            `(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)[0-9]{2})[[:space:]][0-2][0-3]:[0-5][0-9]`:
-            `(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)[0-9]{2})`);
-    })
+        let pattern =`(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)[0-9]{2})`;
+        if(input.dataset.datetime){ pattern += `[[:space:]][0-2][0-3]:[0-5][0-9]`; }
+        if(!input.dataset.required){ pattern = `(${pattern}|)`; }
+        input.setAttribute("pattern", pattern);
+    });
 });
 
 /* OTHER STUFF */
