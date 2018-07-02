@@ -657,10 +657,13 @@ router.get('/fileModel/:id/proxy', function (req, res, next) {
     });
 });
 
-router.post('/fileModel/:id/update', function(req, res, next) {
-    let fileId = req.params.id;
-    if(req.body.name) req.body.key = req.body.key || req.body.path + req.body.name; // when renaming, also update file-key
-    api(req).patch('/files/' + fileId, {json: req.body}).then(_ => res.redirect(req.header('Referer')));
+router.post('/fileModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => res.redirect(req.header('Referer')))
+        .catch(e => next(e));
 });
 
 router.post('/directoryModel/:id/rename', function(req, res, next) {

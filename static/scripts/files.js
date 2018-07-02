@@ -298,7 +298,7 @@ $(document).ready(function() {
         populateRenameModal(
             oldName, 
             path, 
-            '/files/fileModel/' + fileId +  '/update',
+            '/files/fileModel/' + fileId +  '/rename',
             'Datei umbenennen');
     });
 
