@@ -11,8 +11,7 @@ $(document).ready(function () {
             success: function(data) {
                 populateModalForm($shareModal, {
                     title: 'Kopiercode generiert!',
-                    closeLabel: 'Abbrechen',
-                    submitLabel: 'Speichern',
+                    closeLabel: 'Schließen',
                     fields: {shareToken: data.shareToken}
                 });
                 $shareModal.find('.btn-submit').remove();
