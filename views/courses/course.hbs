@@ -99,7 +99,7 @@
                                                     </a>
                                                     <p class="topic-label ml-1">{{../name}}</p>
                                                     <div class="right-btn-group">
-                                                        <a class="delete-topic btn btn-sm"
+                                                        <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                                            href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                            target="_blank"
                                                            data-method="delete-material"
@@ -110,6 +110,13 @@
                                                         </a>
                                                         <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
                                                              <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                        <a href="#"
+                                                           data-href="{{../_id}}"
+                                                           data-courseId="{{../courseId}}"
+                                                           class="btn btn-secondary btn-sm btn-create-share"
+                                                           title="Thema teilen">
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </div>
                                                 </div>
