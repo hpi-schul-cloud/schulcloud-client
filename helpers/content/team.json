@@ -173,11 +173,11 @@
       {
         "id": 10,
         "title": "",
-        "firstName": "Franz",
-        "lastName": "Liedke",
+        "firstName": "Matthias",
+        "lastName": "Luderich",
         "position": "Wissenschaftlicher Mitarbeiter, HPI",
-        "description": "Franz hat sein Master-Studium in IT-Systems Engineering am Hasso-Plattner-Institut abgeschlossen und ist nun als Software-Entwickler angestellt. Als solcher entwickelt er Bugs und behebt Features. Oder andersrum. Ist dann noch Raum für Freizeit, verbringt er diese mit seiner kleinen Familie, auf dem Fußballplatz oder an verschiedenen Open-Source-Projekten.",
-        "pictureUrl": "/images/team/Franz_Liedke.jpg",
+        "description": "Matthias ist Politikwissenschaftler (M.A.) und hat sich als Berater vor allem mit den politischen Seiten der digitalen Transformation im Bildungsbereich befasst. Seit Juli 2018 ist er im Team zuständig für die politische Kommunikation. Wenn Matthias nicht gerade fasziniert den Berliner Politikkosmos verfolgt, spielt er beim USV Potsdam Regionalliga-Basketball oder verbringt seine Zeit im heimischen Garten.",
+        "pictureUrl": "/images/team/matthias_luderich.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
