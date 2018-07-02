@@ -28,7 +28,7 @@ $(document).ready(function () {
             closeLabel: 'Abbrechen',
             submitLabel: 'Hinzufügen'
         });
-        $addModal.modal('show');
+        $addModal.appendTo('body').modal('show');
     });
 
     $('.btn-edit').on('click', function (e) {
@@ -56,7 +56,7 @@ $(document).ready(function () {
                 }
             }
             populateCourseTimes($editModal, result.times || []);
-            $editModal.modal('show');
+            $editModal.appendTo('body').modal('show');
         });
     });
 
@@ -81,7 +81,7 @@ $(document).ready(function () {
                     $(this).select();
                 });
 
-                $invitationModal.modal('show');
+                $invitationModal.appendTo('body').modal('show');
 
             }
         });
@@ -94,7 +94,7 @@ $(document).ready(function () {
             closeLabel: 'Abbrechen',
             submitLabel: 'Importieren'
         });
-        $importModal.modal('show');
+        $importModal.appendTo('body').modal('show');
     });
 
     $('.sso-type-selection').on('change', function (e) {
@@ -128,7 +128,7 @@ $(document).ready(function () {
                 fields: result
             });
 
-            $deleteModal.modal('show');
+            $deleteModal.appendTo('body').modal('show');
         });
     });
 
@@ -143,7 +143,7 @@ $(document).ready(function () {
                 fields: undefined
             });
 
-            $pwModal.modal('show');
+            $pwModal.appendTo('body').modal('show');
     });
 
 });

@@ -20,7 +20,7 @@ $(document).ready(function () {
                     $(this).select();
                 });
 
-                $shareModal.modal('show');
+                $shareModal.appendTo('body').modal('show');
 
             }
         });
