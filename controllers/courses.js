@@ -141,6 +141,73 @@ const editCourseHandler = (req, res, next) => {
     });
 };
 
+const copyCourseHandler = (req, res, next) => {
+    let coursePromise, action, method;
+    if (req.params.courseId) {
+        action = '/courses/copy/' + req.params.courseId;
+        method = 'post';
+        coursePromise = api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
+            }
+        });
+    } else {
+        action = '/courses/copy';
+        method = 'post';
+        coursePromise = Promise.resolve({});
+    }
+
+    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
+    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+
+    Promise.all([
+        coursePromise,
+        classesPromise,
+        teachersPromise,
+        studentsPromise
+    ]).then(([course, classes, teachers, students]) => {
+
+        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
+        teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
+        students = students.filter(s => s.schoolId == res.locals.currentSchool);
+        let substitutions = _.cloneDeep(teachers);
+
+        // map course times to fit into UI
+        (course.times || []).forEach((time, count) => {
+            time.duration = time.duration / 1000 / 60;
+            const duration = moment.duration(time.startTime);
+            time.startTime = ("00" + duration.hours()).slice(-2) + ':' + ("00" + duration.minutes()).slice(-2);
+            time.count = count;
+        });
+
+        // format course start end until date
+        if (course.startDate) {
+            course.startDate = moment(new Date(course.startDate).getTime()).format("DD.MM.YYYY");
+            course.untilDate = moment(new Date(course.untilDate).getTime()).format("DD.MM.YYYY");
+        }
+
+        // preselect current teacher when creating new course
+        if (!req.params.courseId) {
+            course.teacherIds = [];
+            course.teacherIds.push(res.locals.currentUser);
+        }
+
+        res.render('courses/edit-course', {
+            action,
+            method,
+            title: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
+            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
+            closeLabel: 'Abbrechen',
+            course,
+            classes: markSelected(classes, _.map(course.classIds, '_id')),
+            teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+            substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
+            students: markSelected(students, _.map(course.userIds, '_id'))
+        });
+    });
+};
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -237,6 +304,37 @@ router.post('/', function(req, res, next) {
         createEventsForCourse(req, res, course).then(_ => {
             res.redirect('/courses');
         });
+    }).catch(err => {
+        res.sendStatus(500);
+    });
+});
+
+router.post('/copy/:courseId', function(req, res, next) {
+    // map course times to fit model
+    (req.body.times || []).forEach(time => {
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
+
+    req.body._id = req.params.courseId;
+
+    api(req).post('/courses/copy/', {
+        json: req.body // TODO: sanitize
+    }).then(course => {
+        res.redirect('/courses');
     }).catch(err => {
         res.sendStatus(500);
     });
@@ -513,5 +611,7 @@ router.post('/:courseId/importTopic', function(req, res, next) {
 
 
 router.get('/:courseId/edit', editCourseHandler);
+
+router.get('/:courseId/copy', copyCourseHandler);
 
 module.exports = router;
