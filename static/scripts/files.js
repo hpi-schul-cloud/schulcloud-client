@@ -11,6 +11,7 @@ $(document).ready(function() {
     let $editModal = $('.edit-modal');
     let $deleteModal = $('.delete-modal');
     let $moveModal = $('.move-modal');
+    let $renameModal = $('.rename-modal');
 
     let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -155,7 +156,7 @@ $(document).ready(function() {
         e.preventDefault();
         let $buttonContext = $(this);
 
-        $deleteModal.modal('show');
+        $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('file-name') + "' löschen möchtest?");
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function () {
@@ -178,7 +179,8 @@ $(document).ready(function() {
     });
 
     $('.create-directory').on('click', function () {
-        $editModal.modal('show');
+        $editModal.appendTo('body').modal('show');
+        $renameModal.modal('hide');
     });
 
     $('.card.file').on('click', function () {
@@ -253,6 +255,67 @@ $(document).ready(function() {
         $modals.modal('hide');
     });
 
+    $('.file').mouseover(function (e) {
+        let size = $(this).attr('data-file-size');
+        let id = $(this).attr('data-file-id');
+
+        $('#' + id).html(writeFileSizePretty(size));
+        $(this).find('.file-name-edit').css('display', 'inline');
+    });
+
+    $('.file').mouseout(function (e) {
+        let id = $(this).attr('data-file-id');
+
+        $('#' + id).html('');
+        $(this).find('.file-name-edit').css('display', 'none');
+    });
+
+    let populateRenameModal = function(oldName, path, action, title) {
+        let form = $renameModal.find('.modal-form');
+        form.attr('action', action);
+
+        populateModalForm($renameModal, {
+            title: title,
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Speichern',
+            fields: {
+                name: oldName,
+                path: path,
+                key: path + oldName
+            }
+        });
+
+        $renameModal.modal('show');
+    };
+
+    $('.file-name-edit').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let oldName = $(this).attr('data-file-name');
+        let path = $(this).attr('data-file-path');
+
+        populateRenameModal(
+            oldName, 
+            path, 
+            '/files/fileModel/' + fileId +  '/rename',
+            'Datei umbenennen');
+    });
+
+    $('a[data-method="dir-rename"]').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let dirId = $(this).attr('data-directory-id');
+        let oldName = $(this).attr('data-directory-name');
+        let path = $(this).attr('data-directory-path');
+
+        populateRenameModal(
+            oldName, 
+            path, 
+            '/files/directoryModel/' + dirId +  '/rename',
+            'Ordner umbenennen');
+    });
+
     $('.btn-file-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -284,7 +347,7 @@ $(document).ready(function() {
                             $(this).select();
                         });
 
-                        $shareModal.modal('show');
+                        $shareModal.appendTo('body').modal('show');
 
                     }
                 });
@@ -393,7 +456,7 @@ $(document).ready(function() {
             $dirTree.append($dirTreeList);
             // remove modal-footer
             $moveModal.find('.modal-footer').empty();
-            $moveModal.modal('show');
+            $moveModal.appendTo('body').modal('show');
         });
     });
 
@@ -469,7 +532,7 @@ function openInIframe(source){
             $('#link').css("display","");
         }
         else {
-            $openModal.modal('show');
+            $openModal.appendTo('body').modal('show');
             $openModal.find('.btn-submit').unbind('click').on('click', function () {
                 $.cookie($("input.box").attr("name"), $("input.box").prop('checked'), {
                     path: '/',

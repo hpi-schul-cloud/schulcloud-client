@@ -161,7 +161,7 @@ $(document).ready(function () {
         });
 
         $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
-        $feedbackModal.modal('show');
+        $feedbackModal.appendTo('body').modal('show');
         $feedbackModal.find('#title-area').html(area);
     });
 
@@ -176,7 +176,7 @@ $(document).ready(function () {
         });
 
         $problemModal.find('.modal-form').on('submit', sendFeedback.bind(this, $problemModal));
-        $problemModal.modal('show');
+        $problemModal.appendTo('body').modal('show');
     });
 
     $modals.find('.close, .btn-close').on('click', function () {
@@ -227,7 +227,7 @@ $(document).ready(function () {
             title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
         });
         let $modalForm = $cancelModal.find(".modal-form");
-        $cancelModal.modal('show');
+        $cancelModal.appendTo('body').modal('show');
     });
 
     populateModalForm($featureModal, {
