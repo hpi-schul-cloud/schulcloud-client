@@ -336,8 +336,14 @@ router.patch('/file/:id', function (req, res, next) {
             message: 'Verschieben der Datei war erfolgreich!'
         };
         res.sendStatus(200);
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
+    }).catch(e => {
+        req.session.notification = {
+            type: 'danger',
+            message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits eine Datei mit diesem Namen im Zielordner!'
+                : e.error.message
+        };
+        res.redirect(req.header('Referer'));
     });
 });
 
