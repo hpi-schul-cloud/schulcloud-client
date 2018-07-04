@@ -89,7 +89,7 @@ $(document).ready(function () {
                         },
                     });
                 });
-                $editEventModal.modal('show');
+                $editEventModal.appendTo('body').modal('show');
             }
         },
         dayClick: function(date, jsEvent, view) {
@@ -107,7 +107,7 @@ $(document).ready(function () {
                     endDate: _endDate
                 }
             });
-            $createEventModal.modal('show');
+            $createEventModal.appendTo('body').modal('show');
         },
         header: {
             left: 'title',

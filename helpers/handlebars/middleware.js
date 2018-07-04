@@ -33,6 +33,7 @@ const makeActive = (items, currentUrl) => {
 
 module.exports = (req, res, next) => {
     res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
+    res.locals.backendUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
     // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',

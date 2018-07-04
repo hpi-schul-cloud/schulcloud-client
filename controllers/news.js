@@ -99,14 +99,23 @@ router.patch('/:newsId', function (req, res, next) {
 router.delete('/:id', getDeleteHandler('news'));
 
 router.all('/', function (req, res, next) {
+    const query = req.query.q;
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
-    //Somehow $lte doesn't work in normal query so I manually put it into a request
-    let requestUrl = '/news?$limit=' + itemsPerPage +
-        ((res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? '' : ('&displayAt[$lte]=' + new Date().getTime())) +
-        '&$skip=' + (itemsPerPage * (currentPage - 1)) +
-        '&$sort=-displayAt';
-    const newsPromise = api(req).get(requestUrl).then(news => {
+
+    let queryObject = {
+        $limit: itemsPerPage,
+        displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : {$lte: new Date().getTime()},
+        $skip: (itemsPerPage * (currentPage -1)),
+        $sort: '-displayAt',
+        title: { $regex: query, $options: 'i' }
+    };
+
+    if (!query)
+        delete queryObject.title;
+
+    return api(req).get('/news/', { qs: queryObject })
+        .then(news => {
         const totalNews = news.total;
         const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
         news = news.data.map(news => {
@@ -127,6 +136,9 @@ router.all('/', function (req, res, next) {
             title: 'Neuigkeiten',
             news,
             pagination,
+            searchLabel: 'Suche nach Neuigkeiten',
+            searchAction: '/news/',
+            showSearch: true
         });
     });
 });
@@ -137,7 +149,7 @@ router.get('/new', function (req, res, next) {
         submitLabel: 'Hinzufügen',
         closeLabel: 'Abbrechen',
         method: 'post',
-        action: '/news/',
+        action: '/news/'
     });
 });
 
@@ -148,7 +160,7 @@ router.get('/:newsId', function (req, res, next) {
         }
     }).then(news => {
         news.url = '/news/' + news._id;
-        res.render('news/article', {title: news.title, news});
+        res.render('news/article', {title: news.title, news });
     });
 });
 

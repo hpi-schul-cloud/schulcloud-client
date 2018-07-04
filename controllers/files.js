@@ -140,6 +140,7 @@ const FileGetter = (req, res, next) => {
         directories = directories.map(dir => {
             const targetUrl = pathUtils.join(currentDir, dir.name);
             dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+            dir.originalPath = path;
             dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
@@ -386,6 +387,7 @@ router.get('/my/', FileGetter, function (req, res, next) {
         }),
         canUploadFile: true,
         canCreateDir: true,
+        showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor
     }, res.locals.files));
@@ -410,6 +412,7 @@ router.get('/shared/', function (req, res, next) {
                 }),
                 canUploadFile: false,
                 canCreateDir: false,
+                showSearch: true,
                 inline: req.query.inline || req.query.CKEditor,
                 CKEditor: req.query.CKEditor
             }, files));
@@ -440,7 +443,8 @@ router.get('/', function (req, res, next) {
         });
     */
         res.render('files/files-overview', Object.assign({
-            title: 'Meine Dateien'
+            title: 'Meine Dateien',
+            showSearch: true                                            
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
@@ -463,7 +467,8 @@ router.get('/courses/', function (req, res, next) {
             path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
-            directories
+            directories,
+            showSearch: true
         });
     });
 });
@@ -496,6 +501,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
             breadcrumbs,
+            showSearch: true,
             courseId: req.params.courseId,
             courseUrl: `/courses/${req.params.courseId}/`
         }, res.locals.files));
@@ -518,7 +524,8 @@ router.get('/classes/', function (req, res, next) {
             path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
-            directories
+            directories,
+            showSearch: true
         });
     });
 });
@@ -548,6 +555,7 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
             path: res.locals.files.path,
             canUploadFile: true,
             breadcrumbs,
+            showSearch: true,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
         }, res.locals.files));
@@ -647,6 +655,24 @@ router.get('/fileModel/:id/proxy', function (req, res, next) {
         // redirects to real file getter
         res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
     });
+});
+
+router.post('/fileModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => res.redirect(req.header('Referer')))
+        .catch(e => next(e));
+});
+
+router.post('/directoryModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/directories/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => res.redirect(req.header('Referer')))
+        .catch(e => next(e));
 });
 
 

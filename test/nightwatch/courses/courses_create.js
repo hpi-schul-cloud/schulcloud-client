@@ -30,7 +30,8 @@ module.exports = {
     'Create Course': function (browser) {
         browser.url(base_url + 'courses/');
         browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
-        browser
+        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/a', 10, 10)
+            .useCss()
             .click('.btn-add')
             .pause(1000)
             .setValue('input[name=name]', 'Test Kurs')
@@ -43,14 +44,15 @@ module.exports = {
     'Delete Course': function (browser) {
         browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
         browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");
-        browser.useCss().expect.element('h4').text.to.contain('Test Kurs').before(10000);
-        browser.useCss().expect.element('p').text.to.contain('Test Beschreibung').before(10000);
+        browser.useCss().expect.element('#titlebar > div > div:nth-child(1) > h4').text.to.contain('Test Kurs').before(10000);
+        browser.useCss().expect.element('#main-content > section > div.row.description > div > p').text.to.contain('Test Beschreibung').before(10000);
         browser.useCss()
             .waitForElementVisible('.btn-delete-course', 1000)
             .click('.btn-delete-course')
-            .waitForElementVisible('.delete-modal', 1000)
-            .waitForElementVisible('.btn-submit', 1000)
-            .click('.btn-submit')
+            .waitForElementVisible('.delete-modal', 1000);
+        browser.useXpath()
+            .waitForElementVisible('/html/body/div[5]/div/div/div[2]/button[2]', 1000)
+            .click('/html/body/div[5]/div/div/div[2]/button[2]')
             .pause(1000);
     },
     'Schul-Cloud End': function (browser) {

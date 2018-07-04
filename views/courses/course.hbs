@@ -10,6 +10,7 @@
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
+        <script src="/scripts/topic.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -27,11 +28,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Thema hinzufügen">
+                        <a href="/courses/{{../_id}}/topics/add" class="btn btn-secondary btn-sm pull-right ml-1" title="Thema hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                             <span class="hidden-lg-down">Thema hinzufügen</span>
                         </a>
-                        <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic" data-toggle="tooltip" title="Thema importieren">
+                        <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic" title="Thema importieren">
                             <i class="fa fa-exchange" aria-hidden="true"></i>
                             <span class="hidden-lg-down">Thema importieren</span>
                         </a>
@@ -52,7 +53,6 @@
                                                     <a 
                                                         class="btn btn-secondary btn-sm btn-hidden-toggle" 
                                                         href="{{../_id}}"
-                                                        data-toggle="tooltip" 
                                                         title="Thema verstecken">
                                                          <i class="fa fa-eye"></i>
                                                     </a>
@@ -60,16 +60,24 @@
                                                 <p class="topic-label ml-1">{{this.name}}</p>
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <div class="right-btn-group">
-                                                        <a class="delete-topic btn btn-sm"
+                                                        <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                                             href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                             target="_blank"
                                                             data-method="delete-material"
                                                             data-name="{{../name}}"
-                                                            redirect="/courses/{{../courseId}}">
+                                                            redirect="/courses/{{../courseId}}"
+                                                            title="Thema löschen">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
-                                                        <a class="btn btn-secondary btn-sm move-handle">
+                                                        <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
                                                              <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                        <a href="#"
+                                                           data-href="{{../_id}}"
+                                                           data-courseId="{{../courseId}}"
+                                                           class="btn btn-secondary btn-sm btn-create-share"
+                                                           title="Thema teilen">
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </div>
                                                 {{/userHasPermission}}
@@ -86,22 +94,29 @@
                                                     <a 
                                                         class="btn btn-secondary btn-sm btn-hidden-toggle"
                                                         href="{{../_id}}"
-                                                        data-toggle="tooltip"
-                                                        title="Thema sichtbar machen">
+                                                        title="Thema wieder anzeigen">
                                                         <i class="fa fa-eye-slash"></i>
                                                     </a>
                                                     <p class="topic-label ml-1">{{../name}}</p>
                                                     <div class="right-btn-group">
-                                                        <a class="delete-topic btn btn-sm"
+                                                        <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                                            href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                            target="_blank"
                                                            data-method="delete-material"
                                                            data-name="{{../name}}"
-                                                            redirect="/courses/{{../courseId}}">
+                                                            redirect="/courses/{{../courseId}}"
+                                                            title="Thema löschen">
                                                             <i class="fa fa-trash-o"></i>
                                                         </a>
-                                                        <a class="btn btn-secondary btn-sm move-handle">
+                                                        <a class="btn btn-secondary btn-sm move-handle" title="Thema verschieben">
                                                              <i class="fa fa-arrows"></i>
+                                                        </a>
+                                                        <a href="#"
+                                                           data-href="{{../_id}}"
+                                                           data-courseId="{{../courseId}}"
+                                                           class="btn btn-secondary btn-sm btn-create-share"
+                                                           title="Thema teilen">
+                                                            <i class="fa fa-share-alt"></i>
                                                         </a>
                                                     </div>
                                                 </div>
@@ -122,7 +137,7 @@
                 <!-- Tools -->
                 <div class="col-sm-6">
                         {{#userHasPermission "TOOL_CREATE" }}
-                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Neues Tool hinzufügen">
+                        <a href="/courses/{{../_id}}/tools/add" class="btn btn-secondary btn-sm pull-right ml-1" title="Neues Tool hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Neues Tool hinzufügen</span></a>
                         {{/userHasPermission}}
                     <h4>Tools</h4>
@@ -168,13 +183,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSEGROUP_CREATE"}}
-                        <a href="/courses/{{../../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Gruppe hinzufügen">
+                        <a href="/courses/{{../../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" title="Gruppe hinzufügen">
                             <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Gruppe hinzufügen</span>
                         </a>
                     {{/userHasPermission}}
                     <a data-toggle="collapse" class="collapse-toggle" href="#courseGroups">
                         <h4>
-                            <small data-toggle="tooltip" title="Schülergruppen ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            <small title="Schülergruppen ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                             {{#userHasPermission "COURSE_EDIT" }}Schülergruppen{{else}}Meine Schülergruppen{{/userHasPermission}}
                             <small>({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
                         </h4>
@@ -197,13 +212,13 @@
             <div class="row">
                 <div class="col-sm-6 container">
                     {{#userHasPermission "COURSE_EDIT" }}
-                    <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
+                    <a href="/homework/new?course={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" title="Aufgabe hinzufügen">
                         <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span>
                     </a>
                     {{/userHasPermission}}
                     <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
                         <h4>
-                            <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            <small title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                             Gestellte Aufgaben 
                             <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
                         </h4>
@@ -220,13 +235,13 @@
                 </div>
                 <div class="col-sm-6">
                 {{#userHasPermission "HOMEWORK_CREATE" }}
-                    <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="private Aufgabe hinzufügen">
+                    <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" title="private Aufgabe hinzufügen">
                         <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span>
                     </a>
                 {{/userHasPermission}}
                     <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
                         <h4>
-                            <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                            <small title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                             Meine Aufgaben 
                             <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
                         </h4>
@@ -285,6 +300,12 @@
             {{#embed "lib/components/modal-form" class="import-modal"}}
                 {{#content "fields"}}
                     {{> "courses/forms/form-import-topic"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="share-modal"}}
+                {{#content "fields"}}
+                    {{> "topic/forms/form-share"}}
                 {{/content}}
             {{/embed}}
 
