@@ -137,6 +137,11 @@ module.exports = (req, res, next) => {
             }
         ]
     });
+    res.locals.sidebarItems.push({
+        name: 'Schics',
+        icon: 'graduation-cap',
+        link: '/schics/'
+    });
 
     // helpdesk views
     res.locals.sidebarItems.push({
