@@ -16,7 +16,7 @@ $(document).ready(function () {
     let parsedPrefs = prefs === "" ? {} : JSON.parse($('#preferences').html());
 
     if (!parsedPrefs.pollSeen2)
-        $pollModal.modal('show');
+        $pollModal.appendTo('body').modal('show');
 
     $('.btn-poll').on('click', function (e) {
         e.preventDefault();

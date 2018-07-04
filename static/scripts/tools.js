@@ -101,7 +101,7 @@ $(document).ready(function () {
                     fields: result.tool
                 });
                 populateCustomFields($editModal, result.tool.customs);
-                $editModal.modal('show');
+                $editModal.appendTo('body').modal('show');
             }
         });
     });

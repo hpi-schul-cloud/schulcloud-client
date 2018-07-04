@@ -59,7 +59,7 @@ $(document).ready(function () {
 				fields: fields
 			});
 			populateCourseSelection($editModal, result.courses.data);
-			$editModal.modal('show');
+			$editModal.appendTo('body').modal('show');
 		});
 
 	});
@@ -79,7 +79,7 @@ $(document).ready(function () {
 		$externalLinkModal.find('.external-link-btn').attr('href', $(this).data('external-link'));
 		var provider = $externalLinkModal.find('.provider');
 		provider.html($(this).data('provider') || provider.html());
-		$externalLinkModal.modal('show');
+		$externalLinkModal.appendTo('body').modal('show');
 	});
 
 	$modals.find('.close, .btn-close, .external-link-btn').on('click', function () {

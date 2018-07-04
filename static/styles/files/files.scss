@@ -134,6 +134,11 @@
         color: $primaryColor;
       }
     }
+    .card-block {
+      a:hover {
+        text-decoration: none;
+      }
+    }
     .title {
       position: absolute;
       white-space: nowrap;
@@ -236,6 +241,10 @@
   .dir-sub-element {
     padding: 10px 10px 10px 20px;
   }
+}
+
+.file-name-edit {
+  display: none;
 }
 
 
