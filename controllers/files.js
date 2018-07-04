@@ -140,6 +140,7 @@ const FileGetter = (req, res, next) => {
         directories = directories.map(dir => {
             const targetUrl = pathUtils.join(currentDir, dir.name);
             dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+            dir.originalPath = path;
             dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
@@ -654,6 +655,24 @@ router.get('/fileModel/:id/proxy', function (req, res, next) {
         // redirects to real file getter
         res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
     });
+});
+
+router.post('/fileModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => res.redirect(req.header('Referer')))
+        .catch(e => next(e));
+});
+
+router.post('/directoryModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/directories/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => res.redirect(req.header('Referer')))
+        .catch(e => next(e));
 });
 
 
