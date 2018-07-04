@@ -323,7 +323,7 @@ router.get('/file', function (req, res, next) {
 });
 
 // move file
-router.patch('/file/:id', function (req, res, next) {
+router.post('/file/:id/move', function (req, res, next) {
     api(req).patch('/fileStorage/' + req.params.id, {
         json: {
             fileName: req.body.fileName,
@@ -343,7 +343,7 @@ router.patch('/file/:id', function (req, res, next) {
                 ? 'Es existiert bereits eine Datei mit diesem Namen im Zielordner!'
                 : e.error.message
         };
-        res.redirect(req.header('Referer'));
+        res.send(e);
     });
 });
 
