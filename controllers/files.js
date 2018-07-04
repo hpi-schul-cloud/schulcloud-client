@@ -687,8 +687,24 @@ router.post('/directoryModel/:id/rename', function(req, res, next) {
         path: req.body.key,
         newName: req.body.name
     }})
-        .then(_ => res.redirect(req.header('Referer')))
-        .catch(e => next(e));
+        .then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: 'Umbenennen des Ordners war erfolgreich!'
+            };
+
+            res.redirect(req.header('Referer'));
+        })
+        .catch(e => {
+            req.session.notification = {
+                type: 'danger',
+                message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!'
+                : e.error.message
+            };
+
+            res.redirect(req.header('Referer'));
+        });
 });
 
 
