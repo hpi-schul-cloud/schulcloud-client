@@ -9,8 +9,9 @@
         }
         input[type="checkbox"]:invalid + span,
         input[type="radio"]:invalid + span{
-            color: #f55;
+            color: #f33;
             font-weight: bold;
+            text-decoration: underline;
         }
     }
 }

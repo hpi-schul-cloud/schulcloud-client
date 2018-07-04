@@ -1,6 +1,7 @@
 {{#extend "lib/loggedin"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy.js" type="text/javascript" defer></script>
+      <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+      <script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
       <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
@@ -8,168 +9,14 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=5 action="#" method="get"}}
-      {{#content "panels"}}
-      <section data-panel="section-1">
-        <h4>Willkommen</h4>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum, sapiente, dolores corrupti nulla voluptas cumque qui illo sunt numquam distinctio minus iusto dignissimos. Minima, molestias incidunt dicta ipsum excepturi voluptatibus.
-        </p>
-      </section>
-
-
-      <section data-panel="section-2">
-        <h4>Schülerdaten</h4>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-        </p>
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-              <label>Vorname: *</label>
-              <input class="form-control linked" name="student-firstname" type="text" placeholder="Richtigen Vornamen hier eingeben, keine Spitznamen o.ä." required/>
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-              <label>Nachname: *</label>
-              <input class="form-control linked" name="student-secondname" type="text" placeholder="Nachname hier eingeben" required/>
-          </div>
-        </div>
-
-
-        <div class="form-group">
-            <label>Geburtsdatum *</label>
-            <input class="form-control" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" data-required name="dueDate" id="dueDate" type="text"/>
-        </div>
-
-        <div class="form-group">
-            <label>E-Mail Adresse des Schülers (optional)</label>
-            <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org"></input>
-        </div>
-        <p>
-          Die E-Mail Adresse ermöglicht das Versenden von Benachrichtigungen und vereinfacht das zurücksetzen des Passworts.
-        </p>
-        <div class="row">
-          <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <span><Label>Geschlecht</Label>
-            <p class="text-muted" style="display: inline"> (optional)</p></span>
-            <select class="form-control form-control-lg" type="text" name="gender">
-              <option value="">Geschlecht auswählen</option>
-              <option value="male">Männlich</option>
-              <option value="female">Weiblich</option>
-              <option value="other">Anderes</option>
-              <option value="other">keine Angabe</option>
-            </select>
-          </div>
-        </div>
-        <p>Erhebung erfolgt zu Forschungszwecken</p>
-      </section>
-
-
-
-
-      <section data-panel="section-3">
-        <h4>Eingabe Erziehungsberechtigtendaten</h4>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-        </p>
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-              <label>Vorname: *</label>
-              <input class="form-control" name="firstname" type="text" placeholder="Richtigen Vornamen hier eingeben, keine Spitznamen o.ä." required/>
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-              <label>Nachname: *</label>
-              <input class="form-control" name="secondname" type="text" placeholder="Nachname hier eingeben" required/>
-          </div>
-        </div>
-
-        <div class="form-group">
-            <label>Ihre E-Mail Adresse (optional)</label>
-            <input class="form-control" type="email" placeholder="schueler@schul-cloud.org"></input>
-        </div>
-        <p>
-          Wir planen einen Elternzugang...
-        </p>
-
-        <p><b>Alternativ zur Angabe der E-Mail...</b></p>
-        <div class="row"> 
-          <div class="form-group col-md-6 col-sm-12">
-              <label>Geburtsdatum</label>
-              <input class="form-control" data-date name="birthdate" type="text"/>
-          </div>
-
-          <div class="form-group col-md-6 col-sm-12">
-              <label>Geburtsort</label>
-              <input class="form-control" name="geburtsort" type="text" placeholder="Berlin"/>
-          </div>
-        </div>
-      </section>
-
-
-
-
-      <section data-panel="section-4">
-        <h4>Einwilligungserklärung</h4>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-        </p>
-        <label>
-            <input name="Erhebung" type="checkbox" value="true" required/>
-            <span>Einwilligung in die Erhebung</span>
-        </label>
-
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-        </p>
-        <label>
-            <input name="Forschung" type="checkbox" value="true" required/>
-            <span>Einwilligung in die Forschung</span>
-        </label>
-
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-        </p>
-        <label>
-            <input name="Pseudonymisierung" type="checkbox" value="true" required/>
-            <span>Einwilligung in die Pseudonymisierung</span>
-        </label>
-
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi facilis odit totam labore asperiores accusantium quisquam blanditiis aspernatur optio esse impedit maxime cumque placeat at deleniti dolores, excepturi, ea nesciunt.
-        </p>
-        <label>
-            <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen" required/>
-            <span>Einwilligung in die Nutzungsbedingungen</span>
-        </label>
-
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit ex numquam quo voluptate ipsa modi porro cupiditate corrupti possimus praesentium! Vero doloremque porro amet est. In rem enim quo quia!
-        </p>
-      </section>
-      <section data-panel="section-5">
-        <h4>Einwilligungserklärung</h4>
-        <p>Mit folgenden Daten kann sich 
-          <i data-from="student-firstname"></i>
-          <i data-from="student-secondname"></i>
-          in der Schul-Cloud anmelden. Bitte bewahren Sie diese Anmeldedaten auf:
-          <div class="print">
-            <div>
-              <p>username: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
-              <p>email: <i data-from="student-email"></i></p>
-              <p>password: *****</p>
-            </div>
-             <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-              <i class="fa fa-print"></i> Drucken
-            </div>
-          </div>
-        </p>
-
-        <label>
-            <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
-            Login-Daten per Mail an mich senden
-        </label>
-      </section>
-      {{/content}}
-    {{/embed}}
+    <div id="welcome-screen">
+      <p>Willkommen in der Schul-Cloud!</p>
+      <p>Bitte geben Sie das Geburtsdatum des anzumeldenden Schülers an.</p>
+      <div class="form-group">
+        <label>Geburtsdatum des Schülers: *</label>
+        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" required name="student-birthdate" type="text"/>
+      </div>
+      <button id="showRegistrationForm" class="btn btn-primary">Weiter</button>
+    </div>
   {{/content}}
 {{/extend}}

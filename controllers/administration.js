@@ -1049,7 +1049,12 @@ router.get('/dataprivacy/firstLogin', function (req, res, next) {
 });
 router.get('/dataprivacy/registration', function (req, res, next) {
     res.render('administration/dataprivacy/registration', {
-        title: 'Willkommen'
+        title: 'Herzlich Willkommen'
+    });
+});
+router.get('/dataprivacy/registration/byparent', function (req, res, next) {
+    res.render('administration/dataprivacy/registration-parent', {
+        title: 'Herzlich Willkommen'
     });
 });
 
