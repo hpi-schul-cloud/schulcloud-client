@@ -125,6 +125,7 @@ router.post('/addToLesson', function (req, res, next) {
     }).then(material => {
         api(req).patch('/lessons/' + req.body.lessonId, {
             json: {
+                courseId: req.body.courseId,
                 $push: {
                     materialIds: material._id
                 }
