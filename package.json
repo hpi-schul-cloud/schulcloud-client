@@ -39,6 +39,8 @@
     "oauth-1.0a": "^2.1.0",
     "path.join": "^1.0.0",
     "query-string": "^5.0.1",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
     "serve-favicon": "~2.3.2",
@@ -50,6 +52,8 @@
     "winston": "^3.0.0"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
     "babel-plugin-transform-react-jsx": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
@@ -84,6 +88,9 @@
     "pump": "^1.0.2",
     "selenium-server": "^3.12.0",
     "video.js": "^5.19.2",
-    "vinyl-map": "^1.0.2"
+    "vinyl-map": "^1.0.2",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^4.14.0",
+    "webpack-stream": "^4.0.3"
   }
 }
