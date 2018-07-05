@@ -1044,18 +1044,29 @@ router.get('/dataprivacy/teacher', function (req, res, next) {
 });
 router.get('/dataprivacy/firstLogin', function (req, res, next) {
     res.render('administration/dataprivacy/firstLogin', {
-        title: 'Willkommen'
+        title: 'Willkommen - Erster Login'
     });
 });
 router.get('/dataprivacy/registration', function (req, res, next) {
     res.render('administration/dataprivacy/registration', {
-        title: 'Herzlich Willkommen'
+        title: 'Herzlich Willkommen bei der Registrierung'
     });
 });
 router.get('/dataprivacy/registration/byparent', function (req, res, next) {
     res.render('administration/dataprivacy/registration-parent', {
-        title: 'Herzlich Willkommen'
+        title: 'Registrierung - Eltern'
     });
+});
+router.get('/dataprivacy/registration/bystudent', function (req, res, next) {
+    res.render('administration/dataprivacy/registration-student', {
+        title: 'Registrierung - Schüler*'
+    });
+});
+router.post('/dataprivacy/registration/byparent', function (req, res, next) {
+
+});
+router.post('/dataprivacy/registration/bystudent/submit', function (req, res, next) {
+    let a = res;
 });
 
 module.exports = router;

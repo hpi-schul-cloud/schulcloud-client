@@ -9,12 +9,12 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="#" method="get" class="registration-form"}}
+    {{#embed "lib/forms/paginatedForm" sections=4 action="/administration/dataprivacy/registration/bystudent/submit" method="post" class="registration-form"}}
       {{#content "panels"}}
       <section data-panel="section-1">
-        <h4>Schülerdaten</h4>
+        <h4>Persönliche Daten</h4>
         <p>Die Schul-Cloud bewahrt die Daten der Nutzer*Innen sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
-        <p>Für die Nutzung der Schul-Cloud benötigen wir folgende Angaben für ihr Kind:</p>
+        <p>Für die Nutzung der Schul-Cloud benötigen wir folgende Angaben:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
               <label>Vorname: *</label>
@@ -27,20 +27,20 @@
         </div>
 
         <div class="form-group">
-          <label>Geburtsdatum des Schülers: *</label>
+          <label>Geburtsdatum: *</label>
           <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required disabled/>
         </div>
 
         <div class="form-group">
-            <label>E-Mail Adresse des Schülers *</label>
+            <label>E-Mail Adresse: *</label>
             <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required></input>
         </div>
         <p>
-          Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
+            Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
         </p>
         <div class="row">
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <Label>Geschlecht *</Label>
+            <Label>Geschlecht: *</Label>
             <select class="form-control form-control-lg" type="text" name="gender">
               <option value="">Geschlecht auswählen</option>
               <option value="male">Männlich</option>
@@ -50,27 +50,24 @@
             </select>
           </div>
         </div>
-        <p>Erhebung erfolgt für Forschung und Optimierung</p>
+        <p>Die Erhebung erfolgt für Forschung und Optimierung.</p>
       </section>
 
 
       <section data-panel="section-2">
-        <h4>Einwilligung</h4>
+        <h4>Einwilligungserklärung</h4>
         <p>Die HPI Schul-Cloud bietet digitale Bildung für alle – fair, nicht profitorientiert und datenschutzkonform. Der Schutz von Schüler*Innen-Daten ist zentraler Bestandteil der Schul-Cloud.</p>
-        <p>Schüler*Innen unter 18 Jahren brauchen vor Nutzung die Einwilligung eines Erziehungsberechtigten.</p>
-        <p>Ich, 
-          <b data-from="parent-firstname"></b>
-          <b data-from="parent-secondname"></b>
-        , bin erziehungsberechtigt für 
+        <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die Schul-Cloud nutzen kannst.</p>
+        <p>Ich,
           <b data-from="student-firstname"></b>
           <b data-from="student-secondname"></b> 
-        und erkläre folgendes:</p>
+        erkläre folgendes:</p>
         <label>
             <input name="Erhebung" type="checkbox" value="true" required/>
             <span>Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.</span>
         </label>
 
-        <p>Um die Nutzung der Schul-Cloud zu ermöglichen, ist die Verarbeitung von personenbezogenen Daten der Nutzer*innen erforderlich. Dies erfolgt ausschließlich entsprechend der hohen gesetzlichen Datensicherheits-Anforderungen. Das HPI verarbeitet nur die Daten, deren Erhebung unbedingt erforderlich ist und sorgt dafür, dass sie nicht in unbefugte Hände geraten. </p>
+        <p>Schülereinwilligung Ü18</p>
         <label>
             <input name="Forschung" type="checkbox" value="true" required/>
             <span>Ich habe die <a href="#">Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
@@ -93,18 +90,14 @@
       </section>
 
 
-
       <section data-panel="section-3" class="submit-page">
         <h4>Abschluss</h4>
-        <p>Mit folgenden Daten kann sich
-          <b data-from="student-firstname"></b>
-          <b data-from="student-secondname"></b> 
-        in der Schul-Cloud anmelden. Bitte bewahren Sie die Anmeldedaten auf.
+        <p>Fast geschafft! Mit folgenden Daten kannst du dich in der Schul-Cloud anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.
           <div class="print">
             <div>
               <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
               <p>E-Mail: <i data-from="student-email"></i></p>
-              <p>Passwort: <i>********</i></p>
+              <p>Passwort: <i class="student-password">********</i></p>
             </div>
              <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
               <i class="fa fa-print"></i> Drucken
@@ -120,7 +113,6 @@
       </section>
 
 
-
       <section data-panel="section-4">
         <h4>Dankeschön</h4>
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, sunt ut officiis deleniti molestias eos id quod recusandae laborum a nam ratione veniam, totam repellendus saepe, iure iusto! Doloremque, molestias!</p>
@@ -131,7 +123,7 @@
           <div>
             <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
             <p>E-Mail: <i data-from="student-email"></i></p>
-            <p>Passwort: <i>********</i></p>
+            <p>Passwort: <i class="student-password">********</i></p>
           </div>
             <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
             <i class="fa fa-print"></i> Drucken
