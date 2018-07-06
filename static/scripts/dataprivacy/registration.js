@@ -1,21 +1,27 @@
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
-    let birthdateInput = document.querySelector('input[name="student-birthdate"]');
+    let birthdateInput = document.querySelector('input[name="student-age"]');
     let showFormButton = document.querySelector('#showRegistrationForm');
+    let radiou18 = document.getElementById("reg-u18");
+    let radio18 = document.getElementById("reg-18");
 
-    if(birthdateInput && showFormButton){
+    if(birthdateInput && showFormButton) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
             const baseUrl = `/administration/dataprivacy/registration`;
-
-            // TODO - parse date and validate is not working
-            selectedDate = Date.parse(birthdateInput.value);
-            var okayDate = new Date();
-            okayDate.setFullYear( okayDate.getFullYear() - 18 );
             
-            if(selectedDate > okayDate){
-                window.location.href = `${baseUrl}/byparent?student-birthdate=${birthdateInput.value}`;
+            if(radiou18.checked){
+                window.location.href = `${baseUrl}/byparent`;
             }else{
-                window.location.href = `${baseUrl}/bystudent?student-birthdate=${birthdateInput.value}`;
+                window.location.href = `${baseUrl}/bystudent`;
+            }
+        });
+        $("input[type='radio']").on("change", () => {
+            if(radio18.checked) {
+                document.getElementById("infotext-18").style.display = "block";
+                document.getElementById("infotext-u18").style.display = "none";
+            } else {
+                document.getElementById("infotext-18").style.display = "none";
+                document.getElementById("infotext-u18").style.display = "block";
             }
         });
     }
