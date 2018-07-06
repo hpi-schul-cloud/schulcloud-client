@@ -25,4 +25,4 @@ window.addEventListener('load', ()=>{
         var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
         $('.form .student-password').text(pw);
     }
-}
+});
