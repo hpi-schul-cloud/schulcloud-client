@@ -13,8 +13,9 @@
       {{#content "panels"}}
       <section data-panel="section-1">
         <h4>Schülerdaten</h4>
-        <p>Die Schul-Cloud bewahrt die Daten der Nutzer*Innen sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
-        <p>Für die Nutzung der Schul-Cloud benötigen wir folgende Angaben für ihr Kind:</p>
+        <p>Daten Ihres Kindes</p>
+        <p>Die Schul-Cloud bewahrt Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
+        <p>Für die Nutzung der Schul-Cloud benötigen wir folgende Angaben für Ihr Kind:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
               <label>Vorname: *</label>
@@ -28,7 +29,7 @@
 
         <div class="form-group">
           <label>Geburtsdatum des Schülers: *</label>
-          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required disabled/>
+          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required/>
         </div>
 
         <div class="form-group">
@@ -42,10 +43,10 @@
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <Label>Geschlecht *</Label>
             <select class="form-control form-control-lg" type="text" name="gender">
-              <option value="">Geschlecht auswählen</option>
-              <option value="male">Männlich</option>
-              <option value="female">Weiblich</option>
-              <option value="other">Anderes</option>
+              <option value="">Bitte Geschlecht auswählen</option>
+              <option value="male">männlich</option>
+              <option value="female">weiblich</option>
+              <option value="other">andere</option>
               <option value="other">keine Angabe</option>
             </select>
           </div>
@@ -57,7 +58,8 @@
 
       <section data-panel="section-2">
         <h4>Elterndaten</h4>
-        <p>Für Schüler*Innen unter 18 Jahren müssen die Eltern in die Nutzung der Schul-Cloud einwilligen.</p>
+        <p>Ihre Daten</p>
+        <p>Für Schüler unter 18 Jahren muss ein Erziehungsberechtigter in die Nutzung der Schul-Cloud einwilligen.</p>
         <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
@@ -74,16 +76,16 @@
             <label>Ihre E-Mail Adresse *</label>
             <input class="form-control" type="email" name="parent-email" required placeholder="elter@schul-cloud.org"></input>
         </div>
-        <p>Wir benötigen eine E-Mail-Adresse, damit ihre Einwilligung in die Nutzung der Schul-Cloud rechtlich gültig ist. Die Schul-Cloud gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.</p>
-        <p>Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den sie der Klassenlehrer kontaktieren kann und mit dem sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir sie, ob wir ihre E-Mail-Adresse dafür verwenden dürfen.</p>
+        <p>Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der Schul-Cloud rechtlich gültig ist. Die Schul-Cloud gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.</p>
+        <p>Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie der Klassenlehrer kontaktieren kann und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.</p>
       </section>
 
 
 
       <section data-panel="section-3">
         <h4>Einwilligung</h4>
-        <p>Die HPI Schul-Cloud bietet digitale Bildung für alle – fair, nicht profitorientiert und datenschutzkonform. Der Schutz von Schüler*Innen-Daten ist zentraler Bestandteil der Schul-Cloud.</p>
-        <p>Schüler*Innen unter 18 Jahren brauchen vor Nutzung die Einwilligung eines Erziehungsberechtigten.</p>
+        <p>Einwilligungserklärung</p>
+        <p> Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der Schul-Cloud nutzen kann:</p>
         <p>Ich, 
           <b data-from="parent-firstname"></b>
           <b data-from="parent-secondname"></b>
@@ -96,7 +98,7 @@
             <span>Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.</span>
         </label>
 
-        <p>Um die Nutzung der Schul-Cloud zu ermöglichen, ist die Verarbeitung von personenbezogenen Daten der Nutzer*innen erforderlich. Dies erfolgt ausschließlich entsprechend der hohen gesetzlichen Datensicherheits-Anforderungen. Das HPI verarbeitet nur die Daten, deren Erhebung unbedingt erforderlich ist und sorgt dafür, dass sie nicht in unbefugte Hände geraten. </p>
+        <p>Um die Nutzung der Schul-Cloud zu ermöglichen, ist die Verarbeitung von personenbezogenen Daten der Nutzer erforderlich. Dies erfolgt ausschließlich entsprechend der hohen gesetzlichen Datensicherheits-Anforderungen. Das HPI verarbeitet nur die Daten, deren Erhebung unbedingt erforderlich ist und sorgt dafür, dass sie nicht in unbefugte Hände geraten. </p>
         <label>
             <input name="Forschung" type="checkbox" value="true" required/>
             <span>Ich habe die <a href="#">Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
@@ -122,6 +124,7 @@
 
       <section data-panel="section-4" class="submit-page">
         <h4>Abschluss</h4>
+        <p>Fast geschafft!</p>
         <p>Mit folgenden Daten kann sich
           <b data-from="student-firstname"></b>
           <b data-from="student-secondname"></b> 
@@ -142,27 +145,17 @@
             <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
             Login-Daten per E-Mail an angegebene Adressen senden
         </label>
-        <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler*innen ab 14 Jahren müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
+        <p>
+Beim ersten Login muss ein neues Passwort gewählt werden. Schüler ab 14 Jahren müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
       </section>
 
 
 
+Vielen Dank für die Registrierung in der Schul-Cloud
       <section data-panel="section-5">
         <h4>Dankeschön</h4>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil, sunt ut officiis deleniti molestias eos id quod recusandae laborum a nam ratione veniam, totam repellendus saepe, iure iusto! Doloremque, molestias!</p>
-
-        <p>Ihr Kind kann sich nun in der Schul-Cloud einloggen.</p>
-
-        <div class="print">
-          <div>
-            <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
-            <p>E-Mail: <i data-from="student-email"></i></p>
-            <p>Passwort: <i class="student-password">********</i></p>
-          </div>
-            <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-            <i class="fa fa-print"></i> Drucken
-          </div>
-        </div>
+        <p>Vielen Dank für die Registrierung in der Schul-Cloud</p>
+        <p>Ihr Kind kann sich nun einloggen:</p>
 
         <a class="btn btn-primary" href="//schul-cloud.org/login">Login öffnen</a>
       </section>
