@@ -124,7 +124,9 @@ $(document).ready(function () {
     // Initialize bootstrap-select
     $('select').not('.no-bootstrap').chosen({
         width: "100%",
-        "disable_search": true
+        "disable_search": !$(this).hasClass("search-enabled")
+    }).change(function() {
+        this.dispatchEvent(new Event('input'));
     });
 
     // collapse toggle
@@ -173,7 +175,7 @@ $(document).ready(function () {
         }
     }
 
-    $('a[data-method="delete-material"]').on('click', function(e) {
+    $('a[data-method="DELETE"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);

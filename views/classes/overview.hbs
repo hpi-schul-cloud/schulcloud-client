@@ -1,9 +1,5 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/classes.js" type="text/javascript" defer></script>
-    {{/content}}
-
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/classes/classes.css"/>
     {{/content}}
@@ -24,15 +20,15 @@
                                             {{#userHasPermission "COURSE_EDIT"}}
                                                 <div class="row">
                                                     <a class="btn-edit"
-                                                       href="/classes/{{../_id}}"
+                                                       href="/classes/{{../_id}}/edit"
                                                        target="_blank"
-                                                       alt="Löschen der Klasse: '{{../name}}'.">
+                                                       alt="Bearbeiten der Klasse: '{{../name}}'.">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                     <a
                                                        href="/classes/{{../_id}}"
                                                        target="_blank"
-                                                       data-method="delete-material"
+                                                       data-method="DELETE"
                                                        data-name="{{../name}}"
                                                        alt="Löschen der Klasse: '{{../name}}'.">
                                                         <i class="fa fa-trash-o"></i>
@@ -55,7 +51,7 @@
 
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
-                        <button class="btn btn-add btn-primary">Klasse anlegen</button>
+                        <a href="create" class="btn btn-add btn-primary">Klasse hinzufügen</a>
                     </div>
                 {{/userHasPermission}}
             </div>

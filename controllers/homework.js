@@ -47,7 +47,7 @@ const getActions = (item, path) => {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
-            method: 'delete-material',
+            method: 'DELETE',
             title: 'löschen'
         }
     ];

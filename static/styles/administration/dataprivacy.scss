@@ -15,3 +15,18 @@
         }
     }
 }
+
+.recap{
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    background-color: #eee;
+    padding: 8px;
+    margin: 8px 0;
+    font-family: monospace;
+    p{
+        margin-bottom: 8px;
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+}

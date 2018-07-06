@@ -2,16 +2,6 @@
 
 /* HELPER */
 
-if (!NodeList.prototype.addEventListener) {
-    NodeList.prototype.addEventListener = function(events, callback, useCapture) {
-        this.forEach((entry)=>{
-            events.split(" ").forEach((event)=>{
-                entry.addEventListener(event, callback, useCapture);
-            });
-        });
-        return this;
-    };
-}
 if (!NodeList.prototype.indexOf) {
     NodeList.prototype.indexOf = function(node) {
         return Array.from(this).indexOf(node);
@@ -171,20 +161,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector('.form').addEventListener("submit", submitForm);
 });
 
-
-/* INPUT LINKING */
-function linkInputs(event){
-    document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`).forEach((changeTarget)=>{
-        if(changeTarget.tagName == "INPUT"){
-            changeTarget.value = this.value;
-        }else{
-            changeTarget.innerHTML = this.value;
-        }
-    });
-}
-window.addEventListener('DOMContentLoaded', ()=>{
-    document.querySelectorAll(".linked").addEventListener("change input keyup paste click", linkInputs);
-});
 
 /* DATE PICKER */
 function triggerInputEvent(currentDateTime){
