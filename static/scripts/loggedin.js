@@ -280,7 +280,6 @@ if (!NodeList.prototype.addEventListener) {
 function linkInputs(event){
     document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`).forEach((changeTarget)=>{
         let value;
-        console.log(this.tagName)
         if(this.tagName == "INPUT"){
             value = this.value;
         }else if(this.tagName == "SELECT"){

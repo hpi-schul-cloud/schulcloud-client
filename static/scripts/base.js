@@ -124,7 +124,7 @@ $(document).ready(function () {
     // Initialize bootstrap-select
     $('select').not('.no-bootstrap').chosen({
         width: "100%",
-        "disable_search": !$(this).hasClass("search-enabled")
+        "disable_search": true //!$(this).hasClass("search-enabled") // not working
     }).change(function() {
         this.dispatchEvent(new Event('input'));
     });

@@ -1,6 +1,6 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
-<p>Füge eine vom Schul-Administrator vorangelegte Klasse zu deinen Klassen hinzu</p>
+<p>Füge eine vom Schul-Administrator vorangelegte Klasse zu deinen Klassen hinzu:</p>
 
 <div class="form-group">
     <label>im Schuljahr *</label>
@@ -13,11 +13,12 @@
         {{/each}}
     </select>
 </div>
-<section class="option-1">
+<section id="existingclass">
     <div class="form-group">
         <label>vorangelegte Klasse wählen</label>
 
-        <select name="classid" data-placeholder="Schuljahr auswählen" {{#unless classes}} disabled{{/unless}}>
+        <select name="classid" data-placeholder="Schuljahr auswählen" required {{#unless classes}} disabled{{/unless}}>
+            <option disabled selected value>keine Auswahl</option>
             {{#each classes}}
                 <option value="{{this._id}}">
                     {{this.name}}
@@ -29,13 +30,14 @@
             {{/each}}
         </select>
     </div>
-    <p>oder <a href="#option-2" class="createnew">erstelle eine neue Klasse</a>.</p>
+    <p>oder <a href="#" class="createnew">erstelle eine neue Klasse</a>.</p>
 </section>
-<section id="option-2">
+<section id="createnew" {{#if classes}}class="hidden"{{/if}}>
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
-            <label>Jahrgangsstufe</label>
-            <select class="linked search-enabled" name="grade" data-placeholder="Jahrgangsstufe wählen">
+            <label>Jahrgangsstufe *</label>
+            <select class="linked" name="grade" data-placeholder="Jahrgangsstufe wählen" required disabled>
+                <option disabled selected value>keine Auswahl</option>
                 {{#times 13}}
                     <option value="{{add this 1}}">
                         {{add this 1}}
@@ -45,28 +47,36 @@
         </div>
         <div class="form-group col-sm-6 col-xs-12">
             <label>Klassenbezeichnung</label>
-            <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc."/>
+            <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc." required/>
         </div>
     </div>
-    <p>Deine Schule passt nicht ins klassische Schema? <a href="#option-3" class="createcustom">Mehr optionen</a>.</p>
-</section>
-<section id="option-3">
-    <p>Du kannst Jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
-    <div class="form-group">
-        <label>Klassenbezeichnung</label>
-        <input class="form-control linked" name="classsuffix" type="text" placeholder="z.B. Froschklasse 3-4"/>
-    </div>
-    <label>
-        <input name="Forschung" type="checkbox" value="true" checked/>
-        <span>Klassenzuordnung beibehalten</span>
-    </label>  
-</section>
-<div class="recap">
-    <p>Klassenname: <span class="class-grade" data-from="grade"></span><span data-from="classsuffix"></span></p>
-    <p>Schuljahr: <span data-from="schoolyear"/></p>
-</div>
+    <p>Deine Schule passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.</p>
+    <section id="createcustom" class="hidden">
+        <p>Du kannst Jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
+        <div class="form-group">
+            <label>Klassenbezeichnung</label>
+            <input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4" disabled/>
+        </div>
+        <label>
+            <input name="keepyear" type="checkbox" value="true" checked disabled/>
+            <span>Klassenzuordnung beibehalten</span>
+        </label>  
+    </section>
 
-<button class="btn btn-primary w-100 mb-1" type="submit">Klasse hinzufügen</button>
+    <div class="recap">
+        <p>Klassenname: 
+            <span class="class-default">
+                <span data-from="grade"></span><span data-from="classsuffix"></span>
+            </span>
+            <span class="class-custom hidden">
+                <span data-from="classcustom"></span>
+            </span>
+        </p>
+        <p>Schuljahr: <span data-from="schoolyear"/></p>
+    </div>
+</section>
+
+<button class="btn btn-primary w-100 mb-1" type="submit" disabled>Klasse hinzufügen</button>
 <p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
 
 <a href="/classes" class="btn btn-secondary mt-2 w-100">Abbrechen</a>
