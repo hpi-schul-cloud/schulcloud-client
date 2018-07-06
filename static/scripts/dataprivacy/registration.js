@@ -20,3 +20,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
 });
+window.addEventListener('load', ()=>{
+    if(document.querySelector('.form .student-password')) {
+        // generate password if password field present
+        var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
+        var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
+        $('.form .student-password').text(pw);
+    }
+}
