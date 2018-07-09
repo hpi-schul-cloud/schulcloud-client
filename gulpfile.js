@@ -8,6 +8,7 @@ const cleancss = require('clean-css')
 const map = require('vinyl-map')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
+const webpackConfig = require('./webpack.config');
 const named = require('vinyl-named')
 const imagemin = require('gulp-imagemin')
 const babel = require('gulp-babel')
@@ -110,47 +111,16 @@ gulp.task('scripts', () => {
     beginPipe(nonBaseScripts)
         .pipe(named(
             file => {
-                // Transform path "/static/scripts/schics/schicEdit.js" -> "schics/schicEdit"
+                // As a preparation for webpack stream: Transform nonBaseScripts paths
+                // e.g. "/static/scripts/schics/schicEdit.js" -> "schics/schicEdit"
                 const initialPath = file.history[0].split("scripts")[1];
                 const concretePath = initialPath.split(".")[0];
                 const fileName = concretePath.split("").slice(1).join("");
                 
-                return `${fileName}`;
+                return fileName;
             }
         ))
-        .pipe(webpackStream({
-            mode: 'production',
-            module: {
-                rules: [{
-                    test: /\.(js|jsx)$/,
-                    exclude: /(node_modules)/,
-                    loader: 'babel-loader',
-                    query: {
-                        presets: [["es2015"]],
-                        plugins: ["transform-react-jsx"]
-                    },
-                }]
-            },
-            optimization: {
-                splitChunks: {
-                    // chunks: "all"
-                    cacheGroups: {
-                        commons: {
-                          test: /[\\/]node_modules[\\/]/,
-                          name: 'vendors',
-                          chunks: 'all'
-                        }
-                      }
-                }
-            },
-            externals: {
-                "jquery": "jQuery",
-                "jquery-mousewheel": "jQuery-mousewheel", 
-            },
-            output: {
-                path: '/'
-            }
-        }, webpack))
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(optimizejs())
         .pipe(uglify())
         .pipe(gulp.dest(`./build/${themeName()}/scripts`))

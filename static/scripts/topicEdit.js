@@ -1,4 +1,6 @@
-const {SortableContainer, SortableElement, SortableHandle, arrayMove} = window.SortableHOC;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
