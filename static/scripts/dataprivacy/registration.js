@@ -19,12 +19,18 @@ window.addEventListener('DOMContentLoaded', ()=>{
             if(radio18.checked) {
                 document.getElementById("infotext-18").style.display = "block";
                 document.getElementById("infotext-u18").style.display = "none";
+                document.getElementById("showRegistrationForm").disabled = false;
             } else {
                 document.getElementById("infotext-18").style.display = "none";
                 document.getElementById("infotext-u18").style.display = "block";
+                document.getElementById("showRegistrationForm").disabled = false;
             }
         });
     }
+    
+    document.querySelector(".pincorrect").addEventListener("click", ()=> {
+        document.getElementById("userdata-summary").style.display = "block";
+    });
 });
 window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
