@@ -61,7 +61,8 @@
     "showdown": "^1.7.1",
     "string-strip-html": "^3.2.0",
     "string_decoder": "^1.0.1",
-    "truncate-html": "^1.0.0",
+    "truncate-html": "^0.1.4",
+    "vue": "^2.5.16",
     "winston": "^3.0.0"
   },
   "devDependencies": {
