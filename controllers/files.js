@@ -140,6 +140,7 @@ const FileGetter = (req, res, next) => {
         directories = directories.map(dir => {
             const targetUrl = pathUtils.join(currentDir, dir.name);
             dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+            dir.originalPath = path;
             dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
@@ -322,7 +323,7 @@ router.get('/file', function (req, res, next) {
 });
 
 // move file
-router.patch('/file/:id', function (req, res, next) {
+router.post('/file/:id/move', function (req, res, next) {
     api(req).patch('/fileStorage/' + req.params.id, {
         json: {
             fileName: req.body.fileName,
@@ -335,8 +336,14 @@ router.patch('/file/:id', function (req, res, next) {
             message: 'Verschieben der Datei war erfolgreich!'
         };
         res.sendStatus(200);
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
+    }).catch(e => {
+        req.session.notification = {
+            type: 'danger',
+            message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits eine Datei mit diesem Namen im Zielordner!'
+                : e.error.message
+        };
+        res.send(e);
     });
 });
 
@@ -654,6 +661,56 @@ router.get('/fileModel/:id/proxy', function (req, res, next) {
         // redirects to real file getter
         res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
     });
+});
+
+router.post('/fileModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: 'Umbenennen der Datei war erfolgreich!'
+            };
+
+            res.redirect(req.header('Referer'));
+        })
+        .catch(e => {
+            req.session.notification = {
+                type: 'danger',
+                message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!'
+                : e.error.message
+            };
+
+            res.redirect(req.header('Referer'));
+        });
+});
+
+router.post('/directoryModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/directories/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: 'Umbenennen des Ordners war erfolgreich!'
+            };
+
+            res.redirect(req.header('Referer'));
+        })
+        .catch(e => {
+            req.session.notification = {
+                type: 'danger',
+                message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!'
+                : e.error.message
+            };
+
+            res.redirect(req.header('Referer'));
+        });
 });
 
 
