@@ -174,6 +174,7 @@ router.get('/', function(req, res, next) {
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
+            course.memberAmount = course.userIds.length;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
@@ -188,12 +189,12 @@ router.get('/', function(req, res, next) {
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
+            course.memberAmount = course.userIds.length;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
-            course.memberAmount = course.userIds.length;
 
             return course;
         });
@@ -256,7 +257,7 @@ router.get('/:courseId/json', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
-                $populate: ['ltiToolIds', 'userIds']
+                $populate: ['ltiToolIds']
             }
         }),
         api(req).get('/lessons/', {
@@ -265,6 +266,16 @@ router.get('/:courseId/json', function(req, res, next) {
             }
         })
     ]).then(([course, lessons]) => res.json({ course, lessons }));
+});
+
+router.get('/:courseId/usersJson', function(req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['userIds']
+            }
+        })
+    ]).then(([course]) => res.json({ course }));
 });
 
 router.get('/:courseId', function(req, res, next) {
