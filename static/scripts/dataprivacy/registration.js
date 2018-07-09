@@ -28,6 +28,17 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
+    // email validation js trigger
+    $('input[type=email]').blur(function(event) {
+        event.target.checkValidity();
+    }).bind('invalid', function(event) {
+        if($(event.target).attr("pattern")) {
+            $(event.target).parent().find(".mailinfo").html("Bitte eine gültige E-Mail-Adresse mit Pattern " + $(event.target).attr("pattern") +" eingeben.");
+        }
+        setTimeout(function() { $(event.target).focus();}, 50);
+    });
+    
+    // temp pin workaround
     document.querySelector(".pincorrect").addEventListener("click", ()=> {
         document.getElementById("userdata-summary").style.display = "block";
     });
