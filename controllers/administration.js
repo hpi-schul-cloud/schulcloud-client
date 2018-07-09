@@ -1066,7 +1066,23 @@ router.post('/dataprivacy/registration/byparent', function (req, res, next) {
 
 });
 router.post('/dataprivacy/registration/bystudent/submit', function (req, res, next) {
-    let a = res;
+    let user = {
+        firstName: req.body["student-firstname"],
+        lastName: req.body["student-secondname"],
+        email: req.body["student-email"],
+        schoolId: "0000d186816abba584714c5f", //how to get the schoolid/
+        roles: ["0000d186816abba584714c99"] //how to define roles?
+    }
+
+    return api(req).post('/users/', {
+        json: user
+    })
+        .then(newUser => {
+            return api(req).post('/consents/', {
+                json: {userId: newUser._id}
+            })
+        });
+        //sendMailHandler(newUser, req);
 });
 
 module.exports = router;
