@@ -366,8 +366,8 @@ $(document).ready(function() {
         let fileOldPath = modal.find('.modal-form').find("input[name='filePath']").val();
 
         $.ajax({
-            url: '/files/file/' + fileId,
-            type: 'PATCH',
+            url: '/files/file/' + fileId + '/move/',
+            type: 'POST',
             data: {
                 fileName: fileName,
                 oldPath: fileOldPath,
