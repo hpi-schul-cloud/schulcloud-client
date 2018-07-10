@@ -102,7 +102,6 @@ function isSectionValid(sectionIndex){
 }
 
 function submitForm(event){
-    // TODO - parse date and validate
     if (this.checkValidity()) {
         event.preventDefault();
         const formSubmitButton = document.querySelector('#nextSection');
@@ -113,25 +112,22 @@ function submitForm(event){
             data: $(this).serialize(),
             context: this
         }).done(function(response){
-            // form submitted
             document.querySelector('.form').classList.add("form-submitted");
-            // enable next Button again
             formSubmitButton.disabled = false;
             // go to next page
             setSelectionByIndex(getSelectionIndex()+1, event);
         })
         .fail(function(request){
-            // submission failed
-            if(request.getResponseHeader("error-message")){
-                $.showNotification(request.getResponseHeader("error-message"), "danger");
+            if(request.responseJSON.error){
+                let errMsg = request.responseJSON.error.message ? request.responseJSON.error.message : request.responseJSON.error.name;
+                $.showNotification(errMsg, "danger", 6000);
             }else{
-                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger");
+                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger", 6000);
             }
-            // enable next Button again
             formSubmitButton.disabled = false;
         });
     }else{
-        $.showNotification("Formular ungültig, bitte füllen Sie alle Felder korrekt aus.", "danger");
+        $.showNotification("Formular ungültig, bitte füllen Sie alle Felder korrekt aus.", "danger", 6000);
     }
 }
 

@@ -1067,26 +1067,50 @@ router.get('/dataprivacy/registration/bystudent', function (req, res, next) {
         title: 'Registrierung - Schüler*'
     });
 });
-router.post('/dataprivacy/registration/byparent', function (req, res, next) {
-
-});
-router.post('/dataprivacy/registration/bystudent/submit', function (req, res, next) {
+/* versuch: nur 1 route für registration submits für eltern und ü18
+router.post('/dataprivacy/registration/byparent/submit', function (req, res, next) {
     let user = {
         firstName: req.body["student-firstname"],
         lastName: req.body["student-secondname"],
         email: req.body["student-email"],
-        schoolId: "0000d186816abba584714c5f", //how to get the schoolid/
-        roles: ["0000d186816abba584714c99"] //how to define roles?
-    }
-
+        schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
+        roles: ["0000d186816abba584714c99"] // role=student
+    };
+    
     return api(req).post('/users/', {
         json: user
     }).then(newUser => {
         return api(req).post('/consents/', {
             json: {userId: newUser._id}
-        });
-    });
-    //sendEmail(Katrin)(newUser, req);
+        }).then(_ => {
+            //if (Daten per Mail zuschicken)
+            //  sendEmail(Katrin)(newUser, req);
+            res.sendStatus(200);
+        }).catch(err => res.status(500).send(err));
+    }).catch(err => res.status(500).send(err));
+});
+*/
+router.post('/dataprivacy/registration/submit', function (req, res, next) {
+    let user = {
+        firstName: req.body["student-firstname"],
+        lastName: req.body["student-secondname"],
+        email: req.body["student-email"],
+        gender: req.body["gender"],
+        schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
+        roles: ["0000d186816abba584714c99"] // role=student
+    }
+    
+    return api(req).post('/users/', {
+        json: user
+    }).then(newUser => {
+        return api(req).post('/consents/', {
+            json: {userId: newUser._id}
+        }).then(_ => {
+            //if (Daten per Mail zuschicken)
+            //  sendEmail(Katrin)(newUser, req);
+            res.sendStatus(200);
+        }).catch(err => res.status(500).send(err));
+    }).catch(err => res.status(500).send(err));
 });
 
 module.exports = router;
