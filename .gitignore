@@ -75,12 +75,11 @@ typings/
 # IntelliJ IDEA configuration files
 \.idea/
 
-<<<<<<< HEAD
+
 # Nightwatch
 screenshots/
 reports/
 selenium-debug.log
-=======
+
 # VSCode Configuration file
 .vscode
->>>>>>> Ignore vscode files
