@@ -193,6 +193,8 @@ const copyCourseHandler = (req, res, next) => {
             course.teacherIds.push(res.locals.currentUser);
         }
 
+        course.name = course.name + ' - Kopie';
+
         res.render('courses/edit-course', {
             action,
             method,
@@ -200,10 +202,10 @@ const copyCourseHandler = (req, res, next) => {
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
             closeLabel: 'Abbrechen',
             course,
-            classes: markSelected(classes, _.map(course.classIds, '_id')),
+            classes: classes,
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
-            substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
-            students: markSelected(students, _.map(course.userIds, '_id'))
+            substitutions: substitutions,
+            students: students
         });
     });
 };
@@ -334,7 +336,7 @@ router.post('/copy/:courseId', function(req, res, next) {
     api(req).post('/courses/copy/', {
         json: req.body // TODO: sanitize
     }).then(course => {
-        res.redirect('/courses');
+        res.redirect('/courses/' + course._id);
     }).catch(err => {
         res.sendStatus(500);
     });
