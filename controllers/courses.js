@@ -555,59 +555,11 @@ router.post('/:courseId/importTopic', function(req, res, next) {
             res.redirect(req.header('Referer'));
         }
 
-        // copy topic to course
-        let originalTopic = lessons.data[0];
-        let originalTopicId = originalTopic._id;
-        let originalSchoolId = originalTopic.courseId.schoolId;
-        let originalCourseId = JSON.parse(JSON.stringify(originalTopic.courseId._id)); // copy value, not reference
-        originalTopic.originalTopic = JSON.parse(JSON.stringify(originalTopic._id)); // copy value, not reference
-        delete originalTopic._id;
-        delete originalTopic.shareToken;
-        originalTopic.courseId = req.params.courseId;
-        let fileChangelog = [];
-        
-        // we need to get all files of that one lesson, we need multiple steps to do this
-        return api(req).post('/lessons/', { json: originalTopic }).then(topic => {
-
-            // get all files of that lessons course
-            return api(req).get('/lessons/' + originalTopicId + '/files', { qs: { shareToken: shareToken} }).then(lessonFiles => {
-                return Promise.all(lessonFiles.map(f => {
-
-                    return api(req).patch('/files/' + f._id, { json: f }).then(_ => {
-
-                        // copy file
-                        let fileData = {
-                            fileName: f.name,
-                            oldPath: f.path,
-                            newPath: `courses/${topic.courseId}/`,
-                            externalSchoolId: originalSchoolId
-                        };
-
-                        return api(req).post('/fileStorage/copy/', { json: fileData }).then(newFile => {
-                            fileChangelog.push({"old": `${originalCourseId}/${f.name}`, "new": `${topic.courseId}/${newFile.name}` });
-                        });
-                    });
-                })).then(_ => {
-                    // rewrite courseid in text to fit new file paths and patch db afterwards
-                    topic.contents.map(content => {
-                        if (content.component === "text" && content.content.text) {
-                            fileChangelog.map(change => {
-                                content.content.text = content.content.text.replace(new RegExp(change.old, "g"), change.new);
-                            });
-                        }
-                    });
-
-                    return api(req).patch('/lessons/'+topic._id, { json: topic }).then(_ => {
-                        req.session.notification = {
-                            type: 'success',
-                            message: `Thema '${topic.name}' wurde erfolgreich zum Kurs hinzugefügt.`
-                        };
-    
-                        res.redirect(req.header('Referer'));
-                    });
-                });
+        api(req).post("/lessons/copy", { json: {courseId: lessons.data[0].courseId._id, lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
+            .then(_ => {
+                res.redirect(req.header('Referer'));
             });
-        });
+
     }).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
