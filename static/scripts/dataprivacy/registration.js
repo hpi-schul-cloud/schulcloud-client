@@ -28,14 +28,16 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
-    // email validation js trigger
-    $('input[type=email]').blur(function(event) {
-        event.target.checkValidity();
-    }).bind('invalid', function(event) {
-        if($(event.target).attr("pattern")) {
-            $(event.target).parent().find(".mailinfo").html("Bitte eine gültige E-Mail-Adresse mit Pattern " + $(event.target).attr("pattern") +" eingeben.");
+    // manual form validity checks: https://stackoverflow.com/a/48267035
+    $('#nextSection').click(function(event) {
+        let form = document.querySelector(".registration-form input[name=student-email]");
+        console.log(form);
+        if (!form.checkValidity()) {
+            const tmpSubmit = document.createElement('button');
+            form.appendChild(tmpSubmit);
+            tmpSubmit.click();
+            form.removeChild(tmpSubmit);
         }
-        setTimeout(function() { $(event.target).focus();}, 50);
     });
     
     // temp pin workaround

@@ -1081,13 +1081,12 @@ router.post('/dataprivacy/registration/bystudent/submit', function (req, res, ne
 
     return api(req).post('/users/', {
         json: user
-    })
-        .then(newUser => {
-            return api(req).post('/consents/', {
-                json: {userId: newUser._id}
-            })
+    }).then(newUser => {
+        return api(req).post('/consents/', {
+            json: {userId: newUser._id}
         });
-        //sendMailHandler(newUser, req);
+    });
+    //sendEmail(Katrin)(newUser, req);
 });
 
 module.exports = router;

@@ -223,11 +223,17 @@ window.addEventListener('DOMContentLoaded', ()=>{
         }catch(error){
             console.error(`Element: 'input[name="${key}"]' not found`);
         }
-    };
+    }
 });
 
 /* OTHER STUFF */
 window.addEventListener('load', ()=>{
     // INSERT CUSTOM SCRIPTS HERE
-    
+    // show email patterns in UI
+    document.querySelectorAll('input[type=email]').forEach((input)=>{
+        if(input.getAttribute("pattern")) {
+            let readablePattern = input.getAttribute("data-pattern") ? input.getAttribute("data-pattern") : input.getAttribute("pattern");
+            $(input).siblings("label").html($(input).siblings("label").html() + " Format vorgegeben: " + readablePattern);
+        }
+    });
 });
