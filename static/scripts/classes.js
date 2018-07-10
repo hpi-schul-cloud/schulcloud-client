@@ -10,6 +10,10 @@ function toggleDisabled(nodename, value){
     }
 }
 function toggleCreateClassSection(event){
+    let newSection = document.getElementById("createnew")
+    if(!newSection.classList.contains("hidden") && !document.getElementById("createcustom").classList.contains("hidden")){
+        toggleCustomClassSection(event);
+    }
     event.preventDefault();
     document.getElementById("createnew").classList.toggle("hidden");
     toggleDisabled('select[name="classid"]');
@@ -29,7 +33,7 @@ function toggleCustomClassSection(event){
     toggleDisabled('input[name="keepyear"]');
     validateForm();
 }
-function validateForm(){
+function validateForm(event){
     function isFormValid(node){
         if (!NodeList.prototype.some) {
             NodeList.prototype.some = function(fct) {
@@ -40,12 +44,12 @@ function validateForm(){
             return !input.checkValidity();
         });
     }
+    console.log(event);
     const submitButton = document.querySelector('button[type="submit"]');
     submitButton.disabled = !isFormValid(document.querySelector(".create-form"));
 }
 window.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector(".createnew").addEventListener("click", toggleCreateClassSection);
     document.querySelector(".createcustom").addEventListener("click", toggleCustomClassSection);
-    //document.querySelector("button[type=submit]").addEventListener("click", validateBeforeSubmit);
     document.querySelectorAll(".create-form input, .create-form select").addEventListener("change input keyup paste click", validateForm);
 });

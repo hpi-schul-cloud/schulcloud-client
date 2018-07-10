@@ -101,6 +101,9 @@ router.get('/create', function (req, res, next) {
 });
 
 router.post('/create', function (req, res, next) {
+    if(!req.body.keepyear){
+        delete req.body.schoolyear;
+    }
     api(req).post('/classes/', {
         // TODO: sanitize
         json: req.body
