@@ -555,7 +555,7 @@ router.post('/:courseId/importTopic', function(req, res, next) {
             res.redirect(req.header('Referer'));
         }
 
-        api(req).post("/lessons/copy", { json: {courseId: lessons.data[0].courseId._id, lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
+        api(req).post("/lessons/copy", { json: {lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
             .then(_ => {
                 res.redirect(req.header('Referer'));
             });
