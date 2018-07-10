@@ -75,7 +75,6 @@ typings/
 # IntelliJ IDEA configuration files
 \.idea/
 
-
 # Nightwatch
 screenshots/
 reports/
