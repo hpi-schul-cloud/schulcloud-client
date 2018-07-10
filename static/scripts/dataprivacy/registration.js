@@ -31,7 +31,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     // manual form validity checks: https://stackoverflow.com/a/48267035
     $('#nextSection').click(function(event) {
         let form = document.querySelector(".registration-form input[name=student-email]");
-        console.log(form);
+        
         if (!form.checkValidity()) {
             const tmpSubmit = document.createElement('button');
             form.appendChild(tmpSubmit);
@@ -39,10 +39,21 @@ window.addEventListener('DOMContentLoaded', ()=>{
             form.removeChild(tmpSubmit);
         }
     });
-    
+
     // temp pin workaround
     document.querySelector(".pincorrect").addEventListener("click", ()=> {
         document.getElementById("userdata-summary").style.display = "block";
+    });
+    
+    // basic pin prototype
+    document.getElementById('submit-pin').addEventListener('click', (event) => {
+        let pinInput = document.querySelector('input[name="email-pin"]');
+        if(pinInput.checkValidity()){
+            console.log("submitting pin:", pinInput.value)
+        }else{
+            pinInput.parentElement.parentElement.classList.add("show-invalid")
+        }
+        // TODO AJAX CHECK HERE
     });
 });
 window.addEventListener('load', ()=>{

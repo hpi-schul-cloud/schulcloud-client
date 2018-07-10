@@ -3,7 +3,7 @@
 
 .panels{
     /* insert custom css for the forms here */
-    .showInvalid{
+    .show-invalid{
         input:invalid:not([type="checkbox"]):not([type="radio"]){
             box-shadow: 0 0 5px #f55;
         }

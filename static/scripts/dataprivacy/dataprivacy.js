@@ -28,7 +28,7 @@ function getSelectionIndex(){
     return radioButtons.indexOf(radioButtons.filter((node)=>{return node.checked;})[0]) + 1;
 }
 function showInvalid(sectionNr){
-    document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add("showInvalid");
+    document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add("show-invalid");
     document.querySelector(".content-wrapper").scrollTo(0,0);
 }
 function getSubmitPageIndex(){
