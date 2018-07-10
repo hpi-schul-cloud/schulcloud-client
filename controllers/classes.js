@@ -68,14 +68,8 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/create', function (req, res, next) {
-    api(req).get('/classes/'/*, {
-        qs: {
-            $or: [
-                {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
-            ]
-        }
-    }*/ ).then(classes => {
+    api(req).get('/classes/')
+    .then(classes => {
         const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
         const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
 
@@ -93,6 +87,33 @@ router.get('/create', function (req, res, next) {
                 title: 'Klasse hinzufügen',
                 schoolyears: ["2018/2019", "2019/2020"],
                 classes: (classes.data.length > 0)?classes.data:undefined,
+                teachers,
+                students
+            });
+        });
+    });
+});
+
+router.get('/:classId/edit', function (req, res, next) {
+    api(req).get('/classes/' + req.params.classId)
+    .then(classes => {
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+
+        Promise.all([
+            teachersPromise,
+            studentsPromise
+        ]).then(([teachers, students]) => {
+
+            // preselect current teacher when creating new class
+            teachers.forEach(t => {
+                if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
+            });
+
+            res.render('classes/edit', {
+                title: 'Klasse bearbeiten',
+                schoolyears: ["2018/2019", "2019/2020"],
+                classes,
                 teachers,
                 students
             });

@@ -44,12 +44,16 @@ function validateForm(event){
             return !input.checkValidity();
         });
     }
-    console.log(event);
     const submitButton = document.querySelector('button[type="submit"]');
     submitButton.disabled = !isFormValid(document.querySelector(".create-form"));
 }
 window.addEventListener('DOMContentLoaded', ()=>{
-    document.querySelector(".createnew").addEventListener("click", toggleCreateClassSection);
-    document.querySelector(".createcustom").addEventListener("click", toggleCustomClassSection);
-    document.querySelectorAll(".create-form input, .create-form select").addEventListener("change input keyup paste click", validateForm);
+    if(document.querySelector('.section-classes-create')){
+        document.querySelector(".createnew").addEventListener("click", toggleCreateClassSection);
+        document.querySelector(".createcustom").addEventListener("click", toggleCustomClassSection);
+        document.querySelectorAll(".create-form input, .create-form select").addEventListener("change input keyup paste click", validateForm);
+    }
+    if(document.querySelector('.section-classes-edit')){
+        // ...
+    }
 });
