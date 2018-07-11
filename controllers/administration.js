@@ -1047,6 +1047,11 @@ router.get('/dataprivacy/firstLogin', function (req, res, next) {
         title: 'Willkommen - Erster Login'
     });
 });
+router.get('/dataprivacy/firstLogin14_17', function (req, res, next) {
+    res.render('administration/dataprivacy/firstLogin14_17', {
+        title: 'Willkommen - Erster Login (14 bis 17 Jahre)'
+    });
+});
 router.get('/dataprivacy/registration', function (req, res, next) {
     res.render('administration/dataprivacy/registration', {
         title: 'Herzlich Willkommen bei der Registrierung'
