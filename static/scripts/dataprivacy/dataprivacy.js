@@ -32,7 +32,7 @@ function showInvalid(sectionNr){
     document.querySelector(".content-wrapper").scrollTo(0,0);
 }
 function getSubmitPageIndex(){
-    return document.querySelectorAll('form .panels section').indexOf(document.querySelector(`section.submit-page`)) + 1
+    return document.querySelectorAll('form .panels section').indexOf(document.querySelector(`section.submit-page`)) + 1;
 }
 function isSubmitted(){
     return document.querySelector(".form").classList.contains('form-submitted');
@@ -47,26 +47,24 @@ function setSelectionByIndex(index, event){
     function findLatestInvalid(to){
         let i = 1;
         for (; i <= to; i++) {
-            if(!isSectionValid(i)){
+            if(!isSectionValid(i))
                 return i;
-            }
         }
         return to;
     }
     const submitPageIndex = getSubmitPageIndex();
     const submitted = isSubmitted();
-    if(submitted){
-        if(index > submitPageIndex){
-            setSelection(index)
-        }else{ //prevent resubmit -> pages before unreachable
-            setSelection(submitPageIndex + 1)
-        }
-    }else{
-        index = Math.min(index, submitPageIndex); //prevent skip of submit
-        const latestInvalid = findLatestInvalid(index)
-        if(latestInvalid >= index){
+    if(submitted) {
+        if(index > submitPageIndex)
             setSelection(index);
-        }else{
+        else //prevent resubmit -> pages before unreachable
+            setSelection(submitPageIndex + 1);
+    }else {
+        index = Math.min(index, submitPageIndex); //prevent skip of submit
+        const latestInvalid = findLatestInvalid(index);
+        if(latestInvalid >= index)
+            setSelection(index);
+        else {
             showInvalid(latestInvalid);
             setSelection(latestInvalid);
         }
@@ -80,12 +78,12 @@ function updateButton(selectedIndex){
         document.querySelector('#nextSection').innerHTML = document.querySelector('#nextSection').dataset.nextLabel;
     }
 
-    if(selectedIndex == getMaxSelectionIndex()){
+    if(selectedIndex === getMaxSelectionIndex()){
         document.querySelector('.form #nextSection').setAttribute("disabled","disabled");
     }else{
         document.querySelector('.form #nextSection').removeAttribute("disabled");
     }
-    if(selectedIndex == 1 || selectedIndex == getSubmitPageIndex()+1){
+    if(selectedIndex === 1 || selectedIndex === getSubmitPageIndex()+1){
         document.querySelector('.form #prevSection').setAttribute("disabled","disabled");
     }else{
         document.querySelector('.form #prevSection').removeAttribute("disabled");

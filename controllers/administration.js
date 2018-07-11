@@ -1067,6 +1067,20 @@ router.get('/dataprivacy/registration/bystudent', function (req, res, next) {
         title: 'Registrierung - Schüler*'
     });
 });
+router.get('/pinvalidation', function (req, res, next) {
+
+});
+router.post('/pinvalidation', function (req, res, next) {
+    if (req.body.email) {
+        return api(req).post('/registrationPins/', {
+            json: {email:req.body.email}
+        }).then(pin => {
+            res.send((pin||{}).pin);
+        }).catch(err => res.status(500).send(err));
+    } else {
+        res.status(500).send(err);
+    }
+});
 /* versuch: nur 1 route für registration submits für eltern und ü18
 router.post('/dataprivacy/registration/byparent/submit', function (req, res, next) {
     let user = {

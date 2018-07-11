@@ -27,18 +27,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
             }
         });
     }
-    
-    // manual form validity checks: https://stackoverflow.com/a/48267035
-    $('#nextSection').click(function(event) {
-        let form = document.querySelector(".registration-form input[name=student-email]");
-        
-        if (!form.checkValidity()) {
-            const tmpSubmit = document.createElement('button');
-            form.appendChild(tmpSubmit);
-            tmpSubmit.click();
-            form.removeChild(tmpSubmit);
-        }
-    });
 
     // temp pin workaround
     document.querySelector(".pincorrect").addEventListener("click", ()=> {
@@ -46,14 +34,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
     
     // basic pin prototype
-    document.getElementById('submit-pin').addEventListener('click', (event) => {
+    $('.pin-input input.digit:last-child').on('change', (event) => {
         let pinInput = document.querySelector('input[name="email-pin"]');
         if(pinInput.checkValidity()){
-            console.log("submitting pin:", pinInput.value)
+            console.log("submitting pin:", pinInput.value);
         }else{
-            pinInput.parentElement.parentElement.classList.add("show-invalid")
+            pinInput.parentElement.parentElement.classList.add("show-invalid");
         }
-        // TODO AJAX CHECK HERE
+        // ajax check code
     });
 });
 window.addEventListener('load', ()=>{
@@ -62,5 +50,26 @@ window.addEventListener('load', ()=>{
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
         var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
         $('.form .student-password').text(pw);
+    }
+});
+window.addEventListener('load', ()=>{
+    if(document.querySelector('.form .pin-input')) {
+        console.log("generate pin");
+        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        console.log("mail: " +usermail);
+        $.ajax({
+            url: "/administration/pinvalidation",
+            method: "POST",
+            data: {"email": usermail}
+        }).done(function(pin){
+            if(pin)
+                document.getElementById("tempPin").text(pin);
+            else {
+                //TODO
+                alert("fehler bei der pin erstellung");
+            }
+        }).fail(function(err){
+            console.log(err);
+        });
     }
 });
