@@ -1,0 +1,49 @@
+{{#extend "lib/loggedin"}}
+  {{#content "scripts" mode="append"}}
+      <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+      <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+  {{/content}}
+  {{#content "styles" mode="append"}}
+      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+      <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+ {{/content}}
+  {{#content "page"}}
+    {{#embed "lib/forms/paginatedForm" sections=3 action="" method=""}}
+      {{#content "panels"}}
+
+      <section data-panel="section-1">
+        <h4>Herzlich Willkommen in der Schul-Cloud, {Vorname, Nachname}</h4>
+        <p>Wir freuen uns, dass du die Schul-Cloud nutzen möchtest.</p>
+        <p>Bitte ändere im nächsten Schritt dein Startpasswort, damit du mit der Benutzung der Schul-Cloud starten kannst.</p>
+        <p>Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der Schul-Cloud die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die Schul-Cloud ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. ????🦄</p>
+      </section>
+
+      <section data-panel="section-2" class="submit-page">
+        <h4>Du hast es fast geschafft...</h4>
+        <p>Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!</p>
+         <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Neues Passwort: *</label>
+            <input class="form-control" name="password-1" type="password" placeholder="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." required/>
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Wiederhole dein neues Passwort: *</label>
+            <input class="form-control" name="password-2" type="password" placeholder="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." required/>
+          </div>
+        </div>
+
+        <label>
+            <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
+            Login-Daten per Mail an mich senden
+        </label>
+      </section>
+
+      <section data-panel="section-3">
+        <h4>Fertig!</h4>
+        <p>Du kannst jetzt mit der Benutzung der HPI Schul-Cloud starten.</p>
+        <a class="btn btn-primary" href="//schul-cloud.org">Schul-Cloud erkunden</a>
+      </section>
+      {{/content}}
+    {{/embed}}
+  {{/content}}
+{{/extend}}

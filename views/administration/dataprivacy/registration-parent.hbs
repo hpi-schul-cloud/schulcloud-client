@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=5 action="#" method="get" class="registration-form"}}
+    {{#embed "lib/forms/paginatedForm" sections=5 action="/administration/dataprivacy/registration/submit" method="post" class="registration-form"}}
       {{#content "panels"}}
       <section data-panel="section-1">
         <h4>Schülerdaten</h4>
@@ -29,12 +29,13 @@
 
         <div class="form-group">
           <label>Geburtsdatum des Schülers: *</label>
-          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required/>
+          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
         </div>
 
         <div class="form-group">
             <label>E-Mail Adresse des Schülers *</label>
-            <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required></input>
+            <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" data-pattern="*@test.de" pattern=".+@test.de" required />
+            <span class="mailinfo"></span>
         </div>
         <p>
           Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
@@ -51,7 +52,7 @@
             </select>
           </div>
         </div>
-        <p>Erhebung erfolgt für Forschung und Optimierung</p>
+        <p>Erhebung erfolgt für Forschung und Optimierung.</p>
       </section>
 
 
@@ -86,10 +87,7 @@
         <h4>Einwilligung</h4>
         <p>Einwilligungserklärung</p>
         <p>Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der Schul-Cloud nutzen kann:</p>
-        <p>Ich, 
-          <b data-from="parent-firstname"></b>
-          <b data-from="parent-secondname"></b>
-        , bin erziehungsberechtigt für 
+        <p>Ich, <b data-from="parent-firstname"></b> <b data-from="parent-secondname"></b>, bin erziehungsberechtigt für
           <b data-from="student-firstname"></b>
           <b data-from="student-secondname"></b> 
         und erkläre Folgendes:</p>
@@ -122,38 +120,42 @@
 
 
 
-	  <section data-panel="section-4" class="submit-page">
-		  <h4>Abschluss</h4>
-		  <p>Fast geschafft!</p>
-		  <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
-		  <p>PIN: [ ] [ ] [ ] [ ]</p>
-		  <p><a href="#">Code erneut senden</a></p>
-          <p><a href="#" class="pincorrect">Restdaten anzeigen wenn PIN korrekt</a></p>
-		  <div id="userdata-summary" class="hidden">
-			  <p>
-				  Mit folgenden Daten kann sich
-				  <b data-from="student-firstname"></b>
-				  <b data-from="student-secondname"></b>
-				  in der Schul-Cloud anmelden. Bitte bewahren Sie die Anmeldedaten auf.
-				  <div class="print">
-					  <div class="recap">
-						  <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
-						  <p>E-Mail: <i data-from="student-email"></i></p>
-						  <p>Passwort: <i class="student-password">********</i></p>
-					  </div>
-					  <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-						  <i class="fa fa-print"></i> Drucken
-					  </div>
-                </div>
-			  </p>
+      <section data-panel="section-4" class="submit-page" data-feature="pinValidation">
+        <h4>Abschluss</h4>
+        <p>Fast geschafft!</p>
+        <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
+        <div id="pinverification">
+            <button id="send-pin" class="btn btn-primary">PIN jetzt zusenden</button>
+            <div id="temp-pin" class="hidden"></div>
+            {{#embed "administration/forms/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
+            <button id="check-pin" class="btn btn-primary">prüfen</button>
+            <p><a id="resend-pin" href="#">Code erneut senden</a></p>
+        </div>
+        <div id="userdata-summary" class="hidden">
+          <p>
+            Mit folgenden Daten kann sich
+            <b data-from="student-firstname"></b>
+            <b data-from="student-secondname"></b>
+            in der Schul-Cloud anmelden. Bitte bewahren Sie die Anmeldedaten auf.
+            <div class="print">
+              <div class="recap">
+                <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
+                <p>E-Mail: <i data-from="student-email"></i></p>
+                <p>Passwort: <i class="student-password">********</i></p>
+              </div>
+              <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
+                <i class="fa fa-print"></i> Drucken
+              </div>
+                  </div>
+          </p>
 
-				<label>
-					<input name="sendCredentials" type="checkbox" value="sendCredentials" />
-					Login-Daten per E-Mail an angegebene Adressen senden
-				</label>
-				<p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler ab 14 Jahren müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
-		  </div>
-	  </section>
+          <label>
+            <input name="sendCredentials" type="checkbox" value="sendCredentials" />
+            Login-Daten per E-Mail an angegebene Adressen senden
+          </label>
+          <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler ab 14 Jahren müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
+        </div>
+      </section>
 
 
 

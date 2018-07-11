@@ -28,11 +28,11 @@ function getSelectionIndex(){
     return radioButtons.indexOf(radioButtons.filter((node)=>{return node.checked;})[0]) + 1;
 }
 function showInvalid(sectionNr){
-    document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add("showInvalid");
+    document.querySelector(`section[data-panel="section-${sectionNr}"]`).classList.add("show-invalid");
     document.querySelector(".content-wrapper").scrollTo(0,0);
 }
 function getSubmitPageIndex(){
-    return document.querySelectorAll('form .panels section').indexOf(document.querySelector(`section.submit-page`)) + 1
+    return document.querySelectorAll('form .panels section').indexOf(document.querySelector(`section.submit-page`)) + 1;
 }
 function isSubmitted(){
     return document.querySelector(".form").classList.contains('form-submitted');
@@ -42,31 +42,35 @@ function setSelectionByIndex(index, event){
     event.preventDefault();
     function setSelection(index){
         document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
+        const event = new CustomEvent("showSection", {
+            detail: {
+                sectionIndex: index
+            }
+          });
+        document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(event);
         updateButton(index);
     }
     function findLatestInvalid(to){
         let i = 1;
         for (; i <= to; i++) {
-            if(!isSectionValid(i)){
+            if(!isSectionValid(i))
                 return i;
-            }
         }
         return to;
     }
     const submitPageIndex = getSubmitPageIndex();
     const submitted = isSubmitted();
-    if(submitted){
-        if(index > submitPageIndex){
-            setSelection(index)
-        }else{ //prevent resubmit -> pages before unreachable
-            setSelection(submitPageIndex + 1)
-        }
-    }else{
-        index = Math.min(index, submitPageIndex); //prevent skip of submit
-        const latestInvalid = findLatestInvalid(index)
-        if(latestInvalid >= index){
+    if(submitted) {
+        if(index > submitPageIndex)
             setSelection(index);
-        }else{
+        else //prevent resubmit -> pages before unreachable
+            setSelection(submitPageIndex + 1);
+    }else {
+        index = Math.min(index, submitPageIndex); //prevent skip of submit
+        const latestInvalid = findLatestInvalid(index);
+        if(latestInvalid >= index)
+            setSelection(index);
+        else {
             showInvalid(latestInvalid);
             setSelection(latestInvalid);
         }
@@ -80,12 +84,12 @@ function updateButton(selectedIndex){
         document.querySelector('#nextSection').innerHTML = document.querySelector('#nextSection').dataset.nextLabel;
     }
 
-    if(selectedIndex == getMaxSelectionIndex()){
+    if(selectedIndex === getMaxSelectionIndex()){
         document.querySelector('.form #nextSection').setAttribute("disabled","disabled");
     }else{
         document.querySelector('.form #nextSection').removeAttribute("disabled");
     }
-    if(selectedIndex == 1 || selectedIndex == getSubmitPageIndex()+1){
+    if(selectedIndex === 1 || selectedIndex === getSubmitPageIndex()+1){
         document.querySelector('.form #prevSection').setAttribute("disabled","disabled");
     }else{
         document.querySelector('.form #prevSection').removeAttribute("disabled");
@@ -102,7 +106,6 @@ function isSectionValid(sectionIndex){
 }
 
 function submitForm(event){
-    // TODO - parse date and validate
     if (this.checkValidity()) {
         event.preventDefault();
         const formSubmitButton = document.querySelector('#nextSection');
@@ -113,25 +116,22 @@ function submitForm(event){
             data: $(this).serialize(),
             context: this
         }).done(function(response){
-            // form submitted
             document.querySelector('.form').classList.add("form-submitted");
-            // enable next Button again
             formSubmitButton.disabled = false;
             // go to next page
             setSelectionByIndex(getSelectionIndex()+1, event);
         })
         .fail(function(request){
-            // submission failed
-            if(request.getResponseHeader("error-message")){
-                $.showNotification(request.getResponseHeader("error-message"), "danger");
+            if(request.responseJSON.error){
+                let errMsg = request.responseJSON.error.message ? request.responseJSON.error.message : request.responseJSON.error.name;
+                $.showNotification(errMsg, "danger", 6000);
             }else{
-                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger");
+                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger", 6000);
             }
-            // enable next Button again
             formSubmitButton.disabled = false;
         });
     }else{
-        $.showNotification("Formular ungültig, bitte füllen Sie alle Felder korrekt aus.", "danger");
+        $.showNotification("Formular ungültig, bitte füllen Sie alle Felder korrekt aus.", "danger", 6000);
     }
 }
 
@@ -223,11 +223,17 @@ window.addEventListener('DOMContentLoaded', ()=>{
         }catch(error){
             console.error(`Element: 'input[name="${key}"]' not found`);
         }
-    };
+    }
 });
 
 /* OTHER STUFF */
 window.addEventListener('load', ()=>{
     // INSERT CUSTOM SCRIPTS HERE
-    
+    // show email patterns in UI
+    document.querySelectorAll('input[type=email]').forEach((input)=>{
+        if(input.getAttribute("pattern")) {
+            let readablePattern = input.getAttribute("data-pattern") ? input.getAttribute("data-pattern") : input.getAttribute("pattern");
+            $(input).siblings("label").html($(input).siblings("label").html() + " Format vorgegeben: " + readablePattern);
+        }
+    });
 });

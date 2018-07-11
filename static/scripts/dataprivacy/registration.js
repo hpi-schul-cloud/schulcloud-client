@@ -28,9 +28,66 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
-    document.querySelector(".pincorrect").addEventListener("click", ()=> {
-        document.getElementById("userdata-summary").style.display = "block";
+    $("#send-pin").on("click", _ => {
+        console.log("generate pin");
+        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        console.log("mail: " +usermail);
+        $.ajax({
+            url: "/administration/pinvalidation",
+            method: "POST",
+            data: {"email": usermail}
+        }).done(function(pin){
+            if(pin)
+                alert(pin); // successful, remove whole done() if everything is working, not needed
+            else {
+                //TODO
+                alert("fehler bei der pin erstellung");
+            }
+        }).fail(function(err){
+            console.log(err);
+        });
     });
+    
+    // workaround
+    $('#check-pin').on('click', (e) => {
+        checkPin(e);
+    });
+    // basic pin prototype
+    $('.pin-input .combined').on('input', (e) => {
+        checkPin(e);
+    });
+    
+    function checkPin(e) {
+        e.preventDefault();
+        let pinInput = document.querySelector('input[name="email-pin"]');
+        console.log(pinInput.value);
+        console.log(pinInput.checkValidity());
+        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        if(pinInput.checkValidity()){
+            console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
+            $.ajax({
+                url: "/administration/pinvalidation",
+                method: "GET",
+                data: {email: usermail, pin: pinInput.value}
+            }).done(function(response){
+                console.log(response);
+                if(response==="verified") {
+                    document.getElementById("pinverification").style.display = "none";
+                    document.getElementById("send-pin").remove();
+                    document.getElementById("resend-pin").remove();
+                    document.getElementById("userdata-summary").style.display = "block";
+                } else {
+                    //TODO
+                    alert("fehler bei der pin erstellung");
+                }
+            }).fail(function(err){
+                console.log(err);
+            });
+        }else{
+            $(pinInput).parents("section").addClass("show-invalid");
+        }
+        // ajax check code
+    }
 });
 window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
