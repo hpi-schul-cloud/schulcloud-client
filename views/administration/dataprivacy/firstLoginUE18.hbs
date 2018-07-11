@@ -8,30 +8,17 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
  {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="" method=""}}
+    {{#embed "lib/forms/paginatedForm" sections=3 action="" method=""}}
       {{#content "panels"}}
 
       <section data-panel="section-1">
         <h4>Herzlich Willkommen in der Schul-Cloud, {Vorname, Nachname}</h4>
         <p>Wir freuen uns, dass du die Schul-Cloud nutzen möchtest.</p>
-        <p>Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und ändere dein Startpasswort.</p>
+        <p>Bitte ändere im nächsten Schritt dein Startpasswort, damit du mit der Benutzung der Schul-Cloud starten kannst.</p>
         <p>Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der Schul-Cloud die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die Schul-Cloud ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. ????🦄</p>
       </section>
 
-
-      <section data-panel="section-2">
-        <h4>Wie können wir dich erreichen?</h4>
-        <p>Bitte überprüfe deine E-Mail-Adresse:</p>
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-              <label>E-Mail:</label>
-              <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required>
-          </div>
-        </div>
-      </section>
-
-
-      <section data-panel="section-3" class="submit-page">
+      <section data-panel="section-2" class="submit-page">
         <h4>Du hast es fast geschafft...</h4>
         <p>Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!</p>
          <div class="row">
@@ -51,7 +38,7 @@
         </label>
       </section>
 
-      <section data-panel="section-4">
+      <section data-panel="section-3">
         <h4>Fertig!</h4>
         <p>Du kannst jetzt mit der Benutzung der HPI Schul-Cloud starten.</p>
         <a class="btn btn-primary" href="//schul-cloud.org">Schul-Cloud erkunden</a>
