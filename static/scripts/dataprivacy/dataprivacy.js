@@ -42,6 +42,12 @@ function setSelectionByIndex(index, event){
     event.preventDefault();
     function setSelection(index){
         document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
+        const event = new CustomEvent("showSection", {
+            detail: {
+                sectionIndex: index
+            }
+          });
+        document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(event);
         updateButton(index);
     }
     function findLatestInvalid(to){

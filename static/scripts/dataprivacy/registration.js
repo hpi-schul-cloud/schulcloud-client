@@ -52,6 +52,15 @@ window.addEventListener('load', ()=>{
         $('.form .student-password').text(pw);
     }
 });
+
+window.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.form section').forEach((section) => {
+        section.addEventListener("showSection", (event) => {
+            console.log("show section", event.detail.sectionIndex, event.target);
+        });
+    });
+});
+
 window.addEventListener('load', ()=>{
     if(document.querySelector('.form .pin-input')) {
         console.log("generate pin");
