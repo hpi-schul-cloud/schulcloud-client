@@ -14,8 +14,8 @@ function buildPin(wrapper){
   return pin;
 }
 function handleInput(event){
-  this.checkValidity()
-  if(this.value.length == 1){
+  this.checkValidity();
+  if(this.value.length === 1){
     this.parentElement.querySelector(".combined").value = buildPin(this.parentElement);
     if(this.nextElementSibling){
       this.nextElementSibling.focus();
@@ -26,7 +26,7 @@ function initializePin(){
   document.querySelectorAll(".pin-input").forEach((pinInput) => {
     pinInput.querySelectorAll(".digit").forEach((digit) => {
       digit.addEventListener("input", handleInput)
-    })
+    });
   })
 }
 window.addEventListener("DOMContentLoaded", initializePin)

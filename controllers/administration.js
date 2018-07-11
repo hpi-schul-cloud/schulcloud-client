@@ -1068,7 +1068,18 @@ router.get('/dataprivacy/registration/bystudent', function (req, res, next) {
     });
 });
 router.get('/pinvalidation', function (req, res, next) {
-
+    if (req.query.email && req.query.pin) {
+        return api(req).get('/registrationPins/', {
+            json: {email:req.query.email,pin:req.query.pin}
+        }).then(check => {
+            if (check.data && check.data.length>0)
+                res.send("verified");
+            else
+                res.sendStatus(500);
+        }).catch(err => res.status(500).send(err));
+    } else {
+        res.sendStatus(500);
+    }
 });
 router.post('/pinvalidation', function (req, res, next) {
     if (req.body.email) {
@@ -1078,7 +1089,7 @@ router.post('/pinvalidation', function (req, res, next) {
             res.send((pin||{}).pin);
         }).catch(err => res.status(500).send(err));
     } else {
-        res.status(500).send(err);
+        res.sendStatus(500);
     }
 });
 /* versuch: nur 1 route für registration submits für eltern und ü18

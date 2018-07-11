@@ -27,33 +27,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
             }
         });
     }
-
-    // temp pin workaround
-    document.querySelector(".pincorrect").addEventListener("click", ()=> {
-        document.getElementById("userdata-summary").style.display = "block";
-    });
     
-    // basic pin prototype
-    $('.pin-input input.digit:last-child').on('change', (event) => {
-        let pinInput = document.querySelector('input[name="email-pin"]');
-        if(pinInput.checkValidity()){
-            console.log("submitting pin:", pinInput.value);
-        }else{
-            pinInput.parentElement.parentElement.classList.add("show-invalid");
-        }
-        // ajax check code
-    });
-});
-window.addEventListener('load', ()=>{
-    if(document.querySelector('.form .student-password')) {
-        // generate password if password field present
-        var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
-        var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
-        $('.form .student-password').text(pw);
-    }
-});
-window.addEventListener('load', ()=>{
-    if(document.querySelector('.form .pin-input')) {
+    $("#send-pin").on("click", _ => {
         console.log("generate pin");
         let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
         console.log("mail: " +usermail);
@@ -63,7 +38,7 @@ window.addEventListener('load', ()=>{
             data: {"email": usermail}
         }).done(function(pin){
             if(pin)
-                document.getElementById("tempPin").text(pin);
+                alert(pin); // successful, remove whole done() if everything is working, not needed
             else {
                 //TODO
                 alert("fehler bei der pin erstellung");
@@ -71,5 +46,54 @@ window.addEventListener('load', ()=>{
         }).fail(function(err){
             console.log(err);
         });
+    });
+    
+    // workaround
+    $('#check-pin').on('click', (e) => {
+        checkPin(e);
+    });
+    // basic pin prototype
+    $('.pin-input .combined').on('input', (e) => {
+        checkPin(e);
+    });
+    
+    function checkPin(e) {
+        e.preventDefault();
+        let pinInput = document.querySelector('input[name="email-pin"]');
+        console.log(pinInput.value);
+        console.log(pinInput.checkValidity());
+        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        if(pinInput.checkValidity()){
+            console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
+            $.ajax({
+                url: "/administration/pinvalidation",
+                method: "GET",
+                data: {email: usermail, pin: pinInput.value}
+            }).done(function(response){
+                console.log(response);
+                if(response==="verified") {
+                    document.getElementById("pinverification").style.display = "none";
+                    document.getElementById("send-pin").remove();
+                    document.getElementById("resend-pin").remove();
+                    document.getElementById("userdata-summary").style.display = "block";
+                } else {
+                    //TODO
+                    alert("fehler bei der pin erstellung");
+                }
+            }).fail(function(err){
+                console.log(err);
+            });
+        }else{
+            $(pinInput).parents("section").addClass("show-invalid");
+        }
+        // ajax check code
+    }
+});
+window.addEventListener('load', ()=>{
+    if(document.querySelector('.form .student-password')) {
+        // generate password if password field present
+        var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
+        var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
+        $('.form .student-password').text(pw);
     }
 });
