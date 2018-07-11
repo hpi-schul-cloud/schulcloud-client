@@ -59,6 +59,10 @@ window.addEventListener("DOMContentLoaded", () => {
             console.log("show section", event.detail.sectionIndex, event.target);
         });
     });
+    document.querySelector('.form section[data-panel="section-2"]').addEventListener("showSection", (event) => {
+            console.log("specific listener - show section", event.detail.sectionIndex, event.target);
+        });
+    });
 });
 
 window.addEventListener('load', ()=>{
