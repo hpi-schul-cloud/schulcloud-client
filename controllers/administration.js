@@ -1134,13 +1134,41 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
         gender: req.body["gender"],
         schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
         roles: ["0000d186816abba584714c99"] // role=student
+        // birthday!
     }
     
     return api(req).post('/users/', {
         json: user
     }).then(newUser => {
+        if(req.body["parent-email"]) {
+            let parent = {
+                firstName: req.body["parent-firstname"],
+                lastName: req.body["parent-secondname"],
+                email: req.body["parent-email"],
+                children: [newUser._id],
+                schoolId: "0000d186816abba584714c5f", //get schoolid from link
+                roles: ["5b45f8d28c8dba65f8871e19"] // role parent
+            }
+            return api(req).post('/users/', {
+                json: parent
+            })
+            .then(newParent => {
+                return api(req).patch('/users/' + newUser._id, {
+                    json: {parents: [newParent._id]}
+                }).then(changedUser => {
+                    return api(req).post('/consents/', {
+                        json: {
+                            userId: newUser._id, 
+                            parentconsents: [{
+                                parentId: newParent._id//thisisbrokensomehow
+                            }]
+                        }
+                    })
+                })
+            })
+        }
         return api(req).post('/consents/', {
-            json: {userId: newUser._id}
+            json: {userId: newUser._id, dateOfUserConsent: Date.now()}
         }).then(_ => {
             //if (Daten per Mail zuschicken)
             //  sendEmail(Katrin)(newUser, req);
