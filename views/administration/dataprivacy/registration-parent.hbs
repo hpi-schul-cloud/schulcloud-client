@@ -48,7 +48,7 @@
               <option value="male">männlich</option>
               <option value="female">weiblich</option>
               <option value="other">andere</option>
-              <option value="other">keine Angabe</option>
+              <option value="noinfo">keine Angabe</option>
             </select>
           </div>
         </div>
@@ -120,12 +120,11 @@
 
 
 
-      <section data-panel="section-4" class="submit-page" data-feature="pinValidation">
+      <section data-panel="section-4" class="submit-page" data-feature="pin">
         <h4>Abschluss</h4>
         <p>Fast geschafft!</p>
         <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
         <div id="pinverification">
-            <button id="send-pin" class="btn btn-primary">PIN jetzt zusenden</button>
             <div id="temp-pin" class="hidden"></div>
             {{#embed "administration/forms/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
             <button id="check-pin" class="btn btn-primary">prüfen</button>

@@ -28,9 +28,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
-    document.querySelector('.form section[data-panel="section-4"]').addEventListener("showSection", (event) => {
+    document.querySelector('.form section[data-feature="pin"]').addEventListener("showSection", (event) => {
         console.log("generate pin");
-        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
         console.log("mail: " +usermail);
         $.ajax({
             url: "/administration/pinvalidation",
@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
             if(pin)
                 alert(pin); // successful, remove whole done() if everything is working, not needed
         }).fail(function(err){
-            $.showNotification("Fehler bei der PIN-Erstellung!", "danger", 6000);
+            $.showNotification("Fehler bei der PIN-Erstellung!", "danger", 4000);
         });
     });
     
@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         let pinInput = document.querySelector('input[name="email-pin"]');
         console.log(pinInput.value);
         console.log(pinInput.checkValidity());
-        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
         if(pinInput.checkValidity()){
             console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
             $.ajax({
@@ -68,17 +68,17 @@ window.addEventListener('DOMContentLoaded', ()=>{
             }).done(function(response){
                 console.log(response);
                 if(response==="verified") {
-                    $.showNotification("PIN erfolgreich verifiziert.", "success", 5000);
+                    $.showNotification("PIN erfolgreich verifiziert.", "success", 4000);
                     $("#pinverification").hide();
                     $("#send-pin, #resend-pin").remove();
                     $("#userdata-summary").show();
                 } else if (response==="wrong") {
-                    $.showNotification("Falscher PIN-Code, bitte erneut versuchen.", "danger", 6000);
+                    $.showNotification("Falscher PIN-Code, bitte erneut versuchen.", "danger", 4000);
                 } else {
-                    $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 6000);
+                    $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
                 }
             }).fail(function(err){
-                $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 6000);
+                $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
             });
         }else{
             $(pinInput).parents("section").addClass("show-invalid");
