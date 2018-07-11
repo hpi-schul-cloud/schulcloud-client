@@ -28,6 +28,7 @@ module.exports = {
         "jquery-mousewheel": "jQuery-mousewheel", 
     },
     output: {
-        path: '/'
+        path: '/',
+        filename: '[name].js'
     } 
 };
