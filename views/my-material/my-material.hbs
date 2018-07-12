@@ -1,7 +1,111 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
+    {{#content "scripts" mode="append"}}
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js" defer></script> -->
+        <script src="/scripts/vendor-vue.js" defer></script>
+        <script src="/scripts/my-material.js" defer></script>
+    {{/content}}
+
     {{#content "page"}}
-        Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den <a href="https://blog.schul-cloud.org/unterrichtsvorbereitung-in-der-hpi-schul-cloud-neu-gedacht/" target="_blank">Blogartikel</a> und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.
+
+        <div id="app">
+        </div>
+
+        <p>
+          Hier werden Sie bald die Möglichkeit haben, eigene Inhalte zu erstellen, sich Inhalte anderer Lehrer*Innen anzuschauen und durch Bewerten und Kategorisieren dieser Punkte verdienen, um die erweiterten Suchfunktionen nutzen zu können. Interessiert, wie das funktionieren wird? Lesen Sie den <a href="https://blog.schul-cloud.org/unterrichtsvorbereitung-in-der-hpi-schul-cloud-neu-gedacht/" target="_blank">Blogartikel</a> und nutzen Sie die Möglichkeit, das Feature nach ihren Wünschen zu gestalten.
+        </p>
+
+        <form class="" action="/my-material/search" method="post">
+          <label for="term">Suchbegriff</label>
+          <input type="text" name="term" value="{{query.term}}" id="internal-search-input" placeholder="Suchbegriff">
+          <br>
+          <label for="subject">Fach</label>
+          <input type="text" name="subject" value="{{query.subject}}" id="internal-search-subject" placeholder="Fach">
+          <br>
+          <label for="age">Alter</label>
+          <input type="number" name="age" value="{{query.age}}" id="internal-search-age" placeholder="Alter">
+          <br>
+          <label for="only-approved">Nur bestätigte Inhalte: </label>
+          <input type="checkbox" name="only-approved" checked>
+          <br>
+          <input type="submit" name="" value="Suchen">
+        </form>
+        <br>
+
+        <h3>Sucherergebnisse</h3>
+        <span>Anzahl Ergebnisse: {{ hits }}</span>
+        {{#with searchResults}}
+        <div class="row equal-height">
+          {{#each this}}
+              <div class="col-md-6 col-lg-4" style="border: 2px solid #B10438; padding: 5px;">
+                  <ul>
+                    <li>Titel: {{ this._source.title }}</li>
+                    <li>Beschreibung: {{ this._source.description }}</li>
+                    <li>Inhalt: {{ this._source.content }}</li>
+                    <li>Provider: {{ this._source.providerName }}</li>
+                    <li>Schwierigkeitsgrad: {{ this._source.difficulty }}</li>
+                    <li>Unterichtsziel: {{ this._source.goal }}</li>
+                    <li>Fach: {{ this._source.subjects }}</li>
+                    <li>Alter: {{ this._source.age }}</li>
+                    <li>{{ this._source.approved }}</li>
+                    <li>id: {{ this._id }}</li>
+                  </ul>
+              </div>
+          {{/each}}
+        </div>
+        {{/with}}
     {{/content}}
 
 {{/extend}}
+
+
+<!--
+<br>
+<br>
+<a href="/my-material/proposals">Vorgeschlagene Materialien</a>
+<br>
+<a href="/my-material/approved">Akzeptierte Materialien</a>
+<br>
+<br>
+<input type="text" name="" value="" id="internal-search-input" placeholder="Suche">
+<button id="internal-search-button" type="button" name="button" onclick="">Suche</button>
+<script type="text/javascript">
+  document.getElementById('internal-search-button').addEventListener("click", function(){
+    window.location.href = '/my-material?q=' + document.getElementById('internal-search-input').value
+  }, false);
+</script>
+{{#with proposals}}
+<h3>Neueste vorgeschlagene Inhalte</h3>
+<div class="row equal-height">
+    {{#each this}}
+        <div class="col-md-6 col-lg-4">
+            <ul>
+              <li>Schwierigkeitsgrad: {{ this.categories.difficulty }}</li>
+              <li>Unterichtsziel: {{ this.categories.goal }}</li>
+              <li>Fach: {{ this.categories.subject }}</li>
+              <li>Alter: {{ this.categories.age }}</li>
+              <li>Durchschnittsbewertung (insgesamt): {{ ratingOverallAverage this.ratings }}</li>
+              <li>id: {{ this._id }}</li>
+            </ul>
+        </div>
+    {{/each}}
+</div>
+{{/with}}
+
+{{#with approved}}
+<h3>Neueste akzeptierte Inhalte</h3>
+<div class="row equal-height">
+  {{#each this}}
+      <div class="col-md-6 col-lg-4">
+          <ul>
+            <li>Schwierigkeitsgrad: {{ this.categories.difficulty }}</li>
+            <li>Unterichtsziel: {{ this.categories.goal }}</li>
+            <li>Fach: {{ this.categories.subject }}</li>
+            <li>Alter: {{ this.categories.age }}</li>
+            <li>Durchschnittsbewertung (insgesamt): {{ ratingOverallAverage this.ratings }}</li>
+            <li>id: {{ this._id }}</li>
+          </ul>
+      </div>
+  {{/each}}
+</div>
+{{/with}} -->
