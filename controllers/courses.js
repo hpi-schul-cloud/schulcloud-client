@@ -295,11 +295,6 @@ router.post('/', function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
-
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
@@ -320,11 +315,6 @@ router.post('/copy/:courseId', function(req, res, next) {
 
     req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
     req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
-
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
 
     if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
         delete req.body.startDate;
@@ -448,11 +438,6 @@ router.patch('/:courseId', function(req, res, next) {
 
     req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
     req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
-
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
 
     if (!req.body.classIds)
         req.body.classIds = [];
