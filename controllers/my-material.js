@@ -11,8 +11,15 @@ router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
     return res.render('my-material/my-material', {
-        title: 'Vorgeschlagene Materialien aus der Suche'
+        title: 'Suche in Lehrer-generierten Materialien'
     });
+});
+
+router.get('/search', function (req, res, next) {
+    return res.render('my-material/my-material', {
+        title: 'Suche in Lehrer-generierten Materialien'
+    });
+
 });
 
 router.post('/search', function (req, res, next) {
@@ -21,7 +28,6 @@ router.post('/search', function (req, res, next) {
     const currentPage = parseInt(req.query.p) || 1;
 
     // Featured Content
-    console.log("Searching internally");
     api(req)({
       uri: '/content/search/',
       qs: {
@@ -31,7 +37,6 @@ router.post('/search', function (req, res, next) {
       },
       json: true
     }).then(searchResults => {
-      console.log(searchResults.hits.hits);
       const pagination = {
           currentPage,
           numPages: Math.ceil(searchResults.total / itemsPerPage),

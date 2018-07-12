@@ -1,7 +1,10 @@
+const { VueLoaderPlugin } = require('vue-loader');
+
 module.exports = {
     mode: 'production',
     module: {
-        rules: [{
+        rules: [
+          {
             test: /\.(js|jsx)$/,
             exclude: /(node_modules)/,
             loader: 'babel-loader',
@@ -9,7 +12,12 @@ module.exports = {
                 presets: [["es2015"]],
                 plugins: ["transform-react-jsx"]
             },
-        }]
+          },
+          {
+            test: /\.vue$/,
+            loader: 'vue-loader',
+          },
+        ]
     },
     optimization: {
         splitChunks: {
@@ -20,14 +28,21 @@ module.exports = {
                   name: 'vendor-react',
                   chunks: 'all',
                 },
+                vue: {
+                  test: /[\\/]node_modules[\\/](vue)[\\/]/,
+                  name: 'vendor-vue',
+                  chunks: 'all',
+                },
             }
         }
     },
     externals: {
         "jquery": "jQuery",
-        "jquery-mousewheel": "jQuery-mousewheel", 
+        "jquery-mousewheel": "jQuery-mousewheel",
     },
     output: {
-        path: '/'
-    } 
+        path: '/',
+        filename: '[name].js'
+    },
+    plugins: [ new VueLoaderPlugin() ]
 };
