@@ -1,8 +1,16 @@
 {{#extend "lib/loggedin"}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/coursesOverview.js" type="text/javascript" defer></script>
+    {{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+    {{/content}}
+
     {{#content "page"}}
         <section class="section-courses">
                 {{#if courses}}
-                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen"}}
+                    {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
                 {{else}}
                     <div class="col-xs-12">
                         <p class="text-muted text-center">
@@ -15,7 +23,7 @@
                     <section>
                         <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
                         {{#if ../substitutionCourses}}
-                            {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen"}}
+                            {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                         {{else}}
                             <div class="col-xs-12">
                                 <p class="text-muted text-center">
@@ -31,8 +39,21 @@
                     <div class="row padding-top">
                         <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                     </div>
-                </div>    
+                </div>
                 {{/userHasPermission}}
+
+            {{#embed "lib/components/modal" class="member-modal"}}
+                {{#content "body"}}
+                    <div class="modal-body">
+                        <div id="member-modal-body">
+                        </div>
+                        {{#userHasPermission "COURSE_EDIT"}}
+                            <div id='course-edit'></div>
+                        {{/userHasPermission}}
+                    </div>
+                {{/content}}
+            {{/embed}}
+
         </section>
     {{/content}}
 {{/extend}}
