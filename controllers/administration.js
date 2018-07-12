@@ -1079,21 +1079,23 @@ router.get('/dataprivacy/registration/bystudent', function (req, res, next) {
     });
 });
 router.get('/pinvalidation', function (req, res, next) {
-    if (req.query.email && req.query.pin) {
+    if (req.query && req.query.email && req.query.pin) {
         return api(req).get('/registrationPins/', {
-            json: {email:req.query.email,pin:req.query.pin}
+            qs: {
+                $and: [{"pin": req.query.pin, "email": req.query.email} ]
+            }
         }).then(check => {
             if (check.data && check.data.length>0)
                 res.send("verified");
             else
-                res.sendStatus(500);
+                res.send("wrong");
         }).catch(err => res.status(500).send(err));
     } else {
         res.sendStatus(500);
     }
 });
 router.post('/pinvalidation', function (req, res, next) {
-    if (req.body.email) {
+    if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
             json: {email:req.body.email}
         }).then(pin => {
