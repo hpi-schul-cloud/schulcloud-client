@@ -1138,16 +1138,19 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
         roles: ["0000d186816abba584714c99"] // role=student
         // birthday!
     }
+    let parent = null;
     
     return api(req).post('/users/', {
         json: user
     }).then(newUser => {
+        user = newUser;
+        //add parent if necessary
         if(req.body["parent-email"]) {
-            let parent = {
+            parent = {
                 firstName: req.body["parent-firstname"],
                 lastName: req.body["parent-secondname"],
                 email: req.body["parent-email"],
-                children: [newUser._id],
+                children: [user._id],
                 schoolId: "0000d186816abba584714c5f", //get schoolid from link
                 roles: ["5b45f8d28c8dba65f8871e19"] // role parent
             }
@@ -1155,27 +1158,35 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
                 json: parent
             })
             .then(newParent => {
-                return api(req).patch('/users/' + newUser._id, {
-                    json: {parents: [newParent._id]}
-                }).then(changedUser => {
-                    return api(req).post('/consents/', {
-                        json: {
-                            userId: newUser._id, 
-                            parentconsents: [{
-                                parentId: newParent._id//thisisbrokensomehow
-                            }]
-                        }
-                    })
+                parent = newParent;
+                return api(req).patch('/users/' + user._id, {
+                    json: {parents: [parent._id]}
                 })
+            }).catch(err => res.status(500).send(err));
+        } else {
+            return Promise.resolve;
+        }
+    }).then(function(){
+        //store consent
+        if (parent) {
+            return api(req).post('/consents/', {
+                json: {
+                    userId: user._id,
+                    parentConsents: [{
+                        parentId: parent.id
+                    }]
+                }
+            })
+        } else {
+            return api(req).post('/consents/', {
+                json: {userId: user._id, dateOfUserConsent: Date.now()}
             })
         }
-        return api(req).post('/consents/', {
-            json: {userId: newUser._id, dateOfUserConsent: Date.now()}
-        }).then(_ => {
-            //if (Daten per Mail zuschicken)
-            //  sendEmail(Katrin)(newUser, req);
-            res.sendStatus(200);
-        }).catch(err => res.status(500).send(err));
+    }).then(function() {
+        //sendMailStuff (Katrin)
+        return Promise.resolve;
+    }).then(function () {
+        res.sendStatus(200);
     }).catch(err => res.status(500).send(err));
 });
 
