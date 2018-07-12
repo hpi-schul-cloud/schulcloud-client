@@ -79,3 +79,6 @@ typings/
 screenshots/
 reports/
 selenium-debug.log
+
+# VSCode Configuration file
+.vscode

@@ -52,7 +52,7 @@ router.get('/', function (req, res, next) {
     // Search Results
     } else {
         return api(req)({
-            uri: '/content/search/',
+            uri: '/content/searchExternal/',
             qs: {
                 _all: { $match: query },
                 $limit: itemsPerPage,
@@ -135,5 +135,6 @@ router.post('/addToLesson', function (req, res, next) {
         });
     });
 });
+
 
 module.exports = router;
