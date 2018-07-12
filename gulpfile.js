@@ -6,6 +6,10 @@ const rimraf = require('gulp-rimraf')
 const uglify = require('gulp-uglify')
 const cleancss = require('clean-css')
 const map = require('vinyl-map')
+const webpack = require('webpack')
+const webpackStream = require('webpack-stream')
+const webpackConfig = require('./webpack.config');
+const named = require('vinyl-named')
 const imagemin = require('gulp-imagemin')
 const babel = require('gulp-babel')
 const filelog = require('gulp-filelog')
@@ -38,7 +42,6 @@ const baseScripts = [
 
 const nonBaseScripts = ['./static/scripts/**/*.js']
     .concat(baseScripts.map(script => '!' + script))
-
 //used by all gulp tasks instead of gulp.src(...)
 //plumber prevents pipes from stopping when errors occur
 //changed only passes on files that were modified since last time
@@ -106,10 +109,18 @@ gulp.task('fonts', () => {
 //compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => {
     beginPipe(nonBaseScripts)
-        .pipe(babel({
-            presets: [["es2015", { modules: false }]],
-            plugins: ["transform-react-jsx"]
-        }))
+        .pipe(named(
+            file => {
+                // As a preparation for webpack stream: Transform nonBaseScripts paths
+                // e.g. "/static/scripts/schics/schicEdit.js" -> "schics/schicEdit"
+                const initialPath = file.history[0].split("scripts")[1];
+                const concretePath = initialPath.split(".")[0];
+                const fileName = concretePath.split("").slice(1).join("");
+                
+                return fileName;
+            }
+        ))
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(optimizejs())
         .pipe(uglify())
         .pipe(gulp.dest(`./build/${themeName()}/scripts`))
@@ -121,8 +132,9 @@ gulp.task('base-scripts', () => {
     beginPipeAll(baseScripts)
         .pipe(count('## js-files selected'))
         .pipe(babel({
-            presets: [["es2015", { modules: false }]],
-            plugins: ["transform-react-jsx"]
+            presets: [
+                ["es2015", { "modules": false }]
+              ],
         }))
         .pipe(optimizejs())
         .pipe(uglify())
