@@ -24,24 +24,7 @@
         <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
 
         <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-            if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-                setupFirebasePush();
-            }
-        });
-        window.addEventListener("resize", function () {
-            $('.sidebar-list').css({"height": window.innerHeight});
-        });
-        function startIntro() {
-            introJs()
-            .setOptions({
-                nextLabel: "Weiter",
-                prevLabel: "Zurück",
-                doneLabel: "Fertig",
-                skipLabel: "Überspringen"
-            })
-            .start();
-        }
+        
         </script>
     {{/content}}
 

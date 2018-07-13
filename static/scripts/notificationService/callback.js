@@ -8,7 +8,7 @@ var DEFAULT_HEADERS = {
     'Content-Type': 'application/json'
 };
 
-function sendRegistrationId(id, service, device, type, name) {
+export function sendRegistrationId(id, service, device, type, name) {
     $.post('/notification/devices', {
         id: id,
         service: service,
@@ -21,7 +21,7 @@ function sendRegistrationId(id, service, device, type, name) {
     });
 }
 
-function sendShownCallback(notificationData, background, url) {
+export function sendShownCallback(notificationData, background, url) {
     var body = {
         notificationId: notificationData.notificationId,
         type: CALLBACK_TYPES.RECEIVED
@@ -40,7 +40,7 @@ function sendShownCallback(notificationData, background, url) {
     return sendCallback(body, callback);
 }
 
-function sendReadCallback(notificationId) {
+export function sendReadCallback(notificationId) {
     var body = {
         notificationId: notificationId,
         type: CALLBACK_TYPES.READ
@@ -54,7 +54,7 @@ function sendReadCallback(notificationId) {
 }
 
 
-function sendClickedCallback(notificationId, background, url) {
+export function sendClickedCallback(notificationId, background, url) {
     var body = {
         notificationId: notificationId,
         type: CALLBACK_TYPES.CLICKED

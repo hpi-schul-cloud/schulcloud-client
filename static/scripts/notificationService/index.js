@@ -1,4 +1,6 @@
-var pushManager = {
+import { sendRegistrationId } from './callback';
+
+export const pushManager = {
     requestPermissionCallback: null,
 
     setRegistrationId: function (id, service, device) {

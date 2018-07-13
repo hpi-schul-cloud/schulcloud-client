@@ -1,16 +1,20 @@
+import diffDom from 'diff-dom';
+import { setupFirebasePush } from './notificationService/indexFirebase';
+import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+
 if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
 
-const diffDOM = new diffDOM();
+const diffDOM = new diffDom();
 
-function softNavigate(newurl, selector = 'html', listener, callback) {
+export function softNavigate(newurl, selector = 'html', listener, callback) {
     $.ajax({
         type: "GET",
         url: newurl
     }).done(function (r) {
         // render new page
-        parser = new DOMParser()
+        const parser = new DOMParser();
         const newPage = parser.parseFromString(r, "text/html");
         // apply new page
         try {
@@ -19,15 +23,15 @@ function softNavigate(newurl, selector = 'html', listener, callback) {
             const diff = diffDOM.diff(oldPagePart, newPagePart);
             const result = diffDOM.apply(oldPagePart, diff);
             document.querySelectorAll((listener || selector) + " a").forEach(link => {
-                linkClone = link.cloneNode(true);
+                const linkClone = link.cloneNode(true);
                 linkClone.addEventListener("click", function (e) {
                     softNavigate($(this).attr('href'), selector, listener);
                     e.preventDefault();
                     e.stopPropagation();
                     return false;
-                })
+                });
                 link.parentNode.replaceChild(linkClone, link);
-            })
+            });
             // scroll to top
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -263,3 +267,23 @@ $(document).ready(function () {
         return !(e.key === "Unidentified");
     });
 });
+
+window.addEventListener('DOMContentLoaded', function() {
+    if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+        setupFirebasePush();
+    }
+});
+window.addEventListener("resize", function () {
+    $('.sidebar-list').css({"height": window.innerHeight});
+});
+
+function startIntro() {
+    introJs()
+    .setOptions({
+        nextLabel: "Weiter",
+        prevLabel: "Zurück",
+        doneLabel: "Fertig",
+        skipLabel: "Überspringen"
+    })
+    .start();
+}

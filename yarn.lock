@@ -2235,6 +2235,10 @@ dicer@0.2.5:
     readable-stream "1.1.x"
     streamsearch "0.1.2"
 
+diff-dom@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/diff-dom/-/diff-dom-2.4.0.tgz#7bede7f661caa612272de4e22d72a5f457d9158a"
+
 diff@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/diff/-/diff-3.2.0.tgz#c9ce393a4b7cbd0b058a725c93df299027868ff9"

@@ -1,4 +1,7 @@
-var setupFirebasePush = function() {
+import { pushManager } from './index';
+import { sendShownCallback } from './callback';
+
+export function setupFirebasePush() {
   if (!window.firebase) {
     return;
   }
@@ -66,5 +69,5 @@ var setupFirebasePush = function() {
 
   getToken();
       });
-};
+}
 
