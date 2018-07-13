@@ -1,3 +1,6 @@
+import moment from 'moment';
+import 'jquery-datetimepicker';
+
 $(document).ready(function () {
     var $calendar = $('#calendar');
 
@@ -163,4 +166,8 @@ $(document).ready(function () {
         }
     });
 
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    moment().format();
 });

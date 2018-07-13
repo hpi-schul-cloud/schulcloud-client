@@ -1,5 +1,7 @@
+const webpack = require("webpack");
+
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     module: {
         rules: [{
             test: /\.(js|jsx)$/,
@@ -25,10 +27,18 @@ module.exports = {
     },
     externals: {
         "jquery": "jQuery",
-        "jquery-mousewheel": "jQuery-mousewheel", 
+        "jquery-mousewheel": "jQuery",
     },
     output: {
         path: '/',
         filename: '[name].js'
-    } 
+    },
+    plugins: [
+        new webpack.ProvidePlugin({
+            jQuery: 'jquery',
+            $: 'jquery',
+            jquery: 'jquery'
+          })
+      
+    ]
 };
