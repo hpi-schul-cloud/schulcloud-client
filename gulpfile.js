@@ -112,9 +112,10 @@ gulp.task('scripts', () => {
         .pipe(named(
             file => {
                 // As a preparation for webpack stream: Transform nonBaseScripts paths
-                // e.g. "/static/scripts/schics/schicEdit.js" -> "schics/schicEdit"
+                // e.g. "/static/scripts/schics/schicEdit.blub.min.js" -> "schics/schicEdit.blub.min"
                 const initialPath = file.history[0].split("scripts")[1];
-                const concretePath = initialPath.split(".")[0];
+                const pathSegments = initialPath.split(".");
+                const concretePath = pathSegments.slice(0,pathSegments.length-1).join(".");
                 const fileName = concretePath.split("").slice(1).join("");
                 
                 return fileName;
