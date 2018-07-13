@@ -1,3 +1,4 @@
+/* global firebase */
 import { pushManager } from './index';
 import { sendShownCallback } from './callback';
 

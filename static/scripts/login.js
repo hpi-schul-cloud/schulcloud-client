@@ -1,3 +1,4 @@
+/* global introJs */
 $(document).ready(function() {
     var $btnToggleProviers = $('.btn-toggle-providers');
     var $btnHideProviers = $('.btn-hide-providers');

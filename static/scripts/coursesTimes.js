@@ -7,7 +7,7 @@ let guidGenerator = function guidGenerator() {
     return (S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 };
 
-let populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
+export const populateCourseTimes = function populateCourseTimes(modal, courseTimes) {
     let $courseTimes = modal.find('.course-times');
     // cleanup
     $courseTimes.find("tr:gt(0)").not('.new-course-time-template').remove();

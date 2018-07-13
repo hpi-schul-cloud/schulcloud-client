@@ -40,7 +40,7 @@ export const pushManager = {
     }
 };
 
-const getCookiesMap = (cookiesString) => {
+export const getCookiesMap = (cookiesString) => {
     return cookiesString.split(";")
         .map(function (cookieString) {
             return cookieString.trim().split("=");

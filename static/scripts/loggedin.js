@@ -1,3 +1,4 @@
+/* global kjua jQuery introJs*/
 import diffDom from 'diff-dom';
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
@@ -144,7 +145,7 @@ $(document).ready(function () {
                 targetState: targetState
             },
             success: function (result) {
-                showAJAXSuccess("Feedback erfolgreich versendet!", modal)
+                showAJAXSuccess("Feedback erfolgreich versendet!", modal);
             },
             error: showAJAXError
         });
@@ -216,7 +217,7 @@ $(document).ready(function () {
     if (!fullscreen) {
         fullscreen = JSON.parse(sessionStorage.getItem("fullscreen")) || false;
         if (fullscreen) {
-            togglePresentationMode()
+            togglePresentationMode();
         }
     }
     if(document.querySelector('.btn-fullscreen')){

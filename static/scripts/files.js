@@ -1,3 +1,5 @@
+/* global videojs */
+
 function getCurrentDir() {
     return $('.section-upload').data('path');
 }

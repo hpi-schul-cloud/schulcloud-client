@@ -1,3 +1,5 @@
+import { getCookiesMap } from './notificationService/index';
+
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
 

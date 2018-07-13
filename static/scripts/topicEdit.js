@@ -131,7 +131,7 @@ class TopicBlockWrapper extends React.Component {
             </div>
         );
     }
-};
+}
 
 TopicBlockWrapper.defaultProps = {
     type: '',
@@ -323,7 +323,7 @@ class TopicBlockList extends React.Component {
             </div>
         );
     }
-};
+}
 
 
 /**
@@ -349,25 +349,19 @@ class TopicBlock extends React.Component {
     static getClassForComponent(component) {
         switch(component) {
             default:
-                throw `No class found for component "${component}".`
-                break;
+                throw `No class found for component "${component}".`;
             case 'text':
                 return TopicText;
-                break;
             case 'resources':
                 return TopicResources;
-                break;
             case 'geoGebra':
                 return TopicGeoGebra;
-                break;
             case 'neXboard':
                 return TopicNexboard;
             case 'Etherpad':
                 return TopicEtherpad;
-                break;
             case 'internal':
                 return TopicInternal;
-                break;
         }
     }
 }
@@ -403,7 +397,7 @@ class TopicText extends TopicBlock {
             ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
 
             if ( dialogName == 'link' ) {
-                var infoTab = dialogDefinition.getContents( 'info' );
+                const infoTab = dialogDefinition.getContents( 'info' );
                 infoTab.remove( 'protocol' );
                 dialogDefinition.removeContents( 'advanced' );
             }
@@ -411,7 +405,7 @@ class TopicText extends TopicBlock {
             if ( dialogName == 'image' ) {
                 dialogDefinition.removeContents( 'Link' );
                 dialogDefinition.removeContents( 'advanced' );
-                var infoTab = dialogDefinition.getContents( 'info' );
+                const infoTab = dialogDefinition.getContents( 'info' );
                 infoTab.remove( 'txtBorder' );
                 infoTab.remove( 'txtHSpace' );
                 infoTab.remove( 'txtVSpace' );
@@ -573,7 +567,7 @@ class TopicResource extends React.Component {
             </div>
         );
     }
-};
+}
 
 
 /**
@@ -676,7 +670,7 @@ class TopicResources extends TopicBlock {
             </div>
         );
     }
-};
+}
 
 /**
  * Class representing a geo gebra worksheet
@@ -741,7 +735,7 @@ class TopicGeoGebra extends TopicBlock {
             </div>
         );
     }
-};
+}
 
 /**
  * Class representing an internal link
@@ -916,7 +910,7 @@ class TopicNexboard extends TopicBlock {
         $.getJSON("nexboard/boards")
             .then(boards => {
                 this.setState({boards:boards});
-            })
+            });
         $("select[id="+this.state.id+"]").chosen();
         $("select[id="+this.state.id+"]").on('change', this.handleChange);
     }
