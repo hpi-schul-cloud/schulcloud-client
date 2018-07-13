@@ -1168,19 +1168,25 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
         }
     }).then(function(){
         //store consent
+        let consent = {
+            form: 'digital',
+            privacyConsent: req.body.Erhebung,
+            thirdPartyConsent: req.body.Pseudonymisierung,
+            termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
+            researchConsent: req.body.Forschung
+        }
         if (parent) {
+            consent.parentId = parent._id;
             return api(req).post('/consents/', {
                 json: {
                     userId: user._id,
-                    parentConsents: [{
-                        parentId: parent.id
-                    }]
+                    parentConsents: [consent]
                 }
             })
         } else {
             return api(req).post('/consents/', {
-                json: {userId: user._id, dateOfUserConsent: Date.now()}
-            })
+                json: {userId: user._id,userConsent: consent}
+            });
         }
     }).then(function() {
         //sendMailStuff (Katrin)
