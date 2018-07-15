@@ -1,3 +1,5 @@
+import 'jquery-datetimepicker';
+
 let courseTimesCount = $('.course-time').length;
 
 let guidGenerator = function guidGenerator() {
