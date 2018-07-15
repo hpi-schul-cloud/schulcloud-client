@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     module: {
         rules: [{
             test: /\.(js|jsx)$/,
@@ -33,12 +33,4 @@ module.exports = {
         path: '/',
         filename: '[name].js'
     },
-    plugins: [
-        new webpack.ProvidePlugin({
-            jQuery: 'jquery',
-            $: 'jquery',
-            jquery: 'jquery'
-          })
-      
-    ]
 };
