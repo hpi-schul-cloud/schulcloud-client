@@ -121,8 +121,6 @@ gulp.task('scripts', () => {
             }
         ))
         .pipe(webpackStream(webpackConfig, webpack))
-        .pipe(optimizejs())
-        .pipe(uglify())
         .pipe(gulp.dest(`./build/${themeName()}/scripts`))
 })
 
