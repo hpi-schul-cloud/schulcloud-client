@@ -1137,7 +1137,7 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
         schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
         roles: ["0000d186816abba584714c99"] // role=student
         // birthday!
-    }
+    };
     let parent = null;
     
     return api(req).post('/users/', {
@@ -1153,7 +1153,7 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
                 children: [user._id],
                 schoolId: "0000d186816abba584714c5f", //get schoolid from link
                 roles: ["5b45f8d28c8dba65f8871e19"] // role parent
-            }
+            };
             return api(req).post('/users/', {
                 json: parent
             })
@@ -1161,7 +1161,7 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
                 parent = newParent;
                 return api(req).patch('/users/' + user._id, {
                     json: {parents: [parent._id]}
-                })
+                });
             }).catch(err => res.status(500).send(err));
         } else {
             return Promise.resolve;
@@ -1174,7 +1174,7 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
             thirdPartyConsent: req.body.Pseudonymisierung,
             termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
             researchConsent: req.body.Forschung
-        }
+        };
         if (parent) {
             consent.parentId = parent._id;
             return api(req).post('/consents/', {
@@ -1182,7 +1182,7 @@ router.post('/dataprivacy/registration/submit', function (req, res, next) {
                     userId: user._id,
                     parentConsents: [consent]
                 }
-            })
+            });
         } else {
             return api(req).post('/consents/', {
                 json: {userId: user._id,userConsent: consent}

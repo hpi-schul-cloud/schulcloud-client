@@ -109,7 +109,6 @@ router.get('/:classId/edit', function (req, res, next) {
 
             // deep copy
             let substitutions = JSON.parse(JSON.stringify(teachers));
-            console.log(substitutions);
             // preselect current teacher when creating new class
             if((currentClass.teacherIds||[]).length == 0){
                 teachers.forEach(t => {
@@ -118,15 +117,14 @@ router.get('/:classId/edit', function (req, res, next) {
                     }
                 });
             }else{
-                const teacherIds = currentClass.teacherIds.map(t => {return t._id});
-                substitutions = substitutions.filter(t => {return !teacherIds.includes(t._id)})
+                const teacherIds = currentClass.teacherIds.map(t => {return t._id;});
+                substitutions = substitutions.filter(t => {return !teacherIds.includes(t._id);});
                 teachers.forEach(t => {
                     if(teacherIds.includes(t._id)){
                         t.selected = true;
                     }
                 });
             }
-            console.log(substitutions);
             res.render('classes/edit', {
                 title: 'Klasse bearbeiten',
                 schoolyears: ["2018/2019", "2019/2020"],
