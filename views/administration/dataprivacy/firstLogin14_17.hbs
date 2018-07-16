@@ -1,6 +1,7 @@
 {{#extend "lib/loggedin"}}
   {{#content "scripts" mode="append"}}
       <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+      <script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
       <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
@@ -8,8 +9,9 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="#" method="get"}}
+    {{#embed "lib/forms/paginatedForm" sections=5 action="administration/dataprivacy/firstLogin/submit" method="post"}}
       {{#content "panels"}}
+
       <section data-panel="section-1">
         <h4>Herzlich Willkommen in der Schul-Cloud, {{currentUser.firstName}} {{currentUser.lastName}} </h4>
         <p>
@@ -31,29 +33,33 @@
             Ich, {{currentUser.firstName}} {{currentUser.lastName}}, erkläre folgendes:
         </p>
         <label>
-            <input name="Erhebung" type="checkbox" value="true"/>
-            Ich habe die <a href=" " >Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.
+            <input name="Erhebung" type="checkbox" value="true" required/>
+            <span>Ich habe die <a href=" " >Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.</span>
         </label>
 
         <p class="explanation">
-            Um die Nutzung der Schul-Cloud zu ermöglichen, ist die Verarbeitung von personenbezogenen Daten der Nutzer erforderlich. Dies erfolgt ausschließlich entsprechend der hohen gesetzlichen Datensicherheits-Anforderungen. Das HPI verarbeitet nur die Daten, deren Erhebung unbedingt erforderlich ist und sorgt dafür, dass sie nicht in unbefugte Hände geraten.
+            <span>Um die Nutzung der Schul-Cloud zu ermöglichen, ist die Verarbeitung von personenbezogenen Daten der Nutzer erforderlich. Dies erfolgt ausschließlich entsprechend der hohen gesetzlichen Datensicherheits-Anforderungen. Das HPI verarbeitet nur die Daten, deren Erhebung unbedingt erforderlich ist und sorgt dafür, dass sie nicht in unbefugte Hände geraten.</span>
         </p>
         <label>
-            <input name="Forschung" type="checkbox" value="true"/>
-            Ich habe die <a href=" " >Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.        </label>
+            <input name="Forschung" type="checkbox" value="true" required/>
+            <span>Ich habe die <a href=" " >Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
+        </label>
 
         <p class="explanation">
-            Die HPI Schul-Cloud wird von einem wissenschaftlichen Forschungsprojekt begleitet, das der Optimierung des Lernerlebnisses in der Schul-Cloud dient. Im Rahmen dessen werden Nutzungsdaten anonymisiert ausgewertet.         </p>
+            Die HPI Schul-Cloud wird von einem wissenschaftlichen Forschungsprojekt begleitet, das der Optimierung des Lernerlebnisses in der Schul-Cloud dient. Im Rahmen dessen werden Nutzungsdaten anonymisiert ausgewertet.
+        </p>
         <label>
-            <input name="Pseudonymisierung" type="checkbox" value="true"/>
-            Ich habe die <a href=" " >Informationen zu Inhalte-Anbietern</a> gelesen und willige in die Weitergabe der Pseudonyme an Inhalte-Anbieter ein.        </label>
+            <input name="Pseudonymisierung" type="checkbox" value="true" required/>
+            <span>Ich habe die <a href=" " >Informationen zu Inhalte-Anbietern</a> gelesen und willige in die Weitergabe der Pseudonyme an Inhalte-Anbieter ein.</span>
+        </label>
 
         <p class="explanation">
             Nutzernamen werden nicht an integrierte Drittanbieter weitergegeben. Sollte eine Wiedererkennung nötig sein, z.B. für individuelle Aufgabenstellungen, geschieht dies zu Ihrem Schutz auf Basis eines Pseudonyms. Die Schülerdaten bleiben sicher im Kernbereich der Schul-Cloud.         </p>
         <label>
-            <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen"/>
-            Ich habe die <a href=" " >Nutzungsbedingungen</a> gelesen und stimme ihnen zu.
+            <input name="Nutzungsbedingungen" type="checkbox" value="true" required/>
+            <span>Ich habe die <a href=" ">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
         </label>
+
         <p></p>
 
         <label>
@@ -65,8 +71,6 @@
       </section>
 
 
-
-
       <section data-panel="section-3">
         <h4>Wie können wir dich erreichen?</h4>
         <p>
@@ -76,28 +80,27 @@
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
               <label>E-Mail:</label>
-              <input class="form-control" type="email" placeholder="schueler@schul-cloud.org"></input>
+              <input class="form-control" type="email" placeholder="schueler@schul-cloud.org" required title="Bitte gib eine gültige E-Mail Adresse ein."></input>
           </div>
         </div>
       </section>
 
 
-
-
-      <section data-panel="section-4">
+      <section data-panel="section-4" class="submit-page">
         <h4>Du hast es fast geschafft...</h4>
         <p>
             Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf! <br/>
-            Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
+            Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen. <br/>
+            Erlaubte Sonderzeichen sind:  -_!<>§$%&/()=?\;:,.#+*~'
         </p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>Neues Passwort: *</label>
-            <input class="form-control" name="password-1" type="password" placeholder="Neues Passwort" required/>
+            <input class="form-control" id="password" name="password-1" type="password" placeholder="Neues Passwort" minlength="8" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$" title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>Wiederhole dein neues Passwort: *</label>
-            <input class="form-control" name="password-2" type="password" placeholder="Neues Passwort wiederholen" required/>
+            <input class="form-control" id="password_control" name="password-2" type="password" placeholder="Neues Passwort wiederholen" required/>
           </div>
         </div>
 
@@ -105,6 +108,12 @@
             <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
             Login-Daten per Mail an mich senden
         </label>
+      </section>
+
+      <section data-panel="section-5">
+          <h4>Fertig!</h4>
+          <p>Du kannst jetzt mit der Benutzung der HPI Schul-Cloud starten.</p>
+          <a class="btn btn-primary" href="//schul-cloud.org">Schul-Cloud erkunden</a>
       </section>
       {{/content}}
     {{/embed}}

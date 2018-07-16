@@ -41,7 +41,7 @@ function isSubmitted(){
 function setSelectionByIndex(index, event){
     event.preventDefault();
     function setSelection(index){
-        document.querySelector('.form input[type="radio"]:nth-of-type(' + index + ')').checked = true;
+        document.querySelector(`.form input[type="radio"]:nth-of-type(${index})`).checked = true;
         const event = new CustomEvent("showSection", {
             detail: {
                 sectionIndex: index
