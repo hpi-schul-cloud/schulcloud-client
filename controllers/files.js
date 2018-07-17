@@ -15,6 +15,7 @@ const multer = require('multer');
 const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
 const _ = require('lodash');
+const winston = require('winston');
 
 const filterOptions = [
     {key: 'pics', label: 'Bilder'},
@@ -22,6 +23,17 @@ const filterOptions = [
     {key: 'pdfs', label: 'PDF Dokumente'},
     {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
 ];
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 const filterQueries = {
     pics: {$regex: 'image'},
@@ -55,12 +67,19 @@ const thumbs = {
     tiff: "/images/thumbs/tiffs.png"
 };
 
+/**
+ * sends a signedUrl request to the server
+ * @param {*} data, contains the path for the requested file
+ */
 const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
     });
 };
 
+/**
+ * handles query params for file requests
+ */
 const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
     const urlParts = url.parse(originalUrl, true);
 
@@ -76,6 +95,9 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
     return url.format(urlParts);
 };
 
+/**
+ * generates the displayed breadcrumbs on the actual file page
+ */
 const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) => {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
@@ -99,6 +121,9 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'}
     return breadcrumbs;
 };
 
+/**
+ * generates the correct file's or directory's storage context for further requests
+ */
 const getStorageContext = (req, res, options = {}) => {
 
     if (req.query.storageContext) {
@@ -118,7 +143,9 @@ const getStorageContext = (req, res, options = {}) => {
     return pathUtils.join(storageContext, currentDir);
 };
 
-
+/**
+ * fetches all files and directories for a given storageContext
+ */
 const FileGetter = (req, res, next) => {
     let path = getStorageContext(req, res);
     let pathComponents = path.split('/');
@@ -145,6 +172,8 @@ const FileGetter = (req, res, next) => {
             return dir;
         });
 
+        checkIfOfficeFiles(files);
+
         res.locals.files = {
             files,
             directories,
@@ -157,6 +186,9 @@ const FileGetter = (req, res, next) => {
     });
 };
 
+/**
+ * fetches all sub-scopes (courses, classes etc.) for a given user and super-scope
+ */
 const getScopeDirs = (req, res, scope) => {
     return api(req).get('/' + scope + '/', {
         qs: {
@@ -221,6 +253,47 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
             }
         }
     });
+};
+
+/**
+ * check whether given files can be opened in LibreOffice
+ */
+const checkIfOfficeFiles = files => {
+    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+        // todo: discuss, whether this message has to be displayed every time when a file page is loaded
+        logger.error('LibreOffice env is currently not defined.');
+        return;
+    }
+
+    const officeFileTypes = [
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
+        'application/vnd.ms-powerpoint',                                               //.ppt
+        'application/vnd.ms-excel',                                                    //.xlx
+        'application/vnd.ms-word',                                                     //.doc
+        'text/plain'                                                                   //.txt
+    ];
+
+    files.forEach(f => f.isOfficeFile = officeFileTypes.indexOf(f.type) >= 0);
+};
+
+/**
+ * generates the correct LibreOffice url for (only) opening office-files
+ * @param {*} fileId, the id of the file which has to be opened in LibreOffice
+ */
+const getLibreOfficeUrl = fileId => {
+    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+        logger.error('LibreOffice env is currently not defined.');
+        return;
+    }
+
+    // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980/
+    const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
+    const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
+
+    //todo: load jwt as access_token param
+    return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?accessToken=`;
 };
 
 
@@ -292,7 +365,6 @@ router.delete('/file', function (req, res, next) {
     });
 });
 
-
 // get file
 router.get('/file', function (req, res, next) {
 
@@ -319,6 +391,15 @@ router.get('/file', function (req, res, next) {
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
+    });
+});
+
+
+// open in LibreOffice Online frame
+router.get('/file/:id/lool', function(req, res, next) {
+    res.render('files/lool', {
+        title: 'LibreOffice Online',
+        libreOfficeUrl: getLibreOfficeUrl(req.params.id)
     });
 });
 

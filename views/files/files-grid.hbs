@@ -61,6 +61,11 @@
 
                                 <small class="file-info" id="{{this._id}}"></small>
                             </div>
+                            {{#if this.isOfficeFile}}
+                            <div class="card-text">
+                                <a href="/files/file/{{this._id}}/lool" target="_blank">In LibreOffice öffnen</a>
+                            </div>
+                            {{/if}}
                         </div>
                     </div>
                 </div>
