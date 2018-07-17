@@ -334,6 +334,22 @@
       {
         "id": 20,
         "title": "",
+        "firstName": "Sophie",
+        "lastName": "Plötz",
+        "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
+        "description": "Sophie absolvierte ihr Masterstudium in British Studies (HU Berlin) und ist zusätzlich staatlich geprüfte Kulturmanagerin (Deutsche Akademie für Management, Berlin). Nach dem Masterabschluss begleitete Sophie die Einführung einer digitalen Lernplattform und war in deren administrativer Betreuung sowie in der Konzeption von E-Learning-Inhalten tätig. Seit Juli 2018 wirkt sie im Projekt HPI Schul-Cloud mit. Zum Ausgleich spielt Sophie Trompete im Blasorchester, besucht Museen, liest und reist gern.",
+        "pictureUrl": "/images/team/Sophie_Plötz.JPG",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 21,
+        "title": "",
         "firstName": "Sigrid",
         "lastName": "Stobbe",
         "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
@@ -353,22 +369,6 @@
     "name": "Studierende",
     "style": "small",
     "team": [
-      {
-        "id": 21,
-        "title": "",
-        "firstName": "Boris",
-        "lastName": " Andreev",
-        "position": "Studentische Hilfskraft",
-        "description": "Boris kommt ursprünglich aus Bulgarien und macht derzeit seinen Bachelor in IT-Systems Engineering am Hasso-Plattner-Institut. Im Projekt Schul-Cloud ist er im Bereich des Web Developments angestellt. Neben dem Studium und der Arbeit nutzt er seine Freizeit, indem er viel reist und Freunde im Ausland besucht. Auch bereitet es ihm viel Freude, seine Meme Seite Веро мемета auf Facebook am laufen zu halten.",
-        "pictureUrl": "/images/team/Boris_Andreev.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
       {
         "id": 22,
         "title": "",
