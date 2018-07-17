@@ -33,6 +33,13 @@ router.get('/existing', function (req, res, next) {
         title: 'Willkommen - Erster Login für bestehende Nutzer'
     });
 });
+router.post('/existing/submit', function (req, res, next) {
+    api(req).patch('/users/5b4e25a890fd7dfa248e5f0b', {
+        json: {birthdate: req.body.studentBirthdate}
+    }).then(user => {
+        res.sendStatus(200);
+    }).catch(err => res.status(500).send(err));
+});
 router.get('/existingU14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserU14', {
         title: 'Willkommen - Erster Login für bestehende Nutzer'

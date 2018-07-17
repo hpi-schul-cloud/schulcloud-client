@@ -8,53 +8,57 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
  {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="" method=""}}
+    {{#embed "lib/forms/paginatedForm" sections=3 action="existing/submit" method="POST"}}
       {{#content "panels"}}
-
       <section data-panel="section-1">
-        <h4>UE14Herzlich Willkommen in der Schul-Cloud, {Vorname, Nachname}</h4>
-        <p>Wir freuen uns, dass du die Schul-Cloud nutzen möchtest.</p>
-        <p>Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und ändere dein Startpasswort.</p>
-        <p>Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der Schul-Cloud die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die Schul-Cloud ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. ????🦄</p>
+        <h4>Einwilligungserklärung</h4>
+        <p>Du bist älter als 14 Jahre. Deine Erziehungsberechtigten (oder du selbst, wenn du schon über 18 bist) haben der Nutzung bereits auf dem Papierweg zugestimmt. Bitte bestätige jetzt folgende Einwilligungserklärungen, damit du die Schul-Cloud weiter nutzen kannst.</p>
+
+          <p>Ich, <b>{Vorname} {Nachname}</b>, erkläre Folgendes:</p>
+          <label>
+              <input name="Erhebung" type="checkbox" value="true" required/>
+              <span>Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.</span>
+          </label>
+
+          <p>Schülereinwilligung Ü18</p>
+          <label>
+              <input name="Forschung" type="checkbox" value="true" required/>
+              <span>Ich habe die <a href="#">Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
+          </label>
+
+          <p>Die HPI Schul-Cloud wird von einem wissenschaftlichen Forschungsprojekt begleitet, das der Optimierung des Lernerlebnisses in der Schul-Cloud dient. Im Rahmen dessen werden Nutzungsdaten anonymisiert ausgewertet.</p>
+          <label>
+              <input name="Pseudonymisierung" type="checkbox" value="true" required/>
+              <span> Ich habe die <a href="#">Informationen zu Inhalte-Anbietern</a> gelesen und willige in die Weitergabe der Pseudonyme an Inhalte-Anbieter ein</span>
+          </label>
+
+          <p>Nutzernamen werden nicht an integrierte Drittanbieter weitergegeben. Sollte eine Wiedererkennung nötig sein, z.B. für individuelle Aufgabenstellungen, geschieht dies zu Ihrem Schutz auf Basis eines Pseudonyms. Die Schülerdaten bleiben sicher im Kernbereich der Schul-Cloud. </p>
+          <label>
+              <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen" required/>
+              <span>Ich habe die <a href="#">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
+          </label>
+
+          <p>Die Nutzung der Schul-Cloud ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes Schul-Cloud-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
       </section>
 
 
-      <section data-panel="section-2">
-        <h4>Wie können wir dich erreichen?</h4>
-        <p>Bitte überprüfe deine E-Mail-Adresse:</p>
+      <section data-panel="section-2" class="submit-page">
+        <h4>Du hast es fast geschafft…</h4>
+        <p>Bitte gib dein Geburtsdatum an. Es wird benötigt, damit die Einwilligungserklärung gültig ist.</p>
         <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-              <label>E-Mail:</label>
-              <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required>
-          </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label>Geburtsdatum: *</label>
+                <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2006/01/01" data-start-date="2000/01/01" name="studentBirthdate" type="text" required autocomplete="off" />
+            </div>
         </div>
       </section>
 
 
-      <section data-panel="section-3" class="submit-page">
-        <h4>Du hast es fast geschafft...</h4>
-        <p>Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!</p>
-         <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Neues Passwort: *</label>
-            <input class="form-control" name="password-1" type="password" placeholder="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." required/>
-          </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Wiederhole dein neues Passwort: *</label>
-            <input class="form-control" name="password-2" type="password" placeholder="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." required/>
-          </div>
-        </div>
-
-        <label>
-            <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
-            Login-Daten per Mail an mich senden
-        </label>
-      </section>
-
-      <section data-panel="section-4">
-        <h4>Fertig!</h4>
-        <p>Du kannst jetzt mit der Benutzung der HPI Schul-Cloud starten.</p>
-        <a class="btn btn-primary" href="//schul-cloud.org">Schul-Cloud erkunden</a>
+      <section data-panel="section-3">
+        <h4>Danke!</h4>
+        <p>Du kannst jetzt mit der Benutzung der HPI Schul-Cloud fortfahren.<br>
+            <a class="btn btn-primary" href="//schul-cloud.org">Schul-Cloud erkunden</a>
+        </p>
       </section>
       {{/content}}
     {{/embed}}
