@@ -95,27 +95,45 @@ router.get('/create', function (req, res, next) {
 });
 
 router.get('/:classId/edit', function (req, res, next) {
-    api(req).get('/classes/' + req.params.classId)
-    .then(classes => {
+    api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
+    .then(currentClass => {
+        const classes = getSelectOptions(req, 'classes', {_id: {$ne: currentClass._id}, $limit: 1000});
         const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
         const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
 
         Promise.all([
+            classes,
             teachersPromise,
             studentsPromise
-        ]).then(([teachers, students]) => {
+        ]).then(([classes, teachers, students]) => {
 
+            // deep copy
+            let substitutions = JSON.parse(JSON.stringify(teachers));
             // preselect current teacher when creating new class
-            teachers.forEach(t => {
-                if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
-            });
-
+            if((currentClass.teacherIds||[]).length == 0){
+                teachers.forEach(t => {
+                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
+                        t.selected = true;
+                    }
+                });
+            }else{
+                const teacherIds = currentClass.teacherIds.map(t => {return t._id;});
+                substitutions = substitutions.filter(t => {return !teacherIds.includes(t._id);});
+                teachers.forEach(t => {
+                    if(teacherIds.includes(t._id)){
+                        t.selected = true;
+                    }
+                });
+            }
             res.render('classes/edit', {
                 title: 'Klasse bearbeiten',
                 schoolyears: ["2018/2019", "2019/2020"],
+                "class": currentClass,
                 classes,
                 teachers,
-                students
+                substitutions: substitutions,
+                students,
+                invitationLink: 'schul-cloud.org/1234Eckstein'
             });
         });
     });

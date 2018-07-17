@@ -1032,6 +1032,9 @@ router.all('/systems', function (req, res, next) {
     });
 });
 
+/**
+ * Dataprivcay routes
+ */
 router.get('/dataprivacy/student', function (req, res, next) {
     res.render('administration/dataprivacy/student', {
         title: 'Datenerfassung: Einverständniserklärung'
@@ -1039,7 +1042,7 @@ router.get('/dataprivacy/student', function (req, res, next) {
 });
 router.get('/dataprivacy/teacher', function (req, res, next) {
     res.render('administration/dataprivacy/teacher', {
-        title: 'Datenerfassung: Einverständniserklärung'
+        title: 'Datenerfassung: Einverständniserklärung's.s.status(500s.status(500status(500
     });
 });
 router.get('/dataprivacy/firstLogin', function (req, res, next) {

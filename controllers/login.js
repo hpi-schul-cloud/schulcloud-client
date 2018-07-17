@@ -119,7 +119,18 @@ router.all('/login/', function (req, res, next) {
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     if (res.locals.currentUser) {
-        res.redirect('/dashboard/');
+        const user = res.locals.currentUser;
+
+        api(req).get('/consents/', {qs: { userId: user._id }})
+            .then(consents => {
+                consent = consents.data[0];
+
+                res.redirect(consent.redirect);
+            })
+            .catch(err => {
+                // user has no consent; redirect for now
+                res.redirect('/dashboard/');
+            });
     } else {
         // if this happens: SSO
         res.redirect('/register/user/' + res.locals.currentPayload.accountId);

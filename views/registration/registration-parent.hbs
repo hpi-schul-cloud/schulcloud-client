@@ -1,4 +1,4 @@
-{{#extend "lib/loggedin"}}
+{{#extend "registration/templates/registrationNew"}}
   {{#content "scripts" mode="append"}}
       <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
       <script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=5 action="/administration/dataprivacy/registration/submit" method="post" class="registration-form"}}
+    {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form"}}
       {{#content "panels"}}
       <section data-panel="section-1">
         <h4>Schülerdaten</h4>
@@ -48,7 +48,7 @@
               <option value="male">männlich</option>
               <option value="female">weiblich</option>
               <option value="other">andere</option>
-              <option value="other">keine Angabe</option>
+              <option value="noinfo">keine Angabe</option>
             </select>
           </div>
         </div>
@@ -114,22 +114,21 @@
             <span>Ich habe die <a href="#">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
         </label>
 
-        <p>Widerruf bla Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-        <p>HPI Adresse Adresse oder per E-Mail an [widerruf@schul-cloud.org]</p>
+          <p>Die Nutzung der Schul-Cloud ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes Schul-Cloud-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
       </section>
 
 
 
-      <section data-panel="section-4" class="submit-page" data-feature="pinValidation">
+      <section data-panel="section-4" class="submit-page" data-feature="pin">
         <h4>Abschluss</h4>
         <p>Fast geschafft!</p>
         <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
-        <div id="tempPin" class="hidden"></div>
-        {{#embed "administration/forms/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
-        <button id="submit-pin" class="btn btn-primary">CHECK</button>
-
-        <p><a if="resendPin" href="#">Code erneut senden</a></p>
-            <p><a href="#" class="pincorrect">Restdaten anzeigen wenn PIN korrekt</a></p>
+        <div id="pinverification">
+            <div id="temp-pin" class="hidden"></div>
+            {{#embed "administration/forms/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
+            <button id="check-pin" class="btn btn-primary">prüfen</button>
+            <p><a id="resend-pin" href="#">Code erneut senden</a></p>
+        </div>
         <div id="userdata-summary" class="hidden">
           <p>
             Mit folgenden Daten kann sich

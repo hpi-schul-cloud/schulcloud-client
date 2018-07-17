@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
     if(birthdateInput && showFormButton) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
-            const baseUrl = `/administration/dataprivacy/registration`;
+            const baseUrl = '/registration';
             
             if(radiou18.checked){
                 window.location.href = `${baseUrl}/byparent`;
@@ -27,22 +27,64 @@ window.addEventListener('DOMContentLoaded', ()=>{
             }
         });
     }
-
-    // temp pin workaround
-    document.querySelector(".pincorrect").addEventListener("click", ()=> {
-        document.getElementById("userdata-summary").style.display = "block";
+    
+    document.querySelector('.form section[data-feature="pin"]').addEventListener("showSection", (event) => {
+        console.log("generate pin");
+        let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
+        console.log("mail: " +usermail);
+        $.ajax({
+            url: "/registration/pinvalidation",
+            method: "POST",
+            data: {"email": usermail}
+        }).done(function(pin){
+            if(pin)
+                alert(pin); // successful, remove whole done() if everything is working, not needed
+        }).fail(function(err){
+            $.showNotification("Fehler bei der PIN-Erstellung!", "danger", 4000);
+        });
     });
     
+    // workaround
+    $('#check-pin').on('click', (e) => {
+        checkPin(e);
+    });
     // basic pin prototype
-    $('.pin-input input.digit:last-child').on('change', (event) => {
+    $('.pin-input .combined').on('input', (e) => {
+        checkPin(e);
+    });
+    
+    function checkPin(e) {
+        e.preventDefault();
         let pinInput = document.querySelector('input[name="email-pin"]');
+        console.log(pinInput.value);
+        console.log(pinInput.checkValidity());
+        let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
         if(pinInput.checkValidity()){
-            console.log("submitting pin:", pinInput.value);
+            console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
+            $.ajax({
+                url: "/registration/pinvalidation",
+                method: "GET",
+                data: {email: usermail, pin: pinInput.value}
+            }).done(function(response){
+                console.log(response);
+                if(response==="verified") {
+                    $.showNotification("PIN erfolgreich verifiziert.", "success", 4000);
+                    $("#pinverification").hide();
+                    $("#send-pin, #resend-pin").remove();
+                    $("#userdata-summary").show();
+                } else if (response==="wrong") {
+                    $.showNotification("Falscher PIN-Code, bitte erneut versuchen.", "danger", 4000);
+                } else {
+                    $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
+                }
+            }).fail(function(err){
+                $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
+            });
         }else{
-            pinInput.parentElement.parentElement.classList.add("show-invalid");
+            $(pinInput).parents("section").addClass("show-invalid");
         }
         // ajax check code
-    });
+    }
 });
 window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
@@ -50,35 +92,5 @@ window.addEventListener('load', ()=>{
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
         var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
         $('.form .student-password').text(pw);
-    }
-});
-
-window.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.form section').forEach((section) => {
-        section.addEventListener("showSection", (event) => {
-            console.log("show section", event.detail.sectionIndex, event.target);
-        });
-    });
-});
-
-window.addEventListener('load', ()=>{
-    if(document.querySelector('.form .pin-input')) {
-        console.log("generate pin");
-        let usermail = document.querySelector("input[name='parent-email']").value ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
-        console.log("mail: " +usermail);
-        $.ajax({
-            url: "/administration/pinvalidation",
-            method: "POST",
-            data: {"email": usermail}
-        }).done(function(pin){
-            if(pin)
-                document.getElementById("tempPin").text(pin);
-            else {
-                //TODO
-                alert("fehler bei der pin erstellung");
-            }
-        }).fail(function(err){
-            console.log(err);
-        });
     }
 });
