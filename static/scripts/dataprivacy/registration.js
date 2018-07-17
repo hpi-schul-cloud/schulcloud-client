@@ -7,7 +7,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
     if(birthdateInput && showFormButton) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
-            const baseUrl = `/administration/dataprivacy/registration`;
+            const baseUrl = '/registration';
             
             if(radiou18.checked){
                 window.location.href = `${baseUrl}/byparent`;
@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
         console.log("mail: " +usermail);
         $.ajax({
-            url: "/administration/pinvalidation",
+            url: "/registration/pinvalidation",
             method: "POST",
             data: {"email": usermail}
         }).done(function(pin){
@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         if(pinInput.checkValidity()){
             console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
             $.ajax({
-                url: "/administration/pinvalidation",
+                url: "/registration/pinvalidation",
                 method: "GET",
                 data: {email: usermail, pin: pinInput.value}
             }).done(function(response){

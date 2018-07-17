@@ -1032,6 +1032,9 @@ router.all('/systems', function (req, res, next) {
     });
 });
 
+/**
+ * Dataprivcay routes
+ */
 router.get('/dataprivacy/student', function (req, res, next) {
     res.render('administration/dataprivacy/student', {
         title: 'Datenerfassung: Einverständniserklärung'
@@ -1041,159 +1044,6 @@ router.get('/dataprivacy/teacher', function (req, res, next) {
     res.render('administration/dataprivacy/teacher', {
         title: 'Datenerfassung: Einverständniserklärung'
     });
-});
-router.get('/dataprivacy/firstLogin', function (req, res, next) {
-    res.render('administration/dataprivacy/firstLogin', {
-        title: 'Willkommen - Erster Login'
-    });
-});
-router.get('/dataprivacy/firstLogin14_17', function (req, res, next) {
-    res.render('administration/dataprivacy/firstLogin14_17', {
-        title: 'Willkommen - Erster Login (14 bis 17 Jahre)'
-    });
-});
-
-router.get('/dataprivacy/firstLoginU14', function (req, res, next) {
-    res.render('administration/dataprivacy/firstLoginU14', {
-        title: 'Willkommen - Erster Login'
-    });
-});
-router.get('/dataprivacy/firstLoginUE18', function (req, res, next) {
-    res.render('administration/dataprivacy/firstLoginUE18', {
-        title: 'Willkommen - Erster Login'
-    });
-});
-router.get('/dataprivacy/registration', function (req, res, next) {
-    res.render('administration/dataprivacy/registration', {
-        title: 'Herzlich Willkommen bei der Registrierung'
-    });
-});
-router.get('/dataprivacy/registration/byparent', function (req, res, next) {
-    res.render('administration/dataprivacy/registration-parent', {
-        title: 'Registrierung - Eltern'
-    });
-});
-router.get('/dataprivacy/registration/bystudent', function (req, res, next) {
-    res.render('administration/dataprivacy/registration-student', {
-        title: 'Registrierung - Schüler*'
-    });
-});
-router.get('/pinvalidation', function (req, res, next) {
-    if (req.query && req.query.email && req.query.pin) {
-        return api(req).get('/registrationPins/', {
-            qs: {
-                $and: [{"pin": req.query.pin, "email": req.query.email} ]
-            }
-        }).then(check => {
-            if (check.data && check.data.length>0)
-                res.send("verified");
-            else
-                res.send("wrong");
-        }).catch(err => res.status(500).send(err));
-    } else {
-        res.sendStatus(500);
-    }
-});
-router.post('/pinvalidation', function (req, res, next) {
-    if (req.body && req.body.email) {
-        return api(req).post('/registrationPins/', {
-            json: {email:req.body.email}
-        }).then(pin => {
-            res.send((pin||{}).pin);
-        }).catch(err => res.status(500).send(err));
-    } else {
-        res.sendStatus(500);
-    }
-});
-/* versuch: nur 1 route für registration submits für eltern und ü18
-router.post('/dataprivacy/registration/byparent/submit', function (req, res, next) {
-    let user = {
-        firstName: req.body["student-firstname"],
-        lastName: req.body["student-secondname"],
-        email: req.body["student-email"],
-        schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
-        roles: ["0000d186816abba584714c99"] // role=student
-    };
-    
-    return api(req).post('/users/', {
-        json: user
-    }).then(newUser => {
-        return api(req).post('/consents/', {
-            json: {userId: newUser._id}
-        }).then(_ => {
-            //if (Daten per Mail zuschicken)
-            //  sendEmail(Katrin)(newUser, req);
-            res.sendStatus(200);
-        }).catch(err => res.status(500).send(err));
-    }).catch(err => res.status(500).send(err));
-});
-*/
-router.post('/dataprivacy/registration/submit', function (req, res, next) {
-    let user = {
-        firstName: req.body["student-firstname"],
-        lastName: req.body["student-secondname"],
-        email: req.body["student-email"],
-        gender: req.body["gender"],
-        schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
-        roles: ["0000d186816abba584714c99"] // role=student
-        // birthday!
-    };
-    let parent = null;
-    
-    return api(req).post('/users/', {
-        json: user
-    }).then(newUser => {
-        user = newUser;
-        //add parent if necessary
-        if(req.body["parent-email"]) {
-            parent = {
-                firstName: req.body["parent-firstname"],
-                lastName: req.body["parent-secondname"],
-                email: req.body["parent-email"],
-                children: [user._id],
-                schoolId: "0000d186816abba584714c5f", //get schoolid from link
-                roles: ["5b45f8d28c8dba65f8871e19"] // role parent
-            };
-            return api(req).post('/users/', {
-                json: parent
-            })
-            .then(newParent => {
-                parent = newParent;
-                return api(req).patch('/users/' + user._id, {
-                    json: {parents: [parent._id]}
-                });
-            }).catch(err => res.status(500).send(err));
-        } else {
-            return Promise.resolve;
-        }
-    }).then(function(){
-        //store consent
-        let consent = {
-            form: 'digital',
-            privacyConsent: req.body.Erhebung,
-            thirdPartyConsent: req.body.Pseudonymisierung,
-            termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
-            researchConsent: req.body.Forschung
-        };
-        if (parent) {
-            consent.parentId = parent._id;
-            return api(req).post('/consents/', {
-                json: {
-                    userId: user._id,
-                    parentConsents: [consent]
-                }
-            });
-        } else {
-            return api(req).post('/consents/', {
-                json: {userId: user._id,userConsent: consent}
-            });
-        }
-    }).then(function() {
-        //sendMailStuff (Katrin)
-        return Promise.resolve;
-    }).then(function () {
-        res.sendStatus(200);
-    }).catch(err => res.status(500).send(err));
 });
 
 module.exports = router;

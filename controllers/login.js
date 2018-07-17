@@ -119,6 +119,15 @@ router.all('/login/', function (req, res, next) {
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     if (res.locals.currentUser) {
+        const user = res.locals.currentUser;
+
+        if (user.age < 14)
+            res.redirect('');
+        else if (user.age >= 14 && user.age < 18)
+            res.redirect('');
+        else if (user.age >= 18)
+            res.redirect('');
+
         res.redirect('/dashboard/');
     } else {
         // if this happens: SSO
