@@ -29,16 +29,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
     
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
-        console.log("generate pin");
         let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
-        console.log("mail: " +usermail);
         $.ajax({
             url: "/registration/pinvalidation",
             method: "POST",
             data: {"email": usermail}
-        }).done(function(pin){
-            if(pin)
-                alert(pin); // successful, remove whole done() if everything is working, not needed
         }).fail(function(err){
             $.showNotification("Fehler bei der PIN-Erstellung!", "danger", 4000);
         });
