@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
-    document.querySelector('.form section[data-feature="pin"]').addEventListener("showSection", (event) => {
+    $('.form section[data-feature="pin"]').on("showSection", (event) => {
         console.log("generate pin");
         let usermail = document.querySelector("input[name='parent-email']") ? document.querySelector("input[name='parent-email']").value : document.querySelector("input[name='student-email']").value;
         console.log("mail: " +usermail);

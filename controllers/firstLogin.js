@@ -28,5 +28,20 @@ router.get('/UE18', function (req, res, next) {
         title: 'Willkommen - Erster Login'
     });
 });
+router.get('/existing', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingUser', {
+        title: 'Willkommen - Erster Login für bestehende Nutzer'
+    });
+});
+router.get('/existingU14', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingUserU14', {
+        title: 'Willkommen - Erster Login für bestehende Nutzer'
+    });
+});
+router.get('/existingUE14', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingUserUE14', {
+        title: 'Willkommen - Erster Login für bestehende Nutzer'
+    });
+});
 
 module.exports = router;

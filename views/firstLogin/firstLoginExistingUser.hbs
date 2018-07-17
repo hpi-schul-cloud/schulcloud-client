@@ -10,14 +10,17 @@
   {{#content "page"}}
     <div id="welcome-screen">
       <p>Herzlich Willkommen in der HPI Schul-Cloud, {Vorname Nachname}</p>
-      <p>Mit dem Schuljahr 2018/2019 haben wir die Registrierung in der Schul-Cloud von Papier auf Digital umgestellt. Das macht es notwendig, dass wir dein Einverständnis zur Nutzung der Schul-Cloud elektronisch erfassen, sofern du älter als 13 Jahre bist. </p>
-      
-      <div class="form-group">
-          <label>Bitte gebe dein Geburtsdatum ein:</label>
-          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" id="birthdate" type="text" data-from="student-birthdate" required autocomplete="off" />
-      </div>
+      <p>Mit dem Schuljahr 2018/2019 haben wir die Registrierung in der Schul-Cloud von Papier auf Digital umgestellt. Das macht es notwendig, dass wir dein Einverständnis zur Nutzung der Schul-Cloud elektronisch erfassen, sofern du älter als 14 Jahre bist. </p>
 
-      <button id="showLoginForm" class="btn btn-primary" disabled>Weiter</button>
+        <p>Bitte wähle dein Alter aus:</p>
+        <div class="form-group">
+            <fieldset>
+                <input type="radio" id="reg-u14" name="student-age" value="u14"><label for="reg-u14">&nbsp;&nbsp;unter 14 Jahre</label><br>
+                <input type="radio" id="reg-14" name="student-age" value="14"><label for="reg-14">&nbsp;&nbsp;über 14 Jahre</label>
+            </fieldset>
+        </div>
+
+      <button id="showExistingLoginForm" class="btn btn-primary" disabled>Weiter</button>
         <p><br><br>* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir die männliche Form. Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die Schul-Cloud ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. ‍🌈🎉🦄</p>
     </div>
   {{/content}}
