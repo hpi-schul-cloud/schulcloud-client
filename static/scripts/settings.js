@@ -1,4 +1,4 @@
-import { getCookiesMap } from './notificationService/index';
+import { getCookiesMap, pushManager } from './notificationService/index';
 
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
@@ -71,3 +71,5 @@ $(document).ready(function() {
     }
 
 });
+
+window.pushManager = pushManager;

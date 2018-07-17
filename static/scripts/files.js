@@ -465,12 +465,12 @@ $(document).ready(function() {
 });
 let $openModal = $('.open-modal');
 
-function videoClick(e) {
+window.videoClick = function videoClick(e) {
     e.stopPropagation();
     e.preventDefault();
-}
+};
 
-function fileViewer(filetype, file, key, name) {
+window.fileViewer = function fileViewer(filetype, file, key, name) {
     $('#my-video').css("display","none");
     switch (filetype) {
         case 'application/pdf':
