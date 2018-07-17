@@ -290,7 +290,9 @@ const getLibreOfficeUrl = fileId => {
 
     // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980/
     const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
-    const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
+    //todo: set correct url here
+    //const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
+    const wopiRestUrl = 'http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9000/';
 
     //todo: load jwt as access_token param
     return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?accessToken=`;
