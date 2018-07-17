@@ -155,7 +155,9 @@ function goToSection(event){
 }
 window.addEventListener('DOMContentLoaded', ()=>{
     // Stepper
-    document.querySelectorAll('.form .stages label').addEventListener("click", goToSection);
+    //document.querySelectorAll('.form .stages label').addEventListener("click", goToSection);
+
+    $('.form .stages label').on("click", goToSection);
     document.querySelector('.form #prevSection').addEventListener("click", prevSection);
     document.querySelector('.form #nextSection').addEventListener("click", nextSection);
     document.querySelector('.form').addEventListener("submit", submitForm);
