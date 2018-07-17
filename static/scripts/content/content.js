@@ -1,3 +1,18 @@
+// import Vue from 'vue'
+
+import App from './App.vue';
+
+var vm = new Vue({
+	el: '#app',
+	template: '<App/>',
+	data: {
+    appName: '# hello'
+  },
+	components: { App }
+})
+
+console.log(vm);
+
 $(document).ready(function () {
 	var $modals = $('.modal');
 	var $editModal = $('.edit-modal');

@@ -1,9 +1,15 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
     {{#content "scripts" mode="append"}}
-        <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js" defer></script> -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js" defer></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script> -->
         <script src="/scripts/vendor-vue.js" defer></script>
-        <script src="/scripts/my-material.js" defer></script>
+        <script src="/scripts/userGeneratedContent/my-material.js" defer></script>
+    {{/content}}
+
+    {{#content "styles" mode="append"}}
+        <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+        <!-- <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet"> -->
     {{/content}}
 
     {{#content "page"}}

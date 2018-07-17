@@ -32,7 +32,7 @@ module.exports = {
                   chunks: 'all',
                 },
                 vue: {
-                  test: /[\\/]node_modules[\\/](vue)[\\/]/,
+                  test: /[\\/]node_modules[\\/](vue|vue-material)[\\/]/,
                   name: 'vendor-vue',
                   chunks: 'all',
                 },

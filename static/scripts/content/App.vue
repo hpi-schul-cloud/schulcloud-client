@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="">
-    Ich bin ein Vue-Template
+    Hier soll die Suche rein, die in der externen {{appName}}-Anwendung schon existiert.
   </div>
 </template>
 
