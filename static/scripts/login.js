@@ -79,7 +79,7 @@ $(document).ready(function() {
 
 });
 
-function startIntro() {
+window.startIntro = function startIntro() {
     introJs()
     .setOptions({
         nextLabel: "Weiter",
@@ -88,4 +88,4 @@ function startIntro() {
         skipLabel: "Überspringen"
     })
     .start();
-}
+};
