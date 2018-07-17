@@ -281,8 +281,10 @@ const checkIfOfficeFiles = files => {
 /**
  * generates the correct LibreOffice url for (only) opening office-files
  * @param {*} fileId, the id of the file which has to be opened in LibreOffice
+ * @param {*} accessToken, the auth token for the wopi-host later on
+ * see https://wopi.readthedocs.io/en/latest/overview.html#integration-process for further details
  */
-const getLibreOfficeUrl = fileId => {
+const getLibreOfficeUrl = (fileId, accessToken) => {
     if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
         logger.error('LibreOffice env is currently not defined.');
         return;
@@ -294,8 +296,7 @@ const getLibreOfficeUrl = fileId => {
     //const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
     const wopiRestUrl = 'http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9000/';
 
-    //todo: load jwt as access_token param
-    return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?accessToken=`;
+    return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?access_token=${accessToken}`;
 };
 
 
@@ -401,7 +402,7 @@ router.get('/file', function (req, res, next) {
 router.get('/file/:id/lool', function(req, res, next) {
     res.render('files/lool', {
         title: 'LibreOffice Online',
-        libreOfficeUrl: getLibreOfficeUrl(req.params.id)
+        libreOfficeUrl: getLibreOfficeUrl(req.params.id, req.cookies.jwt)
     });
 });
 
