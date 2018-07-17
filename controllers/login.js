@@ -121,14 +121,16 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     if (res.locals.currentUser) {
         const user = res.locals.currentUser;
 
-        if (user.age < 14)
-            res.redirect('');
-        else if (user.age >= 14 && user.age < 18)
-            res.redirect('');
-        else if (user.age >= 18)
-            res.redirect('');
+        api(req).get('/consents/', {qs: { userId: user._id }})
+            .then(consents => {
+                consent = consents.data[0];
 
-        res.redirect('/dashboard/');
+                res.redirect(consent.redirect);
+            })
+            .catch(err => {
+                // user has no consent; redirect for now
+                res.redirect('/dashboard/');
+            });
     } else {
         // if this happens: SSO
         res.redirect('/register/user/' + res.locals.currentPayload.accountId);
