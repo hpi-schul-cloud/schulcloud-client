@@ -26,8 +26,22 @@ function initializeCopy(){
         btn.addEventListener("click", copy);
     });
 }
+function createInvitationLink(){
+    let target = 'register/' + $("input[name='classid']").val();
+    $.ajax({
+        type: "POST",
+        url: "/link/",
+        data: {
+            target: target
+        },
+        success: function(data) {
+            $("#invitationLink").val(data.newUrl);
+        }
+    });
+}
 
 window.addEventListener('DOMContentLoaded', ()=>{
     initializeCopy();
     document.querySelector("#printInvitation").addEventListener("click", printInvitation);
+    createInvitationLink();
 });
