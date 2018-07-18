@@ -1,3 +1,5 @@
+import { pushManager } from './index';
+
 window.onload = function() {
   // Ensure that the user can receive Safari Push Notifications.
   if ('safari' in window && 'pushNotification' in window.safari) {
