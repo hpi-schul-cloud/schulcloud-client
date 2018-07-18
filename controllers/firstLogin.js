@@ -34,8 +34,8 @@ router.get('/existing', function (req, res, next) {
     });
 });
 router.post('/existing/submit', function (req, res, next) {
-    api(req).patch('/users/5b4e25a890fd7dfa248e5f0b', {
-        json: {birthdate: req.body.studentBirthdate}
+    api(req).patch('/users/0000d231816abba584714c9e', {
+        json: {birthday: new Date(req.body.studentBirthdate)}
     }).then(user => {
         res.sendStatus(200);
     }).catch(err => res.status(500).send(err));

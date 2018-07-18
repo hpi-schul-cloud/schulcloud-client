@@ -203,9 +203,13 @@ router.get('/register/confirm/:accountId', function (req, res, next) {
 /**
  * New Dataprivacy Routes
  */
-router.get('/registration', function (req, res, next) {
+router.get('/registration/:classId', function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+        return res.sendStatus(500);
+    
     res.render('registration/registration', {
-        title: 'Herzlich Willkommen bei der Registrierung'
+        title: 'Herzlich Willkommen bei der Registrierung',
+        classId: req.params.classId
     });
 });
 router.get('/registration/byparent', function (req, res, next) {
