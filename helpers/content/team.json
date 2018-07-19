@@ -388,6 +388,22 @@
       {
         "id": 23,
         "title": "",
+        "firstName": "Georg",
+        "lastName": "Berecz",
+        "position": "Student",
+        "description": "Georg schreibt derzeit seine Masterarbeit im Projekt HPI Schul-Cloud. Er befasst sich fachlich mit der Frage, wie kompetenz-basiertes Lernen in die HPI Schul-Cloud integriert werden kann. Technisch geht es dabei um die modulare Erweiterung von Microservice Architekturen. Sein Bachelorstudium hat Georg ebenfalls am HPI absolviert und anschließend hat er im Zuge seines Masterstudiums zwei Semester in Estland studiert. In seiner Freizeit schießt bzw. wirft er Bälle in Tore oder Körbe und malträtiert sein elektronisches Schlagzeug.",
+        "pictureUrl": "/images/team/Georg_Berecz.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 24,
+        "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
         "position": "Studentische Hilfskraft",
@@ -402,7 +418,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -418,7 +434,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -434,7 +450,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 27,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -450,7 +466,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -466,7 +482,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Karolina",
         "lastName": "Kaminski-Rokosa",
@@ -482,7 +498,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -498,7 +514,7 @@
         "longDesc": false
       },
       {
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -514,7 +530,7 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -530,7 +546,7 @@
         "longDesc": false
       },
       {
-        "id": 32,
+        "id": 33,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -546,7 +562,7 @@
         "longDesc": false
       },
       {
-        "id": 33,
+        "id": 34,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -562,7 +578,7 @@
         "longDesc": false
       },
       {
-        "id": 34,
+        "id": 35,
         "title": "",
         "firstName": "Florian Michael",
         "lastName": "Kunz",
@@ -578,7 +594,7 @@
         "longDesc": false
       },
       {
-        "id": 35,
+        "id": 36,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -594,7 +610,7 @@
         "longDesc": false
       },
       {
-        "id": 36,
+        "id": 37,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -610,7 +626,7 @@
         "longDesc": false
       },
       {
-        "id": 37,
+        "id": 38,
         "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
@@ -626,7 +642,7 @@
         "longDesc": false
       },
       {
-        "id": 38,
+        "id": 39,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -642,7 +658,7 @@
         "longDesc": false
       },
       {
-        "id": 39,
+        "id": 40,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -658,7 +674,7 @@
         "longDesc": false
       },
       {
-        "id": 40,
+        "id": 41,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -680,7 +696,7 @@
     "style": "small",
     "team": [
       {
-        "id": 41,
+        "id": 42,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -696,7 +712,7 @@
         "longDesc": false
       },
       {
-        "id": 42,
+        "id": 43,
         "title": "",
         "firstName": "Marvin",
         "lastName": "Fischer",
@@ -712,7 +728,7 @@
         "longDesc": false
       },
       {
-        "id": 43,
+        "id": 44,
         "title": "",
         "firstName": "Jessica",
         "lastName": "Pfarr",
@@ -734,7 +750,7 @@
     "style": "small",
     "team": [
       {
-        "id": 44,
+        "id": 45,
         "title": "",
         "firstName": "Carl",
         "lastName": "Gödecken",
@@ -750,7 +766,7 @@
         "longDesc": false
       },
       {
-        "id": 45,
+        "id": 46,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -766,7 +782,7 @@
         "longDesc": false
       },
       {
-        "id": 46,
+        "id": 47,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -782,7 +798,7 @@
         "longDesc": false
       },
       {
-        "id": 47,
+        "id": 48,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
