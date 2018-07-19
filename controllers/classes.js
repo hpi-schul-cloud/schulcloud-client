@@ -205,7 +205,12 @@ router.post('/create', function (req, res, next) {
         // TODO: sanitize
         json: req.body
     }).then(data => {
-        res.redirect(`/classes/${data._id}`);
+        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+        if(isAdmin){
+            res.redirect(`/classes/`);
+        }else{
+            res.redirect(`/classes/${data._id}`);
+        }
     }).catch(err => {
         next(err);
     });

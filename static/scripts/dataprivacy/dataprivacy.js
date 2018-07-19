@@ -228,14 +228,13 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
 });
 
-/* OTHER STUFF */
+/* MORE STUFF */
 window.addEventListener('load', ()=>{
-    // INSERT CUSTOM SCRIPTS HERE
-    // show email patterns in UI
+    /*// show email patterns in UI
     document.querySelectorAll('input[type=email]').forEach((input)=>{
         if(input.getAttribute("pattern")) {
             let readablePattern = input.getAttribute("data-pattern") ? input.getAttribute("data-pattern") : input.getAttribute("pattern");
             $(input).siblings("label").html($(input).siblings("label").html() + " Format vorgegeben: " + readablePattern);
         }
-    });
+    });*/
 });

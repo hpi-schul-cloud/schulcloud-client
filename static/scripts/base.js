@@ -205,10 +205,6 @@ $(document).ready(function () {
         });
     });
 
-    $deleteModal.find('.close, .btn-close').on('click', function() {
-        $deleteModal.modal('hide');
-    });
-
     $modals.find('.close, .btn-close').on('click', function() {
         $modals.modal('hide');
     });
@@ -313,5 +309,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
     document.querySelectorAll(".linked").addEventListener("change input keyup paste click", linkInputs);
     document.querySelectorAll(".linked").forEach((node) => {
         node.dispatchEvent(new Event('input'));
+    });
+});
+
+/* Mail Validation
+official firefox regex https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
+*/
+window.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll('input[type="email"]:not([pattern])').forEach((input) => {
+        input.setAttribute('pattern', "^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
     });
 });
