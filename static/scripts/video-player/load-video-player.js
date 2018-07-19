@@ -25,7 +25,8 @@ if (checkBrowserEsSupport()) {
     document.head.appendChild(page_es6);
 } else {
     // ES5 Browser, user slower ES5 compatible version of the player
-    for (scriptsrc in arr=["/vendor/webcomponents-lite-player.js", "/scripts/video-player/custom-elements-es5-adapter.js","/scripts/video-player/polyfills-ie.js"]) {
+    const arr = ["/vendor/webcomponents-lite-player.js", "/scripts/video-player/custom-elements-es5-adapter.js","/scripts/video-player/polyfills-ie.js"];
+    for (let scriptsrc in arr) {
         var a = document.createElement('script');
         a.src = arr[scriptsrc];
         document.head.appendChild(a);
