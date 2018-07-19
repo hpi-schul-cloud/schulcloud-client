@@ -1,3 +1,8 @@
+import moment from 'moment';
+import 'jquery-datetimepicker';
+import 'script-loader!fullcalendar/dist/fullcalendar.min.js';
+import 'script-loader!fullcalendar/dist/locale/de.js';
+
 $(document).ready(function () {
     var $calendar = $('#calendar');
 
@@ -89,7 +94,7 @@ $(document).ready(function () {
                         },
                     });
                 });
-                $editEventModal.modal('show');
+                $editEventModal.appendTo('body').modal('show');
             }
         },
         dayClick: function(date, jsEvent, view) {
@@ -107,7 +112,7 @@ $(document).ready(function () {
                     endDate: _endDate
                 }
             });
-            $createEventModal.modal('show');
+            $createEventModal.appendTo('body').modal('show');
         },
         header: {
             left: 'title',
@@ -163,4 +168,8 @@ $(document).ready(function () {
         }
     });
 
+});
+
+window.addEventListener('DOMContentLoaded', function() {
+    moment().format();
 });

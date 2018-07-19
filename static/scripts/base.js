@@ -21,6 +21,11 @@ function updateQueryStringParameter(uri, key, value) {
     }
 }
 
+function populateModal(modal, identifier, data) {
+    const block = modal.find(identifier);
+    block.html(data);
+}
+
 function populateModalForm(modal, data) {
 
     var $title = modal.find('.modal-title');
@@ -178,7 +183,7 @@ $(document).ready(function () {
         e.preventDefault();
         var $buttonContext = $(this);
 
-        $deleteModal.modal('show');
+        $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({

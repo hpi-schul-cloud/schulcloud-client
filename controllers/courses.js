@@ -154,15 +154,17 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                substitutionIds: res.locals.currentUser._id
+                substitutionIds: res.locals.currentUser._id,
+                $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
                 $or: [
-                    { userIds: res.locals.currentUser._id },
-                    { teacherIds: res.locals.currentUser._id }
-               ]
+                    {userIds: res.locals.currentUser._id},
+                    {teacherIds: res.locals.currentUser._id}
+                ],
+                $limit: 75
             }
         })
     ]).then(([substitutionCourses, courses]) => {
@@ -172,6 +174,7 @@ router.get('/', function(req, res, next) {
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
+            course.memberAmount = course.userIds.length;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
@@ -186,11 +189,13 @@ router.get('/', function(req, res, next) {
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
+            course.memberAmount = course.userIds.length;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
+
             return course;
         });
         if (req.query.json) {
@@ -199,16 +204,15 @@ router.get('/', function(req, res, next) {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
                 courses,
-                substitutionCourses
+                substitutionCourses,
+                searchLabel: 'Suche nach Kursen',
+                searchAction: '/courses',
+                showSearch: true,
+                liveSearch: true
             });
         }
     });
 });
-
-router.get('/json', function(req, res, next) {
-
-});
-
 
 router.post('/', function(req, res, next) {
     // map course times to fit model
@@ -262,6 +266,16 @@ router.get('/:courseId/json', function(req, res, next) {
             }
         })
     ]).then(([course, lessons]) => res.json({ course, lessons }));
+});
+
+router.get('/:courseId/usersJson', function(req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['userIds']
+            }
+        })
+    ]).then(([course]) => res.json({ course }));
 });
 
 router.get('/:courseId', function(req, res, next) {
@@ -473,8 +487,8 @@ router.get('/:courseId/addStudent', function(req, res, next) {
 router.post('/:courseId/importTopic', function(req, res, next) {
     let shareToken = req.body.shareToken;
     // try to find topic for given shareToken
-    api(req).get("/lessons/", { qs: { shareToken: shareToken } }).then(result => {
-        if (result.data.length <= 0) {
+    api(req).get("/lessons/", { qs: { shareToken: shareToken, $populate: ['courseId'] } }).then(lessons => {
+        if ((lessons.data || []).length <= 0) {
             req.session.notification = {
                 type: 'danger',
                 message: 'Es wurde kein Thema für diesen Code gefunden.'
@@ -484,21 +498,59 @@ router.post('/:courseId/importTopic', function(req, res, next) {
         }
 
         // copy topic to course
-        let topic = result.data[0];
-        topic.originalTopic = JSON.parse(JSON.stringify(topic._id)); // copy value, not reference
-        delete topic._id;
-        delete topic.shareToken;
-        topic.courseId = req.params.courseId;
+        let originalTopic = lessons.data[0];
+        let originalTopicId = originalTopic._id;
+        let originalSchoolId = originalTopic.courseId.schoolId;
+        let originalCourseId = JSON.parse(JSON.stringify(originalTopic.courseId._id)); // copy value, not reference
+        originalTopic.originalTopic = JSON.parse(JSON.stringify(originalTopic._id)); // copy value, not reference
+        delete originalTopic._id;
+        delete originalTopic.shareToken;
+        originalTopic.courseId = req.params.courseId;
+        let fileChangelog = [];
+        
+        // we need to get all files of that one lesson, we need multiple steps to do this
+        return api(req).post('/lessons/', { json: originalTopic }).then(topic => {
 
-        api(req).post("/lessons/", { json: topic }).then(topic => {
-            req.session.notification = {
-                type: 'success',
-                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
-            };
+            // get all files of that lessons course
+            return api(req).get('/lessons/' + originalTopicId + '/files', { qs: { shareToken: shareToken} }).then(lessonFiles => {
+                return Promise.all(lessonFiles.map(f => {
 
-            res.redirect(req.header('Referer'));
+                    return api(req).patch('/files/' + f._id, { json: f }).then(_ => {
+
+                        // copy file
+                        let fileData = {
+                            fileName: f.name,
+                            oldPath: f.path,
+                            newPath: `courses/${topic.courseId}/`,
+                            externalSchoolId: originalSchoolId
+                        };
+
+                        return api(req).post('/fileStorage/copy/', { json: fileData }).then(newFile => {
+                            fileChangelog.push({"old": `${originalCourseId}/${f.name}`, "new": `${topic.courseId}/${newFile.name}` });
+                        });
+                    });
+                })).then(_ => {
+                    // rewrite courseid in text to fit new file paths and patch db afterwards
+                    topic.contents.map(content => {
+                        if (content.component === "text" && content.content.text) {
+                            fileChangelog.map(change => {
+                                content.content.text = content.content.text.replace(new RegExp(change.old, "g"), change.new);
+                            });
+                        }
+                    });
+
+                    return api(req).patch('/lessons/'+topic._id, { json: topic }).then(_ => {
+                        req.session.notification = {
+                            type: 'success',
+                            message: `Thema '${topic.name}' wurde erfolgreich zum Kurs hinzugefügt.`
+                        };
+    
+                        res.redirect(req.header('Referer'));
+                    });
+                });
+            });
         });
-    });
+    }).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
 

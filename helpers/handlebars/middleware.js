@@ -3,7 +3,7 @@ const moment = require('moment');
 const api = require('../../api');
 
 const makeActive = (items, currentUrl) => {
-	currentUrl += "/";		
+	currentUrl += "/";
     return items.map(item => {
         const regex = new RegExp("^" + item.link, "i");
 
@@ -21,7 +21,7 @@ const makeActive = (items, currentUrl) => {
 
         if(item.children && item.childActive) {
             item.children = makeActive(item.children, currentUrl);
-            
+
             if(item.children.filter(child => {return child.class == 'active';}).length == 0){
                 item.class += ' active';
             }
@@ -33,6 +33,7 @@ const makeActive = (items, currentUrl) => {
 
 module.exports = (req, res, next) => {
     res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
+    res.locals.backendUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
     // standard views
     res.locals.sidebarItems = [{
         name: 'Übersicht',
@@ -164,6 +165,14 @@ module.exports = (req, res, next) => {
                 link: '/administration/systems/'
             }
         ]
+    });
+
+    // beta user view
+    res.locals.sidebarItems.push({
+       name: 'Meine Materialien',
+       icon: 'book',
+       link: '/my-material/',
+       permission: 'BETA_FEATURES'
     });
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);

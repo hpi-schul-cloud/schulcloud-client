@@ -62,7 +62,7 @@ $('tr th').each(function(i,j) {
         location = location.map(entity => {
             if (entity.includes('sort')) {
                 if (entity === 'sort=' + dictionary[$(j).text()]) {
-                    entity = 'sort=-' + dictionary[$(j).text()]
+                    entity = 'sort=-' + dictionary[$(j).text()];
                 } else {
                     entity = 'sort=' + dictionary[$(j).text()];
                 }
