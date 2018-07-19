@@ -1,0 +1,96 @@
+<input class="form-control" name="classid" type="hidden" placeholder="10a" value="{{class._id}}"/>
+
+<div class="form-group">
+    <label>Lehrer {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
+
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
+        {{#each teachers}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Schüler</label>
+    <button type="button" class="btn-link pull-right btn-import-class">Schüler importieren</button>
+    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+        {{#each students}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red">
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+
+
+
+<button type="button" class="btn btn-secondary">Abbrechen</button>
+<button type="submit" class="btn btn-primary">Änderungen speichern</button>
+
+<hr class="my-2"/>
+
+<p>
+    <b>Deine Schüler sind noch nicht in der SchulCloud?</b><br/>
+    Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.
+</p>
+
+<input id="invitationLink" class="w-100" value="{{invitationLink}}" readonly/>
+<button type="button" class="btn-link copy" data-copy-selector="#invitationLink">Link kopieren</button>
+<!-- QR Code currently not working -->
+<button type="button" class="col-6 btn-link hidden" id="printInvitation">Link mit QR-Code Drucken</button>
+
+<p class="mt-1">Bitte beachte:</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            {{#each notes}}
+                <div class="card">
+                    <div class="card-header" role="tab" id="heading-{{@index}}">
+                        <h5 class="mb-0">
+                            <a data-toggle="collapse" data-parent="#accordion"
+                                href="#collapse-{{@index}}"
+                                {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
+                                aria-controls="collapse-{{@index}}">
+                                    {{this.title}}
+                            </a>
+                        </h5>
+                    </div>
+                    <div id="collapse-{{@index}}" class="collapse"
+                            role="tabpanel" aria-labelledby="heading-{{@index}}"
+                            {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
+                        <div class="card-block">
+                            {{{this.content}}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+{{#embed "lib/components/modal-form" class="import-modal"}}
+    {{#content "fields"}}
+        <div class="form-group">
+            <label>Schüler aus Vorjahres-Klasse hinzufügen</label>
+
+            <select name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
+                {{#each classes}}
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                        {{this.name}}
+                    </option>
+                {{/each}}
+            </select>
+        </div>
+    {{/content}}
+{{/embed}}

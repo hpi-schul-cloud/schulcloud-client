@@ -82,7 +82,9 @@ const renderClassCreate = (req, res, next, edit) => {
             if(isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
                 teachers.forEach(t => {
-                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
+                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
+                        t.selected = true;
+                    }
                 });
             }
             if(currentClass){
@@ -98,7 +100,7 @@ const renderClassCreate = (req, res, next, edit) => {
                 currentClass.customName = "blaBlu";
             }
 
-            res.render('classes/create', {
+            res.render('classes/edit', {
                 title: `Klasse ${edit?"bearbeiten":"erstellen"}`,
                 edit,
                 schoolyears: schoolyears,
@@ -120,47 +122,80 @@ router.get('/:classId/edit', function (req, res, next) {
 router.get('/:classId/manage', function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
-        const classes = getSelectOptions(req, 'classes', {_id: {$ne: currentClass._id}, $limit: 1000});
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without class)
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit:  1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 10000});
 
         Promise.all([
-            classes,
+            classesPromise,
             teachersPromise,
             studentsPromise
         ]).then(([classes, teachers, students]) => {
-
-            // deep copy
-            let substitutions = JSON.parse(JSON.stringify(teachers));
-            // preselect current teacher when creating new class
-            if((currentClass.teacherIds||[]).length == 0){
+            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+            if(isAdmin){
+                // preselect current teacher when creating new class and the current user isn't a admin (teacher)
                 teachers.forEach(t => {
                     if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
                         t.selected = true;
                     }
                 });
-            }else{
-                const teacherIds = currentClass.teacherIds.map(t => {return t._id;});
-                substitutions = substitutions.filter(t => {return !teacherIds.includes(t._id);});
-                teachers.forEach(t => {
-                    if(teacherIds.includes(t._id)){
-                        t.selected = true;
-                    }
-                });
             }
-            res.render('classes/edit', {
-                title: 'Klasse bearbeiten',
-                schoolyears: ["2018/2019", "2019/2020"],
+            // preselect current teacher when creating new class
+ 
+            const teacherIds = currentClass.teacherIds.map(t => {return t._id;});
+            teachers.forEach(t => {
+                if(teacherIds.includes(t._id)){
+                    t.selected = true;
+                }
+            });
+            res.render('classes/manage', {
+                title: 'Klasse verwalten',
                 "class": currentClass,
                 classes,
                 teachers,
-                substitutions: substitutions,
                 students,
-                invitationLink: 'schul-cloud.org/1234Eckstein'
+                invitationLink: 'schul-cloud.org/1234Eckstein',
+                notes: [
+                    {
+                        "title":"Deine Schüler sind unter 18 Jahre alt?",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                    {
+                        "title":"Deine Schüler sind mindestens 18 Jahre alt?",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                    /*{ // TODO - Feature not implemented
+                        "title":"Deine Schüler sind in der Schülerliste rot?",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },*/
+                    {
+                        "title":"Nutzernamen herausfinden",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                    {
+                        "title":"Passwort ändern",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                ]
             });
         });
     });
 });
+router.get('/students', function (req, res, next) {
+    const classIds = JSON.parse(req.query.classes);
+    api(req).get('/classes/', { qs: { 
+        $populate: ['userIds'],
+        _id: {
+            $in: classIds
+        }
+    }})
+    .then(classes => {
+        const students = classes.data.map((c) => {
+            return c.userIds;
+        }).reduce((flat, next) => {return flat.concat(next);}, []);
+        res.json(students);
+    });
+})
 
 router.post('/create', function (req, res, next) {
     if(!req.body.keepyear){

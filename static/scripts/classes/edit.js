@@ -1,47 +1,47 @@
-function copy(event){
+function toggleDisabled(nodename, value){
+    const node = document.querySelector(nodename);
+    if(value != undefined){
+        node.disabled = value;
+    }else{
+        node.disabled = !node.disabled;
+    }
+    if(node.tagName == "SELECT"){
+        node.dispatchEvent(new Event('chosen:updated'));
+    }
+}
+function toggleCustomClassSection(event){
     event.preventDefault();
-    console.log("click");
-    const copySelector = event.target.dataset.copySelector;
-    let copySource = document.querySelector(copySelector);
-    copySource.select();
-    
-    document.execCommand("copy");
-}
-function printInvitation(event){
-    event.preventDefault()
-    const invitationLink = document.querySelector("#invitationLink").value;
-    // create qr code for current page
-    w = window.open();
-    let body = w.document.querySelector("body");
-    const image = kjua({text: invitationLink, render: 'image'});
-    body.appendChild(image);
-    let linkNode = document.createElement("p");
-    linkNode.innerText = invitationLink;
-    body.appendChild(linkNode);
-    w.print();
-    w.close();
-}
-function initializeCopy(){
-    document.querySelectorAll(".copy").forEach((btn) => {
-        btn.addEventListener("click", copy);
-    });
-}
-function createInvitationLink(){
-    let target = 'register/' + $("input[name='classid']").val();
-    $.ajax({
-        type: "POST",
-        url: "/link/",
-        data: {
-            target: target
-        },
-        success: function(data) {
-            $("#invitationLink").val(data.newUrl);
-        }
-    });
-}
+    document.getElementById("createcustom").classList.toggle("hidden");
+    document.querySelector(".class-default").classList.toggle("hidden");
+    document.querySelector(".class-custom").classList.toggle("hidden");
 
+    toggleDisabled('select[name="grade"]');
+    toggleDisabled('input[name="classsuffix"]');
+
+    toggleDisabled('input[name="classcustom"]');
+    toggleDisabled('input[name="keepyear"]');
+    validateForm();
+}
+function validateForm(event){
+    function isFormValid(node){
+        if (!NodeList.prototype.some) {
+            NodeList.prototype.some = function(fct) {
+                return Array.from(this).some(fct);
+            };
+        }        
+        return !node.querySelectorAll(`input, select`).some((input)=>{
+            return !input.checkValidity();
+        });
+    }
+    const submitButton = document.querySelector('button[type="submit"]');
+    submitButton.disabled = !isFormValid(document.querySelector(".create-form"));
+}
 window.addEventListener('DOMContentLoaded', ()=>{
-    initializeCopy();
-    document.querySelector("#printInvitation").addEventListener("click", printInvitation);
-    createInvitationLink();
+    if(document.querySelector('.section-classes-create')){
+        document.querySelector(".createcustom").addEventListener("click", toggleCustomClassSection);
+        document.querySelectorAll(".create-form input, .create-form select").addEventListener("change input keyup paste click", validateForm);
+    }
+    if(document.querySelector('.section-classes-edit')){
+        // ...
+    }
 });
