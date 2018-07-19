@@ -34,9 +34,24 @@ router.get('/existing', function (req, res, next) {
     });
 });
 router.post('/existing/submit', function (req, res, next) {
-    api(req).patch('/users/0000d231816abba584714c9e', {
+    return api(req).patch('/users/0000d231816abba584714c9e', {
         json: {birthday: new Date(req.body.studentBirthdate)}
     }).then(user => {
+        return api(req).get('/consents/', {
+            qs: {userId: user._id}
+        })
+    }).then(consent => {
+        let userConsent = {
+            form: 'digital',
+            privacyConsent: req.body.Erhebung,
+            thirdPartyConsent: req.body.Pseudonymisierung,
+            termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
+            researchConsent: req.body.Forschung
+        };
+        return api(req).patch('/consents/' + consent.data[0]._id, {
+            json: {userConsent: userConsent}
+        })
+    }).then(consent => {
         res.sendStatus(200);
     }).catch(err => res.status(500).send(err));
 });
