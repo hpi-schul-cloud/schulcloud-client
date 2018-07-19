@@ -163,6 +163,11 @@ module.exports = (req, res, next) => {
                 name: 'Authentifizierung',
                 icon: 'key',
                 link: '/administration/systems/'
+            },
+            {
+                name: 'Kalender',
+                icon: 'table',
+                link: '/administration/calendar/'
             }
         ]
     });

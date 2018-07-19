@@ -170,7 +170,8 @@ const mapTimeProps = (req, res, next) => {
 const createEventsForData = (data, service, req, res) => {
     // can just run if a calendar service is running on the environment and the course have a teacher
     if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0] && data.times.length > 0) {
-        return Promise.all(data.times.map(time => {
+        console.log('createEventsForData 1');
+		return Promise.all(data.times.map(time => {
             return api(req).post("/calendar", {
                 json: {
                     summary: data.name,
@@ -189,7 +190,7 @@ const createEventsForData = (data, service, req, res) => {
             });
         }));
     }
-
+	console.log('createEventsForData 2');
     return Promise.resolve(true);
 };
 
@@ -1030,6 +1031,125 @@ router.all('/systems', function (req, res, next) {
             availableSSOTypes
         });
     });
+});
+
+/************************************
+*		calender subscriptions		*
+*************************************/
+
+//function validate Url 
+
+router.post('/calendar/', (req,res,next) => {
+	api(req).post('/subscriptions/', {
+        json: req.body
+    }).then(data => {
+        next();
+	}).catch(err => {
+        next(err);
+    });
+});
+
+router.patch('/calendar/:id', (req,res,next)=>{
+	api(req).patch('/subscriptions/' + req.params.id, {
+		json: req.body
+	}).then(data =>{
+		res.redirect(req.header('Referer'));
+	}).catch(err => {
+		next(err);
+	});
+});
+
+router.get('/calendar/:id', (req,res,next) => {
+	console.log('GET',req.params);
+	const id=req.params.id;
+	api(req).get('/subscriptions/',{
+		qs:{'subscriptionId':id}
+	}).then(data => {
+		if(data.data && data.data.length>0 && data.data[0].attributes )
+			res.json(data.data[0].attributes);
+		else 
+			next();	//do nothing
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.delete('/calendar/:eventId', ()=>{ console.log('do frontend delete actions');}, (req,res,next)=>{
+	console.log('DELETE');
+	//! need testing
+	api(req).delete('/calendar/' + req.params.eventId).then(_ => {
+       res.json(_);
+	}).catch(err => {
+       next(err);
+	});
+});
+
+
+router.all('/calendar', function (req, res, next) {
+	const tempOrgQuery = (req.query||{}).filterQuery;
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+	const currentPage = parseInt(req.query.p) || 1;
+	
+	let itemsPerPage = 15;
+    let filterQuery = {};
+    if (tempOrgQuery) {
+        filterQuery = JSON.parse(unescape(req.query.filterQuery));
+        if (filterQuery["$limit"]) {
+            itemsPerPage = filterQuery["$limit"];
+        }
+    }
+
+	api(req).get('/subscriptions/',{
+		qs:{
+			$limit: itemsPerPage,
+			$offset: itemsPerPage * (currentPage - 1),
+		}
+	}).then( data => {
+	
+		const head = [
+            'Name',
+            'Url',
+            'Zielgruppe',
+            ''
+		];
+		
+		let limitQuery = '';
+        if (req.query.limit) {
+            limitQuery = '&limit=' + req.query.limit;
+        }
+		
+		const pagination = {
+			currentPage,
+			numPages: Math.ceil(data.data.length / itemsPerPage),	//!todo: pass total data and use it
+			baseUrl: '/administration/calendar/?p={{page}}' + filterQueryString
+		};
+
+		const body = data.data.map(item => {
+			const attributes = item.attributes;
+			attributes._id=attributes['subscription-id'];
+			
+			return [		
+				attributes['description'],
+				attributes['ics-url'],
+				attributes['target'],	//!todo: target is a mapping from scopeId
+				getTableActions(
+					attributes,
+					'/administration/calendar/',
+					_.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW')
+				)
+			]
+		});
+	
+		res.render('administration/calendar', {
+			title: 'Administration: Kalender',
+			head,body,pagination
+		});
+	
+	}).catch(err => {
+		//catch error that not crashed 
+		//!todo: pipe to a (error) popup
+		res.sendStatus(err);	
+	}); 
 });
 
 module.exports = router;

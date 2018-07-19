@@ -1,0 +1,20 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+
+<div class="form-group">
+    <label>Kalendername</label>
+    <input class="form-control" name="description" type="text" placeholder="Name" required />
+</div>
+
+<div class="form-group">
+    <label>url</label>
+    <input class="form-control" name="ics-url" type="text" placeholder="Url" required />
+</div>
+
+<div class="form-group">
+    <label>Zielgruppe</label>
+	<select class="form-control" name="target" required > 
+		<option value="school">Schule</option>      
+		<option value="studies">Lehrer</option>
+		<option value="teacher">Schüler</option>	  
+	</select>
+</div>
