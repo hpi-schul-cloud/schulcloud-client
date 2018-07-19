@@ -726,31 +726,15 @@
           "linkedin": ""
         },
         "longDesc": false
-      },
-      {
-        "id": 44,
-        "title": "",
-        "firstName": "Jessica",
-        "lastName": "Pfarr",
-        "position": "Juristische Unterstützung",
-        "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
-        "pictureUrl": "/images/team/Jessica_Pfarr.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
       }
-    ]
+     ]
   },
   "end": {
     "name": "Alumni",
     "style": "small",
     "team": [
       {
-        "id": 45,
+        "id": 44,
         "title": "",
         "firstName": "Carl",
         "lastName": "Gödecken",
@@ -766,7 +750,7 @@
         "longDesc": false
       },
       {
-        "id": 46,
+        "id": 45,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -782,7 +766,7 @@
         "longDesc": false
       },
       {
-        "id": 47,
+        "id": 46,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -798,7 +782,7 @@
         "longDesc": false
       },
       {
-        "id": 48,
+        "id": 47,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
