@@ -123,7 +123,6 @@
             color: $primaryColor;
             border: none;
             border-radius: 2px;
-            min-width: 64px;
             padding: 0 8px;
             display: inline-block;
             font-size: 14px;
@@ -135,6 +134,9 @@
             &:hover {
                 background-color: #eee;
             }
+        }
+        .additionalInfo {
+            float:left;
         }
     }
      &:hover{

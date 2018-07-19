@@ -21,6 +21,11 @@ function updateQueryStringParameter(uri, key, value) {
     }
 }
 
+function populateModal(modal, identifier, data) {
+    const block = modal.find(identifier);
+    block.html(data);
+}
+
 function populateModalForm(modal, data) {
 
     var $title = modal.find('.modal-title');
