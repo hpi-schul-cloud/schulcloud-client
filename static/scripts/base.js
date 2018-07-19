@@ -127,9 +127,15 @@ $(document).ready(function () {
 
 
     // Initialize bootstrap-select
-    $('select').not('.no-bootstrap').chosen({
+    $('select:not(.no-bootstrap):not(.search-enabled)').chosen({
         width: "100%",
-        "disable_search": true //!$(this).hasClass("search-enabled") // not working
+        "disable_search": true
+    }).change(function() {
+        this.dispatchEvent(new Event('input'));
+    });
+    $('select.search-enabled:not(.no-bootstrap)').chosen({
+        width: "100%",
+        "disable_search": false
     }).change(function() {
         this.dispatchEvent(new Event('input'));
     });

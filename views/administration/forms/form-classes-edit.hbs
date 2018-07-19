@@ -15,21 +15,6 @@
         {{/each}}
     </select>
 </div>
-<div class="form-group">
-    <label>Vertretungslehrer wählen</label>
-
-    <select name="substitutionIds[]" multiple data-placeholder="Vertretungslehrer auswählen">
-        {{#each substitutions}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                {{#if this.displayName}}
-                    {{this.displayName}}
-                {{else}}
-                    {{this.firstName}} {{this.lastName}}
-                {{/if}}
-            </option>
-        {{/each}}
-    </select>
-</div>
 
 <p>Füge bereits in der Schul-Cloud registrierte Schüler hinzu</p>
 <div class="form-group">
@@ -65,7 +50,7 @@
 <p>Deine Schüler sind noch nicht in der SchulCloud?</p>
 <p>Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.</p>
 
-<input id="invitationLink" value="{{invitationLink}}" readonly/>
+<input id="invitationLink" class="w-100" value="{{invitationLink}}" readonly/>
 <div class="row">
     <button class="col-6 btn-link copy" data-copy-selector="#invitationLink">Link kopieren</button>
     <button class="col-6 btn-link" id="printInvitation">Link mit QR-Code Drucken</button>

@@ -9,17 +9,6 @@ function toggleDisabled(nodename, value){
         node.dispatchEvent(new Event('chosen:updated'));
     }
 }
-function toggleCreateClassSection(event){
-    let newSection = document.getElementById("createnew")
-    if(!newSection.classList.contains("hidden") && !document.getElementById("createcustom").classList.contains("hidden")){
-        toggleCustomClassSection(event);
-    }
-    event.preventDefault();
-    document.getElementById("createnew").classList.toggle("hidden");
-    toggleDisabled('select[name="classid"]');
-    toggleDisabled('select[name="grade"]');
-    validateForm();
-}
 function toggleCustomClassSection(event){
     event.preventDefault();
     document.getElementById("createcustom").classList.toggle("hidden");
@@ -49,7 +38,6 @@ function validateForm(event){
 }
 window.addEventListener('DOMContentLoaded', ()=>{
     if(document.querySelector('.section-classes-create')){
-        document.querySelector(".createnew").addEventListener("click", toggleCreateClassSection);
         document.querySelector(".createcustom").addEventListener("click", toggleCustomClassSection);
         document.querySelectorAll(".create-form input, .create-form select").addEventListener("change input keyup paste click", validateForm);
     }

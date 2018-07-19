@@ -67,34 +67,57 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.get('/create', function (req, res, next) {
+const schoolyears = ["2018/2019", "2019/2020"]
+const renderClassCreate = (req, res, next, edit) => {
     api(req).get('/classes/')
     .then(classes => {
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+        let promises = [
+            getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
+            getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000})  //students
+        ]
+        if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
 
-        Promise.all([
-            teachersPromise,
-            studentsPromise
-        ]).then(([teachers, students]) => {
+        Promise.all(promises).then(([teachers, students, currentClass]) => {
+            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+            if(isAdmin){
+                // preselect current teacher when creating new class and the current user isn't a admin (teacher)
+                teachers.forEach(t => {
+                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
+                });
+            }
+            if(currentClass){
+                // preselect already selected teachers
+                teachers.forEach(t => {
+                    if(currentClass.teacherIds.includes(t._id)){t.selected = true;}
+                });
 
-            // preselect current teacher when creating new class
-            teachers.forEach(t => {
-                if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
-            });
+                // TODO - remove these mocks
+                currentClass.grade = '9';
+                currentClass.classsuffix = "b";
+                currentClass.keepYear = true;
+                currentClass.customName = "blaBlu";
+            }
 
             res.render('classes/create', {
-                title: 'Klasse hinzufügen',
-                schoolyears: ["2018/2019", "2019/2020"],
-                classes: (classes.data.length > 0)?classes.data:undefined,
+                title: `Klasse ${edit?"bearbeiten":"erstellen"}`,
+                edit,
+                schoolyears: schoolyears,
                 teachers,
-                students
+                class: currentClass,
+                isCustom: true // TODO - implement detection or ask api
             });
         });
     });
-});
+}
 
+router.get('/create', function (req, res, next) {
+    renderClassCreate(req,res,next,false);
+});
 router.get('/:classId/edit', function (req, res, next) {
+    renderClassCreate(req,res,next,true);
+})
+
+router.get('/:classId/manage', function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
         const classes = getSelectOptions(req, 'classes', {_id: {$ne: currentClass._id}, $limit: 1000});

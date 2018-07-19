@@ -69,6 +69,32 @@ module.exports = {
         text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
         return text;
     },
+    ifCond: (v1, operator, v2, options) => {
+        switch (operator) {
+            case '==':
+                return (v1 == v2) ? options.fn(this) : options.inverse(this);
+            case '===':
+                return (v1 === v2) ? options.fn(this) : options.inverse(this);
+            case '!=':
+                return (v1 != v2) ? options.fn(this) : options.inverse(this);
+            case '!==':
+                return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+            case '<':
+                return (v1 < v2) ? options.fn(this) : options.inverse(this);
+            case '<=':
+                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+            case '>':
+                return (v1 > v2) ? options.fn(this) : options.inverse(this);
+            case '>=':
+                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+            case '&&':
+                return (v1 && v2) ? options.fn(this) : options.inverse(this);
+            case '||':
+                return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            default:
+                return options.inverse(this);
+        }
+    },
     ifeq: (a, b, opts) => {
         if (a == b) {
             return opts.fn(this);
@@ -171,5 +197,5 @@ module.exports = {
     },
     add: (a, b) => {
         return a + b;
-    }
+    },
 };
