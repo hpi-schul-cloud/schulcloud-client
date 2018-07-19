@@ -90,12 +90,11 @@
       <section data-panel="section-3" class="submit-page" data-feature="pin">
           <h4>Abschluss</h4>
           <p>Fast geschafft!</p>
-          <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
+          <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <a id="resend-pin" href="#">Code erneut senden</a></p>
           <div id="pinverification">
               <div id="temp-pin" class="hidden"></div>
-              {{#embed "administration/forms/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
-              <button id="check-pin" class="btn btn-primary">prüfen</button>
-              <p><a id="resend-pin" href="#">Code erneut senden</a></p>
+              {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
+              <button id="check-pin" class="btn btn-primary">PIN prüfen</button>
           </div>
           <div id="userdata-summary" class="hidden">
               <p>Mit folgenden Daten kannst du dich in der Schul-Cloud anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
