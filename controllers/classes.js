@@ -67,18 +67,18 @@ router.get('/', function (req, res, next) {
     });
 });
 
-const schoolyears = ["2018/2019", "2019/2020"]
+const schoolyears = ["2018/2019", "2019/2020"];
 const renderClassCreate = (req, res, next, edit) => {
     api(req).get('/classes/')
     .then(classes => {
         let promises = [
             getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
             getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000})  //students
-        ]
+        ];
         if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
 
         Promise.all(promises).then(([teachers, students, currentClass]) => {
-            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
             if(isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
                 teachers.forEach(t => {
@@ -110,14 +110,14 @@ const renderClassCreate = (req, res, next, edit) => {
             });
         });
     });
-}
+};
 
 router.get('/create', function (req, res, next) {
     renderClassCreate(req,res,next,false);
 });
 router.get('/:classId/edit', function (req, res, next) {
     renderClassCreate(req,res,next,true);
-})
+});
 
 router.get('/:classId/manage', function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
@@ -195,7 +195,7 @@ router.get('/students', function (req, res, next) {
         }).reduce((flat, next) => {return flat.concat(next);}, []);
         res.json(students);
     });
-})
+});
 
 router.post('/create', function (req, res, next) {
     if(!req.body.keepyear){

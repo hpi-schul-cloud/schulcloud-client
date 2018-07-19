@@ -123,8 +123,7 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
 
         api(req).get('/consents/', {qs: { userId: user._id }})
             .then(consents => {
-                consent = consents.data[0];
-
+                const consent = consents.data[0];
                 res.redirect(consent.redirect);
             })
             .catch(err => {

@@ -39,7 +39,7 @@ router.post('/existing/submit', function (req, res, next) {
     }).then(user => {
         return api(req).get('/consents/', {
             qs: {userId: user._id}
-        })
+        });
     }).then(consent => {
         let userConsent = {
             form: 'digital',
@@ -50,7 +50,7 @@ router.post('/existing/submit', function (req, res, next) {
         };
         return api(req).patch('/consents/' + consent.data[0]._id, {
             json: {userConsent: userConsent}
-        })
+        });
     }).then(consent => {
         res.sendStatus(200);
     }).catch(err => res.status(500).send(err));
