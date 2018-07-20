@@ -792,6 +792,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         res.render('administration/students_edit',
             {
                 title: 'Schüler bearbeiten',
+                submitLabel : 'Speichern',
+                closeLabel : 'Abbrechen',
                 student: user
             }
         );

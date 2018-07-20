@@ -1,5 +1,6 @@
 {{#content "scripts" mode="append"}}
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+    <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
@@ -17,121 +18,73 @@
                     {{#if referrer}}﻿<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
 
                     ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Vorname: *</label>
+                                <input class="form-control" name="firstname" type="text" required value="{{student.firstName}}"/>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label>Vorname</label>
-                        <input class="form-control" name="firstname" type="text" required value="{{student.firstName}}"/>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Nachname: *</label>
+                                <input class="form-control" name="lastname" type="text" required value="{{student.lastName}}"/>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="form-group">
-                        <label>Nachname</label>
-                        <input class="form-control" name="lastname" type="text" required value="{{student.lastName}}"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Username</label>
+                        <label>Username: *</label>
                         <input class="form-control" disabled="true" placeholder="UserName" name="lastname" type="text" required value=""/>
                     </div>
 
                     <div class="form-group">
-                        <label>Geburtsdatum</label>
-                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" />
+                        <label>Geburtsdatum: *</label>
+                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" value=""/>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Kurs</label>
-                                {{#unless isSubstitution}}
-                                    <select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
-                                        <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
-                                        {{#each courses}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
-                                        {{/each}}
-                                    </select>
-                                {{else}}
-                                    <input name="courseId" type="hidden" data-force-value="true" value="{{assignment.courseId._id}}" />
-                                    <div><i>{{assignment.courseId.name}}</i> <small class="text-secondary">(Vertretungslehrer dürfen den Kurs nicht ändern)</small></div>
-                                {{/unless}}
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Thema</label>
-                                <select name="lessonId" id="lessonPicker" data-placeholder="Thema auswählen" {{#unless lessons}}disabled="true"{{/unless}}>
-                                    {{#if assignment.courseId}}
-                                        <option value="" {{#unless assignment.lessonId}}selected{{/unless}}>Keine Zuordnung</option>
-                                        {{#each lessons}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.lessonId}}selected{{/ifvalue}}>{{this.name}}</option>
-                                        {{/each}}
-                                    {{else}}
-                                        <option value="" >Keine Themen in diesem Kurs</option>
-                                    {{/if}}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    {{#unless isStudent}}
-                        <div class="form-group">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>
-                                            <input id="teamSubmissions" name="teamSubmissions" type="checkbox" value="true" {{#if assignment.teamSubmissions}}checked="checked"{{/if}}/>
-                                            Teamabgabe ermöglichen
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 {{#unless assignment.teamSubmissions}}hidden-xl-down{{/unless}}" id="teamsize">
-                                    <div class="form-group">
-                                        <label>maximale Teamgröße:</label>
-                                        <input class="form-control" name="maxTeamMembers" id="maxTeamMembers" type="number" min="2" placeholder="5" value="{{assignment.maxTeamMembers}}"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {{/unless}}
 
                     <div class="form-group">
-                        <label>Aufgabenstellung</label>
-                        <textarea name="description" type="text" class="form-control customckeditor" placeholder="Aufgabenstellung">{{assignment.description}}</textarea>
+                        <label>E-Mail Adresse: *</label>
+                        <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required>
                     </div>
 
                     <div class="row">
+                        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                            <Label>Geschlecht: *</Label>
+                            <select class="form-control form-control-lg" type="text" name="gender" required>
+                                <option value="">Bitte Geschlecht auswählen</option>
+                                <option value="male">männlich</option>
+                                <option value="female">weiblich</option>
+                                <option value="other">anderes</option>
+                                <option value="noinfo">keine Angabe</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p>Die Erhebung erfolgt für Forschung und Optimierung.<br/><br/></p>
+
+                    <h5><b>Einwilligung</b></h5>
+                    <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Für Schüler sichtbar und zu bearbeiten ab:</label>
-                                <input class="form-control" data-datetime name="availableDate" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
-                            </div>
+                            <label>Eltern</label><br>
+                            <input name=" parent_analog" type="radio"/> <span>Analog</span>  <input name="parent_digital" type="radio"/> <span>Digital</span> <br/>
+                            <input name="Datenschutz" type="checkbox"/><span>Datenschutz</span><br/>
+                            <input name="Forschung" type="checkbox"/><span>Forschung</span><br/>
+                            <input name="Drittanbieter" type="checkbox"/><span>Drittanbieter</span><br/>
+                            <input name="Nutzung" type="checkbox"/><span>Nutzung</span><br/>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Bearbeitungszeitraum endet am:</label>
-                                <input class="form-control" data-datetime name="dueDate" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
-                            </div>
+                            <label>Schüler</label><br>
+                            <input name=" parent_analog" type="radio"/> <span>Analog</span>  <input name="parent_digital" type="radio"/> <span>Digital</span> <br/>
+                            <input name="Datenschutz" type="checkbox"/><span>Datenschutz</span><br/>
+                            <input name="Forschung" type="checkbox"/><span>Forschung</span><br/>
+                            <input name="Drittanbieter" type="checkbox"/><span>Drittanbieter</span><br/>
+                            <input name="Nutzung" type="checkbox"/><span>Nutzung</span><br/>
                         </div>
                     </div>
 
-                    {{#unless isStudent}}
-                        <div class="form-group">
-                            <label>
-                                <input name="private" type="checkbox" value="private" {{#if assignment.private}}checked="checked"{{/if}}/>
-                                Private Aufgabe (nur für mich sichtbar)
-                            </label></br>
-                            <label>
-                                <input name="publicSubmissions" type="checkbox" value="public" {{#if assignment.publicSubmissions}}checked="checked"{{/if}}/>
-                                Schülerabgaben untereinander sichtbar
-                            </label>
-                        </div>
-                    {{else}}
-                        <div class="form-group">
-                            <input name="private" type="hidden" data-force-value="true" value="private" />
-                        </div>
-                    {{/unless}}
-
-
-
+                    <div class="pwbutton">
+                        <button class="btn-pw">Passwort ändern</button>
+                    </div>
 
                     <div class="modal-footer">
                         <button class="btn btn-add btn-secondary btn-cancel">
@@ -148,7 +101,15 @@
 
                 {{/embed}}
 
+
+                {{#embed "lib/components/modal-form" method="patch" class="pw-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-account-password"}}
+                    {{/content}}
+                {{/embed}}
+
             </div>
         </div>
+
     {{/content}}
 {{/extend}}
