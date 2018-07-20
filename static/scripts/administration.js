@@ -35,6 +35,7 @@ $(document).ready(function () {
         e.preventDefault();
         var entry = $(this).attr('href');
         $.getJSON(entry, function (result) {
+
             populateModalForm($editModal, {
                 action: entry,
                 title: 'Bearbeiten',
@@ -119,7 +120,9 @@ $(document).ready(function () {
     $('.btn-delete').on('click', function (e) {
         e.preventDefault();
         var entry = $(this).parent().attr('action');
+		console.log('.btn-delete>entry',entry);
         $.getJSON(entry, function (result) {
+			console.log('.btn-delete>result',result);
             populateModalForm($deleteModal, {
                 action: entry,
                 title: 'Löschen',
