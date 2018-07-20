@@ -119,7 +119,7 @@ module.exports = (req, res, next) => {
             {
                 name: 'Klassen',
                 icon: 'users',
-                link: '/classes/'
+                link: '/administration/classes/'
             }
         ]
     });

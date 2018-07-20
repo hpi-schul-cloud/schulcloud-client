@@ -1,9 +1,9 @@
 {{#if class}}
     <input class="form-control" name="classid" type="hidden" value="{{class._id}}"/>
 
-    {{#userHasPermission "COURSE_EDIT"}} 
+    {{#userHasPermission "STUDENT_CREATE"}} 
         <a class="btn-edit text-muted pull-right"
-            href="/classes/{{@root.class/_id}}/edit"
+            href="/administration/classes/{{@root.class/_id}}/edit"
             title="Klasse bearbeiten '{{@root.class.name}}'.">
             Klasse bearbeiten <i class="fa fa-pencil"></i>
         </a>
