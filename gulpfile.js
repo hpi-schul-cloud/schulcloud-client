@@ -39,7 +39,7 @@ const baseScripts = [
     './static/scripts/qrcode/kjua-0.1.1.min.js'
 ]
 
-const nonBaseScripts = ['./static/scripts/**/*.js']
+const nonBaseScripts = ['./static/scripts/**/*.js'] // maybe {js,vue}
     .concat(baseScripts.map(script => '!' + script))
 //used by all gulp tasks instead of gulp.src(...)
 //plumber prevents pipes from stopping when errors occur
@@ -116,7 +116,7 @@ gulp.task('scripts', () => {
                 const pathSegments = initialPath.split(".");
                 const concretePath = pathSegments.slice(0,pathSegments.length-1).join(".");
                 const fileName = concretePath.split("").slice(1).join("");
-                
+
                 return fileName;
             }
         ))
@@ -188,6 +188,7 @@ gulp.task('watch', ['build-all'], () => {
     gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles'])
     gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts'])
     gulp.watch(withTheme(nonBaseScripts), ['scripts'])
+    // gulp.watch(withTheme('./static/scripts/**/*.vue'), ['scripts'])
     gulp.watch(withTheme(baseScripts), ['base-scripts'])
     gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles'])
     gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts'])

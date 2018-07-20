@@ -1,5 +1,6 @@
 const { VueLoaderPlugin } = require('vue-loader');
 const webpack = require("webpack");
+var path = require('path');
 
 module.exports = {
     mode: 'production',
@@ -19,8 +20,30 @@ module.exports = {
             {
               test: /\.vue$/,
               loader: 'vue-loader',
+              options: {
+                loaders: {
+                }
+                // other vue-loader options go here
+              }
             },
+            { // if you use vue.common.js, you can remove it
+              test: /\.esm.js$/,
+              loader: 'babel-loader',
+              include: [
+                path.resolve('node_modules', 'vue/dist')
+              ]
+            },
+            {
+                test:/\.(scss|css)$/,
+                use:['style-loader','css-loader', 'sass-loader']
+            }
         ]
+    },
+    resolve: {
+      alias: {
+          'vue$': 'vue/dist/vue.esm.js',
+      },
+      extensions: ['*', '.js', '.vue', '.json']
     },
     optimization: {
         splitChunks: {

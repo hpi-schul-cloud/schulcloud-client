@@ -2,6 +2,7 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/content/content.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     {{/content}}
 
     {{#content "page"}}
@@ -52,8 +53,8 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js" defer></script>
         <script src="/scripts/content/content.js" type="text/javascript" defer></script>
+        <script src="/scripts/vendor-vue.js" defer></script>
     {{/content}}
 
 {{/extend}}
