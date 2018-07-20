@@ -15,21 +15,28 @@
                                     <div class="card-block">
                                         <h4 class="card-title">
                                             {{this.name}}
+                                            {{#userHasPermission "COURSE_EDIT"}} 
+                                                <small><a class="btn-edit text-muted"
+                                                    href="/classes/{{../_id}}/edit"
+                                                    title="Bearbeiten der Klasse: '{{../name}}'.">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a></small>
+                                            {{/userHasPermission}}
                                         </h4>
                                         <div class="content">
                                             {{#userHasPermission "COURSE_EDIT"}}
                                                 <div class="row">
-                                                    <a class="btn-edit"
+                                                    <a class="btn-manage"
                                                        href="/classes/{{../_id}}/manage"
-                                                       alt="Bearbeiten der Klasse: '{{../name}}'.">
-                                                        <i class="fa fa-edit"></i>
+                                                       title="Schüler & Lehrer der Klasse '{{../name}}' verwalten.">
+                                                        <i class="fa fa-users"></i>
                                                     </a>
                                                     <a
                                                        href="/classes/{{../_id}}"
                                                        target="_blank"
                                                        data-method="DELETE"
                                                        data-name="{{../name}}"
-                                                       alt="Löschen der Klasse: '{{../name}}'.">
+                                                       title="Löschen der Klasse: '{{../name}}'.">
                                                         <i class="fa fa-trash-o"></i>
                                                     </a>
                                                 </div>

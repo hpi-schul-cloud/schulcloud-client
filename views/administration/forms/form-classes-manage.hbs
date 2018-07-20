@@ -1,4 +1,16 @@
-<input class="form-control" name="classid" type="hidden" placeholder="10a" value="{{class._id}}"/>
+{{#if class}}
+    <input class="form-control" name="classid" type="hidden" value="{{class._id}}"/>
+
+    {{#userHasPermission "COURSE_EDIT"}} 
+        <a class="btn-edit text-muted pull-right"
+            href="/classes/{{@root.class/_id}}/edit"
+            title="Klasse bearbeiten '{{@root.class.name}}'.">
+            Klasse bearbeiten <i class="fa fa-pencil"></i>
+        </a>
+    {{/userHasPermission}}
+{{/if}}
+
+
 
 <div class="form-group">
     <label>Lehrer {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
@@ -35,7 +47,7 @@
 
 
 
-<button type="button" class="btn btn-secondary">Abbrechen</button>
+<a href="{{@root.referer}}" class="btn btn-secondary">Abbrechen</a>
 <button type="submit" class="btn btn-primary">Änderungen speichern</button>
 
 <hr class="my-2"/>

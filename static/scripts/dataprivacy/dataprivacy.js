@@ -122,10 +122,8 @@ function submitForm(event){
             setSelectionByIndex(getSelectionIndex()+1, event);
         })
         .fail(function(request){
-            if(request.responseJSON.error){
-                let errMsg = request.responseJSON.error.message ? request.responseJSON.error.message : request.responseJSON.error.name;
-                $.showNotification(errMsg, "danger", 6000);
-            }else{
+            if(request.status !== 200){
+                console.error(request);
                 $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger", 6000);
             }
             formSubmitButton.disabled = false;

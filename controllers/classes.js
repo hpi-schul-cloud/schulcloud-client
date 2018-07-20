@@ -96,17 +96,19 @@ const renderClassCreate = (req, res, next, edit) => {
                 // TODO - remove these mocks
                 currentClass.grade = '9';
                 currentClass.classsuffix = "b";
+                //currentClass.displayName = currentClass.grade + currentClass.classsuffix;
                 currentClass.keepYear = true;
                 currentClass.customName = "blaBlu";
             }
 
             res.render('classes/edit', {
-                title: `Klasse ${edit?"bearbeiten":"erstellen"}`,
+                title: `Klasse ${edit?`'${currentClass.name}' bearbeiten`:"erstellen"}`,
                 edit,
                 schoolyears: schoolyears,
                 teachers,
                 class: currentClass,
-                isCustom: true // TODO - implement detection or ask api
+                isCustom: true, // TODO - implement detection or ask api
+                referer: req.header('Referer')
             });
         });
     });
@@ -149,7 +151,7 @@ router.get('/:classId/manage', function (req, res, next) {
                 }
             });
             res.render('classes/manage', {
-                title: 'Klasse verwalten',
+                title: `Klasse '${currentClass.name}' verwalten `,
                 "class": currentClass,
                 classes,
                 teachers,
@@ -176,7 +178,8 @@ router.get('/:classId/manage', function (req, res, next) {
                         "title":"Passwort ändern",
                         "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
                     },
-                ]
+                ],
+                referer: req.header('Referer')
             });
         });
     });
