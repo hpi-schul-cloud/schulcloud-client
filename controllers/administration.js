@@ -871,7 +871,7 @@ const renderClassEdit = (req, res, next, edit) => {
                 currentClass.customName = "blaBlu";
             }
 
-            res.render('classes/edit', {
+            res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.name}' bearbeiten`:"erstellen"}`,
                 edit,
                 schoolyears: schoolyears,
@@ -890,7 +890,7 @@ router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMI
     renderClassEdit(req,res,next,true);
 });
 
-router.get('/classes/:classId', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
         const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without class)
@@ -919,7 +919,7 @@ router.get('/classes/:classId', permissionsHelper.permissionsChecker(['ADMIN_VIE
                     t.selected = true;
                 }
             });
-            res.render('classes/manage', {
+            res.render('administration/classes-manage', {
                 title: `Klasse '${currentClass.name}' verwalten `,
                 "class": currentClass,
                 classes,
@@ -1076,7 +1076,27 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUD
                 return [
                     item.name,
                     (item.teacherIds || []).map(item => item.lastName).join(', '),
-                        getTableActions(item, '/administration/classes/')
+                    ((item, path)=>{return [
+                        {
+                            link: path + item._id + "/manage",
+                            class: `btn-manage`,
+                            icon: 'users',
+                            title: 'Klasse verwalten'
+                        },
+                        {
+                            link: path + item._id + "/edit",
+                            class: `btn-edit`,
+                            icon: 'pencil',
+                            title: 'Klasse bearbeiten'
+                        },
+                        {
+                            link: path + item._id,
+                            class: `btn-delete`,
+                            icon: 'trash-o',
+                            method: `delete`,
+                            title: 'Eintrag löschen'
+                        }
+                    ];})(item, '/administration/classes/')
                 ];
             });
 
@@ -1158,7 +1178,7 @@ router.all('/courses', function (req, res, next) {
                     (item.teacherIds || []).map(item => item.lastName).join(', '),
                     getTableActions(item, '/administration/courses/').map(action => {
                         
-                        return action
+                        return action;
                     })
                 ];
             });
