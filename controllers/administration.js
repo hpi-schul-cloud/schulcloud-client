@@ -833,7 +833,285 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
     });
 });
 
+
+router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
+router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteHandler('classes'));
+
+const schoolyears = ["2018/2019", "2019/2020"];
+const renderClassEdit = (req, res, next, edit) => {
+    api(req).get('/classes/')
+    .then(classes => {
+        let promises = [
+            getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
+            getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000})  //students
+        ];
+        if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
+
+        Promise.all(promises).then(([teachers, students, currentClass]) => {
+            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+            if(isAdmin){
+                // preselect current teacher when creating new class and the current user isn't a admin (teacher)
+                teachers.forEach(t => {
+                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
+                        t.selected = true;
+                    }
+                });
+            }
+            if(currentClass){
+                // preselect already selected teachers
+                teachers.forEach(t => {
+                    if(currentClass.teacherIds.includes(t._id)){t.selected = true;}
+                });
+
+                // TODO - remove these mocks
+                currentClass.grade = '9';
+                currentClass.classsuffix = "b";
+                //currentClass.displayName = currentClass.grade + currentClass.classsuffix;
+                currentClass.keepYear = true;
+                currentClass.customName = "blaBlu";
+            }
+
+            res.render('classes/edit', {
+                title: `Klasse ${edit?`'${currentClass.name}' bearbeiten`:"erstellen"}`,
+                edit,
+                schoolyears: schoolyears,
+                teachers,
+                class: currentClass,
+                isCustom: true, // TODO - implement detection or ask api
+                referer: req.header('Referer')
+            });
+        });
+    });
+};
+router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    renderClassEdit(req,res,next,false);
+});
+router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    renderClassEdit(req,res,next,true);
+});
+
+router.get('/classes/:classId', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
+    .then(currentClass => {
+        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without class)
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit:  1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 10000});
+
+        Promise.all([
+            classesPromise,
+            teachersPromise,
+            studentsPromise
+        ]).then(([classes, teachers, students]) => {
+            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+            if(isAdmin){
+                // preselect current teacher when creating new class and the current user isn't a admin (teacher)
+                teachers.forEach(t => {
+                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
+                        t.selected = true;
+                    }
+                });
+            }
+            // preselect current teacher when creating new class
+ 
+            const teacherIds = currentClass.teacherIds.map(t => {return t._id;});
+            teachers.forEach(t => {
+                if(teacherIds.includes(t._id)){
+                    t.selected = true;
+                }
+            });
+            res.render('classes/manage', {
+                title: `Klasse '${currentClass.name}' verwalten `,
+                "class": currentClass,
+                classes,
+                teachers,
+                students,
+                invitationLink: 'schul-cloud.org/1234Eckstein',
+                notes: [
+                    {
+                        "title":"Deine Schüler sind unter 18 Jahre alt?",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                    {
+                        "title":"Deine Schüler sind mindestens 18 Jahre alt?",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                    /*{ // TODO - Feature not implemented
+                        "title":"Deine Schüler sind in der Schülerliste rot?",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },*/
+                    {
+                        "title":"Nutzernamen herausfinden",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                    {
+                        "title":"Passwort ändern",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    },
+                ],
+                referer: req.header('Referer')
+            });
+        });
+    });
+});
+router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    const classIds = JSON.parse(req.query.classes);
+    api(req).get('/classes/', { qs: { 
+        $populate: ['userIds'],
+        _id: {
+            $in: classIds
+        }
+    }})
+    .then(classes => {
+        const students = classes.data.map((c) => {
+            return c.userIds;
+        }).reduce((flat, next) => {return flat.concat(next);}, []);
+        res.json(students);
+    });
+});
+
+router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    if(!req.body.keepyear){
+        delete req.body.schoolyear;
+    }
+    api(req).post('/classes/', {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+        if(isAdmin){
+            res.redirect(`/classes/`);
+        }else{
+            res.redirect(`/classes/${data._id}`);
+        }
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.patch('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), mapEmptyClassProps, function (req, res, next) {
+    api(req).patch('/classes/' + req.params.classId, {
+        // TODO: sanitize
+        json: req.body
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.delete('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    api(req).delete('/classes/' + req.params.classId).then(_ => {
+        res.sendStatus(200);
+    }).catch(_ => {
+        res.sendStatus(500);
+    });
+});
+
+// TODO - deprecated?
+router.get('/administration/currentTeacher/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next){
+    res.json(res.locals.currentUser._id);
+});
+
+/* // old version for teacher
+router.get('/', function (req, res, next) {
+    api(req).get('/classes/', {
+        qs: {
+            $or: [
+                {userIds: res.locals.currentUser._id},
+                {teacherIds: res.locals.currentUser._id}
+            ]
+        }
+    }).then(classes => {
+
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
+
+        Promise.all([
+            teachersPromise,
+            studentsPromise
+        ]).then(([teachers, students]) => {
+
+            // preselect current teacher when creating new class
+            teachers.forEach(t => {
+                if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
+            });
+
+            res.render('classes/overview', {
+                title: 'Meine Klassen',
+                classes,
+                teachers,
+                students
+            });
+        });
+    });
+});
+*/
+router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+
+    const itemsPerPage = (req.query.limit || 10);
+    const currentPage = parseInt(req.query.p) || 1;
+
+    api(req).get('/classes', {
+        qs: {
+            $populate: ['teacherIds'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
+        }
+    }).then(data => {
+        const head = [
+            'Name',
+            'Lehrer',
+            ''
+        ];
+
+        let teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        let studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+
+        Promise.all([
+            teachersPromise,
+            studentsPromise
+        ]).then(([teachers, students]) => {
+            const body = data.data.map(item => {
+                return [
+                    item.name,
+                    (item.teacherIds || []).map(item => item.lastName).join(', '),
+                        getTableActions(item, '/administration/classes/')
+                ];
+            });
+
+            let sortQuery = '';
+            if (req.query.sort) {
+                sortQuery = '&sort=' + req.query.sort;
+            }
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/classes/?p={{page}}' + sortQuery + limitQuery
+            };
+
+            res.render('administration/classes', {
+                title: 'Administration: Klassen',
+                head,
+                body,
+                teachers,
+                students,
+                pagination,
+                limit: true
+            });
+        });
+    });
+});
+
+
 // general admin permissions
+// ONLY useable with ADMIN_VIEW !
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', getUpdateHandler('schools'));
 router.post('/schools/:id/bucket', createBucket);
@@ -878,7 +1156,10 @@ router.all('/courses', function (req, res, next) {
                     item.name,
                     (item.classIds || []).map(item => item.name).join(', '),
                     (item.teacherIds || []).map(item => item.lastName).join(', '),
-                    getTableActions(item, '/administration/courses/')
+                    getTableActions(item, '/administration/courses/').map(action => {
+                        
+                        return action
+                    })
                 ];
             });
 
@@ -913,74 +1194,6 @@ router.all('/courses', function (req, res, next) {
     });
 });
 
-
-router.post('/classes/', getCreateHandler('classes'));
-router.patch('/classes/:id', mapEmptyClassProps, getUpdateHandler('classes'));
-router.get('/classes/:id', getDetailHandler('classes'));
-router.delete('/classes/:id', getDeleteHandler('classes'));
-
-router.all('/classes', function (req, res, next) {
-
-    const itemsPerPage = (req.query.limit || 10);
-    const currentPage = parseInt(req.query.p) || 1;
-
-    api(req).get('/classes', {
-        qs: {
-            $populate: ['teacherIds'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
-    }).then(data => {
-        const head = [
-            'Name',
-            'Lehrer',
-            ''
-        ];
-
-        let teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        let studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
-
-        Promise.all([
-            teachersPromise,
-            studentsPromise
-        ]).then(([teachers, students]) => {
-            const body = data.data.map(item => {
-                return [
-                    item.name,
-                    (item.teacherIds || []).map(item => item.lastName).join(', '),
-                    getTableActions(item, '/administration/classes/')
-                ];
-            });
-
-            let sortQuery = '';
-            if (req.query.sort) {
-                sortQuery = '&sort=' + req.query.sort;
-            }
-
-            let limitQuery = '';
-            if (req.query.limit) {
-                limitQuery = '&limit=' + req.query.limit;
-            }
-
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/classes/?p={{page}}' + sortQuery + limitQuery
-            };
-
-            res.render('administration/classes', {
-                title: 'Administration: Klassen',
-                head,
-                body,
-                teachers,
-                students,
-                pagination,
-                limit: true
-            });
-        });
-    });
-});
 
 router.post('/systems/', createSystemHandler);
 router.patch('/systems/:id', getUpdateHandler('systems'));
