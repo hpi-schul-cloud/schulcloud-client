@@ -203,15 +203,6 @@ router.get('/register/confirm/:accountId', function (req, res, next) {
 /**
  * New Dataprivacy Routes
  */
-router.get('/registration/:classId', function (req, res, next) {
-    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
-        return res.sendStatus(500);
-    
-    res.render('registration/registration', {
-        title: 'Herzlich Willkommen bei der Registrierung',
-        classId: req.params.classId
-    });
-});
 router.get('/registration/byparent', function (req, res, next) {
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern'
@@ -220,6 +211,11 @@ router.get('/registration/byparent', function (req, res, next) {
 router.get('/registration/bystudent', function (req, res, next) {
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*'
+    });
+});
+router.get('/registration/', function (req, res, next) {
+    res.render('registration/registration', {
+        title: 'Herzlich Willkommen bei der Registrierung'
     });
 });
 router.get('/registration/pinvalidation', function (req, res, next) {
@@ -338,6 +334,27 @@ router.post('/registration/submit', function (req, res, next) {
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => res.status(500).send(err));
+});
+router.get('/registration/byparent/:classId', function (req, res, next) {
+    res.render('registration/registration-parent', {
+        title: 'Registrierung - Eltern',
+        classId: req.params.classId
+    });
+});
+router.get('/registration/bystudent/:classId', function (req, res, next) {
+    res.render('registration/registration-student', {
+        title: 'Registrierung - Schüler*',
+        classId: req.params.classId
+    });
+});
+router.get('/registration/:classId', function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+        return res.sendStatus(500);
+    
+    res.render('registration/registration', {
+        title: 'Herzlich Willkommen bei der Registrierung',
+        classId: req.params.classId
+    });
 });
 
 module.exports = router;
