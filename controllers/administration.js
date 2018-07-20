@@ -95,6 +95,11 @@ const getTableActionsSend = (item, path, state) => {
     return actions;
 };
 
+
+const getConsentState = (student) => {
+    return 0;
+}
+
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
  * @param data {object} - the plain data object
@@ -746,6 +751,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 'Nachname',
                 'E-Mail-Adresse',
                 'Klasse(n)',
+                'Einwilligung',
                 ''
             ];
 
@@ -754,8 +760,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     item.firstName,
                     item.lastName,
                     item.email,
-                    getClasses(item, classes, false),
-                    getTableActions(item, '/administration/students/', _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'), false, true)
+                    getClasses(item, classes, false), getConsentState(item),
+                    "<a class='btn' href='"+ item._id+"/edit'>Bearbeiten</a>"
                 ];
             });
 
@@ -773,6 +779,25 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         });
     });
 });
+
+
+/*
+return function (req, res, next) {
+        api(req).get('/' + service + '/' + req.params.id).then(data => {
+ */
+
+router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    api(req).get('/users/' + req.params.id).then(user => {
+
+        res.render('administration/students_edit',
+            {
+                title: 'Schüler bearbeiten',
+                student: user
+            }
+        );
+    });
+});
+
 
 router.patch('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getUpdateHandler('helpdesk'));
 router.get('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDetailHandler('helpdesk'));
