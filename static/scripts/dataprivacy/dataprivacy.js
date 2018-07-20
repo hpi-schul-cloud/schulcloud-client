@@ -1,4 +1,5 @@
-// http://localhost:3100/administration/dataprivacy/registration/byparent?student-birthdate=12.01.2000&student-firstname=Adrian&student-secondname=Jost&student-email=adrian.jost@hpi.de&parent-firstname=Uwe&parent-secondname=Jost&parent-email=uwe.jost@hpi.de
+// set this to false to disable validation between pages (for testing)
+const ValidationDisabled = false;
 
 /* HELPER */
 
@@ -41,13 +42,21 @@ function isSubmitted(){
 function setSelectionByIndex(index, event){
     event.preventDefault();
     function setSelection(index){
+        const hideEvent = new CustomEvent("hideSection", {
+            detail: {
+                sectionIndex: getSelectionIndex()
+            }
+          });
+        document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(hideEvent);
+
         document.querySelector(`.form input[type="radio"]:nth-of-type(${index})`).checked = true;
-        const event = new CustomEvent("showSection", {
+        
+        const showEvent = new CustomEvent("showSection", {
             detail: {
                 sectionIndex: index
             }
           });
-        document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(event);
+        document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(showEvent);
         updateButton(index);
     }
     function findLatestInvalid(to){
@@ -86,8 +95,10 @@ function updateButton(selectedIndex){
 
     if(selectedIndex === getMaxSelectionIndex()){
         document.querySelector('.form #nextSection').setAttribute("disabled","disabled");
+        document.querySelector('.form #nextSection').classList.add("hidden");
     }else{
         document.querySelector('.form #nextSection').removeAttribute("disabled");
+        document.querySelector('.form #nextSection').classList.remove("hidden");
     }
     if(selectedIndex === 1 || selectedIndex === getSubmitPageIndex()+1){
         document.querySelector('.form #prevSection').setAttribute("disabled","disabled");
@@ -99,6 +110,7 @@ function updateButton(selectedIndex){
 }
 
 function isSectionValid(sectionIndex){
+    if(ValidationDisabled){return true}; // for testing only
     // negation is needed, because some() returns false on a blank array.
     return !document.querySelectorAll(`section[data-panel="section-${sectionIndex}"] input`).some((input)=>{
         return !input.checkValidity();
@@ -134,8 +146,12 @@ function submitForm(event){
 }
 
 function nextSection(event){
-    const submitPage = document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.contains('submit-page');
-    if(!submitPage){
+    // ValidationEnabled is for testing only
+    const isSubmitPage = ValidationDisabled?false:document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.contains('submit-page');
+    if(ValidationDisabled){document.querySelector('.form').classList.add("form-submitted");};
+    
+
+    if(!isSubmitPage){
         event.preventDefault();
         const selectedIndex = getSelectionIndex() + 1;
         setSelectionByIndex(selectedIndex, event);
@@ -145,7 +161,7 @@ function nextSection(event){
 }
 function prevSection(event) {
     const selectedIndex = getSelectionIndex() - 1;
-    setSelectionByIndex(selectedIndex, event); // don't give this method the event to prevent, to don't prevent on invalid state (back should always be possible)
+    setSelectionByIndex(selectedIndex, event);
 }
 function goToSection(event){
     const selectedIndex = document.querySelectorAll('.form .stages label').indexOf(this) + 1;

@@ -72,6 +72,7 @@ label,
 .hidden{
 	display: none;
 }
+
 .show{
 	display: initial;
 }
@@ -172,6 +173,9 @@ form.inline {
 .btn-thin {
 	padding-left: 15px !important;
 	padding-right: 15px !important;
+}
+.btn.hidden{
+	display:none;
 }
 
 .alert-fixed {
