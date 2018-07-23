@@ -1073,48 +1073,8 @@ router.get('/calendar/:id',permissionsHelper.permissionsChecker(['ADMIN_VIEW', '
     });
 });
 
-/*
-const getDeleteAccountForUserHandler = (req, res, next) => {
-    api(req).get("/accounts/", {
-        qs: {
-            userId: req.params.id
-        }
-    }).then(accounts => {
-        // if no account find, user isn't fully registered
-        if (!accounts || accounts.length <= 0) {
-            next();
-            return;
-        }
-
-        // for now there is only one account for a given user
-        let account = accounts[0];
-        api(req).delete("/accounts/" + account._id).then(_ => {
-            next();
-        });
-    }).catch(err => {
-        next(err);
-    });
-};
-*/ /*
-const getDeleteSubscriptionHandler = (req, res, next) =>{
-	console.log('do frontend delete actions');
-	
-	api(req).get("/subscriptions/", {
-		qs:{'subscriptionId':id}
-	}).then(data => {
-		console.log(data);
-	}).catch(err => {
-		next(err);
-	});
-}; */
-//permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CALENDAR_CREATE'])
-router.delete('/calendar/:id', (req,res,next)=>{
-	console.log('DELETE');
-	console.log( req.params.id );
-
-    api(req).delete('/subscriptions/' + req.params.id,{
-	//	qs:{'subscriptionId':id}
-	}).then( data => {
+router.delete('/calendar/:id',permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CALENDAR_CREATE']), (req,res,next)=>{
+    api(req).delete('/subscriptions/' + req.params.id,{}).then( data => {
         res.redirect(req.header('Referer'));
     }).catch(err => {
         next(err);
@@ -1128,7 +1088,7 @@ router.all('/calendar', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'CAL
     const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 	const currentPage = parseInt(req.query.p) || 1;
 	
-	let itemsPerPage = 5;
+	let itemsPerPage = 15;
     let filterQuery = {};
     if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
