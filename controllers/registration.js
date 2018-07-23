@@ -329,9 +329,9 @@ router.post('/registration/submit', function (req, res, next) {
             });
         }
     }).then(function() {
-        let eMailAdresses = [req.body["student-email"]];
-        if(req.body["parent-email"]){
-            eMailAdresses.push(req.body["parent-email"]);
+        let eMailAdresses = [user.email];
+        if(parent){
+            eMailAdresses.push(parent.email);
         }
         eMailAdresses.forEach(eMailAdress => {
             return api(req).post('/mail/', {
@@ -339,11 +339,11 @@ router.post('/registration/submit', function (req, res, next) {
                 subject: "Willkommen in der HPI Schul-Cloud!",
                 headers: {},
                 content: {
-                    "text": "Hallo " + req.body["student-firstname"] + "\n" +
+                    "text": "Hallo " + user.firstName + "\n" +
                             "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
                             "Adresse: schul-cloud.org \n" +
-                            "E-Mail: " + req.body["student-email"] + " \n" +
-                            "Startpasswort: <bla bla bla hier rein> \n" +
+                            "E-Mail: " + user.eMail + " \n" +
+                            "Startpasswort: " + "PASSWORT HIER EINFÜGEN" + " \n" +
                             "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
                             "Viel Spaß und einen guten Start wünscht dir dein \n" +
                             "Schul-Cloud-Team",
