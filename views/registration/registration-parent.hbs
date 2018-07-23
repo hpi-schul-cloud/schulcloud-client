@@ -129,12 +129,19 @@
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
             <button id="check-pin" class="btn btn-primary">PIN prüfen</button>
         </div>
+      </section>
+
+
+
+      <section data-panel="section-5">
+        <h4>Vielen Dank für die Registrierung in der Schul-Cloud</h4>
+
         <div id="userdata-summary" class="hidden">
           <p>
             Mit folgenden Daten kann sich
             <b data-from="student-firstname"></b>
             <b data-from="student-secondname"></b>
-            in der Schul-Cloud anmelden. Bitte bewahren Sie die Anmeldedaten auf.
+            in der Schul-Cloud anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten.
             <div class="print">
               <div class="recap">
                 <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
@@ -147,20 +154,9 @@
                   </div>
           </p>
 
-          <label>
-            <input name="sendCredentials" type="checkbox" value="sendCredentials" />
-            Login-Daten per E-Mail an angegebene Adressen senden
-          </label>
           <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler ab 14 Jahren müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
           <input class="hidden" type="hidden" value="{{classId}}" />
         </div>
-      </section>
-
-
-
-      <section data-panel="section-5">
-        <h4>Dankeschön</h4>
-        <p>Vielen Dank für die Registrierung in der Schul-Cloud.</p>
 
         <p>Ihr Kind kann sich nun einloggen:</p>
 
