@@ -1,7 +1,5 @@
 <template lang="html">
   <div class="">
-    <h1>Lehrer-generierte Inhalte</h1>
-    <Search/>
     <GenerateContent/>
   </div>
 </template>
@@ -18,18 +16,8 @@
   }
 </script>
 
-<style lang="css">
-  /* @import './../../../node_modules/vue-material/dist/theme/default.css'  */
-  .md-primary {
-    color: white;
-    background-color: #448aff;
-  }
+<style lang="scss">
+  @import "./default";
 
-  .md-chip {
-    background-color: #b2b2b2;
-  }
 
-  .md-chip:hover {
-    background-color: #757575;
-  }
 </style>

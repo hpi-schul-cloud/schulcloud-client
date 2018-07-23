@@ -8,47 +8,9 @@
     {{#content "page"}}
         <section class="store container">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    {{> "content/forms/form-search" }}
-                </div>
-            </div>
-
-            {{#with featuredContent}}
-            <h3>Aktuelle Inhalte</h3>
-            <div class="row equal-height">
-                {{#each this}}
-                    <div class="col-md-6 col-lg-4">
-                        {{> "content/item" }}
-                    </div>
-                {{/each}}
-            </div>
-            {{/with}}
-
-            {{#with trendingContent}}
-            <h3>Beliebte Inhalte</h3>
-            <div class="row equal-height">
-                {{#each this}}
-                    <div class="col-md-6 col-lg-4">
-                        {{> "content/item" }}
-                    </div>
-                {{/each}}
-            </div>
-            {{/with}}
+          {{> "content/forms/form-search" }}
 
         </section>
-
-        {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
-            {{#content "fields"}}
-                {{> "content/forms/form-add-lesson" }}
-            {{/content}}
-        {{/embed}}
-
-        {{#embed "lib/components/modal" class="external-link-modal"}}
-            {{#content "body"}}
-                {{> "content/forms/form-external-link"}}
-            {{/content}}
-        {{/embed}}
 
     {{/content}}
 

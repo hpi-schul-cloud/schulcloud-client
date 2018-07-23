@@ -52,7 +52,7 @@ router.get('/', function (req, res, next) {
     // Search Results
     } else {
         return api(req)({
-            uri: '/content/searchExternal/',
+            uri: '/content/search/',
             qs: {
                 _all: { $match: query },
                 $limit: itemsPerPage,
@@ -76,6 +76,23 @@ router.get('/', function (req, res, next) {
             });
         });
     }
+});
+
+router.get('/search', function (req, res, next) {
+    const query = req.query.q;
+    const itemsPerPage = (req.query.limit || 9);
+    const currentPage = parseInt(req.query.p) || 1;
+
+    return api(req)({
+      uri: '/content/search/',
+      qs: {
+          query: query,
+          $limit: itemsPerPage,
+          $skip: itemsPerPage * (currentPage - 1),
+      },
+      json: true
+    });
+
 });
 
 router.get('/:id', function (req, res, next) {

@@ -30,7 +30,7 @@
     <div md-gutter v-show="gutter" class="grid">
       <div class="card-wrapper" v-for="item in data"
            :key="item._id  + '#card'">
-        <contentCard v-bind:data="item" v-bind:readOnly="readOnly"></contentCard>
+        <contentCard v-bind:data="item['_source']" v-bind:readOnly="readOnly"></contentCard>
       </div>
     </div>
     <!-- <table v-show="!gutter" v-if="tableEnabled && readOnly != true">
@@ -121,13 +121,22 @@
           window.history.pushState({path: newurl}, '', newurl);
         }
       },
+      constructPathFromURL(urlQuery) {
+        let queryString = '?'
+        Object.keys(urlQuery).forEach(function(key) {
+            if (key !== 'p') {
+              queryString += key + '=' + urlQuery[key] + '&';
+            }
+        });
+        return queryString;
+      },
       loadContent() {
         // clear data to show "loading state"
         const page = this.pagination.page || 1; // pagination for request
         const searchString = this.searchQuery || ''; // query for search request
 
         // set unique url
-        this.urlQuery.q = searchString;
+        this.urlQuery.term = searchString;
         this.urlQuery.p = page;
         this.updateURL(this.urlQuery);
 
@@ -139,19 +148,19 @@
         };
 
         const queryString = qs.stringify(Object.assign(searchQuery, this.apiFilterQuery));
-        const path =
-          searchString.length == 0
-            ? this.$config.API.getPath
-            : `${this.$config.API.searchPath}?${queryString}`;
+        let path = this.$config.API.searchPath;
+        if (searchString) {
+          path = this.$config.API.searchPath + this.constructPathFromURL(this.urlQuery);
+        }
         this.$http
           .get(this.$config.API.baseUrl + this.$config.API.port + path, {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem('jwt')}`, 
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
             },
           })
           .then((response) => {
-            this.data = response.data.data;
-            this.pagination.totalEntrys = response.data.total;
+            this.data = response.body.hits.hits;
+            this.pagination.totalEntrys = response.body.hits.total;
           })
           .catch((e) => {
             console.error(e);

@@ -169,10 +169,22 @@ module.exports = (req, res, next) => {
 
     // beta user view
     res.locals.sidebarItems.push({
-       name: 'Meine Materialien',
+       name: 'SC Materialien',
        icon: 'book',
        link: '/my-material/',
-       permission: 'BETA_FEATURES'
+       permission: 'BETA_FEATURES',
+			 children: [
+					 {
+							 name: 'Veröffentlichen',
+							 icon: 'book',
+							 link: '/my-material/publish/'
+					 },
+					 {
+							 name: 'Überprüfen',
+							 icon: 'book',
+							 link: '/my-material/review/'
+					 }
+			 ]
     });
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);

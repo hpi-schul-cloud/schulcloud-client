@@ -80,7 +80,10 @@
   }
 </script>
 
-<style lang="css">
+<style lang="scss">
+
+  @import "./default";
+
   .md-switch-container {
     background-color: rgba(255,82,82,.38);
   }
