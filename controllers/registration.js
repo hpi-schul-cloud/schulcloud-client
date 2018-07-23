@@ -329,8 +329,27 @@ router.post('/registration/submit', function (req, res, next) {
             });
         }
     }).then(function() {
-        //sendMailStuff (Katrin)
-        return Promise.resolve;
+        let eMailAdresses = [req.body["student-email"]];
+        if(req.body["parent-email"]){
+            eMailAdresses.push(req.body["parent-email"]);
+        }
+        eMailAdresses.forEach(eMailAdress => {
+            return api(req).post('/mail/', {
+                email: eMailAdress,
+                subject: "Willkommen in der HPI Schul-Cloud!",
+                headers: {},
+                content: {
+                    "text": "Hallo " + req.body["student-firstname"] + "\n" +
+                            "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
+                            "Adresse: schul-cloud.org \n" +
+                            "E-Mail: " + req.body["student-email"] + " \n" +
+                            "Startpasswort: <bla bla bla hier rein> \n" +
+                            "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
+                            "Viel Spaß und einen guten Start wünscht dir dein \n" +
+                            "Schul-Cloud-Team",
+                    "html": ""
+                }})
+        })
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => res.status(500).send(err));
