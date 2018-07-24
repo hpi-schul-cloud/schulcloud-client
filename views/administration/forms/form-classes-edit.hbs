@@ -10,7 +10,7 @@
 
     <select class="linked" name="schoolyear" data-placeholder="Schuljahr auswählen">
         {{#each schoolyears}}
-            <option value="{{this._id}}">
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{this.name}}
             </option>
         {{/each}}
@@ -40,7 +40,7 @@
             <select class="linked" name="grade" data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
                 <option disabled selected value>keine Auswahl</option>
                 {{#each gradeLevels}}
-                    <option value="{{this._id}}">
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                         {{this.name}}
                     </option>
                 {{/each}}
@@ -60,7 +60,7 @@
         </div>
         <label>
             <input name="keepyear" type="checkbox" value="true" {{#if class.keepYear}}checked{{/if}} {{#unless isCustom}}disabled{{/unless}}/>
-            <span>Klassenzuordnung beibehalten</span>
+            <span>Schuljahreszuordnung beibehalten</span>
         </label>  
     </section>
 

@@ -893,6 +893,9 @@ const renderClassEdit = (req, res, next, edit) => {
                 gradeLevels.forEach(g => {
                     if(currentClass.gradeLevel == g._id) {g.selected = true;}
                 });
+                schoolyears.forEach(schoolyear => {
+                    if(currentClass.year == schoolyear._id) {schoolyear.selected = true;}
+                });
                 if (currentClass.nameFormat == "static") {
                     isCustom = true;
                     currentClass.customName = currentClass.name;
