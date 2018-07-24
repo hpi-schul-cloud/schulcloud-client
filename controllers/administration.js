@@ -864,17 +864,17 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
 router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteHandler('classes'));
 
-const schoolyears = ["2018/2019", "2019/2020"];
 const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
     .then(classes => {
         let promises = [
             getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
-            getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000})  //students
+            getSelectOptions(req, 'years'),
+            getSelectOptions(req, 'gradeLevels')
         ];
         if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
 
-        Promise.all(promises).then(([teachers, students, currentClass]) => {
+        Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
             const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
             if(isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
@@ -884,27 +884,34 @@ const renderClassEdit = (req, res, next, edit) => {
                     }
                 });
             }
+            let isCustom = false;
             if(currentClass){
                 // preselect already selected teachers
                 teachers.forEach(t => {
                     if(currentClass.teacherIds.includes(t._id)){t.selected = true;}
                 });
-
-                // TODO - remove these mocks
-                currentClass.grade = '9';
-                currentClass.classsuffix = "b";
-                //currentClass.displayName = currentClass.grade + currentClass.classsuffix;
-                currentClass.keepYear = true;
-                currentClass.customName = "blaBlu";
+                gradeLevels.forEach(g => {
+                    if(currentClass.gradeLevel == g._id) {g.selected = true;}
+                });
+                if (currentClass.nameFormat == "static") {
+                    isCustom = true;
+                    currentClass.customName = currentClass.name;
+                    if (currentClass.year) {
+                        currentClass.keepYear = true;
+                    }
+                } else if (currentClass.nameFormat == "gradeLevel+name") {
+                    currentClass.classsuffix = currentClass.name;
+                }              
             }
 
             res.render('administration/classes-edit', {
-                title: `Klasse ${edit?`'${currentClass.name}' bearbeiten`:"erstellen"}`,
+                title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
-                schoolyears: schoolyears,
+                schoolyears,
                 teachers,
                 class: currentClass,
-                isCustom: true, // TODO - implement detection or ask api
+                gradeLevels,
+                isCustom, // TODO - implement detection or ask api
                 referer: req.header('Referer')
             });
         });
@@ -1000,15 +1007,34 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
     if(!req.body.keepyear){
         delete req.body.schoolyear;
     }
+    let newClass = {
+        schoolId: req.body.schoolId
+    }
+    if (req.body.classcustom) {
+        newClass.name = req.body.classcustom;
+        newClass.nameFormat = "static";
+        if (req.body.keepyear) {
+            newClass.year = req.body.schoolyear;
+        }
+    } else if (req.body.classsuffix) {
+        newClass.name = req.body.classsuffix;
+        newClass.gradeLevel = req.body.grade;
+        newClass.nameFormat = "gradeLevel+name";
+        newClass.year = req.body.schoolyearl;
+    }
+    if (req.body.teacherIds) {
+        newClass.teacherIds = req.body.teacherIds;
+    }
+    
     api(req).post('/classes/', {
         // TODO: sanitize
-        json: req.body
+        json: newClass
     }).then(data => {
         const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
         if(isAdmin){
-            res.redirect(`/classes/`);
+            res.redirect(`/administration/classes/`);
         }else{
-            res.redirect(`/classes/${data._id}`);
+            res.redirect(`/administration/classes/${data._id}`);
         }
     }).catch(err => {
         next(err);
