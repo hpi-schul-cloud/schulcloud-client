@@ -956,6 +956,12 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     t.selected = true;
                 }
             });
+            const studentIds = currentClass.userIds.map(t => {return t._id;});
+            students.forEach(s => {
+                if (studentIds.includes(s._id)) {
+                    s.selected = true;
+                }
+            })
             res.render('administration/classes-manage', {
                 title: `Klasse '${currentClass.name}' verwalten `,
                 "class": currentClass,
@@ -989,6 +995,22 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
         });
     });
 });
+
+router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    let changedClass = {
+        teacherIds: req.body.teacherIds || [],
+        userIds: req.body.userIds || []
+    }
+    api(req).patch('/classes/' + req.params.classId, {
+        // TODO: sanitize
+        json: changedClass
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+})
+
 router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const classIds = JSON.parse(req.query.classes);
     api(req).get('/classes/', { qs: { 
