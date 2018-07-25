@@ -272,14 +272,15 @@ router.post('/registration/submit', function (req, res, next) {
 
     let pininput = req.body["email-pin"]; 
     let usermail = req.body["parent-email"] ? req.body["parent-email"] : req.body["student-email"];
-    let pincorrect = false;
     let parent = null;
+    let user;
 
     return api(req).get('/registrationPins/', {
         qs: {
             $and: [{"pin": pininput, "email": usermail} ]
         }
     }).then(check => {
+        //check pin
         if (check.data && check.data.length>0) {
             pincorrect = true;
             return Promise.resolve
@@ -287,7 +288,8 @@ router.post('/registration/submit', function (req, res, next) {
             return Promise.reject("Wrong");
         }
     }).then(function() {
-        let user = {
+        //create user
+        user = {
             firstName: req.body["student-firstname"],
             lastName: req.body["student-secondname"],
             email: req.body["student-email"],
@@ -301,7 +303,7 @@ router.post('/registration/submit', function (req, res, next) {
         })
     }).then(newUser => {
         user = newUser;
-        //add parent if necessary
+        //add parent if necessary    
         if(req.body["parent-email"]) {
             parent = {
                 firstName: req.body["parent-firstname"],
@@ -323,7 +325,14 @@ router.post('/registration/submit', function (req, res, next) {
         } else {
             return Promise.resolve;
         }
-    }).then(function(){
+    })/*.then(function(){
+        //add user to class
+        return api(req).patch('/classes/' + req.body.classId, {
+            qs: {
+                $push: {userIds: user._id}
+            }
+        })
+    })*/.then(function(){
         //store consent
         let consent = {
             form: 'digital',
