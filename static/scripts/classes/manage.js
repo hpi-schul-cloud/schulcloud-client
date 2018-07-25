@@ -29,7 +29,7 @@ function printInvitation(event){
 }
 
 function createInvitationLink(){
-    let target = 'register/' + $("input[name='classid']").val();
+    let target = 'registration/' + $("input[name='classid']").val();
     $.ajax({
         type: "POST",
         url: "/link/",
