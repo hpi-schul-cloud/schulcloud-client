@@ -1,10 +1,12 @@
 const gulp = require('gulp')
 const sass = require('gulp-sass')
 const sassGrapher = require('gulp-sass-grapher');
+const sourcemaps = require('gulp-sourcemaps');
+const cleanCSS = require('gulp-clean-css');
+var postcss = require('gulp-postcss');
 const path = require('path');
 const rimraf = require('gulp-rimraf')
 const uglify = require('gulp-uglify')
-const cleancss = require('clean-css')
 const map = require('vinyl-map')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
@@ -18,14 +20,10 @@ const optimizejs = require('gulp-optimize-js')
 const concat = require('gulp-concat')
 const count = require('gulp-count')
 const changed = require('gulp-changed-smart')
-const autoprefixer = require('gulp-autoprefixer')
+const autoprefixer = require('autoprefixer')
 const header = require('gulp-header');
-const cCSS = new cleancss()
 const fs = require('fs')
 const gulpif = require('gulp-if');
-//wrapped in a function so it works with gulp.watch (+consistency)
-const minify = () => map((buff, filename) =>
-    cCSS.minify(buff.toString()).styles)
 
 const baseScripts = [
     './static/scripts/jquery/jquery.min.js',
@@ -92,9 +90,15 @@ gulp.task('styles', () => {
         .pipe(gulpif(!firstRun, sassGrapher.ancestors()))
         .pipe(header(fs.readFileSync(themeFile, 'utf8')))
         .pipe(filelog("PROCESS: "))
-        .pipe(sass({sourceMap: false}))
-        .pipe(minify())
-        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
+        .pipe(sourcemaps.init())
+            .pipe(sass({sourceMap: true}))
+            .pipe(postcss([
+                autoprefixer({browsers: ['last 3 version']})
+            ]))
+            .pipe(cleanCSS({
+                compatibility: 'ie9'
+            }))
+        .pipe(sourcemaps.write('./sourcemaps'))
         .pipe(gulp.dest(`./build/${themeName()}/styles`));
     firstRun = false;
 })
@@ -143,9 +147,15 @@ gulp.task('base-scripts', () => {
 //compile vendor SASS/SCSS to CSS and minify it
 gulp.task('vendor-styles', () => {
     beginPipe('./static/vendor/**/*.{css,sass,scss}')
-        .pipe(sass())
-        .pipe(minify())
-        .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
+        .pipe(sourcemaps.init())
+            .pipe(sass({sourceMap: true}))
+            .pipe(postcss([
+                autoprefixer({browsers: ['last 3 version']})
+            ]))
+            .pipe(cleanCSS({
+                compatibility: 'ie9'
+            }))
+        .pipe(sourcemaps.write('./sourcemaps'))
         .pipe(gulp.dest(`./build/${themeName()}/vendor`))
 })
 
