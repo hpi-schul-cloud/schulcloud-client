@@ -93,10 +93,6 @@ module.exports = (req, res, next) => {
                 link: '/files/shared/'
             }
         ]
-    }, {
-        name: 'Materialien',
-        icon: 'search',
-        link: '/content/'
     }];
 
     // teacher views
@@ -169,20 +165,30 @@ module.exports = (req, res, next) => {
 
     // beta user view
     res.locals.sidebarItems.push({
-       name: 'SC Materialien',
+       name: 'Materialien',
        icon: 'book',
-       link: '/my-material/',
+       link: '/content/',
        permission: 'BETA_FEATURES',
 			 children: [
 					 {
-							 name: 'Veröffentlichen',
-							 icon: 'book',
-							 link: '/my-material/publish/'
+							 name: 'Suche',
+							 icon: 'search',
+							 link: '/content/search/'
 					 },
 					 {
-							 name: 'Überprüfen',
-							 icon: 'book',
-							 link: '/my-material/review/'
+							 name: 'Meine Materialien',
+							 icon: 'file',
+							 link: '/content/my-content/'
+					 },
+					 {
+							 name: 'Erstellen',
+							 icon: 'edit',
+							 link: '/content/create/'
+					 },
+					 {
+							 name: 'Review',
+							 icon: 'check',
+							 link: '/content/review/'
 					 }
 			 ]
     });

@@ -3,7 +3,7 @@ const webpack = require("webpack");
 var path = require('path');
 
 module.exports = {
-    mode: 'production',
+    mode: 'development',
     module: {
         rules: [
             {

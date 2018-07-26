@@ -17,7 +17,7 @@ router.get('/publish', function (req, res, next) {
 });
 
 router.get('/review', function (req, res, next) {
-    return res.render('my-material/review');
+    return res.render('my-material/review'); 
 });
 
 module.exports = router;

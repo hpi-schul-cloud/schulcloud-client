@@ -61,6 +61,34 @@ router.get('/', function (req, res, next) {
     }
 });
 
+router.get('/profile', function (req, res, next) {
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+        api(req).get('/notification/devices')
+            .then(device => {
+                device.map(d => {
+                    if (d.token === req.cookies.deviceToken) {
+                        Object.assign(d, {selected: true});
+                    }
+                    return d;
+                });
+                res.render('account/profile', {
+                    title: 'Dein Account',
+                    device,
+                    userId: res.locals.currentUser._id
+                });
+            }).catch(err => {
+            res.render('account/profile', {
+                title: 'Dein Account',
+                userId: res.locals.currentUser._id
+            });
+        });
+    } else {
+        res.render('account/profile', {
+            userId: res.locals.currentUser._id
+        });
+    }
+});
+
 // delete file
 router.delete('/settings/device', function (req, res, next) {
     const {name, _id = ''} = req.body;

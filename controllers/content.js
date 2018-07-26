@@ -9,6 +9,22 @@ const api = require('../api');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
+    return res.render('content/overview');
+});
+
+router.get('/my-content', function (req, res, next) {
+    return res.render('content/my-content');
+});
+
+router.get('/create', function (req, res, next) {
+    return res.render('content/create');
+});
+
+router.get('/review', function (req, res, next) {
+    return res.render('content/review');
+});
+
+router.get('/search', function (req, res, next) {
 
     const query = req.query.q;
     const action = 'addToLesson';
