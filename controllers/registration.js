@@ -294,8 +294,8 @@ router.post('/registration/submit', function (req, res, next) {
             lastName: req.body["student-secondname"],
             email: req.body["student-email"],
             gender: req.body["gender"],
-            schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
-            roles: ["0000d186816abba584714c99"] // role=student
+            roles: ["0000d186816abba584714c99"], // mock role=student
+            classId: req.body.classId
             // birthday!
         };
         return api(req).post('/users/', {
@@ -310,7 +310,7 @@ router.post('/registration/submit', function (req, res, next) {
                 lastName: req.body["parent-secondname"],
                 email: req.body["parent-email"],
                 children: [user._id],
-                schoolId: "0000d186816abba584714c5f", //get schoolid from link
+                schoolId: newUser.schoolId, //get schoolid from link
                 roles: ["5b45f8d28c8dba65f8871e19"] // role parent
             };
             return api(req).post('/users/', {
@@ -325,14 +325,7 @@ router.post('/registration/submit', function (req, res, next) {
         } else {
             return Promise.resolve;
         }
-    })/*.then(function(){
-        //add user to class
-        return api(req).patch('/classes/' + req.body.classId, {
-            qs: {
-                $push: {userIds: user._id}
-            }
-        })
-    })*/.then(function(){
+    }).then(function(){
         //store consent
         let consent = {
             form: 'digital',
