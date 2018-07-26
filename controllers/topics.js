@@ -198,7 +198,9 @@ router.patch('/:topicId', async function(req, res, next) {
     // create new Nexboard when necessary, if not simple hidden or position patch
     data.contents ? data.contents = await createNewNexBoards(req, res, data.contents) : '';
 
-    data.contents = data.contents.filter(c => { return c !== undefined; });
+
+    if (data.contents)
+        data.contents = data.contents.filter(c => { return c !== undefined; });
 
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
