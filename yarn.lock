@@ -6634,9 +6634,9 @@ readline2@^1.0.1:
     is-fullwidth-code-point "^1.0.0"
     mute-stream "0.0.5"
 
-rebuild-changed-entrypoints-webpack-plugin@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/rebuild-changed-entrypoints-webpack-plugin/-/rebuild-changed-entrypoints-webpack-plugin-0.0.1.tgz#3ce9f8a97f0c5212b5b3ff54b85015542d1be210"
+rebuild-changed-entrypoints-webpack-plugin@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rebuild-changed-entrypoints-webpack-plugin/-/rebuild-changed-entrypoints-webpack-plugin-1.0.0.tgz#87cf217694430d8e180818ffd330a3817de80f90"
 
 rechoir@^0.6.2:
   version "0.6.2"
