@@ -1,3 +1,5 @@
+/* global io feathers */
+
 $(document).ready(function () {
     let url = $('#backendUrl').html();
     let socket = io(url);

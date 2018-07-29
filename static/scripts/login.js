@@ -1,3 +1,4 @@
+/* global introJs */
 $(document).ready(function() {
     var $btnToggleProviers = $('.btn-toggle-providers');
     var $btnHideProviers = $('.btn-hide-providers');
@@ -78,7 +79,7 @@ $(document).ready(function() {
 
 });
 
-function startIntro() {
+window.startIntro = function startIntro() {
     introJs()
     .setOptions({
         nextLabel: "Weiter",
@@ -87,4 +88,4 @@ function startIntro() {
         skipLabel: "Überspringen"
     })
     .start();
-}
+};

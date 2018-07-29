@@ -266,24 +266,8 @@
         },
         "longDesc": false
       },
-      {
+     {
         "id": 16,
-        "title": "",
-        "firstName": "Julian",
-        "lastName": "Taraz",
-        "position": "Projektreferent für externe Kommunikation und wissenschaftlicher Mitarbeiter, HPI",
-        "description": "Julian ist Politologe (M.A.) und hat in Hamburg, Gent (Belgien) und Göttingen studiert. Er ist im Projekt Schul-Cloud für die externe Kommunikation mit verschiedenen Stakeholdern, Verlagen und Pilotschulen verantwortlich. In der Freizeit entspannt er sich gerne bei langen Spaziergängen oder beim Kochen und anschließendem Dinieren mit Freunden.",
-        "pictureUrl": "/images/team/Julian_Taraz.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 17,
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
@@ -299,7 +283,7 @@
         "longDesc": false
       },
       {
-        "id": 18,
+        "id": 17,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
@@ -316,7 +300,7 @@
       },
       {
         "subheader_before": "Das nationale Excellence-Schulnetzwerk MINT-EC",
-        "id": 19,
+        "id": 18,
         "title": "",
         "firstName": "Nils",
         "lastName": "Karn",
@@ -332,7 +316,7 @@
         "longDesc": false
       },
       {
-        "id": 20,
+        "id": 19,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Plötz",
@@ -348,7 +332,7 @@
         "longDesc": false
       },
       {
-        "id": 21,
+        "id": 20,
         "title": "",
         "firstName": "Sigrid",
         "lastName": "Stobbe",
@@ -370,13 +354,29 @@
     "style": "small",
     "team": [
       {
-        "id": 22,
+        "id": 21,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
         "position": "Student",
         "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
         "pictureUrl": "/images/team/Raoul_Baron.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 22,
+        "title": "",
+        "firstName": "Georg",
+        "lastName": "Berecz",
+        "position": "Student",
+        "description": "Georg schreibt derzeit seine Masterarbeit im Projekt HPI Schul-Cloud. Er befasst sich fachlich mit der Frage, wie kompetenz-basiertes Lernen in die HPI Schul-Cloud integriert werden kann. Technisch geht es dabei um die modulare Erweiterung von Microservice Architekturen. Sein Bachelorstudium hat Georg ebenfalls am HPI absolviert und anschließend hat er im Zuge seines Masterstudiums zwei Semester in Estland studiert. In seiner Freizeit schießt bzw. wirft er Bälle in Tore oder Körbe und malträtiert sein elektronisches Schlagzeug.",
+        "pictureUrl": "/images/team/Georg_Berecz.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -710,31 +710,15 @@
           "linkedin": ""
         },
         "longDesc": false
-      },
-      {
-        "id": 43,
-        "title": "",
-        "firstName": "Jessica",
-        "lastName": "Pfarr",
-        "position": "Juristische Unterstützung",
-        "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
-        "pictureUrl": "/images/team/Jessica_Pfarr.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
       }
-    ]
+     ]
   },
   "end": {
     "name": "Alumni",
     "style": "small",
     "team": [
       {
-        "id": 44,
+        "id": 43,
         "title": "",
         "firstName": "Carl",
         "lastName": "Gödecken",
@@ -750,7 +734,7 @@
         "longDesc": false
       },
       {
-        "id": 45,
+        "id": 44,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -766,7 +750,7 @@
         "longDesc": false
       },
       {
-        "id": 46,
+        "id": 45,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -782,7 +766,7 @@
         "longDesc": false
       },
       {
-        "id": 47,
+        "id": 46,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
