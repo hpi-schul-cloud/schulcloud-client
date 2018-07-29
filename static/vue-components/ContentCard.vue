@@ -27,8 +27,8 @@
         <div class="providerName">
           via {{data.providerName}}
         </div>
-        <md-button  v-bind:class="{'md-primary': readOnly}" @click="dialog.active = true">
-          <md-icon>open_in_new</md-icon>
+        <md-button  class="md-primary" @click="open()">
+          <md-icon>{{data.providerName === 'Schul-Cloud' ? 'open_in_browser' : 'open_in_new' }}</md-icon>
         </md-button>
         <md-button  class='md-primary' @click="dialog.active = true">
           <md-icon>add</md-icon>
@@ -46,7 +46,7 @@
     components: {
       confirmDialog,
     },
-    props: ['data', 'contentId', 'readOnly'],
+    props: ['data', 'contentId'],
     name: 'ContentCard',
     data() {
       return {
@@ -60,6 +60,14 @@
       };
     },
     methods: {
+      open() {
+        if (this.data.providerName === "Schul-Cloud" ) {
+          console.log('/content/review/' + this.contentId);
+          location.href = '/content/review/' + this.contentId;
+        } else {
+          dialog.active = true;
+        }
+      },
       onConfirm() {
         window.open(this.$config.API.baseUrl + this.$config.API.redirectPath + this.contentId, '_blank');
       },

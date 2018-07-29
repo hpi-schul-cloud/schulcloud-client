@@ -17,10 +17,10 @@ Vue.use(VueResource);
 
 Vue.config.devtools = true;
 
-import Review from './../../vue-components/Review.vue';
+import Search from './../../vue-components/ContentSearch.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<Review />',
-	components: { Review }
+	template: '<Search heading="Suche in vorgeschlagenen Inhalten" inReview="true"/>',
+	components: { Search }
 })

@@ -60,7 +60,7 @@
         if (this.selectedSubjects.length != 0) {
           // this.apiQuery["subjectName[$in]"] = this.selectedSubjects; // corret but api seems broken
           this.apiQuery['subjectName[$match]'] = this.selectedSubjects;
-          this.urlQuery = {subject: this.selectedSubjects}; // .reduce((prev, curr) => prev +','+ curr )}
+          this.urlQuery = {subjects: this.selectedSubjects}; // .reduce((prev, curr) => prev +','+ curr )}
           displayString = `Fach: ${this.selectedSubjects}`; // .reduce((prev, curr) => prev +', '+ curr );
         } else {
           this.apiQuery = {};

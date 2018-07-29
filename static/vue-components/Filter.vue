@@ -10,17 +10,7 @@
         FILTER HINZUFÜGEN
       </md-button>
       <md-menu-content>
-        <md-menu-item v-if="!isApplied('provider') && !inReview" v-on:click="visibleProvider = 'provider'">
-            Provider
-        </md-menu-item>
-        <md-menu-item v-if="!isApplied('createdat')" v-on:click="visibleProvider = 'createdat'">
-            Erstellt am
-        </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('age')" v-on:click="visibleProvider = 'topic'">
-            Thema
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
-        </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('subject')" v-on:click="visibleProvider = 'subject'">
+        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('subjects')" v-on:click="visibleProvider = 'subjects'">
             Fach
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
@@ -36,6 +26,16 @@
             Alter
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
+        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('age')" v-on:click="visibleProvider = 'topic'">
+            Thema
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+        </md-menu-item>
+        <md-menu-item v-if="!isApplied('provider') && !inReview" v-on:click="visibleProvider = 'provider'">
+            Anbieter
+        </md-menu-item>
+        <md-menu-item v-if="!isApplied('createdat')" v-on:click="visibleProvider = 'createdat'">
+            Erstellt am
+        </md-menu-item>
       </md-menu-content>
     </md-menu>
 
@@ -43,15 +43,15 @@
                             v-bind:active="visibleProvider == 'provider'"/>
     <createdat-filter-dialog @set="setFilter" @cancle="cancle" identifier="createdat"
                             v-bind:active="visibleProvider == 'createdat'"/>
-    <subject-filter-dialog @set="setFilter" @cancle="cancle" identifier="subject"
-                            v-bind:active="visibleProvider == 'subject'"/>
+    <subject-filter-dialog @set="setFilter" @cancle="cancle" identifier="subjects"
+                            v-bind:active="visibleProvider == 'subjects'"/>
     <goal-filter-dialog @set="setFilter" @cancle="cancle" identifier="goal"
                             v-bind:active="visibleProvider == 'goal'"/>
     <difficulty-filter-dialog @set="setFilter" @cancle="cancle" identifier="difficulty"
                             v-bind:active="visibleProvider == 'difficulty'"/>
     <age-filter-dialog @set="setFilter" @cancle="cancle" identifier="age"
                             v-bind:active="visibleProvider == 'age'"/>
-    <topic-filter-dialog @set="setFilter" @cancle="cancle" identifier="topic"
+    <topic-filter-dialog @set="setFilter" @cancle="cancle" identifier="topics"
                             v-bind:active="visibleProvider == 'topic'"/>
   </div>
 </template>
@@ -96,6 +96,7 @@
       removeFilter(key, emit) {
         this.activeFilter = this.activeFilter.filter(item => item[0] != key);
         if (emit) {
+          console.log(this);
           this.$emit('reset', key);
         }
       },

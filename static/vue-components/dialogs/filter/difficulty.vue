@@ -12,7 +12,7 @@
       </md-field>
       <md-field>
         <label for="selectedDifficulty">Niveaustufe wählen</label>
-        <md-select v-if="difficultyType === 'Sprachen'" v-model="selectedDifficulty" id="selectedDifficulty" multiple md-dense> <!-- multiple> -->
+        <md-select v-if="difficultyType === 'Sprachen'" v-model="selectedDifficulty" id="selectedDifficulty" md-dense> <!-- multiple> -->
           <md-option value="A1">A1</md-option>
           <md-option value="A2">A2</md-option>
           <md-option value="B1">B1</md-option>
@@ -20,7 +20,7 @@
           <md-option value="C1">C1</md-option>
           <md-option value="C2">C2</md-option>
         </md-select>
-        <md-select v-if="difficultyType === 'Anderes'" v-model="selectedDifficulty" id="selectedDifficulty" multiple md-dense> <!-- multiple> -->
+        <md-select v-if="difficultyType === 'Anderes'" v-model="selectedDifficulty" id="selectedDifficulty" md-dense> <!-- multiple> -->
           <md-option value="Leicht">Leicht</md-option>
           <md-option value="Mittel">Mittel</md-option>
           <md-option value="Schwer">Schwer</md-option>

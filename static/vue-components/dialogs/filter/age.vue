@@ -43,7 +43,7 @@
         if (this.selectedAge) {
           // this.apiQuery["GoalName[$in]"] = this.selectedDifficulty; // corret but api seems broken
           this.apiQuery['ageName[$match]'] = this.selectedAge; //TODO: Range
-          this.urlQuery = {age: this.selectedAge}; // .reduce((prev, curr) => prev +','+ curr )} // TODO: Range
+          this.urlQuery = {age: this.selectedAge, range: this.range}; // .reduce((prev, curr) => prev +','+ curr )} // TODO: Range
           displayString = "Alter: " + this.selectedAge + " +- " + this.range + " Jahre"; // .reduce((prev, curr) => prev +', '+ curr );
         } else {
           this.apiQuery = {};

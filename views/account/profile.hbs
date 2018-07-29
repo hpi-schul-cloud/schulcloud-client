@@ -13,10 +13,12 @@
         <img class="profile-avatar" src="/images/avatars/Leonardo.png" alt="">
         <div class="profile-text">
           <div><span>{{../currentUser.firstName}} {{../currentUser.lastName}}</span></div>
-          <div><span>Level 1</span></div>
+          <div><span>Level {{ userInfo.level }}</span></div>
           <br>
-          <div><span class="number">10</span> Erfahrungspunkte</div>
-          <div><span class="number">1</span> Badges</div>
+          {{#each userInfo.xp}}
+            <div><span class="number">{{this.amount}}</span> {{this.name}}</div>
+          {{/each}}
+          <div><span class="number">{{userInfo.achievements.length}}</span> Badges</div>
         </div>
         <div class="clear">
 
@@ -26,20 +28,26 @@
       <div class="badges">
         <h3>Badges</h3>
 
+        {{#each userInfo.achievements}}
         <div class="badge-row">
           <img src="/images/badges/king.png" alt="">
           <div class="badge-content">
             <div class="badge-title">
-              Hausaufgaben-König
-              <span>+50 Punkte</span>
+              {{ this.name }}
+              <span>+50 Punkte (TODO: Gibt's sowas in Achievements?)</span>
             </div>
             <div class="badge-description">
-              Pünktlichkeit wird doppelt belohnt! Du hast 10 Mal deine Hausaufgaben rechtzeitig abgegeben und erhältst 50 Punkte extra.
+              Pünktlichkeit wird doppelt belohnt! Du hast 10 Mal deine Hausaufgaben rechtzeitig abgegeben und erhältst 50 Punkte extra. (TODO: Text in Achievement definieren)
             </div>
           </div>
         </div>
+        {{/each}}
 
-        <div class="badge-row">
+        {{#unless userInfo.achievements }}
+          <span>Noch keine Badges</span>
+        {{/unless}}
+
+        <!-- <div class="badge-row">
           <img src="/images/badges/prince.png" alt="">
           <div class="badge-content">
             <div class="badge-title">
@@ -51,7 +59,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       </div>
 

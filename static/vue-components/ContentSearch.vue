@@ -1,11 +1,13 @@
 <template>
   <div>
+    <h1>{{heading}}</h1>
     <div class="search-bar">
       <div id="search-input">
         <input id="search-query-input" v-model.lazy="searchQuery"
         placeholder="Suche nach..."/></br>
-        <span id="resultHeadline"
-        v-if="searchQuery"><b>{{this.pagination.totalEntrys}}</b> Ergebnisse für <b>"{{this.searchQuery}}"</b></span>
+        <span id="resultHeadline">
+          <b>{{this.pagination.totalEntrys}}</b> Ergebnisse <span v-if="searchQuery">für <b>"{{this.searchQuery}}"</b></span>
+        </span>
       </div>
       <div>
         <md-field>
@@ -20,10 +22,10 @@
       </div>
     </div>
     <div>
-      <search-filter inReview="true" @newFilter="updateFilter"></search-filter>
+      <search-filter :inReview="inReview" @newFilter="updateFilter"></search-filter>
     </div>
     <div md-gutter class="grid">
-        <contentCard v-for="item in data" :key="item._id  + '#card'" v-bind:data="item['_source']" v-bind:contentId="item['_id']" v-bind:readOnly="readOnly"></contentCard>
+        <contentCard v-for="item in data" :key="item._id  + '#card'" v-bind:data="item['_source']" v-bind:contentId="item['_id']"></contentCard>
     </div>
 
     <md-empty-state v-if="data.length == 0" class="md-primary"
@@ -49,7 +51,7 @@
       pagination,
     },
     name: 'ContentSearch',
-    props: ['readOnly', 'inReview'],
+    props: ['inReview', 'heading'],
     data() {
       return {
         data: [],
@@ -70,16 +72,7 @@
       };
     },
     created() {
-      if (this.$router) {
-        this.searchQuery = this.$route.query.q || '';
-        this.pagination.page = parseInt(this.$route.query.p) || 1;
-      } else {
-        const query = qs.parse(location.search) || {};
-        this.searchQuery = query.q || '';
-        this.pagination.page = parseInt(query.p) || 1;
-      }
       this.loadContent();
-      window.onhashchange = this.urlChangeHandler;
     },
     methods: {
       pageChanged(page) {
@@ -101,40 +94,28 @@
         }
       },
       constructPathFromURL(urlQuery) {
-        let queryString = '?limit=' + this.pagination.itemsPerPage + '&page=' + this.pagination.page;
+        let queryString = '?limit=' + this.pagination.itemsPerPage + '&';
         if (this.inReview) {
           queryString += 'only-non-approved=true&provider=Schul-Cloud';
         }
         Object.keys(urlQuery).forEach(function(key) {
-            if (key !== 'p') {
-              queryString += key + '=' + urlQuery[key] + '&';
-            }
+          queryString += key + '=' + urlQuery[key] + '&';
         });
         return queryString;
       },
       loadContent() {
         // clear data to show "loading state"
-        const page = this.pagination.page || 1; // pagination for request
-        const searchString = this.searchQuery || ''; // query for search request
+        const page = this.pagination.page || 1;
+        const searchString = this.searchQuery || '';
 
         // set unique url
         this.urlQuery.term = searchString;
-        this.urlQuery.p = page;
+        this.urlQuery.page = page;
         this.updateURL(this.urlQuery);
 
-        // build request path and fetch new data
-        const searchQuery = {
-          $limit: this.pagination.itemsPerPage,
-          $skip: this.pagination.itemsPerPage * (page - 1),
-          '_all[$match]': searchString,
-        };
-
-        const queryString = qs.stringify(Object.assign(searchQuery, this.apiFilterQuery));
-        // let path = this.$config.API.searchPath;
-        // if (searchString) {
         let path = this.$config.API.searchPath + this.constructPathFromURL(this.urlQuery);
         console.log(path);
-        // }
+
         this.$http
           .get(this.$config.API.baseUrl + this.$config.API.port + path, {
             headers: {
@@ -149,32 +130,12 @@
             console.error(e);
           });
       },
-      urlChangeHandler() {
-        // handle url changes
-        if (this.$router) {
-          this.searchQuery = this.$route.query.q;
-          this.pagination.page = parseInt(this.$route.query.p);
-        } else {
-          const query = qs.parse(location.search);
-          if (this.searchQuery != query.q) {
-            this.searchQuery = query.q;
-          }
-          if (this.pagination.page != parseInt(query.p)) {
-            this.pagination.page = parseInt(query.p);
-          }
-        }
-      },
       updateFilter(newApiQuery, newUrlQuery) {
+        console.log("URL-Query from filter module: ");
+        console.log(newUrlQuery);
         this.apiFilterQuery = newApiQuery;
         this.urlQuery = newUrlQuery;
         this.loadContent();
-      },
-      deleteEntry(id) {
-        this.data.forEach((entry, index) => {
-          if (entry._id == id) {
-            this.data.splice(index, 1);
-          }
-        });
       },
     },
     watch: {
@@ -195,12 +156,7 @@
         if (to != from) {
           this.loadContent();
         }
-      },
-      selectedProviders(to, from) {
-        if (to != from) {
-          this.loadContent();
-        }
-      },
+      }
     },
   };
 </script>

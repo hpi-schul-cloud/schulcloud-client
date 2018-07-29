@@ -11,6 +11,7 @@
           <md-option value="Serlo">Serlo</md-option>
           <md-option value="Youtube">Youtube</md-option>
           <md-option value="LEIFI Physik">LEIFI Physik</md-option>
+          <md-option value="Schul-Cloud">Schul-Cloud</md-option>
         </md-select>
       </md-field>
     </div>

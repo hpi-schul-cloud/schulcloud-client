@@ -57,6 +57,7 @@
     "vue-config": "^1.0.0",
     "vue-material": "^1.0.0-beta-10.2",
     "vue-resource": "^1.5.1",
+    "vue-star-rating": "^1.6.0",
     "winston": "^3.0.0"
   },
   "devDependencies": {

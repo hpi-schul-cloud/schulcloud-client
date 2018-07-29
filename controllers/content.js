@@ -9,7 +9,7 @@ const api = require('../api');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    return res.render('content/overview');
+    return res.render('content/search');
 });
 
 router.get('/my-content', function (req, res, next) {
@@ -20,95 +20,17 @@ router.get('/create', function (req, res, next) {
     return res.render('content/create');
 });
 
+router.get('/review/:id', function (req, res, next) {
+    return res.render('content/review-content');
+});
+
+
 router.get('/review', function (req, res, next) {
     return res.render('content/review');
 });
 
 router.get('/search', function (req, res, next) {
-
-    const query = req.query.q;
-    const action = 'addToLesson';
-
-    const itemsPerPage = (req.query.limit || 9);
-    const currentPage = parseInt(req.query.p) || 1;
-
-    // Featured Content
-    if (!query) {
-        return Promise.all([
-            api(req)({
-                uri: '/content/resources/',
-                qs: {
-                    featuredUntil: {
-                        $gte: new Date()
-                    }
-                },
-                json: true
-            }),
-            api(req)({
-                uri: '/content/resources/',
-                qs: {
-                    $sort: {
-                        clickCount: -1
-                    },
-                    $limit: 3
-                },
-                json: true
-            })
-        ]).then(([featured, trending]) => {
-            return res.render('content/store', {
-                title: 'Materialien',
-                featuredContent: featured.data,
-                trendingContent: trending.data,
-                totalCount: trending.total,
-                isCourseGroupTopic: req.query.isCourseGroupTopic,
-                inline: req.query.inline,
-                action
-            });
-        });
-    // Search Results
-    } else {
-        return api(req)({
-            uri: '/content/search/',
-            qs: {
-                _all: { $match: query },
-                $limit: itemsPerPage,
-                $skip: itemsPerPage * (currentPage - 1),
-            },
-            json: true
-        }).then(searchResults => {
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(searchResults.total / itemsPerPage),
-                baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
-            };
-
-            return res.render('content/search-results', {
-                title: 'Materialien',
-                query: query,
-                searchResults: searchResults,
-                pagination,
-                isCourseGroupTopic: req.query.isCourseGroupTopic,
-                action
-            });
-        });
-    }
-});
-
-router.get('/search', function (req, res, next) {
-    const query = req.query.q;
-    const itemsPerPage = (req.query.limit || 9);
-    const currentPage = parseInt(req.query.p) || 1;
-
-    return api(req)({
-      uri: '/content/search/',
-      qs: {
-          query: query,
-          $limit: itemsPerPage,
-          $skip: itemsPerPage * (currentPage - 1),
-      },
-      json: true
-    });
-
+    return res.render('content/search');
 });
 
 router.get('/:id', function (req, res, next) {

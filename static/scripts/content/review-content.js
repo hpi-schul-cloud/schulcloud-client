@@ -15,12 +15,15 @@ Vue.use(VueConfig, configs);
 Vue.use(VueMaterial);
 Vue.use(VueResource);
 
-Vue.config.devtools = true;
+import StarRating from 'vue-star-rating';
+Vue.component('star-rating', StarRating);
 
-import Search from './../../vue-components/ContentSearch.vue';
+import reviewContent from './../../vue-components/Review.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<Search heading="Suche in allen Inhalten" inReview="false"/>',
-	components: { Search }
+	template: '<review-content />',
+	components: {
+		'review-content': reviewContent
+	}
 })

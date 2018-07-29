@@ -1,12 +1,12 @@
 <template>
-  <article>
+  <div>
     <h2 class="md-title">Kategorien</h2>
     <div class="md-layout md-alignment-top-center line">
         <div class="md-layout-item md-size-15">
             Fach:
         </div>
         <div class="md-layout-item">
-            <md-chip v-for="(chip, index) in data.subjects" v-model="data.subjects" :key="chip" v-on:click="visibleDialog = 'subject'"
+            <md-chip v-for="(chip, index) in teacherContent.subjects" v-model="teacherContent.subjects" :key="chip" v-on:click="visibleDialog = 'subject'"
                 @md-delete.stop="removeFilter('subjects', index)" md-clickable md-deletable>{{ chip }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'subjects'" class="addButton">
@@ -21,12 +21,18 @@
             Niveaustufe:
         </div>
         <div class="md-layout-item">
-            <md-chip v-for="(chip, index) in data.difficulty" v-model="data.difficulty" :key="chip" v-on:click="visibleDialog = 'difficulty'"
-                @md-delete.stop="removeFilter('difficulty', index)" md-clickable md-deletable>{{ chip }}
+            <md-chip v-if="teacherContent.difficulty" v-model="teacherContent.difficulty" :key="teacherContent.difficulty" v-on:click="visibleDialog = 'difficulty'"
+                @md-delete.stop="removeFilter('difficulty')" md-clickable md-deletable>{{ teacherContent.difficulty }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'difficulty'" class="addButton">
-                <md-icon><i class="material-icons">add</i></md-icon>
-                Niveaustufe hinzufügen
+                <span v-if="teacherContent.difficulty">
+                  <md-icon><i class="material-icons">edit</i></md-icon>
+                  Niveaustufe ändern
+                </span>
+                <span v-else>
+                  <md-icon><i class="material-icons">add</i></md-icon>
+                  Niveaustufe hinzufügen
+                </span>
             </md-button>
         </div>
     </div>
@@ -36,12 +42,18 @@
             Unterrichtsziel:
         </div>
         <div class="md-layout-item">
-            <md-chip v-for="(chip, index) in data.goal" v-model="data.goal" :key="chip" v-on:click="visibleDialog = 'goal'"
-                @md-delete.stop="removeFilter('goal', index)" md-clickable md-deletable>{{ chip }}
+            <md-chip v-if="teacherContent.goal" v-model="teacherContent.goal" :key="teacherContent.goal" v-on:click="visibleDialog = 'goal'"
+                @md-delete.stop="removeFilter('goal')" md-clickable md-deletable>{{ teacherContent.goal }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'goal'" class="addButton">
-                <md-icon><i class="material-icons">add</i></md-icon>
-                Unterrichtsziel hinzufügen
+                <span v-if="teacherContent.goal">
+                  <md-icon><i class="material-icons">edit</i></md-icon>
+                  Unterrichtsziel ändern
+                </span>
+                <span v-else>
+                  <md-icon><i class="material-icons">add</i></md-icon>
+                  Unterrichtsziel hinzufügen
+                </span>
             </md-button>
         </div>
     </div>
@@ -51,8 +63,8 @@
             Alter:
         </div>
         <div class="md-layout-item">
-            <md-chip v-model="data.age" key="chip" v-on:click="visibleDialog = 'age'"
-                @md-delete.stop="removeFilter('age')" md-clickable md-deletable>{{ data.age }}
+            <md-chip v-model="teacherContent.age" key="chip" v-on:click="visibleDialog = 'age'"
+                @md-delete.stop="removeFilter('age')" md-clickable md-deletable>{{ teacherContent.age }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'age'" class="addButton">
                 <md-icon><i class="material-icons">edit</i></md-icon>
@@ -62,14 +74,14 @@
     </div>
   <subject-filter-dialog @set="pushFilter" @cancle="cancle" identifier="subjects"
                           v-bind:active="visibleDialog == 'subjects'"/>
-  <goal-filter-dialog @set="pushFilter" @cancle="cancle" identifier="goal"
+  <goal-filter-dialog @set="setFilter" @cancle="cancle" identifier="goal"
                           v-bind:active="visibleDialog == 'goal'"/>
-  <difficulty-filter-dialog @set="pushFilter" @cancle="cancle" identifier="difficulty"
+  <difficulty-filter-dialog @set="setFilter" @cancle="cancle" identifier="difficulty"
                           v-bind:active="visibleDialog == 'difficulty'"/>
   <age-filter-dialog @set="setFilter" @cancle="cancle" identifier="age"
                           v-bind:active="visibleDialog == 'age'"/>
 
-  </article>
+  </div>
 </template>
 
 <script>
@@ -85,7 +97,7 @@
         'difficulty-filter-dialog': difficultyFilterDialog,
         'age-filter-dialog': ageFilterDialog,
     },
-    props: ['data', 'review'],
+    props: ['teacherContent', 'review'],
     name: 'categories',
     data() {
       return {
@@ -95,17 +107,18 @@
     methods: {
         pushFilter(identifier, filterData) {
           this.visibleDialog = '';
-          this.data[identifier].push(filterData.selection);
+          this.teacherContent[identifier].push(filterData.selection);
+          console.log(this.teacherContent);
         },
         setFilter(identifier, filterData) {
           this.visibleDialog = '';
-          this.data[identifier] = filterData.displayString;
+          this.teacherContent[identifier] = filterData.displayString;
         },
         removeFilter(type, index) {
             if (index !== undefined) {
-                this.data[type].splice(index, 1);
+                this.teacherContent[type].splice(index, 1);
             } else {
-                this.data[type] = undefined;
+                this.teacherContent[type] = undefined;
             }
         },
       cancle() {
@@ -116,7 +129,9 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss">
+    @import "./default";
+
     .line {
         min-height: 50px;
         line-height: 50px;

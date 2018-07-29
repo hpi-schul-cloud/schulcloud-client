@@ -10,7 +10,17 @@
         </md-field>
 
         <br>
-        <md-button class="md-raised md-primary" @click="setDone('first', 'second')">Continue</md-button>
+        <md-button class="md-primary" @click="setDone('first', 'second')">Weiter zum Veröffentlichen</md-button>
+        <md-button @click="askSave()">Speichern ohne Veröffentlichen</md-button>
+        <md-dialog-confirm
+          :md-active.sync="dialogActive"
+          md-title="Inhalt veröffentlichen"
+          md-content="Helfen Sie, eine qualitativ hochwertige Materialsammlung aufzubauen, indem Sie ihren Inhalt mit anderen teilen!<br><br>Das dauert <strong>weniger als 3 Minuten</strong>. Sie profitieren auch davon, denn dann können Sie eine passgenaue Suche guter Inhalte nutzen, die Ihre Kolleg*Innen zur Verfügung gestellt haben."
+          md-confirm-text="Kategorisieren und veröffentlichen"
+          md-cancel-text="Nur speichern"
+          @md-cancel="save"
+          @md-confirm="setDone('first', 'second')" />
+
       </md-step>
 
       <md-step id="second" md-label="Inhalt kategorisieren" :md-error="secondStepError" :md-done.sync="second">
@@ -41,6 +51,7 @@
       Categorize
     },
     data: () => ({
+      dialogActive: false,
       active: 'first',
       first: false,
       second: false,
@@ -69,12 +80,19 @@
         }
 
         if (id === 'third') {
-          alert(this.content + '       ' + this.data)
+          save();
         }
 
         if (index) {
           this.active = index
         }
+      },
+      askSave() {
+        // TODO: Only ask the first time
+        this.dialogActive = true;
+      },
+      save() {
+        alert('Inhalt speichern: ', this.content + '       --> Mit den Kategorien:' + this.data);
       }
     }
   }
