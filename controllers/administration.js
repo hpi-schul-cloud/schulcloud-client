@@ -96,10 +96,6 @@ const getTableActionsSend = (item, path, state) => {
 };
 
 
-const getConsentState = (student) => {
-    return 0;
-}
-
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
  * @param data {object} - the plain data object
@@ -716,6 +712,30 @@ router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
 
+
+const consentFullfilled = (consent) => {
+    if (consent.privacyConsent && consent.researchConsent && termsOfUseConsent && thirdPartyConsent){
+        return true;
+    }
+    return false;
+}
+
+const getConsentState = (consent) => {
+    if (consent.data[0].access) {
+        return 0;
+    }
+    else {
+        if (!consent.data[0].requiresParentConsent || consentFullfilled(consent.data[0].parentConsents[0])) {
+            return 1;
+        }
+        return 2;
+    }
+    //api(req).get('/consents/', {qs: {userId: item._id}})
+    //    .then(consent => {
+
+}
+
+
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
     const tempOrgQuery = (req.query||{}).filterQuery;
@@ -745,6 +765,14 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         qs: query
     }).then(data => {
         api(req).get('/classes').then(classes => {
+            // let consents = data.data.map(item => {
+            //     return api(req).get('/consents/', {qs: {userId: item._id}})
+            //         .then(consent => {
+            //             return {userId: item._id, consent: consent };
+            //         });
+            // });
+            //
+            // Promise.all(consents);
 
             const head = [
                 'Vorname',
@@ -760,7 +788,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     item.firstName,
                     item.lastName,
                     item.email,
-                    getClasses(item, classes, false), getConsentState(item),
+                    getClasses(item, classes, false),
+                    0,//getConsentState(consents[0].consent),
                     "<a class='btn' href='"+ item._id+"/edit'>Bearbeiten</a>"
                 ];
             });
@@ -770,7 +799,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 numPages: Math.ceil(data.total / itemsPerPage),
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
-
+            
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
