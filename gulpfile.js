@@ -97,17 +97,17 @@ gulp.task('styles', () => {
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest(`./build/${themeName()}/styles`));
     firstRun = false;
-})
+});
 
 //copy fonts
 gulp.task('fonts', () => {
     beginPipe('./static/fonts/**/*.*')
         .pipe(gulp.dest(`./build/${themeName()}/fonts`))
-})
+});
 
 //compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => {
-    beginPipe(nonBaseScripts)
+    beginPipeAll(nonBaseScripts)
         .pipe(named(
             file => {
                 // As a preparation for webpack stream: Transform nonBaseScripts paths

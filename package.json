@@ -98,6 +98,7 @@
     "node-sass": "^4.7.2",
     "pump": "^1.0.2",
     "sass-loader": "^7.0.3",
+    "rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
     "script-loader": "^0.7.2",
     "selenium-server": "^3.12.0",
     "style-loader": "^0.21.0",
@@ -105,7 +106,7 @@
     "vinyl-named": "^1.1.0",
     "vue-loader": "^15.2.4",
     "vue-template-compiler": "^2.5.16",
-    "webpack": "^4.14.0",
+    "webpack": "^4.16.1",
     "webpack-stream": "^4.0.3"
   }
 }
