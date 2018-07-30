@@ -269,29 +269,54 @@ router.post('/dataprivacy/registration/byparent/submit', function (req, res, nex
 });
 */
 router.post('/registration/submit', function (req, res, next) {
-    let user = {
-        firstName: req.body["student-firstname"],
-        lastName: req.body["student-secondname"],
-        email: req.body["student-email"],
-        gender: req.body["gender"],
-        schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
-        roles: ["0000d186816abba584714c99"] // role=student
-        // birthday!
-    };
-    let parent = null;
 
-    return api(req).post('/users/', {
-        json: user
+    let pininput = req.body["email-pin"]; 
+    let usermail = req.body["parent-email"] ? req.body["parent-email"] : req.body["student-email"];
+    let parent = null;
+    let user;
+
+    let passwort = 'hallo' //todo: get pw from request
+
+    return api(req).get('/registrationPins/', {
+        qs: {
+            $and: [{"pin": pininput, "email": usermail} ]
+        }
+    }).then(check => {
+        //check pin
+        if (check.data && check.data.length>0) {
+            pincorrect = true;
+            return Promise.resolve
+        } else {
+            return Promise.reject("Wrong");
+        }
+    }).then(function() {
+        //create user
+        user = {
+            firstName: req.body["student-firstname"],
+            lastName: req.body["student-secondname"],
+            email: req.body["student-email"],
+            gender: req.body["gender"],
+            roles: ["0000d186816abba584714c99"], // mock role=student
+            classId: req.body.classId,
+            birthday: new Date(req.body["student-birthdate"])
+            // birthday!
+        };
+        return api(req).post('/users/', {
+            json: user
+        })
     }).then(newUser => {
         user = newUser;
-        //add parent if necessary
+        // create account
+        return createAccount(req, {username: user.email, password: passwort, userId: user._id, activated: true});
+    }).then(res => {
+        //add parent if necessary    
         if(req.body["parent-email"]) {
             parent = {
                 firstName: req.body["parent-firstname"],
                 lastName: req.body["parent-secondname"],
                 email: req.body["parent-email"],
                 children: [user._id],
-                schoolId: "0000d186816abba584714c5f", //get schoolid from link
+                schoolId: user.schoolId,
                 roles: ["5b45f8d28c8dba65f8871e19"] // role parent
             };
             return api(req).post('/users/', {
@@ -329,12 +354,37 @@ router.post('/registration/submit', function (req, res, next) {
             });
         }
     }).then(function() {
-        //sendMailStuff (Katrin)
-        return Promise.resolve;
+        //send Mails
+        let eMailAdresses = [user.email];
+        if(parent){
+            eMailAdresses.push(parent.email);
+        }
+        eMailAdresses.forEach(eMailAdress => {
+            return api(req).post('/mails/', {
+                json: { email: eMailAdress,
+                        subject: "Willkommen in der HPI Schul-Cloud!",
+                        headers: {},
+                        content: {
+                            "text": "Hallo " + user.firstName + "\n" +
+                                    "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
+                                    "Adresse: schul-cloud.org \n" +
+                                    "E-Mail: " + user.email + " \n" +
+                                    "Startpasswort: " + passwort + " \n" +
+                                    "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
+                                    "Viel Spaß und einen guten Start wünscht dir dein \n" +
+                                    "Schul-Cloud-Team",
+                            "html": ""
+                        }
+                }
+            });
+        })
     }).then(function () {
         res.sendStatus(200);
-    }).catch(err => res.status(500).send(err));
+    }).catch(err => {
+        res.status(500).send(err)
+    });
 });
+
 router.get('/registration/byparent/:classId', function (req, res, next) {
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
