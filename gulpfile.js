@@ -9,6 +9,7 @@ const map = require('vinyl-map')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const webpackConfig = require('./webpack.config');
+const workbox = require('workbox-build')
 const named = require('vinyl-named')
 const imagemin = require('gulp-imagemin')
 const babel = require('gulp-babel')
@@ -169,6 +170,26 @@ gulp.task('vendor-assets', () => {
         .pipe(gulp.dest(`./build/${themeName()}/vendor`))
 })
 
+gulp.task('generate-service-worker', () => {
+    return workbox.generateSW({
+      globDirectory: `./build/${themeName()}`,
+      globPatterns: [
+        '**/*.{html,js}'
+      ],
+      swDest: `./build/${themeName()}/sw.js`,
+      clientsClaim: true,
+      skipWaiting: true
+    }).then(({warnings}) => {
+      // In case there are any warnings from workbox-build, log them.
+      for (const warning of warnings) {
+        console.warn(warning);
+      }
+      console.info('Service worker generation completed.');
+    }).catch((error) => {
+      console.warn('Service worker generation failed:', error);
+    });
+  });  
+
 //clear build folder + smart cache
 gulp.task('clear', () => {
     gulp.src(['./build/*', './.gulp-changed-smart.json'], { read: false })
@@ -177,7 +198,7 @@ gulp.task('clear', () => {
 
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-                        'vendor-styles', 'vendor-scripts', 'vendor-assets'])
+                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker'])
 
 gulp.task('build-theme-files', ['styles'])
 
@@ -193,6 +214,7 @@ gulp.task('watch', ['build-all'], () => {
     gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts'])
     gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
                 '!./static/vendor/**/*.{css,sass,scss}'], ['vendor-assets'])
+    gulp.watch(withTheme(['generate-service-worker']));
 })
 
 //run this if only "gulp" is run on the commandline with no task specified
