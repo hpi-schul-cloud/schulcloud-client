@@ -136,7 +136,11 @@ function submitForm(event){
         .fail(function(request){
             if(request.status !== 200){
                 console.error(request);
-                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger", 6000);
+                if(request.responseText !== undefined){
+                    $.showNotification(`Fehler: ${request.responseText}`, "danger", true);
+                }else{
+                    $.showNotification("Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)", "danger", true);
+                }
             }
             formSubmitButton.disabled = false;
         });

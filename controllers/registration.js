@@ -275,7 +275,7 @@ router.post('/registration/submit', function (req, res, next) {
     let parent = null;
     let user;
 
-    let passwort = 'hallo' //todo: get pw from request
+    let passwort = req.body["initial-password"];
 
     return api(req).get('/registrationPins/', {
         qs: {
@@ -287,7 +287,7 @@ router.post('/registration/submit', function (req, res, next) {
             pincorrect = true;
             return Promise.resolve
         } else {
-            return Promise.reject("Wrong");
+            return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
         }
     }).then(function() {
         //create user

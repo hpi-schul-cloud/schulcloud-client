@@ -65,8 +65,8 @@
             <input name="Erhebung" type="checkbox" value="true" required/>
             <span>Ich habe die <a href="#">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.</span>
         </label>
+        <p class="explanation">Schülereinwilligung Ü18</p>
 
-        <p>Schülereinwilligung Ü18</p>
         <label>
             <input name="Forschung" type="checkbox" value="true" required/>
             <span>Ich habe die <a href="#">Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
@@ -95,24 +95,7 @@
               <div id="temp-pin" class="hidden"></div>
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
           </div>
-          <div id="userdata-summary" class="hidden">
-              <p>Mit folgenden Daten kannst du dich in der Schul-Cloud anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
-              <div class="print">
-                <div class="recap">
-                  <p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>
-                  <p>E-Mail: <i data-from="student-email"></i></p>
-                  <p>Passwort: <i class="student-password">********</i></p>
-                </div>
-                 <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-                  <i class="fa fa-print"></i> Drucken
-                </div>
-              </div>
-                <label>
-                    <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
-                    Login-Daten per E-Mail an angegebene Adressen senden
-                </label>
-                <p>Beim ersten Login muss ein neues Passwort gewählt werden.</p>
-          </div>
+          <input type="hidden" name="initial-password" class="student-password-input" />
       </section>
 
 
@@ -132,6 +115,8 @@
             <i class="fa fa-print"></i> Drucken
           </div>
         </div>
+        
+        <p>Beim ersten Login muss ein neues Passwort gewählt werden.</p>
 
         <a class="btn btn-primary" href="//schul-cloud.org/login">Login öffnen</a>
       </section>
