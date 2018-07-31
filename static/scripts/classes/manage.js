@@ -1,11 +1,10 @@
-
 function copy(event){
     event.preventDefault();
     const copySelector = event.target.dataset.copySelector;
     let copySource = document.querySelector(copySelector);
     copySource.select();
-    
     document.execCommand("copy");
+    $.showNotification("Der Link wurde in deine Zwischenablage kopiert", "success", 3000);
 }
 function initializeCopy(){
     document.querySelectorAll(".copy").forEach((btn) => {

@@ -24,7 +24,7 @@ $(document).ready(function () {
     var $deleteModal = $('.delete-modal');
     var $pwModal = $('.pw-modal');
 
-    $('.btn-add').on('click', function (e) {
+    $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
         populateModalForm($addModal, {
             title: 'Hinzufügen',
@@ -32,35 +32,6 @@ $(document).ready(function () {
             submitLabel: 'Hinzufügen'
         });
         $addModal.appendTo('body').modal('show');
-    });
-
-    $('.btn-edit').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).attr('href');
-        $.getJSON(entry, function (result) {
-            populateModalForm($editModal, {
-                action: entry,
-                title: 'Bearbeiten',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: result
-            });
-
-            // post-fill gradiation selection
-            if ($editModal.find("input[name=gradeSystem]").length) {
-                var $gradeInputPoints = $editModal.find("#gradeSystem0");
-                var $gradeInputMarks = $editModal.find("#gradeSystem1");
-                if(result.gradeSystem) {
-                    $gradeInputMarks.attr("checked", true);
-                    $gradeInputPoints.removeAttr("checked");
-                } else {
-                    $gradeInputPoints.attr("checked", true);
-                    $gradeInputMarks.removeAttr("checked");
-                }
-            }
-            populateCourseTimes($editModal, result.times || []);
-            $editModal.appendTo('body').modal('show');
-        });
     });
 
     $('.btn-invitation-link').on('click', function (e) {

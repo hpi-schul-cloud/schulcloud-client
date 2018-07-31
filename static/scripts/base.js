@@ -115,7 +115,7 @@ $(document).ready(function () {
         if (timeout) {
             setTimeout(function () {
                 $notification.fadeOut();
-            }, 5000);
+            }, (Number.isInteger(timeout)?timeout:5000));
         }
     };
 
@@ -289,14 +289,18 @@ if (!NodeList.prototype.addEventListener) {
     };
 }
 function linkInputs(event){
-    document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`).forEach((changeTarget)=>{
+    document.querySelectorAll(`*[data-from=${event.target.getAttribute("name")}]`).forEach((changeTarget)=>{
         let value;
-        if(this.tagName == "INPUT"){
-            value = this.value;
-        }else if(this.tagName == "SELECT"){
-            value = this.options[this.selectedIndex].value;
+        if(event.target.tagName == "INPUT"){
+            value = event.target.value;
+        }else if(event.target.tagName == "SELECT"){
+            if(event.target.selectedIndex < 0){
+                value = '';
+            }else{
+                value = event.target.options[event.target.selectedIndex].value;
+            }
         }else{
-            value = this.text;
+            value = event.target.text;
         }
         if(changeTarget.tagName == "INPUT"){
             changeTarget.value = value;

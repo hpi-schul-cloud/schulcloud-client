@@ -935,7 +935,6 @@ const renderClassEdit = (req, res, next, edit) => {
                     currentClass.classsuffix = currentClass.name;
                 }              
             }
-
             res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
@@ -943,8 +942,7 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                isCustom, // TODO - implement detection or ask api
-                referer: req.header('Referer')
+                isCustom
             });
         });
     });
@@ -1018,8 +1016,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                         "title":"Passwort ändern",
                         "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
                     },
-                ],
-                referer: req.header('Referer')
+                ]
             });
         });
     });
