@@ -135,7 +135,6 @@ function submitForm(event){
         })
         .fail(function(request){
             if(request.status !== 200){
-                console.error(request);
                 if(request.responseText !== undefined){
                     $.showNotification(`Fehler: ${request.responseText}`, "danger", true);
                 }else{

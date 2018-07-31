@@ -42,7 +42,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
     
     function sendPin(sendConfirm) {
+        // TODO - usermail is undefined on /registration/byStudent
         let usermail = $("input[name='parent-email']") ? $("input[name='parent-email']").val() : $("input[name='student-email']").val;
+        console.log({"email": usermail}, JSON.stringify({"email": usermail}));
         $.ajax({
             url: "/registration/pinvalidation",
             method: "POST",
@@ -68,9 +70,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
         if(pinInput.checkValidity()){
             console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
             $.ajax({
-                url: "/registration/pinvalidation",
-                method: "GET",
-                data: {email: usermail, pin: pinInput.value}
+                url: `/registration/pinvalidation?email=${usermail}&pin=${pinInput.value}`,
+                method: "GET"
             }).done(function(response){
                 console.log(response);
                 if(response==="verified") {
