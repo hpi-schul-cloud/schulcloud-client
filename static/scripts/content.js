@@ -2,6 +2,7 @@ $(document).ready(function () {
 	var $modals = $('.modal');
 	var $editModal = $('.edit-modal');
 	var $externalLinkModal = $('.external-link-modal');
+	var $licensesModal = $('.licenses-modal');
 
 	var populateCourseSelection = function (modal, courses) {
 		var $selection = modal.find('.course-selection');
@@ -81,6 +82,18 @@ $(document).ready(function () {
 		provider.html($(this).data('provider') || provider.html());
 		$externalLinkModal.appendTo('body').modal('show');
 	});
+
+    $('.licenses-link').on('click', function () {
+        populateModalForm($licensesModal, {
+            title: 'Lizenzbestimmungen',
+            closeLabel: 'Schließen',
+        });
+        var licensesList = $licensesModal.find('.licenses-list').empty();
+        $(this).data('licenses').forEach( item => {
+			licensesList.append($('<li>').html(item));
+		});
+        $licensesModal.appendTo('body').modal('show');
+    });
 
 	$modals.find('.close, .btn-close, .external-link-btn').on('click', function () {
 		$modals.modal('hide');
