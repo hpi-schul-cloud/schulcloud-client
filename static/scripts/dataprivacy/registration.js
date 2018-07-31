@@ -55,14 +55,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
+    // TODO: deprecated? save to delete?
     // workaround
-    $('#check-pin').on('click', (e) => {
-        checkPin(e);
-    });
+    $('#check-pin').on('click', checkPin);
     // basic pin prototype
-    $('.pin-input .combined').on('input', (e) => {
-        checkPin(e);
-    });
+    $('.pin-input .combined').on('input', checkPin);
     
     function checkPin(e) {
         e.preventDefault();

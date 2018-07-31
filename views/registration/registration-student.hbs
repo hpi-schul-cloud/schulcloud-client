@@ -71,31 +71,29 @@
             <input name="Forschung" type="checkbox" value="true" required/>
             <span>Ich habe die <a href="#">Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
         </label>
+        <p class="explanation">Die HPI Schul-Cloud wird von einem wissenschaftlichen Forschungsprojekt begleitet, das der Optimierung des Lernerlebnisses in der Schul-Cloud dient. Im Rahmen dessen werden Nutzungsdaten anonymisiert ausgewertet.</p>
 
-        <p>Die HPI Schul-Cloud wird von einem wissenschaftlichen Forschungsprojekt begleitet, das der Optimierung des Lernerlebnisses in der Schul-Cloud dient. Im Rahmen dessen werden Nutzungsdaten anonymisiert ausgewertet.</p>
         <label>
             <input name="Pseudonymisierung" type="checkbox" value="true" required/>
             <span> Ich habe die <a href="#">Informationen zu Inhalte-Anbietern</a> gelesen und willige in die Weitergabe der Pseudonyme an Inhalte-Anbieter ein</span>
         </label>
+        <p class="explanation">Nutzernamen werden nicht an integrierte Drittanbieter weitergegeben. Sollte eine Wiedererkennung nötig sein, z.B. für individuelle Aufgabenstellungen, geschieht dies zu Ihrem Schutz auf Basis eines Pseudonyms. Die Schülerdaten bleiben sicher im Kernbereich der Schul-Cloud. </p>
 
-        <p>Nutzernamen werden nicht an integrierte Drittanbieter weitergegeben. Sollte eine Wiedererkennung nötig sein, z.B. für individuelle Aufgabenstellungen, geschieht dies zu Ihrem Schutz auf Basis eines Pseudonyms. Die Schülerdaten bleiben sicher im Kernbereich der Schul-Cloud. </p>
         <label>
             <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen" required/>
             <span>Ich habe die <a href="#">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
         </label>
-
-          <p>Die Nutzung der Schul-Cloud ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes Schul-Cloud-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
+        <p class="explanation">Die Nutzung der Schul-Cloud ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes Schul-Cloud-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
       </section>
 
 
       <section data-panel="section-3" class="submit-page" data-feature="pin">
           <h4>Abschluss</h4>
           <p>Fast geschafft!</p>
-          <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <a id="resend-pin" href="#">Code erneut senden</a></p>
+          <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
           <div id="pinverification">
               <div id="temp-pin" class="hidden"></div>
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
-              <button id="check-pin" class="btn btn-primary">PIN prüfen</button>
           </div>
           <div id="userdata-summary" class="hidden">
               <p>Mit folgenden Daten kannst du dich in der Schul-Cloud anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
