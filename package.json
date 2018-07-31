@@ -96,6 +96,7 @@
     "vinyl-map": "^1.0.2",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.14.0",
-    "webpack-stream": "^4.0.3"
+    "webpack-stream": "^4.0.3",
+    "workbox-build": "^3.4.1"
   }
 }
