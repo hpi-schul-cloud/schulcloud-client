@@ -8,7 +8,7 @@
 <div class="form-group">
     <label>Schuljahr *</label>
 
-    <select class="linked" name="schoolyear" data-placeholder="Schuljahr auswählen">
+    <select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen">
         {{#each schoolyears}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{this.name}}
@@ -37,7 +37,7 @@
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
             <label>Jahrgangsstufe *</label>
-            <select class="linked" name="grade" data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
+            <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
                 <option disabled selected value>keine Auswahl</option>
                 {{#each gradeLevels}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>

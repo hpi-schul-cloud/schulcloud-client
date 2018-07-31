@@ -289,19 +289,34 @@ if (!NodeList.prototype.addEventListener) {
     };
 }
 function linkInputs(event){
-    document.querySelectorAll(`*[data-from=${event.target.getAttribute("name")}]`).forEach((changeTarget)=>{
-        let value;
-        if(event.target.tagName == "INPUT"){
-            value = event.target.value;
-        }else if(event.target.tagName == "SELECT"){
-            if(event.target.selectedIndex < 0){
+    let source = event.target;
+    let value;
+    switch(source.tagName) {
+        case "INPUT":
+            value = source.value;
+            break;
+        case "SELECT":
+            if(source.selectedIndex < 0){
                 value = '';
             }else{
-                value = event.target.options[event.target.selectedIndex].value;
+                if(source.dataset.linktext !== undefined){
+                    value = source.options[source.selectedIndex].text;
+                } else if(source.dataset.linkhtml !== undefined){
+                    value = source.options[source.selectedIndex].innerHTML;
+                } else {
+                    value = source.options[source.selectedIndex].value;
+                }
             }
-        }else{
-            value = event.target.text;
-        }
+            break;
+        default:
+            if(source.dataset.linkhtml !== undefined){
+                value = source.innerHTML;
+            } else {
+                value = source.text;
+            }
+            break;
+    }
+    document.querySelectorAll(`*[data-from=${source.getAttribute("name")}]`).forEach((changeTarget)=>{
         if(changeTarget.tagName == "INPUT"){
             changeTarget.value = value;
         }else{
