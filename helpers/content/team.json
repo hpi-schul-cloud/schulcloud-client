@@ -376,7 +376,7 @@
         "lastName": "Blass",
         "position": "Studentische Hilfskraft",
         "description": "Katharina studiert IT-Systems-Engineering am HPI und unterstützt seit August 2018 das Schul-Cloud Team im Bereich Frontend. Neben Studium und Arbeit verbringt sie ihre Zeit gern sportlich aktiv und hat eine Leidenschaft für das Backen von Torten.",
-        "pictureUrl": "/images/team/Katharina_Blass.jpg
+        "pictureUrl": "/images/team/Katharina_Blass.jpg",
         "social": {
           "facebook": "",
           "twitter": "",
@@ -657,7 +657,7 @@
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
-        "position": "Student",
+        "position": "Ehem. Bachelorstudent",
         "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
         "pictureUrl": "/images/team/Raoul_Baron.jpg",
         "priority": 0,
@@ -765,7 +765,7 @@
         "longDesc": false
       },
       {
-        "id": 36,
+        "id": 46,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
