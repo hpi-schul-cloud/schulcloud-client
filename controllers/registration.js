@@ -279,6 +279,12 @@ router.post('/registration/submit', function (req, res, next) {
 
     return api(req).get('/registrationPins/', {
         qs: {
+            /*
+            TODO: I think the $and is not required here. According to the feathers docs. $and doesn't even exists. https://docs.feathersjs.com/api/databases/querying.html
+            I think the following code should work as well:
+            "pin": pininput,
+            "email": usermail
+            */
             $and: [{"pin": pininput, "email": usermail} ]
         }
     }).then(check => {
@@ -364,10 +370,10 @@ router.post('/registration/submit', function (req, res, next) {
                 json: { email: eMailAdress,
                         subject: "Willkommen in der HPI Schul-Cloud!",
                         headers: {},
-                        content: {
+                        content: { // TODO: use js template strings instead of concat (``)
                             "text": "Hallo " + user.firstName + "\n" +
                                     "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
-                                    "Adresse: schul-cloud.org \n" +
+                                    "Adresse: " + (req.headers.origin || process.env.HOST) + " \n" +
                                     "E-Mail: " + user.email + " \n" +
                                     "Startpasswort: " + passwort + " \n" +
                                     "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
