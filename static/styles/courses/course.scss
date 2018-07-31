@@ -156,6 +156,26 @@
     }
 }
 
+#member-modal-body {
+    columns: 3;
+    word-break: break-all;
+}
+
+#member-list {
+    li {
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+#course-edit {
+    text-align: right;
+}
+.modal-body {
+    max-height: 75vh;
+    overflow-y: auto;
+}
+
 .section-course-group {
     padding-top: 20px;
 }

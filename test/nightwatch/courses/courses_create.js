@@ -49,10 +49,9 @@ module.exports = {
         browser.useCss()
             .waitForElementVisible('.btn-delete-course', 1000)
             .click('.btn-delete-course')
-            .waitForElementVisible('.delete-modal', 1000);
-        browser.useXpath()
-            .waitForElementVisible('/html/body/div[5]/div/div/div[2]/button[2]', 1000)
-            .click('/html/body/div[5]/div/div/div[2]/button[2]')
+            .waitForElementVisible('.delete-modal', 1000)
+            .waitForElementVisible('.delete-modal.in .btn-submit', 1000)
+            .click('.delete-modal.in .btn-submit')
             .pause(1000);
     },
     'Schul-Cloud End': function (browser) {

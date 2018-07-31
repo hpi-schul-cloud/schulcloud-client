@@ -1,4 +1,5 @@
 $(document).ready(function () {
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
