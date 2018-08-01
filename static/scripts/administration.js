@@ -1,12 +1,15 @@
+import { softNavigate } from './loggedin';
+import { populateCourseTimes } from './coursesTimes';
+
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
     const filterModule = document.getElementById("filter");
     if(filterModule){
         filterModule.addEventListener('newFilter', (e) => {
-            filter = e.detail;
+            const filter = e.detail;
             const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
             softNavigate(newurl, ".ajaxcontent", ".pagination");
-        })
+        });
         document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
     }
 });

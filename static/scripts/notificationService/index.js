@@ -1,4 +1,6 @@
-var pushManager = {
+import { sendRegistrationId } from './callback';
+
+export const pushManager = {
     requestPermissionCallback: null,
 
     setRegistrationId: function (id, service, device) {
@@ -38,7 +40,7 @@ var pushManager = {
     }
 };
 
-const getCookiesMap = (cookiesString) => {
+export const getCookiesMap = (cookiesString) => {
     return cookiesString.split(";")
         .map(function (cookieString) {
             return cookieString.trim().split("=");
