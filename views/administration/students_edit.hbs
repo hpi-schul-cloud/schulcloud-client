@@ -1,9 +1,7 @@
 {{#content "scripts" mode="append"}}
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
-    <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
 {{/content}}
 {{#extend "lib/loggedin"}}
@@ -15,9 +13,9 @@
                         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                     {{/if}}
 
-                    {{#if referrer}}﻿<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+                    {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
 
-                    ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                    <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -35,55 +33,61 @@
                     </div>
                     <div class="form-group">
                         <label>Username: *</label>
-                        <input class="form-control" disabled="true" placeholder="UserName" name="lastname" type="text" required value=""/>
+                        <input class="form-control" disabled="true" placeholder="Benutzername" name="lastname" type="text" value="{{student.displayName}}"/>
                     </div>
 
                     <div class="form-group">
                         <label>Geburtsdatum: *</label>
-                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" value=""/>
+                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" value="{{dateToPicker student.birthday}}"/>
                     </div>
 
                     <div class="form-group">
                         <label>E-Mail Adresse: *</label>
-                        <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required>
+                        <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{student.email}}" required>
                     </div>
 
                     <div class="row">
                         <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
                             <Label>Geschlecht: *</Label>
                             <select class="form-control form-control-lg" type="text" name="gender" required>
-                                <option value="">Bitte Geschlecht auswählen</option>
-                                <option value="male">männlich</option>
-                                <option value="female">weiblich</option>
-                                <option value="other">anderes</option>
-                                <option value="noinfo">keine Angabe</option>
+                                <option value="" disabled {{#unless student.gender}}selected{{/unless}}>Bitte Geschlecht auswählen</option>
+                                <option value="male" {{#ifeq student.gender 'male'}}selected{{/ifeq}}>männlich</option>
+                                <option value="female" {{#ifeq student.gender 'female'}}selected{{/ifeq}}>weiblich</option>
+                                <option value="other" {{#ifeq student.gender 'other'}}selected{{/ifeq}}>anderes</option>
+                                <option value="noinfo" {{#ifeq student.gender 'noinfo'}}selected{{/ifeq}}>keine Angabe</option>
                             </select>
                         </div>
                     </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.<br/><br/></p>
 
-                    <h5><b>Einwilligung</b></h5>
+                    <h5>Einwilligung</h5>
                     <div class="row">
                         <div class="col-md-6">
-                            <label>Eltern</label><br>
-                            <input name=" parent_analog" type="radio"/> <span>Analog</span>  <input name="parent_digital" type="radio"/> <span>Digital</span> <br/>
-                            <input name="Datenschutz" type="checkbox"/><span>Datenschutz</span><br/>
-                            <input name="Forschung" type="checkbox"/><span>Forschung</span><br/>
-                            <input name="Drittanbieter" type="checkbox"/><span>Drittanbieter</span><br/>
-                            <input name="Nutzung" type="checkbox"/><span>Nutzung</span><br/>
+                            <h6>Eltern</h6>
+
+                            <label><input name="parent_type" value="analog" type="radio"/> Analog</label>
+                            <label><input name="parent_type" value="digital" type="radio"/> Digital</label> 
+                            <br/>
+                            <label><input name="parent_Datenschutz" type="checkbox" value="true"/> Datenschutz</label><br/>
+                            <label><input name="parent_Forschung" type="checkbox" value="true"/> Forschung</label><br/>
+                            <label><input name="parent_Drittanbieter" type="checkbox" value="true"/> Drittanbieter</label><br/>
+                            <label><input name="parent_Nutzung" type="checkbox" value="true"/> Nutzung</label><br/>
                         </div>
                         <div class="col-md-6">
-                            <label>Schüler</label><br>
-                            <input name=" parent_analog" type="radio"/> <span>Analog</span>  <input name="parent_digital" type="radio"/> <span>Digital</span> <br/>
-                            <input name="Datenschutz" type="checkbox"/><span>Datenschutz</span><br/>
-                            <input name="Forschung" type="checkbox"/><span>Forschung</span><br/>
-                            <input name="Drittanbieter" type="checkbox"/><span>Drittanbieter</span><br/>
-                            <input name="Nutzung" type="checkbox"/><span>Nutzung</span><br/>
+                            <h6>Schüler</h6>
+
+                            <label><input name="student_type" value="analog" type="radio"/> Analog</label>
+                            <label><input name="student_type" value="digital" type="radio"/> Digital</label> 
+                            <br/>
+                            <label><input name="student_Datenschutz" type="checkbox" value="true"/> Datenschutz</label><br/>
+                            <label><input name="student_Forschung" type="checkbox" value="true"/> Forschung</label><br/>
+                            <label><input name="student_Drittanbieter" type="checkbox" value="true"/> Drittanbieter</label><br/>
+                            <label><input name="student_Nutzung" type="checkbox" value="true"/> Nutzung</label><br/>
                         </div>
                     </div>
 
                     <div class="pwbutton">
-                        <button class="btn-pw">Passwort ändern</button>
+                        <button class="btn btn-secondary btn-pw">Passwort ändern</button>
                     </div>
 
                     <div class="modal-footer">

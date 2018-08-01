@@ -36,19 +36,44 @@ router.get('/existing', function (req, res, next) {
 router.post('/submit', function (req, res, next) {
     let accountId = res.locals.currentPayload.accountId
     let accountUpdate = {};
+    let accountPromise = Promise.resolve();
     let userUpdate = {};
+    let userPromise = Promise.resolve();
     let consentUpdate = {};
+    let consentPromise = Promise.resolve();
 
     if (req.body["password-1"]) {
         accountUpdate.password_verification = req.body.password_verification;
         accountUpdate.password = req.body["password-1"];
-    }
+        accountPromise = api(req).patch('/accounts/' + accountId, {
+            json: accountUpdate
+        });
+    };
 
-    let accountPromise = api(req).patch('/accounts/' + accountId, {
-        json: accountUpdate
-    });
-    let userPromise = Promise.resolve();
-    let consentPromise = Promise.resolve();
+    if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
+    if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
+
+    if (userUpdate.email || userUpdate.birthday) {
+        userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
+            json: userUpdate
+        });
+    };
+
+    if (req.body.Erhebung) {
+        consentPromise = api(req).get('/consents/', {
+            qs: {userId: res.locals.currentPayload.userId}
+        }).then(consent => {
+            consentUpdate.form = 'digital';
+            consentUpdate.privacyConsent = req.body.Erhebung;
+            consentUpdate.thirdPartyConsent = req.body.Pseudonymisierung;
+            consentUpdate.termsOfUseConsent = req.body.Nutzungsbedingungen;
+            consentUpdate.researchConsent = req.body.Forschung;
+            consentPromise = api(req).patch('/consents/' + consent.data[0]._id, {
+                json: {userConsent: consentUpdate}
+            });
+        })
+        
+    }
 
     return Promise.all([accountPromise, userPromise, consentPromise]).then(() => {
 
