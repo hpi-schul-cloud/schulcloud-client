@@ -45,7 +45,7 @@ router.post('/submit', function (req, res, next) {
     }
 
     let accountPromise = api(req).patch('/accounts/' + accountId, {
-        json: {accountUpdate}
+        json: accountUpdate
     });
     let userPromise = Promise.resolve();
     let consentPromise = Promise.resolve();
