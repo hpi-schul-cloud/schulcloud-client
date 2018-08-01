@@ -8,9 +8,9 @@
 <div class="form-group">
     <label>Schuljahr *</label>
 
-    <select class="linked" name="schoolyear" data-placeholder="Schuljahr auswählen">
+    <select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen">
         {{#each schoolyears}}
-            <option value="{{this._id}}">
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{this.name}}
             </option>
         {{/each}}
@@ -37,10 +37,10 @@
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
             <label>Jahrgangsstufe *</label>
-            <select class="linked" name="grade" data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
+            <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
                 <option disabled selected value>keine Auswahl</option>
                 {{#each gradeLevels}}
-                    <option value="{{this._id}}">
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                         {{this.name}}
                     </option>
                 {{/each}}
@@ -60,7 +60,7 @@
         </div>
         <label>
             <input name="keepyear" type="checkbox" value="true" {{#if class.keepYear}}checked{{/if}} {{#unless isCustom}}disabled{{/unless}}/>
-            <span>Klassenzuordnung beibehalten</span>
+            <span>Schuljahreszuordnung beibehalten</span>
         </label>  
     </section>
 
@@ -90,4 +90,4 @@
 {{/unless}}
 
 
-<a href="{{@root.referer}}" class="btn btn-secondary mt-2 w-100">Abbrechen</a>
+<a href="/administration/classes" class="btn btn-secondary mt-2 w-100">Abbrechen</a>

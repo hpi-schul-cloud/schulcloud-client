@@ -96,10 +96,6 @@ const getTableActionsSend = (item, path, state) => {
 };
 
 
-const getConsentState = (student) => {
-    return 0;
-}
-
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
  * @param data {object} - the plain data object
@@ -716,6 +712,30 @@ router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
 
+
+const consentFullfilled = (consent) => {
+    if (consent.privacyConsent && consent.researchConsent && termsOfUseConsent && thirdPartyConsent){
+        return true;
+    }
+    return false;
+}
+
+const getConsentState = (consent) => {
+    if (consent.data[0].access) {
+        return 0;
+    }
+    else {
+        if (!consent.data[0].requiresParentConsent || consentFullfilled(consent.data[0].parentConsents[0])) {
+            return 1;
+        }
+        return 2;
+    }
+    //api(req).get('/consents/', {qs: {userId: item._id}})
+    //    .then(consent => {
+
+}
+
+
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
     const tempOrgQuery = (req.query||{}).filterQuery;
@@ -745,6 +765,14 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         qs: query
     }).then(data => {
         api(req).get('/classes').then(classes => {
+            // let consents = data.data.map(item => {
+            //     return api(req).get('/consents/', {qs: {userId: item._id}})
+            //         .then(consent => {
+            //             return {userId: item._id, consent: consent };
+            //         });
+            // });
+            //
+            // Promise.all(consents);
 
             const head = [
                 'Vorname',
@@ -760,7 +788,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     item.firstName,
                     item.lastName,
                     item.email,
-                    getClasses(item, classes, false), getConsentState(item),
+                    getClasses(item, classes, false),
+                    0,//getConsentState(consents[0].consent),
                     "<a class='btn' href='"+ item._id+"/edit'>Bearbeiten</a>"
                 ];
             });
@@ -770,7 +799,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 numPages: Math.ceil(data.total / itemsPerPage),
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
-
+            
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
@@ -893,6 +922,9 @@ const renderClassEdit = (req, res, next, edit) => {
                 gradeLevels.forEach(g => {
                     if(currentClass.gradeLevel == g._id) {g.selected = true;}
                 });
+                schoolyears.forEach(schoolyear => {
+                    if(currentClass.year == schoolyear._id) {schoolyear.selected = true;}
+                });
                 if (currentClass.nameFormat == "static") {
                     isCustom = true;
                     currentClass.customName = currentClass.name;
@@ -903,7 +935,6 @@ const renderClassEdit = (req, res, next, edit) => {
                     currentClass.classsuffix = currentClass.name;
                 }              
             }
-
             res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
@@ -911,8 +942,7 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                isCustom, // TODO - implement detection or ask api
-                referer: req.header('Referer')
+                isCustom
             });
         });
     });
@@ -953,13 +983,18 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     t.selected = true;
                 }
             });
+            const studentIds = currentClass.userIds.map(t => {return t._id;});
+            students.forEach(s => {
+                if (studentIds.includes(s._id)) {
+                    s.selected = true;
+                }
+            })
             res.render('administration/classes-manage', {
                 title: `Klasse '${currentClass.name}' verwalten `,
                 "class": currentClass,
                 classes,
                 teachers,
                 students,
-                invitationLink: 'schul-cloud.org/1234Eckstein',
                 notes: [
                     {
                         "title":"Deine Schüler sind unter 18 Jahre alt?",
@@ -981,12 +1016,27 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                         "title":"Passwort ändern",
                         "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
                     },
-                ],
-                referer: req.header('Referer')
+                ]
             });
         });
     });
 });
+
+router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    let changedClass = {
+        teacherIds: req.body.teacherIds || [],
+        userIds: req.body.userIds || []
+    }
+    api(req).patch('/classes/' + req.params.classId, {
+        // TODO: sanitize
+        json: changedClass
+    }).then(data => {
+        res.redirect(req.header('Referer'));
+    }).catch(err => {
+        next(err);
+    });
+})
+
 router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const classIds = JSON.parse(req.query.classes);
     api(req).get('/classes/', { qs: { 
@@ -1004,9 +1054,6 @@ router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIE
 });
 
 router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
-    if(!req.body.keepyear){
-        delete req.body.schoolyear;
-    }
     let newClass = {
         schoolId: req.body.schoolId
     }
@@ -1020,7 +1067,7 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         newClass.name = req.body.classsuffix;
         newClass.gradeLevel = req.body.grade;
         newClass.nameFormat = "gradeLevel+name";
-        newClass.year = req.body.schoolyearl;
+        newClass.year = req.body.schoolyear;
     }
     if (req.body.teacherIds) {
         newClass.teacherIds = req.body.teacherIds;
@@ -1034,7 +1081,41 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         if(isAdmin){
             res.redirect(`/administration/classes/`);
         }else{
-            res.redirect(`/administration/classes/${data._id}`);
+            res.redirect(`/administration/classes/${data._id}/manage`);
+        }
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+    let changedClass = {
+        schoolId: req.body.schoolId
+    }
+    if (req.body.classcustom) {
+        changedClass.name = req.body.classcustom;
+        changedClass.nameFormat = "static";
+        if (req.body.keepyear) {
+            changedClass.year = req.body.schoolyear;
+        }
+    } else if (req.body.classsuffix) {
+        changedClass.name = req.body.classsuffix;
+        changedClass.gradeLevel = req.body.grade;
+        changedClass.nameFormat = "gradeLevel+name";
+        changedClass.year = req.body.schoolyear;
+    }
+    if (req.body.teacherIds) {
+        changedClass.teacherIds = req.body.teacherIds;
+    }
+    api(req).patch('/classes/' + req.params.classId, {
+        // TODO: sanitize
+        json: changedClass
+    }).then(data => {
+        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+        if(isAdmin){
+            res.redirect(`/administration/classes/`);
+        }else{
+            res.redirect(`/administration/classes/`);
         }
     }).catch(err => {
         next(err);

@@ -33,7 +33,30 @@ router.get('/existing', function (req, res, next) {
         title: 'Willkommen - Erster Login für bestehende Nutzer'
     });
 });
-router.post('/existing/submit', function (req, res, next) {
+router.post('/submit', function (req, res, next) {
+    let accountId = res.locals.currentPayload.accountId
+    let accountUpdate = {};
+    let userUpdate = {};
+    let consentUpdate = {};
+
+    if (req.body["password-1"]) {
+        accountUpdate.password_verification = req.body.password_verification;
+        accountUpdate.password = req.body["password-1"];
+    }
+
+    let accountPromise = api(req).patch('/accounts/' + accountId, {
+        json: accountUpdate
+    });
+    let userPromise = Promise.resolve();
+    let consentPromise = Promise.resolve();
+
+    return Promise.all([accountPromise, userPromise, consentPromise]).then(() => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status(500).send(err)
+    });
+});
+/*
     return api(req).patch('/users/0000d231816abba584714c9e', {
         json: {birthday: new Date(req.body.studentBirthdate)}
     }).then(user => {
@@ -54,7 +77,7 @@ router.post('/existing/submit', function (req, res, next) {
     }).then(consent => {
         res.sendStatus(200);
     }).catch(err => res.status(500).send(err));
-});
+});*/
 router.get('/existingU14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserU14', {
         title: 'Willkommen - Erster Login für bestehende Nutzer'

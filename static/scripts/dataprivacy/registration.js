@@ -30,8 +30,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
     
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
-        $("#send-pin, #resend-pin, #pinverification").show();
-        $("#userdata-summary").hide();
         sendPin();
     });
     
@@ -42,7 +40,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
     
     function sendPin(sendConfirm) {
-        let usermail = $("input[name='parent-email']") ? $("input[name='parent-email']").val() : $("input[name='student-email']").val;
+        // TODO - usermail is undefined on /registration/byStudent
+        let usermail = $("input[name='parent-email']").length ? $("input[name='parent-email']").val() : $("input[name='student-email']").val();
+        console.log("sendPin", usermail, $("input[name='parent-email']"), $("input[name='student-email']").val())
         $.ajax({
             url: "/registration/pinvalidation",
             method: "POST",
@@ -55,14 +55,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
+    // TODO: deprecated? save to delete?
     // workaround
-    $('#check-pin').on('click', (e) => {
-        checkPin(e);
-    });
+    $('#check-pin').on('click', checkPin);
     // basic pin prototype
-    $('.pin-input .combined').on('input', (e) => {
-        checkPin(e);
-    });
+    $('.pin-input .combined').on('input', checkPin);
     
     function checkPin(e) {
         e.preventDefault();
@@ -71,9 +68,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
         if(pinInput.checkValidity()){
             console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
             $.ajax({
-                url: "/registration/pinvalidation",
-                method: "GET",
-                data: {email: usermail, pin: pinInput.value}
+                url: `/registration/pinvalidation?email=${usermail}&pin=${pinInput.value}`,
+                method: "GET"
             }).done(function(response){
                 console.log(response);
                 if(response==="verified") {
@@ -97,7 +93,8 @@ window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
         // generate password if password field present
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
-        var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
+        var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 99)).toString();
         $('.form .student-password').text(pw);
+        $('.form .student-password-input').val(pw);
     }
 });

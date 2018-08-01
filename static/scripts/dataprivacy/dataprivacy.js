@@ -50,13 +50,16 @@ function setSelectionByIndex(index, event){
         document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(hideEvent);
 
         document.querySelector(`.form input[type="radio"]:nth-of-type(${index})`).checked = true;
-        
+        // set keyboard focus to first focusable element in the opened section.
+        document.querySelector(`section[data-panel="section-${index}"]`).querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')[0].focus();
+
         const showEvent = new CustomEvent("showSection", {
             detail: {
                 sectionIndex: index
             }
-          });
+        });
         document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(showEvent);
+        
         updateButton(index);
     }
     function findLatestInvalid(to){
@@ -135,8 +138,11 @@ function submitForm(event){
         })
         .fail(function(request){
             if(request.status !== 200){
-                console.error(request);
-                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen.", "danger", 6000);
+                if(request.responseText !== undefined){
+                    $.showNotification(`Fehler: ${request.responseText}`, "danger", true);
+                }else{
+                    $.showNotification("Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)", "danger", true);
+                }
             }
             formSubmitButton.disabled = false;
         });

@@ -1,11 +1,10 @@
-
 function copy(event){
     event.preventDefault();
     const copySelector = event.target.dataset.copySelector;
     let copySource = document.querySelector(copySelector);
     copySource.select();
-    
     document.execCommand("copy");
+    $.showNotification("Der Link wurde in deine Zwischenablage kopiert", "success", 3000);
 }
 function initializeCopy(){
     document.querySelectorAll(".copy").forEach((btn) => {
@@ -19,17 +18,19 @@ function printInvitation(event){
     // create qr code for current page
     let w = window.open();
     const image = kjua({text: invitationLink, render: 'image'});
-    console.log(image.parent.textContent);
-    w.document.write(`<div><div>${image}</div><p>${invitationLink}</p></div>`);
+    w.document.write(`<div><div id="image-wrapper"></div><p>${invitationLink}</p></div>`);
+    w.document.getElementById('image-wrapper').appendChild(image);
     w.document.close();
-    w.focus();
-    w.print();
-    w.close();
-    /* TODO currently the DOM rendering time is to short between creating and printing so the qr-code isn't rendered */
+    /* eventListener is needed to give the browser some rendering time for the image */
+    w.addEventListener('load', () => {
+        w.focus();
+        w.print();
+        w.close();
+    });
 }
 
 function createInvitationLink(){
-    let target = 'register/' + $("input[name='classid']").val();
+    let target = 'registration/' + $("input[name='classid']").val();
     $.ajax({
         type: "POST",
         url: "/link/",
@@ -64,7 +65,7 @@ window.addEventListener('load', ()=>{
     $importModal.find('.btn-submit').on('click', (event) => {
         event.preventDefault();
         const selections = [...document.querySelector('select[name="classes"]').options].filter(option => option.selected).map(option => option.value);
-        const requestUrl = `/classes/students?classes=${encodeURI(JSON.stringify(selections))}`
+        const requestUrl = `/administration/classes/students?classes=${encodeURI(JSON.stringify(selections))}`
         $importModal.modal('hide');
         fetch(requestUrl, {
             credentials: "same-origin"
@@ -73,7 +74,6 @@ window.addEventListener('load', ()=>{
             return response.json();
         })
         .then(function(students) {
-            console.log(students);
             students.forEach(student => {
                 document.querySelector(`option[value="${student._id}"]`).selected = true;
             })

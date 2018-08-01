@@ -272,114 +272,123 @@ router.post('/registration/submit', function (req, res, next) {
 
     let pininput = req.body["email-pin"]; 
     let usermail = req.body["parent-email"] ? req.body["parent-email"] : req.body["student-email"];
-    let pincorrect = false;
+    let parent = null;
+    let user;
 
-    if (usermail && pininput) {
-        return api(req).get('/registrationPins/', {
-            qs: {
-                $and: [{"pin": pininput, "email": usermail} ]
-            }
-        }).then(check => {
-            if (check.data && check.data.length>0)
-                pincorrect = true;
-            else
-                res.send("wrong");
-        }).catch(err => res.status(500).send(err)
-        ).then(function() {
-            if (pincorrect){
-                let user = {
-                    firstName: req.body["student-firstname"],
-                    lastName: req.body["student-secondname"],
-                    email: req.body["student-email"],
-                    gender: req.body["gender"],
-                    schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
-                    roles: ["0000d186816abba584714c99"] // role=student
-                    // birthday!
-                };
-                let parent = null;
-            
-                return api(req).post('/users/', {
-                    json: user
-                }).then(newUser => {
-                    user = newUser;
-                    //add parent if necessary
-                    if(req.body["parent-email"]) {
-                        parent = {
-                            firstName: req.body["parent-firstname"],
-                            lastName: req.body["parent-secondname"],
-                            email: req.body["parent-email"],
-                            children: [user._id],
-                            schoolId: "0000d186816abba584714c5f", //get schoolid from link
-                            roles: ["5b45f8d28c8dba65f8871e19"] // role parent
-                        };
-                        return api(req).post('/users/', {
-                            json: parent
-                        })
-                            .then(newParent => {
-                                parent = newParent;
-                                return api(req).patch('/users/' + user._id, {
-                                    json: {parents: [parent._id]}
-                                });
-                            }).catch(err => res.status(500).send(err));
-                    } else {
-                        return Promise.resolve;
-                    }
-                }).then(function(){
-                    //store consent
-                    let consent = {
-                        form: 'digital',
-                        privacyConsent: req.body.Erhebung,
-                        thirdPartyConsent: req.body.Pseudonymisierung,
-                        termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
-                        researchConsent: req.body.Forschung
-                    };
-                    if (parent) {
-                        consent.parentId = parent._id;
-                        return api(req).post('/consents/', {
-                            json: {
-                                userId: user._id,
-                                parentConsents: [consent]
-                            }
-                        });
-                    } else {
-                        return api(req).post('/consents/', {
-                            json: {userId: user._id,userConsent: consent}
-                        });
-                    }
-                }).then(function() {
-                    let eMailAdresses = [user.email];
-                    if(parent){
-                        eMailAdresses.push(parent.email);
-                    }
-                    eMailAdresses.forEach(eMailAdress => {
-                        return api(req).post('/mails/', {
-                            json: { email: eMailAdress,
-                                    subject: "Willkommen in der HPI Schul-Cloud!",
-                                    headers: {},
-                                    content: {
-                                        "text": "Hallo " + user.firstName + "\n" +
-                                                "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
-                                                "Adresse: schul-cloud.org \n" +
-                                                "E-Mail: " + user.email + " \n" +
-                                                "Startpasswort: " + "PASSWORT HIER EINFÜGEN" + " \n" +
-                                                "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
-                                                "Viel Spaß und einen guten Start wünscht dir dein \n" +
-                                                "Schul-Cloud-Team",
-                                        "html": ""
-                                    }
-                            }
-                        });
+    let passwort = req.body["initial-password"];
+
+    return api(req).get('/registrationPins/', {
+        qs: {
+            /*
+            TODO: I think the $and is not required here. According to the feathers docs. $and doesn't even exists. https://docs.feathersjs.com/api/databases/querying.html
+            I think the following code should work as well:
+            "pin": pininput,
+            "email": usermail
+            */
+            $and: [{"pin": pininput, "email": usermail} ]
+        }
+    }).then(check => {
+        //check pin
+        if (check.data && check.data.length>0) {
+            pincorrect = true;
+            return Promise.resolve
+        } else {
+            return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
+        }
+    }).then(function() {
+        //create user
+        user = {
+            firstName: req.body["student-firstname"],
+            lastName: req.body["student-secondname"],
+            email: req.body["student-email"],
+            gender: req.body["gender"],
+            roles: ["0000d186816abba584714c99"], // mock role=student
+            classId: req.body.classId,
+            birthday: new Date(req.body["student-birthdate"])
+            // birthday!
+        };
+        return api(req).post('/users/', {
+            json: user
+        })
+    }).then(newUser => {
+        user = newUser;
+        // create account
+        return createAccount(req, {username: user.email, password: passwort, userId: user._id, activated: true});
+    }).then(res => {
+        //add parent if necessary    
+        if(req.body["parent-email"]) {
+            parent = {
+                firstName: req.body["parent-firstname"],
+                lastName: req.body["parent-secondname"],
+                email: req.body["parent-email"],
+                children: [user._id],
+                schoolId: user.schoolId,
+                roles: ["5b45f8d28c8dba65f8871e19"] // role parent
+            };
+            return api(req).post('/users/', {
+                json: parent
+            })
+                .then(newParent => {
+                    parent = newParent;
+                    return api(req).patch('/users/' + user._id, {
+                        json: {parents: [parent._id]}
                     });
-                }).then(function () {
-                    res.sendStatus(200);
                 }).catch(err => res.status(500).send(err));
-            }
-        });
-    } else {
-        res.sendStatus(500);
-    }
-
-    
+        } else {
+            return Promise.resolve;
+        }
+    }).then(function(){
+        //store consent
+        let consent = {
+            form: 'digital',
+            privacyConsent: req.body.Erhebung,
+            thirdPartyConsent: req.body.Pseudonymisierung,
+            termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
+            researchConsent: req.body.Forschung
+        };
+        if (parent) {
+            consent.parentId = parent._id;
+            return api(req).post('/consents/', {
+                json: {
+                    userId: user._id,
+                    parentConsents: [consent]
+                }
+            });
+        } else {
+            return api(req).post('/consents/', {
+                json: {userId: user._id,userConsent: consent}
+            });
+        }
+    }).then(function() {
+        //send Mails
+        let eMailAdresses = [user.email];
+        if(parent){
+            eMailAdresses.push(parent.email);
+        }
+        eMailAdresses.forEach(eMailAdress => {
+            return api(req).post('/mails/', {
+                json: { email: eMailAdress,
+                        subject: "Willkommen in der HPI Schul-Cloud!",
+                        headers: {},
+                        content: { // TODO: use js template strings instead of concat (``)
+                            "text": "Hallo " + user.firstName + "\n" +
+                                    "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
+                                    "Adresse: " + (req.headers.origin || process.env.HOST) + " \n" +
+                                    "E-Mail: " + user.email + " \n" +
+                                    "Startpasswort: " + passwort + " \n" +
+                                    "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
+                                    "Viel Spaß und einen guten Start wünscht dir dein \n" +
+                                    "Schul-Cloud-Team",
+                            "html": ""
+                        }
+                }
+            });
+        })
+    }).then(function () {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status(500).send(err)
+    });
 });
 
 router.get('/registration/byparent/:classId', function (req, res, next) {

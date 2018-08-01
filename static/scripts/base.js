@@ -115,7 +115,7 @@ $(document).ready(function () {
         if (timeout) {
             setTimeout(function () {
                 $notification.fadeOut();
-            }, 5000);
+            }, (Number.isInteger(timeout)?timeout:5000));
         }
     };
 
@@ -289,15 +289,34 @@ if (!NodeList.prototype.addEventListener) {
     };
 }
 function linkInputs(event){
-    document.querySelectorAll(`*[data-from=${this.getAttribute("name")}]`).forEach((changeTarget)=>{
-        let value;
-        if(this.tagName == "INPUT"){
-            value = this.value;
-        }else if(this.tagName == "SELECT"){
-            value = this.options[this.selectedIndex].value;
-        }else{
-            value = this.text;
-        }
+    let source = event.target;
+    let value;
+    switch(source.tagName) {
+        case "INPUT":
+            value = source.value;
+            break;
+        case "SELECT":
+            if(source.selectedIndex < 0){
+                value = '';
+            }else{
+                if(source.dataset.linktext !== undefined){
+                    value = source.options[source.selectedIndex].text;
+                } else if(source.dataset.linkhtml !== undefined){
+                    value = source.options[source.selectedIndex].innerHTML;
+                } else {
+                    value = source.options[source.selectedIndex].value;
+                }
+            }
+            break;
+        default:
+            if(source.dataset.linkhtml !== undefined){
+                value = source.innerHTML;
+            } else {
+                value = source.text;
+            }
+            break;
+    }
+    document.querySelectorAll(`*[data-from=${source.getAttribute("name")}]`).forEach((changeTarget)=>{
         if(changeTarget.tagName == "INPUT"){
             changeTarget.value = value;
         }else{
