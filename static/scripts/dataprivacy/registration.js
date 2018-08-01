@@ -41,7 +41,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
     function sendPin(sendConfirm) {
         // TODO - usermail is undefined on /registration/byStudent
-        let usermail = $("input[name='parent-email']") ? $("input[name='parent-email']").val() : $("input[name='student-email']").val;
+        let usermail = $("input[name='parent-email']").length ? $("input[name='parent-email']").val() : $("input[name='student-email']").val();
+        console.log("sendPin", usermail, $("input[name='parent-email']"), $("input[name='student-email']").val())
         $.ajax({
             url: "/registration/pinvalidation",
             method: "POST",
@@ -92,7 +93,7 @@ window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
         // generate password if password field present
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
-        var pw = words[Math.floor((Math.random() * words.length) + 1)] + Math.floor((Math.random() * 99) + 1).toString();
+        var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 99)).toString();
         $('.form .student-password').text(pw);
         $('.form .student-password-input').val(pw);
     }
