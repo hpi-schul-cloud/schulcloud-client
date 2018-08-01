@@ -7,6 +7,7 @@ module.exports = {
     mode: 'development',
     module: {
         rules: [
+            // All files that end on .js or .jsx are transpilled by babel
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,

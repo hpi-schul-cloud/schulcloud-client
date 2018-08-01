@@ -171,7 +171,7 @@ gulp.task('vendor-assets', () => {
 
 //clear build folder + smart cache
 gulp.task('clear', () => {
-    gulp.src(['./build/*', './.gulp-changed-smart.json'], { read: false })
+    gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], { read: false })
         .pipe(rimraf())
 })
 
