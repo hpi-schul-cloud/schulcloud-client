@@ -77,6 +77,25 @@ router.post('/submit', function (req, res, next) {
     }
 
     return Promise.all([accountPromise, userPromise, consentPromise]).then(() => {
+
+        if (req.body["sendCredentials"]){
+            return api(req).post('/mails/', {
+                json: { email: res.locals.currentUser.email,
+                        subject: "Willkommen in der HPI Schul-Cloud!",
+                        headers: {},
+                        content: { // TODO: use js template strings instead of concat (``)
+                            "text": "Hallo " + res.locals.currentUser.displayName + "\n" +
+                                    "lorem ipsum \n" +
+                                    "bla" + req.body["password-1"] + "\n" +
+                                    /* TODO: Email Text und was da rein muss sonst so*/
+                                    "Viel Spaß und einen guten Start wünscht dir dein \n" +
+                                    "Schul-Cloud-Team",
+                            "html": ""
+                        }
+                }
+            });
+        } 
+
         res.sendStatus(200);
     }).catch(err => {
         res.status(500).send(err)
