@@ -52,12 +52,13 @@ router.post('/submit', function (req, res, next) {
 
     if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
     if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
+    var preferences = res.locals.currentUser.preferences || {};
+    preferences.firstLogin = true;
+    userUpdate.preferences = preferences;
 
-    if (userUpdate.email || userUpdate.birthday) {
-        userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
-            json: userUpdate
-        });
-    };
+    userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
+        json: userUpdate
+    });
 
     if (req.body.Erhebung) {
         consentPromise = api(req).get('/consents/', {
