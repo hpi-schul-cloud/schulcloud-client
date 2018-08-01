@@ -2,19 +2,27 @@
   <div class="">
     <h1>Review eines Inhalts</h1>
 
-    <teacher-content :teacherContent="data" />
+    <div v-if="error" class="error-message">
+      Fehler beim Laden des Inhalts. Eventuell wurde der Inhalt inzwischen entfernt.
+      <br>
+      <button type="button" name="button">Zurück (todo: Implementieren)</button>
+    </div>
 
-    <md-steppers :md-active-step.sync="active" md-alternative>
-      <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
-        <rate-content :contentId="contentId" :contentChanged="contentChanged" />
-      </md-step>
+    <div v-else>
+      <teacher-content :teacherContent="data" />
 
-      <md-step id="second" md-label="Kategorien überprüfen" :md-done.sync="second">
-        <categorize :teacherContent="data" />
-        <md-button class="md-primary" @click="">{{ categoriesChanged ? "Neue Kategorien vorschlagen" : "Kategorien bestätigen" }}</md-button>
-      </md-step>
+      <md-steppers :md-active-step.sync="active" md-alternative>
+        <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
+          <rate-content :contentId="contentId" :contentChanged="contentChanged" @step="setDone('first', 'second')" @denied="onDenied" @accepted="onAccepted" />
+        </md-step>
 
-    </md-steppers>
+        <md-step id="second" md-label="Kategorien überprüfen" :md-done.sync="second">
+          <categorize :teacherContent="data" />
+          <md-button class="md-primary" @click="saveReview(true)">{{ categoriesChanged ? "Neue Kategorien vorschlagen" : "Kategorien bestätigen" }}</md-button>
+        </md-step>
+
+      </md-steppers>
+    </div>
 
   </div>
 </template>
@@ -45,6 +53,8 @@
         active: 'first',
         first: false,
         second: false,
+        rating: {},
+        error: false
       };
     },
     computed: {
@@ -87,6 +97,8 @@
             this.oldGoal = this.data.goal;
           })
           .catch((e) => {
+            this.error = true;
+
             console.error(e);
           });
       },
@@ -99,6 +111,38 @@
       },
       isEmptyObject(obj) {
         return !Object.keys(obj).length;
+      },
+      onDenied: function(reviewText) {
+        console.log("In parant component; denied: ", reviewText);
+        this.rating.text = reviewText;
+        this.saveReview(false);
+      },
+      onAccepted: function(rating) {
+        console.log("In parant component; accepted: ", rating);
+        this.rating = rating;
+        this.saveReview(true);
+      },
+      saveReview: function(accepted) {
+        // TODO: Send request to /resources/id
+        const dataToSend = {
+          id: this.contentId,
+          rating: this.rating,
+          approved: accepted
+        }
+        console.log(dataToSend);
+        this.$http
+          .patch(this.$config.API.baseUrl + this.$config.API.port + '/content/resources/' + this.contentId, dataToSend, {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
+            }
+          })
+          .then((response) => {
+            console.log("Inside Review Component after rate call.");
+            console.log(response);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       }
     },
   };

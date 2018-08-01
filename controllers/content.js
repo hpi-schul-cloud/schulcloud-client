@@ -9,7 +9,7 @@ const api = require('../api');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    return res.render('content/search');
+    return res.render('content/overview');
 });
 
 router.get('/my-content', function (req, res, next) {
@@ -91,5 +91,27 @@ router.post('/addToLesson', function (req, res, next) {
     });
 });
 
+router.post('/publish', function (req, res, next) {
+    api(req).post('/content/resources/', {
+        json: req.body
+    }).then(response => {
+      console.log("Inside response of publish call");
+      console.log(response);
+    }).then(result => {
+            res.redirect('/content/?q=' + req.body.query);
+    });
+});
+
+router.post('/rate', function (req, res, next) {
+    console.log("In rate call with body: ", req.body);
+    api(req).patch('/content/resources/' + req.body.id, {
+        json: req.body
+    }).then(response => {
+      console.log("Inside response of publish call");
+      console.log(response);
+    }).then(result => {
+            res.redirect('/content/?q=' + req.body.query);
+    });
+});
 
 module.exports = router;

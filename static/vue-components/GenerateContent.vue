@@ -18,26 +18,16 @@
           md-content="Helfen Sie, eine qualitativ hochwertige Materialsammlung aufzubauen, indem Sie ihren Inhalt mit anderen teilen!<br><br>Das dauert <strong>weniger als 3 Minuten</strong>. Sie profitieren auch davon, denn dann können Sie eine passgenaue Suche guter Inhalte nutzen, die Ihre Kolleg*Innen zur Verfügung gestellt haben."
           md-confirm-text="Kategorisieren und veröffentlichen"
           md-cancel-text="Nur speichern"
-          @md-cancel="save"
+          @md-cancel="publish(true)"
           @md-confirm="setDone('first', 'second')" />
 
       </md-step>
 
       <md-step id="second" md-label="Inhalt kategorisieren" :md-error="secondStepError" :md-done.sync="second">
-        <Categorize class="card" @categories-accepted="accepted" :data="data" :review="review"></Categorize>
-        <md-button class="md-raised md-primary" @click="setDone('second', 'third')">Continue</md-button>
+        <Categorize class="card" :teacherContent="data" :review="review"></Categorize>
+        <md-button class="md-raised md-primary" @click="publish()">Veröffentlichen</md-button>
       </md-step>
 
-      <md-step id="third" md-label="Fertigstellen" :md-done.sync="third">
-        <p>Sie können den eben erstellten Inhalt einfach speichern, können nur Sie ihn in Ihren Kursen verwenden.
-           Wenn Sie sich ihn veröffentlichen, können auch andere Lehrer*Innen von Ihrem Inhalt profitieren -
-           gleichzeitig erhalten Sie Punkte, mit denen Sie auf eine verbesserte Suchen
-           zurückgreifen können. Erfahren Sie <a href="#">hier</a> mehr.</p>
-        <md-switch v-model="publish">
-          Veröffentlichen
-        </md-switch>
-        <md-button class="md-raised md-primary" @click="setDone('third')">Speichern</md-button>
-      </md-step>
     </md-steppers>
   </div>
 </template>
@@ -58,15 +48,15 @@
       third: false,
       secondStepError: null,
       data: {
-        topics: ['Todo'],
-        age: "8 +- 1",
-        subjects: ["Deutsch", "Englisch", "Geschichte"],
-        difficulty: ["A2", "B1"],
-        goal: ["Einführung"],
+        topics: [],
+        age: undefined,
+        range: undefined,
+        subjects: [],
+        difficulty: '',
+        goal: '',
       },
       showRating: true,
       review: true,
-      publish: true,
       content: '',
     }),
     methods: {
@@ -78,21 +68,46 @@
         } else {
           this.secondStepError = null
         }
-
-        if (id === 'third') {
-          save();
-        }
-
         if (index) {
           this.active = index
         }
       },
       askSave() {
-        // TODO: Only ask the first time
+        // TODO: Only ask the first time/save this info in cookie?
         this.dialogActive = true;
       },
-      save() {
-        alert('Inhalt speichern: ', this.content + '       --> Mit den Kategorien:' + this.data);
+      publish(onlyPrivat) {
+        var dataToSend = {
+          title: "TODO",
+          content: this.data.content,
+          topics: this.data.topics,
+          subjects: this.data.subjects,
+          goal: this.data.goal.split(' ')[1], // TODO: fix filter --> string ...
+          age: 10, // this.data.age
+          ageRange: 1, // this.data.ageRange,
+          difficulty: this.data.difficulty.split(' ')[1], // TODO: fix filter --> string ...,
+        };
+
+        if (onlyPrivat) {
+          dataToSend.onlyPrivat = true;
+        }
+
+        console.log(dataToSend);
+
+        this.$http
+          .post(this.$config.API.baseUrl + this.$config.API.port + '/content/resources', dataToSend, {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
+            }
+          })
+          .then((response) => {
+            console.log("Inside GenerateContent Component after publish call.");
+            // TODO: Notify user: Successful save
+            console.log(response);
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       }
     }
   }

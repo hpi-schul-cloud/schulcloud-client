@@ -28,9 +28,9 @@
           via {{data.providerName}}
         </div>
         <md-button  class="md-primary" @click="open()">
-          <md-icon>{{data.providerName === 'Schul-Cloud' ? 'open_in_browser' : 'open_in_new' }}</md-icon>
+          <md-icon>{{ openIconName }}</md-icon>
         </md-button>
-        <md-button  class='md-primary' @click="dialog.active = true">
+        <md-button v-if="!inReview" class='md-primary' @click="dialog.active = true">
           <md-icon>add</md-icon>
         </md-button>
       </md-card-actions>
@@ -46,7 +46,7 @@
     components: {
       confirmDialog,
     },
-    props: ['data', 'contentId'],
+    props: ['data', 'contentId', 'inReview', 'ownContent'],
     name: 'ContentCard',
     data() {
       return {
@@ -59,6 +59,18 @@
         },
       };
     },
+    computed: {
+      openIconName: function () {
+        if (this.data.providerName !== 'Schul-Cloud') {
+          return 'open_in_new';
+        }
+        if (this.ownContent) {
+          return 'edit';
+        }
+        return 'remove_red_eye';
+      },
+    },
+
     methods: {
       open() {
         if (this.data.providerName === "Schul-Cloud" ) {

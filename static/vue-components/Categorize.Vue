@@ -63,12 +63,18 @@
             Alter:
         </div>
         <div class="md-layout-item">
-            <md-chip v-model="teacherContent.age" key="chip" v-on:click="visibleDialog = 'age'"
+            <md-chip v-if="teacherContent.age" v-model="teacherContent.age" :key="teacherContent.age" v-on:click="visibleDialog = 'age'"
                 @md-delete.stop="removeFilter('age')" md-clickable md-deletable>{{ teacherContent.age }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'age'" class="addButton">
-                <md-icon><i class="material-icons">edit</i></md-icon>
-                Alter ändern
+                <span v-if="teacherContent.age">
+                  <md-icon><i class="material-icons">edit</i></md-icon>
+                  Alter ändern
+                </span>
+                <span v-else>
+                  <md-icon><i class="material-icons">add</i></md-icon>
+                  Alter hinzufügen
+                </span>
             </md-button>
         </div>
     </div>
@@ -108,7 +114,6 @@
         pushFilter(identifier, filterData) {
           this.visibleDialog = '';
           this.teacherContent[identifier].push(filterData.selection);
-          console.log(this.teacherContent);
         },
         setFilter(identifier, filterData) {
           this.visibleDialog = '';

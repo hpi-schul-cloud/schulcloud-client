@@ -11,7 +11,6 @@ const configFile = require('./config');
 const configs = configFile.configs;
 Vue.use(VueConfig, configs);
 
-
 Vue.use(VueMaterial);
 Vue.use(VueResource);
 
@@ -21,6 +20,6 @@ import Search from './../../vue-components/ContentSearch.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<Search heading="Suche in allen Inhalten" inReview="false"/>',
+	template: '<Search heading="Suche in allen Inhalten" :inReview="false"/>',
 	components: { Search }
 })

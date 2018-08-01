@@ -10,9 +10,9 @@
         </span>
       </div>
       <div>
-        <md-field>
+        <md-field class="no-bootstrap">
           <label for="itemsPerPage">Einträge pro Seite</label>
-          <md-select v-model.number="pagination.itemsPerPage" name="itemsPerPage" id="itemsPerPage">
+          <md-select v-model.number="pagination.itemsPerPage" name="itemsPerPage" id="itemsPerPage" class="no-bootstrap">
             <md-option value=12>12</md-option>
             <md-option value=24>24</md-option>
             <md-option value=48>48</md-option>
@@ -25,7 +25,7 @@
       <search-filter :inReview="inReview" @newFilter="updateFilter"></search-filter>
     </div>
     <div md-gutter class="grid">
-        <contentCard v-for="item in data" :key="item._id  + '#card'" v-bind:data="item['_source']" v-bind:contentId="item['_id']"></contentCard>
+        <contentCard v-for="item in data" :key="item._id  + '#card'" :inReview="inReview" :data="item['_source']" :contentId="item['_id']"></contentCard>
     </div>
 
     <md-empty-state v-if="data.length == 0" class="md-primary"
