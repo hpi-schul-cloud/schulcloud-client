@@ -20,14 +20,8 @@ body {
     }
     header {
         background: $primaryColor;
-        a {
-            color:#fff !important;
-            font-size: 1rem;
-            line-height: 1rem;
-            padding: 1rem !important;
-            text-decoration: none; 
-        }
         #title {
+            color: #fff;
             font-size: 1.5rem;
             line-height: 1.5rem;
             font-weight: 400;
@@ -48,19 +42,34 @@ body {
                 background-size: contain;
             }
         }
-        .nav-item{
-            margin: 0 !important;
-            min-width: 4rem;
-            text-align: center;
-            .nav-link {
-                transition: background-color .3s ease-in-out;
-                &:hover{
-                    background-color: $accentColor;
+        .navbar-nav{
+            overflow-y: auto;
+            font-size: 0;
+            line-height: 0;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            .nav-item{
+                margin: 0 !important;
+                min-width: 4rem;
+                text-align: center;
+                &:first-child{
+                    margin-left: 2.5rem !important;
+                }
+                .nav-link {
+                    color:#fff !important;
+                    font-size: 1rem;
+                    line-height: 1rem;
+                    padding: 1rem .5rem !important;
+                    text-decoration: none;
+                    transition: background-color .3s ease-in-out;
+                    &:hover{
+                        background-color: $accentColor;
+                    }
                 }
             }
-        }
-        .nav-item:last-of-type{
-            padding-right: 0;
+            .nav-item:last-of-type{
+                padding-right: 0;
+            }
         }
         @include media-breakpoint-down(md) {
             text-align: center;
