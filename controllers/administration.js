@@ -763,16 +763,53 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
     api(req).get('/users', {
         qs: query
-    }).then(data => {
-        api(req).get('/classes').then(classes => {
-            // let consents = data.data.map(item => {
-            //     return api(req).get('/consents/', {qs: {userId: item._id}})
-            //         .then(consent => {
-            //             return {userId: item._id, consent: consent };
-            //         });
-            // });
-            //
-            // Promise.all(consents);
+    }).then(userData => {
+        let users = userData.data;
+
+        const classesPromise = getSelectOptions(req, 'classes', {});
+        const consentsPromise = getSelectOptions(req, 'consents', {userId: {
+            $in: users.map((user) => {
+                return user._id;
+            })
+          }});
+
+        Promise.all([
+            classesPromise,
+            consentsPromise
+        ]).then(([classes, consents]) => {
+            users = users.map((user) => {
+                // add consentStatus to user
+                const consent = consents.find((consent) => {
+                    return consent.userId == user._id;
+                });
+                if(consent){
+                    if(consent.requiresParentConsent){
+                        if(consent.parentConsents.length == 0){
+                            user.consentStatus = `<i class="fa fa-times"></i>`
+                        }else{
+                            if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                                user.consentStatus = `<i class="fa fa-check"></i>`;
+                            }else{
+                                user.consentStatus = `<i class="fa fa-adjust"></i>`;
+                            }
+                        }
+                    }else{
+                        if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                            user.consentStatus = `<i class="fa fa-check"></i>`;
+                        }else{
+                            user.consentStatus = `<i class="fa fa-circle"></i>`;
+                        }
+                    }
+                }else{
+                    user.consentStatus = `<i class="fa fa-times"></i>`
+                }
+
+                // add classes to user
+                user.classesString = classes.filter((currentClass) => {
+                    return currentClass.userIds.includes(user._id);
+                }).map((currentClass) => {return currentClass.name;}).join(', ');
+                return user;
+            })
 
             const head = [
                 'Vorname',
@@ -783,23 +820,23 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 ''
             ];
 
-            const body = data.data.map(item => {
+            const body = users.map(user => {
                 return [
-                    item.firstName,
-                    item.lastName,
-                    item.email,
-                    getClasses(item, classes, false),
-                    0,//getConsentState(consents[0].consent),
-                    "<a class='btn' href='"+ item._id+"/edit'>Bearbeiten</a>"
+                    user.firstName,
+                    user.lastName,
+                    user.email,
+                    user.classesString,
+                    user.consentStatus,
+                    `<a class="btn" href="${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
                 ];
             });
 
             const pagination = {
                 currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
+                numPages: Math.ceil(userData.total / itemsPerPage),
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
-            
+
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,

@@ -1,0 +1,13 @@
+@import '../lib/colors';
+
+.section-students td{
+    .fa-check{
+        color: green;
+    }
+    .fa-circle, .fa-adjust{
+        color: orange;
+    }
+    .fa-times{
+        color: red;
+    }
+}
