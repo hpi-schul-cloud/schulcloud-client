@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const rp = require('request-promise');
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -58,6 +59,41 @@ router.get('/', function (req, res, next) {
             title: 'Dein Account',
             userId: res.locals.currentUser._id
         });
+    }
+});
+
+router.get('/profile', function (req, res, next) {
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+        console.log("profile with NOTIFICATION_SERVICE_ENABLED");
+        api(req).get('/notification/devices')
+            .then(device => {
+                device.map(d => {
+                    if (d.token === req.cookies.deviceToken) {
+                        Object.assign(d, {selected: true});
+                    }
+                    return d;
+                });
+                res.render('account/profile', {
+                    title: 'Dein Account',
+                    device,
+                    userId: res.locals.currentUser._id
+                });
+            }).catch(err => {
+            res.render('account/profile', {
+                title: 'Dein Account',
+                userId: res.locals.currentUser._id
+            });
+        });
+    } else {
+        console.log("profile request");
+        var url = 'http://localhost:3131/user/Jonas';
+        rp.get(url)
+          .then(userInfo => {
+            res.render('account/profile', {
+              userId: res.locals.currentUser._id,
+              userInfo: JSON.parse(userInfo)
+            });
+          })
     }
 });
 

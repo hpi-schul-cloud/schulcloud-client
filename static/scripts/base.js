@@ -127,7 +127,7 @@ $(document).ready(function () {
 
 
     // Initialize bootstrap-select
-    $('select').not('.no-bootstrap').chosen({
+    $('select').not('.no-bootstrap, #itemsPerPage').chosen({
         width: "100%",
         "disable_search": true
     });
@@ -155,8 +155,8 @@ $(document).ready(function () {
             }, !1)
         }
     })(document, window.navigator, "standalone");
-    
-    
+
+
     // delete modals
     var $modals = $('.modal');
     var $deleteModal = $('.delete-modal');
@@ -215,12 +215,12 @@ $(document).ready(function () {
             trigger.classList.add("show");
         });
     };
-    
+
     // from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
     function isMobileDevice() {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     };
-    
+
     $(".embed-pdf .single-pdf").click(e => {
         e.preventDefault();
         var elem = e.target;
@@ -238,7 +238,7 @@ $(document).ready(function () {
                     '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
                     '</iframe>\n' +
                     '</object>';
-    
+
                 var thisrow = $(elem).parents(".embed-pdf-row");
                 var page = $(elem).parents(".container.embed-pdf").parent();
                 if(thisrow.find(".viewer:visible").length>0) {

@@ -53,6 +53,11 @@
     "string-strip-html": "^1.1.0",
     "string_decoder": "^1.0.1",
     "truncate-html": "^0.1.4",
+    "vue": "^2.5.16",
+    "vue-config": "^1.0.0",
+    "vue-material": "^1.0.0-beta-10.2",
+    "vue-resource": "^1.5.1",
+    "vue-star-rating": "^1.6.0",
     "winston": "^3.0.0"
   },
   "devDependencies": {
@@ -65,6 +70,7 @@
     "chai-http": "^3.0.0",
     "chromedriver": "^2.38.3",
     "clean-css": "^4.0.8",
+    "css-loader": "^1.0.0",
     "env2": "^2.2.0",
     "eslint": "^3.17.1",
     "expose-loader": "^0.7.5",
@@ -91,11 +97,16 @@
     "nightwatch": "^1.0.6",
     "node-sass": "^4.7.2",
     "pump": "^1.0.2",
+    "sass-loader": "^7.0.3",
+    "rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
     "script-loader": "^0.7.2",
     "selenium-server": "^3.12.0",
+    "style-loader": "^0.21.0",
     "vinyl-map": "^1.0.2",
     "vinyl-named": "^1.1.0",
-    "webpack": "^4.14.0",
+    "vue-loader": "^15.2.4",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.16.1",
     "webpack-stream": "^4.0.3"
   }
 }

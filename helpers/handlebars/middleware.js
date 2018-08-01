@@ -93,10 +93,6 @@ module.exports = (req, res, next) => {
                 link: '/files/shared/'
             }
         ]
-    }, {
-        name: 'Materialien',
-        icon: 'search',
-        link: '/content/'
     }];
 
     // teacher views
@@ -169,10 +165,32 @@ module.exports = (req, res, next) => {
 
     // beta user view
     res.locals.sidebarItems.push({
-       name: 'Meine Materialien',
+       name: 'Materialien',
        icon: 'book',
-       link: '/my-material/',
-       permission: 'BETA_FEATURES'
+       link: '/content/',
+       permission: 'BETA_FEATURES',
+			 children: [
+					 {
+							 name: 'Suche',
+							 icon: 'search',
+							 link: '/content/search/'
+					 },
+					 {
+							 name: 'Meine Materialien',
+							 icon: 'file',
+							 link: '/content/my-content/'
+					 },
+					 {
+							 name: 'Erstellen',
+							 icon: 'edit',
+							 link: '/content/create/'
+					 },
+					 {
+							 name: 'Review',
+							 icon: 'check',
+							 link: '/content/review/'
+					 }
+			 ]
     });
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);

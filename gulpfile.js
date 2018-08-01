@@ -39,7 +39,7 @@ const baseScripts = [
     './static/scripts/qrcode/kjua-0.1.1.min.js'
 ]
 
-const nonBaseScripts = ['./static/scripts/**/*.js']
+const nonBaseScripts = ['./static/scripts/**/*.js'] // maybe {js,vue}
     .concat(baseScripts.map(script => '!' + script))
 //used by all gulp tasks instead of gulp.src(...)
 //plumber prevents pipes from stopping when errors occur
@@ -97,17 +97,17 @@ gulp.task('styles', () => {
         .pipe(autoprefixer({ browsers: ['last 3 major versions'] }))
         .pipe(gulp.dest(`./build/${themeName()}/styles`));
     firstRun = false;
-})
+});
 
 //copy fonts
 gulp.task('fonts', () => {
     beginPipe('./static/fonts/**/*.*')
         .pipe(gulp.dest(`./build/${themeName()}/fonts`))
-})
+});
 
 //compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => {
-    beginPipe(nonBaseScripts)
+    beginPipeAll(nonBaseScripts)
         .pipe(named(
             file => {
                 // As a preparation for webpack stream: Transform nonBaseScripts paths
@@ -116,7 +116,7 @@ gulp.task('scripts', () => {
                 const pathSegments = initialPath.split(".");
                 const concretePath = pathSegments.slice(0,pathSegments.length-1).join(".");
                 const fileName = concretePath.split("").slice(1).join("");
-                
+
                 return fileName;
             }
         ))
@@ -171,7 +171,7 @@ gulp.task('vendor-assets', () => {
 
 //clear build folder + smart cache
 gulp.task('clear', () => {
-    gulp.src(['./build/*', './.gulp-changed-smart.json'], { read: false })
+    gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], { read: false })
         .pipe(rimraf())
 })
 
@@ -188,6 +188,7 @@ gulp.task('watch', ['build-all'], () => {
     gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles'])
     gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts'])
     gulp.watch(withTheme(nonBaseScripts), ['scripts'])
+    // gulp.watch(withTheme('./static/scripts/**/*.vue'), ['scripts'])
     gulp.watch(withTheme(baseScripts), ['base-scripts'])
     gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles'])
     gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts'])

@@ -9,12 +9,15 @@ const api = require('../api');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
+    return res.render('my-material/my-material');
+});
 
-    const query = req.query.q;
-    return res.render('my-material/my-material', {
-        title: 'Meine Materialien',
-    });
+router.get('/publish', function (req, res, next) {
+    return res.render('my-material/my-material');
+});
 
+router.get('/review', function (req, res, next) {
+    return res.render('my-material/review'); 
 });
 
 module.exports = router;
