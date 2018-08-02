@@ -827,7 +827,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     user.email,
                     user.classesString,
                     user.consentStatus,
-                    `<a class="btn btn-sm" href="${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
+                    `<a class="btn btn-sm" href="students/${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
                 ];
             });
 
