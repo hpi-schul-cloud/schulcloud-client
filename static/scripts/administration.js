@@ -22,7 +22,6 @@ $(document).ready(function () {
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteModal = $('.delete-modal');
-    var $pwModal = $('.pw-modal');
 
     $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
@@ -105,19 +104,4 @@ $(document).ready(function () {
             $deleteModal.appendTo('body').modal('show');
         });
     });
-
-    $('.btn-pw').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).attr('href');
-            populateModalForm($pwModal, {
-                action: entry,
-                title: 'Passwort ändern',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: undefined
-            });
-
-            $pwModal.appendTo('body').modal('show');
-    });
-
 });

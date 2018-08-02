@@ -1,5 +1,5 @@
 {{#content "scripts" mode="append"}}
-    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
+    <script src="/scripts/administration/student_edit.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
@@ -8,7 +8,7 @@
     {{#content "page"}}
         <div class="row">
             <div class="col-xl-12">
-                <form class="modal-form" id="student-form" method="post" action="{{action}}">
+                <form id="student-form" method="post" action="{{action}}">
                     {{#if method}}
                         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                     {{/if}}
@@ -60,29 +60,32 @@
                     </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.<br/><br/></p>
 
+                    <button class="btn btn-sm pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
                     <h5>Einwilligung</h5>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6>Eltern</h6>
+                    <div class="row" id="consents-overview">
+                        {{#if consent.requiresParentConsent}}
+                            <div class="col-md-6">
+                                <h6>Eltern</h6>
 
-                            <label><input name="parent_type" value="analog" type="radio"/> Analog</label>
-                            <label><input name="parent_type" value="digital" type="radio"/> Digital</label> 
-                            <br/>
-                            <label><input name="parent_Datenschutz" type="checkbox" value="true"/> Datenschutz</label><br/>
-                            <label><input name="parent_Forschung" type="checkbox" value="true"/> Forschung</label><br/>
-                            <label><input name="parent_Drittanbieter" type="checkbox" value="true"/> Drittanbieter</label><br/>
-                            <label><input name="parent_Nutzung" type="checkbox" value="true"/> Nutzung</label><br/>
-                        </div>
+                                <label><input name="student_type" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="student_type" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
+                                <br/>
+                                <label><input name="student_Datenschutz" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="student_Forschung" type="checkbox" value="true" disabled {{#if consent.parentConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
+                                <label><input name="student_Drittanbieter" type="checkbox" value="true" disabled {{#if consent.parentConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
+                                <label><input name="student_Nutzung" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                            </div>
+                        {{/if}}
                         <div class="col-md-6">
                             <h6>Schüler</h6>
-
-                            <label><input name="student_type" value="analog" type="radio"/> Analog</label>
-                            <label><input name="student_type" value="digital" type="radio"/> Digital</label> 
+                            {{log consent.userConsent.form}}
+                            <label><input name="student_type" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                            <label><input name="student_type" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
                             <br/>
-                            <label><input name="student_Datenschutz" type="checkbox" value="true"/> Datenschutz</label><br/>
-                            <label><input name="student_Forschung" type="checkbox" value="true"/> Forschung</label><br/>
-                            <label><input name="student_Drittanbieter" type="checkbox" value="true"/> Drittanbieter</label><br/>
-                            <label><input name="student_Nutzung" type="checkbox" value="true"/> Nutzung</label><br/>
+                            <label><input name="student_Datenschutz" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                            <label><input name="student_Forschung" type="checkbox" value="true" disabled {{#if consent.userConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
+                            <label><input name="student_Drittanbieter" type="checkbox" value="true" disabled {{#if consent.userConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
+                            <label><input name="student_Nutzung" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                         </div>
                     </div>
 
@@ -101,10 +104,8 @@
                     </div>
                 </form>
 
-                {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
 
-                {{/embed}}
-
+                {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
 
                 {{#embed "lib/components/modal-form" method="patch" class="pw-modal"}}
                     {{#content "fields"}}
