@@ -1035,15 +1035,15 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 notes: [
                     {
                         "title":"Deine Schüler sind unter 18 Jahre alt?",
-                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                        "content":"Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der Schul-Cloud registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die Schul-Cloud nutzen kann."
                     },
                     {
                         "title":"Deine Schüler sind mindestens 18 Jahre alt?",
-                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                        "content":"Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
                     },
                     /*{ // TODO - Feature not implemented
                         "title":"Deine Schüler sind in der Schülerliste rot?",
-                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                        "content":"Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der Schul-Cloud elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt."
                     },*/
                     {
                         "title":"Nutzernamen herausfinden",
@@ -1051,7 +1051,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     },
                     {
                         "title":"Passwort ändern",
-                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                        "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
                     },
                 ]
             });
