@@ -827,7 +827,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     user.email,
                     user.classesString,
                     user.consentStatus,
-                    `<a class="btn btn-sm" href="${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
+                    `<a class="btn btn-sm" href="students/${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
                 ];
             });
 
@@ -853,14 +853,23 @@ return function (req, res, next) {
  */
 
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
-    api(req).get('/users/' + req.params.id).then(user => {
+    const userPromise = api(req).get('/users/' + req.params.id);
+const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id, $populate:['parentConsents']});
+
+    Promise.all([
+        userPromise,
+        consentPromise
+    ]).then(([user, consent]) => {
+        consent = consent[0];
+        consent.parentConsent = (consent.parentConsents.length)?consent.parentConsents[0]:{};
 
         res.render('administration/students_edit',
             {
                 title: 'Schüler bearbeiten',
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
-                student: user
+                student: user,
+                consent
             }
         );
     });
