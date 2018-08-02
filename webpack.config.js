@@ -1,9 +1,11 @@
 const webpack = require("webpack");
+const RebuildChangedPlugin = require('rebuild-changed-entrypoints-webpack-plugin');
 
 module.exports = {
     mode: 'production',
     module: {
         rules: [
+            // All files that end on .js or .jsx are transpilled by babel
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,
@@ -38,6 +40,9 @@ module.exports = {
         filename: '[name].js'
     },
     plugins: [
+        new RebuildChangedPlugin({
+            cacheDirectory: __dirname,
+        }),
         // By default, moment loads aaaall the locale files, which bloats the bundle size
         // This plugin forces moment to only load the German locale
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de/),
