@@ -318,6 +318,22 @@
       {
         "id": 19,
         "title": "",
+        "firstName": "Christina",
+        "lastName": "Anders",
+        "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
+        "description": "Christina ist bei MINT-EC für die Kommunikation rund um die HPI Schul-Cloud zuständig. Sie steht im Kontakt mit Journalisten und den teilnehmenden MINT-EC-Schulen in ganz Deutschland. Als Naturwissenschaftlerin (M. Sc., FU Berlin) ist Christina vielfältig interessiert: Nach der Arbeit engagiert sie sich für die Initiative „foodsharing“, treibt gern Sport im Grünen oder probt mit ihrer Band für den nächsten Auftritt.",
+        "pictureUrl": "/images/team/Christina_Anders.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 20,
+        "title": "",
         "firstName": "Sophie",
         "lastName": "Plötz",
         "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
@@ -332,7 +348,7 @@
         "longDesc": false
       },
       {
-        "id": 20,
+        "id": 21,
         "title": "",
         "firstName": "Sigrid",
         "lastName": "Stobbe",
@@ -354,7 +370,7 @@
     "style": "small",
     "team": [
       {
-        "id": 21,
+        "id": 22,
         "title": "",
         "firstName": "Georg",
         "lastName": "Berecz",
@@ -370,7 +386,7 @@
         "longDesc": false
       },
       {
-        "id": 22,
+        "id": 23,
         "title": "",
         "firstName": "Katharina",
         "lastName": "Blass",
@@ -385,7 +401,7 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "id": 24,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -401,7 +417,7 @@
         "longDesc": false
       },
       {
-        "id": 24,
+        "id": 25,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -417,7 +433,7 @@
         "longDesc": false
       },
       {
-        "id": 25,
+        "id": 26,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -433,7 +449,7 @@
         "longDesc": false
       },
       {
-        "id": 26,
+        "id": 27,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -449,7 +465,7 @@
         "longDesc": false
       },
       {
-        "id": 27,
+        "id": 28,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -465,7 +481,7 @@
         "longDesc": false
       },
       {
-        "id": 28,
+        "id": 29,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -481,7 +497,7 @@
         "longDesc": false
       },
       {
-        "id": 29,
+        "id": 30,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -497,7 +513,7 @@
         "longDesc": false
       },
       {
-        "id": 30,
+        "id": 31,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -513,7 +529,7 @@
         "longDesc": false
       },
       {
-        "id": 31,
+        "id": 32,
         "title": "",
         "firstName": "Florian Michael",
         "lastName": "Kunz",
@@ -529,7 +545,7 @@
         "longDesc": false
       },
       {
-        "id": 32,
+        "id": 33,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -545,7 +561,7 @@
         "longDesc": false
       },
       {
-        "id": 33,
+        "id": 34,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -561,7 +577,7 @@
         "longDesc": false
       },
       {
-        "id": 34,
+        "id": 35,
         "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
@@ -577,7 +593,7 @@
         "longDesc": false
       },
       {
-        "id": 35,
+        "id": 36,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -593,7 +609,7 @@
         "longDesc": false
       },
       {
-        "id": 36,
+        "id": 37,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -615,7 +631,7 @@
     "style": "small",
     "team": [
       {
-        "id": 37,
+        "id": 38,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -631,13 +647,29 @@
         "longDesc": false
       },
       {
-        "id": 38,
+        "id": 39,
         "title": "",
         "firstName": "Marvin",
         "lastName": "Fischer",
         "position": "Schüler",
         "description": "Marvin ist derzeit Schüler der Jahrgansstufe 12 des Albert Einstein Gymnasiums Neubrandenburg und arbeitet an der Entwicklung der Schul-Cloud Android App mit. Seit er 13 Jahre alt ist, bringt er sich das Programmieren und Web-Designen bei. Im Jahr 2017 hat Marvin an der deutschen Berufs-Meisterschaft WorldSkillsGermany im Skill 09 teilgenommen. In seiner Freizeit beschäftigt er sich mit der Programmierung von Windows, Android und Web Anwendungen, sowie mit dem Entwickeln von Web Designs.",
         "pictureUrl": "/images/team/Marvin_Fischer.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "id": 40,
+        "title": "",
+        "firstName": "Florian",
+        "lastName": "Sittig",
+        "position": "Praktikant",
+        "description": "Florian hat Lehramt für die Sprachen Englisch und Spanisch studiert und arbeitete bereits über 10 Jahre privat, institutionell und an diversen Schulen als Lehrkraft. Seit Mitte Juli ist er nun Teil unseres Teams und hilft dabei, die Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In der Digitalisierung sieht er Chancen für mehr Austausch und Kooperation zwischen den Lehrkräften. In seiner Freizeit trifft er sich gerne mit Freunden, geht wandern und hat eigentlich immer verschiedene Projekte nebenher, an denen er gerade arbeitet.",
+        "pictureUrl": "/images/team/Florian_Sittig.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -653,7 +685,7 @@
     "style": "small",
     "team": [
       {
-        "id": 39,
+        "id": 41,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
@@ -669,7 +701,7 @@
         "longDesc": false
       },
       {
-        "id": 40,
+        "id": 42,
         "title": "",
         "firstName": "Carl",
         "lastName": "Gödecken",
@@ -685,7 +717,7 @@
         "longDesc": false
       },
       {
-        "id": 41,
+        "id": 43,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -701,7 +733,7 @@
         "longDesc": false
       },
       {
-        "id": 42,
+        "id": 44,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -717,7 +749,7 @@
         "longDesc": false
       },
       {
-        "id": 43,
+        "id": 45,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -733,7 +765,7 @@
         "longDesc": false
       },
       {
-        "id": 44,
+        "id": 46,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -749,7 +781,7 @@
         "longDesc": false
       },
       {
-        "id": 45,
+        "id": 47,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
@@ -765,7 +797,7 @@
         "longDesc": false
       },
       {
-        "id": 46,
+        "id": 48,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
