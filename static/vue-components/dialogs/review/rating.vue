@@ -102,7 +102,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     #rating-review {
       padding: 16px;
     }

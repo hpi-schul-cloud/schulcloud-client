@@ -5,6 +5,14 @@
         <p>Hier bitte Ihren Inhalt einfügen (im Moment geht nur Text, der BP-Editor sollte dann bald hier eingebunden werden).</p>
 
         <md-field>
+          <label>Titel</label>
+          <md-input v-model="title"></md-input>
+        </md-field>
+        <md-field>
+          <label>Beschreibung</label>
+          <md-textarea v-model="description"></md-textarea>
+        </md-field>
+        <md-field>
           <label>Inhalt</label>
           <md-textarea v-model="content"></md-textarea>
         </md-field>
@@ -25,7 +33,7 @@
 
       <md-step id="second" md-label="Inhalt kategorisieren" :md-error="secondStepError" :md-done.sync="second">
         <Categorize class="card" :teacherContent="data" :review="review"></Categorize>
-        <md-button class="md-raised md-primary" @click="publish()">Veröffentlichen</md-button>
+        <md-button class="md-raised md-primary" @click="publish(false)">Veröffentlichen</md-button>
       </md-step>
 
     </md-steppers>
@@ -50,14 +58,16 @@
       data: {
         topics: [],
         age: undefined,
-        range: undefined,
+        ageRange: undefined,
         subjects: [],
-        difficulty: '',
-        goal: '',
+        difficulty: undefined,
+        goal: undefined,
       },
       showRating: true,
       review: true,
       content: '',
+      title: '',
+      description: '',
     }),
     methods: {
       setDone (id, index) {
@@ -78,19 +88,17 @@
       },
       publish(onlyPrivat) {
         var dataToSend = {
-          title: "TODO",
-          content: this.data.content,
+          title: this.title,
+          description: this.description,
+          content: this.content,
           topics: this.data.topics,
           subjects: this.data.subjects,
-          goal: this.data.goal.split(' ')[1], // TODO: fix filter --> string ...
-          age: 10, // this.data.age
-          ageRange: 1, // this.data.ageRange,
-          difficulty: this.data.difficulty.split(' ')[1], // TODO: fix filter --> string ...,
+          goal: this.data.goal,
+          age: this.data.age,
+          ageRange: this.data.ageRange,
+          difficulty: this.data.difficulty,
+          isPrivat: onlyPrivat
         };
-
-        if (onlyPrivat) {
-          dataToSend.onlyPrivat = true;
-        }
 
         console.log(dataToSend);
 
@@ -101,19 +109,19 @@
             }
           })
           .then((response) => {
-            console.log("Inside GenerateContent Component after publish call.");
-            // TODO: Notify user: Successful save
+            location.href = '/content/';
             console.log(response);
           })
           .catch((e) => {
             console.error(e);
+            alert("Fehler beim Erstellen. Entschuldigung! Bitet probieren Sie es später noch mal.")
           });
       }
     }
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
   @import "./default";
 

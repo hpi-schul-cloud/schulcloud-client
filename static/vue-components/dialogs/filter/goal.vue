@@ -4,12 +4,12 @@
 
     <div id="goal-picker">
       <md-field>
-        <label for="selectedGoals">Unterrichtsziel wählen</label>
-        <md-select v-model="selectedGoals" id="selectedGoals" md-dense> <!-- multiple> -->
+        <label for="selectedGoal">Unterrichtsziel wählen</label>
+        <md-select v-model="selectedGoal" id="selectedGoal" md-dense> <!-- multiple> -->
           <md-option value="Einführung">Einführung</md-option>
           <md-option value="Festigung">Festigung</md-option>
           <md-option value="Wissenstransfer">Wissenstransfer</md-option>
-          <md-option value="Spaßstunde">Spaßstunde</md-option>
+          <md-option value="Spaß">Spaß</md-option>
         </md-select>
       </md-field>
     </div>
@@ -28,7 +28,7 @@
     data() {
       return {
         isActive: false,
-        selectedGoals: '', // []
+        selectedGoal: '', // []
         apiQuery: {},
         urlQuery: {},
       };
@@ -38,22 +38,25 @@
     },
     methods: {
       onConfirm() {
-        let displayString;
+        let displayString, shortDisplayString;
 
-        if (this.selectedGoals.length != 0) {
-          // this.apiQuery["GoalName[$in]"] = this.selectedGoals; // corret but api seems broken
-          this.apiQuery['goalName[$match]'] = this.selectedGoals;
-          this.urlQuery = {goal: this.selectedGoals}; // .reduce((prev, curr) => prev +','+ curr )}
-          displayString = `Unterrichtsziel: ${this.selectedGoals}`; // .reduce((prev, curr) => prev +', '+ curr );
+        if (this.selectedGoal.length != 0) {
+          // this.apiQuery["GoalName[$in]"] = this.selectedGoal; // corret but api seems broken
+          this.apiQuery['goalName[$match]'] = this.selectedGoal;
+          this.urlQuery = {goal: this.selectedGoal}; // .reduce((prev, curr) => prev +','+ curr )}
+          displayString = `Unterrichtsziel: ${this.selectedGoal}`; // .reduce((prev, curr) => prev +', '+ curr );
+          shortDisplayString = this.selectedGoal;
         } else {
           this.apiQuery = {};
           this.urlQuery = {};
           displayString = null;
+          shortDisplayString = null;
         }
         this.$emit('set', this.identifier, {
           apiQuery: this.apiQuery,
           urlQuery: this.urlQuery,
           displayString,
+          shortDisplayString
         });
       },
       onCancle() {
@@ -61,7 +64,7 @@
       },
       resetGoals(key) {
         if (key == this.identifier) {
-          this.selectedGoals = '';
+          this.selectedGoal = '';
         }
       },
     },
@@ -78,7 +81,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #goal-picker {
     padding: 16px;
   }

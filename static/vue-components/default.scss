@@ -5,4 +5,13 @@
   accent: #f8a41b // The accent and secondary color
 ));
 
+// .md-theme-default aside.nav-sidebar a.sc-branding:not(.md-button),
+// .md-theme-default aside.nav-sidebar a.sc-branding:not(.md-button):hover {
+//     color: #f5f5f5;
+// }
+//
+// .md-theme-default a.btn-secondary, .md-theme-default a.btn-secondary:hover  {
+//     color: #373a3c;
+// }
+
 @import "~vue-material/dist/theme/all"; // Apply the theme

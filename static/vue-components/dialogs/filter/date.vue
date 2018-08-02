@@ -75,6 +75,7 @@
           apiQuery: this.apiQuery,
           urlQuery: this.urlQuery,
           displayString,
+          displayString
         });
       },
       onCancle() {
@@ -137,7 +138,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #provider-picker {
     padding: 16px;
   }

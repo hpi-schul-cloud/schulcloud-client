@@ -5,7 +5,7 @@
     <div v-if="error" class="error-message">
       Fehler beim Laden des Inhalts. Eventuell wurde der Inhalt inzwischen entfernt.
       <br>
-      <button type="button" name="button">Zurück (todo: Implementieren)</button>
+      <md-button class="md-raised md-accent">Zurück (tbd)</md-button>
     </div>
 
     <div v-else>
@@ -48,6 +48,7 @@
         oldSubjects: [],
         oldTopics: [],
         oldAge: 0,
+        oldAgeRange: 0,
         oldDifficulty: '',
         oldGoal: '',
         active: 'first',
@@ -68,7 +69,7 @@
       },
       categoriesChanged: function () {
         if (!this.isEmptyObject(this.data)) {
-          return !(this.data.subjects.length === this.oldSubjects.length && this.data.subjects.every((value, index) => value === this.oldSubjects[index])) || (this.data.topics != this.oldTopics) || (this.data.age != this.oldAge) || (this.data.difficulty != this.oldDifficulty) || (this.data.goal != this.oldGoal);
+          return !(this.data.subjects.length === this.oldSubjects.length && this.data.subjects.every((value, index) => value === this.oldSubjects[index])) || (this.data.topics != this.oldTopics) || (this.data.age != this.oldAge) || (this.data.ageRange != this.oldAgeRange) || (this.data.difficulty != this.oldDifficulty) || (this.data.goal != this.oldGoal);
         }
         else {
           return false;
@@ -93,6 +94,7 @@
             this.oldSubjects = this.data.subjects.slice();
             this.oldTopics = this.data.topics;
             this.oldAge = this.data.age;
+            this.oldAgeRange = this.data.ageRange;
             this.oldDifficulty = this.data.difficulty;
             this.oldGoal = this.data.goal;
           })
@@ -120,14 +122,24 @@
       onAccepted: function(rating) {
         console.log("In parant component; accepted: ", rating);
         this.rating = rating;
-        this.saveReview(true);
       },
       saveReview: function(accepted) {
-        // TODO: Send request to /resources/id
         const dataToSend = {
           id: this.contentId,
           rating: this.rating,
           approved: accepted
+        }
+        if (this.categoriesChanged) {
+          dataToSend.categories = {
+            subjects: this.data.subjects,
+            topics: this.data.topics,
+            age: this.data.age,
+            difficulty: this.data.difficulty,
+            goal: this.data.goal
+          };
+        }
+        if (this.contentChanged) {
+          dataToSend.content = this.data.content;
         }
         console.log(dataToSend);
         this.$http
@@ -137,7 +149,8 @@
             }
           })
           .then((response) => {
-            console.log("Inside Review Component after rate call.");
+            console.log("Inside Review Component after rate call. TODO: Notify user");
+            location.href = '/content/review';
             console.log(response);
           })
           .catch((e) => {

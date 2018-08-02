@@ -1,6 +1,10 @@
 <template>
   <div>
-    <h2 class="md-title">Kategorien</h2>
+    <section class="section-title">
+      <div class="row" id="titlebar">
+        <h1>Kategorien</h1>
+      </div>
+    </section>
     <div class="md-layout md-alignment-top-center line">
         <div class="md-layout-item md-size-15">
             Fach:
@@ -64,7 +68,7 @@
         </div>
         <div class="md-layout-item">
             <md-chip v-if="teacherContent.age" v-model="teacherContent.age" :key="teacherContent.age" v-on:click="visibleDialog = 'age'"
-                @md-delete.stop="removeFilter('age')" md-clickable md-deletable>{{ teacherContent.age }}
+                @md-delete.stop="removeAge()" md-clickable md-deletable>{{ teacherContent.ageDisplayString }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'age'" class="addButton">
                 <span v-if="teacherContent.age">
@@ -84,7 +88,7 @@
                           v-bind:active="visibleDialog == 'goal'"/>
   <difficulty-filter-dialog @set="setFilter" @cancle="cancle" identifier="difficulty"
                           v-bind:active="visibleDialog == 'difficulty'"/>
-  <age-filter-dialog @set="setFilter" @cancle="cancle" identifier="age"
+  <age-filter-dialog @set="setAge" @cancle="cancle" identifier="age"
                           v-bind:active="visibleDialog == 'age'"/>
 
   </div>
@@ -117,7 +121,14 @@
         },
         setFilter(identifier, filterData) {
           this.visibleDialog = '';
-          this.teacherContent[identifier] = filterData.displayString;
+          console.log(filterData);
+          this.teacherContent[identifier] = filterData.shortDisplayString;
+        },
+        setAge(identifier, data) {
+          this.visibleDialog = '';
+          this.teacherContent.age = data.urlQuery.age;
+          this.teacherContent.ageRange = data.urlQuery.ageRange;
+          this.teacherContent.ageDisplayString = data.shortDisplayString;
         },
         removeFilter(type, index) {
             if (index !== undefined) {
@@ -125,6 +136,10 @@
             } else {
                 this.teacherContent[type] = undefined;
             }
+        },
+        removeAge() {
+            teacherContent.age = undefined;
+            teacherContent.ageRange = undefined;
         },
       cancle() {
         this.visibleDialog = '';

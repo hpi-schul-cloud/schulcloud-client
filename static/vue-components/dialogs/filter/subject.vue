@@ -55,22 +55,25 @@
     },
     methods: {
       onConfirm() {
-        let displayString;
+        let displayString, shortDisplayString;
 
         if (this.selectedSubjects.length != 0) {
           // this.apiQuery["subjectName[$in]"] = this.selectedSubjects; // corret but api seems broken
           this.apiQuery['subjectName[$match]'] = this.selectedSubjects;
           this.urlQuery = {subjects: this.selectedSubjects}; // .reduce((prev, curr) => prev +','+ curr )}
           displayString = `Fach: ${this.selectedSubjects}`; // .reduce((prev, curr) => prev +', '+ curr );
+          shortDisplayString = this.selectedSubjects;
         } else {
           this.apiQuery = {};
           this.urlQuery = {};
           displayString = null;
+          shortDisplayString = null;
         }
         this.$emit('set', this.identifier, {
           apiQuery: this.apiQuery,
           urlQuery: this.urlQuery,
           displayString,
+          shortDisplayString,
           selection: this.selectedSubjects,
         });
       },
@@ -96,7 +99,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #subject-picker {
     padding: 16px;
   }

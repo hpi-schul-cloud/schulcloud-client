@@ -53,21 +53,24 @@
     },
     methods: {
       onConfirm() {
-        let displayString;
+        let displayString, shortDisplayString;
 
         if (this.selectedDifficulty.length != 0) {
           // this.apiQuery["GoalName[$in]"] = this.selectedDifficulty; // corret but api seems broken
           this.apiQuery['difficultyName[$match]'] = this.selectedDifficulty; //TODO: multiple?
           this.urlQuery = {difficulty: this.selectedDifficulty}; // .reduce((prev, curr) => prev +','+ curr )} //TODO: multiple?
           displayString = `Niveaustufe: ${this.selectedDifficulty}`; // .reduce((prev, curr) => prev +', '+ curr );
+          shortDisplayString = this.selectedDifficulty;
         } else {
           this.apiQuery = {};
           this.urlQuery = {};
           displayString = null;
+          shortDisplayString = null;
         }
         this.$emit('set', this.identifier, {
           apiQuery: this.apiQuery,
           urlQuery: this.urlQuery,
+          shortDisplayString,
           displayString,
         });
       },
@@ -96,7 +99,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #difficulty-picker {
     padding: 16px;
   }

@@ -38,22 +38,25 @@
     },
     methods: {
       onConfirm() {
-        let displayString;
+        let displayString, shortDisplayString;
 
         if (this.selectedAge) {
           // this.apiQuery["GoalName[$in]"] = this.selectedDifficulty; // corret but api seems broken
           this.apiQuery['ageName[$match]'] = this.selectedAge; //TODO: Range
-          this.urlQuery = {age: this.selectedAge, range: this.range}; // .reduce((prev, curr) => prev +','+ curr )} // TODO: Range
+          this.urlQuery = {age: this.selectedAge, ageRange: this.range}; // .reduce((prev, curr) => prev +','+ curr )} // TODO: Range
           displayString = "Alter: " + this.selectedAge + " +- " + this.range + " Jahre"; // .reduce((prev, curr) => prev +', '+ curr );
+          shortDisplayString = this.selectedAge + " +- " + this.range + " Jahre";
         } else {
           this.apiQuery = {};
           this.urlQuery = {};
           displayString = null;
+          shortDisplayString = null;
         }
         this.$emit('set', this.identifier, {
           apiQuery: this.apiQuery,
           urlQuery: this.urlQuery,
           displayString,
+          shortDisplayString
         });
       },
       onCancle() {
@@ -78,7 +81,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #age-picker {
     padding: 16px;
   }

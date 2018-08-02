@@ -20,6 +20,10 @@ router.get('/create', function (req, res, next) {
     return res.render('content/create');
 });
 
+router.get('/edit/:id', function (req, res, next) {
+    return res.render('content/create');
+});
+
 router.get('/review/:id', function (req, res, next) {
     return res.render('content/review-content');
 });

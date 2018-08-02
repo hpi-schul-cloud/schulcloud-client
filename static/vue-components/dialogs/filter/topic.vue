@@ -97,7 +97,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #topic-picker {
     padding: 16px;
   }

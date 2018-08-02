@@ -1,6 +1,16 @@
 <template>
   <div>
-    <h1>{{heading}}</h1>
+    <section class="section-title">
+      <div class="container-fluid">
+        <div class="row" id="titlebar">
+          <div class="col-sm-9">
+            <div>
+                <h4>{{heading}}</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <div class="search-bar">
       <div id="search-input">
         <input id="search-query-input" v-model.lazy="searchQuery"
@@ -96,7 +106,7 @@
       constructPathFromURL(urlQuery) {
         let queryString = '?limit=' + this.pagination.itemsPerPage + '&';
         if (this.inReview) {
-          queryString += 'only-non-approved=true&provider=Schul-Cloud';
+          queryString += 'only-non-approved=true&provider=Schul-Cloud&';
         }
         Object.keys(urlQuery).forEach(function(key) {
           queryString += key + '=' + urlQuery[key] + '&';
@@ -162,9 +172,8 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style lang="scss" scoped>
   @import "./default";
-
   .search-bar {
     display: flex;
   }
@@ -210,4 +219,5 @@
       display: block;
     }
   }
+
 </style>

@@ -40,22 +40,25 @@
     },
     methods: {
       onConfirm() {
-        let displayString;
+        let displayString, shortDisplayString;
 
         if (this.selectedProviders.length != 0) {
           // this.apiQuery["providerName[$in]"] = this.selectedProviders; // corret but api seems broken
           this.apiQuery['providerName[$match]'] = this.selectedProviders;
           this.urlQuery = {provider: this.selectedProviders}; // .reduce((prev, curr) => prev +','+ curr )}
-          displayString = `Provider: ${this.selectedProviders}`; // .reduce((prev, curr) => prev +', '+ curr );
+          displayString = `Anbieter: ${this.selectedProviders}`; // .reduce((prev, curr) => prev +', '+ curr );
+          shortDisplayString = this.selectedProviders;
         } else {
           this.apiQuery = {};
           this.urlQuery = {};
           displayString = null;
+          shortDisplayString = null;
         }
         this.$emit('set', this.identifier, {
           apiQuery: this.apiQuery,
           urlQuery: this.urlQuery,
           displayString,
+          shortDisplayString
         });
       },
       onCancle() {
@@ -80,7 +83,7 @@
   };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   #provider-picker {
     padding: 16px;
   }
