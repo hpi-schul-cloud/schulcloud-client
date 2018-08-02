@@ -1,4 +1,4 @@
-import moment from 'moment';
+vimport moment from 'moment';
 import 'jquery-datetimepicker';
 import 'script-loader!fullcalendar/dist/fullcalendar.min.js';
 import 'script-loader!fullcalendar/dist/locale/de.js';
