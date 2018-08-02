@@ -2,7 +2,6 @@ import '../jquery/datetimepicker-easy';
 
 function toggleConsentEditing(){
     document.getElementById('consents-overview').querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(input => {
-        console.log(input, input.getAttribute('disabled'));
         if(input.getAttribute('disabled') !== undefined){
             input.removeAttribute('disabled');
         } else {
