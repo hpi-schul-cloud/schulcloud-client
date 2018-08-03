@@ -203,21 +203,6 @@ router.get('/register/confirm/:accountId', function (req, res, next) {
 /**
  * New Dataprivacy Routes
  */
-router.get('/registration/byparent', function (req, res, next) {
-    res.render('registration/registration-parent', {
-        title: 'Registrierung - Eltern'
-    });
-});
-router.get('/registration/bystudent', function (req, res, next) {
-    res.render('registration/registration-student', {
-        title: 'Registrierung - Schüler*'
-    });
-});
-router.get('/registration/', function (req, res, next) {
-    res.render('registration/registration', {
-        title: 'Herzlich Willkommen bei der Registrierung'
-    });
-});
 router.get('/registration/pinvalidation', function (req, res, next) {
     if (req.query && req.query.email && req.query.pin) {
         return api(req).get('/registrationPins/', {
