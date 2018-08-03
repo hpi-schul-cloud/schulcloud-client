@@ -4,7 +4,6 @@
     "style": "standard",
     "team": [
       {
-        "id": 0,
         "title": "Prof. Dr.",
         "firstName": "Christoph",
         "lastName": "Meinel",
@@ -20,7 +19,6 @@
         "longDesc": "25vh"
       },
       {
-        "id": 1,
         "title": "Dr.",
         "firstName": "Niki",
         "lastName": "Sarantidou",
@@ -36,7 +34,6 @@
         "longDesc": false
       },
       {
-        "id": 2,
         "title": "",
         "firstName": "Wolfgang",
         "lastName": "Gollub",
@@ -59,7 +56,6 @@
     "team": [
       {
         "subheader_before": "Hasso-Plattner-Institut",
-        "id": 3,
         "title": "",
         "firstName": "Jan",
         "lastName": "Renz",
@@ -75,7 +71,6 @@
         "longDesc": false
       },
       {
-        "id": 4,
         "title": "",
         "firstName": "Catrina",
         "lastName": "John",
@@ -91,7 +86,6 @@
         "longDesc": false
       },
       {
-        "id": 5,
         "title": "",
         "firstName": "Vivien",
         "lastName": "Malyska",
@@ -107,7 +101,6 @@
         "longDesc": false
       },
       {
-        "id": 6,
         "title": "",
         "firstName": "Max",
         "lastName": "Bothe",
@@ -123,7 +116,6 @@
         "longDesc": false
       },
       {
-        "id": 7,
         "title": "",
         "firstName": "Cedric",
         "lastName": "Evers",
@@ -139,7 +131,6 @@
         "longDesc": false
       },
       {
-        "id": 8,
         "title": "",
         "firstName": "Christiane",
         "lastName": "Hagedorn",
@@ -155,7 +146,6 @@
         "longDesc": false
       },
       {
-        "id": 9,
         "title": "",
         "firstName": "Konstantin",
         "lastName": "Kaiser",
@@ -171,7 +161,6 @@
         "longDesc": false
       },
       {
-        "id": 10,
         "title": "",
         "firstName": "Alexander",
         "lastName": "Kremer",
@@ -187,7 +176,6 @@
         "longDesc": false
       },
       {
-        "id": 11,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Luderich",
@@ -203,7 +191,6 @@
         "longDesc": false
       },
       {
-        "id": 12,
         "title": "",
         "firstName": "Martin",
         "lastName": "Malchow",
@@ -219,7 +206,6 @@
         "longDesc": false
       },
       {
-        "id": 13,
         "title": "",
         "firstName": "Florian",
         "lastName": "Morel",
@@ -235,7 +221,6 @@
         "longDesc": false
       },
       {
-        "id": 14,
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
@@ -251,7 +236,6 @@
         "longDesc": false
       },
       {
-        "id": 15,
         "title": "",
         "firstName": "Hannes",
         "lastName": "Schurig",
@@ -267,7 +251,6 @@
         "longDesc": false
       },
       {
-        "id": 16,
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
@@ -283,7 +266,6 @@
         "longDesc": false
       },
       {
-        "id": 17,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
@@ -300,7 +282,6 @@
       },
       {
         "subheader_before": "Das nationale Excellence-Schulnetzwerk MINT-EC",
-        "id": 18,
         "title": "",
         "firstName": "Nils",
         "lastName": "Karn",
@@ -316,7 +297,6 @@
         "longDesc": false
       },
       {
-        "id": 19,
         "title": "",
         "firstName": "Christina",
         "lastName": "Anders",
@@ -332,7 +312,6 @@
         "longDesc": false
       },
       {
-        "id": 20,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Plötz",
@@ -348,7 +327,6 @@
         "longDesc": false
       },
       {
-        "id": 21,
         "title": "",
         "firstName": "Sigrid",
         "lastName": "Stobbe",
@@ -370,7 +348,6 @@
     "style": "small",
     "team": [
       {
-        "id": 22,
         "title": "",
         "firstName": "Georg",
         "lastName": "Berecz",
@@ -386,7 +363,6 @@
         "longDesc": false
       },
       {
-        "id": 23,
         "title": "",
         "firstName": "Katharina",
         "lastName": "Blass",
@@ -401,7 +377,6 @@
         "longDesc": false
       },
       {
-        "id": 24,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -417,7 +392,6 @@
         "longDesc": false
       },
       {
-        "id": 25,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
@@ -433,7 +407,6 @@
         "longDesc": false
       },
       {
-        "id": 26,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -449,7 +422,6 @@
         "longDesc": false
       },
       {
-        "id": 27,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -465,7 +437,6 @@
         "longDesc": false
       },
       {
-        "id": 28,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -481,7 +452,6 @@
         "longDesc": false
       },
       {
-        "id": 29,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
@@ -497,7 +467,6 @@
         "longDesc": false
       },
       {
-        "id": 30,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -513,7 +482,6 @@
         "longDesc": false
       },
       {
-        "id": 31,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -529,7 +497,6 @@
         "longDesc": false
       },
       {
-        "id": 32,
         "title": "",
         "firstName": "Florian Michael",
         "lastName": "Kunz",
@@ -545,7 +512,6 @@
         "longDesc": false
       },
       {
-        "id": 33,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -561,7 +527,6 @@
         "longDesc": false
       },
       {
-        "id": 34,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -577,7 +542,6 @@
         "longDesc": false
       },
       {
-        "id": 35,
         "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
@@ -593,7 +557,6 @@
         "longDesc": false
       },
       {
-        "id": 36,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -609,7 +572,6 @@
         "longDesc": false
       },
       {
-        "id": 37,
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -631,7 +593,6 @@
     "style": "small",
     "team": [
       {
-        "id": 38,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -647,7 +608,6 @@
         "longDesc": false
       },
       {
-        "id": 39,
         "title": "",
         "firstName": "Marvin",
         "lastName": "Fischer",
@@ -663,7 +623,6 @@
         "longDesc": false
       },
       {
-        "id": 40,
         "title": "",
         "firstName": "Florian",
         "lastName": "Sittig",
@@ -685,7 +644,6 @@
     "style": "small",
     "team": [
       {
-        "id": 41,
         "title": "",
         "firstName": "Raoul",
         "lastName": "Baron",
@@ -701,7 +659,6 @@
         "longDesc": false
       },
       {
-        "id": 42,
         "title": "",
         "firstName": "Carl",
         "lastName": "Gödecken",
@@ -717,7 +674,6 @@
         "longDesc": false
       },
       {
-        "id": 43,
         "title": "",
         "firstName": "Max",
         "lastName": "Haubold",
@@ -733,7 +689,6 @@
         "longDesc": false
       },
       {
-        "id": 44,
         "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
@@ -749,7 +704,6 @@
         "longDesc": false
       },
       {
-        "id": 45,
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -765,7 +719,6 @@
         "longDesc": false
       },
       {
-        "id": 46,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -781,7 +734,6 @@
         "longDesc": false
       },
       {
-        "id": 47,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
@@ -797,7 +749,6 @@
         "longDesc": false
       },
       {
-        "id": 48,
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
