@@ -274,12 +274,13 @@ router.post('/registration/submit', function (req, res, next) {
         }
     }).then(check => {
         //check pin
-        if (check.data && check.data.length>0) {
-            pincorrect = true;
-            return Promise.resolve
-        } else {
+        if (!(check.data && check.data.length>0)) {
             return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
         }
+        if (req.body["parent-email"] && req.body["parent-email"] == req.body["student-email"]) {
+            return Promise.reject("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
+        }
+        return Promise.resolve;
     }).then(function() {
         //create user
         user = {
@@ -290,7 +291,6 @@ router.post('/registration/submit', function (req, res, next) {
             roles: ["0000d186816abba584714c99"], // mock role=student
             classId: req.body.classId,
             birthday: new Date(req.body["student-birthdate"])
-            // birthday!
         };
         return api(req).post('/users/', {
             json: user
