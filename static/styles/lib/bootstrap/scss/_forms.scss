@@ -171,6 +171,10 @@ select.form-control-sm {
   padding: $input-padding-y-lg $input-padding-x-lg;
   font-size: $font-size-lg;
   @include border-radius($input-border-radius-lg);
+  -moz-hyphens: none; 
+  -ms-hyphens: none; 
+  -webkit-hyphens: none;
+  hyphens: none;
 }
 
 select.form-control-lg {
