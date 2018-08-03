@@ -387,7 +387,8 @@ router.post('/registration/submit', function (req, res, next) {
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
-        res.status(500).send(err)
+        err.text = err.error.message;
+        res.status(500).send(err.text);
     });
 });
 

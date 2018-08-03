@@ -34,6 +34,14 @@ router.get('/existing', function (req, res, next) {
     });
 });
 router.post('/submit', function (req, res, next) {
+
+    if(req.body["password-1"] != req.body["password-2"]){
+        return Promise.reject("Die neuen Passwörter stimmen nicht überein.")
+        .catch(err => {
+            res.status(500).send(err);
+        });
+    }
+
     let accountId = res.locals.currentPayload.accountId
     let accountUpdate = {};
     let accountPromise = Promise.resolve();
@@ -97,8 +105,10 @@ router.post('/submit', function (req, res, next) {
         } 
 
         res.sendStatus(200);
+
     }).catch(err => {
-        res.status(500).send(err)
+        err.text = err.error.message? err.error.message: err;
+        res.status(500).send(err.text);
     });
 });
 /*
