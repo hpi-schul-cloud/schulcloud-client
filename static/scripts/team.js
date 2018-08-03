@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $("div#openCard").on("click", e => {
         let container = $(e.currentTarget).parents("div.content").prev("#modal-container-personcard");
-        container.removeAttr('class').addClass("two");
+        container.removeAttr('class').addClass("show");
     
         container.one("click", () => {
             container.addClass("out");
