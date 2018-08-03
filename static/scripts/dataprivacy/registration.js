@@ -11,9 +11,9 @@ window.addEventListener('DOMContentLoaded', ()=>{
             let classId = $("input[name=classId]").val();
             
             if(radiou18.checked){
-                window.location.href = `${baseUrl}/byparent/${classId}`;
+                window.location.href = `${baseUrl}/${classId}/byparent`;
             }else{
-                window.location.href = `${baseUrl}/bystudent/${classId}`;
+                window.location.href = `${baseUrl}/${classId}/bystudent`;
             }
         });
         $("input[type='radio']").on("change", () => {

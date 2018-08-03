@@ -376,13 +376,13 @@ router.post('/registration/submit', function (req, res, next) {
     });
 });
 
-router.get('/registration/byparent/:classId', function (req, res, next) {
+router.get('/registration/:classId/byparent', function (req, res, next) {
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
         classId: req.params.classId
     });
 });
-router.get('/registration/bystudent/:classId', function (req, res, next) {
+router.get('/registration/:classId/bystudent', function (req, res, next) {
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
         classId: req.params.classId
