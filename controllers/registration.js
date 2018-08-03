@@ -203,21 +203,6 @@ router.get('/register/confirm/:accountId', function (req, res, next) {
 /**
  * New Dataprivacy Routes
  */
-router.get('/registration/byparent', function (req, res, next) {
-    res.render('registration/registration-parent', {
-        title: 'Registrierung - Eltern'
-    });
-});
-router.get('/registration/bystudent', function (req, res, next) {
-    res.render('registration/registration-student', {
-        title: 'Registrierung - Schüler*'
-    });
-});
-router.get('/registration/', function (req, res, next) {
-    res.render('registration/registration', {
-        title: 'Herzlich Willkommen bei der Registrierung'
-    });
-});
 router.get('/registration/pinvalidation', function (req, res, next) {
     if (req.query && req.query.email && req.query.pin) {
         return api(req).get('/registrationPins/', {
@@ -289,12 +274,13 @@ router.post('/registration/submit', function (req, res, next) {
         }
     }).then(check => {
         //check pin
-        if (check.data && check.data.length>0) {
-            pincorrect = true;
-            return Promise.resolve
-        } else {
+        if (!(check.data && check.data.length>0)) {
             return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
         }
+        if (req.body["parent-email"] && req.body["parent-email"] == req.body["student-email"]) {
+            return Promise.reject("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
+        }
+        return Promise.resolve;
     }).then(function() {
         //create user
         user = {
@@ -305,7 +291,6 @@ router.post('/registration/submit', function (req, res, next) {
             roles: ["0000d186816abba584714c99"], // mock role=student
             classId: req.body.classId,
             birthday: new Date(req.body["student-birthdate"])
-            // birthday!
         };
         return api(req).post('/users/', {
             json: user
@@ -392,13 +377,13 @@ router.post('/registration/submit', function (req, res, next) {
     });
 });
 
-router.get('/registration/byparent/:classId', function (req, res, next) {
+router.get('/registration/:classId/byparent', function (req, res, next) {
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
         classId: req.params.classId
     });
 });
-router.get('/registration/bystudent/:classId', function (req, res, next) {
+router.get('/registration/:classId/bystudent', function (req, res, next) {
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
         classId: req.params.classId
