@@ -117,7 +117,7 @@ gulp.task('fonts', () => {
 
 //compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => {
-  beginPipe(nonBaseScripts)
+  beginPipeAll(nonBaseScripts)
     .pipe(named(
       file => {
         // As a preparation for webpack stream: Transform nonBaseScripts paths
@@ -131,7 +131,7 @@ gulp.task('scripts', () => {
       }
     ))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(`./build/${themeName()}/scripts`));
+    .pipe(gulp.dest(`./build/${themeName()}/scripts`))
 });
 
 
@@ -198,7 +198,7 @@ gulp.task('vendor-assets', () => {
 
 //clear build folder + smart cache
 gulp.task('clear', () => {
-  gulp.src(['./build/*', './.gulp-changed-smart.json'], {
+  gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], { 
       read: false
     })
     .pipe(rimraf());
