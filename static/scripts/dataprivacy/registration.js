@@ -84,9 +84,26 @@ window.addEventListener('DOMContentLoaded', ()=>{
                 $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
             });
         }else{
-            $(pinInput).parents("section").addClass("show-invalid");
+            $(pinInput).closest("section").addClass("show-invalid");
         }
         // ajax check code
+    }
+
+    let parentMailInput = document.querySelector('input[name="parent-email"]');
+    let studentMailInput = document.querySelector('input[name="student-email"]');
+    if(parentMailInput && studentMailInput){
+        function validateDifferent(event){
+            if(parentMailInput.value && studentMailInput.value && parentMailInput.value == studentMailInput.value){
+                parentMailInput.setCustomValidity("Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.");
+                $(parentMailInput).closest("section").addClass("show-invalid");
+            }else{
+                parentMailInput.setCustomValidity('');
+            }
+        }
+        "change input keyup paste".split(" ").forEach(function(event){
+            parentMailInput.addEventListener(event, validateDifferent, false);
+            studentMailInput.addEventListener(event, validateDifferent, false);
+          });
     }
 });
 window.addEventListener('load', ()=>{
