@@ -1,4 +1,4 @@
-﻿import { softNavigate } from './loggedin';
+﻿import { softNavigate } from './helpers/navigation';
 
 function getCurrentDir() {
     return $('.section-upload').data('path');
