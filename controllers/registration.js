@@ -222,7 +222,7 @@ router.get('/registration/pinvalidation', function (req, res, next) {
 router.post('/registration/pinvalidation', function (req, res, next) {
     if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
-            json: {email:req.body.email}
+            json: { email: req.body.email, byParent: req.body.byParent }
         }).then(pin => {
             res.send((pin||{}).pin);
         }).catch(err => res.status(500).send(err));
@@ -372,7 +372,6 @@ router.post('/registration/submit', function (req, res, next) {
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
-        err.text = err.error.message;
         res.status(500).send(err.text);
     });
 });

@@ -30,7 +30,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
     
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
-        sendPin();
+        if($("input[name='pin-sent']").val() !== "no") {
+            // send pin of value is something else than no
+        } else {
+            sendPin(true);
+        }
     });
     
     $('#resend-pin').on("click", e => {
@@ -40,16 +44,18 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
     
     function sendPin(sendConfirm) {
-        // TODO - usermail is undefined on /registration/byStudent
         let usermail = $("input[name='parent-email']").length ? $("input[name='parent-email']").val() : $("input[name='student-email']").val();
-        console.log("sendPin", usermail, $("input[name='parent-email']"), $("input[name='student-email']").val())
+        let byParent = window.location.href.indexOf("parent") > 0 ? true : false;
+        
         $.ajax({
             url: "/registration/pinvalidation",
             method: "POST",
-            data: {"email": usermail}
+            data: {"email": usermail, "byParent": byParent}
         }).done(success => {
-            if (sendConfirm)
+            if(sendConfirm) {
                 $.showNotification(`PIN erfolgreich an ${usermail} verschickt.`, "success", 3000);
+            }
+            $("input[name='pin-sent']").val("yes");
         }).fail(function(err){
             $.showNotification("Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' oder prüfe deine E-Mail-Adresse.", "danger", 7000);
         });
@@ -66,7 +72,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
         let pinInput = document.querySelector('input[name="email-pin"]');
         let usermail = $("input[name='parent-email']") ? $("input[name='parent-email']").val() : $("input[name='student-email']").val;
         if(pinInput.checkValidity()){
-            console.log("submitting pin:"+pinInput.value+" with mail: "+usermail );
             $.ajax({
                 url: `/registration/pinvalidation?email=${usermail}&pin=${pinInput.value}`,
                 method: "GET"

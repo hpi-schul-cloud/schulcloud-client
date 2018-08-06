@@ -28,7 +28,7 @@
 
         <div class="form-group">
           <label>Geburtsdatum: *</label>
-          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" />
+          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="false" />
         </div>
 
         <div class="form-group">
@@ -96,6 +96,7 @@
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
           </div>
           <input type="hidden" name="initial-password" class="student-password-input" />
+          <input type="hidden" name="pin-sent" value="no" />
       </section>
 
 
