@@ -936,8 +936,8 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 });
 
 
-router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
-router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteHandler('classes'));
+router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
+router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 
 const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
@@ -993,14 +993,14 @@ const renderClassEdit = (req, res, next, edit) => {
         });
     });
 };
-router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,false);
 });
-router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,true);
 });
 
-router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
         const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without class)
@@ -1068,7 +1068,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
     });
 });
 
-router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     let changedClass = {
         teacherIds: req.body.teacherIds || [],
         userIds: req.body.userIds || []
@@ -1083,7 +1083,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
     });
 })
 
-router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     const classIds = JSON.parse(req.query.classes);
     api(req).get('/classes/', { qs: { 
         $populate: ['userIds'],
@@ -1099,7 +1099,7 @@ router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIE
     });
 });
 
-router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     let newClass = {
         schoolId: req.body.schoolId
     }
@@ -1134,7 +1134,7 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
     });
 });
 
-router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     let changedClass = {
         schoolId: req.body.schoolId
     }
@@ -1168,7 +1168,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
     });
 });
 
-router.patch('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), mapEmptyClassProps, function (req, res, next) {
+router.patch('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, function (req, res, next) {
     api(req).patch('/classes/' + req.params.classId, {
         // TODO: sanitize
         json: req.body
@@ -1179,7 +1179,7 @@ router.patch('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', '
     });
 });
 
-router.delete('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.delete('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).delete('/classes/' + req.params.classId).then(_ => {
         res.sendStatus(200);
     }).catch(_ => {
@@ -1187,46 +1187,7 @@ router.delete('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
     });
 });
 
-// TODO - deprecated?
-router.get('/administration/currentTeacher/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next){
-    res.json(res.locals.currentUser._id);
-});
-
-/* // old version for teacher
-router.get('/', function (req, res, next) {
-    api(req).get('/classes/', {
-        qs: {
-            $or: [
-                {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
-            ]
-        }
-    }).then(classes => {
-
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 1000});
-
-        Promise.all([
-            teachersPromise,
-            studentsPromise
-        ]).then(([teachers, students]) => {
-
-            // preselect current teacher when creating new class
-            teachers.forEach(t => {
-                if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) t.selected = true;
-            });
-
-            res.render('classes/overview', {
-                title: 'Meine Klassen',
-                classes,
-                teachers,
-                students
-            });
-        });
-    });
-});
-*/
-router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
 
     const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
