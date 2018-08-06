@@ -18,8 +18,18 @@ function printInvitation(event){
     // create qr code for current page
     let w = window.open();
     const image = kjua({text: invitationLink, render: 'image'});
-    w.document.write(`<div><div id="image-wrapper"></div><p>${invitationLink}</p></div>`);
-    w.document.getElementById('image-wrapper').appendChild(image);
+    w.document.write(`<style>
+        @page {size: A4; margin: 16px;}
+        .part{ border: 1px solid #999; width: 110px; float: left; padding: 8px; margin: 4px;}
+        img{width: 100% !important; height: auto !important;}
+        p{font-size: 10px; color: #555; margin: 8px 0 0; text-align: center; word-break: break-all;}
+    </style>`);
+    for(let i = 0; i < 30; i++) {
+        w.document.write(`<div class="part"><div class="image-wrapper"></div><p>${invitationLink}</p></div>`);
+    }
+    w.document.querySelectorAll('.image-wrapper').forEach((imageWrapper) => {
+        imageWrapper.appendChild(image.cloneNode(true));
+    });
     w.document.close();
     /* eventListener is needed to give the browser some rendering time for the image */
     w.addEventListener('load', () => {
