@@ -174,7 +174,16 @@ gulp.task('generate-service-worker', () => {
     return workbox.injectManifest({
       globDirectory: `./build/${themeName()}`,
       globPatterns: [
-        '**/*.{html,js,css,png,woff}'
+        //'**/*.{html,js,css,png,woff}',
+        'scripts/**/*.js',
+        'fonts/**/*.woff',
+        'fonts/**/*.css',
+        'styles/**/*.css',
+        'images/*.{svg,png,jpg,gif}',
+        'images/**/*.{svg,png,jpg,gif}',
+        'vendor/introjs/intro*.{js,css}',
+        'images/manifest.json',
+        
       ],
       "globIgnores": [
         "**/node_modules/**/*",

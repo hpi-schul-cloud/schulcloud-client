@@ -173,3 +173,12 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', function() {
     moment().format();
 });
+
+const updatesChannel = new BroadcastChannel('event-updates');
+updatesChannel.addEventListener('message', async (event) => {
+  const {cacheName, updatedUrl} = event.data.payload;
+    alert('cache updated', cacheName, updatedUrl); 
+//   const cache = await caches.open(cacheName);
+//   const updatedResponse = await cache.match(updatedUrl);
+//   const updatedText = await updatedResponse.text();
+});
