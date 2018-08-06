@@ -41,10 +41,11 @@ module.exports = {
     'Delete Homework': function (browser) {
         browser.useXpath().click("//*[contains(text(), 'Test Aufgabe')]");
         browser.useCss()
-          .click('.btn-delete')
-          .waitForElementVisible('.delete-modal')
-          .waitForElementVisible('.btn-submit', 1000)
-          .click('.btn-submit')
+          .click('#extended > div.homework > a.btn.btn-secondary.btn-delete')
+          .waitForElementVisible('.delete-modal');
+        browser.useXpath()
+          .waitForElementVisible('/html/body/div[7]/div/div/div[2]/button[2]', 1000)
+          .click('/html/body/div[7]/div/div/div[2]/button[2]')
           .pause(1000);
     },
     'Schul-Cloud End': function (browser) {

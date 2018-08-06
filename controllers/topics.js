@@ -88,7 +88,7 @@ router.post('/', async function(req, res, next) {
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
-    req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+    req.query.courseGroup ? '' : delete data.courseGroupId;
 
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
@@ -193,12 +193,14 @@ router.patch('/:topicId', async function(req, res, next) {
         data.contents = [];
     }
 
-    req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+    req.query.courseGroup ? '' : delete data.courseGroupId;
 
     // create new Nexboard when necessary, if not simple hidden or position patch
     data.contents ? data.contents = await createNewNexBoards(req, res, data.contents) : '';
 
-    data.contents = data.contents.filter(c => { return c !== undefined; });
+
+    if (data.contents)
+        data.contents = data.contents.filter(c => { return c !== undefined; });
 
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
@@ -229,6 +231,7 @@ router.delete('/:topicId', function(req, res, next) {
 router.delete('/:topicId/materials/:materialId', function(req, res, next) {
     api(req).patch('/lessons/' + req.params.topicId, {
         json: {
+            courseId: req.params.courseId,
             $pull: {
                 materialIds: req.params.materialId
             }
