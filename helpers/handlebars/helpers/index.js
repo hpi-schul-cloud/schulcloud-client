@@ -135,12 +135,10 @@ module.exports = {
         return moment(date).fromNow();
     },
     dateToPicker: (date, opts) => {
-        let now = moment();
         let d = moment(date);
         return moment(date).format('DD.MM.YYYY');
     },
     dateTimeToPicker: (date, opts) => {
-        let now = moment();
         let d = moment(date);
         return moment(date).format('DD.MM.YYYY HH:mm');
     },
