@@ -39,9 +39,6 @@ module.exports = {
         return subString + "...";
     },
     truncateHTML: (text = '', {length = 140} = {}) => {
-        if (text.length <= length) {
-            return text;
-        }
         return truncatehtml(text, length, {
           stripTags: true,
           decodeEntities: true,
