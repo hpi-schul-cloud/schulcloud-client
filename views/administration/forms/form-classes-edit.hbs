@@ -3,6 +3,12 @@
     <p>Erstelle eine neue Klasse:</p>
 {{else}}
     <input type="hidden" name="_id" value="{{class._id}}" />
+
+    <a class="d-block text-muted mb-1"
+        href="/administration/classes/{{@root.class/_id}}/manage"
+        title="Klasse '{{@root.class.name}}' verwalten.">
+        <i class="fa fa-users"></i> Klasse verwalten
+    </a>
 {{/unless}}
 
 <div class="form-group">

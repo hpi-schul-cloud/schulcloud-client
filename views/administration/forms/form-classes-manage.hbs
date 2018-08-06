@@ -1,16 +1,10 @@
-{{#if class}}
-    <input class="form-control" name="classid" type="hidden" value="{{class._id}}"/>
+<input name="classid" type="hidden" value="{{class._id}}"/>
 
-    {{#userHasPermission "STUDENT_CREATE"}} 
-        <a class="btn-edit text-muted mb-1"
-            href="/administration/classes/{{@root.class/_id}}/edit"
-            title="Klasse bearbeiten '{{@root.class.name}}'.">
-            Klasse bearbeiten <i class="fa fa-pencil"></i>
-        </a>
-    {{/userHasPermission}}
-{{/if}}
-
-
+<a class="d-block text-muted mb-1"
+    href="/administration/classes/{{@root.class/_id}}/edit"
+    title="Klasse '{{@root.class.name}}' bearbeiten.">
+    <i class="fa fa-pencil"></i> Klasse bearbeiten
+</a>
 
 <div class="form-group">
     <label>Lehrer {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
