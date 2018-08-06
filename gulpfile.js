@@ -171,22 +171,21 @@ gulp.task('vendor-assets', () => {
 })
 
 gulp.task('generate-service-worker', () => {
-    return workbox.generateSW({
+    return workbox.injectManifest({
       globDirectory: `./build/${themeName()}`,
       globPatterns: [
-        '**/*.{html,js}'
+        '**/*.{html,js,css,png,woff}'
       ],
+      swSrc: './static/sw.js',
       swDest: `./build/${themeName()}/sw.js`,
-      clientsClaim: true,
-      skipWaiting: true
-    }).then(({warnings}) => {
-      // In case there are any warnings from workbox-build, log them.
-      for (const warning of warnings) {
-        console.warn(warning);
-      }
-      console.info('Service worker generation completed.');
-    }).catch((error) => {
-      console.warn('Service worker generation failed:', error);
+    })
+    .then(({count, size, warnings}) => {
+        // Optionally, log any warnings and details.
+        warnings.forEach(console.warn);
+        console.log(`${count} files will be precached, totaling ${size} bytes.`);
+        })
+    .catch((error) => {
+        console.warn('Service worker generation failed:', error);
     });
   });  
 
