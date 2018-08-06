@@ -231,6 +231,7 @@ router.delete('/:topicId', function(req, res, next) {
 router.delete('/:topicId/materials/:materialId', function(req, res, next) {
     api(req).patch('/lessons/' + req.params.topicId, {
         json: {
+            courseId: req.params.courseId,
             $pull: {
                 materialIds: req.params.materialId
             }
