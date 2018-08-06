@@ -705,36 +705,59 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     });
 });
 
+const getStudentUpdateHandler = () => {
+    return function (req, res, next) {
+        const birthday = req.body.birthday.split('.');
+        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`
+        // extractConsent
+        /*let parentConsent = {
+            _id: req.body.parent_consentId,
+            userConsent: {
+                form: req.body.parent_form,
+                privacyConsent: req.body.parent_privacyConsent || false,
+                researchConsent: req.body.parent_researchConsent || false,
+                thirdPartyConsent: req.body.parent_thirdPartyConsent || false,
+                termsOfUseConsent: req.body.parent_termsOfUseConsent || false
+            }
+        };*/
+        let studentConsent = {
+            _id: req.body.student_consentId,
+            userConsent: {
+                form: req.body.student_form,
+                privacyConsent: req.body.student_privacyConsent || false,
+                researchConsent: req.body.student_researchConsent || false,
+                thirdPartyConsent: req.body.student_thirdPartyConsent || false,
+                termsOfUseConsent: req.body.student_termsOfUseConsent || false
+            }
+        };
+        // remove all consent infos from user post
+        Object.keys(req.body).forEach(function(key) {
+            if(key.startsWith("parent_") || key.startsWith("student_")){
+                delete req.body[key];
+            }
+        });
+        // TODO send to server
+        const userUpdatePromise = api(req).patch('/users/' + req.params.id, { json: req.body }); // TODO: sanitize
+        const studentConsentUpdatePromise = api(req).patch('/consents/' + studentConsent._id, { json: studentConsent });
+        //const parentConsentUpdatePromise = api(req).patch('/consents/' + parentConsent._id, { json: parentConsent });
+        Promise.all([
+            userUpdatePromise,
+            studentConsentUpdatePromise,
+            //parentConsentUpdatePromise
+        ]).then(([user, studentConsent, parentConsent]) => {
+            res.redirect(req.header('Referer'));
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getCreateHandler('users'));
-router.patch('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getUpdateHandler('users'));
+router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
 router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
-
-
-const consentFullfilled = (consent) => {
-    if (consent.privacyConsent && consent.researchConsent && termsOfUseConsent && thirdPartyConsent){
-        return true;
-    }
-    return false;
-}
-
-const getConsentState = (consent) => {
-    if (consent.data[0].access) {
-        return 0;
-    }
-    else {
-        if (!consent.data[0].requiresParentConsent || consentFullfilled(consent.data[0].parentConsents[0])) {
-            return 1;
-        }
-        return 2;
-    }
-    //api(req).get('/consents/', {qs: {userId: item._id}})
-    //    .then(consent => {
-
-}
-
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
@@ -794,7 +817,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                             }
                         }
                     }else{
-                        if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                        if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                             user.consentStatus = `<i class="fa fa-check"></i>`;
                         }else{
                             user.consentStatus = `<i class="fa fa-circle"></i>`;
@@ -803,7 +826,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 }else{
                     user.consentStatus = `<i class="fa fa-times"></i>`
                 }
-
+                user.consentStatus = `<p class="text-center m-0">${user.consentStatus}</p>`
                 // add classes to user
                 user.classesString = classes.filter((currentClass) => {
                     return currentClass.userIds.includes(user._id);
@@ -827,7 +850,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     user.email,
                     user.classesString,
                     user.consentStatus,
-                    `<a class="btn btn-sm" href="students/${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
+                    `<a class="btn btn-sm" href="/administration/students/${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
                 ];
             });
 
@@ -854,7 +877,7 @@ return function (req, res, next) {
 
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
-const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id, $populate:['parentConsents']});
+    const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id, $populate:['parentConsents']});
 
     Promise.all([
         userPromise,
@@ -862,7 +885,9 @@ const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id,
     ]).then(([user, consent]) => {
         consent = consent[0];
         consent.parentConsent = (consent.parentConsents.length)?consent.parentConsents[0]:{};
-
+        if(consent.parentConsents.length){
+            consent.requiresParentConsent = true;
+        }
         res.render('administration/students_edit',
             {
                 title: 'Schüler bearbeiten',

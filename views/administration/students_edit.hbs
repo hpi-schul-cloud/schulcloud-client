@@ -8,42 +8,37 @@
     {{#content "page"}}
         <div class="row">
             <div class="col-xl-12">
-                <form id="student-form" method="post" action="{{action}}">
-                    {{#if method}}
-                        <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
-                    {{/if}}
-
-                    {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+                <form id="student-form" method="post" action="/administration/students/{{student._id}}">
 
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Vorname: *</label>
-                                <input class="form-control" name="firstname" type="text" required value="{{student.firstName}}"/>
+                                <input class="form-control" name="firstName" type="text" required value="{{student.firstName}}"/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nachname: *</label>
-                                <input class="form-control" name="lastname" type="text" required value="{{student.lastName}}"/>
+                                <input class="form-control" name="lastName" type="text" required value="{{student.lastName}}"/>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Username: *</label>
-                        <input class="form-control" disabled="true" placeholder="Benutzername" name="lastname" type="text" value="{{student.displayName}}"/>
+                        <input class="form-control" disabled="true" placeholder="Benutzername" name="displayName" type="text" value="{{student.displayName}}"/>
                     </div>
 
                     <div class="form-group">
                         <label>Geburtsdatum: *</label>
-                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" value="{{dateToPicker student.birthday}}"/>
+                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker student.birthday}}"/>
                     </div>
 
                     <div class="form-group">
                         <label>E-Mail Adresse: *</label>
-                        <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" value="{{student.email}}" required>
+                        <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org" value="{{student.email}}" required>
                     </div>
 
                     <div class="row">
@@ -60,40 +55,41 @@
                     </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.<br/><br/></p>
 
-                    <button class="btn btn-sm pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
+                    <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
                     <h5>Einwilligung</h5>
                     <div class="row" id="consents-overview">
                         {{#if consent.requiresParentConsent}}
                             <div class="col-md-6">
                                 <h6>Eltern</h6>
+                                <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
 
-                                <label><input name="student_type" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                                <label><input name="student_type" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
+                                <label><input name="parent_form" value="analog" type="radio" disabled {{#ifeq consent.parentConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                                <label><input name="parent_form" value="digital" type="radio" disabled {{#ifeq consent.parentConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
                                 <br/>
-                                <label><input name="student_Datenschutz" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
-                                <label><input name="student_Forschung" type="checkbox" value="true" disabled {{#if consent.parentConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
-                                <label><input name="student_Drittanbieter" type="checkbox" value="true" disabled {{#if consent.parentConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
-                                <label><input name="student_Nutzung" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                                <label><input name="parent_privacyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                                <label><input name="parent_researchConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
+                                <label><input name="parent_thirdPartyConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
+                                <label><input name="parent_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.parentConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                             </div>
                         {{/if}}
                         <div class="col-md-6">
                             <h6>Schüler</h6>
+                            <input name="student_consentId" type="hidden" value="{{consent._id}}" disabled/>
+
                             {{log consent.userConsent.form}}
-                            <label><input name="student_type" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
-                            <label><input name="student_type" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
+                            <label><input name="student_form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                            <label><input name="student_form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
                             <br/>
-                            <label><input name="student_Datenschutz" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
-                            <label><input name="student_Forschung" type="checkbox" value="true" disabled {{#if consent.userConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
-                            <label><input name="student_Drittanbieter" type="checkbox" value="true" disabled {{#if consent.userConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
-                            <label><input name="student_Nutzung" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                            <label><input name="student_privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                            <label><input name="student_researchConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
+                            <label><input name="student_thirdPartyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
+                            <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                         </div>
                     </div>
 
-                    <div class="pwbutton">
-                        <button class="btn btn-secondary btn-pw">Passwort ändern</button>
-                    </div>
-
                     <div class="modal-footer">
+                        <button class="btn btn-secondary btn-pw pull-left">Passwort ändern</button>
+
                         <button class="btn btn-secondary btn-cancel">
                             {{closeLabel}}
                         </button>

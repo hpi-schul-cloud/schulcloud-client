@@ -63,7 +63,7 @@ window.addEventListener('load', ()=>{
     var $importModal = $('.import-modal');
     $('.btn-import-class').on('click', (event) => {
         event.preventDefault();
-        document.querySelectorAll(`select[name="classes"] option`).forEach(option => { console.log(option); option.selected = false });
+        document.querySelectorAll(`select[name="classes"] option`).forEach(option => { option.selected = false });
         $('select[name="classes"]').trigger("chosen:updated");
         populateModalForm($importModal, {
             title: 'Klasse importieren',
