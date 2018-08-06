@@ -176,8 +176,20 @@ gulp.task('generate-service-worker', () => {
       globPatterns: [
         '**/*.{html,js,css,png,woff}'
       ],
+      "globIgnores": [
+        "**/node_modules/**/*",
+        "**/sw.js"
+      ],
       swSrc: './static/sw.js',
       swDest: `./build/${themeName()}/sw.js`,
+      templatedUrls: {
+        '/calendar/': [
+          '../../views/calendar/calendar.hbs',
+         ],
+        '/dashboard/': [
+          '../../views/dashboard/dashboard.hbs',
+        ],
+      },
     })
     .then(({count, size, warnings}) => {
         // Optionally, log any warnings and details.
