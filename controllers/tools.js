@@ -55,7 +55,9 @@ const runToolHandler = (req, res, next) => {
        let consumer = customer.createConsumer(tool.key, tool.secret);
        let user_id = '';
        if (tool.privacy_permission === 'pseudonymous') {
-           user_id = pseudonym.data[0].pseudonym;
+         user_id = pseudonym.data[0].pseudonym;
+       } else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
+         user_id = currentUser._id;
        }
        let payload = {
            lti_version: tool.lti_version,
@@ -64,8 +66,12 @@ const runToolHandler = (req, res, next) => {
            roles: customer.mapSchulcloudRoleToLTIRole(role.name),
            launch_presentation_document_target: 'window',
            launch_presentation_locale: 'en',
-           // lis_person_name_full: currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`,
-           // lis_person_contact_email_primary: currentUser.username ? `${currentUser.username}@schul-cloud.org` : 'jbaird@uni.ac.uk',
+           lis_person_name_full: (tool.privacy_permission === 'name'
+             ? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
+             : null),
+           lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
+             ? currentUser.email
+             : null),
            user_id
        };
        tool.customs.forEach((custom) => {
