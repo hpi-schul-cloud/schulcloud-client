@@ -59,6 +59,13 @@ workbox.routing.registerRoute(
     })
 );
 
+workbox.routing.registerRoute(
+    '/news/',
+    workbox.strategies.networkFirst(  {
+        cacheName: workbox.core.cacheNames.precache
+    })
+);
+
 // https://developers.google.com/web/tools/workbox/modules/workbox-broadcast-cache-update
 workbox.routing.registerRoute(
     '/calendar/events/',

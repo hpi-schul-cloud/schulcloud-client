@@ -198,6 +198,9 @@ gulp.task('generate-service-worker', () => {
         '/dashboard/': [
           '../../views/dashboard/dashboard.hbs',
         ],
+        '/news/': [
+            '../../views/news/news.hbs'
+        ]
       },
     })
     .then(({count, size, warnings}) => {
