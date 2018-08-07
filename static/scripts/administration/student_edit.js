@@ -19,6 +19,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 $(document).ready(function () {
     var $pwModal = $('.pw-modal');
+    var $deleteModal = $('.delete-modal');
 
     $('.btn-pw').on('click', function (e) {
         e.preventDefault();
@@ -31,5 +32,20 @@ $(document).ready(function () {
             fields: undefined
         });
         $pwModal.appendTo('body').modal('show');
+    });
+
+    $('.btn-delete').on('click', function (e) {
+        e.preventDefault();
+        var entry = $(this).parent().attr('action');
+        populateModalForm($deleteModal, {
+            action: window.location.href.replace("/edit", ''),
+            title: 'Benutzer löschen?',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Löschen',
+            fields: {firstName: $('input[name="displayName"]').val()}
+        });
+        console.log($('input[name="displayName"]').val());
+
+        $deleteModal.appendTo('body').modal('show');
     });
 });
