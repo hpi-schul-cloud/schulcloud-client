@@ -386,10 +386,14 @@ const getDetailHandler = (service) => {
 };
 
 
-const getDeleteHandler = (service) => {
+const getDeleteHandler = (service, redirectUrl) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.redirect(req.header('Referer'));
+            if(redirectUrl){
+                res.redirect(redirectUrl)
+            }else{
+                res.redirect(req.header('Referer'));
+        }
         }).catch(err => {
             next(err);
         });
@@ -715,20 +719,40 @@ const getConsentStatusIcon = (consent) => {
                 if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                     return `<i class="fa fa-check consent-status"></i>`;
                 }else{
-                    return `<i class="fa fa-adjust consent-status"></i>`;
+                    return `<i class="fa fa-circle-thin consent-status"></i>`;
                 }
             }
         }else{
             if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                 return `<i class="fa fa-check consent-status"></i>`;
             }else{
-                return `<i class="fa fa-circle consent-status"></i>`;
+                return `<i class="fa fa-circle-thin consent-status"></i>`;
             }
         }
     }else{
         return `<i class="fa fa-times consent-status"></i>`
     }
 }
+
+
+const getStudentCreateHandler = (service) => {
+    return function (req, res, next) {
+        const birthday = req.body.birthday.split('.');
+        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`
+        api(req).post('/users/', {
+            // TODO: sanitize
+            json: req.body
+        }).then(data => {
+            res.locals.createdUser = data;
+            sendMailHandler(data, req);
+            createEventsForData(data, service, req, res).then(_ => {
+                next();
+            });
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
 
 const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
@@ -788,12 +812,12 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getCreateHandler('users'));
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
 router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
-router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
+router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
@@ -886,12 +910,6 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     });
 });
 
-
-/*
-return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id).then(data => {
- */
-
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id, $populate:['parentConsents']});
@@ -903,9 +921,6 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         consent = consent[0];
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
-            if((consent.parentConsents || []).length){
-                consent.requiresParentConsent = true;
-            }
         }
         res.render('administration/students_edit',
             {
@@ -989,7 +1004,7 @@ const renderClassEdit = (req, res, next, edit) => {
     .then(classes => {
         let promises = [
             getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
-            getSelectOptions(req, 'years'),
+            getSelectOptions(req, 'years', {$sort: {name: -1}}),
             getSelectOptions(req, 'gradeLevels')
         ];
         if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}

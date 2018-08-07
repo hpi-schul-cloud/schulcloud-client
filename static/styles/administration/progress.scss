@@ -103,7 +103,10 @@
   padding: 1em 0 0;
 }
 
-.btn-secondary{
+#prevSection{
+  &[disabled]{
+    display: none;
+  }
   border:none;
   color: #222;
 }

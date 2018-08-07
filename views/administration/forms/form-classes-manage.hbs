@@ -24,7 +24,7 @@
 
 <div class="form-group">
     <label>Schüler</label>
-    <button type="button" class="btn-link pull-right btn-import-class">Schüler importieren</button>
+    <button type="button" class="btn-link pull-right btn-import-class">Schüler aus Vorjahresklasse hinzufügen</button>
     <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red">
@@ -47,7 +47,7 @@
 <hr class="my-2"/>
 
 <p>
-    <b>Deine Schüler sind noch nicht in der SchulCloud?</b><br/>
+    <b>Deine Schüler sind noch nicht in der Schul-Cloud?</b><br/>
     Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.
 </p>
 

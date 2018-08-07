@@ -1,4 +1,5 @@
 {{#extend "lib/default"}}
+
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/authentication/home.css"/>
     {{/content}}
@@ -8,9 +9,10 @@
     {{/content}}
 
     {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-        <section class="content-wrapper">
-        <main class="container">
+
+        {{#embed "lib/header" hideMenu=hideMenu}}{{/embed}}
+
+        <main class="container content-wrapper">
             <div class="row">
                 <div class="col-md-12">
                     <section class="card">
@@ -21,10 +23,18 @@
                             {{#block "page"}}{{/block}}
                         </div>
                     </section>
-            </div>
+                </div>
             </div>
         </main>
-        </section>
-        {{#embed "lib/extended_footer"}}{{/embed}}
+
+        
+        {{#unless hideFooter}}
+            {{#unless extendedFooter}}
+                {{#embed "lib/footer"}}{{/embed}}
+            {{else}}
+                {{#embed "lib/extended_footer"}}{{/embed}}
+            {{/unless}}
+        {{/unless}}
+        
     {{/content}}
 {{/extend}}
