@@ -1078,11 +1078,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     /*{ // TODO - Feature not implemented
                         "title":"Deine Schüler sind in der Schülerliste rot?",
                         "content":"Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der Schul-Cloud elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt."
-                    },*/
-                    {
+                    },
+                    { // TODO - Not implemented yet
                         "title":"Nutzernamen herausfinden",
                         "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
-                    },
+                    }, */
                     {
                         "title":"Passwort ändern",
                         "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
