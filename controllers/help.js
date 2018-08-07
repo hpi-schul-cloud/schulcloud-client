@@ -2,6 +2,7 @@ const _ = require('lodash');
 const express = require('express');
 const router = express.Router();
 const authHelper = require('../helpers/authentication');
+const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
 const showdown  = require('showdown');
 const converter = new showdown.Converter();
@@ -44,16 +45,26 @@ faq.ssoFAQ.map(faq => {
 });
 
 router.get('/faq/documents', function (req, res, next) {
-    let documents = faq.documents;
-
-    documents[0].content = converter.makeHtml(documents[0].content);
-
-    res.render('help/sso-faq', {
-        faq: documents,
-        title: "Dokumente des Willkommensordners zum Download"
-    });
+    // check a random permission that demo users dont have to detect demo accounts
+    let access = permissionHelper.userHasPermission(res.locals.currentUser, 'FEDERALSTATE_VIEW');
+    
+    if (access) {
+        let documents = faq.documents;
+        documents[0].content = converter.makeHtml(documents[0].content);
+        
+        res.render('help/sso-faq', {
+            faq: documents,
+            title: "Dokumente des Willkommensordners zum Download"
+        });
+    } else {
+        req.session.notification = {
+            type: 'danger',
+            message: "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente."
+        };
+        res.redirect('/help');
+        return;
+    }
 });
-
 
 router.get('/releases', function (req, res, next) {
     api(req).get('/releases', {qs: {$sort: '-createdAt'}})
