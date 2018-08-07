@@ -341,7 +341,7 @@ router.post('/registration/submit', function (req, res, next) {
             });
         } else {
             return api(req).post('/consents/', {
-                json: {userId: user._id,userConsent: consent}
+                json: {userId: user._id, userConsent: consent}
             });
         }
     }).then(function() {
