@@ -507,7 +507,7 @@ const sendMailHandler = (user, req) => {
                 json: {
                     headers: {},
                     email: email,
-                    subject: "Einladung in die Schul-Cloud",
+                    subject: `Einladung in die ${res.locals.theme.title}`,
                     content: content
                 }
             }).then(_ => {
@@ -1104,7 +1104,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 notes: [
                     {
                         "title":"Deine Schüler sind unter 18 Jahre alt?",
-                        "content":"Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der Schul-Cloud registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die Schul-Cloud nutzen kann."
+                        "content":`Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der ${res.locals.theme.short_title} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die ${res.locals.theme.short_title} nutzen kann.`
                     },
                     {
                         "title":"Deine Schüler sind mindestens 18 Jahre alt?",
@@ -1112,7 +1112,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     },
                     /*{ // TODO - Feature not implemented
                         "title":"Deine Schüler sind in der Schülerliste rot?",
-                        "content":"Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der Schul-Cloud elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt."
+                        "content": `Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der ${res.locals.theme.short_title} elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt.`
                     },
                     { // TODO - Not implemented yet
                         "title":"Nutzernamen herausfinden",

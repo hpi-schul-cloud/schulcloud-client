@@ -100,7 +100,7 @@ router.post('/submit', function (req, res, next) {
         if (req.body["sendCredentials"]){
             return api(req).post('/mails/', {
                 json: { email: res.locals.currentUser.email,
-                        subject: "Willkommen in der HPI Schul-Cloud!",
+                        subject: `Willkommen in der ${res.locals.theme.title}!`,
                         headers: {},
                         content: { // TODO: use js template strings instead of concat (``)
                             "text": "Hallo " + res.locals.currentUser.displayName + "\n" +
@@ -108,7 +108,7 @@ router.post('/submit', function (req, res, next) {
                                     "bla" + req.body["password-1"] + "\n" +
                                     /* TODO: Email Text und was da rein muss sonst so*/
                                     "Viel Spaß und einen guten Start wünscht dir dein \n" +
-                                    "Schul-Cloud-Team",
+                                    `${res.locals.theme.short_title}-Team`,
                             "html": ""
                         }
                 }
