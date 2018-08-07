@@ -989,7 +989,7 @@ const renderClassEdit = (req, res, next, edit) => {
     .then(classes => {
         let promises = [
             getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
-            getSelectOptions(req, 'years'),
+            getSelectOptions(req, 'years', {$sort: {name: -1}}),
             getSelectOptions(req, 'gradeLevels')
         ];
         if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
