@@ -730,6 +730,26 @@ const getConsentStatusIcon = (consent) => {
     }
 }
 
+
+const getStudentCreateHandler = (service) => {
+    return function (req, res, next) {
+        const birthday = req.body.birthday.split('.');
+        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`
+        api(req).post('/users/', {
+            // TODO: sanitize
+            json: req.body
+        }).then(data => {
+            res.locals.createdUser = data;
+            sendMailHandler(data, req);
+            createEventsForData(data, service, req, res).then(_ => {
+                next();
+            });
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
@@ -788,7 +808,7 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getCreateHandler('users'));
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
 router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
