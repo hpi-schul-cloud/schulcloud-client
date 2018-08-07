@@ -3,7 +3,7 @@
         <span class="sc-card-title">
             <span class="title">{{this.title}}</span>
             {{#if this.secondaryTitle}}
-                <small class="d-block">{{this.secondaryTitle}}</small>
+                <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
             {{/if}}
         </span>
 
