@@ -280,13 +280,13 @@ router.post('/registration/submit', function (req, res, next) {
             lastName: req.body["student-secondname"],
             email: req.body["student-email"],
             gender: req.body["gender"],
-            roles: ["0000d186816abba584714c99"], // mock role=student
+            roles: ["student"],
             classId: req.body.classId,
             birthday: new Date(req.body["student-birthdate"])
         };
         return api(req).post('/users/', {
             json: user
-        });
+        }).catch(err => res.status(500).send("Fehler beim Erstellen des Schülers. Eventuell ist die E-Mail-Adresse bereits im System registriert.")); // TODO: Errorhandling /account/ is used even when error occurs
     }).then(newUser => {
         user = newUser;
         // create account
@@ -300,21 +300,27 @@ router.post('/registration/submit', function (req, res, next) {
                 email: req.body["parent-email"],
                 children: [user._id],
                 schoolId: user.schoolId,
-                roles: ["5b45f8d28c8dba65f8871e19"] // role parent
+                roles: ["parent"]
             };
             return api(req).post('/users/', {
                 json: parent
-            })
-                .then(newParent => {
-                    parent = newParent;
-                    return api(req).patch('/users/' + user._id, {
-                        json: {parents: [parent._id]}
-                    });
-                }).catch(err => res.status(500).send(err));
+            }).then(newParent => {
+                parent = newParent;
+                return api(req).patch('/users/' + user._id, {
+                    json: {parents: [parent._id]}
+                });
+            }).catch(err => {
+                if (err.error.message==="parentCreatePatch") {
+                    next();
+                } else {
+                    res.status(500).send("Fehler beim Erstellen des Elternaccounts. Eventuell ist die E-Mail-Adresse bereits im System registriert."); // TODO: Errorhandling /account/ is used even when error occurs
+                }
+            });
         } else {
             return Promise.resolve;
         }
     }).then(function(){
+        console.log("CONSENT");
         //store consent
         let consent = {
             form: 'digital',
@@ -363,7 +369,7 @@ Schul-Cloud-Team`
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
-        res.status(500).send(err.text);
+        res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung."); // TODO: Errorhandling /account/ is used even when error occurs
     });
 });
 
