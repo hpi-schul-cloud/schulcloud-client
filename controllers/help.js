@@ -46,7 +46,7 @@ faq.ssoFAQ.map(faq => {
 
 router.get('/faq/documents', function (req, res, next) {
     // check a random permission that demo users dont have to detect demo accounts
-    let access = !!permissionHelper.userHasPermission(res.locals.currentUser, 'FEDERALSTATE_VIEW');
+    let access = permissionHelper.userHasPermission(res.locals.currentUser, 'FEDERALSTATE_VIEW');
     
     if (access) {
         let documents = faq.documents;
