@@ -9,7 +9,7 @@
       <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="/registration/submit" method="post" class="registration-form"}}
+    {{#embed "lib/forms/paginatedForm" sections=4 action="/registration/submit" method="post" class="registration-form student"}}
       {{#content "panels"}}
       <section data-panel="section-1">
         <h4>Persönliche Daten</h4>
@@ -28,7 +28,7 @@
 
         <div class="form-group">
           <label>Geburtsdatum: *</label>
-          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="false" />
+          <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="student-birthdate" type="text" data-from="student-birthdate" required autocomplete="off" />
         </div>
 
         <div class="form-group">

@@ -263,22 +263,14 @@ router.post('/registration/submit', function (req, res, next) {
     let passwort = req.body["initial-password"];
 
     return api(req).get('/registrationPins/', {
-        qs: {
-            /*
-            TODO: I think the $and is not required here. According to the feathers docs. $and doesn't even exists. https://docs.feathersjs.com/api/databases/querying.html
-            I think the following code should work as well:
-            "pin": pininput,
-            "email": usermail
-            */
-            $and: [{"pin": pininput, "email": usermail} ]
-        }
+        qs: { "pin": pininput, "email": usermail }
     }).then(check => {
         //check pin
-        if (!(check.data && check.data.length>0)) {
-            return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
+        if (!(check.data && check.data.length>0 && check.data[0].pin === pininput)) {
+            res.status(500).send("Ungültige Pin, bitte überprüfe die Eingabe.");
         }
-        if (req.body["parent-email"] && req.body["parent-email"] == req.body["student-email"]) {
-            return Promise.reject("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
+        if (req.body["parent-email"] && req.body["parent-email"] === req.body["student-email"]) {
+            res.status(500).send("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
         }
         return Promise.resolve;
     }).then(function() {
@@ -294,7 +286,7 @@ router.post('/registration/submit', function (req, res, next) {
         };
         return api(req).post('/users/', {
             json: user
-        })
+        });
     }).then(newUser => {
         user = newUser;
         // create account
@@ -355,20 +347,19 @@ router.post('/registration/submit', function (req, res, next) {
                 json: { email: eMailAdress,
                         subject: "Willkommen in der HPI Schul-Cloud!",
                         headers: {},
-                        content: { // TODO: use js template strings instead of concat (``)
-                            "text": "Hallo " + user.firstName + "\n" +
-                                    "mit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen: \n" +
-                                    "Adresse: " + (req.headers.origin || process.env.HOST) + " \n" +
-                                    "E-Mail: " + user.email + " \n" +
-                                    "Startpasswort: " + passwort + " \n" +
-                                    "Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst. \n" +
-                                    "Viel Spaß und einen guten Start wünscht dir dein \n" +
-                                    "Schul-Cloud-Team",
-                            "html": ""
+                        content: {
+                            "text": `Hallo ${user.firstName}
+\nmit folgenden Anmeldedaten kannst du dich in der HPI Schul-Cloud einloggen:
+Adresse: ${req.headers.origin || process.env.HOST}
+E-Mail: ${user.email}
+Startpasswort: ${passwort}
+\nNach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die Schul-Cloud nutzen kannst.
+\nViel Spaß und einen guten Start wünscht dir dein
+Schul-Cloud-Team`
                         }
                 }
             });
-        })
+        });
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
