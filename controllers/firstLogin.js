@@ -66,12 +66,19 @@ router.post('/submit', function (req, res, next) {
     if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
     if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
     var preferences = res.locals.currentUser.preferences || {};
-    preferences.firstLogin = true;
+    //preferences.firstLogin = true;
     userUpdate.preferences = preferences;
 
-    userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
-        json: userUpdate
-    });
+    userPromise = api(req).get('/users/', {
+        qs: {children: res.locals.currentPayload.userId}
+    }).then(parents => {
+        userUpdate.parents = parents.data.map(parent => {
+            return parent._id
+        });
+        return api(req).patch('/users/' + res.locals.currentPayload.userId, {
+            json: userUpdate
+        });
+    })
 
     if (req.body.Erhebung) {
         consentPromise = api(req).get('/consents/', {
@@ -82,7 +89,7 @@ router.post('/submit', function (req, res, next) {
             consentUpdate.thirdPartyConsent = req.body.Pseudonymisierung;
             consentUpdate.termsOfUseConsent = req.body.Nutzungsbedingungen;
             consentUpdate.researchConsent = req.body.Forschung;
-            consentPromise = api(req).patch('/consents/' + consent.data[0]._id, {
+            return api(req).patch('/consents/' + consent.data[0]._id, {
                 json: {userConsent: consentUpdate}
             });
         })
@@ -90,11 +97,10 @@ router.post('/submit', function (req, res, next) {
     }
 
     return Promise.all([accountPromise, userPromise, consentPromise]).then(() => {
-
         if (req.body["sendCredentials"]){
             return api(req).post('/mails/', {
                 json: { email: res.locals.currentUser.email,
-                        subject: "Willkommen in der HPI Schul-Cloud!",
+                        subject: `Willkommen in der ${res.locals.theme.title}!`,
                         headers: {},
                         content: { // TODO: use js template strings instead of concat (``)
                             "text": "Hallo " + res.locals.currentUser.displayName + "\n" +
@@ -102,7 +108,7 @@ router.post('/submit', function (req, res, next) {
                                     "bla" + req.body["password-1"] + "\n" +
                                     /* TODO: Email Text und was da rein muss sonst so*/
                                     "Viel Spaß und einen guten Start wünscht dir dein \n" +
-                                    "Schul-Cloud-Team",
+                                    `${res.locals.theme.short_title}-Team`,
                             "html": ""
                         }
                 }

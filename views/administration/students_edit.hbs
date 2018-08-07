@@ -86,7 +86,10 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn btn-secondary btn-pw pull-left">Passwort ändern</button>
+                        <div class="pull-left">
+                            <button class="btn btn-secondary btn-pw">Passwort ändern</button>
+                            <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                        </div>
 
                         <button class="btn btn-secondary btn-cancel">
                             {{closeLabel}}
@@ -105,6 +108,12 @@
                     {{#content "fields"}}
                         {{> "administration/forms/form-account-password"}}
                     {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" method="delete" class="delete-modal"}}	
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-delete-user"}}	
+                    {{/content}}	
                 {{/embed}}
 
             </div>

@@ -386,10 +386,14 @@ const getDetailHandler = (service) => {
 };
 
 
-const getDeleteHandler = (service) => {
+const getDeleteHandler = (service, redirectUrl) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.redirect(req.header('Referer'));
+            if(redirectUrl){
+                res.redirect(redirectUrl)
+            }else{
+                res.redirect(req.header('Referer'));
+        }
         }).catch(err => {
             next(err);
         });
@@ -503,7 +507,7 @@ const sendMailHandler = (user, req) => {
                 json: {
                     headers: {},
                     email: email,
-                    subject: "Einladung in die Schul-Cloud",
+                    subject: `Einladung in die ${res.locals.theme.title}`,
                     content: content
                 }
             }).then(_ => {
@@ -715,14 +719,14 @@ const getConsentStatusIcon = (consent) => {
                 if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                     return `<i class="fa fa-check consent-status"></i>`;
                 }else{
-                    return `<i class="fa fa-adjust consent-status"></i>`;
+                    return `<i class="fa fa-circle-thin consent-status"></i>`;
                 }
             }
         }else{
             if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                 return `<i class="fa fa-check consent-status"></i>`;
             }else{
-                return `<i class="fa fa-circle consent-status"></i>`;
+                return `<i class="fa fa-circle-thin consent-status"></i>`;
             }
         }
     }else{
@@ -813,7 +817,7 @@ router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW',
 router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
-router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
+router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
@@ -906,12 +910,6 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     });
 });
 
-
-/*
-return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id).then(data => {
- */
-
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id, $populate:['parentConsents']});
@@ -923,9 +921,6 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         consent = consent[0];
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
-            if((consent.parentConsents || []).length){
-                consent.requiresParentConsent = true;
-            }
         }
         res.render('administration/students_edit',
             {
@@ -1109,7 +1104,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 notes: [
                     {
                         "title":"Deine Schüler sind unter 18 Jahre alt?",
-                        "content":"Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der Schul-Cloud registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die Schul-Cloud nutzen kann."
+                        "content":`Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der ${res.locals.theme.short_title} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die ${res.locals.theme.short_title} nutzen kann.`
                     },
                     {
                         "title":"Deine Schüler sind mindestens 18 Jahre alt?",
@@ -1117,7 +1112,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     },
                     /*{ // TODO - Feature not implemented
                         "title":"Deine Schüler sind in der Schülerliste rot?",
-                        "content":"Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der Schul-Cloud elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt."
+                        "content": `Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der ${res.locals.theme.short_title} elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt.`
                     },
                     { // TODO - Not implemented yet
                         "title":"Nutzernamen herausfinden",
