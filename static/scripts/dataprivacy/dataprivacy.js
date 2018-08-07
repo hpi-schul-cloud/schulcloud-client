@@ -42,18 +42,22 @@ function isSubmitted(){
 }
 
 function setSelectionByIndex(index, event){
-    event.preventDefault();
+    if(event){
+        event.preventDefault();
+    }
     function setSelection(index){
         const hideEvent = new CustomEvent("hideSection", {
             detail: {
                 sectionIndex: getSelectionIndex()
             }
           });
-        document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(hideEvent);
+        document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).dispatchEvent(hideEvent);
 
         document.querySelector(`.form input[type="radio"]:nth-of-type(${index})`).checked = true;
         // set keyboard focus to first focusable element in the opened section.
         document.querySelector(`section[data-panel="section-${index}"]`).querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')[0].focus();
+
+        updateButton(index);
 
         const showEvent = new CustomEvent("showSection", {
             detail: {
@@ -61,12 +65,9 @@ function setSelectionByIndex(index, event){
             }
         });
         document.querySelector(`section[data-panel="section-${index}"]`).dispatchEvent(showEvent);
-        
-        updateButton(index);
     }
     function findLatestInvalid(to){
-        let i = 1;
-        for (; i <= to; i++) {
+        for (let i = 1; i <= to; i++) {
             if(!isSectionValid(i))
                 return i;
         }
@@ -168,8 +169,10 @@ function nextSection(event){
    
 }
 function prevSection(event) {
-    const selectedIndex = getSelectionIndex() - 1;
-    setSelectionByIndex(selectedIndex, event);
+    if(getSelectionIndex() > 1){
+        const selectedIndex = getSelectionIndex() - 1;
+        setSelectionByIndex(selectedIndex, event);
+    }
 }
 function goToSection(event){
     const selectedIndex = document.querySelectorAll('.form .stages label').indexOf(this) + 1;
@@ -183,6 +186,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector('.form #prevSection').addEventListener("click", prevSection);
     document.querySelector('.form #nextSection').addEventListener("click", nextSection);
     document.querySelector('.form').addEventListener("submit", submitForm);
+});
+window.addEventListener('load', ()=>{
+    // open first page to toggle show event.
+    setSelectionByIndex(1);
 });
 
 /* apply input from query */

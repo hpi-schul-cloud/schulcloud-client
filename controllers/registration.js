@@ -333,7 +333,7 @@ router.post('/registration/submit', function (req, res, next) {
             });
         } else {
             return api(req).post('/consents/', {
-                json: {userId: user._id,userConsent: consent}
+                json: {userId: user._id, userConsent: consent}
             });
         }
     }).then(function() {
@@ -370,13 +370,15 @@ Schul-Cloud-Team`
 router.get('/registration/:classId/byparent', function (req, res, next) {
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
-        classId: req.params.classId
+        classId: req.params.classId,
+        hideMenu: true
     });
 });
 router.get('/registration/:classId/bystudent', function (req, res, next) {
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
-        classId: req.params.classId
+        classId: req.params.classId,
+        hideMenu: true
     });
 });
 router.get('/registration/:classId', function (req, res, next) {
@@ -385,7 +387,8 @@ router.get('/registration/:classId', function (req, res, next) {
     
     res.render('registration/registration', {
         title: 'Herzlich Willkommen bei der Registrierung',
-        classId: req.params.classId
+        classId: req.params.classId,
+        hideMenu: true
     });
 });
 

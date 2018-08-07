@@ -1,13 +1,13 @@
 @import '../lib/colors';
 
-.section-students td{
-    .fa-check{
+.consent-status{
+    &.fa-check{
         color: green;
     }
-    .fa-circle, .fa-adjust{
+    &.fa-circle, &.fa-adjust{
         color: orange;
     }
-    .fa-times{
+    &.fa-times{
         color: red;
     }
 }

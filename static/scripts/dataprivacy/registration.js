@@ -110,7 +110,26 @@ window.addEventListener('DOMContentLoaded', ()=>{
             studentMailInput.addEventListener(event, validateDifferent, false);
           });
     }
+
+    const firstSection = document.querySelector('.form section[data-panel="section-1"]');
+    if(firstSection){
+        firstSection.addEventListener("showSection", (event) => {
+            const backButton = document.getElementById("prevSection");
+            backButton.addEventListener("click", goBack);
+            backButton.removeAttribute("disabled");
+        });
+        firstSection.addEventListener("hideSection", (event) => {
+            const backButton = document.getElementById("prevSection");
+            backButton.removeEventListener("click", goBack);
+        });
+    }
 });
+function goBack(event){
+    event.stopPropagation();
+    event.preventDefault();
+    window.history.back();
+}
+
 window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
         // generate password if password field present

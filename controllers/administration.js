@@ -705,46 +705,82 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     });
 });
 
+const getConsentStatusIcon = (consent) => {
+    if(consent){
+        if(consent.requiresParentConsent){
+            if((consent.parentConsents || []).length == 0 
+                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
+                return `<i class="fa fa-times consent-status"></i>`
+            }else{
+                if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                    return `<i class="fa fa-check consent-status"></i>`;
+                }else{
+                    return `<i class="fa fa-adjust consent-status"></i>`;
+                }
+            }
+        }else{
+            if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                return `<i class="fa fa-check consent-status"></i>`;
+            }else{
+                return `<i class="fa fa-circle consent-status"></i>`;
+            }
+        }
+    }else{
+        return `<i class="fa fa-times consent-status"></i>`
+    }
+}
+
 const getStudentUpdateHandler = () => {
-    return function (req, res, next) {
+    return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
         req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`
+
         // extractConsent
-        /*let parentConsent = {
-            _id: req.body.parent_consentId,
-            userConsent: {
-                form: req.body.parent_form,
-                privacyConsent: req.body.parent_privacyConsent || false,
-                researchConsent: req.body.parent_researchConsent || false,
-                thirdPartyConsent: req.body.parent_thirdPartyConsent || false,
-                termsOfUseConsent: req.body.parent_termsOfUseConsent || false
-            }
-        };*/
         let studentConsent = {
             _id: req.body.student_consentId,
             userConsent: {
-                form: req.body.student_form,
+                form: req.body.student_form || "analog",
                 privacyConsent: req.body.student_privacyConsent || false,
                 researchConsent: req.body.student_researchConsent || false,
                 thirdPartyConsent: req.body.student_thirdPartyConsent || false,
                 termsOfUseConsent: req.body.student_termsOfUseConsent || false
             }
         };
+        let newParentConsent = {
+            form: req.body.parent_form || "analog",
+            privacyConsent: req.body.parent_privacyConsent || false,
+            researchConsent: req.body.parent_researchConsent || false,
+            thirdPartyConsent: req.body.parent_thirdPartyConsent || false,
+            termsOfUseConsent: req.body.parent_termsOfUseConsent || false
+        }
+        if(studentConsent._id){
+            let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
+            if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
+                orgUserConsent.parentConsents[0]
+                Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
+                studentConsent.parentConsents = orgUserConsent.parentConsents;
+            }
+        }else if(studentConsent.userConsent.form){
+            studentConsent.parentConsents = [newParentConsent]
+        }
         // remove all consent infos from user post
         Object.keys(req.body).forEach(function(key) {
             if(key.startsWith("parent_") || key.startsWith("student_")){
                 delete req.body[key];
             }
         });
-        // TODO send to server
-        const userUpdatePromise = api(req).patch('/users/' + req.params.id, { json: req.body }); // TODO: sanitize
-        const studentConsentUpdatePromise = api(req).patch('/consents/' + studentConsent._id, { json: studentConsent });
-        //const parentConsentUpdatePromise = api(req).patch('/consents/' + parentConsent._id, { json: parentConsent });
-        Promise.all([
-            userUpdatePromise,
-            studentConsentUpdatePromise,
-            //parentConsentUpdatePromise
-        ]).then(([user, studentConsent, parentConsent]) => {
+        console.log("studentConsent",studentConsent);
+
+        let promises = [api(req).patch('/users/' + req.params.id, { json: req.body })]; // TODO: sanitize
+
+        if(studentConsent._id){ // update exisiting consent
+            promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
+        } else if(studentConsent.userConsent.form){//create new consent entry
+            delete studentConsent._id;
+            studentConsent.userId = req.params.id;
+            promises.push(api(req).post('/consents/', { json: studentConsent }));
+        }
+        Promise.all(promises).then(([user, studentConsent]) => {
             res.redirect(req.header('Referer'));
         }).catch(err => {
             next(err);
@@ -805,27 +841,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 const consent = consents.find((consent) => {
                     return consent.userId == user._id;
                 });
-                if(consent){
-                    if(consent.requiresParentConsent){
-                        if(consent.parentConsents.length == 0){
-                            user.consentStatus = `<i class="fa fa-times"></i>`
-                        }else{
-                            if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
-                                user.consentStatus = `<i class="fa fa-check"></i>`;
-                            }else{
-                                user.consentStatus = `<i class="fa fa-adjust"></i>`;
-                            }
-                        }
-                    }else{
-                        if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
-                            user.consentStatus = `<i class="fa fa-check"></i>`;
-                        }else{
-                            user.consentStatus = `<i class="fa fa-circle"></i>`;
-                        }
-                    }
-                }else{
-                    user.consentStatus = `<i class="fa fa-times"></i>`
-                }
+                user.consentStatus = getConsentStatusIcon(consent);
+
                 user.consentStatus = `<p class="text-center m-0">${user.consentStatus}</p>`
                 // add classes to user
                 user.classesString = classes.filter((currentClass) => {
@@ -884,16 +901,19 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         consentPromise
     ]).then(([user, consent]) => {
         consent = consent[0];
-        consent.parentConsent = (consent.parentConsents.length)?consent.parentConsents[0]:{};
-        if(consent.parentConsents.length){
-            consent.requiresParentConsent = true;
+        if(consent){
+            consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
+            if((consent.parentConsents || []).length){
+                consent.requiresParentConsent = true;
+            }
         }
         res.render('administration/students_edit',
             {
-                title: 'Schüler bearbeiten',
+                title: `Schüler bearbeiten`,
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
                 student: user,
+                consentStatusIcon: getConsentStatusIcon(consent),
                 consent
             }
         );
@@ -969,7 +989,7 @@ const renderClassEdit = (req, res, next, edit) => {
     .then(classes => {
         let promises = [
             getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
-            getSelectOptions(req, 'years'),
+            getSelectOptions(req, 'years', {$sort: {name: -1}}),
             getSelectOptions(req, 'gradeLevels')
         ];
         if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
@@ -1078,11 +1098,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     /*{ // TODO - Feature not implemented
                         "title":"Deine Schüler sind in der Schülerliste rot?",
                         "content":"Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der Schul-Cloud elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt."
-                    },*/
-                    {
+                    },
+                    { // TODO - Not implemented yet
                         "title":"Nutzernamen herausfinden",
                         "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
-                    },
+                    }, */
                     {
                         "title":"Passwort ändern",
                         "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
