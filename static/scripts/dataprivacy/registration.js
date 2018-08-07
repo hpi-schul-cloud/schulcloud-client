@@ -29,6 +29,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
+    // if email for pin registration is changed, reset pin-sent status
+    $('form.registration-form.student input[name="student-email"], form.registration-form.parent input[name="parent-email"]').on("change", ()=> {
+        $("input[name='pin-sent']").val("no");
+    });
+    
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
         if($("input[name='pin-sent']").val() !== "no") {
             // send pin of value is something else than no
@@ -61,12 +66,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
     
-    // TODO: deprecated? save to delete?
-    // workaround
-    $('#check-pin').on('click', checkPin);
-    // basic pin prototype
-    $('.pin-input .combined').on('input', checkPin);
-    
+    // deprecated, built into controller
     function checkPin(e) {
         e.preventDefault();
         let pinInput = document.querySelector('input[name="email-pin"]');
