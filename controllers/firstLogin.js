@@ -10,27 +10,32 @@ router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
     res.render('firstLogin/firstLogin', {
-        title: 'Willkommen - Erster Login'
+        title: 'Willkommen - Erster Login',
+        hideMenu: true
     });
 });
 router.get('/14_17', function (req, res, next) {
     res.render('firstLogin/firstLogin14_17', {
-        title: 'Willkommen - Erster Login (14 bis 17 Jahre)'
+        title: 'Willkommen - Erster Login (14 bis 17 Jahre)',
+        hideMenu: true
     });
 });
 router.get('/U14', function (req, res, next) {
     res.render('firstLogin/firstLoginU14', {
-        title: 'Willkommen - Erster Login'
+        title: 'Willkommen - Erster Login',
+        hideMenu: true
     });
 });
 router.get('/UE18', function (req, res, next) {
     res.render('firstLogin/firstLoginUE18', {
-        title: 'Willkommen - Erster Login'
+        title: 'Willkommen - Erster Login',
+        hideMenu: true
     });
 });
 router.get('/existing', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUser', {
-        title: 'Willkommen - Erster Login für bestehende Nutzer'
+        title: 'Willkommen - Erster Login für bestehende Nutzer',
+        hideMenu: true
     });
 });
 router.post('/submit', function (req, res, next) {
@@ -135,12 +140,14 @@ router.post('/submit', function (req, res, next) {
 });*/
 router.get('/existingU14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserU14', {
-        title: 'Willkommen - Erster Login für bestehende Nutzer'
+        title: 'Willkommen - Erster Login für bestehende Nutzer',
+        hideMenu: true
     });
 });
 router.get('/existingUE14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserUE14', {
-        title: 'Willkommen - Erster Login für bestehende Nutzer'
+        title: 'Willkommen - Erster Login für bestehende Nutzer',
+        hideMenu: true
     });
 });
 
