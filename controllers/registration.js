@@ -315,9 +315,6 @@ router.post('/registration/submit', function (req, res, next) {
             })
                 .then(newParent => {
                     parent = newParent;
-                    return api(req).patch('/users/' + user._id, {
-                        json: {parents: [parent._id]}
-                    });
                 }).catch(err => res.status(500).send(err));
         } else {
             return Promise.resolve;
