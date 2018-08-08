@@ -573,6 +573,21 @@
       },
       {
         "title": "",
+        "firstName": "Florian",
+        "lastName": "Wirtz",
+        "position": "Studentische Hilfskraft",
+        "description": "Florian ist studentische Hilfskraft im Team Schul-Cloud und war Mitglied des Bachelorprojekts 2017/18. Seine Arbeit dort war vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
+        "pictureUrl": "/images/team/Florian_Wiertz.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
         "position": "Student",
@@ -747,22 +762,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Florian",
-        "lastName": "Wirtz",
-        "position": "Ehem. Bachelorstudent",
-        "description": "Über das Bachelorprojekt 2017/18 war Florian Wirtz Mitglied im Team der Schulcloud. Seine Arbeit dort war vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
-        "pictureUrl": "/images/team/Florian_Wiertz.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
       }
-    ]
+      ]
   }
 }
