@@ -66,7 +66,7 @@ router.post('/submit', function (req, res, next) {
     if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
     if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
     var preferences = res.locals.currentUser.preferences || {};
-    //preferences.firstLogin = true;
+    preferences.firstLogin = true;
     userUpdate.preferences = preferences;
 
     userPromise = api(req).get('/users/', {
@@ -137,28 +137,6 @@ ${res.locals.theme.short_title}-Team`,
         res.status(500).send((err.error || err).message || err);
     });
 });
-/*
-    return api(req).patch('/users/0000d231816abba584714c9e', {
-        json: {birthday: new Date(req.body.studentBirthdate)}
-    }).then(user => {
-        return api(req).get('/consents/', {
-            qs: {userId: user._id}
-        });
-    }).then(consent => {
-        let userConsent = {
-            form: 'digital',
-            privacyConsent: req.body.Erhebung,
-            thirdPartyConsent: req.body.Pseudonymisierung,
-            termsOfUseConsent: Boolean(req.body.Nutzungsbedingungen),
-            researchConsent: req.body.Forschung
-        };
-        return api(req).patch('/consents/' + consent.data[0]._id, {
-            json: {userConsent: userConsent}
-        });
-    }).then(consent => {
-        res.sendStatus(200);
-    }).catch(err => res.status(500).send(err));
-});*/
 router.get('/existingU14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserU14', {
         title: 'Willkommen - Erster Login für bestehende Nutzer',
@@ -168,6 +146,12 @@ router.get('/existingU14', function (req, res, next) {
 router.get('/existingUE14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserUE14', {
         title: 'Willkommen - Erster Login für bestehende Nutzer',
+        hideMenu: true
+    });
+});
+router.get('/existingGeb14', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingGeb14', {
+        title: 'Willkommen - Erster Login',
         hideMenu: true
     });
 });

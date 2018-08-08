@@ -4,7 +4,6 @@
     "style": "standard",
     "team": [
       {
-        "id": 0,
         "title": "Prof. Dr.",
         "firstName": "Christoph",
         "lastName": "Meinel",
@@ -20,7 +19,6 @@
         "longDesc": "25vh"
       },
       {
-        "id": 1,
         "title": "Dr.",
         "firstName": "Niki",
         "lastName": "Sarantidou",
@@ -36,7 +34,6 @@
         "longDesc": false
       },
       {
-        "id": 2,
         "title": "",
         "firstName": "Wolfgang",
         "lastName": "Gollub",
@@ -59,7 +56,6 @@
     "team": [
       {
         "subheader_before": "Hasso-Plattner-Institut",
-        "id": 3,
         "title": "",
         "firstName": "Jan",
         "lastName": "Renz",
@@ -75,7 +71,6 @@
         "longDesc": false
       },
       {
-        "id": 4,
         "title": "",
         "firstName": "Catrina",
         "lastName": "John",
@@ -91,7 +86,6 @@
         "longDesc": false
       },
       {
-        "id": 5,
         "title": "",
         "firstName": "Vivien",
         "lastName": "Malyska",
@@ -107,7 +101,6 @@
         "longDesc": false
       },
       {
-        "id": 6,
         "title": "",
         "firstName": "Max",
         "lastName": "Bothe",
@@ -122,8 +115,7 @@
         },
         "longDesc": false
       },
-       {
-        "id": 7,
+      {
         "title": "",
         "firstName": "Cedric",
         "lastName": "Evers",
@@ -139,7 +131,6 @@
         "longDesc": false
       },
       {
-        "id": 8,
         "title": "",
         "firstName": "Christiane",
         "lastName": "Hagedorn",
@@ -155,7 +146,6 @@
         "longDesc": false
       },
       {
-        "id": 9,
         "title": "",
         "firstName": "Konstantin",
         "lastName": "Kaiser",
@@ -171,7 +161,6 @@
         "longDesc": false
       },
       {
-        "id": 10,
         "title": "",
         "firstName": "Alexander",
         "lastName": "Kremer",
@@ -187,7 +176,6 @@
         "longDesc": false
       },
       {
-        "id": 11,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Luderich",
@@ -203,7 +191,6 @@
         "longDesc": false
       },
       {
-        "id": 12,
         "title": "",
         "firstName": "Martin",
         "lastName": "Malchow",
@@ -219,7 +206,6 @@
         "longDesc": false
       },
       {
-        "id": 13,
         "title": "",
         "firstName": "Florian",
         "lastName": "Morel",
@@ -235,7 +221,6 @@
         "longDesc": false
       },
       {
-        "id": 14,
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
@@ -251,7 +236,6 @@
         "longDesc": false
       },
       {
-        "id": 15,
         "title": "",
         "firstName": "Hannes",
         "lastName": "Schurig",
@@ -267,23 +251,6 @@
         "longDesc": false
       },
       {
-        "id": 16,
-        "title": "",
-        "firstName": "Julian",
-        "lastName": "Taraz",
-        "position": "Projektreferent für externe Kommunikation und wissenschaftlicher Mitarbeiter, HPI",
-        "description": "Julian ist Politologe (M.A.) und hat in Hamburg, Gent (Belgien) und Göttingen studiert. Er ist im Projekt Schul-Cloud für die externe Kommunikation mit verschiedenen Stakeholdern, Verlagen und Pilotschulen verantwortlich. In der Freizeit entspannt er sich gerne bei langen Spaziergängen oder beim Kochen und anschließendem Dinieren mit Freunden.",
-        "pictureUrl": "/images/team/Julian_Taraz.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 17,
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
@@ -299,7 +266,6 @@
         "longDesc": false
       },
       {
-        "id": 18,
         "title": "",
         "firstName": "Matthias",
         "lastName": "Wiesner",
@@ -316,7 +282,6 @@
       },
       {
         "subheader_before": "Das nationale Excellence-Schulnetzwerk MINT-EC",
-        "id": 19,
         "title": "",
         "firstName": "Nils",
         "lastName": "Karn",
@@ -332,7 +297,21 @@
         "longDesc": false
       },
       {
-        "id": 20,
+        "title": "",
+        "firstName": "Christina",
+        "lastName": "Anders",
+        "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
+        "description": "Christina ist bei MINT-EC für die Kommunikation rund um die HPI Schul-Cloud zuständig. Sie steht im Kontakt mit Journalisten und den teilnehmenden MINT-EC-Schulen in ganz Deutschland. Als Naturwissenschaftlerin (M. Sc., FU Berlin) ist Christina vielfältig interessiert: Nach der Arbeit engagiert sie sich für die Initiative „foodsharing“, treibt gern Sport im Grünen oder probt mit ihrer Band für den nächsten Auftritt.",
+        "pictureUrl": "/images/team/Christina_Anders.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
         "title": "",
         "firstName": "Sophie",
         "lastName": "Plötz",
@@ -348,7 +327,6 @@
         "longDesc": false
       },
       {
-        "id": 21,
         "title": "",
         "firstName": "Sigrid",
         "lastName": "Stobbe",
@@ -370,13 +348,12 @@
     "style": "small",
     "team": [
       {
-        "id": 22,
         "title": "",
-        "firstName": "Raoul",
-        "lastName": "Baron",
+        "firstName": "Georg",
+        "lastName": "Berecz",
         "position": "Student",
-        "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
-        "pictureUrl": "/images/team/Raoul_Baron.jpg",
+        "description": "Georg schreibt derzeit seine Masterarbeit im Projekt HPI Schul-Cloud. Er befasst sich fachlich mit der Frage, wie kompetenz-basiertes Lernen in die HPI Schul-Cloud integriert werden kann. Technisch geht es dabei um die modulare Erweiterung von Microservice Architekturen. Sein Bachelorstudium hat Georg ebenfalls am HPI absolviert und anschließend hat er im Zuge seines Masterstudiums zwei Semester in Estland studiert. In seiner Freizeit schießt bzw. wirft er Bälle in Tore oder Körbe und malträtiert sein elektronisches Schlagzeug.",
+        "pictureUrl": "/images/team/Georg_Berecz.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -386,12 +363,25 @@
         "longDesc": false
       },
       {
-        "id": 23,
+        "title": "",
+        "firstName": "Katharina",
+        "lastName": "Blass",
+        "position": "Studentische Hilfskraft",
+        "description": "Katharina studiert IT-Systems-Engineering am HPI und unterstützt seit August 2018 das Schul-Cloud Team im Bereich Frontend. Neben Studium und Arbeit verbringt sie ihre Zeit gern sportlich aktiv und hat eine Leidenschaft für das Backen von Torten.",
+        "pictureUrl": "/images/team/Katharina_Blass.jpg",
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
         "position": "Studentische Hilfskraft",
-        "description": "Dominik ist Studentische Hilfskraft und Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
+        "description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
         "pictureUrl": "/images/team/Dominik_Glandorf.jpg",
         "priority": 0,
         "social": {
@@ -402,28 +392,11 @@
         "longDesc": false
       },
       {
-        "id": 24,
-        "title": "",
-        "firstName": "Max",
-        "lastName": "Haubold",
-        "position": "Student",
-        "description": "Max studiert IT Systems Engineering am Hasso Plattner Institut. Im Schul-Cloud Bachelorprojekt Team beschäftigt er sich mit Contenterstellung für Lehrer und philosophiert nebenbei gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
-        "pictureUrl": "/images/team/Max_Haubold.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 25,
         "title": "",
         "firstName": "Dominik",
         "lastName": "Jaekel",
-        "position": "Student",
-        "description": "Dominik ist im sechsten Semester am Hasso-Plattner-Institut und im Team des Bachelorprojektes. Dort schreibt er die Blogs und arbeitet am Content-Editor. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
+        "position": "Studentische Hilfskraft",
+        "description": "Dominik war Teil des Bachelorprojektes 2017/2018, dort schrieb er Blogbeiträge und arbeitete am Content-Editor. Seit August 2018 ist er Studentische Hilfskraft und unterstützt bei der Schul-Cloud-Entwicklung. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
         "pictureUrl": "/images/team/Dominik_Jaekel.jpg",
         "priority": 0,
         "social": {
@@ -434,7 +407,6 @@
         "longDesc": false
       },
       {
-        "id": 26,
         "title": "",
         "firstName": "Lasse",
         "lastName": "Jahn",
@@ -450,7 +422,6 @@
         "longDesc": false
       },
       {
-        "id": 27,
         "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
@@ -466,23 +437,6 @@
         "longDesc": false
       },
       {
-        "id": 28,
-        "title": "",
-        "firstName": "Karolina",
-        "lastName": "Kaminski-Rokosa",
-        "position": "Studentische Hilfskraft",
-        "description": "Karolina studiert Rechtswissenschaften an der Universität Potsdam und ist im Schul-Cloud-Projekt für datenschutzrechtliche Fragen zuständig. In ihrer Freizeit entspannt sie sich gern mit Yoga oder bei einem guten Buch.",
-        "pictureUrl": "/images/team/Karolina_K.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 29,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Keutel",
@@ -498,12 +452,11 @@
         "longDesc": false
       },
       {
-        "id": 30,
         "title": "",
         "firstName": "Niklas",
         "lastName": "Kiefer",
         "position": "Studentische Hilfskraft",
-        "description": "Niklas hat IT-Systems Engineering am Hasso-Plattner-Institut (HPI) studiert und ist seit September 2016 Teil des Schul-Cloud-Teams. Als Teilnehmer am Bachelor-Projekt der Schul-Cloud ist er schon seit Beginn der Anwendung involviert. Nach dem Studium am HPI ist er der Schul-Cloud aber trotzdem erhalten geblieben und arbeitet aktuell am Frontend und Backend, sowie gelegentlich an der Android-App. Seine größten Hobbies sind Fußball und Musik.",
+        "description": "Niklas hat IT-Systems Engineering am Hasso-Plattner-Institut (HPI) studiert und ist seit September 2016 Teil des Schul-Cloud-Teams. Als Teilnehmer am Bachelor-Projekt der Schul-Cloud war er schon seit Beginn der Anwendung involviert. Nach dem Studium am HPI ist er der Schul-Cloud aber trotzdem erhalten geblieben und arbeitet aktuell am Frontend und Backend, sowie gelegentlich an der Android-App. Seine größten Hobbies sind Fußball und Musik.",
         "pictureUrl": "/images/team/Niklas_Kiefer.png",
         "priority": 0,
         "social": {
@@ -514,7 +467,6 @@
         "longDesc": false
       },
       {
-        "id": 31,
         "title": "",
         "firstName": "Katrin",
         "lastName": "Klein",
@@ -530,23 +482,6 @@
         "longDesc": false
       },
       {
-        "id": 32,
-        "title": "",
-        "firstName": "Juliane",
-        "lastName": "Kleinknecht",
-        "position": "Studentin",
-        "description": "Juliane arbeitet für das Bachelorprojek-Team und studiert im sechsten Semester am HPI. Sie ist verantwortlich für die Integration und die Funktionalitäten des Content-Editors. Ansonsten ist sie sportlich aktiv und spielt am liebsten Tennis.",
-        "pictureUrl": "/images/team/Juliane_Kleinknecht2.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 33,
         "title": "",
         "firstName": "Sophie",
         "lastName": "Krüger",
@@ -562,7 +497,6 @@
         "longDesc": false
       },
       {
-        "id": 34,
         "title": "",
         "firstName": "Florian Michael",
         "lastName": "Kunz",
@@ -578,7 +512,6 @@
         "longDesc": false
       },
       {
-        "id": 35,
         "title": "",
         "firstName": "Lars",
         "lastName": "Lange",
@@ -594,7 +527,6 @@
         "longDesc": false
       },
       {
-        "id": 36,
         "title": "",
         "firstName": "Elias",
         "lastName": "Lehnert",
@@ -610,7 +542,6 @@
         "longDesc": false
       },
       {
-        "id": 37,
         "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
@@ -626,23 +557,6 @@
         "longDesc": false
       },
       {
-        "id": 38,
-        "title": "",
-        "firstName": "Florian",
-        "lastName": "Wirtz",
-        "position": "Student",
-        "description": "Über das Bachelorprojekt 2017/18 ist Florian Wirtz Mitglied im Team der Schulcloud. Seine Arbeit dort wird vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
-        "pictureUrl": "/images/team/Florian_Wiertz.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "id": 39,
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
@@ -658,7 +572,21 @@
         "longDesc": false
       },
       {
-        "id": 40,
+        "title": "",
+        "firstName": "Florian",
+        "lastName": "Wirtz",
+        "position": "Studentische Hilfskraft",
+        "description": "Florian ist studentische Hilfskraft im Team Schul-Cloud und war Mitglied des Bachelorprojekts 2017/18. Seine Arbeit dort war vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
+        "pictureUrl": "/images/team/Florian_Wiertz.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -680,7 +608,6 @@
     "style": "small",
     "team": [
       {
-        "id": 41,
         "title": "",
         "firstName": "Thomas",
         "lastName": "Feldtkeller",
@@ -696,7 +623,6 @@
         "longDesc": false
       },
       {
-        "id": 42,
         "title": "",
         "firstName": "Marvin",
         "lastName": "Fischer",
@@ -712,13 +638,12 @@
         "longDesc": false
       },
       {
-        "id": 43,
         "title": "",
-        "firstName": "Jessica",
-        "lastName": "Pfarr",
-        "position": "Juristische Unterstützung",
-        "description": "Jessica hat an der Universität Potsdam Rechtswissenschaften mit dem Schwerpunkt Gesellschafts- und Steuerrecht studiert. Seit April 2017 unterstützt sie das Projekt Schul-Cloud in datenschutzrechtlichen Angelegenheiten. Zur Entspannung paddelt Sie gerne über die Spree.",
-        "pictureUrl": "/images/team/Jessica_Pfarr.jpg",
+        "firstName": "Florian",
+        "lastName": "Sittig",
+        "position": "Praktikant",
+        "description": "Florian hat Lehramt für die Sprachen Englisch und Spanisch studiert und arbeitete bereits über 10 Jahre privat, institutionell und an diversen Schulen als Lehrkraft. Seit Mitte Juli ist er nun Teil unseres Teams und hilft dabei, die Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In der Digitalisierung sieht er Chancen für mehr Austausch und Kooperation zwischen den Lehrkräften. In seiner Freizeit trifft er sich gerne mit Freunden, geht wandern und hat eigentlich immer verschiedene Projekte nebenher, an denen er gerade arbeitet.",
+        "pictureUrl": "/images/team/Florian_Sittig.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -734,7 +659,21 @@
     "style": "small",
     "team": [
       {
-        "id": 44,
+        "title": "",
+        "firstName": "Raoul",
+        "lastName": "Baron",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
+        "pictureUrl": "/images/team/Raoul_Baron.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
         "title": "",
         "firstName": "Carl",
         "lastName": "Gödecken",
@@ -750,7 +689,36 @@
         "longDesc": false
       },
       {
-        "id": 45,
+        "title": "",
+        "firstName": "Max",
+        "lastName": "Haubold",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Max war Teil des Bachelorprojekts 2017/2018 und beschäftigt sich mit Contenterstellung für Lehrkräfte. Nebenbei philosophiert er gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
+        "pictureUrl": "/images/team/Max_Haubold.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Juliane",
+        "lastName": "Kleinknecht",
+        "position": "Ehem. Bachelorstudentin",
+        "description": "Juliane arbeitete für das Bachelorprojekt 2017/2018. Dort war sie verantwortlich für die Integration und die Funktionalitäten des Content-Editors. Ansonsten ist sie sportlich aktiv und spielt am liebsten Tennis.",
+        "pictureUrl": "/images/team/Juliane_Kleinknecht2.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
         "title": "",
         "firstName": "Nico",
         "lastName": "Knoll",
@@ -766,7 +734,6 @@
         "longDesc": false
       },
       {
-        "id": 46,
         "title": "",
         "firstName": "David",
         "lastName": "Kreidler",
@@ -782,7 +749,6 @@
         "longDesc": false
       },
       {
-        "id": 47,
         "title": "",
         "firstName": "Nicco",
         "lastName": "Kunzmann",
@@ -797,6 +763,6 @@
         },
         "longDesc": false
       }
-    ]
+      ]
   }
 }
