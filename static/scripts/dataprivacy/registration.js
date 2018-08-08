@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         let byParent = window.location.href.indexOf("parent") > 0 ? true : false;
         
         $.ajax({
-            url: "/registration/pinvalidation",
+            url: "/registration/pincreation",
             method: "POST",
             data: {"email": usermail, "byParent": byParent}
         }).done(success => {
@@ -64,34 +64,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
         }).fail(function(err){
             $.showNotification("Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' oder prüfe deine E-Mail-Adresse.", "danger", 7000);
         });
-    }
-    
-    // deprecated, built into controller
-    function checkPin(e) {
-        e.preventDefault();
-        let pinInput = document.querySelector('input[name="email-pin"]');
-        let usermail = $("input[name='parent-email']") ? $("input[name='parent-email']").val() : $("input[name='student-email']").val;
-        if(pinInput.checkValidity()){
-            $.ajax({
-                url: `/registration/pinvalidation?email=${usermail}&pin=${pinInput.value}`,
-                method: "GET"
-            }).done(function(response){
-                console.log(response);
-                if(response==="verified") {
-                    $.showNotification("PIN erfolgreich verifiziert.", "success", 4000);
-                    $("#send-pin, #resend-pin, #pinverification, #userdata-summary").toggle();
-                } else if (response==="wrong") {
-                    $.showNotification("Falscher PIN-Code, bitte erneut versuchen.", "danger", 4000);
-                } else {
-                    $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
-                }
-            }).fail(function(err){
-                $.showNotification("Fehler bei der PIN-Überprüfung!", "danger", 4000);
-            });
-        }else{
-            $(pinInput).closest("section").addClass("show-invalid");
-        }
-        // ajax check code
     }
 
     let parentMailInput = document.querySelector('input[name="parent-email"]');

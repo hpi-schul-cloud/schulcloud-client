@@ -203,23 +203,7 @@ router.get('/register/confirm/:accountId', function (req, res, next) {
 /**
  * New Dataprivacy Routes
  */
-router.get('/registration/pinvalidation', function (req, res, next) {
-    if (req.query && req.query.email && req.query.pin) {
-        return api(req).get('/registrationPins/', {
-            qs: {
-                $and: [{"pin": req.query.pin, "email": req.query.email} ]
-            }
-        }).then(check => {
-            if (check.data && check.data.length>0)
-                res.send("verified");
-            else
-                res.send("wrong");
-        }).catch(err => res.status(500).send(err));
-    } else {
-        res.sendStatus(500);
-    }
-});
-router.post('/registration/pinvalidation', function (req, res, next) {
+router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
             json: { email: req.body.email, byParent: req.body.byParent }
@@ -230,29 +214,7 @@ router.post('/registration/pinvalidation', function (req, res, next) {
         res.sendStatus(500);
     }
 });
-/* versuch: nur 1 route für registration submits für eltern und ü18
-router.post('/dataprivacy/registration/byparent/submit', function (req, res, next) {
-    let user = {
-        firstName: req.body["student-firstname"],
-        lastName: req.body["student-secondname"],
-        email: req.body["student-email"],
-        schoolId: "0000d186816abba584714c5f", // get schoolid and courseGroup ID from link
-        roles: ["0000d186816abba584714c99"] // role=student
-    };
 
-    return api(req).post('/users/', {
-        json: user
-    }).then(newUser => {
-        return api(req).post('/consents/', {
-            json: {userId: newUser._id}
-        }).then(_ => {
-            //if (Daten per Mail zuschicken)
-            //  sendEmail(Katrin)(newUser, req);
-            res.sendStatus(200);
-        }).catch(err => res.status(500).send(err));
-    }).catch(err => res.status(500).send(err));
-});
-*/
 router.post('/registration/submit', function (req, res, next) {
 
     let pininput = req.body["email-pin"]; 
@@ -377,6 +339,7 @@ ${res.locals.theme.short_title}-Team`
 });
 
 router.get('/registration/:classId/byparent', function (req, res, next) {
+    // TODO: check classId for existence
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
         classId: req.params.classId,
@@ -384,6 +347,7 @@ router.get('/registration/:classId/byparent', function (req, res, next) {
     });
 });
 router.get('/registration/:classId/bystudent', function (req, res, next) {
+    // TODO: check classId for existence
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
         classId: req.params.classId,
@@ -391,6 +355,7 @@ router.get('/registration/:classId/bystudent', function (req, res, next) {
     });
 });
 router.get('/registration/:classId', function (req, res, next) {
+    // TODO: check classId for existence
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
         return res.sendStatus(500);
     
