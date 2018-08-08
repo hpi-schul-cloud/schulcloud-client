@@ -1,4 +1,4 @@
-import { softNavigate } from './loggedin';
+import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 
 window.addEventListener("DOMContentLoaded", function(){
