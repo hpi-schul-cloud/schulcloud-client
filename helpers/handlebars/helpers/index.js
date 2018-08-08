@@ -39,9 +39,6 @@ module.exports = {
         return subString + "...";
     },
     truncateHTML: (text = '', {length = 140} = {}) => {
-        if (text.length <= length) {
-            return text;
-        }
         return truncatehtml(text, length, {
           stripTags: true,
           decodeEntities: true,
@@ -63,6 +60,9 @@ module.exports = {
     },
     stripHTMLTags: (htmlText = '') => {
         return stripHtml(htmlText);
+    },
+    stripOnlyScript: (htmlText = '') => {
+      return stripHtml(htmlText, {onlyStripTags: ['script', 'style']});
     },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');

@@ -284,9 +284,9 @@ aside.nav-sidebar {
 }
 
 .content-min-height{
-    min-height: calc(100vh - 159px);
+    min-height: calc(100vh - 193px);
     @include media-breakpoint-down(xs) {
-        min-height: calc(100vh - 208px);
+        min-height: calc(100vh - 244px);
     }
 }
 header {
