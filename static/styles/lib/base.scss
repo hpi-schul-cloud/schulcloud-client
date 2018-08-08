@@ -90,39 +90,47 @@ label,
 	}
 }
 
-footer.small-footer {
-	width: 100%;
-	margin-top: 40px;
-	position: inherit;
-	@media screen and (max-height: 700px) { top: 510px; }
-	bottom: 0;
-	right: 0;
-	left: 0;
-	clear: both;
-	padding: 30px 0px;
-	font-size: 0.9em;
-	margin-bottom: 5px;
-	@include media-breakpoint-down(xs) {
-		background: $colorBeige;
-
-		img {
-			clear: both;
-			display: block;
-			margin: 0 auto 10px;
-		}
+footer {
+	.android-app {
+		margin-left:-11px;
 	}
 
-	.imprint {
-		.center {
-			text-align: center;
-			align-items: center;
+	&.small-footer {
+		width: 100%;
+		margin-top: 40px;
+		position: inherit;
+		@media screen and (max-height: 700px) {
+			top: 510px;
 		}
-        img{
-            width: auto;
-            max-width: 175px;
-            height: auto;
-            max-height: 44px; 	
-        }
+		bottom: 0;
+		right: 0;
+		left: 0;
+		clear: both;
+		padding: 30px 0px;
+		font-size: 0.9em;
+		margin-bottom: 5px;
+		@include media-breakpoint-down(xs) {
+			background: $colorBeige;
+
+			img {
+				clear: both;
+				display: block;
+				margin: 0 auto 10px;
+			}
+		}
+
+		.imprint {
+			.center {
+				text-align: center;
+				align-items: center;
+			}
+			img {
+				width: auto;
+				max-width: 175px;
+				height: auto;
+				max-height: 44px;
+			}
+		}
 	}
 }
 
