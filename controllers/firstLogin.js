@@ -134,8 +134,7 @@ ${res.locals.theme.short_title}-Team`,
         res.sendStatus(200);
 
     }).catch(err => {
-        err.text = err.error.message? err.error.message: err;
-        res.status(500).send(err.text);
+        res.status(500).send((err.error || err).message || err);
     });
 });
 /*
