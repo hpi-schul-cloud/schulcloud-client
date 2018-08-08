@@ -11,25 +11,25 @@
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
-    -webkit-font-smoothing: antialiased;
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    hyphens: auto;
+	-webkit-font-smoothing: antialiased;
+	text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	hyphens: auto;
 }
 
 a {
-    text-decoration: none;
-    &:hover {
-        text-decoration: none;
-    }
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 a[data-toggle="collapse"],
 a[data-toggle="collapse"]:hover,
 a[data-toggle="collapse"]:active,
 a[data-toggle="collapse"]:focus{
-    color: inherit;
-    text-decoration:none !important;
+	color: inherit;
+	text-decoration:none !important;
 }
 
 p.small {
@@ -60,7 +60,7 @@ label {
 
 label,
 .noselect{
-    user-select: none;
+	user-select: none;
 }
 
 .intro-trigger {
@@ -122,6 +122,12 @@ footer {
 			.center {
 				text-align: center;
 				align-items: center;
+				.made-with-love {
+					margin-top: 8px;
+					.heart {
+						color: #b10438;
+					}
+				}
 			}
 			img {
 				width: auto;
@@ -194,9 +200,9 @@ form.inline {
 
 .collapse-icon {
 	display:inline-block;
-    vertical-align: baseline;
-    text-align: center;
-    width: 1em;
+	vertical-align: baseline;
+	text-align: center;
+	width: 1em;
 }
 
 .window-inline .hide-inline {
@@ -231,26 +237,26 @@ form.inline {
 
 .print-only{display:none;}
 @media print {
-    .print-only{display:initial;}
+	.print-only{display:initial;}
 }
 
 .ckcontent {
-    margin: 10px 0;
-    color: #373a3c;
-    text-decoration:none;
-    &:hover{text-decoration:none;}
-    h1 {font-size: 1.3rem;font-weight:bold}
-    h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
-    h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
-    p  {font-size: 1rem;margin-bottom:.25rem;}
-    img, video{max-width: 100%;}
-    table{display: block; max-width:100%; overflow: auto;}
-    blockquote{
-      color: grey;
-      margin-left: 1rem;
-      border-left: 2px solid grey;
-      padding-left: 5px;
-    }
+	margin: 10px 0;
+	color: #373a3c;
+	text-decoration:none;
+	&:hover{text-decoration:none;}
+	h1 {font-size: 1.3rem;font-weight:bold}
+	h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
+	h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
+	p  {font-size: 1rem;margin-bottom:.25rem;}
+	img, video{max-width: 100%;}
+	table{display: block; max-width:100%; overflow: auto;}
+	blockquote{
+	  color: grey;
+	  margin-left: 1rem;
+	  border-left: 2px solid grey;
+	  padding-left: 5px;
+	}
 }
 
 .container .jumbotron{
