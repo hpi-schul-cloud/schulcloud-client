@@ -532,9 +532,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.teacherIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.name;
+                    userClasses = userClasses + ' , ' + uClass.displayName;
                 } else {
-                    userClasses = uClass.name;
+                    userClasses = uClass.displayName;
                 }
             }
         });
@@ -542,9 +542,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.userIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.name;
+                    userClasses = userClasses + ' , ' + uClass.displayName;
                 } else {
-                    userClasses = uClass.name;
+                    userClasses = uClass.displayName;
                 }
             }
         });
@@ -816,10 +816,10 @@ const getStudentUpdateHandler = () => {
 };
 
 router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
-router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
-router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
-router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+router.patch('/students/pw/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
+router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
+router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
@@ -874,7 +874,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 // add classes to user
                 user.classesString = classes.filter((currentClass) => {
                     return currentClass.userIds.includes(user._id);
-                }).map((currentClass) => {return currentClass.name;}).join(', ');
+                }).map((currentClass) => {return currentClass.displayName;}).join(', ');
                 return user;
             })
 
