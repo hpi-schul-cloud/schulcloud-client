@@ -339,7 +339,9 @@ ${res.locals.theme.short_title}-Team`
 });
 
 router.get('/registration/:classId/byparent', function (req, res, next) {
-    // TODO: check classId for existence
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+        return res.sendStatus(500);
+    
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
         classId: req.params.classId,
@@ -347,21 +349,23 @@ router.get('/registration/:classId/byparent', function (req, res, next) {
     });
 });
 router.get('/registration/:classId/bystudent', function (req, res, next) {
-    // TODO: check classId for existence
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+        return res.sendStatus(500);
+    
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
         classId: req.params.classId,
         hideMenu: true
     });
 });
-router.get('/registration/:classId', function (req, res, next) {
-    // TODO: check classId for existence
+
+router.get('/registration/:classOrSchoolId', function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
         return res.sendStatus(500);
     
     res.render('registration/registration', {
         title: 'Herzlich Willkommen bei der Registrierung',
-        classId: req.params.classId,
+        classId: req.params.classOrSchoolId,
         hideMenu: true
     });
 });
