@@ -100,7 +100,7 @@ router.post('/submit', function (req, res, next) {
         if (req.body["sendCredentials"]){
             let mailcontent = {
                 json: { email: res.locals.currentUser.email,
-                        subject: `Willkommen in der ${res.locals.theme.title}!`,
+                        subject: `Deine Zugangsdaten für die ${res.locals.theme.title}!`,
                         headers: {},
                         content: {
                             "text": `Hallo ${res.locals.currentUser.displayName}
@@ -111,7 +111,9 @@ Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${res.locals.currentUser.email}
 Passwort: ${req.body["password-1"]}
 
-Viel Spaß und einen guten Start wünscht dir dein
+Bitte bewahre die Zugangsdaten auf.
+
+Viel Spaß wünscht dir dein 
 ${res.locals.theme.short_title}-Team`,
                             "html": ""
                         }
@@ -134,8 +136,7 @@ ${res.locals.theme.short_title}-Team`,
         res.sendStatus(200);
 
     }).catch(err => {
-        err.text = err.error.message? err.error.message: err;
-        res.status(500).send(err.text);
+        res.status(500).send((err.error || err).message || err);
     });
 });
 router.get('/existingU14', function (req, res, next) {
