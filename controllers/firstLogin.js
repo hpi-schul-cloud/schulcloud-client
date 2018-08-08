@@ -96,9 +96,9 @@ router.post('/submit', function (req, res, next) {
         
     }
 
-    return Promise.all([accountPromise, userPromise, consentPromise]).then(() => {
+    return Promise.all([accountPromise, userPromise, consentPromise]).then(async () => {
         if (req.body["sendCredentials"]){
-            return api(req).post('/mails/', {
+            let mailcontent = {
                 json: { email: res.locals.currentUser.email,
                         subject: `Willkommen in der ${res.locals.theme.title}!`,
                         headers: {},
@@ -116,7 +116,19 @@ ${res.locals.theme.short_title}-Team`,
                             "html": ""
                         }
                 }
-            });
+            }
+
+            try {
+                return await api(req).post('/mails/', mailcontent);
+            } catch (err) {
+                console.log("Mailing fehlgeschlagen, zweiter Versuch");
+                console.log("ERR: " + err);
+                try {
+                    return await api(req).post('/mails/', mailcontent);
+                } catch (err) {
+                    return Promise.reject("Die eMail konnte nicht verschickt werden.");
+                }
+            }
         } 
 
         res.sendStatus(200);
