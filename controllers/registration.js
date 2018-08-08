@@ -272,7 +272,7 @@ router.post('/registration/submit', function (req, res, next) {
                 if (err.error.message==="parentCreatePatch") {
                     return Promise.resolve();
                 } else {
-                    res.status(500).send("Fehler beim Erstellen des Elternaccounts.");
+                    return Promise.reject(new Error("Fehler beim Erstellen des Elternaccounts."));
                 }
             });
         } else {
@@ -331,6 +331,7 @@ ${res.locals.theme.short_title}-Team`
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
+        //Falls User erstellt wurde User wieder löschen, bei Schüler, wie bei Eltern?        
         res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung."); // TODO: Errorhandling /account/ is used even when error occurs
     });
 });

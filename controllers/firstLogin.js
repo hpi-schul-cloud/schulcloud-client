@@ -41,9 +41,9 @@ router.get('/existing', function (req, res, next) {
 router.post('/submit', function (req, res, next) {
 
     if(req.body["password-1"] != req.body["password-2"]){
-        return Promise.reject("Die neuen Passwörter stimmen nicht überein.")
+        return Promise.reject(new Error("Die neuen Passwörter stimmen nicht überein."))
         .catch(err => {
-            res.status(500).send(err);
+            res.status(500).send(err.message);
         });
     }
 
@@ -128,7 +128,8 @@ ${res.locals.theme.short_title}-Team`,
                 try {
                     return await api(req).post('/mails/', mailcontent);
                 } catch (err) {
-                    return Promise.reject("Die eMail konnte nicht verschickt werden.");
+                    return Promise.reject(new Error("Die eMail konnte nicht verschickt werden."));
+                    //Promise reject aber PW schon geändert -> wenn wieder auf absenden ist PW falsch weil schon gesendet
                 }
             }
         } 
@@ -136,7 +137,7 @@ ${res.locals.theme.short_title}-Team`,
         res.sendStatus(200);
 
     }).catch(err => {
-        res.status(500).send((err.error || err).message || err);
+        res.status(500).send((err.error || err).message || "Ein Fehler ist aufgetreten.");
     });
 });
 router.get('/existingU14', function (req, res, next) {
