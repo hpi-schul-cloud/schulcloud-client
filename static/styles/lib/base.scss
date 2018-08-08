@@ -117,8 +117,11 @@ footer.small-footer {
 			text-align: center;
 			align-items: center;
 
-			.heart-color {
-				color: #b10438;
+			.made-with-love {
+				margin-top: 8px;
+				.heart {
+					color: #b10438;
+				}
 			}
 		}
         img{
