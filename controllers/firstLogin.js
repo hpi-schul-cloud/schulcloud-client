@@ -66,7 +66,7 @@ router.post('/submit', function (req, res, next) {
     if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
     if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
     var preferences = res.locals.currentUser.preferences || {};
-    //preferences.firstLogin = true;
+    preferences.firstLogin = true;
     userUpdate.preferences = preferences;
 
     userPromise = api(req).get('/users/', {
@@ -147,6 +147,12 @@ router.get('/existingU14', function (req, res, next) {
 router.get('/existingUE14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUserUE14', {
         title: 'Willkommen - Erster Login für bestehende Nutzer',
+        hideMenu: true
+    });
+});
+router.get('/existingGeb14', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingGeb14', {
+        title: 'Willkommen - Erster Login',
         hideMenu: true
     });
 });
