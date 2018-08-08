@@ -102,13 +102,17 @@ router.post('/submit', function (req, res, next) {
                 json: { email: res.locals.currentUser.email,
                         subject: `Willkommen in der ${res.locals.theme.title}!`,
                         headers: {},
-                        content: { // TODO: use js template strings instead of concat (``)
-                            "text": "Hallo " + res.locals.currentUser.displayName + "\n" +
-                                    "lorem ipsum \n" +
-                                    "bla" + req.body["password-1"] + "\n" +
-                                    /* TODO: Email Text und was da rein muss sonst so*/
-                                    "Viel Spaß und einen guten Start wünscht dir dein \n" +
-                                    `${res.locals.theme.short_title}-Team`,
+                        content: {
+                            "text": `Hallo ${res.locals.currentUser.displayName}
+
+mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
+
+Adresse: ${req.headers.origin || process.env.HOST}
+E-Mail: ${res.locals.currentUser.email}
+Passwort: ${req.body["password-1"]}
+
+Viel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`,
                             "html": ""
                         }
                 }
