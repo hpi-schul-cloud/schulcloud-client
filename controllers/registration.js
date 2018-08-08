@@ -306,14 +306,11 @@ router.post('/registration/submit', function (req, res, next) {
                 json: parent
             }).then(newParent => {
                 parent = newParent;
-                return api(req).patch('/users/' + user._id, {
-                    json: {parents: [parent._id]}
-                });
             }).catch(err => {
                 if (err.error.message==="parentCreatePatch") {
-                    next();
+                    return Promise.resolve();
                 } else {
-                    res.status(500).send("Fehler beim Erstellen des Elternaccounts. Eventuell ist die E-Mail-Adresse bereits im System registriert."); // TODO: Errorhandling /account/ is used even when error occurs
+                    res.status(500).send("Fehler beim Erstellen des Elternaccounts.");
                 }
             });
         } else {
