@@ -355,12 +355,15 @@ router.post('/registration/submit', function (req, res, next) {
                         headers: {},
                         content: {
                             "text": `Hallo ${user.firstName}
-\nmit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
+
+mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${user.email}
 Startpasswort: ${passwort}
-\nNach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
-\nViel Spaß und einen guten Start wünscht dir dein
+
+Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
+
+Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                         }
                 }
