@@ -709,6 +709,10 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     });
 });
 
+/*
+    STUDENTS
+*/
+
 const getConsentStatusIcon = (consent) => {
     if(consent){
         if(consent.requiresParentConsent){
@@ -793,7 +797,6 @@ const getStudentUpdateHandler = () => {
                 delete req.body[key];
             }
         });
-        console.log("studentConsent",studentConsent);
 
         let promises = [api(req).patch('/users/' + req.params.id, { json: req.body })]; // TODO: sanitize
 
@@ -936,68 +939,10 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 });
 
 
-router.patch('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getUpdateHandler('helpdesk'));
-router.get('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDetailHandler('helpdesk'));
-router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDisableHandler('helpdesk'));
-router.post('/helpdesk/:id', permissionsHelper.permissionsChecker("HELPDESK_VIEW"), getSendHelper('helpdesk'));
-router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
-    const currentPage = parseInt(req.query.p) || 1;
-    let title = returnAdminPrefix(res.locals.currentUser.roles);
-
-    api(req).get('/helpdesk', {
-        qs: {
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
-    }).then(data => {
-        const head = [
-            'Titel',
-            'Ist-Zustand',
-            'Soll-Zustand',
-            'Kategorie',
-            'Status',
-            'Anmerkungen',
-            ''
-        ];
-
-        const body = data.data.map(item => {
-            return [
-                truncate(item.subject),
-                truncate(item.currentState),
-                truncate(item.targetState),
-                dictionary[item.category],
-                dictionary[item.state],
-                truncate(item.notes),
-                getTableActionsSend(item, '/administration/helpdesk/', item.state)
-            ];
-        });
-
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
-
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
-
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
-        };
-
-        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true});
-    });
-});
-
-
-router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
-router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
+/* 
+  CLASSES
+*/
 
 const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
@@ -1053,6 +998,25 @@ const renderClassEdit = (req, res, next, edit) => {
         });
     });
 };
+const getClassOverview = (req, res, next) => {
+    let query = {
+        $limit: 1000
+    };
+    if(req.query.yearId && req.query.yearId.length > 0){
+        query.year = req.query.yearId;
+    }
+    api(req).get('/classes', {
+        qs: query
+    })
+    .then(data => {
+        res.json(data);
+    }).catch(err => {
+        next(err);
+    });
+};
+router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
+router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
+router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,false);
 });
@@ -1063,15 +1027,17 @@ router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMI
 router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
-        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without class)
+        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without year)
         const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit:  1000});
         const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 10000});
+        const yearsPromise = getSelectOptions(req, 'years', {$limit: 10000});
 
         Promise.all([
             classesPromise,
             teachersPromise,
-            studentsPromise
-        ]).then(([classes, teachers, students]) => {
+            studentsPromise,
+            yearsPromise
+        ]).then(([classes, teachers, students, schoolyears]) => {
             const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
             if(isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
@@ -1101,6 +1067,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 classes,
                 teachers,
                 students,
+                schoolyears,
                 notes: [
                     {
                         "title":"Deine Schüler sind unter 18 Jahre alt?",
@@ -1266,73 +1233,130 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
             ''
         ];
 
-        let teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        let studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+        const body = data.data.map(item => {
+            return [
+                item.displayName,
+                (item.teacherIds || []).map(item => item.lastName).join(', '),
+                ((item, path)=>{return [
+                    {
+                        link: path + item._id + "/manage",
+                        class: `btn-manage`,
+                        icon: 'users',
+                        title: 'Klasse verwalten'
+                    },
+                    {
+                        link: path + item._id + "/edit",
+                        class: `btn-edit`,
+                        icon: 'pencil',
+                        title: 'Klasse bearbeiten'
+                    },
+                    {
+                        link: path + item._id,
+                        class: `btn-delete`,
+                        icon: 'trash-o',
+                        method: `delete`,
+                        title: 'Eintrag löschen'
+                    }
+                ];})(item, '/administration/classes/')
+            ];
+        });
 
-        Promise.all([
-            teachersPromise,
-            studentsPromise
-        ]).then(([teachers, students]) => {
-            const body = data.data.map(item => {
-                return [
-                    item.name,
-                    (item.teacherIds || []).map(item => item.lastName).join(', '),
-                    ((item, path)=>{return [
-                        {
-                            link: path + item._id + "/manage",
-                            class: `btn-manage`,
-                            icon: 'users',
-                            title: 'Klasse verwalten'
-                        },
-                        {
-                            link: path + item._id + "/edit",
-                            class: `btn-edit`,
-                            icon: 'pencil',
-                            title: 'Klasse bearbeiten'
-                        },
-                        {
-                            link: path + item._id,
-                            class: `btn-delete`,
-                            icon: 'trash-o',
-                            method: `delete`,
-                            title: 'Eintrag löschen'
-                        }
-                    ];})(item, '/administration/classes/')
-                ];
-            });
+        let sortQuery = '';
+        if (req.query.sort) {
+            sortQuery = '&sort=' + req.query.sort;
+        }
 
-            let sortQuery = '';
-            if (req.query.sort) {
-                sortQuery = '&sort=' + req.query.sort;
-            }
+        let limitQuery = '';
+        if (req.query.limit) {
+            limitQuery = '&limit=' + req.query.limit;
+        }
 
-            let limitQuery = '';
-            if (req.query.limit) {
-                limitQuery = '&limit=' + req.query.limit;
-            }
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/classes/?p={{page}}' + sortQuery + limitQuery
+        };
 
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/classes/?p={{page}}' + sortQuery + limitQuery
-            };
-
-            res.render('administration/classes', {
-                title: 'Administration: Klassen',
-                head,
-                body,
-                teachers,
-                students,
-                pagination,
-                limit: true
-            });
+        res.render('administration/classes', {
+            title: 'Administration: Klassen',
+            head,
+            body,
+            pagination,
+            limit: true
         });
     });
 });
 
+/*
+    HELPDESK
+*/
+
+router.patch('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getUpdateHandler('helpdesk'));
+router.get('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDetailHandler('helpdesk'));
+router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), getDisableHandler('helpdesk'));
+router.post('/helpdesk/:id', permissionsHelper.permissionsChecker("HELPDESK_VIEW"), getSendHelper('helpdesk'));
+router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), function (req, res, next) {
+
+    const itemsPerPage = (req.query.limit || 10);
+    const currentPage = parseInt(req.query.p) || 1;
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
+
+    api(req).get('/helpdesk', {
+        qs: {
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
+        }
+    }).then(data => {
+        const head = [
+            'Titel',
+            'Ist-Zustand',
+            'Soll-Zustand',
+            'Kategorie',
+            'Status',
+            'Anmerkungen',
+            ''
+        ];
+
+        const body = data.data.map(item => {
+            return [
+                truncate(item.subject),
+                truncate(item.currentState),
+                truncate(item.targetState),
+                dictionary[item.category],
+                dictionary[item.state],
+                truncate(item.notes),
+                getTableActionsSend(item, '/administration/helpdesk/', item.state)
+            ];
+        });
+
+        let sortQuery = '';
+        if (req.query.sort) {
+            sortQuery = '&sort=' + req.query.sort;
+        }
+
+        let limitQuery = '';
+        if (req.query.limit) {
+            limitQuery = '&limit=' + req.query.limit;
+        }
+
+        const pagination = {
+            currentPage,
+            numPages: Math.ceil(data.total / itemsPerPage),
+            baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
+        };
+
+        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true});
+    });
+});
 
 // general admin permissions
 // ONLY useable with ADMIN_VIEW !
+
+/*
+    COURSES
+*/
+
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', getUpdateHandler('schools'));
 router.post('/schools/:id/bucket', createBucket);
@@ -1415,6 +1439,9 @@ router.all('/courses', function (req, res, next) {
     });
 });
 
+/*
+    SYSTEMS
+*/
 
 router.post('/systems/', createSystemHandler);
 router.patch('/systems/:id', getUpdateHandler('systems'));

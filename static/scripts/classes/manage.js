@@ -60,6 +60,25 @@ window.addEventListener('DOMContentLoaded', ()=>{
 });
 
 window.addEventListener('load', ()=>{
+    document.getElementById("filter_schoolyear").addEventListener("input", async (event)=>{
+        // get filtered classes
+        const yearId = event.target.value;
+        const res = await fetch(`/administration/classes/json?yearId=${yearId}`, {credentials: "same-origin"});
+        const classes = await res.json();
+        const classInput = document.getElementById("student_from_class_import");
+
+        // update items
+        if(classes.total === 0){
+            classInput.innerHTML = `<option value="" disabled>Keine Klassen in diesem Jahrgang vorhanden</option>`;
+        }else{
+            classInput.innerHTML = `${classes.data.map((item, i) => `
+                <option value="${item._id}">${item.displayName}</option>
+            `).join('')}`;
+        }
+        $('select[name="classes"]').trigger("chosen:updated");
+    });
+
+
     var $importModal = $('.import-modal');
     $('.btn-import-class').on('click', (event) => {
         event.preventDefault();
@@ -72,22 +91,18 @@ window.addEventListener('load', ()=>{
         });
         $importModal.appendTo('body').modal('show');
     });
-    $importModal.find('.btn-submit').on('click', (event) => {
+    $importModal.find('.btn-submit').on('click', async (event) => {
         event.preventDefault();
-        const selections = [...document.querySelector('select[name="classes"]').options].filter(option => option.selected).map(option => option.value);
-        const requestUrl = `/administration/classes/students?classes=${encodeURI(JSON.stringify(selections))}`
+        const selections = $("#student_from_class_import").chosen().val();
+        const requestUrl = `/administration/classes/students?classes=${encodeURI(JSON.stringify(selections))}`;
         $importModal.modal('hide');
-        fetch(requestUrl, {
+        const res = await fetch(requestUrl, {
             credentials: "same-origin"
         })
-        .then(function(response) {
-            return response.json();
+        const students = await res.json();
+        students.forEach(student => {
+            document.querySelector(`option[value="${student._id}"]`).selected = true;
         })
-        .then(function(students) {
-            students.forEach(student => {
-                document.querySelector(`option[value="${student._id}"]`).selected = true;
-            })
-            $('select[name="userIds[]"]').trigger("chosen:updated");
-        });
+        $('select[name="userIds[]"]').trigger("chosen:updated");
     })
 });

@@ -88,13 +88,25 @@
 
 {{#embed "lib/components/modal-form" class="import-modal"}}
     {{#content "fields"}}
+    
         <div class="form-group">
-            <label>Schüler aus Vorjahres-Klasse hinzufügen</label>
-
-            <select name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
+            <label for="filter_schoolyear">Nach Schuljahr filtern</label>
+            <select id="filter_schoolyear" name="classes" data-placeholder="Nach Schuljahr filtern">
+                <option value="" selected>Alle</option>
+                {{#each schoolyears}}
+                    <option value="{{this._id}}">
+                        {{this.name}}
+                    </option>
+                {{/each}}
+            </select>
+            <p>Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.</p>
+        </div>
+        <div class="form-group">
+            <label for="student_from_class_import">Schüler aus Vorjahres-Klasse hinzufügen</label>
+            <select id="student_from_class_import" name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
                 {{#each classes}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                        {{this.name}}
+                        {{this.displayName}}
                     </option>
                 {{/each}}
             </select>
