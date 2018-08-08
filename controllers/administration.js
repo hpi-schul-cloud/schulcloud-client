@@ -720,7 +720,7 @@ const getConsentStatusIcon = (consent) => {
                 || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
                 return `<i class="fa fa-times consent-status"></i>`
             }else{
-                if(consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                     return `<i class="fa fa-check consent-status"></i>`;
                 }else{
                     return `<i class="fa fa-circle-thin consent-status"></i>`;
