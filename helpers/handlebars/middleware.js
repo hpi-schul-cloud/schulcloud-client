@@ -104,7 +104,7 @@ module.exports = (req, res, next) => {
             }
         ],
         introNumber: 16,
-        introText: "Hier gelangen Sie zu ihren Dateien, die Sie in der Schul-Cloud uploaden können. Sie haben an dieser Stelle die Möglichkeit zwischen Ihren persönlichen Dateien, Kursdateien und mit Ihnen geteilten Dateien zu wählen."
+        introText: "Hier gelangen Sie zum Dateibereich, in dem Sie Dateien hochladen und verwalten können. Ihre Dateien werden hierbei in folgende Kategorien unterteilt: Ihre persönlichen Dateien, Kursdateien und mit Ihnen geteilte Dateien."
     }, {
         name: 'Materialien',
         icon: 'search',
