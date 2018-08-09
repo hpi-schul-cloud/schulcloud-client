@@ -58,7 +58,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
             data: {"email": usermail, "byParent": byParent}
         }).done(success => {
             if(sendConfirm) {
-                $.showNotification(`PIN erfolgreich an ${usermail} verschickt.`, "success", 3000);
+                $.showNotification(`PIN erfolgreich an ${usermail} verschickt.`, "success", false);
             }
             $("input[name='pin-sent']").val("yes");
         }).fail(function(err){
@@ -69,14 +69,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     let parentMailInput = document.querySelector('input[name="parent-email"]');
     let studentMailInput = document.querySelector('input[name="student-email"]');
     if(parentMailInput && studentMailInput){
-        function validateDifferent(event){
-            if(parentMailInput.value && studentMailInput.value && parentMailInput.value == studentMailInput.value){
-                parentMailInput.setCustomValidity("Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.");
-                $(parentMailInput).closest("section").addClass("show-invalid");
-            }else{
-                parentMailInput.setCustomValidity('');
-            }
-        }
         "change input keyup paste".split(" ").forEach(function(event){
             parentMailInput.addEventListener(event, validateDifferent, false);
             studentMailInput.addEventListener(event, validateDifferent, false);
@@ -96,6 +88,16 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
 });
+function validateDifferent(event){
+    let parentMailInput = document.querySelector('input[name="parent-email"]');
+    let studentMailInput = document.querySelector('input[name="student-email"]');
+    if(parentMailInput.value && studentMailInput.value && parentMailInput.value == studentMailInput.value){
+        parentMailInput.setCustomValidity("Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.");
+        $(parentMailInput).closest("section").addClass("show-invalid");
+    }else{
+        parentMailInput.setCustomValidity('');
+    }
+}
 function goBack(event){
     event.stopPropagation();
     event.preventDefault();

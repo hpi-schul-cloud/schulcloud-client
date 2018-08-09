@@ -55,9 +55,9 @@ function setSelectionByIndex(index, event){
 
         document.querySelector(`.form input[type="radio"]:nth-of-type(${index})`).checked = true;
         // set keyboard focus to first focusable element in the opened section.
-        const firstInput = document.querySelector(`section[data-panel="section-${index}"]`).querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')[0]
+        const firstInput = document.querySelector(`section[data-panel="section-${index}"]`).querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')[0];
         if(firstInput){
-            firtstInput.focus();
+            firstInput.focus();
         }
 
         updateButton(index);
@@ -137,18 +137,20 @@ function submitForm(event){
             data: $(this).serialize(),
             context: this
         }).done(function(response){
+            if(response.type !== undefined){
+                $.showNotification(response.message, response.type, response.time);
+            }
+
             document.querySelector('.form').classList.add("form-submitted");
             formSubmitButton.disabled = false;
             // go to next page
             setSelectionByIndex(getSelectionIndex()+1, event);
         })
-        .fail(function(request){
-            if(request.status !== 200){
-                if(request.responseText !== undefined){
-                    $.showNotification(`Fehler: ${request.responseText}`, "danger", true);
-                }else{
-                    $.showNotification("Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)", "danger", true);
-                }
+        .fail(function(response){
+            if(response.responseText !== undefined){
+                $.showNotification(`Fehler: ${response.responseText}`, "danger", true);
+            }else{
+                $.showNotification("Das Absenden des Formulars ist fehlgeschlagen. (unbekannter Fehler)", "danger", true);
             }
             formSubmitButton.disabled = false;
         });
