@@ -868,9 +868,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 const consent = consents.find((consent) => {
                     return consent.userId == user._id;
                 });
-                user.consentStatus = getConsentStatusIcon(consent);
 
-                user.consentStatus = `<p class="text-center m-0">${user.consentStatus}</p>`
+                user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent)}</p>`;
                 // add classes to user
                 user.classesString = classes.filter((currentClass) => {
                     return currentClass.userIds.includes(user._id);
@@ -893,8 +892,16 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     user.lastName,
                     user.email,
                     user.classesString,
-                    user.consentStatus,
-                    `<a class="btn btn-sm" href="/administration/students/${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
+                    {
+                        useHTML: true,
+                        content: user.consentStatus
+                    },
+                    [{
+                        link: `/administration/students/${user._id}/edit`,
+                        title: 'Nutzer bearbeiten',
+                        class: 'btn-edit',
+                        icon: 'edit'
+                    }]
                 ];
             });
 
