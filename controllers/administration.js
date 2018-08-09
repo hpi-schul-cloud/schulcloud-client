@@ -858,14 +858,13 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 return user._id;
             })
           }});
-
         Promise.all([
             classesPromise,
             consentsPromise
         ]).then(([classes, consents]) => {
             users = users.map((user) => {
                 // add consentStatus to user
-                const consent = consents.find((consent) => {
+                const consent = (consents||[]).find((consent) => {
                     return consent.userId == user._id;
                 });
 
@@ -963,7 +962,7 @@ const renderClassEdit = (req, res, next, edit) => {
 
         Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
             const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-            if(isAdmin){
+            if(!isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
                 teachers.forEach(t => {
                     if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
@@ -1046,7 +1045,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
             yearsPromise
         ]).then(([classes, teachers, students, schoolyears]) => {
             const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-            if(isAdmin){
+            if(!isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
                 teachers.forEach(t => {
                     if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){

@@ -121,22 +121,22 @@ ${res.locals.theme.short_title}-Team`,
             }
 
             try {
-                return await api(req).post('/mails/', mailcontent);
+                await api(req).post('/mails/', mailcontent);
+                res.status(200).json({type: 'success', message: 'EMail erfolgreich verschickt.'});    
             } catch (err) {
                 console.log("Mailing fehlgeschlagen, zweiter Versuch");
                 console.log("ERR: " + err);
                 try {
-                    return await api(req).post('/mails/', mailcontent);
+                    await api(req).post('/mails/', mailcontent);
+                    res.status(200).json({type: 'success', message: 'EMail erfolgreich verschickt.'});
                 } catch (err) {
-                    return Promise.reject(new Error("Die eMail konnte nicht verschickt werden."));
-                    //Promise reject aber PW schon geändert -> wenn wieder auf absenden ist PW falsch weil schon gesendet
+                    res.status(200).json({type: 'danger', message: 'Die EMail konnte nicht verschickt werden. Bitte notiere dir dein Passwort selbst.'});
                 }
             }
         } 
 
-        res.sendStatus(200);
-
-    }).catch(err => {
+    })
+    .catch(err => {
         res.status(500).send((err.error || err).message || "Ein Fehler ist aufgetreten.");
     });
 });
