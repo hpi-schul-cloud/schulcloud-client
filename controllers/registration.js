@@ -358,7 +358,7 @@ router.get('/registration/:classId/bystudent', function (req, res, next) {
 });
 
 router.get('/registration/:classOrSchoolId', function (req, res, next) {
-    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
     res.render('registration/registration', {
