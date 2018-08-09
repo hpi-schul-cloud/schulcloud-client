@@ -248,7 +248,7 @@ router.post('/registration/submit', function (req, res, next) {
         };
         return api(req).post('/users/', {
             json: user
-        }).catch(err => res.status(500).send("Fehler beim Erstellen des Schülers. Eventuell ist die E-Mail-Adresse bereits im System registriert.")); // TODO: Errorhandling /account/ is used even when error occurs
+        }).catch(err => res.status(500).send("Fehler beim Erstellen des Schülers. Eventuell ist die E-Mail-Adresse bereits im System registriert."));
     }).then(newUser => {
         user = newUser;
         // create account
@@ -336,23 +336,23 @@ ${res.locals.theme.short_title}-Team`
     });
 });
 
-router.get('/registration/:classId/byparent', function (req, res, next) {
-    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+router.get('/registration/:classOrSchoolId/byparent', function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
-        classId: req.params.classId,
+        classId: req.params.classOrSchoolId,
         hideMenu: true
     });
 });
-router.get('/registration/:classId/bystudent', function (req, res, next) {
-    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classId))
+router.get('/registration/:classOrSchoolId/bystudent', function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
-        classId: req.params.classId,
+        classId: req.params.classOrSchoolId,
         hideMenu: true
     });
 });
