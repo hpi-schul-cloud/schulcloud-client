@@ -858,14 +858,13 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 return user._id;
             })
           }});
-
         Promise.all([
             classesPromise,
             consentsPromise
         ]).then(([classes, consents]) => {
             users = users.map((user) => {
                 // add consentStatus to user
-                const consent = consents.find((consent) => {
+                const consent = (consents||[]).find((consent) => {
                     return consent.userId == user._id;
                 });
 
