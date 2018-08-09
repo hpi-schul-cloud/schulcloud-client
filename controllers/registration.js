@@ -331,8 +331,27 @@ ${res.locals.theme.short_title}-Team`
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
-        //Falls User erstellt wurde User wieder löschen, bei Schüler, wie bei Eltern?        
-        res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung."); // TODO: Errorhandling /account/ is used even when error occurs
+
+        /*
+        //If user for student created, remove that user, cannot do this bc no rights to do this
+        let userpromise = api(req).get('/users/', {
+            qs: {email: req.body["student-email"]}
+        }).then(students => {
+            return api(req).delete('/users/' + students._id);
+        });
+
+        //If account for student created, remove that account, cannot do this bc no rights to do this
+        let accpromise = api(req).get('/accounts/', {
+            qs: {email: req.body["student-email"]}
+        }).then(students => {
+            return api(req).delete('/accounts/' + students._id);
+        });
+
+        Promise.all([userpromise, accpromise]).then(()=>{*/
+            res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung."); // TODO: Errorhandling /account/ is used even when error occurs
+        /*}).catch(err => {
+            res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung.");
+        });*/
     });
 });
 

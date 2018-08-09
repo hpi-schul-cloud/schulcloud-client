@@ -482,7 +482,7 @@ const createBucket = (req, res, next) => {
     }
 };
 
-const sendMailHandler = (user, req) => {
+const sendMailHandler = (user, req, res) => {
     let createdUser = user;
     let email = createdUser.email;
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
@@ -748,7 +748,7 @@ const getStudentCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            sendMailHandler(data, req);
+            sendMailHandler(data, req, res);
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -858,14 +858,13 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 return user._id;
             })
           }});
-
         Promise.all([
             classesPromise,
             consentsPromise
         ]).then(([classes, consents]) => {
             users = users.map((user) => {
                 // add consentStatus to user
-                const consent = consents.find((consent) => {
+                const consent = (consents||[]).find((consent) => {
                     return consent.userId == user._id;
                 });
 
