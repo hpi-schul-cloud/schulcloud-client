@@ -6,7 +6,7 @@
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}','{{this.name}}');">
+                                     fileViewer('{{this.type}}', '{{this.key}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
                                 <div class="col-sm-3 no-padding">
                                     <div class="file-preview"
@@ -59,13 +59,14 @@
                                 {{/userHasPermission}}
                                 {{/ifneq}}
 
+                                <!--{{#if this.isOfficeFile}} todo: discuss just onClick or own button?
+                                <a href="/files/file/{{this._id}}/lool" 
+                                    target="_blank"
+                                    data-method="lool">In LibreOffice öffnen</a>
+                                {{/if}}-->
+
                                 <small class="file-info" id="{{this._id}}"></small>
                             </div>
-                            {{#if this.isOfficeFile}}
-                            <div class="card-text">
-                                <a href="/files/file/{{this._id}}/lool" target="_blank">In LibreOffice öffnen</a>
-                            </div>
-                            {{/if}}
                         </div>
                     </div>
                 </div>

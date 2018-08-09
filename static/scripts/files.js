@@ -470,25 +470,25 @@ window.videoClick = function videoClick(e) {
     e.preventDefault();
 };
 
-window.fileViewer = function fileViewer(filetype, file, key, name) {
-    $('#my-video').css("display","none");
-    switch (filetype) {
+window.fileViewer = function fileViewer(type, key, name, id) {
+    $('#my-video').css("display" , "none");
+    switch (type) {
         case 'application/pdf':
             $('#file-view').hide();
-            let win = window.open('/files/file?file='+file, '_blank');
+            let win = window.open('/files/file?file=' + key, '_blank');
             win.focus();
             break;
 
-        case 'image/'+filetype.substr(6) :
+        case 'image/' + type.substr(6) :
             $('#file-view').css('display','');
-            $('#picture').attr("src", '/files/file?file='+file);
+            $('#picture').attr("src", '/files/file?file=' + key);
             break;
 
-        case 'audio/'+filetype.substr(6):
-        case 'video/'+filetype.substr(6):
+        case 'audio/' + type.substr(6):
+        case 'video/' + type.substr(6):
             $('#file-view').css('display','');
             videojs('my-video').ready(function () {
-                this.src({type: filetype, src: '/files/file?file='+file});
+                this.src({type: type, src: '/files/file?file=' + key});
             });
             $('#my-video').css("display","");
             break;
@@ -499,9 +499,10 @@ window.fileViewer = function fileViewer(filetype, file, key, name) {
         case 'application/vnd.ms-powerpoint':                                               //.ppt
         case 'application/vnd.ms-excel':                                                    //.xlx
         case 'application/vnd.ms-word':                                                     //.doc
-        case 'text/plain': //only in Google Docs Viewer                                     //.txt
+        case 'text/plain':                                                                  //.txt
             $('#file-view').css('display','');
-            let gviewer ="https://docs.google.com/viewer?url=";
+            
+            /**let gviewer ="https://docs.google.com/viewer?url=";
             let showAJAXError = showAJAXError; // for deeply use
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             $.post('/files/file?file=', {
@@ -513,17 +514,24 @@ window.fileViewer = function fileViewer(filetype, file, key, name) {
                 url = url.replace(/&/g, "%26");
                 openInIframe(gviewer+url+"&embedded=true");
             })
-                .fail(showAJAXError);
+                .fail(showAJAXError);**/
+
+            $('#file-view').hide();
+            win = window.open(`/files/file/${id}/lool`, '_blank');
+            win.focus();
             break;
 
         default:
             $('#file-view').css('display','');
-            $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+            $('#link').html('<a class="link" href="/files/file?file=' + key + '" target="_blank">Datei extern öffnen</a>');
             $('#link').css("display","");
     }
-}
+};
 
-//show Google-Viewer/Office online in iframe, after user query (and set cookie)
+/**
+ * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
+ * @deprecated 
+**/
 function openInIframe(source){
     $("input.box").each(function() {
         let mycookie = $.cookie($(this).attr('name'));
