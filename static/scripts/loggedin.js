@@ -247,3 +247,11 @@ function startIntro() {
     })
     .start();
 }
+
+window.addEventListener("load", () => {
+    var continueTuorial=localStorage.getItem('Tutorial');
+    if(continueTuorial=='true') {
+        startIntro();
+        localStorage.setItem('Tutorial', false);
+    }
+}); 
