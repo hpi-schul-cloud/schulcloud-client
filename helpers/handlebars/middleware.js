@@ -39,18 +39,26 @@ module.exports = (req, res, next) => {
         name: 'Übersicht',
         icon: 'th-large',
         link: '/dashboard/',
+        introNumber: 11,
+        introText: "Hiermit gelangen sie stets auf ihr persönliches Dashboard zurück, auf welchem Sie auch direkt nach dem Login landen."
     }, {
         name: 'Neuigkeiten',
         icon: 'newspaper-o',
-        link: '/news/'
+        link: '/news/',
+        introNumber: 12,
+        introText: "Hier können Sie noch einmal auf Ihre Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
     }, {
         name: 'Kurse',
         icon: 'graduation-cap',
-        link: '/courses/'
+        link: '/courses/',
+        introNumber: 13,
+        introText: "Hier gelangen Sie zu ihren Kursen, die sie einsehen, verwalten und neu anlegen können."
     }, {
         name: 'Termine',
         icon: 'table',
-        link: '/calendar/'
+        link: '/calendar/',
+        introNumber: 14,
+        introText: "Hier haben Sie Einsicht in Ihren persönlichen Kalender. In diesem sind bisher Ihre persönlichen Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
@@ -71,7 +79,9 @@ module.exports = (req, res, next) => {
                 icon: 'archive',
                 link: '/homework/archive/'
             }
-        ]
+        ],
+        introNumber: 15,
+        introText: "Hier gelangen Sie zur Aufgabenübersicht. Unter diesem Menüpunkt finden Sie die von Ihnen gestellten Aufgaben, ihre persönlichen Aufgaben sowie das Aufgabenarchiv. Sie können außerdem die Status der einzelnen Aufgaben einsehen und ihren Schüler*innen Feedback geben."
     }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
@@ -92,11 +102,15 @@ module.exports = (req, res, next) => {
                 icon: 'folder-open-o',
                 link: '/files/shared/'
             }
-        ]
+        ],
+        introNumber: 16,
+        introText: "Hier gelangen Sie zu ihren Dateien, die Sie in der Schul-Cloud uploaden können. Sie haben an dieser Stelle die Möglichkeit zwischen Ihren persönlichen Dateien, Kursdateien und mit Ihnen geteilten Dateien zu wählen."
     }, {
         name: 'Materialien',
         icon: 'search',
-        link: '/content/'
+        link: '/content/',
+        introNumber: 17,
+        introText: "Hier gelangen Sie zur Materialsuche, bei der Sie in der Datenbank der Schul-Cloud nach Materialien für Ihre Unterrichtsstunde suchen können."
     }];
 
     // teacher views

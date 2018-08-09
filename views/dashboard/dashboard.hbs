@@ -10,7 +10,7 @@
     {{/content}}
 
     {{#content "page"}}
-        <section class="section-timetable">
+        <section class="section-timetable" data-step="7" data-intro="Hier finden Sie eine Übersicht über ihren Stundenplan und anstehende Termine">
             <div class="row">
                 <div class="col-sm-12">
                     <h5>Stundenplan</h5>
@@ -79,10 +79,10 @@
             </section>
         {{/ifeq}}
 
-        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="6" intro="Hier finden Sie eine Übersicht über Ihren Stundenplan und anstehende Termine."}}
-        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe" step="7" intro="Hier finden Sie eine Übersicht über Ihre gestellten Aufgaben. Diese Aufgaben sind mit ihren Schüler*innen geteilt und für diese sichtbar. Sie können unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
+        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="8" intro="Hier finden Sie eine Übersicht über Ihre gestellten Aufgaben. Diese Aufgaben sind mit ihren Schüler*innen geteilt und für diese sichtbar. Sie können unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
+        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe" step="9" intro="An dieser Stelle finden Sie eine Übersicht über ihre private “To Do” Liste. Die Aufgaben, die sie hier sehen, können Sie selbst unter “Aufgaben” auswählen und bearbeiten. Ihre “To Do” Liste ist privat und daher nur für sie einsehbar."}}
 
-        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" step="8" intro="An dieser Stelle finden Sie eine Übersicht über ihre private “To Do” Liste. Die Aufgaben, die sie hier sehen, können Sie selbst unter “Aufgaben” auswählen und bearbeiten. Ihre “To Do” Liste ist privat und daher nur für sie einsehbar. "}}
+        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" step="10" intro="Hier erhalten Sie einen Überblick über Neuigkeiten, die zum Beispiel von Ihrer Schulleitung oder dem Entwicklerteam erstellt werden können."}}
 
         {{#if this.currentSchoolData.pilot}}
         {{#ifneq this.currentRole "Schüler"}}
