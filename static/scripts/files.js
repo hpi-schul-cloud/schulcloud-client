@@ -494,31 +494,32 @@ window.fileViewer = function fileViewer(type, key, name, id) {
             break;
 
         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
+        case 'application/vnd.ms-word': case 'application/msword':                          //.doc
+        case 'text/plain':                                                                  //.txt
+            $('#file-view').hide();
+            win = window.open(`/files/file/${id}/lool`, '_blank');
+            win.focus();
+
+            break;
+
         case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
         case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
-        case 'application/vnd.ms-powerpoint':                                               //.ppt
-        case 'application/vnd.ms-excel':                                                    //.xlx
-        case 'application/vnd.ms-word':                                                     //.doc
-        case 'text/plain':                                                                  //.txt
+        case 'application/vnd.ms-powerpoint':  case 'application/mspowerpoint':             //.ppt
+        case 'application/vnd.ms-excel': case 'application/msexcel':                        //.xls
             $('#file-view').css('display','');
-            
-            /**let gviewer ="https://docs.google.com/viewer?url=";
+            let gviewer = "https://docs.google.com/viewer?url=";
             let showAJAXError = showAJAXError; // for deeply use
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             $.post('/files/file?file=', {
                 path: (getCurrentDir()) ? getCurrentDir() + name : key,
-                type: filetype,
+                type: type,
                 action: "getObject"
             }, function (data) {
                 let url = data.signedUrl.url;
                 url = url.replace(/&/g, "%26");
-                openInIframe(gviewer+url+"&embedded=true");
+                openInIframe(gviewer + url + "&embedded=true");
             })
-                .fail(showAJAXError);**/
-
-            $('#file-view').hide();
-            win = window.open(`/files/file/${id}/lool`, '_blank');
-            win.focus();
+                .fail(showAJAXError);
             break;
 
         default:
