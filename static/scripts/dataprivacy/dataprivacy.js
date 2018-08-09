@@ -55,7 +55,10 @@ function setSelectionByIndex(index, event){
 
         document.querySelector(`.form input[type="radio"]:nth-of-type(${index})`).checked = true;
         // set keyboard focus to first focusable element in the opened section.
-        document.querySelector(`section[data-panel="section-${index}"]`).querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')[0].focus();
+        const firstInput = document.querySelector(`section[data-panel="section-${index}"]`).querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])')[0]
+        if(firstInput){
+            firtstInput.focus();
+        }
 
         updateButton(index);
 

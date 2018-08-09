@@ -109,6 +109,13 @@ module.exports = {
             return opts.inverse(this);
         }
     },
+    ifvalue: (conditional, options) => {
+        if (options.hash.value === conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
     userHasPermission: (permission, opts) => {
         if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
             return opts.fn(this);
@@ -119,13 +126,6 @@ module.exports = {
     userIsAllowedToViewContent: (isNonOerContent = false, options) => {
         // Always allow nonOer content, otherwise check user is allowed to view nonOer content
         if(permissionsHelper.userHasPermission(options.data.local.currentUser, "CONTENT_NON_OER_VIEW") || !isNonOerContent) {
-            return options.fn(this);
-        } else {
-            return options.inverse(this);
-        }
-    },
-    ifvalue: (conditional, options) => {
-        if (options.hash.value === conditional) {
             return options.fn(this);
         } else {
             return options.inverse(this);

@@ -868,9 +868,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 const consent = consents.find((consent) => {
                     return consent.userId == user._id;
                 });
-                user.consentStatus = getConsentStatusIcon(consent);
 
-                user.consentStatus = `<p class="text-center m-0">${user.consentStatus}</p>`
+                user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent)}</p>`;
                 // add classes to user
                 user.classesString = classes.filter((currentClass) => {
                     return currentClass.userIds.includes(user._id);
@@ -893,8 +892,16 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     user.lastName,
                     user.email,
                     user.classesString,
-                    user.consentStatus,
-                    `<a class="btn btn-sm" href="/administration/students/${user._id}/edit" title="Nutzer bearbeiten"><i class="fa fa-edit"></i></a>`
+                    {
+                        useHTML: true,
+                        content: user.consentStatus
+                    },
+                    [{
+                        link: `/administration/students/${user._id}/edit`,
+                        title: 'Nutzer bearbeiten',
+                        class: 'btn-edit',
+                        icon: 'edit'
+                    }]
                 ];
             });
 
@@ -1062,7 +1069,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 }
             })
             res.render('administration/classes-manage', {
-                title: `Klasse '${currentClass.name}' verwalten `,
+                title: `Klasse '${currentClass.displayName}' verwalten `,
                 "class": currentClass,
                 classes,
                 teachers,
@@ -1219,6 +1226,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
     const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
 
+    console.log(req.query.sort);
     api(req).get('/classes', {
         qs: {
             $populate: ['teacherIds'],
@@ -1228,7 +1236,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
         }
     }).then(data => {
         const head = [
-            'Name',
+            'Klasse',
             'Lehrer',
             ''
         ];
@@ -1399,7 +1407,7 @@ router.all('/courses', function (req, res, next) {
             const body = data.data.map(item => {
                 return [
                     item.name,
-                    (item.classIds || []).map(item => item.name).join(', '),
+                    (item.classIds || []).map(item => item.displayName).join(', '),
                     (item.teacherIds || []).map(item => item.lastName).join(', '),
                     getTableActions(item, '/administration/courses/').map(action => {
                         
