@@ -18,7 +18,6 @@ $(document).ready(function () {
 
     var $modals = $('.modal');
     var $addModal = $('.add-modal');
-    var $editModal = $('.edit-modal');
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteModal = $('.delete-modal');
@@ -35,7 +34,7 @@ $(document).ready(function () {
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
-        let target = 'register/' + $invitationModal.find("input[name='schoolId']").attr("value");
+        let target = 'registration/' + $invitationModal.find("input[name='schoolId']").attr("value");
         $.ajax({
             type: "POST",
             url: "/link/",
