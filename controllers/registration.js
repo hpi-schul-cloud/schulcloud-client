@@ -228,10 +228,10 @@ router.post('/registration/submit', function (req, res, next) {
     }).then(check => {
         //check pin
         if (!(check.data && check.data.length>0 && check.data[0].pin === pininput)) {
-            res.status(500).send("Ungültige Pin, bitte überprüfe die Eingabe.");
+            return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
         }
         if (req.body["parent-email"] && req.body["parent-email"] === req.body["student-email"]) {
-            res.status(500).send("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
+            return Promise.reject("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
         }
         return Promise.resolve;
     }).then(function() {
@@ -248,7 +248,9 @@ router.post('/registration/submit', function (req, res, next) {
         return api(req).post('/users/', {
             json: user,
 			qs:{email:req.body["parent-email"]}
-        }).catch(err => res.status(500).send("Fehler beim Erstellen des Schülers. Eventuell ist die E-Mail-Adresse bereits im System registriert."));
+        }).catch(err =>{
+            return Promise.reject("Fehler beim Erstellen des Schülers. Eventuell ist die E-Mail-Adresse bereits im System registriert.");
+        });
     }).then(newUser => {
         user = newUser;
         // create account
