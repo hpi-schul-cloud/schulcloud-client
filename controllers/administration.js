@@ -1245,23 +1245,66 @@ router.delete('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
     });
 });
 
+const classFilterSettings = function (years) {
+    return [
+        {
+            type: "sort",
+            title: 'Sortierung',
+            displayTemplate: 'Sortieren nach: %1',
+            options: [
+                ["displayName", "Klasse"]
+            ],
+            defaultSelection: "displayName",
+            defaultOrder: "DESC"
+        },
+        {
+            type: "limit",
+            title: 'Einträge pro Seite',
+            displayTemplate: 'Einträge pro Seite: %1',
+            options: [10, 25, 50, 100],
+            defaultSelection: 25
+        },
+        {
+            type: "select",
+            title: 'Jahrgang',
+            displayTemplate: 'Jahrgang: %1',
+            property: 'year',
+            multiple: true,
+            expanded: true,
+            options: years
+        },
+    ];
+};
+
 router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
+    const tempOrgQuery = (req.query||{}).filterQuery;
+    const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
+    let itemsPerPage = 25;
+    let filterQuery = {};
+    if (tempOrgQuery) {
+        filterQuery = JSON.parse(unescape(req.query.filterQuery));
+        if (filterQuery["$limit"]) {
+            itemsPerPage = filterQuery["$limit"];
+        }
+    }
     const currentPage = parseInt(req.query.p) || 1;
 
-    console.log(req.query.sort);
+    let query = {
+        $populate: ['teacherIds', 'year'],
+        $limit: itemsPerPage,
+        $skip: itemsPerPage * (currentPage - 1),
+    };
+    query = Object.assign(query, filterQuery);
+
     api(req).get('/classes', {
-        qs: {
-            $populate: ['teacherIds'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
-    }).then(data => {
+        qs: query
+    }).then(async (data) => {
         const head = [
             'Klasse',
             'Lehrer',
+            'Schuljahr',
             ''
         ];
 
@@ -1269,6 +1312,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
             return [
                 item.displayName,
                 (item.teacherIds || []).map(item => item.lastName).join(', '),
+                item.year.name,
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",
@@ -1306,15 +1350,19 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
         const pagination = {
             currentPage,
             numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/classes/?p={{page}}' + sortQuery + limitQuery
+            baseUrl: '/administration/classes/?p={{page}}' + filterQueryString
         };
+
+
+        const years = (await api(req).get('/years')).data.map((year) => {return [year._id, year.name]});
 
         res.render('administration/classes', {
             title: 'Administration: Klassen',
             head,
             body,
             pagination,
-            limit: true
+            limit: true,
+            filterSettings: JSON.stringify(classFilterSettings(years))
         });
     });
 });
