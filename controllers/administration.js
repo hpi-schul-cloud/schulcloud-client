@@ -992,6 +992,7 @@ const renderClassEdit = (req, res, next, edit) => {
                     currentClass.classsuffix = currentClass.name;
                 }              
             }
+            let thisGradeLevelId = currentClass.gradeLevel._id;
             res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
@@ -999,6 +1000,7 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
+                thisGradeLevelId,
                 isCustom
             });
         });
@@ -1177,7 +1179,8 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         if (req.body.keepyear) {
             changedClass.year = req.body.schoolyear;
         }
-    } else if (req.body.classsuffix) {
+    } else {
+        req.body.classsuffix = req.body.classsuffix||"";
         changedClass.name = req.body.classsuffix;
         changedClass.gradeLevel = req.body.grade;
         changedClass.nameFormat = "gradeLevel+name";

@@ -51,10 +51,11 @@
                     </option>
                 {{/each}}
             </select>
+            <input type="hidden" class="hidden" id="thisGradeLevelId" value="{{thisGradeLevelId}}" />
         </div>
         <div class="form-group col-sm-6 col-xs-12">
             <label>Klassenbezeichnung</label>
-            <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc." required value="{{class.classsuffix}}" {{#if isCustom}}disabled{{/if}}/>
+            <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc." value="{{class.classsuffix}}" {{#if isCustom}}disabled{{/if}}/>
         </div>
     </div>
     <p>Deine Klasse passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.</p>

@@ -44,4 +44,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
     if(document.querySelector('.section-classes-edit')){
         // ...
     }
+    // set Jahrgangsstufe
+    if ($("#thisGradeLevelId").val()!=="") {
+        $("#createnew select[name='grade']").val($("#thisGradeLevelId").val()).trigger("chosen:updated");
+    }
 });
