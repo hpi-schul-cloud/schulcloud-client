@@ -1,5 +1,5 @@
 {{#content "scripts" mode="append"}}
-    <script src="/scripts/administration/student_edit.js" type="text/javascript" defer></script>
+    <script src="/scripts/administration/users_edit.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
     <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
@@ -9,48 +9,48 @@
     {{#content "page"}}
         <div class="row">
             <div class="col-xl-12">
-                <form id="student-form" method="post" action="/administration/students/{{student._id}}">
+                <form id="user-form" method="post" action="{{action}}">
 
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Vorname: *</label>
-                                <input class="form-control" name="firstName" type="text" required value="{{student.firstName}}"/>
+                                <input class="form-control" name="firstName" type="text" required value="{{user.firstName}}"/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nachname: *</label>
-                                <input class="form-control" name="lastName" type="text" required value="{{student.lastName}}"/>
+                                <input class="form-control" name="lastName" type="text" required value="{{user.lastName}}"/>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Username: *</label>
-                        <input class="form-control" disabled="true" placeholder="Benutzername" name="displayName" type="text" value="{{student.displayName}}"/>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Geburtsdatum: *</label>
-                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker student.birthday}}"/>
+                        <input class="form-control" disabled="true" placeholder="Benutzername" name="displayName" type="text" value="{{user.displayName}}"/>
                     </div>
 
                     <div class="form-group">
                         <label>E-Mail Adresse: *</label>
-                        <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org" value="{{student.email}}" required>
+                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required>
+                    </div>
+                {{#unless isTeacher}}
+                    <div class="form-group">
+                        <label>Geburtsdatum: *</label>
+                        <input class="form-control linked" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker user.birthday}}"/>
                     </div>
 
                     <div class="row">
                         <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
                             <Label>Geschlecht: *</Label>
                             <select class="form-control form-control-lg" type="text" name="gender" required>
-                                <option value="" disabled {{#unless student.gender}}selected{{/unless}}>Bitte Geschlecht auswählen</option>
-                                <option value="male" {{#ifeq student.gender 'male'}}selected{{/ifeq}}>männlich</option>
-                                <option value="female" {{#ifeq student.gender 'female'}}selected{{/ifeq}}>weiblich</option>
-                                <option value="other" {{#ifeq student.gender 'other'}}selected{{/ifeq}}>anderes</option>
-                                <option value="noinfo" {{#ifeq student.gender 'noinfo'}}selected{{/ifeq}}>keine Angabe</option>
+                                <option value="" disabled {{#unless user.gender}}selected{{/unless}}>Bitte Geschlecht auswählen</option>
+                                <option value="male" {{#ifeq user.gender 'male'}}selected{{/ifeq}}>männlich</option>
+                                <option value="female" {{#ifeq user.gender 'female'}}selected{{/ifeq}}>weiblich</option>
+                                <option value="other" {{#ifeq user.gender 'other'}}selected{{/ifeq}}>anderes</option>
+                                <option value="noinfo" {{#ifeq user.gender 'noinfo'}}selected{{/ifeq}}>keine Angabe</option>
                             </select>
                         </div>
                     </div>
@@ -84,7 +84,7 @@
                             <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                         </div>
                     </div>
-
+                {{/unless}}
                     <div class="modal-footer">
                         <div class="pull-left">
                             <button class="btn btn-secondary btn-pw">Passwort ändern</button>

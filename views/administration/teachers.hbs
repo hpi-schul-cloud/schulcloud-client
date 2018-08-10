@@ -26,6 +26,9 @@
                             <button type="submit" class="btn btn-primary btn-add-modal">
                                 Lehrer hinzufügen
                             </button>
+                            <button class="btn btn-secondary btn-import">
+                                Lehrer importieren
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -39,6 +42,12 @@
                 {{#embed "lib/components/modal-form" action="/administration/teachers/" method="post" class="add-modal"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-teachers"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="teacher"}}
                     {{/content}}
                 {{/embed}}
 

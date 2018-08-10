@@ -638,7 +638,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
     });
 });
 router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users'));
-router.patch('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
+router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users'));
 router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
@@ -680,17 +680,18 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 ''
             ];
 
-            const body = data.data.map(item => {
+            const body = data.data.map(user => {
                 return [
-                    item.firstName,
-                    item.lastName,
-                    item.email,
-                    getClasses(item, classes, true),
-                    getTableActions(
-                        item,
-                        '/administration/teachers/',
-                        _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW'),
-                        _.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE'))
+                    user.firstName,
+                    user.lastName,
+                    user.email || '',
+                    getClasses(user, classes, true),
+                    [{
+                        link: `/administration/teachers/${user._id}/edit`,
+                        title: 'Nutzer bearbeiten',
+                        class: 'btn-edit',
+                        icon: 'edit'
+                    }]
                 ];
             });
 
@@ -708,6 +709,26 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         });
     });
 });
+
+router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+    const userPromise = api(req).get('/users/' + req.params.id);
+
+    Promise.all([
+        userPromise
+    ]).then(([user]) => {
+        res.render('administration/users_edit',
+            {
+                title: `Lehrer bearbeiten`,
+                action: `/administration/teachers/${user._id}`,
+                submitLabel : 'Speichern',
+                closeLabel : 'Abbrechen',
+                user,
+                isTeacher: true
+            }
+        );
+    });
+});
+
 
 /*
     STUDENTS
@@ -931,12 +952,13 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
         }
-        res.render('administration/students_edit',
+        res.render('administration/users_edit',
             {
                 title: `Schüler bearbeiten`,
+                action: `/administration/students/${user._id}`,
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
-                student: user,
+                user,
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent
             }

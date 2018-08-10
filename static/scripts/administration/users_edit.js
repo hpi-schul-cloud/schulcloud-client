@@ -44,8 +44,6 @@ $(document).ready(function () {
             submitLabel: 'Löschen',
             fields: {firstName: $('input[name="displayName"]').val()}
         });
-        console.log($('input[name="displayName"]').val());
-
         $deleteModal.appendTo('body').modal('show');
     });
 });
