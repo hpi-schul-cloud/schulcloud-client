@@ -223,9 +223,8 @@ router.post('/registration/submit', function (req, res, next) {
     let user;
 
     let passwort = req.body["initial-password"];
-
     return api(req).get('/registrationPins/', {
-        qs: { "pin": pininput, "email": usermail }
+        qs: { "pin": pininput, "email": usermail, verified:false }
     }).then(check => {
         //check pin
         if (!(check.data && check.data.length>0 && check.data[0].pin === pininput)) {
@@ -247,7 +246,8 @@ router.post('/registration/submit', function (req, res, next) {
             birthday: new Date(req.body["student-birthdate"])
         };
         return api(req).post('/users/', {
-            json: user
+            json: user,
+			qs:{email:req.body["parent-email"]}
         }).catch(err => res.status(500).send("Fehler beim Erstellen des Schülers. Eventuell ist die E-Mail-Adresse bereits im System registriert."));
     }).then(newUser => {
         user = newUser;
