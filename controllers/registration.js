@@ -16,6 +16,9 @@ const createAccount = (req, {username, password, userId, activated}) => {
  * Warnings for users who wan't to use the old register version
  */
 
+router.get('/register', function (req, res, next) {
+    res.render('registration/deprecated_warning');
+});
 router.get('/register/*', function (req, res, next) {
     res.render('registration/deprecated_warning');
 });
@@ -51,7 +54,7 @@ router.post('/registration/submit', function (req, res, next) {
             return Promise.reject("Ungültige Pin, bitte überprüfe die Eingabe.");
         }
         if (req.body["parent-email"] && req.body["parent-email"] === req.body["student-email"]) {
-            return Promise.reject("Bitte gib eine eigene E-Mail Adresse für dein Kind an.");
+            return Promise.reject("Bitte gib eine eigene E-Mail-Adresse für dein Kind an.");
         }
         return Promise.resolve;
     }).then(function() {

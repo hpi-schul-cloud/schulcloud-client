@@ -122,15 +122,15 @@ ${res.locals.theme.short_title}-Team`,
 
             try {
                 await api(req).post('/mails/', mailcontent);
-                res.status(200).json({type: 'success', message: 'EMail erfolgreich verschickt.'});    
+                res.status(200).json({type: 'success', message: `Die Zugangsdaten wurden erfolgreich an ${res.locals.currentUser.email} verschickt.`});    
             } catch (err) {
                 console.log("Mailing fehlgeschlagen, zweiter Versuch");
                 console.log("ERR: " + err);
                 try {
                     await api(req).post('/mails/', mailcontent);
-                    res.status(200).json({type: 'success', message: 'EMail erfolgreich verschickt.'});
+                    res.status(200).json({type: 'success', message: `Die Zugangsdaten wurden erfolgreich an ${res.locals.currentUser.email} verschickt.`});
                 } catch (err) {
-                    res.status(200).json({type: 'danger', message: 'Die EMail konnte nicht verschickt werden. Bitte notiere dir dein Passwort selbst.'});
+                    res.status(200).json({type: 'danger', message: `Die Zugangsdaten konnten nicht an ${res.locals.currentUser.email}  verschickt werden. Bitte notiere dir dein Passwort selbst.`});
                 }
             }
         } 

@@ -9,13 +9,13 @@
   {{/content}}
   {{#content "page"}}
     <div id="welcome-screen">
-      <p>Willkommen zur Anmeldung in der {{theme.title}}!</p>
+      <h4>Willkommen zur Anmeldung in der {{theme.title}}!</h4>
       <p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter 18 muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei volljährigen Schülern er selbst.</p>
       <p>Bitte wähle das Alter des Schülers:</p>
       <div class="form-group">
           <fieldset>
-              <input type="radio" id="reg-u18" name="student-age" value="u18"><label for="reg-u18">&nbsp;unter 18 Jahre alt</label><br>
-              <input type="radio" id="reg-18" name="student-age" value="18"><label for="reg-18">&nbsp;mindestens 18 Jahre alt</label>
+              <input type="radio" id="reg-u18" name="student-age" value="u18"> <label for="reg-u18">unter 18 Jahre alt</label><br>
+              <input type="radio" id="reg-18" name="student-age" value="18"> <label for="reg-18">mindestens 18 Jahre alt</label>
           </fieldset>
       </div>
         <div id="infotext-u18" class="hidden">
@@ -28,7 +28,7 @@
             <p><strong>Achtung:</strong> Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.</p>
         </div>
       <button id="showRegistrationForm" class="btn btn-primary" disabled>Weiter</button>
-        <p><br><br>* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir die männliche Form. Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. ‍🌈🎉🦄</p>
+        <p class="mt-2 explanation">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir die männliche Form. Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. ‍🌈🎉🦄</p>
         <input type="hidden" name="classId" value="{{classId}}" />
     </div>
   {{/content}}

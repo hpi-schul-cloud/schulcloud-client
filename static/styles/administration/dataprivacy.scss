@@ -34,11 +34,18 @@
     }
 }
 
+.form-group{
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
 .explanation{
     margin-left: 18px;
-    font-size: .9em;
+    font-size: .85em;
 }
 
 label{
     margin-bottom: 0px;
+}
+input[type="radio"]{
+    margin-right: 4px;
 }

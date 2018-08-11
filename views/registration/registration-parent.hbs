@@ -12,18 +12,17 @@
     {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent"}}
       {{#content "panels"}}
       <section data-panel="section-1">
-        <h4>Schülerdaten</h4>
-        <p>Daten Ihres Kindes</p>
+        <h4>Daten Ihres Kindes</h4>
         <p>Die {{theme.short_title}} bewahrt Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben für Ihr Kind:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-              <label>Vorname: *</label>
-              <input class="form-control linked" name="student-firstname" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise eingeben, keine Spitznamen o.ä." required/>
+            <label>Vorname: *</label>
+            <input class="form-control linked" name="student-firstname" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise eingeben, keine Spitznamen o.ä." required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-              <label>Nachname: *</label>
-              <input class="form-control linked" name="student-secondname" type="text" placeholder="Nachname des Kindes hier eingeben" required/>
+            <label>Nachname: *</label>
+            <input class="form-control linked" name="student-secondname" type="text" placeholder="Nachname des Kindes hier eingeben" required/>
           </div>
         </div>
 
@@ -33,14 +32,13 @@
         </div>
 
         <div class="form-group">
-            <label>E-Mail Adresse des Schülers: * <small>(Schüler benötigen eine eigene E-Mail Adresse)</small></label>
-            <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required />
-            <!-- with mail pattern: <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" data-pattern="*@test.de" pattern=".+@test.de" required />-->
-            <span class="mailinfo"></span>
+          <label>E-Mail-Adresse des Schülers: * <small>(Schüler benötigen eine eigene E-Mail-Adresse)</small></label>
+          <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required />
         </div>
-        <p>
+        <p class="explanation">
           Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
         </p>
+
         <div class="row">
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <Label>Geschlecht: *</Label>
@@ -52,7 +50,7 @@
             </select>
           </div>
         </div>
-        <p>Erhebung erfolgt für Forschung und Optimierung.</p>
+        <p class="explanation">Erhebung erfolgt für Forschung und Optimierung.</p>
 
         <input type="hidden" name="classId" value="{{classId}}" />
       </section>
@@ -60,34 +58,35 @@
 
 
       <section data-panel="section-2">
-        <h4>Elterndaten</h4>
-        <p>Ihre Daten</p>
+        <h4>Ihre Daten</h4>
         <p>Für Schüler unter 18 Jahren muss ein Erziehungsberechtigter in die Nutzung der {{theme.short_title}} einwilligen.</p>
         <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-              <label>Vorname: *</label>
-              <input class="form-control linked" name="parent-firstname" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+            <label>Vorname: *</label>
+            <input class="form-control linked" name="parent-firstname" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-              <label>Nachname: *</label>
-              <input class="form-control linked" name="parent-secondname" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+            <label>Nachname: *</label>
+            <input class="form-control linked" name="parent-secondname" type="text" placeholder="Ihren Nachname hier eingeben" required/>
           </div>
         </div>
 
         <div class="form-group">
-            <label>Ihre E-Mail Adresse * <small>(Darf nicht gleich der E-Mail Adresse Ihres Kindes sein)</small></label>
-            <input class="form-control" type="email" name="parent-email" required placeholder="eltern@schul-cloud.org" autocomplete></input>
+          <label>Ihre E-Mail-Adresse * <small>(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)</small></label>
+          <input class="form-control" type="email" name="parent-email" required placeholder="eltern@schul-cloud.org" autocomplete></input>
         </div>
-        <p>Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{theme.short_title}} rechtlich gültig ist. Die {{theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.</p>
-        <p>Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.</p>
+        <p class="explanation">
+          Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{theme.short_title}} rechtlich gültig ist. Die {{theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.
+          <br/>
+          Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.
+        </p>
       </section>
 
 
 
       <section data-panel="section-3">
-        <h4>Einwilligung</h4>
-        <p>Einwilligungserklärung</p>
+        <h4>Einwilligungserklärung</h4>
         <p>Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{theme.short_title}} nutzen kann:</p>
         <p>Ich, <b data-from="parent-firstname"></b> <b data-from="parent-secondname"></b>, bin erziehungsberechtigt für
           <b data-from="student-firstname"></b>
@@ -116,14 +115,14 @@
             <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen" required/>
             <span>Ich habe die <a href="#">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
         </label>
-        <p class="explanation">Die Nutzung der {{theme.short_title}} ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes {{theme.short_title}}-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
+        
+        <p class="mt-1">Die Nutzung der {{theme.short_title}} ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes {{theme.short_title}}-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
       </section>
 
 
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
-        <h4>Abschluss</h4>
-        <p>Fast geschafft!</p>
+        <h4>Fast geschafft!</h4>
         <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
         <div id="pinverification">
             <div id="temp-pin" class="hidden"></div>

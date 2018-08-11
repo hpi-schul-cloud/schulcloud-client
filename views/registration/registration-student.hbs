@@ -32,13 +32,13 @@
         </div>
 
         <div class="form-group">
-            <label>E-Mail Adresse: *</label>
+            <label>E-Mail-Adresse: *</label>
             <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required>
-            <!-- <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" data-pattern="*@test.de" pattern=".+@test.de" required> -->
         </div>
-        <p>
+        <p class="explanation">
             Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
         </p>
+
         <div class="row">
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <Label>Geschlecht: *</Label>
@@ -50,7 +50,7 @@
             </select>
           </div>
         </div>
-        <p>Die Erhebung erfolgt für Forschung und Optimierung.</p>
+        <p class="explanation">Die Erhebung erfolgt für Forschung und Optimierung.</p>
 
         <input type="hidden" name="classId" value="{{classId}}" />
       </section>
@@ -58,7 +58,6 @@
 
       <section data-panel="section-2">
         <h4>Einwilligungserklärung</h4>
-        <p>Die {{theme.title}} bietet digitale Bildung für alle – fair, nicht profitorientiert und datenschutzkonform. Der Schutz von Schüler*Innen-Daten ist zentraler Bestandteil der {{theme.short_title}}.</p>
         <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{theme.short_title}} nutzen kannst.</p>
         <p>Ich, <b data-from="student-firstname"></b> <b data-from="student-secondname"></b>, erkläre Folgendes:</p>
         <label>
@@ -83,14 +82,15 @@
             <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen" required/>
             <span>Ich habe die <a href="#">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
         </label>
-        <p class="explanation">Die Nutzung der {{theme.short_title}} ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes {{theme.short_title}}-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
+
+        <p>Die Nutzung der {{theme.short_title}} ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes {{theme.short_title}}-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A">widerruf@schul-clud.org</a></p>
       </section>
 
 
       <section data-panel="section-3" class="submit-page" data-feature="pin">
-          <h4>Abschluss</h4>
-          <p>Fast geschafft!</p>
-          <p>Wir habe soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
+          <h4>Fast geschafft!</h4>
+          <p>Wir habe soeben eine E-Mail an deine angegebene Adresse gesendet. Bitte gib den darin enthaltenen Code hier ein, um die Registrierung abzuschließen.</p>
+          <p>Keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button>.</p>
           <div id="pinverification">
               <div id="temp-pin" class="hidden"></div>
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
@@ -101,8 +101,7 @@
 
 
       <section data-panel="section-4">
-        <h4>Dankeschön</h4>
-        <p>Vielen Dank für die Registrierung in der {{theme.short_title}}!</p>
+        <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}!</h4>
 
         <div id="userdata-summary">
           <p>Mit folgenden Daten kannst du dich in der {{theme.short_title}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
@@ -116,10 +115,8 @@
               <i class="fa fa-print"></i> Drucken
             </div>
           </div>
-          <p>Beim ersten Login muss ein neues Passwort gewählt werden.</p>
+          <p>Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.</p>
         </div>
-
-        <p>Du kannst Dich jetzt einloggen:</p>
 
         <a class="btn btn-primary" href="//schul-cloud.org/login">Login öffnen</a>
       </section>

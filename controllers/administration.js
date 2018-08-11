@@ -582,7 +582,8 @@ const userFilterSettings = function (defaultOrder) {
             options: [
                 ["firstName", "Vorname"],
                 ["lastName", "Nachname"],
-                ["email", "E-Mail-Adresse"]
+                ["email", "E-Mail-Adresse"],
+                ["createdAt", "Erstelldatum"]
             ],
             defaultSelection: (defaultOrder? defaultOrder : "firstName"),
             defaultOrder: "DESC"
@@ -903,6 +904,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 'E-Mail-Adresse',
                 'Klasse(n)',
                 'Einwilligung',
+                'Erstellt am',
                 ''
             ];
 
@@ -916,6 +918,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                         useHTML: true,
                         content: user.consentStatus
                     },
+                    moment(user.createdAt).format('DD.MM.YYYY'),
                     [{
                         link: `/administration/students/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',

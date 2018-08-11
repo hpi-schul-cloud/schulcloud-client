@@ -58,11 +58,11 @@ window.addEventListener('DOMContentLoaded', ()=>{
             data: {"email": usermail, "byParent": byParent}
         }).done(success => {
             if(sendConfirm) {
-                $.showNotification(`PIN erfolgreich an ${usermail} verschickt.`, "success", false);
+                $.showNotification(`Eine PIN wurde erfolgreich an ${usermail} versendet.`, "success", 15000);
             }
             $("input[name='pin-sent']").val("yes");
         }).fail(function(err){
-            $.showNotification("Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' oder prüfe deine E-Mail-Adresse.", "danger", 7000);
+            $.showNotification(`Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' und prüfe deine E-Mail-Adresse (${usermail}).`, "danger", 7000);
         });
     }
 
