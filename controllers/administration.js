@@ -770,7 +770,9 @@ const getStudentCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            sendMailHandler(data, req, res);
+            if(req.body.sendRegistration){
+                sendMailHandler(data, req, res);
+            }
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -1017,7 +1019,7 @@ const renderClassEdit = (req, res, next, edit) => {
                     currentClass.classsuffix = currentClass.name;
                 }              
             }
-            let thisGradeLevelId = currentClass.gradeLevel._id;
+            let thisGradeLevelId = ((currentClass||{}).gradeLevel||{})._id;
             res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
