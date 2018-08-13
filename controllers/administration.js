@@ -1017,7 +1017,7 @@ const renderClassEdit = (req, res, next, edit) => {
                     currentClass.classsuffix = currentClass.name;
                 }              
             }
-            let thisGradeLevelId = currentClass.gradeLevel._id;
+            let thisGradeLevelId = ((currentClass||{}).gradeLevel||{})._id;
             res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
