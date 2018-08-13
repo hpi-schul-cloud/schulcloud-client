@@ -495,6 +495,7 @@ window.fileViewer = function fileViewer(type, key, name, id) {
 
         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
         case 'application/vnd.ms-word': case 'application/msword':                          //.doc
+        case 'application/vnd.oasis.opendocument.text':	                                    //.odt
         case 'text/plain':                                                                  //.txt
             $('#file-view').hide();
             win = window.open(`/files/file/${id}/lool`, '_blank');
