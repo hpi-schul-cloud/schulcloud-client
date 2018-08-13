@@ -1329,7 +1329,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
                     {
                         link: path + item._id + "/edit",
                         class: `btn-edit`,
-                        icon: 'pencil',
+                        icon: 'edit',
                         title: 'Klasse bearbeiten'
                     },
                     {
