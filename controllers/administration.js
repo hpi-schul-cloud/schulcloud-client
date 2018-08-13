@@ -1004,9 +1004,8 @@ const renderClassEdit = (req, res, next, edit) => {
                     if((currentClass.teacherIds||{}).includes(t._id)){t.selected = true;}
                 });
                 gradeLevels.forEach(g => {
-                    if((currentClass.gradeLevel||{})._id === g._id) {
+                    if((currentClass.gradeLevel||{})._id == g._id) {
                         g.selected = true;
-                        currentClass.selectedGradeLevel = g;
                     }
                 });
                 schoolyears.forEach(schoolyear => {
@@ -1024,7 +1023,7 @@ const renderClassEdit = (req, res, next, edit) => {
             }
 
             res.render('administration/classes-edit', {
-                title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
+                title: `${edit?`Klasse '${currentClass.displayName}' bearbeiten`:"Erstelle eine neue Klasse"}`,
                 edit,
                 schoolyears,
                 teachers,

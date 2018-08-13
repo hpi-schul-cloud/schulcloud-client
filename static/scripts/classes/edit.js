@@ -1,3 +1,5 @@
+import '../helpers/inputLinking';
+
 function toggleDisabled(nodename, value){
     const node = document.querySelector(nodename);
     if(value != undefined){
@@ -44,8 +46,8 @@ window.addEventListener('DOMContentLoaded', ()=>{
     if(document.querySelector('.section-classes-edit')){
         // ...
     }
-    // set Jahrgangsstufe
-    if ($("#thisGradeLevelId").val()!=="") {
-        $("#createnew select[name='grade']").val($("#thisGradeLevelId").val()).trigger("chosen:updated");
-    }
+    document.querySelector('input[name="keepyear"]').addEventListener("input", ()=>{
+        document.getElementById("recap-keepyear").classList.toggle("hidden");
+       $('select[name="schoolyear"]').attr("disabled", function(_, attr){ return !attr}).trigger("chosen:updated");
+    });
 });
