@@ -1,3 +1,29 @@
+/**
+ * HELPER - addEventListener
+ * 1. allow multiple events "clicked input" ...
+ * 2. define addEventListener on NodeLists (document.querySelectorAll)
+ */
+if (!NodeList.prototype.addEventListener) {
+    NodeList.prototype.addEventListener = function(events, callback, useCapture) {
+        this.forEach((entry)=>{
+            events.split(" ").forEach((event)=>{
+                entry.addEventListener(event, callback, useCapture);
+            });
+        });
+        return this;
+    };
+}
+
+const nativeEventListener = EventTarget.prototype.addEventListener;
+EventTarget.prototype.addEventListener = function(events, callback, useCapture) {
+    this.nativeListener = nativeEventListener;
+    events.split(" ").forEach((event)=>{
+        this.nativeListener(event, callback, useCapture);
+    });
+    return this;
+};
+
+
 function getQueryParameterByName(name, url) {
     if (!url) {
         url = window.location.href;
@@ -275,61 +301,6 @@ $(document).ready(function () {
     $(".chosen-container-multi").off( "touchend");
 });
 
-/* INPUT LINKING
-add the class ".linked" to the input field and the attribute "data-from={inputname}" to the node that should be updated with the value from the input field. {inputname} is the value of the name attribute of the input field
-*/
-if (!NodeList.prototype.addEventListener) {
-    NodeList.prototype.addEventListener = function(events, callback, useCapture) {
-        this.forEach((entry)=>{
-            events.split(" ").forEach((event)=>{
-                entry.addEventListener(event, callback, useCapture);
-            });
-        });
-        return this;
-    };
-}
-function linkInputs(event){
-    let source = event.target;
-    let value;
-    switch(source.tagName) {
-        case "INPUT":
-            value = source.value;
-            break;
-        case "SELECT":
-            if(source.selectedIndex < 0){
-                value = '';
-            }else{
-                if(source.dataset.linktext !== undefined){
-                    value = source.options[source.selectedIndex].text;
-                } else if(source.dataset.linkhtml !== undefined){
-                    value = source.options[source.selectedIndex].innerHTML;
-                } else {
-                    value = source.options[source.selectedIndex].value;
-                }
-            }
-            break;
-        default:
-            if(source.dataset.linkhtml !== undefined){
-                value = source.innerHTML;
-            } else {
-                value = source.text;
-            }
-            break;
-    }
-    document.querySelectorAll(`*[data-from=${source.getAttribute("name")}]`).forEach((changeTarget)=>{
-        if(changeTarget.tagName == "INPUT"){
-            changeTarget.value = value;
-        }else{
-            changeTarget.innerHTML = value;
-        }
-    });
-}
-window.addEventListener('DOMContentLoaded', ()=>{
-    document.querySelectorAll(".linked").addEventListener("change input keyup paste click", linkInputs);
-    document.querySelectorAll(".linked").forEach((node) => {
-        node.dispatchEvent(new Event('input'));
-    });
-});
 
 /* Mail Validation
 official firefox regex https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email

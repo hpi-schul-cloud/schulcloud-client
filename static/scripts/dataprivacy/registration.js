@@ -1,3 +1,5 @@
+import '../helpers/inputLinking';
+
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
     let birthdateInput = document.querySelector('input[name="student-age"]');

@@ -1,3 +1,5 @@
+import '../helpers/inputLinking';
+
 window.addEventListener('DOMContentLoaded', ()=> {
     // show first login for existing users without age
     let birthdateInput = document.querySelector('input[name="student-age"]');
@@ -14,10 +16,11 @@ window.addEventListener('DOMContentLoaded', ()=> {
             }
         });
         $("#welcome-screen input[type='radio']").on("change", () => {
-            if (radio14.checked)
+            if (radio14.checked){
                 showLoginButton.disabled = false;
-            else
+            }else{
                 showLoginButton.disabled = false;
+            }
         });
     }
 });
