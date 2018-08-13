@@ -124,8 +124,8 @@ ${res.locals.theme.short_title}-Team`,
                 await api(req).post('/mails/', mailcontent);
                 res.status(200).json({type: 'success', message: `Die Zugangsdaten wurden erfolgreich an ${res.locals.currentUser.email} verschickt.`});    
             } catch (err) {
-                console.log("Mailing fehlgeschlagen, zweiter Versuch");
-                console.log("ERR: " + err);
+                // console.warn("Mailing fehlgeschlagen, zweiter Versuch");
+                // console.error("ERR: " + err);
                 try {
                     await api(req).post('/mails/', mailcontent);
                     res.status(200).json({type: 'success', message: `Die Zugangsdaten wurden erfolgreich an ${res.locals.currentUser.email} verschickt.`});
