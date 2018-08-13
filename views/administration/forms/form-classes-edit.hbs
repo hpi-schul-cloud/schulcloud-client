@@ -54,14 +54,16 @@
             <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc." value="{{class.classsuffix}}" {{#if isCustom}}disabled{{/if}}/>
         </div>
     </div>
-    <p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.</>
+
+    <p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.</p>
+
     <section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
         <p>Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
         <div class="form-group">
             <label>Klassenbezeichnung</label>
             <input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4" required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}}/>
         </div>
-        <label>
+        <label class="my-1">
             <input name="keepyear" type="checkbox" value="true" {{#ifCond edit '&&' isCustom}}{{#if class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}} {{#unless isCustom}}disabled{{/unless}}/>
             <span>Schuljahreszuordnung beibehalten</span>
         </label>  
@@ -95,5 +97,3 @@
         <button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
     {{/unless}}
 </div>
-
-
