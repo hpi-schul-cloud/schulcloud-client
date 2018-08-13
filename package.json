@@ -39,6 +39,7 @@
     "morgan": "~1.7.0",
     "multer": "^1.3.0",
     "nexboard-api-js": "git://github.com/schul-cloud/nexboard-api-js.git",
+    "nodemon": "^1.18.3",
     "oauth-1.0a": "^2.1.0",
     "path.join": "^1.0.0",
     "query-string": "^5.0.1",
