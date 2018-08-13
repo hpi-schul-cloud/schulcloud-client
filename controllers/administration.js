@@ -1001,25 +1001,28 @@ const renderClassEdit = (req, res, next, edit) => {
             if(currentClass){
                 // preselect already selected teachers
                 teachers.forEach(t => {
-                    if(currentClass.teacherIds.includes(t._id)){t.selected = true;}
+                    if((currentClass.teacherIds||{}).includes(t._id)){t.selected = true;}
                 });
                 gradeLevels.forEach(g => {
-                    if(currentClass.gradeLevel == g._id) {g.selected = true;}
+                    if((currentClass.gradeLevel||{})._id === g._id) {
+                        g.selected = true;
+                        currentClass.selectedGradeLevel = g;
+                    }
                 });
                 schoolyears.forEach(schoolyear => {
-                    if(currentClass.year == schoolyear._id) {schoolyear.selected = true;}
+                    if((currentClass.year||{})._id === schoolyear._id) {schoolyear.selected = true;}
                 });
-                if (currentClass.nameFormat == "static") {
+                if (currentClass.nameFormat === "static") {
                     isCustom = true;
                     currentClass.customName = currentClass.name;
                     if (currentClass.year) {
                         currentClass.keepYear = true;
                     }
-                } else if (currentClass.nameFormat == "gradeLevel+name") {
+                } else if (currentClass.nameFormat === "gradeLevel+name") {
                     currentClass.classsuffix = currentClass.name;
                 }              
             }
-            let thisGradeLevelId = ((currentClass||{}).gradeLevel||{})._id;
+
             res.render('administration/classes-edit', {
                 title: `Klasse ${edit?`'${currentClass.displayName}' bearbeiten`:"erstellen"}`,
                 edit,
@@ -1027,7 +1030,6 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                thisGradeLevelId,
                 isCustom
             });
         });
@@ -1139,7 +1141,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(req.header('Referer'));
+        res.redirect('/administration/classes');
     }).catch(err => {
         next(err);
     });
@@ -1317,7 +1319,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
             return [
                 item.displayName,
                 (item.teacherIds || []).map(item => item.lastName).join(', '),
-                item.year.name,
+                (item.year||{}).name||"",
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",

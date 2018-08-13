@@ -4,7 +4,7 @@
 {{else}}
     <input type="hidden" name="_id" value="{{class._id}}" />
 
-    <a class="d-block text-muted mb-1"
+    <a class="d-block mb-1"
         href="/administration/classes/{{@root.class/_id}}/manage"
         title="Klasse '{{@root.class.name}}' verwalten.">
         <i class="fa fa-users"></i> Klasse verwalten
@@ -44,14 +44,14 @@
         <div class="form-group col-sm-6 col-xs-12">
             <label>Jahrgangsstufe *</label>
             <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
-                <option disabled selected value>keine Auswahl</option>
+                <option disabled value>keine Auswahl</option>
                 {{#each gradeLevels}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                         {{this.name}}
                     </option>
                 {{/each}}
             </select>
-            <input type="hidden" class="hidden" id="thisGradeLevelId" value="{{thisGradeLevelId}}" />
+            <input id="thisGradeLevelId" type="hidden" class="hidden" value="{{class.selectedGradeLevel._id}}" />
         </div>
         <div class="form-group col-sm-6 col-xs-12">
             <label>Klassenbezeichnung</label>
