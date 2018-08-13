@@ -1317,7 +1317,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
             return [
                 item.displayName,
                 (item.teacherIds || []).map(item => item.lastName).join(', '),
-                item.year.name,
+                (item.year||{}).name||"",
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",
