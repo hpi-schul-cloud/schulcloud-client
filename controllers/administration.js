@@ -770,7 +770,9 @@ const getStudentCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            sendMailHandler(data, req, res);
+            if(req.body.sendRegistration){
+                sendMailHandler(data, req, res);
+            }
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
