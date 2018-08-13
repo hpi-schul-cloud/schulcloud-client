@@ -40,25 +40,25 @@ module.exports = (req, res, next) => {
         icon: 'th-large',
         link: '/dashboard/',
         introNumber: 11,
-        introText: "Hiermit gelangen sie stets auf ihr persönliches Dashboard zurück, auf welchem Sie auch direkt nach dem Login landen."
+        introText: "Hiermit gelangst du stets zu deinem persönlichen Dashboard zurück, auf welchem du auch direkt nach dem Login landest."
     }, {
         name: 'Neuigkeiten',
         icon: 'newspaper-o',
         link: '/news/',
         introNumber: 12,
-        introText: "Hier können Sie noch einmal auf Ihre Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
+        introText: "Hier kannst du noch einmal auf deine Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
     }, {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/',
         introNumber: 13,
-        introText: "Hier gelangen Sie zu ihren Kursen, die sie einsehen, verwalten und neu anlegen können."
+        introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
     }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/',
         introNumber: 14,
-        introText: "Hier haben Sie Einsicht in Ihren persönlichen Kalender. In diesem sind bisher Ihre persönlichen Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
+        introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
@@ -81,7 +81,7 @@ module.exports = (req, res, next) => {
             }
         ],
         introNumber: 15,
-        introText: "Hier gelangen Sie zur Aufgabenübersicht. Unter diesem Menüpunkt finden Sie die von Ihnen gestellten Aufgaben, ihre persönlichen Aufgaben sowie das Aufgabenarchiv. Sie können außerdem die Status der einzelnen Aufgaben einsehen und ihren Schüler*innen Feedback geben."
+        introText: "Hier gelangst du zur Aufgabenübersicht. Unter diesem Menüpunkt findest du die von dir gestellten Aufgaben, deine persönlichen Aufgaben sowie das Aufgabenarchiv. Du kannst außerdem die Status der einzelnen Aufgaben einsehen und deinen Schülern Feedback geben."
     }, {
         name: 'Meine Dateien',
         icon: 'folder-open',
@@ -104,13 +104,13 @@ module.exports = (req, res, next) => {
             }
         ],
         introNumber: 16,
-        introText: "Hier gelangen Sie zum Dateibereich, in dem Sie Dateien hochladen und verwalten können. Ihre Dateien werden hierbei in folgende Kategorien unterteilt: Ihre persönlichen Dateien, Kursdateien und mit Ihnen geteilte Dateien."
+        introText: "Hier gelangst du zum Dateibereich, in dem du Dateien hochladen und verwalten kannst. Deine Dateien werden hierbei in folgende Kategorien unterteilt: deine persönlichen Dateien, Kursdateien und mit dir geteilte Dateien."
     }, {
         name: 'Materialien',
         icon: 'search',
         link: '/content/',
         introNumber: 17,
-        introText: "Hier gelangen Sie zur Materialsuche, bei der Sie in der Datenbank der Schul-Cloud nach Materialien für Ihre Unterrichtsstunde suchen können."
+        introText: "Hier gelangst du zur Materialsuche, bei der du in der Datenbank der Schul-Cloud nach Materialien für deine Unterrichtsstunde suchen kannst."
     }];
 
     // teacher views
