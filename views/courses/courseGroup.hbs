@@ -32,11 +32,13 @@
         <!-- Themen -->
         <div class="row section-course-group">
             <div class="col-sm-12 col-md-12">
-                <a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}" class="btn btn-secondary btn-sm pull-right ml-1"
-                    title="Thema hinzufügen">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    <span class="hidden-lg-down">Thema hinzufügen</span>
-                </a>
+                {{#userHasPermission "TOPIC_CREATE"}}
+                    <a href="/courses/{{courseId}}/topics/add?courseGroup={{_id}}" class="btn btn-secondary btn-sm pull-right ml-1"
+                        title="Thema hinzufügen">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="hidden-lg-down">Thema hinzufügen</span>
+                    </a>
+                {{/userHasPermission}}
                 <h4>Themen</h4>
 
                 <div class="list-group">
