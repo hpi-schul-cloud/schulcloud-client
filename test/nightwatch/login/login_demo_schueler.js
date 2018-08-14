@@ -48,14 +48,14 @@ module.exports = {
         browser.url(base_url + 'homework/');
         browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Aufgaben').before(10000);
 
-        browser.url(base_url + 'homework/asked/');
-        browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Gestellte Aufgaben').before(10000);
+        //browser.url(base_url + 'homework/asked/');
+        //browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Gestellte Aufgaben').before(10000);
 
-        browser.url(base_url + 'homework/private/');
-        browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Meine Aufgaben').before(10000);
+        //browser.url(base_url + 'homework/private/');
+        //browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Meine Aufgaben').before(10000);
 
-        browser.url(base_url + 'homework/archive/');
-        browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Archivierte Aufgaben').before(10000);
+        //browser.url(base_url + 'homework/archive/');
+        //browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Archivierte Aufgaben').before(10000);
 
         //Files
         browser.url(base_url + 'files/');
