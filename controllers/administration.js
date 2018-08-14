@@ -366,7 +366,7 @@ const getUpdateHandler = (service) => {
             json: req.body
         }).then(data => {
             createEventsForData(data, service, req, res).then(_ => {
-                res.redirect(req.header('Referer'));
+                res.redirect(cutEditOffUrl(req.header('Referer')));
             });
         }).catch(err => {
             next(err);
@@ -832,12 +832,21 @@ const getStudentUpdateHandler = () => {
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
         Promise.all(promises).then(([user, studentConsent]) => {
-            res.redirect(req.header('Referer'));
+            res.redirect(cutEditOffUrl(req.header('Referer'))); 
         }).catch(err => {
             next(err);
         });
     };
 };
+
+const cutEditOffUrl = (url) => {    //nicht optimal, aber req.header('Referer') gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
+    let workingURL = url;
+    if(url.endsWith("/edit")){
+        workingURL = workingURL.replace("/edit", "");
+        workingURL = workingURL.substring(0, workingURL.lastIndexOf("/"));
+    }
+    return workingURL;
+}
 
 router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
@@ -1187,11 +1196,7 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         json: newClass
     }).then(data => {
         const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-        if(isAdmin){
-            res.redirect(`/administration/classes/`);
-        }else{
-            res.redirect(`/administration/classes/${data._id}/manage`);
-        }
+        res.redirect(`/administration/classes/`);
     }).catch(err => {
         next(err);
     });
@@ -1216,6 +1221,8 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
     }
     if (req.body.teacherIds) {
         changedClass.teacherIds = req.body.teacherIds;
+    } else {
+        changedClass.teacherIds = [];
     }
     api(req).patch('/classes/' + req.params.classId, {
         // TODO: sanitize
