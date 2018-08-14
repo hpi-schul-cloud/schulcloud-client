@@ -46,11 +46,10 @@
                         <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
                             <Label>Geschlecht: *</Label>
                             <select class="form-control form-control-lg" type="text" name="gender" required>
-                                <option value="" disabled {{#unless user.gender}}selected{{/unless}}>Bitte Geschlecht auswählen</option>
+                                <option value="noinfo" {{#ifeq user.gender 'noinfo'}}selected{{/ifeq}}>keine Angabe</option>
                                 <option value="male" {{#ifeq user.gender 'male'}}selected{{/ifeq}}>männlich</option>
                                 <option value="female" {{#ifeq user.gender 'female'}}selected{{/ifeq}}>weiblich</option>
                                 <option value="other" {{#ifeq user.gender 'other'}}selected{{/ifeq}}>anderes</option>
-                                <option value="noinfo" {{#ifeq user.gender 'noinfo'}}selected{{/ifeq}}>keine Angabe</option>
                             </select>
                         </div>
                     </div>

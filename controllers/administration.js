@@ -1195,7 +1195,6 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         // TODO: sanitize
         json: newClass
     }).then(data => {
-        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
         res.redirect(`/administration/classes/`);
     }).catch(err => {
         next(err);
