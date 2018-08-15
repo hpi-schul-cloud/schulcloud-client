@@ -78,9 +78,9 @@
         </div>
         <div class="class-custom {{#unless isCustom}}hidden{{/unless}}">
             <p>Klassenname: 
-                <span data-from="grade"></span><span data-from="classsuffix"></span>
+                <span data-from="classcustom"></span>
             </p>
-            <p id="recap-keepyear" {{#if edit}}class="{{#unless class.keepYear}}hidden{{/unless}}"{{/if}}>Schuljahr: <span data-from="schoolyear"/></p>
+            <p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless class.keepYear}}hidden{{/unless}}"{{/ifCond}}>Schuljahr: <span data-from="schoolyear"/></p>
         </div>
     </div>
 </section>

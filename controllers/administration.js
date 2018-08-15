@@ -690,7 +690,6 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                     [{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
-                        class: 'btn-edit',
                         icon: 'edit'
                     }]
                 ];
@@ -933,7 +932,6 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     [{
                         link: `/administration/students/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
-                        class: 'btn-edit',
                         icon: 'edit'
                     }]
                 ];
@@ -1059,16 +1057,16 @@ const getClassOverview = (req, res, next) => {
         next(err);
     });
 };
-router.get('/classes/:id', getDetailHandler('classes'));
-router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
-router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
-router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,false);
 });
 router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,true);
 });
+router.get('/classes/:id', getDetailHandler('classes'));
+router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
+router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
+router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 
 router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
@@ -1329,13 +1327,11 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",
-                        class: `btn-manage`,
                         icon: 'users',
                         title: 'Klasse verwalten'
                     },
                     {
                         link: path + item._id + "/edit",
-                        class: `btn-edit`,
                         icon: 'edit',
                         title: 'Klasse bearbeiten'
                     },
