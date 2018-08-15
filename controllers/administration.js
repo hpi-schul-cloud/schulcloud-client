@@ -690,7 +690,6 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                     [{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
-                        class: 'btn-edit',
                         icon: 'edit'
                     }]
                 ];
@@ -933,7 +932,6 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     [{
                         link: `/administration/students/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
-                        class: 'btn-edit',
                         icon: 'edit'
                     }]
                 ];
@@ -1329,13 +1327,11 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",
-                        class: `btn-manage`,
                         icon: 'users',
                         title: 'Klasse verwalten'
                     },
                     {
                         link: path + item._id + "/edit",
-                        class: `btn-edit`,
                         icon: 'edit',
                         title: 'Klasse bearbeiten'
                     },
