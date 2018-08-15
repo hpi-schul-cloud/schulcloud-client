@@ -26,7 +26,7 @@ describe('Login tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Schul-Cloud');
-                    expect(res.text).to.contain('Email-Adresse oder Nutzername');
+                    expect(res.text).to.contain('E-Mail / Nutzername');
                     expect(res.text).to.contain('Passwort');
                     resolve();
                 });
