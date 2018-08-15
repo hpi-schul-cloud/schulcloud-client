@@ -41,6 +41,9 @@ const authChecker = (req, res, next) => {
                 // fetch user profile
                 populateCurrentUser(req, res)
                     .then(_ => {
+                        checkConsent(req, res)
+                    })
+                    .then(_ => {
                         return restrictSidebar(req, res);
                     })
                     .then(_ => {
@@ -77,6 +80,23 @@ const populateCurrentUser = (req, res) => {
 
     return Promise.resolve();
 };
+
+const checkConsent = (req, res) => {
+    if (res.locals.currentRole == "Lehrer" || res.locals.currentRole == "Administrator") {
+        return Promise.resolve();
+    }
+    else {
+        return api(req).get('/consents/', {qs: { userId: res.locals.currentUser._id }})
+            .then(consents => {
+                const consent = consents.data[0];
+                if (consent.redirect == '/dashboard/' || req.baseUrl == "/firstLogin") {
+                    return Promise.resolve();
+                } else {
+                    res.redirect(consent.redirect);
+                }
+            })
+    }
+}
 
 
 const restrictSidebar = (req, res) => {
