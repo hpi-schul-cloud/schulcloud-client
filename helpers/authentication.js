@@ -41,7 +41,7 @@ const authChecker = (req, res, next) => {
                 // fetch user profile
                 populateCurrentUser(req, res)
                     .then(_ => {
-                        checkConsent(req, res)
+                        return checkConsent(req, res)
                     })
                     .then(_ => {
                         return restrictSidebar(req, res);
@@ -82,17 +82,22 @@ const populateCurrentUser = (req, res) => {
 };
 
 const checkConsent = (req, res) => {
-    if (res.locals.currentRole == "Lehrer" || res.locals.currentRole == "Administrator") {
+    if (res.locals.currentRole === "Lehrer" || res.locals.currentRole === "Administrator") {
         return Promise.resolve();
     }
     else {
         return api(req).get('/consents/', {qs: { userId: res.locals.currentUser._id }})
             .then(consents => {
-                const consent = consents.data[0];
-                if (consent.redirect == '/dashboard/' || req.baseUrl == "/firstLogin") {
-                    return Promise.resolve();
+                if (consents.data[0]){
+                    const consent = consents.data[0];
+                    if (consent.redirect === '/dashboard/' || req.baseUrl === "/firstLogin") {
+                        return Promise.resolve();
+                    } else {
+                        res.redirect(consent.redirect);
+                        return Promise.reject("firstLogin was not completed, redirecting...");
+                    }
                 } else {
-                    res.redirect(consent.redirect);
+                    
                 }
             })
     }
