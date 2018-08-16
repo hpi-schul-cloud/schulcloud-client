@@ -954,7 +954,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
-    const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id, $populate:['parentConsents']});
+    const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
 
     Promise.all([
         userPromise,
