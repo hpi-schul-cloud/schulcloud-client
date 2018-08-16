@@ -423,6 +423,21 @@
       },
       {
         "title": "",
+        "firstName": "Michael",
+        "lastName": "Janke",
+        "position": "Student",
+        "description": "Michael schreibt seine Masterarbeit im Projekt Schul-Cloud. Nicht nur sein Studium am HPI, auch seine Erfahrungen durch die Tätigkeit an einem Gymnasium als Administrator und technischer Berater gehen mit in die Arbeit an der HPI Schul-Cloud ein. Dabei entstand die Idee der Entwicklung einer Ablagezone für nicht-formalisierte Interaktion. Bilder oder andere Medien sollen einfach in eine gemeinsame Ablage geteilt werden können. Auch sollen Inhalte einfach auf einer digitalen Tafel angezeigt werden können. In seiner Freizeit verbindet er sein Studium mit seinen handwerklichen Fähigkeiten. 3D-Drucken, Smart-Home, aber auch Hammer und Wasserwaage sind keine Fremdworte für ihn. Zum Ausspannen wandert Michael gerne in der Natur und sucht dafür immer neue Orte und Abenteuer.",
+        "pictureUrl": "/images/team/Michael_Janke.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
         "position": "Studentische Hilfskraft",
