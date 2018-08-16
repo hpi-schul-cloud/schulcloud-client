@@ -503,11 +503,12 @@ const sendMailHandler = (user, req, res) => {
                     "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
+			
             api(req).post('/mails', {
                 json: {
                     headers: {},
                     email: email,
-                    subject: `Einladung in die ${res.locals.theme.title}`,
+                    subject: res==undefined ? 'Einladung' : 'Einladung in die '+((res.locals||{}).theme||{}).title,
                     content: content
                 }
             }).then(_ => {
