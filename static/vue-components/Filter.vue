@@ -1,5 +1,7 @@
 <template>
   <div class="filter">
+    <span class="points-message">Sie haben noch genügend Punkte für {{ weeksLeft }} Wochen.</span>
+
     <md-chip v-for="chip in activeFilter" v-model="activeFilter" :key="chip[0]" v-on:click="visibleProvider = chip[0]"
              @md-delete.stop="removeFilter(chip[0], true)" md-clickable md-deletable>{{ chip[1].displayString }}
     </md-chip>
@@ -78,12 +80,17 @@
     name: 'SearchFilter',
     data() {
       return {
-        enoughPoints: true, //JSON.parse(localStorage.getItem('userInfo')).enoughPoints || true, //TODO: put this information into user
+        enoughPoints: false,
+        teacherPoints: 0,
+        weeksLeft: 0,
         visibleProvider: '',
         activeFilter: [],
       };
     },
-    props: ['inReview'],
+    props: ['inReview', 'userId'],
+    created() {
+      this.getTeacherPoints();
+    },
     methods: {
       setFilter(identifier, filterData) {
         this.visibleProvider = '';
@@ -115,11 +122,32 @@
       isApplied(identifier) {
         return this.activeFilter.map(i => i[0]).includes(identifier);
       },
+      getTeacherPoints() {
+        var that = this;
+        this.$http
+          // .get(this.$config.API.baseUrl + this.$config.API.gamificationPort + '/user/' + this.userId, {
+          .get('http://localhost:3131/user/' + this.userId, {
+            headers: {
+              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
+            },
+          })
+          .then((response) => {
+            console.log(response.body);
+            that.teacherPoints = response.body.xp[0].amount;
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+      },
     },
     watch: {
       activeFilter(to, from) {
         this.sendNewQuery();
       },
+      teacherPoints: function(newVal, oldVal) {
+        this.enoughPoints = newVal > 0;
+        this.weeksLeft = Math.ceil(newVal / 5);
+      }
     },
   };
 
@@ -132,5 +160,10 @@
     .disabled {
         cursor: not-allowed !important;
         background-color: rgba(100,100,100,0.5);
+    }
+
+    .points-message {
+      float: right;
+      font-size: 0.8em;
     }
 </style>

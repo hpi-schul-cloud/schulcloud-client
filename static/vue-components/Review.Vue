@@ -10,18 +10,19 @@
 
     <div v-else>
       <teacher-content :teacherContent="data" />
+      <md-card class="stepper-card">
+        <md-steppers :md-active-step.sync="active" md-alternative>
+          <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
+            <rate-content :contentId="contentId" :contentChanged="contentChanged" @step="setDone('first', 'second')" @denied="onDenied" @accepted="onAccepted" />
+          </md-step>
 
-      <md-steppers :md-active-step.sync="active" md-alternative>
-        <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
-          <rate-content :contentId="contentId" :contentChanged="contentChanged" @step="setDone('first', 'second')" @denied="onDenied" @accepted="onAccepted" />
-        </md-step>
+          <md-step id="second" md-label="Kategorien überprüfen" :md-done.sync="second">
+            <categorize :teacherContent="data" />
+            <md-button class="md-primary" @click="saveReview(true)">{{ categoriesChanged ? "Neue Kategorien vorschlagen" : "Kategorien bestätigen" }}</md-button>
+          </md-step>
 
-        <md-step id="second" md-label="Kategorien überprüfen" :md-done.sync="second">
-          <categorize :teacherContent="data" />
-          <md-button class="md-primary" @click="saveReview(true)">{{ categoriesChanged ? "Neue Kategorien vorschlagen" : "Kategorien bestätigen" }}</md-button>
-        </md-step>
-
-      </md-steppers>
+        </md-steppers>
+      </md-card>
     </div>
 
   </div>
@@ -55,9 +56,10 @@
         first: false,
         second: false,
         rating: {},
-        error: false
+        error: false,
       };
     },
+    props: ['userId'],
     computed: {
       contentChanged: function () {
         if (!this.isEmptyObject(this.data)) {
@@ -124,10 +126,12 @@
         this.rating = rating;
       },
       saveReview: function(accepted) {
+        this.rating.userId = this.userId;
         const dataToSend = {
           id: this.contentId,
           rating: this.rating,
-          approved: accepted
+          approved: accepted,
+          userId: this.userId
         }
         if (this.categoriesChanged) {
           dataToSend.categories = {
@@ -135,7 +139,8 @@
             topics: this.data.topics,
             age: this.data.age,
             difficulty: this.data.difficulty,
-            goal: this.data.goal
+            goal: this.data.goal,
+            userId: this.userId
           };
         }
         if (this.contentChanged) {
@@ -150,7 +155,7 @@
           })
           .then((response) => {
             console.log("Inside Review Component after rate call. TODO: Notify user");
-            location.href = '/content/review';
+            location.href = '/content/review/?msg=Review erfolgreich gespeichert. Sie haben 5 Punkte erhalten. Glückwunsch!';
             console.log(response);
           })
           .catch((e) => {
@@ -164,14 +169,5 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
   @import "./default";
-
-  .md-card {
-    margin-bottom: 10px;
-    padding: 10px 20px;
-  }
-
-  .md-steppers {
-    margin-top: 4em;
-  }
 
 </style>

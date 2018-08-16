@@ -2,6 +2,10 @@
   <div>
     <section class="section-title">
       <div class="container-fluid">
+        <div v-if="msg" class="alert alert-success">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          {{ msg }}
+        </div>
         <div class="row" id="titlebar">
           <div class="col-sm-9">
             <div>
@@ -32,7 +36,7 @@
       </div>
     </div>
     <div>
-      <search-filter :inReview="inReview" @newFilter="updateFilter"></search-filter>
+      <search-filter :inReview="inReview" :userId="userId" @newFilter="updateFilter"></search-filter>
     </div>
     <div md-gutter class="grid">
         <contentCard v-for="item in data" :key="item._id  + '#card'" :inReview="inReview" :data="item['_source']" :contentId="item['_id']"></contentCard>
@@ -61,10 +65,11 @@
       pagination,
     },
     name: 'ContentSearch',
-    props: ['inReview', 'heading'],
+    props: ['inReview', 'heading', 'userId'],
     data() {
       return {
         data: [],
+        msg: undefined,
         searchQuery: '',
         apiFilterQuery: {},
         urlQuery: {},
@@ -82,6 +87,8 @@
       };
     },
     created() {
+      var query = qs.parse(window.location.href.substring(window.location.href.indexOf('?')+1));
+      this.msg = query.msg;
       this.loadContent();
     },
     methods: {
@@ -104,9 +111,11 @@
         }
       },
       constructPathFromURL(urlQuery) {
-        let queryString = '?limit=' + this.pagination.itemsPerPage + '&';
+        let queryString = '?limit=' + this.pagination.itemsPerPage + '&userId=' + this.userId + '&';
         if (this.inReview) {
-          queryString += 'only-non-approved=true&provider=Schul-Cloud&';
+          queryString += 'task=review&';
+        } else {
+          queryString += 'task=search&';
         }
         Object.keys(urlQuery).forEach(function(key) {
           queryString += key + '=' + urlQuery[key] + '&';
@@ -116,6 +125,7 @@
       loadContent() {
         // clear data to show "loading state"
         const page = this.pagination.page || 1;
+        console.log("Loading for page", page);
         const searchString = this.searchQuery || '';
 
         // set unique url
@@ -151,9 +161,7 @@
     watch: {
       searchQuery(to, from) {
         if (to != from) {
-          if (from != '') {
-            this.pagination.page = 1;
-          }
+          this.pagination.page = 1;
           this.loadContent();
         }
       },
@@ -185,9 +193,19 @@
     clear: both;
   }
 
-  .content-card {
-    padding: 5px;
+  @media only screen and (max-width: 1000px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
   }
+
+  @media only screen and (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+    }
+  }
+
 
   #search-input {
     font-size: 1.75em;
@@ -217,6 +235,7 @@
     #resultHeadline {
       font-size: 1rem;
       display: block;
+      margin-left: 5px;
     }
   }
 

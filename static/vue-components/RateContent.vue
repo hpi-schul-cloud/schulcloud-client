@@ -26,7 +26,7 @@
         message: "",
       };
     },
-    props: ['contentId', 'contentChanged'],
+    props: ['userId', 'contentId', 'contentChanged'],
     methods: {
       accept() {
         console.log(`Accept content ${this.contentId} with text ${this.message} and overall rating of ${this.overall}, layout rating of ${this.layout} and text rating of ${this.text}`);
@@ -36,7 +36,7 @@
           layout: this.layout,
           text: this.text,
           message: this.message,
-          userId: "TODO: Get real user id"
+          userId: this.userId
         }
         this.$emit('accepted', rating);
       },

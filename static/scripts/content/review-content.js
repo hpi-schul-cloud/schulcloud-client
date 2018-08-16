@@ -22,7 +22,11 @@ import reviewContent from './../../vue-components/Review.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<review-content />',
+	template: '<review-content :userId="userId" />',
+	data: { userId: null },
+	beforeMount: function () {
+		this.userId = this.$el.attributes['data-user-id'].value;
+  },
 	components: {
 		'review-content': reviewContent
 	}

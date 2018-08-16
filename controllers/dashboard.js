@@ -135,11 +135,36 @@ router.get('/', function (req, res, next) {
             return news;
     }).sort(sortFunction).slice(0,3));
 
+    const overallReviewsPromise = api(req).get('/content/search', {
+      qs: {
+        "only-non-approved": true,
+        "provider": "Schul-Cloud"
+      }
+    }).then(data => {
+        return data.hits.total;
+    }).catch(err => {
+        console.log(err);
+    });
+
+    const personalizedReviewsPromise = api(req).get('/content/search', {
+      qs: {
+        "only-non-approved": true,
+        "provider": "Schul-Cloud",
+        subjects: 'Englisch', // TODO: Get from user
+      }
+    }).then(data => {
+        return data.hits.total;
+    }).catch(err => {
+        console.log(err);
+    });
+
     Promise.all([
         eventsPromise,
         homeworksPromise,
-        newsPromise
-    ]).then(([events, homeworks, news]) => {
+        newsPromise,
+        overallReviewsPromise,
+        personalizedReviewsPromise
+    ]).then(([events, homeworks, news, overallReviewCount, personalizedReviewCount]) => {
 
         homeworks.sort((a,b) => {
             if(a.dueDate > b.dueDate) {
@@ -148,6 +173,10 @@ router.get('/', function (req, res, next) {
                 return -1;
             }
         });
+
+        console.log("About to render dashboard");
+        console.log(overallReviewCount);
+        console.log(personalizedReviewCount);
 
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
@@ -158,7 +187,9 @@ router.get('/', function (req, res, next) {
             news,
             hours,
             currentTimePercentage,
-            currentTime: moment(currentTime).format('kk:mm')
+            currentTime: moment(currentTime).format('kk:mm'),
+            test: "slkdfjsdlkfjsdklfj",
+            reviewCount: {overall: overallReviewCount, personalized: personalizedReviewCount}
         });
     });
 });

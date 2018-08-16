@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div v-if="msg" class="alert alert-success">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      {{ msg }}
+    </div>
     <h1>Meine Materialen</h1>
     <div md-gutter class="grid">
         <contentCard v-for="item in data" :key="item._id  + '#card'" :data="item['_source']" :contentId="item['_id']" :ownContent="true"></contentCard>
@@ -15,6 +19,8 @@
 
 <script>
   import contentCard from './ContentCard.vue';
+  const qs = require('query-string');
+
 
   export default {
     components: {
@@ -24,15 +30,19 @@
     data() {
       return {
         data: [],
+        msg: undefined,
       };
     },
+    props: ['userId'],
     created() {
+      var query = qs.parse(window.location.href.substring(window.location.href.indexOf('?')+1));
+      this.msg = query.msg;
       this.loadContent();
     },
     methods: {
       loadContent() {
 
-        let path = this.$config.API.searchPath + '?limit=9999&userId=0000d231816abba584424242'; // TODO: actual user id
+        let path = this.$config.API.searchPath + '?task=my-content&limit=9999&userId=' + this.userId;
         console.log(this.$config.API.baseUrl + this.$config.API.port + path);
         this.$http
           .get(this.$config.API.baseUrl + this.$config.API.port + path, {
@@ -63,6 +73,20 @@
     grid-gap: 10px;
     clear: both;
   }
+
+  @media only screen and (max-width: 1000px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-gap: 0;
+    }
+  }
+
 
   .content-card {
     padding: 5px;

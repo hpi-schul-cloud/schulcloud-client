@@ -9,7 +9,7 @@ const api = require('../api');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    return res.render('content/overview');
+    return res.render('content/search');
 });
 
 router.get('/my-content', function (req, res, next) {
@@ -79,9 +79,13 @@ router.get('/redirect/:id', function (req, res, next) {
 });
 
 router.post('/addToLesson', function (req, res, next) {
+    console.log("In /addToLesson of client content controller");
+    console.log(req.body);
     api(req).post('/materials/', {
         json: req.body
     }).then(material => {
+        console.log("after post call to /materials");
+        console.log(material);
         api(req).patch('/lessons/' + req.body.lessonId, {
             json: {
                 courseId: req.body.courseId,
@@ -90,32 +94,33 @@ router.post('/addToLesson', function (req, res, next) {
                 }
             }
         }).then(result => {
+            console.log("Successfully patches lesson");
             res.redirect('/content/?q=' + req.body.query);
         });
     });
 });
 
-router.post('/publish', function (req, res, next) {
-    api(req).post('/content/resources/', {
-        json: req.body
-    }).then(response => {
-      console.log("Inside response of publish call");
-      console.log(response);
-    }).then(result => {
-            res.redirect('/content/?q=' + req.body.query);
-    });
-});
-
-router.post('/rate', function (req, res, next) {
-    console.log("In rate call with body: ", req.body);
-    api(req).patch('/content/resources/' + req.body.id, {
-        json: req.body
-    }).then(response => {
-      console.log("Inside response of publish call");
-      console.log(response);
-    }).then(result => {
-            res.redirect('/content/?q=' + req.body.query);
-    });
-});
+// router.post('/publish', function (req, res, next) {
+//     api(req).post('/content/resources/', {
+//         json: req.body
+//     }).then(response => {
+//       console.log("Inside response of publish call");
+//       console.log(response);
+//     }).then(result => {
+//             res.redirect('/content/?q=' + req.body.query);
+//     });
+// });
+//
+// router.post('/rate', function (req, res, next) {
+//     console.log("In rate call with body: ", req.body);
+//     api(req).patch('/content/resources/' + req.body.id, {
+//         json: req.body
+//     }).then(response => {
+//       console.log("Inside response of publish call");
+//       console.log(response);
+//     }).then(result => {
+//             res.redirect('/content/?q=' + req.body.query);
+//     });
+// });
 
 module.exports = router;

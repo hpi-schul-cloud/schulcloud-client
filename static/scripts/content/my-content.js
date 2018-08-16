@@ -20,6 +20,10 @@ import MyContent from './../../vue-components/MyContent.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<my-content />',
-	components: { 'my-content': MyContent }
+	template: '<my-content :userId="userId" />',
+	components: { 'my-content': MyContent },
+	data: { userId: null },
+	beforeMount: function () {
+		this.userId = this.$el.attributes['data-user-id'].value;
+  },
 })

@@ -20,6 +20,14 @@ import Search from './../../vue-components/ContentSearch.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<Search heading="Suche in allen Inhalten" :inReview="false"/>',
-	components: { Search }
+	template: '<Search heading="Suche in allen Inhalten" :inReview="false" :userId="userId" />',
+	data: { userId: null, user: null },
+	components: { Search },
+	beforeMount: function () {
+		this.userId = this.$el.attributes['data-user-id'].value;
+  },
 })
+
+// The search page gets loaded as default when you click on "Materialen", therefore it should be marked as active
+$('a[title="Suche"]').addClass('active')
+$('a[title="Materialien"]').removeClass('active')

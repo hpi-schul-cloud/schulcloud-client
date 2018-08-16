@@ -20,6 +20,10 @@ import Search from './../../vue-components/ContentSearch.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<Search heading="Suche in vorgeschlagenen Inhalten" inReview="true"/>',
+	template: '<Search heading="Suche in vorgeschlagenen Inhalten" inReview="true" :userId="userId" />',
+	data: { userId: null },
+	beforeMount: function () {
+		this.userId = this.$el.attributes['data-user-id'].value;
+  },
 	components: { Search }
 })

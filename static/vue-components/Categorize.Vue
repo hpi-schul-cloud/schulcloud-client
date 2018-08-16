@@ -68,7 +68,7 @@
         </div>
         <div class="md-layout-item">
             <md-chip v-if="teacherContent.age" v-model="teacherContent.age" :key="teacherContent.age" v-on:click="visibleDialog = 'age'"
-                @md-delete.stop="removeAge()" md-clickable md-deletable>{{ teacherContent.ageDisplayString }}
+                @md-delete.stop="removeAge()" md-clickable md-deletable>{{ teacherContent.age + " +- " + teacherContent.ageRange }}
             </md-chip>
             <md-button md-menu-trigger v-on:click="visibleDialog = 'age'" class="addButton">
                 <span v-if="teacherContent.age">
@@ -109,6 +109,16 @@
     },
     props: ['teacherContent', 'review'],
     name: 'categories',
+    computed: {
+      categoriesComplete: function () {
+        return this.teacherContent.age && this.teacherContent.subjects && this.teacherContent.difficulty && this.teacherContent.goal;
+      }
+    },
+    watch: {
+      categoriesComplete: function(newVal, oldVal) {
+        this.$emit('categories-status-changed', newVal)
+      }
+    },
     data() {
       return {
         visibleDialog: '',

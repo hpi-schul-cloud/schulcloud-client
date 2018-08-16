@@ -22,6 +22,10 @@ import GenerateContent from './../../vue-components/GenerateContent.vue';
 
 var vm = new Vue({
 	el: '#app',
-	template: '<GenerateContent/>',
-	components: { GenerateContent }
+	template: '<GenerateContent :userId="userId" />',
+	components: { GenerateContent },
+	data: { userId: null },
+	beforeMount: function () {
+		this.userId = this.$el.attributes['data-user-id'].value;
+  },
 })

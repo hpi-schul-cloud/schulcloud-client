@@ -86,7 +86,7 @@ router.get('/profile', function (req, res, next) {
         });
     } else {
         console.log("profile request");
-        var url = 'http://localhost:3131/user/0000d231816abba584714c9e';
+        var url = 'http://localhost:3131/user/' + res.locals.currentUser._id;
         rp.get(url)
           .then(userInfo => {
             res.render('account/profile', {
