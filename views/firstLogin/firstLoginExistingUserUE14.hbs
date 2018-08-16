@@ -15,30 +15,8 @@
         <p>Du bist mindestens 14 Jahre alt. Deine Erziehungsberechtigten (oder du selbst, wenn du schon über 18 bist) haben der Nutzung bereits auf dem Papierweg zugestimmt. Bitte bestätige jetzt folgende Einwilligungserklärungen, damit du die {{theme.title}} weiter nutzen kannst.</p>
 
           <p>Ich, <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>, erkläre Folgendes:</p>
+          {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
 
-          <label>
-              <input name="Erhebung" type="checkbox" value="true" required/>
-              <span>Ich habe die <a href="#" target="_blank">Datenschutzerklärung</a> gelesen und willige in die Verarbeitung der Nutzerdaten ein.</span>
-          </label>
-          <p class="explanation">Schülereinwilligung Ü18</p>
-          
-          <label>
-              <input name="Forschung" type="checkbox" value="true" required/>
-              <span>Ich habe die <a href="#" target="_blank">Informationen zum Forschungsvorhaben</a> gelesen und willige in die wissenschaftliche Auswertung ein.</span>
-          </label>
-          <p class="explanation">Die {{theme.title}} wird von einem wissenschaftlichen Forschungsprojekt begleitet, das der Optimierung des Lernerlebnisses in der {{theme.short_title}} dient. Im Rahmen dessen werden Nutzungsdaten anonymisiert ausgewertet.</p>
-          
-          <label>
-              <input name="Pseudonymisierung" type="checkbox" value="true" required/>
-              <span> Ich habe die <a href="#" target="_blank">Informationen zu Inhalte-Anbietern</a> gelesen und willige in die Weitergabe der Pseudonyme an Inhalte-Anbieter ein</span>
-          </label>
-          <p class="explanation">Nutzernamen werden nicht an integrierte Drittanbieter weitergegeben. Sollte eine Wiedererkennung nötig sein, z.B. für individuelle Aufgabenstellungen, geschieht dies zu Ihrem Schutz auf Basis eines Pseudonyms. Die Schülerdaten bleiben sicher im Kernbereich der {{theme.title}}. </p>
-
-          <label>
-              <input name="Nutzungsbedingungen" type="checkbox" value="Nutzungsbedingungen" required/>
-              <span>Ich habe die <a href="#" target="_blank">Nutzungsbedingungen</a> gelesen und stimme ihnen zu.</span>
-          </label>
-          <p class="explanation">Die Nutzung der {{theme.short_title}} ist freiwillig. Die erteilte Einwilligung kann daher jederzeit ohne Nachteile für den Nutzer widerrufen werden. Eine kurze Mail mit Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung&body=Liebes {{theme.short_title}}-Team,%0D%0Ahiermit widerrufe ich die von mir erteilte EInwilligung zur Verarbeitung meiner personenbezogenen Daten.%0D%0A%0D%0AVor- und Nachname:%0D%0AKlasse:%0D%0ASchule:%0D%0A" target="_blank">widerruf@schul-clud.org</a></p>
       </section>
 
 

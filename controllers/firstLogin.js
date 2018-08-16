@@ -96,7 +96,10 @@ router.post('/submit', function (req, res, next) {
         
     }
 
-    return Promise.all([accountPromise, userPromise, consentPromise]).then(async () => {
+    return Promise.all([accountPromise, userPromise, consentPromise])
+            // Nutzerdatenmails vorerst nicht zuschicken. Passwort muss erst verschlüsselt werden.
+        /*
+        .then(async () => {
         if (req.body["sendCredentials"]){
             let mailcontent = {
                 json: { email: res.locals.currentUser.email,
@@ -133,11 +136,11 @@ ${res.locals.theme.short_title}-Team`,
                     res.status(200).json({type: 'danger', message: `Die Zugangsdaten konnten nicht an ${res.locals.currentUser.email}  verschickt werden. Bitte notiere dir dein Passwort selbst.`});
                 }
             }
-        } 
+        }
 
-    })
+    })*/
     .catch(err => {
-        res.status(500).send((err.error || err).message || "Ein Fehler ist aufgetreten.");
+        res.status(500).send((err.error || err).message || "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.");
     });
 });
 router.get('/existingU14', function (req, res, next) {
