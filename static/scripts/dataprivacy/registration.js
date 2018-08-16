@@ -10,12 +10,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
     if(birthdateInput && showFormButton) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
             const baseUrl = '/registration';
-            let classId = $("input[name=classId]").val();
+            let classOrSchoolId = $("input[name=classOrSchoolId]").val();
             
             if(radiou18.checked){
-                window.location.href = `${baseUrl}/${classId}/byparent`;
+                window.location.href = `${baseUrl}/${classOrSchoolId}/byparent`;
             }else{
-                window.location.href = `${baseUrl}/${classId}/bystudent`;
+                window.location.href = `${baseUrl}/${classOrSchoolId}/bystudent`;
             }
         });
         $("input[type='radio']").on("change", () => {

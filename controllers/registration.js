@@ -78,7 +78,7 @@ router.get('/registration/:classOrSchoolId/byparent', function (req, res, next) 
     
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
-        classId: req.params.classOrSchoolId,
+        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true
     });
 });
@@ -88,7 +88,7 @@ router.get('/registration/:classOrSchoolId/bystudent', function (req, res, next)
     
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
-        classId: req.params.classOrSchoolId,
+        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true
     });
 });
@@ -99,7 +99,7 @@ router.get('/registration/:classOrSchoolId', function (req, res, next) {
     
     res.render('registration/registration', {
         title: 'Herzlich Willkommen bei der Registrierung',
-        classId: req.params.classOrSchoolId,
+        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true
     });
 });
