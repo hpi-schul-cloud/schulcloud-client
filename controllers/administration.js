@@ -28,6 +28,14 @@ const getSelectOptions = (req, service, query, values = []) => {
     });
 };
 
+const cutEditOffUrl = (url) => {    //nicht optimal, aber req.header('Referer') gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
+    let workingURL = url;
+    if(url.endsWith("/edit")){
+        workingURL = workingURL.replace("/edit", "");
+        workingURL = workingURL.substring(0, workingURL.lastIndexOf("/"));
+    }
+    return workingURL;
+};
 
 const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStudentAction = false) => {
     return [
@@ -94,7 +102,6 @@ const getTableActionsSend = (item, path, state) => {
     }
     return actions;
 };
-
 
 /**
  * maps the event props from the server to fit the ui components, e.g. date and time
@@ -218,10 +225,46 @@ const deleteEventsForData = (service) => {
     };
 };
 
+/* DEPRECATED - old registration mail handler, now done with new registration process in /registration */
+const sendMailHandler = (user, req, res) => {
+    let createdUser = user;
+    let email = createdUser.email;
+    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
+        if (!err) {
+            let source = data.toString();
+            let template = handlebars.compile(source);
+            let outputString = template({
+                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id,
+                "firstName": createdUser.firstName,
+                "lastName": createdUser.lastName
+            });
+            
+            let content = {
+                "html": outputString,
+                "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
+                    "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
+                    (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
+                    "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
+            };
+            req.body.content = content;
+            
+            api(req).post('/mails', {
+                json: {
+                    headers: {},
+                    email: email,
+                    subject: res===undefined ? 'Einladung' : 'Einladung in die '+((res.locals||{}).theme||{}).title,
+                    content: content
+                }
+            }).then(_ => {
+                return true;
+            });
+        }
+    });
+};
+
 const getCreateHandler = (service) => {
     return function (req, res, next) {
         api(req).post('/' + service + '/', {
-            // TODO: sanitize
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
@@ -482,42 +525,6 @@ const createBucket = (req, res, next) => {
     }
 };
 
-const sendMailHandler = (user, req, res) => {
-    let createdUser = user;
-    let email = createdUser.email;
-    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
-        if (!err) {
-            let source = data.toString();
-            let template = handlebars.compile(source);
-            let outputString = template({
-                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id,
-                "firstName": createdUser.firstName,
-                "lastName": createdUser.lastName
-            });
-
-            let content = {
-                "html": outputString,
-                "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
-                    "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
-                    "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
-            };
-            req.body.content = content;
-			
-            api(req).post('/mails', {
-                json: {
-                    headers: {},
-                    email: email,
-                    subject: res==undefined ? 'Einladung' : 'Einladung in die '+((res.locals||{}).theme||{}).title,
-                    content: content
-                }
-            }).then(_ => {
-                return true;
-            });
-        }
-    });
-};
-
 const returnAdminPrefix = (roles) => {
     let prefix;
     roles.map(role => {
@@ -764,18 +771,69 @@ const getConsentStatusIcon = (consent) => {
 const getStudentCreateHandler = (service) => {
     return function (req, res, next) {
         const birthday = req.body.birthday.split('.');
-        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`
+        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
         api(req).post('/users/', {
-            // TODO: sanitize
             json: req.body
-        }).then(data => {
-            res.locals.createdUser = data;
-            if(req.body.sendRegistration){
-                sendMailHandler(data, req, res);
+        }).then(newuser => {
+            res.locals.createdUser = newuser;
+            if (newuser && newuser.email && newuser.schoolId) {
+                if(req.body.sendRegistration) {
+                    // generate link
+                    let target = `${(req.headers.origin || process.env.HOST)}/registration/${newuser.schoolId}`;
+                    return api(req).post("/link/", {json: {target: target}})
+                        .then(reglink => {
+                            reglink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${reglink._id}`;
+                            return Promise.resolve(reglink);
+                        }).then(response => {
+                            // old function: sendMailHandler(data, req, res);
+                            return api(req).post('/mails/', {
+                                json: {
+                                    email: newuser.email,
+                                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                                    headers: {},
+                                    content: {
+                                        "text": `Einladung in die ${res.locals.theme.title}
+    Hallo ${newuser.firstName} ${newuser.lastName}!
+    
+    Du wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${response.newUrl}
+    
+    Viel Spaß und einen guten Start wünscht dir dein
+    ${res.locals.theme.short_title}-Team`
+                                    }
+                                }
+                            }).then(mail => {
+                                req.session.notification = {
+                                    type: 'success',
+                                    message: 'Nutzer erfolgreich erstellt und informiert.'
+                                };
+                                res.redirect(req.header('Referer'));
+                            }).catch(_ => {
+                                req.session.notification = {
+                                    type: 'danger',
+                                    message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Versand der E-Mail. Bitte manuell informieren.'
+                                };
+                                res.redirect(req.header('Referer'));
+                            });
+                        });
+                } else {
+                    req.session.notification = {
+                        'type': 'success',
+                        'message': 'Nutzer erfolgreich erstellt.'
+                    };
+                    res.redirect(req.header('Referer'));
+                }
+            } else {
+                req.session.notification = {
+                    'type': 'danger',
+                    'message': 'Fehler beim Erstellen des Nutzers.'
+                };
+                res.redirect(req.header('Referer'));
             }
+            /*
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
+            */
         }).catch(err => {
             next(err);
         });
@@ -838,15 +896,6 @@ const getStudentUpdateHandler = () => {
         });
     };
 };
-
-const cutEditOffUrl = (url) => {    //nicht optimal, aber req.header('Referer') gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
-    let workingURL = url;
-    if(url.endsWith("/edit")){
-        workingURL = workingURL.replace("/edit", "");
-        workingURL = workingURL.substring(0, workingURL.lastIndexOf("/"));
-    }
-    return workingURL;
-}
 
 router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
