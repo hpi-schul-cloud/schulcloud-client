@@ -69,16 +69,9 @@ router.post('/submit', function (req, res, next) {
     preferences.firstLogin = true;
     userUpdate.preferences = preferences;
 
-    userPromise = api(req).get('/users/', {
-        qs: {children: res.locals.currentPayload.userId}
-    }).then(parents => {
-        userUpdate.parents = parents.data.map(parent => {
-            return parent._id
-        });
-        return api(req).patch('/users/' + res.locals.currentPayload.userId, {
-            json: userUpdate
-        });
-    })
+    userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
+        json: userUpdate
+    });
 
     if (req.body.Erhebung) {
         consentPromise = api(req).get('/consents/', {
