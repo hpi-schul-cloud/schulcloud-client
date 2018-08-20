@@ -40,7 +40,7 @@ router.get('/existing', function (req, res, next) {
 });
 router.post('/submit', function (req, res, next) {
 
-    if(req.body["password-1"] != req.body["password-2"]){
+    if(req.body["password-1"] !== req.body["password-2"]){
         return Promise.reject(new Error("Die neuen Passwörter stimmen nicht überein."))
         .catch(err => {
             res.status(500).send(err.message);
@@ -62,9 +62,23 @@ router.post('/submit', function (req, res, next) {
             json: accountUpdate
         });
     }
-
-    if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
-    if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
+    
+    // wrong birthday object?
+    if (req.body.studentBirthdate) {
+        let dateArr = req.body.studentBirthdate.split(".");
+        let userBirthday = new Date(`${dateArr[1]}.${dateArr[0]}.${dateArr[2]}`);
+        if(userBirthday instanceof Date && isNaN(userBirthday)) {
+            return Promise.reject("Fehler bei der Erkennung des ausgewählten Geburtstages. Bitte lade die Seite neu und starte erneut.");
+        }
+        userUpdate.birthday = userBirthday;
+    }
+    if (req.body["student-email"]) {
+        var regex = RegExp("^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
+        if (!regex.test(hook.data.email)) {
+            return Promise.reject(new errors.BadRequest('Bitte gib eine valide E-Mail Adresse an!'));
+        }
+        userUpdate.email = req.body["student-email"];
+    }
     var preferences = res.locals.currentUser.preferences || {};
     preferences.firstLogin = true;
     userUpdate.preferences = preferences;

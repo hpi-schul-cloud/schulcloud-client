@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
             const baseUrl = '/registration';
             let classOrSchoolId = $("input[name=classOrSchoolId]").val();
-            let sso = $("input[name=sso]").val() === true ? "sso" : "";
+            let sso = $("input[name=sso]").val() === "true" ? "sso" : "";
             
             if(radiou18.checked){
                 window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${sso}`;
