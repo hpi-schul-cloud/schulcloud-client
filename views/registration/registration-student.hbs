@@ -82,20 +82,24 @@
       <section data-panel="section-4">
         <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}!</h4>
 
-        <div id="userdata-summary">
-          <p>Mit folgenden Daten kannst du dich in der {{theme.short_title}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
-          <div class="print">
-            <div class="recap">
-              <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
-              <p>E-Mail: <i data-from="student-email"></i></p>
-              <p>Passwort: <i class="student-password">********</i></p>
+        {{#if sso}}
+            <p>Deine SSO-Accountdaten sind jetzt freigeschaltet.</p>
+        {{else}}
+            <div id="userdata-summary">
+                <p>Mit folgenden Daten kannst du dich in der {{theme.short_title}} anmelden. Bitte bewahre die Anmeldedaten für den ersten Login auf.</p>
+                <div class="print">
+                    <div class="recap">
+                        <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
+                        <p>E-Mail: <i data-from="student-email"></i></p>
+                        <p>Passwort: <i class="student-password">********</i></p>
+                    </div>
+                    <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
+                        <i class="fa fa-print"></i> Drucken
+                    </div>
+                </div>
+                <p>Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.</p>
             </div>
-            <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
-              <i class="fa fa-print"></i> Drucken
-            </div>
-          </div>
-          <p>Du kannst dich jetzt in der Schul-Cloud anmelden. Beim ersten Login muss ein neues Passwort gewählt werden.</p>
-        </div>
+        {{/if}}
 
         <a class="btn btn-primary" href="/login">Login öffnen</a>
       </section>

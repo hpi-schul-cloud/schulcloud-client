@@ -113,6 +113,9 @@
 
       <section data-panel="section-5">
         <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}</h4>
+      {{#if sso}}
+              <p>Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.</p>
+      {{else}}
         <div>
           <p>
             Mit folgenden Daten kann sich
@@ -133,7 +136,7 @@
 
           <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
         </div>
-
+      {{/if}}
         <p>Ihr Kind kann sich nun einloggen:</p>
 
         <a class="btn btn-primary" href="/login">Login öffnen</a>
