@@ -17,6 +17,31 @@
 	hyphens: auto;
 }
 
+.section-team, .section-partner, .section-about, .section-community {
+	h4 {
+		font-weight: 500;
+		margin: 30px 0px 20px 0px !important;
+		width: 100%;
+		display: block;
+	}
+	h5 {
+		font-style: italic; 
+		margin: 30px 0px 20px 0px;
+		width: 100%;
+		display: block;
+	}
+}
+
+.section-title h3 {
+	color: $primaryColor;
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+body h4:not(:first-of-type){
+	margin-top: 1rem;
+}
+
 a {
 	text-decoration: none;
 	&:hover {
