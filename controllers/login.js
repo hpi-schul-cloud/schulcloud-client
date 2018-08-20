@@ -161,7 +161,7 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
 			if(school==undefined){
 				res.redirect('/dashboard/');
 			}else{
-				res.redirect('/registration/' + school._id + '/bystudent'); 
+				res.redirect('/registration/' + school._id+'?sso=true'); 
 			}
 		}); 
     }
