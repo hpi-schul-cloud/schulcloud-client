@@ -255,3 +255,5 @@ window.addEventListener("load", () => {
         localStorage.setItem('Tutorial', false);
     }
 }); 
+
+document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
