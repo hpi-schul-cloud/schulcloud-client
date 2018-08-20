@@ -225,25 +225,72 @@ const deleteEventsForData = (service) => {
     };
 };
 
-/* DEPRECATED - old registration mail handler, now done with new registration process in /registration */
 const sendMailHandler = (user, req, res) => {
-    let createdUser = user;
-    let email = createdUser.email;
-    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
+    if (user && user.email && user.schoolId) {
+        // generate link
+        let target = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`;
+        return api(req).post("/link/", {json: {target: target}})
+        .then(newlink => {
+            newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
+            return Promise.resolve(newlink);
+        }).then(reglink => {
+            return api(req).post('/mails/', {
+                json: {
+                    email: user.email,
+                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                    headers: {},
+                    content: {
+                        "text": `Einladung in die ${res.locals.theme.title}
+    Hallo ${user.firstName} ${user.lastName}!
+    
+    Du wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${reglink.newUrl}
+    
+    Viel Spaß und einen guten Start wünscht dir dein
+    ${res.locals.theme.short_title}-Team`
+                    }
+                }
+            }).then(mail => {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Nutzer erfolgreich erstellt und informiert.'
+                };
+                res.redirect(req.header('Referer'));
+            }).catch(_ => {
+                req.session.notification = {
+                    type: 'danger',
+                    message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Versand der E-Mail. Bitte Nutzer manuell informieren.'
+                };
+                res.redirect(req.header('Referer'));
+            });
+        }).catch(_ => {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Erstellen des Einlade-Links. Bitte Nutzer manuell informieren.'
+            };
+            res.redirect(req.header('Referer'));
+        });
+    } else {
+        req.session.notification = {
+            type: 'danger',
+            message: 'Es sind nicht alle benötigten Informationen vorhanden.'
+        };
+        res.redirect(req.header('Referer'));
+    }
+    /*fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
             let source = data.toString();
             let template = handlebars.compile(source);
             let outputString = template({
-                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id,
-                "firstName": createdUser.firstName,
-                "lastName": createdUser.lastName
+                "url": (req.headers.origin || process.env.HOST) + "/register/account/" + user._id,
+                "firstName": user.firstName,
+                "lastName": user.lastName
             });
             
             let content = {
                 "html": outputString,
-                "text": "Sehr geehrte/r " + createdUser.firstName + " " + createdUser.lastName + ",\n\n" +
+                "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
                     "Sie wurden in die Schul-Cloud eingeladen, bitte registrieren Sie sich unter folgendem Link:\n" +
-                    (req.headers.origin || process.env.HOST) + "/register/account/" + createdUser._id + "\n\n" +
+                    (req.headers.origin || process.env.HOST) + "/register/account/" + user._id + "\n\n" +
                     "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
@@ -259,7 +306,7 @@ const sendMailHandler = (user, req, res) => {
                 return true;
             });
         }
-    });
+    });*/
 };
 
 const getCreateHandler = (service) => {
@@ -268,7 +315,7 @@ const getCreateHandler = (service) => {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            (service === 'users') ? sendMailHandler(data, req) : "";
+            (service === 'users') ? sendMailHandler(data, req, res) : "";
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -374,7 +421,7 @@ const getCSVImportHandler = (service) => {
                 json: user
             })
                 .then(newUser => {
-                    sendMailHandler(newUser, req);
+                    sendMailHandler(newUser, req, res);
                 });
         });
 
@@ -778,43 +825,7 @@ const getStudentCreateHandler = (service) => {
             res.locals.createdUser = newuser;
             if (newuser && newuser.email && newuser.schoolId) {
                 if(req.body.sendRegistration) {
-                    // generate link
-                    let target = `${(req.headers.origin || process.env.HOST)}/registration/${newuser.schoolId}`;
-                    return api(req).post("/link/", {json: {target: target}})
-                        .then(reglink => {
-                            reglink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${reglink._id}`;
-                            return Promise.resolve(reglink);
-                        }).then(response => {
-                            // old function: sendMailHandler(data, req, res);
-                            return api(req).post('/mails/', {
-                                json: {
-                                    email: newuser.email,
-                                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
-                                    headers: {},
-                                    content: {
-                                        "text": `Einladung in die ${res.locals.theme.title}
-    Hallo ${newuser.firstName} ${newuser.lastName}!
-    
-    Du wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${response.newUrl}
-    
-    Viel Spaß und einen guten Start wünscht dir dein
-    ${res.locals.theme.short_title}-Team`
-                                    }
-                                }
-                            }).then(mail => {
-                                req.session.notification = {
-                                    type: 'success',
-                                    message: 'Nutzer erfolgreich erstellt und informiert.'
-                                };
-                                res.redirect(req.header('Referer'));
-                            }).catch(_ => {
-                                req.session.notification = {
-                                    type: 'danger',
-                                    message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Versand der E-Mail. Bitte manuell informieren.'
-                                };
-                                res.redirect(req.header('Referer'));
-                            });
-                        });
+                    sendMailHandler(newuser, req, res);
                 } else {
                     req.session.notification = {
                         'type': 'success',

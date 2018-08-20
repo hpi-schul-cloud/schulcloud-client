@@ -13,7 +13,42 @@ const createAccount = (req, {username, password, userId, activated}) => {
 };
 
 /*
- * Warnings for users who wan't to use the old register version
+ * Old registration process if teacher created by teacher/admin until phase 2 of that project
+ */
+router.get('/register/account/:userId', function (req, res, next) {
+    res.render('registration/account', {
+        title: 'Zugangsdaten eintragen',
+        subtitle: '',//'für ' + user.firstName + ' ' + user.lastName,
+        action: '/register/account',
+        userId: req.params.userId,
+        buttonLabel: 'Abschließen',
+        inline: true
+    });
+});
+router.post('/register/account', function (req, res, next) {
+    const username = req.body.email;
+    const password = req.body.password;
+    const userId = req.body.userId;
+    
+    createAccount(req, {
+        username,
+        password,
+        userId,
+        activated: true
+    }).then(_ => {
+        return res.redirect('/');
+    }).catch(err => {
+        req.session.notification = {
+            type: 'danger',
+            message: err.error.message || err.message
+        };
+        const referrer = req.get('Referrer');
+        res.redirect(referrer);
+    });
+});
+
+/*
+ * Warnings for users who wan't to use the old register version if not teacher
  */
 
 router.get('/register', function (req, res, next) {
