@@ -483,7 +483,7 @@ const getDeleteHandler = (service, redirectUrl) => {
     return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
             if(redirectUrl){
-                res.redirect(redirectUrl)
+                res.redirect(redirectUrl);
             }else{
                 res.redirect(req.header('Referer'));
         }
@@ -797,7 +797,7 @@ const getConsentStatusIcon = (consent) => {
         if(consent.requiresParentConsent){
             if((consent.parentConsents || []).length == 0 
                 || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
-                return `<i class="fa fa-times consent-status"></i>`
+                return `<i class="fa fa-times consent-status"></i>`;
             }else{
                 if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
                     return `<i class="fa fa-check consent-status"></i>`;
@@ -813,9 +813,9 @@ const getConsentStatusIcon = (consent) => {
             }
         }
     }else{
-        return `<i class="fa fa-times consent-status"></i>`
+        return `<i class="fa fa-times consent-status"></i>`;
     }
-}
+};
 
 
 const getStudentCreateHandler = (service) => {
@@ -857,7 +857,7 @@ const getStudentCreateHandler = (service) => {
 const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
-        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`
+        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
 
         // extractConsent
         let studentConsent = {
@@ -876,16 +876,16 @@ const getStudentUpdateHandler = () => {
             researchConsent: req.body.parent_researchConsent || false,
             thirdPartyConsent: req.body.parent_thirdPartyConsent || false,
             termsOfUseConsent: req.body.parent_termsOfUseConsent || false
-        }
+        };
         if(studentConsent._id){
             let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
             if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
-                orgUserConsent.parentConsents[0]
+                orgUserConsent.parentConsents[0];
                 Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
                 studentConsent.parentConsents = orgUserConsent.parentConsents;
             }
         }else if(studentConsent.userConsent.form){
-            studentConsent.parentConsents = [newParentConsent]
+            studentConsent.parentConsents = [newParentConsent];
         }
         // remove all consent infos from user post
         Object.keys(req.body).forEach(function(key) {
@@ -970,7 +970,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     return currentClass.userIds.includes(user._id);
                 }).map((currentClass) => {return currentClass.displayName;}).join(', ');
                 return user;
-            })
+            });
 
             const head = [
                 'Vorname',
@@ -1168,7 +1168,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 if (studentIds.includes(s._id)) {
                     s.selected = true;
                 }
-            })
+            });
             res.render('administration/classes-manage', {
                 title: `Klasse '${currentClass.displayName}' verwalten `,
                 "class": currentClass,
@@ -1207,7 +1207,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
     let changedClass = {
         teacherIds: req.body.teacherIds || [],
         userIds: req.body.userIds || []
-    }
+    };
     api(req).patch('/classes/' + req.params.classId, {
         // TODO: sanitize
         json: changedClass
@@ -1216,7 +1216,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
     }).catch(err => {
         next(err);
     });
-})
+});
 
 router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     const classIds = JSON.parse(req.query.classes);
@@ -1237,7 +1237,7 @@ router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIE
 router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     let newClass = {
         schoolId: req.body.schoolId
-    }
+    };
     if (req.body.classcustom) {
         newClass.name = req.body.classcustom;
         newClass.nameFormat = "static";
@@ -1267,7 +1267,7 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     let changedClass = {
         schoolId: req.body.schoolId
-    }
+    };
     if (req.body.classcustom) {
         changedClass.name = req.body.classcustom;
         changedClass.nameFormat = "static";
@@ -1427,7 +1427,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
         };
 
 
-        const years = (await api(req).get('/years')).data.map((year) => {return [year._id, year.name]});
+        const years = (await api(req).get('/years')).data.map((year) => {return [year._id, year.name];});
 
         res.render('administration/classes', {
             title: 'Administration: Klassen',

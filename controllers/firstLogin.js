@@ -47,7 +47,7 @@ router.post('/submit', function (req, res, next) {
         });
     }
 
-    let accountId = res.locals.currentPayload.accountId
+    let accountId = res.locals.currentPayload.accountId;
     let accountUpdate = {};
     let accountPromise = Promise.resolve();
     let userUpdate = {};
@@ -61,7 +61,7 @@ router.post('/submit', function (req, res, next) {
         accountPromise = api(req).patch('/accounts/' + accountId, {
             json: accountUpdate
         });
-    };
+    }
 
     if (req.body["student-email"]) userUpdate.email = req.body["student-email"];
     if (req.body.studentBirthdate) userUpdate.birthday = new Date(req.body.studentBirthdate);
@@ -85,7 +85,7 @@ router.post('/submit', function (req, res, next) {
             return api(req).patch('/consents/' + consent.data[0]._id, {
                 json: {userConsent: consentUpdate}
             });
-        })
+        });
         
     }
 

@@ -18,7 +18,7 @@ function toggleConsentEditing(){
             }
         } else {
             input.setAttribute('disabled', 'disabled');
-        };
+        }
     });
 }
 window.addEventListener('DOMContentLoaded', () => {
