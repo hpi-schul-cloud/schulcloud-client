@@ -118,7 +118,7 @@ router.all('/login/', function (req, res, next) {
 
 const ssoSchoolData = (req,res) =>{
 	if(res.locals.currentPayload==undefined){
-		return undefined
+		return undefined;
 	}
 	const accountId = res.locals.currentPayload.accountId;
 	return api(req).get('/accounts/' + accountId).then(account => {
@@ -127,20 +127,19 @@ const ssoSchoolData = (req,res) =>{
                 systems: account.systemId
             }
         }).then(schools => {
-			console.log(schools.data.length);
 			if( schools.data.length > 0 ){
 				return schools.data[0];
 			}else{
-				return undefined
+				return undefined;
 			}
 		}).catch(err=>{
-			return undefined
+			return undefined;
 		});
 	}).catch(err=>{
-		return undefined
+		return undefined;
 	});	
 	
-}
+};
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     if (res.locals.currentUser) {

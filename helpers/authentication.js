@@ -41,7 +41,7 @@ const authChecker = (req, res, next) => {
                 // fetch user profile
                 populateCurrentUser(req, res)
                     .then(_ => {
-                        return checkConsent(req, res)
+                        return checkConsent(req, res);
                     })
                     .then(_ => {
                         return restrictSidebar(req, res);
@@ -91,7 +91,7 @@ const checkConsent = (req, res) => {
     }
     res.redirect('/login/success');
     return Promise.reject("firstLogin was not completed, redirecting...");
-}
+};
 
 
 const restrictSidebar = (req, res) => {
