@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
+const authHelper = require('../helpers/authentication');
 
 const createAccount = (req, {username, password, userId, activated}) => {
     return api(req).post('/accounts', {json: {
@@ -25,6 +26,7 @@ router.get('/register/account/:userId', function (req, res, next) {
         inline: true
     });
 });
+
 router.post('/register/account', function (req, res, next) {
     const username = req.body.email;
     const password = req.body.password;

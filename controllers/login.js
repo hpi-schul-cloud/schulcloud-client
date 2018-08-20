@@ -116,6 +116,31 @@ router.all('/login/', function (req, res, next) {
     });
 });
 
+const ssoSchoolData = (req,res) =>{
+	if(res.locals.currentPayload==undefined){
+		return undefined
+	}
+	const accountId = res.locals.currentPayload.accountId;
+	return api(req).get('/accounts/' + accountId).then(account => {
+        return api(req).get('/schools/', {
+            qs: {
+                systems: account.systemId
+            }
+        }).then(schools => {
+			console.log(schools.data.length);
+			if( schools.data.length > 0 ){
+				return schools.data[0];
+			}else{
+				return undefined
+			}
+		}).catch(err=>{
+			return undefined
+		});
+	}).catch(err=>{
+		return undefined
+	});	
+	
+}
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     if (res.locals.currentUser) {
@@ -131,8 +156,14 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
                 res.redirect('/dashboard/');
             });
     } else {
-        // if this happens: SSO
-        res.redirect('/register/user/' + res.locals.currentPayload.accountId);
+        // if this happens: SSO 
+		ssoSchoolData( req, res ).then(school=>{
+			if(school==undefined){
+				res.redirect('/dashboard/');
+			}else{
+				res.redirect('/registration/' + school._id + '/bystudent'); 
+			}
+		}); 
     }
 });
 
