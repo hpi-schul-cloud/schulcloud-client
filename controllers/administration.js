@@ -225,14 +225,18 @@ const deleteEventsForData = (service) => {
     };
 };
 
-const sendMailHandler = (user, req, res) => {
-    if (user && user.email && user.schoolId) {
-        // generate link
+const sendMailHandler = (user, req, res, type) => {
+    if (user && user.email && user.schoolId && user.roles) {
+        
+        // generate link - differs for students vs teachers
         let target = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`;
+        if (type && type === "teacher") target = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
+        
         return api(req).post("/link/", {json: {target: target}})
         .then(newlink => {
             newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
             return Promise.resolve(newlink);
+            
         }).then(reglink => {
             return api(req).post('/mails/', {
                 json: {
@@ -241,12 +245,10 @@ const sendMailHandler = (user, req, res) => {
                     headers: {},
                     content: {
                         "text": `Einladung in die ${res.locals.theme.title}
-    Hallo ${user.firstName} ${user.lastName}!
-    
-    Du wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${reglink.newUrl}
-    
-    Viel Spaß und einen guten Start wünscht dir dein
-    ${res.locals.theme.short_title}-Team`
+Hallo ${user.firstName} ${user.lastName}!
+\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${reglink.newUrl}
+\nViel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`
                     }
                 }
             }).then(mail => {
@@ -254,29 +256,30 @@ const sendMailHandler = (user, req, res) => {
                     type: 'success',
                     message: 'Nutzer erfolgreich erstellt und informiert.'
                 };
-                res.redirect(req.header('Referer'));
+                return res.redirect(req.header('Referer'));
             }).catch(_ => {
                 req.session.notification = {
                     type: 'danger',
                     message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Versand der E-Mail. Bitte Nutzer manuell informieren.'
                 };
-                res.redirect(req.header('Referer'));
+                return res.redirect(req.header('Referer'));
             });
         }).catch(_ => {
             req.session.notification = {
                 type: 'danger',
                 message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Erstellen des Einlade-Links. Bitte Nutzer manuell informieren.'
             };
-            res.redirect(req.header('Referer'));
+            return res.redirect(req.header('Referer'));
         });
     } else {
         req.session.notification = {
             type: 'danger',
-            message: 'Es sind nicht alle benötigten Informationen vorhanden.'
+            message: 'Fehler beim Erstellen des Einlade-Links. Bitte Nutzer manuell informieren.'
         };
-        res.redirect(req.header('Referer'));
+        return res.redirect(req.header('Referer'));
     }
-    /*fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
+    /* deprecated code for template-based e-mails - we keep that for later copy&paste
+    fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
             let source = data.toString();
             let template = handlebars.compile(source);
@@ -309,13 +312,13 @@ const sendMailHandler = (user, req, res) => {
     });*/
 };
 
-const getCreateHandler = (service) => {
+const getCreateHandler = (service, type) => {
     return function (req, res, next) {
         api(req).post('/' + service + '/', {
             json: req.body
         }).then(data => {
             res.locals.createdUser = data;
-            (service === 'users') ? sendMailHandler(data, req, res) : "";
+            (service === 'users') ? sendMailHandler(data, req, res, type) : "";
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -421,7 +424,7 @@ const getCSVImportHandler = (service) => {
                 json: user
             })
                 .then(newUser => {
-                    sendMailHandler(newUser, req, res);
+                    sendMailHandler(newUser, req, res, "teacher");
                 });
         });
 
@@ -693,11 +696,11 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         });
     });
 });
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users'));
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users', "teacher"));
+router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
-router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 

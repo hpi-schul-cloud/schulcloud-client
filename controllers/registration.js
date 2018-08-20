@@ -16,12 +16,12 @@ const createAccount = (req, {username, password, userId, activated}) => {
  * Old registration process if teacher created by teacher/admin until phase 2 of that project
  */
 router.get('/register/account/:userId', function (req, res, next) {
-    res.render('registration/account', {
+    res.render('registration/oldregistration', {
         title: 'Zugangsdaten eintragen',
         subtitle: '',//'für ' + user.firstName + ' ' + user.lastName,
         action: '/register/account',
         userId: req.params.userId,
-        buttonLabel: 'Abschließen',
+        buttonLabel: 'Registrieren',
         inline: true
     });
 });
