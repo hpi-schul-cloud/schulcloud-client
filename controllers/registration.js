@@ -75,7 +75,7 @@ router.post('/registration/pincreation', function (req, res, next) {
     }
 });
 
-router.post('/registration/submit', function (req, res, next) {
+router.post(['/registration/submit', '/registration/submit/:sso'], function (req, res, next) {
     return api(req).post('/registration/', {
         json: req.body  
     }).then(response => {   
@@ -109,28 +109,30 @@ ${res.locals.theme.short_title}-Team`
     });
 });
 
-router.get('/registration/:classOrSchoolId/byparent', function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
         classOrSchoolId: req.params.classOrSchoolId,
-        hideMenu: true
+        hideMenu: true,
+        sso: req.params.sso==="sso"
     });
 });
-router.get('/registration/:classOrSchoolId/bystudent', function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
         classOrSchoolId: req.params.classOrSchoolId,
-        hideMenu: true
+        hideMenu: true,
+        sso: req.params.sso==="sso"
     });
 });
 
-router.get('/registration/:classOrSchoolId', function (req, res, next) {
+router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
 
@@ -138,7 +140,7 @@ router.get('/registration/:classOrSchoolId', function (req, res, next) {
         title: 'Herzlich Willkommen bei der Registrierung',
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-		sso:(req.query||{}).sso==true ? true : false
+		sso: req.params.sso==="sso"
     });
 });
 

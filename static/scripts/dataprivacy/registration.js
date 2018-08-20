@@ -11,11 +11,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
             const baseUrl = '/registration';
             let classOrSchoolId = $("input[name=classOrSchoolId]").val();
+            let sso = $("input[name=sso]").val() === true ? "sso" : "";
             
             if(radiou18.checked){
-                window.location.href = `${baseUrl}/${classOrSchoolId}/byparent`;
+                window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${sso}`;
             }else{
-                window.location.href = `${baseUrl}/${classOrSchoolId}/bystudent`;
+                window.location.href = `${baseUrl}/${classOrSchoolId}/bystudent/${sso}`;
             }
         });
         $("input[type='radio']").on("change", () => {
