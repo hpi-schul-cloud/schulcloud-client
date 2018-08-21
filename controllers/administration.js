@@ -1473,12 +1473,12 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 
         const body = data.data.map(item => {
             return [
-                truncate(item.subject),
-                truncate(item.currentState),
-                truncate(item.targetState),
+                truncate(item.subject||""),
+                truncate(item.currentState||""),
+                truncate(item.targetState||""),
                 dictionary[item.category],
                 dictionary[item.state],
-                truncate(item.notes),
+                truncate(item.notes||""),
                 getTableActionsSend(item, '/administration/helpdesk/', item.state)
             ];
         });
