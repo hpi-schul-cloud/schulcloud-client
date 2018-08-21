@@ -107,8 +107,7 @@ router.post('/submit', function (req, res, next) {
     }
 
     return Promise.all([accountPromise, userPromise, consentPromise])
-        .then(([resAccount,resUser,resConsent]) => {
-            let a = 1;
+        .then(() => {
             res.sendStatus(200);
         })
         .catch(err => {
