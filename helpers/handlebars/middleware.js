@@ -94,7 +94,7 @@ module.exports = (req, res, next) => {
             }
         ]
     }, {
-        name: 'Materialien',
+        name: 'LernStore',
         icon: 'search',
         link: '/content/'
     }];
