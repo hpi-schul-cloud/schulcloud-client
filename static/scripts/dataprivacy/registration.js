@@ -116,7 +116,7 @@ window.addEventListener('load', ()=>{
         $('.form .student-password-input').val(pw);
     }
     let datepicker = $("input.form-control[name='student-birthdate']");
-    if(datepicker.length>=1) {
+    /*if(datepicker.length>=1) {
         let minDate = new Date(), maxDate = new Date(), startDate = new Date();
         minDate.setFullYear(minDate.getFullYear()-70);
         maxDate.setFullYear(maxDate.getFullYear()-18);
@@ -135,5 +135,5 @@ window.addEventListener('load', ()=>{
         });
         datepicker.datepicker("update");
         // Y U NO WORK?!?!?!?!
-    }
+    }*/
 });
