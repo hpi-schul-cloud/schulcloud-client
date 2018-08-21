@@ -53,7 +53,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
     function sendPin(sendConfirm) {
         let usermail = $("input[name='parent-email']").length ? $("input[name='parent-email']").val() : $("input[name='student-email']").val();
-        let byParent = window.location.href.indexOf("parent") > 0 ? true : false;
+        let byParent = window.location.href.indexOf("parent") > 0;
         
         $.ajax({
             url: "/registration/pincreation",
@@ -91,10 +91,10 @@ window.addEventListener('DOMContentLoaded', ()=>{
         });
     }
 });
-function validateDifferent(event){
+function validateDifferent(){
     let parentMailInput = document.querySelector('input[name="parent-email"]');
     let studentMailInput = document.querySelector('input[name="student-email"]');
-    if(parentMailInput.value && studentMailInput.value && parentMailInput.value == studentMailInput.value){
+    if(parentMailInput.value && studentMailInput.value && parentMailInput.value === studentMailInput.value){
         parentMailInput.setCustomValidity("Für den Schüler muss eine andere Mailadresse als für die Eltern angegeben werden.");
         $(parentMailInput).closest("section").addClass("show-invalid");
     }else{
@@ -127,6 +127,13 @@ window.addEventListener('load', ()=>{
         datepicker.attr("data-min-date", minDate.toISOString().substring(0, 10).replace(/-/g,"/"));
         datepicker.attr("data-max-date", maxDate.toISOString().substring(0, 10).replace(/-/g,"/"));
         datepicker.attr("data-start-date", startDate.toISOString().substring(0, 10).replace(/-/g,"/"));
+        console.log(datepicker.datepicker( "option", "minDate" ));
+        datepicker.datepicker({
+            minDate: minDate,
+            maxDate: maxDate,
+            startDate: startDate
+        });
         datepicker.datepicker("update");
+        // Y U NO WORK?!?!?!?!
     }
 });
