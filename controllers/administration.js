@@ -230,7 +230,8 @@ const sendMailHandler = (user, req, res, type) => {
         
         // generate link - differs for students vs teachers
         let target = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`;
-        if (type && type === "teacher") target = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
+        if (type && type === "teacher")
+            target = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
         
         return api(req).post("/link/", {json: {target: target}})
         .then(newlink => {
