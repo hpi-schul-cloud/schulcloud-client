@@ -116,11 +116,8 @@ router.all('/login/', function (req, res, next) {
     });
 });
 
-const ssoSchoolData = (req,res) =>{
-	if(res.locals.currentPayload==undefined){
-		return undefined;
-	}
-	const accountId = res.locals.currentPayload.accountId;
+const ssoSchoolData = (req,accountId) =>{
+
 	return api(req).get('/accounts/' + accountId).then(account => {
         return api(req).get('/schools/', {
             qs: {
@@ -142,6 +139,7 @@ const ssoSchoolData = (req,res) =>{
 };
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
+
     if (res.locals.currentUser) {
         const user = res.locals.currentUser;
 
@@ -155,12 +153,14 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
                 res.redirect('/dashboard/');
             });
     } else {
-        // if this happens: SSO 
-		ssoSchoolData( req, res ).then(school=>{
+        // if this happens: SSO 	
+		const accountId = (res.locals.currentPayload||{}).accountId;
+		
+		ssoSchoolData( req, accountId ).then(school=>{
 			if(school==undefined){
 				res.redirect('/dashboard/');
 			}else{
-				res.redirect('/registration/' + school._id+'?sso=true'); 
+				res.redirect('/registration/' + school._id+'/sso/'+accountId); 
 			}
 		}); 
     }
