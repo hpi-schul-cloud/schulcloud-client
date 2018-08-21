@@ -1,5 +1,4 @@
 import '../jquery/datetimepicker-easy';
-
 const moment = require('moment');
 
 function toggleConsentEditing(){
@@ -30,14 +29,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 $(document).ready(function () {
-    var $pwModal = $('.pw-modal');
-    var $deleteModal = $('.delete-modal');
+    let $pwModal = $('.pw-modal');
+    let $deleteModal = $('.delete-modal');
 
     $('.btn-pw').on('click', function (e) {
         e.preventDefault();
-        var entry = $(this).attr('href');
         populateModalForm($pwModal, {
-            action: entry,
+            action: "pw",
             title: 'Passwort ändern',
             closeLabel: 'Abbrechen',
             submitLabel: 'Speichern',
@@ -48,9 +46,8 @@ $(document).ready(function () {
 
     $('.btn-delete').on('click', function (e) {
         e.preventDefault();
-        var entry = $(this).parent().attr('action');
         populateModalForm($deleteModal, {
-            action: window.location.href.replace("/edit", ''),
+            action: "",
             title: 'Benutzer löschen?',
             closeLabel: 'Abbrechen',
             submitLabel: 'Löschen',
