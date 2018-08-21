@@ -75,9 +75,13 @@ router.post('/registration/pincreation', function (req, res, next) {
     }
 });
 
-router.post(['/registration/submit', '/registration/submit/:sso'], function (req, res, next) {
+router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], function (req, res, next) {
     return api(req).post('/registration/', {
-        json: req.body  
+        json: req.body,
+		qs:{ 
+			sso: req.params.sso,
+			accountId: req.params.accountId
+		}
     }).then(response => {   
         //send Mails
         let eMailAdresses = [response.user.email];
@@ -109,7 +113,7 @@ ${res.locals.theme.short_title}-Team`
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
@@ -117,10 +121,11 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
         title: 'Registrierung - Eltern',
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso"
+        sso: req.params.sso==="sso",
+		account:req.params.accountId
     });
 });
-router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
     
@@ -128,11 +133,12 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
         title: 'Registrierung - Schüler*',
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso"
+        sso: req.params.sso==="sso",
+		account:req.params.accountId
     });
 });
 
-router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
 
@@ -140,7 +146,8 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
         title: 'Herzlich Willkommen bei der Registrierung',
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-		sso: req.params.sso==="sso"
+		sso: req.params.sso==="sso",
+		account:req.params.accountId
     });
 });
 
