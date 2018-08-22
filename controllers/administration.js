@@ -591,9 +591,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.teacherIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.displayName;
+                    userClasses = userClasses + ' , ' + uClass.displayName||"";
                 } else {
-                    userClasses = uClass.displayName;
+                    userClasses = uClass.displayName||"";
                 }
             }
         });
@@ -601,9 +601,9 @@ const getClasses = (user, classes, teacher) => {
         classes.data.map(uClass => {
             if (uClass.userIds.includes(user._id)) {
                 if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.displayName;
+                    userClasses = userClasses + ' , ' + uClass.displayName||"";
                 } else {
-                    userClasses = uClass.displayName;
+                    userClasses = uClass.displayName||"";
                 }
             }
         });
@@ -618,7 +618,6 @@ const userIdtoAccountIdUpdate = (service) => {
         api(req).get('/' + service + '/?userId=' + req.params.id)
             .then(users => {
                 api(req).patch('/' + service + '/' + users[0]._id, {
-                    // TODO: sanitize
                     json: req.body
                 }).then(data => {
                     res.redirect(req.header('Referer'));
@@ -742,8 +741,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
             const body = data.data.map(user => {
                 return [
-                    user.firstName,
-                    user.lastName,
+                    user.firstName || '',
+                    user.lastName || '',
                     user.email || '',
                     getClasses(user, classes, true),
                     [{
@@ -1386,8 +1385,8 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
 
         const body = data.data.map(item => {
             return [
-                item.displayName,
-                (item.teacherIds || []).map(item => item.lastName).join(', '),
+                item.displayName||"",
+                (item.teacherIds||[]).map(item => item.lastName).join(', '),
                 (item.year||{}).name||"",
                 ((item, path)=>{return [
                     {
