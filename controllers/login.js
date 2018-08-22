@@ -80,7 +80,7 @@ router.all('/', function (req, res, next) {
                     // just catching the blog-error
                 }
 
-                let schoolsPromise = getSelectOptions(req, 'schools');
+                let schoolsPromise = getSelectOptions(req, 'schools', {$limit: 100, $sort: 'name'});
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
@@ -101,7 +101,7 @@ router.all('/login/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            let schoolsPromise = getSelectOptions(req, 'schools');
+            let schoolsPromise = getSelectOptions(req, 'schools', {$limit: 100, $sort: 'name'});
 
             Promise.all([
                 schoolsPromise
