@@ -225,10 +225,21 @@ const deleteEventsForData = (service) => {
     };
 };
 
-const generateInviteLink = (req, user, type) => {
+const generateShortInviteLink = (req, target) => {
+    return api(req).post("/lisnk/", {
+        json: {target: target}
+    }).then(newlink => {
+        newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
+        return Promise.resolve(newlink);
+    }).catch(err => {
+        return Promise.reject(new Error("Fehler beim Generieren des Einladungslinks."));
+    });
+};
+
+const generateRealInviteLink = (req, user, type) => {
     // generate link - differs for students vs teachers
     if (type === "teacher")
-        return `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
+        return Promise.resolve( `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}` );
     else {
         // get hash
         return api(req).post("/hash", {
@@ -237,24 +248,17 @@ const generateInviteLink = (req, user, type) => {
                 save: true
             }
         }).then(hash => {
-            return Promise.resolve(`${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${hash}`);
+            return `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${hash}`;
         }).catch(err => {
-            return Promise.resolve(null);
+            return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
         });
     }
 };
 
 const sendMailHandler = (user, req, res, type) => {
     if (user && user.email && user.schoolId && user.roles) {
-        let target = generateInviteLink(req, user, type);
-        
-        if (target) {
-            return api(req).post("/link/", {json: {target: target}})
-            .then(newlink => {
-                newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
-                return Promise.resolve(newlink);
-                
-            }).then(reglink => {
+        return generateRealInviteLink(req, user, type).then(realLink => {
+            return generateShortInviteLink(req, realLink).then(shortLink => {
                 return api(req).post('/mails/', {
                     json: {
                         email: user.email,
@@ -263,42 +267,32 @@ const sendMailHandler = (user, req, res, type) => {
                         content: {
                             "text": `Einladung in die ${res.locals.theme.title}
     Hallo ${user.firstName} ${user.lastName}!
-    \nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${reglink.newUrl}
+    \nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${shortLink.newUrl}
     \nViel Spaß und einen guten Start wünscht dir dein
     ${res.locals.theme.short_title}-Team`
                         }
                     }
-                }).then(mail => {
+                }).then(_ => {
                     req.session.notification = {
                         type: 'success',
                         message: 'Nutzer erfolgreich erstellt und informiert.'
                     };
                     return res.redirect(req.header('Referer'));
-                }).catch(_ => {
-                    req.session.notification = {
-                        type: 'danger',
-                        message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Versand der E-Mail. Bitte Nutzer manuell informieren.'
-                    };
-                    return res.redirect(req.header('Referer'));
+                }).catch(err => {
+                    return Promise.reject(new Error("Fehler beim Versenden der E-Mail."));
                 });
-            }).catch(_ => {
-                req.session.notification = {
-                    type: 'danger',
-                    message: 'Nutzer erfolgreich erstellt. Jedoch gab es einen Fehler beim Erstellen des Einlade-Links. Bitte Nutzer manuell informieren.'
-                };
-                return res.redirect(req.header('Referer'));
             });
-        } else {
+        }).catch(err => {
             req.session.notification = {
                 type: 'danger',
-                message: 'Fehler beim Erstellen des Einlade-Links. Bitte Nutzer manuell informieren.'
+                message: `${err.message} Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.`
             };
             return res.redirect(req.header('Referer'));
-        }
+        });
     } else {
         req.session.notification = {
-            type: 'danger',
-            message: 'Fehler beim Erstellen des Einlade-Links. E-Mail wurde NICHT an den Nutzer geschickt. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.'
+            type: 'success',
+            message: 'Nutzer erfolgreich erstellt.'
         };
         return res.redirect(req.header('Referer'));
     }
@@ -321,17 +315,6 @@ const sendMailHandler = (user, req, res, type) => {
                     "Mit Freundlichen Grüßen" + "\nIhr Schul-Cloud Team"
             };
             req.body.content = content;
-            
-            api(req).post('/mails', {
-                json: {
-                    headers: {},
-                    email: email,
-                    subject: res===undefined ? 'Einladung' : 'Einladung in die '+((res.locals||{}).theme||{}).title,
-                    content: content
-                }
-            }).then(_ => {
-                return true;
-            });
         }
     });*/
 };
