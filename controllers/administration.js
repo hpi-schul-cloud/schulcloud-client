@@ -226,7 +226,7 @@ const deleteEventsForData = (service) => {
 };
 
 const generateShortInviteLink = (req, target) => {
-    return api(req).post("/lisnk/", {
+    return api(req).post("/link/", {
         json: {target: target}
     }).then(newlink => {
         newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
@@ -236,51 +236,51 @@ const generateShortInviteLink = (req, target) => {
     });
 };
 
-const generateRealInviteLink = (req, user, type) => {
-    // generate link - differs for students vs teachers
-    if (type === "teacher")
-        return Promise.resolve( `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}` );
-    else {
-        // get hash
-        return api(req).post("/hash", {
-            json: {
-                toHash: user.email,
-                save: true
-            }
-        }).then(hash => {
-            return `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${hash}`;
-        }).catch(err => {
-            return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
-        });
-    }
+const generateMailHash = (req, email) => {
+    return api(req).post("/hash", {
+        json: {
+            toHash: email,
+            save: true
+        }
+    }).then(hash => {
+        return hash;
+    }).catch(err => {
+        return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
+    });
 };
 
 const sendMailHandler = (user, req, res, type) => {
     if (user && user.email && user.schoolId && user.roles) {
-        return generateRealInviteLink(req, user, type).then(realLink => {
-            return generateShortInviteLink(req, realLink).then(shortLink => {
-                return api(req).post('/mails/', {
-                    json: {
-                        email: user.email,
-                        subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
-                        headers: {},
-                        content: {
-                            "text": `Einladung in die ${res.locals.theme.title}
-    Hallo ${user.firstName} ${user.lastName}!
-    \nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${shortLink.newUrl}
-    \nViel Spaß und einen guten Start wünscht dir dein
-    ${res.locals.theme.short_title}-Team`
-                        }
+        let link = "";
+        if (type === "teacher") {
+            link = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
+        } else if (user.importHash) {
+            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${user.importHash}`
+        } else {
+            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`
+        }
+        return generateShortInviteLink(req, link).then(shortLink => {
+            return api(req).post('/mails/', {
+                json: {
+                    email: user.email,
+                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                    headers: {},
+                    content: {
+                        "text": `Einladung in die ${res.locals.theme.title}
+Hallo ${user.firstName} ${user.lastName}!
+\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${shortLink.newUrl}
+\nViel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`
                     }
-                }).then(_ => {
-                    req.session.notification = {
-                        type: 'success',
-                        message: 'Nutzer erfolgreich erstellt und informiert.'
-                    };
-                    return res.redirect(req.header('Referer'));
-                }).catch(err => {
-                    return Promise.reject(new Error("Fehler beim Versenden der E-Mail."));
-                });
+                }
+            }).then(_ => {
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Nutzer erfolgreich erstellt und informiert.'
+                };
+                return res.redirect(req.header('Referer'));
+            }).catch(err => {
+                return Promise.reject(new Error("Fehler beim Versenden der E-Mail."));
             });
         }).catch(err => {
             req.session.notification = {
@@ -826,14 +826,15 @@ const getConsentStatusIcon = (consent) => {
 
 const getStudentCreateHandler = (service) => {
     return function (req, res, next) {
-        const birthday = req.body.birthday.split('.');
-        req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
-        api(req).post('/users/', {
-            json: req.body
-        }).then(newuser => {
-            res.locals.createdUser = newuser;
-            if (newuser && newuser.email && newuser.schoolId) {
-                if(req.body.sendRegistration) {
+        return generateMailHash(req, req.body.email).then(hash => {
+            req.body.sendRegistration ? req.body.importHash = hash : "";
+            let birthday = req.body.birthday.split('.');
+            req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+            api(req).post('/users/', {
+                json: req.body
+            }).then(newuser => {
+                res.locals.createdUser = newuser;
+                if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
                     sendMailHandler(newuser, req, res);
                 } else {
                     req.session.notification = {
@@ -842,20 +843,18 @@ const getStudentCreateHandler = (service) => {
                     };
                     res.redirect(req.header('Referer'));
                 }
-            } else {
+                /*
+                createEventsForData(data, service, req, res).then(_ => {
+                    next();
+                });
+                */
+            }).catch(err => {
                 req.session.notification = {
                     'type': 'danger',
-                    'message': 'Fehler beim Erstellen des Nutzers.'
+                    'message': 'Fehler beim Erstellen des Nutzers. ${err.message||""}'
                 };
                 res.redirect(req.header('Referer'));
-            }
-            /*
-            createEventsForData(data, service, req, res).then(_ => {
-                next();
             });
-            */
-        }).catch(err => {
-            next(err);
         });
     };
 };
