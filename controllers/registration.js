@@ -123,8 +123,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
         hideMenu: true,
         sso: req.params.sso==="sso",
 		account:req.params.accountId,
-        importHash: req.query.importHash||"",
-        userId: req.query.userId||""
+        query: req.query
     });
 });
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], function (req, res, next) {
@@ -136,9 +135,8 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
         sso: req.params.sso==="sso",
-		account:req.params.accountId||"",
-        importHash: req.query.importHash||"",
-        userId: req.query.userId||""
+		account: req.params.accountId||"",
+        query: req.query
     });
 });
 
@@ -153,9 +151,8 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
                 classOrSchoolId: req.params.classOrSchoolId,
                 hideMenu: true,
                 sso: req.params.sso==="sso",
-                account:req.params.accountId,
-                importHash: user.importHash,
-                userId: user.userId
+                account:req.params.accountId||"",
+                user: user
             });
         });
     }

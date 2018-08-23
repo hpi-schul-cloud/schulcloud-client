@@ -29,11 +29,15 @@
         </div>
       <button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
         <p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
-        <input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />
-        <input type="hidden" name="sso" value="{{sso}}" />
-	    <input type="hidden" name="account" value="{{account}}" />
-	    <input type="hidden" name="importHash" value="{{importHash}}" />
-	    <input type="hidden" name="userId" value="{{userId}}" />
+        {{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
+        {{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
+        {{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
+        {{#if query.importHash}}<input type="hidden" name="importHash" value="{{query.importHash}}" />{{/if}}
+        {{#if query.userId}}<input type="hidden" name="userId" value="{{query.userId}}" />{{/if}}
+        {{#if user.firstName}}<input type="hidden" name="firstName" value="{{user.firstName}}" />{{/if}}
+        {{#if user.lastName}}<input type="hidden" name="lastName" value="{{user.lastName}}" />{{/if}}
+        {{#if user.email}}<input type="hidden" name="email" value="{{user.email}}" />{{/if}}
+        {{#if user.birthday}}<input type="hidden" name="birthday" value="{{user.birthday}}" />{{/if}}
     </div>
   {{/content}}
 {{/extend}}

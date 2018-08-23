@@ -52,11 +52,11 @@
         </div>
         <p class="explanation nomargin">Erhebung erfolgt für Forschung und Optimierung.</p>
 
-        <input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />
-        <input type="hidden" name="sso" value="{{sso}}" />
-		<input type="hidden" name="account" value="{{account}}" />
-        <input type="hidden" name="importHash" value="{{importHash}}" />
-        <input type="hidden" name="userId" value="{{userId}}" />
+          {{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
+          {{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
+          {{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
+          {{#if query.importHash}}<input type="hidden" name="importHash" value="{{query.importHash}}" />{{/if}}
+          {{#if query.birthday}}<input type="hidden" name="birthday" value="{{query.birthday}}" />{{/if}}
       </section>
 
 
