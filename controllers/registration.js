@@ -122,7 +122,9 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
         sso: req.params.sso==="sso",
-		account:req.params.accountId
+		account:req.params.accountId,
+        importHash: req.query.importHash||"",
+        userId: req.query.userId||""
     });
 });
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], function (req, res, next) {
@@ -134,21 +136,29 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
         sso: req.params.sso==="sso",
-		account:req.params.accountId
+		account:req.params.accountId||"",
+        importHash: req.query.importHash||"",
+        userId: req.query.userId||""
     });
 });
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
-
-    res.render('registration/registration', {
-        title: 'Herzlich Willkommen bei der Registrierung',
-        classOrSchoolId: req.params.classOrSchoolId,
-        hideMenu: true,
-		sso: req.params.sso==="sso",
-		account:req.params.accountId
-    });
+    
+    if (req.query.id) {
+        return api(req).get(`/users/linkImport/${req.query.id}`).then(user => {
+            res.render('registration/registration', {
+                title: 'Herzlich Willkommen bei der Registrierung',
+                classOrSchoolId: req.params.classOrSchoolId,
+                hideMenu: true,
+                sso: req.params.sso==="sso",
+                account:req.params.accountId,
+                importHash: user.importHash,
+                userId: user.userId
+            });
+        });
+    }
 });
 
 module.exports = router;
