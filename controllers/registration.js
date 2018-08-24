@@ -106,6 +106,10 @@ ${res.locals.theme.short_title}-Team`
                 }
             });
         });
+    }).then(function() {
+        if (req.params.sso) {
+            res.cookie('jwt', req.cookies.jwt, {expires: new Date(Date.now() - 100000)});
+        }
     }).then(function () {
         res.sendStatus(200);
     }).catch(err => {
