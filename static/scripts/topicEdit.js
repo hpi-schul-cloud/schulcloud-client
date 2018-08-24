@@ -1,4 +1,6 @@
-const {SortableContainer, SortableElement, SortableHandle, arrayMove} = window.SortableHOC;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
 
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
@@ -129,7 +131,7 @@ class TopicBlockWrapper extends React.Component {
             </div>
         );
     }
-};
+}
 
 TopicBlockWrapper.defaultProps = {
     type: '',
@@ -315,12 +317,13 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Interne Komponente</button>
                     </div>
                 </div>
             </div>
         );
     }
-};
+}
 
 
 /**
@@ -346,22 +349,19 @@ class TopicBlock extends React.Component {
     static getClassForComponent(component) {
         switch(component) {
             default:
-                throw `No class found for component "${component}".`
-                break;
+                throw `No class found for component "${component}".`;
             case 'text':
                 return TopicText;
-                break;
             case 'resources':
                 return TopicResources;
-                break;
             case 'geoGebra':
                 return TopicGeoGebra;
-                break;
             case 'neXboard':
                 return TopicNexboard;
             case 'Etherpad':
                 return TopicEtherpad;
-                break;
+            case 'internal':
+                return TopicInternal;
         }
     }
 }
@@ -397,7 +397,7 @@ class TopicText extends TopicBlock {
             ev.data.definition.resizable = CKEDITOR.DIALOG_RESIZE_NONE;
 
             if ( dialogName == 'link' ) {
-                var infoTab = dialogDefinition.getContents( 'info' );
+                const infoTab = dialogDefinition.getContents( 'info' );
                 infoTab.remove( 'protocol' );
                 dialogDefinition.removeContents( 'advanced' );
             }
@@ -405,7 +405,7 @@ class TopicText extends TopicBlock {
             if ( dialogName == 'image' ) {
                 dialogDefinition.removeContents( 'Link' );
                 dialogDefinition.removeContents( 'advanced' );
-                var infoTab = dialogDefinition.getContents( 'info' );
+                const infoTab = dialogDefinition.getContents( 'info' );
                 infoTab.remove( 'txtBorder' );
                 infoTab.remove( 'txtHSpace' );
                 infoTab.remove( 'txtVSpace' );
@@ -567,7 +567,7 @@ class TopicResource extends React.Component {
             </div>
         );
     }
-};
+}
 
 
 /**
@@ -670,7 +670,7 @@ class TopicResources extends TopicBlock {
             </div>
         );
     }
-};
+}
 
 /**
  * Class representing a geo gebra worksheet
@@ -735,7 +735,100 @@ class TopicGeoGebra extends TopicBlock {
             </div>
         );
     }
-};
+}
+
+/**
+ * Class representing an internal link
+ * @extends React.Component
+ */
+class TopicInternal extends TopicBlock {
+
+    /**
+     * generates the url-pattern with following criteria
+     * a) has to be in the current system
+     * b) /edit, /new and /add pages
+     * c) no personal links (personal files, settings, admin-area)
+     * d) it's not the topic itself
+     */
+    generatePattern() {
+        //                  a)                           b)        c)                                d)
+        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`;
+    }
+
+    /**
+     * Initialize the list.
+     * @param {Object} props - Properties from React Component.
+     */
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            baseUrl: window.location.origin,
+            pattern: this.generatePattern()
+        };
+    }
+
+
+    componentDidMount() {
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
+    /**
+     * This function returns the name of the component that will be used to render the block in
+     * view mode.
+     */
+    static get component() {
+        return 'internal';
+    }
+
+    /**
+     * Keep state in sync with input.
+     */
+    updateUrl(event) {
+        const value = typeof(event) == 'string' ? event : ((event || {}).target || {}).value;
+        this.setState({
+            baseUrl: window.location.origin,
+            pattern: this.generatePattern()
+        });
+
+        this.props.onUpdate({
+            content: {
+                url: value
+            }
+        });
+    }
+
+    /**
+     * Render the block (an input field)
+     */
+    render() {
+        return (
+            <div>
+                <label>Interner Link</label><br/>
+                <div className="input-group">
+                    <span className="input-group-btn">
+                        <a
+                            className="btn btn-secondary geo-gebra-info"
+                            href="#"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie Themenseiten und direkte Verlinkungen von Dateien nicht gestattet.`}><i className="fa fa-info-circle" /></a>
+                    </span>
+                    <input 
+                        className="form-control" 
+                        name={`contents[${this.props.position}][content][url]`} 
+                        pattern={this.state.pattern} 
+                        onChange={this.updateUrl.bind(this)}
+                        type="url" 
+                        required
+                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
+                        value={(this.props.content || {}).url}
+                    />
+                </div>
+            </div>
+        );
+    }
+}
 
 /**
  * Class representing an Etherpad
@@ -817,7 +910,7 @@ class TopicNexboard extends TopicBlock {
         $.getJSON("nexboard/boards")
             .then(boards => {
                 this.setState({boards:boards});
-            })
+            });
         $("select[id="+this.state.id+"]").chosen();
         $("select[id="+this.state.id+"]").on('change', this.handleChange);
     }

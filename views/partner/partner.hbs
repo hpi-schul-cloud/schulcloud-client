@@ -70,13 +70,16 @@
             </div>
         </div>
         <div class="row">
-            <ul>
                 {{#each partners.advisers}}
-                <li>
-                    <a href="{{{url}}}" target="_blank">{{{name}}}</a>
-                </li>
+                    <div class="partner-box-wrapper col-xs-6 col-md-3">
+                        <div class="partner-box">
+                            {{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+                                <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                    {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                            {{#if url}}</a>{{/if}}
+                        </div>
+                    </div>
                 {{/each}}
-            </ul>
         </div>
     </div>
 

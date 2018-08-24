@@ -2,9 +2,7 @@
     <div class="row">
         {{#each files}}
             <div class="col-sm-6 col-xs-12 col-md-4">
-                <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}"
-                     onMouseOver="document.getElementById('{{this.name}}').innerHTML = writeFileSizePretty({{this.size}})"
-                     onMouseOut= "document.getElementById('{{this.name}}').innerHTML = ''">
+                <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
@@ -15,14 +13,18 @@
                                          style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
                                 </div>
                                 <a class="title">
-                                    {{this.name}}
+                                    {{this.name}} <i data-file-id="{{this._id}}"
+                                    data-file-name="{{this.name}}" 
+                                    data-file-path="{{this.path}}"
+                                    class="fa fa-edit file-name-edit"></i>
                                 </a>
                             </div>
                             <div class="card-text">
                                 <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
                                 <a href="/files/file?download=1&file={{this.file}}"
                                    target="_blank"
-                                   data-method="download">
+                                   data-method="download"
+                                   title="Datei herunterladen">
                                     <i class="fa fa-cloud-download"></i>
                                 </a>
 
@@ -31,6 +33,7 @@
                                 <a href="/files/file/"
                                    target="_blank"
                                    data-method="delete"
+                                   title="Datei löschen"
                                    data-file-key="{{../this.key}}"
                                    data-file-name="{{../this.name}}"
                                     <i class="fa fa-trash-o"></i>
@@ -39,6 +42,7 @@
 
                                 <a href="#"
                                    class="btn-file-share"
+                                   title="Datei teilen"
                                    data-file-id="{{../this._id}}">
                                     <i class="fa fa-share-alt"></i>
                                 </a>
@@ -46,6 +50,7 @@
                                 {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"
                                    class="btn-file-move"
+                                   title="Datei verschieben"
                                    data-file-path="{{../path}}"
                                    data-file-id="{{../_id}}"
                                    data-file-name="{{../name}}">
@@ -54,7 +59,7 @@
                                 {{/userHasPermission}}
                                 {{/ifneq}}
 
-                                <small class="file-info" id="{{this.name}}"></small>
+                                <small class="file-info" id="{{this._id}}"></small>
                             </div>
                         </div>
                     </div>
@@ -94,5 +99,11 @@
 {{#embed "lib/components/modal-form" class="move-modal"}}
     {{#content "fields"}}
         {{> "files/forms/form-move"}}
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="rename-modal"}}
+    {{#content "fields"}}
+        {{> "files/forms/form-name-edit"}}
     {{/content}}
 {{/embed}}

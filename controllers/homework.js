@@ -1,4 +1,4 @@
-﻿/*
+/*
  * One Controller per layout view
  */
 
@@ -35,14 +35,20 @@ const getActions = (item, path) => {
             link: path + item._id + "/edit",
             class: 'btn-edit',
             icon: 'edit',
-            alt: 'bearbeiten'
+            title: 'bearbeiten'
+        },
+        {
+            link: path + item._id + "/copy",
+            class: 'btn-copy',
+            icon: 'copy',
+            title: 'kopieren'
         },
         {
             link: path + item._id,
             class: 'btn-delete',
             icon: 'trash-o',
             method: 'delete-material',
-            alt: 'Löschen'
+            title: 'löschen'
         }
     ];
 };
@@ -636,7 +642,22 @@ router.get('/new', function(req, res, next) {
     });
 });
 
-router.get('/:assignmentId/edit', function(req, res, next) {
+router.get('/:assignmentId/copy', function (req, res, next) {
+    api(req).get('/homework/copy/' + req.params.assignmentId)
+    .then(assignment => {
+        if(assignment._id){
+            return res.redirect("/homework/" + assignment._id + "/edit");
+        }else{
+            let error = new Error("Failed to copy task!");
+            error.status = 500;
+            return next(error);
+        }
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.get('/:assignmentId/edit', function (req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
@@ -786,7 +807,7 @@ router.get('/:assignmentId', function(req, res, next) {
             assignment.submission = (submissions || {}).data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
                 submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
-                submission.courseGroupMembers = (_.find(courseGroups.data, cg => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
+                submission.courseGroupMembers = (_.find((courseGroups || {}).data, cg => JSON.stringify(cg._id) === JSON.stringify((submission.courseGroupId || {})._id)) || {}).userIds; // need full user objects here, double populating not possible above
                 return submission;
             }).filter(submission => {
                 return ((submission.studentId || {})._id == res.locals.currentUser._id) ||

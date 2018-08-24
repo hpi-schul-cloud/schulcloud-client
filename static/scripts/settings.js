@@ -1,3 +1,5 @@
+import { getCookiesMap, pushManager } from './notificationService/index';
+
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
 
@@ -30,7 +32,7 @@ $(document).ready(function() {
         e.preventDefault();
         var $buttonContext = $(this);
 
-        $deleteModal.modal('show');
+        $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('device-name') + "' löschen möchtest?");
 
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
@@ -69,3 +71,5 @@ $(document).ready(function() {
     }
 
 });
+
+window.pushManager = pushManager;

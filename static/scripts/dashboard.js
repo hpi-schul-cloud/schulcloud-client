@@ -7,20 +7,27 @@ $(document).ready(function () {
     });
 
     populateModalForm($pollModal, {
-        title: 'Befragung I im Projekt Schul-Cloud',
+        title: 'Befragung II im Projekt Schul-Cloud',
         closeLabel: 'Abbrechen'
     });
 
-    let cookies = getCookiesMap(document.cookie);
+    let prefs = $('#preferences').html();
 
-    if (!cookies['pollClicked'])
-        $pollModal.modal('show');
+    let parsedPrefs = prefs === "" ? {} : JSON.parse($('#preferences').html());
+
+    if (!parsedPrefs.pollSeen2)
+        $pollModal.appendTo('body').modal('show');
 
     $('.btn-poll').on('click', function (e) {
         e.preventDefault();
 
-        document.cookie = "pollClicked=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
-        window.open('https://tools.openhpi.de/survey/index.php?r=survey/index&sid=137936&newtest=Y&lang=de', '_target');
+        $.ajax({
+            type: "POST",
+            url: "/account/preferences",
+            data: { attribute: { key: "pollSeen2", value:true } }
+        });
+
+        window.open('https://tools.openhpi.de/survey/index.php?r=survey/index&sid=345643&newtest=Y&lang=de', '_target');
         $pollModal.modal('hide');
     });
 });

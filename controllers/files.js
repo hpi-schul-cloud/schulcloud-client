@@ -140,6 +140,7 @@ const FileGetter = (req, res, next) => {
         directories = directories.map(dir => {
             const targetUrl = pathUtils.join(currentDir, dir.name);
             dir.url = changeQueryParams(req.originalUrl, {dir: targetUrl});
+            dir.originalPath = path;
             dir.path = pathUtils.join(path, dir.name);
             return dir;
         });
@@ -322,7 +323,7 @@ router.get('/file', function (req, res, next) {
 });
 
 // move file
-router.patch('/file/:id', function (req, res, next) {
+router.post('/file/:id/move', function (req, res, next) {
     api(req).patch('/fileStorage/' + req.params.id, {
         json: {
             fileName: req.body.fileName,
@@ -335,8 +336,14 @@ router.patch('/file/:id', function (req, res, next) {
             message: 'Verschieben der Datei war erfolgreich!'
         };
         res.sendStatus(200);
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
+    }).catch(e => {
+        req.session.notification = {
+            type: 'danger',
+            message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits eine Datei mit diesem Namen im Zielordner!'
+                : e.error.message
+        };
+        res.send(e);
     });
 });
 
@@ -360,7 +367,7 @@ router.post('/directory', function (req, res, next) {
 // delete directory
 router.delete('/directory', function (req, res) {
     const data = {
-        path: req.body.dir
+        path: req.body.key
     };
 
     api(req).delete('/fileStorage/directories/', {
@@ -386,6 +393,7 @@ router.get('/my/', FileGetter, function (req, res, next) {
         }),
         canUploadFile: true,
         canCreateDir: true,
+        showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor
     }, res.locals.files));
@@ -410,6 +418,7 @@ router.get('/shared/', function (req, res, next) {
                 }),
                 canUploadFile: false,
                 canCreateDir: false,
+                showSearch: true,
                 inline: req.query.inline || req.query.CKEditor,
                 CKEditor: req.query.CKEditor
             }, files));
@@ -418,7 +427,7 @@ router.get('/shared/', function (req, res, next) {
 
 router.get('/', function (req, res, next) {
     // get count of personal and course files/directories
-    let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
+    /*let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
     let courseFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^courses"}}});
 
     Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
@@ -438,13 +447,14 @@ router.get('/', function (req, res, next) {
                 sharedFiles.push(f);
             }
         });
-
+    */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
+            showSearch: true                                            
+            //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
-    });
+    //});
 });
 
 
@@ -463,7 +473,8 @@ router.get('/courses/', function (req, res, next) {
             path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
-            directories
+            directories,
+            showSearch: true
         });
     });
 });
@@ -496,6 +507,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
             breadcrumbs,
+            showSearch: true,
             courseId: req.params.courseId,
             courseUrl: `/courses/${req.params.courseId}/`
         }, res.locals.files));
@@ -518,7 +530,8 @@ router.get('/classes/', function (req, res, next) {
             path: getStorageContext(req, res),
             breadcrumbs,
             files: [],
-            directories
+            directories,
+            showSearch: true
         });
     });
 });
@@ -548,6 +561,7 @@ router.get('/classes/:classId', FileGetter, function (req, res, next) {
             path: res.locals.files.path,
             canUploadFile: true,
             breadcrumbs,
+            showSearch: true,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
         }, res.locals.files));
@@ -647,6 +661,56 @@ router.get('/fileModel/:id/proxy', function (req, res, next) {
         // redirects to real file getter
         res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
     });
+});
+
+router.post('/fileModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: 'Umbenennen der Datei war erfolgreich!'
+            };
+
+            res.redirect(req.header('Referer'));
+        })
+        .catch(e => {
+            req.session.notification = {
+                type: 'danger',
+                message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits eine Datei mit diesem Namen im gleichen Ordner!'
+                : e.error.message
+            };
+
+            res.redirect(req.header('Referer'));
+        });
+});
+
+router.post('/directoryModel/:id/rename', function(req, res, next) {
+    api(req).post('/fileStorage/directories/rename', {json: {
+        path: req.body.key,
+        newName: req.body.name
+    }})
+        .then(_ => {
+            req.session.notification = {
+                type: 'success',
+                message: 'Umbenennen des Ordners war erfolgreich!'
+            };
+
+            res.redirect(req.header('Referer'));
+        })
+        .catch(e => {
+            req.session.notification = {
+                type: 'danger',
+                message: e.error.message.indexOf("E11000 duplicate key error") >= 0
+                ? 'Es existiert bereits ein Ordner mit diesem Namen im gleichen Ordner!'
+                : e.error.message
+            };
+
+            res.redirect(req.header('Referer'));
+        });
 });
 
 

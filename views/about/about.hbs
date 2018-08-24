@@ -4,7 +4,7 @@
         <a href="https://hpi.de" target="_blank">Hasso-Plattner-Institut</a> für Digital Engineering entwickelt unter
         der Leitung von Prof. Dr. Christoph Meinel zusammen
         mit dem
-        <a href="https://www.mint-ec.de/" target="_blank">MINT EC</a>, einem bundesweiten Exzellenznetzwerk von knapp
+        <a href="https://www.mint-ec.de/" target="_blank">MINT EC</a>, einem bundesweiten Exzellenznetzwerk von über
         300 Schulen und unterstützt vom Bundesministerium für
         Forschung und Bildung eine Schul-Cloud. Die Schul-Cloud soll die technische Grundlage schaffen, dass Lehrer und
         Schüler
@@ -19,10 +19,10 @@
     </ul>
     <br/>
     <p>Das Projekt Schul-Cloud ist im September 2016 in die 5-monatige Konzeptphase gestartet. Ab Mai 2017 startete die
-        Pilotphase, in der 27 MINT-EC-Schulen die Schul-Cloud testen und nutzen. Ab Mai 2018 startet die Roll-out-Phase,
-        in der die Nutzung und Testung der Schul-Cloud stufenweise auf alle 300 Schulen aus dem nationalen
-        Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Seit dem wächst auch unser <a
-                href="https://schul-cloud.org/team">Team</a> stetig!</p>
+        Pilotphase, in der zunächst 27 MINT-EC-Schulen die Schul-Cloud testen und nutzen konnten. Im Mai 2018 begann die Roll-Out-Phase,
+        in der die Nutzung der Schul-Cloud stufenweise auf alle über 300 Schulen aus dem nationalen
+        Excellence-Schulnetzwerks MINT-EC ausgeweitet wird. Zunächst wurden 40 weitere MINT-EC Schulen an die Schul-Cloud abgebunden, sodass derzeit 67 Pilotschulen die Schul-Cloud testen können (Stand Juli 2018). <br/> Auch unser <a
+                href="https://schul-cloud.org/team">Team</a> wächst stetig!</p>
     <br/>
     <div class="section-partner">
         <h4>Pilotschulen</h4>
@@ -42,10 +42,26 @@
             </div>
         </div>
 
-        <h5>weitere Pilotschulen</h5>
+        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start März 2017)</span></h5>
+        <div class="container">
+        <div class="row">
+            {{#each schools.march2017}}
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="{{{url}}}" target="_blank">
+                            <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start Mai 2018)</span></h5>
+
         <div class="container">
             <div class="row">
-                {{#each schools.others}}
+                {{#each schools.mai2018}}
                     <div class="partner-box-wrapper col-xs-6 col-md-3">
                         <div class="partner-box">
                             <a href="{{{url}}}" target="_blank">
@@ -60,7 +76,7 @@
     </div>
     <br/>
     <p>Im Rahmen des Projekts wird die Schul-Cloud durch drei Arbeitsgruppen des MINT-EC-Themenclusters Schul-Cloud
-        unterstützt: AG IT, Schulleitung & Unterricht.</p><br/>
+        unterstützt: AG IT, Schulleitung & Unterricht.<a href="https://www.mint-ec.de/fileadmin/content/schulcloud/Info_Kit.pdf" target="_blank">Hier</a> finden Sie die Ergebnisse aus den verschiedenen Arbeitsgruppen der Pilotphase, die in Form eines Info Kits zusammengefasst sind.</p><br/>
     <p>Wir möchten uns ganz herzlich für die tolle Zusammenarbeit und das große Engagement unserer Pilotschullehrkräfte
         bedanken!</p>
     <br/>
@@ -70,37 +86,66 @@
         mit verfügbarem digitalen Lernmaterial aus der Schul-Cloud und dem Erkenntnisgewinn über die digitale
         Unterrichtsgestaltung
         mit der Schul-Cloud ist eine externe bildungswissenschaftliche Begleitung beauftragt. Zum einen führt die
-        <a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142">Universität Tübingen</a> eine
-        wissenschaftliche
+        <a href="https://osf.io/bzu4t/?view_only=14ad7519b5a24af7a83cf40b43377142" target="_blank">Universität Tübingen</a> eine wissenschaftliche
         Befragung der Pilotschulen zu Potenzialen der Schul-Cloud durch. Zum anderen gestaltet das
-        <a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html">Georg-Eckert-Institut</a>
-        aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
-        Nutzungskonzept für
-        die pädagogisch-didaktisch sinnvolle Anwendung der Schul-Cloud.</p>
+       <a href="http://www.gei.de/abteilungen/schulbuch-als-medium/schools-in-the-cloud-wissenschaftliche-begleitforschung-der-schul-cloud-einfuehrung.html" target="_blank">Georg-Eckert-Institut</a>
+       aufbauend auf den Ergebnissen von Unterrichtsbeobachtungen und Workshops mit den Pilotschulen ein
+       Nutzungskonzept für die pädagogisch-didaktisch sinnvolle Anwendung der Schul-Cloud. Außerdem hat das HPI zusammen mit der <a href="https://www.presse.uni-augsburg.de/unipressedienst/2018/jan-maerz/2018_003/" target="_blank">Universität Augsburg</a> 
+       einen MOOC zu dem Thema <a href="https://mooc.house/courses/lernen40-2018" target="_blank">Lernen 4.0 - Möglichkeiten und Grenzen einer Digitalisierung im Bildungsbereich</a> durchgeführt.</p>
+    <br/>
+    <div class="container embed-pdf">
+        <div class="row embed-pdf-row">
+            <div class="single-pdf col-xs-12 col-md-3" data-pdf="/other/pdf/GEI-Fachuebergreifende-Unterrichtsszenarien-und-Methoden.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Die Schul-Cloud im Unterricht - Fachübergreifende Unterrichtsszenarien
+                            und Methoden</b>
+                        <br/>
+                        <img class="single-pdf-thumbnail" src="/images/pdf/pdf-thumbnail-Die-Schul-Cloud-im-Unterricht-Fachuebergreifende-Unterrichtsszenarien.jpg" />
+                    </div>
+                </a>
+            </div>
+            <div class="single-pdf col-xs-12 col-md-3" data-pdf="/other/pdf/Schul-Cloud-in-Unterricht-und-Schulalltag.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Die Schul-Cloud in Unterricht und Schulalltag - Mehrwert und Voraussetzungen</b>
+                        <br/>
+                        <img class="single-pdf-thumbnail" src="/images/pdf/pdf-thumbnail-Schul-Cloud-in-Unterricht-und-Schulalltag.jpg" />
+                    </div>
+                </a>
+            </div>
+        </div> <!-- .row.embed-pdf-row -->
+    </div> <!-- .container.embed-pdf -->
     <br/>
     <h4>Veröffentlichungen</h4>
+    <div class="container embed-pdf">
+        <div class="row embed-pdf-row">
+            <div class="single-pdf col-xs-12 col-md-3" data-pdf="/other/pdf/Schulrechner-wandern-in-die-Cloud-2017.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Schulrechner wandern in die Cloud – Was bedeutet das für die unterschiedlichen Stakeholder?</b>
+                        <br/>
+                        <img class="single-pdf-thumbnail" src="/images/pdf/pdf-thumbnail-Schulrechner-wandern-in-die-Cloud.jpg" />
+                    </div>
+                </a>
+            </div>
+            <div class="single-pdf col-xs-12 col-md-3" data-pdf="/other/pdf/Konzept-und-Pilotierung-der-Schul-Cloud-2017.pdf">
+                <a href="#">
+                    <div class="single-pdf-wrapper">
+                        <b class="single-pdf-title">Die Cloud für Schulen in Deutschland: Konzept und Pilotierung der Schul-Cloud</b>
+                        <br/>
+                        <img class="single-pdf-thumbnail" src="/images/pdf/pdf-thumbnail-Konzept-und-Pilotierung-der-Schul-Cloud-2017.jpg" />
+                    </div>
+                </a>
+            </div>
+        </div> <!-- .row.embed-pdf-row -->
+    </div> <!-- .container.embed-pdf -->
     <br/>
-    <p><b>2017</b></p>
+    <h5>Weitere Veröffentlichungen</h5>
     <ul>
-        <li>Meinel, C., Renz, J., Grella, C., Karn, N. & Hagedorn, C. (2017). <a
-                href="https://publishup.uni-potsdam.de/opus4-ubp/frontdoor/deliver/index/docId/10385/file/tbhpi116.pdf"
-                title="Initiates file download" target="_blank">Die Cloud für Schulen in Deutschland: Konzept und
-            Pilotierung der Schul-Cloud.</a> Technische Berichte Nr. 116. Potsdam: Universitätsverlag
-        </li>
         <br/>
-        <li>Malyska, V. & Meinel, C. (2017). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
+        <li>2017: Malyska, V. & Meinel, C. (2017). Lernen in Wolken. didacta DIGITAL, 1/18, S. 16–17</li>
         <br/>
-        <li>Grella, C., Karn, N., Renz, J., & Meinel, C. (2017). <a
-                href="https://dl.gi.de/bitstream/handle/20.500.12116/4881/B7%20Schulrechner%20wandern%20in%20die%20Cloud.pdf?sequence=1&isAllowed=y"
-                title="Initiates file download" target="_blank">Schulrechner wandern in die Cloud – Was bedeutet das für
-            die unterschiedlichen Stakeholder?</a> In: C. Igel et al.(Hrsg.), Bildungsräume, DeLFI 2017 -Die 15.
-            e-Learning Fachtagung Informatik, Lecture Notes in Informatics (LNI) (S. 87 – 98), Bonn: Gesellschaft für
-            Informatik.
-        </li>
-    </ul>
-    <br/>
-    <p><b>2018</b></p>
-    <ul>
         <li>Malyska, V., Renz, J. & Meinel, C. (2018). Eine Innovation für Deutschlands Bildungslandschaft – Projekt
             Schul-Cloud . In Scheiter, K. & Riecke-Baulecke, T. (Hrsg.), Schulmanagement-Handbuch 165: Schule 4.0 (Vol.
             37, S. 75–83). München: Oldenbourg.

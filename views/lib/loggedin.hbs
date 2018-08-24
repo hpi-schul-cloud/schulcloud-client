@@ -2,36 +2,32 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
+        <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-
         <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js" defer></script>
         <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"
                 defer></script>
-        <script type="text/javascript" src="/scripts/notificationService/indexFirebase.js" defer></script>
-
-        <script type="text/javascript" src="/scripts/notificationService/callback.js" defer></script>
+        <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
         <script type="text/javascript"
                 src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"
                 defer></script>
-        <script type="text/javascript" src="/scripts/notificationService/index.js" defer></script>
+        <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
-        <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function() {
-            $('.sidebar-list').css({"height": window.innerHeight});
-            if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-                setupFirebasePush();
-            }
-        });
-        window.addEventListener("resize", function () {
-            $('.sidebar-list').css({"height": window.innerHeight});
-        });
-        </script>
+        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
+        <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
     {{/content}}
 
     {{#content "body"}}
+        <div class="preload-screen hidden">
+            <div class="content">
+                <div class="center-wrapper">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                    <p>laden...</p>
+                </div>
+            </div>
+        </div>
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -70,170 +66,178 @@
                     {{/each}}
                 </ul>
             </nav>
+        </aside>
+
+        <section class="content-wrapper">
             <a class="mobile-nav-toggle">
                 <i class="fa fa-bars"></i>
             </a>
-        </aside>
-
-        {{#ifeq currentRole "Demo"}}
-            <section class="demo">
-                <div class="alert alert-warning" role="alert">
-                    <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
-                </div>
-            </section>
-        {{/ifeq}}
-
-        <section class="content-wrapper">
-            {{> "lib/components/notification"}}
-            <nav class="topbar navbar hide-inline">
-
-                {{#if breadcrumb}}
-                    <ol class="breadcrumb">
-                        {{#each breadcrumb}}
-                            <li class="breadcrumb-item {{this.class}}">
-                                <a href="{{this.url}}">{{this.title}}</a>
-                            </li>
-                        {{/each}}
-                    </ol>
-                {{/if}}
-
-                <ul class="nav navbar-nav float-xs-right dropdowns">
-                    <li class="nav-item fullscreen-action">
-                        <div class="dropdown minimal-button">
-                            <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" data-toggle="dropdown">
-                                <i class="fa fa-expand"></i>
-                            </a>
+            <div class="content-min-height">
+                {{#ifeq currentRole "Demo"}}
+                    <section class="demo">
+                        <div class="alert alert-warning" role="alert">
+                            <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
                         </div>
-                    </li>
-                    <li class="nav-item qr-code-action">
-                        <div class="dropdown minimal-button">
-                            <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" data-toggle="dropdown">
-                                <i class="fa fa-qrcode"></i>
-                            </a>
-                            <div class="dropdown-menu print">
-                                <div class="content qr-show"></div>
-                                <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
-                                    <i class="fa fa-print"></i> Drucken
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item notification-dropdown">
-                        <div class="dropdown minimal-button">
-                            <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                    recentNotifications}}recent{{/if}}" data-toggle="dropdown">
-                                <i class="fa fa-bell"></i> {{#if recentNotifications}}
-                                <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
-                            </a>
+                    </section>
+                {{/ifeq}}
 
-                            <div class="dropdown-menu">
-                                <div class="content">
-                                    {{#if notifications}}
-                                        {{#each notifications}}
-                                            <div class="notification-item {{#unless this.read}}unread{{/unless}}"
-                                                 data-notification-id="{{this.notificationId}}">
-                                                <a href="{{this.action}}"><b>{{this.title}}</b></a>
-                                                <br>
-                                                <span>{{this.body}}</span>
-                                                <time class="notification-time">{{timeFromNow this.date}}</time>
-                                            </div>
-                                        {{/each}}
-                                    {{else}}
-                                        <div class="notification-item" data-notification-id="0">
-                                            <span>Derzeit keine Benachrichtigungen</span>
-                                        </div>
-                                    {{/if}}
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                {{> "lib/components/notification"}}
+                <nav class="topbar navbar hide-inline">
 
-                    <li class="nav-item help-drodown">
-                        <div class="dropdown minimal-button">
-                            <a class="btn btn-secondary btn-thin dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-question"></i>
-                            </a>
-                            <div class="dropdown-menu">
-                                <ul class="content list-group">
-                                    <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
-                                    <div class="delimiter"></div>
-                                    <li class="list-group-item list-group-item-action"><span><i class="fa fa-magic"
-                                                                                                aria-hidden="true"></i><a
-                                            href="/help/#changelog" class="link">Neuste Funktionen</a></span></li>
-                                    <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
-                                                                                                aria-hidden="true"></i><a
-                                            href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a></span></li>
-                                    <div class="delimiter"></div>
-                                    {{#ifneq this.currentRole "Schüler"}}
-                                    <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
-                                                                                                aria-hidden="true"></i></i>
-                                        <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
-                                    {{/ifneq}}
-                                    <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
-                                                                                                aria-hidden="true"></i></i>
-                                        <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-
-                    {{#if currentSchoolData}}
-                        <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                        {{#if currentSchoolData.federalState}}
-                            <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
-                        {{/if}}
+                    {{#if breadcrumb}}
+                        <ol class="breadcrumb">
+                            {{#each breadcrumb}}
+                                <li class="breadcrumb-item {{this.class}}">
+                                    <a href="{{this.url}}">{{this.title}}</a>
+                                </li>
+                            {{/each}}
+                        </ol>
                     {{/if}}
 
-                    <li class="nav-item">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <strong>{{ currentUser.displayName }} ({{ currentRole }})</strong>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="/account/">Einstellungen</a>
-                                <a class="dropdown-item" href="/logout/">Abmelden</a>
+                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier finden Sie übergreifende Informationen">
+                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Blendet Menus aus">
+                            <div class="dropdown minimal-button">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
+                                    <i class="fa fa-expand"></i>
+                                </a>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-
-            <section class="section-title">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-9">
-                            <div>
-                                <h4>{{title}}</h4>
-                            </div>
-                            <div>
-                                {{subtitle}}
-                            </div>
-                        </div>
-                        {{#unless hideSearch}}
-                            <div class="col-sm-3 hide-inline">
-                                <form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">
-                                    <a class="mobile-search-toggle">
-                                        <i class="fa fa-search"></i>
-                                    </a>
-                                    <div class="input-group input-group-sm">
-                                        <input type="text" class="form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{searchLabel}}{{else}}Suche nach...{{/if}}" name="q" />
-                                        <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-secondary">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
+                        </li>
+                        <li class="nav-item qr-code-action" data-step="3" data-intro="Ganz einfach QR-Codes erstellen!">
+                            <div class="dropdown minimal-button">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
+                                    <i class="fa fa-qrcode"></i>
+                                </a>
+                                <div class="dropdown-menu print">
+                                    <div class="content qr-show"></div>
+                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
+                                        <i class="fa fa-print"></i> Drucken
                                     </div>
-                                </form>
+                                </div>
                             </div>
-                        {{/unless}}
-                    </div>
-                </div>
-            </section>
+                        </li>
+                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhalten sie Benachrichtigungen">
+                            <div class="dropdown minimal-button">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
+                                        recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
+                                    <i class="fa fa-bell"></i> {{#if recentNotifications}}
+                                    <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
+                                </a>
 
-            <main id="main-content" class="container-fluid">
-                {{#block "page"}}{{/block}}
-            </main>
+                                <div class="dropdown-menu">
+                                    <div class="content">
+                                        {{#if notifications}}
+                                            {{#each notifications}}
+                                                <div class="notification-item {{#unless this.read}}unread{{/unless}}"
+                                                    data-notification-id="{{this.notificationId}}">
+                                                    <a href="{{this.action}}"><b>{{this.title}}</b></a>
+                                                    <br>
+                                                    <span>{{this.body}}</span>
+                                                    <time class="notification-time">{{timeFromNow this.date}}</time>
+                                                </div>
+                                            {{/each}}
+                                        {{else}}
+                                            <div class="notification-item" data-notification-id="0">
+                                                <span>Derzeit keine Benachrichtigungen</span>
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="nav-item help-drodown" data-step="5" data-intro="Hilfebereich für Ihre Fragen und Probleme">
+                            <div class="dropdown minimal-button">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
+                                    <i class="fa fa-question"></i>
+                                </a>
+                                <div class="dropdown-menu">
+                                    <ul class="content list-group">
+                                        <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
+                                        <div class="delimiter"></div>
+                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-magic"
+                                                                                                    aria-hidden="true"></i><a
+                                                href="/help/#changelog" class="link">Neuste Funktionen</a></span></li>
+                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
+                                                                                                    aria-hidden="true"></i><a
+                                                href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a></span></li>
+                                        <div class="delimiter"></div>
+                                        {{#ifneq this.currentRole "Schüler"}}
+                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
+                                                                                                    aria-hidden="true"></i></i>
+                                            <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
+                                        {{/ifneq}}
+                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
+                                                                                                    aria-hidden="true"></i></i>
+                                            <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+
+                        {{#if currentSchoolData}}
+                            <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                            {{#if currentSchoolData.federalState}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                            {{/if}}
+                        {{/if}}
+
+                        <li class="nav-item" data-step="6" data-intro="Einstellungen und Log-Out">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <strong>{{ currentUser.displayName }} ({{ currentRole }})</strong>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
+                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <section class="section-title">
+                    <div class="container-fluid">
+                        <div class="row" id="titlebar">
+                            <div class="col-sm-9">
+                                <div>
+                                    <h4>{{title}}</h4>
+                                </div>
+                                <div>
+                                    {{subtitle}}
+                                </div>
+                            </div>
+                            {{#if showSearch}}
+                                <div id="searchBar" class="col-sm-3 hide-inline">
+                                    {{#unless liveSearch}}<form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">{{/unless}}
+                                        <a class="mobile-search-toggle">
+                                            {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
+                                        </a>
+                                        <div class="input-group input-group-sm">
+                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
+                                            <span class="input-group-btn">
+                                                <button type="submit" class="btn btn-secondary">
+                                                    <i class="fa fa-search"></i>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    {{#unless liveSearch}}</form>{{/unless}}
+                                </div>
+                            {{/if}}
+                        </div>
+                    </div>
+                </section>
+
+                <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
+                <p id="backendUrl" hidden>{{ backendUrl }}</p>
+
+                <main id="main-content" class="container-fluid">
+                    {{#block "page"}}{{/block}}
+                </main>
+            </div>
+            {{#unless inline}}
+                {{#embed "lib/footer"}}{{/embed}}
+            {{/unless}}
 
             {{#embed "lib/components/modal-form" class="feedback-modal"}}
                 {{#content "fields"}}

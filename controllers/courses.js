@@ -141,6 +141,75 @@ const editCourseHandler = (req, res, next) => {
     });
 };
 
+const copyCourseHandler = (req, res, next) => {
+    let coursePromise, action, method;
+    if (req.params.courseId) {
+        action = '/courses/copy/' + req.params.courseId;
+        method = 'post';
+        coursePromise = api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
+            }
+        });
+    } else {
+        action = '/courses/copy';
+        method = 'post';
+        coursePromise = Promise.resolve({});
+    }
+
+    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
+    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+
+    Promise.all([
+        coursePromise,
+        classesPromise,
+        teachersPromise,
+        studentsPromise
+    ]).then(([course, classes, teachers, students]) => {
+
+        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
+        teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
+        students = students.filter(s => s.schoolId == res.locals.currentSchool);
+        let substitutions = _.cloneDeep(teachers);
+
+        // map course times to fit into UI
+        (course.times || []).forEach((time, count) => {
+            time.duration = time.duration / 1000 / 60;
+            const duration = moment.duration(time.startTime);
+            time.startTime = ("00" + duration.hours()).slice(-2) + ':' + ("00" + duration.minutes()).slice(-2);
+            time.count = count;
+        });
+
+        // format course start end until date
+        if (course.startDate) {
+            course.startDate = moment(new Date(course.startDate).getTime()).format("DD.MM.YYYY");
+            course.untilDate = moment(new Date(course.untilDate).getTime()).format("DD.MM.YYYY");
+        }
+
+        // preselect current teacher when creating new course
+        if (!req.params.courseId) {
+            course.teacherIds = [];
+            course.teacherIds.push(res.locals.currentUser);
+        }
+
+        course.name = course.name + ' - Kopie';
+
+        res.render('courses/edit-course', {
+            action,
+            method,
+            title: 'Kurs klonen',
+            submitLabel: 'Kurs klonen',
+            closeLabel: 'Abbrechen',
+            course,
+            classes: classes,
+            teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+            substitutions: substitutions,
+            students: students
+        });
+    });
+};
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -154,15 +223,17 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                substitutionIds: res.locals.currentUser._id
+                substitutionIds: res.locals.currentUser._id,
+                $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
                 $or: [
-                    { userIds: res.locals.currentUser._id },
-                    { teacherIds: res.locals.currentUser._id }
-                ]
+                    {userIds: res.locals.currentUser._id},
+                    {teacherIds: res.locals.currentUser._id}
+                ],
+                $limit: 75
             }
         })
     ]).then(([substitutionCourses, courses]) => {
@@ -172,6 +243,7 @@ router.get('/', function(req, res, next) {
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
+            course.memberAmount = course.userIds.length;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
@@ -186,11 +258,13 @@ router.get('/', function(req, res, next) {
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
+            course.memberAmount = course.userIds.length;
             (course.times || []).forEach(time => {
                 time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
+
             return course;
         });
         if (req.query.json) {
@@ -199,16 +273,15 @@ router.get('/', function(req, res, next) {
             res.render('courses/overview', {
                 title: 'Meine Kurse',
                 courses,
-                substitutionCourses
+                substitutionCourses,
+                searchLabel: 'Suche nach Kursen',
+                searchAction: '/courses',
+                showSearch: true,
+                liveSearch: true
             });
         }
     });
 });
-
-router.get('/json', function(req, res, next) {
-
-});
-
 
 router.post('/', function(req, res, next) {
     // map course times to fit model
@@ -225,17 +298,38 @@ router.post('/', function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
-
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
         createEventsForCourse(req, res, course).then(_ => {
             res.redirect('/courses');
         });
+    }).catch(err => {
+        res.sendStatus(500);
+    });
+});
+
+router.post('/copy/:courseId', function(req, res, next) {
+    // map course times to fit model
+    (req.body.times || []).forEach(time => {
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
+
+    req.body._id = req.params.courseId;
+
+    api(req).post('/courses/copy/', {
+        json: req.body // TODO: sanitize
+    }).then(course => {
+        res.redirect('/courses/' + course._id);
     }).catch(err => {
         res.sendStatus(500);
     });
@@ -262,6 +356,16 @@ router.get('/:courseId/json', function(req, res, next) {
             }
         })
     ]).then(([course, lessons]) => res.json({ course, lessons }));
+});
+
+router.get('/:courseId/usersJson', function(req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['userIds']
+            }
+        })
+    ]).then(([course]) => res.json({ course }));
 });
 
 router.get('/:courseId', function(req, res, next) {
@@ -348,11 +452,6 @@ router.patch('/:courseId', function(req, res, next) {
     req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
     req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
 
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
-
     if (!req.body.classIds)
         req.body.classIds = [];
     if (!req.body.userIds)
@@ -383,7 +482,8 @@ router.patch('/:courseId/positions', function(req, res, next) {
     for (var elem in req.body) {
         api(req).patch('/lessons/' + elem, {
             json: {
-                position: parseInt(req.body[elem])
+                position: parseInt(req.body[elem]),
+                courseId: req.params.courseId
             }
         });
     }
@@ -443,8 +543,8 @@ router.get('/:courseId/addStudent', function(req, res, next) {
 router.post('/:courseId/importTopic', function(req, res, next) {
     let shareToken = req.body.shareToken;
     // try to find topic for given shareToken
-    api(req).get("/lessons/", { qs: { shareToken: shareToken } }).then(result => {
-        if (result.data.length <= 0) {
+    api(req).get("/lessons/", { qs: { shareToken: shareToken, $populate: ['courseId'] } }).then(lessons => {
+        if ((lessons.data || []).length <= 0) {
             req.session.notification = {
                 type: 'danger',
                 message: 'Es wurde kein Thema für diesen Code gefunden.'
@@ -453,25 +553,17 @@ router.post('/:courseId/importTopic', function(req, res, next) {
             res.redirect(req.header('Referer'));
         }
 
-        // copy topic to course
-        let topic = result.data[0];
-        topic.originalTopic = JSON.parse(JSON.stringify(topic._id)); // copy value, not reference
-        delete topic._id;
-        delete topic.shareToken;
-        topic.courseId = req.params.courseId;
+        api(req).post("/lessons/copy", { json: {lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
+            .then(_ => {
+                res.redirect(req.header('Referer'));
+            });
 
-        api(req).post("/lessons/", { json: topic }).then(topic => {
-            req.session.notification = {
-                type: 'success',
-                message: `Thema '${topic.name}'wurde erfolgreich zum Kurs hinzugefügt.`
-            };
-
-            res.redirect(req.header('Referer'));
-        });
-    });
+    }).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
 
 router.get('/:courseId/edit', editCourseHandler);
+
+router.get('/:courseId/copy', copyCourseHandler);
 
 module.exports = router;

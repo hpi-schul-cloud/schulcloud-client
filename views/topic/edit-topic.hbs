@@ -1,9 +1,7 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/vendor/react/react.min.js" defer></script>
-        <script src="/vendor/react/react-dom.min.js" defer></script>
-        <script src="/vendor/react/react-sortable-hoc.js" defer></script>
+        <script src="/scripts/vendor-react.js" defer></script>
         <script src="/vendor/ckeditor/ckeditor.js" defer></script>
         <script src="/scripts/topicEdit.js" defer></script>
         <script src="/scripts/courses.js" defer></script>
@@ -35,7 +33,7 @@
                     <label>Inhalte</label>
 
                     <!-- React Magic -->
-                    <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}" data-iscoursegroup={{courseGroupId}}></div>
+                    <div id="content-blocks" data-value="{{lesson.contents}}" data-etherpadbaseurl="{{etherpadBaseUrl}}" data-iscoursegroup="{{courseGroupId}}"></div>
                 </div>
 
                 <div class="modal-footer">

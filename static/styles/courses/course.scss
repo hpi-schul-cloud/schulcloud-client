@@ -39,6 +39,11 @@
             max-width: 100%;
             height: auto !important;
         }
+        iframe{
+            border: 1px solid $primaryColor;
+            border-radius: 5px;
+            outline: none;
+        }
     }
     .disabled {
         cursor: not-allowed;
@@ -109,6 +114,9 @@
             color: white;
             background-color: $primaryColor;
         }
+        input{
+            width: 100%;
+        }
     }
 }
 
@@ -146,6 +154,26 @@
             }
         }
     }
+}
+
+#member-modal-body {
+    columns: 3;
+    word-break: break-all;
+}
+
+#member-list {
+    li {
+        padding: 0px;
+        margin: 0px;
+    }
+}
+
+#course-edit {
+    text-align: right;
+}
+.modal-body {
+    max-height: 75vh;
+    overflow-y: auto;
 }
 
 .section-course-group {

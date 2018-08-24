@@ -47,7 +47,6 @@ build/
 # Dependency directories
 node_modules/
 jspm_packages/
-package-lock.json
 
 # Typescript v1 declaration files
 typings/
@@ -75,3 +74,14 @@ typings/
 
 # IntelliJ IDEA configuration files
 \.idea/
+
+# Nightwatch
+screenshots/
+reports/
+selenium-debug.log
+
+# VSCode Configuration file
+.vscode
+
+# Webpack Rebuild Changed Plugin Cache
+.webpack-changed-plugin-cache

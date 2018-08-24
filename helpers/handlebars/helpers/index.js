@@ -31,10 +31,14 @@ module.exports = {
         const subString = text.substr(0, length-1);
         return subString.substr(0, subString.lastIndexOf(' ')) + "...";
     },
-    truncateHTML: (text = '', {length = 140} = {}) => {
+    truncatePure: (text = '', length = 140) => {
         if (text.length <= length) {
             return text;
         }
+        const subString = text.substr(0, length-1);
+        return subString + "...";
+    },
+    truncateHTML: (text = '', {length = 140} = {}) => {
         return truncatehtml(text, length, {
           stripTags: true,
           decodeEntities: true,
@@ -56,6 +60,9 @@ module.exports = {
     },
     stripHTMLTags: (htmlText = '') => {
         return stripHtml(htmlText);
+    },
+    stripOnlyScript: (htmlText = '') => {
+      return stripHtml(htmlText, {onlyStripTags: ['script', 'style']});
     },
     conflictFreeHtml: (text = '') => {
         text = text.replace(/style=["'][^"]*["']/g,'');
@@ -144,5 +151,8 @@ module.exports = {
                 break;
         }
         return (fileSize + ' ' + unit);
+    },
+    json: (data) => {
+        return JSON.stringify(data);
     }
 };

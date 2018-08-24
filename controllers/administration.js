@@ -34,18 +34,21 @@ const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStuden
         {
             link: path + item._id,
             class: `btn-edit ${isTeacher ? 'disabled' : ''}`,
-            icon: 'edit'
+            icon: 'edit',
+            title: 'Eintrag bearbeiten'
         },
         {
             link: path + item._id,
             class: `${isAdmin ? 'btn-delete' : 'disabled'}`,
             icon: 'trash-o',
-            method: `${isAdmin ? 'delete' : ''}`
+            method: `${isAdmin ? 'delete' : ''}`,
+            title: 'Eintrag löschen'
         },
         {
             link: isStudentAction ? path + 'pw/' + item._id : '',
             class: isStudentAction ? 'btn-pw' : 'invisible',
-            icon: isStudentAction ? 'key' : ''
+            icon: isStudentAction ? 'key' : '',
+            title: 'Passwort zurücksetzen'
         }
     ];
 };
@@ -71,19 +74,22 @@ const getTableActionsSend = (item, path, state) => {
             {
                 link: path + item._id,
                 class: 'btn-edit',
-                icon: 'edit'
+                icon: 'edit',
+                title: 'Eintrag bearbeiten'
             },
             {
                 link: path + item._id,
                 class: 'btn-disable',
                 icon: 'ban',
-                method: 'delete'
+                method: 'delete',
+                title: 'Eintrag löschen'
             },
             {
                 link: path + item._id,
                 class: 'btn',
                 icon: 'paper-plane',
-                method: 'post'
+                method: 'post',
+                title: 'Eintrag löschen'
             });
     }
     return actions;
@@ -348,7 +354,8 @@ const dictionary = {
     content: 'Materialien',
     administration: 'Verwaltung',
     login_registration: 'Anmeldung/Registrierung',
-    other: 'Sonstiges'
+    other: 'Sonstiges',
+    technical_problems: 'Techn. Probleme'
 };
 
 const getUpdateHandler = (service) => {
@@ -597,7 +604,7 @@ const userFilterSettings = function (defaultOrder) {
             ]
         },
     ];
-}
+};
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -637,7 +644,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 
     let itemsPerPage = 25;
-    let filterQuery = {}
+    let filterQuery = {};
     if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
         if (filterQuery["$limit"]) {
@@ -710,7 +717,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
 
     let itemsPerPage = 25;
-    let filterQuery = {}
+    let filterQuery = {};
     if (tempOrgQuery) {
         filterQuery = JSON.parse(unescape(req.query.filterQuery));
         if (filterQuery["$limit"]) {
@@ -822,7 +829,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
         };
 
-        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
+        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true});
     });
 });
 
