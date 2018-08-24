@@ -145,17 +145,25 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
         return res.sendStatus(500);
     
     if (req.query.id) {
-        return api(req).get(`/users/linkImport/${req.query.id}`).then(user => {
+        return api(req).get('/users/linkImport/'+req.query.id).then(user => {
             res.render('registration/registration', {
                 title: 'Herzlich Willkommen bei der Registrierung',
                 classOrSchoolId: req.params.classOrSchoolId,
                 hideMenu: true,
-                sso: req.params.sso==="sso",
+               // sso: req.params.sso==="sso",
                 account:req.params.accountId||"",
                 user: user
             });
         });
-    }
+    }else{
+        res.render('registration/registration', {
+            title: 'Herzlich Willkommen bei der Registrierung',
+            classOrSchoolId: req.params.classOrSchoolId,
+            hideMenu: true,
+            sso: req.params.sso==="sso",
+            account:req.params.accountId||""
+        });
+	}
 });
 
 module.exports = router;
