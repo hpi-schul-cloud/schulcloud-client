@@ -851,7 +851,7 @@ const getStudentCreateHandler = (service) => {
             }).catch(err => {
                 req.session.notification = {
                     'type': 'danger',
-                    'message': 'Fehler beim Erstellen des Nutzers. ${err.message||""}'
+                    'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
                 };
                 res.redirect(req.header('Referer'));
             });
