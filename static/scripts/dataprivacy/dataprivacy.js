@@ -161,7 +161,7 @@ function submitForm(event){
 
 function nextSection(event){
     // ValidationEnabled is for testing only
-    const isSubmitPage = ValidationDisabled?false:document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.contains('submit-page');
+    const isSubmitPage = ValidationDisabled? false : document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.contains('submit-page');
     if(ValidationDisabled){document.querySelector('.form').classList.add("form-submitted");};
     
 

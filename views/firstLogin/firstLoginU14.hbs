@@ -16,7 +16,8 @@
         <p>Wir freuen uns, dass du die {{theme.short_title}} nutzen möchtest.</p>
         <p>Bitte überprüfe in den kommenden Schritten die für dich angegebene E-Mail-Adresse und ändere dein Startpasswort.</p>
         <p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
-      </section>
+		{{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
+	  </section>
 
 
       <section data-panel="section-2">
@@ -30,9 +31,11 @@
         </div>
       </section>
 
-
       <section data-panel="section-3" class="submit-page">
-        <h4>Du hast es fast geschafft...</h4>
+	   <h4>Du hast es fast geschafft...</h4>
+	   {{#if sso}}
+		 <p>Als Passwort wird weiterhin das von dir bereits genutzte verwendet. </p>
+	   {{else}}
         <p>Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
@@ -58,9 +61,10 @@
             <input name="sendCredentials" type="checkbox" value="sendCredentials"/>
             Login-Daten per Mail an mich senden
         </label>-->
+	  {{/if}}
       </section>
-
-      <section data-panel="section-4">
+	
+     <section data-panel="section-4">
         <h4>Fertig!</h4>
         <p>Du kannst jetzt mit der Benutzung der HPI {{theme.short_title}} starten.</p>
         <a class="btn btn-primary mt-2" href="/login">{{theme.short_title}} erkunden</a>

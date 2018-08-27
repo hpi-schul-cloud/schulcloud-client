@@ -17,19 +17,22 @@ router.get('/', function (req, res, next) {
 router.get('/14_17', function (req, res, next) {
     res.render('firstLogin/firstLogin14_17', {
         title: 'Willkommen - Erster Login (14 bis 17 Jahre)',
-        hideMenu: true
+        hideMenu: true,
+		sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
 router.get('/U14', function (req, res, next) {
     res.render('firstLogin/firstLoginU14', {
         title: 'Willkommen - Erster Login',
-        hideMenu: true
+        hideMenu: true,
+		sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
 router.get('/UE18', function (req, res, next) {
     res.render('firstLogin/firstLoginUE18', {
         title: 'Willkommen - Erster Login',
-        hideMenu: true
+        hideMenu: true,
+		sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
 router.get('/existing', function (req, res, next) {
