@@ -117,6 +117,14 @@ ${res.locals.theme.short_title}-Team`
     });
 });
 
+const formatBirthdate=(datestamp)=>{
+	if( datestamp==undefined ) 
+		return undefined;
+	
+	const d=datestamp.split('T')[0].split(/-/g);
+	return d[2]+'.'+d[1]+'.'+d[0];
+}
+
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         return res.sendStatus(500);
@@ -126,6 +134,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
         sso: req.params.sso==="sso",
+		birthdate: formatBirthdate((req.query||{}).birthday),
 		account:req.params.accountId,
         query: req.query
     });
@@ -139,6 +148,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
         classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
         sso: req.params.sso==="sso",
+		birthdate: formatBirthdate((req.query||{}).birthday),
 		account: req.params.accountId||"",
         query: req.query
     });

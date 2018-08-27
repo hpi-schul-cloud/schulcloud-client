@@ -36,7 +36,11 @@
 
         <div class="form-group">
           <label>Geburtsdatum des Schülers: *</label>
-          <input class="form-control linked" data-date data-min-date="2000/08/21" data-max-date="2015/01/01" data-start-date="2002/01/01" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
+		  {{#if birthdate}}
+		     <input class="form-control linked" name="birthdateInfo" type="text" value={{birthdate}} disabled required/>
+		  {{else}}
+			<input class="form-control linked" data-date data-min-date="2000/08/21" data-max-date="2015/01/01" data-start-date="2002/01/01" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
+		  {{/if}}
         </div>
 
         <div class="form-group">
