@@ -255,9 +255,9 @@ const sendMailHandler = (user, req, res, type) => {
         if (type === "teacher") {
             link = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
         } else if (user.importHash) {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${user.importHash}`
+            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${user.importHash}`;
         } else {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`
+            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`;
         }
         return generateShortInviteLink(req, link).then(shortLink => {
             return api(req).post('/mails/', {
