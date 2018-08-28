@@ -739,6 +739,24 @@ router.get('/:assignmentId/edit', function (req, res, next) {
     });
 });
 
+//submission>single=student=upload || submissionS>multi=teacher=overview
+const addClearNameForFileIds=(submission_s)=>{
+	if(submission_s==undefined) return
+	//if array = submissions  else submission
+	if(submission_s.length>0){ 
+		submission_s.forEach(submission=>{
+			addClearNameForFileIds(submission);
+		});	
+	}else if(submission_s.fileIds && submission_s.fileIds.length>0){
+		return submission_s.fileIds.map(file=>{
+			if(file.name){
+				file.clearName=file.name.replace(/%20/g,' '); //replace to spaces
+			}
+			return file
+		});
+	}
+}
+
 router.get('/:assignmentId', function(req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
@@ -898,6 +916,8 @@ router.get('/:assignmentId', function(req, res, next) {
                         return role.name;
                     });
                     // Render assignment.hbs
+					//submission>single=student=upload || submissionS>multi=teacher=overview
+					addClearNameForFileIds(assignment.submission||assignment.submissions);	
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: assignment.courseId.name + ' - ' + assignment.name,
