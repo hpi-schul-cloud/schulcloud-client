@@ -273,9 +273,10 @@
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
             </div>
-
-
-
+            <div class="btn-group">
+                <a href="/courses/{{../_id}}/copy" class="btn btn-secondary">Kurs klonen</a>
+                <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Kurs teilen</a>
+            </div>
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                 {{#content "body"}}

@@ -7,6 +7,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
+const shortId = require('shortid');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -565,5 +566,33 @@ router.post('/:courseId/importTopic', function(req, res, next) {
 router.get('/:courseId/edit', editCourseHandler);
 
 router.get('/:courseId/copy', copyCourseHandler);
+
+router.get('/:id/share', function(req, res, next) {
+    return api(req).get('/courses/share/' + req.params.id).then(course => {
+        return res.json(course);
+    });
+});
+
+router.post('/import', function(req, res, next) {
+    let shareToken = req.body.shareToken;
+    // try to find topic for given shareToken
+    /**
+    api(req).get("/lessons/", { qs: { shareToken: shareToken, $populate: ['courseId'] } }).then(lessons => {
+        if ((lessons.data || []).length <= 0) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Es wurde kein Thema für diesen Code gefunden.'
+            };
+
+            res.redirect(req.header('Referer'));
+        }
+
+        api(req).post("/lessons/copy", { json: {lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
+            .then(_ => {
+                res.redirect(req.header('Referer'));
+            });
+
+    }).catch(err => res.status((err.statusCode || 500)).send(err)); **/
+});
 
 module.exports = router;

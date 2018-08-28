@@ -35,4 +35,44 @@ $(document).ready(function () {
         });
     });
 
+    $('.btn-import-course').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $importModal = $('.import-modal');
+        populateModalForm($importModal, {
+            title: 'Kurs importieren',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Abschicken'
+        });
+
+        let $modalForm = $importModal.find(".modal-form");
+        $modalForm.attr('action', `/courses/import`);
+        $importModal.appendTo('body').modal('show');
+        $('.import-modal').trigger('hideButton');
+    });
+
+    $('.import-modal').bind('hideButton', () => {
+        $('.btn-submit').hide();
+        $('.btn-next-step').remove();
+
+        $('#step1').show();
+        $('#step2').hide();
+
+        $('.modal-footer').append("<button type='button' class='btn btn-primary btn-next-step'>Nächster Schritt</button>");
+    });
+
+    $('.modal-footer').on('click', '.btn-next-step', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        $('#step1').hide();
+
+        let shareToken = $('#shareToken').val();
+        //ajax call get course name and populate value
+
+        $('#step2').show();
+
+        $('.btn-next-step').hide();
+        $('.btn-submit').show();
+    })
 });
