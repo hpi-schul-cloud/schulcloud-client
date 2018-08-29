@@ -36,10 +36,6 @@ module.exports = {
         browser.url(base_url + 'courses/');
         browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Meine Kurse').before(10000);
 
-        //Classes
-        browser.url(base_url + 'classes/');
-        browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Meine Klassen').before(10000);
-
         //Calendar
         browser.url(base_url + 'calendar/');
         browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Kalender').before(10000);
