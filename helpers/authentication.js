@@ -48,7 +48,15 @@ const authChecker = (req, res, next) => {
                     })
                     .then(_ => {
                         next();
-                    });
+                    })
+					.catch(err=>{
+						if(err=="firstLogin was not completed, redirecting..."){
+							//print message?
+							res.redirect('/login/success');
+						}else{
+							res.redirect('/login/');
+						}
+					});
             } else {
                 res.redirect('/login/');
             }
@@ -89,9 +97,9 @@ const checkConsent = (req, res) => {
     req.path == "/login/success" ||
     req.baseUrl == "/firstLogin") {
         return Promise.resolve();
-    }
-    res.redirect('/login/success');
-    return Promise.reject("firstLogin was not completed, redirecting...");
+    }else{
+		return Promise.reject("firstLogin was not completed, redirecting...");
+	} 
 };
 
 
