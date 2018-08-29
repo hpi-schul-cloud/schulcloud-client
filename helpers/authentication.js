@@ -63,7 +63,6 @@ const populateCurrentUser = (req, res) => {
         return api(req).get('/users/' + payload.userId,{ qs: {
             $populate: ['roles']
         }}).then(data => {
-            console.log(data);
             res.locals.currentUser = data;
             res.locals.currentRole = rolesDisplayName[data.roles[0].name];
             return api(req).get('/schools/' + res.locals.currentUser.schoolId, { qs: {

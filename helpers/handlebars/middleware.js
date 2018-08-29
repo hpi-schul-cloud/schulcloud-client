@@ -168,7 +168,6 @@ module.exports = (req, res, next) => {
        name: 'Materialien',
        icon: 'book',
        link: '/content/',
-       permission: 'BETA_FEATURES',
 			 children: [
 					 {
 							 name: 'Suche',
