@@ -68,6 +68,7 @@ body > * {
     }
 }
 aside.nav-sidebar {
+    overflow: auto; 
     color: #727272;
     display: inline-block;
     vertical-align: top;
@@ -132,10 +133,9 @@ aside.nav-sidebar {
 
     nav {
         width: 100%;
-        overflow-y: auto;
 
         @include media-breakpoint-down(xs) {
-            overflow: hidden;
+            overflow: auto;
             height: 100vh;
             position: absolute;
             z-index: 9998;
@@ -162,7 +162,6 @@ aside.nav-sidebar {
             list-style-type: none;
             padding: 0px;
             margin: 0px;
-            overflow-y: auto;
 
             li {
                 width: 100%;
