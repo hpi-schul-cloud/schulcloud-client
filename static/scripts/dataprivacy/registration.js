@@ -13,12 +13,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
             let classOrSchoolId = $("input[name=classOrSchoolId]").val();
             let additional = "";
             additional += $("input[name=sso]").val() === "true" ? 'sso/'+$("input[name=account]").val() : '';
-            additional += $("input[name=importHash]").val() != undefined ? '&importHash='+$("input[name=importHash]").val() : '';
-            additional += $("input[name=userId]").val() != undefined ? '&userId='+$("input[name=userId]").val() : '';
-            additional += $("input[name=firstName]").val() != undefined ? '&firstName='+$("input[name=firstName]").val() : '';
-            additional += $("input[name=lastName]").val() != undefined ? '&lastName='+$("input[name=lastName]").val() : '';
-            additional += $("input[name=email]").val() != undefined ? '&email='+$("input[name=email]").val() : '';
-            additional += $("input[name=birthday]").val() != undefined ? '&birthday='+$("input[name=birthday]").val() : '';
+            additional += $("input[name=importHash]").val() !== undefined ? '&importHash='+$("input[name=importHash]").val() : '';
+            additional += $("input[name=userId]").val() !== undefined ? '&userId='+$("input[name=userId]").val() : '';
+            additional += $("input[name=firstName]").val() !== undefined ? '&firstName='+$("input[name=firstName]").val() : '';
+            additional += $("input[name=lastName]").val() !== undefined ? '&lastName='+$("input[name=lastName]").val() : '';
+            additional += $("input[name=email]").val() !== undefined ? '&email='+$("input[name=email]").val() : '';
+            additional += $("input[name=birthday]").val() !== undefined ? '&birthday='+$("input[name=birthday]").val() : '';
             additional.charAt(0) === "&" ? additional = additional.replace("&","?") : "";
 
             if(radiou18.checked){
@@ -41,7 +41,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     }
     
     // if email for pin registration is changed, reset pin-sent status
-    $('form.registration-form.student input[name="student-email"], form.registration-form.parent input[name="parent-email"]').on("change", ()=> {
+    $('form.registration-form.student input[name$="email"]:last').on("change", ()=> {
         $("input[name='pin-sent']").val("no");
     });
     
@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
     
     function sendPin(sendConfirm) {
-        let usermail = $("input[name='parent-email']").length ? $("input[name='parent-email']").val() : $("input[name='student-email']").val();
+        let usermail = $("input[name$='email']:last").val();
         let byParent = window.location.href.indexOf("parent") > 0;
         
         $.ajax({
