@@ -681,6 +681,38 @@ const userFilterSettings = function (defaultOrder) {
     ];
 };
 
+const getConsentStatusIcon = (consent, bool) => {
+    if(bool && consent){
+        if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+            return `<i class="fa fa-check consent-status"></i>`;
+        }else{
+            consent = false;
+        }
+    }
+    if(consent){
+        if(consent.requiresParentConsent){
+            if((consent.parentConsents || []).length == 0 
+                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
+                return `<i class="fa fa-times consent-status"></i>`;
+            }else{
+                if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                    return `<i class="fa fa-check consent-status"></i>`;
+                }else{
+                    return `<i class="fa fa-circle-thin consent-status"></i>`;
+                }
+            }
+        }else{
+            if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                return `<i class="fa fa-check consent-status"></i>`;
+            }else{
+                return `<i class="fa fa-circle-thin consent-status"></i>`;
+            }
+        }
+    }else{
+        return `<i class="fa fa-times consent-status"></i>`;
+    }
+};
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -740,22 +772,55 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
     api(req).get('/users', {
         qs: query
-    }).then(data => {
-        api(req).get('/classes').then(classes => {
+    }).then(userData => {
+        let users = userData.data;
+
+        const classesPromise = getSelectOptions(req, 'classes', {});
+        const consentsPromise = getSelectOptions(req, 'consents', {userId: {
+            $in: users.map((user) => {
+                return user._id;
+            })
+          }});
+        Promise.all([
+            classesPromise,
+            consentsPromise
+        ]).then(([classes, consents]) => {
+
+            users = users.map((user) => {
+                // add consentStatus to user
+                const consent = (consents||[]).find((consent) => {
+                    return consent.userId == user._id;
+                });
+
+                user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent, true)}</p>`;
+                // add classes to user
+                user.classesString = classes.filter((currentClass) => {
+                    return currentClass.teacherIds.includes(user._id);
+                }).map((currentClass) => {return currentClass.displayName;}).join(', ');
+                return user;
+            });
+
             const head = [
                 'Vorname',
                 'Nachname',
                 'E-Mail-Adresse',
                 'Klasse(n)',
+                'Einwilligung',
+                'Erstellt am',
                 ''
             ];
 
-            const body = data.data.map(user => {
+            const body = users.map(user => {
                 return [
                     user.firstName || '',
                     user.lastName || '',
                     user.email || '',
-                    getClasses(user, classes, true),
+                    user.classesString || '',
+                    {
+                        useHTML: true,
+                        content: user.consentStatus
+                    },
+                    moment(user.createdAt).format('DD.MM.YYYY'),
                     [{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
@@ -766,7 +831,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
             const pagination = {
                 currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
+                numPages: Math.ceil(userData.total / itemsPerPage),
                 baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
             };
 
@@ -802,31 +867,6 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 /*
     STUDENTS
 */
-
-const getConsentStatusIcon = (consent) => {
-    if(consent){
-        if(consent.requiresParentConsent){
-            if((consent.parentConsents || []).length == 0 
-                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
-                return `<i class="fa fa-times consent-status"></i>`;
-            }else{
-                if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
-                    return `<i class="fa fa-check consent-status"></i>`;
-                }else{
-                    return `<i class="fa fa-circle-thin consent-status"></i>`;
-                }
-            }
-        }else{
-            if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
-                return `<i class="fa fa-check consent-status"></i>`;
-            }else{
-                return `<i class="fa fa-circle-thin consent-status"></i>`;
-            }
-        }
-    }else{
-        return `<i class="fa fa-times consent-status"></i>`;
-    }
-};
 
 
 const getStudentCreateHandler = (service) => {
@@ -994,10 +1034,10 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
             const body = users.map(user => {
                 return [
-                    user.firstName,
-                    user.lastName,
-                    user.email,
-                    user.classesString,
+                    user.firstName || '',
+                    user.lastName || '',
+                    user.email || '',
+                    user.classesString || '',
                     {
                         useHTML: true,
                         content: user.consentStatus

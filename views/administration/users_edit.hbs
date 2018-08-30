@@ -54,10 +54,11 @@
                         </div>
                     </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.<br/><br/></p>
-
-                    <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
-                    <h5>Einwilligungen: {{{consentStatusIcon}}}</h5>
-                    <div class="row" id="consents-overview">
+                {{/unless}}
+                <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
+                <h5>Einwilligungen: {{{consentStatusIcon}}}</h5>
+                <div class="row" id="consents-overview">
+                    {{#unless isTeacher}}
                         <div class="col-md-6">
                             <b>Eltern</b><br/>
                             <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
@@ -82,8 +83,21 @@
                             <label><input name="student_thirdPartyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
                             <label><input name="student_termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
                         </div>
-                    </div>
-                {{/unless}}
+                    {{else}}
+                        <div class="col-md-6">
+                            <b>Schüler</b><br/>
+                            <input name="consentId" type="hidden" value="{{consent._id}}" disabled/>
+
+                            <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
+                            <label><input name="form" value="digital" type="radio" disabled {{#ifeq consent.userConsent.form 'digital'}}checked{{/ifeq}}/> Digital</label> 
+                            <br/>
+                            <label><input name="privacyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.privacyConsent}}checked{{/if}}/> Datenschutz</label><br/>
+                            <label><input name="researchConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.researchConsent}}checked{{/if}}/> Forschung</label><br/>
+                            <label><input name="thirdPartyConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.thirdPartyConsent}}checked{{/if}}/> Drittanbieter</label><br/>
+                            <label><input name="termsOfUseConsent" type="checkbox" value="true" disabled {{#if consent.userConsent.termsOfUseConsent}}checked{{/if}}/> Nutzung</label><br/>
+                        </div>
+                    {{/unless}}
+                </div>
                     <div class="modal-footer">
                         <div class="pull-left">
                             <button class="btn btn-secondary btn-pw">Passwort ändern</button>
