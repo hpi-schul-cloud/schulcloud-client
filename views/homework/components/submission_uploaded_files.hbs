@@ -5,9 +5,7 @@
         {{#each this.submission.fileIds}}
             <li class="list-group-item">
                 <i class="fa fa-file" aria-hidden="true"></i> 
-				<a href="/files/file?file={{this.key}}"
-				    target="_blank"
-                    data-method="download">
+				<a href="/files/file?file={{this.key}}" target="_blank" data-method="download">
                     {{#if this.clearName}}
 						{{this.clearName}}
 					{{else}}	
