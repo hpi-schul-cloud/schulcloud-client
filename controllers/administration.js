@@ -846,12 +846,16 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
 router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
+    const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
     const classesPromise = getSelectOptions(req, 'classes', {$populate: ['year'], $sort: 'displayName'});
 
     Promise.all([
         userPromise,
+        consentPromise,
         classesPromise
-    ]).then(([user, classes]) => {
+    ]).then(([user, consent, classes]) => {
+        consent = consent[0];
+
         classes = classes.map(c => {
             c.selected = c.teacherIds.includes(user._id);
             return c;
@@ -863,6 +867,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
                 user,
+                consentStatusIcon: getConsentStatusIcon(consent, true),
+                consent,
                 classes,
                 isTeacher: true
             }
@@ -1076,15 +1082,21 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
+    const classesPromise = getSelectOptions(req, 'classes', {$populate: ['year'], $sort: 'displayName'});
 
     Promise.all([
         userPromise,
-        consentPromise
-    ]).then(([user, consent]) => {
+        consentPromise,
+        classesPromise
+    ]).then(([user, consent, classes]) => {
         consent = consent[0];
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
         }
+        classes = classes.map(c => {
+            c.selected = c.teacherIds.includes(user._id);
+            return c;
+        })
         res.render('administration/users_edit',
             {
                 title: `Schüler bearbeiten`,
@@ -1093,7 +1105,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 closeLabel : 'Abbrechen',
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
-                consent
+                consent,
+                classes
             }
         );
     });
