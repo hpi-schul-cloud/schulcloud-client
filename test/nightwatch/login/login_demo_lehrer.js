@@ -72,7 +72,7 @@ module.exports = {
 
         //Content
         browser.url(base_url + 'content/');
-        browser.expect.element('#titlebar > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('Materialien').before(10000);
+        browser.expect.element('# > div.col-sm-9 > div:nth-child(1) > h4').text.to.contain('LernStore').before(10000);
 
         //Settings
         browser.url(base_url + 'account/');

@@ -106,7 +106,7 @@ module.exports = (req, res, next) => {
         introNumber: 16,
         introText: "Hier gelangst du zum Dateibereich, in dem du Dateien hochladen und verwalten kannst. Deine Dateien werden hierbei in folgende Kategorien unterteilt: deine persönlichen Dateien, Kursdateien und mit dir geteilte Dateien."
     }, {
-        name: 'Materialien',
+        name: 'LernStore',
         icon: 'search',
         link: '/content/',
         introNumber: 17,
