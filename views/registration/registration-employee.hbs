@@ -29,17 +29,29 @@
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>Vorname: *</label>
-            <input class="form-control linked" name="firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+              {{#if user.firstName}}
+                  <input class="form-control linked" name="firstname" type="text" value="{{user.firstName}}" disabled required/>
+              {{else}}
+                  <input class="form-control linked" name="firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+              {{/if}}
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>Nachname: *</label>
-            <input class="form-control linked" name="lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+              {{#if user.lastName}}
+                  <input class="form-control linked" name="lastName" type="text" value="{{user.lastName}}" disabled required/>
+              {{else}}
+                  <input class="form-control linked" name="lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+              {{/if}}
           </div>
         </div>
 
         <div class="form-group">
           <label>Ihre E-Mail-Adresse *</label>
-          <input class="form-control linked" type="email" name="email" required placeholder="eltern@schul-cloud.org" autocomplete />
+            {{#if user.email}}
+                <input class="form-control linked" type="email" name="email" value="{{user.email}}" required/>
+            {{else}}
+                <input class="form-control linked" type="email" name="email" required placeholder="lehrer@schul-cloud.org" autocomplete />
+            {{/if}}
         </div>
 
         <p>Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen. <br/>

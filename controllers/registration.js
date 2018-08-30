@@ -157,36 +157,31 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byteacher', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
     
-    res.render('registration/registration-teacher', {
-        title: 'Registrierung - Lehrer*',
-        classOrSchoolId: req.params.classOrSchoolId,
-        hideMenu: true,
-        sso: req.params.sso==="sso",
-        birthdate: formatBirthdate((req.query||{}).birthday),
-        account: req.params.accountId||"",
-        query: req.query
-    });
-});
-
-router.get(['/registration/:classOrSchoolId/byadmin', '/registration/:classOrSchoolId/byadmin/:sso/:accountId'], function (req, res, next) {
-    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
-        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
-    
-    res.render('registration/registration-admin', {
-        title: 'Registrierung - Administrator*',
-        classOrSchoolId: req.params.classOrSchoolId,
-        hideMenu: true,
-        sso: req.params.sso==="sso",
-        birthdate: formatBirthdate((req.query||{}).birthday),
-        account: req.params.accountId||"",
-        query: req.query
-    });
+    if (req.query.id) {
+        return api(req).get('/users/linkImport/'+req.query.id).then(user => {
+            res.render('registration/registration-employee', {
+                title: 'Registrierung - Lehrer*/Admins*',
+                classOrSchoolId: req.params.classOrSchoolId,
+                hideMenu: true,
+                account:req.params.accountId||"",
+                user: user
+            });
+        });
+    } else {
+        res.render('registration/registration-employee', {
+            title: 'Registrierung - Lehrer*/Admins*',
+            classOrSchoolId: req.params.classOrSchoolId,
+            hideMenu: true,
+            sso: req.params.sso === "sso",
+            birthdate: formatBirthdate((req.query || {}).birthday),
+            account: req.params.accountId || ""
+        });
+    }
 });
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
@@ -200,12 +195,11 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
                 title: 'Herzlich Willkommen bei der Registrierung',
                 classOrSchoolId: req.params.classOrSchoolId,
                 hideMenu: true,
-               // sso: req.params.sso==="sso",
                 account:req.params.accountId||"",
                 user: user
             });
         });
-    }else{
+    } else {
         res.render('registration/registration', {
             title: 'Herzlich Willkommen bei der Registrierung',
             classOrSchoolId: req.params.classOrSchoolId,

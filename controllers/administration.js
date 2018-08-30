@@ -236,24 +236,29 @@ const generateShortInviteLink = (req, target) => {
     });
 };
 
-const generateMailHash = (req, email) => {
-    return api(req).post("/hash", {
-        json: {
-            toHash: email,
-            save: true
-        }
-    }).then(hash => {
-        return hash;
-    }).catch(err => {
-        return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
-    });
+const generateMailHash = (email) => {
+    return function (req, res, next) {
+        let _email = email || req.body.email;
+        return api(req).post("/hash", {
+            json: {
+                toHash: _email,
+                save: true
+            }
+        }).then(hash => {
+            req.body.importHash = hash;
+            next();
+            return;
+        }).catch(err => {
+            return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
+        });
+    };
 };
 
 const sendMailHandler = (user, req, res, type) => {
     if (user && user.email && user.schoolId && user.roles) {
         let link = "";
         if (type === "teacher") {
-            link = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
+            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}/byemployee?id=${user.importHash}`;
         } else if (user.importHash) {
             link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${user.importHash}`;
         } else {
@@ -702,7 +707,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         });
     });
 });
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users', "teacher"));
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateMailHash(), getCreateHandler('users', "teacher"));
 router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
@@ -916,7 +921,7 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateMailHash(), getStudentCreateHandler());
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.patch('/students/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
