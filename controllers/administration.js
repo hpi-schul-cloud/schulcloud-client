@@ -709,7 +709,7 @@ const getConsentStatusIcon = (consent, bool) => {
         if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
             return `<i class="fa fa-check consent-status"></i>`;
         }else{
-            consent = false;
+            return `<i class="fa fa-times consent-status"></i>`;
         }
     }
     if(consent){
@@ -999,11 +999,14 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         let users = userData.data;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {userId: {
-            $in: users.map((user) => {
-                return user._id;
-            })
-          }});
+        const consentsPromise = getSelectOptions(req, 'consents', {
+            userId: {
+                $in: users.map((user) => {
+                    return user._id;
+                })
+            },
+            $limit: itemsPerPage
+        });
         Promise.all([
             classesPromise,
             consentsPromise
