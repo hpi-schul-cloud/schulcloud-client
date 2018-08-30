@@ -29,11 +29,11 @@
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>Vorname: *</label>
-            <input class="form-control linked" name="firstname" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+            <input class="form-control linked" name="firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>Nachname: *</label>
-            <input class="form-control linked" name="secondname" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+            <input class="form-control linked" name="lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
           </div>
         </div>
 
@@ -62,7 +62,7 @@
             <label>Passwort wiederholen: *</label>
             <input 
               class="form-control" 
-              id="password" 
+              id="password-repeat" 
               name="password-2" 
               type="password" 
               placeholder="Passwort wiederholen" 
@@ -79,7 +79,7 @@
       <section data-panel="section-3">
         <h4>Einwilligungserklärung</h4>
         <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die Vorteile der {{theme.title}} nutzen kannst.</p>
-        <p>Ich, <b data-from="firstname"></b> <b data-from="secondname"></b>, erkläre folgendes:</p>
+        <p>Ich, <b data-from="firstName"></b> <b data-from="lastName"></b>, erkläre folgendes:</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
       </section>
 
