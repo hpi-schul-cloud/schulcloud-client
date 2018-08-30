@@ -123,11 +123,12 @@ const formatBirthdate=(datestamp)=>{
 	
 	const d=datestamp.split('T')[0].split(/-/g);
 	return d[2]+'.'+d[1]+'.'+d[0];
-}
+};
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
-        return res.sendStatus(500);
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
     
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
@@ -139,9 +140,11 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
         query: req.query
     });
 });
+
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
-        return res.sendStatus(500);
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
     
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
@@ -154,9 +157,42 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
     });
 });
 
+router.get(['/registration/:classOrSchoolId/byteacher', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
+    
+    res.render('registration/registration-teacher', {
+        title: 'Registrierung - Lehrer*',
+        classOrSchoolId: req.params.classOrSchoolId,
+        hideMenu: true,
+        sso: req.params.sso==="sso",
+        birthdate: formatBirthdate((req.query||{}).birthday),
+        account: req.params.accountId||"",
+        query: req.query
+    });
+});
+
+router.get(['/registration/:classOrSchoolId/byadmin', '/registration/:classOrSchoolId/byadmin/:sso/:accountId'], function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
+    
+    res.render('registration/registration-admin', {
+        title: 'Registrierung - Administrator*',
+        classOrSchoolId: req.params.classOrSchoolId,
+        hideMenu: true,
+        sso: req.params.sso==="sso",
+        birthdate: formatBirthdate((req.query||{}).birthday),
+        account: req.params.accountId||"",
+        query: req.query
+    });
+});
+
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
-        return res.sendStatus(500);
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
     
     if (req.query.id) {
         return api(req).get('/users/linkImport/'+req.query.id).then(user => {
