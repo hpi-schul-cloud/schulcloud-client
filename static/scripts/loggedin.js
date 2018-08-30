@@ -237,7 +237,18 @@ window.addEventListener("resize", function () {
     $('.sidebar-list').css({"height": window.innerHeight});
 });
 
+function changeNavBarPositionToAbsolute() {
+    var navBar = document.querySelector('.nav-sidebar');
+    navBar.classList.add("position-absolute");
+}
+
+function changeNavBarPositionToFixed() {
+    var navBar = document.querySelector('.nav-sidebar');
+    navBar.classList.remove("position-absolute");
+}
+
 function startIntro() {
+    changeNavBarPositionToAbsolute();
     introJs()
     .setOptions({
         nextLabel: "Weiter",
@@ -245,7 +256,8 @@ function startIntro() {
         doneLabel: "Fertig",
         skipLabel: "Überspringen"
     })
-    .start();
+    .start()
+    .oncomplete(changeNavBarPositionToFixed);
 }
 
 window.addEventListener("load", () => {
