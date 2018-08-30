@@ -743,9 +743,45 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         });
     });
 });
+
+const getTeacherUpdateHandler = () => {
+    return async function (req, res, next) {
+    
+        let promises = [api(req).patch('/users/' + req.params.id, { json: req.body })]; // TODO: sanitize
+
+        // extractConsent
+        if(req.body.form){
+            let consent = {
+                _id: req.body.consentId,
+                userConsent: {
+                    form: req.body.form || "analog",
+                    privacyConsent: req.body.privacyConsent || false,
+                    researchConsent: req.body.researchConsent || false,
+                    thirdPartyConsent: req.body.thirdPartyConsent || false,
+                    termsOfUseConsent: req.body.termsOfUseConsent || false
+                }
+            };
+            if(consent._id){ // update exisiting consent
+                promises.push(api(req).patch('/consents/' + consent._id, { json: consent }));
+            } else { //create new consent entry
+                delete consent._id;
+                consent.userId = req.params.id;
+                promises.push(api(req).post('/consents/', { json: consent }));
+            }
+        }
+
+
+        Promise.all(promises).then(([user, consent]) => {
+            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateMailHash(), getCreateHandler('users', "teacher"));
 router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
-router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
+router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getTeacherUpdateHandler());
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
 

@@ -94,7 +94,6 @@
                         </div>
                     {{else}}
                         <div class="col-md-6">
-                            <b>Schüler</b><br/>
                             <input name="consentId" type="hidden" value="{{consent._id}}" disabled/>
 
                             <label><input name="form" value="analog" type="radio" disabled {{#ifeq consent.userConsent.form 'analog'}}checked{{/ifeq}}/> Analog</label>
