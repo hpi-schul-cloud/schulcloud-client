@@ -846,10 +846,16 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
 router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
+    const classesPromise = getSelectOptions(req, 'classes', {$populate: ['year'], $sort: 'displayName'});
 
     Promise.all([
-        userPromise
-    ]).then(([user]) => {
+        userPromise,
+        classesPromise
+    ]).then(([user, classes]) => {
+        classes = classes.map(c => {
+            c.selected = c.teacherIds.includes(user._id);
+            return c;
+        })
         res.render('administration/users_edit',
             {
                 title: `Lehrer bearbeiten`,
@@ -857,6 +863,7 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
                 user,
+                classes,
                 isTeacher: true
             }
         );

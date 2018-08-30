@@ -54,6 +54,15 @@
                         </div>
                     </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.<br/><br/></p>
+                {{else}}
+                    <div class="form-group">
+                        <Label>Klassen:</Label>
+                        <select class="form-control form-control-lg" type="text" name="classes" multiple="true">
+                            {{#each classes}}
+                                <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.displayName}} ({{this.year.name}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
                 {{/unless}}
                 <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
                 <h5>Einwilligungen: {{{consentStatusIcon}}}</h5>
