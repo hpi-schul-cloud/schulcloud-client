@@ -567,32 +567,36 @@ router.get('/:courseId/edit', editCourseHandler);
 
 router.get('/:courseId/copy', copyCourseHandler);
 
+// return shareToken
 router.get('/:id/share', function(req, res, next) {
-    return api(req).get('/courses/share/' + req.params.id).then(course => {
-        return res.json(course);
+    return api(req).get('/courses/share/' + req.params.id)
+        .then(course => {
+            return res.json(course);
     });
+});
+
+// return course Name for given shareToken
+router.get('/share/:id', function (req, res, next) {
+   return api(req).get('/courses/share', { qs: { shareToken: req.params.id }})
+        .then(name => {
+            return res.json({ msg: name, status: 'success' });
+        })
+       .catch(err => {
+            return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
+       });
 });
 
 router.post('/import', function(req, res, next) {
     let shareToken = req.body.shareToken;
-    // try to find topic for given shareToken
-    /**
-    api(req).get("/lessons/", { qs: { shareToken: shareToken, $populate: ['courseId'] } }).then(lessons => {
-        if ((lessons.data || []).length <= 0) {
-            req.session.notification = {
-                type: 'danger',
-                message: 'Es wurde kein Thema für diesen Code gefunden.'
-            };
+    let courseName = req.body.name;
 
-            res.redirect(req.header('Referer'));
-        }
-
-        api(req).post("/lessons/copy", { json: {lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
-            .then(_ => {
-                res.redirect(req.header('Referer'));
-            });
-
-    }).catch(err => res.status((err.statusCode || 500)).send(err)); **/
+    api(req).post('/courses/share', { json: { shareToken, courseName }})
+        .then(course => {
+            res.redirect('/courses/' + course._id);
+        })
+        .catch(err => {
+            res.status((err.statusCode || 500)).send(err);
+        });
 });
 
 module.exports = router;
