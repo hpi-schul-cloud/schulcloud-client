@@ -239,18 +239,22 @@ const generateShortInviteLink = (req, target) => {
 const generateMailHash = (email) => {
     return function (req, res, next) {
         let _email = email || req.body.email;
-        return api(req).post("/hash", {
-            json: {
-                toHash: _email,
-                save: true
-            }
-        }).then(hash => {
-            req.body.importHash = hash;
-            next();
-            return;
-        }).catch(err => {
-            return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
-        });
+        if (_email) {
+            return api(req).post("/hash", {
+                json: {
+                    toHash: _email,
+                    save: true
+                }
+            }).then(hash => {
+                req.body.importHash = hash;
+                next();
+                return;
+            }).catch(err => {
+                return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
+            });
+        }
+        next();
+        return;
     };
 };
 
@@ -882,37 +886,36 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 */
 
 
-const getStudentCreateHandler = (service) => {
+const getStudentCreateHandler = () => {
     return function (req, res, next) {
-        return generateMailHash(req, req.body.email).then(hash => {
-            req.body.sendRegistration ? req.body.importHash = hash : "";
+        if (req.body.birthday) {
             let birthday = req.body.birthday.split('.');
             req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
-            api(req).post('/users/', {
-                json: req.body
-            }).then(newuser => {
-                res.locals.createdUser = newuser;
-                if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
-                    sendMailHandler(newuser, req, res);
-                } else {
-                    req.session.notification = {
-                        'type': 'success',
-                        'message': 'Nutzer erfolgreich erstellt.'
-                    };
-                    res.redirect(req.header('Referer'));
-                }
-                /*
-                createEventsForData(data, service, req, res).then(_ => {
-                    next();
-                });
-                */
-            }).catch(err => {
+        }
+        api(req).post('/users/', {
+            json: req.body
+        }).then(newuser => {
+            res.locals.createdUser = newuser;
+            if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
+                sendMailHandler(newuser, req, res);
+            } else {
                 req.session.notification = {
-                    'type': 'danger',
-                    'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
+                    'type': 'success',
+                    'message': 'Nutzer erfolgreich erstellt.'
                 };
                 res.redirect(req.header('Referer'));
+            }
+            /*
+            createEventsForData(data, service, req, res).then(_ => {
+                next();
             });
+            */
+        }).catch(err => {
+            req.session.notification = {
+                'type': 'danger',
+                'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
+            };
+            res.redirect(req.header('Referer'));
         });
     };
 };
