@@ -563,7 +563,7 @@ const overview = (title = "") => {
                     homeworks = homeworks.slice(end - itemsPerPage, end);
                     //Render overview
                     res.render('homework/overview', {
-                        title: title + ' Aufgaben',
+                        title,
                         pagination,
                         homeworks,
                         courses,
@@ -584,9 +584,9 @@ const overview = (title = "") => {
     };
 };
 router.get('/', overview(""));
-router.get('/asked', overview("Gestellte"));
-router.get('/private', overview("Meine"));
-router.get('/archive', overview("Archivierte"));
+router.get('/asked', overview("Gestellte Aufgaben"));
+router.get('/private', overview("Meine ToDos"));
+router.get('/archive', overview("Archivierte Aufgaben"));
 
 router.get('/new', function(req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
