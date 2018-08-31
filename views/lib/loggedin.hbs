@@ -36,7 +36,7 @@
                     <li>
                         <a class="sc-branding" href="/">
                             <div class="cloud-logo"></div>
-                            <div class="sc-title"><span>{{themeTitle}}</span></div>
+                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
@@ -205,7 +205,7 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 <div>
-                                    <h4>{{title}}</h4>
+                                    <h4 id="page-title">{{title}}</h4>
                                 </div>
                                 <div>
                                     {{subtitle}}

@@ -1,10 +1,11 @@
 {{#extend "administration/administration"}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
+        <link rel="stylesheet" href="/styles/administration/users.css"/>
     {{/content}}
     {{#content "page"}}
         <div class="route-administration">
-            <section class="section-school section-default">
+            <section class="section-students section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
                                       add-label='Filter hinzufügen'
@@ -19,28 +20,31 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <center>
+                                <i class="fa fa-times consent-status"></i>
+                                Keine Einverständnis &emsp;
+                                <i class="fa fa-circle-thin consent-status"></i>
+                                Eltern haben zugestimmt (oder Schüler ist über 18) &emsp;
+                                <i class="fa fa-check consent-status"></i>
+                                Alle Zustimmungen vorhanden
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <button type="submit" class="btn btn-primary btn-add">
+                            <button type="submit" class="btn btn-primary btn-add-modal">
                                 Schüler hinzufügen
                             </button>
                             <button class="btn btn-secondary btn-invitation-link">
                                 Einladungslink generieren
                             </button>
-                            <button class="btn btn-secondary btn-import">
-                                Schüler importieren
-                            </button>
                         </div>
                     </div>
                 </div>
-
-                {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-students"}}
-                    {{/content}}
-                {{/embed}}
 
                 {{#embed "lib/components/modal-form" action="/administration/students/" method="post" class="add-modal"}}
                     {{#content "fields"}}
@@ -53,25 +57,6 @@
                         {{> "administration/forms/form-invitation"}}
                     {{/content}}
                 {{/embed}}
-
-                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-import" roles="student"}}
-                    {{/content}}
-                {{/embed}}
-
-                {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-delete-user"}}
-                    {{/content}}
-                {{/embed}}
-
-                {{#embed "lib/components/modal-form" method="patch" class="pw-modal"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-account-password"}}
-                    {{/content}}
-                {{/embed}}
-
             </section>
         </div>
     {{/content}}
