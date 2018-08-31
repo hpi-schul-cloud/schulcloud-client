@@ -586,7 +586,7 @@ const overview = (title = "") => {
 router.get('/', overview(""));
 router.get('/asked', overview("Gestellte Aufgaben"));
 router.get('/private', overview("Meine ToDos"));
-router.get('/archive', overview("Archivierte Aufgaben"));
+router.get('/archive', overview("Archivierte Aufgaben und ToDos"));
 
 router.get('/new', function(req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
