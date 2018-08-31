@@ -42,7 +42,7 @@
                         <input class="form-control linked" id="birthday" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker user.birthday}}"/>
                     </div>
 
-                    <div class="row">
+                    <div class="row mb-2">
                         <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
                             <Label>Geschlecht: *</Label>
                             <select class="form-control form-control-lg" type="text" name="gender" required>
@@ -54,16 +54,17 @@
                         </div>
                     </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.</p>
+                {{else}}
+                    <div class="form-group mb-2">
+                        <Label>Klassen:</Label>
+                        <select class="form-control form-control-lg" type="text" name="classes" multiple="true" placeholder="Klassen des Nutzers">
+                            {{#each classes}}
+                                <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.displayName}} ({{this.year.name}})</option>
+                            {{/each}}
+                        </select>
+                    </div>
                 {{/unless}}
 
-                <div class="form-group mb-2">
-                    <Label>Klassen:</Label>
-                    <select class="form-control form-control-lg" type="text" name="classes" multiple="true" placeholder="Klassen des Nutzers">
-                        {{#each classes}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.displayName}} ({{this.year.name}})</option>
-                        {{/each}}
-                    </select>
-                </div>
                 <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
                 <h5>Einwilligungen: {{{consentStatusIcon}}}</h5>
                 <div class="row" id="consents-overview">

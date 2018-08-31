@@ -995,6 +995,7 @@ const getStudentUpdateHandler = () => {
         }else if(studentConsent.userConsent.form){
             studentConsent.parentConsents = [newParentConsent];
         }
+    
         // remove all consent infos from user post
         Object.keys(req.body).forEach(function(key) {
             if(key.startsWith("parent_") || key.startsWith("student_")){
@@ -1011,6 +1012,7 @@ const getStudentUpdateHandler = () => {
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
+
         Promise.all(promises).then(([user, studentConsent]) => {
             res.redirect(cutEditOffUrl(req.header('Referer'))); 
         }).catch(err => {
@@ -1130,21 +1132,15 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
-    const classesPromise = getSelectOptions(req, 'classes', {$populate: ['year'], $sort: 'displayName'});
 
     Promise.all([
         userPromise,
-        consentPromise,
-        classesPromise
-    ]).then(([user, consent, classes]) => {
+        consentPromise
+    ]).then(([user, consent]) => {
         consent = consent[0];
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
         }
-        classes = classes.map(c => {
-            c.selected = c.teacherIds.includes(user._id);
-            return c;
-        })
         res.render('administration/users_edit',
             {
                 title: `Schüler bearbeiten`,
@@ -1153,8 +1149,7 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 closeLabel : 'Abbrechen',
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
-                consent,
-                classes
+                consent
             }
         );
     });
