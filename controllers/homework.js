@@ -583,7 +583,7 @@ const overview = (title = "") => {
         });
     };
 };
-router.get('/', overview(""));
+router.get('/', overview("Aufgaben"));
 router.get('/asked', overview("Gestellte Aufgaben"));
 router.get('/private', overview("Meine ToDos"));
 router.get('/archive', overview("Archivierte Aufgaben und ToDos"));
