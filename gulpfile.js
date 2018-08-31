@@ -170,21 +170,25 @@ gulp.task('vendor-assets', () => {
         .pipe(gulp.dest(`./build/${themeName()}/vendor`))
 })
 
+// let globPatterns = nonBaseScripts.map(script => script.replace(/^!?.\/static\//,'')).concat(['scripts/all.js']);
+// console.log('patterns', globPatterns);
+let globPatterns = [
+    //'**/*.{html,js,css,png,woff}',
+    'scripts/all.js',
+    'scripts/**/*.js',
+    'fonts/**/*.woff',
+    'fonts/**/*.css',
+    'styles/**/*.css',
+    'images/*.{svg,png,jpg,gif}',
+    'images/**/*.{svg,png,jpg,gif}',
+    'vendor/introjs/intro*.{js,css}',
+    'images/manifest.json',
+  ];
+
 gulp.task('generate-service-worker', () => {
     return workbox.injectManifest({
       globDirectory: `./build/${themeName()}`,
-      globPatterns: [
-        //'**/*.{html,js,css,png,woff}',
-        'scripts/**/*.js',
-        'fonts/**/*.woff',
-        'fonts/**/*.css',
-        'styles/**/*.css',
-        'images/*.{svg,png,jpg,gif}',
-        'images/**/*.{svg,png,jpg,gif}',
-        'vendor/introjs/intro*.{js,css}',
-        'images/manifest.json',
-        
-      ],
+      globPatterns: globPatterns,
       "globIgnores": [
         "**/node_modules/**/*",
         "**/sw.js"
