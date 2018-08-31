@@ -36,7 +36,7 @@ module.exports = {
             .useXpath().moveToElement('//*[@id="homework-form"]/div[7]/button[2]', 10, 10);
         browser.useXpath().click('//*[@id="homework-form"]/div[7]/button[2]');
         browser.useCss().waitForElementPresent("#titlebar h4", 10000);
-        browser.assert.containsText("#titlebar h4", "Gestellte Aufgaben");
+        browser.assert.containsText("#titlebar h4", "Aufgaben");
         browser.assert.title(`Aufgaben - ${short_title}`);
     },
     'Delete Homework': function (browser) {
