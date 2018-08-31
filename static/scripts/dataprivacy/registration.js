@@ -13,12 +13,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
             let classOrSchoolId = $("input[name=classOrSchoolId]").val();
             let additional = "";
             additional += $("input[name=sso]").val() === "true" ? 'sso/'+$("input[name=account]").val() : '';
-            additional += $("input[name=importHash]").val() !== undefined ? '&importHash='+$("input[name=importHash]").val() : '';
-            additional += $("input[name=userId]").val() !== undefined ? '&userId='+$("input[name=userId]").val() : '';
-            additional += $("input[name=firstName]").val() !== undefined ? '&firstName='+$("input[name=firstName]").val() : '';
-            additional += $("input[name=lastName]").val() !== undefined ? '&lastName='+$("input[name=lastName]").val() : '';
-            additional += $("input[name=email]").val() !== undefined ? '&email='+$("input[name=email]").val() : '';
-            additional += $("input[name=birthday]").val() !== undefined ? '&birthday='+$("input[name=birthday]").val() : '';
+            additional += $("input[name=importHash]").val() !== undefined ? '&importHash='+encodeURIComponent($("input[name=importHash]").val()) : '';
+            additional += $("input[name=userId]").val() !== undefined ? '&userId='+encodeURIComponent($("input[name=userId]").val()) : '';
+            additional += $("input[name=firstName]").val() !== undefined ? '&firstName='+encodeURIComponent($("input[name=firstName]").val()) : '';
+            additional += $("input[name=lastName]").val() !== undefined ? '&lastName='+encodeURIComponent($("input[name=lastName]").val()) : '';
+            additional += $("input[name=email]").val() !== undefined ? '&email='+encodeURIComponent($("input[name=email]").val()) : '';
+            additional += $("input[name=birthday]").val() !== undefined ? '&birthday='+encodeURIComponent($("input[name=birthday]").val()) : '';
             additional.charAt(0) === "&" ? additional = additional.replace("&","?") : "";
 
             if(radiou18.checked){

@@ -328,18 +328,37 @@ ${res.locals.theme.short_title}-Team`
     });*/
 };
 
-const getCreateHandler = (service, type) => {
+
+const getUserCreateHandler = (role) => {
     return function (req, res, next) {
-        api(req).post('/' + service + '/', {
+        if (req.body.birthday) {
+            let birthday = req.body.birthday.split('.');
+            req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+        }
+        api(req).post('/users/', {
             json: req.body
-        }).then(data => {
-            res.locals.createdUser = data;
-            (service === 'users') ? sendMailHandler(data, req, res, type) : "";
+        }).then(newuser => {
+            res.locals.createdUser = newuser;
+            if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
+                sendMailHandler(newuser, req, res, role);
+            } else {
+                req.session.notification = {
+                    'type': 'success',
+                    'message': 'Nutzer erfolgreich erstellt.'
+                };
+                res.redirect(req.header('Referer'));
+            }
+            /*
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
+            */
         }).catch(err => {
-            next(err);
+            req.session.notification = {
+                'type': 'danger',
+                'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
+            };
+            res.redirect(req.header('Referer'));
         });
     };
 };
@@ -779,7 +798,7 @@ const getTeacherUpdateHandler = () => {
     };
 };
 
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateMailHash(), getCreateHandler('users', "teacher"));
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateMailHash(), getUserCreateHandler("teacher"));
 router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getTeacherUpdateHandler());
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
@@ -921,41 +940,6 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
     STUDENTS
 */
 
-
-const getStudentCreateHandler = () => {
-    return function (req, res, next) {
-        if (req.body.birthday) {
-            let birthday = req.body.birthday.split('.');
-            req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
-        }
-        api(req).post('/users/', {
-            json: req.body
-        }).then(newuser => {
-            res.locals.createdUser = newuser;
-            if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
-                sendMailHandler(newuser, req, res);
-            } else {
-                req.session.notification = {
-                    'type': 'success',
-                    'message': 'Nutzer erfolgreich erstellt.'
-                };
-                res.redirect(req.header('Referer'));
-            }
-            /*
-            createEventsForData(data, service, req, res).then(_ => {
-                next();
-            });
-            */
-        }).catch(err => {
-            req.session.notification = {
-                'type': 'danger',
-                'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
-            };
-            res.redirect(req.header('Referer'));
-        });
-    };
-};
-
 const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
@@ -1013,7 +997,7 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateMailHash(), getStudentCreateHandler());
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateMailHash(), getUserCreateHandler("student"));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.patch('/students/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
@@ -1622,10 +1606,24 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
     COURSES
 */
 
+const getCourseCreateHandler = () => {
+    return function (req, res, next) {
+        api(req).post('/courses/', {
+            json: req.body
+        }).then(course => {
+            createEventsForData(course, "courses", req, res).then(_ => {
+                next();
+            });
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', getUpdateHandler('schools'));
 router.post('/schools/:id/bucket', createBucket);
-router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
+router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
 router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
