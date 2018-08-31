@@ -56,36 +56,37 @@
             {{/if}}
         </div>
 
-        <p>Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen. <br/>
-            Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\;:,.#+*~</code></p>
-        <div class="row">
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Passwort: *</label>
-            <input 
-              class="form-control linked" 
-              id="password" 
-              name="password-1" 
-              type="password" 
-              placeholder="Passwort" 
-              minlength="8" 
-              pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$" 
-              title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." 
-              required/>
+          <p style="margin-top:1rem;">Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
+              <br/>
+              Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\;:,.#+*~</code></p>
+          <div class="row">
+              <div class="form-group col-md-6 col-sm-12" style="margin-top:0;">
+                  <label>Passwort: *</label>
+                  <input
+                          class="form-control linked"
+                          id="password"
+                          name="password-1"
+                          type="password"
+                          placeholder="Passwort"
+                          minlength="8"
+                          pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                          title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen."
+                          required/>
+              </div>
+              <div class="form-group col-md-6 col-sm-12" style="margin-top:0;">
+                  <label>Passwort wiederholen: *</label>
+                  <input
+                          class="form-control"
+                          id="password-repeat"
+                          name="password-2"
+                          type="password"
+                          placeholder="Passwort wiederholen"
+                          minlength="8"
+                          pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                          title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen."
+                          required/>
+              </div>
           </div>
-          <div class="form-group col-md-6 col-sm-12">
-            <label>Passwort wiederholen: *</label>
-            <input 
-              class="form-control" 
-              id="password-repeat" 
-              name="password-2" 
-              type="password" 
-              placeholder="Passwort wiederholen" 
-              minlength="8" 
-              pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$" 
-              title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen." 
-              required/>
-          </div>
-        </div>
       </section>
 
 

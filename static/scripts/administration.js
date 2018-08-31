@@ -63,7 +63,9 @@ $(document).ready(function () {
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
-        let target = 'registration/' + $invitationModal.find("input[name='schoolId']").attr("value");
+        let schoolId = $invitationModal.find("input[name='schoolId']").val();
+        let target = `registration/${schoolId}/`;
+        if ($(document).find("button.btn-invitation-link").hasClass("teacher")) target += "byemployee";
         $.ajax({
             type: "POST",
             url: "/link/",
