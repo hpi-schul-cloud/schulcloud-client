@@ -768,7 +768,7 @@ const getTeacherUpdateHandler = () => {
     
         let promises = [api(req).patch('/users/' + req.params.id, { json: req.body })]; // TODO: sanitize
 
-        // extractConsent
+        // extract consent
         if(req.body.form){
             let consent = {
                 _id: req.body.consentId,
@@ -789,7 +789,27 @@ const getTeacherUpdateHandler = () => {
             }
         }
 
+        // extract class information
+        if(req.body.classes && !Array.isArray(req.body.classes)){
+            req.body.classes = [req.body.classes];
+        }
+        const usersClasses = (await api(req).get('/classes', {
+            qs: {
+                teacherIds: req.params.id
+            }
+        })).data.map(c => {
+            return c._id;
+        });
+        const addedClasses = req.body.classes.filter(function(i) {return !usersClasses.includes(i)});
+        const removedClasses = usersClasses.filter(function(i) {return !req.body.classes.includes(i)});
+        addedClasses.forEach((addClass) => {
+            promises.push(api(req).patch('/classes/' + addClass, { json: { $push: { teacherIds: req.params.id }}}));
+        });
+        removedClasses.forEach((removeClass) => {
+            promises.push(api(req).patch('/classes/' + removeClass, { json: { $pull: { teacherIds: req.params.id }}}));
+        });
 
+        // do all db requests
         Promise.all(promises).then(([user, consent]) => {
             res.redirect(cutEditOffUrl(req.header('Referer'))); 
         }).catch(err => {
@@ -835,11 +855,13 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         let users = userData.data;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {userId: {
-            $in: users.map((user) => {
-                return user._id;
-            })
-          }});
+        const consentsPromise = getSelectOptions(req, 'consents', {
+            userId: {
+                $in: users.map((user) => {
+                    return user._id;
+                })
+            }
+        });
         Promise.all([
             classesPromise,
             consentsPromise
