@@ -17,6 +17,8 @@
         <p>Bitte registriere dich zunächst in der {{theme.title}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.</p>
 
         <p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
+        
+        <input class="form-control linked" name="importHash" type="hidden" value="{{user.importHash}}"/>
       </section>
 
 
@@ -30,7 +32,7 @@
           <div class="form-group col-md-6 col-sm-12">
             <label>Vorname: *</label>
               {{#if user.firstName}}
-                  <input class="form-control linked" name="firstname" type="text" value="{{user.firstName}}" disabled required/>
+                  <input class="form-control linked" name="firstname" type="text" value="{{user.firstName}}" readonly required/>
               {{else}}
                   <input class="form-control linked" name="firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
               {{/if}}
@@ -38,7 +40,7 @@
           <div class="form-group col-md-6 col-sm-12">
             <label>Nachname: *</label>
               {{#if user.lastName}}
-                  <input class="form-control linked" name="lastName" type="text" value="{{user.lastName}}" disabled required/>
+                  <input class="form-control linked" name="lastName" type="text" value="{{user.lastName}}" readonly required/>
               {{else}}
                   <input class="form-control linked" name="lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
               {{/if}}
