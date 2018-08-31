@@ -296,16 +296,16 @@ router.delete('/file', function (req, res, next) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download = false, path, share} = req.query;
+    const {file, download, path, share} = req.query;
     const data = {
         path: path || file,
         fileType: mime.lookup(file || pathUtils.basename(path)),
-        action: 'getObject'
+        action: 'getObject',
+		download:download||false
     };
     let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
         return requestSignedUrl(req, data).then(signedUrl => {
-			console.log(signedUrl.url);
 			res.redirect(307,signedUrl.url);
            /* return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
                 if (download && download !== 'undefined') {
