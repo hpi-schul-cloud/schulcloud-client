@@ -19,7 +19,6 @@ router.post('/', function (req, res, next) {
             tid: process.env.GOOGLE_ANALYTICS_TRACKING_ID , // Tracking ID
             cid: crypto.createHash('sha256').update(req.sessionID).digest('base64'), // User ID
             t: 'pageview', // hit type
-            ds: 'web', // datasource
             v: 1, // version
             uip: helper.anonymizeIp(req.ip), // IP override
             geoid: helper.getGeoId(req.ip), // Geographical override
