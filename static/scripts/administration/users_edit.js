@@ -59,4 +59,44 @@ $(document).ready(function () {
         });
         $deleteModal.appendTo('body').modal('show');
     });
+    
+    $('.btn-invitation-link-with-hash').on('click', function (e) {
+        e.preventDefault();
+        let $invitationModal = $('.invitation-modal'),
+            role = "student",
+            reglink = "",
+            schoolId = $invitationModal.find("input[name='schoolId']").val(),
+            email = $('input[name="email"]').val();
+        if ($(this).hasClass("teacher")) role = "teacher";
+        console.log(email);
+        // get registration link
+        $.ajax({
+            type: "POST",
+            url: "/registrationlink/",
+            async: false,
+            data: {
+                toHash: email,
+                save: true,
+                patchUser: true,
+                role: role,
+                schoolId: schoolId
+            },
+            success: function(data) {
+                console.log("user_edit.js registrationlink data");
+                console.log(data);
+                populateModalForm($invitationModal, {
+                    title: 'Einladungslink generiert!',
+                    closeLabel: 'Abbrechen',
+                    submitLabel: 'Speichern',
+                    fields: {invitation: data}
+                });
+                $invitationModal.find('.btn-submit').remove();
+                $invitationModal.find("input[name='invitation']").click(function () {
+                    $(this).select();
+                });
+    
+                $invitationModal.appendTo('body').modal('show');
+            }
+        });
+    });
 });

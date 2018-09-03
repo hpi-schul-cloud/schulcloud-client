@@ -110,6 +110,9 @@
                     <div class="modal-footer">
                         <div class="pull-left">
                             <button class="btn btn-secondary btn-pw">Passwort ändern</button>
+                            <button class="btn btn-secondary btn-invitation-link-with-hash {{#if isTeacher}}teacher{{else}}student{{/if}}">
+                                Persönlichen Einladungslink generieren
+                            </button>
                             <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
                         </div>
 
@@ -136,6 +139,12 @@
                     {{#content "fields"}}
                         {{> "administration/forms/form-delete-user"}}	
                     {{/content}}	
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-invitation-teacher"}}
+                    {{/content}}
                 {{/embed}}
 
             </div>

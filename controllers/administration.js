@@ -225,78 +225,71 @@ const deleteEventsForData = (service) => {
     };
 };
 
-const generateShortInviteLink = (req, target) => {
-    return api(req).post("/link/", {
-        json: {target: target}
-    }).then(newlink => {
-        newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
-        return Promise.resolve(newlink);
-    }).catch(err => {
-        return Promise.reject(new Error("Fehler beim Generieren des Einladungslinks."));
-    });
-};
-
-const generateMailHash = (email) => {
+/**
+ * Generates short registration link, optionally with user hash. email and sendMail will be gathered from req.body of not set.
+ * @param options {
+ *          *role: user role = string "teacher"/"student" / required from client controller
+ *          *save: hash will be generated with URI-safe characters / required from client controller
+ *          *patchUser: hash will be patched into the user (DB) / required from client controller
+ *          host: current webaddress from client / will be gathered from req.body of not set
+ *          toHash: user account mail for hash generation = string / will be gathered from req.body of not set
+ *          schoolId: users schoolId = string / will be gathered from req.body of not set
+ *      }
+ */
+const generateRegistrationLink = (options) => {
     return function (req, res, next) {
-        let _email = email || req.body.email;
-        if (_email) {
-            return api(req).post("/hash", {
-                json: {
-                    toHash: _email,
-                    save: true
-                }
-            }).then(hash => {
-                req.body.importHash = hash;
-                next();
-                return;
-            }).catch(err => {
-                return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
-            });
+        if (!options.toHash) {
+            options.toHash = req.body.email || req.body.toHash;
         }
-        next();
-        return;
+        if (!options.schoolId) {
+            options.schoolId = req.body.schoolId;
+        }
+        if (!options.host) {
+            options.host = req.headers.origin;
+        }
+        return api(req).post("/registrationlink/", {
+            json: options
+        }).then(linkData => {
+            res.locals.linkData = linkData;
+            if(options.patchUser) req.body.importHash = linkData.hash;
+            next();
+        }).catch(err => {
+            req.session.notification = {
+                'type': 'danger',
+                'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+            };
+            res.redirect(req.header('Referer'));
+        });
     };
 };
 
 const sendMailHandler = (user, req, res, type) => {
-    if (user && user.email && user.schoolId && user.roles) {
-        let link = "";
-        if (type === "teacher") {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}/byemployee?id=${user.importHash}`;
-        } else if (user.importHash) {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${user.importHash}`;
-        } else {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`;
-        }
-        return generateShortInviteLink(req, link).then(shortLink => {
-            return api(req).post('/mails/', {
-                json: {
-                    email: user.email,
-                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
-                    headers: {},
-                    content: {
-                        "text": `Einladung in die ${res.locals.theme.title}
+    if (user && user.email && user.schoolId && (res.locals.linkData||{}).shortLink) {
+        return api(req).post('/mails/', {
+            json: {
+                email: user.email,
+                subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                headers: {},
+                content: {
+                    "text": `Einladung in die ${res.locals.theme.title}
 Hallo ${user.firstName} ${user.lastName}!
-\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${shortLink.newUrl}
+\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${res.locals.linkData.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
-                    }
                 }
-            }).then(_ => {
-                req.session.notification = {
-                    type: 'success',
-                    message: 'Nutzer erfolgreich erstellt und informiert.'
-                };
-                return res.redirect(req.header('Referer'));
-            }).catch(err => {
-                return Promise.reject(new Error("Fehler beim Versenden der E-Mail."));
-            });
-        }).catch(err => {
+            }
+        }).then(_ => {
             req.session.notification = {
-                type: 'danger',
-                message: `${err.message} Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.`
+                type: 'success',
+                message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
             };
             return res.redirect(req.header('Referer'));
+        }).catch(err => {
+            req.session.notification = {
+                'type': 'danger',
+                'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+            };
+            res.redirect(req.header('Referer'));
         });
     } else {
         req.session.notification = {
@@ -818,7 +811,7 @@ const getTeacherUpdateHandler = () => {
     };
 };
 
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateMailHash(), getUserCreateHandler("teacher"));
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({role:"teacher",patchUser:true,save:true}), getUserCreateHandler("teacher"));
 router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getTeacherUpdateHandler());
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
@@ -1021,7 +1014,7 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateMailHash(), getUserCreateHandler("student"));
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateRegistrationLink({role:"student",patchUser:true,save:true}), getUserCreateHandler("student"));
 router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.patch('/students/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());

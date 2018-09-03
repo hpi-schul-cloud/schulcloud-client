@@ -65,10 +65,10 @@ $(document).ready(function () {
         e.preventDefault();
         let schoolId = $invitationModal.find("input[name='schoolId']").val();
         let target = `registration/${schoolId}/`;
-        if ($(document).find("button.btn-invitation-link").hasClass("teacher")) target += "byemployee";
+        if ($(this).hasClass("teacher")) target += "byemployee";
         $.ajax({
             type: "POST",
-            url: "/link/",
+            url: "/registrationlink/",
             data: {
                 target: target
             },
