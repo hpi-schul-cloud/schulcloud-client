@@ -16,11 +16,18 @@ function calculatePaintingTimes(result) {
  */
 function measureCRP(result) {
   if ('performance' in window) {
-    var t = window.performance.timing;
+    let t = window.performance.timing;
     result['dom-interactive-time'] = t.domInteractive - t.navigationStart;
     result['dom-content-loaded'] = t.domContentLoadedEventEnd - t.navigationStart;
     result['page-loaded'] = t.loadEventEnd - t.navigationStart;
     return result;
+  }
+}
+
+function readConnectionType(result){
+  var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if(connection){
+    result['connection'] = connection.effectiveType;
   }
 }
 
@@ -46,7 +53,8 @@ function calculateMetrics() {
     return result;
   }).then(result => {
     measureCRP(result);
-    calculatePaintingTimes(result);
+    calculatePaintingTimes(result);    
+    readConnectionType(result);
     sendResults(result);
   });
 }
