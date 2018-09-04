@@ -174,15 +174,14 @@ gulp.task('vendor-assets', () => {
 // console.log('patterns', globPatterns);
 let globPatterns = [
     //'**/*.{html,js,css,png,woff}',
+    'fonts/**/*.{woff,css}',
+    'images/logo/*.svg',
+    'images/footer-logo.png',
     'scripts/all.js',
-    'scripts/**/*.js',
-    'fonts/**/*.woff',
-    'fonts/**/*.css',
-    'styles/**/*.css',
-    'images/*.{svg,png,jpg,gif}',
-    'images/**/*.{svg,png,jpg,gif}',
-    'vendor/introjs/intro*.{js,css}',
-    'images/manifest.json',
+    'scripts/loggedin.js',
+    'scripts/sw/metrix.js',
+    'styles/lib/*.css',
+    'vendor/introjs/intro*.{js,css}'
   ];
 
 gulp.task('generate-service-worker', () => {
@@ -195,17 +194,17 @@ gulp.task('generate-service-worker', () => {
       ],
       swSrc: './static/sw.js',
       swDest: `./build/${themeName()}/sw.js`,
-      templatedUrls: {
-        '/calendar/': [
-          '../../views/calendar/calendar.hbs',
-         ],
-        '/dashboard/': [
-          '../../views/dashboard/dashboard.hbs',
-        ],
-        '/news/': [
-            '../../views/news/news.hbs'
-        ]
-      },
+    //   templatedUrls: {
+    //     '/calendar/': [
+    //       '../../views/calendar/calendar.hbs',
+    //      ],
+    //     '/dashboard/': [
+    //       '../../views/dashboard/dashboard.hbs',
+    //     ],
+    //     '/news/': [
+    //         '../../views/news/news.hbs'
+    //     ]
+    //   },
     })
     .then(({count, size, warnings}) => {
         // Optionally, log any warnings and details.

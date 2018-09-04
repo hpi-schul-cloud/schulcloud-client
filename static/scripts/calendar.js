@@ -59,19 +59,6 @@ $(document).ready(function () {
                 function (events) {
                     callback(events);
                 });
-            // $.getJSON('/calendar/events/',
-            // const updatesChannel = new BroadcastChannel('event-updates');
-            // updatesChannel.addEventListener('message', async (event) => {
-            //     const {cacheName, updatedUrl} = event.data.payload;
-            //     console.log('cache updated', cacheName, updatedUrl); 
-            //     const cache = await caches.open(cacheName);
-            //     const updatedResponse = await cache.match(updatedUrl);
-            //     const updatedText = await updatedResponse.text();
-            //     callback(updatedText);
-            // });
-            //     function (events) {
-            //         callback(events);
-            //     });
         },
         eventRender: function (event, element) {
             if (event.cancelled) {
