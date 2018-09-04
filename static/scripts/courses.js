@@ -112,7 +112,7 @@ $(document).ready(function () {
 
                 $shareModal.appendTo('body').modal('show');
 
-                $("label[for='shareToken']").text('Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit anderen zu teilen. Diese Funktion befindet sich auf der Übersichtsseite für Kurse.');
+                $("label[for='shareToken']").text('Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.');
             }
         });
     });

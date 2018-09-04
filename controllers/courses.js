@@ -592,7 +592,7 @@ router.post('/import', function(req, res, next) {
 
     api(req).post('/courses/share', { json: { shareToken, courseName }})
         .then(course => {
-            res.redirect('/courses/' + course._id);
+            res.redirect(`/courses/${course._id}/edit/`);
         })
         .catch(err => {
             res.status((err.statusCode || 500)).send(err);
