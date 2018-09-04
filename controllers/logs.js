@@ -34,6 +34,7 @@ router.post('/', function (req, res, next) {
             cm5: context['dom-content-loaded'], // content load time ms
     
             cd1: context['connection'], // connection type http://wicg.github.io/netinfo/ 
+            cd2: data.attributes.url.includes('localhost') ? 'local' : 'default'
         };
         api(req).post('/statistics', { json: hit }).then(result => {
             res.send('success');
