@@ -51,10 +51,10 @@ module.exports = {
         browser.expect.element('#titlebar h4#page-title').text.to.contain('Gestellte Aufgaben').before(10000);
 
         browser.url(base_url + 'homework/private/');
-        browser.expect.element('#titlebar h4#page-title').text.to.contain('Meine Aufgaben').before(10000);
+        browser.expect.element('#titlebar h4#page-title').text.to.contain('Meine ToDos').before(10000);
 
         browser.url(base_url + 'homework/archive/');
-        browser.expect.element('#titlebar h4#page-title').text.to.contain('Archivierte Aufgaben').before(10000);
+        browser.expect.element('#titlebar h4#page-title').text.to.contain('Archivierte Aufgaben und ToDos').before(10000);
 
         //Files
         browser.url(base_url + 'files/');
@@ -71,7 +71,7 @@ module.exports = {
 
         //Content
         browser.url(base_url + 'content/');
-        browser.expect.element('#titlebar h4#page-title').text.to.contain('Materialien').before(10000);
+        browser.expect.element('#titlebar h4#page-title').text.to.contain('LernStore').before(10000);
 
         //Settings
         browser.url(base_url + 'account/');
