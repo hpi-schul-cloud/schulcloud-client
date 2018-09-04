@@ -63,21 +63,31 @@ $(document).ready(function () {
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
-        let schoolId = $invitationModal.find("input[name='schoolId']").val();
-        let target = `registration/${schoolId}/`;
-        if ($(this).hasClass("teacher")) target += "byemployee";
+        let schoolId = $invitationModal.find("input[name='schoolId']").val(),
+            role = "student";
+        if ($(this).hasClass("teacher")) role = "teacher";
+        console.log("general invite link");
+        console.log({
+            role: role,
+            save: true,
+            schoolId: schoolId,
+            host: window.location.origin
+        });
         $.ajax({
             type: "POST",
-            url: "/registrationlink/",
+            url: window.location.origin+"/administration/registrationlink",
             data: {
-                target: target
+                role: role,
+                save: true,
+                schoolId: schoolId,
+                host: window.location.origin
             },
-            success: function(data) {
+            success: function(linkData) {
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
                     closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
-                    fields: {invitation: data.newUrl}
+                    fields: {invitation: linkData.shortLink}
                 });
                 $invitationModal.find('.btn-submit').remove();
                 $invitationModal.find("input[name='invitation']").click(function () {

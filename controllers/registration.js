@@ -169,8 +169,7 @@ router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOr
                 classOrSchoolId: req.params.classOrSchoolId,
                 hideMenu: true,
                 account:req.params.accountId||"",
-                user: user,
-                importHash: req.query.id
+                user: user
             });
         });
     } else {

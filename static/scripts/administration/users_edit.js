@@ -65,32 +65,36 @@ $(document).ready(function () {
     $('.btn-invitation-link-with-hash').on('click', function (e) {
         e.preventDefault();
         let $invitationModal = $('.invitation-modal'),
-            role = "student",
-            reglink = "",
             schoolId = $invitationModal.find("input[name='schoolId']").val(),
+            role = "student",
             email = $('input[name="email"]').val();
         if ($(this).hasClass("teacher")) role = "teacher";
-        console.log(email);
-        // get registration link
+        console.log("existing user link");
+        console.log({
+            role: role,
+            save: true,
+            schoolId: schoolId,
+            host: window.location.origin,
+            toHash: email
+        });
         $.ajax({
             type: "POST",
-            url: "/registrationlink/",
-            async: false,
+            url: window.location.origin+"/administration/registrationlink",
             data: {
-                toHash: email,
-                save: true,
-                patchUser: true,
                 role: role,
-                schoolId: schoolId
+                save: true,
+                schoolId: schoolId,
+                host: window.location.origin,
+                toHash: email
             },
-            success: function(data) {
+            success: function(linkData) {
                 console.log("user_edit.js registrationlink data");
-                console.log(data);
+                console.log(linkData);
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
                     closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
-                    fields: {invitation: data}
+                    fields: {invitation: linkData.shortLink}
                 });
                 $invitationModal.find('.btn-submit').remove();
                 $invitationModal.find("input[name='invitation']").click(function () {

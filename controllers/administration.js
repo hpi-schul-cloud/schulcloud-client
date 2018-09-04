@@ -228,25 +228,23 @@ const deleteEventsForData = (service) => {
 /**
  * Generates short registration link, optionally with user hash. email and sendMail will be gathered from req.body of not set.
  * @param options {
- *          *role: user role = string "teacher"/"student" / required from client controller
- *          *save: hash will be generated with URI-safe characters / required from client controller
- *          *patchUser: hash will be patched into the user (DB) / required from client controller
- *          host: current webaddress from client / will be gathered from req.body of not set
- *          toHash: user account mail for hash generation = string / will be gathered from req.body of not set
- *          schoolId: users schoolId = string / will be gathered from req.body of not set
+ *          role: user role = string "teacher"/"student"
+ *          save: hash will be generated with URI-safe characters
+ *          patchUser: hash will be patched into the user (DB)
+ *          host: current webaddress from client
+ *          schoolId: users schoolId = string
+ *          toHash: optional, user account mail for hash generation = string
  *      }
  */
 const generateRegistrationLink = (options) => {
     return function (req, res, next) {
-        if (!options.toHash) {
-            options.toHash = req.body.email || req.body.toHash;
-        }
-        if (!options.schoolId) {
-            options.schoolId = req.body.schoolId;
-        }
-        if (!options.host) {
-            options.host = req.headers.origin;
-        }
+        if (!options.role) options.role = req.body.role || "";
+        if (!options.save) options.save = req.body.save || "";
+        if (!options.patchUser) options.patchUser = req.body.patchUser || "";
+        if (!options.host) options.host = req.headers.origin || "";
+        if (!options.schoolId) options.schoolId = req.body.schoolId || "";
+        if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
+        
         return api(req).post("/registrationlink/", {
             json: options
         }).then(linkData => {
@@ -262,6 +260,12 @@ const generateRegistrationLink = (options) => {
         });
     };
 };
+
+// secure routes
+router.use(authHelper.authChecker);
+
+// client-side use
+router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData);});
 
 const sendMailHandler = (user, req, res, type) => {
     if (user && user.email && user.schoolId && (res.locals.linkData||{}).shortLink) {
@@ -728,9 +732,6 @@ const getConsentStatusIcon = (consent, bool) => {
         return `<i class="fa fa-times consent-status"></i>`;
     }
 };
-
-// secure routes
-router.use(authHelper.authChecker);
 
 // teacher admin permissions
 router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
@@ -1763,20 +1764,6 @@ router.all('/systems', function (req, res, next) {
             systems,
             availableSSOTypes
         });
-    });
-});
-
-/**
- * Dataprivcay routes
- */
-router.get('/dataprivacy/student', function (req, res, next) {
-    res.render('administration/dataprivacy/student', {
-        title: 'Datenerfassung: Einverständniserklärung'
-    });
-});
-router.get('/dataprivacy/teacher', function (req, res, next) {
-    res.render('administration/dataprivacy/teacher', {
-        title: 'Datenerfassung: Einverständniserklärung'
     });
 });
 
