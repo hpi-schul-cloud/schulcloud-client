@@ -103,6 +103,36 @@ window.addEventListener('load', ()=>{
         students.forEach(student => {
             document.querySelector(`option[value="${student._id}"]`).selected = true;
         })
-        $('select[name="userIds[]"]').trigger("chosen:updated");
+        sortStudents();
+        $("select[name=userIds]").trigger("chosen:updated");
     })
 });
+
+function sortOptions(selector, sortFunction){
+    const input = document.querySelector(selector);
+    let options = Array.from(input.querySelectorAll('option'));
+
+    options.sort(sortFunction);
+    options.forEach(option => {
+        input.appendChild(option);
+    });
+}
+
+function sortStudents(){
+    const sortFunction = (a, b) => {
+        const a_value = a.dataset.lastName;
+        const b_value = b.dataset.lastName;
+        if (a_value < b_value) {
+            return -1;
+        }
+        if (a_value > b_value) {
+            return 1;
+        }
+        return 0;
+    };
+
+    const studentInputSelector = "select[name=userIds]";
+    sortOptions(studentInputSelector, sortFunction);
+    $(studentInputSelector).trigger("chosen:updated");
+}
+window.addEventListener("load", sortStudents);
