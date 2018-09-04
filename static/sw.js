@@ -1,21 +1,46 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
+// importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
 
-// Note: Ignore the error that Glitch raises about workbox being undefined.
-workbox.skipWaiting();
-workbox.clientsClaim();
+// // Note: Ignore the error that Glitch raises about workbox being undefined.
+// workbox.skipWaiting();
+// workbox.clientsClaim();
 
+// self.addEventListener('fetch', function (event) {
+//     if (event.request.url.endsWith('/logs/')) {
+//         let r = event.request.clone();
+//         r.json().then(json => {
+//             json['sw-enabled'] = true;
+//             let blob = new Blob([JSON.stringify(json)], { type: 'application/json' });
+//             return new Request(event.request.url, {
+//                 method: event.request.method,
+//                 headers: event.request.headers,
+//                 body: blob,
+//                 referrer: event.request.referrer,
+//                 referrerPolicy: event.request.referrerPolicy,
+//                 mode: event.request.mode,
+//                 credentials: event.request.credentials,
+//                 cache: event.request.cache,
+//                 redirect: event.request.redirect,
+//                 integrity: event.request.integrity,
+//             });
+//         }).then(request =>{
+//             event.respondWith(fetch(request));
+//         });
+//     } else {
+//         event.respondWith(fetch(event.request));
+//     }
+// });
 
-const bgSyncLogs = new workbox.backgroundSync.Plugin('logs', {
-    maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
-  });
-  
-  workbox.routing.registerRoute(
-    /\/logs\//,
-    workbox.strategies.networkOnly({
-      plugins: [bgSyncLogs]
-    }),
-    'POST'
-  );
+// const bgSyncLogs = new workbox.backgroundSync.Plugin('logs', {
+//     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
+//   });
+
+//   workbox.routing.registerRoute(
+//     /\/logs\//,
+//     workbox.strategies.networkOnly({
+//       plugins: [bgSyncLogs]
+//     }),
+//     'POST'
+//   );
 
 // // caching of images
 // workbox.routing.registerRoute(
@@ -44,7 +69,7 @@ const bgSyncLogs = new workbox.backgroundSync.Plugin('logs', {
 //     'https://open.hpi.de/piwik/piwik.js',
 //     'https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js',
 //   ];
-  
+
 // cacheFirstRoutes.forEach(route => {
 //     workbox.routing.registerRoute(
 //         route,
