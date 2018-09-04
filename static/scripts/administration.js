@@ -1,4 +1,4 @@
-import { softNavigate } from './loggedin';
+import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 
 window.addEventListener("DOMContentLoaded", function(){
@@ -22,9 +22,8 @@ $(document).ready(function () {
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteModal = $('.delete-modal');
-    var $pwModal = $('.pw-modal');
 
-    $('.btn-add').on('click', function (e) {
+    $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
         populateModalForm($addModal, {
             title: 'Hinzufügen',
@@ -34,38 +33,37 @@ $(document).ready(function () {
         $addModal.appendTo('body').modal('show');
     });
 
-    $('.btn-edit').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).attr('href');
-        $.getJSON(entry, function (result) {
-            populateModalForm($editModal, {
-                action: entry,
-                title: 'Bearbeiten',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: result
-            });
-
-            // post-fill gradiation selection
-            if ($editModal.find("input[name=gradeSystem]").length) {
-                var $gradeInputPoints = $editModal.find("#gradeSystem0");
-                var $gradeInputMarks = $editModal.find("#gradeSystem1");
-                if(result.gradeSystem) {
-                    $gradeInputMarks.attr("checked", true);
-                    $gradeInputPoints.removeAttr("checked");
-                } else {
-                    $gradeInputPoints.attr("checked", true);
-                    $gradeInputMarks.removeAttr("checked");
-                }
-            }
-            populateCourseTimes($editModal, result.times || []);
-            $editModal.appendTo('body').modal('show');
-        });
+    $('.btn-edit').on('click', function (e) {	
+        e.preventDefault();	
+        var entry = $(this).attr('href');	
+        $.getJSON(entry, function (result) {	
+            populateModalForm($editModal, {	
+                action: entry,	
+                title: 'Bearbeiten',	
+                closeLabel: 'Abbrechen',	
+                submitLabel: 'Speichern',	
+                fields: result	
+            });	
+             // post-fill gradiation selection	
+            if ($editModal.find("input[name=gradeSystem]").length) {	
+                var $gradeInputPoints = $editModal.find("#gradeSystem0");	
+                var $gradeInputMarks = $editModal.find("#gradeSystem1");	
+                if(result.gradeSystem) {	
+                    $gradeInputMarks.attr("checked", true);	
+                    $gradeInputPoints.removeAttr("checked");	
+                } else {	
+                    $gradeInputPoints.attr("checked", true);	
+                    $gradeInputMarks.removeAttr("checked");	
+                }	
+            }	
+            populateCourseTimes($editModal, result.times || []);	
+            $editModal.appendTo('body').modal('show');	
+        });	
     });
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
-        let target = 'register/' + $invitationModal.find("input[name='schoolId']").attr("value");
+        let target = 'registration/' + $invitationModal.find("input[name='schoolId']").attr("value");
         $.ajax({
             type: "POST",
             url: "/link/",
@@ -134,19 +132,4 @@ $(document).ready(function () {
             $deleteModal.appendTo('body').modal('show');
         });
     });
-
-    $('.btn-pw').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).attr('href');
-            populateModalForm($pwModal, {
-                action: entry,
-                title: 'Passwort ändern',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: undefined
-            });
-
-            $pwModal.appendTo('body').modal('show');
-    });
-
 });

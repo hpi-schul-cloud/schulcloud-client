@@ -84,8 +84,12 @@ window.startIntro = function startIntro() {
     .setOptions({
         nextLabel: "Weiter",
         prevLabel: "Zurück",
-        doneLabel: "Fertig",
+        doneLabel: "Nächste Seite",
         skipLabel: "Überspringen"
     })
-    .start();
-};
+    .start()
+    .oncomplete(function() { 
+        localStorage.setItem('Tutorial', true);
+        document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
+    })
+}
