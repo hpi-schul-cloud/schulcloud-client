@@ -55,7 +55,9 @@ $(document).ready(function () {
             title: 'Benutzer löschen?',
             closeLabel: 'Abbrechen',
             submitLabel: 'Löschen',
-            fields: {firstName: $('input[name="displayName"]').val()}
+            fields: {
+                displayName: $('input[name="displayName"]').val()
+            }
         });
         $deleteModal.appendTo('body').modal('show');
     });

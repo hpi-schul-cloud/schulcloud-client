@@ -12,6 +12,8 @@
                 <form id="user-form" method="post" action="{{action}}">
 
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                    <input name="displayName" type="hidden" value="{{user.displayName}}" disabled/>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
