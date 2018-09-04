@@ -1231,6 +1231,21 @@ const getClassOverview = (req, res, next) => {
 router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,false);
 });
+router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
+    const classIds = JSON.parse(req.query.classes);
+    api(req).get('/classes/', { qs: { 
+        $populate: ['userIds'],
+        _id: {
+            $in: classIds
+        }
+    }})
+    .then(classes => {
+        const students = classes.data.map((c) => {
+            return c.userIds;
+        }).reduce((flat, next) => {return flat.concat(next);}, []);
+        res.json(students);
+    });
+});
 router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,true);
 });
@@ -1243,8 +1258,8 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
         const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without year)
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit:  1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 10000});
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit:  1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000});
         const yearsPromise = getSelectOptions(req, 'years', {$limit: 10000});
 
         Promise.all([
@@ -1322,22 +1337,6 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         res.redirect('/administration/classes');
     }).catch(err => {
         next(err);
-    });
-});
-
-router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    const classIds = JSON.parse(req.query.classes);
-    api(req).get('/classes/', { qs: { 
-        $populate: ['userIds'],
-        _id: {
-            $in: classIds
-        }
-    }})
-    .then(classes => {
-        const students = classes.data.map((c) => {
-            return c.userIds;
-        }).reduce((flat, next) => {return flat.concat(next);}, []);
-        res.json(students);
     });
 });
 
@@ -1487,6 +1486,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
             'Klasse',
             'Lehrer',
             'Schuljahr',
+            'Schüler',
             ''
         ];
 
@@ -1495,6 +1495,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
                 item.displayName||"",
                 (item.teacherIds||[]).map(item => item.lastName).join(', '),
                 (item.year||{}).name||"",
+                (item.userIds.length)||'0',
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",

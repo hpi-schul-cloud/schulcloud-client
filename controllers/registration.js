@@ -80,7 +80,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
         json: req.body,
 		qs:{ 
 			sso: req.params.sso,
-			accountId: req.params.accountId
+            accountId: req.params.accountId
 		}
     }).then(response => {   
         //send Mails
