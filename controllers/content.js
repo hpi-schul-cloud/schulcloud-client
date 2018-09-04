@@ -40,7 +40,7 @@ router.get('/', function (req, res, next) {
             })
         ]).then(([featured, trending]) => {
             return res.render('content/store', {
-                title: 'Materialien',
+                title: 'LernStore',
                 featuredContent: featured.data,
                 trendingContent: trending.data,
                 totalCount: trending.total,
@@ -67,7 +67,7 @@ router.get('/', function (req, res, next) {
             };
 
             return res.render('content/search-results', {
-                title: 'Materialien',
+                title: 'LernStore',
                 query: query,
                 searchResults: searchResults,
                 pagination,

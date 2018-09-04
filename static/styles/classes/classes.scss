@@ -1,7 +1,7 @@
 @import '../lib/colors';
+@import "../lib/bootstrap/scss/bootstrap-flex";
 
 .section-classes {
-
   h4 {
     margin-bottom: 20px;
   }
@@ -38,4 +38,10 @@
     pointer-events: none;
   }
 }
-
+.chosen-container-multi .chosen-choices .search-choice{
+  @include media-breakpoint-up(xs) { width: 95%; }
+  @include media-breakpoint-up(sm) { width: 47%; }
+  @include media-breakpoint-up(md) { width: 32%; }
+  @include media-breakpoint-up(lg) { width: 24%; }
+  @include media-breakpoint-up(xl) { width: 16%; }
+}

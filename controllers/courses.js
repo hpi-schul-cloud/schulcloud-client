@@ -90,8 +90,9 @@ const editCourseHandler = (req, res, next) => {
         method = 'post';
         coursePromise = Promise.resolve({});
     }
-
-    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    
+    const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
+        .then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
     const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
@@ -101,7 +102,7 @@ const editCourseHandler = (req, res, next) => {
         teachersPromise,
         studentsPromise
     ]).then(([course, classes, teachers, students]) => {
-
+        // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
         teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
         students = students.filter(s => s.schoolId == res.locals.currentSchool);

@@ -44,7 +44,11 @@
                                 {{/each}}
                             </td>
                         {{else}}
-                            <td>{{this}}</td>
+                            {{#if this.useHTML}}
+                                <td>{{{this.content}}}</td>
+                            {{else}}
+                                <td>{{this}}</td>
+                            {{/if}}
                         {{/ifArray}}
                     {{/each}}
                 </tr>
