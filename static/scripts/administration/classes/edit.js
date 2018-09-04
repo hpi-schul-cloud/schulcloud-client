@@ -1,4 +1,4 @@
-import '../helpers/inputLinking';
+import '../../helpers/inputLinking';
 
 function toggleDisabled(nodename, value){
     const node = document.querySelector(nodename);
