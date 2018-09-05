@@ -37,8 +37,8 @@
                             <button type="submit" class="btn btn-primary btn-add-modal">
                                 Lehrer hinzufügen
                             </button>
-                            <button class="btn btn-secondary btn-invitation-link teacher">
-                                Einladungslink generieren
+                            <button class="btn btn-secondary btn-import teacher">
+                                Lehrer importieren
                             </button>
                         </div>
                     </div>
@@ -54,6 +54,12 @@
                 {{#embed "lib/components/modal-form" class="invitation-modal"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-invitation-teacher"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="teacher"}}
                     {{/content}}
                 {{/embed}}
 

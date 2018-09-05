@@ -42,6 +42,9 @@
                             <button class="btn btn-secondary btn-invitation-link student">
                                 Einladungslink generieren
                             </button>
+                            <button class="btn btn-secondary btn-import student">
+                                Schüler importieren
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -55,6 +58,12 @@
                 {{#embed "lib/components/modal-form" class="invitation-modal"}}
                     {{#content "fields"}}
                         {{> "administration/forms/form-invitation-student"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="student"}}
                     {{/content}}
                 {{/embed}}
             </section>

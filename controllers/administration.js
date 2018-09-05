@@ -268,7 +268,7 @@ router.use(authHelper.authChecker);
 // client-side use
 router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData);});
 
-const sendMailHandler = (user, req, res, type) => {
+const sendMailHandler = (user, req, res, silent) => {
     if (user && user.email && user.schoolId && (res.locals.linkData||{}).shortLink) {
         return api(req).post('/mails/', {
             json: {
@@ -284,12 +284,14 @@ ${res.locals.theme.short_title}-Team`
                 }
             }
         }).then(_ => {
+            if (silent) return;
             req.session.notification = {
                 type: 'success',
                 message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
             };
             return res.redirect(req.header('Referer'));
         }).catch(err => {
+            if (silent) return;
             req.session.notification = {
                 'type': 'danger',
                 'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
@@ -297,6 +299,7 @@ ${res.locals.theme.short_title}-Team`
             res.redirect(req.header('Referer'));
         });
     } else {
+        if (silent) return;
         req.session.notification = {
             type: 'success',
             message: 'Nutzer erfolgreich erstellt.'
@@ -327,7 +330,7 @@ ${res.locals.theme.short_title}-Team`
 };
 
 
-const getUserCreateHandler = (role) => {
+const getUserCreateHandler = (silent) => {
     return function (req, res, next) {
         if (req.body.birthday) {
             let birthday = req.body.birthday.split('.');
@@ -338,8 +341,9 @@ const getUserCreateHandler = (role) => {
         }).then(newuser => {
             res.locals.createdUser = newuser;
             if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
-                sendMailHandler(newuser, req, res, role);
+                sendMailHandler(newuser, req, res, silent);
             } else {
+                if (silent) return;
                 req.session.notification = {
                     'type': 'success',
                     'message': 'Nutzer erfolgreich erstellt.'
@@ -352,6 +356,7 @@ const getUserCreateHandler = (role) => {
             });
             */
         }).catch(err => {
+            if (silent) return;
             req.session.notification = {
                 'type': 'danger',
                 'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
@@ -400,38 +405,7 @@ const getSendHelper = (service) => {
     };
 };
 
-/**
- * Set state to closed of helpdesk problem
- * @param service usually helpdesk, to disable instead of delete entry
- * @returns {Function}
- */
-const getDisableHandler = (service) => {
-    return function (req, res, next) {
-        api(req).patch('/' + service + '/' + req.params.id, {
-            json: {
-                state: 'closed',
-                order: 2
-            }
-        }).then(_ => {
-            res.redirect(req.get('Referrer'));
-        });
-    };
-};
-
-/**
- * Truncates string to 25 chars
- * @param string given string to truncate
- * @returns {string}
- */
-const truncate = (string) => {
-    if ((string || {}).length > 25) {
-        return string.substring(0, 25) + '...';
-    } else {
-        return string;
-    }
-};
-
-const getCSVImportHandler = (service) => {
+const getCSVImportHandler = () => {
     return function (req, res, next) {
         let csvData = '';
         let records = [];
@@ -451,17 +425,28 @@ const getCSVImportHandler = (service) => {
             roles: req.body.roles
         };
 
-        const recordPromises = records.map((user) => {
+        const recordPromises = records.map(async (user) => {
             user = Object.assign(user, groupData);
-            return api(req).post('/' + service + '/', {
-                json: user
-            })
-                .then(newUser => {
-                    sendMailHandler(newUser, req, res, "teacher");
-                });
+            await (generateRegistrationLink({
+                role:req.body.roles[0],
+                save: true,
+                toHash: user.email
+            }))(req, res, next);
+            return {user: user, linkData: res.locals.linkData};
         });
 
-        Promise.all(recordPromises).then(_ => {
+        Promise.all(recordPromises).then(allData => {
+            allData.forEach(async (data) => {
+                if (req.body.sendRegistration) {
+                    req.body = data.user;
+                    req.body.sendRegistration = true;
+                } else {
+                    req.body = data.user;
+                }
+                req.body.importHash = data.linkData.hash;
+                res.locals.linkData = data.linkData;
+                await (getUserCreateHandler(true))(req, res, next);
+            });
             res.redirect(req.header('Referer'));
         }).catch(err => {
             next(err);
@@ -813,8 +798,8 @@ const getTeacherUpdateHandler = () => {
     };
 };
 
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({role:"teacher",patchUser:true,save:true}), getUserCreateHandler("teacher"));
-router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({role:"teacher",patchUser:true,save:true}), getUserCreateHandler());
+router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler());
 router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getTeacherUpdateHandler());
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
@@ -1016,8 +1001,8 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateRegistrationLink({role:"student",patchUser:true,save:true}), getUserCreateHandler("student"));
-router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateRegistrationLink({role:"student",patchUser:true,save:true}), getUserCreateHandler());
+router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler());
 router.patch('/students/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
@@ -1548,6 +1533,37 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
         });
     });
 });
+
+/**
+ * Set state to closed of helpdesk problem
+ * @param service usually helpdesk, to disable instead of delete entry
+ * @returns {Function}
+ */
+const getDisableHandler = (service) => {
+    return function (req, res, next) {
+        api(req).patch('/' + service + '/' + req.params.id, {
+            json: {
+                state: 'closed',
+                order: 2
+            }
+        }).then(_ => {
+            res.redirect(req.get('Referrer'));
+        });
+    };
+};
+
+/**
+ * Truncates string to 25 chars
+ * @param string given string to truncate
+ * @returns {string}
+ */
+const truncate = (string) => {
+    if ((string || {}).length > 25) {
+        return string.substring(0, 25) + '...';
+    } else {
+        return string;
+    }
+};
 
 /*
     HELPDESK
