@@ -67,8 +67,8 @@ router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
             json: { email: req.body.email, byParent: req.body.byParent }
-        }).then(pin => {
-            res.send((pin||{}).pin);
+        }).then(() => {
+            res.sendStatus(200);
         }).catch(err => res.status(500).send(err));
     } else {
         res.sendStatus(500);
