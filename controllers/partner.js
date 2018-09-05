@@ -14,8 +14,8 @@ partners.sponsors = _orderBy(partners.sponsors,
 partners.advisers = _orderBy(partners.advisers,
     [x => x.name.toLowerCase()], ['asc']);
 
-let hiddenAdvisers = partners.advisers.splice(3);
-let hiddenContentPartners = partners.content_partners.splice(3);
+let hiddenAdvisers = partners.advisers.splice(4);
+let hiddenContentPartners = partners.content_partners.splice(4);
 
 router.get('/', function (req, res, next) {
 

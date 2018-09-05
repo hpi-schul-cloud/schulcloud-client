@@ -59,7 +59,18 @@ hgroup {
         top: 50%;
         transform: translateY(-50%);
     }
-    #hiddenAdvisers.collapse.in{
+    #hiddenAdvisers.collapse.in {
         display: flex !important;
+    }
+    .toggle-partner {
+        background-color: white;
+        color: #b10438;
+        border: white;
+        position: relative;
+        width: 200px;
+        left: calc(50% - 100px);
+    }
+    #buttonWrapper {
+        width: 100%;
     }
 }

@@ -38,7 +38,9 @@
                         </div>
                     </div>
                 {{/each}}
-                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen</button>
+                <div id="buttonWrapper">
+                    <button class="btn toggle-partner" type="button" class="btn btn-info" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen</button>
+                </div>
                 <div class="col-xs-12">
                     <div id="hiddenAdvisers" class="collapse row">   
                         {{#each hiddenAdvisers}}
