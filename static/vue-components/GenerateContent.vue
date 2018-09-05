@@ -3,7 +3,8 @@
     <md-card class="stepper-card">
       <md-steppers :md-active-step.sync="active" md-alternative md-linear> <!-- md-vertical -->
         <md-step id="first" md-label="Inhalt erstellen" md-description="Alpha-Test" :md-done.sync="first">
-          <p>Hier bitte Ihren Inhalt einfügen (im Moment geht nur Text, der BP-Editor sollte dann bald hier eingebunden werden).</p>
+          <edit-content @editor-update='editorUpdated' />
+          <!-- <p>Hier bitte Ihren Inhalt einfügen (im Moment geht nur Text, der BP-Editor sollte dann bald hier eingebunden werden).</p>
 
           <md-field>
             <label>Titel</label>
@@ -15,7 +16,7 @@
           </md-field>
           <md-field>
             <label>Inhalt</label>
-            <md-textarea v-model="content"></md-textarea>
+            <md-textarea v-model="content"></md-textarea> -->
           </md-field>
 
           <br>
@@ -48,11 +49,14 @@
 
 <script>
   import Categorize from './Categorize.vue';
+  import EditContent from './EditContent.vue';
+
 
   export default {
     name: 'CreateContent',
     components: {
-      Categorize
+      Categorize,
+      'edit-content': EditContent
     },
     data: () => ({
       dialogActive: false,
@@ -79,6 +83,9 @@
     }),
     props: ['userId'],
     methods: {
+      editorUpdated(htmlContent) {
+        this.content = htmlContent;
+      },
       setDone (id, index) {
         this[id] = true;
         if (index) {

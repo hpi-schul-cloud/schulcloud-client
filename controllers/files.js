@@ -274,6 +274,17 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
     });
 });
 
+router.post('/uploadToShare', function (req, res, next) {
+    let path = 'todo';
+    console.log(req);
+    res.json({
+        "uploaded": 1,
+        "fileName": req.file.originalname,
+        "url": "/files/file?path=" + _path
+    });
+
+});
+
 
 // delete file
 router.delete('/file', function (req, res, next) {
@@ -450,7 +461,7 @@ router.get('/', function (req, res, next) {
     */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            showSearch: true                                            
+            showSearch: true
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 

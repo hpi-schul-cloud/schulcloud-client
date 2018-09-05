@@ -14,6 +14,7 @@
     "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
   },
   "dependencies": {
+    "@tinymce/tinymce-vue": "^1.0.8",
     "body-parser": "~1.16.0",
     "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
@@ -41,6 +42,7 @@
     "nexboard-api-js": "git://github.com/schul-cloud/nexboard-api-js.git",
     "oauth-1.0a": "^2.1.0",
     "path.join": "^1.0.0",
+    "print-js": "^1.0.50",
     "query-string": "^5.0.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

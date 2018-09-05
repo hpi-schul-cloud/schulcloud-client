@@ -814,14 +814,14 @@ class TopicInternal extends TopicBlock {
                             data-placement="top"
                             title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie Themenseiten und direkte Verlinkungen von Dateien nicht gestattet.`}><i className="fa fa-info-circle" /></a>
                     </span>
-                    <input 
-                        className="form-control" 
-                        name={`contents[${this.props.position}][content][url]`} 
-                        pattern={this.state.pattern} 
+                    <input
+                        className="form-control"
+                        name={`contents[${this.props.position}][content][url]`}
+                        pattern={this.state.pattern}
                         onChange={this.updateUrl.bind(this)}
-                        type="url" 
+                        type="url"
                         required
-                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
+                        placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`}
                         value={(this.props.content || {}).url}
                     />
                 </div>
