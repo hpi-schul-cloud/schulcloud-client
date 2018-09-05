@@ -66,7 +66,7 @@ router.get('/register/*', function (req, res, next) {
 router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
-            json: { email: req.body.email, byParent: req.body.byParent }
+            json: { email: req.body.email, byRole: req.body.byRole }
         }).then(() => {
             res.sendStatus(200);
         }).catch(err => res.status(500).send(err));
@@ -89,6 +89,10 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
             eMailAdresses.push(response.parent.email);
         }
         eMailAdresses.forEach(eMailAdress => {
+            let passwordText = "";
+            if (req.body["initial-password"]) {
+                passwordText = `Startpasswort: ${req.body["initial-password"]}`;
+            }
             return api(req).post('/mails/', {
                 json: { email: eMailAdress,
                         subject: `Willkommen in der ${res.locals.theme.title}!`,
@@ -98,7 +102,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
 mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${response.user.email}
-Startpasswort: ${req.body["initial-password"]}
+${passwordText}
 Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
 Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`

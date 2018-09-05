@@ -61,12 +61,12 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
     function sendPin(sendConfirm) {
         let usermail = $("input[name$='email']:last").val();
-        let byParent = window.location.href.indexOf("parent") > 0;
+        let byRole = window.location.pathname.split("/by")[1].replace("/","");
         
         $.ajax({
             url: "/registration/pincreation",
             method: "POST",
-            data: {"email": usermail, "byParent": byParent}
+            data: {"email": usermail, "byRole": byRole}
         }).done(success => {
             if(sendConfirm) {
                 $.showNotification(`Eine PIN wurde erfolgreich an ${usermail} versendet.`, "success", 15000);
