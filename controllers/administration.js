@@ -1147,11 +1147,13 @@ const renderClassEdit = (req, res, next, edit) => {
         let promises = [
             getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit: 1000}), //teachers
             getSelectOptions(req, 'years', {$sort: {name: -1}}),
-            getSelectOptions(req, 'gradeLevels')
+            getSelectOptions(req, 'gradeLevels'),
+            getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000}),
+            getSelectOptions(req, 'classes', {$limit: 1000}) // TODO limit classes to scope (year before, current and without year)
         ];
         if(edit){promises.push(api(req).get(`/classes/${req.params.classId}`));}
 
-        Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
+        Promise.all(promises).then(([teachers, schoolyears, gradeLevels, students, classes, currentClass]) => {
             const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
             if(!isAdmin){
                 // preselect current teacher when creating new class and the current user isn't a admin (teacher)
@@ -1167,6 +1169,11 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers.forEach(t => {
                     if((currentClass.teacherIds||{}).includes(t._id)){t.selected = true;}
                 });
+                // preselect already selected students
+                students.forEach(s => {
+                    if((currentClass.userIds||{}).includes(s._id)){s.selected = true;}
+                });
+
                 gradeLevels.forEach(g => {
                     if((currentClass.gradeLevel||{})._id == g._id) {
                         g.selected = true;
@@ -1193,7 +1200,31 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                isCustom
+                isCustom,
+                students,
+                classes,
+                notes: [
+                    {
+                        "title":"Deine Schüler sind unter 18 Jahre alt?",
+                        "content":`Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der ${res.locals.theme.short_title} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die ${res.locals.theme.short_title} nutzen kann.`
+                    },
+                    {
+                        "title":"Deine Schüler sind mindestens 18 Jahre alt?",
+                        "content":"Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
+                    },
+                    /*{ // TODO - Feature not implemented
+                        "title":"Deine Schüler sind in der Schülerliste rot?",
+                        "content": `Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der ${res.locals.theme.short_title} elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt.`
+                    },
+                    { // TODO - Not implemented yet
+                        "title":"Nutzernamen herausfinden",
+                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
+                    }, */
+                    {
+                        "title":"Passwort ändern",
+                        "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
+                    },
+                ]
             });
         });
     });
@@ -1240,95 +1271,11 @@ router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
 router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
 router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 
-router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
-    .then(currentClass => {
-        const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without year)
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit:  1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000});
-        const yearsPromise = getSelectOptions(req, 'years', {$limit: 10000});
-
-        Promise.all([
-            classesPromise,
-            teachersPromise,
-            studentsPromise,
-            yearsPromise
-        ]).then(([classes, teachers, students, schoolyears]) => {
-            const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-            if(!isAdmin){
-                // preselect current teacher when creating new class and the current user isn't a admin (teacher)
-                teachers.forEach(t => {
-                    if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)){
-                        t.selected = true;
-                    }
-                });
-            }
-            // preselect current teacher when creating new class
- 
-            const teacherIds = currentClass.teacherIds.map(t => {return t._id;});
-            teachers.forEach(t => {
-                if(teacherIds.includes(t._id)){
-                    t.selected = true;
-                }
-            });
-            const studentIds = currentClass.userIds.map(t => {return t._id;});
-            students.forEach(s => {
-                if (studentIds.includes(s._id)) {
-                    s.selected = true;
-                }
-            });
-            res.render('administration/classes-manage', {
-                title: `Klasse '${currentClass.displayName}' verwalten `,
-                "class": currentClass,
-                classes,
-                teachers,
-                students,
-                schoolyears,
-                notes: [
-                    {
-                        "title":"Deine Schüler sind unter 18 Jahre alt?",
-                        "content":`Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der ${res.locals.theme.short_title} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die ${res.locals.theme.short_title} nutzen kann.`
-                    },
-                    {
-                        "title":"Deine Schüler sind mindestens 18 Jahre alt?",
-                        "content":"Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
-                    },
-                    /*{ // TODO - Feature not implemented
-                        "title":"Deine Schüler sind in der Schülerliste rot?",
-                        "content": `Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der ${res.locals.theme.short_title} elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt.`
-                    },
-                    { // TODO - Not implemented yet
-                        "title":"Nutzernamen herausfinden",
-                        "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
-                    }, */
-                    {
-                        "title":"Passwort ändern",
-                        "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
-                    },
-                ]
-            });
-        });
-    });
-});
-
-router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    let changedClass = {
-        teacherIds: req.body.teacherIds || [],
-        userIds: req.body.userIds || []
-    };
-    api(req).patch('/classes/' + req.params.classId, {
-        // TODO: sanitize
-        json: changedClass
-    }).then(data => {
-        res.redirect('/administration/classes');
-    }).catch(err => {
-        next(err);
-    });
-});
-
 router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     let newClass = {
-        schoolId: req.body.schoolId
+        schoolId: req.body.schoolId,
+        teacherIds: req.body.teacherIds || [],
+        userIds: req.body.userIds || []
     };
     if (req.body.classcustom) {
         newClass.name = req.body.classcustom;
@@ -1341,9 +1288,6 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         newClass.gradeLevel = req.body.grade;
         newClass.nameFormat = "gradeLevel+name";
         newClass.year = req.body.schoolyear;
-    }
-    if (req.body.teacherIds) {
-        newClass.teacherIds = req.body.teacherIds;
     }
     
     api(req).post('/classes/', {
@@ -1358,6 +1302,8 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 
 router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     let changedClass = {
+        teacherIds: req.body.teacherIds || [],
+        userIds: req.body.userIds || [],
         schoolId: req.body.schoolId
     };
     if (req.body.classcustom) {
@@ -1373,11 +1319,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         changedClass.nameFormat = "gradeLevel+name";
         changedClass.year = req.body.schoolyear;
     }
-    if (req.body.teacherIds) {
-        changedClass.teacherIds = req.body.teacherIds;
-    } else {
-        changedClass.teacherIds = [];
-    }
+
     api(req).patch('/classes/' + req.params.classId, {
         // TODO: sanitize
         json: changedClass
@@ -1484,21 +1426,9 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
                 (item.userIds.length)||'0',
                 ((item, path)=>{return [
                     {
-                        link: path + item._id + "/manage",
-                        icon: 'users',
-                        title: 'Klasse verwalten'
-                    },
-                    {
                         link: path + item._id + "/edit",
                         icon: 'edit',
                         title: 'Klasse bearbeiten'
-                    },
-                    {
-                        link: path + item._id,
-                        class: `btn-delete`,
-                        icon: 'trash-o',
-                        method: `delete`,
-                        title: 'Eintrag löschen'
                     }
                 ];})(item, '/administration/classes/')
             ];
