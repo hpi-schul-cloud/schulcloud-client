@@ -38,6 +38,21 @@
                         </div>
                     </div>
                 {{/each}}
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen</button>
+                <div class="col-xs-12">
+                    <div id="hiddenAdvisers" class="collapse row">   
+                        {{#each hiddenAdvisers}}
+                            <div class="partner-box-wrapper col-xs-6 col-md-3">
+                                <div class="partner-box">
+                                    {{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+                                        <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                    {{#if url}}</a>{{/if}}
+                                </div> 
+                            </div>
+                    {{/each}}
+                    </div>
+                </div>
         </div>
     </div>
 
