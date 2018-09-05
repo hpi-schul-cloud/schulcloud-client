@@ -435,8 +435,9 @@ const getCSVImportHandler = () => {
             return {user: user, linkData: res.locals.linkData};
         });
 
-        Promise.all(recordPromises).then(allData => {
-            allData.forEach(async (data) => {
+        Promise.all(recordPromises).then(async (allData) => {
+    
+            for (let data of allData) {
                 if (req.body.sendRegistration) {
                     req.body = data.user;
                     req.body.sendRegistration = true;
@@ -446,10 +447,13 @@ const getCSVImportHandler = () => {
                 req.body.importHash = data.linkData.hash;
                 res.locals.linkData = data.linkData;
                 await (getUserCreateHandler(true))(req, res, next);
-            });
+            }
+            
             res.redirect(req.header('Referer'));
+            return;
         }).catch(err => {
-            next(err);
+            res.redirect(req.header('Referer'));
+            return;
         });
     };
 };
@@ -920,7 +924,7 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         classes = classes.map(c => {
             c.selected = c.teacherIds.includes(user._id);
             return c;
-        })
+        });
         res.render('administration/users_edit',
             {
                 title: `Lehrer bearbeiten`,
