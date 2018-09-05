@@ -227,7 +227,7 @@ const deleteEventsForData = (service) => {
 
 /**
  * Generates short registration link, optionally with user hash. email and sendMail will be gathered from req.body of not set.
- * @param options {
+ * @param params {
  *          role: user role = string "teacher"/"student"
  *          save: hash will be generated with URI-safe characters
  *          patchUser: hash will be patched into the user (DB)
@@ -236,8 +236,9 @@ const deleteEventsForData = (service) => {
  *          toHash: optional, user account mail for hash generation = string
  *      }
  */
-const generateRegistrationLink = (options) => {
+const generateRegistrationLink = (params) => {
     return function (req, res, next) {
+        let options = JSON.parse(JSON.stringify(params));
         if (!options.role) options.role = req.body.role || "";
         if (!options.save) options.save = req.body.save || "";
         if (!options.patchUser) options.patchUser = req.body.patchUser || "";

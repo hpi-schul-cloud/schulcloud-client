@@ -66,13 +66,6 @@ $(document).ready(function () {
         let schoolId = $invitationModal.find("input[name='schoolId']").val(),
             role = "student";
         if ($(this).hasClass("teacher")) role = "teacher";
-        console.log("general invite link");
-        console.log({
-            role: role,
-            save: true,
-            schoolId: schoolId,
-            host: window.location.origin
-        });
         $.ajax({
             type: "POST",
             url: window.location.origin+"/administration/registrationlink",

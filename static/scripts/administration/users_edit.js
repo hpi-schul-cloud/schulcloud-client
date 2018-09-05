@@ -69,14 +69,6 @@ $(document).ready(function () {
             role = "student",
             email = $('input[name="email"]').val();
         if ($(this).hasClass("teacher")) role = "teacher";
-        console.log("existing user link");
-        console.log({
-            role: role,
-            save: true,
-            schoolId: schoolId,
-            host: window.location.origin,
-            toHash: email
-        });
         $.ajax({
             type: "POST",
             url: window.location.origin+"/administration/registrationlink",
@@ -85,11 +77,10 @@ $(document).ready(function () {
                 save: true,
                 schoolId: schoolId,
                 host: window.location.origin,
-                toHash: email
+                toHash: email,
+                patchUser: true
             },
             success: function(linkData) {
-                console.log("user_edit.js registrationlink data");
-                console.log(linkData);
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
                     closeLabel: 'Abbrechen',
