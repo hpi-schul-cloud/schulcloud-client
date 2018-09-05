@@ -4,8 +4,8 @@
 body {
     background: $colorBeige;
     position: absolute;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    min-height: 100vh;
     
     h4:not(:first-of-type){
         margin-top: 1rem;
@@ -120,7 +120,7 @@ body {
             }
         }
     }
-    footer{
+    footer:not(.small-footer){
         background-color: #555;
         color: #fff;
         padding:2rem 2rem 0;
@@ -133,6 +133,9 @@ body {
         .col-md-4{
             margin-bottom: 2rem;
         }
+    }
+    footer.small-footer{
+        position: relative;
     }
 }
 
