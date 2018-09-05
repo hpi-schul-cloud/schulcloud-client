@@ -65,10 +65,13 @@ hgroup {
     .toggle-partner {
         background-color: white;
         color: #b10438;
-        border: white;
         position: relative;
         width: 200px;
         left: calc(50% - 100px);
+        font-weight: 500;
+        i {
+            display: block;
+        }
     }
     #buttonWrapper {
         width: 100%;
