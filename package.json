@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch build/ --ext js,hbs ./bin/www",
     "debug": "nodemon --inspect=9310 --watch controllers/ --watch helpers/ --watch views/ --ext js,hbs ./bin/www",
+    "watch-reload": "gulp watch-reload",
     "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run lint && npm run mocha",
@@ -15,6 +16,7 @@
   },
   "dependencies": {
     "body-parser": "~1.16.0",
+    "browser-sync": "^2.24.7",
     "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
     "csv-parse": "^1.2.0",
@@ -25,6 +27,7 @@
     "fast-csv": "^2.4.1",
     "feedr": "^2.13.5",
     "fullcalendar": "^3.9.0",
+    "gulp-nodemon": "^2.2.1",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "~4.0.1",
