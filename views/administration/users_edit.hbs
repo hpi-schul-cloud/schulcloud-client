@@ -111,7 +111,7 @@
                 </div>
                     <div class="modal-footer">
                         <div class="pull-left">
-                            <button class="btn btn-secondary btn-pw">Passwort ändern</button>
+                            <button class="btn btn-secondary btn-pw" {{#if hidePwChangeButton}} disabled {{/if}} >Passwort ändern</button>
                             <button class="btn btn-secondary btn-invitation-link-with-hash {{#if isTeacher}}teacher{{else}}student{{/if}}">
                                 Persönlichen Einladungslink generieren
                             </button>

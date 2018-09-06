@@ -792,8 +792,8 @@ const getTeacherUpdateHandler = () => {
         })).data.map(c => {
             return c._id;
         });
-        const addedClasses = req.body.classes.filter(function(i) {return !usersClasses.includes(i)});
-        const removedClasses = usersClasses.filter(function(i) {return !req.body.classes.includes(i)});
+        const addedClasses = req.body.classes.filter(function(i) {return !usersClasses.includes(i);});
+        const removedClasses = usersClasses.filter(function(i) {return !req.body.classes.includes(i);});
         addedClasses.forEach((addClass) => {
             promises.push(api(req).patch('/classes/' + addClass, { json: { $push: { teacherIds: req.params.id }}}));
         });
@@ -1124,15 +1124,19 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
+    const accountPromise = api(req).get('/accounts/', {qs: {userId: req.params.id}});
 
     Promise.all([
         userPromise,
-        consentPromise
-    ]).then(([user, consent]) => {
+        consentPromise,
+        accountPromise
+    ]).then(([user, consent, account]) => {
         consent = consent[0];
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
         }
+        account = account[0];
+        let hidePwChangeButton = account ? false : true;
         res.render('administration/users_edit',
             {
                 title: `Schüler bearbeiten`,
@@ -1141,7 +1145,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 closeLabel : 'Abbrechen',
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
-                consent
+                consent,
+                hidePwChangeButton
             }
         );
     });
