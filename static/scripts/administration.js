@@ -1,5 +1,6 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
+import './jquery/datetimepicker-easy';
 
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
