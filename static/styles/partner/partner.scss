@@ -59,7 +59,7 @@ hgroup {
         top: 50%;
         transform: translateY(-50%);
     }
-    #hiddenAdvisers.collapse.in {
+    .collapse.collapse.in {
         display: flex !important;
     }
     .toggle-partner {
@@ -73,7 +73,7 @@ hgroup {
             display: block;
         }
     }
-    #buttonWrapper {
+    .buttonWrapper {
         width: 100%;
     }
 }

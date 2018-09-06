@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 {{/each}}
-                <div id="buttonWrapper">
+                <div class="buttonWrapper">
                     <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
                 </div>
                 <div class="col-xs-12">
@@ -76,6 +76,23 @@
                     </div>
                 </div>
             {{/each}}
+            <div class="buttonWrapper">
+                <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+            </div>
+            <div class="col-xs-12">
+                <div id="hiddenContentPartner" class="collapse row">   
+                    {{#each hiddenContentPartners}}
+                        <div class="partner-box-wrapper col-xs-6 col-md-3">
+                            <div class="partner-box">
+                                <a href="{{{url}}}" target="_blank">
+                                    <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                        {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                </a>
+                            </div> 
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
         </div>
     </div>
 
@@ -102,9 +119,9 @@
 
 </section>
 <script>
-    function changeButtonText() {
-        let button = document.querySelector('.toggle-partner');
-        let hiddenPartners = document.querySelector('#hiddenAdvisers');
+    function changeButtonText(event) {
+        let button = this;
+        let hiddenPartners = document.querySelector(button.dataset.target);
         if (hiddenPartners.classList.contains('in')) {
             button.innerHTML = 'mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>';
         }
@@ -113,5 +130,5 @@
         }
     }
 
-    document.querySelector('.toggle-partner').addEventListener('click', changeButtonText);
+    document.querySelectorAll('.toggle-partner').forEach(function(each){each.addEventListener('click', changeButtonText)});
 </script>
