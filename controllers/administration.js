@@ -776,7 +776,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     });
 });
 
-router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
 
     Promise.all([
