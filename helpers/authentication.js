@@ -41,11 +41,22 @@ const authChecker = (req, res, next) => {
                 // fetch user profile
                 populateCurrentUser(req, res)
                     .then(_ => {
+                        return checkConsent(req, res);
+                    })
+                    .then(_ => {
                         return restrictSidebar(req, res);
                     })
                     .then(_ => {
                         next();
-                    });
+                    })
+					.catch(err=>{
+						if(err=="firstLogin was not completed, redirecting..."){
+							//print message?
+							res.redirect('/login/success');
+						}else{
+							res.redirect('/login/');
+						}
+					});
             } else {
                 res.redirect('/login/');
             }
@@ -76,6 +87,19 @@ const populateCurrentUser = (req, res) => {
     }
 
     return Promise.resolve();
+};
+
+const checkConsent = (req, res) => {
+    if (res.locals.currentRole === "Lehrer" ||
+    res.locals.currentRole === "Demo" ||
+    res.locals.currentRole === "Administrator" || 
+    ((res.locals.currentUser||{}).preferences||{}).firstLogin ||	//do not exist if 3. system login
+    req.path == "/login/success" ||
+    req.baseUrl == "/firstLogin") {
+        return Promise.resolve();
+    }else{
+		return Promise.reject("firstLogin was not completed, redirecting...");
+	} 
 };
 
 

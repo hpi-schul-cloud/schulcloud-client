@@ -1,14 +1,6 @@
 @import '../lib/colors';
 
 .section-about {
-  h3 {
-    color: $primaryColor;
-    font-weight: bold;
-  }
-  h4 {
-    color: $primaryColor;
-    font-weight: bold;
-  }
   hgroup {
     text-align: center;
     font-weight: bold;
@@ -20,17 +12,7 @@
     width: 100%;
     padding: 10px 0 20px;
     line-height: 1.75rem;
-    h4 {
-      color: $primaryColor;
-      margin-bottom: 0;
-      margin-right: 20px;
-      font-weight: 700;
-    }
   }
-}
-
-h5 {
-  color: #b10438!important;
 }
 
 .embed-pdf {

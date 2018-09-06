@@ -1,4 +1,4 @@
-$(document).ready(function () {
+ $(document).ready(function () {
 
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');

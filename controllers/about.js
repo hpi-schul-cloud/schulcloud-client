@@ -17,6 +17,7 @@ router.get('/', function (req, res, next) {
         return Promise.resolve(template);
     }).then( template =>
         res.render(template, {
+            title: 'Projekt',
             inline: !!template.includes('guest'),
             schools
         })
