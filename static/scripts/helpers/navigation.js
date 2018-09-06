@@ -1,4 +1,4 @@
-/* global jQuery*/
+/* global jQuery */
 
 import diffDom from 'diff-dom';
 const diffDOM = new diffDom();

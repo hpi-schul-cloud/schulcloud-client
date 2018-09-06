@@ -17,6 +17,31 @@
 	hyphens: auto;
 }
 
+.section-team, .section-partner, .section-about, .section-community {
+	h4 {
+		font-weight: 500;
+		margin: 30px 0px 20px 0px !important;
+		width: 100%;
+		display: block;
+	}
+	h5 {
+		font-style: italic; 
+		margin: 30px 0px 20px 0px;
+		width: 100%;
+		display: block;
+	}
+}
+
+.section-title h3 {
+	color: $primaryColor;
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+body h4:not(:first-of-type){
+	margin-top: 1rem;
+}
+
 a {
 	text-decoration: none;
 	&:hover {
@@ -30,6 +55,11 @@ a[data-toggle="collapse"]:active,
 a[data-toggle="collapse"]:focus{
 	color: inherit;
 	text-decoration:none !important;
+}
+
+.btn-link{
+	margin: 0;
+	padding: 0;
 }
 
 p.small {
@@ -70,6 +100,7 @@ label,
 .hidden{
 	display: none;
 }
+
 .show{
 	display: initial;
 }
@@ -184,6 +215,9 @@ form.inline {
 	padding-left: 15px !important;
 	padding-right: 15px !important;
 }
+.btn.hidden{
+	display:none;
+}
 
 .alert-fixed {
   position:fixed;
@@ -266,4 +300,8 @@ form.inline {
 
 .form-control{
 	hyphens: none;
+}
+
+.position-absolute{
+	position: absolute !important;
 }
