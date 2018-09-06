@@ -86,7 +86,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
           });
     }
 
-    const firstSection = document.querySelector('.form section[data-panel="section-1"]');
+    const firstSection = document.querySelector('.form section[data-panel="section-1"]:not(.noback)');
     if(firstSection){
         firstSection.addEventListener("showSection", (event) => {
             const backButton = document.getElementById("prevSection");
