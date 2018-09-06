@@ -41,7 +41,7 @@
                 {{#unless isTeacher}}
                     <div class="form-group">
                         <label>Geburtsdatum: *</label>
-                        <input class="form-control linked" id="birthday" data-date data-min-date="1990/01/01" data-max-date="2015/01/01" data-start-date="2000/01/01" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker user.birthday}}"/>
+                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker user.birthday}}"/>
                     </div>
 
                     <div class="row mb-2">

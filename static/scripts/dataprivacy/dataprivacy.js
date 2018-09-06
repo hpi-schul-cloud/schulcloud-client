@@ -217,6 +217,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         try{
             document.querySelectorAll(`input[name="${key}"]`).forEach((input) => {
                 input.value = value;
+                input.setAttribute("readonly","true");
                 var event = new Event('input', {
                     'bubbles': true,
                     'cancelable': true
