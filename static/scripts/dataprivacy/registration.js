@@ -39,14 +39,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
             }
         });
     }
-    
+    let pinSent;
     // if email for pin registration is changed, reset pin-sent status
     $('form.registration-form.student input[name$="email"]:last').on("change", ()=> {
-        $("input[name='pin-sent']").val("no");
+        pinSent = false;
     });
     
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
-        if($("input[name='pin-sent']").val() !== "no") {
+        if(pinSent) {
             // send pin of value is something else than no
         } else {
             sendPin(true);
@@ -71,7 +71,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
             if(sendConfirm) {
                 $.showNotification(`Eine PIN wurde erfolgreich an ${usermail} versendet.`, "success", 15000);
             }
-            $("input[name='pin-sent']").val("yes");
+            pinSent = true;
         }).fail(function(err){
             $.showNotification(`Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' und prüfe deine E-Mail-Adresse (${usermail}).`, "danger", 7000);
         });
