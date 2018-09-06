@@ -102,6 +102,8 @@ $(document).ready(function () {
             submitLabel: 'Importieren'
         });
         $importModal.appendTo('body').modal('show');
+        // fix later:
+        $importModal.find("input[name=sendRegistration]").attr("checked", "checked");
     });
 
     $('.sso-type-selection').on('change', function (e) {

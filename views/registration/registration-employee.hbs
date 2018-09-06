@@ -58,7 +58,7 @@
         <div class="form-group">
           <label>Ihre E-Mail-Adresse *</label>
             {{#if user.email}}
-                <input class="form-control linked" type="email" name="email" value="{{user.email}}" required/>
+                <input class="form-control linked" type="email" name="email" value="{{user.email}}" readonly required/>
             {{else}}
                 <input class="form-control linked" type="email" name="email" required placeholder="lehrer@schul-cloud.org" autocomplete />
             {{/if}}
