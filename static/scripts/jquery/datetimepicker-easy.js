@@ -17,6 +17,7 @@ window.addEventListener('load', ()=>{
             startDate:  (input.dataset.startDate || false),
             minDate:    (input.dataset.minDate || 'yesterday'), //yesterday is minimum date(for today use 0 or -1970/01/01)
             maxDate:    (input.dataset.maxDate || 'tomorrow'),  //tomorrow is maximum date calendar
+            inline:    (input.dataset.inline=="true"),
             onChangeDateTime: triggerInputEvent
         };
     }
