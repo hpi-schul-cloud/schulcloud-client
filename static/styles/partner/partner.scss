@@ -66,8 +66,6 @@ hgroup {
         background-color: white;
         color: #b10438;
         position: relative;
-        width: 200px;
-        left: calc(50% - 100px);
         font-weight: 500;
         i {
             display: block;
@@ -76,5 +74,6 @@ hgroup {
     }
     .buttonWrapper {
         width: 100%;
+        text-align: center;
     }
 }
