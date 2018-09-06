@@ -236,7 +236,7 @@ const deleteEventsForData = (service) => {
  *          toHash: optional, user account mail for hash generation = string
  *      }
  */
-const generateRegistrationLink = (params) => {
+const generateRegistrationLink = (params, internalReturn) => {
     return function (req, res, next) {
         let options = JSON.parse(JSON.stringify(params));
         if (!options.role) options.role = req.body.role || "";
@@ -246,19 +246,25 @@ const generateRegistrationLink = (params) => {
         if (!options.schoolId) options.schoolId = req.body.schoolId || "";
         if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
         
-        return api(req).post("/registrationlink/", {
-            json: options
-        }).then(linkData => {
-            res.locals.linkData = linkData;
-            if(options.patchUser) req.body.importHash = linkData.hash;
-            next();
-        }).catch(err => {
-            req.session.notification = {
-                'type': 'danger',
-                'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
-            };
-            res.redirect(req.header('Referer'));
-        });
+        if(internalReturn){
+            return api(req).post("/registrationlink/", {
+                json: options
+            });
+        } else {
+            return api(req).post("/registrationlink/", {
+                json: options
+            }).then(linkData => {
+                res.locals.linkData = linkData;
+                if(options.patchUser) req.body.importHash = linkData.hash;
+                next();
+            }).catch(err => {
+                req.session.notification = {
+                    'type': 'danger',
+                    'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+                };
+                res.redirect(req.header('Referer'));
+            });
+        }
     };
 };
 
@@ -268,7 +274,7 @@ router.use(authHelper.authChecker);
 // client-side use
 router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData);});
 
-const sendMailHandler = (user, req, res, silent) => {
+const sendMailHandler = (user, req, res, internalReturn) => {
     if (user && user.email && user.schoolId && (res.locals.linkData||{}).shortLink) {
         return api(req).post('/mails/', {
             json: {
@@ -284,14 +290,14 @@ ${res.locals.theme.short_title}-Team`
                 }
             }
         }).then(_ => {
-            if (silent) return;
+            if (internalReturn) return;
             req.session.notification = {
                 type: 'success',
                 message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
             };
             return res.redirect(req.header('Referer'));
         }).catch(err => {
-            if (silent) return;
+            if (internalReturn) return;
             req.session.notification = {
                 'type': 'danger',
                 'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
@@ -299,7 +305,7 @@ ${res.locals.theme.short_title}-Team`
             res.redirect(req.header('Referer'));
         });
     } else {
-        if (silent) return;
+        if (internalReturn) return;
         req.session.notification = {
             type: 'success',
             message: 'Nutzer erfolgreich erstellt.'
@@ -330,7 +336,7 @@ ${res.locals.theme.short_title}-Team`
 };
 
 
-const getUserCreateHandler = (silent) => {
+const getUserCreateHandler = (internalReturn) => {
     return function (req, res, next) {
         if (req.body.birthday) {
             let birthday = req.body.birthday.split('.');
@@ -341,9 +347,9 @@ const getUserCreateHandler = (silent) => {
         }).then(newuser => {
             res.locals.createdUser = newuser;
             if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
-                sendMailHandler(newuser, req, res, silent);
+                sendMailHandler(newuser, req, res, internalReturn);
             } else {
-                if (silent) return;
+                if (internalReturn) return;
                 req.session.notification = {
                     'type': 'success',
                     'message': 'Nutzer erfolgreich erstellt.'
@@ -356,7 +362,7 @@ const getUserCreateHandler = (silent) => {
             });
             */
         }).catch(err => {
-            if (silent) return;
+            if (internalReturn) return;
             req.session.notification = {
                 'type': 'danger',
                 'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
@@ -427,16 +433,15 @@ const getCSVImportHandler = () => {
 
         const recordPromises = records.map(async (user) => {
             user = Object.assign(user, groupData);
-            await (generateRegistrationLink({
+            let linkdData = await (generateRegistrationLink({
                 role:req.body.roles[0],
                 save: true,
                 toHash: user.email
-            }))(req, res, next);
-            return {user: user, linkData: res.locals.linkData};
+            }, true))(req, res, next);
+            return {user: user, linkData: linkdData};
         });
 
         Promise.all(recordPromises).then(async (allData) => {
-    
             for (let data of allData) {
                 if (req.body.sendRegistration) {
                     req.body = data.user;
