@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{#if title}}{{title}} - {{/if}}{{themeTitle}}</title>
+    <title>{{#if title}}{{title}} - {{/if}}{{theme.short_title}}</title>
 
     {{#block "meta"}}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
-        <meta name="apple-mobile-web-app-title" content="{{themeTitle}}">
+        <meta name="apple-mobile-web-app-title" content="{{theme.short_title}}">
         <meta name="theme-color" content="#b10438">
-        <meta name="application-name" content="{{themeTitle}}">
+        <meta name="application-name" content="{{theme.short_title}}">
     {{/block}}
 
     {{#block "styles"}}

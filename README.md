@@ -21,7 +21,7 @@ There are blog posts on how to setup [client](https://github.com/schul-cloud/sch
 1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)  
 2. Go into project folder
 3. run `gulp watch` to run gulp
-4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`)
+4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` and `SC_SHORT_TITLE=Schul-Cloud` if you want.
 5. run `npm run watch` to boot the application
 6. go to `http://localhost:3100`
   

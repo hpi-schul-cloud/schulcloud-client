@@ -69,6 +69,32 @@ module.exports = {
         text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
         return text;
     },
+    ifCond: (v1, operator, v2, options) => {
+        switch (operator) {
+            case '==':
+                return (v1 == v2) ? options.fn(this) : options.inverse(this);
+            case '===':
+                return (v1 === v2) ? options.fn(this) : options.inverse(this);
+            case '!=':
+                return (v1 != v2) ? options.fn(this) : options.inverse(this);
+            case '!==':
+                return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+            case '<':
+                return (v1 < v2) ? options.fn(this) : options.inverse(this);
+            case '<=':
+                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+            case '>':
+                return (v1 > v2) ? options.fn(this) : options.inverse(this);
+            case '>=':
+                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+            case '&&':
+                return (v1 && v2) ? options.fn(this) : options.inverse(this);
+            case '||':
+                return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            default:
+                return options.inverse(this);
+        }
+    },
     ifeq: (a, b, opts) => {
         if (a == b) {
             return opts.fn(this);
@@ -81,6 +107,13 @@ module.exports = {
             return opts.fn(this);
         } else {
             return opts.inverse(this);
+        }
+    },
+    ifvalue: (conditional, options) => {
+        if (options.hash.value === conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
         }
     },
     userHasPermission: (permission, opts) => {
@@ -98,15 +131,16 @@ module.exports = {
             return options.inverse(this);
         }
     },
-    ifvalue: (conditional, options) => {
-        if (options.hash.value === conditional) {
-            return options.fn(this);
-        } else {
-            return options.inverse(this);
-        }
-    },
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
+    },
+    dateToPicker: (date, opts) => {
+        let d = moment(date);
+        return moment(date).format('DD.MM.YYYY');
+    },
+    dateTimeToPicker: (date, opts) => {
+        let d = moment(date);
+        return moment(date).format('DD.MM.YYYY HH:mm');
     },
     timeToString: (date, opts) => {
         let now = moment();
@@ -154,5 +188,22 @@ module.exports = {
     },
     json: (data) => {
         return JSON.stringify(data);
-    }
+    },
+    times: (n, block)=>{
+        var accum = '';
+        for(var i = 0; i < n; ++i){
+            accum += block.fn(i);
+        }
+        return accum;
+    },
+    for: (from, to, incr, block) => {
+        var accum = '';
+        for(var i = from; i < to; i += incr){
+            accum += block.fn(i);
+        }
+        return accum;
+    },
+    add: (a, b) => {
+        return a + b;
+    },
 };

@@ -406,13 +406,13 @@
         },
         "longDesc": false
       },
-      {
+     {
         "title": "",
-        "firstName": "Lasse",
-        "lastName": "Jahn",
-        "position": "Studentische Hilfskraft",
-        "description": "Lasse studiert IT-Systems Engineering im Bachelor am Hasso-Plattner-Institut. Er verknüpft seine Studieninhalte mit der Arbeit und ist so in Entwicklung unterstützend tätig. Seit seiner Jugend war er sehr interessiert an dem deutschen Bildungssystem und freut sich daher, dass er nun die Möglichkeit hat auf dieses mit einzuwirken. In seiner Freizeit engagiert sich Lasse ehrenamtlich in der politischen Kinder- und Jugendarbeit und ist interessiert an dem kulturellen lateinamerikanischen Kampftanz Capoeira.",
-        "pictureUrl": "/images/team/Lasse_Jahn.jpg",
+        "firstName": "Michael",
+        "lastName": "Janke",
+        "position": "Student",
+        "description": "Michael schreibt seine Masterarbeit im Projekt Schul-Cloud. Nicht nur sein Studium am HPI, auch seine Erfahrungen durch die Tätigkeit an einem Gymnasium als Administrator und technischer Berater gehen mit in die Arbeit an der HPI Schul-Cloud ein. Dabei entstand die Idee der Entwicklung einer Ablagezone für nicht-formalisierte Interaktion. Bilder oder andere Medien sollen einfach in eine gemeinsame Ablage geteilt werden können. Auch sollen Inhalte einfach auf einer digitalen Tafel angezeigt werden können. In seiner Freizeit verbindet er sein Studium mit seinen handwerklichen Fähigkeiten. 3D-Drucken, Smart-Home, aber auch Hammer und Wasserwaage sind keine Fremdworte für ihn. Zum Ausspannen wandert Michael gerne in der Natur und sucht dafür immer neue Orte und Abenteuer.",
+        "pictureUrl": "/images/team/Michael_Janke.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -443,21 +443,6 @@
         "position": "Student",
         "description": "Jonas schreibt seine Masterarbeit im Projekt Schul-Cloud. Der Schwerpunkt in seinem Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Die Idee hinter seiner Masterarbeit ist Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. ",
         "pictureUrl": "/images/team/Jonas_Keutel.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Niklas",
-        "lastName": "Kiefer",
-        "position": "Studentische Hilfskraft",
-        "description": "Niklas hat IT-Systems Engineering am Hasso-Plattner-Institut (HPI) studiert und ist seit September 2016 Teil des Schul-Cloud-Teams. Als Teilnehmer am Bachelor-Projekt der Schul-Cloud war er schon seit Beginn der Anwendung involviert. Nach dem Studium am HPI ist er der Schul-Cloud aber trotzdem erhalten geblieben und arbeitet aktuell am Frontend und Backend, sowie gelegentlich an der Android-App. Seine größten Hobbies sind Fußball und Musik.",
-        "pictureUrl": "/images/team/Niklas_Kiefer.png",
         "priority": 0,
         "social": {
           "facebook": "",
