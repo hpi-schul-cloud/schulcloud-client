@@ -705,6 +705,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
 router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users', "teacher"));
 router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
 router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
+router.patch('/teachers/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
 
@@ -754,7 +755,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                     [{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
-                        icon: 'edit'
+                        icon: 'edit',
+                        class: (_.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW') || !_.includes(res.locals.currentUser.permissions, 'TEACHER_CREATE')) ? '' : 'disabled'
                     }]
                 ];
             });
@@ -774,7 +776,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
     });
 });
 
-router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
 
     Promise.all([
@@ -787,7 +789,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
                 user,
-                isTeacher: true
+                isTeacher: true,
+                isAdmin: _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW')
             }
         );
     });
@@ -1041,7 +1044,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 closeLabel : 'Abbrechen',
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
-                consent
+                consent,
+                isAdmin: _.includes(res.locals.currentUser.permissions, 'ADMIN_VIEW')
             }
         );
     });
