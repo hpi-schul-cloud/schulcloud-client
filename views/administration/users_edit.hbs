@@ -87,7 +87,9 @@
                     <div class="modal-footer">
                         <div class="pull-left">
                             <button class="btn btn-secondary btn-pw">Passwort ändern</button>
-                            <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                            {{#if isAdmin}}
+                                <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                            {{/if}}
                         </div>
 
                         <button class="btn btn-secondary btn-cancel">
@@ -109,11 +111,13 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" method="delete" class="delete-modal"}}	
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-delete-user"}}	
-                    {{/content}}	
-                {{/embed}}
+                {{#if isAdmin}}
+                    {{#embed "lib/components/modal-form" method="delete" class="delete-modal"}}
+                        {{#content "fields"}}
+                            {{> "administration/forms/form-delete-user"}}
+                        {{/content}}
+                    {{/embed}}
+                {{/if}}
 
             </div>
         </div>
