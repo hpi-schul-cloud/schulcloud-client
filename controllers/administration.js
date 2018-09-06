@@ -792,8 +792,8 @@ const getTeacherUpdateHandler = () => {
         })).data.map(c => {
             return c._id;
         });
-        const addedClasses = req.body.classes.filter(function(i) {return !usersClasses.includes(i)});
-        const removedClasses = usersClasses.filter(function(i) {return !req.body.classes.includes(i)});
+        const addedClasses = (req.body.classes||[]).filter(function(i) {return !usersClasses.includes(i)});
+        const removedClasses = usersClasses.filter(function(i) {return !(req.body.classes||[]).includes(i)});
         addedClasses.forEach((addClass) => {
             promises.push(api(req).patch('/classes/' + addClass, { json: { $push: { teacherIds: req.params.id }}}));
         });
