@@ -23,7 +23,7 @@ router.get('/', function (req, res, next) {
     const numMinutes = numHours * 60;
     const hours = [];
 
-    for(let j = 0; j < numHours; j++) {
+    for(let j = 0; j <= numHours; j++) {
         hours.push(j + timeStart);
     }
     const start = new Date();

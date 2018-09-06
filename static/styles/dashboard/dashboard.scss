@@ -198,10 +198,11 @@
                 height: 245px;
                 content: '';
                 width: 1px;
-                background: black;
+                border-left: 1px dashed #ccc;
                 right: 0px;
                 position: absolute;
                 bottom: 0px;
+                z-index: -1;
             }
         }
     }
