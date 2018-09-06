@@ -275,7 +275,7 @@ router.use(authHelper.authChecker);
 router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData);});
 
 const sendMailHandler = (user, req, res, internalReturn) => {
-    if (user && user.email && user.schoolId && (res.locals.linkData||{}).shortLink) {
+    if (user && user.email && user.schoolId && user.shortLink) {
         return api(req).post('/mails/', {
             json: {
                 email: user.email,
@@ -284,7 +284,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
                 content: {
                     "text": `Einladung in die ${res.locals.theme.title}
 Hallo ${user.firstName} ${user.lastName}!
-\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${res.locals.linkData.shortLink}
+\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                 }
@@ -338,6 +338,7 @@ ${res.locals.theme.short_title}-Team`
 
 const getUserCreateHandler = (internalReturn) => {
     return function (req, res, next) {
+        let shortLink = req.body.shortLink;
         if (req.body.birthday) {
             let birthday = req.body.birthday.split('.');
             req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
@@ -347,6 +348,7 @@ const getUserCreateHandler = (internalReturn) => {
         }).then(newuser => {
             res.locals.createdUser = newuser;
             if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
+                newuser.shortLink = shortLink;
                 sendMailHandler(newuser, req, res, internalReturn);
             } else {
                 if (internalReturn) return;
@@ -450,7 +452,8 @@ const getCSVImportHandler = () => {
                     req.body = data.user;
                 }
                 req.body.importHash = data.linkData.hash;
-                res.locals.linkData = data.linkData;
+                req.body.shortLink = data.linkData.shortLink;
+                
                 await (getUserCreateHandler(true))(req, res, next);
             }
             
