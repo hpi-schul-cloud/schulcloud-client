@@ -1,6 +1,7 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
       <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+      <script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
       <script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
       <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
   {{/content}}
@@ -84,7 +85,7 @@
                   <label>Passwort wiederholen: *</label>
                   <input
                           class="form-control"
-                          id="password-repeat"
+                          id="password-control"
                           name="password-2"
                           type="password"
                           placeholder="Passwort wiederholen"

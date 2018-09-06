@@ -119,29 +119,8 @@ window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
         // generate password if password field present
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
-        var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 99)).toString();
+        var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98)+1).toString();
         $('.form .student-password').text(pw);
         $('.form .student-password-input').val(pw);
     }
-    let datepicker = $("input.form-control[name='student-birthdate']");
-    /*if(datepicker.length>=1) {
-        let minDate = new Date(), maxDate = new Date(), startDate = new Date();
-        minDate.setFullYear(minDate.getFullYear()-70);
-        maxDate.setFullYear(maxDate.getFullYear()-18);
-        startDate.setFullYear(startDate.getFullYear()-19);
-        console.log(minDate);
-        console.log(maxDate);
-        console.log(startDate);
-        datepicker.attr("data-min-date", minDate.toISOString().substring(0, 10).replace(/-/g,"/"));
-        datepicker.attr("data-max-date", maxDate.toISOString().substring(0, 10).replace(/-/g,"/"));
-        datepicker.attr("data-start-date", startDate.toISOString().substring(0, 10).replace(/-/g,"/"));
-        console.log(datepicker.datepicker( "option", "minDate" ));
-        datepicker.datepicker({
-            minDate: minDate,
-            maxDate: maxDate,
-            startDate: startDate
-        });
-        datepicker.datepicker("update");
-        // Y U NO WORK?!?!?!?!
-    }*/
 });
