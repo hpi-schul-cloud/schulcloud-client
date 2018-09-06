@@ -39,7 +39,7 @@
                     </div>
                 {{/each}}
                 <div id="buttonWrapper">
-                    <div class="btn toggle-partner" class="btn btn-info" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                    <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
                 </div>
                 <div class="col-xs-12">
                     <div id="hiddenAdvisers" class="collapse row">   
@@ -101,3 +101,17 @@
     </div>
 
 </section>
+<script>
+    function changeButtonText() {
+        let button = document.querySelector('.toggle-partner');
+        let hiddenPartners = document.querySelector('#hiddenAdvisers');
+        if (hiddenPartners.classList.contains('in')) {
+            button.innerHTML = 'mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>';
+        }
+        else {
+            button.innerHTML = 'weniger anzeigen<i class="fa fa-angle-up" aria-hidden="true"></i>';
+        }
+    }
+
+    document.querySelector('.toggle-partner').addEventListener('click', changeButtonText);
+</script>
