@@ -922,13 +922,17 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
     const classesPromise = getSelectOptions(req, 'classes', {$populate: ['year'], $sort: 'displayName'});
+    const accountPromise = api(req).get('/accounts/', {qs: {userId: req.params.id}});
 
     Promise.all([
         userPromise,
         consentPromise,
-        classesPromise
-    ]).then(([user, consent, classes]) => {
+        classesPromise,
+        accountPromise
+    ]).then(([user, consent, classes, account]) => {
         consent = consent[0];
+        account = account[0];
+        let hidePwChangeButton = account ? false : true;
 
         classes = classes.map(c => {
             c.selected = c.teacherIds.includes(user._id);
@@ -944,7 +948,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 consentStatusIcon: getConsentStatusIcon(consent, true),
                 consent,
                 classes,
-                isTeacher: true
+                isTeacher: true,
+                hidePwChangeButton
             }
         );
     });
