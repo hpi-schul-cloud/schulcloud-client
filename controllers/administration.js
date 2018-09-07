@@ -284,7 +284,7 @@ const sendMailHandler = (user, req, res, internalReturn) => {
                 content: {
                     "text": `Einladung in die ${res.locals.theme.title}
 Hallo ${user.firstName} ${user.lastName}!
-\nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink}
+\nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink || res.locals.linkData.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                 }
