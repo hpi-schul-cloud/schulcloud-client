@@ -111,13 +111,13 @@
                 </div>
                     <div class="modal-footer">
                         <div class="pull-left">
+                            {{#ifCond isAdmin '|| !' editTeacher}}
+                                <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>Passwort ändern</button>
+                                <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                            {{/ifCond}}
                             <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}">
                                 Persönlichen Einladungslink generieren
                             </button>
-                            {{#ifCond isAdmin '|| !' editTeacher}}
-                                <button class="btn btn-secondary btn-pw" {{#if hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>Passwort ändern</button>
-                                <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
-                            {{/ifCond}}
                         </div>
 
                         <button class="btn btn-secondary btn-cancel">
