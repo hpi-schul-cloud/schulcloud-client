@@ -948,8 +948,10 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 consentStatusIcon: getConsentStatusIcon(consent, true),
                 consent,
                 classes,
-                isTeacher: true,
-                hidePwChangeButton
+                editTeacher: true,
+                hidePwChangeButton,
+                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+
             }
         );
     });
@@ -1286,11 +1288,11 @@ router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIE
         res.json(students);
     });
 });
+router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
 router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,true);
 });
 router.get('/classes/:id', getDetailHandler('classes'));
-router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
 router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
 router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 
@@ -1347,12 +1349,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-        if(isAdmin){
-            res.redirect(`/administration/classes/`);
-        }else{
-            res.redirect(`/administration/classes/`);
-        }
+        res.redirect(`/administration/classes/`);
     }).catch(err => {
         next(err);
     });

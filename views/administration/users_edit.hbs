@@ -38,7 +38,7 @@
                         <label>E-Mail-Adresse: *</label>
                         <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required>
                     </div>
-                {{#unless isTeacher}}
+                {{#unless editTeacher}}
                     <div class="form-group">
                         <label>Geburtsdatum: *</label>
                         <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker user.birthday}}"/>
@@ -70,7 +70,7 @@
                 <button class="btn btn-sm btn-secondary pull-right" id="edit-consent" type="button">bearbeiten <i class="fa fa-edit"></i></button>
                 <h5>Einwilligungen: {{{consentStatusIcon}}}</h5>
                 <div class="row" id="consents-overview">
-                    {{#unless isTeacher}}
+                    {{#unless editTeacher}}
                         <div class="col-md-6">
                             <b>Eltern</b><br/>
                             <input name="parent_consentId" type="hidden" value="{{consent.parentConsent._id}}" disabled/>
@@ -111,11 +111,13 @@
                 </div>
                     <div class="modal-footer">
                         <div class="pull-left">
-                            <button class="btn btn-secondary btn-pw" {{#if hidePwChangeButton}} disabled {{/if}} >Passwort ändern</button>
-                            <button class="btn btn-secondary btn-invitation-link-with-hash {{#if isTeacher}}teacher{{else}}student{{/if}}">
+                            <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}">
                                 Persönlichen Einladungslink generieren
                             </button>
-                            <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                            {{#ifCond isAdmin '|| !' editTeacher}}
+                                <button class="btn btn-secondary btn-pw" {{#if hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>Passwort ändern</button>
+                                <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                            {{/ifCond}}
                         </div>
 
                         <button class="btn btn-secondary btn-cancel">

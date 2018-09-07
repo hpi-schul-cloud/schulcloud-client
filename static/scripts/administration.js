@@ -99,11 +99,12 @@ $(document).ready(function () {
         populateModalForm($importModal, {
             title: 'CSV Importieren',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Importieren'
+            submitLabel: 'Importieren',
+            fields: {
+                sendRegistration: 'true'
+            }
         });
         $importModal.appendTo('body').modal('show');
-        // fix later:
-        $importModal.find("input[name=sendRegistration]").attr("checked", "checked");
     });
 
     $('.sso-type-selection').on('change', function (e) {
