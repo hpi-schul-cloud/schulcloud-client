@@ -119,7 +119,7 @@ function updateButton(selectedIndex){
 }
 
 function isSectionValid(sectionIndex){
-    if(ValidationDisabled){return true}; // for testing only
+    if(ValidationDisabled) return true; // for testing only
     // negation is needed, because some() returns false on a blank array.
     return !document.querySelectorAll(`section[data-panel="section-${sectionIndex}"] input`).some((input)=>{
         return !input.checkValidity();
@@ -217,6 +217,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
         try{
             document.querySelectorAll(`input[name="${key}"]`).forEach((input) => {
                 input.value = value;
+                input.setAttribute("readonly","true");
                 var event = new Event('input', {
                     'bubbles': true,
                     'cancelable': true

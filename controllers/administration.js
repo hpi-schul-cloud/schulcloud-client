@@ -225,71 +225,87 @@ const deleteEventsForData = (service) => {
     };
 };
 
-const generateShortInviteLink = (req, target) => {
-    return api(req).post("/link/", {
-        json: {target: target}
-    }).then(newlink => {
-        newlink.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${newlink._id}`;
-        return Promise.resolve(newlink);
-    }).catch(err => {
-        return Promise.reject(new Error("Fehler beim Generieren des Einladungslinks."));
-    });
-};
-
-const generateMailHash = (req, email) => {
-    return api(req).post("/hash", {
-        json: {
-            toHash: email,
-            save: true
-        }
-    }).then(hash => {
-        return hash;
-    }).catch(err => {
-        return Promise.reject(new Error("Fehler beim Generieren des Hashes."));
-    });
-};
-
-const sendMailHandler = (user, req, res, type) => {
-    if (user && user.email && user.schoolId && user.roles) {
-        let link = "";
-        if (type === "teacher") {
-            link = `${(req.headers.origin || process.env.HOST)}/register/account/${user._id}`;
-        } else if (user.importHash) {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}?id=${user.importHash}`;
+/**
+ * Generates short registration link, optionally with user hash. email and sendMail will be gathered from req.body of not set.
+ * @param params {
+ *          role: user role = string "teacher"/"student"
+ *          save: hash will be generated with URI-safe characters
+ *          patchUser: hash will be patched into the user (DB)
+ *          host: current webaddress from client
+ *          schoolId: users schoolId = string
+ *          toHash: optional, user account mail for hash generation = string
+ *      }
+ */
+const generateRegistrationLink = (params, internalReturn) => {
+    return function (req, res, next) {
+        let options = JSON.parse(JSON.stringify(params));
+        if (!options.role) options.role = req.body.role || "";
+        if (!options.save) options.save = req.body.save || "";
+        if (!options.patchUser) options.patchUser = req.body.patchUser || "";
+        if (!options.host) options.host = req.headers.origin || "";
+        if (!options.schoolId) options.schoolId = req.body.schoolId || "";
+        if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
+        
+        if(internalReturn){
+            return api(req).post("/registrationlink/", {
+                json: options
+            });
         } else {
-            link = `${(req.headers.origin || process.env.HOST)}/registration/${user.schoolId}`;
+            return api(req).post("/registrationlink/", {
+                json: options
+            }).then(linkData => {
+                res.locals.linkData = linkData;
+                if(options.patchUser) req.body.importHash = linkData.hash;
+                next();
+            }).catch(err => {
+                req.session.notification = {
+                    'type': 'danger',
+                    'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+                };
+                res.redirect(req.header('Referer'));
+            });
         }
-        return generateShortInviteLink(req, link).then(shortLink => {
-            return api(req).post('/mails/', {
-                json: {
-                    email: user.email,
-                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
-                    headers: {},
-                    content: {
-                        "text": `Einladung in die ${res.locals.theme.title}
+    };
+};
+
+// secure routes
+router.use(authHelper.authChecker);
+
+// client-side use
+router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData);});
+
+const sendMailHandler = (user, req, res, internalReturn) => {
+    if (user && user.email && user.schoolId && (user.shortLink || res.locals.linkData.shortLink) ) {
+        return api(req).post('/mails/', {
+            json: {
+                email: user.email,
+                subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                headers: {},
+                content: {
+                    "text": `Einladung in die ${res.locals.theme.title}
 Hallo ${user.firstName} ${user.lastName}!
-\nDu wurden eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${shortLink.newUrl}
+\nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink || res.locals.linkData.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
-                    }
                 }
-            }).then(_ => {
-                req.session.notification = {
-                    type: 'success',
-                    message: 'Nutzer erfolgreich erstellt und informiert.'
-                };
-                return res.redirect(req.header('Referer'));
-            }).catch(err => {
-                return Promise.reject(new Error("Fehler beim Versenden der E-Mail."));
-            });
-        }).catch(err => {
+            }
+        }).then(_ => {
+            if (internalReturn) return true;
             req.session.notification = {
-                type: 'danger',
-                message: `${err.message} Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben.`
+                type: 'success',
+                message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
             };
             return res.redirect(req.header('Referer'));
+        }).catch(err => {
+            if (internalReturn) return false;
+            req.session.notification = {
+                'type': 'danger',
+                'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+            };
+            res.redirect(req.header('Referer'));
         });
     } else {
+        if (internalReturn) return true;
         req.session.notification = {
             type: 'success',
             message: 'Nutzer erfolgreich erstellt.'
@@ -319,18 +335,41 @@ ${res.locals.theme.short_title}-Team`
     });*/
 };
 
-const getCreateHandler = (service, type) => {
+
+const getUserCreateHandler = (internalReturn) => {
     return function (req, res, next) {
-        api(req).post('/' + service + '/', {
+        let shortLink = req.body.shortLink;
+        if (req.body.birthday) {
+            let birthday = req.body.birthday.split('.');
+            req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+        }
+        return api(req).post('/users/', {
             json: req.body
-        }).then(data => {
-            res.locals.createdUser = data;
-            (service === 'users') ? sendMailHandler(data, req, res, type) : "";
+        }).then(async newuser => {
+            res.locals.createdUser = newuser;
+            if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
+                newuser.shortLink = shortLink;
+                return await sendMailHandler(newuser, req, res, internalReturn);
+            } else {
+                if (internalReturn) return true;
+                req.session.notification = {
+                    'type': 'success',
+                    'message': 'Nutzer erfolgreich erstellt.'
+                };
+                res.redirect(req.header('Referer'));
+            }
+            /*
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
+            */
         }).catch(err => {
-            next(err);
+            if (internalReturn) return false;
+            req.session.notification = {
+                'type': 'danger',
+                'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
+            };
+            res.redirect(req.header('Referer'));
         });
     };
 };
@@ -374,49 +413,29 @@ const getSendHelper = (service) => {
     };
 };
 
-/**
- * Set state to closed of helpdesk problem
- * @param service usually helpdesk, to disable instead of delete entry
- * @returns {Function}
- */
-const getDisableHandler = (service) => {
-    return function (req, res, next) {
-        api(req).patch('/' + service + '/' + req.params.id, {
-            json: {
-                state: 'closed',
-                order: 2
-            }
-        }).then(_ => {
-            res.redirect(req.get('Referrer'));
-        });
-    };
-};
-
-/**
- * Truncates string to 25 chars
- * @param string given string to truncate
- * @returns {string}
- */
-const truncate = (string) => {
-    if ((string || {}).length > 25) {
-        return string.substring(0, 25) + '...';
-    } else {
-        return string;
-    }
-};
-
-const getCSVImportHandler = (service) => {
+const getCSVImportHandler = () => {
     return function (req, res, next) {
         let csvData = '';
         let records = [];
+        let importCount = 0;
 
         try {
-            csvData = decoder.write(req.file.buffer);
-            records = parse(csvData, { columns: true, delimiter: ',' });
+            const delimiters = [',',';','|','\t'];
+            delimiters.some(delimiter => {
+                csvData = decoder.write(req.file.buffer);
+                records = parse(csvData, { columns: true, delimiter: delimiter });
+                if(Object.keys(records[0]).length > 1){
+                    return true;
+                }
+                return false;
+            });
+            if(Object.keys(records[0]).length <= 1){
+                throw "PARSING FAILED";
+            }
         } catch (err) {
             req.session.notification = {
                 type: 'danger',
-                message: 'Import fehlgeschlagen.'
+                message: 'Import fehlgeschlagen. (Format überprüfen)'
             };
         }
 
@@ -425,20 +444,40 @@ const getCSVImportHandler = (service) => {
             roles: req.body.roles
         };
 
-        const recordPromises = records.map((user) => {
+        const recordPromises = records.map(async (user) => {
             user = Object.assign(user, groupData);
-            return api(req).post('/' + service + '/', {
-                json: user
-            })
-                .then(newUser => {
-                    sendMailHandler(newUser, req, res, "teacher");
-                });
+            let linkdData = await (generateRegistrationLink({
+                role:req.body.roles[0],
+                save: true,
+                toHash: user.email
+            }, true))(req, res, next);
+            return {user: user, linkData: linkdData};
         });
 
-        Promise.all(recordPromises).then(_ => {
+        Promise.all(recordPromises).then(async (allData) => {
+            for (let data of allData) {
+                if (req.body.sendRegistration) {
+                    req.body = data.user;
+                    req.body.sendRegistration = true;
+                } else {
+                    req.body = data.user;
+                }
+                req.body.importHash = data.linkData.hash;
+                req.body.shortLink = data.linkData.shortLink;
+                const success = await (getUserCreateHandler(true))(req, res, next)
+                if(success){
+                    importCount += 1;
+                }
+            }
+            req.session.notification = {
+                type: importCount?'success':'info',
+                message: `${importCount} von ${records.length} Nutzer${records.length>1?'n':''} importiert.`
+            };
             res.redirect(req.header('Referer'));
+            return;
         }).catch(err => {
-            next(err);
+            res.redirect(req.header('Referer'));
+            return;
         });
     };
 };
@@ -676,8 +715,37 @@ const userFilterSettings = function (defaultOrder) {
     ];
 };
 
-// secure routes
-router.use(authHelper.authChecker);
+const getConsentStatusIcon = (consent, bool) => {
+    if(bool && consent){
+        if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+            return `<i class="fa fa-check consent-status"></i>`;
+        }else{
+            return `<i class="fa fa-times consent-status"></i>`;
+        }
+    }
+    if(consent){
+        if(consent.requiresParentConsent){
+            if((consent.parentConsents || []).length == 0 
+                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
+                return `<i class="fa fa-times consent-status"></i>`;
+            }else{
+                if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                    return `<i class="fa fa-check consent-status"></i>`;
+                }else{
+                    return `<i class="fa fa-circle-thin consent-status"></i>`;
+                }
+            }
+        }else{
+            if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
+                return `<i class="fa fa-check consent-status"></i>`;
+            }else{
+                return `<i class="fa fa-circle-thin consent-status"></i>`;
+            }
+        }
+    }else{
+        return `<i class="fa fa-times consent-status"></i>`;
+    }
+};
 
 // teacher admin permissions
 router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
@@ -702,9 +770,66 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         });
     });
 });
-router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getCreateHandler('users', "teacher"));
-router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
-router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getUpdateHandler('users'));
+
+const getTeacherUpdateHandler = () => {
+    return async function (req, res, next) {
+    
+        let promises = [api(req).patch('/users/' + req.params.id, { json: req.body })]; // TODO: sanitize
+
+        // extract consent
+        if(req.body.form){
+            let consent = {
+                _id: req.body.consentId,
+                userConsent: {
+                    form: req.body.form || "analog",
+                    privacyConsent: req.body.privacyConsent || false,
+                    researchConsent: req.body.researchConsent || false,
+                    thirdPartyConsent: req.body.thirdPartyConsent || false,
+                    termsOfUseConsent: req.body.termsOfUseConsent || false
+                }
+            };
+            if(consent._id){ // update exisiting consent
+                promises.push(api(req).patch('/consents/' + consent._id, { json: consent }));
+            } else { //create new consent entry
+                delete consent._id;
+                consent.userId = req.params.id;
+                promises.push(api(req).post('/consents/', { json: consent }));
+            }
+        }
+
+        // extract class information
+        if(req.body.classes && !Array.isArray(req.body.classes)){
+            req.body.classes = [req.body.classes];
+        }
+        const usersClasses = (await api(req).get('/classes', {
+            qs: {
+                teacherIds: req.params.id
+            }
+        })).data.map(c => {
+            return c._id;
+        });
+        const addedClasses = (req.body.classes||[]).filter(function(i) {return !usersClasses.includes(i);});
+        const removedClasses = usersClasses.filter(function(i) {return !(req.body.classes||[]).includes(i);});
+        addedClasses.forEach((addClass) => {
+            promises.push(api(req).patch('/classes/' + addClass, { json: { $push: { teacherIds: req.params.id }}}));
+        });
+        removedClasses.forEach((removeClass) => {
+            promises.push(api(req).patch('/classes/' + removeClass, { json: { $pull: { teacherIds: req.params.id }}}));
+        });
+
+        // do all db requests
+        Promise.all(promises).then(([user, consent]) => {
+            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
+router.post('/teachers/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({role:"teacher",patchUser:true,save:true}), getUserCreateHandler());
+router.post('/teachers/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler());
+router.post('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getTeacherUpdateHandler());
+router.patch('/teachers/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
 
@@ -735,22 +860,57 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
     api(req).get('/users', {
         qs: query
-    }).then(data => {
-        api(req).get('/classes').then(classes => {
+    }).then(userData => {
+        let users = userData.data;
+
+        const classesPromise = getSelectOptions(req, 'classes', {});
+        const consentsPromise = getSelectOptions(req, 'consents', {
+            userId: {
+                $in: users.map((user) => {
+                    return user._id;
+                })
+            }
+        });
+        Promise.all([
+            classesPromise,
+            consentsPromise
+        ]).then(([classes, consents]) => {
+
+            users = users.map((user) => {
+                // add consentStatus to user
+                const consent = (consents||[]).find((consent) => {
+                    return consent.userId == user._id;
+                });
+
+                user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent, true)}</p>`;
+                // add classes to user
+                user.classesString = classes.filter((currentClass) => {
+                    return currentClass.teacherIds.includes(user._id);
+                }).map((currentClass) => {return currentClass.displayName;}).join(', ');
+                return user;
+            });
+
             const head = [
                 'Vorname',
                 'Nachname',
                 'E-Mail-Adresse',
                 'Klasse(n)',
+                'Einwilligung',
+                'Erstellt am',
                 ''
             ];
 
-            const body = data.data.map(user => {
+            const body = users.map(user => {
                 return [
                     user.firstName || '',
                     user.lastName || '',
                     user.email || '',
-                    getClasses(user, classes, true),
+                    user.classesString || '',
+                    {
+                        useHTML: true,
+                        content: user.consentStatus
+                    },
+                    moment(user.createdAt).format('DD.MM.YYYY'),
                     [{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
@@ -761,7 +921,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
             const pagination = {
                 currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
+                numPages: Math.ceil(userData.total / itemsPerPage),
                 baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
             };
 
@@ -776,10 +936,24 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
 router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
+    const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
+    const classesPromise = getSelectOptions(req, 'classes', {$populate: ['year'], $sort: 'displayName'});
+    const accountPromise = api(req).get('/accounts/', {qs: {userId: req.params.id}});
 
     Promise.all([
-        userPromise
-    ]).then(([user]) => {
+        userPromise,
+        consentPromise,
+        classesPromise,
+        accountPromise
+    ]).then(([user, consent, classes, account]) => {
+        consent = consent[0];
+        account = account[0];
+        let hidePwChangeButton = account ? false : true;
+
+        classes = classes.map(c => {
+            c.selected = c.teacherIds.includes(user._id);
+            return c;
+        });
         res.render('administration/users_edit',
             {
                 title: `Lehrer bearbeiten`,
@@ -787,7 +961,13 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 submitLabel : 'Speichern',
                 closeLabel : 'Abbrechen',
                 user,
-                isTeacher: true
+                consentStatusIcon: getConsentStatusIcon(consent, true),
+                consent,
+                classes,
+                editTeacher: true,
+                hidePwChangeButton,
+                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+
             }
         );
     });
@@ -797,67 +977,6 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 /*
     STUDENTS
 */
-
-const getConsentStatusIcon = (consent) => {
-    if(consent){
-        if(consent.requiresParentConsent){
-            if((consent.parentConsents || []).length == 0 
-                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)){
-                return `<i class="fa fa-times consent-status"></i>`;
-            }else{
-                if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
-                    return `<i class="fa fa-check consent-status"></i>`;
-                }else{
-                    return `<i class="fa fa-circle-thin consent-status"></i>`;
-                }
-            }
-        }else{
-            if(consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent){
-                return `<i class="fa fa-check consent-status"></i>`;
-            }else{
-                return `<i class="fa fa-circle-thin consent-status"></i>`;
-            }
-        }
-    }else{
-        return `<i class="fa fa-times consent-status"></i>`;
-    }
-};
-
-
-const getStudentCreateHandler = (service) => {
-    return function (req, res, next) {
-        return generateMailHash(req, req.body.email).then(hash => {
-            req.body.sendRegistration ? req.body.importHash = hash : "";
-            let birthday = req.body.birthday.split('.');
-            req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
-            api(req).post('/users/', {
-                json: req.body
-            }).then(newuser => {
-                res.locals.createdUser = newuser;
-                if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
-                    sendMailHandler(newuser, req, res);
-                } else {
-                    req.session.notification = {
-                        'type': 'success',
-                        'message': 'Nutzer erfolgreich erstellt.'
-                    };
-                    res.redirect(req.header('Referer'));
-                }
-                /*
-                createEventsForData(data, service, req, res).then(_ => {
-                    next();
-                });
-                */
-            }).catch(err => {
-                req.session.notification = {
-                    'type': 'danger',
-                    'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
-                };
-                res.redirect(req.header('Referer'));
-            });
-        });
-    };
-};
 
 const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
@@ -892,6 +1011,7 @@ const getStudentUpdateHandler = () => {
         }else if(studentConsent.userConsent.form){
             studentConsent.parentConsents = [newParentConsent];
         }
+    
         // remove all consent infos from user post
         Object.keys(req.body).forEach(function(key) {
             if(key.startsWith("parent_") || key.startsWith("student_")){
@@ -908,6 +1028,7 @@ const getStudentUpdateHandler = () => {
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
+
         Promise.all(promises).then(([user, studentConsent]) => {
             res.redirect(cutEditOffUrl(req.header('Referer'))); 
         }).catch(err => {
@@ -916,8 +1037,8 @@ const getStudentUpdateHandler = () => {
     };
 };
 
-router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentCreateHandler());
-router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler('users'));
+router.post('/students/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), generateRegistrationLink({role:"student",patchUser:true,save:true}), getUserCreateHandler());
+router.post('/students/import/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), upload.single('csvFile'), getCSVImportHandler());
 router.patch('/students/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), userIdtoAccountIdUpdate('accounts'));
 router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getStudentUpdateHandler());
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
@@ -954,11 +1075,14 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         let users = userData.data;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {userId: {
-            $in: users.map((user) => {
-                return user._id;
-            })
-          }});
+        const consentsPromise = getSelectOptions(req, 'consents', {
+            userId: {
+                $in: users.map((user) => {
+                    return user._id;
+                })
+            },
+            $limit: itemsPerPage
+        });
         Promise.all([
             classesPromise,
             consentsPromise
@@ -989,10 +1113,10 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
             const body = users.map(user => {
                 return [
-                    user.firstName,
-                    user.lastName,
-                    user.email,
-                    user.classesString,
+                    user.firstName || '',
+                    user.lastName || '',
+                    user.email || '',
+                    user.classesString || '',
                     {
                         useHTML: true,
                         content: user.consentStatus
@@ -1024,15 +1148,19 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
     const consentPromise = getSelectOptions(req, 'consents', {userId: req.params.id});
+    const accountPromise = api(req).get('/accounts/', {qs: {userId: req.params.id}});
 
     Promise.all([
         userPromise,
-        consentPromise
-    ]).then(([user, consent]) => {
+        consentPromise,
+        accountPromise
+    ]).then(([user, consent, account]) => {
         consent = consent[0];
         if(consent){
             consent.parentConsent = ((consent.parentConsents || []).length)?consent.parentConsents[0]:{};
         }
+        account = account[0];
+        let hidePwChangeButton = account ? false : true;
         res.render('administration/users_edit',
             {
                 title: `Schüler bearbeiten`,
@@ -1041,7 +1169,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 closeLabel : 'Abbrechen',
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
-                consent
+                consent,
+                hidePwChangeButton
             }
         );
     });
@@ -1129,11 +1258,26 @@ const getClassOverview = (req, res, next) => {
 router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,false);
 });
+router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
+    const classIds = JSON.parse(req.query.classes);
+    api(req).get('/classes/', { qs: { 
+        $populate: ['userIds'],
+        _id: {
+            $in: classIds
+        }
+    }})
+    .then(classes => {
+        const students = classes.data.map((c) => {
+            return c.userIds;
+        }).reduce((flat, next) => {return flat.concat(next);}, []);
+        res.json(students);
+    });
+});
+router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
 router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     renderClassEdit(req,res,next,true);
 });
 router.get('/classes/:id', getDetailHandler('classes'));
-router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
 router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
 router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getDeleteHandler('classes'));
 
@@ -1141,8 +1285,8 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds']}})
     .then(currentClass => {
         const classesPromise = getSelectOptions(req, 'classes', {$limit: 1000}); // TODO limit classes to scope (year before, current and without year)
-        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $limit:  1000});
-        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $limit: 10000});
+        const teachersPromise = getSelectOptions(req, 'users', {roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit:  1000});
+        const studentsPromise = getSelectOptions(req, 'users', {roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000});
         const yearsPromise = getSelectOptions(req, 'years', {$limit: 10000});
 
         Promise.all([
@@ -1217,25 +1361,9 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect('/administration/classes');
+        res.redirect(`/administration/classes/`);
     }).catch(err => {
         next(err);
-    });
-});
-
-router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    const classIds = JSON.parse(req.query.classes);
-    api(req).get('/classes/', { qs: { 
-        $populate: ['userIds'],
-        _id: {
-            $in: classIds
-        }
-    }})
-    .then(classes => {
-        const students = classes.data.map((c) => {
-            return c.userIds;
-        }).reduce((flat, next) => {return flat.concat(next);}, []);
-        res.json(students);
     });
 });
 
@@ -1263,7 +1391,12 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         // TODO: sanitize
         json: newClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+        if(isAdmin){
+            res.redirect(`/administration/classes/`);
+        }else{
+            res.redirect(`/administration/classes/${data._id}/manage`);
+        }
     }).catch(err => {
         next(err);
     });
@@ -1295,12 +1428,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-        if(isAdmin){
-            res.redirect(`/administration/classes/`);
-        }else{
-            res.redirect(`/administration/classes/`);
-        }
+        res.redirect(`/administration/classes/`);
     }).catch(err => {
         next(err);
     });
@@ -1385,6 +1513,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
             'Klasse',
             'Lehrer',
             'Schuljahr',
+            'Schüler',
             ''
         ];
 
@@ -1393,6 +1522,7 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
                 item.displayName||"",
                 (item.teacherIds||[]).map(item => item.lastName).join(', '),
                 (item.year||{}).name||"",
+                (item.userIds.length)||'0',
                 ((item, path)=>{return [
                     {
                         link: path + item._id + "/manage",
@@ -1444,6 +1574,37 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
         });
     });
 });
+
+/**
+ * Set state to closed of helpdesk problem
+ * @param service usually helpdesk, to disable instead of delete entry
+ * @returns {Function}
+ */
+const getDisableHandler = (service) => {
+    return function (req, res, next) {
+        api(req).patch('/' + service + '/' + req.params.id, {
+            json: {
+                state: 'closed',
+                order: 2
+            }
+        }).then(_ => {
+            res.redirect(req.get('Referrer'));
+        });
+    };
+};
+
+/**
+ * Truncates string to 25 chars
+ * @param string given string to truncate
+ * @returns {string}
+ */
+const truncate = (string) => {
+    if ((string || {}).length > 25) {
+        return string.substring(0, 25) + '...';
+    } else {
+        return string;
+    }
+};
 
 /*
     HELPDESK
@@ -1515,10 +1676,24 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
     COURSES
 */
 
+const getCourseCreateHandler = () => {
+    return function (req, res, next) {
+        api(req).post('/courses/', {
+            json: req.body
+        }).then(course => {
+            createEventsForData(course, "courses", req, res).then(_ => {
+                next();
+            });
+        }).catch(err => {
+            next(err);
+        });
+    };
+};
+
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
 router.patch('/schools/:id', getUpdateHandler('schools'));
 router.post('/schools/:id/bucket', createBucket);
-router.post('/courses/', mapTimeProps, getCreateHandler('courses'));
+router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
 router.get('/courses/:id', getDetailHandler('courses'));
 router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
@@ -1648,20 +1823,6 @@ router.all('/systems', function (req, res, next) {
             systems,
             availableSSOTypes
         });
-    });
-});
-
-/**
- * Dataprivcay routes
- */
-router.get('/dataprivacy/student', function (req, res, next) {
-    res.render('administration/dataprivacy/student', {
-        title: 'Datenerfassung: Einverständniserklärung'
-    });
-});
-router.get('/dataprivacy/teacher', function (req, res, next) {
-    res.render('administration/dataprivacy/teacher', {
-        title: 'Datenerfassung: Einverständniserklärung'
     });
 });
 
