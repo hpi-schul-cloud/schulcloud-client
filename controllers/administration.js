@@ -1361,7 +1361,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect('/administration/classes');
+        res.redirect(`/administration/classes/`);
     }).catch(err => {
         next(err);
     });
@@ -1391,7 +1391,12 @@ router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW
         // TODO: sanitize
         json: newClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+        if(isAdmin){
+            res.redirect(`/administration/classes/`);
+        }else{
+            res.redirect(`/administration/classes/${data._id}/manage`);
+        }
     }).catch(err => {
         next(err);
     });
