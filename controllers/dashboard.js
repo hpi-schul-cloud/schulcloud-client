@@ -17,8 +17,8 @@ router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
     // we display time from 8 a.m. to 8 p.m.
-    const timeStart = 8;
-    const timeEnd = 18;
+    const timeStart = 7;
+    const timeEnd = 17;
     const numHours = timeEnd - timeStart;
     const numMinutes = numHours * 60;
     const hours = [];
