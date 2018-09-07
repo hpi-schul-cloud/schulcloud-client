@@ -290,14 +290,14 @@ ${res.locals.theme.short_title}-Team`
                 }
             }
         }).then(_ => {
-            if (internalReturn) return;
+            if (internalReturn) return true;
             req.session.notification = {
                 type: 'success',
                 message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
             };
             return res.redirect(req.header('Referer'));
         }).catch(err => {
-            if (internalReturn) return;
+            if (internalReturn) return false;
             req.session.notification = {
                 'type': 'danger',
                 'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
@@ -305,7 +305,7 @@ ${res.locals.theme.short_title}-Team`
             res.redirect(req.header('Referer'));
         });
     } else {
-        if (internalReturn) return;
+        if (internalReturn) return true;
         req.session.notification = {
             type: 'success',
             message: 'Nutzer erfolgreich erstellt.'
@@ -345,11 +345,11 @@ const getUserCreateHandler = (internalReturn) => {
         }
         return api(req).post('/users/', {
             json: req.body
-        }).then(newuser => {
+        }).then(async newuser => {
             res.locals.createdUser = newuser;
             if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
                 newuser.shortLink = shortLink;
-                sendMailHandler(newuser, req, res, internalReturn);
+                return await sendMailHandler(newuser, req, res, internalReturn);
             } else {
                 if (internalReturn) return true;
                 req.session.notification = {
@@ -464,13 +464,14 @@ const getCSVImportHandler = () => {
                 }
                 req.body.importHash = data.linkData.hash;
                 req.body.shortLink = data.linkData.shortLink;
-                if(await (getUserCreateHandler(true))(req, res, next)){
+                const success = await (getUserCreateHandler(true))(req, res, next)
+                if(success){
                     importCount += 1;
                 }
             }
             req.session.notification = {
                 type: importCount?'success':'info',
-                message: `${importCount}/${records.length} Nutzer importiert.`
+                message: `${importCount} von ${records.length} Nutzer${records.length>1?'n':''} importiert.`
             };
             res.redirect(req.header('Referer'));
             return;
