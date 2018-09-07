@@ -428,7 +428,7 @@ const getCSVImportHandler = () => {
                     return true;
                 }
                 return false;
-            })
+            });
             if(Object.keys(records[0]).length <= 1){
                 throw "PARSING FAILED";
             }
