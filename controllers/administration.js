@@ -275,7 +275,7 @@ router.use(authHelper.authChecker);
 router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData);});
 
 const sendMailHandler = (user, req, res, internalReturn) => {
-    if (user && user.email && user.schoolId && user.shortLink) {
+    if (user && user.email && user.schoolId && (user.shortLink || res.locals.linkData.shortLink) ) {
         return api(req).post('/mails/', {
             json: {
                 email: user.email,
