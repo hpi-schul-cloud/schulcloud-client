@@ -343,7 +343,7 @@ const getUserCreateHandler = (internalReturn) => {
             let birthday = req.body.birthday.split('.');
             req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
         }
-        api(req).post('/users/', {
+        return api(req).post('/users/', {
             json: req.body
         }).then(newuser => {
             res.locals.createdUser = newuser;
@@ -351,7 +351,7 @@ const getUserCreateHandler = (internalReturn) => {
                 newuser.shortLink = shortLink;
                 sendMailHandler(newuser, req, res, internalReturn);
             } else {
-                if (internalReturn) return;
+                if (internalReturn) return true;
                 req.session.notification = {
                     'type': 'success',
                     'message': 'Nutzer erfolgreich erstellt.'
@@ -364,7 +364,7 @@ const getUserCreateHandler = (internalReturn) => {
             });
             */
         }).catch(err => {
-            if (internalReturn) return;
+            if (internalReturn) return false;
             req.session.notification = {
                 'type': 'danger',
                 'message': `Fehler beim Erstellen des Nutzers. ${err.error.message||""}`
@@ -417,6 +417,7 @@ const getCSVImportHandler = () => {
     return function (req, res, next) {
         let csvData = '';
         let records = [];
+        let importCount = 0;
 
         try {
             const delimiters = [',',';','|','\t'];
@@ -434,7 +435,7 @@ const getCSVImportHandler = () => {
         } catch (err) {
             req.session.notification = {
                 type: 'danger',
-                message: 'Import fehlgeschlagen.'
+                message: 'Import fehlgeschlagen. (Format überprüfen)'
             };
         }
 
@@ -463,10 +464,14 @@ const getCSVImportHandler = () => {
                 }
                 req.body.importHash = data.linkData.hash;
                 req.body.shortLink = data.linkData.shortLink;
-                
-                await (getUserCreateHandler(true))(req, res, next);
+                if(await (getUserCreateHandler(true))(req, res, next)){
+                    importCount += 1;
+                }
             }
-            
+            req.session.notification = {
+                type: importCount?'success':'info',
+                message: `${importCount}/${records.length} Nutzer importiert.`
+            };
             res.redirect(req.header('Referer'));
             return;
         }).catch(err => {
