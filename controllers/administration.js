@@ -419,8 +419,18 @@ const getCSVImportHandler = () => {
         let records = [];
 
         try {
-            csvData = decoder.write(req.file.buffer);
-            records = parse(csvData, { columns: true, delimiter: ',' });
+            const delimiters = [',',';','|','\t'];
+            delimiters.some(delimiter => {
+                csvData = decoder.write(req.file.buffer);
+                records = parse(csvData, { columns: true, delimiter: delimiter });
+                if(Object.keys(records[0]).length > 1){
+                    return true;
+                }
+                return false;
+            })
+            if(Object.keys(records[0]).length <= 1){
+                throw "PARSING FAILED";
+            }
         } catch (err) {
             req.session.notification = {
                 type: 'danger',
