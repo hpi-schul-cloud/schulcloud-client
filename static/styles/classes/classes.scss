@@ -39,9 +39,9 @@
   }
 }
 .chosen-container-multi .chosen-choices .search-choice{
-  @include media-breakpoint-up(xs) { width: 95%; }
-  @include media-breakpoint-up(sm) { width: 47%; }
-  @include media-breakpoint-up(md) { width: 32%; }
-  @include media-breakpoint-up(lg) { width: 24%; }
-  @include media-breakpoint-up(xl) { width: 16%; }
+  @include media-breakpoint-up(xs) { min-width: 95%; }
+  @include media-breakpoint-up(sm) { min-width: 47%; }
+  @include media-breakpoint-up(md) { min-width: 32%; }
+  @include media-breakpoint-up(lg) { min-width: 24%; }
+  @include media-breakpoint-up(xl) { min-width: 16%; }
 }
