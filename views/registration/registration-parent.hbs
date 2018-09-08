@@ -39,7 +39,7 @@
 		  {{#if birthdate}}
 		     <input class="form-control linked" name="birthdateInfo" type="text" value={{birthdate}} readonly required/>
 		  {{else}}
-			  <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 18 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" value="{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
+			  <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 18 0 1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" value="{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
 		  {{/if}}
         </div>
 
