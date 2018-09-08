@@ -46,7 +46,7 @@
         <div class="form-group">
           <label>E-Mail-Adresse des Schülers: * <small>(Schüler benötigen eine eigene E-Mail-Adresse)</small></label>
             {{#if query.email}}
-                <input class="form-control linked" type="email" name="student-email" value="{{query.email}}" required/>
+                <input class="form-control linked" type="email" name="student-email" value="{{query.email}}" readonly required/>
             {{else}}
                 <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required />
             {{/if}}
@@ -59,10 +59,10 @@
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
             <Label>Geschlecht: *</Label>
             <select class="form-control form-control-lg" type="text" name="gender">
-                <option value="noinfo" selected>keine Angabe</option>
-                <option value="male">männlich</option>
-                <option value="female">weiblich</option>
-                <option value="other">anderes</option>
+              <option value="noinfo" selected>keine Angabe</option>
+              <option value="male">männlich</option>
+              <option value="female">weiblich</option>
+              <option value="other">anderes</option>
             </select>
           </div>
         </div>
