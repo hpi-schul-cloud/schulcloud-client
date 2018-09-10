@@ -90,63 +90,72 @@ const formatBirthdate=(datestamp)=>{
 	return d[2]+'.'+d[1]+'.'+d[0];
 };
 
-router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
     
+    let user = {};
+    user.importHash = req.query.importHash;
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
+
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
-        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso",
-		birthdate: formatBirthdate((req.query||{}).birthday),
-		account:req.params.accountId,
-        query: req.query
+        user
     });
 });
 
-router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
-    
+
+    let user = {};
+    user.importHash = req.query.importHash;
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
+
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
+
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
-        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso",
-		birthdate: formatBirthdate((req.query||{}).birthday),
-		account: req.params.accountId||"",
-        query: req.query
+        user
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
     
-    if (req.query.id) {
-        return api(req).get('/users/linkImport/'+req.query.id).then(user => {
-            res.render('registration/registration-employee', {
-                title: 'Registrierung - Lehrer*/Admins*',
-                classOrSchoolId: req.params.classOrSchoolId,
-                hideMenu: true,
-                account:req.params.accountId||"",
-                user: user
-            });
-        });
-    } else {
-        res.render('registration/registration-employee', {
-            title: 'Registrierung - Lehrer*/Admins*',
-            classOrSchoolId: req.params.classOrSchoolId,
-            hideMenu: true,
-            sso: req.params.sso === "sso",
-            birthdate: formatBirthdate((req.query || {}).birthday),
-            account: req.params.accountId || ""
-        });
+    let user = {};
+    user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
+
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
     }
+
+    res.render('registration/registration-employee', {
+        title: 'Registrierung - Lehrer*/Admins*',
+        hideMenu: true,
+        user
+    });
 });
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
@@ -154,25 +163,14 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
     
-    if (req.query.id) {
-        return api(req).get('/users/linkImport/'+req.query.id).then(user => {
-            res.render('registration/registration', {
-                title: 'Herzlich Willkommen bei der Registrierung',
-                classOrSchoolId: req.params.classOrSchoolId,
-                hideMenu: true,
-                account:req.params.accountId||"",
-                user: user
-            });
-        });
-    } else {
-        res.render('registration/registration', {
-            title: 'Herzlich Willkommen bei der Registrierung',
-            classOrSchoolId: req.params.classOrSchoolId,
-            hideMenu: true,
-            sso: req.params.sso==="sso",
-            account:req.params.accountId||""
-        });
-	}
+    res.render('registration/registration', {
+        title: 'Herzlich Willkommen bei der Registrierung',
+        hideMenu: true,
+        importHash: req.query.importHash || req.query.id, // req.query.id is deprecated
+        classOrSchoolId: req.params.classOrSchoolId,
+        sso: req.params.sso==="sso",
+        account:req.params.accountId||"",
+    });
 });
 
 module.exports = router;
