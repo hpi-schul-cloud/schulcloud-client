@@ -1,5 +1,6 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
+import './jquery/datetimepicker-easy';
 
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
@@ -63,19 +64,24 @@ $(document).ready(function () {
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
-        let target = 'registration/' + $invitationModal.find("input[name='schoolId']").attr("value");
+        let schoolId = $invitationModal.find("input[name='schoolId']").val(),
+            role = "student";
+        if ($(this).hasClass("teacher")) role = "teacher";
         $.ajax({
             type: "POST",
-            url: "/link/",
+            url: window.location.origin+"/administration/registrationlink",
             data: {
-                target: target
+                role: role,
+                save: true,
+                schoolId: schoolId,
+                host: window.location.origin
             },
-            success: function(data) {
+            success: function(linkData) {
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
                     closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
-                    fields: {invitation: data.newUrl}
+                    fields: {invitation: linkData.shortLink}
                 });
                 $invitationModal.find('.btn-submit').remove();
                 $invitationModal.find("input[name='invitation']").click(function () {
@@ -93,7 +99,10 @@ $(document).ready(function () {
         populateModalForm($importModal, {
             title: 'CSV Importieren',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Importieren'
+            submitLabel: 'Importieren',
+            fields: {
+                sendRegistration: 'true'
+            }
         });
         $importModal.appendTo('body').modal('show');
     });
