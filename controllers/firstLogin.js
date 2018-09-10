@@ -135,5 +135,11 @@ router.get('/existingGeb14', function (req, res, next) {
         hideMenu: true
     });
 });
+router.get('/existingEmployee', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingEmployee', {
+        title: 'Willkommen - Erster Login',
+        hideMenu: true
+    });
+});
 
 module.exports = router;

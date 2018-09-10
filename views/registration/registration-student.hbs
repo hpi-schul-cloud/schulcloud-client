@@ -19,7 +19,7 @@
           <div class="form-group col-md-6 col-sm-12">
               <label>Vorname: *</label>
               {{#if query.firstName}}
-                  <input class="form-control linked" name="student-firstname" type="text" value="{{query.firstName}}" disabled required/>
+                  <input class="form-control linked" name="student-firstname" type="text" value="{{query.firstName}}" readonly required/>
               {{else}}
                   <input class="form-control linked" name="student-firstname" type="text" placeholder="Dein offizieller Vorname, kein Spitzname" required/>
               {{/if}}
@@ -27,7 +27,7 @@
           <div class="form-group col-md-6 col-sm-12">
               <label>Nachname: *</label>
               {{#if query.lastName}}
-                  <input class="form-control linked" name="student-secondname" type="text" value="{{query.lastName}}" disabled required/>
+                  <input class="form-control linked" name="student-secondname" type="text" value="{{query.lastName}}" readonly required/>
               {{else}}
                   <input class="form-control linked" name="student-secondname" type="text" placeholder="Dein offizieller Nachname" required/>
               {{/if}}
@@ -37,16 +37,16 @@
         <div class="form-group">
           <label>Geburtsdatum: *</label>
 		  {{#if birthdate}}
-		     <input class="form-control linked" name="birthdateInfo" type="text" value={{birthdate}} disabled required/>
+		     <input class="form-control linked" name="birthdateInfo" type="text" value={{birthdate}} readonly required/>
 		  {{else}}
-			<input class="form-control linked" data-date data-min-date="1970/01/01" data-max-date="2000/08/21" data-start-date="1999/01/01" name="student-birthdate" type="text" required autocomplete="off" />
+			<input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 18 0 0}}" value="{{datePickerTodayMinus 19 0 0 "DD.MM.YYYY"}}" name="student-birthdate" type="text" required autocomplete="off" />
 		  {{/if}}
         </div>
 
         <div class="form-group">
             <label>E-Mail-Adresse: *</label>
             {{#if query.email}}
-                <input class="form-control linked" type="email" name="student-email" value="{{query.email}}" required/>
+                <input class="form-control linked" type="email" name="student-email" value="{{query.email}}" readonly required/>
             {{else}}
                 <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required>
             {{/if}}
@@ -95,7 +95,6 @@
               {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
           </div>
           <input type="hidden" name="initial-password" class="student-password-input" />
-          <input type="hidden" name="pin-sent" value="no" />
       </section>
 
 
@@ -121,7 +120,7 @@
             </div>
         {{/if}}
 
-        <a class="btn btn-primary" href="/login">Login öffnen</a>
+        <a class="btn btn-primary" href="/logout">Login öffnen</a>
       </section>
       {{/content}}
     {{/embed}}
