@@ -2,24 +2,17 @@ import '../helpers/inputLinking';
 
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
-    let birthdateInput = document.querySelector('input[name="student-age"]');
-    let showFormButton = document.querySelector('#showRegistrationForm');
     let radiou18 = document.getElementById("reg-u18");
     let radio18 = document.getElementById("reg-18");
 
-    if(birthdateInput && showFormButton) {
+    if(document.querySelector('#showRegistrationForm')) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
             const baseUrl = '/registration';
+
             let classOrSchoolId = $("input[name=classOrSchoolId]").val();
             let additional = "";
             additional += $("input[name=sso]").val() === "true" ? 'sso/'+$("input[name=account]").val() : '';
-            additional += $("input[name=importHash]").val() !== undefined ? '&importHash='+encodeURIComponent($("input[name=importHash]").val()) : '';
-            additional += $("input[name=userId]").val() !== undefined ? '&userId='+encodeURIComponent($("input[name=userId]").val()) : '';
-            additional += $("input[name=firstName]").val() !== undefined ? '&firstName='+encodeURIComponent($("input[name=firstName]").val()) : '';
-            additional += $("input[name=lastName]").val() !== undefined ? '&lastName='+encodeURIComponent($("input[name=lastName]").val()) : '';
-            additional += $("input[name=email]").val() !== undefined ? '&email='+encodeURIComponent($("input[name=email]").val()) : '';
-            additional += $("input[name=birthdate]").val() !== undefined ? '&birthdate='+encodeURIComponent($("input[name=birthdate]").val()) : '';
-            additional.charAt(0) === "&" ? additional = additional.replace("&","?") : "";
+            additional += $("input[name=importHash]").val() !== undefined ? '?importHash='+encodeURIComponent($("input[name=importHash]").val()) : '';
 
             if(radiou18.checked){
                 window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${additional}`;

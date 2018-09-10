@@ -11,13 +11,13 @@
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=4 action="/registration/submit" method="post" class="registration-form student"}}
       {{#content "panels"}}
-      <input type="hidden" name="classOrSchoolId" value="{{knownData.classOrSchoolId}}"/>
+      <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
 
-      {{#if knownData.sso}}<input type="hidden" name="sso" value="{{knownData.sso}}"/>{{/if}}
-      {{#if knownData.account}}<input type="hidden" name="account" value="{{knownData.account}}"/>{{/if}}
+      {{#if user.sso}}<input type="hidden" name="sso" value="{{user.sso}}"/>{{/if}}
+      {{#if user.account}}<input type="hidden" name="account" value="{{user.account}}"/>{{/if}}
 
-      {{#if knownData.importHash}}<input type="hidden" name="importHash" value="{{knownData.importHash}}"/>{{/if}}
-      {{#if knownData.userId}}<input type="hidden" name="userId" value="{{knownData.userId}}"/>{{/if}}
+      {{#if user.importHash}}<input type="hidden" name="importHash" value="{{user.importHash}}"/>{{/if}}
+      {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}"/>{{/if}}
 
       <section data-panel="section-1">
         <h4>Persönliche Daten</h4>
@@ -27,12 +27,12 @@
           <div class="form-group col-md-6 col-sm-12">
             <label>Vorname: *</label>
             <input class="form-control linked" name="firstName" type="text" placeholder="Dein offizieller Vorname, kein Spitzname" 
-                value="{{knownData.firstName}}" required {{#if knownData.firstName}}readonly{{/if}}/>
+                value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}}/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>Nachname: *</label>
             <input class="form-control linked" name="lastName" type="text" placeholder="Dein offizieller Nachname" 
-                value="{{knownData.lastName}}" required {{#if knownData.lastName}}readonly{{/if}}/>
+                value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
@@ -40,15 +40,15 @@
             <label>Geburtsdatum: *</label>
             <input class="form-control linked" name="birthDate" type="text" 
                 data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 18 0 0}}" 
-                value="{{#if knownData.birthDate}}{{knownData.birthDate}}{{else}}{{datePickerTodayMinus 19 0 0 "DD.MM.YYYY"}}{{/if}}" 
-                required {{#if knownData.birthDate}}readonly{{/if}} autocomplete="off" />
+                value="{{#if user.birthDate}}{{user.birthDate}}{{else}}{{datePickerTodayMinus 19 0 0 "DD.MM.YYYY"}}{{/if}}" 
+                required {{#if user.birthDate}}readonly{{/if}} autocomplete="off" />
 
         </div>
 
         <div class="form-group">
             <label>E-Mail-Adresse: *</label>
             <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org" 
-                value="{{knownData.email}}" required {{#if knownData.email}}readonly{{/if}}>
+                value="{{user.email}}" required {{#if user.email}}readonly{{/if}}>
         </div>
         <p class="explanation nomargin">
             Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
