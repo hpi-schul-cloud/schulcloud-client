@@ -102,7 +102,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
         sso: req.params.sso==="sso",
 		birthdate: formatBirthdate((req.query||{}).birthday),
 		account:req.params.accountId,
-        query: req.query
+        knownData: req.query
     });
 });
 
@@ -111,14 +111,17 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
     
+    let knownData = req.query;
+    knownData.classOrSchoolId = req.params.classOrSchoolId;
+    knownData.birthdate = formatBirthdate((req.query||{}).birthday);
+    knownData.sso = req.params.sso==="sso";
+    knownData.account = req.params.accountId||"";
+
+    
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
-        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso",
-		birthdate: formatBirthdate((req.query||{}).birthday),
-		account: req.params.accountId||"",
-        query: req.query
+        knownData
     });
 });
 
