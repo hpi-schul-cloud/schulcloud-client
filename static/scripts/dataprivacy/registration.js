@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     
     function sendPin(sendConfirm) {
         let usermail = $("input[name$='email']:last").val();
-        let byRole = window.location.pathname.split("/by")[1].replace("/","");
+        let byRole = window.location.pathname.split("/by")[1].split("/")[0].replace("/","");
         
         $.ajax({
             url: "/registration/pincreation",
