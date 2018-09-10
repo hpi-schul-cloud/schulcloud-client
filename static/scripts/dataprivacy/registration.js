@@ -18,7 +18,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
             additional += $("input[name=firstName]").val() !== undefined ? '&firstName='+encodeURIComponent($("input[name=firstName]").val()) : '';
             additional += $("input[name=lastName]").val() !== undefined ? '&lastName='+encodeURIComponent($("input[name=lastName]").val()) : '';
             additional += $("input[name=email]").val() !== undefined ? '&email='+encodeURIComponent($("input[name=email]").val()) : '';
-            additional += $("input[name=birthday]").val() !== undefined ? '&birthday='+encodeURIComponent($("input[name=birthday]").val()) : '';
+            additional += $("input[name=birthdate]").val() !== undefined ? '&birthdate='+encodeURIComponent($("input[name=birthdate]").val()) : '';
             additional.charAt(0) === "&" ? additional = additional.replace("&","?") : "";
 
             if(radiou18.checked){
@@ -121,6 +121,6 @@ window.addEventListener('load', ()=>{
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
         var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98)+1).toString();
         $('.form .student-password').text(pw);
-        $('.form .student-password-input').val(pw);
+        $('.form .student-password-input').val(pw).trigger("input");
     }
 });
