@@ -988,18 +988,18 @@ const getStudentUpdateHandler = () => {
             _id: req.body.student_consentId,
             userConsent: {
                 form: req.body.student_form || "analog",
-                privacyConsent: req.body.student_privacyConsent || false,
-                researchConsent: req.body.student_researchConsent || false,
-                thirdPartyConsent: req.body.student_thirdPartyConsent || false,
-                termsOfUseConsent: req.body.student_termsOfUseConsent || false
+                privacyConsent: req.body.student_privacyConsent === "true",
+                researchConsent: req.body.student_researchConsent === "true",
+                thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
+                termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
             }
         };
         let newParentConsent = {
             form: req.body.parent_form || "analog",
-            privacyConsent: req.body.parent_privacyConsent || false,
-            researchConsent: req.body.parent_researchConsent || false,
-            thirdPartyConsent: req.body.parent_thirdPartyConsent || false,
-            termsOfUseConsent: req.body.parent_termsOfUseConsent || false
+            privacyConsent: req.body.parent_privacyConsent === "true",
+            researchConsent: req.body.parent_researchConsent === "true",
+            thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+            termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
         };
         if(studentConsent._id){
             let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);

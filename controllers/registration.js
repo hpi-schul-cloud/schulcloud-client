@@ -37,12 +37,15 @@ router.post('/registration/pincreation', function (req, res, next) {
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], function (req, res, next) {
+    // normalize form data
+    req.body.privacyConsent = req.body.privacyConsent === "true";
+    req.body.researchConsent = req.body.researchConsent === "true";
+    req.body.thirdPartyConsent = req.body.thirdPartyConsent === "true";
+    req.body.termsOfUseConsent = req.body.termsOfUseConsent === "true";
+    req.body.roles = Array.isArray(req.body.roles)?req.body.roles:[req.body.roles];
+
     return api(req).post('/registration/', {
-        json: req.body,
-		qs:{ 
-			sso: req.params.sso,
-            accountId: req.params.accountId
-		}
+        json: req.body
     }).then(response => {   
         //send Mails
         let eMailAdresses = [response.user.email];
@@ -51,8 +54,8 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
         }
         eMailAdresses.forEach(eMailAdress => {
             let passwordText = "";
-            if (req.body["initial-password"]) {
-                passwordText = `Startpasswort: ${req.body["initial-password"]}`;
+            if (req.body.roles.includes("student")) {
+                passwordText = `Startpasswort: ${req.body["password_1"]}`;
             }
             return api(req).post('/mails/', {
                 json: { email: eMailAdress,
@@ -81,14 +84,6 @@ ${res.locals.theme.short_title}-Team`
         res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung.");
     });
 });
-
-const formatBirthdate=(datestamp)=>{
-	if( datestamp==undefined ) 
-		return undefined;
-	
-	const d=datestamp.split('T')[0].split(/-/g);
-	return d[2]+'.'+d[1]+'.'+d[0];
-};
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))

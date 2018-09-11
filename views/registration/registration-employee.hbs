@@ -13,6 +13,7 @@
     {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent"}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
+      <input type="hidden" name="roles" value="employee"/>
 
       {{#if user.sso}}<input type="hidden" name="sso" value="{{user.sso}}"/>{{/if}}
       {{#if user.account}}<input type="hidden" name="account" value="{{user.account}}"/>{{/if}}
@@ -63,7 +64,7 @@
             <input
               class="form-control linked"
               id="password"
-              name="password-1"
+              name="password_1"
               type="password"
               placeholder="Passwort"
               minlength="8"
@@ -76,7 +77,7 @@
             <input
                     class="form-control"
                     id="password-control"
-                    name="password-2"
+                    name="password_2"
                     type="password"
                     placeholder="Passwort wiederholen"
                     minlength="8"
@@ -102,8 +103,7 @@
         <h4>Fast geschafft!</h4>
         <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
         <div id="pinverification">
-            <div id="temp-pin" class="hidden"></div>
-            {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
+            {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
         </div>
       </section>
 

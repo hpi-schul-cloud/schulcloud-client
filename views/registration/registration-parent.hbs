@@ -12,6 +12,7 @@
     {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent"}}
       {{#content "panels"}}
       <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
+      <input type="hidden" name="roles" value="student"/>
 
       {{#if user.sso}}<input type="hidden" name="sso" value="{{user.sso}}"/>{{/if}}
       {{#if user.account}}<input type="hidden" name="account" value="{{user.account}}"/>{{/if}}
@@ -38,7 +39,7 @@
 
         <div class="form-group">
           <label>Geburtsdatum des Schülers: *</label>
-          <input class="form-control linked" name="birthdate" type="text"
+          <input class="form-control linked" name="birthDate" type="text"
             data-date data-min-date="{{datePickerTodayMinus 18 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" 
             value="{{#if user.birthDate}}{{user.birthDate}}{{else}}{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}{{/if}}" autocomplete="off" required {{#if user.birthDate}}readonly{{/if}}/>
         </div>
