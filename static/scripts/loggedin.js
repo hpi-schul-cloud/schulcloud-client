@@ -253,6 +253,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("title").required = true;
                 document.getElementById("role").required = false;
                 document.getElementById("desire").required = false;
+                document.getElementById("benefit").required = false;
             } else {
                 document.getElementById("problemSummaryDiv").style.display = "none";
                 document.getElementById("hasHappenedDiv").style.display = "none";
@@ -264,6 +265,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("title").required = false;
                 document.getElementById("role").required = true;
                 document.getElementById("desire").required = true;
+                document.getElementById("benefit").required = true;
             }
         }
     }
