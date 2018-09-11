@@ -76,6 +76,11 @@ $(document).ready(function () {
             "um " + modal.find("#benefit").val() + ".\n" +
             "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
     };
+    const createProblemMessage = function (modal) {
+        return "Problem Kurzbeschreibung: " + modal.find('#title').val() + "\n" +
+            "IST-Zustand: " + modal.find('#hasHappened').val() + ",\n" +
+            "SOLL-Zustand: " + modal.find("#supposedToHappen").val();
+    };
 
     const sendFeedback = function (modal, e) {
         e.preventDefault();
@@ -84,7 +89,7 @@ $(document).ready(function () {
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = createFeedbackMessage(modal);
+        let text = (modal.find('#feedbackType').val() === 'wish') ? createFeedbackMessage(modal) : createProblemMessage(modal);
         let content = {text: text};
         let category = modal.find('#category').val();
         let currentState = modal.find('#hasHappened').val();
@@ -119,7 +124,7 @@ $(document).ready(function () {
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'User Story eingeben',
+            title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
@@ -134,7 +139,7 @@ $(document).ready(function () {
 
         $('.problem-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($problemModal, {
-            title: 'Problem melden',
+            title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
@@ -231,6 +236,36 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
+    }
+
+    let  feedbackSelector = document.querySelector('#feedbackType');
+    if(feedbackSelector){
+        feedbackSelector.value = "wish";
+        feedbackSelector.onchange = function(){
+            if(feedbackSelector.value === "problem"){
+                document.getElementById("problemSummaryDiv").style.display = "block";
+                document.getElementById("hasHappenedDiv").style.display = "block";
+                document.getElementById("supposedToHappenDiv").style.display = "block";
+                document.getElementById("roleDiv").style.display = "none";
+                document.getElementById("desireDiv").style.display = "none";
+                document.getElementById("benefitDiv").style.display = "none";
+                document.getElementById("acceptanceCriteriaDiv").style.display = "none";
+                document.getElementById("title").required = true;
+                document.getElementById("role").required = false;
+                document.getElementById("desire").required = false;
+            } else {
+                document.getElementById("problemSummaryDiv").style.display = "none";
+                document.getElementById("hasHappenedDiv").style.display = "none";
+                document.getElementById("supposedToHappenDiv").style.display = "none";
+                document.getElementById("roleDiv").style.display = "block";
+                document.getElementById("desireDiv").style.display = "block";
+                document.getElementById("benefitDiv").style.display = "block";
+                document.getElementById("acceptanceCriteriaDiv").style.display = "block";
+                document.getElementById("title").required = false;
+                document.getElementById("role").required = true;
+                document.getElementById("desire").required = true;
+            }
+        }
     }
 });
 window.addEventListener("resize", function () {
