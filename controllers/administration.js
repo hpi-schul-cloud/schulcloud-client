@@ -890,33 +890,37 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 return user;
             });
 
-            const head = [
+            let head = [
                 'Vorname',
                 'Nachname',
                 'E-Mail-Adresse',
-                'Klasse(n)',
-                'Einwilligung',
-                'Erstellt am',
-                ''
+                'Klasse(n)'
             ];
-
-            const body = users.map(user => {
-                return [
+            if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
+                head.push('Einwilligung');
+                head.push('Erstellt am');
+                head.push('');
+            }
+            let body = users.map(user => {
+                let row = [
                     user.firstName || '',
                     user.lastName || '',
                     user.email || '',
-                    user.classesString || '',
-                    {
+                    user.classesString || ''
+                ];
+                if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
+                    row.push({
                         useHTML: true,
                         content: user.consentStatus
-                    },
-                    moment(user.createdAt).format('DD.MM.YYYY'),
-                    [{
+                    });
+                    row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+                    row.push([{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
                         icon: 'edit'
-                    }]
-                ];
+                    }]);
+                }
+                return row;
             });
 
             const pagination = {
