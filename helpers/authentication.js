@@ -90,9 +90,7 @@ const populateCurrentUser = (req, res) => {
 };
 
 const checkConsent = (req, res) => {
-    if (res.locals.currentRole === "Lehrer" ||
-    res.locals.currentRole === "Demo" ||
-    res.locals.currentRole === "Administrator" || 
+    if (
     ((res.locals.currentUser||{}).preferences||{}).firstLogin ||	//do not exist if 3. system login
     req.path == "/login/success" ||
     req.baseUrl == "/firstLogin") {

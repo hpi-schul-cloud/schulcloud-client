@@ -19,7 +19,7 @@
           <div class="form-group col-md-6 col-sm-12">
             <label>Vorname: *</label>
               {{#if query.firstName}}
-                  <input class="form-control linked" name="student-firstname" type="text" value="{{query.firstName}}" disabled required/>
+                  <input class="form-control linked" name="student-firstname" type="text" value="{{query.firstName}}" readonly required/>
               {{else}}
                   <input class="form-control linked" name="student-firstname" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise, keine Spitznamen" required/>
               {{/if}}
@@ -27,7 +27,7 @@
           <div class="form-group col-md-6 col-sm-12">
             <label>Nachname: *</label>
               {{#if query.lastName}}
-                  <input class="form-control linked" name="student-secondname" type="text" value="{{query.lastName}}" disabled required/>
+                  <input class="form-control linked" name="student-secondname" type="text" value="{{query.lastName}}" readonly required/>
               {{else}}
                   <input class="form-control linked" name="student-secondname" type="text" placeholder="Nachname des Kindes" required/>
               {{/if}}
@@ -37,16 +37,16 @@
         <div class="form-group">
           <label>Geburtsdatum des Schülers: *</label>
 		  {{#if birthdate}}
-		     <input class="form-control linked" name="birthdateInfo" type="text" value={{birthdate}} disabled required/>
+		     <input class="form-control linked" name="birthdateInfo" type="text" value={{birthdate}} readonly required/>
 		  {{else}}
-			<input class="form-control linked" data-date data-min-date="2000/08/21" data-max-date="2015/01/01" data-start-date="2002/01/01" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
+			  <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 18 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" value="{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}" name="student-birthdate" type="text" data-from="student-birthdate" autocomplete="off" required/>
 		  {{/if}}
         </div>
 
         <div class="form-group">
           <label>E-Mail-Adresse des Schülers: * <small>(Schüler benötigen eine eigene E-Mail-Adresse)</small></label>
             {{#if query.email}}
-                <input class="form-control linked" type="email" name="student-email" value="{{query.email}}" required/>
+                <input class="form-control linked" type="email" name="student-email" value="{{query.email}}" readonly required/>
             {{else}}
                 <input class="form-control linked" type="email" name="student-email" placeholder="schueler@schul-cloud.org" required />
             {{/if}}
@@ -62,7 +62,7 @@
               <option value="noinfo" selected>keine Angabe</option>
               <option value="male">männlich</option>
               <option value="female">weiblich</option>
-              <option value="other">andere</option>
+              <option value="other">anderes</option>
             </select>
           </div>
         </div>
@@ -126,7 +126,6 @@
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="email-pin" class="mail-validation my-1"}}{{/embed}}
         </div>
         <input type="hidden" name="initial-password" class="student-password-input" />
-        <input type="hidden" name="pin-sent" value="no" />
       </section>
 
 
@@ -159,7 +158,7 @@
       {{/if}}
         <p>Ihr Kind kann sich nun einloggen:</p>
 
-        <a class="btn btn-primary" href="/login">Login öffnen</a>
+        <a class="btn btn-primary" href="/logout">Login öffnen</a>
       </section>
       {{/content}}
     {{/embed}}

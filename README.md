@@ -6,8 +6,10 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
   
 ## Requirements  
   
-* node.js 6 or later (You can install it from https://nodejs.org/en/download/)  
-  
+* node.js 8.7 or later (You can install it from https://nodejs.org/en/download/)
+
+You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
+
 ## Setup  
   
 There are blog posts on how to setup [client](https://github.com/schul-cloud/schulcloud-client) and [server](https://github.com/schul-cloud/schulcloud-server) under [Windows](https://schul-cloud.github.io/blog/2017-05-18/setup-schul-cloud-client-and-sever-under-windows) and [Linux](https://schul-cloud.github.io/blog/2017-04-21/setup-development-under-ubuntu).  
