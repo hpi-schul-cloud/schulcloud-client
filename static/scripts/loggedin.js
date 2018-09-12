@@ -252,7 +252,9 @@ window.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("desireDiv").style.display = "none";
                 document.getElementById("benefitDiv").style.display = "none";
                 document.getElementById("acceptanceCriteriaDiv").style.display = "none";
-                document.getElementById("title").required = true;
+                document.getElementById("problemTitle").required = true;
+                document.getElementById("hasHappened").required = true;
+                document.getElementById("supposedToHappen").required = true;
                 document.getElementById("role").required = false;
                 document.getElementById("desire").required = false;
                 document.getElementById("benefit").required = false;
@@ -264,7 +266,9 @@ window.addEventListener('DOMContentLoaded', function() {
                 document.getElementById("desireDiv").style.display = "block";
                 document.getElementById("benefitDiv").style.display = "block";
                 document.getElementById("acceptanceCriteriaDiv").style.display = "block";
-                document.getElementById("title").required = false;
+                document.getElementById("problemTitle").required = false;
+                document.getElementById("hasHappened").required = false;
+                document.getElementById("supposedToHappen").required = false;
                 document.getElementById("role").required = true;
                 document.getElementById("desire").required = true;
                 document.getElementById("benefit").required = true;

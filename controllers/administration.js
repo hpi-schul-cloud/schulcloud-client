@@ -1647,7 +1647,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.subject||""),
                 truncate(item.currentState||""),
                 truncate(item.targetState||""),
-                dictionary[item.category],
+                (item.category === "")? "": dictionary[item.category],
                 dictionary[item.state],
                 truncate(item.notes||""),
                 getTableActionsSend(item, '/administration/helpdesk/', item.state)

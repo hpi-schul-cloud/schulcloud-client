@@ -35,7 +35,8 @@ router.post('/', function (req, res, next) {
                 currentState : req.body.currentState,
                 targetState: req.body.targetState,
                 userId: res.locals.currentUser._id,
-                schoolId: res.locals.currentSchoolData._id
+                schoolId: res.locals.currentSchoolData._id,
+                cloud: res.locals.theme.title
             }
         }).then(_ => {
             api(req).get('/users', {qs: { roles: ['helpdesk']}})
