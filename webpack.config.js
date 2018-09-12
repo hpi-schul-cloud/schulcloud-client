@@ -9,10 +9,12 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules)/,
-                loader: 'babel-loader',
-                query: {
-                    presets: [["es2015"]],
-                    plugins: ["transform-react-jsx"]
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ["@babel/preset-env"],
+                        plugins: [require("@babel/plugin-transform-react-jsx")]
+                    },
                 },
             },
             // moment needs to be globally exposed in order to work with fullcalendar
