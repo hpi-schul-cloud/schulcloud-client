@@ -1,0 +1,51 @@
+<section id="loginarea" class="card">
+    <div class="card-block" data-step="3" data-intro="Wenn deine Schule bereits über {{theme.short_title}}-Accounts verfügt, dann kannst du dich hier mit deinen persönlichen Anmeldedaten einloggen.">
+        <h4 class="card-title">Login</h4>
+        <div class="card-text form-wrapper">
+            {{> "lib/components/notification"}}
+
+            <form method="post" action="/login/" class="login-form">
+                <div class="form-group">
+                    <input type="text" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" required>
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort" required>
+                </div>
+
+                <div class="form-group toggle-providers">
+                    <a class="btn btn-block btn-secondary btn-toggle-providers">
+                        Mit anderem System anmelden
+                    </a>
+                </div>
+
+                <div class="login-providers">
+                    <div class="form-group ">
+                        <select name="schoolId" class="school" data-placeholder="Schule">
+                            <option><!-- Empty option goes here. --><option>
+                            {{#each schools}}
+                                <option value="{{this._id}}">{{this.name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="form-group ">
+                        <select name="systemId" class="system" data-placeholder="System">
+                            <option><!-- Empty option goes here. --><option>
+                            {{#each systems}}
+                                <option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+
+                    <div class="form-group ">
+                        <a class="btn btn-block btn-secondary btn-hide-providers">Mit {{theme.short_title}} Account anmelden</a>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block btn-primary btn-login" value="Anmelden" />
+                </div>
+            </form>
+        </div>
+        <div style="text-align:center">
+            <a href="" class="submit-pwrecovery">Passwort vergessen?</a>
+        </div>
+    </div>
+</section>
