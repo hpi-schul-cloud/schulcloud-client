@@ -7,27 +7,7 @@ router.use(require('../helpers/authentication').authChecker);
 
 router.post('/', function (req, res, next) {
 
-    if (req.body.type === 'feedback') {
-        let user = res.locals.currentUser;
-        let email = user.email ? user.email : "";
-        let innerText = "Bereich ausgewählt: " + req.body.category + "\n";
-        let content = {
-            "text": "User: " + user.displayName + "\n"
-            + "E-Mail: " + email + "\n"
-            + "Schule: " + res.locals.currentSchoolData.name + "\n"
-            + innerText
-            + "User schrieb folgendes: \n" + req.body.content.text
-        };
-        req.body.content = content;
-        req.body.headers = {
-            "X-Zammad-Customer-Email": email
-        };
-        api(req).post('/mails', {json: req.body}).then(_ => {
-            res.sendStatus(200);
-        }).catch(err => {
-            res.status((err.statusCode || 500)).send(err);
-        });
-    } else {
+    if (req.body.type === 'problem') { //case "problem melden"
         api(req).post('/helpdesk', {
             json: {
                 subject: req.body.subject,
@@ -62,6 +42,33 @@ router.post('/', function (req, res, next) {
             res.status((err.statusCode || 500)).send(err);
         });
     }
+
+    let user = res.locals.currentUser;
+        let email = user.email ? user.email : "";
+        let innerText = "Bereich ausgewählt: " + req.body.category + "\n";
+        let content = {
+            "text": "User: " + user.displayName + "\n"
+            + "E-Mail: " + email + "\n"
+            + "Schule: " + res.locals.currentSchoolData.name + "\n"
+            + innerText
+            + "User schrieb folgendes: \n"
+        };
+        if (req.body.type === 'problem'){
+            content.text = content.text + req.body.subject + "\n"
+            + "Current State: " + req.body.currentState + "\n"
+            + "Target State: " + req.body.targetState;
+        } else {
+            content.text = content.text + req.body.content.text
+        }
+        req.body.content = content;
+        req.body.headers = {
+            "X-Zammad-Customer-Email": email
+        };
+        api(req).post('/mails', {json: req.body}).then(_ => {
+            res.sendStatus(200);
+        }).catch(err => {
+            res.status((err.statusCode || 500)).send(err);
+        });
 });
 
 module.exports = router;
