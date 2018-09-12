@@ -126,7 +126,10 @@ $(document).ready(function () {
         populateModalForm($feedbackModal, {
             title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Senden'
+            submitLabel: 'Senden',
+            fields: {
+                feedbackType: "wish"
+            }
         });
 
         $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
@@ -240,7 +243,6 @@ window.addEventListener('DOMContentLoaded', function() {
 
     let  feedbackSelector = document.querySelector('#feedbackType');
     if(feedbackSelector){
-        feedbackSelector.value = "wish";
         feedbackSelector.onchange = function(){
             if(feedbackSelector.value === "problem"){
                 document.getElementById("problemSummaryDiv").style.display = "block";

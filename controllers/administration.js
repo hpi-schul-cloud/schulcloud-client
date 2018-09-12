@@ -66,8 +66,12 @@ const getTableActionsSend = (item, path, state) => {
     if (state === 'submitted' || state === 'closed') {
         actions.push(
             {
-                class: 'disabled',
-                icon: 'edit'
+                /*class: 'disabled',
+                icon: 'edit'*/
+                link: path + item._id,
+                class: 'btn-edit',
+                icon: 'edit',
+                title: 'Eintrag bearbeiten'
             },
             {
                 class: 'disabled',
