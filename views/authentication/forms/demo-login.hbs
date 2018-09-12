@@ -1,0 +1,29 @@
+<section id="loginarea" class="card">
+    <div class="card-block" data-step="2" data-intro="Du möchtest die {{theme.short_title}} entdecken? Mit Hilfe unserer Demo Funktion kannst du die {{theme.short_title}} sowohl aus Lehrer- als auch aus Schülerperspektive erkunden.">
+        <h4 class="card-title">Demo</h4>
+        <div class="card-text form-wrapper">
+            {{> "lib/components/notification"}}
+
+            <form method="post" action="/login/" class="login-form">
+                <input type="text" name="username" value="demo-schueler@schul-cloud.org" hidden>
+                <input type="password" name="password" value="schulcloud" hidden>
+                <input type="text" name="type" value="student" hidden>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block btn-primary btn-login" value="als Schüler*In einloggen" />
+                </div>
+            </form>
+
+            <form method="post" action="/login/" class="login-form">
+                <input type="text" name="username" value="demo-lehrer@schul-cloud.org" hidden>
+                <input type="password" name="password" value="schulcloud" hidden>
+                <input type="text" name="type" value="teacher" hidden>
+
+                <div class="form-group">
+                    <input type="submit" class="btn btn-block btn-primary btn-login" value="als Lehrer*In einloggen" />
+                </div>
+            </form>
+            Wir empfehlen die Nutzung einer aktuellen Version der Browser Chrome, Firefox, Edge oder Safari.
+        </div>
+    </div>
+</section>
