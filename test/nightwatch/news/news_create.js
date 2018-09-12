@@ -49,8 +49,8 @@ module.exports = {
         browser.useCss()
             .click('.btn-delete')
             .waitForElementVisible('.delete-modal')
-            .waitForElementVisible('.btn-submit', 1000)
-            .click('.btn-submit')
+            .waitForElementVisible('.delete-modal .btn-submit', 1000)
+            .click('.delete-modal .btn-submit')
             .pause(1000);
     },
     'Schul-Cloud End': function (browser) {

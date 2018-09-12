@@ -32,7 +32,6 @@ const makeActive = (items, currentUrl) => {
 };
 
 module.exports = (req, res, next) => {
-    res.locals.themeTitle = process.env.SC_NAV_TITLE || 'Schul-Cloud';
     res.locals.backendUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
     // standard views
     res.locals.sidebarItems = [{
@@ -70,7 +69,7 @@ module.exports = (req, res, next) => {
                 link: '/homework/asked/'
             },
             {
-                name: 'Meine Aufgaben',
+                name: 'Meine ToDos',
                 icon: 'lock',
                 link: '/homework/private/'
             },
@@ -106,7 +105,7 @@ module.exports = (req, res, next) => {
         introNumber: 16,
         introText: "Hier gelangst du zum Dateibereich, in dem du Dateien hochladen und verwalten kannst. Deine Dateien werden hierbei in folgende Kategorien unterteilt: deine persönlichen Dateien, Kursdateien und mit dir geteilte Dateien."
     }, {
-        name: 'Materialien',
+        name: 'LernStore',
         icon: 'search',
         link: '/content/',
         introNumber: 17,
@@ -133,7 +132,7 @@ module.exports = (req, res, next) => {
             {
                 name: 'Klassen',
                 icon: 'users',
-                link: '/classes/'
+                link: '/administration/classes/'
             }
         ]
     });
