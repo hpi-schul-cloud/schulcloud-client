@@ -1,5 +1,5 @@
 <div class="pin-input {{class}}">
-  <input class="combined" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
+  <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
   {{#times digits}}
     <input class="digit" type="text" pattern="{{../pattern~}} {1}" maxlength="1" placeholder="·" {{#if ../required}}required{{/if}}>
   {{/times}}
@@ -16,7 +16,7 @@ function buildPin(wrapper){
 function handleInput(event){
   this.checkValidity();
   if(this.value.length === 1){
-    this.parentElement.querySelector(".combined").value = buildPin(this.parentElement);
+    this.parentElement.querySelector("input.combined-pin").value = buildPin(this.parentElement);
     if(this.nextElementSibling){
       this.nextElementSibling.focus();
     }
@@ -32,7 +32,7 @@ function initializePin(){
 window.addEventListener("DOMContentLoaded", initializePin)
 </script>
 <style>
-.pin-input .combined{
+.pin-input input.combined-pin{
   display: inline-block;
   width: 0; 
   height:0; 

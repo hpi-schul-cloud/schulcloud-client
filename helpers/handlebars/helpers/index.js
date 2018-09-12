@@ -91,6 +91,8 @@ module.exports = {
                 return (v1 && v2) ? options.fn(this) : options.inverse(this);
             case '||':
                 return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            case '|| !':
+                return (v1 || !v2) ? options.fn(this) : options.inverse(this);
             default:
                 return options.inverse(this);
         }
@@ -134,12 +136,20 @@ module.exports = {
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
     },
+    datePickerTodayMinus: (years, months, days, format) => {
+        if(typeof(format) !== "string"){
+            format = "YYYY.MM.DD"
+        }
+        return moment()
+            .subtract(years, 'years')
+            .subtract(months, 'months')
+            .subtract(days, 'days')
+            .format(format);
+    },
     dateToPicker: (date, opts) => {
-        let d = moment(date);
         return moment(date).format('DD.MM.YYYY');
     },
     dateTimeToPicker: (date, opts) => {
-        let d = moment(date);
         return moment(date).format('DD.MM.YYYY HH:mm');
     },
     timeToString: (date, opts) => {
