@@ -2,27 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
-const authHelper = require('../helpers/authentication');
-
-const createAccount = (req, {username, password, userId, activated}) => {
-    return api(req).post('/accounts', {json: {
-        username,
-        password,
-        userId,
-        activated
-    }});
-};
 
 /*
  * Warnings for users who wan't to use the old register version if not teacher
  */
-
 router.get(['/register', '/register/*'], function (req, res, next) {
     res.render('registration/deprecated_warning');
 });
 
 /*
- * Dataprivacy Routes
+ * EzD Dataprivacy Routes
  */
 router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
@@ -42,7 +31,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
     req.body.researchConsent = req.body.researchConsent === "true";
     req.body.thirdPartyConsent = req.body.thirdPartyConsent === "true";
     req.body.termsOfUseConsent = req.body.termsOfUseConsent === "true";
-    req.body.roles = Array.isArray(req.body.roles)?req.body.roles:[req.body.roles];
+    req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
     return api(req).post('/registration/', {
         json: req.body
@@ -67,7 +56,7 @@ mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einlo
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
-Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
+Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
 Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                         }
