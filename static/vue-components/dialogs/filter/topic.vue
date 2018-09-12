@@ -3,15 +3,15 @@
     <md-dialog-title>Thema</md-dialog-title>
 
     <div id="topic-picker">
-        <md-autocomplete v-model="selectedTopics" :md-options="employees">
-              <label>Manager</label>
+        <md-autocomplete v-model="selectedTopics" :md-options="topics">
+              <label>Thema</label>
 
               <template slot="md-autocomplete-item" slot-scope="{ item, term }">
                 <md-highlight-text :md-term="term">{{ item }}</md-highlight-text>
               </template>
 
               <template slot="md-autocomplete-empty" slot-scope="{ term }">
-                Kein Thema gefunden. <a @click="noop()">Legen sie doch ein neues Thema an</a>!
+                Kein Thema gefunden. <a @click="addNewTopic(term)">Legen sie doch ein neues Thema an</a>!
               </template>
         </md-autocomplete>
     </div>
@@ -33,22 +33,7 @@
         apiQuery: {},
         urlQuery: {},
         selectedTopics: null,
-        employees: [
-            'Jim Halpert',
-            'Dwight Schrute',
-            'Michael Scott',
-            'Pam Beesly',
-            'Angela Martin',
-            'Kelly Kapoor',
-            'Ryan Howard',
-            'Kevin Malone',
-            'Creed Bratton',
-            'Oscar Nunez',
-            'Toby Flenderson',
-            'Stanley Hudson',
-            'Meredith Palmer',
-            'Phyllis Lapin-Vance'
-        ],
+        topics: ["Thema1", "Thema2", "Thema3"], // TODO: get selection from topic table
       };
     },
     created() {
@@ -78,6 +63,9 @@
       onCancle() {
         this.$emit('cancle');
       },
+      addNewTopic(term) {
+        this.topics.push(term)
+      },
       resetSubjects(key) {
         if (key == this.identifier) {
           this.selectedTopics = [];
@@ -104,5 +92,8 @@
   .md-autocomplete + strong {
     margin-top: 36px;
     display: block;
+  }
+  .md-menu-content {
+    z-index: 110;
   }
 </style>

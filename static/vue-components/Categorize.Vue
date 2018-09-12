@@ -82,7 +82,7 @@
             </md-button>
         </div>
     </div>
-  <subject-filter-dialog @set="pushFilter" @cancle="cancle" identifier="subjects"
+  <subject-filter-dialog @set="setSubjects" @cancle="cancle" identifier="subjects"
                           v-bind:active="visibleDialog == 'subjects'"/>
   <goal-filter-dialog @set="setFilter" @cancle="cancle" identifier="goal"
                           v-bind:active="visibleDialog == 'goal'"/>
@@ -133,6 +133,11 @@
           this.visibleDialog = '';
           console.log(filterData);
           this.teacherContent[identifier] = filterData.shortDisplayString;
+        },
+        setSubjects(identifier, filterData) {
+          this.visibleDialog = '';
+          console.log(filterData);
+          this.teacherContent[identifier] = filterData.selection;
         },
         setAge(identifier, data) {
           this.visibleDialog = '';

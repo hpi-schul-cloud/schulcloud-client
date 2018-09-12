@@ -15,37 +15,15 @@
         </div>
       </div>
     </section>
-    <div class="search-bar">
-      <div id="search-input">
-        <input id="search-query-input" v-model.lazy="searchQuery"
-        placeholder="Suche nach..."/></br>
-        <span id="resultHeadline">
-          <b>{{this.pagination.totalEntrys}}</b> Ergebnisse <span v-if="searchQuery">für <b>"{{this.searchQuery}}"</b></span>
-        </span>
-      </div>
-      <div>
-        <md-field class="no-bootstrap">
-          <label for="itemsPerPage">Einträge pro Seite</label>
-          <md-select v-model.number="pagination.itemsPerPage" name="itemsPerPage" id="itemsPerPage" class="no-bootstrap">
-            <md-option value=12>12</md-option>
-            <md-option value=24>24</md-option>
-            <md-option value=48>48</md-option>
-            <md-option value=48>96</md-option>
-          </md-select>
-        </md-field>
-      </div>
-    </div>
-    <div>
-      <search-filter :inReview="inReview" :userId="userId" @newFilter="updateFilter"></search-filter>
-    </div>
+    <search-bar @newSearch="newSearch" :pagination="pagination" />
     <div md-gutter class="grid">
         <contentCard v-for="item in data" :key="item._id  + '#card'" :inReview="inReview" :data="item['_source']" :contentId="item['_id']"></contentCard>
     </div>
 
     <md-empty-state v-if="data.length == 0" class="md-primary"
                     md-icon="error_outline"
-                    md-label="keine Ergebnisse gefunden"
-                    md-description="Probiere es mit einem anderen Schlüsselwort oder anderen Filtern erneut.">
+                    :md-label="searching ? 'Wird geladen' : 'Keine Ergebnisse gefunden'"
+                    :md-description="searching ? 'Bitte haben Sie einen Moment Geduld.' : 'Probiere es mit einem anderen Schlüsselwort oder anderen Filtern erneut.'">
     </md-empty-state>
     <pagination @pageChanged="pageChanged" v-bind:config="pagination"></pagination>
   </div>
@@ -53,19 +31,19 @@
 
 <script>
   import contentCard from './ContentCard.vue';
+  import searchBar from './SearchBar';
   import pagination from './helper/Pagination.vue';
-  import filter from './Filter.vue';
 
   const qs = require('query-string');
 
   export default {
     components: {
       contentCard,
-      'search-filter': filter,
+      'search-bar': searchBar,
       pagination,
     },
     name: 'ContentSearch',
-    props: ['inReview', 'heading', 'userId'],
+    props: ['inReview', 'heading', 'userId', 'task', 'passedMessage'],
     data() {
       return {
         data: [],
@@ -88,10 +66,16 @@
     },
     created() {
       var query = qs.parse(window.location.href.substring(window.location.href.indexOf('?')+1));
-      this.msg = query.msg;
+      this.msg = query.msg || this.passedMessage ;
       this.loadContent();
     },
     methods: {
+      newSearch(apiQuery, urlQuery, searchQuery) {
+        this.apiFilterQuery = apiQuery;
+        this.urlQuery = urlQuery;
+        this.searchQuery = searchQuery;
+        this.loadContent();
+      },
       pageChanged(page) {
         this.pagination.page = page;
         this.loadContent();
@@ -112,8 +96,8 @@
       },
       constructPathFromURL(urlQuery) {
         let queryString = '?limit=' + this.pagination.itemsPerPage + '&userId=' + this.userId + '&';
-        if (this.inReview) {
-          queryString += 'task=review&';
+        if (this.task) {
+          queryString += 'task=' + this.task + '&';
         } else {
           queryString += 'task=search&';
         }
@@ -124,6 +108,8 @@
       },
       loadContent() {
         // clear data to show "loading state"
+        this.data = [];
+        this.searching = true;
         const page = this.pagination.page || 1;
         console.log("Loading for page", page);
         const searchString = this.searchQuery || '';
@@ -145,6 +131,7 @@
           .then((response) => {
             this.data = response.body.hits.hits;
             this.pagination.totalEntrys = response.body.hits.total;
+            this.searching = false;
           })
           .catch((e) => {
             console.error(e);

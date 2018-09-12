@@ -9,7 +9,7 @@
     </div>
 
     <div v-else>
-      <teacher-content :teacherContent="data" />
+      <teacher-content class="teacher-content" :teacherContent="data" />
       <md-card class="stepper-card">
         <md-steppers :md-active-step.sync="active" md-alternative>
           <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
@@ -147,6 +147,8 @@
           dataToSend.content = this.data.content;
         }
         console.log(dataToSend);
+        const loaderClassList = document.querySelector(".preload-screen").classList;
+        loaderClassList.remove("hidden");
         this.$http
           .patch(this.$config.API.baseUrl + this.$config.API.port + '/content/resources/' + this.contentId, dataToSend, {
             headers: {
@@ -155,7 +157,10 @@
           })
           .then((response) => {
             console.log("Inside Review Component after rate call. TODO: Notify user");
-            location.href = '/content/review/?msg=Review erfolgreich gespeichert. Sie haben 5 Punkte erhalten. Glückwunsch!';
+            setTimeout(() => {
+              loaderClassList.add("hidden");
+              location.href = '/content/review/?msg=Review erfolgreich gespeichert. Sie haben 5 Punkte erhalten. Glückwunsch!';
+            }, 3000); // Wait so elasticsearch knows about the new review when it is asked for it after redirection
             console.log(response);
           })
           .catch((e) => {
@@ -169,5 +174,9 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
   @import "./default";
+
+  .teacher-content {
+    margin-bottom: 2em;
+  }
 
 </style>

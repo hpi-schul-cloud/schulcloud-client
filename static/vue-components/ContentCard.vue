@@ -6,7 +6,8 @@
              :alt="'Thumbnail for ~' + data.title + '~'">
       </md-card-media>
 
-      <md-card-header>
+      <md-card-header class="content-card-header">
+        <img v-if="data.approved" class="approved-icon" src='/images/content/approved.svg' alt="Approved" width="50" height="25">
 
         <h2 class="md-title">{{data.title||"Titel"}}</h2>
         <span v-if="averageStars && averageStars[0]" class="content-information">&#216; {{averageStars[0].average}} &#9734; <i v-if="data.approved">&#2611;</i> </span>
@@ -39,44 +40,58 @@
         {{ (data.description||"Beschreibung...").substring(0, 300) }}{{ ((data.description||"").length>300)?'...':'' }}
       </md-card-content>
 
-      <md-card-actions>
-        <div class="providerName">
-          via {{data.providerName}}
+      <md-card-actions class="content-card-footer">
+        <div class="content-card-footer-text">
+          <div v-if="data.licenses" class="licenses">
+            <a @click="showDialog = true">Lizenzbestimmungen</a>
+          </div>
+          <div v-else class="licenses">
+            Keine Lizenzbestimmungen (freie Nutzung erlaubt)
+          </div>
+          <md-dialog :md-active.sync="showDialog">
+            <md-dialog-title>Lizenzbestimmungen</md-dialog-title>
+            <md-dialog-content>
+              Es gelten folgende Lizenzbestimmungen:
+              <ul>
+                <li v-for='license in data.licenses'>{{license}}</li>
+              </ul>
+            </md-dialog-content>
+            <md-dialog-actions>
+              <md-button class="md-primary" @click="showDialog = false">Schließen</md-button>
+            </md-dialog-actions>
+          </md-dialog>
+
+          <div>
+            via {{data.providerName}}
+          </div>
         </div>
-        <md-button  class="md-primary" @click="open()">
+        <md-button class="md-primary" @click="open()">
           <md-icon>{{ openIconName }}</md-icon>
         </md-button>
-        <md-button v-if="!inReview" class='md-primary' @click="addToLesson()"> <!-- @click="dialog.active = true" -->
-          <md-icon>add</md-icon>
-        </md-button>
-        <md-dialog-confirm
-        :md-active.sync="addToCourseDialogActive"
-        md-title="Inhalt zum Kurs hinzufügen"
-        :md-content="dialogHTML"
-        md-confirm-text="Hinzufügen"
-        md-cancel-text="Abbrechen"
-        @md-cancel="cancelAdd()"
-        @md-confirm="confirmAdd()" />
+        <add-to-lesson :data="data" :contentId="contentId" v-if="!inReview" />
       </md-card-actions>
-      <!-- md-content="<div class='form-group'><label for='courseId'>Wählen Sie einen Kurs / Fach</label>  <select class='course-selection form-control' name='courseId' required='required'><option value='' selected hidden>Wähle...</option></select></div><div class='form-group lessons' style='display: none'><label for='name'>Wählen Sie ein Unterrichtsthema</label><select class='lesson-selection form-control' name='lessonId' required='required'></select></div>" -->
-      <!-- md-content="TODO!<br><br>Hier brauchen wir <strong>wein Dropdown</strong> mit den Kursen, die wir gerade geholt haben. Oder, falls die leer sind, entsprechend einen Hinweis + Link.<br><br>Wie wäre es außerdem mit der Möglichkeit, eine Kopie bei sich zu speichern?" -->
+      <confirmDialog v-bind:config="dialog" @confirm="onConfirm"/>
     </md-card>
-    <confirmDialog v-bind:config="dialog" @confirm="onConfirm"/>
   </article>
 </template>
 
 <script>
+  import AddToLesson from './dialogs/AddToLesson.vue';
   import confirmDialog from './dialogs/confirm.vue';
+  // import approvedImg from './approved.svg';
 
   export default {
     components: {
       confirmDialog,
+      'add-to-lesson': AddToLesson
     },
     props: ['data', 'contentId', 'inReview', 'ownContent'],
     name: 'ContentCard',
     data() {
       return {
+        // approvedImg,
         addToCourseDialogActive: false,
+        showDialog: false,
         lessonId: undefined,
         courseId: undefined,
         dialog: {
@@ -138,8 +153,11 @@
     methods: {
       open() {
         if (this.data.providerName === "Schul-Cloud" ) {
-          console.log('/content/review/' + this.contentId);
-          location.href = '/content/review/' + this.contentId;
+          if (this.inReview) {
+            location.href = '/content/review/' + this.contentId;
+          } else {
+            location.href = '/content/view/' + this.contentId;
+          }
         } else {
           dialog.active = true;
         }
@@ -147,88 +165,8 @@
       onConfirm() {
         window.open(this.$config.API.baseUrl + this.$config.API.redirectPath + this.contentId, '_blank');
       },
-      addToLesson() {
-        let that = this;
-        that.addToCourseDialogActive = true;
-
-        $.getJSON('/content/' + this.contentId, function (result) {
-  			  var fields = result.content;
-          var courses = result.courses.data;
-          // var courses = [{name: "Englisch 10A", _id: 1}, {name: "Test ABC", _id: 1}];
-          var $selection = $('.course-selection');
-      		courses.forEach(function (course) {
-      			var option = document.createElement("option");
-      			option.text = course.name;
-      			option.value = course._id;
-      			$selection.append(option);
-      		});
-
-          $('.course-selection').on('change', function () {
-        		var selectedCourse = $(this).find("option:selected").val();
-            that.courseId = selectedCourse;
-        		$.getJSON('/courses/' + selectedCourse + '/json', function (res) {
-        			that.populateLessonSelection(res.lessons.data);
-        		});
-        	});
-    		});
-
-      },
-      populateLessonSelection(lessons) {
-    		var $selection = $('.lesson-selection');
-    		$selection
-    			.find('option')
-    			.remove()
-    			.end();
-
-        // lessons = [{name: "test123", _id: 42}, {name: "2test321", _id: 4242}]; // TODO: Remove and keep responst from server
-        if (lessons.length > 0) {
-          this.lessonId = lessons[0]._id;
-        };
-
-    		lessons.forEach(function (lesson) {
-    			var option = document.createElement("option");
-    			option.text = lesson.name;
-    			option.value = lesson._id;
-    			$selection.append(option);
-    		});
-
-    		$('.lessons').css("display", "block");
-
-        var that = this;
-        $('.lesson-selection').on('change', function () {
-          var selectedLesson = $(this).find("option:selected").val();
-          console.log("inside lesson-selection-change");
-          that.lessonId = selectedLesson;
-        });
-    	},
-      confirmAdd() {
-        console.log("confirm add");
-        var dataToSend = {
-          lessonId: this.lessonId,
-          courseId: this.courseId,
-          title: this.data.title,
-          description: this.data.description,
-          content: this.data.content,
-        }
-        this.$http
-          .post(this.$config.API.baseUrl + this.$config.API.clientPort + '/content/addToLesson', dataToSend, { //TODO: ask if we can skip material; then send contentId as well
-            headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
-            }
-          })
-          .then((response) => {
-            console.log("trying to redirect");
-            console.log(window);
-            window.location.href = this.inReview ? "content/review?msg=Inhalt erfolgreich hinzugefügt." : "/content/search?msg=Inhalt erfolgreich hinzugefügt.";
-          })
-          .catch((e) => {
-            console.error(e);
-            alert("Fehler beim Hinzufügen. Entschuldigung! Bitte probieren Sie es später noch mal.")
-          });
-        return;
-      },
-      cancelAdd() {
-        return;
+      showLicenseModal() {
+        alert("adsfads")
       }
     },
   };
@@ -265,7 +203,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      .providerName {
+      .content-card-footer-text {
         position: absolute;
         left: 16px;
       }
@@ -312,5 +250,27 @@
       background-color: #F8A41B;
       color: #434857;
     }
+
+    .content-card-header {
+      position: relative;
+    }
+
+    .approved-icon {
+      position: absolute;
+      transform: rotate(30deg);
+      width: 100px;
+      top: -25px;
+      right: -30px;
+    }
+
+    .content-card-footer {
+      background-color: #F4F3F4;
+      border-top: 1px solid #DFDFDF;
+    }
+
+    .licenses a {
+      cursor: pointer;
+    }
+
   }
 </style>

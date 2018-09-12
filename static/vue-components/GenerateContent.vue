@@ -3,9 +3,6 @@
     <md-card class="stepper-card">
       <md-steppers :md-active-step.sync="active" md-alternative md-linear> <!-- md-vertical -->
         <md-step id="first" md-label="Inhalt erstellen" md-description="Alpha-Test" :md-done.sync="first">
-          <edit-content @editor-update='editorUpdated' />
-          <!-- <p>Hier bitte Ihren Inhalt einfügen (im Moment geht nur Text, der BP-Editor sollte dann bald hier eingebunden werden).</p>
-
           <md-field>
             <label>Titel</label>
             <md-input v-model="title"></md-input>
@@ -14,22 +11,20 @@
             <label>Beschreibung</label>
             <md-textarea v-model="description"></md-textarea>
           </md-field>
-          <md-field>
-            <label>Inhalt</label>
-            <md-textarea v-model="content"></md-textarea> -->
+          <edit-content @editor-update='editorUpdated' />
           </md-field>
 
           <br>
           <md-button class="md-primary" @click="setDone('first', 'second')">Weiter zum Veröffentlichen</md-button>
           <md-button @click="askSave()">Speichern ohne Veröffentlichen</md-button>
           <md-dialog-confirm
-          :md-active.sync="dialogActive"
-          md-title="Inhalt veröffentlichen"
-          md-content="Helfen Sie, eine qualitativ hochwertige Materialsammlung aufzubauen, indem Sie ihren Inhalt mit anderen teilen!<br><br>Das dauert <strong>weniger als 3 Minuten</strong>. Sie profitieren auch davon, denn dann können Sie eine passgenaue Suche guter Inhalte nutzen, die Ihre Kolleg*Innen zur Verfügung gestellt haben."
-          md-confirm-text="Kategorisieren und veröffentlichen"
-          md-cancel-text="Nur speichern"
-          @md-cancel="publish(true)"
-          @md-confirm="setDone('first', 'second')" />
+            :md-active.sync="dialogActive"
+            md-title="Inhalt veröffentlichen"
+            md-content="Helfen Sie, eine qualitativ hochwertige Materialsammlung aufzubauen, indem Sie ihren Inhalt mit anderen teilen!<br><br>Das dauert <strong>weniger als 3 Minuten</strong>. Sie profitieren auch davon, denn dann können Sie eine passgenaue Suche guter Inhalte nutzen, die Ihre Kolleg*Innen zur Verfügung gestellt haben."
+            md-confirm-text="Kategorisieren und veröffentlichen"
+            md-cancel-text="Nur speichern"
+            @md-cancel="publish(true)"
+            @md-confirm="setDone('first', 'second')" />
 
         </md-step>
 
@@ -116,6 +111,8 @@
         };
 
         console.log(dataToSend);
+        const loaderClassList = document.querySelector(".preload-screen").classList;
+        loaderClassList.remove("hidden");
 
         this.$http
           .post(this.$config.API.baseUrl + this.$config.API.port + '/content/resources', dataToSend, {
@@ -125,7 +122,10 @@
           })
           .then((response) => {
             let msg = onlyPrivat ? 'Inhalt erfolgreich erstellt. Sie finden Ihn unter "Meine Materialien" oder können ihn unter "Kurse" auswählen.' : "Inhalt erfolgreich erstellt und geteilt. Sie erhalten sofort 10 Punkte. Wenn Kolleg*Innen Ihren Inhalt bestätigen, erhalten sie 50 weitere Punkte.";
-            location.href = '/content/my-content?msg=' + msg;
+            setTimeout(() => {
+              loaderClassList.add("hidden");
+              location.href = '/content/my-content?msg=' + msg;
+            }, 3000); // Wait so elasticsearch knows about the new content when it is asked for it after redirection
             console.log(response);
           })
           .catch((e) => {

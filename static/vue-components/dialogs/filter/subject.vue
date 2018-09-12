@@ -5,7 +5,7 @@
     <div id="subject-picker">
       <md-field>
         <label for="selectedSubjects">Unterrichtsfach wählen</label>
-        <md-select v-model="selectedSubjects" id="selectedSubjects" md-dense> <!-- multiple> -->
+        <md-select v-model="selectedSubjects" id="selectedSubjects" md-dense multiple>
           <md-option value="Biologie">Biologie</md-option>
           <md-option value="Chemie">Chemie</md-option>
           <md-option value="Deutsch">Deutsch</md-option>

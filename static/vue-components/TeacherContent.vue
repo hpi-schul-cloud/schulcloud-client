@@ -1,12 +1,14 @@
 <template>
   <div class="">
-    <label for="contentTitle">Titel: </label>
-    <input type="text" name="contentTitle" v-model="teacherContent.title">
-    <br>
-    <md-field class="teacherContent-content">
-      <label>Inhalt</label>
-      <md-textarea v-model="teacherContent.content"></md-textarea>
-    </md-field>
+    <md-card class="teacherContent-content">
+      <md-card-header>
+        <div class="md-title">{{teacherContent.title}}</div>
+        <div class="md-subhead">{{teacherContent.description}}</div>
+      </md-card-header>
+      <md-card-content>
+        <div v-html="teacherContent.content"></div>
+      </md-card-content>
+    </md-card>
   </div>
 </template>
 
@@ -18,12 +20,7 @@
     props: ['teacherContent'],
     name: 'TeacherContent',
     data() {
-      return {
-      };
-    },
-    methods: {
-    },
-    watch: {
+      return {}
     }
   };
 </script>
@@ -33,7 +30,9 @@
   @import "./default";
 
   .teacherContent-content {
-    width: 50%;
+    min-width: 500px;
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   @media only screen and (max-width: 600px) {

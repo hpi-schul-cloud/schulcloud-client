@@ -24,6 +24,10 @@ router.get('/edit/:id', function (req, res, next) {
     return res.render('content/create');
 });
 
+router.get('/view/:id', function (req, res, next) {
+    return res.render('content/edit');
+});
+
 router.get('/review/:id', function (req, res, next) {
     return res.render('content/review-content');
 });

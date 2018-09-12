@@ -16,6 +16,10 @@
             Fach
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
+        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('topics')" v-on:click="visibleProvider = 'topics'">
+            Thema
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+        </md-menu-item>
         <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('goal')" v-on:click="visibleProvider = 'goal'">
             Unterrichtsziel
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
@@ -54,7 +58,7 @@
     <age-filter-dialog @set="setFilter" @cancle="cancle" identifier="age"
                             v-bind:active="visibleProvider == 'age'"/>
     <topic-filter-dialog @set="setFilter" @cancle="cancle" identifier="topics"
-                            v-bind:active="visibleProvider == 'topic'"/>
+                            v-bind:active="visibleProvider == 'topics'"/>
   </div>
 </template>
 
@@ -133,7 +137,7 @@
           })
           .then((response) => {
             console.log(response.body);
-            that.teacherPoints = response.body.xp[0].amount;
+            that.teacherPoints = response.body.xp[0] ? response.body.xp[0].amount : 10; // TODO: Instead of setting it to 0, emit an event
           })
           .catch((e) => {
             console.error(e);

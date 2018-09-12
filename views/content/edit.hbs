@@ -2,6 +2,7 @@
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/vendor-vue.js" defer></script>
+        <script src="/vendor/ckeditor/ckeditor.js" defer></script>
         <script src="/scripts/content/edit-content.js" defer></script>
     {{/content}}
 
@@ -10,7 +11,7 @@
     {{/content}}
 
     {{#content "page"}}
-      <div id="app">
+      <div data-user-id="{{ ../currentUser._id }}" id="app">
       </div>
 
     {{/content}}
