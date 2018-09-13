@@ -4,7 +4,7 @@ const _orderBy = require('lodash').orderBy;
 const authHelper = require('../helpers/authentication');
 
 // Partners
-const partners = require('../helpers/partner/partners.json');
+let partners = require('../helpers/partner/partners.json');
 
 // Sort Content-Partners, Sponsors & Advisers by Name
 partners.content_partners = _orderBy(partners.content_partners,
@@ -13,6 +13,9 @@ partners.sponsors = _orderBy(partners.sponsors,
     [x => x.name.toLowerCase()], ['asc']);
 partners.advisers = _orderBy(partners.advisers,
     [x => x.name.toLowerCase()], ['asc']);
+
+let hiddenAdvisers = partners.advisers.splice(4);
+let hiddenContentPartners = partners.content_partners.splice(4);
 
 router.get('/', function (req, res, next) {
 
@@ -30,6 +33,8 @@ router.get('/', function (req, res, next) {
                 logo_prefix: "/images/partner/",
                 inline: !!template.includes('guest'),
                 partners: partners,
+                hiddenAdvisers: hiddenAdvisers,
+                hiddenContentPartners: hiddenContentPartners
             })
     );
 });
