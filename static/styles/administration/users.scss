@@ -1,0 +1,14 @@
+@import '../lib/colors';
+
+.consent-status{
+    &.fa-check{
+        color: green;
+    }
+    &.fa-circle-thin{
+        color: orange;
+        font-weight: bold;
+    }
+    &.fa-times{
+        color: red;
+    }
+}

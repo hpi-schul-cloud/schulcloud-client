@@ -1,3 +1,5 @@
+/* global videojs */
+
 function getCurrentDir() {
     return $('.section-upload').data('path');
 }
@@ -366,8 +368,8 @@ $(document).ready(function() {
         let fileOldPath = modal.find('.modal-form').find("input[name='filePath']").val();
 
         $.ajax({
-            url: '/files/file/' + fileId,
-            type: 'PATCH',
+            url: '/files/file/' + fileId + '/move/',
+            type: 'POST',
             data: {
                 fileName: fileName,
                 oldPath: fileOldPath,
@@ -463,12 +465,12 @@ $(document).ready(function() {
 });
 let $openModal = $('.open-modal');
 
-function videoClick(e) {
+window.videoClick = function videoClick(e) {
     e.stopPropagation();
     e.preventDefault();
-}
+};
 
-function fileViewer(filetype, file, key, name) {
+window.fileViewer = function fileViewer(filetype, file, key, name) {
     $('#my-video').css("display","none");
     switch (filetype) {
         case 'application/pdf':

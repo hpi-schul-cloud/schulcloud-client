@@ -5,6 +5,17 @@ const router = express.Router({ mergeParams: true });
 const Nexboard = require("nexboard-api-js");
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
+const winston = require('winston');
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 
@@ -72,10 +83,12 @@ router.post('/', async function(req, res, next) {
     // Check for neXboard compontent
     data.contents = await createNewNexBoards(req, res, data.contents);
 
+    data.contents = data.contents.filter(c => { return c !== undefined; });
+
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
 
-    req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+    req.query.courseGroup ? '' : delete data.courseGroupId;
 
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
@@ -180,10 +193,14 @@ router.patch('/:topicId', async function(req, res, next) {
         data.contents = [];
     }
 
-    req.query.courseGroup ? delete data.courseId : delete data.courseGroupId;
+    req.query.courseGroup ? '' : delete data.courseGroupId;
 
     // create new Nexboard when necessary, if not simple hidden or position patch
     data.contents ? data.contents = await createNewNexBoards(req, res, data.contents) : '';
+
+
+    if (data.contents)
+        data.contents = data.contents.filter(c => { return c !== undefined; });
 
     // recheck internal components by pattern
     checkInternalComponents(data, req.headers.origin);
@@ -214,6 +231,7 @@ router.delete('/:topicId', function(req, res, next) {
 router.delete('/:topicId/materials/:materialId', function(req, res, next) {
     api(req).patch('/lessons/' + req.params.topicId, {
         json: {
+            courseId: req.params.courseId,
             $pull: {
                 materialIds: req.params.materialId
             }
@@ -230,17 +248,25 @@ router.get('/:topicId/edit', editTopicHandler);
 async function createNewNexBoards(req, res, contents = []) {
     return await Promise.all(contents.map(async content => {
         if (content.component === "neXboard" && content.content.board === '0') {
+            try {
             const board = await getNexBoardAPI().createBoard(
                 content.content.title,
                 content.content.description,
                 await getNexBoardProjectFromUser(req, res.locals.currentUser),
                 'demo');
+
             content.content.title = board.title;
             content.content.board = board.id;
             content.content.url = board.publicLink;
             content.content.description = board.description;
 
             return content;
+
+            } catch (err) {
+                logger.error(err);
+
+                return undefined;
+            }
         } else
             return content;
     }));
@@ -248,8 +274,7 @@ async function createNewNexBoards(req, res, contents = []) {
 
 const getNexBoardAPI = () => {
     if (!process.env.NEXBOARD_USER_ID && !process.env.NEXBOARD_API_KEY) {
-        //TODO handle error properly
-
+        logger.error('nexBoard env is currently not defined.');
     }
     return new Nexboard(process.env.NEXBOARD_API_KEY, process.env.NEXBOARD_USER_ID);
 };

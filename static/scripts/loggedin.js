@@ -1,45 +1,9 @@
+/* global kjua jQuery introJs*/
+import { setupFirebasePush } from './notificationService/indexFirebase';
+import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+
 if (window.opener && window.opener !== window) {
     window.isInline = true;
-}
-
-const diffDOM = new diffDOM();
-
-function softNavigate(newurl, selector = 'html', listener, callback) {
-    $.ajax({
-        type: "GET",
-        url: newurl
-    }).done(function (r) {
-        // render new page
-        parser = new DOMParser()
-        const newPage = parser.parseFromString(r, "text/html");
-        // apply new page
-        try {
-            const newPagePart = newPage.querySelector(selector);
-            const oldPagePart = document.querySelector(selector);
-            const diff = diffDOM.diff(oldPagePart, newPagePart);
-            const result = diffDOM.apply(oldPagePart, diff);
-            document.querySelectorAll((listener || selector) + " a").forEach(link => {
-                linkClone = link.cloneNode(true);
-                linkClone.addEventListener("click", function (e) {
-                    softNavigate($(this).attr('href'), selector, listener);
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                })
-                link.parentNode.replaceChild(linkClone, link);
-            })
-            // scroll to top
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-            jQuery(document).trigger('pageload');
-            if (callback) {
-                callback();
-            }
-        } catch (e) {
-            console.error(e);
-            $.showNotification("Fehler bei AJAX-Navigation", "danger", true);
-        }
-    });
 }
 
 function toggleMobileNav() {
@@ -61,7 +25,7 @@ function togglePresentationMode() {
     toggleButton.children('i').toggleClass('fa-expand');
 }
 
-var fullscreen = false;
+let fullscreen = false;
 
 function fullscreenBtnClicked() {
     togglePresentationMode();
@@ -140,7 +104,7 @@ $(document).ready(function () {
                 targetState: targetState
             },
             success: function (result) {
-                showAJAXSuccess("Feedback erfolgreich versendet!", modal)
+                showAJAXSuccess("Feedback erfolgreich versendet!", modal);
             },
             error: showAJAXError
         });
@@ -212,7 +176,7 @@ $(document).ready(function () {
     if (!fullscreen) {
         fullscreen = JSON.parse(sessionStorage.getItem("fullscreen")) || false;
         if (fullscreen) {
-            togglePresentationMode()
+            togglePresentationMode();
         }
     }
     if(document.querySelector('.btn-fullscreen')){
@@ -263,3 +227,45 @@ $(document).ready(function () {
         return !(e.key === "Unidentified");
     });
 });
+
+window.addEventListener('DOMContentLoaded', function() {
+    if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+        setupFirebasePush();
+    }
+});
+window.addEventListener("resize", function () {
+    $('.sidebar-list').css({"height": window.innerHeight});
+});
+
+function changeNavBarPositionToAbsolute() {
+    var navBar = document.querySelector('.nav-sidebar');
+    navBar.classList.add("position-absolute");
+}
+
+function changeNavBarPositionToFixed() {
+    var navBar = document.querySelector('.nav-sidebar');
+    navBar.classList.remove("position-absolute");
+}
+
+function startIntro() {
+    changeNavBarPositionToAbsolute();
+    introJs()
+    .setOptions({
+        nextLabel: "Weiter",
+        prevLabel: "Zurück",
+        doneLabel: "Fertig",
+        skipLabel: "Überspringen"
+    })
+    .start()
+    .oncomplete(changeNavBarPositionToFixed);
+}
+
+window.addEventListener("load", () => {
+    var continueTuorial=localStorage.getItem('Tutorial');
+    if(continueTuorial=='true') {
+        startIntro();
+        localStorage.setItem('Tutorial', false);
+    }
+}); 
+
+document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
