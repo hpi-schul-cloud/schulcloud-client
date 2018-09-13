@@ -1637,6 +1637,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             'Soll-Zustand',
             'Kategorie',
             'Status',
+            'Erstellungsdatum',
             'Anmerkungen',
             ''
         ];
@@ -1648,6 +1649,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.targetState||""),
                 dictionary[item.category],
                 dictionary[item.state],
+                moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes||""),
                 getTableActionsSend(item, '/administration/helpdesk/', item.state)
             ];
