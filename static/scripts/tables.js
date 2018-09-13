@@ -21,9 +21,10 @@ $(document).ready(function () {
     'Abkürzung': 'abbreviation',
     'Logo': 'logoUrl',
     'E-Mail-Adresse': 'email',
+    'Klasse': 'displayName',
     'Klassen': 'classIds',
-    'Lehrer': 'teacherIds',
     'Klasse(n)': 'classIds',
+    'Lehrer': 'teacherIds',
     'Bezeichnung': 'name',
     'Typ': 'type',
     'Url': 'url',
@@ -50,6 +51,7 @@ $(document).ready(function () {
     'permissions': 'Permissions',
     'teacherIds': 'Lehrer',
     'classIds': 'Klasse(n)',
+    'displayName': 'Klasse',
     'email': 'E-Mail-Adresse'
 };
 

@@ -133,7 +133,7 @@ router.all('/', function (req, res, next) {
             baseUrl: '/news/?p={{page}}'
         };
         res.render('news/overview', {
-            title: 'Neuigkeiten',
+            title: 'Neuigkeiten aus meiner Schule',
             news,
             pagination,
             searchLabel: 'Suche nach Neuigkeiten',
