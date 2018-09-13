@@ -45,4 +45,21 @@ hgroup {
         top: 50%;
         transform: translateY(-50%);
     }
+    .collapse.collapse.in {
+        display: flex !important;
+    }
+    .toggle-partner {
+        background-color: white;
+        color: #b10438;
+        position: relative;
+        font-weight: 500;
+        i {
+            display: block;
+            pointer-events: none;
+        }
+    }
+    .buttonWrapper {
+        width: 100%;
+        text-align: center;
+    }
 }
