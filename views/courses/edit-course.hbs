@@ -47,7 +47,13 @@
 
                     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
                         {{#each classes}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                {{#if this.name}}
+                                    {{this.displayName}}
+                                {{else}}
+                                    {{this.name}}
+                                {{/if}}
+                            </option>
                         {{/each}}
                     </select>
                 </div>

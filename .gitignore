@@ -82,3 +82,6 @@ selenium-debug.log
 
 # VSCode Configuration file
 .vscode
+
+# Webpack Rebuild Changed Plugin Cache
+.webpack-changed-plugin-cache

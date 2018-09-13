@@ -50,7 +50,7 @@
     left: 0;
     transform: scale(0);
     z-index: 1;
-    &.two {
+    &.show {
       transform: scale(1);
       .modal-background {
         background: 0 0;
@@ -187,19 +187,6 @@
   }
   .container {
     margin-left: 0;
-  }
-  h5 {
-    color: $primaryColor;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  h6 {
-    color: $primaryColor;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    width: 100%;
-    display: block;
-    font-size: 1.1rem;
   }
   .image {
     width: 100%;

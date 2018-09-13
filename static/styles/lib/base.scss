@@ -11,25 +11,55 @@
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
-    -webkit-font-smoothing: antialiased;
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-    hyphens: auto;
+	-webkit-font-smoothing: antialiased;
+	text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	hyphens: auto;
+}
+
+.section-team, .section-partner, .section-about, .section-community {
+	h4 {
+		font-weight: 500;
+		margin: 30px 0px 20px 0px !important;
+		width: 100%;
+		display: block;
+	}
+	h5 {
+		font-style: italic; 
+		margin: 30px 0px 20px 0px;
+		width: 100%;
+		display: block;
+	}
+}
+
+.section-title h3 {
+	color: $primaryColor;
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+body h4:not(:first-of-type){
+	margin-top: 1rem;
 }
 
 a {
-    text-decoration: none;
-    &:hover {
-        text-decoration: none;
-    }
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+	}
 }
 
 a[data-toggle="collapse"],
 a[data-toggle="collapse"]:hover,
 a[data-toggle="collapse"]:active,
 a[data-toggle="collapse"]:focus{
-    color: inherit;
-    text-decoration:none !important;
+	color: inherit;
+	text-decoration:none !important;
+}
+
+.btn-link{
+	margin: 0;
+	padding: 0;
 }
 
 p.small {
@@ -60,7 +90,7 @@ label {
 
 label,
 .noselect{
-    user-select: none;
+	user-select: none;
 }
 
 .intro-trigger {
@@ -70,6 +100,7 @@ label,
 .hidden{
 	display: none;
 }
+
 .show{
 	display: initial;
 }
@@ -90,39 +121,63 @@ label,
 	}
 }
 
-footer.small-footer {
-	width: 100%;
-	margin-top: 40px;
-	position: inherit;
-	@media screen and (max-height: 700px) { top: 510px; }
-	bottom: 0;
-	right: 0;
-	left: 0;
-	clear: both;
-	padding: 30px 0px;
-	font-size: 0.9em;
-	margin-bottom: 5px;
-	@include media-breakpoint-down(xs) {
-		background: $colorBeige;
-
-		img {
-			clear: both;
-			display: block;
-			margin: 0 auto 10px;
-		}
+.table-wrapper{
+	max-width: 100%;
+	display: block;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 1rem;
+	table{
+		margin-bottom: 0;
 	}
+}
 
-	.imprint {
-		.center {
-			text-align: center;
-			align-items: center;
+footer {
+	.android-app {
+		margin-left:-11px;
+	}
+	&.small-footer {
+		width: 100%;
+		margin-top: 40px;
+		position: inherit;
+		@media screen and (max-height: 700px) {
+			top: 510px;
 		}
-        img{
-            width: auto;
-            max-width: 175px;
-            height: auto;
-            max-height: 44px; 	
-        }
+		bottom: 0;
+		right: 0;
+		left: 0;
+		clear: both;
+		padding: 30px 0px;
+		font-size: 0.9em;
+		margin-bottom: 5px;
+		@include media-breakpoint-down(xs) {
+			background: $colorBeige;
+
+			img {
+				clear: both;
+				display: block;
+				margin: 0 auto 10px;
+			}
+		}
+
+		.imprint {
+			.center {
+				text-align: center;
+				align-items: center;
+				.made-with-love {
+					margin-top: 8px;
+					.heart {
+						color: #b10438;
+					}
+				}
+			}
+			img {
+				width: auto;
+				max-width: 175px;
+				height: auto;
+				max-height: 44px;
+			}
+		}
 	}
 }
 
@@ -171,6 +226,9 @@ form.inline {
 	padding-left: 15px !important;
 	padding-right: 15px !important;
 }
+.btn.hidden{
+	display:none;
+}
 
 .alert-fixed {
   position:fixed;
@@ -187,9 +245,9 @@ form.inline {
 
 .collapse-icon {
 	display:inline-block;
-    vertical-align: baseline;
-    text-align: center;
-    width: 1em;
+	vertical-align: baseline;
+	text-align: center;
+	width: 1em;
 }
 
 .window-inline .hide-inline {
@@ -224,29 +282,37 @@ form.inline {
 
 .print-only{display:none;}
 @media print {
-    .print-only{display:initial;}
+	.print-only{display:initial;}
 }
 
 .ckcontent {
-    margin: 10px 0;
-    color: #373a3c;
-    text-decoration:none;
-    &:hover{text-decoration:none;}
-    h1 {font-size: 1.3rem;font-weight:bold}
-    h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
-    h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
-    p  {font-size: 1rem;margin-bottom:.25rem;}
-    img, video{max-width: 100%;}
-    table{display: block; max-width:100%; overflow: auto;}
-    blockquote{
-      color: grey;
-      margin-left: 1rem;
-      border-left: 2px solid grey;
-      padding-left: 5px;
-    }
+	margin: 10px 0;
+	color: #373a3c;
+	text-decoration:none;
+	&:hover{text-decoration:none;}
+	h1 {font-size: 1.3rem;font-weight:bold}
+	h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
+	h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
+	p  {font-size: 1rem;margin-bottom:.25rem;}
+	img, video{max-width: 100%;}
+	table{display: block; max-width:100%; overflow: auto;}
+	blockquote{
+	  color: grey;
+	  margin-left: 1rem;
+	  border-left: 2px solid grey;
+	  padding-left: 5px;
+	}
 }
 
 .container .jumbotron{
 	padding: 2rem 2rem;
 	margin: 2rem 0rem;
+}
+
+.form-control{
+	hyphens: none;
+}
+
+.position-absolute{
+	position: absolute !important;
 }

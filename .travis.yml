@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '7'
+- '8'
 sudo: required
 addons:
   chrome: stable
@@ -27,7 +27,7 @@ script:
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 - git fetch
 - "./diff.sh"
-- "./frontend_test.sh"
+- if [ "$SKIP_NIGHTWATCH" == "true" ]; then echo "skipping nightwatch tests"; else sh ./frontend_test.sh; fi
 after_success:
 - bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)
 notifications:
