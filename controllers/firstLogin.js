@@ -93,15 +93,15 @@ router.post('/submit', function (req, res, next) {
         json: userUpdate
     });
 
-    if (req.body.Erhebung) {
+    if (req.body.privacyConsent || req.body.thirdPartyConsent || req.body.termsOfUseConsent || req.body.researchConsent) {
         consentPromise = api(req).get('/consents/', {
             qs: {userId: res.locals.currentPayload.userId}
         }).then(consent => {
             consentUpdate.form = 'digital';
-            consentUpdate.privacyConsent = req.body.Erhebung;
-            consentUpdate.thirdPartyConsent = req.body.Pseudonymisierung;
-            consentUpdate.termsOfUseConsent = req.body.Nutzungsbedingungen;
-            consentUpdate.researchConsent = req.body.Forschung;
+            consentUpdate.privacyConsent = req.body.privacyConsent;
+            consentUpdate.thirdPartyConsent = req.body.thirdPartyConsent;
+            consentUpdate.termsOfUseConsent = req.body.termsOfUseConsent;
+            consentUpdate.researchConsent = req.body.researchConsent;
             return api(req).patch('/consents/' + consent.data[0]._id, {
                 json: {userConsent: consentUpdate}
             });
@@ -131,6 +131,12 @@ router.get('/existingUE14', function (req, res, next) {
 });
 router.get('/existingGeb14', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingGeb14', {
+        title: 'Willkommen - Erster Login',
+        hideMenu: true
+    });
+});
+router.get('/existingEmployee', function (req, res, next) {
+    res.render('firstLogin/firstLoginExistingEmployee', {
         title: 'Willkommen - Erster Login',
         hideMenu: true
     });

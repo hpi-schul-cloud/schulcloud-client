@@ -28,7 +28,6 @@
         <p>Du bist mindestens 14 Jahre alt. Bitte bestätige folgende Einwilligungserklärungen, damit du die {{theme.title}} nutzen kannst.</p>
         <p>Ich, <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>, erkläre folgendes:</p>
           {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
-
       </section>
 
 
@@ -41,7 +40,7 @@
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
               <label>E-Mail:</label>
-              <input class="form-control" type="email" name="student-email" placeholder="schueler@schul-cloud.org" title="Bitte gib eine gültige E-Mail-Adresse ein." value="{{currentUser.email}}" required></input>
+              <input class="form-control" type="email" name="student-email" placeholder="schueler@schul-cloud.org" title="Bitte gib eine gültige E-Mail-Adresse ein." value="{{currentUser.email}}" readonly required></input>
           </div>
         </div>
       </section>

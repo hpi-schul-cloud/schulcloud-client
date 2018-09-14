@@ -18,6 +18,7 @@
               <input type="radio" id="reg-18" name="student-age" value="18"> <label for="reg-18">mindestens 18 Jahre alt</label>
           </fieldset>
       </div>
+        <p></p>
         <div id="infotext-u18" class="hidden">
             <p>Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{theme.short_title}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
             <p>Wir bitten Sie, Ihr Kind zunächst in der {{theme.short_title}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{theme.title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.</p>
@@ -29,15 +30,10 @@
         </div>
       <button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
         <p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
+        {{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
         {{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
         {{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
         {{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
-        {{#if user.importHash}}<input type="hidden" name="importHash" value="{{user.importHash}}" />{{/if}}
-        {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}" />{{/if}}
-        {{#if user.firstName}}<input type="hidden" name="firstName" value="{{user.firstName}}" />{{/if}}
-        {{#if user.lastName}}<input type="hidden" name="lastName" value="{{user.lastName}}" />{{/if}}
-        {{#if user.email}}<input type="hidden" name="email" value="{{user.email}}" />{{/if}}
-        {{#if user.birthday}}<input type="hidden" name="birthday" value="{{user.birthday}}" />{{/if}}
     </div>
   {{/content}}
 {{/extend}}

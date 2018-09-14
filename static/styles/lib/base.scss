@@ -121,6 +121,17 @@ label,
 	}
 }
 
+.table-wrapper{
+	max-width: 100%;
+	display: block;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 1rem;
+	table{
+		margin-bottom: 0;
+	}
+}
+
 footer {
 	.android-app {
 		margin-left:-11px;
