@@ -196,6 +196,13 @@ gulp.task('vendor-assets', () => {
     .pipe(gulp.dest(`./build/${themeName()}/vendor`));
 });
 
+//copy vendor-optimized files
+gulp.task('vendor-optimized-assets', () => {
+  beginPipe(['./static/vendor-optimized/**/*.*'
+    ])
+    .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`));
+});
+
 //clear build folder + smart cache
 gulp.task('clear', () => {
   gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], { 
@@ -206,7 +213,7 @@ gulp.task('clear', () => {
 
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-  'vendor-styles', 'vendor-scripts', 'vendor-assets'
+  'vendor-styles', 'vendor-scripts', 'vendor-assets', 'vendor-optimized-assets'
 ]);
 
 gulp.task('build-theme-files', ['styles']);
@@ -221,6 +228,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme(baseScripts), ['base-scripts']);
   gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles']);
   gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts']);
+  gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), ['vendor-optimized-assets']);
   gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
     '!./static/vendor/**/*.{css,sass,scss}'
   ], ['vendor-assets']);
