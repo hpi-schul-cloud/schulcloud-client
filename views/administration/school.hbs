@@ -21,6 +21,29 @@
                                         <input value="{{../school.name}}" type="text" class="form-control" name="name" placeholder="Einhorn Gymnasium" required />
                                     </div>
 
+                                    <div class="form-group">
+                                        <label>Schullogo</label><br/>
+                                        <input type="file" class="logo-file" onchange="loadFile()"><br>
+                                        <img class="preview-logo" src="" height="100" alt="Image preview...">
+                                    </div>
+                                    
+                                    <script>
+                                        function loadFile(){
+                                            var logo = document.querySelector('.federal-state'); 
+                                            var preview = document.querySelector('.preview-logo');
+                                            var file    = document.querySelector('.logo-file').files[0]; 
+                                            var reader  = new FileReader();
+                                            reader.addEventListener("load", function () {
+                                                preview.src = reader.result;
+                                                logo.src = reader.result;
+                                            }, false);
+                                            if (file) {
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }
+                                        loadFile();  
+                                    </script>
+
                                     {{#if ../school.fileStorageType}}
                                     <div class="form-group">
                                         <label>Cloud-Storage Anbieter</label>
