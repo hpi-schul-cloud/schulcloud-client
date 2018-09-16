@@ -2,27 +2,16 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
-const authHelper = require('../helpers/authentication');
-
-const createAccount = (req, {username, password, userId, activated}) => {
-    return api(req).post('/accounts', {json: {
-        username,
-        password,
-        userId,
-        activated
-    }});
-};
 
 /*
  * Warnings for users who wan't to use the old register version if not teacher
  */
-
 router.get(['/register', '/register/*'], function (req, res, next) {
     res.render('registration/deprecated_warning');
 });
 
 /*
- * Dataprivacy Routes
+ * EzD Dataprivacy Routes
  */
 router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
@@ -37,12 +26,15 @@ router.post('/registration/pincreation', function (req, res, next) {
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], function (req, res, next) {
+    // normalize form data
+    req.body.privacyConsent = req.body.privacyConsent === "true";
+    req.body.researchConsent = req.body.researchConsent === "true";
+    req.body.thirdPartyConsent = req.body.thirdPartyConsent === "true";
+    req.body.termsOfUseConsent = req.body.termsOfUseConsent === "true";
+    req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
+
     return api(req).post('/registration/', {
-        json: req.body,
-		qs:{ 
-			sso: req.params.sso,
-            accountId: req.params.accountId
-		}
+        json: req.body
     }).then(response => {   
         //send Mails
         let eMailAdresses = [response.user.email];
@@ -51,8 +43,8 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
         }
         eMailAdresses.forEach(eMailAdress => {
             let passwordText = "";
-            if (req.body["initial-password"]) {
-                passwordText = `Startpasswort: ${req.body["initial-password"]}`;
+            if (req.body.roles.includes("student")) {
+                passwordText = `Startpasswort: ${req.body["password_1"]}`;
             }
             return api(req).post('/mails/', {
                 json: { email: eMailAdress,
@@ -64,7 +56,7 @@ mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einlo
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
-Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
+Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
 Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                         }
@@ -82,71 +74,72 @@ ${res.locals.theme.short_title}-Team`
     });
 });
 
-const formatBirthdate=(datestamp)=>{
-	if( datestamp==undefined ) 
-		return undefined;
-	
-	const d=datestamp.split('T')[0].split(/-/g);
-	return d[2]+'.'+d[1]+'.'+d[0];
-};
-
-router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
     
+    let user = {};
+    user.importHash = req.query.importHash;
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
+
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
     res.render('registration/registration-parent', {
         title: 'Registrierung - Eltern',
-        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso",
-		birthdate: formatBirthdate((req.query||{}).birthday),
-		account:req.params.accountId,
-        query: req.query
+        user
     });
 });
 
-router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
-    
+
+    let user = {};
+    user.importHash = req.query.importHash;
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
+
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
+
     res.render('registration/registration-student', {
         title: 'Registrierung - Schüler*',
-        classOrSchoolId: req.params.classOrSchoolId,
         hideMenu: true,
-        sso: req.params.sso==="sso",
-		birthdate: formatBirthdate((req.query||{}).birthday),
-		account: req.params.accountId||"",
-        query: req.query
+        user
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
     
-    if (req.query.id) {
-        return api(req).get('/users/linkImport/'+req.query.id).then(user => {
-            res.render('registration/registration-employee', {
-                title: 'Registrierung - Lehrer*/Admins*',
-                classOrSchoolId: req.params.classOrSchoolId,
-                hideMenu: true,
-                account:req.params.accountId||"",
-                user: user
-            });
-        });
-    } else {
-        res.render('registration/registration-employee', {
-            title: 'Registrierung - Lehrer*/Admins*',
-            classOrSchoolId: req.params.classOrSchoolId,
-            hideMenu: true,
-            sso: req.params.sso === "sso",
-            birthdate: formatBirthdate((req.query || {}).birthday),
-            account: req.params.accountId || ""
-        });
+    let user = {};
+    user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
+
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
     }
+
+    res.render('registration/registration-employee', {
+        title: 'Registrierung - Lehrer*/Admins*',
+        hideMenu: true,
+        user
+    });
 });
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
@@ -154,25 +147,14 @@ router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:s
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(500);
     
-    if (req.query.id) {
-        return api(req).get('/users/linkImport/'+req.query.id).then(user => {
-            res.render('registration/registration', {
-                title: 'Herzlich Willkommen bei der Registrierung',
-                classOrSchoolId: req.params.classOrSchoolId,
-                hideMenu: true,
-                account:req.params.accountId||"",
-                user: user
-            });
-        });
-    } else {
-        res.render('registration/registration', {
-            title: 'Herzlich Willkommen bei der Registrierung',
-            classOrSchoolId: req.params.classOrSchoolId,
-            hideMenu: true,
-            sso: req.params.sso==="sso",
-            account:req.params.accountId||""
-        });
-	}
+    res.render('registration/registration', {
+        title: 'Herzlich Willkommen bei der Registrierung',
+        hideMenu: true,
+        importHash: req.query.importHash || req.query.id, // req.query.id is deprecated
+        classOrSchoolId: req.params.classOrSchoolId,
+        sso: req.params.sso==="sso",
+        account:req.params.accountId||"",
+    });
 });
 
 module.exports = router;

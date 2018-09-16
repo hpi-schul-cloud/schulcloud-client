@@ -71,7 +71,7 @@ const getTableActionsSend = (item, path, state) => {
             },
             {
                 class: 'disabled',
-                icon: 'ban'
+                icon: 'archive'
             },
             {
                 class: 'disabled',
@@ -88,16 +88,16 @@ const getTableActionsSend = (item, path, state) => {
             {
                 link: path + item._id,
                 class: 'btn-disable',
-                icon: 'ban',
+                icon: 'archive',
                 method: 'delete',
-                title: 'Eintrag löschen'
+                title: 'Eintrag abschließen'
             },
             {
                 link: path + item._id,
                 class: 'btn',
                 icon: 'paper-plane',
                 method: 'post',
-                title: 'Eintrag löschen'
+                title: 'Eintrag an Entwicklerteam senden'
             });
     }
     return actions;
@@ -890,33 +890,37 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
                 return user;
             });
 
-            const head = [
+            let head = [
                 'Vorname',
                 'Nachname',
                 'E-Mail-Adresse',
-                'Klasse(n)',
-                'Einwilligung',
-                'Erstellt am',
-                ''
+                'Klasse(n)'
             ];
-
-            const body = users.map(user => {
-                return [
+            if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
+                head.push('Einwilligung');
+                head.push('Erstellt am');
+                head.push('');
+            }
+            let body = users.map(user => {
+                let row = [
                     user.firstName || '',
                     user.lastName || '',
                     user.email || '',
-                    user.classesString || '',
-                    {
+                    user.classesString || ''
+                ];
+                if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
+                    row.push({
                         useHTML: true,
                         content: user.consentStatus
-                    },
-                    moment(user.createdAt).format('DD.MM.YYYY'),
-                    [{
+                    });
+                    row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+                    row.push([{
                         link: `/administration/teachers/${user._id}/edit`,
                         title: 'Nutzer bearbeiten',
                         icon: 'edit'
-                    }]
-                ];
+                    }]);
+                }
+                return row;
             });
 
             const pagination = {
@@ -988,18 +992,18 @@ const getStudentUpdateHandler = () => {
             _id: req.body.student_consentId,
             userConsent: {
                 form: req.body.student_form || "analog",
-                privacyConsent: req.body.student_privacyConsent || false,
-                researchConsent: req.body.student_researchConsent || false,
-                thirdPartyConsent: req.body.student_thirdPartyConsent || false,
-                termsOfUseConsent: req.body.student_termsOfUseConsent || false
+                privacyConsent: req.body.student_privacyConsent === "true",
+                researchConsent: req.body.student_researchConsent === "true",
+                thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
+                termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
             }
         };
         let newParentConsent = {
             form: req.body.parent_form || "analog",
-            privacyConsent: req.body.parent_privacyConsent || false,
-            researchConsent: req.body.parent_researchConsent || false,
-            thirdPartyConsent: req.body.parent_thirdPartyConsent || false,
-            termsOfUseConsent: req.body.parent_termsOfUseConsent || false
+            privacyConsent: req.body.parent_privacyConsent === "true",
+            researchConsent: req.body.parent_researchConsent === "true",
+            thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+            termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
         };
         if(studentConsent._id){
             let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
@@ -1633,6 +1637,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             'Soll-Zustand',
             'Kategorie',
             'Status',
+            'Erstellungsdatum',
             'Anmerkungen',
             ''
         ];
@@ -1644,6 +1649,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.targetState||""),
                 dictionary[item.category],
                 dictionary[item.state],
+                moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes||""),
                 getTableActionsSend(item, '/administration/helpdesk/', item.state)
             ];
