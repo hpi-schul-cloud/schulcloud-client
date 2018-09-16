@@ -4,71 +4,20 @@
             <link rel="stylesheet" href="/styles/lib/error.css"/>
         {{/content}}
         {{#content "page"}}
-            <div class="error-header-wrapper mb-3">
-                <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrocheneer Stift"/>
-                <h2 class="error-header-code">{{error.statusCode}}</h2>
-                <p class="error-header-text">
-                    {{#if error.statusCode}}
-                        {{castStatusCodeToString error.statusCode}}
-                    {{else}}
-                        Da ist wohl etwas schief gelaufen!
-                    {{/if}}
-                </p>
-
-                <button class="btn btn-primary" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> zurück</button>
-            </div>
-
-            <div class="error-details-wrapper">
-                <button id="error-toggle-details" class="btn btn-secondary mb-1" data-toggle="collapse" data-target="#error-details" aria-expanded="false" aria-controls="error-details">
-                    <span class="show">Details anzeigen</span>
-                    <span class="hide">Details verstecken</span>
-                </button>
-                <div id="error-details" class="collapse card error-card">
-                    <div class="card-header">
-                        Fehler-Details: <br/>
-                        <code>{{message}}</code>
-                    </div>
-                    {{#if error.stack}}
-                        <div class="card-block error-description">
-                            <pre>{{error.stack}}</pre>
-                        </div>
-                    {{/if}}
-                </div>
-            </div>
+            {{#embed "lib/error_content"}}{{/embed}}
         {{/content}}
     {{/extend}}
 {{else}}
     {{#extend "lib/default"}}
         {{#content "styles" mode="append"}}
-            <link rel="stylesheet" href="/styles/lib/error.css"/>
             <link rel="stylesheet" href="/styles/authentication/home.css"/>
+            <link rel="stylesheet" href="/styles/lib/error.css"/>
         {{/content}}
 
         {{#content "body"}}
             {{#embed "lib/header"}}{{/embed}}
-            <main class="container">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="error-page card">
-                            <section class="details card-block">
-                                <div class="text-center">
-                                    <h3>{{error.status}}</h3>
-                                    <h4>{{message}}</h4>
-                                </div>
-                                {{#if error.stack}}
-                                    <div class="card error-card">
-                                        <div class="card-header">
-                                            Fehler-Details
-                                        </div>
-                                        <div class="card-block error-description">
-                                            {{error.stack}}
-                                        </div>
-                                    </div>
-                                {{/if}}
-                            </section>
-                        </div>
-                    </div>
-                </div>
+            <main class="container pt-3">
+                {{#embed "lib/error_content"}}{{/embed}}
             </main>
             {{#embed "lib/extended_footer"}}{{/embed}}
         {{/content}}

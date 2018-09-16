@@ -177,7 +177,7 @@ module.exports = {
         if(statusCode >= 400){
             switch (statusCode){
                 case 400:
-                    return "Die Anfrage ist fehlerhaft.";
+                    return "Diese Anfrage war fehlerhaft.";
                 case 401:
                     return "Bitte Authentifiziere dich zunächst.";
                 case 402:

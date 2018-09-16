@@ -1,12 +1,19 @@
 @import './colors';
 @import "./bootstrap/scss/bootstrap-flex";
-@import "./bootstrap/scss/_animation";
+@import "./bootstrap/scss/_animation"; // this import is needed to enable the toggle feature of the detail card
 
 body {
-    background: $colorBeige;
+    /* 
+    // This may be a cool background for the Material redesign
+    // Got it from evap.hpi.de, we should ask them if we are allowed to use this!
+
     background-image: url(/images/triangles_gray.svg);
     background-size: cover;
     background-attachment: fixed;
+    */
+}
+.account-toggle{
+    background-color: transparent;
 }
 .error-header-wrapper{
     width: 100%;
@@ -63,28 +70,6 @@ body {
         }
         pre{
             margin: 0;
-        }
-    }
-}
-
-
-.error-page {
-    h3 {
-        color: $primaryColor;
-        font-size: 5rem;
-        font-weight: 700;
-        margin: 0;
-    }
-    .message {
-        font-size: 2rem; 
-        font-weight: 700;
-    }
-    .error-card {
-        position: relative;
-        .error-description{
-            max-height: 70vh;
-            overflow-y: auto;
-            word-wrap: break-word;
         }
     }
 }
