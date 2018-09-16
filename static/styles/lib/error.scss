@@ -1,8 +1,73 @@
 @import './colors';
+@import "./bootstrap/scss/bootstrap-flex";
+@import "./bootstrap/scss/_animation";
 
 body {
     background: $colorBeige;
+    background-image: url(/images/triangles_gray.svg);
+    background-size: cover;
+    background-attachment: fixed;
 }
+.error-header-wrapper{
+    width: 100%;
+    text-align: center;
+    .error-header-image{
+        width: 40vw;
+        margin-bottom: -5vw;
+        @include media-breakpoint-down(xs) {
+            width: 70vw;
+        }
+    }
+    .error-header-code{
+        font-size: 10vw;
+        min-height: .75em;
+        margin: 0;
+        @include media-breakpoint-down(xs) {
+            font-size: 5rem;
+        }
+        font-weight: bold;
+    }
+    .error-header-text{
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
+
+.error-details-wrapper{
+    text-align: center;
+    /* toggles text depending on toggle state */
+    #error-toggle-details{
+        &[aria-expanded="false"]{
+            .show{
+                display: initial
+            }
+            .hide{
+                display: none;
+            }
+        }
+        &[aria-expanded="true"]{
+            .show{
+                display: none
+            }
+            .hide{
+                display: initial;
+            }
+        }
+    }
+    #error-details{
+        text-align: left;
+        max-width: 900px;
+        margin: 0 auto;
+        .error-description{
+            padding: 1rem;
+        }
+        pre{
+            margin: 0;
+        }
+    }
+}
+
+
 .error-page {
     h3 {
         color: $primaryColor;

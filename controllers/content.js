@@ -41,7 +41,7 @@ const contentFilterSettings = function() {
             ]
         },
     ];
-}
+};
 
 router.get('/', function (req, res, next) {
 
