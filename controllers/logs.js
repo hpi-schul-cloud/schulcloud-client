@@ -8,7 +8,7 @@ const ipaddr = require('ipaddr.js');
 const api = require('../api');
 const helper = require('../helpers/googleAnalytics');
 
-console.log('Google Analytics Tracking ID: ', process.env.GOOGLE_ANALYTICS_TRACKING_ID);
+console.log('Google Analytics Tracking ID: ', process.env.GOOGLE_ANALYTICS_TRACKING_ID); // eslint-disable-line no-console
 
 router.post('/', function (req, res, next) {
     if (process.env.GOOGLE_ANALYTICS_TRACKING_ID) {
