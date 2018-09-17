@@ -28,6 +28,7 @@ function readConnectionType(result){
   var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
   if(connection){
     result['connection'] = connection.effectiveType;
+    result['downlink'] = connection.downlink;
   }
 }
 

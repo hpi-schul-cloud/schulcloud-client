@@ -32,12 +32,13 @@ router.post('/', function (req, res, next) {
             cm3: context['page-loaded'], // page load time ms
             cm4: context['dom-interactive-time'], // dom interactive time ms
             cm5: context['dom-content-loaded'], // content load time ms
+            cm6: context['downlink'], // download speed in mbit/s
 
             cd1: context['connection'], // connection type http://wicg.github.io/netinfo/ 
             cd2: data.attributes.url.includes('localhost') ? 'local' : 'default'
         };
         api(req).post('/statistics', { json: hit }).then(result => {
-            res.send('success');
+            res.send(result);
         }).catch(_ => {
             res.send('error');
         });
