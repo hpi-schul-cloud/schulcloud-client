@@ -690,6 +690,21 @@
       },
       {
         "title": "",
+        "firstName": "Niklas",
+        "lastName": "Kiefer",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Niklas hat IT-Systems Engineering am HPI studiert und war Teil des Bachelorprojekts 2016/2017 der HPI Schul-Cloud und war somit seit Beginn der Anwendung involviert. Nach dem Studium am HPI arbeitete er bis August 2018 am Frontend und Backend, sowie gelegentlich an der Android-App der HPI Schul-Cloud. Seine größten Hobbies sind Fußball und Musik.",
+        "pictureUrl": "/images/team/Niklas_Kiefer.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Juliane",
         "lastName": "Kleinknecht",
         "position": "Ehem. Bachelorstudentin",
