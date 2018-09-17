@@ -25,24 +25,6 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
 const workbox = require('workbox-build')
-const named = require('vinyl-named')
-const imagemin = require('gulp-imagemin')
-const babel = require('gulp-babel')
-const filelog = require('gulp-filelog')
-const plumber = require('gulp-plumber')
-const optimizejs = require('gulp-optimize-js')
-const concat = require('gulp-concat')
-const count = require('gulp-count')
-const changed = require('gulp-changed-smart')
-const autoprefixer = require('gulp-autoprefixer')
-const header = require('gulp-header');
-const cCSS = new cleancss()
-const fs = require('fs')
-const gulpif = require('gulp-if');
-//wrapped in a function so it works with gulp.watch (+consistency)
-const minify = () => map((buff, filename) =>
-    cCSS.minify(buff.toString()).styles)
-
 
 const baseScripts = [
   './static/scripts/jquery/jquery.min.js',
