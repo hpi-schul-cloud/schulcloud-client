@@ -1,12 +1,12 @@
 <section id="loginarea" class="card">
-    <div class="card-block" data-step="3" data-intro="Wenn Ihre Schule bereits über Schul-Cloud-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
+    <div class="card-block" data-step="3" data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
         <h4 class="card-title">Login</h4>
         <div class="card-text form-wrapper">
             {{> "lib/components/notification"}}
 
             <form method="post" action="/login/" class="login-form">
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Email-Adresse oder Nutzername" required>
+                    <input type="text" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" required>
                     <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort" required>
                 </div>
 
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group ">
-                        <a class="btn btn-block btn-secondary btn-hide-providers">Mit Schul-Cloud Account anmelden</a>
+                        <a class="btn btn-block btn-secondary btn-hide-providers">Mit {{theme.title}} Account anmelden</a>
                     </div>
                 </div>
 

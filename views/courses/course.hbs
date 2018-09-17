@@ -63,7 +63,7 @@
                                                         <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                                             href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                             target="_blank"
-                                                            data-method="delete-material"
+                                                            data-method="DELETE"
                                                             data-name="{{../name}}"
                                                             redirect="/courses/{{../courseId}}"
                                                             title="Thema löschen">
@@ -102,7 +102,7 @@
                                                         <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                                            href="/courses/{{../courseId}}/topics/{{../_id}}"
                                                            target="_blank"
-                                                           data-method="delete-material"
+                                                           data-method="DELETE"
                                                            data-name="{{../name}}"
                                                             redirect="/courses/{{../courseId}}"
                                                             title="Thema löschen">
@@ -161,7 +161,7 @@
                                             <a class="delete-tool"
                                             href="/courses/{{../../_id}}/tools/delete/{{../_id}}"
                                             target="_blank"
-                                            data-method="delete-material"
+                                            data-method="DELETE"
                                             data-name="{{../name}}">
                                                 <i class="fa fa-trash-o"></i>
                                             </a>
@@ -281,10 +281,11 @@
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
+                        <a href="/courses/{{../_id}}/copy" class="btn btn-add btn-secondary">Kurs klonen</a>
                         <a href="/courses/{{../_id}}/"
                            class="btn btn-delete-course btn-secondary"
                            target="_blank"
-                           data-method="delete-material"
+                           data-method="DELETE"
                            data-name="{{../name}}"
                            redirect="/courses/">Kurs löschen</a>
                         <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>

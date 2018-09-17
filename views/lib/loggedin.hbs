@@ -17,6 +17,7 @@
 
         <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
         <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
+    
     {{/content}}
 
     {{#content "body"}}
@@ -35,11 +36,11 @@
                     <li>
                         <a class="sc-branding" href="/">
                             <div class="cloud-logo"></div>
-                            <div class="sc-title"><span>{{themeTitle}}</span></div>
+                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
-                        <li>
+                        <li data-step={{this.introNumber}} data-intro="{{this.introText}}">
                             <a class="{{this.class}}" href="{{this.link}}"
                                  title="{{this.name}}">
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
@@ -94,17 +95,17 @@
                         </ol>
                     {{/if}}
 
-                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier finden Sie übergreifende Informationen">
-                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Blendet Menus aus">
+                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier findest du übergreifende Informationen.">
+                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Hiermit blendest du die Menüs aus.">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
                                     <i class="fa fa-expand"></i>
                                 </a>
                             </div>
                         </li>
                         <li class="nav-item qr-code-action" data-step="3" data-intro="Ganz einfach QR-Codes erstellen!">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
                                     <i class="fa fa-qrcode"></i>
                                 </a>
                                 <div class="dropdown-menu print">
@@ -115,10 +116,10 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhalten sie Benachrichtigungen">
+                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                        recentNotifications}}recent{{/if}}" data-toggle="dropdown">
+                                        recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
                                     <i class="fa fa-bell"></i> {{#if recentNotifications}}
                                     <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                                 </a>
@@ -145,21 +146,36 @@
                             </div>
                         </li>
 
-                        <li class="nav-item help-drodown" data-step="5" data-intro="Hilfebereich für Ihre Fragen und Probleme">
+                        <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
                             <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle" data-toggle="dropdown">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
                                     <i class="fa fa-question"></i>
                                 </a>
                                 <div class="dropdown-menu">
                                     <ul class="content list-group">
                                         <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
                                         <div class="delimiter"></div>
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-magic"
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-info-circle" aria-hidden="true" style="margin-left:1px;"></i>
+                                                <a href="https://docs.schul-cloud.org/x/jwDT" class="link">Anleitungen</a>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-magic" aria-hidden="true"></i>
+                                                <a href="/help/#changelog" class="link">Neueste Funktionen</a>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a>
+                                            </span>
+                                        </li>
+                                        <li id="intro-loggedin" class="list-group-item list-group-item-action"><span><i class="fa fa-map-signs"
                                                                                                     aria-hidden="true"></i><a
-                                                href="/help/#changelog" class="link">Neuste Funktionen</a></span></li>
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
-                                                                                                    aria-hidden="true"></i><a
-                                                href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a></span></li>
+                                                href="#" class="link">Intro</a></span></li>
                                         <div class="delimiter"></div>
                                         {{#ifneq this.currentRole "Schüler"}}
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
@@ -181,7 +197,7 @@
                             {{/if}}
                         {{/if}}
 
-                        <li class="nav-item" data-step="6" data-intro="Einstellungen und Log-Out">
+                        <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -201,7 +217,7 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 <div>
-                                    <h4>{{title}}</h4>
+                                    <h4 id="page-title">{{title}}</h4>
                                 </div>
                                 <div>
                                     {{subtitle}}

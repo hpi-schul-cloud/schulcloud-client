@@ -17,13 +17,15 @@ $(document).ready(function () {
     'Ist-Zustand': 'currentState',
     'Soll-Zustand': 'targetState',
     'Status': 'state',
+    'Erstellungsdatum': 'createdAt',
     'Anmerkungen': 'notes',
     'Abkürzung': 'abbreviation',
     'Logo': 'logoUrl',
     'E-Mail-Adresse': 'email',
+    'Klasse': 'displayName',
     'Klassen': 'classIds',
-    'Lehrer': 'teacherIds',
     'Klasse(n)': 'classIds',
+    'Lehrer': 'teacherIds',
     'Bezeichnung': 'name',
     'Typ': 'type',
     'Url': 'url',
@@ -41,6 +43,7 @@ $(document).ready(function () {
     'currentState': 'Ist-Zustand',
     'targetState': 'Soll-Zustand',
     'state': 'Status',
+    'createdAt': 'Erstellungsdatum',
     'notes': 'Anmerkungen',
     'logoUrl': 'Logo',
     'abbreviation': 'Abkürzung',
@@ -50,6 +53,7 @@ $(document).ready(function () {
     'permissions': 'Permissions',
     'teacherIds': 'Lehrer',
     'classIds': 'Klasse(n)',
+    'displayName': 'Klasse',
     'email': 'E-Mail-Adresse'
 };
 

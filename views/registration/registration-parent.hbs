@@ -1,0 +1,157 @@
+{{#extend "lib/simple"}}
+  {{#content "scripts" mode="append"}}
+      <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
+      <script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
+      <script src="/scripts/jquery/juser.datetimepicker.full.min.js" type="text/javascript" defer></script>
+  {{/content}}
+  {{#content "styles" mode="append"}}
+      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+      <link rel="stylesheet" href="/styles/lib/datetimepicker/juser.datetimepicker.min.css"/>
+  {{/content}}
+  {{#content "page"}}
+    {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent"}}
+      {{#content "panels"}}
+      <input type="hidden" name="classOrSchoolId" value="{{user.classOrSchoolId}}"/>
+      <input type="hidden" name="roles" value="student"/>
+
+      {{#if user.sso}}<input type="hidden" name="sso" value="{{user.sso}}"/>{{/if}}
+      {{#if user.account}}<input type="hidden" name="account" value="{{user.account}}"/>{{/if}}
+
+      {{#if user.importHash}}<input type="hidden" name="importHash" value="{{user.importHash}}"/>{{/if}}
+      {{#if user.userId}}<input type="hidden" name="userId" value="{{user.userId}}"/>{{/if}}
+
+      <section data-panel="section-1">
+        <h4>Daten Ihres Kindes</h4>
+        <p>Die {{theme.short_title}} bewahrt Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
+        <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben für Ihr Kind:</p>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Vorname: *</label>
+            <input class="form-control linked" name="firstName" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise, keine Spitznamen" 
+              value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}} />
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Nachname: *</label>
+            <input class="form-control linked" name="lastName" type="text"  placeholder="Nachname des Kindes" 
+              value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Geburtsdatum des Schülers: *</label>
+          <input class="form-control linked" name="birthDate" type="text"
+            data-date data-min-date="{{datePickerTodayMinus 18 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" 
+            value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{else}}{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}{{/if}}" autocomplete="off" required {{#if user.birthday}}readonly{{/if}}/>
+        </div>
+
+        <div class="form-group">
+          <label>E-Mail-Adresse des Schülers: * <small>(Schüler benötigen eine eigene E-Mail-Adresse)</small></label>
+          <input class="form-control linked" name="email" type="email" placeholder="schueler@schul-cloud.org" 
+            value="{{user.email}}" required {{#if user.email}}readonly{{/if}} />
+        </div>
+        <p class="explanation nomargin">
+            Die E-Mail-Adresse ermöglicht den Versand von Benachrichtigungen und erleichtert das Zurücksetzen des Passwortes.
+        </p>
+
+        <div class="row">
+          <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
+            <Label>Geschlecht: *</Label>
+            <select class="form-control form-control-lg" name="gender" type="text">
+              <option value="noinfo" selected>keine Angabe</option>
+              <option value="male">männlich</option>
+              <option value="female">weiblich</option>
+              <option value="other">anderes</option>
+            </select>
+          </div>
+        </div>
+        <p class="explanation nomargin">Erhebung erfolgt für Forschung und Optimierung.</p>
+      </section>
+
+
+
+      <section data-panel="section-2">
+        <h4>Ihre Daten</h4>
+        <p>Für Schüler unter 18 Jahren muss ein Erziehungsberechtigter in die Nutzung der {{theme.short_title}} einwilligen.</p>
+        <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
+        <div class="row">
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Vorname: *</label>
+            <input class="form-control linked" name="parent_firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
+          </div>
+          <div class="form-group col-md-6 col-sm-12">
+            <label>Nachname: *</label>
+            <input class="form-control linked" name="parent_lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Ihre E-Mail-Adresse * <small>(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)</small></label>
+          <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
+        </div>
+        <p class="explanation nomargin">
+          Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{theme.short_title}} rechtlich gültig ist. Die {{theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.
+          <br/>
+          Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.
+        </p>
+      </section>
+
+
+
+      <section data-panel="section-3">
+        <h4>Einwilligungserklärung</h4>
+        <p>Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der {{theme.short_title}} nutzen kann:</p>
+        <p>Ich, <b data-from="parent_firstName"></b> <b data-from="parent_lastName"></b>, bin erziehungsberechtigt für
+          <b data-from="firstName"></b>
+          <b data-from="lastName"></b> 
+        und erkläre Folgendes:</p>
+          {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
+      </section>
+
+
+
+      <section data-panel="section-4" class="submit-page" data-feature="pin">
+        <h4>Fast geschafft!</h4>
+        <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
+        <div id="pinverification">
+            {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
+        </div>
+        <input type="hidden" name="password_1" class="student-password-input" />
+        <input type="hidden" name="password_2" class="student-password-input" />
+      </section>
+
+
+
+      <section data-panel="section-5">
+        <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}</h4>
+      {{#if sso}}
+              <p>Der SSO-Account Ihres Kindes ist jetzt freigeschaltet.</p>
+      {{else}}
+        <div>
+          <p>
+            Mit folgenden Daten kann sich
+            <b data-from="firstName"></b>
+            <b data-from="secondName"></b>
+            in der {{theme.short_title}} anmelden. Bitte geben Sie die Daten an Ihr Kind weiter. Zusätzlich haben Sie und Ihr Kind die Daten per E-Mail erhalten.
+            <div class="print">
+              <div class="recap">
+                <!--<p>Nutzername: <i data-from="student-firstname"></i>.<i data-from="student-secondname"></i></p>-->
+                <p>E-Mail: <i data-from="email"></i></p>
+                <p>Passwort: <i class="student-password">********</i></p>
+              </div>
+              <div class="btn btn-secondary btn-print" data-toggle="tooltip" title="" data-original-title="Anmeldedaten drucken">
+                <i class="fa fa-print"></i> Drucken
+              </div>
+            </div>
+          </p>
+
+          <p>Beim ersten Login muss ein neues Passwort gewählt werden. Schüler, die mindestens 14 Jahre alt sind, müssen beim ersten Login die Einwilligungserklärungen zusätzlich selbst bestätigen.</p>
+        </div>
+      {{/if}}
+        <p>Ihr Kind kann sich nun einloggen:</p>
+
+        <a class="btn btn-primary" href="/logout">Login öffnen</a>
+      </section>
+      {{/content}}
+    {{/embed}}
+  {{/content}}
+{{/extend}}

@@ -18,7 +18,6 @@
                 onShow:function(ct, input){
                     if(input[0].id == "availableDate"){
                         let due = $("#dueDate").val().split(" ");
-                        console.log(due[0]);
                         this.setOptions({
                             minDate:0,
                             maxDate:(due[0]!="__.__.____")?due[0]:false,
