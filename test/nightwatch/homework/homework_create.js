@@ -1,7 +1,7 @@
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || "schulcloud";
-const short_title = process.env.SC_SHORT_TITLE || "Schul-Cloud";
+const short_title = (process.env.SC_SHORT_TITLE || "Schul-Cloud").trim();
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
