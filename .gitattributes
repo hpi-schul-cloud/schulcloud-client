@@ -3,3 +3,7 @@
 
 #git on windows will convert lf to crlf which makes eslint freak out. This keeps it in linux style.
 * text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
