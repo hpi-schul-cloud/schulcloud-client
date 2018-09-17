@@ -56,7 +56,7 @@ describe('Homework tests', function () {
                 .get('/homework/private')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain('Meine Aufgaben');
+                    expect(res.text).to.contain('Meine ToDos');
                     expect(res.text).to.contain('btn btn-secondary btn-sm btn-edit');
                     expect(res.text).to.contain('btn btn-secondary btn-sm btn-delete');
                     resolve();

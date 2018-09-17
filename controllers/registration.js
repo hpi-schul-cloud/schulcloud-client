@@ -2,201 +2,158 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
-const authHelper = require('../helpers/authentication');
-
-
-const login = (req, res, options) => {
-    return api({}).post('/authentication', {json: options}).then(data => {
-        return res.cookie('jwt', data.accessToken);
-    });
-};
-
-const createUser = (req, {firstName, lastName, email, roles = ['student'], schoolId, gender}) => {
-    (gender === '' || !gender) ? gender = null : "";
-    return api(req).post('/users', {json: {
-        firstName,
-        lastName,
-        email,
-        roles,
-        schoolId,
-        gender
-    }});
-};
-
-const createAccount = (req, {username, password, userId, activated}) => {
-    return api(req).post('/accounts', {json: {
-        username,
-        password,
-        userId,
-        activated
-    }});
-};
 
 /*
- * Case: A user (teacher/admin) got created via admin, but no account so we need to create one
- * Result: existing User, new Account => done
+ * Warnings for users who wan't to use the old register version if not teacher
  */
-
-router.get('/register/account/:userId', function (req, res, next) {
-        res.render('registration/account', {
-            title: 'Zugangsdaten eintragen',
-            subtitle: '',//'für ' + user.firstName + ' ' + user.lastName,
-            action: '/register/account',
-            userId: req.params.userId,
-            buttonLabel: 'Abschließen',
-            inline: true
-        });
+router.get(['/register', '/register/*'], function (req, res, next) {
+    res.render('registration/deprecated_warning');
 });
-
-
-router.post('/register/account', function (req, res, next) {
-    const username = req.body.email; // TODO: sanitize
-    const password = req.body.password; // TODO: sanitize
-    const userId = req.body.userId; // TODO: sanitize
-
-    createAccount(req, {
-        username,
-        password,
-        userId,
-        activated: true
-    }).then(account => {
-        return login(req, res, {strategy:'local', username, password});
-    }).then(_ => {
-        return res.redirect('/login/success/');
-    }).catch(err => {
-        req.session.notification = {
-            type: 'danger',
-            message: err.error.message || err.message
-        };
-        const referrer = req.get('Referrer');
-        res.redirect(referrer);
-    });
-});
-
 
 /*
- * Case: A account exists (regular register or SSO), but no user so we need to create one, and account already loggedin
- * Result: new User, existing Account => done
+ * EzD Dataprivacy Routes
  */
+router.post('/registration/pincreation', function (req, res, next) {
+    if (req.body && req.body.email) {
+        return api(req).post('/registrationPins/', {
+            json: { email: req.body.email, byRole: req.body.byRole }
+        }).then(() => {
+            res.sendStatus(200);
+        }).catch(err => res.status(500).send(err));
+    } else {
+        res.sendStatus(500);
+    }
+});
 
-router.get('/register/user/:accountId', authHelper.authChecker, function (req, res, next) {
-    let account;
-    api(req).get('/accounts/' + req.params.accountId).then(data => {
-        account = data;
-        return api(req).get('/schools/', {
-            qs: {
-                systems: account.systemId
+router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], function (req, res, next) {
+    // normalize form data
+    req.body.privacyConsent = req.body.privacyConsent === "true";
+    req.body.researchConsent = req.body.researchConsent === "true";
+    req.body.thirdPartyConsent = req.body.thirdPartyConsent === "true";
+    req.body.termsOfUseConsent = req.body.termsOfUseConsent === "true";
+    req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
+
+    return api(req).post('/registration/', {
+        json: req.body
+    }).then(response => {   
+        //send Mails
+        let eMailAdresses = [response.user.email];
+        if(response.parent){
+            eMailAdresses.push(response.parent.email);
+        }
+        eMailAdresses.forEach(eMailAdress => {
+            let passwordText = "";
+            if (req.body.roles.includes("student")) {
+                passwordText = `Startpasswort: ${req.body["password_1"]}`;
             }
+            return api(req).post('/mails/', {
+                json: { email: eMailAdress,
+                        subject: `Willkommen in der ${res.locals.theme.title}!`,
+                        headers: {},
+                        content: {
+                            "text": `Hallo ${response.user.firstName}
+mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
+Adresse: ${req.headers.origin || process.env.HOST}
+E-Mail: ${response.user.email}
+${passwordText}
+Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
+Viel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`
+                        }
+                }
+            });
         });
-    }).then(schools => {
-        schools = schools.data;
-        const school = schools[0];
-        res.render('registration/user', {
-            title: 'Nutzerdaten eintragen',
-            subtitle: 'für ' + account.username,
-            action: '/register/user/',
-            accountId: req.params.accountId,
-            schoolId: school._id,
-            buttonLabel: 'Abschließen',
-            inline: true
-        });
-    });
-});
-
-
-router.post('/register/user', authHelper.authChecker, function (req, res, next) {
-    // TODO: sanitize
-    createUser(req, req.body).then(user => {
-        // update account with userId
-        return api(req).patch('/accounts/' + req.body.accountId, {json: {
-            userId: user._id,
-            activated: true
-        }});
-    }).then(_ => {
-        // refresh AccessToken
-        return login(req, res, {strategy:'jwt', accessToken: req.cookies.jwt});
-    }).then(_ => {
-        return res.redirect('/login/success/');
+    }).then(function() {
+        if (req.params.sso) {
+            res.cookie('jwt', req.cookies.jwt, {expires: new Date(Date.now() - 100000)});
+        }
+    }).then(function () {
+        res.sendStatus(200);
     }).catch(err => {
-        req.session.notification = {
-            type: 'danger',
-            message: err.error.message || err.message
-        };
-        const referrer = req.get('Referrer');
-        res.redirect(referrer);
+        res.status(500).send((err.error||{}).message || err.message || "Fehler bei der Registrierung.");
     });
 });
 
+router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], async function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
+    
+    let user = {};
+    user.importHash = req.query.importHash;
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
 
-/*
- * Case: A student needs to signup without SSO
- * Result: new User, new Account => login
- */
-
-router.get('/register/:schoolId', function (req, res, next) {
-    api(req).get('/schools/' + req.params.schoolId).then(school => {
-        res.render('registration/full', {
-            title: 'Registrieren',
-            subtitle: school.name,
-            action: '/register/',
-            schoolId: req.params.schoolId,
-            buttonLabel: 'Registrieren',
-            inline: true
-        });
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
+    res.render('registration/registration-parent', {
+        title: 'Registrierung - Eltern',
+        hideMenu: true,
+        user
     });
 });
 
+router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], async function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
 
-router.post('/register/', function (req, res, next) {
-    const username = req.body.email; // TODO: sanitize
-    const password = req.body.password; // TODO: sanitize
-    const name = req.body.firstName + " " + req.body.lastName;
+    let user = {};
+    user.importHash = req.query.importHash;
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
 
-    createUser(req, req.body)
-        .then(user => {
-            return createAccount(req, {username, password, userId: user._id})
-                .then(account => {
-                    api(req).post('/mails', {json: {email: username, subject: "Registrierung in der Schul-Cloud", content: {text:
-                        "Sehr geehrte/r " + name + ",\n\nBitte bestätigen Sie uns noch Ihre E-Mail Adresse unter folgendem Link:\n" + (req.headers.origin || process.env.HOST) + "/register/confirm/" + account._id + "\n\nMit freundlichen Grüßen,\nIhr Schul-Cloud Team"}}});
-                });
-        }).then(_ => {
-            return res.render('registration/confirmation', {
-                title: 'Vielen Dank für das Registrieren in der Schul-Cloud,\nbitte bestätigen Sie noch Ihre E-Mail Adresse',
-                subtitle: 'Sie werden in 10 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
-                origin: "../../login",
-                time: 10000,
-                inline: true
-            });
-        }).catch(err => {
-            req.session.notification = {
-                type: 'danger',
-                message: err.error.message || err.message
-            };
-            const referrer = req.get('Referrer');
-                res.redirect(referrer);
-            });
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
+
+    res.render('registration/registration-student', {
+        title: 'Registrierung - Schüler*',
+        hideMenu: true,
+        user
+    });
 });
 
-/**
- * Registration confirmation
- */
+router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], async function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(400);
+    
+    let user = {};
+    user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    user.sso = req.params.sso==="sso";
+    user.account = req.params.accountId||"";
 
-router.get('/register/confirm/:accountId', function (req, res, next) {
-    let account;
-    api(req).get('/accounts/' + req.params.accountId).then(data => {
-        account = data;
-        api(req).post('/accounts/confirm/', {json: {accountId: req.params.accountId}})
-            .then(_ => {
-                res.render('registration/confirmation', {
-                    title: 'Vielen Dank für das Bestätigen der Anmeldung',
-                    subtitle: 'Sie werden in 5 Sekunden auf die Anmeldeseite weitergeleitet, oder ',
-                    origin: "../../login",
-                    time: 5000,
-                    inline: true
-                });
-            });
-    }).catch(_ => {
-        res.redirect('/login');
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
+
+    res.render('registration/registration-employee', {
+        title: 'Registrierung - Lehrer*/Admins*',
+        hideMenu: true,
+        user
+    });
+});
+
+router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(500);
+    
+    res.render('registration/registration', {
+        title: 'Herzlich Willkommen bei der Registrierung',
+        hideMenu: true,
+        importHash: req.query.importHash || req.query.id, // req.query.id is deprecated
+        classOrSchoolId: req.params.classOrSchoolId,
+        sso: req.params.sso==="sso",
+        account:req.params.accountId||"",
     });
 });
 
