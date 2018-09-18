@@ -93,3 +93,13 @@ window.startIntro = function startIntro() {
         document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
     })
 }
+
+if ('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+            if(registration.active && registration.active.scriptURL.endsWith('/sw.js')){
+                registration.unregister();
+            }
+        } 
+    });
+}
