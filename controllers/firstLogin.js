@@ -141,5 +141,8 @@ router.get('/existingEmployee', function (req, res, next) {
         hideMenu: true
     });
 });
+router.get('/consentError', function (req, res, next) {
+    res.render('firstLogin/consentError');
+});
 
 module.exports = router;
