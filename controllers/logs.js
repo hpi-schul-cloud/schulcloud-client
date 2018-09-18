@@ -38,7 +38,7 @@ router.post('/', function (req, res, next) {
         dl: data.attributes.url, // document location
         dp: dataUrl.path, // document path
 
-        swEnabled: req.headers['swEnabeld'] | false,
+        swEnabled: req.headers['sw-enabled'] === "true" ? true : false,
 
         cm1: context['first-paint'], // cm1 is first paint ms
         cm2: context['time-to-interactive'], // cm2 is time to interactive ms

@@ -15,7 +15,7 @@ function customHeaderRequestFetch(event) {
             event.request.blob().then(blob =>{
                 const newRequest = new Request(event.request.url, {
                     headers: {
-                        'sw-enabled': 'enabled'
+                        'sw-enabled': true
                     },
                     method: 'POST',
                     body: blob
