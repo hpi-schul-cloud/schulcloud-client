@@ -118,6 +118,20 @@ module.exports = {
             return options.inverse(this);
         }
     },
+    ifEnv: (env_variable, value, options) => {
+        if (process.env[env_variable] == value) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
+    unlessEnv: (env_variable, value, options) => {
+        if (process.env[env_variable] == value) {
+            return options.inverse(this);
+        } else {
+            return options.fn(this);
+        }
+    },
     userHasPermission: (permission, opts) => {
         if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
             return opts.fn(this);

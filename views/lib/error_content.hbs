@@ -22,10 +22,12 @@
             Fehler-Details: <br/>
             <code>{{message}}</code>
         </div>
-        {{#if error.stack}}
-            <div class="card-block error-description">
-                <pre>{{error.stack}}</pre>
-            </div>
-        {{/if}}
+        {{#unlessEnv "NODE_ENV" "production"}}
+            {{#if ../error.stack}}
+                <div class="card-block error-description">
+                    <pre>{{../error.stack}}</pre>
+                </div>
+            {{/if}}
+        {{/unlessEnv}}
     </div>
 </div>
