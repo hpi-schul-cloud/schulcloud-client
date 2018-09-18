@@ -266,6 +266,9 @@ window.addEventListener("load", () => {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+    }
 }); 
 
 document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
