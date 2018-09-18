@@ -145,12 +145,15 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
 
         api(req).get('/consents/', {qs: { userId: user._id }})
             .then(consents => {
+                if (consents.data.length === 0) {
+                    // user has no consent; create one and try again to get the proper redirect.
+                    return api(req).post('/consents/', {json: {userId: user._id}})
+                    .then(_ => {
+                        res.redirect('/login/success');
+                    });
+                }
                 const consent = consents.data[0];
                 res.redirect(consent.redirect);
-            })
-            .catch(err => {
-                // user has no consent; redirect for now
-                res.redirect('/dashboard/');
             });
     } else {
         // if this happens: SSO 	

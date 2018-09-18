@@ -25,9 +25,9 @@
 <div class="form-group">
     <label>Schüler</label>
     <button type="button" class="btn-link pull-right btn-import-class">Schüler aus Vorjahresklasse hinzufügen</button>
-    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+    <select name="userIds" multiple data-placeholder="Schüler auswählen">
         {{#each students}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red">
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">
                 {{#if this.displayName}}
                     {{this.displayName}}
                 {{else}}
