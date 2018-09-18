@@ -10,20 +10,20 @@ self.addEventListener('fetch', event => {
 });
 
 function customHeaderRequestFetch(event) {
-    if (event.request.url.endsWith('/logs/')){
-        event.request.blob().then(blob =>{
-            const newRequest = new Request(event.request.url, {
-                headers: {
-                    'sw-enabled': 'enabled'
-                },
-                method: 'POST',
-                body: blob
+    return new Promise((resolve, reject) =>{
+        if (event.request.url.endsWith('/logs/')){
+            event.request.blob().then(blob =>{
+                const newRequest = new Request(event.request.url, {
+                    headers: {
+                        'sw-enabled': 'enabled'
+                    },
+                    method: 'POST',
+                    body: blob
+                });
+                resolve(fetch(newRequest));
             });
-            return fetch(newRequest);
-        });
-    } else {
-        return fetch(event.request);
-    }
-
-
+        } else {
+            resolve(fetch(event.request));
+        }
+    });
 }
