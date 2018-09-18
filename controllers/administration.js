@@ -71,7 +71,7 @@ const getTableActionsSend = (item, path, state) => {
             },
             {
                 class: 'disabled',
-                icon: 'ban'
+                icon: 'archive'
             },
             {
                 class: 'disabled',
@@ -88,16 +88,16 @@ const getTableActionsSend = (item, path, state) => {
             {
                 link: path + item._id,
                 class: 'btn-disable',
-                icon: 'ban',
+                icon: 'archive',
                 method: 'delete',
-                title: 'Eintrag löschen'
+                title: 'Eintrag abschließen'
             },
             {
                 link: path + item._id,
                 class: 'btn',
                 icon: 'paper-plane',
                 method: 'post',
-                title: 'Eintrag löschen'
+                title: 'Eintrag an Entwicklerteam senden'
             });
     }
     return actions;
@@ -1637,6 +1637,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
             'Soll-Zustand',
             'Kategorie',
             'Status',
+            'Erstellungsdatum',
             'Anmerkungen',
             ''
         ];
@@ -1648,6 +1649,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.targetState||""),
                 dictionary[item.category],
                 dictionary[item.state],
+                moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes||""),
                 getTableActionsSend(item, '/administration/helpdesk/', item.state)
             ];
