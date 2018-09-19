@@ -205,7 +205,6 @@ gulp.task('sw-workbox', () => {
 // let globPatterns = nonBaseScripts.map(script => script.replace(/^!?.\/static\//,'')).concat(['scripts/all.js']);
 // console.log('patterns', globPatterns);
 let globPatterns = [
-    //'**/*.{html,js,css,png,woff}',
     'fonts/**/*.{woff,css}',
     'images/logo/*.svg',
     'images/footer-logo.png',
@@ -220,23 +219,19 @@ gulp.task('generate-service-worker', () => {
     return workbox.injectManifest({
       globDirectory: `./build/${themeName()}`,
       globPatterns: globPatterns,
-      "globIgnores": [
-        "**/node_modules/**/*",
-        "**/sw.js"
-      ],
       swSrc: './static/sw.js',
       swDest: `./build/${themeName()}/sw.js`,
-    //   templatedUrls: {
-    //     '/calendar/': [
-    //       '../../views/calendar/calendar.hbs',
-    //      ],
-    //     '/dashboard/': [
-    //       '../../views/dashboard/dashboard.hbs',
-    //     ],
-    //     '/news/': [
-    //         '../../views/news/news.hbs'
-    //     ]
-    //   },
+      templatedUrls: {
+        '/calendar/': [
+          '../../views/calendar/calendar.hbs',
+         ],
+        '/dashboard/': [
+          '../../views/dashboard/dashboard.hbs',
+        ],
+        '/news/': [
+            '../../views/news/news.hbs'
+        ]
+      },
     })
     .then(({count, size, warnings}) => {
         // Optionally, log any warnings and details.

@@ -4,7 +4,7 @@ workbox.setConfig({
     modulePathPrefix: '/scripts/sw/workbox/'
   });
 workbox.skipWaiting();
-workbox.clientsClaim();
+workbox.clientsClaim(); 
 
 workbox.precaching.precacheAndRoute([]);
 
