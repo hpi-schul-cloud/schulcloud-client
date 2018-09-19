@@ -99,6 +99,15 @@ if ('serviceWorker' in navigator){
         for(let registration of registrations) {
             if(registration.active && registration.active.scriptURL.endsWith('/sw.js')){
                 registration.unregister();
+                caches.keys().then(function(cacheNames) {
+                    return Promise.all(
+                      cacheNames.filter(function(cacheName) {
+                        return cacheName.startsWith('workbox');
+                      }).map(function(cacheName) {
+                        return caches.delete(cacheName);
+                      })
+                    );
+                });
             }
         } 
     });
