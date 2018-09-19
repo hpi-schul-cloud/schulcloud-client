@@ -1,12 +1,16 @@
+import { softNavigate } from './helpers/navigation';
+import { populateCourseTimes } from './coursesTimes';
+import './jquery/datetimepicker-easy';
+
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
     const filterModule = document.getElementById("filter");
     if(filterModule){
         filterModule.addEventListener('newFilter', (e) => {
-            filter = e.detail;
+            const filter = e.detail;
             const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
             softNavigate(newurl, ".ajaxcontent", ".pagination");
-        })
+        });
         document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
     }
 });
@@ -19,9 +23,8 @@ $(document).ready(function () {
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
     var $deleteModal = $('.delete-modal');
-    var $pwModal = $('.pw-modal');
 
-    $('.btn-add').on('click', function (e) {
+    $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
         populateModalForm($addModal, {
             title: 'Hinzufügen',
@@ -63,19 +66,24 @@ $(document).ready(function () {
 
     $('.btn-invitation-link').on('click', function (e) {
         e.preventDefault();
-        let target = 'register/' + $invitationModal.find("input[name='schoolId']").attr("value");
+        let schoolId = $invitationModal.find("input[name='schoolId']").val(),
+            role = "student";
+        if ($(this).hasClass("teacher")) role = "teacher";
         $.ajax({
             type: "POST",
-            url: "/link/",
+            url: window.location.origin+"/administration/registrationlink",
             data: {
-                target: target
+                role: role,
+                save: true,
+                schoolId: schoolId,
+                host: window.location.origin
             },
-            success: function(data) {
+            success: function(linkData) {
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
                     closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
-                    fields: {invitation: data.newUrl}
+                    fields: {invitation: linkData.shortLink}
                 });
                 $invitationModal.find('.btn-submit').remove();
                 $invitationModal.find("input[name='invitation']").click(function () {
@@ -93,7 +101,10 @@ $(document).ready(function () {
         populateModalForm($importModal, {
             title: 'CSV Importieren',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Importieren'
+            submitLabel: 'Importieren',
+            fields: {
+                sendRegistration: 'true'
+            }
         });
         $importModal.appendTo('body').modal('show');
     });
@@ -134,19 +145,4 @@ $(document).ready(function () {
             $deleteModal.appendTo('body').modal('show');
         });
     });
-
-    $('.btn-pw').on('click', function (e) {
-        e.preventDefault();
-        var entry = $(this).attr('href');
-            populateModalForm($pwModal, {
-                action: entry,
-                title: 'Passwort ändern',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: undefined
-            });
-
-            $pwModal.appendTo('body').modal('show');
-    });
-
 });

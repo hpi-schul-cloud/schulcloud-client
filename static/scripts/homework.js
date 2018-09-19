@@ -1,4 +1,6 @@
-﻿function getCurrentDir() {
+﻿import { softNavigate } from './helpers/navigation';
+
+function getCurrentDir() {
     return $('.section-upload').data('path');
 }
 
@@ -24,7 +26,7 @@ function archiveTask(e){
         // grey out if removed from list
         $(this).parents(".disableable").toggleClass("disabled");
         // change data
-        $(this).attr("data",(this.getAttribute("data")=="archive=done")?"archive=open":"archive=done")
+        $(this).attr("data",(this.getAttribute("data")=="archive=done")?"archive=open":"archive=done");
     });
     return false;
 }
@@ -51,10 +53,10 @@ window.addEventListener("DOMContentLoaded", function(){
     if(!filterModule){return;}
     filterModule.addEventListener('newFilter', (e) => {
         document.querySelectorAll("circular-progress").forEach(graphic => {graphic.remove();});
-        filter = e.detail;
+        const filter = e.detail;
         const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
         softNavigate(newurl, ".homework", ".pagination");
-    })
+    });
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(function() {
@@ -122,7 +124,7 @@ $(document).ready(function() {
                 if(e.name == "teamMembers"){
                     teamMembers.push(e.value);
                 }
-            })
+            });
             if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
                 location.reload();
             }
@@ -196,7 +198,7 @@ $(document).ready(function() {
         return false;
     });
 
-    document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask)})
+    document.querySelectorAll('.btn-archive').forEach(btn => {btn.addEventListener("click", archiveTask);});
 
     function updateSearchParameter(key, value) {
         let url = window.location.search;
@@ -204,7 +206,7 @@ $(document).ready(function() {
         window.location.search = (url.indexOf(key) !== -1)?(url.replace(reg, '$1' + value)):(url + ((url.indexOf('?') == -1)? "?" : "&") + key + "=" + value);
     }
 
-    document.querySelectorAll('.importsubmission').forEach(btn => {btn.addEventListener("click", importSubmission)})
+    document.querySelectorAll('.importsubmission').forEach(btn => {btn.addEventListener("click", importSubmission);});
 
     // file upload stuff, todo: maybe move or make it more flexible when also uploading to homework-assignment
     let $uploadForm = $(".form-upload");

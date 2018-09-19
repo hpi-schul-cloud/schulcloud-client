@@ -1,3 +1,4 @@
+/* global introJs */
 $(document).ready(function() {
     var $btnToggleProviers = $('.btn-toggle-providers');
     var $btnHideProviers = $('.btn-hide-providers');
@@ -78,13 +79,17 @@ $(document).ready(function() {
 
 });
 
-function startIntro() {
+window.startIntro = function startIntro() {
     introJs()
     .setOptions({
         nextLabel: "Weiter",
         prevLabel: "Zurück",
-        doneLabel: "Fertig",
+        doneLabel: "Nächste Seite",
         skipLabel: "Überspringen"
     })
-    .start();
+    .start()
+    .oncomplete(function() { 
+        localStorage.setItem('Tutorial', true);
+        document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
+    })
 }
