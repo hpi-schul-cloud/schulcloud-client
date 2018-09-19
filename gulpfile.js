@@ -232,7 +232,7 @@ gulp.task('watch-reload', ['watch', 'browser-sync']);
 gulp.task('browser-sync', ['nodemon'], function() {
 	browserSync.init(null, {
 		proxy: "http://localhost:3100",
-        browser: false,
+        open: false,
         port: 7000,
         reloadOnRestart: true
 	});
@@ -243,7 +243,8 @@ gulp.task('nodemon', function (cb) {
 	return nodemon({
     ext: 'js hbs',
     script: './bin/www',
-    watch: ['views/', 'controllers/']
+    watch: ['views/', 'controllers/'],
+    exec: "node --inspect",
 	}).on('start', function () {
     
 		if (!started) {
