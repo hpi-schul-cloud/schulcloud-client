@@ -134,7 +134,8 @@ gulp.task('scripts', () => {
       }
     ))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(`./build/${themeName()}/scripts`));
+    .pipe(gulp.dest(`./build/${themeName()}/scripts`))
+    .pipe(browserSync.stream());
 });
 
 
@@ -222,8 +223,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), watchOptions, ['styles']);
   gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, ['images'])
     .on('change', browserSync.reload);
-  gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts'])
-    .on('change', browserSync.reload);
+  gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts']);
   
 });
 
@@ -232,7 +232,7 @@ gulp.task('watch-reload', ['watch', 'browser-sync']);
 gulp.task('browser-sync', ['nodemon'], function() {
 	browserSync.init(null, {
 		proxy: "http://localhost:3100",
-        browser: "chrome",
+        browser: false,
         port: 7000,
         reloadOnRestart: true
 	});
