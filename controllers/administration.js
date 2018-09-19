@@ -464,7 +464,7 @@ const getCSVImportHandler = () => {
                 }
                 req.body.importHash = data.linkData.hash;
                 req.body.shortLink = data.linkData.shortLink;
-                const success = await (getUserCreateHandler(true))(req, res, next)
+                const success = await (getUserCreateHandler(true))(req, res, next);
                 if(success){
                     importCount += 1;
                 }
