@@ -3,6 +3,7 @@ import { updateQueryStringParam } from './helpers/updateQueryStringParameter';
 
 
 function loadSearchResult(event){
+	event.preventDefault();
 	const newUrl = updateQueryStringParam("q",document.querySelector(".search-field").value);
 	softNavigate(newUrl, ".ajaxcontent", ".pagination");
 }
@@ -22,8 +23,7 @@ window.addEventListener("DOMContentLoaded", function(){
 	/* SOFT NAVIGATE SEARCH */
 	const searchField = document.querySelector(".search-field");
 	if(document.querySelector('#filter') && searchField){
-		searchField.addEventListener("input", loadSearchResult);
-		searchField.addEventListener("submit", (event) => {event.preventDefault();});
+		searchField.closest("form").addEventListener("submit", loadSearchResult);
 	}
 });
 
