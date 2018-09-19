@@ -23,7 +23,7 @@
                         <div class="col-sm-12 no-padding">
                             <center>
                                 <i class="fa fa-times consent-status"></i>
-                                Keine Einverständnis &emsp;
+                                Keine Einverständniserklärung vorhanden &emsp;
                                 <i class="fa fa-circle-thin consent-status"></i>
                                 Eltern haben zugestimmt (oder Schüler ist über 18) &emsp;
                                 <i class="fa fa-check consent-status"></i>
@@ -39,8 +39,11 @@
                             <button type="submit" class="btn btn-primary btn-add-modal">
                                 Schüler hinzufügen
                             </button>
-                            <button class="btn btn-secondary btn-invitation-link">
+                            <button class="btn btn-secondary btn-invitation-link student">
                                 Einladungslink generieren
+                            </button>
+                            <button class="btn btn-secondary btn-import student">
+                                Schüler importieren
                             </button>
                         </div>
                     </div>
@@ -54,7 +57,13 @@
 
                 {{#embed "lib/components/modal-form" class="invitation-modal"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-invitation"}}
+                        {{> "administration/forms/form-invitation-student"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/students/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-import" roles="student"}}
                     {{/content}}
                 {{/embed}}
             </section>

@@ -37,20 +37,21 @@
 
                 <div class="row">
                     <div class="timeline">
-                        <div class="container-fluid">
-                                <table style="width:100%">
-                                    <tr>
-                                        {{#each hours}}
-                                            <td style="width:10%">
-                                                <div class="tick">{{this}}.00</div>
-                                            </td>
-                                        {{/each}}
-                                    </tr>
-                                </table>
-                        </div>
+                        <table style="width:100%">
+                            <tr>
+                                {{#each hours}}
+                                    <td style="width:10%">
+                                        <div class="tick">{{this}}.00</div>
+                                    </td>
+                                {{/each}}
+                            </tr>
+                        </table>
                         <div class="current-time" style="width:{{currentTimePercentage}}%;">
                             <span>{{currentTime}}</span>
                         </div>
+                        {{#times 11}}
+                            <div class="timelines" style="width:{{this}}0%"></div>
+                        {{/times}}
                     </div>
                 </div>
             </div>

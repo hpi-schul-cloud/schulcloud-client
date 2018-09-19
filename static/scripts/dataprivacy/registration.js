@@ -2,24 +2,17 @@ import '../helpers/inputLinking';
 
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
-    let birthdateInput = document.querySelector('input[name="student-age"]');
-    let showFormButton = document.querySelector('#showRegistrationForm');
     let radiou18 = document.getElementById("reg-u18");
     let radio18 = document.getElementById("reg-18");
 
-    if(birthdateInput && showFormButton) {
+    if(document.querySelector('#showRegistrationForm')) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
             const baseUrl = '/registration';
+
             let classOrSchoolId = $("input[name=classOrSchoolId]").val();
             let additional = "";
             additional += $("input[name=sso]").val() === "true" ? 'sso/'+$("input[name=account]").val() : '';
-            additional += $("input[name=importHash]").val() != undefined ? '&importHash='+$("input[name=importHash]").val() : '';
-            additional += $("input[name=userId]").val() != undefined ? '&userId='+$("input[name=userId]").val() : '';
-            additional += $("input[name=firstName]").val() != undefined ? '&firstName='+$("input[name=firstName]").val() : '';
-            additional += $("input[name=lastName]").val() != undefined ? '&lastName='+$("input[name=lastName]").val() : '';
-            additional += $("input[name=email]").val() != undefined ? '&email='+$("input[name=email]").val() : '';
-            additional += $("input[name=birthday]").val() != undefined ? '&birthday='+$("input[name=birthday]").val() : '';
-            additional.charAt(0) === "&" ? additional = additional.replace("&","?") : "";
+            additional += $("input[name=importHash]").val() !== undefined ? '?importHash='+encodeURIComponent($("input[name=importHash]").val()) : '';
 
             if(radiou18.checked){
                 window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${additional}`;
@@ -39,14 +32,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
             }
         });
     }
-    
+    let pinSent;
     // if email for pin registration is changed, reset pin-sent status
-    $('form.registration-form.student input[name="student-email"], form.registration-form.parent input[name="parent-email"]').on("change", ()=> {
-        $("input[name='pin-sent']").val("no");
+    $('form.registration-form.student input[name$="email"]:last').on("change", ()=> {
+        pinSent = false;
     });
     
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
-        if($("input[name='pin-sent']").val() !== "no") {
+        if(pinSent) {
             // send pin of value is something else than no
         } else {
             sendPin(true);
@@ -60,18 +53,18 @@ window.addEventListener('DOMContentLoaded', ()=>{
     });
     
     function sendPin(sendConfirm) {
-        let usermail = $("input[name='parent-email']").length ? $("input[name='parent-email']").val() : $("input[name='student-email']").val();
-        let byParent = window.location.href.indexOf("parent") > 0;
+        let usermail = $("input[name$='email']:last").val();
+        let byRole = window.location.pathname.split("/by")[1].split("/")[0].replace("/","");
         
         $.ajax({
             url: "/registration/pincreation",
             method: "POST",
-            data: {"email": usermail, "byParent": byParent}
+            data: {"email": usermail, "byRole": byRole}
         }).done(success => {
             if(sendConfirm) {
                 $.showNotification(`Eine PIN wurde erfolgreich an ${usermail} versendet.`, "success", 15000);
             }
-            $("input[name='pin-sent']").val("yes");
+            pinSent = true;
         }).fail(function(err){
             $.showNotification(`Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' und prüfe deine E-Mail-Adresse (${usermail}).`, "danger", 7000);
         });
@@ -86,7 +79,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
           });
     }
 
-    const firstSection = document.querySelector('.form section[data-panel="section-1"]');
+    const firstSection = document.querySelector('.form section[data-panel="section-1"]:not(.noback)');
     if(firstSection){
         firstSection.addEventListener("showSection", (event) => {
             const backButton = document.getElementById("prevSection");
@@ -119,29 +112,8 @@ window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
         // generate password if password field present
         var words = ["auto", "baum", "bein", "blumen", "flocke", "frosch", "halsband", "hand", "haus", "herr", "horn", "kind", "kleid", "kobra", "komet", "konzert", "kopf", "kugel", "puppe", "rauch", "raupe", "schuh", "seele", "spatz", "taktisch", "traum", "trommel", "wolke"];
-        var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 99)).toString();
+        var pw = words[Math.floor((Math.random() * words.length))] + Math.floor((Math.random() * 98)+1).toString();
         $('.form .student-password').text(pw);
-        $('.form .student-password-input').val(pw);
+        $('.form .student-password-input').val(pw).trigger("input");
     }
-    let datepicker = $("input.form-control[name='student-birthdate']");
-    /*if(datepicker.length>=1) {
-        let minDate = new Date(), maxDate = new Date(), startDate = new Date();
-        minDate.setFullYear(minDate.getFullYear()-70);
-        maxDate.setFullYear(maxDate.getFullYear()-18);
-        startDate.setFullYear(startDate.getFullYear()-19);
-        console.log(minDate);
-        console.log(maxDate);
-        console.log(startDate);
-        datepicker.attr("data-min-date", minDate.toISOString().substring(0, 10).replace(/-/g,"/"));
-        datepicker.attr("data-max-date", maxDate.toISOString().substring(0, 10).replace(/-/g,"/"));
-        datepicker.attr("data-start-date", startDate.toISOString().substring(0, 10).replace(/-/g,"/"));
-        console.log(datepicker.datepicker( "option", "minDate" ));
-        datepicker.datepicker({
-            minDate: minDate,
-            maxDate: maxDate,
-            startDate: startDate
-        });
-        datepicker.datepicker("update");
-        // Y U NO WORK?!?!?!?!
-    }*/
 });
