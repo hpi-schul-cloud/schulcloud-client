@@ -1,3 +1,32 @@
+import { softNavigate } from './helpers/navigation';
+import { updateQueryStringParam } from './helpers/updateQueryStringParameter';
+
+
+function loadSearchResult(event){
+	event.preventDefault();
+	const newUrl = updateQueryStringParam("q",document.querySelector(".search-field").value);
+	softNavigate(newUrl, ".ajaxcontent", ".pagination");
+}
+
+window.addEventListener("DOMContentLoaded", function(){
+    /* FEATHERS FILTER MODULE */
+    const filterModule = document.getElementById("filter");
+    if(filterModule){
+        filterModule.addEventListener('newFilter', (e) => {
+            const filter = e.detail;
+			const newurl = `?q=${document.querySelector('.search-field').value}&filterQuery=${escape(JSON.stringify(filter[0]))}`;
+            softNavigate(newurl, ".ajaxcontent", ".pagination");
+        });
+        document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
+	}
+
+	/* SOFT NAVIGATE SEARCH */
+	const searchField = document.querySelector(".search-field");
+	if(document.querySelector('#filter') && searchField){
+		searchField.closest("form").addEventListener("submit", loadSearchResult);
+	}
+});
+
 $(document).ready(function () {
 	var $modals = $('.modal');
 	var $editModal = $('.edit-modal');
