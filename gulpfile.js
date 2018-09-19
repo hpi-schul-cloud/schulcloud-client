@@ -38,7 +38,7 @@ const baseScripts = [
   './static/scripts/qrcode/kjua-0.1.1.min.js'
 ];
 
-const nonBaseScripts = ['./static/scripts/**/*.js']
+const nonBaseScripts = ['./static/scripts/**/*.js', '!./static/scripts/sw/workbox/*.*']
   .concat(baseScripts.map(script => '!' + script));
 //used by all gulp tasks instead of gulp.src(...)
 //plumber prevents pipes from stopping when errors occur
@@ -198,7 +198,7 @@ gulp.task('vendor-assets', () => {
 });
 
 gulp.task('sw-workbox', () => {
-  beginPipe(['./static/scripts/sw/workbox/*.*'])
+  beginPipe(['./static/scripts/sw/workbox/*.js'])
     .pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`));
 });
 
