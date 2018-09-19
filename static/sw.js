@@ -1,9 +1,12 @@
-// importScripts('/scripts/sw/workbox-sw.js');
+importScripts('/scripts/sw/workbox/workbox-sw.js');
 
-// workbox.skipWaiting();
-// workbox.clientsClaim();
+workbox.setConfig({
+    modulePathPrefix: '/scripts/sw/workbox/'
+  });
+workbox.skipWaiting();
+workbox.clientsClaim();
 
-/* workbox.precaching.precacheAndRoute([]); */
+workbox.precaching.precacheAndRoute([]);
 
 self.addEventListener('fetch', event => {
     event.respondWith(customHeaderRequestFetch(event));

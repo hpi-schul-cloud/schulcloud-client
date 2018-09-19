@@ -24,7 +24,7 @@ const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
-const workbox = require('workbox-build')
+const workbox = require('workbox-build');
 
 const baseScripts = [
   './static/scripts/jquery/jquery.min.js',
@@ -197,6 +197,11 @@ gulp.task('vendor-assets', () => {
     .pipe(gulp.dest(`./build/${themeName()}/vendor`));
 });
 
+gulp.task('sw-workbox', () => {
+  beginPipe(['./static/scripts/sw/workbox/*.*'])
+    .pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`));
+});
+
 // let globPatterns = nonBaseScripts.map(script => script.replace(/^!?.\/static\//,'')).concat(['scripts/all.js']);
 // console.log('patterns', globPatterns);
 let globPatterns = [
@@ -253,7 +258,7 @@ gulp.task('clear', () => {
 
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker'
+                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker', 'sw-workbox'
 ]);
 
 gulp.task('build-theme-files', ['styles']);
@@ -272,6 +277,7 @@ gulp.task('watch', ['build-all'], () => {
     '!./static/vendor/**/*.{css,sass,scss}'
   ], ['vendor-assets']);
   gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
+  gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
 });
 
 //run this if only "gulp" is run on the commandline with no task specified
