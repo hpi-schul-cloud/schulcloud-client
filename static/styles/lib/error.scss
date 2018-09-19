@@ -2,19 +2,6 @@
 @import "./bootstrap/scss/bootstrap-flex";
 @import "./bootstrap/scss/_animation"; // this import is needed to enable the toggle feature of the detail card
 
-body {
-    /* 
-    // This may be a cool background for the Material redesign
-    // Got it from evap.hpi.de, we should ask them if we are allowed to use this!
-
-    background-image: url(/images/triangles_gray.svg);
-    background-size: cover;
-    background-attachment: fixed;
-    */
-}
-.account-toggle{
-    background-color: transparent;
-}
 .error-header-wrapper{
     width: 100%;
     text-align: center;
