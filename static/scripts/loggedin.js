@@ -266,8 +266,14 @@ window.addEventListener("load", () => {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
+    if ('serviceWorker' in navigator) { 
+        // enable sw for half of users only
+        let userId = document.getElementById('sw-userid').value;
+        let lChar = userId.substr(userId.length - 1);
+        let swEnabled = parseInt(lChar, 16) % 2;
+        if(swEnabled) {
+            navigator.serviceWorker.register('/sw.js');
+        }
     }
 }); 
 
