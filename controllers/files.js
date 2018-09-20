@@ -440,7 +440,7 @@ router.post('/newFile', function (req, res, next) {
     const fileName = name || 'Neue Datei';
     api(req).post('fileStorage/files/new', {
         json: {
-            key: `${basePath}/${fileName}.${type}`,
+            key: `${basePath}${fileName}.${type}`,
             path: basePath,
             name: `${fileName}.${type}`
         }
