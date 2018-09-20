@@ -9,7 +9,7 @@ window.addEventListener("DOMContentLoaded", function(){
     if(filterModule){
         filterModule.addEventListener('newFilter', (e) => {
             const filter = e.detail;
-            const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
+            const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0])) + '&p=' + getQueryParameterByName('p');
             softNavigate(newurl, ".ajaxcontent", ".pagination");
         });
         document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
@@ -18,9 +18,8 @@ window.addEventListener("DOMContentLoaded", function(){
 
 window.addEventListener("softNavigate", (event) => {
     let target_url = event.detail.target_url;
-    var re = new RegExp('p' + "=[^&#]*", "i");
-    var param = target_url.match(re)[0];
-    updateQueryStringParam(param.split('=')[0], param.split('=')[1]);
+    var param = getQueryParameterByName('p', target_url);
+    updateQueryStringParam('p', param);
 });
 
 $(document).ready(function () {

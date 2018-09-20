@@ -1034,7 +1034,7 @@ const getStudentUpdateHandler = () => {
         }
 
         Promise.all(promises).then(([user, studentConsent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -1174,7 +1174,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent,
-                hidePwChangeButton
+                hidePwChangeButton,
+                referrer: req.header('Referer')
             }
         );
     });
