@@ -1,6 +1,7 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
+import { updateQueryStringParam } from './helpers/updateQueryStringParameter';
 
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
@@ -13,6 +14,13 @@ window.addEventListener("DOMContentLoaded", function(){
         });
         document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
     }
+});
+
+window.addEventListener("softNavigate", (event) => {
+    let target_url = event.detail.target_url;
+    var re = new RegExp('p' + "=[^&#]*", "i");
+    var param = target_url.match(re)[0];
+    updateQueryStringParam(param.split('=')[0], param.split('=')[1]);
 });
 
 $(document).ready(function () {
