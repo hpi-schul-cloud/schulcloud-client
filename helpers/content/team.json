@@ -528,6 +528,21 @@
       },
       {
         "title": "",
+        "firstName": "Caroline",
+        "lastName": "Morfeld",
+        "position": "Studentische Hilfskraft",
+        "description": "Caroline hat Kultur-, Politik- und Literaturwissenschaften studiert und unterstützt als wissenschaftliche Hilfskraft seit September 2018 die politische Kommunikation und den Kontakt zu Projektpartnern. Privat engagiert sie sich in der politischen Bildung, bereist und bewandert den Osten Europas und genießt das Berliner Kulturleben.",
+        "pictureUrl": "/images/team/Caroline_Morfeld.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
         "position": "Studentische Hilfskraft",
