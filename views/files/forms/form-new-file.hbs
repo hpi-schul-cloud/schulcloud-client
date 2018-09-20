@@ -1,0 +1,18 @@
+<div class="form-group">
+    <label>Wählen Sie einen Namen und eine Dateiendung aus:</label>
+    <br />
+
+    <label for="file-name">Dateiname:</label>
+    <input id="file-name" type="text" class="form-control" name="new-file-name" placeholder="Name der Datei" required />
+    <br />
+
+    <label for="file-type">Dateiendung:</label>
+    <select id="file-type" class="custom-select mr-sm-2 form-control" id="file-ending">
+        <option selected>Format auswählen</option>
+        <option value="docx">Word (docx)</option>
+        <option value="xlsx">Excel (xlsx)</option>
+        <option value="pptx">PowerPoint (pptx)</option>
+    </select>
+</div>
+
+<input hidden name="path"/>

@@ -14,6 +14,7 @@ $(document).ready(function() {
     let $deleteModal = $('.delete-modal');
     let $moveModal = $('.move-modal');
     let $renameModal = $('.rename-modal');
+    let $newFileModal = $('.new-file-modal');
 
     let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -185,6 +186,10 @@ $(document).ready(function() {
         $renameModal.modal('hide');
     });
 
+    $('.new-file').on('click', function () {
+        $newFileModal.appendTo('body').modal('show');
+    });
+
     $('.card.file').on('click', function () {
         if (isCKEditor) returnFileUrl($(this).data('file-name'));
     });
@@ -234,6 +239,17 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('/files/directory', {
             name: $editModal.find('[name="new-dir-name"]').val(),
+            dir: getCurrentDir()
+        }, function (data) {
+            reloadFiles();
+        }).fail(showAJAXError);
+    });
+
+    $newFileModal.find('.modal-form').on('submit', function (e) {
+        e.preventDefault();
+        $.post('/files/newFile', {
+            name: $newFileModal.find('[name="new-file-name"]').val(),
+            type: $("#file-ending").val(),
             dir: getCurrentDir()
         }, function (data) {
             reloadFiles();
@@ -470,8 +486,27 @@ window.videoClick = function videoClick(e) {
     e.preventDefault();
 };
 
+const fileTypes = {
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    ppt: 'application/vnd.ms-powerpoint',
+    xls: 'application/vnd.ms-excel',
+    doc: 'application/vnd.ms-word',
+    odt: 'application/vnd.oasis.opendocument.text',
+    txt: 'text/plain',
+    pdf: 'application/pdf'
+};
+
 window.fileViewer = function fileViewer(type, key, name, id) {
     $('#my-video').css("display" , "none");
+
+    // detect filetype according to line ending
+    if (type.length === 0) {
+        let fType = name.split('.');
+        type = fileTypes[fType[fType.length - 1]];
+    }
+
     switch (type) {
         case 'application/pdf':
             $('#file-view').hide();
@@ -496,6 +531,10 @@ window.fileViewer = function fileViewer(type, key, name, id) {
         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
         case 'application/vnd.ms-word': case 'application/msword':                          //.doc
         case 'application/vnd.oasis.opendocument.text':	                                    //.odt
+        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
+        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
+        case 'application/vnd.ms-powerpoint':  case 'application/mspowerpoint':             //.ppt
+        case 'application/vnd.ms-excel': case 'application/msexcel':                        //.xls
         case 'text/plain':                                                                  //.txt
             $('#file-view').hide();
             win = window.open(`/files/file/${id}/lool`, '_blank');
@@ -503,10 +542,8 @@ window.fileViewer = function fileViewer(type, key, name, id) {
 
             break;
 
-        case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
-        case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
-        case 'application/vnd.ms-powerpoint':  case 'application/mspowerpoint':             //.ppt
-        case 'application/vnd.ms-excel': case 'application/msexcel':                        //.xls
+            /**
+             * GViewer still needed?
             $('#file-view').css('display','');
             let gviewer = "https://docs.google.com/viewer?url=";
             let showAJAXError = showAJAXError; // for deeply use
@@ -522,6 +559,7 @@ window.fileViewer = function fileViewer(type, key, name, id) {
             })
                 .fail(showAJAXError);
             break;
+             **/
 
         default:
             $('#file-view').css('display','');

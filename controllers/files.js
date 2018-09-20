@@ -272,6 +272,7 @@ const checkIfOfficeFiles = files => {
         'application/vnd.ms-powerpoint',                                               //.ppt
         'application/vnd.ms-excel',                                                    //.xlx
         'application/vnd.ms-word',                                                     //.doc
+        'application/vnd.oasis.opendocument.text',                                     //.odt
         'text/plain'                                                                   //.txt
     ];
 
@@ -428,6 +429,25 @@ router.post('/file/:id/move', function (req, res, next) {
                 : e.error.message
         };
         res.send(e);
+    });
+});
+
+// create newFile
+router.post('/newFile', function (req, res, next) {
+    const {name, dir, type} = req.body;
+
+    const basePath = dir;
+    const fileName = name || 'Neue Datei';
+    api(req).post('fileStorage/files/new', {
+        json: {
+            key: `${basePath}/${fileName}.${type}`,
+            path: basePath,
+            name: `${fileName}.${type}`
+        }
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 

@@ -113,3 +113,9 @@
         {{> "files/forms/form-name-edit"}}
     {{/content}}
 {{/embed}}
+
+{{#embed "lib/components/modal-form" class="new-file-modal" title="Neue Datei erstellen" closeLabel="Abbrechen" submitLabel="Datei erstellen"}}
+    {{#content "fields"}}
+        {{> "files/forms/form-new-file"}}
+    {{/content}}
+{{/embed}}
