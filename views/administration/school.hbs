@@ -20,28 +20,37 @@
                                         <label>Name der Schule</label>
                                         <input value="{{../school.name}}" type="text" class="form-control" name="name" placeholder="Einhorn Gymnasium" required />
                                     </div>
-
-                                    <div class="form-group">
-                                        <label>Schullogo</label><br/>
-                                        <input type="file" class="logo-file" onchange="loadFile()"><br>
-                                        <img class="preview-logo" src="" height="100" alt="Image preview...">
-                                    </div>
                                     
+                                    <!-- Prototype  -->
+                                    <div class="form-group">
+                                        <label>Schullogo hochladen</label><br/>
+                                        <input type="file" class="logo-file" onchange="loadFile()"><br/>
+                                        <img id="preview-logo" src="" height="100" alt="Image preview...">
+                                    </div>
+
                                     <script>
                                         function loadFile(){
                                             var logo = document.querySelector('.federal-state'); 
-                                            var preview = document.querySelector('.preview-logo');
+                                            var preview = document.querySelector('#preview-logo');
                                             var file    = document.querySelector('.logo-file').files[0]; 
                                             var reader  = new FileReader();
                                             reader.addEventListener("load", function () {
-                                                preview.src = reader.result;
-                                                logo.src = reader.result;
+                                                setImage(reader.result);
                                             }, false);
                                             if (file) {
                                                 reader.readAsDataURL(file);
                                             }
+                                        }                              
+                                        function setImage(image_src){
+                                            document.querySelector('.federal-state').src = image_src; 
+                                            document.querySelector('#preview-logo').src = image_src;
+                                            localStorage.setItem('Schullogo', image_src);
                                         }
-                                        loadFile();  
+                                        window.addEventListener("DOMContentLoaded", function(){
+                                            if(localStorage.getItem('Schullogo')) {
+                                                document.getElementById("preview-logo").src = localStorage.getItem('Schullogo');
+                                            }                                         
+                                        });
                                     </script>
 
                                     {{#if ../school.fileStorageType}}

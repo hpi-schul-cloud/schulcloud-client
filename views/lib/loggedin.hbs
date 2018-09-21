@@ -193,9 +193,17 @@
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
                             {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                <img class="nav-item federal-state" src=""> <!--{{ currentSchoolData.federalState.logoUrl }}"> -->
                             {{/if}}
                         {{/if}}
+                        
+                        <script>
+                            window.addEventListener("DOMContentLoaded", function(){
+                                if (localStorage.getItem("Schullogo")) {
+                                    document.getElementsByClassName("federal-state")[0].src = localStorage.getItem('Schullogo');
+                                }
+                            })
+                        </script>
 
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
