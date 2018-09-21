@@ -695,7 +695,7 @@ const userFilterSettings = function (defaultOrder) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -1145,7 +1145,11 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 head, body, pagination,
                 filterSettings: JSON.stringify(userFilterSettings())
             });
+        }).catch(err => {
+            next(err);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1178,6 +1182,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 referrer: req.header('Referer')
             }
         );
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1242,6 +1248,8 @@ const renderClassEdit = (req, res, next, edit) => {
                 isCustom
             });
         });
+    }).catch(err => {
+        next(err);
     });
 };
 const getClassOverview = (req, res, next) => {
