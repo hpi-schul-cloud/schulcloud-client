@@ -24,15 +24,16 @@
                                     <!-- Prototype  -->
                                     <div class="form-group">
                                         <label>Schullogo hochladen</label><br/>
-                                        <input type="file" class="logo-file" onchange="loadFile()"><br/>
                                         <img id="preview-logo" src="" height="100" alt="Image preview...">
+                                        <input type="file" id="logo-input" onchange="loadFile()">
+                                        <label for="logo-input" class="btn btn-primary">Choose a file</label>                                        
                                     </div>
 
                                     <script>
                                         function loadFile(){
                                             var logo = document.querySelector('.federal-state'); 
                                             var preview = document.querySelector('#preview-logo');
-                                            var file    = document.querySelector('.logo-file').files[0]; 
+                                            var file    = document.querySelector('#logo-input').files[0]; 
                                             var reader  = new FileReader();
                                             reader.addEventListener("load", function () {
                                                 setImage(reader.result);

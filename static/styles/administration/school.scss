@@ -8,3 +8,18 @@
   text-align: center;
   cursor: pointer;
 }
+
+#logo-input {
+  margin-bottom: 1rem;
+  width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+#preview-logo {
+  display: block;
+  margin-bottom: 1rem;
+}
