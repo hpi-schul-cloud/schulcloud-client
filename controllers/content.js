@@ -8,13 +8,45 @@ const api = require('../api');
 // secure routes
 router.use(authHelper.authChecker);
 
+const contentFilterSettings = function() {
+    return [
+        {
+            type: "sort",
+            title: 'Sortierung',
+            displayTemplate: 'Sortieren nach: %1',
+            options: [
+                ["updatedAt", "Aktualität"],
+                ["providerName", "Anbieter"],
+                ["clickCount", "Beliebtheit"]
+            ],
+            defaultOrder: "DESC"
+        },
+        {
+            type: "limit",
+            title: 'Einträge pro Seite',
+            displayTemplate: 'Einträge pro Seite: %1',
+            options: [9, 18, 24, 48, 99],
+            defaultSelection: 9
+        },
+        {
+            type: "select",
+            title: 'Dateityp',
+            displayTemplate: 'Dateitypen: %1',
+            property: 'mimeType',
+            multiple: true,
+            expanded: true,
+            options: [
+                ["text/html", "Text"],
+                ["video", "Video"]
+            ]
+        },
+    ];
+};
+
 router.get('/', function (req, res, next) {
 
     const query = req.query.q;
     const action = 'addToLesson';
-
-    const itemsPerPage = (req.query.limit || 9);
-    const currentPage = parseInt(req.query.p) || 1;
 
     // Featured Content
     if (!query) {
@@ -51,28 +83,45 @@ router.get('/', function (req, res, next) {
         });
     // Search Results
     } else {
+        const tempOrgQuery = (req.query||{}).filterQuery;
+        const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+
+        let itemsPerPage = 9;
+        let filterQuery = {};
+        if (tempOrgQuery) {
+            filterQuery = JSON.parse(unescape(tempOrgQuery));
+            if (filterQuery["$limit"]) {
+                itemsPerPage = filterQuery["$limit"];
+            }
+        }
+
+        const currentPage = parseInt(req.query.p) || 1;
+
+        let dbQuery = {
+            _all: { $match: query },
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1),
+        };
+        dbQuery = Object.assign(dbQuery, filterQuery);
+        
         return api(req)({
             uri: '/content/search/',
-            qs: {
-                _all: { $match: query },
-                $limit: itemsPerPage,
-                $skip: itemsPerPage * (currentPage - 1),
-            },
+            qs: dbQuery,
             json: true
         }).then(searchResults => {
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(searchResults.total / itemsPerPage),
-                baseUrl: req.baseUrl + '/?' + 'q=' + query + '&p={{page}}'
+                baseUrl: `${req.baseUrl}/?q=${query}&p={{page}}&${filterQueryString}`
             };
-
-            return res.render('content/search-results', {
+            return res.render('content/store', {
                 title: 'LernStore',
                 query: query,
-                searchResults: searchResults,
+                searchResults: (searchResults.total)?searchResults:undefined,
                 pagination,
                 isCourseGroupTopic: req.query.isCourseGroupTopic,
-                action
+                action,
+                filterSettings: JSON.stringify(contentFilterSettings())
             });
         });
     }
