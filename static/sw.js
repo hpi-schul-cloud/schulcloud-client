@@ -30,3 +30,13 @@ function customHeaderRequestFetch(event) {
         }
     });
 }
+
+// https://developers.google.com/web/tools/workbox/modules/workbox-broadcast-cache-update
+workbox.routing.registerRoute(
+    '/calendar/events/',
+    workbox.strategies.staleWhileRevalidate({
+        plugins: [
+            new workbox.broadcastUpdate.Plugin('event-updates')
+        ]
+    })
+);
