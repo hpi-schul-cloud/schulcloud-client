@@ -211,13 +211,17 @@ let globPatterns = [
     'scripts/all.js',
     'scripts/loggedin.js',
     'scripts/sw/metrix.js',
+    'scripts/calendar.js',
     'styles/lib/*.css',
+    'styles/lib/toggle/*.min.css',
+    'styles/lib/datetimepicker/*.min.css',
+    'styles/calendar/*.css',
     'vendor/introjs/intro*.{js,css}'
   ];
 
 gulp.task('generate-service-worker', () => {
     return workbox.injectManifest({
-      globDirectory: `./build/${themeName()}`,
+      globDirectory: `./build/${themeName()}/`,
       globPatterns: globPatterns,
       swSrc: './static/sw.js',
       swDest: `./build/${themeName()}/sw.js`,

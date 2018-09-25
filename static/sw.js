@@ -8,26 +8,30 @@ workbox.clientsClaim();
 
 workbox.precaching.precacheAndRoute([]);
 
+// stale while revalidate: school logo images/schools/**/*.*
+workbox.routing.registerRoute(
+    new RegExp('/images/schools/.*/.*'),
+    workbox.strategies.staleWhileRevalidate()
+);
+
 self.addEventListener('fetch', event => {
-    event.respondWith(customHeaderRequestFetch(event));
+    if (event.request.url.endsWith('/logs/')){
+        event.respondWith(customHeaderRequestFetch(event));
+    }
 });
 
 function customHeaderRequestFetch(event) {
     return new Promise((resolve, reject) =>{
-        if (event.request.url.endsWith('/logs/')){
-            event.request.blob().then(blob =>{
-                const newRequest = new Request(event.request.url, {
-                    headers: {
-                        'sw-enabled': true
-                    },
-                    method: 'POST',
-                    body: blob
-                });
-                resolve(fetch(newRequest));
+        event.request.blob().then(blob =>{
+            const newRequest = new Request(event.request.url, {
+                headers: {
+                    'sw-enabled': true
+                },
+                method: 'POST',
+                body: blob
             });
-        } else {
-            resolve(fetch(event.request));
-        }
+            resolve(fetch(newRequest));
+        });
     });
 }
 
