@@ -510,6 +510,7 @@ router.get('/my/', FileGetter, function (req, res, next) {
         }),
         canUploadFile: true,
         canCreateDir: true,
+        canCreateFile: true,
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor
@@ -615,11 +616,16 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             label: record.name,
             url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
         });
+        
+        let canCreateFile = true;
+        if (['Schüler', 'Demo'].includes(res.locals.currentRole))
+            canCreateFile = false;
 
         res.render('files/files', Object.assign({
             title: 'Dateien',
             canUploadFile: true,
             canCreateDir: true,
+            canCreateFile,
             path: res.locals.files.path,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
