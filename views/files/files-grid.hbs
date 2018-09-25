@@ -54,7 +54,7 @@
                                     <div class="popup-overlay" id="{{@index}}">
 
                                         <div class="popup-content" id="{{@index}}">
-                                            <a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">Ansehen</a>
+                                            <a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">Bearbeiten</a>
                                             <a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">Runterladen</a>
                                             <a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
                                         </div>
@@ -127,7 +127,7 @@
     {{/content}}
 {{/embed}}
 
-{{#embed "lib/components/modal-form" class="new-file-modal" title="Neue Datei erstellen" closeLabel="Abbrechen" submitLabel="Datei erstellen"}}
+{{#embed "lib/components/modal-form" class="new-file-modal" title="Neue Datei erstellen" closeLabel="Abbrechen" submitLabel="Datei erstellen" }}
     {{#content "fields"}}
         {{> "files/forms/form-new-file"}}
     {{/content}}

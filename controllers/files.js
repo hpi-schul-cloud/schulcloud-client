@@ -445,7 +445,7 @@ router.post('/file/:id/move', function (req, res, next) {
 
 // create newFile
 router.post('/newFile', function (req, res, next) {
-    const {name, dir, type} = req.body;
+    const {name, dir, type, studentEdit} = req.body;
 
     const basePath = dir;
     const fileName = name || 'Neue Datei';
@@ -453,7 +453,9 @@ router.post('/newFile', function (req, res, next) {
         json: {
             key: `${basePath}${fileName}.${type}`,
             path: basePath,
-            name: `${fileName}.${type}`
+            name: `${fileName}.${type}`,
+            studentCanEdit: studentEdit,
+            schoolId: res.locals.currentSchool
         }
     }).then(_ => {
         res.sendStatus(200);

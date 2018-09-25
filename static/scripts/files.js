@@ -187,6 +187,8 @@ $(document).ready(function() {
     });
 
     $('.new-file').on('click', function () {
+        if (!window.location.href.includes('/courses/'))
+            $('#student-can-edit-div').hide();
         $newFileModal.appendTo('body').modal('show');
     });
 
@@ -250,7 +252,8 @@ $(document).ready(function() {
         $.post('/files/newFile', {
             name: $newFileModal.find('[name="new-file-name"]').val(),
             type: $("#file-ending").val(),
-            dir: getCurrentDir()
+            dir: getCurrentDir(),
+            studentEdit: document.getElementById('student-can-edit').checked
         }, function (data) {
             reloadFiles();
         }).fail(showAJAXError);
@@ -374,7 +377,7 @@ $(document).ready(function() {
         let fType = fileName.split('.');
         fType = fileTypes[fType[fType.length - 1]];
 
-        if (fType)
+        if (fType && fType !== 'application/pdf')
             $(`.popup-overlay#${id}, .popup-content#${id}`).addClass("active");
         else {
             fileShare(fileId, $shareModal);

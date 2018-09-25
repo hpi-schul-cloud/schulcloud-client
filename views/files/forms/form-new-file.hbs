@@ -13,6 +13,15 @@
         <option value="xlsx">Excel (xlsx)</option>
         <option value="pptx">PowerPoint (pptx)</option>
     </select>
+    <br />
+    <br />
+
+    {{#userHasPermission "COURSE_EDIT"}}
+    <div id="student-can-edit-div">
+        <input type="checkbox" id="student-can-edit"> Schüler können editieren?
+    </div>
+    {{/userHasPermission}}
+
 </div>
 
 <input hidden name="path"/>
