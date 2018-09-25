@@ -50,7 +50,7 @@ router.post('/', function (req, res, next) {
         cd1: context['connection'], // connection type http://wicg.github.io/netinfo/ 
         cd2: data.attributes.url.includes('localhost') ? 'local' : 'default'
     };
-    api(req).post('/statistics', { json: hit }).then(result => {
+    api(req).post('/analytics', { json: hit }).then(result => {
         res.send(result);
     }).catch(_ => {
         res.send('error');
