@@ -17,7 +17,7 @@ const sendMailHandler = (req, res, next) => {
                 json: {
                     headers: {},
                     email: account.userId.email,
-                    subject: "Passwort zurücksetzen für die Schul-Cloud",
+                    subject: `Passwort zurücksetzen für die ${res.locals.theme.short_title}`,
                     content: content
                 }
             }).then(_ => {
@@ -47,6 +47,10 @@ const obscure_email = (email) => {
 
     return result;
 };
+
+router.get('/error', function (req, res, next) {
+    res.render('pwRecovery/pwRecoveryError');
+});
 
 router.get('/:pwId', function (req, res, next) {
     api(req).get('/passwordRecovery/' + req.params.pwId, { qs: { $populate: ['account']}}).then(result => {
@@ -78,9 +82,8 @@ router.post('/', function (req, res, next) {
         res.locals.result = result;
         next();
     }).catch(err => {
-        let error = new Error("Ein Nutzer mit diesem Nutzernamen ist leider nicht vorhanden.");
-        error.status = 404;
-        next(error);
+        res.redirect('error');
+        next(err);
     });
 }, sendMailHandler);
 

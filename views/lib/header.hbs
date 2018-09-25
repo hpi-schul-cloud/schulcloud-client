@@ -2,30 +2,32 @@
     <div class="container">
         <nav class="navbar-light">
             <a id="title" class="pull-left" href="/">
-                <div class="cloud-logo"></div>{{themeTitle}}</a>
-            <ul class="nav navbar-nav pull-right">
-                <li class="nav-item hidden-sm-down">
-                    <a class="nav-link" href="/team">Team</a>
-                </li>
-                <li class="nav-item hidden-sm-down">
-                    <a class="nav-link" href="/partner">Partner</a>
-                </li>
-                <li class="nav-item hidden-sm-down">
-                                    <a class="nav-link" href="/about">Über das Projekt</a>
-                                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/community">Mitmachen</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank">FAQ</a>
-                </li>
-                <li class="nav-item intro-trigger hidden-sm-down">
-                    <a class="nav-link" href="#" onclick="startIntro()">Intro</a>
-                </li>
-            </ul>
+                <div class="cloud-logo"></div>{{theme.title}}</a>
+            {{#unless hideMenu}}
+                <ul class="nav navbar-nav pull-right">
+                    <li class="nav-item hidden-sm-down">
+                        <a class="nav-link" href="/team">Team</a>
+                    </li>
+                    <li class="nav-item hidden-sm-down">
+                        <a class="nav-link" href="/partner">Partner</a>
+                    </li>
+                    <li class="nav-item hidden-sm-down">
+                                        <a class="nav-link" href="/about">Über das Projekt</a>
+                                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://blog.schul-cloud.org/" target="scblog">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/community">Mitmachen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://blog.schul-cloud.org/faq" target="_blank">FAQ</a>
+                    </li>
+                    <li class="nav-item intro-trigger hidden-sm-down">
+                        <a class="nav-link" href="#" onclick="startIntro()">Intro</a>
+                    </li>
+                </ul>
+            {{/unless}}
         </nav>
     </div>
 </header>
