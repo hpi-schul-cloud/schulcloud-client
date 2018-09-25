@@ -372,7 +372,7 @@ router.delete('/file', function (req, res, next) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download, path, share} = req.query;
+    const {file, download, path, share, lool, fileId} = req.query;
     const data = {
         path: path || file,
         fileType: mime.lookup(file || pathUtils.basename(path)),
@@ -381,6 +381,7 @@ router.get('/file', function (req, res, next) {
     };
     let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
+        if (lool) return res.redirect(307, `/files/file/${fileId}/lool`);
         return requestSignedUrl(req, data).then(signedUrl => {
 			res.redirect(307,signedUrl.url);
            /* return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
@@ -402,10 +403,19 @@ router.get('/file', function (req, res, next) {
 
 // open in LibreOffice Online frame
 router.get('/file/:id/lool', function(req, res, next) {
-    res.render('files/lool', {
-        title: 'LibreOffice Online',
-        libreOfficeUrl: getLibreOfficeUrl(req.params.id, req.cookies.jwt)
-    });
+    const { share } = req.query;
+
+    // workaround for faulty sanitze hook (& => &amp;)
+    if (share) {
+        api(req).get('/files/' + req.params.id).then(file => {
+            res.redirect(`/files/file?path=${file.key}&share=${share}&lool=true&fileId=${req.params.id}`);
+        });
+    } else {
+        res.render('files/lool', {
+            title: 'LibreOffice Online',
+            libreOfficeUrl: getLibreOfficeUrl(req.params.id, req.cookies.jwt)
+        });
+    }
 });
 
 // move file

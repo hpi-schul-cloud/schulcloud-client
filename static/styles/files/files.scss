@@ -251,4 +251,28 @@
   display: none;
 }
 
+.popup-overlay{
+  visibility:hidden;
+  position:absolute;
+  background:#ffffff;
+  border:1px solid #666666;
+  right:10%;
+  top:10%;
+  left:10%;
+  bottom: 10%;
+  border-radius: 5px;
+}
+.popup-overlay.active{
+  visibility:visible;
+  text-align:center;
+}
+
+.popup-content {
+  visibility:hidden;
+}
+
+.popup-content.active {
+  visibility:visible;
+}
+
 

@@ -334,26 +334,69 @@ $(document).ready(function() {
             'Ordner umbenennen');
     });
 
-    $('.btn-file-share').click(function (e) {
+    $('.btn-file-share-close').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let id = e.target.parentElement.id;
+        $(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
+    });
+
+    $('.btn-file-share-view').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
         let $shareModal = $('.share-modal');
+        let id = e.target.parentElement.id;
+        $(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
+
+        fileShare(fileId, $shareModal, true);
+    });
+
+    $('.btn-file-share-download').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let $shareModal = $('.share-modal');
+        let id = e.target.parentElement.id;
+        $(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
+
+        fileShare(fileId, $shareModal);
+    });
+
+    $('.btn-file-share').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let fileName = $(this).attr('data-file-name');
+        let $shareModal = $('.share-modal');
+        let id = e.target.parentElement.id;
+
+        let fType = fileName.split('.');
+        fType = fileTypes[fType[fType.length - 1]];
+
+        if (fType)
+            $(`.popup-overlay#${id}, .popup-content#${id}`).addClass("active");
+        else {
+            fileShare(fileId, $shareModal);
+        }
+    });
+
+    const fileShare = (fileId, $shareModal, view) => {
         $.ajax({
             type: "POST",
             url: "/files/permissions/",
             data: {
                 id: fileId
             },
-            success: function(data) {
-                let target = `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
+            success: function (data) {
+                let target = view ? `files/file/${fileId}/lool?share=${data.shareToken}` : `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
                     data: {
                         target: target
                     },
-                    success: function(data) {
+                    success: function (data) {
                         populateModalForm($shareModal, {
                             title: 'Einladungslink generiert!',
                             closeLabel: 'Abbrechen',
@@ -371,7 +414,7 @@ $(document).ready(function() {
                 });
             }
         });
-    });
+    };
 
     $moveModal.on('hidden.bs.modal', function () {
         // delete the directory-tree
