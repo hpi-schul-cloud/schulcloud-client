@@ -212,10 +212,14 @@ let globPatterns = [
     'scripts/loggedin.js',
     'scripts/sw/metrix.js',
     'scripts/calendar.js',
+    'scripts/dashboard.js',
+    'scripts/news.js',
     'styles/lib/*.css',
     'styles/lib/toggle/*.min.css',
     'styles/lib/datetimepicker/*.min.css',
     'styles/calendar/*.css',
+    'styles/news/*.css',
+    'styles/dashboard/*.css',
     'vendor/introjs/intro*.{js,css}'
   ];
 
@@ -228,13 +232,7 @@ gulp.task('generate-service-worker', () => {
       templatedUrls: {
         '/calendar/': [
           '../../views/calendar/calendar.hbs',
-         ],
-        '/dashboard/': [
-          '../../views/dashboard/dashboard.hbs',
-        ],
-        '/news/': [
-            '../../views/news/news.hbs'
-        ]
+         ]
       },
     })
     .then(({count, size, warnings}) => {
