@@ -202,8 +202,6 @@ gulp.task('sw-workbox', () => {
     .pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`));
 });
 
-// let globPatterns = nonBaseScripts.map(script => script.replace(/^!?.\/static\//,'')).concat(['scripts/all.js']);
-// console.log('patterns', globPatterns);
 let globPatterns = [
     'fonts/**/*.{woff,css}',
     'images/logo/*.svg',
