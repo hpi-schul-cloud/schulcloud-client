@@ -47,19 +47,27 @@ workbox.routing.registerRoute(
     })
 );
 
-const queue = new workbox.backgroundSync.Queue('logsQueue');
+const queue = new workbox.backgroundSync.Queue('logs');
 
 function customHeaderRequestFetch(event) {
-    return new Promise((resolve, reject) =>{
-        event.request.blob().then(blob =>{
-            const newRequest = new Request(event.request.url, {
+    let newRequest;
+    return new Promise((resolve, reject) => {
+        event.request.blob().then(blob => {
+            newRequest = new Request(event.request.url, {
                 headers: {
                     'sw-enabled': true
                 },
                 method: 'POST',
                 body: blob
             });
-            resolve(fetch(newRequest.clone()) | queue.addRequest(newRequest));
+            resolve(fetch(newRequest.clone())
+            .catch(_ =>
+                queue.addRequest(newRequest)
+                    .then(_ =>
+                        new Response('cached')
+                    )
+                )
+            );
         });
     });
 }
