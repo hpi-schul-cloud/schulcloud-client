@@ -14,18 +14,21 @@ workbox.routing.registerRoute(
     workbox.strategies.cacheFirst({
         cacheName: 'images',
         plugins: [
-        new workbox.expiration.Plugin({
-            maxEntries: 60,
-            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
-        }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200],
+              }),
+            new workbox.expiration.Plugin({
+                maxEntries: 60,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+            }),
         ],
     }),
 );
 
 // cache giphy
 workbox.routing.registerRoute(
-  'https://media.giphy.com/media/3oz8xBkRsgPTnbK1GM/giphy.gif',
-  workbox.strategies.staleWhileRevalidate()  
+    'https://media.giphy.com/media/3oz8xBkRsgPTnbK1GM/giphy.gif',
+    workbox.strategies.staleWhileRevalidate()
 );
 
 // cache pages for one hour
@@ -37,13 +40,13 @@ workbox.routing.registerRoute(
         networkTimeoutSeconds: 3,
         plugins: [
             new workbox.expiration.Plugin({
-              maxEntries: 50,
-              maxAgeSeconds: 60 * 60, 
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60,
             }),
             new workbox.cacheableResponse.Plugin({
-              statuses: [0, 200],
+                statuses: [0, 200],
             }),
-          ],
+        ],
     })
 );
 
@@ -73,7 +76,7 @@ function customHeaderRequestFetch(event) {
 }
 
 self.addEventListener('fetch', event => {
-    if (event.request.url.endsWith('/logs/')){
+    if (event.request.url.endsWith('/logs/')) {
         event.respondWith(customHeaderRequestFetch(event));
     }
 });
