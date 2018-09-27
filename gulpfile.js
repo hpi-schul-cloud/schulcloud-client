@@ -211,12 +211,14 @@ let globPatterns = [
     'scripts/sw/metrix.js',
     'scripts/calendar.js',
     'scripts/dashboard.js',
+    'scripts/courses.js',
     'scripts/news.js',
     'styles/lib/*.css',
     'styles/lib/toggle/*.min.css',
     'styles/lib/datetimepicker/*.min.css',
     'styles/calendar/*.css',
     'styles/news/*.css',
+    'styles/courses/*.css',
     'styles/dashboard/*.css',
     'vendor/introjs/intro*.{js,css}'
   ];

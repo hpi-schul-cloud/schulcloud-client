@@ -24,9 +24,9 @@ function measureCRP(result) {
   }
 }
 
-function readConnectionType(result){
+function readConnectionType(result) {
   var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if(connection){
+  if (connection) {
     result['connection'] = connection.effectiveType;
     result['downlink'] = connection.downlink;
   }
@@ -54,7 +54,7 @@ function calculateMetrics() {
     return result;
   }).then(result => {
     measureCRP(result);
-    calculatePaintingTimes(result);    
+    calculatePaintingTimes(result);
     readConnectionType(result);
     sendResults(result);
   });
