@@ -11,7 +11,8 @@ const api = (req, {useCallback = false, json = true} = {}) => {
     return handler.defaults({
         baseUrl: process.env.BACKEND_URL || 'http://localhost:3030/',
         json,
-        headers
+        headers,
+        timeout:20000   //20sec
     });
 };
 
