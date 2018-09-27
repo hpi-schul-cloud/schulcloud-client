@@ -22,6 +22,12 @@ workbox.routing.registerRoute(
     }),
 );
 
+// cache giphy
+workbox.routing.registerRoute(
+  'https://media.giphy.com/media/3oz8xBkRsgPTnbK1GM/giphy.gif',
+  workbox.strategies.staleWhileRevalidate()  
+);
+
 // cache pages for one hour
 workbox.routing.registerRoute(
     /\/(dashboard|news|courses)\/$/,
