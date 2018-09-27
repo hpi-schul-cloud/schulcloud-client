@@ -72,6 +72,21 @@
                                 {{/userHasPermission}}
                                 {{/ifneq}}
 
+                                {{#if ../canCreateFile}}
+                                {{#if this.isOfficeFile}}
+                                    <a href="#"
+                                       class="btn-student-allow"
+                                       title="Schüler können editieren"
+                                       data-file-id="{{this._id}}"
+                                       data-file-can-edit="{{this.studentCanEdit}}">
+                                        <span class="fa-stack fa-1x">
+                                          <i class="fa fa-user fa-stack-1x"></i>
+                                    {{#if this.studentCanEdit}}<i class="fa fa-ban fa-stack-2x" style="color:Tomato"></i>{{/if}}
+                                        </span>
+                                    </a>
+                                {{/if}}
+                                {{/if}}
+
                                 <!--{{#if this.isOfficeFile}} todo: discuss just onClick or own button?
                                 <a href="/files/file/{{this._id}}/lool" 
                                     target="_blank"

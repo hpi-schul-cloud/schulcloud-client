@@ -323,6 +323,29 @@ $(document).ready(function() {
             'Datei umbenennen');
     });
 
+    if (!window.location.href.includes('/courses/'))
+        $('.btn-student-allow').hide();
+
+    $('.btn-student-allow').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let bool = $(this).attr('data-file-can-edit') || false;
+        bool = bool == 'true';
+
+        $.ajax({
+            type: "POST",
+            url: "/files/studentCanEdit/",
+            data: {
+                id: fileId,
+                bool: !bool
+            },
+            success: function (data) {
+
+                    }
+                });
+    });
+
     $('a[data-method="dir-rename"]').on('click', function (e) {
         e.stopPropagation();
         e.preventDefault();

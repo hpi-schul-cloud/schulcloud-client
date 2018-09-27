@@ -273,7 +273,8 @@ const checkIfOfficeFiles = files => {
         'application/vnd.ms-excel',                                                    //.xlx
         'application/vnd.ms-word',                                                     //.doc
         'application/vnd.oasis.opendocument.text',                                     //.odt
-        'text/plain'                                                                   //.txt
+        'text/plain',                                                                  //.txt
+        'application/msword'                                                           //.doc
     ];
 
     files.forEach(f => f.isOfficeFile = officeFileTypes.indexOf(f.type) >= 0);
@@ -294,8 +295,8 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
     // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980/
     const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
     //todo: set correct url here
-    //const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
-    const wopiRestUrl = 'http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9000/';
+    const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
+    //const wopiRestUrl = 'http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9000/';
 
     return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?access_token=${accessToken}`;
 };
@@ -616,7 +617,7 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             label: record.name,
             url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
         });
-        
+
         let canCreateFile = true;
         if (['Schüler', 'Demo'].includes(res.locals.currentRole))
             canCreateFile = false;
@@ -834,6 +835,17 @@ router.post('/directoryModel/:id/rename', function(req, res, next) {
 
             res.redirect(req.header('Referer'));
         });
+});
+
+router.post('/studentCanEdit', function(req, res, next) {
+   api(req).patch(`/files/${req.body.id}`, {
+       json: {
+           studentCanEdit: req.body.bool
+       }
+   })
+       .then(_ => {
+           // TODO: update icon
+       })
 });
 
 
