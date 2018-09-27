@@ -341,9 +341,20 @@ $(document).ready(function() {
                 bool: !bool
             },
             success: function (data) {
+                if (data.success) {
+                    let id = e.target.id;
+                    if (!id.includes('ban'))
+                        id = `ban-${id}`;
 
+                    if ($(`#${id}`).is(":visible"))
+                        $(`#${id}`).hide();
+                    else {
+                        $(`#${id}`).removeAttr('hidden');
+                        $(`#${id}`).show();
                     }
-                });
+                }
+            }
+        });
     });
 
     $('a[data-method="dir-rename"]').on('click', function (e) {

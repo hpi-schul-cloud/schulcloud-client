@@ -844,7 +844,7 @@ router.post('/studentCanEdit', function(req, res, next) {
        }
    })
        .then(_ => {
-           // TODO: update icon
+           res.json({success: true});
        })
 });
 

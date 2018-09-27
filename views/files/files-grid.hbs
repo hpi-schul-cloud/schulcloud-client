@@ -80,8 +80,8 @@
                                        data-file-id="{{this._id}}"
                                        data-file-can-edit="{{this.studentCanEdit}}">
                                         <span class="fa-stack fa-1x">
-                                          <i class="fa fa-user fa-stack-1x"></i>
-                                    {{#if this.studentCanEdit}}<i class="fa fa-ban fa-stack-2x" style="color:Tomato"></i>{{/if}}
+                                          <i class="fa fa-user fa-stack-1x" id="{{@index}}"></i>
+                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#unless this.studentCanEdit}}hidden{{/unless}}></i>
                                         </span>
                                     </a>
                                 {{/if}}
