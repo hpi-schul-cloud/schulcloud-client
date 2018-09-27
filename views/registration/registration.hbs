@@ -1,57 +1,39 @@
-{{#extend "lib/default"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/authentication/home.css"/>
-        <link rel="stylesheet" href="/styles/authentication/login.css"/>
-    {{/content}}
-
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
-    {{/content}}
-
-    {{#content "body"}}
-        {{#embed "lib/header"}}{{/embed}}
-        <main class="container">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <section class="card">
-                        <div class="card-block">
-                            <div class="col-xs-12">
-                                {{> "lib/components/notification"}}
-                            </div>
-                            <div class="text-center">
-                                <h3>{{title}}</h3>
-                                <h4>{{subtitle}}</h4>
-                            </div>
-
-                            <div class="form-wrapper" style="padding-bottom: 10px">
-                                <form method="post" class="registration-form" action="{{action}}">
-
-                                    <input type="hidden" name="accountId" value="{{accountId}}" />
-                                    <input type="hidden" name="userId" value="{{userId}}" />
-                                    <input type="hidden" name="schoolId" value="{{schoolId}}" />
-
-                                    {{#block "fields"}}{{/block}}
-
-                                    <p><small>Indem du auf „{{buttonLabel}}“ klickst, erklärst du dich mit unseren
-                                        <a href="">Nutzungsbedingungen</a> einverstanden und bestätigst, dass du unsere
-                                        <a href="">Datenschutzrichtlinie</a> gelesen hast.</small></p>
-
-                                    <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
-                                </form>
-
-                            </div>
-
-                            {{#if noPassword }}
-                            <span class="hint">
-                                <sup>*</sup>
-                                Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
-                            </span>
-                            {{/if}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-        {{#embed "lib/extended_footer"}}{{/embed}}
-    {{/content}}
+{{#extend "lib/simple"}}
+  {{#content "scripts" mode="append"}}
+      <script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
+      <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+  {{/content}}
+  {{#content "styles" mode="append"}}
+      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
+      <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+  {{/content}}
+  {{#content "page"}}
+    <div id="welcome-screen">
+      <h4>Willkommen zur Anmeldung in der {{theme.title}}!</h4>
+      <p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter 18 muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei volljährigen Schülern er selbst.</p>
+      <p>Bitte wähle das Alter des Schülers:</p>
+      <div class="form-group">
+          <fieldset>
+              <input type="radio" id="reg-u18" name="student-age" value="u18"> <label for="reg-u18">unter 18 Jahre alt</label><br>
+              <input type="radio" id="reg-18" name="student-age" value="18"> <label for="reg-18">mindestens 18 Jahre alt</label>
+          </fieldset>
+      </div>
+        <p></p>
+        <div id="infotext-u18" class="hidden">
+            <p>Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{theme.short_title}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
+            <p>Wir bitten Sie, Ihr Kind zunächst in der {{theme.short_title}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{theme.title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.</p>
+        </div>
+        <div id="infotext-18" class="hidden">
+            <p>Wir freuen uns, dass du die {{theme.title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
+            <p>Bitte registriere dich zunächst in der {{theme.title}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.</p>
+            <p><strong>Achtung:</strong> Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.</p>
+        </div>
+      <button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
+        <p class="mt-2 explanation nomargin">* Sprachlicher Hinweis: Für bessere Lesbarkeit verwenden wir in der {{theme.short_title}} die männliche Form (z.B. „Schüler“, „Lehrer“). Es sind stets alle Personen unabhängig vom Geschlecht gemeint. Die {{theme.short_title}} ist für alle Menschen da, unabhängig von Herkunft, Einschränkungen, Geschlecht und sexueller Orientierung. 🌈🎉🦄 </p>
+        {{#if importHash}}<input type="hidden" name="importHash" value="{{importHash}}" />{{/if}}
+        {{#if classOrSchoolId}}<input type="hidden" name="classOrSchoolId" value="{{classOrSchoolId}}" />{{/if}}
+        {{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
+        {{#if account}}<input type="hidden" name="account" value="{{account}}" />{{/if}}
+    </div>
+  {{/content}}
 {{/extend}}

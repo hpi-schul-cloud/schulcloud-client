@@ -69,6 +69,34 @@ module.exports = {
         text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
         return text;
     },
+    ifCond: (v1, operator, v2, options) => {
+        switch (operator) {
+            case '==':
+                return (v1 == v2) ? options.fn(this) : options.inverse(this);
+            case '===':
+                return (v1 === v2) ? options.fn(this) : options.inverse(this);
+            case '!=':
+                return (v1 != v2) ? options.fn(this) : options.inverse(this);
+            case '!==':
+                return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+            case '<':
+                return (v1 < v2) ? options.fn(this) : options.inverse(this);
+            case '<=':
+                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+            case '>':
+                return (v1 > v2) ? options.fn(this) : options.inverse(this);
+            case '>=':
+                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+            case '&&':
+                return (v1 && v2) ? options.fn(this) : options.inverse(this);
+            case '||':
+                return (v1 || v2) ? options.fn(this) : options.inverse(this);
+            case '|| !':
+                return (v1 || !v2) ? options.fn(this) : options.inverse(this);
+            default:
+                return options.inverse(this);
+        }
+    },
     ifeq: (a, b, opts) => {
         if (a == b) {
             return opts.fn(this);
@@ -81,6 +109,27 @@ module.exports = {
             return opts.fn(this);
         } else {
             return opts.inverse(this);
+        }
+    },
+    ifvalue: (conditional, options) => {
+        if (options.hash.value === conditional) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
+    ifEnv: (env_variable, value, options) => {
+        if (process.env[env_variable] == value) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
+    unlessEnv: (env_variable, value, options) => {
+        if (process.env[env_variable] == value) {
+            return options.inverse(this);
+        } else {
+            return options.fn(this);
         }
     },
     userHasPermission: (permission, opts) => {
@@ -98,15 +147,24 @@ module.exports = {
             return options.inverse(this);
         }
     },
-    ifvalue: (conditional, options) => {
-        if (options.hash.value === conditional) {
-            return options.fn(this);
-        } else {
-            return options.inverse(this);
-        }
-    },
     timeFromNow: (date, opts) => {
         return moment(date).fromNow();
+    },
+    datePickerTodayMinus: (years, months, days, format) => {
+        if(typeof(format) !== "string"){
+            format = "YYYY.MM.DD";
+        }
+        return moment()
+            .subtract(years, 'years')
+            .subtract(months, 'months')
+            .subtract(days, 'days')
+            .format(format);
+    },
+    dateToPicker: (date, opts) => {
+        return moment(date).format('DD.MM.YYYY');
+    },
+    dateTimeToPicker: (date, opts) => {
+        return moment(date).format('DD.MM.YYYY HH:mm');
     },
     timeToString: (date, opts) => {
         let now = moment();
@@ -124,6 +182,30 @@ module.exports = {
     },
     log: (data) => {
         console.log(data);
+    },
+    castStatusCodeToString: (statusCode) => {
+        console.log(statusCode);
+        if(statusCode >= 500){
+            return "Ups, da haben wir wohl ein internes Problem. Probier es gleich nochmal.";
+        }
+        if(statusCode >= 400){
+            switch (statusCode){
+                case 400:
+                    return "Diese Anfrage war fehlerhaft.";
+                case 401:
+                    return "Bitte Authentifiziere dich zunächst.";
+                case 402:
+                    return "Diese Funktion musst du erst noch bezahlen.";
+                case 403:
+                    return "Sorry, aber das dürfen wir dir wirklich nicht zeigen!";
+                case 404:
+                    return "Ups, diese Seite gibt's wohl nicht.";
+            }
+        }
+        if(statusCode > 300){
+            return "Diese Seite wurde verschoben.";
+        }
+        return "Da ist wohl etwas schief gelaufen!";
     },
     writeFileSizePretty: (fileSize) => {
         let unit;
@@ -154,5 +236,22 @@ module.exports = {
     },
     json: (data) => {
         return JSON.stringify(data);
-    }
+    },
+    times: (n, block)=>{
+        var accum = '';
+        for(var i = 0; i < n; ++i){
+            accum += block.fn(i);
+        }
+        return accum;
+    },
+    for: (from, to, incr, block) => {
+        var accum = '';
+        for(var i = from; i < to; i += incr){
+            accum += block.fn(i);
+        }
+        return accum;
+    },
+    add: (a, b) => {
+        return a + b;
+    },
 };

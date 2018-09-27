@@ -94,6 +94,8 @@ router.patch('/:newsId', function (req, res, next) {
         }).catch(err => {
             next(err);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 router.delete('/:id', getDeleteHandler('news'));
@@ -133,13 +135,15 @@ router.all('/', function (req, res, next) {
             baseUrl: '/news/?p={{page}}'
         };
         res.render('news/overview', {
-            title: 'Neuigkeiten',
+            title: 'Neuigkeiten aus meiner Schule',
             news,
             pagination,
             searchLabel: 'Suche nach Neuigkeiten',
             searchAction: '/news/',
             showSearch: true
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -161,6 +165,8 @@ router.get('/:newsId', function (req, res, next) {
     }).then(news => {
         news.url = '/news/' + news._id;
         res.render('news/article', {title: news.title, news });
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -175,6 +181,8 @@ router.get('/:newsId/edit', function (req, res, next) {
             action: '/news/' + req.params.newsId,
             news
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
