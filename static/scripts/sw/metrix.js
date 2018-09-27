@@ -60,4 +60,16 @@ function calculateMetrics() {
   });
 }
 
+window.addEventListener('load', function () {
+  function updateOnlineStatus(event) {
+    if (navigator.onLine) {
+      $("#offlineAlert").hide('slow');
+    } else {
+      $("#offlineAlert").show('slow');
+    }
+  }
+  window.addEventListener('online', updateOnlineStatus);
+  window.addEventListener('offline', updateOnlineStatus);
+});
+
 calculateMetrics();

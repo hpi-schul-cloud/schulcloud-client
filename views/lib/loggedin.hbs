@@ -74,6 +74,11 @@
                 <i class="fa fa-bars"></i>
             </a>
             <div class="content-min-height">
+                <section class="demo" id="offlineAlert" style="display:none;">
+                    <div class="alert alert-warning" role="alert">
+                        <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.</span></p>
+                    </div>
+                </section>
                 {{#ifeq currentRole "Demo"}}
                     <section class="demo">
                         <div class="alert alert-warning" role="alert">
