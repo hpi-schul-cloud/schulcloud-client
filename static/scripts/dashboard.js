@@ -6,6 +6,8 @@ $(document).ready(function () {
         $modals.modal('hide');
     });
 
+    $('.feature-modal').modal('show');
+
     populateModalForm($pollModal, {
         title: 'Befragung II im Projekt Schul-Cloud',
         closeLabel: 'Abbrechen'
