@@ -47,6 +47,8 @@ workbox.routing.registerRoute(
     })
 );
 
+const queue = new workbox.backgroundSync.Queue('logsQueue');
+
 function customHeaderRequestFetch(event) {
     return new Promise((resolve, reject) =>{
         event.request.blob().then(blob =>{
@@ -57,7 +59,7 @@ function customHeaderRequestFetch(event) {
                 method: 'POST',
                 body: blob
             });
-            resolve(fetch(newRequest));
+            resolve(fetch(newRequest.clone()) | queue.addRequest(newRequest));
         });
     });
 }
