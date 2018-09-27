@@ -177,27 +177,21 @@ module.exports = (req, res, next) => {
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
-    //new release available
-    res.locals.newFeature = false;
-    let releasePromise = api(req).get('/releases/newRelease');
-
-    let notificationsPromise = undefined;
+    let notificationsPromise = [];
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         notificationsPromise = api(req).get('/notification', {
             qs: {
                 $limit: 10,
                 $sort: "-createdAt"
             }
-        });
-    }
-    let notificationCount = res.locals.recentNotifications = 0;
-    res.locals.notifications = [];
+        }).catch(_ => []);
+        }
+    let notificationCount = 0;
 
     Promise.all([
-            notificationsPromise,
-            releasePromise
-        ]).then(([notifications, newRelease]) => {
-            res.locals.notifications = (notifications && notifications.data || []).map(notification => {
+            notificationsPromise
+        ]).then(([notifications]) => {
+            res.locals.notifications = (notifications.data || []).map(notification => {
                 const notificationId = notification._id;
                 const callbacks = notification.callbacks || [];
 
@@ -219,10 +213,6 @@ module.exports = (req, res, next) => {
                 return notification;
             });
             res.locals.recentNotifications = notificationCount;
-            
-            res.locals.newFeature = (newRelease || {}).newRelease;
-            next();
-        }).catch((errors) => {
             next();
         });
 };

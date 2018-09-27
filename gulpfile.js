@@ -131,7 +131,7 @@ gulp.task('scripts', () => {
       }
     ))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(`./build/${themeName()}/scripts`));
+    .pipe(gulp.dest(`./build/${themeName()}/scripts`))
 });
 
 
@@ -213,17 +213,17 @@ gulp.task('build-theme-files', ['styles']);
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
-  let watchOptions = { interval: 1000 };
-  gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, ['images']);
-  gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), watchOptions, ['styles']);
-  gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts']);
-  gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), watchOptions, ['vendor-styles']);
-  gulp.watch(withTheme('./static/vendor/**/*.js'), watchOptions, ['vendor-scripts']);
-  gulp.watch([
-      './static/vendor/**/*.*', 
-      '!./static/vendor/**/*.js',
-      '!./static/vendor/**/*.{css,sass,scss}'
-    ], watchOptions, ['vendor-assets']);
+  gulp.watch(withTheme('./static/images/**/*.*'), ['images']);
+  gulp.watch(withTheme('./static/other/**/*.*'), ['other']);
+  gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles']);
+  gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts']);
+  gulp.watch(withTheme(nonBaseScripts), ['scripts']);
+  gulp.watch(withTheme(baseScripts), ['base-scripts']);
+  gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles']);
+  gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts']);
+  gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
+    '!./static/vendor/**/*.{css,sass,scss}'
+  ], ['vendor-assets']);
 });
 
 //run this if only "gulp" is run on the commandline with no task specified

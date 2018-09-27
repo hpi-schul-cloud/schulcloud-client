@@ -226,9 +226,6 @@ $(document).ready(function () {
 
         return !(e.key === "Unidentified");
     });
-
-    //show new feature modal if it is rendered
-    $('.feature-modal').modal('show');
 });
 
 window.addEventListener('DOMContentLoaded', function() {
