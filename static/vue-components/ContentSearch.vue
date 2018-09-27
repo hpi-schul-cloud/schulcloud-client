@@ -71,6 +71,7 @@
     },
     methods: {
       newSearch(apiQuery, urlQuery, searchQuery) {
+        console.log("new search emitted");
         this.apiFilterQuery = apiQuery;
         this.urlQuery = urlQuery;
         this.searchQuery = searchQuery;

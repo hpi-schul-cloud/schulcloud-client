@@ -7,7 +7,7 @@
       </md-switch>
     </div>
 
-    <div v-show="editorView">
+    <div class="editor-wrapper" v-show="editorView">
       <textarea id="editor">
       </textarea>
       <button type="button" @click='print' name="button">Print me</button>
@@ -202,6 +202,10 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
   @import "./default";
+
+  .editor-wrapper {
+    text-align: center;
+  }
 
   @media print {
     // no ugly comments when printing the page

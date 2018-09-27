@@ -11,6 +11,10 @@
         <md-icon><i class="material-icons">add</i></md-icon>
         FILTER HINZUFÜGEN
       </md-button>
+      <!-- TODO nur bestaetigte inhalte -->
+      <md-button class="md-primary" v-on:click="toggleOnlyApproved">
+        {{approvedOnly ? "Alle Inhalte" : "Nur akzeptierte Inhalte" }}
+      </md-button>
       <md-menu-content>
         <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('subjects')" v-on:click="visibleProvider = 'subjects'">
             Fach
@@ -32,7 +36,7 @@
             Alter
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('age')" v-on:click="visibleProvider = 'topic'">
+        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('topic')" v-on:click="visibleProvider = 'topic'">
             Thema
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
@@ -85,6 +89,7 @@
     data() {
       return {
         enoughPoints: false,
+        approvedOnly: false,
         teacherPoints: 0,
         weeksLeft: 0,
         visibleProvider: '',
@@ -114,7 +119,23 @@
       cancle() {
         this.visibleProvider = '';
       },
+      toggleOnlyApproved() {
+        this.approvedOnly = !this.approvedOnly;
+        if (this.approvedOnly) {
+          let approvedFilter = {
+            apiQuery: {'approved[$match]': true},
+            urlQuery: {approved: true},
+            displayString: 'Nur akzeptierte Inhalte',
+            shortDisplayString: 'Nur akzeptierte Inhalte'
+          };
+          this.activeFilter.push(["approvedOnly", approvedFilter]);
+        } else {
+          this.removeFilter("approvedOnly", false);
+        }
+        this.sendNewQuery();
+      },
       sendNewQuery() {
+        console.log("new query");
         const apiQuery = {};
         const urlQuery = {};
         this.activeFilter.forEach((value) => {

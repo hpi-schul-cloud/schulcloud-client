@@ -7,7 +7,7 @@
       </md-card-media>
 
       <md-card-header class="content-card-header">
-        <img v-if="data.approved" class="approved-icon" src='/images/content/approved.svg' alt="Approved" width="50" height="25">
+        <img v-if="data.approved" class="approved-icon" src='/images/content/lehrerstempel.png' alt="Approved" width="50" height="25">
 
         <h2 class="md-title">{{data.title||"Titel"}}</h2>
         <span v-if="averageStars && averageStars[0]" class="content-information">&#216; {{averageStars[0].average}} &#9734; <i v-if="data.approved">&#2611;</i> </span>
@@ -159,7 +159,7 @@
             location.href = '/content/view/' + this.contentId;
           }
         } else {
-          dialog.active = true;
+          this.dialog.active = true;
         }
       },
       onConfirm() {
