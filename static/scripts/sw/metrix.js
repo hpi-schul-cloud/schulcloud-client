@@ -70,6 +70,7 @@ window.addEventListener('load', function () {
   }
   window.addEventListener('online', updateOnlineStatus);
   window.addEventListener('offline', updateOnlineStatus);
+  updateOnlineStatus();
 });
 
 calculateMetrics();
