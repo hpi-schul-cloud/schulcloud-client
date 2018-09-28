@@ -1628,7 +1628,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
-            $sort: {order: 1},
+            $sort: req.query.sort? req.query.sort : {order: 1},
             "schoolId": res.locals.currentSchool
         }
     }).then(data => {
