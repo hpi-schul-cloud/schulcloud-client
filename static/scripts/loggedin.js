@@ -131,7 +131,7 @@ $(document).ready(function () {
                 feedbackType: "wish"
             }
         });
-
+        
         $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         $feedbackModal.appendTo('body').modal('show');
         $feedbackModal.find('#title-area').html(area);
@@ -245,33 +245,24 @@ window.addEventListener('DOMContentLoaded', function() {
     if(feedbackSelector){
         feedbackSelector.onchange = function(){
             if(feedbackSelector.value === "problem"){
-                document.getElementById("problemSummaryDiv").style.display = "block";
-                document.getElementById("hasHappenedDiv").style.display = "block";
-                document.getElementById("supposedToHappenDiv").style.display = "block";
-                document.getElementById("roleDiv").style.display = "none";
-                document.getElementById("desireDiv").style.display = "none";
-                document.getElementById("benefitDiv").style.display = "none";
-                document.getElementById("acceptanceCriteriaDiv").style.display = "none";
-                document.getElementById("problemTitle").required = true;
-                document.getElementById("hasHappened").required = true;
-                document.getElementById("supposedToHappen").required = true;
-                document.getElementById("role").required = false;
-                document.getElementById("desire").required = false;
-                document.getElementById("benefit").required = false;
+                document.getElementById("problemDiv").style.display = "block";
+                document.getElementById("userstoryDiv").style.display = "none";
+                for (let i=0; i < document.getElementById("problemDiv").children.length; i++){
+                    document.getElementById("problemDiv").children[i].children[1].required = true;
+                }
+                for (let i=0; i < document.getElementById("userstoryDiv").children.length; i++){
+                    document.getElementById("userstoryDiv").children[i].children[1].required = false;
+                }
             } else {
-                document.getElementById("problemSummaryDiv").style.display = "none";
-                document.getElementById("hasHappenedDiv").style.display = "none";
-                document.getElementById("supposedToHappenDiv").style.display = "none";
-                document.getElementById("roleDiv").style.display = "block";
-                document.getElementById("desireDiv").style.display = "block";
-                document.getElementById("benefitDiv").style.display = "block";
-                document.getElementById("acceptanceCriteriaDiv").style.display = "block";
-                document.getElementById("problemTitle").required = false;
-                document.getElementById("hasHappened").required = false;
-                document.getElementById("supposedToHappen").required = false;
-                document.getElementById("role").required = true;
-                document.getElementById("desire").required = true;
-                document.getElementById("benefit").required = true;
+                document.getElementById("problemDiv").style.display = "none";
+                document.getElementById("userstoryDiv").style.display = "block";
+                for (let i=0; i < document.getElementById("problemDiv").children.length; i++){
+                    document.getElementById("problemDiv").children[i].children[1].required = false;
+                }
+                for (let i=0; i < document.getElementById("userstoryDiv").children.length; i++){
+                    document.getElementById("userstoryDiv").children[i].children[1].required = true;
+                }
+                document.getElementById("acceptance_criteria").required = false;
             }
         }
     }
