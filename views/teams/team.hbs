@@ -25,6 +25,47 @@
 
             <div class="row">
                 <div class="col-sm-12">
+                    <h4>Mitglieder</h4>
+                    <p>
+                      Im Team befinden sich <strong>3</strong> Lehrer,
+                      <strong>5</strong> Schüler und <strong>1</strong> Experte.
+                    </p>
+                    <button type="button" class="btn btn-secondary btn-close">
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    <h4>News</h4>
+                </div>
+            </div>
+
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    <h4>Dateien</h4>
+                </div>
+            </div>
+
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    <h4>Themen & Aufgaben</h4>
+                    <p>Es gibt derzeit <strong>3</strong> Themen und <strong>5</strong> Aufgaben</p>
+                    <button type="button" class="btn btn-secondary btn-close">
+                        Details
+                    </button>
+                </div>
+            </div>
+
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                    <h4>Termine</h4>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
                     {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
                         <a href="/teams/{{../_id}}/copy" class="btn btn-add btn-secondary">Team klonen</a>

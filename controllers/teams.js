@@ -242,7 +242,7 @@ router.get('/', function(req, res, next) {
         })
     ]).then(([substitutionCourses, courses]) => {
         substitutionCourses = substitutionCourses.data.map(course => {
-            course.url = '/courses/' + course._id;
+            course.url = '/teams/' + course._id;
             course.title = course.name;
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
@@ -257,7 +257,7 @@ router.get('/', function(req, res, next) {
         });
 
         courses = courses.data.map(course => {
-            course.url = '/courses/' + course._id;
+            course.url = '/teams/' + course._id;
             course.title = course.name;
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
