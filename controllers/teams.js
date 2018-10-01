@@ -8,6 +8,17 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
+const winston = require('winston');
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -78,7 +89,7 @@ const deleteEventsForCourse = (req, res, courseId) => {
 const editCourseHandler = (req, res, next) => {
     let coursePromise, action, method;
     if (req.params.courseId) {
-        action = '/courses/' + req.params.courseId;
+        action = '/teams/' + req.params.courseId;
         method = 'patch';
         coursePromise = api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -86,9 +97,9 @@ const editCourseHandler = (req, res, next) => {
             }
         });
     } else {
-        action = '/courses/';
+        action = '/teams/';
         method = 'post';
-        coursePromise = Promise.resolve({});
+        coursePromise = Promise.resolve({ isTeam: true });
     }
 
     const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
@@ -128,11 +139,11 @@ const editCourseHandler = (req, res, next) => {
             course.teacherIds.push(res.locals.currentUser);
         }
 
-        res.render('courses/edit-course', {
+        res.render('teams/edit-team', {
             action,
             method,
-            title: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
-            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
+            title: req.params.courseId ? 'Team bearbeiten' : 'Team anlegen',
+            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Team anlegen',
             closeLabel: 'Abbrechen',
             course,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
@@ -225,12 +236,14 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
+                isTeam: true,
                 substitutionIds: res.locals.currentUser._id,
                 $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
+                isTeam: true,
                 $or: [
                     {userIds: res.locals.currentUser._id},
                     {teacherIds: res.locals.currentUser._id}
@@ -272,7 +285,7 @@ router.get('/', function(req, res, next) {
         if (req.query.json) {
             res.json(courses);
         } else {
-            res.render('courses/overview', {
+            res.render('teams/overview', {
                 title: 'Meine Teams',
                 courses,
                 substitutionCourses,
@@ -300,11 +313,13 @@ router.post('/', function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
+    console.log(req.body)
+
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
         createEventsForCourse(req, res, course).then(_ => {
-            res.redirect('/courses');
+            res.redirect('/teams');
         });
     }).catch(err => {
         res.sendStatus(500);
@@ -331,7 +346,7 @@ router.post('/copy/:courseId', function(req, res, next) {
     api(req).post('/courses/copy/', {
         json: req.body // TODO: sanitize
     }).then(course => {
-        res.redirect('/courses/' + course._id);
+        res.redirect('/teams/' + course._id);
     }).catch(err => {
         res.sendStatus(500);
     });
@@ -429,8 +444,8 @@ router.get('/:courseId', function(req, res, next) {
             ltiToolIds,
             courseGroups,
             breadcrumb: [{
-                    title: 'Meine Kurse',
-                    url: '/courses'
+                    title: 'Meine Teams',
+                    url: '/teams'
                 },
                 {}
             ],
@@ -472,7 +487,7 @@ router.patch('/:courseId', function(req, res, next) {
             json: req.body // TODO: sanitize
         }).then(course => {
             createEventsForCourse(req, res, course).then(_ => {
-                res.redirect('/courses/' + req.params.courseId);
+                res.redirect('/teams/' + req.params.courseId);
             });
         });
     }).catch(error => {
@@ -511,7 +526,7 @@ router.get('/:courseId/addStudent', function(req, res, next) {
             type: 'danger',
             message: "Sie sind kein Nutzer der Rolle 'Schüler'."
         };
-        res.redirect('/courses/' + req.params.courseId);
+        res.redirect('/teams/' + req.params.courseId);
         return;
     }
 
@@ -522,7 +537,7 @@ router.get('/:courseId/addStudent', function(req, res, next) {
                 type: 'danger',
                 message: `Sie sind bereits Teilnehmer des Kurses/Fachs ${course.name}.`
             };
-            res.redirect('/courses/' + req.params.courseId);
+            res.redirect('/teams/' + req.params.courseId);
             return;
         }
 
@@ -535,7 +550,7 @@ router.get('/:courseId/addStudent', function(req, res, next) {
                 type: 'success',
                 message: `Sie wurden erfolgreich beim Kurs/Fach ${course.name} hinzugefügt`
             };
-            res.redirect('/courses/' + req.params.courseId);
+            res.redirect('/teams/' + req.params.courseId);
         });
     }).catch(err => {
         next(err);
@@ -593,7 +608,7 @@ router.post('/import', function(req, res, next) {
 
     api(req).post('/courses/share', { json: { shareToken, courseName }})
         .then(course => {
-            res.redirect(`/courses/${course._id}/edit/`);
+            res.redirect(`/teams/${course._id}/edit/`);
         })
         .catch(err => {
             res.status((err.statusCode || 500)).send(err);
