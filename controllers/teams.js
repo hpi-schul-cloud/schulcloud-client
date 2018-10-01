@@ -88,7 +88,7 @@ const editCourseHandler = (req, res, next) => {
     } else {
         action = '/teams/';
         method = 'post';
-        coursePromise = Promise.resolve({ isTeam: true });
+        coursePromise = Promise.resolve({});
     }
 
     const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
@@ -302,13 +302,11 @@ router.post('/', function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
-    console.log(req.body)
-
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
         createEventsForCourse(req, res, course).then(_ => {
-            res.redirect('/teams');
+            res.redirect('/teams/' + course._id);
         });
     }).catch(err => {
         res.sendStatus(500);
@@ -425,7 +423,7 @@ router.get('/:courseId', function(req, res, next) {
             courseGroups.data || [] :
             (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
-        res.render('courses/course', Object.assign({}, course, {
+        res.render('teams/team', Object.assign({}, course, {
             title: course.name,
             lessons,
             homeworks: homeworks.filter(function(task) { return !task.private; }),
