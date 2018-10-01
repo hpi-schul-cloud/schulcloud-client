@@ -90,7 +90,7 @@ const editCourseHandler = (req, res, next) => {
         method = 'post';
         coursePromise = Promise.resolve({});
     }
-    
+
     const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
         .then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
@@ -225,12 +225,14 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
+                isTeam: false,
                 substitutionIds: res.locals.currentUser._id,
                 $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
+                isTeam: false,
                 $or: [
                     {userIds: res.locals.currentUser._id},
                     {teacherIds: res.locals.currentUser._id}
