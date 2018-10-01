@@ -7,7 +7,7 @@ router.use(require('../helpers/authentication').authChecker);
 
 router.post('/', function (req, res, next) {
 
-    if (req.body.type === 'feedback') {
+    if (req.body.type === 'feedback') { //case: schulcloud feedback
         let user = res.locals.currentUser;
         let email = user.email ? user.email : "";
         let innerText = "Bereich ausgewählt: " + req.body.category + "\n";
@@ -27,7 +27,7 @@ router.post('/', function (req, res, next) {
         }).catch(err => {
             res.status((err.statusCode || 500)).send(err);
         });
-    } else {
+    } else { //case: admin
         api(req).post('/helpdesk', {
             json: {
                 subject: req.body.subject,
@@ -35,7 +35,8 @@ router.post('/', function (req, res, next) {
                 currentState : req.body.currentState,
                 targetState: req.body.targetState,
                 userId: res.locals.currentUser._id,
-                schoolId: res.locals.currentSchoolData._id
+                schoolId: res.locals.currentSchoolData._id,
+                cloud: res.locals.theme.title
             }
         }).then(_ => {
             api(req).get('/users', {qs: { roles: ['helpdesk']}})
