@@ -8,17 +8,6 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
-const winston = require('winston');
-const logger = winston.createLogger({
-    transports: [
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.colorize(),
-                winston.format.simple()
-            )
-        })
-    ]
-});
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
