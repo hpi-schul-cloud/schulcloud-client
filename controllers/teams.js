@@ -445,6 +445,98 @@ router.get('/:courseId', function(req, res, next) {
 });
 
 
+router.get('/:courseId/members', function(req, res, next) {
+    let itemsPerPage = 25;
+    let query = {
+        roles: ['teacher'],
+        $populate: ['roles'],
+        $limit: itemsPerPage
+    };
+
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        }),
+        api(req).get('/courseGroups/', {
+            qs: {
+                courseId: req.params.courseId,
+                $populate: ['courseId', 'userIds'],
+            }
+        }),
+        api(req).get('/users', {
+            qs: query
+        })
+    ]).then(([course, courseGroups, userData]) => {
+        let users = userData.data;
+
+        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
+            courseGroups.data || [] :
+            (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+
+        // users = users.map((user) => {
+        //     user.classesString = classes.filter((currentClass) => {
+        //         return currentClass.teacherIds.includes(user._id);
+        //     }).map((currentClass) => {return currentClass.displayName;}).join(', ');
+        //     return user;
+        // });
+
+        let head = [
+            'Vorname',
+            'Nachname',
+            'E-Mail-Adresse',
+            'Klasse(n)'
+        ];
+        if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
+            head.push('Einwilligung');
+            head.push('Erstellt am');
+            head.push('');
+        }
+        let body = users.map(user => {
+            let row = [
+                user.firstName || '',
+                user.lastName || '',
+                user.email || '',
+                user.classesString || ''
+            ];
+            if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
+                row.push({
+                    useHTML: true,
+                    content: user.consentStatus
+                });
+                row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+                row.push([{
+                    link: `/administration/teachers/${user._id}/edit`,
+                    title: 'Nutzer bearbeiten',
+                    icon: 'edit'
+                }]);
+            }
+            return row;
+        });
+
+        res.render('teams/members', Object.assign({}, course, {
+            title: course.name,
+            courseGroups,
+            head,
+            body,
+            breadcrumb: [{
+                    title: 'Meine Teams',
+                    url: '/teams'
+                },
+                {
+                    title: course.name,
+                    url: '/teams/' + course._id
+                },
+                {}
+            ]
+        }));
+    }).catch(err => {
+        next(err);
+    });
+});
+
+
 router.patch('/:courseId', function(req, res, next) {
     // map course times to fit model
     req.body.times = req.body.times || [];
