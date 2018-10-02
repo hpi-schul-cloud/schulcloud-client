@@ -20,6 +20,9 @@ function measureCRP(result) {
     result['dom-interactive-time'] = t.domInteractive - t.navigationStart;
     result['dom-content-loaded'] = t.domContentLoadedEventEnd - t.navigationStart;
     result['page-loaded'] = t.loadEventEnd - t.navigationStart;
+    result['request-start'] = t.requestStart - t.navigationStart;
+    result['response-start'] = t.responseStart - t.navigationStart;
+    result['response-end'] = t.responseEnd - t.navigationStart;
     return result;
   }
 }

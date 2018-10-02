@@ -40,17 +40,20 @@ router.post('/', function (req, res, next) {
         dl: data.attributes.url, // document location
         dp: dataUrl.path, // document path
 
-        swEnabled: req.headers['sw-enabled'] === "true" ? true : false,
-
         cm1: context['first-paint'], // cm1 is first paint ms
         cm2: context['time-to-interactive'], // cm2 is time to interactive ms
         cm3: context['page-loaded'], // page load time ms
         cm4: context['dom-interactive-time'], // dom interactive time ms
         cm5: context['dom-content-loaded'], // content load time ms
         cm6: context['downlink'], // download speed in mbit/s
+        cm7: context['request-start'],
+        cm8: context['response-start'],
+        cm9: context['response-end'],
 
         cd1: context['connection'], // connection type http://wicg.github.io/netinfo/ 
         cd2: data.attributes.url.includes('localhost') ? 'local' : 'default',
+        cd3: req.headers['sw-offline'] === 'true' ? true : false,
+        cd4: req.headers['sw-enabled'] === 'true' ? true : false,
         cd5: res.locals.currentSchool
     };
     api(req).post('/analytics', { json: hit }).then(result => {
