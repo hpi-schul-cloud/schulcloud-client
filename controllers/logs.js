@@ -20,7 +20,7 @@ const logger = winston.createLogger({
     ]
 });
 
-logger.info('Google Analytics Tracking ID: ', process.env.GOOGLE_ANALYTICS_TRACKING_ID);
+logger.info('Google Analytics Tracking ID: ' + process.env.GOOGLE_ANALYTICS_TRACKING_ID);
 
 router.post('/', function (req, res, next) {
     let data = req.body;
