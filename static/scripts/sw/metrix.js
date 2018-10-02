@@ -49,15 +49,17 @@ function sendResults(result) {
 
 function calculateMetrics() {
   let result = {};
-  ttiPolyfill.getFirstConsistentlyInteractive().then((tti) => {
-    result['time-to-interactive'] = Math.round(tti);
-    return result;
-  }).then(result => {
-    measureCRP(result);
-    calculatePaintingTimes(result);
-    readConnectionType(result);
-    sendResults(result);
-  });
+  if(window.location.pathname.match('\/(dashboard|calendar|news)\/')){
+    ttiPolyfill.getFirstConsistentlyInteractive().then((tti) => {
+      result['time-to-interactive'] = Math.round(tti);
+      return result;
+    }).then(result => {
+      measureCRP(result);
+      calculatePaintingTimes(result);
+      readConnectionType(result);
+      sendResults(result);
+    });
+  }
 }
 
 window.addEventListener('load', function () {
