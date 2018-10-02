@@ -21,37 +21,42 @@
                                         <input value="{{../school.name}}" type="text" class="form-control" name="name" placeholder="Einhorn Gymnasium" required />
                                     </div>
                                     
-                                    <!-- Prototype  -->
                                     <div class="form-group">
                                         <label>Schullogo hochladen</label><br/>
-                                        <img id="preview-logo" src="" height="100" alt="Image preview...">
+                                        <input type="hidden" name="logo_url">
                                         <input type="file" id="logo-input" onchange="loadFile()">
-                                        <label for="logo-input" class="btn btn-primary">Choose a file</label>                                        
+                                        <label for="logo-input" class="btn btn-secondary">Datei auswählen</label>
+                                        <span id="logo-filename">Keine Datei ausgewählt</span>
+                                        <img id="preview-logo" src="">
+                                        <canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
                                     </div>
 
                                     <script>
-                                        function loadFile(){
-                                            var logo = document.querySelector('.federal-state'); 
-                                            var preview = document.querySelector('#preview-logo');
-                                            var file    = document.querySelector('#logo-input').files[0]; 
-                                            var reader  = new FileReader();
+                                        function loadFile(){                                           
+                                            var file = document.querySelector('#logo-input').files[0]; 
+                                            var reader = new FileReader();
                                             reader.addEventListener("load", function () {
-                                                setImage(reader.result);
+                                                transformToBase64(reader.result);
                                             }, false);
                                             if (file) {
                                                 reader.readAsDataURL(file);
                                             }
-                                        }                              
-                                        function setImage(image_src){
-                                            document.querySelector('.federal-state').src = image_src; 
-                                            document.querySelector('#preview-logo').src = image_src;
-                                            localStorage.setItem('Schullogo', image_src);
                                         }
-                                        window.addEventListener("DOMContentLoaded", function(){
-                                            if(localStorage.getItem('Schullogo')) {
-                                                document.getElementById("preview-logo").src = localStorage.getItem('Schullogo');
-                                            }                                         
-                                        });
+                                        function transformToBase64(image_src){
+                                            var img = new Image();
+                                            var canvas = document.querySelector('#logo-canvas');
+                                            var ctx = canvas.getContext("2d");
+                                            var scalingFactor;
+                                            img.onload = function(){  
+                                                ctx.clearRect(0, 0, canvas.width, canvas.height);                  
+                                                (img.width < img.height) ? scalingFactor = img.height / canvas.height : scalingFactor = img.width / canvas.width;                                                
+                                                ctx.drawImage(img, canvas.width / 2 - img.width / scalingFactor / 2, canvas.height / 2 - img.height / scalingFactor / 2, img.width / scalingFactor, img.height / scalingFactor);
+                                                document.getElementsByName('logo_url')[0].value = canvas.toDataURL("image/png");
+                                                document.querySelector('#preview-logo').src = canvas.toDataURL("image/png");
+                                                document.querySelector('#logo-filename').innerHTML = 'Datei ausgewählt';
+                                            }
+                                            img.src = image_src;
+                                        }                                                  
                                     </script>
 
                                     {{#if ../school.fileStorageType}}
