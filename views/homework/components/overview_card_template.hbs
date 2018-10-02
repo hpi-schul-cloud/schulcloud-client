@@ -36,7 +36,7 @@
             {{#if this.courseId}}
                 [<span>{{this.courseId.name}}</span>{{#if this.isSubstitution}} <sub>Vertretung</sub>{{/if}}] -
             {{/if}}
-            {{this.name}}
+            {{{ stripOnlyScript this.name }}}
         </h5>
         <div class="ckcontent">
             {{#if this.description}}

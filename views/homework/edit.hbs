@@ -84,9 +84,9 @@
                         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                     {{/if}}
 
-                    {{#if referrer}}﻿<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+                    {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
                     
-                    ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                    <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
                     {{#unless isSubstitution}}
                         <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
