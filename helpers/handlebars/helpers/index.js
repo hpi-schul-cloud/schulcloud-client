@@ -118,6 +118,20 @@ module.exports = {
             return options.inverse(this);
         }
     },
+    ifEnv: (env_variable, value, options) => {
+        if (process.env[env_variable] == value) {
+            return options.fn(this);
+        } else {
+            return options.inverse(this);
+        }
+    },
+    unlessEnv: (env_variable, value, options) => {
+        if (process.env[env_variable] == value) {
+            return options.inverse(this);
+        } else {
+            return options.fn(this);
+        }
+    },
     userHasPermission: (permission, opts) => {
         if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
             return opts.fn(this);
@@ -138,7 +152,7 @@ module.exports = {
     },
     datePickerTodayMinus: (years, months, days, format) => {
         if(typeof(format) !== "string"){
-            format = "YYYY.MM.DD"
+            format = "YYYY.MM.DD";
         }
         return moment()
             .subtract(years, 'years')
@@ -168,6 +182,30 @@ module.exports = {
     },
     log: (data) => {
         console.log(data);
+    },
+    castStatusCodeToString: (statusCode) => {
+        console.log(statusCode);
+        if(statusCode >= 500){
+            return "Ups, da haben wir wohl ein internes Problem. Probier es gleich nochmal.";
+        }
+        if(statusCode >= 400){
+            switch (statusCode){
+                case 400:
+                    return "Diese Anfrage war fehlerhaft.";
+                case 401:
+                    return "Bitte Authentifiziere dich zunächst.";
+                case 402:
+                    return "Diese Funktion musst du erst noch bezahlen.";
+                case 403:
+                    return "Sorry, aber das dürfen wir dir wirklich nicht zeigen!";
+                case 404:
+                    return "Ups, diese Seite gibt's wohl nicht.";
+            }
+        }
+        if(statusCode > 300){
+            return "Diese Seite wurde verschoben.";
+        }
+        return "Da ist wohl etwas schief gelaufen!";
     },
     writeFileSizePretty: (fileSize) => {
         let unit;

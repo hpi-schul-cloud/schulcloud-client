@@ -528,6 +528,21 @@
       },
       {
         "title": "",
+        "firstName": "Caroline",
+        "lastName": "Morfeld",
+        "position": "Studentische Hilfskraft",
+        "description": "Caroline hat Kultur-, Politik- und Literaturwissenschaften studiert und unterstützt als wissenschaftliche Hilfskraft seit September 2018 die politische Kommunikation und den Kontakt zu Projektpartnern. Privat engagiert sie sich in der politischen Bildung, bereist und bewandert den Osten Europas und genießt das Berliner Kulturleben.",
+        "pictureUrl": "/images/team/Caroline_Morfeld.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Andrea",
         "lastName": "Nathansen",
         "position": "Studentische Hilfskraft",
@@ -680,6 +695,21 @@
         "position": "Ehem. Bachelorstudent",
         "description": "Max war Teil des Bachelorprojekts 2017/2018 und beschäftigt sich mit Contenterstellung für Lehrkräfte. Nebenbei philosophiert er gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
         "pictureUrl": "/images/team/Max_Haubold.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Niklas",
+        "lastName": "Kiefer",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Niklas hat IT-Systems Engineering am HPI studiert und war Teil des Bachelorprojekts 2016/2017 der HPI Schul-Cloud und war somit seit Beginn der Anwendung involviert. Nach dem Studium am HPI arbeitete er bis August 2018 am Frontend und Backend, sowie gelegentlich an der Android-App der HPI Schul-Cloud. Seine größten Hobbies sind Fußball und Musik.",
+        "pictureUrl": "/images/team/Niklas_Kiefer.png",
         "priority": 0,
         "social": {
           "facebook": "",

@@ -741,7 +741,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 
 //submission>single=student=upload || submissionS>multi=teacher=overview
 const addClearNameForFileIds=(submission_s)=>{
-	if(submission_s==undefined) return
+	if(submission_s==undefined) return;
 	//if array = submissions  else submission
 	if(submission_s.length>0){ 
 		submission_s.forEach(submission=>{
@@ -752,10 +752,10 @@ const addClearNameForFileIds=(submission_s)=>{
 			if(file.name){
 				file.clearName=file.name.replace(/%20/g,' '); //replace to spaces
 			}
-			return file
+			return file;
 		});
 	}
-}
+};
 
 router.get('/:assignmentId', function(req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
@@ -834,9 +834,10 @@ router.get('/:assignmentId', function(req, res, next) {
             })[0];
 
             courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-                ((courseGroups || {}).data || {}) || [] :
-                (((courseGroups || {}).data || {}) || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id))
-                .filter(cg => cg.userIds.length <= assignment.maxTeamMembers); // filter to big courseGroups
+                ((courseGroups || {}).data || []) :
+                ((courseGroups || {}).data || [])
+                    .filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id))
+                    .filter(cg => cg.userIds.length <= assignment.maxTeamMembers); // filter to big courseGroups
             const courseGroupSelected = ((assignment.submission || {}).courseGroupId || {})._id;
 
             const students = ((course || {}).userIds || []).filter(user => { return (user.firstName && user.lastName); })
