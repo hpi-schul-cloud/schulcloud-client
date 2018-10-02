@@ -22,6 +22,8 @@ const logger = winston.createLogger({
 
 logger.info('Google Analytics Tracking ID: ' + process.env.GOOGLE_ANALYTICS_TRACKING_ID);
 
+router.use(require('../helpers/authentication').authChecker);
+
 router.post('/', function (req, res, next) {
     let data = req.body;
     let context = data.attributes.context;
@@ -48,7 +50,8 @@ router.post('/', function (req, res, next) {
         cm6: context['downlink'], // download speed in mbit/s
 
         cd1: context['connection'], // connection type http://wicg.github.io/netinfo/ 
-        cd2: data.attributes.url.includes('localhost') ? 'local' : 'default'
+        cd2: data.attributes.url.includes('localhost') ? 'local' : 'default',
+        cd5: res.locals.currentSchool
     };
     api(req).post('/analytics', { json: hit }).then(result => {
         res.send(result);
