@@ -3,6 +3,10 @@
         <link rel="stylesheet" href="/styles/administration/school.css"/>
     {{/content}}
 
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/administration/schools.js" type="text/javascript" defer></script>
+    {{/content}}
+
     {{#content "page"}}
         <div class="route-administration">
             <section class="section-school section-default">
@@ -24,40 +28,12 @@
                                     <div class="form-group">
                                         <label>Schullogo hochladen</label><br/>
                                         <input type="hidden" name="logo_url">
-                                        <input type="file" id="logo-input" onchange="loadFile()">
+                                        <input type="file" id="logo-input">
                                         <label for="logo-input" class="btn btn-secondary">Datei auswählen</label>
                                         <span id="logo-filename">Keine Datei ausgewählt</span>
                                         <img id="preview-logo" src="">
                                         <canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
                                     </div>
-
-                                    <script>
-                                        function loadFile(){                                           
-                                            var file = document.querySelector('#logo-input').files[0]; 
-                                            var reader = new FileReader();
-                                            reader.addEventListener("load", function () {
-                                                transformToBase64(reader.result);
-                                            }, false);
-                                            if (file) {
-                                                reader.readAsDataURL(file);
-                                            }
-                                        }
-                                        function transformToBase64(image_src){
-                                            var img = new Image();
-                                            var canvas = document.querySelector('#logo-canvas');
-                                            var ctx = canvas.getContext("2d");
-                                            var scalingFactor;
-                                            img.onload = function(){  
-                                                ctx.clearRect(0, 0, canvas.width, canvas.height);                  
-                                                (img.width < img.height) ? scalingFactor = img.height / canvas.height : scalingFactor = img.width / canvas.width;                                                
-                                                ctx.drawImage(img, canvas.width / 2 - img.width / scalingFactor / 2, canvas.height / 2 - img.height / scalingFactor / 2, img.width / scalingFactor, img.height / scalingFactor);
-                                                document.getElementsByName('logo_url')[0].value = canvas.toDataURL("image/png");
-                                                document.querySelector('#preview-logo').src = canvas.toDataURL("image/png");
-                                                document.querySelector('#logo-filename').innerHTML = 'Datei ausgewählt';
-                                            }
-                                            img.src = image_src;
-                                        }                                                  
-                                    </script>
 
                                     {{#if ../school.fileStorageType}}
                                     <div class="form-group">
