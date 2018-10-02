@@ -260,7 +260,6 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
  */
 const checkIfOfficeFiles = files => {
     if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
-        // todo: discuss, whether this message has to be displayed every time when a file page is loaded
         logger.error('LibreOffice env is currently not defined.');
         return;
     }
@@ -294,9 +293,7 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
 
     // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980/
     const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
-    //todo: set correct url here
     const wopiRestUrl = process.env.BACKEND_URL || 'http://localhost:3030/';
-    //const wopiRestUrl = 'http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9000/';
 
     return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?access_token=${accessToken}`;
 };

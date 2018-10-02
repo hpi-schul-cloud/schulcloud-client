@@ -249,11 +249,15 @@ $(document).ready(function() {
 
     $newFileModal.find('.modal-form').on('submit', function (e) {
         e.preventDefault();
+
+        let studentEdit = false;
+        if (document.getElementById('student-can-edit'))
+            studentEdit = document.getElementById('student-can-edit').checked;
         $.post('/files/newFile', {
             name: $newFileModal.find('[name="new-file-name"]').val(),
             type: $("#file-ending").val(),
             dir: getCurrentDir(),
-            studentEdit: document.getElementById('student-can-edit').checked
+            studentEdit
         }, function (data) {
             reloadFiles();
         }).fail(showAJAXError);

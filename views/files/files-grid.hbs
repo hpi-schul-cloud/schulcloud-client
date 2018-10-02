@@ -76,7 +76,7 @@
                                 {{#if this.isOfficeFile}}
                                     <a href="#"
                                        class="btn-student-allow"
-                                       title="Schüler können editieren"
+                                       title="{{#if this.studentCanEdit}}Schüler editieren ausschalten{{else}}Schüler editieren einschalten{{/if}}"
                                        data-file-id="{{this._id}}"
                                        data-file-can-edit="{{this.studentCanEdit}}">
                                         <span class="fa-stack fa-1x">
