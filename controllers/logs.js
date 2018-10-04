@@ -20,7 +20,7 @@ const logger = winston.createLogger({
     ]
 });
 
-logger.info('Google Analytics Tracking ID: ' + process.env.GOOGLE_ANALYTICS_TRACKING_ID);
+logger.info('Google Analytics Tracking ID: ' + process.env.SW_GOOGLE_ANALYTICS_TRACKING_ID);
 
 router.use(require('../helpers/authentication').authChecker);
 
@@ -29,7 +29,7 @@ router.post('/', function (req, res, next) {
     let context = data.attributes.context;
     let dataUrl = url.parse(data.attributes.url);
     let hit = {
-        tid: process.env.GOOGLE_ANALYTICS_TRACKING_ID, // Tracking ID
+        tid: process.env.SW_GOOGLE_ANALYTICS_TRACKING_ID, // Tracking ID
         cid: crypto.createHash('sha256').update(req.sessionID).digest('base64'), // User ID
         t: 'pageview', // hit type
         v: 1, // version
