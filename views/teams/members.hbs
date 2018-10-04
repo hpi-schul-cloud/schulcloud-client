@@ -11,18 +11,68 @@
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
         <script src="/scripts/topic.js" type="text/javascript" defer></script>
+        <script src="/scripts/teamMembers.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
+      {{!-- <form action="{{action}}" method="post"> --}}
+
+        {{#if method}}
+            <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+        {{/if}}
 
         <section class="section-course">
+          <div class="padding-bottom">
+            <button type="submit" class="btn btn-primary btn-submit btn-add-member">
+              Interne Mitglieder hinzufügen
+            </button>
 
-          <div class="row">
-              <div class="col-sm-12 no-padding">
-                  {{> "lib/components/table" head=head body=body}}
-              </div>
+            <button type="submit" class="btn btn-primary btn-submit">
+              Externe Mitglieder hinzufügen
+            </button>
           </div>
 
+          {{!-- <div class="form-group">
+              <label for="invitation">Füge hier Lehrer und Schüler hinzu:</label>
+              <select name="userIds[]" multiple data-placeholder="Personen auswählen">
+                  {{#each users}}
+                      <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                          {{#if this.displayName}}
+                              {{this.displayName}}
+                          {{else}}
+                              {{this.firstName}} {{this.lastName}}
+                          {{/if}}
+                      </option>
+                  {{/each}}
+              </select>
+          </div> --}}
+
+          <div class="container-fluid padding-top">
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    {{> "lib/components/table" head=head body=body}}
+                </div>
+            </div>
+          </div>
+
+          <h4>Einladungen</h4>
+
+          {{#embed "lib/components/modal-form" class="add-member-modal"}}
+              {{#content "fields"}}
+                  {{> "teams/forms/form-add-member" users=users}}
+              {{/content}}
+          {{/embed}}
+
+          {{#embed "lib/components/modal-form" class="delete-member-modal"}}
+              {{#content "fields"}}
+                  {{> "teams/forms/form-delete-member"}}
+              {{/content}}
+          {{/embed}}
+
+          <button type="submit" class="btn btn-primary btn-submit">
+              Speichern
+          </button>
         </section>
+      {{!-- </form> --}}
     {{/content}}
 {{/extend}}

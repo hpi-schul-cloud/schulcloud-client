@@ -45,6 +45,7 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>Dateien</h4>
+                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
                 </div>
             </div>
 
@@ -78,7 +79,6 @@
                            redirect="/teams/">Team löschen</a>
                         <a data-href="teams/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
                     {{/userHasPermission}}
-                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
                 </div>
             </div>
 

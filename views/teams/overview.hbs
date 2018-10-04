@@ -57,6 +57,12 @@
                 {{/content}}
             {{/embed}}
 
+            {{#embed "lib/components/modal-form" class="add-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-add-member"}}
+                {{/content}}
+            {{/embed}}
+
             {{#embed "lib/components/modal-form" class="import-modal"}}
                 {{#content "fields"}}
                     {{> "courses/forms/form-import-course"}}

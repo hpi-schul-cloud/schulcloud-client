@@ -445,99 +445,83 @@ router.get('/:courseId', function(req, res, next) {
 });
 
 
-router.get('/:courseId/members', function(req, res, next) {
-    let itemsPerPage = 25;
-    let query = {
-        roles: ['teacher'],
-        $populate: ['roles'],
-        $limit: itemsPerPage
-    };
+router.get('/:courseId/members', async function(req, res, next) {
+    const itemsPerPage = 25;
+    const action = '/teams/' + req.params.courseId;
+    const method = 'patch';
 
-    Promise.all([
-        api(req).get('/courses/' + req.params.courseId, {
-            qs: {
-                $populate: ['ltiToolIds']
-            }
-        }),
-        api(req).get('/courseGroups/', {
-            qs: {
-                courseId: req.params.courseId,
-                $populate: ['courseId', 'userIds'],
-            }
-        }),
-        api(req).get('/users', {
-            qs: query
-        })
-    ]).then(([course, courseGroups, userData]) => {
-        let users = userData.data;
-
-        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-            courseGroups.data || [] :
-            (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
-
-        // users = users.map((user) => {
-        //     user.classesString = classes.filter((currentClass) => {
-        //         return currentClass.teacherIds.includes(user._id);
-        //     }).map((currentClass) => {return currentClass.displayName;}).join(', ');
-        //     return user;
-        // });
-
-        let head = [
-            'Vorname',
-            'Nachname',
-            'E-Mail-Adresse',
-            'Klasse(n)'
-        ];
-        if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
-            head.push('Einwilligung');
-            head.push('Erstellt am');
-            head.push('');
+    const course = await api(req).get('/courses/' + req.params.courseId, {
+        qs: {
+            courseId: req.params.courseId,
+            $populate: [
+            {
+                path: 'teacherIds',
+                populate: ['schoolId']
+            },
+            {
+                path: 'userIds',
+                populate: ['schoolId']
+            }]
         }
-        let body = users.map(user => {
-            let row = [
-                user.firstName || '',
-                user.lastName || '',
-                user.email || '',
-                user.classesString || ''
-            ];
-            if(res.locals.currentUser.roles.map(role => {return role.name;}).includes("administrator")){
-                row.push({
-                    useHTML: true,
-                    content: user.consentStatus
-                });
-                row.push(moment(user.createdAt).format('DD.MM.YYYY'));
-                row.push([{
-                    link: `/administration/teachers/${user._id}/edit`,
-                    title: 'Nutzer bearbeiten',
-                    icon: 'edit'
-                }]);
-            }
-            return row;
-        });
-
-        res.render('teams/members', Object.assign({}, course, {
-            title: course.name,
-            courseGroups,
-            head,
-            body,
-            breadcrumb: [{
-                    title: 'Meine Teams',
-                    url: '/teams'
-                },
-                {
-                    title: course.name,
-                    url: '/teams/' + course._id
-                },
-                {}
-            ]
-        }));
-    }).catch(err => {
-        next(err);
     });
+
+    const courseUserIds = course.userIds.map(user => user._id)
+
+    const users = (await api(req).get('/users', {
+        qs: {
+            _id: {
+                $nin: courseUserIds
+            }
+        }
+    })).data;
+
+    const classes = await getSelectOptions(req, 'classes', {});
+
+    let head = [
+        'Vorname',
+        'Nachname',
+        'Schule',
+        'Rolle',
+        ''
+    ];
+
+    let body = course.userIds.map(user => {
+        let row = [
+            user.firstName || '',
+            user.lastName || '',
+            user.schoolId.name || '',
+            ''
+        ];
+            row.push([{
+                link: `/administration/teachers/${user._id}/edit`,
+                title: 'Nutzer entfernen',
+                icon: 'remove'
+            }]);
+        return row;
+    });
+
+    res.render('teams/members', Object.assign({}, course, {
+        title: 'Mitglieder',
+        action,
+        method,
+        head,
+        body,
+        users,
+        breadcrumb: [{
+                title: 'Meine Teams',
+                url: '/teams'
+            },
+            {
+                title: course.name,
+                url: '/teams/' + course._id
+            },
+            {}
+        ]
+    }));
 });
 
 
-router.patch('/:courseId', function(req, res, next) {
+router.patch('/:courseId', async function(req, res, next) {
     // map course times to fit model
     req.body.times = req.body.times || [];
     req.body.times.forEach(time => {
@@ -560,18 +544,25 @@ router.patch('/:courseId', function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
+    const courseOld = await api(req).get('/courses/' + req.params.courseId);
+
     // first delete all old events for the course
-    deleteEventsForCourse(req, res, req.params.courseId).then(_ => {
-        api(req).patch('/courses/' + req.params.courseId, {
-            json: req.body // TODO: sanitize
-        }).then(course => {
-            createEventsForCourse(req, res, course).then(_ => {
-                res.redirect('/teams/' + req.params.courseId);
-            });
-        });
-    }).catch(error => {
-        res.sendStatus(500);
+    // deleteEventsForCourse(req, res, req.params.courseId).then(async _ => {
+
+    req.body.userIds = req.body.userIds.concat(courseOld.userIds);
+    console.log(req.body.userIds);
+
+    const courseUpdated = await api(req).patch('/courses/' + req.params.courseId, {
+        json: req.body // TODO: sanitize
     });
+
+    // await createEventsForCourse(req, res, courseUpdated);
+
+    res.redirect('/teams/' + req.params.courseId);
+
+    // }).catch(error => {
+    //     res.sendStatus(500);
+    // });
 });
 
 router.patch('/:courseId/positions', function(req, res, next) {
