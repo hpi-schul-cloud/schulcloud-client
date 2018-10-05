@@ -21,6 +21,7 @@ router.use('/courses/:courseId/tools/', require('./tools'));
 router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/teams/', require('./teams'));
 router.use('/teams/:courseId/topics/', require('./topics')('teams'));
+router.use('/teams/:courseId/tools/', require('./tools')('teams'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
