@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  
+  const $invitationModal = $('.invite-external-member-modal');
 
   /////////////
   // Add Member
@@ -58,32 +60,48 @@ $(document).ready(function () {
   $('.invite-external-member-modal form').on('submit', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    const email = $(this).find('#email').val();
-    const role = $(this).find('#role').val();
-
+    let email = $(this).find('#email').val() || "";
+    let role = $(this).find('#role').val() || "member";
+    let teamId = $invitationModal.find(".modal-form .form-group").attr('data-teamId');
+    console.log({email, role, teamId});
     $.ajax({
-      url: $(this).attr('action'),
-      method: 'POST',
-      data: {
-        email,
-        role
-      }
-    }).done(function() {
-      location.reload();
-    }).fail(function() {
-      // ToDo: Error handling
+        type: "POST",
+        url: window.location.origin+"/teams/invitelink",
+        data: {
+            role: role,
+            save: true,
+            teamId: teamId,
+            host: window.location.origin
+        },
+        success: function(linkData) {
+            console.log("linkData");
+            console.log(linkData);
+            populateModalForm($invitationModal, {
+                title: 'Einladungslink generiert!',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Speichern',
+                fields: {invitation: linkData.shortLink}
+            });
+            $invitationModal.find('.btn-submit').remove();
+            $invitationModal.find("input[name='invitation']").click(function () {
+                $(this).select();
+            });
+          
+            $invitationModal.appendTo('body').modal('show');
+            
+          
+        }
     });
-
     return false;
   });
 
   /////////////
-  // Add external Member
+  // Resend invitation
   /////////////
   $('.btn-resend-invitation').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
-    console.log('Resend!')
+    console.log('Resend!');
   });
 
 

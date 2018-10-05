@@ -1,21 +1,17 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/homework/homework.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" defer></script>
-        <script src="/scripts/topic.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
 
-        <section class="section-course">
+        <section class="section-teams" data-id="{{../_id}}">
 
             <div class="row description">
                 <div class="col-sm-12">
@@ -94,12 +90,6 @@
                             Löschen
                         </button>
                     </div>
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="invitation-modal"}}
-                {{#content "fields"}}
-                    {{> "courses/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 

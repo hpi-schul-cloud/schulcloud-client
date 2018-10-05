@@ -19,7 +19,7 @@
             <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
         {{/if}}
 
-        <section class="section-course">
+        <section class="section-add-members" data-id="{{../_id}}"">
             <div class="padding-bottom">
                 <button class="btn btn-primary btn-add-member">
                     Interne Mitglieder hinzufügen
@@ -49,13 +49,19 @@
 
             {{#embed "lib/components/modal-form" action=addMemberAction method="PATCH" class="add-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-add-member" users=users}}
+                    {{> "teams/forms/form-add-member" teamId=../_id users=users}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction method="POST" class="invite-external-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-invite-external-member"}}
+                    {{> "teams/forms/form-invite-external-member" teamId=../_id}}
                 {{/content}}
             {{/embed}}
 

@@ -748,4 +748,51 @@ router.post('/import', function(req, res, next) {
         });
 });
 
+/**
+ * Generates short team invite link. can be used as function or as hook call. email and sendMail will be gathered from req.body of not set.
+ * @param params {
+ *          role: user role = string "teacher"/"student"
+ *          save: hash will be generated with URI-safe characters
+ *          patchUser: hash will be patched into the user (DB)
+ *          host: current webaddress from client
+ *          schoolId: users schoolId = string
+ *          toHash: optional, user account mail for hash generation = string
+ *      }
+ */
+const generateInviteLink = (params, internalReturn) => {
+    return function (req, res, next) {
+        let options = JSON.parse(JSON.stringify(params));
+        if (!options.role) options.role = req.body.role || "";
+        if (!options.save) options.save = req.body.save || "";
+        if (!options.patchUser) options.patchUser = req.body.patchUser || "";
+        if (!options.host) options.host = req.headers.origin || "";
+        if (!options.schoolId) options.schoolId = req.body.schoolId || "";
+        if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
+        
+        if(internalReturn){
+            return api(req).post("/teaminvitelink/", {
+                json: options
+            });
+        } else {
+            return api(req).post("/teaminvitelink/", {
+                json: options
+            }).then(linkData => {
+                res.locals.linkData = linkData;
+                if(options.patchUser) req.body.importHash = linkData.hash;
+                next();
+            }).catch(err => {
+                req.session.notification = {
+                    'type': 'danger',
+                    'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+                };
+                res.redirect(req.header('Referer'));
+            });
+        }
+    };
+};
+
+// client-side use
+router.post('/invitelink/', permissionHelper.userHasPermission(res.locals.currentUser, 'ADD_SCHOOL_MEMBERS'), generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
+
+
 module.exports = router;
