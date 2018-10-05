@@ -225,14 +225,12 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                isTeam: true,
                 substitutionIds: res.locals.currentUser._id,
                 $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
-                isTeam: true,
                 $or: [
                     {userIds: res.locals.currentUser._id},
                     {teacherIds: res.locals.currentUser._id}
@@ -339,7 +337,6 @@ router.post('/copy/:courseId', function(req, res, next) {
     });
 });
 
-
 router.get('/add/', editCourseHandler);
 
 
@@ -372,78 +369,25 @@ router.get('/:courseId/usersJson', function(req, res, next) {
     ]).then(([course]) => res.json({ course }));
 });
 
-router.get('/:courseId', function(req, res, next) {
-    Promise.all([
-        api(req).get('/courses/' + req.params.courseId, {
-            qs: {
-                $populate: ['ltiToolIds']
-            }
-        }),
-        api(req).get('/lessons/', {
-            qs: {
-                courseId: req.params.courseId,
-                $sort: 'position'
-            }
-        }),
-        api(req).get('/homework/', {
-            qs: {
-                courseId: req.params.courseId,
-                $populate: ['courseId'],
-                archived: { $ne: res.locals.currentUser._id }
-            }
-        }),
-        api(req).get('/courseGroups/', {
-            qs: {
-                courseId: req.params.courseId,
-                $populate: ['courseId', 'userIds'],
-            }
-        })
-    ]).then(([course, lessons, homeworks, courseGroups]) => {
-        let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-        lessons = (lessons.data || []).map(lesson => {
-            return Object.assign(lesson, {
-                url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
-            });
-        });
-
-        homeworks = (homeworks.data || []).map(assignment => {
-            assignment.url = '/homework/' + assignment._id;
-            return assignment;
-        });
-
-        homeworks.sort((a, b) => {
-            if (a.dueDate > b.dueDate) {
-                return 1;
-            } else {
-                return -1;
-            }
-        });
-
-        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-            courseGroups.data || [] :
-            (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
-
-        res.render('teams/team', Object.assign({}, course, {
-            title: course.name,
-            lessons,
-            homeworks: homeworks.filter(function(task) { return !task.private; }),
-            myhomeworks: homeworks.filter(function(task) { return task.private; }),
-            ltiToolIds,
-            courseGroups,
-            breadcrumb: [{
-                    title: 'Meine Teams',
-                    url: '/teams'
-                },
-                {}
-            ],
-            filesUrl: `/files/courses/${req.params.courseId}`,
-            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
-        }));
-    }).catch(err => {
-        next(err);
+router.get('/:courseId', async function(req, res, next) {
+    const course = await api(req).get('/courses/' + req.params.courseId, {
+        qs: {
+            $populate: ['ltiToolIds']
+        }
     });
-});
 
+    res.render('teams/team', Object.assign({}, course, {
+        title: course.name,
+        breadcrumb: [{
+                title: 'Meine Teams',
+                url: '/teams'
+            },
+            {}
+        ],
+        filesUrl: `/files/courses/${req.params.courseId}`,
+        nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+    }));
+});
 
 router.get('/:courseId/members', async function(req, res, next) {
     const itemsPerPage = 25;
@@ -550,6 +494,81 @@ router.get('/:courseId/members', async function(req, res, next) {
     }));
 });
 
+router.get('/:courseId/topics', async function(req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        }),
+        api(req).get('/lessons/', {
+            qs: {
+                courseId: req.params.courseId,
+                $sort: 'position'
+            }
+        }),
+        api(req).get('/homework/', {
+            qs: {
+                courseId: req.params.courseId,
+                $populate: ['courseId'],
+                archived: { $ne: res.locals.currentUser._id }
+            }
+        }),
+        api(req).get('/courseGroups/', {
+            qs: {
+                courseId: req.params.courseId,
+                $populate: ['courseId', 'userIds'],
+            }
+        })
+    ]).then(([course, lessons, homeworks, courseGroups]) => {
+        let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
+        lessons = (lessons.data || []).map(lesson => {
+            return Object.assign(lesson, {
+                url: '/courses/' + req.params.courseId + '/topics/' + lesson._id + '/'
+            });
+        });
+
+        homeworks = (homeworks.data || []).map(assignment => {
+            assignment.url = '/homework/' + assignment._id;
+            return assignment;
+        });
+
+        homeworks.sort((a, b) => {
+            if (a.dueDate > b.dueDate) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
+        courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
+            courseGroups.data || [] :
+            (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+
+        res.render('teams/topics', Object.assign({}, course, {
+            title: course.name,
+            lessons,
+            homeworks: homeworks.filter(function(task) { return !task.private; }),
+            myhomeworks: homeworks.filter(function(task) { return task.private; }),
+            ltiToolIds,
+            courseGroups,
+            breadcrumb: [{
+                    title: 'Meine Teams',
+                    url: '/teams'
+                },
+                {
+                    title: course.name,
+                    url: '/teams/' + course._id
+                },
+                {}
+            ],
+            filesUrl: `/files/courses/${req.params.courseId}`,
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+        }));
+    }).catch(err => {
+        next(err);
+    });
+});
 
 router.patch('/:courseId', async function(req, res, next) {
     // map course times to fit model
