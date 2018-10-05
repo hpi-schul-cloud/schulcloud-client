@@ -15,49 +15,55 @@
     {{/content}}
 
     {{#content "page"}}
-      {{!-- <form action="{{action}}" method="post"> --}}
-
         {{#if method}}
             <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
         {{/if}}
 
         <section class="section-course">
-          <div class="padding-bottom">
-            <button type="submit" class="btn btn-primary btn-submit btn-add-member">
-              Interne Mitglieder hinzufügen
-            </button>
+            <div class="padding-bottom">
+                <button class="btn btn-primary btn-add-member">
+                    Interne Mitglieder hinzufügen
+                </button>
 
-            <button type="submit" class="btn btn-primary btn-submit">
-              Externe Mitglieder hinzufügen
-            </button>
-          </div>
+                <button class="btn btn-primary btn-invite-external-member">
+                    Externe Mitglieder einladen
+                </button>
+            </div>
 
-          <div class="container-fluid padding-top">
-            <div class="row">
-                <div class="col-sm-12 no-padding">
-                    {{> "lib/components/table" head=head body=body}}
+            <div class="container-fluid padding-top">
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        {{> "lib/components/table" head=head body=body}}
+                    </div>
                 </div>
             </div>
-          </div>
 
-          <h4>Einladungen</h4>
+            <h4 class="padding-top">Ausstehende Einladungen</h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        {{> "lib/components/table" head=headInvitations body=bodyInvitations}}
+                    </div>
+                </div>
+            </div>
 
-          {{#embed "lib/components/modal-form" action=addMemberAction method="PATCH" class="add-member-modal"}}
-              {{#content "fields"}}
-                  {{> "teams/forms/form-add-member" users=users}}
-              {{/content}}
-          {{/embed}}
+            {{#embed "lib/components/modal-form" action=addMemberAction method="PATCH" class="add-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-add-member" users=users}}
+                {{/content}}
+            {{/embed}}
 
-          {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-member-modal"}}
-              {{#content "fields"}}
-                  {{> "teams/forms/form-delete-member"}}
-              {{/content}}
-          {{/embed}}
+            {{#embed "lib/components/modal-form" action=inviteExternalMemberAction method="POST" class="invite-external-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-invite-external-member"}}
+                {{/content}}
+            {{/embed}}
 
-          <button type="submit" class="btn btn-primary btn-submit">
-              Speichern
-          </button>
+            {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-member"}}
+                {{/content}}
+            {{/embed}}
         </section>
-      {{!-- </form> --}}
     {{/content}}
 {{/extend}}

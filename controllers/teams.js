@@ -465,7 +465,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         }
     });
 
-    const courseUserIds = course.userIds.map(user => user._id)
+    const courseUserIds = course.userIds.map(user => user._id);
 
     const users = (await api(req).get('/users', {
         qs: {
@@ -480,8 +480,8 @@ router.get('/:courseId/members', async function(req, res, next) {
     let head = [
         'Vorname',
         'Nachname',
-        'Schule',
         'Rolle',
+        'Schule',
         ''
     ];
 
@@ -489,8 +489,8 @@ router.get('/:courseId/members', async function(req, res, next) {
         let row = [
             user.firstName || '',
             user.lastName || '',
+            'Schüler',
             user.schoolId.name || '',
-            '',
             {
                 payload: {
                     userId: user._id
@@ -507,14 +507,35 @@ router.get('/:courseId/members', async function(req, res, next) {
         return row;
     });
 
+    let headInvitations = [
+        'E-Mail',
+        'Eingeladen am',
+        'Rolle',
+        ''
+    ];
+
+    const resendAction = [{
+        class: 'btn-resend-invitation',
+        title: 'Nutzer erneut einladen',
+        icon: 'envelope'
+    }];
+
+    const bodyInvitations = [
+        ['marco@polo.de', '24. September 2018', 'Experte', resendAction],
+        ['axel@schweiss.de', '4. Oktober 2018', 'Experte', resendAction]
+    ];
+
     res.render('teams/members', Object.assign({}, course, {
         title: 'Mitglieder',
         action,
         addMemberAction: `/teams/${req.params.courseId}/members`,
+        inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
         deleteMemberAction: `/teams/${req.params.courseId}/members`,
         method,
         head,
         body,
+        headInvitations,
+        bodyInvitations,
         users,
         breadcrumb: [{
                 title: 'Meine Teams',
@@ -576,6 +597,17 @@ router.patch('/:courseId/members', async function(req, res, next) {
     await api(req).patch('/courses/' + req.params.courseId, {
         json: {
             userIds
+        }
+    });
+
+    res.sendStatus(200);
+});
+
+router.post('/:courseId/members/external', async function(req, res, next) {
+    await api(req).patch('/courses/' + req.params.courseId, {
+        json: {
+            email: req.body.email,
+            role: req.body.role
         }
     });
 

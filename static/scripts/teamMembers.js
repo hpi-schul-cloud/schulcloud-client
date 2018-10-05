@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  /////////////
+  // Add Member
+  /////////////
   $('.btn-add-member').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -28,13 +32,64 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      console.log('TODO: Error handling');
+      // ToDo: Error handling
     });
 
     return false;
   });
 
+  /////////////
+  // Add external Member
+  /////////////
+  $('.btn-invite-external-member').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $inviteExternalMemberModal = $('.invite-external-member-modal');
+    populateModalForm($inviteExternalMemberModal, {
+        title: 'Externes Mitglied einladen',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Mitglied einladen'
+    });
 
+    let $modalForm = $inviteExternalMemberModal.find(".modal-form");
+    $inviteExternalMemberModal.appendTo('body').modal('show');
+  });
+
+  $('.invite-external-member-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const email = $(this).find('#email').val();
+    const role = $(this).find('#role').val();
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'POST',
+      data: {
+        email,
+        role
+      }
+    }).done(function() {
+      location.reload();
+    }).fail(function() {
+      // ToDo: Error handling
+    });
+
+    return false;
+  });
+
+  /////////////
+  // Add external Member
+  /////////////
+  $('.btn-resend-invitation').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    console.log('Resend!')
+  });
+
+
+  /////////////
+  // Delete Member
+  /////////////
   $('.btn-delete-member').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -65,7 +120,7 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      console.log('TODO: Error handling');
+      // ToDo: Error handling
     });
 
     return false;
