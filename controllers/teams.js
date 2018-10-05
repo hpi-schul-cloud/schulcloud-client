@@ -485,24 +485,33 @@ router.get('/:courseId/members', async function(req, res, next) {
         ''
     ];
 
-    let body = course.userIds.map(user => {
+    const body = course.userIds.map(user => {
         let row = [
             user.firstName || '',
             user.lastName || '',
             user.schoolId.name || '',
-            ''
+            '',
+            {
+                payload: {
+                    userId: user._id
+                }
+            }
         ];
-            row.push([{
-                link: `/administration/teachers/${user._id}/edit`,
-                title: 'Nutzer entfernen',
-                icon: 'remove'
-            }]);
+
+        row.push([{
+            class: 'btn-delete-member',
+            title: 'Nutzer entfernen',
+            icon: 'remove'
+        }]);
+
         return row;
     });
 
     res.render('teams/members', Object.assign({}, course, {
         title: 'Mitglieder',
         action,
+        addMemberAction: `/teams/${req.params.courseId}/members`,
+        deleteMemberAction: `/teams/${req.params.courseId}/members`,
         method,
         head,
         body,
@@ -544,15 +553,10 @@ router.patch('/:courseId', async function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
-    const courseOld = await api(req).get('/courses/' + req.params.courseId);
-
     // first delete all old events for the course
     // deleteEventsForCourse(req, res, req.params.courseId).then(async _ => {
 
-    req.body.userIds = req.body.userIds.concat(courseOld.userIds);
-    console.log(req.body.userIds);
-
-    const courseUpdated = await api(req).patch('/courses/' + req.params.courseId, {
+    await api(req).patch('/courses/' + req.params.courseId, {
         json: req.body // TODO: sanitize
     });
 
@@ -565,6 +569,32 @@ router.patch('/:courseId', async function(req, res, next) {
     // });
 });
 
+router.patch('/:courseId/members', async function(req, res, next) {
+    const courseOld = await api(req).get('/courses/' + req.params.courseId);
+    let userIds = courseOld.userIds.concat(req.body.newUserIds);
+
+    await api(req).patch('/courses/' + req.params.courseId, {
+        json: {
+            userIds
+        }
+    });
+
+    res.sendStatus(200);
+});
+
+router.delete('/:courseId/members', async function(req, res, next) {
+    const courseOld = await api(req).get('/courses/' + req.params.courseId);
+    let userIds = courseOld.userIds.filter(id => id !== req.body.userIdToRemove);
+
+    await api(req).patch('/courses/' + req.params.courseId, {
+        json: {
+            userIds
+        }
+    });
+
+    res.sendStatus(200);
+});
+
 router.patch('/:courseId/positions', function(req, res, next) {
     for (var elem in req.body) {
         api(req).patch('/lessons/' + elem, {
@@ -574,6 +604,7 @@ router.patch('/:courseId/positions', function(req, res, next) {
             }
         });
     }
+
     res.sendStatus(200);
 });
 

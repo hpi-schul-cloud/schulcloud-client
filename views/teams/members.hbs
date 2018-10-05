@@ -32,21 +32,6 @@
             </button>
           </div>
 
-          {{!-- <div class="form-group">
-              <label for="invitation">Füge hier Lehrer und Schüler hinzu:</label>
-              <select name="userIds[]" multiple data-placeholder="Personen auswählen">
-                  {{#each users}}
-                      <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                          {{#if this.displayName}}
-                              {{this.displayName}}
-                          {{else}}
-                              {{this.firstName}} {{this.lastName}}
-                          {{/if}}
-                      </option>
-                  {{/each}}
-              </select>
-          </div> --}}
-
           <div class="container-fluid padding-top">
             <div class="row">
                 <div class="col-sm-12 no-padding">
@@ -57,13 +42,13 @@
 
           <h4>Einladungen</h4>
 
-          {{#embed "lib/components/modal-form" class="add-member-modal"}}
+          {{#embed "lib/components/modal-form" action=addMemberAction method="PATCH" class="add-member-modal"}}
               {{#content "fields"}}
                   {{> "teams/forms/form-add-member" users=users}}
               {{/content}}
           {{/embed}}
 
-          {{#embed "lib/components/modal-form" class="delete-member-modal"}}
+          {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-member-modal"}}
               {{#content "fields"}}
                   {{> "teams/forms/form-delete-member"}}
               {{/content}}
