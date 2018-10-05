@@ -225,14 +225,12 @@ router.get('/', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/', {
             qs: {
-                isTeam: true,
                 substitutionIds: res.locals.currentUser._id,
                 $limit: 75
             }
         }),
         api(req).get('/courses/', {
             qs: {
-                isTeam: true,
                 $or: [
                     {userIds: res.locals.currentUser._id},
                     {teacherIds: res.locals.currentUser._id}
