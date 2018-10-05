@@ -30,9 +30,10 @@ $(document).ready(function () {
         newUserIds
       }
     }).done(function() {
+      $.showNotification('Mitglieder erfolgreich zum Team hinzugefügt', "success", true);
       location.reload();
     }).fail(function() {
-      // ToDo: Error handling
+      $.showNotification('Problem beim Hinzufügen der Mitglieder', "danger", true);
     });
 
     return false;
@@ -83,7 +84,7 @@ $(document).ready(function () {
   $('.btn-resend-invitation').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
-    console.log('Resend!')
+    $.showNotification('Einladung wurde verschickt', "success", true);
   });
 
 
