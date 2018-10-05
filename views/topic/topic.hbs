@@ -66,7 +66,7 @@
             {{#if isCourseGroupTopic}}
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}" class="btn btn-add btn-primary">Thema
+                        <a href="/{{context}}/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}" class="btn btn-add btn-primary">Thema
                             bearbeiten</a>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                 {{#userHasPermission "COURSE_EDIT"}}
                     <div class="row padding-top">
                         <div class="col-sm-12">
-                            <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Bearbeiten</a>
+                            <a href="/{{context}}/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Bearbeiten</a>
                             <a href="#"
                             data-href="{{../_id}}"
                             data-courseId="{{../courseId}}"
@@ -99,7 +99,7 @@
                         <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
                             <h4>
                                 <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                                Gestellte Aufgaben 
+                                Gestellte Aufgaben
                                 <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
                             </h4>
                         </a>
@@ -122,7 +122,7 @@
                         <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
                             <h4>
                                 <small data-toggle="tooltip" title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                                Meine Aufgaben 
+                                Meine Aufgaben
                                 <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
                             </h4>
                         </a>
