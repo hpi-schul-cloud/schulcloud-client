@@ -21,13 +21,16 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
 
-    let newUserIds = $('.add-member-modal form select').val();
+    let userIds = $('.add-member-modal form select').val();
+    userIds = userIds.map(userId => {
+      return { userId };
+    });
 
     $.ajax({
       url: $(this).attr('action'),
       method: 'PATCH',
       data: {
-        newUserIds
+        userIds
       }
     }).done(function() {
       $.showNotification('Mitglieder erfolgreich zum Team hinzugefügt', "success", true);

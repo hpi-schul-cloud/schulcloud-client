@@ -93,20 +93,16 @@ const editCourseHandler = (req, res, next) => {
 
     const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
         .then(data => data.data );
-    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
-    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+    const usersPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent', 'teacher', 'demoTeacher'], $limit: 1000 });
 
     Promise.all([
         coursePromise,
         classesPromise,
-        teachersPromise,
-        studentsPromise
-    ]).then(([course, classes, teachers, students]) => {
+        usersPromise
+    ]).then(([course, classes, users]) => {
         // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
-        teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
-        students = students.filter(s => s.schoolId == res.locals.currentSchool);
-        let substitutions = _.cloneDeep(teachers);
+        users = users.filter(s => s.schoolId == res.locals.currentSchool);
 
         // map course times to fit into UI
         (course.times || []).forEach((time, count) => {
@@ -136,9 +132,8 @@ const editCourseHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             course,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
-            teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
-            substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
-            students: markSelected(students, _.map(course.userIds, '_id'))
+            // substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
+            users: markSelected(users, _.map(course.userIds, '_id'))
         });
     });
 };
@@ -387,6 +382,7 @@ router.get('/:courseId', async function(req, res, next) {
             },
             {}
         ],
+        course,
         filesUrl: `/files/teams/${req.params.courseId}`,
         nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
     }));
@@ -623,7 +619,7 @@ router.patch('/:courseId', async function(req, res, next) {
 
 router.patch('/:courseId/members', async function(req, res, next) {
     const courseOld = await api(req).get('/teams/' + req.params.courseId);
-    let userIds = courseOld.userIds.concat(req.body.newUserIds);
+    let userIds = courseOld.userIds.concat(req.body.userIds);
 
     await api(req).patch('/teams/' + req.params.courseId, {
         json: {
@@ -647,7 +643,7 @@ router.post('/:courseId/members/external', async function(req, res, next) {
 
 router.delete('/:courseId/members', async function(req, res, next) {
     const courseOld = await api(req).get('/teams/' + req.params.courseId);
-    let userIds = courseOld.userIds.filter(id => id !== req.body.userIdToRemove);
+    let userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
 
     await api(req).patch('/teams/' + req.params.courseId, {
         json: {

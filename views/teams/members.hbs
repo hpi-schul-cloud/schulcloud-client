@@ -47,7 +47,10 @@
                 </div>
             {{/ifCond}}
 
-            <h4 class="padding-top">{{arrayLength body}} Mitglieder</h4>
+            <h4 class="padding-top">{{arrayLength body}}
+                {{#ifCond (arrayLength body) '==' 1}} Mitglied {{/ifCond}}
+                {{#ifCond (arrayLength body) '>' 1}} Mitglieder {{/ifCond}}
+            </h4>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 no-padding">
