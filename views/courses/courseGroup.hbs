@@ -46,7 +46,7 @@
                             <div class="card card-topic" onclick="location.href='{{this.url}}'">
                                 <div class="card-header">
                                     <div class="input-group">
-                                        <p class="topic-label ml-1">{{this.name}}</p>
+                                        <p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
                                     
                                         <div class="right-btn-group">
                                             <a class="delete-topic btn btn-sm" href="/courses/{{../courseId}}/topics/{{_id}}?courseGroup={{../_id}}" target="_blank" data-method="DELETE"

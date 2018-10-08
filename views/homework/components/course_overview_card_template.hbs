@@ -4,7 +4,7 @@
             {{timeToString availableDate}}<br/>
                 bis {{timeToString dueDate}}
         </div>
-        <h5 class="title">{{this.name}}</h5>
+        <h5 class="title">{{{stripOnlyScript this.name}}}</h5>
         <div class="description">
             {{#if this.description}}
                 {{truncateHTML (conflictFreeHtml this.description)}}
