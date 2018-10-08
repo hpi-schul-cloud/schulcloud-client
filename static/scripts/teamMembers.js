@@ -1,6 +1,7 @@
 $(document).ready(function () {
   
-  const $invitationModal = $('.invite-external-member-modal');
+  const $inviteExternalMemberModal = $('.invite-external-member-modal');
+  const $inviteLinkModal = $('.invitation-modal');
 
   /////////////
   // Add Member
@@ -63,7 +64,7 @@ $(document).ready(function () {
     e.preventDefault();
     let email = $(this).find('#email').val() || "";
     let role = $(this).find('#role').val() || "member";
-    let teamId = $invitationModal.find(".modal-form .form-group").attr('data-teamId');
+    let teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
     console.log({email, role, teamId});
     $.ajax({
         type: "POST",
@@ -72,25 +73,24 @@ $(document).ready(function () {
             role: role,
             save: true,
             teamId: teamId,
-            host: window.location.origin
+            host: window.location.origin,
+            toHash: email,
+            patchUserInvite: true
         },
         success: function(linkData) {
             console.log("linkData");
             console.log(linkData);
-            populateModalForm($invitationModal, {
+            populateModalForm($inviteLinkModal, {
                 title: 'Einladungslink generiert!',
                 closeLabel: 'Abbrechen',
                 submitLabel: 'Speichern',
                 fields: {invitation: linkData.shortLink}
             });
-            $invitationModal.find('.btn-submit').remove();
-            $invitationModal.find("input[name='invitation']").click(function () {
+            $inviteLinkModal.find('.btn-submit').remove();
+            $inviteLinkModal.find("input[name='invitation']").click(function () {
                 $(this).select();
             });
-          
-            $invitationModal.appendTo('body').modal('show');
-            
-          
+            $inviteLinkModal.appendTo('body').modal('show');
         }
     });
     return false;
@@ -104,7 +104,6 @@ $(document).ready(function () {
     e.preventDefault();
     $.showNotification('Einladung wurde verschickt', "success", true);
   });
-
 
   /////////////
   // Delete Member

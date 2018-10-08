@@ -769,23 +769,24 @@ router.post('/import', function(req, res, next) {
 
 /**
  * Generates short team invite link. can be used as function or as hook call. email and sendMail will be gathered from req.body of not set.
- * @param params {
- *          role: user role = string "teacher"/"student"
- *          save: hash will be generated with URI-safe characters
- *          patchUser: hash will be patched into the user (DB)
- *          host: current webaddress from client
- *          schoolId: users schoolId = string
- *          toHash: optional, user account mail for hash generation = string
- *      }
+ * @param params = object {
+ *      role: user role = string "teamexpert"/"teamadministrator"
+ *      save: hash will be generated with URI-safe characters = boolean (might be a string)
+ *      patchUser: hash will be patched into the user (DB) = boolean (might be a string)
+ *      host: current webaddress from client = string
+ *      teamId: users teamId = string
+ *      toHash: invited users mail for hash generation = string
+ *  }
+ * @param internalReturn: just return results if true, handle client-reaction of false = boolean
  */
 const generateInviteLink = (params, internalReturn) => {
     return function (req, res, next) {
         let options = JSON.parse(JSON.stringify(params));
         if (!options.role) options.role = req.body.role || "";
         if (!options.save) options.save = req.body.save || "";
-        if (!options.patchUser) options.patchUser = req.body.patchUser || "";
-        if (!options.host) options.host = req.headers.origin || "";
-        if (!options.schoolId) options.schoolId = req.body.schoolId || "";
+        if (!options.patchUserInvite) options.patchUserInvite = req.body.patchUserInvite || "";
+        if (!options.host) options.host = req.headers.host || "";
+        if (!options.teamId) options.teamId = req.body.teamId || "";
         if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
         
         if(internalReturn){
@@ -797,7 +798,7 @@ const generateInviteLink = (params, internalReturn) => {
                 json: options
             }).then(linkData => {
                 res.locals.linkData = linkData;
-                if(options.patchUser) req.body.importHash = linkData.hash;
+                if(options.patchUserInvite) req.body.inviteHash = linkData.hash;
                 next();
             }).catch(err => {
                 req.session.notification = {
@@ -811,7 +812,9 @@ const generateInviteLink = (params, internalReturn) => {
 };
 
 // client-side use
-router.post('/invitelink/', permissionHelper.userHasPermission(res.locals.currentUser, 'ADD_SCHOOL_MEMBERS'), generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
+// WITH PERMISSION - NEEDED FOR LIVE
+// router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
+router.post('/invitelink/', generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
 
 
 module.exports = router;

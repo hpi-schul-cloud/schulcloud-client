@@ -242,7 +242,7 @@ const generateRegistrationLink = (params, internalReturn) => {
         if (!options.role) options.role = req.body.role || "";
         if (!options.save) options.save = req.body.save || "";
         if (!options.patchUser) options.patchUser = req.body.patchUser || "";
-        if (!options.host) options.host = req.headers.origin || "";
+        if (!options.host) options.host = req.headers.host || "";
         if (!options.schoolId) options.schoolId = req.body.schoolId || "";
         if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
         
