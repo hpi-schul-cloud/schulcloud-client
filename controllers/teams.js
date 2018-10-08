@@ -426,7 +426,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         'Nachname',
         'Rolle',
         'Schule',
-        ''
+        'Aktionen'
     ];
 
     const body = course.userIds.map(user => {
@@ -443,9 +443,13 @@ router.get('/:courseId/members', async function(req, res, next) {
         ];
 
         row.push([{
+            class: 'btn-edit-member',
+            title: 'Rolle bearbeiten',
+            icon: 'edit'
+        }, {
             class: 'btn-delete-member',
             title: 'Nutzer entfernen',
-            icon: 'remove'
+            icon: 'trash'
         }]);
 
         return row;
@@ -455,22 +459,26 @@ router.get('/:courseId/members', async function(req, res, next) {
         'E-Mail',
         'Eingeladen am',
         'Rolle',
-        ''
+        'Aktionen'
     ];
 
-    const resendAction = [{
+    const invitationActions = [{
         class: 'btn-resend-invitation',
         title: 'Nutzer erneut einladen',
         icon: 'envelope'
-    }];
+    }, {
+        class: 'btn-delete-invitation',
+        title: 'Einladung zurückziehen',
+        icon: 'trash'
+    },];
 
     const bodyInvitations = [
-        ['marco@polo.de', '24. September 2018', 'Experte', resendAction],
-        ['axel@schweiss.de', '4. Oktober 2018', 'Experte', resendAction]
+        ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
+        ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
     ];
 
     res.render('teams/members', Object.assign({}, course, {
-        title: 'Mitglieder',
+        title: 'Mitglieder Übersicht',
         action,
         addMemberAction: `/teams/${req.params.courseId}/members`,
         inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,

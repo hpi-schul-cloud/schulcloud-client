@@ -72,21 +72,68 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      // ToDo: Error handling
+      $.showNotification('Problem beim versenden der Einladung', "danger", true);
     });
 
     return false;
   });
 
   /////////////
-  // Add external Member
+  // Resend invitation
   /////////////
   $('.btn-resend-invitation').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
-    $.showNotification('Einladung wurde verschickt', "success", true);
+    $.showNotification('Einladung wurde erneut verschickt', "success", true);
   });
 
+  /////////////
+  // Delete invitation
+  /////////////
+  $('.btn-delete-invitation').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    $.showNotification('Einladung wurde zurückgezogen', "success", true);
+  });
+
+  /////////////
+  // Edit Member
+  /////////////
+  $('.btn-edit-member').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $editMemberModal = $('.edit-member-modal');
+    const userId = $(this).parent().parent().find('[data-payload]').data('payload');
+    populateModalForm($editMemberModal, {
+        title: 'Mitglied bearbeiten',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Mitglied bearbeiten',
+        payload: userId
+    });
+
+    let $modalForm = $editMemberModal.find(".modal-form");
+    $editMemberModal.appendTo('body').modal('show');
+  });
+
+  $('.edit-member-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const userId = $(this).data('payload').userId;
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'PATCH',
+      data: {
+        userId
+      }
+    }).done(function() {
+      location.reload();
+    }).fail(function() {
+      $.showNotification('Problem beim Bearbeiten des Mitglieds', "danger", true);
+    });
+
+    return false;
+  });
 
   /////////////
   // Delete Member
@@ -121,7 +168,7 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      // ToDo: Error handling
+      $.showNotification('Problem beim Löschen des Mitglieds', "danger", true);
     });
 
     return false;
