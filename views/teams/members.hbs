@@ -59,19 +59,25 @@
                 </div>
             </div>
 
-            {{#embed "lib/components/modal-form" action=addMemberAction method="PATCH" class="add-member-modal"}}
+            {{#embed "lib/components/modal-form" action=addMemberAction class="add-member-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-add-member" users=users}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" action=editMemberAction method="PATCH" class="edit-member-modal"}}
+            {{#embed "lib/components/modal-form" action=editMemberAction class="edit-member-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-edit-member"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" action=inviteExternalMemberAction method="POST" class="invite-external-member-modal"}}
+            {{#embed "lib/components/modal-form" class="edit-invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-edit-invitation"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-invite-external-member"}}
                 {{/content}}

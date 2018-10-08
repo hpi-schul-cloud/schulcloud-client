@@ -407,8 +407,6 @@ router.get('/:courseId/members', async function(req, res, next) {
         }
     });
 
-    console.dir(course.userIds);
-
     const courseUserIds = course.userIds.map(user => user.userId._id);
 
     const users = (await api(req).get('/users', {
@@ -463,14 +461,10 @@ router.get('/:courseId/members', async function(req, res, next) {
     ];
 
     const invitationActions = [{
-        class: 'btn-resend-invitation',
-        title: 'Nutzer erneut einladen',
-        icon: 'envelope'
-    }, {
-        class: 'btn-delete-invitation',
-        title: 'Einladung zurückziehen',
-        icon: 'trash'
-    },];
+        class: 'btn-edit-invitation',
+        title: 'Einladung bearbeiten',
+        icon: 'edit'
+    }];
 
     const bodyInvitations = [
         ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],

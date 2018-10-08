@@ -82,21 +82,23 @@ $(document).ready(function () {
   });
 
   /////////////
-  // Resend invitation
+  // Edit invitation
   /////////////
-  $('.btn-resend-invitation').click(function (e) {
+  $('.btn-edit-invitation').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
-    $.showNotification('Einladung wurde erneut verschickt', "success", true);
-  });
 
-  /////////////
-  // Delete invitation
-  /////////////
-  $('.btn-delete-invitation').click(function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    $.showNotification('Einladung wurde zurückgezogen', "success", true);
+    let $editInvitationModal = $('.edit-invitation-modal');
+    const invitationId = $(this).parent().parent().find('[data-payload]').data('payload');
+    populateModalForm($editInvitationModal, {
+        title: 'Einladung bearbeiten',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Änderungen speichern',
+        payload: invitationId
+    });
+
+    let $modalForm = $editInvitationModal.find(".modal-form");
+    $editInvitationModal.appendTo('body').modal('show');
   });
 
   /////////////
