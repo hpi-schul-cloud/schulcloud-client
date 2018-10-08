@@ -90,6 +90,7 @@ $(document).ready(function () {
             $inviteLinkModal.find("input[name='invitation']").click(function () {
                 $(this).select();
             });
+            $inviteExternalMemberModal.modal('hide');
             $inviteLinkModal.appendTo('body').modal('show');
         }
     });

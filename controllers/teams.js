@@ -768,7 +768,7 @@ router.post('/import', function(req, res, next) {
 });
 
 /**
- * Generates short team invite link. can be used as function or as hook call. email and sendMail will be gathered from req.body of not set.
+ * Generates short team invite link. can be used as function or as hook call.
  * @param params = object {
  *      role: user role = string "teamexpert"/"teamadministrator"
  *      save: hash will be generated with URI-safe characters = boolean (might be a string)
@@ -777,7 +777,7 @@ router.post('/import', function(req, res, next) {
  *      teamId: users teamId = string
  *      toHash: invited users mail for hash generation = string
  *  }
- * @param internalReturn: just return results if true, handle client-reaction of false = boolean
+ * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
  */
 const generateInviteLink = (params, internalReturn) => {
     return function (req, res, next) {
@@ -798,6 +798,7 @@ const generateInviteLink = (params, internalReturn) => {
                 json: options
             }).then(linkData => {
                 res.locals.linkData = linkData;
+                res.locals.options = options;
                 if(options.patchUserInvite) req.body.inviteHash = linkData.hash;
                 next();
             }).catch(err => {
@@ -811,10 +812,53 @@ const generateInviteLink = (params, internalReturn) => {
     };
 };
 
+const sendMailHandler = (internalReturn) => {
+    return function (req, res, next) {
+        let data = Object.assign(res.locals.options, res.locals.linkData);
+        if(data.toHash && data.teamId && data.shortLink) {
+            return api(req).post('/mails/', {
+                json: {
+                    email: data.toHash,
+                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                    headers: {},
+                    content: {
+                        "text": `Einladung in die ${res.locals.theme.title}
+Hallo ${data.email}!
+\nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${data.shortLink}
+\nViel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`
+                    }
+                }
+            }).then(_ => {
+                if(internalReturn) return true;
+                req.session.notification = {
+                    type: 'success',
+                    message: 'Nutzer erfolgreich eingeladen und Informationen per E-Mail verschickt.'
+                };
+                res.redirect(req.header('Referer'));
+            }).catch(err => {
+                if(internalReturn) return false;
+                req.session.notification = {
+                    'type': 'danger',
+                    'message': `Nutzer erfolgreich eingeladen. Fehler beim Versenden der E-Mail. Bitte Einladungsmail erneut zusenden. ${(err.error || {}).message || err.message || err || ""}`
+                };
+                res.redirect(req.header('Referer'));
+            });
+        } else {
+            if(internalReturn) return true;
+            req.session.notification = {
+                type: 'danger',
+                message: 'Nutzer erfolgreich eingeladen. Fehler beim Versenden der E-Mail. Bitte Einladungsmail erneut zusenden.'
+            };
+            res.redirect(req.header('Referer'));
+        }
+    }
+};
+
 // client-side use
 // WITH PERMISSION - NEEDED FOR LIVE
 // router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
-router.post('/invitelink/', generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
+router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
 
 
 module.exports = router;
