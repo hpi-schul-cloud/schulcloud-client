@@ -554,13 +554,6 @@ router.patch('/:courseId', async function(req, res, next) {
     req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
     req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
 
-    if (!req.body.classIds)
-        req.body.classIds = [];
-    if (!req.body.userIds)
-        req.body.userIds = [];
-    if (!req.body.substitutionIds)
-        req.body.substitutionIds = [];
-
     if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
         delete req.body.startDate;
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
