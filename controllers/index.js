@@ -22,7 +22,7 @@ router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
-router.use("/schics/", require("./schics"));
+router.use('/planner/', require('./planner'));
 router.use('/news/', require('./news'));
 router.use('/helpdesk/', require('./helpdesk'));
 router.use('/pwrecovery/', require('./pwrecovery'));
