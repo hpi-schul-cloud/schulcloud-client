@@ -20,7 +20,7 @@
         <div id="roles" data-roles="{{roles}}"></div>
 
         <section class="section-course">
-            {{#userHasPermission "ADD_SCHOOL_MEMBERS"}}
+            {{!-- {{#userHasPermission "ADD_SCHOOL_MEMBERS"}} --}}
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-6">
@@ -38,9 +38,9 @@
                         </div>
                     </div>
                 </div>
-            {{/userHasPermission}}
+            {{!-- {{/userHasPermission}} --}}
 
-            {{#ifCond (arrayLength bodyInvitations) '>' 0}}
+            {{!-- {{#ifCond (arrayLength bodyInvitations) '>' 0}}
                 <h4 style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h4>
                 <div class="container-fluid">
                     <div class="row">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                 </div>
-            {{/ifCond}}
+            {{/ifCond}} --}}
 
             <h4 class="padding-top">{{arrayLength body}}
                 {{#ifCond (arrayLength body) '==' 1}} Mitglied {{/ifCond}}

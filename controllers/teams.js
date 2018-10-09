@@ -324,7 +324,6 @@ router.get('/:courseId', async function(req, res, next) {
 });
 
 router.get('/:courseId/members', async function(req, res, next) {
-    const itemsPerPage = 25;
     const action = '/teams/' + req.params.courseId;
     const method = 'patch';
 

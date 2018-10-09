@@ -43,6 +43,19 @@
                            value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
                 </div>
 
+                <div style="margin-bottom: 2rem" class="padding-top">
+                    <strong>Voreingestellte Zugriffsberechtigungen für neue Ordner und Dateien innerhalb des Teams:</strong>
+                    <br><br>
+                    <label for="externalExperts">Externe Experten dürfen zugreifen</label>
+                    <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" checked="checked" />
+                    <br>
+                    <label for="members">Mitglieder dürfen zugreifen</label>
+                    <input class="box" type="checkbox" name="members" value="allowExternalMembers" checked="checked" />
+                    <br><br>
+                    <i>Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.</i>
+                    <br>
+                </div>
+
                 {{!-- <div class="form-group">
                     <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
 
