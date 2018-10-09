@@ -28,7 +28,7 @@ $(document).ready(function () {
 
     $.ajax({
       url: $(this).attr('action'),
-      method: 'PATCH',
+      method: 'POST',
       data: {
         userIds
       }
@@ -123,13 +123,16 @@ $(document).ready(function () {
   $('.edit-member-modal form').on('submit', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    const userId = $(this).data('payload').userId;
+    const user = {
+      userId: $(this).data('payload').userId,
+      role: $(this).find('#role').val()
+    };
 
     $.ajax({
       url: $(this).attr('action'),
       method: 'PATCH',
       data: {
-        userId
+        user
       }
     }).done(function() {
       location.reload();

@@ -252,7 +252,7 @@ router.get('/', async function(req, res, next) {
         }
     });
 
-    courses = courses.data.map(course => {
+    courses = courses.map(course => {
         course.url = '/teams/' + course._id;
         course.title = course.name;
         course.content = (course.description||"").substr(0, 140);
@@ -395,7 +395,6 @@ router.get('/:courseId/members', async function(req, res, next) {
 
     const course = await api(req).get('/teams/' + req.params.courseId, {
         qs: {
-            // courseId: req.params.courseId,
             $populate: [
                 {
                     path: 'userIds.userId',
@@ -417,7 +416,42 @@ router.get('/:courseId/members', async function(req, res, next) {
         }
     })).data;
 
-    const classes = await getSelectOptions(req, 'classes', {});
+    let roles = (await api(req).get('/roles', {
+        qs: {
+            name: {
+                $in: ['teammember', 'teamexpert', 'teamleader',
+                      'teamadministrator', 'teamowner']
+            }
+        }
+    })).data;
+
+    const roleTranslations = {
+        teammember: 'Mitglied',
+        teamexpert: 'externer Experte',
+        teamleader: 'Leiter',
+        teamadministrator: 'Team-Admin',
+        teamowner: 'Team-Admin (Eigentümer)',
+    };
+
+    roles = roles.map(role => {
+        role.label = roleTranslations[role.name];
+        return role;
+    });
+
+    const rolesExternal = [
+        {
+            name: 'teamexpert',
+            label: 'externer Experte',
+            _id: roles.find(role => role.name === 'teamexpert')
+        },
+        {
+            name: 'teamexpert',
+            label: 'externer Experte',
+            _id: roles.find(role => role.name === 'teamexpert')
+        }
+    ];
+
+    // const classes = await getSelectOptions(req, 'classes', {});
 
     let head = [
         'Vorname',
@@ -431,7 +465,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         let row = [
             user.userId.firstName || '',
             user.userId.lastName || '',
-            user.roleName,
+            roleTranslations[user.role.name],
             user.userId.schoolId.name || '',
             {
                 payload: {
@@ -472,7 +506,7 @@ router.get('/:courseId/members', async function(req, res, next) {
     ];
 
     res.render('teams/members', Object.assign({}, course, {
-        title: 'Mitglieder Übersicht',
+        title: 'Deine Team-Mitglieder',
         action,
         addMemberAction: `/teams/${req.params.courseId}/members`,
         inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
@@ -480,6 +514,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         method,
         head,
         body,
+        roles,
         headInvitations,
         bodyInvitations,
         users,
@@ -611,9 +646,27 @@ router.patch('/:courseId', async function(req, res, next) {
     // });
 });
 
-router.patch('/:courseId/members', async function(req, res, next) {
+router.post('/:courseId/members', async function(req, res, next) {
     const courseOld = await api(req).get('/teams/' + req.params.courseId);
     let userIds = courseOld.userIds.concat(req.body.userIds);
+
+    await api(req).patch('/teams/' + req.params.courseId, {
+        json: {
+            userIds
+        }
+    });
+
+    res.sendStatus(200);
+});
+
+router.patch('/:courseId/members', async function(req, res, next) {
+    const course = await api(req).get('/teams/' + req.params.courseId);
+    const userIds = course.userIds.map(user => {
+        if (user.userId === req.body.user.userId) {
+            user.role = req.body.user.role;
+        }
+        return user;
+    });
 
     await api(req).patch('/teams/' + req.params.courseId, {
         json: {
