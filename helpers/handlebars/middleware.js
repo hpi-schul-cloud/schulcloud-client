@@ -138,9 +138,21 @@ module.exports = (req, res, next) => {
         ]
     });
     res.locals.sidebarItems.push({
-        name: 'Schics',
+        name: 'Schuljahresplaner',
         icon: 'graduation-cap',
-        link: '/schics/'
+        link: '/planner/',
+        children: [
+            {
+                name: 'Kalendar',
+                icon: 'odnoklassniki',
+                link: '/planner/calendar/'
+            },
+            {
+                name: 'Meine Klassen',
+                icon: 'odnoklassniki',
+                link: '/planner/myClasses/'
+            },
+        ]
     });
 
     // helpdesk views
