@@ -65,17 +65,16 @@ $(document).ready(function () {
     let email = $(this).find('#email').val() || "";
     let role = $(this).find('#role').val() || "member";
     let teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
-    console.log({email, role, teamId});
+    let origin = window.location.origin;
+    console.log({email, role, teamId, origin});
     $.ajax({
         type: "POST",
-        url: window.location.origin+"/teams/invitelink",
+        url: origin+"/teams/invitelink",
         data: {
+            host: origin,
             role: role,
-            save: true,
             teamId: teamId,
-            host: window.location.origin,
-            toHash: email,
-            patchUserInvite: true
+            invitee: email
         },
         success: function(linkData) {
             console.log("linkData");

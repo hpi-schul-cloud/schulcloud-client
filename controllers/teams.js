@@ -771,11 +771,10 @@ router.post('/import', function(req, res, next) {
  * Generates short team invite link. can be used as function or as hook call.
  * @param params = object {
  *      role: user role = string "teamexpert"/"teamadministrator"
- *      save: hash will be generated with URI-safe characters = boolean (might be a string)
- *      patchUser: hash will be patched into the user (DB) = boolean (might be a string)
- *      host: current webaddress from client = string
+ *      host: current webaddress from client = string, looks for req.headers.origin first
  *      teamId: users teamId = string
- *      toHash: invited users mail for hash generation = string
+ *      invitee: user who gets invited = string
+ *      save: make hash link-friendly? = boolean (might be string)
  *  }
  * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
  */
@@ -783,11 +782,11 @@ const generateInviteLink = (params, internalReturn) => {
     return function (req, res, next) {
         let options = JSON.parse(JSON.stringify(params));
         if (!options.role) options.role = req.body.role || "";
-        if (!options.save) options.save = req.body.save || "";
-        if (!options.patchUserInvite) options.patchUserInvite = req.body.patchUserInvite || "";
-        if (!options.host) options.host = req.headers.host || "";
+        if (!options.host) options.host = req.headers.origin || req.body.host || "";
         if (!options.teamId) options.teamId = req.body.teamId || "";
-        if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
+        if (!options.invitee) options.invitee = req.body.email || req.body.invitee || "";
+        if (!options.save) options.save = req.body.save || "true";
+        options.inviter = res.locals.currentUser._id;
         
         if(internalReturn){
             return api(req).post("/teaminvitelink/", {
@@ -799,7 +798,6 @@ const generateInviteLink = (params, internalReturn) => {
             }).then(linkData => {
                 res.locals.linkData = linkData;
                 res.locals.options = options;
-                if(options.patchUserInvite) req.body.inviteHash = linkData.hash;
                 next();
             }).catch(err => {
                 req.session.notification = {
@@ -815,15 +813,15 @@ const generateInviteLink = (params, internalReturn) => {
 const sendMailHandler = (internalReturn) => {
     return function (req, res, next) {
         let data = Object.assign(res.locals.options, res.locals.linkData);
-        if(data.toHash && data.teamId && data.shortLink) {
+        if(data.invitee && data.teamId && data.shortLink) {
             return api(req).post('/mails/', {
                 json: {
-                    email: data.toHash,
+                    email: data.invitee,
                     subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
                     headers: {},
                     content: {
                         "text": `Einladung in die ${res.locals.theme.title}
-Hallo ${data.email}!
+Hallo ${data.invitee}!
 \nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${data.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
@@ -831,34 +829,42 @@ ${res.locals.theme.short_title}-Team`
                 }
             }).then(_ => {
                 if(internalReturn) return true;
-                req.session.notification = {
-                    type: 'success',
-                    message: 'Nutzer erfolgreich eingeladen und Informationen per E-Mail verschickt.'
-                };
-                res.redirect(req.header('Referer'));
+                next();
             }).catch(err => {
                 if(internalReturn) return false;
-                req.session.notification = {
-                    'type': 'danger',
-                    'message': `Nutzer erfolgreich eingeladen. Fehler beim Versenden der E-Mail. Bitte Einladungsmail erneut zusenden. ${(err.error || {}).message || err.message || err || ""}`
-                };
-                res.redirect(req.header('Referer'));
+                next();
             });
         } else {
             if(internalReturn) return true;
-            req.session.notification = {
-                type: 'danger',
-                message: 'Nutzer erfolgreich eingeladen. Fehler beim Versenden der E-Mail. Bitte Einladungsmail erneut zusenden.'
-            };
-            res.redirect(req.header('Referer'));
+            next();
         }
     }
 };
 
 // client-side use
 // WITH PERMISSION - NEEDED FOR LIVE
-// router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), (req, res) => { res.json(res.locals.linkData);});
+// router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
 router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
+
+router.get('/invite/:role/to/:teamHash', function (req, res, next) {
+    if (["teamadministrator","teamexpert"].includes(req.params.role) && req.query.shortId) {
+        return api(req).patch('/teams/adduser/', {shortId: shortId})
+            .then(result => {
+                return !!(internalReturn && result.added == "true");
+                next();
+            })
+            .catch(err => {
+                if(internalReturn) return false;
+                next();
+            });
+    } else {
+        req.session.notification = {
+            type: 'danger',
+            message: `Fehler beim Einladen in ein Team, unzureichende Daten.`
+        };
+        res.redirect('/teams/');
+    }
+});
 
 
 module.exports = router;
