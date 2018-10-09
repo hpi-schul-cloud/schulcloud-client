@@ -80,60 +80,21 @@ const editCourseHandler = (req, res, next) => {
     if (req.params.courseId) {
         action = '/teams/' + req.params.courseId;
         method = 'patch';
-        coursePromise = api(req).get('/teams/' + req.params.courseId, {
-            qs: {
-                $populate: ['ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
-            }
-        });
+        coursePromise = api(req).get('/teams/' + req.params.courseId);
     } else {
         action = '/teams/';
         method = 'post';
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
-        .then(data => data.data );
-    const usersPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent', 'teacher', 'demoTeacher'], $limit: 1000 });
-
-    Promise.all([
-        coursePromise,
-        classesPromise,
-        usersPromise
-    ]).then(([course, classes, users]) => {
-        // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
-        users = users.filter(s => s.schoolId == res.locals.currentSchool);
-
-        // map course times to fit into UI
-        (course.times || []).forEach((time, count) => {
-            time.duration = time.duration / 1000 / 60;
-            const duration = moment.duration(time.startTime);
-            time.startTime = ("00" + duration.hours()).slice(-2) + ':' + ("00" + duration.minutes()).slice(-2);
-            time.count = count;
-        });
-
-        // format course start end until date
-        if (course.startDate) {
-            course.startDate = moment(new Date(course.startDate).getTime()).format("DD.MM.YYYY");
-            course.untilDate = moment(new Date(course.untilDate).getTime()).format("DD.MM.YYYY");
-        }
-
-        // preselect current teacher when creating new course
-        if (!req.params.courseId) {
-            course.teacherIds = [];
-            course.teacherIds.push(res.locals.currentUser);
-        }
-
+    coursePromise.then(course => {
         res.render('teams/edit-team', {
             action,
             method,
             title: req.params.courseId ? 'Team bearbeiten' : 'Team anlegen',
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Team anlegen',
             closeLabel: 'Abbrechen',
-            course,
-            classes: markSelected(classes, _.map(course.classIds, '_id')),
-            // substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
-            users: markSelected(users, _.map(course.userIds, '_id'))
+            course
         });
     });
 };
@@ -217,37 +178,11 @@ router.use(authHelper.authChecker);
 
 
 router.get('/', async function(req, res, next) {
-    // Promise.all([
-    //     // api(req).get('/teams/', {
-    //     //     qs: {
-    //     //         substitutionIds: res.locals.currentUser._id,
-    //     //         $limit: 75
-    //     //     }
-    //     // }),
-    //     api(req).get('/teams/', {
-    //         qs: {
-    //             $limit: 75
-    //         }
-    //     })
-    // // ]).then(([substitutionCourses, courses]) => {
-    // ]).then((courses) => {
-        // substitutionCourses = substitutionCourses.data.map(course => {
-        //     course.url = '/teams/' + course._id;
-        //     course.title = course.name;
-        //     course.content = (course.description||"").substr(0, 140);
-        //     course.secondaryTitle = '';
-        //     course.background = course.color;
-        //     course.memberAmount = course.userIds.length;
-        //     (course.times || []).forEach(time => {
-        //         time.startTime = moment(time.startTime, "x").format("HH:mm");
-        //         time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-        //         course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
-        //     });
-        //     return course;
-        // });
-
     let courses = await api(req).get('/teams/', {
         qs: {
+            userIds: {
+                $elemMatch: { userId: res.locals.currentUser._id }
+            },
             $limit: 75
         }
     });
@@ -393,6 +328,7 @@ router.get('/:courseId/members', async function(req, res, next) {
     const action = '/teams/' + req.params.courseId;
     const method = 'patch';
 
+
     const course = await api(req).get('/teams/' + req.params.courseId, {
         qs: {
             $populate: [
@@ -445,9 +381,9 @@ router.get('/:courseId/members', async function(req, res, next) {
             _id: roles.find(role => role.name === 'teamexpert')
         },
         {
-            name: 'teamexpert',
-            label: 'externer Experte',
-            _id: roles.find(role => role.name === 'teamexpert')
+            name: 'teamadministrator',
+            label: 'Lehrer anderer Schule (Team-Admin)',
+            _id: roles.find(role => role.name === 'teamadministrator')
         }
     ];
 
@@ -515,6 +451,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         head,
         body,
         roles,
+        rolesExternal,
         headInvitations,
         bodyInvitations,
         users,

@@ -20,23 +20,25 @@
         <div id="roles" data-roles="{{roles}}"></div>
 
         <section class="section-course">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <p>Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.</p>
-                        <button class="btn btn-primary btn-add-member padding-bottom">
-                            Interne Mitglieder hinzufügen
-                        </button>
-                    </div>
+            {{#userHasPermission "ADD_SCHOOL_MEMBERS"}}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <p>Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.</p>
+                            <button class="btn btn-primary btn-add-member padding-bottom">
+                                Interne Mitglieder hinzufügen
+                            </button>
+                        </div>
 
-                    <div class="col-sm-6">
-                        <p>Lade externe Experten und Admins anderer Schulen per E-Mail ein.</p>
-                        <button class="btn btn-primary btn-invite-external-member">
-                            Externe Mitglieder einladen
-                        </button>
+                        <div class="col-sm-6">
+                            <p>Lade externe Experten und Admins anderer Schulen per E-Mail ein.</p>
+                            <button class="btn btn-primary btn-invite-external-member">
+                                Externe Mitglieder einladen
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/userHasPermission}}
 
             {{#ifCond (arrayLength bodyInvitations) '>' 0}}
                 <h4 style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h4>
@@ -81,7 +83,7 @@
 
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-invite-external-member"}}
+                    {{> "teams/forms/form-invite-external-member" roles=rolesExternal}}
                 {{/content}}
             {{/embed}}
 

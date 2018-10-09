@@ -8,8 +8,9 @@
     <div style="margin-bottom: 6rem" class="form-group padding-bottom">
         <label for="role">Gebe ein, welche Rolle das Mitglied erhalten soll.</label>
         <select placeholder="Rolle angeben" name="role" id="role">
-            <option selected value="expert">Experte</option>
-            <option value="teamadmin">Team-Admin</option>
+            {{#each roles}}
+                <option value="{{this._id}}" selected>{{this.label}}</option>
+            {{/each}}
         </select>
     </div>
 </div>
