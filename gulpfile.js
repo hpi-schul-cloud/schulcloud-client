@@ -118,7 +118,7 @@ gulp.task('fonts', () => {
 
 //compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => {
-  beginPipeAll(nonBaseScripts)
+  return beginPipeAll(nonBaseScripts)
     .pipe(named(
       file => {
         // As a preparation for webpack stream: Transform nonBaseScripts paths
@@ -132,7 +132,7 @@ gulp.task('scripts', () => {
       }
     ))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(`./build/${themeName()}/scripts`))
+    .pipe(gulp.dest(`./build/${themeName()}/scripts`));
 });
 
 
@@ -223,7 +223,9 @@ let globPatterns = [
     'vendor/introjs/intro*.{js,css}'
   ];
 
-gulp.task('generate-service-worker', () => {
+gulp.task('generate-service-worker', 
+  ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
+  'vendor-styles', 'vendor-scripts', 'vendor-assets'], () => {
     return workbox.injectManifest({
       globDirectory: `./build/${themeName()}/`,
       globPatterns: globPatterns,
@@ -266,7 +268,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/other/**/*.*'), ['other']);
   gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles']);
   gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts']);
-  gulp.watch(withTheme(nonBaseScripts), ['scripts']);
+  gulp.watch(withTheme(nonBaseScripts), ['scripts', 'generate-service-worker']);
   gulp.watch(withTheme(baseScripts), ['base-scripts']);
   gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles']);
   gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts']);
