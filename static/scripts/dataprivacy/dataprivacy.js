@@ -1,4 +1,5 @@
 import '../jquery/datetimepicker-easy.js';
+import '../pwrecovery.js';
 
 // set this to false to disable validation between pages (for testing)
 const ValidationDisabled = false;

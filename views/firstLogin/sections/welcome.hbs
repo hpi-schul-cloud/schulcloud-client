@@ -1,0 +1,7 @@
+<section data-panel="section-{{section-nr}}">
+  <h4>Herzlich Willkommen in der {{theme.title}}, {{currentUser.firstName}} {{currentUser.lastName}}</h4>
+  <p>Wir freuen uns, dass du die {{theme.short_title}} nutzen möchtest.</p>
+  <p>Wir benötigen nur noch ein paar Daten von dir.</p>
+  {{> "firstLogin/sections/language-hint"}}
+  {{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
+</section>
