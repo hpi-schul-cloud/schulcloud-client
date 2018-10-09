@@ -1,5 +1,5 @@
 {{#extend "lib/simple"}}
-  {{> "firstLogin/sections/imports"}}
+  {{> "firstLogin/partials/imports"}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=(arrayLength @root.sections) action="/firstLogin/submit" method="post"}}
       {{#content "panels"}}

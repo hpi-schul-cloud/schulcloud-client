@@ -8,28 +8,104 @@ const api = require('../api');
 // secure routes
 router.use(authHelper.authChecker);
 
+const consentFullfilled = (consent) => {
+    return ((consent.privacyConsent && consent.termsOfUseConsent &&
+        consent.thirdPartyConsent && consent.researchConsent));
+};
+const isStudent = () => {
+    const roles = res.locals.currentUser.roles.map((role) => {return role.name})
+    return roles.includes("student");
+};
+const hasAccount = (req, res, next) => {
+    return api(req).get('/consents', {
+        qs: {
+            userId: res.locals.currentUser._id
+        }
+    });
+};
+
 // firstLogin (non existing)
-router.get('/', function (req, res, next) {
+router.get('/', async function (req, res, next) {
     let sections = [];
     let submitPageIndex = 0;
     
+    let consent = await api(req).get('/consents', {
+            qs: {
+                userId: res.locals.currentUser._id
+            }
+        });
+    if(consent.data.length < 1){ consent = undefined;}
+    else{
+        consent = consent.data[0];
+    }
+
+    let userConsent = consentFullfilled((consent||{}).userConsent || {});
+    let parentConsent = consentFullfilled(((consent||{}).parentConsents || [undefined])[0] || {});
+    console.log(res.locals.currentUser.age);
+
+    // WELCOME TODO: CHECK!!!
+        // normal, normal 14-17, existing, existing_geb14
+        // je nachdem ob birthday in DB
     submitPageIndex += 1;
-    if(res.locals.currentUser.age >= 14 && res.locals.currentUser.age < 18){
-        sections.push("welcome_14-17");
+    if(res.locals.currentUser.birthday){
+        if(res.locals.currentUser.age < 14){
+            // normal
+            sections.push("welcome");
+        }else if(userConsent){
+            // normal 14-17
+            sections.push("welcome_14-17");
+        }else if(parentConsent){
+            // GEB 14
+            sections.push("welcome_existing_geb14");
+        }else{
+            // unknown => default fallback
+            sections.push("welcome");
+        }
+        // existing_geb14, normal, normal 14-17
+
+    }else{
+        // existing
+        sections.push("welcome_existing");
+    }
+
+    // EMAIL (immer)
+    submitPageIndex += 1;
+    sections.push("email");
+
+    // CONSENT
+    if(!userConsent){
         submitPageIndex += 1;
         sections.push("consent");
-    }else{
-        sections.push("welcome");
     }
-    
-    if(res.locals.currentUser.age < 18){
+
+    // PARENT CONSENT
+    if(consent.requiresParentConsent && !parentConsent){
         submitPageIndex += 1;
-        sections.push("email");
+        sections.push("consent_parent");
     }
 
-    submitPageIndex += 1;
-    sections.push("password");
+    // BIRTHDATE (U14, UE14, wenn keins vorhanden)
+    if(!res.locals.currentUser.birthday){
+        submitPageIndex += 1;
+        if(req.query.u14){
+            sections.push("birthdate_U14");
+        }else{
+            sections.push("birthdate_UE14");
+        }
+    }
 
+    // PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
+    const userHasAccount = await hasAccount(req,res,next);
+    if(
+        !userHasAccount
+        || (!((res.locals.currentUser||{}).preferences||{}).firstLogin
+            && isStudent())
+    ){
+        submitPageIndex += 1;
+        sections.push("password");
+    }
+
+    // THANKS
     sections.push("thanks");
 
     res.render('firstLogin/firstLogin', {
@@ -66,7 +142,6 @@ router.get('/UE18', function (req, res, next) {
         sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
-
 
 
 router.get('/existing', function (req, res, next) {

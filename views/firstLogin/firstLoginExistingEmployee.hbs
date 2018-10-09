@@ -1,23 +1,15 @@
 {{#extend "lib/simple"}}
-  {{> "firstLogin/sections/imports"}}
+  {{> "firstLogin/partials/imports"}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=3 action="/firstLogin/submit" method="POST"}}
       {{#content "panels"}}
-        <section data-panel="section-1">
-          <h4>Willkommen zurück in der {{theme.title}}, {{currentUser.firstName}} {{currentUser.lastName}}</h4>
-          <p>Mit dem Schuljahr 2018/2019 haben wir die Registrierung in der {{theme.title}} von Papier auf Digital umgestellt. Bitte bestätige im nächsten Schritt die Einwilligungserklärungen, welche du schon auf Papier bestätigt hast, erneut, damit du die {{theme.short_title}} weiter nutzen kannst.</p>
-        </section>
 
+        {{> "firstLogin/sections/welcome_existing" section-nr=1}}
 
-        <section data-panel="section-2" class="submit-page">
-          <h4>Einwilligungserklärung</h4>
-          <p>Du bist mindestens 14 Jahre alt. Deine Erziehungsberechtigten (oder du selbst, wenn du schon über 18 bist) haben der Nutzung bereits auf dem Papierweg zugestimmt. Bitte bestätige jetzt folgende Einwilligungserklärungen, damit du die {{theme.title}} weiter nutzen kannst.</p>
-
-            <p>Ich, <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>, erkläre Folgendes:</p>
-            {{> "registration/forms/einwilligungserklaerung"}}
-        </section>
+        {{> "firstLogin/sections/consent" section-nr=2 submit-page=true}}
 
         {{> "firstLogin/sections/thanks" section-nr=3}}
+
       {{/content}}
     {{/embed}}
   {{/content}}

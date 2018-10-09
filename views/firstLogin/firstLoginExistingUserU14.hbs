@@ -1,20 +1,15 @@
 {{#extend "lib/simple"}}
-  {{> "firstLogin/sections/imports"}}
+  {{> "firstLogin/partials/imports"}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=2 action="/firstLogin/submit" method="POST"}}
       {{#content "panels"}}
-        <section data-panel="section-1" class="submit-page">
-          <h4>Du hast es fast geschafft…</h4>
-          <p>Da du unter 14 Jahre alt bist, reicht die Einverständniserklärung deiner Erziehungsberechtigten zur Nutzung der {{theme.title}}. Sobald du 14 Jahre alt bist, wirst du automatisch nach deinem Einverständnis gefragt. Bitte gib dazu dein Geburtsdatum ein.</p>
-          <div class="row">
-            <div class="form-group col-md-6 col-sm-12">
-              <label>Geburtsdatum: *</label>
-              <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 14 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" value="{{datePickerTodayMinus 10 0 0 "DD.MM.YYYY"}}" name="studentBirthdate" type="text" required autocomplete="off" />
-            </div>
-          </div>
-        </section>
 
-        {{> "firstLogin/sections/thanks" section-nr=2}}
+        {{> "firstLogin/sections/welcome_existing" section-nr=1}}
+
+        {{> "firstLogin/sections/birthdateU14" section-nr=2 submit-page=true}}
+
+        {{> "firstLogin/sections/thanks" section-nr=3}}
+
       {{/content}}
     {{/embed}}
   {{/content}}

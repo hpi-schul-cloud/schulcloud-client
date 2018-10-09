@@ -2,6 +2,6 @@
   <h4>Herzlich Willkommen in der {{@root.theme.title}}, {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</h4>
   <p>Wir freuen uns, dass du die {{@root.theme.short_title}} nutzen möchtest.</p>
   <p>Wir benötigen nur noch ein paar Daten von dir und dann kann es losgehen. 😊</p>
-  {{> "firstLogin/sections/language-hint"}}
+  {{> "firstLogin/partials/language-hint"}}
   {{#if @root.sso}}<input type="hidden" name="sso" value="{{@root.sso}}" />{{/if}}
 </section>
