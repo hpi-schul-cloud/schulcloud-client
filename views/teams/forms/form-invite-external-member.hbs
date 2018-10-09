@@ -7,9 +7,9 @@
     </div>
     <div style="margin-bottom: 6rem" class="form-group padding-bottom">
         <label for="role">Gebe ein, welche Rolle das Mitglied erhalten soll.</label>
-        <select placeholder="Rolle angeben" name="role" id="role">
+        <select placeholder="Rolle angeben"  data-placeholder="Rolle angeben" name="role" id="role">
             {{#each roles}}
-                <option value="{{this._id}}" selected>{{this.label}}</option>
+                <option value="{{this._id}}">{{this.label}}</option>
             {{/each}}
         </select>
     </div>

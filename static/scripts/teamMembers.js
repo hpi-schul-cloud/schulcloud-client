@@ -65,6 +65,21 @@ $(document).ready(function () {
     const email = $(this).find('#email').val();
     const role = $(this).find('#role').val();
 
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+
+    if (!email || !validateEmail(email)) {
+      $.showNotification('Bitte gib eine gültige E-Mail an.', "danger", true);
+      return false;
+    }
+
+    if (!role) {
+      $.showNotification('Bitte wähle eine Rolle aus.', "danger", true);
+      return false;
+    }
+
     $.ajax({
       url: $(this).attr('action'),
       method: 'POST',
@@ -88,8 +103,9 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
 
-    let $editInvitationModal = $('.edit-invitation-modal');
+    const $editInvitationModal = $('.edit-invitation-modal');
     const invitationId = $(this).parent().parent().find('[data-payload]').data('payload');
+
     populateModalForm($editInvitationModal, {
         title: 'Einladung bearbeiten',
         closeLabel: 'Abbrechen',
@@ -123,6 +139,12 @@ $(document).ready(function () {
   $('.edit-member-modal form').on('submit', function (e) {
     e.stopPropagation();
     e.preventDefault();
+
+    if (!$(this).find('#role').val()) {
+      $.showNotification('Bitte wähle eine Rolle aus.', "danger", true);
+      return false;
+    }
+
     const user = {
       userId: $(this).data('payload').userId,
       role: $(this).find('#role').val()
