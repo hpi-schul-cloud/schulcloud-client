@@ -1,16 +1,22 @@
 {{#extend "lib/simple"}}
   {{> "firstLogin/sections/imports"}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=4 action="/firstLogin/submit" method="post"}}
+    {{set "sections" 4}}
+    {{set "section" 0}}
+
+    {{#embed "lib/forms/paginatedForm" sections=@root.sections action="/firstLogin/submit" method="post"}}
       {{#content "panels"}}
+        {{inc "section"}}
+        {{> "firstLogin/sections/welcome" section-nr=@root.section}}
 
-        {{> "firstLogin/sections/welcome" section-nr=1}}
+        {{inc "section"}}
+        {{> "firstLogin/sections/email" section-nr=@root.section}}
 
-        {{> "firstLogin/sections/email" section-nr=2}}
+        {{inc "section"}}
+        {{> "firstLogin/sections/password" section-nr=@root.section submit-page=true}}
 
-        {{> "firstLogin/sections/password" section-nr=3 submit-page=true}}
-
-        {{> "firstLogin/sections/thanks" section-nr=4}}
+        {{inc "section"}}
+        {{> "firstLogin/sections/thanks" section-nr=@root.section}}
 
       {{/content}}
     {{/embed}}

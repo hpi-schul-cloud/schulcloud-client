@@ -1,7 +1,7 @@
-<section data-panel="section-{{section-nr}}">
-  <h4>Herzlich Willkommen in der {{theme.title}}, {{currentUser.firstName}} {{currentUser.lastName}}</h4>
-  <p>Wir freuen uns, dass du die {{theme.short_title}} nutzen möchtest.</p>
-  <p>Wir benötigen nur noch ein paar Daten von dir.</p>
+<section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
+  <h4>Herzlich Willkommen in der {{@root.theme.title}}, {{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</h4>
+  <p>Wir freuen uns, dass du die {{@root.theme.short_title}} nutzen möchtest.</p>
+  <p>Wir benötigen nur noch ein paar Daten von dir und dann kann es losgehen. 😊</p>
   {{> "firstLogin/sections/language-hint"}}
-  {{#if sso}}<input type="hidden" name="sso" value="{{sso}}" />{{/if}}
+  {{#if @root.sso}}<input type="hidden" name="sso" value="{{@root.sso}}" />{{/if}}
 </section>

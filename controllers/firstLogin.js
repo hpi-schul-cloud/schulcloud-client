@@ -8,33 +8,67 @@ const api = require('../api');
 // secure routes
 router.use(authHelper.authChecker);
 
+// firstLogin (non existing)
 router.get('/', function (req, res, next) {
+    let sections = [];
+    let submitPageIndex = 0;
+    
+    submitPageIndex += 1;
+    if(res.locals.currentUser.age >= 14 && res.locals.currentUser.age < 18){
+        sections.push("welcome_14-17");
+        submitPageIndex += 1;
+        sections.push("consent");
+    }else{
+        sections.push("welcome");
+    }
+    
+    if(res.locals.currentUser.age < 18){
+        submitPageIndex += 1;
+        sections.push("email");
+    }
+
+    submitPageIndex += 1;
+    sections.push("password");
+
+    sections.push("thanks");
+
     res.render('firstLogin/firstLogin', {
         title: 'Willkommen - Erster Login',
-        hideMenu: true
+        hideMenu: true,
+        sso:(res.locals.currentPayload||{}).systemId ? true : false,
+
+        sections: sections.map((name) => {
+            return "firstLogin/sections/" + name;
+        }),
+        submitPageIndex
     });
 });
+
+// deprecated
 router.get('/14_17', function (req, res, next) {
     res.render('firstLogin/firstLogin14_17', {
-        title: 'Willkommen - Erster Login (14 bis 17 Jahre)',
+        title: 'Willkommen - Erster Login',
         hideMenu: true,
-		sso:(res.locals.currentPayload||{}).systemId ? true : false
+        sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
 router.get('/U14', function (req, res, next) {
     res.render('firstLogin/firstLoginU14', {
         title: 'Willkommen - Erster Login',
         hideMenu: true,
-		sso:(res.locals.currentPayload||{}).systemId ? true : false
+        sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
 router.get('/UE18', function (req, res, next) {
     res.render('firstLogin/firstLoginUE18', {
         title: 'Willkommen - Erster Login',
         hideMenu: true,
-		sso:(res.locals.currentPayload||{}).systemId ? true : false
+        sso:(res.locals.currentPayload||{}).systemId ? true : false
     });
 });
+
+
+
 router.get('/existing', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUser', {
         title: 'Willkommen - Erster Login für bestehende Nutzer',

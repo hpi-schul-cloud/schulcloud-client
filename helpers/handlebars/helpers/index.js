@@ -254,4 +254,14 @@ module.exports = {
     add: (a, b) => {
         return a + b;
     },
+    set: (varName, varValue, options) => {
+        options.data.root[varName] = varValue;
+    },
+    inc: (varName, incrementor, options) => {
+        if(!options){
+            options = incrementor;
+            incrementor = 1;
+        }
+        options.data.root[varName] += incrementor;
+    },
 };

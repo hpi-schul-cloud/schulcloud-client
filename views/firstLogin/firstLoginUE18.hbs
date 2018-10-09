@@ -14,3 +14,8 @@
     {{/embed}}
   {{/content}}
 {{/extend}}
+{{> (lookup . section) section-nr=(add @index 1) submit-page=@root.submit-page-index}}
+
+{{#each sections}}
+  {{log this}}
+{{/each}}
