@@ -72,7 +72,7 @@ router.get('/', async function (req, res, next) {
     sections.push("email");
 
     // CONSENT
-    if(!userConsent){
+    if(!userConsent && (!res.locals.currentUser.age || res.locals.currentUser.age > 14)){
         submitPageIndex += 1;
         sections.push("consent");
     }
