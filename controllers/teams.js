@@ -317,6 +317,7 @@ router.get('/:courseId', async function(req, res, next) {
             },
             {}
         ],
+        permissions: course.user.permissions,
         course,
         filesUrl: `/files/teams/${req.params.courseId}`,
         nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
@@ -326,7 +327,6 @@ router.get('/:courseId', async function(req, res, next) {
 router.get('/:courseId/members', async function(req, res, next) {
     const action = '/teams/' + req.params.courseId;
     const method = 'patch';
-
 
     const course = await api(req).get('/teams/' + req.params.courseId, {
         qs: {
@@ -409,15 +409,26 @@ router.get('/:courseId/members', async function(req, res, next) {
             }
         ];
 
-        row.push([{
-            class: 'btn-edit-member',
-            title: 'Rolle bearbeiten',
-            icon: 'edit'
-        }, {
-            class: 'btn-delete-member',
-            title: 'Nutzer entfernen',
-            icon: 'trash'
-        }]);
+
+        let actions = [];
+
+        if (course.user.permissions.includes('CHANGE_TEAM_ROLES')) {
+            actions.push({
+                class: 'btn-edit-member',
+                title: 'Rolle bearbeiten',
+                icon: 'edit'
+            });
+        }
+
+        if (course.user.permissions.includes('REMOVE_MEMBERS')) {
+            actions.push({
+                class: 'btn-delete-member',
+                title: 'Nutzer entfernen',
+                icon: 'trash'
+            });
+        }
+
+        row.push(actions);
 
         return row;
     });
@@ -446,6 +457,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         addMemberAction: `/teams/${req.params.courseId}/members`,
         inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
         deleteMemberAction: `/teams/${req.params.courseId}/members`,
+        permissions: course.user.permissions,
         method,
         head,
         body,

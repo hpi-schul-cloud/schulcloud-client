@@ -70,18 +70,20 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    {{#userHasPermission "COURSE_EDIT"}}
+                    {{#inArray "RENAME_TEAM" permissions}}
                         <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
-                        <a href="/teams/{{../_id}}/copy" class="btn btn-add btn-secondary">Team klonen</a>
-                        <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Team teilen</a>
+                        {{!-- <a href="/teams/{{../_id}}/copy" class="btn btn-add btn-secondary">Team klonen</a> --}}
+                        {{!-- <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Team teilen</a> --}}
+                    {{/inArray}}
+
+                    {{#inArray "DELETE_TEAM" permissions}}
                         <a href="/teams/{{../_id}}/"
                            class="btn btn-delete-course btn-secondary"
                            target="_blank"
                            data-method="DELETE"
                            data-name="{{../name}}"
                            redirect="/teams/">Team löschen</a>
-                        <a data-href="teams/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
-                    {{/userHasPermission}}
+                    {{/inArray}}
                 </div>
             </div>
 
