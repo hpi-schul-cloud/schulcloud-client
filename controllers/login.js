@@ -24,6 +24,7 @@ router.post('/login/', function (req, res, next) {
     const username = req.body.username; // TODO: sanitize
     const password = req.body.password; // TODO: sanitize
     const systemId = req.body.systemId;
+    const schoolId = req.body.schoolId;
 
     return api(req).get('/accounts/', {qs: {username: username}})
         .then(account => {
@@ -49,7 +50,7 @@ router.post('/login/', function (req, res, next) {
 
                 if (systemId) {
                     return api(req).get('/systems/' + req.body.systemId).then(system => {
-                        return login({strategy: system.type, username, password, systemId});
+                        return login({strategy: system.type, username, password, systemId, schoolId});
                     });
                 } else {
                     return login({strategy: 'local', username, password});
