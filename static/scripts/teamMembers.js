@@ -23,13 +23,16 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
 
-    let newUserIds = $('.add-member-modal form select').val();
+    let userIds = $('.add-member-modal form select').val();
+    userIds = userIds.map(userId => {
+      return { userId };
+    });
 
     $.ajax({
       url: $(this).attr('action'),
-      method: 'PATCH',
+      method: 'POST',
       data: {
-        newUserIds
+        userIds
       }
     }).done(function() {
       $.showNotification('Mitglieder erfolgreich zum Team hinzugefügt', "success", true);
@@ -61,9 +64,28 @@ $(document).ready(function () {
   $('.invite-external-member-modal form').on('submit', function (e) {
     e.stopPropagation();
     e.preventDefault();
-    let email = $(this).find('#email').val() || "";
-    let role = $(this).find('#role').val() || "member";
+    const email = $(this).find('#email').val();
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
+    if (!email || !validateEmail(email)) {
+      $.showNotification('Bitte gib eine gültige E-Mail an.', "danger", true);
+      return false;
+    }
+    
+    const role = $(this).find('#role').val();
+    if (!role) {
+      $.showNotification('Bitte wähle eine Rolle aus.', "danger", true);
+      return false;
+    }
+    
     let teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
+    if (!teamId) {
+      $.showNotification('Bitte lade die Seite neu.', "danger", true);
+      return false;
+    }
+    
     let origin = window.location.origin;
     $.ajax({
         type: "POST",
@@ -74,23 +96,85 @@ $(document).ready(function () {
             teamId: teamId,
             invitee: email
         }
-    }).always(result => {
-        $inviteExternalMemberModal.modal('hide');
-        if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
-        else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte nachfragen.', "alert", true);
+    }).done(function() {
+      $inviteExternalMemberModal.modal('hide');
+      if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
+      else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte nachfragen.', "alert", true);
+    }).fail(function() {
+      $.showNotification('Problem beim versenden der Einladung', "danger", true);
     });
     return false;
   });
 
   /////////////
-  // Resend invitation
+  // Edit invitation
   /////////////
-  $('.btn-resend-invitation').click(function (e) {
+  $('.btn-edit-invitation').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
-    $.showNotification('Einladung wurde verschickt', "success", true);
+
+    const $editInvitationModal = $('.edit-invitation-modal');
+    const invitationId = $(this).parent().parent().find('[data-payload]').data('payload');
+
+    populateModalForm($editInvitationModal, {
+        title: 'Einladung bearbeiten',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Änderungen speichern',
+        payload: invitationId
+    });
+
+    let $modalForm = $editInvitationModal.find(".modal-form");
+    $editInvitationModal.appendTo('body').modal('show');
   });
 
+  /////////////
+  // Edit Member
+  /////////////
+  $('.btn-edit-member').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $editMemberModal = $('.edit-member-modal');
+    const userId = $(this).parent().parent().find('[data-payload]').data('payload');
+    populateModalForm($editMemberModal, {
+        title: 'Mitglied bearbeiten',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Mitglied bearbeiten',
+        payload: userId
+    });
+
+    let $modalForm = $editMemberModal.find(".modal-form");
+    $editMemberModal.appendTo('body').modal('show');
+  });
+
+  $('.edit-member-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (!$(this).find('#role').val()) {
+      $.showNotification('Bitte wähle eine Rolle aus.', "danger", true);
+      return false;
+    }
+
+    const user = {
+      userId: $(this).data('payload').userId,
+      role: $(this).find('#role').val()
+    };
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'PATCH',
+      data: {
+        user
+      }
+    }).done(function() {
+      location.reload();
+    }).fail(function() {
+      $.showNotification('Problem beim Bearbeiten des Mitglieds', "danger", true);
+    });
+
+    return false;
+  });
+    
   /////////////
   // Delete Member
   /////////////
@@ -124,7 +208,7 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      // ToDo: Error handling
+      $.showNotification('Problem beim Löschen des Mitglieds', "danger", true);
     });
 
     return false;

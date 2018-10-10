@@ -23,11 +23,15 @@
                 <div class="col-sm-12">
                     <h4>Mitglieder</h4>
                     <p>
-                      Im Team befinden sich <strong>3</strong> Lehrer,
-                      <strong>5</strong> Schüler und <strong>1</strong> Experte.
+                      Im Team
+                      {{#ifCond (arrayLength course.userIds) '==' 1}} befindet {{/ifCond}}
+                      {{#ifCond (arrayLength course.userIds) '>' 1}} befinden {{/ifCond}}
+                      sich <strong>{{arrayLength course.userIds}}</strong>
+                      {{#ifCond (arrayLength course.userIds) '==' 1}} Mitglied {{/ifCond}}
+                      {{#ifCond (arrayLength course.userIds) '>' 1}} Mitglieder {{/ifCond}}
                     </p>
                     <a href="/teams/{{_id}}/members" class="btn btn-add btn-secondary">
-                        Zur Mitglieder Übersicht
+                        Zur Mitglieder-Übersicht
                     </a>
                 </div>
             </div>
@@ -48,9 +52,8 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
-                    <p>Es gibt derzeit <strong>3</strong> Themen und <strong>5</strong> Aufgaben</p>
                     <a href="/teams/{{_id}}/topics" class="btn btn-add btn-secondary">
-                        Zur Themen Übersicht
+                        Zur Themen-Übersicht
                     </a>
                 </div>
             </div>
