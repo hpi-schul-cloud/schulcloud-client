@@ -1,0 +1,27 @@
+<div class="form-group">
+    <label>Wählen Sie einen Namen und eine Dateiendung aus:</label>
+    <br />
+    
+    <label for="file-ending">Dateityp:</label>
+    <select class="custom-select mr-sm-2 form-control" id="file-ending">
+        <option selected>Format auswählen</option>
+        <option value="docx">Word (docx)</option>
+        <option value="xlsx">Excel (xlsx)</option>
+        <option value="pptx">PowerPoint (pptx)</option>
+    </select>
+    <br />
+    <br />
+
+    <label for="file-name">Dateiname:</label>
+    <input id="file-name" type="text" class="form-control" name="new-file-name" placeholder="Name der Datei" required />
+    <br />
+
+    {{#userHasPermission "COURSE_EDIT"}}
+    <div id="student-can-edit-div">
+        <input type="checkbox" id="student-can-edit"> Schüler können editieren?
+    </div>
+    {{/userHasPermission}}
+
+</div>
+
+<input hidden name="path"/>
