@@ -1,5 +1,9 @@
 const handleGetTopicTemplatesNew = (req, res, next) => {
-  res.render("planner/newTemplate", { title: "Übersicht" });
+  res.render("planner/newTemplate", {
+    title: "Übersicht",
+    id: "id1",
+    initialValues: JSON.stringify({})
+  });
 };
 
 const handlePostTopicTemplates = (req, res, next) => {
@@ -7,7 +11,11 @@ const handlePostTopicTemplates = (req, res, next) => {
 };
 
 const handleGetTopicTemplate = (req, res, next) => {
-  res.render("planner/editTemplate", { title: "Übersicht" });
+  res.render("planner/editTemplate", {
+    title: "Übersicht",
+    id: "id1",
+    initialValues: JSON.stringify({})
+  });
 };
 
 const handlePutTopicTemplate = (req, res, next) => {

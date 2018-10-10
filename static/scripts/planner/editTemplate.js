@@ -9,12 +9,12 @@ class View extends React.Component {
   render() {
     return (
       <TopicTemplateView
-        id="id1"
-        initialValues={{}}
+        id={this.props.id}
+        initialValues={this.props.initialValues}
         mode="EDIT"
         onSave={() => {}}
         onDelete={() => {}}
-        onCrate={() => {}}
+        onCreate={() => {}}
       />
     );
   }
@@ -23,6 +23,10 @@ class View extends React.Component {
 /**
  * Render the virtual React DOM into an <div> in the current page.
  */
-const reactRoot = document.getElementById("react-root");
+const $reactRoot = $("#react-root");
+const data = $reactRoot.data();
 
-ReactDOM.render(<View />, reactRoot);
+ReactDOM.render(
+  <View initialValues={data.initialvalues} id={data.id} />,
+  $reactRoot[0]
+);

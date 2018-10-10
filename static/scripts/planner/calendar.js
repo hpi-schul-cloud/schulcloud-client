@@ -2,163 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { CalendarView } from "../../vendor/rucola-core-lib";
 
-const DUMMY_CLASS_DATA = [
-  {
-    className: "Klasse 8a",
-    classes: [
-      {
-        subjectId: "biology",
-        subjectName: "Biologie",
-        topics: [
-          {
-            id: "Thema 1",
-            text: "Thema 1",
-            color: "#92DB92",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1535932799999
-          },
-          {
-            id: "Thema 2",
-            text: "Thema 2",
-            color: "#92DB92",
-            utcStartDate: 1535932800000,
-            utcEndDate: 1539561599999
-          },
-          {
-            id: "Thema 3",
-            text: "Thema 3",
-            color: "#92DB92",
-            utcStartDate: 1539561600000,
-            utcEndDate: 1541980799999
-          }
-        ]
-      }
-    ]
-  },
-  {
-    className: "Klasse 8b",
-    classes: [
-      {
-        subjectId: "biology",
-        subjectName: "Biologie",
-        topics: [
-          {
-            id: "Thema 4",
-            text: "Thema 4",
-            color: "#92DB92",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1536537599999
-          },
-          {
-            id: "Thema 5",
-            text: "Thema 5",
-            color: "#92DB92",
-            utcStartDate: 1536537600000,
-            utcEndDate: 1538956799999
-          },
-          {
-            id: "Thema 6",
-            text: "Thema 6",
-            color: "#92DB92",
-            utcStartDate: 1538956800000,
-            utcEndDate: 1542585599999
-          }
-        ]
-      },
-      {
-        subjectId: "chemistry",
-        subjectName: "Chemie",
-        topics: [
-          {
-            id: "Thema 7",
-            text: "Thema 7",
-            color: "#DBC192",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1535327999999
-          },
-          {
-            id: "Thema 8",
-            text: "Thema 8",
-            color: "#DBC192",
-            utcStartDate: 1535328000000,
-            utcEndDate: 1537747199999
-          },
-          {
-            id: "Thema 9",
-            text: "Thema 9",
-            color: "#DBC192",
-            utcStartDate: 1537747200000,
-            utcEndDate: 1540771199999
-          }
-        ]
-      }
-    ]
-  },
-  {
-    className: "Klasse 10a",
-    classes: [
-      {
-        subjectId: "chemistry",
-        subjectName: "Chemie",
-        topics: [
-          {
-            id: "Thema 10",
-            text: "Thema 10",
-            color: "#DBC192",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1537142399999
-          },
-          {
-            id: "Thema 11",
-            text: "Thema 11",
-            color: "#DBC192",
-            utcStartDate: 1537142400000,
-            utcEndDate: 1538351999999
-          },
-          {
-            id: "Thema 12",
-            text: "Thema 12",
-            color: "#DBC192",
-            utcStartDate: 1538352000000,
-            utcEndDate: 1540771199999
-          },
-          {
-            id: "Thema 13",
-            text: "Thema 13",
-            color: "#DBC192",
-            utcStartDate: 1540771200000,
-            utcEndDate: 1543795199999
-          }
-        ]
-      }
-    ]
-  }
-];
-
-const DUMMY_HOLIDAY_DATA = [
-  {
-    name: "Herbstferien",
-    color: "#FBFFCF",
-    utcStartDate: 1540166400000,
-    utcEndDate: 1541116800000
-  },
-  {
-    name: "Weihnachtsferien",
-    color: "#FBFFCF",
-    utcStartDate: 1545436800000,
-    utcEndDate: 1546646400000
-  }
-];
-
-const DUMMY_OTHER_DATA = [
-  {
-    name: "Projektwoche",
-    color: "#e9e8e8",
-    utcStartDate: 1548633600000,
-    utcEndDate: 1548979200000
-  }
-];
-
 class View extends React.Component {
   /**
    * Render the list items.
@@ -167,14 +10,11 @@ class View extends React.Component {
     return (
       <CalendarView
         rasterSize={15}
-        schoolYear={{
-          utcStartDate: 1534723200000,
-          utcEndDate: 1560902400000
-        }}
-        utcToday={1539043200000}
-        classTopicsData={DUMMY_CLASS_DATA}
-        holidaysData={DUMMY_HOLIDAY_DATA}
-        otherEventsData={DUMMY_OTHER_DATA}
+        schoolYear={this.props.schoolYear}
+        utcToday={this.props.utcToday}
+        classTopicsData={this.props.classTopicsData}
+        holidaysData={this.props.holidaysData}
+        otherEventsData={this.props.otherEventsData}
         onTopicInstanceClick={id => console.log(id)}
       />
     );
@@ -184,8 +24,16 @@ class View extends React.Component {
 /**
  * Render the React root into a <div> of the current page.
  */
-document.addEventListener("DOMContentLoaded", function(event) {
-  const reactRoot = document.getElementById("react-root");
+const $reactRoot = $("#react-root");
+const data = $reactRoot.data();
 
-  ReactDOM.render(<View />, reactRoot);
-});
+ReactDOM.render(
+  <View
+    schoolYear={data.schoolyear}
+    utcToday={data.utctoday}
+    classTopicsData={data.classtopicsdata}
+    holidaysData={data.holidaysdata}
+    otherEventsData={data.othereventsdata}
+  />,
+  $reactRoot[0]
+);
