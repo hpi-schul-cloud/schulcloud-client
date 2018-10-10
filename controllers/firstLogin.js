@@ -46,16 +46,19 @@ router.get('/', async function (req, res, next) {
     submitPageIndex += 1;
     if(res.locals.currentUser.birthday){
         if(res.locals.currentUser.age < 14){
-            // normal
+            // U14
             sections.push("welcome");
-        }else if(userConsent){
-            // normal 14-17
+        }else if(res.locals.currentUser.age < 18 && !(res.locals.currentUser.preferences || {}).firstLogin){
+            // 14-17
             sections.push("welcome_14-17");
-        }else if(parentConsent && (res.locals.currentUser.preferences || {}).firstLogin){
+        }else if(userConsent && (res.locals.currentUser.preferences || {}).firstLogin){
+            // UE18 (schonmal eingeloggt)
+            sections.push("welcome_existing");
+        }else if(!userConsent && parentConsent && (res.locals.currentUser.preferences || {}).firstLogin){
             // GEB 14
             sections.push("welcome_existing_geb14");
         }else{
-            // unknown => default fallback
+            // default fallback
             sections.push("welcome");
         }
     }else{
@@ -66,18 +69,6 @@ router.get('/', async function (req, res, next) {
     // EMAIL
     submitPageIndex += 1;
     sections.push("email");
-
-    // CONSENT
-    if(!userConsent && (!res.locals.currentUser.age || res.locals.currentUser.age > 14)){
-        submitPageIndex += 1;
-        sections.push("consent");
-    }
-
-    // PARENT CONSENT
-    if(consent.requiresParentConsent && !parentConsent){
-        submitPageIndex += 1;
-        sections.push("consent_parent");
-    }
 
     // BIRTHDATE
     if(!res.locals.currentUser.birthday && isStudent(req, res, next)){
@@ -91,13 +82,31 @@ router.get('/', async function (req, res, next) {
         }
     }
 
+    // USER CONSENT
+    if(!userConsent && (!res.locals.currentUser.age || res.locals.currentUser.age > 14)){
+        submitPageIndex += 1;
+        sections.push("consent");
+    }
+
+    // PARENT CONSENT
+    if(consent.requiresParentConsent && !parentConsent){
+        // TODO - Daten von Eltern + Email validieren PIN + Abfrage
+        /*
+        0. Einleitungsseite (K)
+        1. Elterndaten (A)
+        2. Consent (A)
+        3. PIN (A)
+        4. "Schüler kann weitermachen"-Seite (K)
+        */
+        submitPageIndex += 1;
+        sections.push("consent_parent");
+    }
+
     // PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
     const userHasAccount = await hasAccount(req,res,next);
-    if(
-        !userHasAccount
+    if( !userHasAccount
         || (!(res.locals.currentUser.preferences||{}).firstLogin
-            && isStudent(req, res, next))
-    ){
+            && isStudent(req, res, next))){
         submitPageIndex += 1;
         sections.push("password");
     }
