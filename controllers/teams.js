@@ -187,7 +187,7 @@ router.get('/', async function(req, res, next) {
         }
     });
 
-    courses = courses.map(course => {
+    courses = courses.data.map(course => {
         course.url = '/teams/' + course._id;
         course.title = course.name;
         course.content = (course.description||"").substr(0, 140);

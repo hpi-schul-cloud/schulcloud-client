@@ -174,8 +174,7 @@ const getScopeDirs = (req, res, scope) => {
         };
     }
     return api(req).get('/' + scope + '/', { qs }).then(records => {
-        records = records.data || records;
-        return records.map(record => {
+        return records.data.map(record => {
             return Object.assign(record, {
                 url: '/files/' + scope + '/' + record._id
             });
