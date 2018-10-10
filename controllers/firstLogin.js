@@ -86,10 +86,12 @@ router.get('/', async function (req, res, next) {
     // BIRTHDATE (U14, UE14, wenn keins vorhanden)
     if(!res.locals.currentUser.birthday){
         submitPageIndex += 1;
-        if(req.query.u14){
+        if(req.query.u14 == "true"){
             sections.push("birthdate_U14");
-        }else{
+        }else if(req.query.ue14 == "true"){
             sections.push("birthdate_UE14");
+        }else {
+            sections.push("birthdate");
         }
     }
 
@@ -120,35 +122,31 @@ router.get('/', async function (req, res, next) {
 });
 
 // deprecated
-router.get('/14_17', function (req, res, next) {
-    res.render('firstLogin/firstLogin14_17', {
-        title: 'Willkommen - Erster Login',
-        hideMenu: true,
-        sso:(res.locals.currentPayload||{}).systemId ? true : false
-    });
+router.get(['/U14','/existingU14'], function (req, res, next) {
+    res.redirect("/firstlogin/?u14=true");
 });
-router.get('/U14', function (req, res, next) {
-    res.render('firstLogin/firstLoginU14', {
-        title: 'Willkommen - Erster Login',
-        hideMenu: true,
-        sso:(res.locals.currentPayload||{}).systemId ? true : false
-    });
+router.get(['/UE18','existingUE14'], function (req, res, next) {
+    res.redirect("/firstlogin/?ue14=true");
 });
-router.get('/UE18', function (req, res, next) {
-    res.render('firstLogin/firstLoginUE18', {
-        title: 'Willkommen - Erster Login',
-        hideMenu: true,
-        sso:(res.locals.currentPayload||{}).systemId ? true : false
-    });
+
+router.get(['/14_17', '/existingGeb14', '/existingEmployee'], function (req, res, next) {
+    res.redirect("/firstlogin/");
 });
 
 
+
+// submit & error handling
 router.get('/existing', function (req, res, next) {
     res.render('firstLogin/firstLoginExistingUser', {
         title: 'Willkommen - Erster Login für bestehende Nutzer',
         hideMenu: true
     });
 });
+
+router.get('/consentError', function (req, res, next) {
+    res.render('firstLogin/consentError');
+});
+
 router.post('/submit', function (req, res, next) {
 
     if(req.body["password-1"] !== req.body["password-2"]){
@@ -224,33 +222,6 @@ router.post('/submit', function (req, res, next) {
         .catch(err => {
             res.status(500).send((err.error || err).message || "Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.");
         });
-});
-router.get('/existingU14', function (req, res, next) {
-    res.render('firstLogin/firstLoginExistingUserU14', {
-        title: 'Willkommen - Erster Login für bestehende Nutzer',
-        hideMenu: true
-    });
-});
-router.get('/existingUE14', function (req, res, next) {
-    res.render('firstLogin/firstLoginExistingUserUE14', {
-        title: 'Willkommen - Erster Login für bestehende Nutzer',
-        hideMenu: true
-    });
-});
-router.get('/existingGeb14', function (req, res, next) {
-    res.render('firstLogin/firstLoginExistingGeb14', {
-        title: 'Willkommen - Erster Login',
-        hideMenu: true
-    });
-});
-router.get('/existingEmployee', function (req, res, next) {
-    res.render('firstLogin/firstLoginExistingEmployee', {
-        title: 'Willkommen - Erster Login',
-        hideMenu: true
-    });
-});
-router.get('/consentError', function (req, res, next) {
-    res.render('firstLogin/consentError');
 });
 
 module.exports = router;
