@@ -147,6 +147,21 @@
       },
       {
         "title": "",
+        "firstName": "Maximilian",
+        "lastName": "Grundke",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
+        "description": "Maximilian hat sein Bachelor- und Master-Studium am Hasso-Plattner-Institut absolviert. Er engagiert sich seitdem als Gründer im Bereich Mental Healthcare und unterstützt das Projekt HPI Schul-Cloud seit Oktober 2018 in der Softwareentwicklung. In seiner Freizeit beschäftigt sich Maximilian mit Geschichte und ist eine Bereicherung für jedes Trivia-Team.",
+        "pictureUrl": "/images/team/Miximilian_Grundke.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Christiane",
         "lastName": "Hagedorn",
         "position": "Wissenschaftliche Mitarbeiterin, HPI",
@@ -671,7 +686,7 @@
         "firstName": "Robert",
         "lastName": "Weber",
         "position": "Freier Mitarbeiter",
-        "description": "Robert ist ein freier Frontend-Entwickler bei der Schulcloud. Obwohl er kein Studienabschluss hat ist er seit 2002 damit beschäftigt die Webtechnologien HTML, CSS und Javascript für unterschiedliche Kunden und Projekte in die Welt zu tragen. Wenn er nicht gerade damit zu tun hat Marder von seinem Grundstück zu vertreiben, achtet er noch auf Performance und Barrierefreiheit. Die spärlich vorhandene Freizeit nutzt er für Kinder, Haus und Garten.",
+        "description": "Robert ist ein freier Frontend-Entwickler bei der HPI Schul-Cloud. Obwohl er kein Studienabschluss hat ist er seit 2002 damit beschäftigt die Webtechnologien HTML, CSS und Javascript für unterschiedliche Kunden und Projekte in die Welt zu tragen. Wenn er nicht gerade damit zu tun hat Marder von seinem Grundstück zu vertreiben, achtet er noch auf Performance und Barrierefreiheit. Die spärlich vorhandene Freizeit nutzt er für Kinder, Haus und Garten.",
         "pictureUrl": "/images/team/Robert_Weber.jpg",
         "priority": 0,
         "social": {
