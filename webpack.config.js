@@ -8,6 +8,7 @@ module.exports = {
       // All files that end on .js or .jsx are transpilled by babel
       {
         test: /\.(js|jsx)$/,
+        resolve: { extensions: [".js", ".jsx"] },
         exclude: /(node_modules)/,
         use: {
           loader: "babel-loader",
@@ -26,7 +27,7 @@ module.exports = {
       cacheGroups: {
         // Bundle react & react-dom into separate vendor-react bundle
         react: {
-          test: /[\\/]node_modules[\\/](react\-dom|react)[\\/]/,
+          test: /[\\/]node_modules[\\/](react-dom|react)[\\/]/,
           name: "vendor-react",
           chunks: "all"
         }
