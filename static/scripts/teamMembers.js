@@ -80,13 +80,13 @@ $(document).ready(function () {
       return false;
     }
     
-    let teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
+    const teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
     if (!teamId) {
       $.showNotification('Bitte lade die Seite neu.', "danger", true);
       return false;
     }
-    
-    let origin = window.location.origin;
+    const origin = window.location.origin;
+    console.log({email, role, teamId, origin});
     $.ajax({
         type: "POST",
         url: origin + "/teams/invitelink",
@@ -96,12 +96,13 @@ $(document).ready(function () {
             teamId: teamId,
             invitee: email
         }
-    }).done(function() {
+    }).done(result => {
+      console.log(result);
       $inviteExternalMemberModal.modal('hide');
       if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
-      else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte nachfragen.', "alert", true);
+      else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.', "danger", true);
     }).fail(function() {
-      $.showNotification('Problem beim versenden der Einladung', "danger", true);
+      $.showNotification('Problem beim Versenden der Einladung', "danger", true);
     });
     return false;
   });
