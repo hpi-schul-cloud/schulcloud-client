@@ -94,6 +94,10 @@ $(document).ready(function () {
         let category = modal.find('#category').val();
         let currentState = modal.find('#hasHappened').val();
         let targetState = modal.find('#supposedToHappen').val();
+        let role = modal.find('#role').val();
+        let desire = modal.find('#desire').val();
+        let benefit = modal.find("#benefit").val();
+        let acceptanceCriteria = modal.find("#acceptance_criteria").val();
 
         $.ajax({
             url: '/helpdesk',
@@ -106,7 +110,11 @@ $(document).ready(function () {
                 type: type,
                 category: category,
                 currentState: currentState,
-                targetState: targetState
+                targetState: targetState,
+                role: role,
+                desire: desire,
+                benefit: benefit,
+                acceptanceCriteria: acceptanceCriteria
             },
             success: function (result) {
                 showAJAXSuccess("Feedback erfolgreich versendet!", modal);
