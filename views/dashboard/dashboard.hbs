@@ -10,17 +10,15 @@
     {{/content}}
 
     {{#content "page"}}
-        <section class="section-timetable" data-step="7" data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <h5>Stundenplan</h5>
-                        <time class="selected-date">{{eventsDate}}</time>
-                    </div>
+        <section class="container-fluid section-timetable" data-step="7" data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h5>Stundenplan</h5>
+                    <time class="selected-date">{{eventsDate}}</time>
                 </div>
             </div>
 
-            <div class="container-fluid timetable">
+            <div class="timetable">
                 <div class="row lesson-cards">
                     <div>
                         {{#each events}}
