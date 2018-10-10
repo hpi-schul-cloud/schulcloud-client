@@ -42,9 +42,7 @@ router.get('/', async function (req, res, next) {
     let userConsent = consentFullfilled((consent||{}).userConsent || {});
     let parentConsent = consentFullfilled(((consent||{}).parentConsents || [undefined])[0] || {});
 
-    // WELCOME TODO: CHECK!!!
-        // normal, normal 14-17, existing, existing_geb14
-        // je nachdem ob birthday in DB
+    // WELCOME
     submitPageIndex += 1;
     if(res.locals.currentUser.birthday){
         if(res.locals.currentUser.age < 14){
@@ -53,21 +51,19 @@ router.get('/', async function (req, res, next) {
         }else if(userConsent){
             // normal 14-17
             sections.push("welcome_14-17");
-        }else if(parentConsent){
+        }else if(parentConsent && (res.locals.currentUser.preferences || {}).firstLogin){
             // GEB 14
             sections.push("welcome_existing_geb14");
         }else{
             // unknown => default fallback
             sections.push("welcome");
         }
-        // existing_geb14, normal, normal 14-17
-
     }else{
-        // existing
+        // old existing users or teachers/admins
         sections.push("welcome_existing");
     }
 
-    // EMAIL (immer)
+    // EMAIL
     submitPageIndex += 1;
     sections.push("email");
 
@@ -83,8 +79,8 @@ router.get('/', async function (req, res, next) {
         sections.push("consent_parent");
     }
 
-    // BIRTHDATE (U14, UE14, wenn keins vorhanden)
-    if(!res.locals.currentUser.birthday){
+    // BIRTHDATE
+    if(!res.locals.currentUser.birthday && isStudent(req, res, next)){
         submitPageIndex += 1;
         if(req.query.u14 == "true"){
             sections.push("birthdate_U14");
@@ -99,7 +95,7 @@ router.get('/', async function (req, res, next) {
     const userHasAccount = await hasAccount(req,res,next);
     if(
         !userHasAccount
-        || (!((res.locals.currentUser||{}).preferences||{}).firstLogin
+        || (!(res.locals.currentUser.preferences||{}).firstLogin
             && isStudent(req, res, next))
     ){
         submitPageIndex += 1;
