@@ -80,7 +80,9 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'}
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
     let pathComponents = currentDir.split('/') || [];
-    if (pathComponents[0] === 'users' || pathComponents[0] === 'courses' || pathComponents[0] === 'classes') pathComponents = pathComponents.slice(2);   // remove context and ID, if present
+    if (pathComponents[0] === 'users' || pathComponents[0] === 'courses' ||
+        pathComponents[0] === 'teams' ||
+        pathComponents[0] === 'classes') pathComponents = pathComponents.slice(2);   // remove context and ID, if present
     const breadcrumbs = pathComponents.filter(value => value).map(dirPart => {
         dirParts += '/' + dirPart;
         return {
@@ -158,14 +160,20 @@ const FileGetter = (req, res, next) => {
 };
 
 const getScopeDirs = (req, res, scope) => {
-    return api(req).get('/' + scope + '/', {
-        qs: {
-            $or: [
-                {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id}
-            ]
-        }
-    }).then(records => {
+    let qs = {
+        $or: [
+            {userIds: res.locals.currentUser._id},
+            {teacherIds: res.locals.currentUser._id}
+        ]
+    };
+    if (scope === 'teams') {
+        qs = {
+            userIds: {
+                $elemMatch: { userId: res.locals.currentUser._id }
+            }
+        };
+    }
+    return api(req).get('/' + scope + '/', { qs }).then(records => {
         return records.data.map(record => {
             return Object.assign(record, {
                 url: '/files/' + scope + '/' + record._id
@@ -451,7 +459,7 @@ router.get('/', function (req, res, next) {
     */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            showSearch: true                                            
+            showSearch: true
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
@@ -511,6 +519,65 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             showSearch: true,
             courseId: req.params.courseId,
             courseUrl: `/courses/${req.params.courseId}/`
+        }, res.locals.files));
+
+    });
+});
+
+router.get('/teams/', function (req, res, next) {
+    const basePath = '/files/teams/';
+    getScopeDirs(req, res, 'teams').then(directories => {
+        const breadcrumbs = getBreadcrumbs(req, {basePath});
+
+        breadcrumbs.unshift({
+            label: 'Dateien aus meinen Teams',
+            url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/teams/')
+        });
+
+        res.render('files/files', {
+            title: 'Dateien',
+            path: getStorageContext(req, res),
+            breadcrumbs,
+            files: [],
+            directories,
+            showSearch: true
+        });
+    });
+});
+
+
+router.get('/teams/:teamId', FileGetter, function (req, res, next) {
+    const basePath = '/files/teams/';
+
+    api(req).get('/teams/' + req.params.teamId).then(record => {
+        let files = res.locals.files.files;
+        files.map(file => {
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+        });
+
+
+        const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
+
+        breadcrumbs.unshift({
+            label: 'Dateien aus meinen Kursen',
+            url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
+        }, {
+            label: record.name,
+            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
+        });
+
+        res.render('files/files', Object.assign({
+            title: 'Dateien',
+            canUploadFile: true,
+            canCreateDir: true,
+            path: res.locals.files.path,
+            inline: req.query.inline || req.query.CKEditor,
+            CKEditor: req.query.CKEditor,
+            breadcrumbs,
+            showSearch: true,
+            courseId: req.params.teamId,
+            courseUrl: `/teams/${req.params.teamId}/`
         }, res.locals.files));
 
     });

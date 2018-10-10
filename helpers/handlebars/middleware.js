@@ -53,6 +53,12 @@ module.exports = (req, res, next) => {
         introNumber: 13,
         introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
     }, {
+        name: 'Teams',
+        icon: 'users',
+        link: '/teams/',
+        introNumber: 13,
+        introText: "Hier gelangst du zu deinen Teams, die du einsehen, verwalten und neu anlegen kannst."
+    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/',
@@ -95,6 +101,11 @@ module.exports = (req, res, next) => {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
+            },
+            {
+                name: 'Teams',
+                icon: 'folder-open-o',
+                link: '/files/teams/'
             },
             {
                 name: 'geteilte Dateien',
