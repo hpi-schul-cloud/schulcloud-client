@@ -695,7 +695,7 @@ const userFilterSettings = function (defaultOrder) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [1, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -819,7 +819,7 @@ const getTeacherUpdateHandler = () => {
 
         // do all db requests
         Promise.all(promises).then(([user, consent]) => {
-            res.redirect(req.body.referrer);//cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -1377,7 +1377,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(req.body.referrer);//`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1444,7 +1444,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(req.body.referrer);//`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1485,7 +1485,7 @@ const classFilterSettings = function (years) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [1, 10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {

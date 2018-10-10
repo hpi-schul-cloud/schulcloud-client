@@ -87,7 +87,7 @@
 </section>
 
 <div class="modal-footer mt-1">
-    <a href="/administration/classes" class="btn btn-secondary">Abbrechen</a>
+    <a class="btn btn-secondary btn-cancel">Abbrechen</a>
     {{#unless edit}}
         <button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
         {{#userHasPermission 'ADMIN_VIEW'}}
@@ -98,3 +98,5 @@
         <button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
     {{/unless}}
 </div>
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
