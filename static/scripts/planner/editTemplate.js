@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { TopicTemplateView } from "../../vendor/rucola-core-lib";
+import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
   /**
@@ -23,6 +24,7 @@ class View extends React.Component {
 /**
  * Render the virtual React DOM into an <div> in the current page.
  */
+setupMaterialComponents();
 const $reactRoot = $("#react-root");
 const data = $reactRoot.data();
 

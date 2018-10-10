@@ -1,11 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { CalendarView } from "../../vendor/rucola-core-lib";
+import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
-  /**
-   * Render the list items.
-   */
   render() {
     return (
       <CalendarView
@@ -24,6 +22,7 @@ class View extends React.Component {
 /**
  * Render the React root into a <div> of the current page.
  */
+setupMaterialComponents();
 const $reactRoot = $("#react-root");
 const data = $reactRoot.data();
 

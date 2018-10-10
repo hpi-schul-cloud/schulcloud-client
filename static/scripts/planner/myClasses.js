@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { ClassConfigurationView } from "../../vendor/rucola-core-lib";
+import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
   redirectToAddTemplate = (subjectId, classLevelId) => {
@@ -24,6 +25,7 @@ class View extends React.Component {
 /**
  * Render the React root into a <div> of the current page.
  */
+setupMaterialComponents();
 const $reactRoot = $("#react-root");
 const data = $reactRoot.data();
 
