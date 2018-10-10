@@ -1,7 +1,6 @@
 $(document).ready(function () {
   
   const $inviteExternalMemberModal = $('.invite-external-member-modal');
-  const $inviteLinkModal = $('.invitation-modal');
 
   /////////////
   // Add Member
@@ -66,32 +65,19 @@ $(document).ready(function () {
     let role = $(this).find('#role').val() || "member";
     let teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
     let origin = window.location.origin;
-    console.log({email, role, teamId, origin});
     $.ajax({
         type: "POST",
-        url: origin+"/teams/invitelink",
+        url: origin + "/teams/invitelink",
         data: {
             host: origin,
             role: role,
             teamId: teamId,
             invitee: email
-        },
-        success: function(linkData) {
-            console.log("linkData");
-            console.log(linkData);
-            populateModalForm($inviteLinkModal, {
-                title: 'Einladungslink generiert!',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: {invitation: linkData.shortLink}
-            });
-            $inviteLinkModal.find('.btn-submit').remove();
-            $inviteLinkModal.find("input[name='invitation']").click(function () {
-                $(this).select();
-            });
-            $inviteExternalMemberModal.modal('hide');
-            $inviteLinkModal.appendTo('body').modal('show');
         }
+    }).always(result => {
+        $inviteExternalMemberModal.modal('hide');
+        if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
+        else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte nachfragen.', "alert", true);
     });
     return false;
   });

@@ -813,18 +813,26 @@ const generateInviteLink = (params, internalReturn) => {
 const sendMailHandler = (internalReturn) => {
     return function (req, res, next) {
         let data = Object.assign(res.locals.options, res.locals.linkData);
-        if(data.invitee && data.teamId && data.shortLink) {
+        if(data.invitee && data.teamId && data.shortLink && data.role) {
+            let inviteText = '';
+            if (data.role === 'teamadministrator') {
+                inviteText = `Hallo ${data.invitee}!
+\nDu wurdest eingeladen, einem Team der ${res.locals.theme.short_title} beizutreten, bitte klicke auf diesen Link, um die Einladung anzunehmen: ${data.shortLink}
+\nViel Spaß und gutes Gelingen wünscht dir dein
+${res.locals.theme.short_title}-Team`
+            } else {
+                inviteText = `Hallo ${data.invitee}!
+\nDu wurdest eingeladen, einem Team der ${res.locals.theme.short_title} beizutreten. Da du noch keinen ${res.locals.theme.short_title} Account besitzt, folge bitte diesem Link, um die Registrierung abzuschließen und dem Team beizutreten: ${data.shortLink}
+\nViel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`
+            }
             return api(req).post('/mails/', {
                 json: {
                     email: data.invitee,
-                    subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+                    subject: `Einladung in ein Team der ${res.locals.theme.short_title}!`,
                     headers: {},
                     content: {
-                        "text": `Einladung in die ${res.locals.theme.title}
-Hallo ${data.invitee}!
-\nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${data.shortLink}
-\nViel Spaß und einen guten Start wünscht dir dein
-${res.locals.theme.short_title}-Team`
+                        "text": inviteText
                     }
                 }
             }).then(_ => {
@@ -844,27 +852,41 @@ ${res.locals.theme.short_title}-Team`
 // client-side use
 // WITH PERMISSION - NEEDED FOR LIVE
 // router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
-router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
+router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { res.json({inviteCallDone:true}) });
 
-router.get('/invite/:role/to/:teamHash', function (req, res, next) {
-    if (["teamadministrator","teamexpert"].includes(req.params.role) && req.query.shortId) {
-        return api(req).patch('/teams/adduser/', {shortId: shortId})
-            .then(result => {
-                return !!(internalReturn && result.added == "true");
-                next();
-            })
-            .catch(err => {
-                if(internalReturn) return false;
-                next();
-            });
-    } else {
-        req.session.notification = {
-            type: 'danger',
-            message: `Fehler beim Einladen in ein Team, unzureichende Daten.`
-        };
-        res.redirect('/teams/');
+const addUserToTeam = (params, internalReturn) => {
+    return function (req, res, next) {
+        let errornotification = {type: 'danger',message: `Fehler beim Einladen in das Team.`};
+        if (["teamadministrator","teamexpert"].includes(req.params.role) && req.query.shortId) {
+            return api(req).patch('/teams/adduser/', {shortId: shortId})
+                .then(result => {
+                    if(result._id){
+                        if(internalReturn) return true;
+                        req.session.notification = {
+                            type: 'success',
+                            message: `Du wurdest dem Team erfolgreich hinzugefügt.`
+                        };
+                        res.redirect('/teams/'+result._id);
+                    } else {
+                        if(internalReturn) return false;
+                        req.session.notification = errornotification;
+                        res.redirect('/teams/');
+                    }
+                })
+                .catch(err => {
+                    if(internalReturn) return false;
+                    req.session.notification = errornotification;
+                    res.redirect('/teams/');
+                });
+        } else {
+            if(internalReturn) return false;
+            req.session.notification = errornotification;
+            res.redirect('/teams/');
+        }
     }
-});
+};
+
+router.get('/invite/:role/to/:teamHash', addUserToTeam());
 
 
 module.exports = router;

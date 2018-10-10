@@ -53,12 +53,6 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="invitation-modal"}}
-                {{#content "fields"}}
-                    {{> "teams/forms/form-invitation"}}
-                {{/content}}
-            {{/embed}}
-
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction method="POST" class="invite-external-member-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-invite-external-member" teamId=../_id}}
