@@ -192,8 +192,8 @@
 
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.logo_url}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_url }}">
+                            {{#if currentSchoolData.logo_dataUrl}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
                             {{else}}
                                 {{#if currentSchoolData.federalState}}
                                     <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
