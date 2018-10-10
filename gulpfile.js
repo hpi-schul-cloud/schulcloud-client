@@ -209,8 +209,7 @@ gulp.task("vendor-scripts", () => {
 		.pipe(
 			babel({
 				compact: false,
-				presets: ["@babel/preset-env", "@babel/preset-react"],
-				plugins: ["transform-react-jsx"]
+				presets: ["@babel/preset-env", "@babel/preset-react"]
 			})
 		)
 		.pipe(optimizejs())
