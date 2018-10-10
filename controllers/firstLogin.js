@@ -88,6 +88,15 @@ router.get('/', async function (req, res, next) {
         sections.push("consent");
     }
 
+    // PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
+    const userHasAccount = await hasAccount(req,res,next);
+    if( !userHasAccount
+        || (!(res.locals.currentUser.preferences||{}).firstLogin
+            && isStudent(req, res, next))){
+        submitPageIndex += 1;
+        sections.push("password");
+    }
+
     // PARENT CONSENT
     if(consent.requiresParentConsent && !parentConsent){
         // TODO - Daten von Eltern + Email validieren PIN + Abfrage
@@ -98,17 +107,11 @@ router.get('/', async function (req, res, next) {
         3. PIN (A)
         4. "Schüler kann weitermachen"-Seite (K)
         */
-        submitPageIndex += 1;
+        submitPageIndex += 5;
+        sections.push("parent_intro");
+        sections.push("parent_data");
         sections.push("consent_parent");
-    }
-
-    // PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
-    const userHasAccount = await hasAccount(req,res,next);
-    if( !userHasAccount
-        || (!(res.locals.currentUser.preferences||{}).firstLogin
-            && isStudent(req, res, next))){
-        submitPageIndex += 1;
-        sections.push("password");
+        sections.push("pin");
     }
 
     // THANKS
