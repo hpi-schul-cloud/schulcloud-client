@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const RebuildChangedPlugin = require("rebuild-changed-entrypoints-webpack-plugin");
 
 module.exports = {
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       // All files that end on .js or .jsx are transpilled by babel

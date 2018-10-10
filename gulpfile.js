@@ -164,18 +164,11 @@ gulp.task("scripts", () => {
 
 //compile/transpile JSX and ES6 to ES5, minify and concatenate base scripts into all.js
 gulp.task("base-scripts", () => {
-	return beginPipeAll(baseScripts)
+	beginPipeAll(baseScripts)
 		.pipe(count("## js-files selected"))
 		.pipe(
 			babel({
-				presets: [
-					[
-						"es2015",
-						{
-							modules: false
-						}
-					]
-				]
+				presets: ["@babel/preset-env"]
 			})
 		)
 		.pipe(optimizejs())
@@ -212,18 +205,11 @@ gulp.task("vendor-styles", () => {
 
 //compile/transpile vendor JSX and ES6 to ES5 and minify scripts
 gulp.task("vendor-scripts", () => {
-	return beginPipe("./static/vendor/**/*.js")
+	beginPipe("./static/vendor/**/*.js")
 		.pipe(
 			babel({
 				compact: false,
-				presets: [
-					[
-						"es2015",
-						{
-							modules: false
-						}
-					]
-				],
+				presets: ["@babel/preset-env", "@babel/preset-react"],
 				plugins: ["transform-react-jsx"]
 			})
 		)
