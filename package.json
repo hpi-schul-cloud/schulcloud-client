@@ -70,6 +70,7 @@
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.0.1",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "chai": "^3.5.0",
     "chai-http": "^3.0.0",
