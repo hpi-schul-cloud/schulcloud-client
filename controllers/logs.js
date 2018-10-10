@@ -25,7 +25,7 @@ logger.info('Google Analytics Tracking ID: ' + process.env.SW_GOOGLE_ANALYTICS_T
 router.use(require('../helpers/authentication').authChecker);
 
 function idCleanup(url){
-    const match = /\/[0-9a-f]{24}$/;
+    const match = /\/[0-9a-f]{24}/g;
     if(url.match(match)){
         return url.replace(match,'/ID');
     }
