@@ -12,8 +12,8 @@ const consentFullfilled = (consent) => {
     return ((consent.privacyConsent && consent.termsOfUseConsent &&
         consent.thirdPartyConsent && consent.researchConsent));
 };
-const isStudent = () => {
-    const roles = res.locals.currentUser.roles.map((role) => {return role.name})
+const isStudent = (req, res, next) => {
+    const roles = res.locals.currentUser.roles.map((role) => {return role.name;});
     return roles.includes("student");
 };
 const hasAccount = (req, res, next) => {
@@ -24,7 +24,7 @@ const hasAccount = (req, res, next) => {
     });
 };
 
-// firstLogin (non existing)
+// firstLogin
 router.get('/', async function (req, res, next) {
     let sections = [];
     let submitPageIndex = 0;
@@ -41,7 +41,6 @@ router.get('/', async function (req, res, next) {
 
     let userConsent = consentFullfilled((consent||{}).userConsent || {});
     let parentConsent = consentFullfilled(((consent||{}).parentConsents || [undefined])[0] || {});
-    console.log(res.locals.currentUser.age);
 
     // WELCOME TODO: CHECK!!!
         // normal, normal 14-17, existing, existing_geb14
@@ -99,7 +98,7 @@ router.get('/', async function (req, res, next) {
     if(
         !userHasAccount
         || (!((res.locals.currentUser||{}).preferences||{}).firstLogin
-            && isStudent())
+            && isStudent(req, res, next))
     ){
         submitPageIndex += 1;
         sections.push("password");
