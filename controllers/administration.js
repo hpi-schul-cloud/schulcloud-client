@@ -695,7 +695,7 @@ const userFilterSettings = function (defaultOrder) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [25, 50, 100],
+            options: [1, 25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -819,7 +819,7 @@ const getTeacherUpdateHandler = () => {
 
         // do all db requests
         Promise.all(promises).then(([user, consent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer);//cutEditOffUrl(req.header('Referer'))); 
         }).catch(err => {
             next(err);
         });
@@ -970,7 +970,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 classes,
                 editTeacher: true,
                 hidePwChangeButton,
-                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
+                referrer: req.header('Referer')
 
             }
         );
@@ -1245,7 +1246,8 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                isCustom
+                isCustom,
+                referrer: req.header('Referer')
             });
         });
     }).catch(err => {
@@ -1359,7 +1361,8 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                         "title":"Passwort ändern",
                         "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
                     },
-                ]
+                ],
+                referrer: req.header('Referer')
             });
         });
     });
@@ -1374,7 +1377,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);//`/administration/classes/`);
     }).catch(err => {
         next(err);
     });
@@ -1441,7 +1444,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);//`/administration/classes/`);
     }).catch(err => {
         next(err);
     });
@@ -1482,7 +1485,7 @@ const classFilterSettings = function (years) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [1, 10, 25, 50, 100],
             defaultSelection: 25
         },
         {
