@@ -616,9 +616,11 @@ window.fileViewer = function fileViewer(type, key, name, id) {
         case 'application/vnd.ms-word': case 'application/msword':                          //.doc
         case 'application/vnd.oasis.opendocument.text':	                                    //.odt
         case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
+        case 'application/vnd.ms-excel': case 'application/msexcel':                        //.xls
+        case 'application/vnd.oasis.opendocument.spreadsheet':	                            //.ods
         case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
         case 'application/vnd.ms-powerpoint':  case 'application/mspowerpoint':             //.ppt
-        case 'application/vnd.ms-excel': case 'application/msexcel':                        //.xls
+        case 'application/vnd.oasis.opendocument.presentation':	                            //.odp
         case 'text/plain':                                                                  //.txt
             $('#file-view').hide();
             win = window.open(`/files/file/${id}/lool`, '_blank');
