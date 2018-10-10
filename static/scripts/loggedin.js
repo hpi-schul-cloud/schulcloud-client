@@ -66,22 +66,6 @@ $(document).ready(function () {
         $.showNotification(message, "success", true);
     }
 
-    /**
-     * creates the feedback-message which will be sent to the Schul-Cloud helpdesk
-     * @param modal {object} - modal containing content from feedback-form
-     */
-    const createFeedbackMessage = function (modal) {
-        return "Als " + modal.find('#role').val() + "\n" +
-            "möchte ich " + modal.find('#desire').val() + ",\n" +
-            "um " + modal.find("#benefit").val() + ".\n" +
-            "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
-    };
-    const createProblemMessage = function (modal) {
-        return "Problem Kurzbeschreibung: " + modal.find('#title').val() + "\n" +
-            "IST-Zustand: " + modal.find('#hasHappened').val() + ",\n" +
-            "SOLL-Zustand: " + modal.find("#supposedToHappen").val();
-    };
-
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
@@ -89,15 +73,14 @@ $(document).ready(function () {
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = (modal.find('#feedbackType').val() === 'wish') ? createFeedbackMessage(modal) : createProblemMessage(modal);
-        let content = {text: text};
+        let content = { currentState: modal.find('#hasHappened').val(),
+                        targetState: modal.find('#supposedToHappen').val(),
+                        role: modal.find('#role').val(),
+                        desire: modal.find('#desire').val(),
+                        benefit: modal.find("#benefit").val(),
+                        acceptanceCriteria: modal.find("#acceptance_criteria").val()
+                    };
         let category = modal.find('#category').val();
-        let currentState = modal.find('#hasHappened').val();
-        let targetState = modal.find('#supposedToHappen').val();
-        let role = modal.find('#role').val();
-        let desire = modal.find('#desire').val();
-        let benefit = modal.find("#benefit").val();
-        let acceptanceCriteria = modal.find("#acceptance_criteria").val();
 
         $.ajax({
             url: '/helpdesk',
@@ -109,12 +92,6 @@ $(document).ready(function () {
                 content: content,
                 type: type,
                 category: category,
-                currentState: currentState,
-                targetState: targetState,
-                role: role,
-                desire: desire,
-                benefit: benefit,
-                acceptanceCriteria: acceptanceCriteria
             },
             success: function (result) {
                 showAJAXSuccess("Feedback erfolgreich versendet!", modal);
