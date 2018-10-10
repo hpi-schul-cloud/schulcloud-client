@@ -103,6 +103,11 @@ module.exports = (req, res, next) => {
                 link: '/files/courses/'
             },
             {
+                name: 'Teams',
+                icon: 'folder-open-o',
+                link: '/files/teams/'
+            },
+            {
                 name: 'geteilte Dateien',
                 icon: 'folder-open-o',
                 link: '/files/shared/'
