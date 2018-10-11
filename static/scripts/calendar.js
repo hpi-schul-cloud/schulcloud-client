@@ -1,5 +1,6 @@
 import moment from 'moment';
-import 'jquery-datetimepicker';
+//import 'jquery-datetimepicker';
+import './jquery/datetimepicker-easy';
 import 'script-loader!fullcalendar/dist/fullcalendar.min.js';
 import 'script-loader!fullcalendar/dist/locale/de.js';
 
@@ -135,12 +136,12 @@ $(document).ready(function () {
         .removeClass()
         .addClass('btn-group btn-group-sm');
 
-
+/*
     $.datetimepicker.setLocale('de');
     $('input[data-datetime]').datetimepicker({
         format:'d.m.Y H:i',
         mask: '39.19.9999 29:59'
-    });
+    });*/
 
     $("input[name='isCourseEvent']").change(function(e) {
         var isChecked = $(this).is(":checked");

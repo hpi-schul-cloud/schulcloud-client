@@ -18,8 +18,8 @@ if(!window.datetimepicker){
                 mask:       (input.dataset.datetime?'39.19.9999 29:59':'39.19.9999'),
                 timepicker: (input.dataset.datetime  || false),
                 startDate:  (input.dataset.startDate || false),
-                minDate:    (input.dataset.minDate || 'yesterday'), //yesterday is minimum date(for today use 0 or -1970/01/01)
-                maxDate:    (input.dataset.maxDate || 'tomorrow'),  //tomorrow is maximum date calendar
+                minDate:    (input.dataset.minDate), //default: unlimited minimum date 
+                maxDate:    (input.dataset.maxDate || false), //default: unlimited maximum date 
                 inline:     (input.dataset.inline=="true"),
                 onChangeDateTime: triggerInputEvent
             };
