@@ -18,26 +18,10 @@
                 {{/if}}
 
                 {{#userHasPermission "COURSE_EDIT"}}
-                    <section>
-                        <div class="section-title mb-2"><h4>Meine Vertretungen</h4></div>
-                        {{#if ../substitutionCourses}}
-                            {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen" additionalInfoName="memberCount"}}
-                        {{else}}
-                            <div class="col-xs-12">
-                                <p class="text-muted text-center">
-                                    <span>Keine Teams.</span>
-                                </p>
-                            </div>
-                        {{/if}}
-                    </section>
-                {{/userHasPermission}}
-
-                {{#userHasPermission "COURSE_EDIT"}}
                 <div class="col-xs-12">
                     <div class="row padding-top">
                         <div class="col-sm-12">
                             <a href="/teams/add" class="btn btn-add btn-primary">Team anlegen</a>
-                            <a class="btn btn-add btn-secondary btn-import-course">Team importieren</a>
                         </div>
                     </div>
                 </div>
