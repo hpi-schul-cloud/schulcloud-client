@@ -26,7 +26,6 @@ function sendPin(sendConfirm) {
     } catch(e){
         role = "parent";
     }
-    console.log(role);
     $.ajax({
         url: "/registration/pincreation",
         method: "POST",
