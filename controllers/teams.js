@@ -9,6 +9,31 @@ const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
 
+const thumbs = {
+    default: "/images/thumbs/default.png",
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.png"
+};
+
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
         qs: query
@@ -301,180 +326,227 @@ router.get('/:courseId/usersJson', function(req, res, next) {
 });
 
 router.get('/:courseId', async function(req, res, next) {
-    const course = await api(req).get('/teams/' + req.params.courseId, {
-        qs: {
-            $populate: ['ltiToolIds']
-        }
-    });
+    try {
+        const course = await api(req).get('/teams/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        });
 
-    res.render('teams/team', Object.assign({}, course, {
-        title: course.name,
-        breadcrumb: [{
-                title: 'Meine Teams',
-                url: '/teams'
-            },
-            {}
-        ],
-        permissions: course.user.permissions,
-        course,
-        filesUrl: `/files/teams/${req.params.courseId}`,
-        nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
-    }));
+        let data = await api(req).get('/fileStorage', {
+            qs: { path: 'teams/' + course._id + '/' }
+        });
+        let files = data.files.map(file => {
+            file.file = file.key;
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+            return file;
+        });
+
+        if (data.directories && data.directories.length > 0) {
+            const filesPromises = data.directories.map(dir => {
+                return api(req).get('/fileStorage', {
+                    qs: {
+                        path: dir.key + '/'
+                    }
+                });
+            });
+            const dataSubdirectories = await Promise.all(filesPromises);
+            let subdirectoriesFiles = dataSubdirectories.map(sub => {
+                return sub.files.map(file => {
+                    file.file = file.key;
+                    let ending = file.name.split('.').pop();
+                    file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                    return file;
+                });
+            });
+            subdirectoriesFiles = subdirectoriesFiles[0];
+
+            files = files.concat(subdirectoriesFiles);
+        }
+
+        // Sort by most recent files and limit to 6 files
+        files = files.sort(function(a,b){
+            return new Date(b.updatedAt) - new Date(a.updatedAt);
+        });
+        files = files.slice(0, 6);
+
+        res.render('teams/team', Object.assign({}, course, {
+            title: course.name,
+            breadcrumb: [{
+                    title: 'Meine Teams',
+                    url: '/teams'
+                },
+                {}
+            ],
+            permissions: course.user.permissions,
+            course,
+            files,
+            filesUrl: `/files/teams/${req.params.courseId}`,
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+        }));
+    } catch (e) {
+        next(e);
+    }
 });
 
 router.get('/:courseId/members', async function(req, res, next) {
     const action = '/teams/' + req.params.courseId;
     const method = 'patch';
+    let course, courseUserIds;
 
-    const course = await api(req).get('/teams/' + req.params.courseId, {
-        qs: {
-            $populate: [
-                {
-                    path: 'userIds.userId',
-                    populate: ['schoolId']
-                }, {
-                    path: 'userIds.role',
+    try {
+        course = await api(req).get('/teams/' + req.params.courseId, {
+            qs: {
+                $populate: [
+                    {
+                        path: 'userIds.userId',
+                        populate: ['schoolId']
+                    }, {
+                        path: 'userIds.role',
+                    }
+                ]
+            }
+        });
+        courseUserIds = course.userIds.map(user => user.userId._id);
+
+        const users = (await api(req).get('/users', {
+            qs: {
+                _id: {
+                    $nin: courseUserIds
                 }
-            ]
-        }
-    });
-
-    const courseUserIds = course.userIds.map(user => user.userId._id);
-
-    const users = (await api(req).get('/users', {
-        qs: {
-            _id: {
-                $nin: courseUserIds
             }
-        }
-    })).data;
+        })).data;
 
-    let roles = (await api(req).get('/roles', {
-        qs: {
-            name: {
-                $in: ['teammember', 'teamexpert', 'teamleader',
-                      'teamadministrator', 'teamowner']
+        let roles = (await api(req).get('/roles', {
+            qs: {
+                name: {
+                    $in: ['teammember', 'teamexpert', 'teamleader',
+                        'teamadministrator', 'teamowner']
+                }
             }
-        }
-    })).data;
+        })).data;
 
-    const roleTranslations = {
-        teammember: 'Mitglied',
-        teamexpert: 'externer Experte',
-        teamleader: 'Leiter',
-        teamadministrator: 'Team-Admin',
-        teamowner: 'Team-Admin (Eigentümer)',
-    };
+        const roleTranslations = {
+            teammember: 'Teilnehmer',
+            teamexpert: 'externer Experte',
+            teamleader: 'Leiter',
+            teamadministrator: 'Team-Admin',
+            teamowner: 'Team-Admin (Eigentümer)',
+        };
 
-    roles = roles.map(role => {
-        role.label = roleTranslations[role.name];
-        return role;
-    });
+        roles = roles.map(role => {
+            role.label = roleTranslations[role.name];
+            return role;
+        });
 
-    const rolesExternal = [
-        {
-            name: 'teamexpert',
-            label: 'externer Experte',
-            _id: roles.find(role => role.name === 'teamexpert')
-        },
-        {
-            name: 'teamadministrator',
-            label: 'Lehrer anderer Schule (Team-Admin)',
-            _id: roles.find(role => role.name === 'teamadministrator')
-        }
-    ];
-
-    // const classes = await getSelectOptions(req, 'classes', {});
-
-    let head = [
-        'Vorname',
-        'Nachname',
-        'Rolle',
-        'Schule',
-        'Aktionen'
-    ];
-
-    const body = course.userIds.map(user => {
-        let row = [
-            user.userId.firstName || '',
-            user.userId.lastName || '',
-            roleTranslations[user.role.name],
-            user.userId.schoolId.name || '',
+        const rolesExternal = [
             {
-                payload: {
-                    userId: user.userId._id
-                }
+                name: 'teamexpert',
+                label: 'externer Experte',
+                _id: roles.find(role => role.name === 'teamexpert')
+            },
+            {
+                name: 'teamadministrator',
+                label: 'Lehrer anderer Schule (Team-Admin)',
+                _id: roles.find(role => role.name === 'teamadministrator')
             }
         ];
 
+        // const classes = await getSelectOptions(req, 'classes', {});
 
-        let actions = [];
+        let head = [
+            'Vorname',
+            'Nachname',
+            'Rolle',
+            'Schule',
+            'Aktionen'
+        ];
 
-        if (course.user.permissions.includes('CHANGE_TEAM_ROLES')) {
-            actions.push({
-                class: 'btn-edit-member',
-                title: 'Rolle bearbeiten',
-                icon: 'edit'
-            });
-        }
+        const body = course.userIds.map(user => {
+            let row = [
+                user.userId.firstName || '',
+                user.userId.lastName || '',
+                roleTranslations[user.role.name],
+                user.userId.schoolId.name || '',
+                {
+                    payload: {
+                        userId: user.userId._id
+                    }
+                }
+            ];
 
-        if (course.user.permissions.includes('REMOVE_MEMBERS')) {
-            actions.push({
-                class: 'btn-delete-member',
-                title: 'Nutzer entfernen',
-                icon: 'trash'
-            });
-        }
 
-        row.push(actions);
+            let actions = [];
 
-        return row;
-    });
+            if (course.user.permissions.includes('CHANGE_TEAM_ROLES')) {
+                actions.push({
+                    class: 'btn-edit-member',
+                    title: 'Rolle bearbeiten',
+                    icon: 'edit'
+                });
+            }
 
-    let headInvitations = [
-        'E-Mail',
-        'Eingeladen am',
-        'Rolle',
-        'Aktionen'
-    ];
+            if (course.user.permissions.includes('REMOVE_MEMBERS')) {
+                actions.push({
+                    class: 'btn-delete-member',
+                    title: 'Nutzer entfernen',
+                    icon: 'trash'
+                });
+            }
 
-    const invitationActions = [{
-        class: 'btn-edit-invitation',
-        title: 'Einladung bearbeiten',
-        icon: 'edit'
-    }];
+            row.push(actions);
 
-    const bodyInvitations = [
-        ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
-        ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
-    ];
+            return row;
+        });
 
-    res.render('teams/members', Object.assign({}, course, {
-        title: 'Deine Team-Mitglieder',
-        action,
-        addMemberAction: `/teams/${req.params.courseId}/members`,
-        inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
-        deleteMemberAction: `/teams/${req.params.courseId}/members`,
-        permissions: course.user.permissions,
-        method,
-        head,
-        body,
-        roles,
-        rolesExternal,
-        headInvitations,
-        bodyInvitations,
-        users,
-        breadcrumb: [{
-                title: 'Meine Teams',
-                url: '/teams'
-            },
-            {
-                title: course.name,
-                url: '/teams/' + course._id
-            },
-            {}
-        ]
-    }));
+        let headInvitations = [
+            'E-Mail',
+            'Eingeladen am',
+            'Rolle',
+            'Aktionen'
+        ];
+
+        const invitationActions = [{
+            class: 'btn-edit-invitation',
+            title: 'Einladung bearbeiten',
+            icon: 'edit'
+        }];
+
+        const bodyInvitations = [
+            ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
+            ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
+        ];
+
+        res.render('teams/members', Object.assign({}, course, {
+            title: 'Deine Team-Teilnehmer',
+            action,
+            addMemberAction: `/teams/${req.params.courseId}/members`,
+            inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
+            deleteMemberAction: `/teams/${req.params.courseId}/members`,
+            permissions: course.user.permissions,
+            method,
+            head,
+            body,
+            roles,
+            rolesExternal,
+            headInvitations,
+            bodyInvitations,
+            users,
+            breadcrumb: [{
+                    title: 'Meine Teams',
+                    url: '/teams'
+                },
+                {
+                    title: course.name,
+                    url: '/teams/' + course._id
+                },
+                {}
+            ]
+        }));
+    } catch (e) {
+        next(e);
+    }
 });
 
 router.get('/:courseId/topics', async function(req, res, next) {

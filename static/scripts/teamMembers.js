@@ -10,9 +10,9 @@ $(document).ready(function () {
     e.preventDefault();
     let $addMemberModal = $('.add-member-modal');
     populateModalForm($addMemberModal, {
-        title: 'Mitglieder hinzufügen',
+        title: 'Teilnehmer hinzufügen',
         closeLabel: 'Abbrechen',
-        submitLabel: 'Mitglieder hinzufügen'
+        submitLabel: 'Teilnehmer hinzufügen'
     });
 
     let $modalForm = $addMemberModal.find(".modal-form");
@@ -35,10 +35,10 @@ $(document).ready(function () {
         userIds
       }
     }).done(function() {
-      $.showNotification('Mitglieder erfolgreich zum Team hinzugefügt', "success", true);
+      $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
       location.reload();
     }).fail(function() {
-      $.showNotification('Problem beim Hinzufügen der Mitglieder', "danger", true);
+      $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
     });
 
     return false;
@@ -52,9 +52,9 @@ $(document).ready(function () {
     e.preventDefault();
     let $inviteExternalMemberModal = $('.invite-external-member-modal');
     populateModalForm($inviteExternalMemberModal, {
-        title: 'Externes Mitglied einladen',
+        title: 'Externen Teilnehmer einladen',
         closeLabel: 'Abbrechen',
-        submitLabel: 'Mitglied einladen'
+        submitLabel: 'Teilnehmer einladen'
     });
 
     let $modalForm = $inviteExternalMemberModal.find(".modal-form");
@@ -137,9 +137,9 @@ $(document).ready(function () {
     let $editMemberModal = $('.edit-member-modal');
     const userId = $(this).parent().parent().find('[data-payload]').data('payload');
     populateModalForm($editMemberModal, {
-        title: 'Mitglied bearbeiten',
+        title: 'Teilnehmer bearbeiten',
         closeLabel: 'Abbrechen',
-        submitLabel: 'Mitglied bearbeiten',
+        submitLabel: 'Teilnehmer bearbeiten',
         payload: userId
     });
 
@@ -170,7 +170,7 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      $.showNotification('Problem beim Bearbeiten des Mitglieds', "danger", true);
+      $.showNotification('Problem beim Bearbeiten des Teilnehmers', "danger", true);
     });
 
     return false;
@@ -185,9 +185,9 @@ $(document).ready(function () {
     let $deleteMemberModal = $('.delete-member-modal');
     const userIdToRemove = $(this).parent().parent().find('[data-payload]').data('payload');
     populateModalForm($deleteMemberModal, {
-        title: 'Mitglied löschen',
+        title: 'Teilnehmer löschen',
         closeLabel: 'Abbrechen',
-        submitLabel: 'Mitglied löschen',
+        submitLabel: 'Teilnehmer löschen',
         payload: userIdToRemove
     });
 
@@ -209,7 +209,7 @@ $(document).ready(function () {
     }).done(function() {
       location.reload();
     }).fail(function() {
-      $.showNotification('Problem beim Löschen des Mitglieds', "danger", true);
+      $.showNotification('Problem beim Löschen des Teilnehmers', "danger", true);
     });
 
     return false;
