@@ -171,11 +171,9 @@ const copyCourseHandler = (req, res, next) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-
 /*
  * teams
  */
-
 
 router.get('/', async function(req, res, next) {
     let courses = await api(req).get('/teams/', {
@@ -842,7 +840,7 @@ const addUserToTeam = (params, internalReturn) => {
     return function (req, res, next) {
         let errornotification = {type: 'danger',message: `Fehler beim Einladen in das Team.`};
         if (["teamadministrator","teamexpert"].includes(req.params.role) && req.query.shortId) {
-            return api(req).patch('/teams/adduser/', {shortId: shortId})
+            return api(req).patch('/teams/adduser/', {json:{shortId: req.query.shortId}})
                 .then(result => {
                     if(result._id){
                         if(internalReturn) return true;
