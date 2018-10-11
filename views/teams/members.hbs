@@ -26,16 +26,17 @@
                         <div class="col-sm-6">
                             <p>Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.</p>
                             <button class="btn btn-primary btn-add-member padding-bottom">
-                                Interne Mitglieder hinzufügen
+                                Interne Teilnehmer hinzufügen
                             </button>
                         </div>
                     {{/inArray}}
 
                     {{#inArray "INVITE_EXPERTS" permissions}}
                         <div class="col-sm-6">
-                            <p>Lade externe Experten und Admins anderer Schulen per E-Mail ein.</p>
+                            <p>Lade externe Admins anderer Schulen per E-Mail ein.</p>
+                            {{!-- <p>Lade externe Experten und Admins anderer Schulen per E-Mail ein.</p> --}}
                             <button class="btn btn-primary btn-invite-external-member">
-                                Externe Mitglieder einladen
+                                Externe Teilnehmer einladen
                             </button>
                         </div>
                     {{/inArray}}
@@ -54,8 +55,8 @@
             {{/ifCond}} --}}
 
             <h4 class="padding-top">{{arrayLength body}}
-                {{#ifCond (arrayLength body) '==' 1}} Mitglied {{/ifCond}}
-                {{#ifCond (arrayLength body) '>' 1}} Mitglieder {{/ifCond}}
+                {{#ifCond (arrayLength body) '==' 1}} Teilnehmer {{/ifCond}}
+                {{#ifCond (arrayLength body) '>' 1}} Teilnehmer {{/ifCond}}
             </h4>
             <div class="container-fluid">
                 <div class="row">
@@ -67,7 +68,7 @@
 
             {{#embed "lib/components/modal-form" action=addMemberAction class="add-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-add-member" users=users}}
+                    {{> "teams/forms/form-add-member" teamId=../_id users=users}}
                 {{/content}}
             {{/embed}}
 
@@ -85,7 +86,7 @@
 
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-invite-external-member" roles=rolesExternal}}
+                    {{> "teams/forms/form-invite-external-member" teamId=../_id roles=rolesExternal}}
                 {{/content}}
             {{/embed}}
 

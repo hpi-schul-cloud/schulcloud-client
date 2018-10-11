@@ -231,7 +231,7 @@ const deleteEventsForData = (service) => {
  *          role: user role = string "teacher"/"student"
  *          save: hash will be generated with URI-safe characters
  *          patchUser: hash will be patched into the user (DB)
- *          host: current webaddress from client
+ *          host: current webaddress from client = string, looks for req.headers.origin first
  *          schoolId: users schoolId = string
  *          toHash: optional, user account mail for hash generation = string
  *      }
@@ -242,7 +242,7 @@ const generateRegistrationLink = (params, internalReturn) => {
         if (!options.role) options.role = req.body.role || "";
         if (!options.save) options.save = req.body.save || "";
         if (!options.patchUser) options.patchUser = req.body.patchUser || "";
-        if (!options.host) options.host = req.headers.origin || "";
+        if (!options.host) options.host = req.headers.origin || req.body.host || "";
         if (!options.schoolId) options.schoolId = req.body.schoolId || "";
         if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
         

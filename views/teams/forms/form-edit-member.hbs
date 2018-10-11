@@ -1,7 +1,7 @@
 <div class="form-group">
     <p>Ändere die Rolle des Nutzers:</p>
     <div style="margin-bottom: 12rem" class="form-group padding-bottom">
-        <label for="role">Gebe ein, welche Rolle das Mitglied erhalten soll.</label>
+        <label for="role">Gebe ein, welche Rolle der Teilnehmer erhalten soll.</label>
         <select placeholder="Rolle angeben" data-placeholder="Rolle angeben" name="role" id="role">
             {{#each roles}}
                 <option value="{{this._id}}" {{#ifeq this.name "teamexpert"}}selected{{/ifeq}}>{{this.label}}</option>

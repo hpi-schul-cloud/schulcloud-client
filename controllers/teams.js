@@ -9,6 +9,31 @@ const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
 
+const thumbs = {
+    default: "/images/thumbs/default.png",
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.png"
+};
+
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
         qs: query
@@ -171,11 +196,9 @@ const copyCourseHandler = (req, res, next) => {
 // secure routes
 router.use(authHelper.authChecker);
 
-
 /*
  * teams
  */
-
 
 router.get('/', async function(req, res, next) {
     let courses = await api(req).get('/teams/', {
@@ -303,180 +326,226 @@ router.get('/:courseId/usersJson', function(req, res, next) {
 });
 
 router.get('/:courseId', async function(req, res, next) {
-    const course = await api(req).get('/teams/' + req.params.courseId, {
-        qs: {
-            $populate: ['ltiToolIds']
-        }
-    });
+    try {
+        const course = await api(req).get('/teams/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        });
 
-    res.render('teams/team', Object.assign({}, course, {
-        title: course.name,
-        breadcrumb: [{
-                title: 'Meine Teams',
-                url: '/teams'
-            },
-            {}
-        ],
-        permissions: course.user.permissions,
-        course,
-        filesUrl: `/files/teams/${req.params.courseId}`,
-        nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
-    }));
+        let data = await api(req).get('/fileStorage', {
+            qs: { path: 'teams/' + course._id + '/' }
+        });
+        let files = data.files.map(file => {
+            file.file = file.key;
+            let ending = file.name.split('.').pop();
+            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+            return file;
+        });
+
+        if (data.directories && data.directories.length > 0) {
+            const filesPromises = data.directories.map(dir => {
+                return api(req).get('/fileStorage', {
+                    qs: {
+                        path: dir.key + '/'
+                    }
+                });
+            });
+            const dataSubdirectories = await Promise.all(filesPromises);
+            let subdirectoriesFiles = dataSubdirectories.map(sub => {
+                return sub.files.map(file => {
+                    file.file = file.key;
+                    let ending = file.name.split('.').pop();
+                    file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                    return file;
+                });
+            });
+            subdirectoriesFiles = subdirectoriesFiles[0];
+
+            files = files.concat(subdirectoriesFiles);
+        }
+
+        // Sort by most recent files and limit to 6 files
+        files = files.sort(function(a,b){
+            return new Date(b.updatedAt) - new Date(a.updatedAt);
+        });
+        files = files.slice(0, 6);
+
+        res.render('teams/team', Object.assign({}, course, {
+            title: course.name,
+            breadcrumb: [{
+                    title: 'Meine Teams',
+                    url: '/teams'
+                },
+                {}
+            ],
+            permissions: course.user.permissions,
+            course,
+            files,
+            filesUrl: `/files/teams/${req.params.courseId}`,
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+        }));
+    } catch (e) {
+        next(e);
+    }
 });
 
 router.get('/:courseId/members', async function(req, res, next) {
     const action = '/teams/' + req.params.courseId;
     const method = 'patch';
+    let course, courseUserIds;
 
-    const course = await api(req).get('/teams/' + req.params.courseId, {
-        qs: {
-            $populate: [
-                {
-                    path: 'userIds.userId',
-                    populate: ['schoolId']
-                }, {
-                    path: 'userIds.role',
+    try {
+        course = await api(req).get('/teams/' + req.params.courseId, {
+            qs: {
+                $populate: [
+                    {
+                        path: 'userIds.userId',
+                        populate: ['schoolId']
+                    }, {
+                        path: 'userIds.role',
+                    }
+                ]
+            }
+        });
+        courseUserIds = course.userIds.map(user => user.userId._id);
+
+        const users = (await api(req).get('/users', {
+            qs: {
+                _id: {
+                    $nin: courseUserIds
                 }
-            ]
-        }
-    });
-
-    const courseUserIds = course.userIds.map(user => user.userId._id);
-
-    const users = (await api(req).get('/users', {
-        qs: {
-            _id: {
-                $nin: courseUserIds
             }
-        }
-    })).data;
+        })).data;
 
-    let roles = (await api(req).get('/roles', {
-        qs: {
-            name: {
-                $in: ['teammember', 'teamexpert', 'teamleader',
-                      'teamadministrator', 'teamowner']
+        let roles = (await api(req).get('/roles', {
+            qs: {
+                name: {
+                    $in: ['teammember', 'teamexpert', 'teamleader',
+                        'teamadministrator', 'teamowner']
+                }
             }
-        }
-    })).data;
+        })).data;
 
-    const roleTranslations = {
-        teammember: 'Mitglied',
-        teamexpert: 'externer Experte',
-        teamleader: 'Leiter',
-        teamadministrator: 'Team-Admin',
-        teamowner: 'Team-Admin (Eigentümer)',
-    };
+        const roleTranslations = {
+            teammember: 'Teilnehmer',
+            teamexpert: 'externer Experte',
+            teamleader: 'Leiter',
+            teamadministrator: 'Team-Admin',
+            teamowner: 'Team-Admin (Eigentümer)',
+        };
 
-    roles = roles.map(role => {
-        role.label = roleTranslations[role.name];
-        return role;
-    });
+        roles = roles.map(role => {
+            role.label = roleTranslations[role.name];
+            return role;
+        });
 
-    const rolesExternal = [
-        {
-            name: 'teamexpert',
-            label: 'externer Experte',
-            _id: roles.find(role => role.name === 'teamexpert')
-        },
-        {
-            name: 'teamadministrator',
-            label: 'Lehrer anderer Schule (Team-Admin)',
-            _id: roles.find(role => role.name === 'teamadministrator')
-        }
-    ];
-
-    // const classes = await getSelectOptions(req, 'classes', {});
-
-    let head = [
-        'Vorname',
-        'Nachname',
-        'Rolle',
-        'Schule',
-        'Aktionen'
-    ];
-
-    const body = course.userIds.map(user => {
-        let row = [
-            user.userId.firstName || '',
-            user.userId.lastName || '',
-            roleTranslations[user.role.name],
-            user.userId.schoolId.name || '',
+        const rolesExternal = [
+            // TODO: Wieder reinnehmen, sobald externer Experte einladen geht
+            // {
+            //     name: 'teamexpert',
+            //     label: 'externer Experte',
+            //     _id: roles.find(role => role.name === 'teamexpert')
+            // },
             {
-                payload: {
-                    userId: user.userId._id
-                }
+                name: 'teamadministrator',
+                label: 'Lehrer anderer Schule (Team-Admin)',
+                _id: roles.find(role => role.name === 'teamadministrator')
             }
         ];
 
+        let head = [
+            'Vorname',
+            'Nachname',
+            'Rolle',
+            'Schule',
+            'Aktionen'
+        ];
 
-        let actions = [];
+        const body = course.userIds.map(user => {
+            let row = [
+                user.userId.firstName || '',
+                user.userId.lastName || '',
+                roleTranslations[user.role.name],
+                user.userId.schoolId.name || '',
+                {
+                    payload: {
+                        userId: user.userId._id
+                    }
+                }
+            ];
 
-        if (course.user.permissions.includes('CHANGE_TEAM_ROLES')) {
-            actions.push({
-                class: 'btn-edit-member',
-                title: 'Rolle bearbeiten',
-                icon: 'edit'
-            });
-        }
 
-        if (course.user.permissions.includes('REMOVE_MEMBERS')) {
-            actions.push({
-                class: 'btn-delete-member',
-                title: 'Nutzer entfernen',
-                icon: 'trash'
-            });
-        }
+            let actions = [];
 
-        row.push(actions);
+            if (course.user.permissions.includes('CHANGE_TEAM_ROLES')) {
+                actions.push({
+                    class: 'btn-edit-member',
+                    title: 'Rolle bearbeiten',
+                    icon: 'edit'
+                });
+            }
 
-        return row;
-    });
+            if (course.user.permissions.includes('REMOVE_MEMBERS')) {
+                actions.push({
+                    class: 'btn-delete-member',
+                    title: 'Nutzer entfernen',
+                    icon: 'trash'
+                });
+            }
 
-    let headInvitations = [
-        'E-Mail',
-        'Eingeladen am',
-        'Rolle',
-        'Aktionen'
-    ];
+            row.push(actions);
 
-    const invitationActions = [{
-        class: 'btn-edit-invitation',
-        title: 'Einladung bearbeiten',
-        icon: 'edit'
-    }];
+            return row;
+        });
 
-    const bodyInvitations = [
-        ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
-        ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
-    ];
+        let headInvitations = [
+            'E-Mail',
+            'Eingeladen am',
+            'Rolle',
+            'Aktionen'
+        ];
 
-    res.render('teams/members', Object.assign({}, course, {
-        title: 'Deine Team-Mitglieder',
-        action,
-        addMemberAction: `/teams/${req.params.courseId}/members`,
-        inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
-        deleteMemberAction: `/teams/${req.params.courseId}/members`,
-        permissions: course.user.permissions,
-        method,
-        head,
-        body,
-        roles,
-        rolesExternal,
-        headInvitations,
-        bodyInvitations,
-        users,
-        breadcrumb: [{
-                title: 'Meine Teams',
-                url: '/teams'
-            },
-            {
-                title: course.name,
-                url: '/teams/' + course._id
-            },
-            {}
-        ]
-    }));
+        const invitationActions = [{
+            class: 'btn-edit-invitation',
+            title: 'Einladung bearbeiten',
+            icon: 'edit'
+        }];
+
+        const bodyInvitations = [
+            ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
+            ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
+        ];
+
+        res.render('teams/members', Object.assign({}, course, {
+            title: 'Deine Team-Teilnehmer',
+            action,
+            addMemberAction: `/teams/${req.params.courseId}/members`,
+            inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
+            deleteMemberAction: `/teams/${req.params.courseId}/members`,
+            permissions: course.user.permissions,
+            method,
+            head,
+            body,
+            roles,
+            rolesExternal,
+            headInvitations,
+            bodyInvitations,
+            users,
+            breadcrumb: [{
+                    title: 'Meine Teams',
+                    url: '/teams'
+                },
+                {
+                    title: course.name,
+                    url: '/teams/' + course._id
+                },
+                {}
+            ]
+        }));
+    } catch (e) {
+        next(e);
+    }
 });
 
 router.get('/:courseId/topics', async function(req, res, next) {
@@ -762,5 +831,127 @@ router.post('/import', function(req, res, next) {
             res.status((err.statusCode || 500)).send(err);
         });
 });
+
+/**
+ * Generates short team invite link. can be used as function or as hook call.
+ * @param params = object {
+ *      role: user role = string "teamexpert"/"teamadministrator"
+ *      host: current webaddress from client = string, looks for req.headers.origin first
+ *      teamId: users teamId = string
+ *      invitee: user who gets invited = string
+ *      save: make hash link-friendly? = boolean (might be string)
+ *  }
+ * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
+ */
+const generateInviteLink = (params, internalReturn) => {
+    return function (req, res, next) {
+        let options = JSON.parse(JSON.stringify(params));
+        if (!options.role) options.role = req.body.role || "";
+        if (!options.host) options.host = req.headers.origin || req.body.host || "";
+        if (!options.teamId) options.teamId = req.body.teamId || "";
+        if (!options.invitee) options.invitee = req.body.email || req.body.invitee || "";
+        if (!options.save) options.save = req.body.save || "true";
+        options.inviter = res.locals.currentUser._id;
+
+        if(internalReturn){
+            return api(req).post("/teaminvitelink/", {
+                json: options
+            });
+        } else {
+            return api(req).post("/teaminvitelink/", {
+                json: options
+            }).then(linkData => {
+                res.locals.linkData = linkData;
+                res.locals.options = options;
+                next();
+            }).catch(err => {
+                req.session.notification = {
+                    'type': 'danger',
+                    'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
+                };
+                res.redirect(req.header('Referer'));
+            });
+        }
+    };
+};
+
+const sendMailHandler = (internalReturn) => {
+    return function (req, res, next) {
+        let data = Object.assign(res.locals.options, res.locals.linkData);
+        if(data.invitee && data.teamId && data.shortLink && data.role) {
+            let inviteText = '';
+            if (data.role === 'teamadministrator') {
+                inviteText = `Hallo ${data.invitee}!
+\nDu wurdest eingeladen, einem Team der ${res.locals.theme.short_title} beizutreten, bitte klicke auf diesen Link, um die Einladung anzunehmen: ${data.shortLink}
+\nViel Spaß und gutes Gelingen wünscht dir dein
+${res.locals.theme.short_title}-Team`
+            } else {
+                inviteText = `Hallo ${data.invitee}!
+\nDu wurdest eingeladen, einem Team der ${res.locals.theme.short_title} beizutreten. Da du noch keinen ${res.locals.theme.short_title} Account besitzt, folge bitte diesem Link, um die Registrierung abzuschließen und dem Team beizutreten: ${data.shortLink}
+\nViel Spaß und einen guten Start wünscht dir dein
+${res.locals.theme.short_title}-Team`
+            }
+            return api(req).post('/mails/', {
+                json: {
+                    email: data.invitee,
+                    subject: `Einladung in ein Team der ${res.locals.theme.short_title}!`,
+                    headers: {},
+                    content: {
+                        "text": inviteText
+                    }
+                }
+            }).then(_ => {
+                if(internalReturn) return true;
+                next();
+            }).catch(err => {
+                if(internalReturn) return false;
+                next();
+            });
+        } else {
+            if(internalReturn) return true;
+            next();
+        }
+    }
+};
+
+// client-side use
+// WITH PERMISSION - NEEDED FOR LIVE
+// router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
+router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { res.json({inviteCallDone:true}) });
+
+const addUserToTeam = (params, internalReturn) => {
+    return function (req, res, next) {
+        let errornotification = {type: 'danger',message: `Fehler beim Einladen in das Team.`};
+        if (["teamadministrator","teamexpert"].includes(req.params.role) && req.query.shortId) {
+            return api(req).patch('/teams/adduser/', {json:{shortId: req.query.shortId}})
+                .then(result => {
+                    if(result._id){
+                        if(internalReturn) return true;
+                        req.session.notification = {
+                            type: 'success',
+                            message: `Du wurdest dem Team erfolgreich hinzugefügt.`
+                        };
+                        res.redirect('/teams/'+result._id);
+                    } else {
+                        if(internalReturn) return false;
+                        req.session.notification = errornotification;
+                        res.redirect('/teams/');
+                    }
+                })
+                .catch(err => {
+                    if(internalReturn) return false;
+                    req.session.notification = errornotification;
+                    res.redirect('/teams/');
+                });
+        } else {
+            if(internalReturn) return false;
+            req.session.notification = errornotification;
+            res.redirect('/teams/');
+        }
+    }
+};
+
+router.get('/invite/:role/to/:teamHash', addUserToTeam());
+
 
 module.exports = router;

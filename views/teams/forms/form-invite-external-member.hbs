@@ -1,16 +1,16 @@
-<div class="form-group">
+<div class="form-group" data-teamId="{{teamId}}">
     <p>Lade Lehrer anderer Schulen als Team-Admin ein, damit diese Lehrer und Schüler ihrer Schule hinzufügen können.
         Benutze dazu die E-Mail-Adresse, mit der der Lehrer in der {{theme.short_title}} registriert ist.</p>
-    <p>Lade externe Experten ein, sich in der {{theme.short_title}} zu registrieren deinem Team beizutreten.</p>
+    {{!-- <p>Lade externe Experten ein, sich in der {{theme.short_title}} zu registrieren deinem Team beizutreten.</p> --}}
     <div class="form-group" style="margin-top: 3rem">
         <label for="email">Gebe die E-Mail der Person ein, an welche die Einladung verschickt wird.</label>
         <input class="form-control" type="text" name="email" id="email" placeholder="E-Mail eingeben">
     </div>
     <div style="margin-bottom: 6rem" class="form-group padding-bottom">
-        <label for="role">Gebe ein, welche Rolle das Mitglied erhalten soll.</label>
+        <label for="role">Gebe ein, welche Rolle das Mitglied erhalten soll. *</label>
         <select placeholder="Rolle angeben"  data-placeholder="Rolle angeben" name="role" id="role">
             {{#each roles}}
-                <option value="{{this._id}}">{{this.label}}</option>
+                <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
             {{/each}}
         </select>
     </div>
