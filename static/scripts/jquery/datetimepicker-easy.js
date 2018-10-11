@@ -1,6 +1,5 @@
 import 'jquery-datetimepicker';
 
-
 if(!window.datetimepicker){
     window.datetimepicker = (event)=>{
         /* DATE(-TIME) PICKER */
@@ -14,9 +13,9 @@ if(!window.datetimepicker){
 
         function readPickerConfig(input){
             return {
-                format:     (input.dataset.datetime?'d.m.Y H:i':'d.m.Y'),
-                mask:       (input.dataset.datetime?'39.19.9999 29:59':'39.19.9999'),
-                timepicker: (input.dataset.datetime  || false),
+                format:     (input.dataset.datetime !== undefined ?'d.m.Y H:i':'d.m.Y'),
+                mask:       (input.dataset.datetime !== undefined ?'39.19.9999 29:59':'39.19.9999'),
+                timepicker: (input.dataset.datetime !==  undefined  || false),
                 startDate:  (input.dataset.startDate || false),
                 minDate:    (input.dataset.minDate), //default: unlimited minimum date 
                 maxDate:    (input.dataset.maxDate || false), //default: unlimited maximum date 

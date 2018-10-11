@@ -1,6 +1,6 @@
 import moment from 'moment';
 //import 'jquery-datetimepicker';
-import './jquery/datetimepicker-easy';
+import './jquery/datetimepicker-easy.js';
 import 'script-loader!fullcalendar/dist/fullcalendar.min.js';
 import 'script-loader!fullcalendar/dist/locale/de.js';
 
