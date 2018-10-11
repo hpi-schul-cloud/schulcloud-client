@@ -4,37 +4,13 @@
 {{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
     <script src="/scripts/mousetrap/mousetrap.js" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+    <script src="/scripts/jquery/datetimepicker-easy.js" defer></script>   
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
             
-            $.datetimepicker.setLocale('de');
-            $('input[data-datetime]').datetimepicker({
-                format:'d.m.Y H:i',
-                mask: '39.19.9999 29:59',
-                onShow:function(ct, input){
-                    if(input[0].id == "availableDate"){
-                        let due = $("#dueDate").val().split(" ");
-                        this.setOptions({
-                            minDate:0,
-                            maxDate:(due[0]!="__.__.____")?due[0]:false,
-                            formatDate:'d.m.Y',
-                        });
-                    }
-                    else if(input[0].id == "dueDate"){
-                        let available = $("#availableDate").val().split(" ");
-                        this.setOptions({
-                            minDate:(available[0]!="__.__.____")?available[0]:0,
-                            maxDate:false,
-                            formatDate:'d.m.Y'
-                        });
-                    }
-                }
-            });
-
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('homework-form').submit();
                 return false;
