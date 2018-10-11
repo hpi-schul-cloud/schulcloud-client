@@ -128,7 +128,6 @@ const FileGetter = (req, res, next) => {
     const currentDir = pathComponents.slice(2).join('/') || '/';
 
     path = pathComponents.join('/');
-    console.log(path)
 
     return api(req).get('/fileStorage', {
         qs: {path}
