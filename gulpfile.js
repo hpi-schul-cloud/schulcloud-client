@@ -209,7 +209,7 @@ gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-s
   'vendor-styles', 'vendor-scripts', 'vendor-assets'
 ]);
 
-gulp.task('build-theme-files', ['styles']);
+gulp.task('build-theme-files', ['styles', 'images']);
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
