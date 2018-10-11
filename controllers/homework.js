@@ -67,14 +67,14 @@ const getCreateHandler = (service) => {
             if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
                 req.body.lessonId = null;
             }
+
             if (req.body.dueDate) {
                 // rewrite german format to ISO
-                req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString();
+                req.body.dueDate = moment(req.body.dueDate, 'DD.MM.YYYY HH:mm').toISOString() || undefined;
             }
-
             if (req.body.availableDate) {
                 // rewrite german format to ISO
-                req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
+                req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString() || undefined;
             }
 
             if (!req.body.availableDate || !req.body.dueDate) {
