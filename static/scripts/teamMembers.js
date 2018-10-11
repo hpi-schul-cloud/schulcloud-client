@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  
+  const $inviteExternalMemberModal = $('.invite-external-member-modal');
 
   /////////////
   // Add Member
@@ -63,36 +65,45 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
     const email = $(this).find('#email').val();
-    const role = $(this).find('#role').val();
-
     function validateEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
     }
-
     if (!email || !validateEmail(email)) {
       $.showNotification('Bitte gib eine gültige E-Mail an.', "danger", true);
       return false;
     }
-
+    
+    const role = $(this).find('#role').val();
     if (!role) {
       $.showNotification('Bitte wähle eine Rolle aus.', "danger", true);
       return false;
     }
-
+    
+    const teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
+    if (!teamId) {
+      $.showNotification('Bitte lade die Seite neu.', "danger", true);
+      return false;
+    }
+    const origin = window.location.origin;
+    console.log({email, role, teamId, origin});
     $.ajax({
-      url: $(this).attr('action'),
-      method: 'POST',
-      data: {
-        email,
-        role
-      }
-    }).done(function() {
-      location.reload();
+        type: "POST",
+        url: origin + "/teams/invitelink",
+        data: {
+            host: origin,
+            role: role,
+            teamId: teamId,
+            invitee: email
+        }
+    }).done(result => {
+      console.log(result);
+      $inviteExternalMemberModal.modal('hide');
+      if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
+      else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.', "danger", true);
     }).fail(function() {
-      $.showNotification('Problem beim versenden der Einladung', "danger", true);
+      $.showNotification('Problem beim Versenden der Einladung', "danger", true);
     });
-
     return false;
   });
 
@@ -164,7 +175,7 @@ $(document).ready(function () {
 
     return false;
   });
-
+    
   /////////////
   // Delete Member
   /////////////

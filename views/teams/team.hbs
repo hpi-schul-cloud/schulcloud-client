@@ -1,7 +1,6 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
         <link rel="stylesheet" href="/styles/files/files.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
@@ -14,7 +13,7 @@
 
     {{#content "page"}}
 
-        <section class="section-course">
+        <section class="section-teams" data-id="{{../_id}}">
 
             <div class="row description">
                 <div class="col-sm-12">
@@ -108,12 +107,6 @@
                             Löschen
                         </button>
                     </div>
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="invitation-modal"}}
-                {{#content "fields"}}
-                    {{> "courses/forms/form-invitation"}}
                 {{/content}}
             {{/embed}}
 

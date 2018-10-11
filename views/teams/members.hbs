@@ -67,7 +67,7 @@
 
             {{#embed "lib/components/modal-form" action=addMemberAction class="add-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-add-member" users=users}}
+                    {{> "teams/forms/form-add-member" teamId=../_id users=users}}
                 {{/content}}
             {{/embed}}
 
@@ -85,7 +85,7 @@
 
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-invite-external-member" roles=rolesExternal}}
+                    {{> "teams/forms/form-invite-external-member" teamId=../_id roles=rolesExternal}}
                 {{/content}}
             {{/embed}}
 
