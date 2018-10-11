@@ -97,20 +97,12 @@ router.get('/', async function (req, res, next) {
         sections.push("password");
     }
 
-    // PARENT CONSENT
+    // PARENT CONSENT (must be the submit page because of the pin validation!)
     if(consent.requiresParentConsent && !parentConsent){
-        // TODO - Daten von Eltern + Email validieren PIN + Abfrage
-        /*
-        0. Einleitungsseite (K)
-        1. Elterndaten (A)
-        2. Consent (A)
-        3. PIN (A)
-        4. "Schüler kann weitermachen"-Seite (K)
-        */
-        submitPageIndex += 5;
+        submitPageIndex += 4;
         sections.push("parent_intro");
         sections.push("parent_data");
-        sections.push("consent_parent");
+        sections.push("parent_consent");
         sections.push("pin");
     }
 
