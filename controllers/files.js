@@ -128,6 +128,7 @@ const FileGetter = (req, res, next) => {
     const currentDir = pathComponents.slice(2).join('/') || '/';
 
     path = pathComponents.join('/');
+    console.log(path)
 
     return api(req).get('/fileStorage', {
         qs: {path}
@@ -687,6 +688,9 @@ router.get('/permittedDirectories/', function (req, res, next) {
     }, {
         name: 'Meine Kurs-Dateien',
         subDirs: []
+    }, {
+        name: 'Meine Team-Dateien',
+        subDirs: []
     }];
     getDirectoryTree(req, userPath) // root folder personal files
         .then(personalDirs => {
@@ -709,7 +713,24 @@ router.get('/permittedDirectories/', function (req, res, next) {
                         return;
                     });
                 })).then(_ => {
-                    res.json(directoryTree);
+                    getScopeDirs(req, res, 'teams').then(teams => {
+                        Promise.all((teams || []).map(c => {
+                            let teamPath = `teams/${c._id}/`;
+                            let newCourseDir = {
+                                name: c.name,
+                                path: teamPath,
+                                subDirs: []
+                            };
+
+                            return getDirectoryTree(req, teamPath).then(dirs => {
+                                newCourseDir.subDirs = dirs;
+                                directoryTree[2].subDirs.push(newCourseDir);
+                                return;
+                            });
+                        })).then(_ => {
+                            res.json(directoryTree);
+                        });
+                    });
                 });
             });
         });

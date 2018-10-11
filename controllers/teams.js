@@ -9,6 +9,31 @@ const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
 
+const thumbs = {
+    default: "/images/thumbs/default.png",
+    psd: "/images/thumbs/psds.png",
+    txt: "/images/thumbs/txts.png",
+    doc: "/images/thumbs/docs.png",
+    png: "/images/thumbs/pngs.png",
+    mp4: "/images/thumbs/mp4s.png",
+    mp3: "/images/thumbs/mp3s.png",
+    aac: "/images/thumbs/aacs.png",
+    avi: "/images/thumbs/avis.png",
+    gif: "/images/thumbs/gifs.png",
+    html: "/images/thumbs/htmls.png",
+    js: "/images/thumbs/jss.png",
+    mov: "/images/thumbs/movs.png",
+    xls: "/images/thumbs/xlss.png",
+    xlsx: "/images/thumbs/xlss.png",
+    pdf: "/images/thumbs/pdfs.png",
+    flac: "/images/thumbs/flacs.png",
+    jpg: "/images/thumbs/jpgs.png",
+    jpeg: "/images/thumbs/jpgs.png",
+    docx: "/images/thumbs/docs.png",
+    ai: "/images/thumbs/ais.png",
+    tiff: "/images/thumbs/tiffs.png"
+};
+
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
         qs: query
@@ -309,6 +334,44 @@ router.get('/:courseId', async function(req, res, next) {
         }
     });
 
+    let data = await api(req).get('/fileStorage', {
+        qs: { path: 'teams/' + course._id + '/' }
+    });
+    let files = data.files.map(file => {
+        file.file = file.key;
+        let ending = file.name.split('.').pop();
+        file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+        return file;
+    });
+
+    if (data.directories && data.directories.length > 0) {
+        const filesPromises = data.directories.map(dir => {
+            return api(req).get('/fileStorage', {
+                qs: {
+                    path: dir.key + '/'
+                }
+            });
+        });
+        const dataSubdirectories = await Promise.all(filesPromises);
+        let subdirectoriesFiles = dataSubdirectories.map(sub => {
+            return sub.files.map(file => {
+                file.file = file.key;
+                let ending = file.name.split('.').pop();
+                file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+                return file;
+            });
+        });
+        subdirectoriesFiles = subdirectoriesFiles[0];
+
+        files = files.concat(subdirectoriesFiles);
+    }
+
+    // Sort by most recent files and limit to 6 files
+    files = files.sort(function(a,b){
+        return new Date(b.updatedAt) - new Date(a.updatedAt);
+      });
+    files = files.slice(0, 6);
+
     res.render('teams/team', Object.assign({}, course, {
         title: course.name,
         breadcrumb: [{
@@ -319,6 +382,7 @@ router.get('/:courseId', async function(req, res, next) {
         ],
         permissions: course.user.permissions,
         course,
+        files,
         filesUrl: `/files/teams/${req.params.courseId}`,
         nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
     }));

@@ -2,7 +2,7 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="stylesheet" href="/styles/files/files.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
@@ -10,6 +10,7 @@
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
         <script src="/scripts/courses.js" type="text/javascript" defer></script>
+        <script src="/scripts/files.js" type="text/javascript" defer></script>
         <script src="/scripts/topic.js" type="text/javascript" defer></script>
     {{/content}}
 
@@ -49,6 +50,8 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>Dateien</h4>
+                    {{#embed "files/file-viewer"}}{{/embed}}
+                    {{#embed "files/files-grid" files=files}}{{/embed}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
                 </div>
             </div>
