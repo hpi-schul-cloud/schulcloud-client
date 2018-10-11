@@ -430,7 +430,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         })).data;
 
         const roleTranslations = {
-            teammember: 'Mitglied',
+            teammember: 'Teilnehmer',
             teamexpert: 'externer Experte',
             teamleader: 'Leiter',
             teamadministrator: 'Team-Admin',
@@ -521,7 +521,7 @@ router.get('/:courseId/members', async function(req, res, next) {
         ];
 
         res.render('teams/members', Object.assign({}, course, {
-            title: 'Deine Team-Mitglieder',
+            title: 'Deine Team-Teilnehmer',
             action,
             addMemberAction: `/teams/${req.params.courseId}/members`,
             inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,

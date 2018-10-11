@@ -25,17 +25,17 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <h4>Mitglieder</h4>
+                    <h4>Teilnehmer</h4>
                     <p>
                       Im Team
                       {{#ifCond (arrayLength course.userIds) '==' 1}} befindet {{/ifCond}}
                       {{#ifCond (arrayLength course.userIds) '>' 1}} befinden {{/ifCond}}
                       sich <strong>{{arrayLength course.userIds}}</strong>
-                      {{#ifCond (arrayLength course.userIds) '==' 1}} Mitglied {{/ifCond}}
-                      {{#ifCond (arrayLength course.userIds) '>' 1}} Mitglieder {{/ifCond}}
+                      {{#ifCond (arrayLength course.userIds) '==' 1}} Teilnehmer {{/ifCond}}
+                      {{#ifCond (arrayLength course.userIds) '>' 1}} Teilnehmer {{/ifCond}}
                     </p>
                     <a href="/teams/{{_id}}/members" class="btn btn-add btn-secondary">
-                        Zur Mitglieder-Übersicht
+                        Zur Teilnehmer-Übersicht
                     </a>
                 </div>
             </div>
@@ -43,6 +43,11 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>News</h4>
+                    {{!-- {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/news/add" class="btn btn-add btn-primary">
+                            News anlegen
+                        </a>
+                    {{/inArray}} --}}
                 </div>
             </div>
 
@@ -67,15 +72,18 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>Termine</h4>
+                    {{!-- {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/event/add" class="btn btn-add btn-primary">
+                            Termin anlegen
+                        </a>
+                    {{/inArray}} --}}
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row padding-top">
                 <div class="col-sm-12">
                     {{#inArray "RENAME_TEAM" permissions}}
                         <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
-                        {{!-- <a href="/teams/{{../_id}}/copy" class="btn btn-add btn-secondary">Team klonen</a> --}}
-                        {{!-- <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Team teilen</a> --}}
                     {{/inArray}}
 
                     {{#inArray "DELETE_TEAM" permissions}}
