@@ -37,7 +37,10 @@
                 {{#userHasPermission "COURSE_EDIT"}}
                 <div class="col-xs-12">
                     <div class="row padding-top">
-                        <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
+                        <div class="col-sm-12">
+                            <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
+                            <a class="btn btn-add btn-secondary btn-import-course">Kurs importieren</a>
+                        </div>
                     </div>
                 </div>
                 {{/userHasPermission}}
@@ -51,6 +54,12 @@
                             <div id='course-edit'></div>
                         {{/userHasPermission}}
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-course"}}
                 {{/content}}
             {{/embed}}
 
