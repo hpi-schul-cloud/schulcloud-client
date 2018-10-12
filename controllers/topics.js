@@ -120,7 +120,6 @@ module.exports = function (context = 'courses') {
 
 
     router.get('/:topicId', function(req, res, next) {
-
         Promise.all([
             api(req).get(`/${context}/` + req.params.courseId),
             api(req).get('/lessons/' + req.params.topicId, {

@@ -3,6 +3,11 @@
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/files/files.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
+        <style>
+            .section-teams .section-news .container-fluid {
+                padding: 0;
+            }
+        </style>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -41,11 +46,12 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>News</h4>
-                    {{!-- {{#inArray "CREATE_NEWS" permissions}}
-                        <a href="/teams/{{../_id}}/news/add" class="btn btn-add btn-primary">
+                    {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                    {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
                             News anlegen
                         </a>
-                    {{/inArray}} --}}
+                    {{/inArray}}
                 </div>
             </div>
 
@@ -70,11 +76,11 @@
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <h4>Termine</h4>
-                    {{!-- {{#inArray "CREATE_NEWS" permissions}}
+                    {{#inArray "CREATE_NEWS" permissions}}
                         <a href="/teams/{{../_id}}/event/add" class="btn btn-add btn-primary">
                             Termin anlegen
                         </a>
-                    {{/inArray}} --}}
+                    {{/inArray}}
                 </div>
             </div>
 
