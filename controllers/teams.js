@@ -260,9 +260,7 @@ router.post('/', function(req, res, next) {
     api(req).post('/teams/', {
         json: req.body // TODO: sanitize
     }).then(course => {
-        createEventsForCourse(req, res, course).then(_ => {
-            res.redirect('/teams/' + course._id);
-        })
+        res.redirect('/teams/' + course._id);
     }).catch(err => {
         logger.warn(err);       //todo add req.body
         res.sendStatus(500);
