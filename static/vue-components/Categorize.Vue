@@ -22,6 +22,26 @@
 
     <div class="md-layout md-alignment-top-center line">
         <div class="md-layout-item md-size-15">
+            Themen:
+        </div>
+        <div class="md-layout-item">
+            <md-chip v-for="(chip, index) in teacherContent.topics" v-model="teacherContent.topics" :key="chip"
+                @md-delete.stop="removeFilter('topics', index)" md-clickable md-deletable>{{ chip }}
+            </md-chip>
+            <md-autocomplete v-model="topic" :md-options="topics"  @md-selected="topicSelected" @keyup.enter="addNewTopic"> <!-- v-model="teacherContent.topics" -->
+              <template slot="md-autocomplete-item" slot-scope="{ item, term }">
+                <md-highlight-text :md-term="term">{{ item }}</md-highlight-text>
+              </template>
+
+              <template slot="md-autocomplete-empty" slot-scope="{ term }">
+                <a @click="addNewTopic(term)">{{term}}</a> neu anlegen
+              </template>
+            </md-autocomplete>
+        </div>
+    </div>
+
+    <div class="md-layout md-alignment-top-center line">
+        <div class="md-layout-item md-size-15">
             Niveaustufe:
         </div>
         <div class="md-layout-item">
@@ -122,9 +142,21 @@
     data() {
       return {
         visibleDialog: '',
+        topics: ["Knochen", "Blutkreislauf", "Auge", "Blut", "Skelett"], // TODO: get selection from topic table
+        topic: '',
+        newTopics: []
       };
     },
     methods: {
+        topicSelected(topic) {
+          this.teacherContent.topics.push(topic);
+          this.topic = '';
+        },
+        addNewTopic(topic) {
+          this.teacherContent.topics.push(topic);
+          this.topic = '';
+          this.newTopics.push(topic)
+        },
         pushFilter(identifier, filterData) {
           this.visibleDialog = '';
           this.teacherContent[identifier].push(filterData.selection);

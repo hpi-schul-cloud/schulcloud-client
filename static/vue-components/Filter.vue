@@ -12,7 +12,7 @@
         FILTER HINZUFÜGEN
       </md-button>
       <!-- TODO nur bestaetigte inhalte -->
-      <md-button class="md-primary" v-on:click="toggleOnlyApproved">
+      <md-button v-show="!inReview" class="md-primary" v-on:click="toggleOnlyApproved">
         {{approvedOnly ? "Alle Inhalte" : "Nur akzeptierte Inhalte" }}
       </md-button>
       <md-menu-content>
@@ -36,11 +36,7 @@
             Alter
             <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('topic')" v-on:click="visibleProvider = 'topic'">
-            Thema
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
-        </md-menu-item>
-        <md-menu-item v-if="!isApplied('provider') && !inReview" v-on:click="visibleProvider = 'provider'">
+        <md-menu-item v-if="!isApplied('provider')" v-on:click="visibleProvider = 'provider'">
             Anbieter
         </md-menu-item>
         <md-menu-item v-if="!isApplied('createdat')" v-on:click="visibleProvider = 'createdat'">
@@ -61,8 +57,6 @@
                             v-bind:active="visibleProvider == 'difficulty'"/>
     <age-filter-dialog @set="setFilter" @cancle="cancle" identifier="age"
                             v-bind:active="visibleProvider == 'age'"/>
-    <topic-filter-dialog @set="setFilter" @cancle="cancle" identifier="topics"
-                            v-bind:active="visibleProvider == 'topics'"/>
   </div>
 </template>
 
@@ -73,7 +67,6 @@
   import goalFilterDialog from  './dialogs/filter/goal.vue';
   import difficultyFilterDialog from  './dialogs/filter/difficulty.vue';
   import ageFilterDialog from  './dialogs/filter/age.vue';
-  import topicFilterDialog from  './dialogs/filter/topic.vue';
 
   export default {
     components: {
@@ -82,8 +75,7 @@
       'subject-filter-dialog': subjectFilterDialog,
       'goal-filter-dialog': goalFilterDialog,
       'difficulty-filter-dialog': difficultyFilterDialog,
-      'age-filter-dialog': ageFilterDialog,
-      'topic-filter-dialog': topicFilterDialog,
+      'age-filter-dialog': ageFilterDialog
     },
     name: 'SearchFilter',
     data() {
@@ -99,20 +91,26 @@
     props: ['inReview', 'userId'],
     created() {
       this.getTeacherPoints();
+      if (this.inReview) {
+        this.setFilter("provider", {
+          apiQuery: { 'providerName[$match]': "Schul-Cloud" },
+          urlQuery: {provider: 'Schul-Cloud' },
+          displayString: "Anbieter: Schul-Cloud",
+          shortDisplayString: "Schul-Cloud"
+        })
+        this.sendNewQuery();
+      }
     },
     methods: {
       setFilter(identifier, filterData) {
         this.visibleProvider = '';
-
         filterData = JSON.parse(JSON.stringify(filterData)); // deep copy
-
         this.removeFilter(identifier, false);
         this.activeFilter.push([identifier, filterData]);
       },
       removeFilter(key, emit) {
         this.activeFilter = this.activeFilter.filter(item => item[0] != key);
         if (emit) {
-          console.log(this);
           this.$emit('reset', key);
         }
       },
@@ -135,7 +133,6 @@
         this.sendNewQuery();
       },
       sendNewQuery() {
-        console.log("new query");
         const apiQuery = {};
         const urlQuery = {};
         this.activeFilter.forEach((value) => {

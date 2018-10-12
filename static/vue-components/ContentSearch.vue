@@ -15,7 +15,7 @@
         </div>
       </div>
     </section>
-    <search-bar @newSearch="newSearch" :pagination="pagination" />
+    <search-bar @newSearch="newSearch" :pagination="pagination" :inReview="inReview" :userId="userId" />
     <div md-gutter class="grid">
         <contentCard v-for="item in data" :key="item._id  + '#card'" :inReview="inReview" :data="item['_source']" :contentId="item['_id']"></contentCard>
     </div>

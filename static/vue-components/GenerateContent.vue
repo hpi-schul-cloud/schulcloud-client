@@ -92,14 +92,19 @@
         this.dialogActive = true;
       },
       publish(onlyPrivat) {
-        if (!this.onlyPrivat && !this.categoriesComplete) {
+        if (!onlyPrivat && !this.categoriesComplete) {
           this.msg = "Bitte alle Kategorien angeben";
           return;
         }
+        var imgStart = this.content.indexOf('src="') + 5;
+        var imgEnd = this.content.indexOf('"', imgStart);
+        var thumbnail = this.content.substring(imgStart, imgEnd);
+        console.log(thumbnail);
         var dataToSend = {
           userId: this.userId,
           title: this.title,
           description: this.description,
+          thumbnail: thumbnail,
           content: this.content,
           topics: this.categories.topics,
           subjects: this.categories.subjects,

@@ -11,7 +11,7 @@
               </template>
 
               <template slot="md-autocomplete-empty" slot-scope="{ term }">
-                Kein Thema gefunden. <a @click="addNewTopic(term)">Legen sie doch ein neues Thema an</a>!
+                Zu diesem Thema gibt es keine Treffer.
               </template>
         </md-autocomplete>
     </div>
