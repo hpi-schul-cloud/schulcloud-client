@@ -230,21 +230,21 @@ window.addEventListener('DOMContentLoaded', function() {
             if(feedbackSelector.value === "problem"){
                 document.getElementById("problemDiv").style.display = "block";
                 document.getElementById("userstoryDiv").style.display = "none";
-                for (let i=0; i < document.getElementById("problemDiv").children.length; i++){
-                    document.getElementById("problemDiv").children[i].children[1].required = true;
-                }
-                for (let i=0; i < document.getElementById("userstoryDiv").children.length; i++){
-                    document.getElementById("userstoryDiv").children[i].children[1].required = false;
-                }
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=false;
+                });
             } else {
                 document.getElementById("problemDiv").style.display = "none";
                 document.getElementById("userstoryDiv").style.display = "block";
-                for (let i=0; i < document.getElementById("problemDiv").children.length; i++){
-                    document.getElementById("problemDiv").children[i].children[1].required = false;
-                }
-                for (let i=0; i < document.getElementById("userstoryDiv").children.length; i++){
-                    document.getElementById("userstoryDiv").children[i].children[1].required = true;
-                }
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=true;
+                });
                 document.getElementById("acceptance_criteria").required = false;
             }
         }
