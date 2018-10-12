@@ -6,7 +6,7 @@
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.file}}','{{this.key}}','{{this.name}}');">
+                                     fileViewer('{{this.type}}', '{{this.key}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
                                 <div class="col-sm-3 no-padding">
                                     <div class="file-preview"
@@ -45,9 +45,20 @@
                                 <a href="#"
                                    class="btn-file-share"
                                    title="Datei teilen"
-                                   data-file-id="{{../this._id}}">
+                                   data-file-id="{{../this._id}}"
+                                   data-file-name="{{../this.name}}"
+                                   id="{{@index}}">
                                     <i class="fa fa-share-alt"></i>
                                 </a>
+
+                                    <div class="popup-overlay" id="{{@index}}">
+
+                                        <div class="popup-content" id="{{@index}}">
+                                            <a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">Bearbeiten</a>
+                                            <a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">Runterladen</a>
+                                            <a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
+                                        </div>
+                                    </div>
 
                                 {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"
@@ -60,6 +71,27 @@
                                 </a>
                                 {{/userHasPermission}}
                                 {{/ifneq}}
+
+                                {{#if ../canCreateFile}}
+                                {{#if this.isOfficeFile}}
+                                    <a href="#"
+                                       class="btn-student-allow"
+                                       title="{{#if this.studentCanEdit}}Schüler editieren ausschalten{{else}}Schüler editieren einschalten{{/if}}"
+                                       data-file-id="{{this._id}}"
+                                       data-file-can-edit="{{this.studentCanEdit}}">
+                                        <span class="fa-stack fa-1x">
+                                          <i class="fa fa-user fa-stack-1x" id="{{@index}}"></i>
+                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#unless this.studentCanEdit}}hidden{{/unless}}></i>
+                                        </span>
+                                    </a>
+                                {{/if}}
+                                {{/if}}
+
+                                <!--{{#if this.isOfficeFile}} todo: discuss just onClick or own button?
+                                <a href="/files/file/{{this._id}}/lool" 
+                                    target="_blank"
+                                    data-method="lool">In LibreOffice öffnen</a>
+                                {{/if}}-->
 
                                 <small class="file-info" id="{{this._id}}"></small>
                             </div>
@@ -107,5 +139,11 @@
 {{#embed "lib/components/modal-form" class="rename-modal"}}
     {{#content "fields"}}
         {{> "files/forms/form-name-edit"}}
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="new-file-modal" title="Neue Datei erstellen" closeLabel="Abbrechen" submitLabel="Datei erstellen" }}
+    {{#content "fields"}}
+        {{> "files/forms/form-new-file"}}
     {{/content}}
 {{/embed}}
