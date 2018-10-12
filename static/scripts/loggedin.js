@@ -79,17 +79,17 @@ $(document).ready(function () {
             url: '/helpdesk',
             type: 'POST',
             data: {
-                email: email,
-                modalEmail: modal.find('#email').val(),
+                type: type,
                 subject: subject,
-                currentState: modal.find('#hasHappened').val(),
-                targetState: modal.find('#supposedToHappen').val(),
+                category: category,
                 role: modal.find('#role').val(),
                 desire: modal.find('#desire').val(),
                 benefit: modal.find("#benefit").val(),
                 acceptanceCriteria: modal.find("#acceptance_criteria").val(),
-                type: type,
-                category: category,
+                currentState: modal.find('#hasHappened').val(),
+                targetState: modal.find('#supposedToHappen').val(),
+                email: email,
+                modalEmail: modal.find('#email').val(),
             },
             success: function (result) {
                 showAJAXSuccess("Feedback erfolgreich versendet!", modal);
