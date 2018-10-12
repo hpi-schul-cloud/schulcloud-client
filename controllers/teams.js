@@ -8,6 +8,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
+const logger = require('winston');
 
 const thumbs = {
     default: "/images/thumbs/default.png",
@@ -76,7 +77,7 @@ const createEventsForCourse = (req, res, course) => {
                     courseId: course._id,
                     courseTimeId: time._id
                 }
-            });
+            })
         }));
     }
 
@@ -261,8 +262,9 @@ router.post('/', function(req, res, next) {
     }).then(course => {
         createEventsForCourse(req, res, course).then(_ => {
             res.redirect('/teams/' + course._id);
-        });
+        })
     }).catch(err => {
+        logger.warn(err);       //todo add req.body
         res.sendStatus(500);
     });
 });
