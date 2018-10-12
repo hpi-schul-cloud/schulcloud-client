@@ -7,7 +7,8 @@
       </md-card-media>
 
       <md-card-header class="content-card-header">
-        <img v-if="data.approved" class="approved-icon" src='/images/content/lehrerstempel.png' alt="Approved" width="50" height="25">
+        <img v-if="data.approved" class="approved-icon" src='/images/content/approved.svg' alt="Approved" width="50" height="25">
+        <img v-if="data.providerName === 'Schul-Cloud'" class="community-icon" src='/images/content/Lehrerzimmer.png' alt="Aus dem Lehrerzimmer" width="50" height="25">
 
         <h2 class="md-title">{{data.title||"Titel"}}</h2>
         <span v-if="averageStars && averageStars[0]" class="content-information">&#216; {{averageStars[0].average}} &#9734; <i v-if="data.approved">&#2611;</i> </span>
@@ -261,6 +262,15 @@
       width: 100px;
       top: -25px;
       right: -30px;
+    }
+
+    .community-icon {
+      position: absolute;
+      position: absolute;
+      transform: rotate(-10deg);
+      width: 150px;
+      top: -20px;
+      border-radius: 0;
     }
 
     .content-card-footer {

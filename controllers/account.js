@@ -89,9 +89,61 @@ router.get('/profile', function (req, res, next) {
         var url = 'http://localhost:3131/user/' + res.locals.currentUser._id;
         rp.get(url)
           .then(userInfo => {
+            let possibleBadges = [ // list of badges that a user hasn't achieved yet but could in the future
+              {
+                name: 'Klassenliebling',
+                actions: { xp: 50 },
+                description: 'Überragend! Du hast drei Inhalte veröffentlicht und bist damit zum Klassenliebling aufgestiegen. Dafür gibt es 50 XP.'
+              },
+              {
+                name: 'Verleger',
+                actions: { xp: 100 },
+                description: 'Herrausragende Leistung! Zehn veröffentlichte Inhalte. Ab jetzt müssen die Kolleg*Innen dich Verleger nennen. Nimm dafür weitere 100 XP.'
+              },
+              {
+                name: 'Held-des-Kollegiums-Bronze',
+                actions: { xp: 20 },
+                description: 'Einer Deiner Inhalte wurde akzeptiert. Das Kollegium dankt! 20 Punkte Bonus für Dein Konto.'
+              },
+              {
+                name: 'Held-des-Kollegiums-Silber',
+                actions: { xp: 50 },
+                description: 'Drei Deiner Werke sind veröffentlicht und für das Kollegium nutzbar. Nimm dafür weitere 50 XP.'
+              },
+              {
+                name: 'Held-des-Kollegiums-Silber',
+                actions: { xp: 100 },
+                description: 'Mit Deinen zehn veröffentlichten Inhalten leistest Du  einen riesigen Beitrag für die Unterrichtsqualität. Das Kollegium dankt es mit 100 XP.'
+              }
+            ]; // TODO: Implement this in gamification service
+            userInfo = JSON.parse(userInfo);
+            userInfo.xp = [
+              {
+                name: "XP",
+                amount: "150"
+              },
+              {
+                name: "Lehrer-Punkte",
+                amount: "10"
+              }
+            ];
+            userInfo.level = 2;
+            userInfo.achievements = [
+              {
+                name: 'Inhaltsersteller',
+                actions: { xp: 5 },
+                description: 'Der erste Inhalt ist erstellt. Klasse! Wenn Du einen Inhalt mit Kolleg*Innen teilst, bekommst du eine weitere Badge und andere zusätzliche Vorteile.'
+              },
+              {
+                name: 'Inhaltsteiler',
+                actions: { xp: 10 },
+                description: 'Der erste Inhalt ist geteilt. Hoffentlich gefällt er den Kolleg*Innen. Weiter so! Zur Belohnung gibt es 10 XP.'
+              }
+            ]; // TODO: Only in here for testing purposes. Remove overriding of userInfo before rollout
             res.render('account/profile', {
               userId: res.locals.currentUser._id,
-              userInfo: JSON.parse(userInfo)
+              userInfo, //: JSON.parse(userInfo),
+              possibleBadges
             });
           })
     }

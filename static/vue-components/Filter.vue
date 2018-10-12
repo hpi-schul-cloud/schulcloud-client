@@ -182,6 +182,10 @@
 <style lang="scss">
     @import "./default";
 
+    .filter {
+      margin-bottom: 10px;
+    }
+
     .disabled {
         cursor: not-allowed !important;
         background-color: rgba(100,100,100,0.5);

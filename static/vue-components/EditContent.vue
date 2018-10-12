@@ -10,7 +10,7 @@
     <div class="editor-wrapper" v-show="editorView">
       <textarea id="editor">
       </textarea>
-      <button type="button" @click='print' name="button">Print me</button>
+      <!-- <button type="button" @click='print' name="button">Print me</button> -->
     </div>
 
     <teacher-content v-show="!editorView" class="teacher-content" :teacherContent="data" />
@@ -110,7 +110,6 @@
       }
     },
     mounted() {
-
       this.editor = CKEDITOR.replace( 'editor', {
           toolbar: [
             { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
@@ -122,38 +121,18 @@
           ],
           customConfig: '',
           defaultLanguage: 'de',
-          // Enabling extra plugins, available in the standard-all preset: http://ckeditor.com/presets-all
           extraPlugins: 'uploadimage,autoembed,image2,uploadfile',
-          /*********************** File management support ***********************/
-          // See http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_ckfinder_integration
-          // filebrowserBrowseUrl: 'http://example.com/ckfinder/ckfinder.html',
           filebrowserUploadUrl: '/files/uploadToShare',
-          // Remove the default image plugin because image2, which offers captions for images, was enabled above.
           removePlugins: 'image',
-          // Make the editing area as big as A4 print.
           height: 1000,
           width: 800,
-          // An array of stylesheets to style the WYSIWYG area.
-          // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
           contentsCss: [ 'https://cdn.ckeditor.com/4.8.0/standard-all/contents.css', 'mystyles.css' ],
-          // This is optional, but will let us define multiple different styles for multiple editors using the same CSS file.
           bodyClass: 'article-editor',
-          // Reduce the list of block elements listed in the Format dropdown to the most commonly used.
-          // format_tags: 'p;h1;h2;h3;pre', TODO: Comment in again if needed?
-          // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
           removeDialogTabs: 'image:advanced;link:advanced',
-          // Define the list of styles which should be available in the Styles dropdown list.
-          // If the "class" attribute is used to style an element, make sure to define the style for the class in "mystyles.css"
-          // (and on your website so that it rendered in the same way).
-          // Note: by default CKEditor looks for styles.js file. Defining stylesSet inline (as below) stops CKEditor from loading
-          // that file, which means one HTTP request less (and a faster startup).
-          // For more information see http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_styles
           stylesSet: [
-            /* Inline Styles */
             { name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
             { name: 'Cited Work',		element: 'cite' },
             { name: 'Inline Quotation',	element: 'q' },
-            /* Object Styles */
             {
               name: 'Special Container',
               element: 'div',
@@ -178,10 +157,7 @@
             },
             { name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
             { name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
-            /* Widget Styles */
-            // We use this one to style the brownie picture.
             { name: 'Illustration', type: 'widget', widget: 'image', attributes: { 'class': 'image-illustration' } },
-            // Media embed
             { name: '240p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-240p' } },
             { name: '360p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-360p' } },
             { name: '480p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-480p' } },
@@ -204,7 +180,8 @@
   @import "./default";
 
   .editor-wrapper {
-    text-align: center;
+    margin: 0 auto;
+    width: 800px;
   }
 
   @media print {

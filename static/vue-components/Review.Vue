@@ -9,6 +9,7 @@
     </div>
 
     <div v-else>
+      <!-- <teacher-content class="teacher-content" :teacherContent="data" /> -->
       <teacher-content class="teacher-content" :teacherContent="data" />
       <md-card class="stepper-card">
         <md-steppers :md-active-step.sync="active" md-alternative>
@@ -29,12 +30,14 @@
 </template>
 
 <script>
+  import editContent from  './EditContent.vue';
   import teacherContent from  './TeacherContent.vue';
   import categorize from  './Categorize.vue';
   import rateContent from  './RateContent.vue';
 
   export default {
     components: {
+      'edit-content': editContent,
       'teacher-content': teacherContent,
       'categorize': categorize,
       'rate-content': rateContent

@@ -165,7 +165,7 @@ module.exports = (req, res, next) => {
 
     // beta user view
     res.locals.sidebarItems.push({
-       name: 'Materialien',
+       name: 'Lernstore',
        icon: 'book',
        link: '/content/',
 			 children: [
