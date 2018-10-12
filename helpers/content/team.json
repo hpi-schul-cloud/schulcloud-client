@@ -406,7 +406,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
@@ -436,7 +436,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "title": "",
         "firstName": "Michael",
         "lastName": "Janke",
@@ -601,7 +601,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
@@ -621,7 +621,8 @@
   "below": {
     "name": "Weitere Mitarbeiter",
     "style": "small",
-    "team": [
+    "team":
+    [
       {
         "title": "",
         "firstName": "Dominik",
@@ -665,7 +666,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      }
+      },
       {
         "title": "",
         "firstName": "Florian",
@@ -701,7 +702,8 @@
   "end": {
     "name": "Alumni",
     "style": "small",
-    "team": [
+    "team":
+    [
       {
         "title": "",
         "firstName": "Raoul",
@@ -822,7 +824,7 @@
         },
         "longDesc": false
       },
-       {
+      {
         "title": "",
         "firstName": "Florian",
         "lastName": "Wirtz",
@@ -837,6 +839,6 @@
         },
         "longDesc": false
       }
-      ]
+    ]
   }
 }
