@@ -443,19 +443,18 @@ router.get('/:courseId/members', async function(req, res, next) {
         });
 
         const rolesExternal = [
-            {
-                name: 'teamexpert',
-                label: 'externer Experte',
-                _id: roles.find(role => role.name === 'teamexpert')
-            },
+            // TODO: Wieder reinnehmen, sobald externer Experte einladen geht
+            // {
+            //     name: 'teamexpert',
+            //     label: 'externer Experte',
+            //     _id: roles.find(role => role.name === 'teamexpert')
+            // },
             {
                 name: 'teamadministrator',
                 label: 'Lehrer anderer Schule (Team-Admin)',
                 _id: roles.find(role => role.name === 'teamadministrator')
             }
         ];
-
-        // const classes = await getSelectOptions(req, 'classes', {});
 
         let head = [
             'Vorname',
@@ -855,7 +854,7 @@ const generateInviteLink = (params, internalReturn) => {
         if (!options.invitee) options.invitee = req.body.email || req.body.invitee || "";
         if (!options.save) options.save = req.body.save || "true";
         options.inviter = res.locals.currentUser._id;
-        
+
         if(internalReturn){
             return api(req).post("/teaminvitelink/", {
                 json: options
