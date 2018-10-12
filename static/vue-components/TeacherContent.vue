@@ -85,6 +85,11 @@
           { name: '1080p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-1080p' } }
         ]
       } );
+
+      var that = this;
+      this.editor.on( 'change', function( evt ) {
+          that.$emit('editor-update', evt.editor.getData());
+      });
     }
   };
 </script>

@@ -44,8 +44,9 @@
         </md-field>
 
         <md-dialog-actions>
-            <md-button @click="onCancle">{{$lang.buttons.cancel}}</md-button>
-            <md-button class="md-primary" @click="onConfirm">{{$lang.buttons.add}}</md-button>
+          Denkst du, dass andere Lehrer*Innen diesen Inhalt nützlich finden würden?
+            <md-button @click="onCancle">Nein, bitte überarbeiten</md-button>
+            <md-button class="md-primary" @click="onConfirm">Ja, Inhalt freischalten</md-button>
         </md-dialog-actions>
     </div>
   </md-dialog>

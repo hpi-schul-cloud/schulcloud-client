@@ -8,8 +8,13 @@
       <label>Begründung</label>
       <md-textarea v-model="message"></md-textarea>
     </md-field>
-    <md-button class="md-primary" @click="accept()">{{ contentChanged ? 'Akzeptieren mit Änderungen' : 'Akzeptieren' }}</md-button>
-    <md-button @click="deny()">Ablehnen</md-button>
+    <br>
+    <br>
+    Denkst du, dass andere Lehrer*Innen diesen Inhalt nützlich finden würden?
+    <br>
+    <br>
+    <md-button class="md-primary" @click="accept()">{{ contentChanged ? 'Ja, mit meinen vorgeschlagenen Änderungen' : 'Ja' }}</md-button>
+    <md-button @click="deny()">Nein, bitte überarbeiten</md-button>
   </div>
 </template>
 

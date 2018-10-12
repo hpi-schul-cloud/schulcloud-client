@@ -10,7 +10,7 @@
 
     <div v-else>
       <!-- <teacher-content class="teacher-content" :teacherContent="data" /> -->
-      <teacher-content class="teacher-content" :teacherContent="data" />
+      <teacher-content class="teacher-content" :teacherContent="data" @editor-update='editorUpdated' />
       <md-card class="stepper-card">
         <md-steppers :md-active-step.sync="active" md-alternative>
           <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
@@ -65,6 +65,7 @@
     props: ['userId'],
     computed: {
       contentChanged: function () {
+        alert("content changed")
         if (!this.isEmptyObject(this.data)) {
           return (this.data.title != this.oldTitle) || (this.data.content != this.oldContent)
         }
@@ -109,6 +110,9 @@
             console.error(e);
           });
       },
+      editorUpdated(content) {
+        this.data.content = content;
+      },
       setDone (id, index) {
         this[id] = true;
 
@@ -120,12 +124,10 @@
         return !Object.keys(obj).length;
       },
       onDenied: function(reviewText) {
-        console.log("In parant component; denied: ", reviewText);
         this.rating.text = reviewText;
         this.saveReview(false);
       },
       onAccepted: function(rating) {
-        console.log("In parant component; accepted: ", rating);
         this.rating = rating;
       },
       saveReview: function(accepted) {
@@ -149,7 +151,6 @@
         if (this.contentChanged) {
           dataToSend.content = this.data.content;
         }
-        console.log(dataToSend);
         const loaderClassList = document.querySelector(".preload-screen").classList;
         loaderClassList.remove("hidden");
         this.$http
@@ -159,12 +160,10 @@
             }
           })
           .then((response) => {
-            console.log("Inside Review Component after rate call. TODO: Notify user");
             setTimeout(() => {
               loaderClassList.add("hidden");
               location.href = '/content/review/?msg=Review erfolgreich gespeichert. Sie haben 5 Punkte erhalten. Glückwunsch!';
             }, 3000); // Wait so elasticsearch knows about the new review when it is asked for it after redirection
-            console.log(response);
           })
           .catch((e) => {
             console.error(e);
