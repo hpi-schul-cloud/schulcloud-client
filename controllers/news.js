@@ -123,6 +123,10 @@ module.exports = function(context = '') {
             title: { $regex: query, $options: 'i' }
         };
 
+        if (req.params.targetId) {
+            queryObject.target = req.params.targetId;
+        }
+
         if (!query)
             delete queryObject.title;
 
@@ -144,8 +148,14 @@ module.exports = function(context = '') {
                 numPages: Math.ceil(totalNews / itemsPerPage),
                 baseUrl: '/news/?p={{page}}'
             };
+            let title = 'Neuigkeiten aus meiner Schule';
+            switch (context) {
+                case 'teams': {
+                    title = 'Neuigkeiten aus meinem Team';
+                }
+            }
             res.render('news/overview', {
-                title: 'Neuigkeiten aus meiner Schule',
+                title,
                 news,
                 pagination,
                 searchLabel: 'Suche nach Neuigkeiten',
