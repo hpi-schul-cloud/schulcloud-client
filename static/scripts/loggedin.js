@@ -73,13 +73,6 @@ $(document).ready(function () {
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let content = { currentState: modal.find('#hasHappened').val(),
-                        targetState: modal.find('#supposedToHappen').val(),
-                        role: modal.find('#role').val(),
-                        desire: modal.find('#desire').val(),
-                        benefit: modal.find("#benefit").val(),
-                        acceptanceCriteria: modal.find("#acceptance_criteria").val()
-                    };
         let category = modal.find('#category').val();
 
         $.ajax({
@@ -89,7 +82,12 @@ $(document).ready(function () {
                 email: email,
                 modalEmail: modal.find('#email').val(),
                 subject: subject,
-                content: content,
+                currentState: modal.find('#hasHappened').val(),
+                targetState: modal.find('#supposedToHappen').val(),
+                role: modal.find('#role').val(),
+                desire: modal.find('#desire').val(),
+                benefit: modal.find("#benefit").val(),
+                acceptanceCriteria: modal.find("#acceptance_criteria").val(),
                 type: type,
                 category: category,
             },

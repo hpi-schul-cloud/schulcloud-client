@@ -11,18 +11,16 @@ router.post('/', function (req, res, next) {
             type: req.body.type,
             subject: req.body.subject,
             category: req.body.category,
-            content: {
-                role: req.body.content.role,
-                desire: req.body.content.desire,
-                benefit: req.body.content.benefit,
-                acceptanceCriteria: req.body.content.acceptanceCriteria,
-                currentState : req.body.content.currentState,
-                targetState: req.body.content.targetState,
-            },
+            role: req.body.content.role,
+            desire: req.body.content.desire,
+            benefit: req.body.content.benefit,
+            acceptanceCriteria: req.body.content.acceptanceCriteria,
+            currentState : req.body.content.currentState,
+            targetState: req.body.content.targetState,
+            schoolName: res.locals.currentSchoolData.name,
             userId: res.locals.currentUser._id,
             email: res.locals.currentUser.email ? res.locals.currentUser.email : "",
             schoolId: res.locals.currentSchoolData._id,
-            schoolName: res.locals.currentSchoolData.name,
             cloud: res.locals.theme.title
         }
     })
