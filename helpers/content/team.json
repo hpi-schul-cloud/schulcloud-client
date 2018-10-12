@@ -130,6 +130,36 @@
         },
         "longDesc": false
       },
+       {
+        "title": "",
+        "firstName": "Thomas",
+        "lastName": "Feldtkeller",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
+        "description": "Thomas hat sein Bachelorstudium am HPI abgeschlossen und entwickelt seit November 2017 die HPI Schul-Cloud mit, zunächst als Praktikant und seit Oktober 2018 als wissenschaftlicher Mitarbeiter. Er kümmert sich unter anderem um die Verarbeitung von Daten im Backend und baut Schnittstellen zu anderen Systemen. Privat jongliert er und spielt kompetitiv sowie kooperativ Videospiele.",
+        "pictureUrl": "/images/team/Thomas_Feldtkeller.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Maximilian",
+        "lastName": "Grundke",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
+        "description": "Maximilian hat sein Bachelor- und Master-Studium am Hasso-Plattner-Institut absolviert. Er engagiert sich seitdem als Gründer im Bereich Mental Healthcare und unterstützt das Projekt HPI Schul-Cloud seit Oktober 2018 in der Softwareentwicklung. In seiner Freizeit beschäftigt sich Maximilian mit Geschichte und ist eine Bereicherung für jedes Trivia-Team.",
+        "pictureUrl": "/images/team/Miximilian_Grundke.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
       {
         "title": "",
         "firstName": "Christiane",
@@ -406,7 +436,7 @@
         },
         "longDesc": false
       },
-     {
+      {
         "title": "",
         "firstName": "Michael",
         "lastName": "Janke",
@@ -560,24 +590,9 @@
         "title": "",
         "firstName": "Jonas",
         "lastName": "Wanke",
-        "position": "Studentische Hilfskraft/ Schüler",
-        "description": "Jonas ist Schüler des 12. Jahrgangs am mathematisch-naturwissenschaftlich spezialisierten Heinrich-Hertz-Gymnasium in Berlin. Sein Themenschwerpunkt bei der HPI Schul-Cloud ist seit seinem Praktikum im Sommer 2017 die Entwicklung der Android-App. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
-        "pictureUrl": "/images/team/Jonas_Wanke.png",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Florian",
-        "lastName": "Wirtz",
         "position": "Studentische Hilfskraft",
-        "description": "Florian ist studentische Hilfskraft im Team HPI Schul-Cloud und war Mitglied des Bachelorprojekts 2017/18. Seine Arbeit dort war vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
-        "pictureUrl": "/images/team/Florian_Wiertz.jpg",
+        "description": "Jonas studiert Bachelor IT-Systems Engineering am HPI und ist bereits seit seinem Schüler-Praktikum im Sommer 2017 unter anderem an der Entwicklung der Schul-Cloud Android-App beteiligt. Im Oktober 2017 nahm er mit der Nationalmannschaft bei den WorldSkills (Berufsweltmeisterschaften) in Abu Dhabi im Skill 9: IT Software Solutions for Business teil und holte eine Bronzemedaille für Deutschland. Privat klettert und schwimmt er gerne.",
+        "pictureUrl": "/images/team/Jonas_Wanke.png",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -606,15 +621,15 @@
   "below": {
     "name": "Weitere Mitarbeiter",
     "style": "small",
-    "team": [
+    "team":
+    [
       {
         "title": "",
-        "firstName": "Thomas",
-        "lastName": "Feldtkeller",
+        "firstName": "Dominik",
+        "lastName": "Brüchner",
         "position": "Praktikant",
-        "description": "Thomas hat sein Bachelorstudium am HPI abgeschlossen und arbeitet seit November 2017 bei der HPI Schul-Cloud. Hier kümmert er sich um die Verarbeitung von Daten im Backend und baut Schnittstellen zu anderen Systemen. Privat jongliert er und spielt kompetitiv sowie kooperativ Videospiele.",
-        "pictureUrl": "/images/team/Thomas_Feldtkeller.jpg",
-        "priority": 0,
+        "description": "Dominik arbeitete vor seinem BSc in Medieninformatik an der Technischen Hochschule Nürnberg mit seiner Ausbildung zum Fachinformatiker in der Softwareentwicklung bei der Datev eG in Nürnberg. Nach seinem Bachelorstudium führte ihn seine Leidenschaft für Bildung und E-Learning an das Berliner MOOC Startup Iversity.org. Seine Leidenschaft für nutzerzentrierte Produkte führte ihn während seines Masterstudiums Computer Science & HCI an der TU Berlin an die School of Design Thinking des HPI, bei der er auch erstmals konzeptionell an der Schul-Cloud mitwirken konnte. Bei Schul-Cloud erforscht er im Rahmen seiner Abschlussarbeit Konzepte zur Erhöhung der Nutzerakzeptanz und dem Onboarding von Nutzern. In seiner Freizeit trifft man ihn auf Reisen, beim Klettern, Wassersport oder Parkour im urbanen Dschungel.",
+        "pictureUrl": "/images/team/Dominik_Brüchner.jpeg",
         "social": {
           "facebook": "",
           "twitter": "",
@@ -639,11 +654,41 @@
       },
       {
         "title": "",
+        "firstName": "Michael",
+        "lastName": "Schmid",
+        "position": "Freier Mitarbeiter",
+        "description": "Michael hat Medieninformatik an der Hochschule Aalen studiert und ist im Team HPI Schul-Cloud seit Oktober 2018 vor allem für das UX Design zuständig. Privat spielt er gerne Gitarre und betreibt Yoga.",
+        "pictureUrl": "/images/team/Michael_Schmid.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Florian",
         "lastName": "Sittig",
         "position": "Praktikant",
         "description": "Florian hat Lehramt für die Sprachen Englisch und Spanisch studiert und arbeitete bereits über 10 Jahre privat, institutionell und an diversen Schulen als Lehrkraft. Seit Mitte Juli ist er nun Teil unseres Teams und hilft dabei, die HPI Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In der Digitalisierung sieht er Chancen für mehr Austausch und Kooperation zwischen den Lehrkräften. In seiner Freizeit trifft er sich gerne mit Freunden, geht wandern und hat eigentlich immer verschiedene Projekte nebenher, an denen er gerade arbeitet.",
         "pictureUrl": "/images/team/Florian_Sittig.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Robert",
+        "lastName": "Weber",
+        "position": "Freier Mitarbeiter",
+        "description": "Robert ist ein freier Frontend-Entwickler bei der HPI Schul-Cloud. Obwohl er kein Studienabschluss hat ist er seit 2002 damit beschäftigt die Webtechnologien HTML, CSS und Javascript für unterschiedliche Kunden und Projekte in die Welt zu tragen. Wenn er nicht gerade damit zu tun hat Marder von seinem Grundstück zu vertreiben, achtet er noch auf Performance und Barrierefreiheit. Die spärlich vorhandene Freizeit nutzt er für Kinder, Haus und Garten.",
+        "pictureUrl": "/images/team/Robert_Weber.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -657,7 +702,8 @@
   "end": {
     "name": "Alumni",
     "style": "small",
-    "team": [
+    "team":
+    [
       {
         "title": "",
         "firstName": "Raoul",
@@ -777,7 +823,22 @@
           "linkedin": ""
         },
         "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Florian",
+        "lastName": "Wirtz",
+        "position": "Ehem. Bachelorstudent",
+        "description": "Florian war studentische Hilfskraft im Team HPI Schul-Cloud sowie Mitglied des Bachelorprojekts 2017/18. Seine Arbeit dort war vor allem durch Forschung im Bereich der Content-Erstellung und -Integration charakterisiert. In seiner Freizeit engagiert er sich ehrenamtlich in der Ausrichtung von Hackathons und findet Ausgleich im Radfahren, Sport und Reisen.",
+        "pictureUrl": "/images/team/Florian_Wiertz.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       }
-      ]
+    ]
   }
 }
