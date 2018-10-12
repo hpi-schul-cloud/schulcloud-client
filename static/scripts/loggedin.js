@@ -76,6 +76,11 @@ $(document).ready(function () {
             "um " + modal.find("#benefit").val() + ".\n" +
             "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
     };
+    const createProblemMessage = function (modal) {
+        return "Problem Kurzbeschreibung: " + modal.find('#title').val() + "\n" +
+            "IST-Zustand: " + modal.find('#hasHappened').val() + ",\n" +
+            "SOLL-Zustand: " + modal.find("#supposedToHappen").val();
+    };
 
     const sendFeedback = function (modal, e) {
         e.preventDefault();
@@ -84,7 +89,7 @@ $(document).ready(function () {
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = createFeedbackMessage(modal);
+        let text = (modal.find('#feedbackType').val() === 'wish') ? createFeedbackMessage(modal) : createProblemMessage(modal);
         let content = {text: text};
         let category = modal.find('#category').val();
         let currentState = modal.find('#hasHappened').val();
@@ -119,11 +124,14 @@ $(document).ready(function () {
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'User Story eingeben',
+            title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Senden'
+            submitLabel: 'Senden',
+            fields: {
+                feedbackType: "wish"
+            }
         });
-
+        
         $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         $feedbackModal.appendTo('body').modal('show');
         $feedbackModal.find('#title-area').html(area);
@@ -134,7 +142,7 @@ $(document).ready(function () {
 
         $('.problem-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($problemModal, {
-            title: 'Problem melden',
+            title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
@@ -231,6 +239,32 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
+    }
+
+    let  feedbackSelector = document.querySelector('#feedbackType');
+    if(feedbackSelector){
+        feedbackSelector.onchange = function(){
+            if(feedbackSelector.value === "problem"){
+                document.getElementById("problemDiv").style.display = "block";
+                document.getElementById("userstoryDiv").style.display = "none";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+            } else {
+                document.getElementById("problemDiv").style.display = "none";
+                document.getElementById("userstoryDiv").style.display = "block";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.getElementById("acceptance_criteria").required = false;
+            }
+        }
     }
 });
 window.addEventListener("resize", function () {
