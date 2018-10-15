@@ -16,9 +16,9 @@ if(!window.datetimepicker){
                 format:     (input.dataset.datetime !== undefined ?'d.m.Y H:i':'d.m.Y'),
                 mask:       (input.dataset.datetime !== undefined ?'39.19.9999 29:59':'39.19.9999'),
                 timepicker: (input.dataset.datetime !==  undefined  || false),
-                startDate:  (input.dataset.startDate || false),
+                startDate:  (input.dataset.startDate),
                 minDate:    (input.dataset.minDate), //default: unlimited minimum date 
-                maxDate:    (input.dataset.maxDate || false), //default: unlimited maximum date 
+                maxDate:    (input.dataset.maxDate), //default: unlimited maximum date 
                 inline:     (input.dataset.inline=="true"),
                 onChangeDateTime: triggerInputEvent
             };

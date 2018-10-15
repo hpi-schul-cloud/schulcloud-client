@@ -1,14 +1,35 @@
-{{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-{{/content}}
 {{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
     <script src="/scripts/mousetrap/mousetrap.js" defer></script>
-    <script src="/scripts/jquery/datetimepicker-easy.js" defer></script>   
+    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>    
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
+            });
+
+            $.datetimepicker.setLocale('de');
+            $('input[data-datetime]').datetimepicker({
+                format:'d.m.Y H:i',
+                mask: '39.19.9999 29:59',
+                onShow:function(ct, input){
+                    if(input[0].id == "availableDate"){
+                        let due = $("#dueDate").val().split(" ");
+                        this.setOptions({
+                            minDate:0,
+                            maxDate:(due[0]!="__.__.____")?due[0]:false,
+                            formatDate:'d.m.Y',
+                        });
+                    }
+                    else if(input[0].id == "dueDate"){
+                        let available = $("#availableDate").val().split(" ");
+                        this.setOptions({
+                            minDate:(available[0]!="__.__.____")?available[0]:0,
+                            maxDate:false,
+                            formatDate:'d.m.Y'
+                        });
+                    }
+                }
             });
             
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
@@ -137,13 +158,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Für Schüler sichtbar und zu bearbeiten ab:</label>
-                                <input class="form-control" data-datetime name="availableDate" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
+                                <input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Bearbeitungszeitraum endet am:</label>
-                                <input class="form-control" data-datetime name="dueDate" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
+                                <input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
                             </div>
                         </div>
                     </div>
