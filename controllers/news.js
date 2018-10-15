@@ -120,7 +120,8 @@ module.exports = function(context = '') {
             displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : {$lte: new Date().getTime()},
             $skip: (itemsPerPage * (currentPage -1)),
             $sort: '-displayAt',
-            title: { $regex: query, $options: 'i' }
+            title: { $regex: query, $options: 'i' },
+            target: { $exists: false }
         };
 
         if (req.params.targetId) {
