@@ -147,75 +147,8 @@ router.get('/consentError', function (req, res, next) {
     res.render('firstLogin/consentError');
 });
 
-router.post('/submit', function (req, res, next) {
-
-    if(req.body["password-1"] !== req.body["password-2"]){
-        return Promise.reject(new Error("Die neuen Passwörter stimmen nicht überein."))
-        .catch(err => {
-            res.status(500).send(err.message);
-        });
-    }
-
-    let accountId = res.locals.currentPayload.accountId;
-    let accountUpdate = {};
-    let accountPromise = Promise.resolve();
-    let userUpdate = {};
-    let userPromise;
-    let consentUpdate = {};
-    let consentPromise = Promise.resolve();
-    
-    if (req.body["password-1"]) {
-        accountUpdate.password_verification = req.body.password_verification;
-        accountUpdate.password = req.body["password-1"];
-        accountPromise = api(req).patch('/accounts/' + accountId, {
-            json: accountUpdate
-        });
-    }
-    
-    // wrong birthday object?
-    if (req.body.studentBirthdate) {
-        let dateArr = req.body.studentBirthdate.split(".");
-        let userBirthday = new Date(`${dateArr[1]}.${dateArr[0]}.${dateArr[2]}`);
-        if(userBirthday instanceof Date && isNaN(userBirthday)) {
-            res.status(500).send("Bitte einen validen Geburtstag auswählen.");
-        }
-        userUpdate.birthday = userBirthday;
-    }
-    // malformed email?
-    if (req.body["student-email"]) {
-        var regex = RegExp("^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
-        if (!regex.test(req.body["student-email"])) {
-            res.status(500).send("Bitte eine valide E-Mail-Adresse eingeben.");
-        } else {
-            userUpdate.email = req.body["student-email"];
-        }
-    }
-    
-    let preferences = res.locals.currentUser.preferences || {};
-    preferences.firstLogin = true;
-    userUpdate.preferences = preferences;
-
-    userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
-        json: userUpdate
-    });
-
-    if (req.body.privacyConsent || req.body.thirdPartyConsent || req.body.termsOfUseConsent || req.body.researchConsent) {
-        consentPromise = api(req).get('/consents/', {
-            qs: {userId: res.locals.currentPayload.userId}
-        }).then(consent => {
-            consentUpdate.form = 'digital';
-            consentUpdate.privacyConsent = req.body.privacyConsent;
-            consentUpdate.thirdPartyConsent = req.body.thirdPartyConsent;
-            consentUpdate.termsOfUseConsent = req.body.termsOfUseConsent;
-            consentUpdate.researchConsent = req.body.researchConsent;
-            return api(req).patch('/consents/' + consent.data[0]._id, {
-                json: {userConsent: consentUpdate}
-            });
-        });
-        
-    }
-
-    return Promise.all([accountPromise, userPromise, consentPromise])
+router.post('/submit', async function (req, res, next) {
+    return api(req).post('/firstLogin/', {json: req.body})
         .then(() => {
             res.sendStatus(200);
         })
