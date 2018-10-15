@@ -1,9 +1,10 @@
 <template>
   <article class="content-card">
     <md-card class="card-content height-100">
-      <md-card-media md-ratio="16:9">
+      <md-card-media md-ratio="16:9" @click="open()" class="thumbnail-image">
         <img :src="(data.thumbnail||'https://placeholdit.co//i/320x180?bg=CCC&fc=000&text=Platzhalter')"
-             :alt="'Thumbnail for ~' + data.title + '~'">
+             :alt="'Thumbnail for ~' + data.title + '~'"
+             @click="open()">
       </md-card-media>
 
       <md-card-header class="content-card-header">
@@ -120,7 +121,7 @@
     },
     computed: {
       openIconName: function () {
-        if (this.data.providerName !== 'Schul-Cloud') {
+        if (this.data.providerName !== 'Schul-Cloud' && !this.inReview) {
           return 'open_in_new';
         }
         if (this.ownContent) {
@@ -164,10 +165,8 @@
         }
       },
       onConfirm() {
+        location.href = '/content/review/external';
         window.open(this.$config.API.baseUrl + this.$config.API.redirectPath + this.contentId, '_blank');
-      },
-      showLicenseModal() {
-        alert("adsfads")
       }
     },
   };
@@ -279,6 +278,10 @@
     }
 
     .licenses a {
+      cursor: pointer;
+    }
+
+    .thumbnail-image {
       cursor: pointer;
     }
 

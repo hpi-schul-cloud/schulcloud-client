@@ -181,7 +181,7 @@
     clear: both;
   }
 
-  @media only screen and (max-width: 1000px) {
+  @media only screen and (max-width: 1200px) {
     .grid {
         grid-template-columns: 1fr 1fr;
     }

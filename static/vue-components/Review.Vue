@@ -9,10 +9,9 @@
     </div>
 
     <div v-else>
-      <!-- <teacher-content class="teacher-content" :teacherContent="data" /> -->
-      <teacher-content class="teacher-content" :teacherContent="data" @editor-update='editorUpdated' />
+      <teacher-content class="teacher-content" :teacherContent="data" :external="external" @editor-update='editorUpdated' />
       <md-card class="stepper-card">
-        <md-steppers :md-active-step.sync="active" md-alternative>
+        <md-steppers :md-active-step.sync="active" md-linear>
           <md-step id="first" md-label="Inhalt bewerten" :md-done.sync="first">
             <rate-content :contentId="contentId" :contentChanged="contentChanged" @step="setDone('first', 'second')" @denied="onDenied" @accepted="onAccepted" />
           </md-step>
@@ -47,6 +46,7 @@
       return {
         contentId: window.location.pathname.substring(window.location.pathname.lastIndexOf('/') + 1),
         data: {},
+        external,
         oldTitle: '',
         oldContent: '',
         oldSubjects: [],
@@ -65,7 +65,6 @@
     props: ['userId'],
     computed: {
       contentChanged: function () {
-        alert("content changed")
         if (!this.isEmptyObject(this.data)) {
           return (this.data.title != this.oldTitle) || (this.data.content != this.oldContent)
         }
@@ -87,6 +86,10 @@
     },
     methods: {
       loadContent() {
+        if (this.contentId === 'external') {
+          this.external = true;
+          return;
+        }
         this.$http
           .get(this.$config.API.baseUrl + this.$config.API.port + '/content/resources/' + this.contentId, {
             headers: {

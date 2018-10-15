@@ -6,7 +6,10 @@
         <div class="md-subhead">{{teacherContent.description}}</div>
       </md-card-header>
       <md-card-content>
-        <textarea id="view-editor"></textarea>
+        <div v-if="external">
+          Externen Inhalt bitte in anderem Fenster anschauen.
+        </div>
+        <textarea v-else id="view-editor"></textarea>
       </md-card-content>
     </md-card>
   </div>
@@ -17,7 +20,7 @@
   export default {
     components: {
     },
-    props: ['teacherContent'],
+    props: ['teacherContent', 'external'],
     name: 'TeacherContent',
     data() {
       return {
@@ -90,6 +93,10 @@
       this.editor.on( 'change', function( evt ) {
           that.$emit('editor-update', evt.editor.getData());
       });
+
+      setTimeout(() => {
+        this.editor.setReadOnly();
+      },1000)
     }
   };
 </script>
@@ -100,6 +107,10 @@
 
   #cke_1_top {
       display: none;
+  }
+
+  #cke_1_bottom {
+    display: none;
   }
 
   .teacherContent-content {

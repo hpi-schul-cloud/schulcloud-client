@@ -61,12 +61,6 @@
           .then((response) => {
             console.log(response);
             this.data = response.body;
-            this.editor.setData(this.data.content);
-            if (this.data.userId === this.userId) {
-              this.editable = true;
-            } else {
-              this.editable = false
-            }
           })
           .catch((e) => {
             this.error = true;
@@ -170,6 +164,12 @@
       this.editor.on( 'change', function( evt ) {
           that.$emit('editor-update', evt.editor.getData());
           that.data.content = evt.editor.getData();
+          that.editor.setData(that.data.content);
+          if (that.data.userId === that.userId) {
+            that.editor.setReadOnly();
+          } else {
+            that.editor.setReadOnly(false);
+          }
       });
     }
   };
@@ -212,6 +212,10 @@
 
     #cke_editor {
       padding: 1.6cm;
+    }
+
+    #cke_1_bottom {
+      display: none;
     }
 
   }
