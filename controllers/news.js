@@ -169,7 +169,8 @@ router.all('/', function (req, res, next) {
 });
 
 router.get('/new', function (req, res, next) {
-    const context = req.originalUrl.split('/')[1];
+    let context = req.originalUrl.split('/')[1];
+    context = context.includes(['teams', 'courses', 'class']) ? context : '';
     res.render('news/edit', {
         title: "News erstellen",
         submitLabel: 'Hinzufügen',
