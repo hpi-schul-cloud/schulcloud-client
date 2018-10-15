@@ -262,6 +262,7 @@
                     {{#userHasPermission "COURSE_EDIT"}}
                         <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
                         <a href="/courses/{{../_id}}/copy" class="btn btn-add btn-secondary">Kurs klonen</a>
+                        <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Kurs teilen</a>
                         <a href="/courses/{{../_id}}/"
                            class="btn btn-delete-course btn-secondary"
                            target="_blank"
@@ -273,9 +274,6 @@
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
                 </div>
             </div>
-
-
-
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                 {{#content "body"}}
