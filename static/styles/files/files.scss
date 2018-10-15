@@ -120,8 +120,7 @@
     .file-preview {
       width: 90%;
       height: 65px;
-      float: left;
-      margin-right: 5px;
+      margin-right: 0;
       background: no-repeat center center;
       background-size: cover;
     }
@@ -153,7 +152,7 @@
       }
     }
     .card-text {
-      line-height: 2;
+      line-height: 0;
     }
 
     .file-location {

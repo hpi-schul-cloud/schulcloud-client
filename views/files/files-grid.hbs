@@ -8,18 +8,22 @@
                              onclick="location.href='#file-view';
                                      fileViewer('{{this.type}}', '{{this.key}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
-                                <div class="col-sm-3 no-padding">
-                                    <div class="file-preview"
-                                         style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="file-preview"
+                                            style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <a class="title">
+                                            {{this.name}}
+                                        </a>
+                                        <i data-file-id="{{this._id}}"
+                                            data-file-name="{{this.name}}"
+                                            data-file-path="{{this.path}}"
+                                            class="fa fa-edit file-name-edit">
+                                        </i>
+                                    </div>
                                 </div>
-                                <a class="title">
-                                    {{this.name}}
-                                </a>
-                                <i data-file-id="{{this._id}}"
-                                    data-file-name="{{this.name}}" 
-                                    data-file-path="{{this.path}}"
-                                    class="fa fa-edit file-name-edit">
-                                </i>
                             </div>
                             <div class="card-text">
                                 <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
@@ -88,7 +92,7 @@
                                 {{/if}}
 
                                 <!--{{#if this.isOfficeFile}} todo: discuss just onClick or own button?
-                                <a href="/files/file/{{this._id}}/lool" 
+                                <a href="/files/file/{{this._id}}/lool"
                                     target="_blank"
                                     data-method="lool">In LibreOffice öffnen</a>
                                 {{/if}}-->
