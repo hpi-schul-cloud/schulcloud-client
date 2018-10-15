@@ -116,28 +116,4 @@
             {{/each}}
         </div>
     </div>
-    <h4>Fachbeirat</h4>
-    <div class="container">
-        <div class="row">
-            <div class="intro-box col-sm-12">
-                <p>
-                    Das HPI Schul-Cloud Projekt wird von einem Fachbeirat unterstützt, der sich aus verschiedenen
-                    Vertreter/innen der Bildungspraxis, Wirtschaft und Politik zusammensetzt. Im Fokus stehen neben
-                    technischen Aspekten, auch Themen wie Datenschutz und Pädagogik.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-                {{#each partners.advisers}}
-                    <div class="partner-box-wrapper col-xs-6 col-md-3">
-                        <div class="partner-box">
-                            {{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
-                                <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                    {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                            {{#if url}}</a>{{/if}}
-                        </div>
-                    </div>
-                {{/each}}
-        </div>
-    </div>
 </section>
