@@ -51,8 +51,8 @@
                     <h4>News</h4>
                     {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                     {{#inArray "CREATE_NEWS" permissions}}
-                        <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
-                            News anlegen
+                        <a href="/teams/{{../_id}}/news" class="btn btn-add btn-secondary">
+                            Zur News-Übersicht
                         </a>
                     {{/inArray}}
                 </div>
@@ -69,6 +69,18 @@
 
             <div class="row padding-top">
                 <div class="col-sm-12">
+                    <h4>Termine</h4>
+                    {{> 'calendar/card'}}
+                    {{#inArray "CREATE_NEWS" permissions}}
+                        <a style="margin-top: 1rem" href="/teams/{{../_id}}/events" class="btn btn-add btn-secondary">
+                            Zur Termin-Übersicht
+                        </a>
+                    {{/inArray}}
+                </div>
+            </div>
+
+            <div class="row padding-top">
+                <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
                     <a href="/teams/{{_id}}/topics" class="btn btn-add btn-secondary">
                         Zur Themen-Übersicht
@@ -78,17 +90,7 @@
 
             <div class="row padding-top">
                 <div class="col-sm-12">
-                    <h4>Termine</h4>
-                    {{#inArray "CREATE_NEWS" permissions}}
-                        <a href="/teams/{{../_id}}/event/add" class="btn btn-add btn-primary">
-                            Termin anlegen
-                        </a>
-                    {{/inArray}}
-                </div>
-            </div>
-
-            <div class="row padding-top">
-                <div class="col-sm-12">
+                    <h4>Aktionen</h4>
                     {{#inArray "RENAME_TEAM" permissions}}
                         <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
                     {{/inArray}}
