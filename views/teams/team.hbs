@@ -50,9 +50,12 @@
                 <div class="col-sm-12">
                     <h4>News</h4>
                     {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                    <a href="/teams/{{../_id}}/news" class="btn btn-add btn-secondary">
+                        Zur News-Übersicht
+                    </a>
                     {{#inArray "CREATE_NEWS" permissions}}
-                        <a href="/teams/{{../_id}}/news" class="btn btn-add btn-secondary">
-                            Zur News-Übersicht
+                        <a href="/teams/{{../_id}}/news/add" class="btn btn-add btn-primary">
+                            News anlegen
                         </a>
                     {{/inArray}}
                 </div>
@@ -71,11 +74,14 @@
                 <div class="col-sm-12">
                     <h4>Termine</h4>
                     {{> 'calendar/card'}}
-                    {{#inArray "CREATE_NEWS" permissions}}
-                        <a style="margin-top: 0.5rem" href="/teams/{{../_id}}/events" class="btn btn-add btn-secondary">
-                            Zur Termin-Übersicht
+                    <a style="margin-top: 0.5rem" href="/teams/{{../_id}}/events" class="btn btn-add btn-secondary">
+                        Zur Termin-Übersicht
+                    </a>
+                    {{!-- {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/event/add" class="btn btn-add btn-primary">
+                            Termin anlegen
                         </a>
-                    {{/inArray}}
+                    {{/inArray}} --}}
                 </div>
             </div>
 
