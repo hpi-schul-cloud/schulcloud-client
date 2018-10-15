@@ -28,13 +28,13 @@
             <md-chip v-for="(chip, index) in teacherContent.topics" v-model="teacherContent.topics" :key="chip"
                 @md-delete.stop="removeFilter('topics', index)" md-clickable md-deletable>{{ chip }}
             </md-chip>
-            <md-autocomplete v-model="topic" :md-options="topics"  @md-selected="topicSelected" @keyup.enter="addNewTopic"> <!-- v-model="teacherContent.topics" -->
+            <md-autocomplete v-model="topic" :md-options="topics"  @md-selected="topicSelected" @keyup.enter="addNewTopic">
               <template slot="md-autocomplete-item" slot-scope="{ item, term }">
                 <md-highlight-text :md-term="term">{{ item }}</md-highlight-text>
               </template>
 
               <template slot="md-autocomplete-empty" slot-scope="{ term }">
-                <a @click="addNewTopic(term)">{{term}}</a> neu anlegen
+                <span @click="addNewTopic(term)"><a>{{term}}</a> neu anlegen</span>
               </template>
             </md-autocomplete>
         </div>
@@ -149,10 +149,12 @@
     },
     methods: {
         topicSelected(topic) {
+          console.log("topic selected:", topic);
           this.teacherContent.topics.push(topic);
           this.topic = '';
         },
         addNewTopic(topic) {
+          console.log("add new topic: ", topic);
           this.teacherContent.topics.push(topic);
           this.topic = '';
           this.newTopics.push(topic)

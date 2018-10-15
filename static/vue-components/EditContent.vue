@@ -184,6 +184,14 @@
     width: 800px;
   }
 
+  #cke_1_bottom {
+    display: none;
+  }
+
+  #cke_2_bottom {
+    display: none;
+  }
+  
   @media print {
     // no ugly comments when printing the page
     @page { margin: 0; size: auto }
@@ -212,10 +220,6 @@
 
     #cke_editor {
       padding: 1.6cm;
-    }
-
-    #cke_1_bottom {
-      display: none;
     }
 
   }
