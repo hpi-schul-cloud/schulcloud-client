@@ -54,24 +54,31 @@ const queue = new workbox.backgroundSync.Queue('logs');
 
 function customHeaderRequestFetch(event) {
     let newRequest;
-    return new Promise((resolve, reject) => {
-        event.request.blob().then(blob => {
-            newRequest = new Request(event.request.url, {
+    return event.request.blob().then(blob => {
+        newRequest = new Request(event.request.url, {
+            headers: {
+                'sw-enabled': true
+            },
+            method: 'POST',
+            body: blob
+        });
+        return fetch(newRequest.clone());
+    }).catch(_ => {
+        return newRequest.blob().then(blob => {
+            return new Request(event.request.url, {
                 headers: {
-                    'sw-enabled': true
+                    'sw-enabled': true,
+                    'sw-offline': true
                 },
                 method: 'POST',
                 body: blob
             });
-            resolve(fetch(newRequest.clone())
-            .catch(_ =>
-                queue.addRequest(newRequest)
-                    .then(_ =>
-                        new Response('cached')
-                    )
-                )
-            );
+        }).then(req => {
+            queue.addRequest(req);
+            return new Response('cached');
         });
+    }).catch(err => {
+        console.log(err);
     });
 }
 
