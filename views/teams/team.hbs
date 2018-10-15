@@ -7,6 +7,12 @@
             .section-teams .section-news .container-fluid {
                 padding: 0;
             }
+            .section-teams .lead:empty {
+                margin-bottom: 0
+            }
+            .section-teams > section {
+                margin-top: 3rem
+            }
             .section-teams .files {
                 margin-bottom: 10px;
             }
@@ -29,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <section style="margin-top: 2rem" class="row">
                 <div class="col-sm-12">
                     <h4>Teilnehmer</h4>
                     <p>
@@ -43,9 +49,9 @@
                         Zur Teilnehmer-Übersicht
                     </a>
                 </div>
-            </div>
+            </section>
 
-            <div class="row padding-top">
+            <section class="row">
                 <div class="col-sm-12">
                     <h4>News</h4>
                     {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
@@ -58,18 +64,18 @@
                         </a>
                     {{/inArray}}
                 </div>
-            </div>
+            </section>
 
-            <div class="row padding-top">
+            <section class="row">
                 <div class="col-sm-12">
                     <h4>Dateien</h4>
                     {{#embed "files/file-viewer"}}{{/embed}}
                     {{#embed "files/files-grid" files=files}}{{/embed}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
                 </div>
-            </div>
+            </section>
 
-            <div class="row padding-top">
+            <section class="row">
                 <div class="col-sm-12">
                     <h4>Termine</h4>
                     {{> 'calendar/card'}}
@@ -82,18 +88,19 @@
                         </a>
                     {{/inArray}} --}}
                 </div>
-            </div>
+            </section>
 
-            <div class="row padding-top">
+            <section class="row">
                 <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
+                    <p>Finde alle Themen, Tools und Aufgaben zu diesem Team.</p>
                     <a href="/teams/{{_id}}/topics" class="btn btn-add btn-secondary">
                         Zur Themen-Übersicht
                     </a>
                 </div>
-            </div>
+            </section>
 
-            <div class="row padding-top">
+            <section class="row">
                 <div class="col-sm-12">
                     <h4>Aktionen</h4>
                     {{#inArray "RENAME_TEAM" permissions}}
@@ -109,7 +116,7 @@
                            redirect="/teams/">Team löschen</a>
                     {{/inArray}}
                 </div>
-            </div>
+            </section>
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
                 {{#content "body"}}
