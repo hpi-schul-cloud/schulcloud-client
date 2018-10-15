@@ -146,11 +146,11 @@
       text-overflow: ellipsis;
       display: inline-block;
     }
-    .file-preview {
-      @media screen and (max-width: 575px) {
-        display: none;
-      }
-    }
+    // .file-preview {
+    //   @media screen and (max-width: 575px) {
+    //     display: none;
+    //   }
+    // }
     .card-text {
       line-height: 0;
     }
