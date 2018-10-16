@@ -26,6 +26,10 @@ const hasAccount = (req, res, next) => {
 
 // firstLogin
 router.get('/', async function (req, res, next) {
+    if(!res.locals.currentUser.birthday && !req.query.u14 && !req.query.ue14){
+        res.redirect("/existing");
+    }
+
     let sections = [];
     let submitPageIndex = 0;
     
@@ -98,7 +102,7 @@ router.get('/', async function (req, res, next) {
     }
 
     // PARENT CONSENT (must be the submit page because of the pin validation!)
-    if(consent.requiresParentConsent && !parentConsent){
+    if((consent.requiresParentConsent || req.query.u14) && !parentConsent){
         submitPageIndex += 4;
         sections.push("parent_intro");
         sections.push("parent_data");
