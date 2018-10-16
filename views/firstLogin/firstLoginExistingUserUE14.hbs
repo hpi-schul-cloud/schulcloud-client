@@ -1,29 +1,17 @@
 {{#extend "lib/simple"}}
-  {{> "firstLogin/sections/imports"}}
+  {{> "firstLogin/partials/imports"}}
   {{#content "page"}}
-    {{#embed "lib/forms/paginatedForm" sections=3 action="/firstLogin/submit" method="POST"}}
+    {{#embed "lib/forms/paginatedForm" sections=4 action="/firstLogin/submit" method="POST"}}
       {{#content "panels"}}
-        <section data-panel="section-1">
-          <h4>Einwilligungserklärung</h4>
-          <p>Du bist mindestens 14 Jahre alt. Deine Erziehungsberechtigten (oder du selbst, wenn du schon über 18 bist) haben der Nutzung bereits auf dem Papierweg zugestimmt. Bitte bestätige jetzt folgende Einwilligungserklärungen, damit du die {{theme.title}} weiter nutzen kannst.</p>
 
-            <p>Ich, <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>, erkläre Folgendes:</p>
-            {{> "registration/forms/einwilligungserklaerung"}}
-        </section>
+        {{> "firstLogin/sections/welcome_existing" section-nr=1}}
 
+        {{> "firstLogin/sections/consent" section-nr=2}}
 
-        <section data-panel="section-2" class="submit-page">
-          <h4>Du hast es fast geschafft…</h4>
-          <p>Bitte gib dein Geburtsdatum an. Es wird benötigt, damit die Einwilligungserklärung gültig ist.</p>
-          <div class="row">
-              <div class="form-group col-md-6 col-sm-12">
-                  <label>Geburtsdatum: *</label>
-                  <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 14 0 0}}" value="{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}" name="studentBirthdate" type="text" required autocomplete="off" />
-              </div>
-          </div>
-        </section>
+        {{> "firstLogin/sections/birthdateUE14" section-nr=3 submit-page=true}}
 
-        {{> "firstLogin/sections/thanks" section-nr=3}}
+        {{> "firstLogin/sections/thanks" section-nr=4}}
+
       {{/content}}
     {{/embed}}
   {{/content}}

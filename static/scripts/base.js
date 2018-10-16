@@ -23,30 +23,6 @@ EventTarget.prototype.addEventListener = function(events, callback, useCapture) 
     return this;
 };
 
-
-function getQueryParameterByName(name, url) {
-    if (!url) {
-        url = window.location.href;
-    }
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-function updateQueryStringParameter(uri, key, value) {
-    var re = new RegExp("([?&])" + key + "=[^&#]*", "i");
-    if (re.test(uri)) {
-        return uri.replace(re, '$1' + key + "=" + value);
-    } else {
-        var matchData = uri.match(/^([^#]*)(#.*)?$/);
-        var separator = /\?/.test(uri) ? "&" : "?";
-        return matchData[0] + separator + key + "=" + value + (matchData[1] || '');
-    }
-}
-
 function populateModal(modal, identifier, data) {
     const block = modal.find(identifier);
     block.html(data);

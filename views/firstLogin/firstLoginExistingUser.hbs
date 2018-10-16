@@ -7,19 +7,18 @@
   {{/content}}
   {{#content "page"}}
     <div id="welcome-screen">
-      <p>Herzlich Willkommen in der {{theme.title}}, {{currentUser.firstName}} {{currentUser.lastName}}</p>
-      <p>Mit dem Schuljahr 2018/2019 haben wir die Registrierung in der {{theme.title}} von Papier auf Digital umgestellt. Das macht es notwendig, dass wir dein Einverständnis zur Nutzung der {{theme.short_title}} erneut elektronisch erfassen, sofern du mindestens 14 Jahre alt bist.</p>
+      {{> "firstLogin/partials/welcome_existing"}}
 
-        <p>Bitte wähle: Ich bin...</p>
-        <div class="form-group">
-            <fieldset>
-                <input type="radio" id="reg-u14" name="student-age" value="u14"> <label for="reg-u14">unter 14 Jahre alt.</label><br/>
-                <input type="radio" id="reg-14" name="student-age" value="14"> <label for="reg-14">mindestens 14 Jahre alt.</label>
-            </fieldset>
-        </div>
+      <p>Bitte wähle: Ich bin...</p>
+      <div class="form-group">
+          <fieldset>
+              <input type="radio" id="reg-u14" name="student-age" value="u14"> <label for="reg-u14">unter 14 Jahre alt.</label><br/>
+              <input type="radio" id="reg-14" name="student-age" value="14"> <label for="reg-14">mindestens 14 Jahre alt.</label>
+          </fieldset>
+      </div>
 
       <button id="showExistingLoginForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
-      {{> "firstLogin/sections/language-hint"}}
+      {{> "firstLogin/partials/language-hint"}}
     </div>
   {{/content}}
 {{/extend}}
