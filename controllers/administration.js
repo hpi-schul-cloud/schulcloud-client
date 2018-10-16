@@ -987,33 +987,37 @@ const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
         req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+        let studentConsent = {}, newParentConsent = {};
 
         // extractConsent
-        let studentConsent = {
-            _id: req.body.student_consentId,
-            userConsent: {
-                form: req.body.student_form || "analog",
-                privacyConsent: req.body.student_privacyConsent === "true",
-                researchConsent: req.body.student_researchConsent === "true",
-                thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
-                termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
-            }
-        };
-        let newParentConsent = {
-            form: req.body.parent_form || "analog",
-            privacyConsent: req.body.parent_privacyConsent === "true",
-            researchConsent: req.body.parent_researchConsent === "true",
-            thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
-            termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
-        };
+        if (req.body.student_form) {
+            studentConsent = {
+                _id: req.body.student_consentId,
+                userConsent: {
+                    form: req.body.student_form || "analog",
+                    privacyConsent: req.body.student_privacyConsent === "true",
+                    researchConsent: req.body.student_researchConsent === "true",
+                    thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
+                    termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
+                }
+            };
+        }
+        if (req.body.parent_form) {
+            newParentConsent = {
+                form: req.body.parent_form || "analog",
+                privacyConsent: req.body.parent_privacyConsent === "true",
+                researchConsent: req.body.parent_researchConsent === "true",
+                thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+                termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
+            };
+        }
         if(studentConsent._id){
             let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
             if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
-                orgUserConsent.parentConsents[0];
                 Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
                 studentConsent.parentConsents = orgUserConsent.parentConsents;
             }
-        }else if(studentConsent.userConsent.form){
+        }else if((studentConsent.userConsent||{}).form){
             studentConsent.parentConsents = [newParentConsent];
         }
     
@@ -1028,7 +1032,7 @@ const getStudentUpdateHandler = () => {
 
         if(studentConsent._id){ // update exisiting consent
             promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
-        } else if(studentConsent.userConsent.form){//create new consent entry
+        } else if((studentConsent.userConsent||{}).form){//create new consent entry
             delete studentConsent._id;
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
