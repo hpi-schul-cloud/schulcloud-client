@@ -9,6 +9,13 @@
     margin: 0;
     border-radius: 2px;
     overflow: hidden;
+    .tag {
+        background: white;
+        color: black;
+        margin: .5rem 0;
+        text-shadow: none;
+        padding: 4px 8px;
+    }
     .sc-card-header {
         display: flex;
         flex-direction: row;

@@ -102,7 +102,10 @@
 
             <section class="row">
                 <div class="col-sm-12">
-                    <h4>Aktionen</h4>
+                    {{#inArray "RENAME_TEAM" permissions}}
+                        <h4>Aktionen</h4>
+                    {{/inArray}}
+
                     {{#inArray "RENAME_TEAM" permissions}}
                         <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
                     {{/inArray}}
