@@ -158,7 +158,7 @@
                                         <li class="list-group-item list-group-item-action">
                                             <span>
                                                 <i class="fa fa-info-circle" aria-hidden="true" style="margin-left:1px;"></i>
-                                                <a href="https://docs.schul-cloud.org/x/jwDT" class="link">Anleitungen</a>
+                                                <a href="https://docs.schul-cloud.org/x/jwDT" target="_blank" class="link">Anleitungen</a>
                                             </span>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
@@ -192,11 +192,15 @@
 
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                            {{#if currentSchoolData.logo_dataUrl}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
+                            {{else}}
+                                {{#if currentSchoolData.federalState}}
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                {{/if}}
                             {{/if}}
                         {{/if}}
-
+                        
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
