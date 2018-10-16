@@ -134,7 +134,6 @@ router.all('/', function (req, res, next) {
         .then(news => {
         const totalNews = news.total;
         const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
-        console.log(news)
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
             news.secondaryTitle = moment(news.displayAt).fromNow();
