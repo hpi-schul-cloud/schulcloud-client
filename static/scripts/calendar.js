@@ -59,7 +59,7 @@ $(document).ready(function () {
                 function (events) {
                     callback(events);
                 });
-            const updatesChannel = new BroadcastChannel('event-updates');
+            const updatesChannel = new BroadcastChannel('calendar-event-updates');
             updatesChannel.addEventListener('message', async (event) => {
                 const {cacheName, updatedUrl} = event.data.payload;
                 const cache = await caches.open(cacheName);

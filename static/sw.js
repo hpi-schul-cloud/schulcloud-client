@@ -94,7 +94,7 @@ workbox.routing.registerRoute(
     '/calendar/events/',
     workbox.strategies.staleWhileRevalidate({
         plugins: [
-            new workbox.broadcastUpdate.Plugin('event-updates')
+            new workbox.broadcastUpdate.Plugin('calendar-event-updates')
         ]
     })
 );
