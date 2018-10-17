@@ -1,3 +1,6 @@
+import "./helpers/lazyload.js";
+import "./help/livesearch.js";
+
 $(document).ready(function () {
     $('.btn-poll').on('click', function (e) {
         e.preventDefault();
