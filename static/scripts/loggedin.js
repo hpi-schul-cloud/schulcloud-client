@@ -268,10 +268,8 @@ window.addEventListener("load", () => {
     }
     if ('serviceWorker' in navigator) { 
         // enable sw for half of users only
-        let userId = document.getElementById('sw-userid').value;
-        let lChar = userId.substr(userId.length - 1);
-        let swEnabled = parseInt(lChar, 16) % 2;
-        if(swEnabled) {
+        let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+        if(testUserGroup == 1) {
             navigator.serviceWorker.register('/sw.js');
         }
     }

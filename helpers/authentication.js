@@ -70,11 +70,19 @@ const populateCurrentUser = (req, res) => {
         res.locals.currentPayload = payload;
     }
 
+    // separates users in two groups for AB testing
+    function setTestGroup(user){
+        const lChar = user._id.substr(user._id.length - 1);
+        const group = parseInt(lChar, 16) % 2 ? 1 : 0;
+        user.testGroup = group;
+    }
+
     if(payload.userId) {
         return api(req).get('/users/' + payload.userId,{ qs: {
             $populate: ['roles']
         }}).then(data => {
             res.locals.currentUser = data;
+            setTestGroup(res.locals.currentUser);
             res.locals.currentRole = rolesDisplayName[data.roles[0].name];
             return api(req).get('/schools/' + res.locals.currentUser.schoolId, { qs: {
                 $populate: ['federalState']
