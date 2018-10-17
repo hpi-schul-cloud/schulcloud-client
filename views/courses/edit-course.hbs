@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label>Beschreibung des Kurses</label>
-                    <textarea class="form-control" name="description">{{course.description}}</textarea>
+                    <textarea class="form-control" name="description">{{{stripOnlyScript course.description}}}</textarea>
                 </div>
 
                 <div class="form-group">
