@@ -8,6 +8,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
+const logger = require('winston');
 
 const thumbs = {
     default: "/images/thumbs/default.png",
@@ -865,6 +866,7 @@ const generateInviteLink = (params, internalReturn) => {
                 res.locals.options = options;
                 next();
             }).catch(err => {
+                logger.warn(err);
                 req.session.notification = {
                     'type': 'danger',
                     'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
@@ -904,11 +906,13 @@ ${res.locals.theme.short_title}-Team`
                 if(internalReturn) return true;
                 next();
             }).catch(err => {
+                logger.warn(err);
                 if(internalReturn) return false;
                 next();
             });
         } else {
-            if(internalReturn) return true;
+            if(internalReturn) return false;
+            logger.warn("Nicht alle benötigten Informationen für den Mailversand vorhanden (1)");
             next();
         }
     }
@@ -934,17 +938,21 @@ const addUserToTeam = (params, internalReturn) => {
                         res.redirect('/teams/'+result._id);
                     } else {
                         if(internalReturn) return false;
+                        logger.warn("Fehler beim Einladen in das Team. (1)");
                         req.session.notification = errornotification;
                         res.redirect('/teams/');
                     }
                 })
                 .catch(err => {
                     if(internalReturn) return false;
+                    logger.warn("Fehler beim Einladen in das Team. (2)");
+                    logger.warn(err);
                     req.session.notification = errornotification;
                     res.redirect('/teams/');
                 });
         } else {
             if(internalReturn) return false;
+            logger.warn("Fehler beim Einladen in das Team. (3)");
             req.session.notification = errornotification;
             res.redirect('/teams/');
         }
