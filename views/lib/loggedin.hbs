@@ -89,7 +89,7 @@
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
                                 <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{this.title}}</a>
+                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
                                 </li>
                             {{/each}}
                         </ol>
@@ -219,7 +219,7 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 <div>
-                                    <h4 id="page-title">{{title}}</h4>
+                                    <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
                                 </div>
                                 <div>
                                     {{subtitle}}

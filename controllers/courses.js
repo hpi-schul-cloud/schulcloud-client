@@ -91,8 +91,11 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
     
-    const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
-        .then(data => data.data );
+    const classesPromise = api(req).get('/classes', { qs: { 
+        $or: [{ "schoolId": res.locals.currentSchool }],
+        $populate: ["year"],
+        $limit: 1000
+    }}).then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
     const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
