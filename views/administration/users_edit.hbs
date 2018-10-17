@@ -13,6 +13,7 @@
 
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
                     <input name="displayName" type="hidden" value="{{user.displayName}}" disabled/>
+                    <input type="hidden" name="referrer" value="{{referrer}}" />
 
                     <div class="row">
                         <div class="col-md-6">
@@ -36,7 +37,7 @@
 
                     <div class="form-group">
                         <label>E-Mail-Adresse: *</label>
-                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required>
+                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" disabled required>
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">

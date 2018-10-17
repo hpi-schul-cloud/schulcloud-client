@@ -137,19 +137,7 @@ footer {
 		margin-left:-11px;
 	}
 	&.small-footer {
-		width: 100%;
-		margin-top: 40px;
-		position: inherit;
-		@media screen and (max-height: 700px) {
-			top: 510px;
-		}
-		bottom: 0;
-		right: 0;
-		left: 0;
-		clear: both;
-		padding: 30px 0px;
-		font-size: 0.9em;
-		margin-bottom: 5px;
+
 		@include media-breakpoint-down(xs) {
 			background: $colorBeige;
 
@@ -315,4 +303,17 @@ form.inline {
 
 .position-absolute{
 	position: absolute !important;
+}
+
+//the following adds fa-share-square-o for each external link except images
+.section-course .content-block{
+	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
+		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
+			&:after{
+				font-family: 'FontAwesome';
+				content: "  \f08e";
+				font-size: .7em;
+			}
+		}
+	}
 }
