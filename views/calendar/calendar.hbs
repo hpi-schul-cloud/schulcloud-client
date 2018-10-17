@@ -18,7 +18,7 @@
         {{#userHasPermission "CALENDAR_EVENT_CREATE"}}
         {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" collapseId=1 userId=../userId}}
             {{#content "fields"}}
-                {{> "calendar/forms/form-create-event"}}
+                {{> "calendar/forms/form-create-event" addCourse="true"}}
             {{/content}}
         {{/embed}}
         {{/userHasPermission}}

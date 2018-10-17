@@ -400,7 +400,9 @@ router.get('/:courseId', async function(req, res, next) {
             files,
             filesUrl: `/files/teams/${req.params.courseId}`,
             news,
-            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
+            nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
+            userId: res.locals.currentUser._id,
+            teamId: req.params.courseId
         }));
     } catch (e) {
         next(e);
