@@ -2,9 +2,9 @@ importScripts('/scripts/sw/workbox/workbox-sw.js');
 
 workbox.setConfig({
     modulePathPrefix: '/scripts/sw/workbox/'
-  });
+});
 workbox.skipWaiting();
-workbox.clientsClaim(); 
+workbox.clientsClaim();
 
 workbox.precaching.precacheAndRoute([]);
 
@@ -16,7 +16,7 @@ workbox.routing.registerRoute(
         plugins: [
             new workbox.cacheableResponse.Plugin({
                 statuses: [0, 200],
-              }),
+            }),
             new workbox.expiration.Plugin({
                 maxEntries: 60,
                 maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
