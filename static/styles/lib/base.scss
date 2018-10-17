@@ -308,7 +308,7 @@ form.inline {
 //the following adds fa-share-square-o for each external link except images
 .section-course .content-block{
 	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
-		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ){
+		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.tif'] ):not( [href$='.bmp'] ){
 			&:after{
 				font-family: 'FontAwesome';
 				content: "  \f08e";
