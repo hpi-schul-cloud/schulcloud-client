@@ -326,11 +326,8 @@ header {
     @include media-breakpoint-down(xs) {
         padding-left: 0px;
     }
-    .school-data {
-        padding-top: 11px;
-    }
+    
     .federal-state {
-        padding-top: 10px;
         height: 35px;
         margin-left: 8px !important;
     }
