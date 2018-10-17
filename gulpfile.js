@@ -202,6 +202,7 @@ gulp.task('sw-workbox', () => {
     .pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`));
 });
 
+// service worker patterns used for precaching of files
 let globPatterns = [
     'fonts/**/*.{woff,css}',
     'images/logo/*.svg',

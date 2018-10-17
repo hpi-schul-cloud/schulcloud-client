@@ -24,6 +24,11 @@ logger.info('Google Analytics Tracking ID: ' + process.env.SW_GOOGLE_ANALYTICS_T
 
 router.use(require('../helpers/authentication').authChecker);
 
+/**
+ * replaces id occurences of given url.
+ * may result in false positives if url slugs have a length of 24 characters
+ * @param {string} url 
+ */
 function idCleanup(url){
     const match = /\/[0-9a-f]{24}/g;
     if(url.match(match)){
