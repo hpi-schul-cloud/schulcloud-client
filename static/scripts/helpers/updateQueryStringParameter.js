@@ -13,6 +13,6 @@ export function updateQueryStringParam(key, value) {
             params = urlQueryString + '&' + newParam;
         }
     }
-    window.history.replaceState({}, "", baseUrl + params);
+    window.history.replaceState({}, "", baseUrl + params + location.hash);
     return baseUrl + params;
 }
