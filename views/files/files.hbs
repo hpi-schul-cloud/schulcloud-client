@@ -24,7 +24,7 @@
                             <h5>
                                 {{#each breadcrumbs}}
                                     <a class="{{#if @last}}active{{/if}}"
-                                       href="{{this.url}}">{{this.label}}</a><span> / </span>
+                                       href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
                                 {{/each}}
                             </h5>
                             {{#if courseUrl}}
@@ -43,14 +43,14 @@
 						<div class="col-sm-6 col-xs-12 col-md-4">
 							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
 								<strong class="card-title-directory">
-									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
                                 {{#userHasPermission "FOLDER_DELETE"}}
 								<a href="/files/directory/"
 								   target="_blank"
 								   data-method="delete"
                                    title="Ordner löschen"
-								   data-file-name="{{../this.name}}"
+								   data-file-name="{{{../this.name}}}"
 								   data-file-key="{{../this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
@@ -60,7 +60,7 @@
 								   data-method="dir-rename"
                                    title="Ordner umbenennen"
                                    data-directory-id="{{../this._id}}"
-								   data-directory-name="{{../this.name}}"
+								   data-directory-name="{{{../this.name}}}"
 								   data-directory-path="{{../this.originalPath}}">
 									<i class="fa fa-edit pull-right"></i>
 								</a>

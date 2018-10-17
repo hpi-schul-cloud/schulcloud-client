@@ -19,7 +19,7 @@
 
             <div class="row description">
                 <div class="col-sm-12">
-                    <p class="lead">{{description}}</p>
+                    <p class="lead">{{{stripOnlyScript description}}}</p>
                     {{#if nextEvent}}<p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>{{/if}}
                 </div>
             </div>
@@ -57,7 +57,7 @@
                                                          <i class="fa fa-eye"></i>
                                                     </a>
                                                 {{/userHasPermission}}
-                                                <p class="topic-label ml-1">{{this.name}}</p>
+                                                <p class="topic-label ml-1">{{{stripOnlyScript this.name}}}</p>
                                                 {{#userHasPermission "COURSE_EDIT"}}
                                                     <div class="right-btn-group">
                                                         <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
@@ -97,7 +97,7 @@
                                                         title="Thema wieder anzeigen">
                                                         <i class="fa fa-eye-slash"></i>
                                                     </a>
-                                                    <p class="topic-label ml-1">{{../name}}</p>
+                                                    <p class="topic-label ml-1">{{{stripOnlyScript ../name}}}</p>
                                                     <div class="right-btn-group">
                                                         <a class="delete-topic btn btn-secondary btn-secondary btn-sm"
                                                            href="/courses/{{../courseId}}/topics/{{../_id}}"
