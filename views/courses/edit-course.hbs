@@ -48,10 +48,15 @@
                     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
                         {{#each classes}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                                {{log this.year}}
                                 {{#if this.name}}
                                     {{this.displayName}}
                                 {{else}}
                                     {{this.name}}
+                                {{/if}}
+
+                                {{#if this.year}}
+                                    ({{this.year.name}})
                                 {{/if}}
                             </option>
                         {{/each}}
