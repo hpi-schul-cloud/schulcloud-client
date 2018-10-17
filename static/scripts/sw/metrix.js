@@ -39,8 +39,8 @@ import ttiPolyfill from './tti-polyfill.js';
 
 function sendResults(result) {
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/logs/", true);
-  xhr.setRequestHeader("Content-type", "application/json");
+  xhr.open('POST', '/logs/', true);
+  xhr.setRequestHeader('Content-type', 'application/json');
   let data = {
     attributes: {
       context: result,
@@ -66,9 +66,9 @@ function calculateMetrics() {
 window.addEventListener('load', function () {
   function updateOnlineStatus(event) {
     if (navigator.onLine) {
-      $("#offlineAlert").hide('slow');
+      $('#offlineAlert').hide('slow');
     } else {
-      $("#offlineAlert").show('slow');
+      $('#offlineAlert').show('slow');
     }
   }
   window.addEventListener('online', updateOnlineStatus);
