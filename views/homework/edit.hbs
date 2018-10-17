@@ -81,9 +81,9 @@
                         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                     {{/if}}
 
-                    {{#if referrer}}﻿<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+                    {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
                     
-                    ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                    <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
                     {{#unless isSubstitution}}
                         <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
@@ -91,7 +91,7 @@
 
                     <div class="form-group">
                         <label>Titel</label>
-                        <input class="form-control" name="name" type="text" placeholder="Titel" required value="{{assignment.name}}"/>
+                        <input class="form-control" name="name" type="text" placeholder="Titel" required value="{{{assignment.name}}}"/>
                     </div>
 
                     <div class="row">
@@ -102,7 +102,7 @@
                                     <select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
                                         <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
                                         {{#each courses}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
+                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{{stripOnlyScript this.name}}}</option>
                                         {{/each}}
                                     </select>
                                 {{else}}
