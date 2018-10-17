@@ -5,7 +5,8 @@
  */
 
 var app = require('../app');
-var http = require('http');
+var spdy = require('spdy');
+const fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -17,8 +18,11 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-
-var server = http.createServer(app);
+const options = {
+    key: fs.readFileSync(__dirname + '/server.key'),
+    cert: fs.readFileSync(__dirname + '/server.cert')
+};
+var server = spdy.createServer(options, app);
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -95,5 +99,5 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
 
-    console.log('Listening on ' + bind);
+    console.log(`Listening on ${bind} (must use https)`);
 }
