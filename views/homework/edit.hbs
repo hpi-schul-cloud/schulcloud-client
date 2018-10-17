@@ -105,7 +105,7 @@
                                     <select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
                                         <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
                                         {{#each courses}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
+                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{{stripOnlyScript this.name}}}</option>
                                         {{/each}}
                                     </select>
                                 {{else}}
