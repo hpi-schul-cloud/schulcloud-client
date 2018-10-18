@@ -1,7 +1,12 @@
 <article class="sc-card">
     <a href="{{this.url}}" rel="canonical" class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
         <span class="sc-card-title">
-            <span class="title">{{{ stripOnlyScript this.title }}}</span>
+            <div>
+                <span class="title">{{{ stripOnlyScript this.title }}}</span>
+            </div>
+            {{#if this.target.name}}
+                <div class="tag tag-default">{{this.target.name}}</div>
+            {{/if}}
             {{#if this.secondaryTitle}}
                 <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
             {{/if}}
@@ -11,7 +16,7 @@
             {{#each this.actions}}
                 {{#if this.method}}
                         <button class="sc-card-menu-action {{this.class}}"
-                           
+
                            target="_blank"
                            data-method="DELETE"
                            data-name="{{../title}}"
@@ -19,7 +24,7 @@
                             <i class="fa fa-{{this.icon}}"></i>
                         </button>
                 {{else}}
-                    <button class="sc-card-menu-action {{this.class}}" 
+                    <button class="sc-card-menu-action {{this.class}}"
                       onClick="window.open({{this.link}})"
                       alt="'{{../../title}}' {{this.alt}}.">
                         <i class="fa fa-{{this.icon}}"></i>

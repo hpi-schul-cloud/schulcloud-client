@@ -5,12 +5,12 @@
         </div>
         <div class="row tasks card-deck-row">
             {{#each content}}
-                <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                <div class="sc-card-wrapper col-lg-4 col-md-6 col-sm-12">
                     {{> 'lib/components/sc-card' link-text=../link-text additionalInfoName=../additionalInfoName}}
                 </div>
             {{else}}
                 <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-                    <div class="alert">
+                    <div class="alert" style="margin-bottom: 0">
                         Keine aktuellen Einträge vorhanden.
                     </div>
                 </div>
