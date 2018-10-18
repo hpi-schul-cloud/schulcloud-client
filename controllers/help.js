@@ -29,8 +29,13 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/faq', function (req, res, next) {
-   res.render('help/faq', {
-   });
+    res.render('help/faq', {});
+});
+
+router.get('/confluence/:id', function (req, res, next) {
+    res.render('help/confluence', {
+        articleId: req.params.id
+    });
 });
 
 router.get('/faq/sso', function (req, res, next) {

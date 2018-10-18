@@ -10,8 +10,8 @@ function truncate(text, length){
 
 // confluence live search
 const searchRoot = document.querySelector(".live-search");
-const searchResultTemplate = searchRoot.querySelector("template").innerHTML;
-const searchInput = searchRoot.querySelector("input");
+const searchResultTemplate = searchRoot.querySelector("template.result").innerHTML;
+const searchInput = searchRoot.querySelector("input.search");
 const searchResults = searchRoot.querySelector(".live-search-results");
 const numberOfResults = 10;
 

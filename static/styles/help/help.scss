@@ -1,5 +1,19 @@
 @import '../lib/colors';
 
+// NEW STYLES
+// iFrame styles for confluence integration
+.content-min-height #main-content{
+  display: flex;
+  flex-direction: column;
+}
+iframe.full{
+  width: 100%;
+  flex: 1;
+}
+
+
+
+// OLD STYLES
 .changelog {
   .author {
     float: right
