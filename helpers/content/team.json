@@ -637,22 +637,7 @@
         },
         "longDesc": false
       },
-      {
-        "title": "",
-        "firstName": "Marvin",
-        "lastName": "Fischer",
-        "position": "Schüler",
-        "description": "Marvin ist derzeit Schüler der Jahrgansstufe 12 des Albert Einstein Gymnasiums Neubrandenburg und arbeitet an der Entwicklung der HPI Schul-Cloud Android App mit. Seit er 13 Jahre alt ist, bringt er sich das Programmieren und Web-Designen bei. Im Jahr 2017 hat Marvin an der deutschen Berufs-Meisterschaft WorldSkillsGermany im Skill 09 teilgenommen. In seiner Freizeit beschäftigt er sich mit der Programmierung von Windows, Android und Web Anwendungen, sowie mit dem Entwickeln von Web Designs.",
-        "pictureUrl": "/images/team/Marvin_Fischer.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
+     {
         "title": "",
         "firstName": "Michael",
         "lastName": "Schmid",
