@@ -71,10 +71,14 @@ const populateCurrentUser = (req, res) => {
     }
 
     // separates users in two groups for AB testing
-    function setTestGroup(user){
-        const lChar = user._id.substr(user._id.length - 1);
-        const group = parseInt(lChar, 16) % 2 ? 1 : 0;
-        user.testGroup = group;
+    function setTestGroup(user) {
+        if (process.env.SW_ENABLED) {
+            const lChar = user._id.substr(user._id.length - 1);
+            const group = parseInt(lChar, 16) % 2 ? 1 : 0;
+            user.testGroup = group;
+        } else {
+            user.testGroup = 0;
+        }
     }
 
     if(payload.userId) {
