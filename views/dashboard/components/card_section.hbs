@@ -1,8 +1,10 @@
 <section class="section section-{{section-id}}" data-step="{{step}}" data-intro="{{intro}}">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12"><h5>{{title}}</h5></div>
-        </div>
+        {{#if title}}
+            <div class="row">
+                <div class="col-sm-12"><h5>{{title}}</h5></div>
+            </div>
+        {{/if}}
         <div class="row tasks card-deck-row">
             {{#each content}}
                 <div class="sc-card-wrapper col-lg-4 col-md-6 col-sm-12">
