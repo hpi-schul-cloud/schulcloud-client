@@ -7,8 +7,19 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
+moment.locale('de');
 const shortId = require('shortid');
-const logger = require('winston');
+const winston = require('winston');
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 const thumbs = {
     default: "/images/thumbs/default.png",
@@ -387,6 +398,23 @@ router.get('/:courseId', async function(req, res, next) {
             return news;
         });
 
+        let events = await api(req).get('/calendar/', {
+            qs: {
+                'scope-id': req.params.courseId,
+                all: true
+            }
+        });
+
+        events = events.map(event => {
+            let start = moment(event.start);
+            let end = moment(event.end);
+            event.day = start.format('D');
+            event.month = start.format('MMM').toUpperCase().split('.').join("");
+            event.dayOfTheWeek = start.format('dddd');
+            event.fromTo= start.format('hh:mm') + ' - ' + end.format('hh:mm');
+            return event;
+        });
+
         res.render('teams/team', Object.assign({}, course, {
             title: course.name,
             breadcrumb: [{
@@ -397,8 +425,10 @@ router.get('/:courseId', async function(req, res, next) {
             ],
             permissions: course.user.permissions,
             course,
+            events,
             files,
             filesUrl: `/files/teams/${req.params.courseId}`,
+            createEventAction: `/teams/${req.params.courseId}/events/`,
             news,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
             userId: res.locals.currentUser._id,
@@ -452,6 +482,18 @@ router.delete('/:courseId', function(req, res, next) {
         });
     }).catch(_ => {
         res.sendStatus(500);
+    });
+});
+
+router.post('/:courseId/events/', function (req, res, next) {
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+
+    // filter params
+    req.body.scopeId = req.params.courseId;
+
+    api(req).post('/calendar/', {json: req.body}).then(event => {
+        res.redirect('/calendar');
     });
 });
 

@@ -40,7 +40,7 @@ router.post('/events/', function (req, res, next) {
     // filter params
     if (req.body.courseId && req.body.courseId !== '') {
         req.body.scopeId = req.body.courseId;
-    } else if (req.body.teamId && req.body.TeamId !== '') {
+    } else if (req.body.teamId && req.body.teamId !== '') {
         req.body.scopeId = req.body.teamId;
     } else {
         delete req.body.courseId;

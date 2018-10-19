@@ -110,7 +110,11 @@
             <section class="row">
                 <div class="col-sm-12">
                     <h4>Termine</h4>
-                    {{> 'calendar/card'}}
+                    <div class="row">
+                        {{#each ../events}}
+                            {{> 'calendar/card' event=this}}
+                        {{/each}}
+                    </div>
                     <div style="margin-top: .5rem">
                         <a href="/teams/{{../_id}}/events" class="btn btn-add btn-secondary">
                             Zur Termin-Übersicht
@@ -170,7 +174,7 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="create-event-modal" action="/calendar/events/" collapseId=1 userId=userId teamId=teamId}}
+            {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
                 {{#content "fields"}}
                     {{> "calendar/forms/form-create-event"}}
                 {{/content}}
