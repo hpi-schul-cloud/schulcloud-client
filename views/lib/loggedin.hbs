@@ -15,7 +15,6 @@
                 defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
-        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
         <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
     
     {{/content}}
@@ -94,7 +93,7 @@
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
                                 <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{this.title}}</a>
+                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
                                 </li>
                             {{/each}}
                         </ol>
@@ -227,7 +226,7 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 <div>
-                                    <h4 id="page-title">{{title}}</h4>
+                                    <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
                                 </div>
                                 <div>
                                     {{subtitle}}
@@ -277,11 +276,6 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal" class="feature-modal"}}
-                {{#content "body"}}
-                    {{> "lib/forms/form-features"}}
-                {{/content}}
-            {{/embed}}
         </section>
     {{/content}}
 {{/extend}}
