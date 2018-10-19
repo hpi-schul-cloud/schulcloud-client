@@ -13,8 +13,9 @@
                     {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
                 {{else}}
                     <div class="col-xs-12">
-                        <p class="text-muted text-center">
-                            <span>Keine Kurse.</span>
+                        <p class="text-muted">
+                            <i class="fa fa-frown-o"></i>
+                            <span>Keine Kurse</span>
                         </p>
                     </div>
                 {{/if}}
@@ -26,8 +27,8 @@
                             {{> 'dashboard/components/card_section' section-id="substitutionCourses" title="" content=../substitutionCourses link-text="Öffnen" additionalInfoName="memberCount"}}
                         {{else}}
                             <div class="col-xs-12">
-                                <p class="text-muted text-center">
-                                    <span>Keine Kurse.</span>
+                                <p class="text-muted">
+                                    <span>Keine Kurse</span>
                                 </p>
                             </div>
                         {{/if}}
@@ -38,8 +39,8 @@
                 <div class="col-xs-12">
                     <div class="row padding-top">
                         <div class="col-sm-12">
-                            <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                             <a class="btn btn-add btn-secondary btn-import-course">Kurs importieren</a>
+                            <a href="/courses/add" class="btn btn-add btn-primary">Kurs anlegen</a>
                         </div>
                     </div>
                 </div>
