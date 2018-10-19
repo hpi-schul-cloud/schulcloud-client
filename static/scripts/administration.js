@@ -45,6 +45,7 @@ $(document).ready(function () {
         e.preventDefault();	
         var entry = $(this).attr('href');	
         $.getJSON(entry, function (result) {	
+            result.createdAt = new Date(result.createdAt).toLocaleString();
             populateModalForm($editModal, {	
                 action: entry,	
                 title: 'Bearbeiten',	

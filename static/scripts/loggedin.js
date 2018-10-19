@@ -66,17 +66,6 @@ $(document).ready(function () {
         $.showNotification(message, "success", true);
     }
 
-    /**
-     * creates the feedback-message which will be sent to the Schul-Cloud helpdesk
-     * @param modal {object} - modal containing content from feedback-form
-     */
-    const createFeedbackMessage = function (modal) {
-        return "Als " + modal.find('#role').val() + "\n" +
-            "möchte ich " + modal.find('#desire').val() + ",\n" +
-            "um " + modal.find("#benefit").val() + ".\n" +
-            "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
-    };
-
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
@@ -84,24 +73,23 @@ $(document).ready(function () {
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = createFeedbackMessage(modal);
-        let content = {text: text};
         let category = modal.find('#category').val();
-        let currentState = modal.find('#hasHappened').val();
-        let targetState = modal.find('#supposedToHappen').val();
 
         $.ajax({
             url: '/helpdesk',
             type: 'POST',
             data: {
+                type: type,
+                subject: subject,
+                category: category,
+                role: modal.find('#role').val(),
+                desire: modal.find('#desire').val(),
+                benefit: modal.find("#benefit").val(),
+                acceptanceCriteria: modal.find("#acceptance_criteria").val(),
+                currentState: modal.find('#hasHappened').val(),
+                targetState: modal.find('#supposedToHappen').val(),
                 email: email,
                 modalEmail: modal.find('#email').val(),
-                subject: subject,
-                content: content,
-                type: type,
-                category: category,
-                currentState: currentState,
-                targetState: targetState
             },
             success: function (result) {
                 showAJAXSuccess("Feedback erfolgreich versendet!", modal);
@@ -119,11 +107,14 @@ $(document).ready(function () {
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($feedbackModal, {
-            title: 'User Story eingeben',
+            title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
-            submitLabel: 'Senden'
+            submitLabel: 'Senden',
+            fields: {
+                feedbackType: "wish"
+            }
         });
-
+        
         $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
         $feedbackModal.appendTo('body').modal('show');
         $feedbackModal.find('#title-area').html(area);
@@ -134,7 +125,7 @@ $(document).ready(function () {
 
         $('.problem-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($problemModal, {
-            title: 'Problem melden',
+            title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
@@ -231,6 +222,32 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
+    }
+
+    let  feedbackSelector = document.querySelector('#feedbackType');
+    if(feedbackSelector){
+        feedbackSelector.onchange = function(){
+            if(feedbackSelector.value === "problem"){
+                document.getElementById("problemDiv").style.display = "block";
+                document.getElementById("userstoryDiv").style.display = "none";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+            } else {
+                document.getElementById("problemDiv").style.display = "none";
+                document.getElementById("userstoryDiv").style.display = "block";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.getElementById("acceptance_criteria").required = false;
+            }
+        }
     }
 });
 window.addEventListener("resize", function () {
