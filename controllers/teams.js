@@ -8,7 +8,17 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
-const logger = require('winston');
+const winston = require('winston');
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 const thumbs = {
     default: "/images/thumbs/default.png",
@@ -508,12 +518,11 @@ router.get('/:courseId/members', async function(req, res, next) {
         });
 
         const rolesExternal = [
-            // TODO: Wieder reinnehmen, sobald externer Experte einladen geht
-            // {
-            //     name: 'teamexpert',
-            //     label: 'externer Experte',
-            //     _id: roles.find(role => role.name === 'teamexpert')
-            // },
+            {
+                 name: 'teamexpert',
+                 label: 'externer Experte',
+                 _id: roles.find(role => role.name === 'teamexpert')
+            },
             {
                 name: 'teamadministrator',
                 label: 'Lehrer anderer Schule (Team-Admin)',
@@ -824,6 +833,7 @@ router.post('/import', function(req, res, next) {
  *      teamId: users teamId = string
  *      invitee: user who gets invited = string
  *      save: make hash link-friendly? = boolean (might be string)
+ *      infos: object with multiple infos = object
  *  }
  * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
  */
@@ -835,6 +845,7 @@ const generateInviteLink = (params, internalReturn) => {
         if (!options.teamId) options.teamId = req.body.teamId || "";
         if (!options.invitee) options.invitee = req.body.email || req.body.invitee || "";
         if (!options.save) options.save = req.body.save || "true";
+        if (!options.infos) options.infos = req.body.infos || {};
         options.inviter = res.locals.currentUser._id;
 
         if(internalReturn){
@@ -863,16 +874,18 @@ const generateInviteLink = (params, internalReturn) => {
 const sendMailHandler = (internalReturn) => {
     return function (req, res, next) {
         let data = Object.assign(res.locals.options, res.locals.linkData);
-        if(data.invitee && data.teamId && data.shortLink && data.role) {
+        if(data.invitee && data.teamId && data.shortLink && data.link) {
             let inviteText = '';
-            if (data.role === 'teamadministrator') {
+            if (!data.link.includes("registration")) {
                 inviteText = `Hallo ${data.invitee}!
-\nDu wurdest eingeladen, einem Team der ${res.locals.theme.short_title} beizutreten, bitte klicke auf diesen Link, um die Einladung anzunehmen: ${data.shortLink}
+\nDu wurdest von ${data.infos.userName} eingeladen, dem Team '${data.infos.teamName}' der ${res.locals.theme.short_title} beizutreten.
+Klicke auf diesen Link, um die Einladung anzunehmen: ${data.shortLink}
 \nViel Spaß und gutes Gelingen wünscht dir dein
 ${res.locals.theme.short_title}-Team`
             } else {
                 inviteText = `Hallo ${data.invitee}!
-\nDu wurdest eingeladen, einem Team der ${res.locals.theme.short_title} beizutreten. Da du noch keinen ${res.locals.theme.short_title} Account besitzt, folge bitte diesem Link, um die Registrierung abzuschließen und dem Team beizutreten: ${data.shortLink}
+\nDu wurdest von ${data.infos.userName} eingeladen, dem Team '${data.infos.teamName}' beizutreten.
+Da du noch keinen ${res.locals.theme.short_title} Account besitzt, folge bitte diesem Link, um die Registrierung abzuschließen und dem Team beizutreten: ${data.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
             }

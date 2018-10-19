@@ -86,7 +86,13 @@ $(document).ready(function () {
       return false;
     }
     const origin = window.location.origin;
-    console.log({email, role, teamId, origin});
+    
+    // collect some information for invite mail from UI, possibly not very stable at long-term
+    const infos = {
+      userName: $(".navbar .account-toggle strong").html().split(" (")[0],
+      teamName: $(".breadcrumb .breadcrumb-item:eq(1) a").html()
+    };
+    
     $.ajax({
         type: "POST",
         url: origin + "/teams/invitelink",
@@ -94,10 +100,10 @@ $(document).ready(function () {
             host: origin,
             role: role,
             teamId: teamId,
-            invitee: email
+            invitee: email,
+            infos: infos
         }
     }).done(result => {
-      console.log(result);
       $inviteExternalMemberModal.modal('hide');
       if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
       else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.', "danger", true);
