@@ -10,21 +10,7 @@
 
     {{#content "page"}}
         
-        <div class="live-search">
-            <template class="result">
-                <a href="/help/confluence/${id}" target="_blank">
-                    <div>
-                        <b class="text-primary">${title}</b><br/>
-                        <span class="text-muted">${short_description}</span>
-                    </div>
-                </a>
-            </template>
-
-            <input class="search" type="text" placeholder="search..." autocomplete="false">
-            <div class="live-search-results">
-                {{! the template will be inserted (populated with content) here}}
-            </div>
-        </div>
+        {{> "help/search"}}
 
         <section class="faqpanel">
             <div class="container-fluid">

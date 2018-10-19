@@ -1,7 +1,8 @@
-import {interpolate} from "../helpers/templatestringVarInterpolate.js";
+import {interpolate} from "./templatestringVarInterpolate.js";
 
 const defaultConfig = {
     url: undefined, // variables: inputValue
+    extractResultArray: undefined,
     dataParser: undefined,
     livesearchRootSelector: ".livesearch",
     inputSelector: "input",
@@ -22,17 +23,22 @@ export default function init(config){
     input.addEventListener("input", async () => {
         let resultHtml = "";
         if(input.value.length){
-            const result = await fetch(interpolate(config.url, {
-                    inputValue: input.value
-                }), {
-                    credentials: "same-origin",
-                    cache: "no-cache"
-                }).then((response) => {
-                    return response.json();
+            try{
+                const response = await fetch(interpolate(config.url, {
+                        inputValue: input.value
+                    }), {
+                        credentials: "same-origin",
+                        cache: "no-cache"
+                    }).then((response) => {
+                        return response.json();
+                    });
+                const resultArray = config.extractResultArray(response);
+                resultArray.forEach((result) => {
+                    resultHtml += interpolate(livesearchResultTemplateString, config.dataParser(result));
                 });
-            result.results.forEach((result) => {
-                resultHtml += interpolate(livesearchResultTemplateString, config.dataParser(result));
-            });
+            }catch(error){
+                // TODO: error handling
+            }
         }
         livesearchResultContainer.innerHTML = resultHtml;
     });

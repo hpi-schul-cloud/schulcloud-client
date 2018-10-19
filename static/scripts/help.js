@@ -18,6 +18,10 @@ function truncate(text, length){
     return subString.substr(0, subString.lastIndexOf(' ')) + "...";
 }
 
+function extractResults(result){
+    return result.results;
+}
+
 function parseData(result){
     return {
         id: result.id, 
@@ -27,6 +31,7 @@ function parseData(result){
 }
 const config = {
     url: "https://docs.schul-cloud.org/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false",
+    extractResultArray: extractResults,
     dataParser: parseData,
     livesearchRootSelector: ".live-search",
     inputSelector: "input.search",
