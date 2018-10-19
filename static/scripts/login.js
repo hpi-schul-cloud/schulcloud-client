@@ -102,7 +102,7 @@ if ('serviceWorker' in navigator){
                 caches.keys().then(function(cacheNames) {
                     return Promise.all(
                       cacheNames.filter(function(cacheName) {
-                        return cacheName.startsWith('workbox');
+                        return cacheName.startsWith('workbox') | cacheName.startsWith('images') | cacheName.startsWith('pages');
                       }).map(function(cacheName) {
                         return caches.delete(cacheName);
                       })
