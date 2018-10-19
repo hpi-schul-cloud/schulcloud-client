@@ -1,5 +1,5 @@
 import "./helpers/lazyload.js";
-import livesearch from "./help/livesearch.js";
+import livesearch from "./helpers/livesearch.js";
 
 $(document).ready(function () {
     $('.btn-poll').on('click', function (e) {
