@@ -31,7 +31,7 @@ if(!window.datetimepicker){
             input.setAttribute("autocomplete","off");
             // modified regex from: https://www.regextester.com/97612
             let pattern =`(3[01]|[12][0-9]|0?[1-9])\\.(1[012]|0?[1-9])\\.((?:19|20)[0-9]{2})`;
-            if(input.dataset.datetime){ pattern += `[[:space:]][0-2][0-3]:[0-5][0-9]`; }
+            if(input.dataset.datetime !== undefined){ pattern += `[[:space:]][0-2][0-3]:[0-5][0-9]`; }
             input.setAttribute("pattern", pattern);
         });
     }
