@@ -2,6 +2,29 @@
 @import './bootstrap/scss/bootstrap-flex';
 @import "./editor";
 
+
+ul.sidebar-list > li:not(:first-of-type),
+.section-title,
+#main-content,
+footer
+{
+    transition: opacity .4s;
+    opacity: 0;
+}
+.transition-in{
+    ul.sidebar-list > li:not(:first-of-type),
+    .section-title,
+    #main-content,
+    footer
+    {
+       opacity: 1;
+   }
+}
+.turbolinks-progress-bar {
+    height: 5px;
+    background-color: $accentColor;
+  }
+
 body {
     background-color: white;
     overflow-x: hidden;

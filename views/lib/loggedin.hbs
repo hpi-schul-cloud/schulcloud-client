@@ -3,6 +3,15 @@
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
+        <noscript><style>
+            ul.sidebar-list > li:not(:first-of-type),
+            .section-title,
+            #main-content,
+            footer
+            {
+                opacity: 1;
+            }
+        </style></noscript>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -16,18 +25,9 @@
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
         <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
-    
     {{/content}}
 
     {{#content "body"}}
-        <div class="preload-screen hidden">
-            <div class="content">
-                <div class="center-wrapper">
-                    <i class="fa fa-spinner" aria-hidden="true"></i>
-                    <p>laden...</p>
-                </div>
-            </div>
-        </div>
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>

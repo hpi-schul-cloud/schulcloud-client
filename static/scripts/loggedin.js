@@ -200,13 +200,15 @@ $(document).ready(function () {
     });
   
     // loading animation
+    const bodyClassList = document.querySelector("body").classList;
+    document.addEventListener("DOMContentLoaded", function() {
+        bodyClassList.add("transition-in");
+    });
     window.addEventListener("beforeunload", function (e) {
-        const loaderClassList = document.querySelector(".preload-screen").classList;
-        loaderClassList.remove("hidden");
+        bodyClassList.remove("transition-in");
     });
     window.addEventListener("pageshow", function (e) {
-        const loaderClassList = document.querySelector(".preload-screen").classList;
-        loaderClassList.add("hidden");
+        bodyClassList.add("transition-in");
     });
 
     // from: https://stackoverflow.com/a/187557
