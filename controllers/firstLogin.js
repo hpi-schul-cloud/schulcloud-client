@@ -151,7 +151,7 @@ router.get('/consentError', function (req, res, next) {
     res.render('firstLogin/consentError');
 });
 
-router.post('/submit', async function (req, res, next) {
+router.post(['/submit', '/submit/sso'], async function (req, res, next) {
     return api(req).post('/firstLogin/', {json: req.body})
         .then(() => {
             res.sendStatus(200);
