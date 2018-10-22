@@ -33,8 +33,7 @@ module.exports = {
         browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/a', 10, 10)
             .useCss()
             .click('.btn-add')
-            .expect.element('h4').text.to.contain('Kurs anlegen').before(10000)
-            .pause(2000);
+            .pause(1000)
             .setValue('input[name=name]', 'Test Kurs')
             .setValue('textarea[name=description]', 'Test Beschreibung')
             .moveToElement('.btn-submit', 10, 10)
