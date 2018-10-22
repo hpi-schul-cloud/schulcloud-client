@@ -66,14 +66,17 @@ function calculateMetrics() {
 window.addEventListener('load', function () {
   function updateOnlineStatus(event) {
     if (navigator.onLine) {
-      $('#offlineAlert').hide('slow');
+      $('#offlineAlert').hide();
     } else {
-      $('#offlineAlert').show('slow');
+      $('#offlineAlert').show();
     }
   }
-  window.addEventListener('online', updateOnlineStatus);
-  window.addEventListener('offline', updateOnlineStatus);
-  updateOnlineStatus();
+  let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+  if (testUserGroup == 1) {
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+    updateOnlineStatus();
+  }
 });
 
 calculateMetrics();
