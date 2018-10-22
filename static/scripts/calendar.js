@@ -59,6 +59,16 @@ $(document).ready(function () {
                 function (events) {
                     callback(events);
                 });
+                if('BroadcastChannel' in window){
+                    const updatesChannel = new BroadcastChannel('calendar-event-updates');
+                    updatesChannel.addEventListener('message', async (event) => {
+                        const {cacheName, updatedUrl} = event.data.payload;
+                        const cache = await caches.open(cacheName);
+                        const updatedResponse = await cache.match(updatedUrl);
+                        const updatedText = await updatedResponse.json();
+                        callback(updatedText);
+                    });
+                }
         },
         eventRender: function (event, element) {
             if (event.cancelled) {
