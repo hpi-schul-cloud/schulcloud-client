@@ -27,7 +27,7 @@ const hasAccount = (req, res, next) => {
 // firstLogin
 router.get('/', async function (req, res, next) {
     if(!res.locals.currentUser.birthday && !req.query.u14 && !req.query.ue14){
-        return res.redirect("firstlogin/existing");
+        return res.redirect("firstLogin/existing");
     }
 
     let sections = [];
