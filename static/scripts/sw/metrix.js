@@ -84,8 +84,25 @@ window.addEventListener('load', function () {
       $('a.offline').addClass('isOnline');
       $('a.offline').removeClass('isOffline');
     } else {
-      $('a.offline').removeClass('isOnline');
-      $('a.offline').addClass('isOffline');
+      $('a.offline').each(function () {
+        var item = this;
+        var url = $(item).attr('href');
+        window.caches.match(url).then(function (response) {
+          console.log("cached:", url, response);
+          if (response) {
+            $(item).addClass('isOnline');
+            $(item).removeClass('isOffline');
+          } else {
+            console.log("not cached:", url);
+            $(item).removeClass('isOnline');
+            $(item).addClass('isOffline');
+          }
+        }).catch(function () {
+          console.log("not cached:", url);
+          $(item).removeClass('isOnline');
+          $(item).addClass('isOffline');
+        });
+      });
     }
   }
 });
