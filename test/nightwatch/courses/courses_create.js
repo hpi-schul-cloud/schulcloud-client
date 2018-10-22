@@ -36,6 +36,8 @@ module.exports = {
             .pause(1000)
             .setValue('input[name=name]', 'Test Kurs')
             .setValue('textarea[name=description]', 'Test Beschreibung')
+            .setValue('input[name=startDate]', '01.01.2019')
+            .setValue('input[name=untilDate]', '28.02.2019')
             .moveToElement('.btn-submit', 10, 10)
             .click('.btn-submit')
             .pause(1000);
