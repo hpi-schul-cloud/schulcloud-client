@@ -67,8 +67,10 @@ window.addEventListener('load', function () {
   function updateOnlineStatus(event) {
     if (navigator.onLine) {
       $('#offlineAlert').hide();
+      updateLinkState('ONLINE');
     } else {
       $('#offlineAlert').show();
+      updateLinkState('OFFLINE');
     }
   }
   let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
@@ -76,6 +78,15 @@ window.addEventListener('load', function () {
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
+  }
+  function updateLinkState(state) {
+    if (state == 'ONLINE') {
+      $('a.offline').addClass('isOnline');
+      $('a.offline').removeClass('isOffline');
+    } else {
+      $('a.offline').removeClass('isOnline');
+      $('a.offline').addClass('isOffline');
+    }
   }
 });
 

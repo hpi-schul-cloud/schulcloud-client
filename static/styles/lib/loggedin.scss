@@ -690,3 +690,11 @@ footer {
         display: none;
     }
 }
+
+aside.nav-sidebar nav ul li a.isOffline .link-name {
+    color: red;
+}
+
+aside.nav-sidebar nav ul li a.isOnline .link-name {
+    color: green;
+}
