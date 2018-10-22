@@ -1,0 +1,14 @@
+<div style="margin-bottom: 12rem" class="form-group">
+    <label for="invitation">Füge Lehrer und Schüler deiner Schule zum Team hinzu</label>
+    <select name="userIds[]" multiple data-placeholder="Personen auswählen">
+        {{#each users}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>

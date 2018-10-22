@@ -1,0 +1,153 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/files/files.css"/>
+        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
+        <style>
+            .section-teams .section-news .container-fluid {
+                padding: 0;
+            }
+            .section-teams .lead:empty {
+                margin-bottom: 0
+            }
+            .section-teams > section {
+                margin-top: 3rem
+            }
+            .section-teams .files {
+                margin-bottom: 10px;
+            }
+        </style>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
+        <script src="/scripts/files.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+
+        <section class="section-teams" data-id="{{../_id}}">
+
+            <div class="row description">
+                <div class="col-sm-12">
+                    <p class="lead">{{description}}</p>
+                </div>
+            </div>
+
+            <section style="margin-top: 2rem" class="row">
+                <div class="col-sm-12">
+                    <h4>Teilnehmer</h4>
+                    <p>
+                      Im Team
+                      {{#ifCond (arrayLength course.userIds) '==' 1}} befindet {{/ifCond}}
+                      {{#ifCond (arrayLength course.userIds) '>' 1}} befinden {{/ifCond}}
+                      sich <strong>{{arrayLength course.userIds}}</strong>
+                      {{#ifCond (arrayLength course.userIds) '>=' 1}} Teilnehmer {{/ifCond}}
+                    </p>
+                    <a href="/teams/{{_id}}/members" class="btn btn-add btn-secondary">
+                        Zur Teilnehmer-Übersicht
+                    </a>
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-sm-12">
+                    <h4>News</h4>
+                    {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                    <a href="/teams/{{../_id}}/news" class="btn btn-add btn-secondary">
+                        Zur News-Übersicht
+                    </a>
+                    {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
+                            News anlegen
+                        </a>
+                    {{/inArray}}
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-sm-12">
+                    <h4>Dateien</h4>
+                    {{#embed "files/file-viewer"}}{{/embed}}
+                    {{#embed "files/files-grid" files=files}}{{/embed}}
+                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-sm-12">
+                    <h4>Termine</h4>
+                    {{> 'calendar/card'}}
+                    <a style="margin-top: 0.5rem" href="/teams/{{../_id}}/events" class="btn btn-add btn-secondary">
+                        Zur Termin-Übersicht
+                    </a>
+                    {{!-- {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/event/add" class="btn btn-add btn-primary">
+                            Termin anlegen
+                        </a>
+                    {{/inArray}} --}}
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-sm-12">
+                    <h4>Themen & Aufgaben</h4>
+                    <p>Finde alle Themen, Tools und Aufgaben zu diesem Team.</p>
+                    <a href="/teams/{{_id}}/topics" class="btn btn-add btn-secondary">
+                        Zur Themen-Übersicht
+                    </a>
+                </div>
+            </section>
+
+            <section class="row">
+                <div class="col-sm-12">
+                    {{#inArray "RENAME_TEAM" permissions}}
+                        <h4>Aktionen</h4>
+                    {{/inArray}}
+
+                    {{#inArray "RENAME_TEAM" permissions}}
+                        <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
+                    {{/inArray}}
+
+                    {{#inArray "DELETE_TEAM" permissions}}
+                        <a href="/teams/{{../_id}}/"
+                           class="btn btn-delete-course btn-secondary"
+                           target="_blank"
+                           data-method="DELETE"
+                           data-name="{{../name}}"
+                           redirect="/teams/">Team löschen</a>
+                    {{/inArray}}
+                </div>
+            </section>
+
+            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+                {{#content "body"}}
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-close">
+                            Abbrechen
+                        </button>
+
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            Löschen
+                        </button>
+                    </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-topic"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="share-modal"}}
+                {{#content "fields"}}
+                    {{> "topic/forms/form-share"}}
+                {{/content}}
+            {{/embed}}
+
+        </section>
+    {{/content}}
+{{/extend}}

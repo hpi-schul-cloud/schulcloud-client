@@ -37,6 +37,7 @@
                 </div>
             </section>
 
+            <h6 style="padding: 1rem 0 1.5rem">Ordner</h6>
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
@@ -54,7 +55,7 @@
 								   data-file-key="{{../this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
-                                
+
                                 <a href="/directoryModel/{{../this._id}}/rename"
 								   target="_blank"
 								   data-method="dir-rename"
@@ -70,6 +71,8 @@
                     {{/each}}
                 </div>
             </section>
+
+            <h6 style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h6>
             {{#embed "files/file-viewer"}}{{/embed}}
             {{#embed "files/files-grid"}}{{/embed}}
 

@@ -20,14 +20,15 @@ const logger = winston.createLogger({
 const etherpadBaseUrl = process.env.ETHERPAD_BASE_URL || 'https://etherpad.schul-cloud.org/etherpad/p/';
 
 const editTopicHandler = (req, res, next) => {
+    const context = req.originalUrl.split('/')[1];
     let lessonPromise, action, method;
     if (req.params.topicId) {
-        action = '/courses/' + req.params.courseId + '/topics/' + req.params.topicId +
+        action = `/${context}/` + req.params.courseId + '/topics/' + req.params.topicId +
             (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'patch';
         lessonPromise = api(req).get('/lessons/' + req.params.topicId);
     } else {
-        action = '/courses/' + req.params.courseId + '/topics' +
+        action = `/${context}/` + req.params.courseId + '/topics' +
             (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'post';
         lessonPromise = Promise.resolve({});
@@ -55,21 +56,21 @@ const editTopicHandler = (req, res, next) => {
 };
 
 const checkInternalComponents = (data, baseUrl) => {
-	let pattern = new RegExp(`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`);
-	(data.contents || []).map(c => {
-		if (c.component === 'internal' && !pattern.test((c.content || {}).url)) {
+    let pattern = new RegExp(`(${baseUrl})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`);
+    (data.contents || []).map(c => {
+        if (c.component === 'internal' && !pattern.test((c.content || {}).url)) {
             (c.content || {}).url = baseUrl;
         }
-	});
+    });
 };
 
 
 // secure routes
 router.use(authHelper.authChecker);
 
-
 router.get('/', (req, res, next) => {
-    res.redirect('/courses/' + req.params.courseId);
+    const context = req.originalUrl.split('/')[1];
+    res.redirect(`/${context}/` + req.params.courseId);
 });
 
 
@@ -77,7 +78,7 @@ router.get('/add', editTopicHandler);
 
 
 router.post('/', async function(req, res, next) {
-
+    const context = req.originalUrl.split('/')[1];
     const data = req.body;
 
     // Check for neXboard compontent
@@ -96,8 +97,12 @@ router.post('/', async function(req, res, next) {
     api(req).post('/lessons/', {
         json: data // TODO: sanitize
     }).then(_ => {
-        res.redirect('/courses/' + req.params.courseId +
-            (req.query.courseGroup ? '/groups/' + req.query.courseGroup : ''));
+        res.redirect(
+            context === 'courses'
+            ? `/courses/` + req.params.courseId +
+                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '')
+            : `/teams/` + req.params.courseId + '/topics'
+        );
     }).catch(_ => {
         res.sendStatus(500);
     });
@@ -115,9 +120,9 @@ router.post('/:id/share', function(req, res, next) {
 
 
 router.get('/:topicId', function(req, res, next) {
-
+    const context = req.originalUrl.split('/')[1];
     Promise.all([
-        api(req).get('/courses/' + req.params.courseId),
+        api(req).get(`/${context}/` + req.params.courseId),
         api(req).get('/lessons/' + req.params.topicId, {
             qs: {
                 $populate: ['materialIds']
@@ -153,21 +158,22 @@ router.get('/:topicId', function(req, res, next) {
         });
         res.render('topic/topic', Object.assign({}, lesson, {
             title: lesson.name,
+            context,
             homeworks: homeworks.filter(function(task) { return !task.private; }),
             myhomeworks: homeworks.filter(function(task) { return task.private; }),
             courseId: req.params.courseId,
             isCourseGroupTopic: courseGroup._id !== undefined,
             breadcrumb: [{
                     title: 'Meine Kurse',
-                    url: '/courses'
+                    url: `/${context}`
                 },
                 {
                     title: course.name,
-                    url: '/courses/' + course._id
+                    url: `/${context}/` + course._id
                 },
                 courseGroup._id ? {
                     title: courseGroup.name,
-                    url: '/courses/' + course._id + '/groups/' + courseGroup._id
+                    url: `/${context}/` + course._id + '/groups/' + courseGroup._id
                 } : {}
             ]
         }), (error, html) => {
@@ -180,10 +186,11 @@ router.get('/:topicId', function(req, res, next) {
 });
 
 router.patch('/:topicId', async function(req, res, next) {
+    const context = req.originalUrl.split('/')[1];
     const data = req.body;
     data.time = moment(data.time || 0, 'HH:mm').toString();
     data.date = moment(data.date || 0, 'YYYY-MM-DD').toString();
-    
+
     if (!data.courseId && !req.query.courseGroup) {
         data.courseId = req.params.courseId;
     }
@@ -212,7 +219,7 @@ router.patch('/:topicId', async function(req, res, next) {
             res.json(_);
         } else {
             //sends a GET request, not a PATCH
-            res.redirect('/courses/' + req.params.courseId + '/topics/' + req.params.topicId +
+            res.redirect(`/${context}/` + req.params.courseId + '/topics/' + req.params.topicId +
                 (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : ''));
         }
     }).catch(_ => {

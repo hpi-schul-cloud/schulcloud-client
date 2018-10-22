@@ -1,0 +1,73 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
+        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
+        <script src="/scripts/courses.js" type="text/javascript" defer></script>
+        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+    {{/content}}
+
+
+    {{#content "page"}}
+        <section class="section-course">
+            <form action="{{action}}" method="post">
+                <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+
+                {{#if method}}
+                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+                {{/if}}
+
+                <div class="form-group">
+                    <label>Name des Teams</label>
+                    <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{course.name}}"
+                           required/>
+                </div>
+
+                <div class="form-group">
+                    <label>Beschreibung des Teams</label>
+                    <textarea class="form-control" name="description">{{course.description}}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Farbe des Teams:</label>
+                    <input name="color" type="color"
+                           value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
+                </div>
+
+                <div style="margin-bottom: 2rem" class="padding-top">
+                    <strong>Voreingestellte Zugriffsberechtigungen für neue Ordner und Dateien innerhalb des Teams:</strong>
+                    <br><br>
+                    <label for="externalExperts">Externe Experten dürfen zugreifen</label>
+                    <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" checked="checked" />
+                    <br>
+                    <label for="members">Teilnehmer dürfen zugreifen</label>
+                    <input class="box" type="checkbox" name="members" value="allowExternalMembers" checked="checked" />
+                    <br><br>
+                    <i>Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.</i>
+                    <br>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-add btn-secondary btn-cancel">
+                        {{closeLabel}}
+                    </button>
+
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        {{submitLabel}}
+                    </button>
+                </div>
+            </form>
+
+            {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+            {{/embed}}
+        </section>
+    {{/content}}
+{{/extend}}

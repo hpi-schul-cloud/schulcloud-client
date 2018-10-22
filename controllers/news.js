@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
@@ -42,18 +42,27 @@ const getDeleteHandler = (service) => {
 };
 
 router.post('/', function (req, res, next) {
-    if (req.body.displayAt && req.body.displayAt != "__.__.____ __:__") { // rewrite german format to ISO
-        req.body.displayAt = moment(req.body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
+    let { body } = req;
+    if (body.displayAt && body.displayAt != "__.__.____ __:__") { // rewrite german format to ISO
+        body.displayAt = moment(body.displayAt, 'DD.MM.YYYY HH:mm').toISOString();
     } else {
-        req.body.displayAt = undefined;
+        body.displayAt = undefined;
     }
-    req.body.creatorId = res.locals.currentUser._id;
-    req.body.createdAt = moment().toISOString();
+    body.creatorId = res.locals.currentUser._id;
+    body.createdAt = moment().toISOString();
+
+    if(body.context) {
+        body.target = body.targetId;
+        body.targetModel = body.context;
+    }
 
     api(req).post('/news/', {
         // TODO: sanitize
-        json: req.body
+        json: body
     }).then(data => {
+        if (body.context) {
+            res.redirect(`/${body.context}/` + body.targetId);
+        }
         res.redirect('/news');
     }).catch(err => {
         next(err);
@@ -104,14 +113,19 @@ router.all('/', function (req, res, next) {
     const query = req.query.q;
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
-
+    const context = req.originalUrl.split('/')[1];
     let queryObject = {
         $limit: itemsPerPage,
         displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : {$lte: new Date().getTime()},
         $skip: (itemsPerPage * (currentPage -1)),
         $sort: '-displayAt',
-        title: { $regex: query, $options: 'i' }
+        title: { $regex: query, $options: 'i' },
+        $populate: ['target']
     };
+
+    if (req.params.targetId) {
+        queryObject.target = req.params.targetId;
+    }
 
     if (!query)
         delete queryObject.title;
@@ -134,8 +148,15 @@ router.all('/', function (req, res, next) {
             numPages: Math.ceil(totalNews / itemsPerPage),
             baseUrl: '/news/?p={{page}}'
         };
+        let title = 'Neuigkeiten aus meiner Schule';
+        // ToDo: Hier kommen noch News für Kurse und Klassen rein.
+        switch (context) {
+            case 'teams': {
+                title = 'Neuigkeiten aus meinem Team';
+            }
+        }
         res.render('news/overview', {
-            title: 'Neuigkeiten aus meiner Schule',
+            title,
             news,
             pagination,
             searchLabel: 'Suche nach Neuigkeiten',
@@ -148,12 +169,16 @@ router.all('/', function (req, res, next) {
 });
 
 router.get('/new', function (req, res, next) {
+    let context = req.originalUrl.split('/')[1];
+    context = ['teams', 'courses', 'class'].includes(context) ? context : '';
     res.render('news/edit', {
         title: "News erstellen",
         submitLabel: 'Hinzufügen',
         closeLabel: 'Abbrechen',
         method: 'post',
-        action: '/news/'
+        action: '/news/',
+        context,
+        targetId: req.params.targetId
     });
 });
 

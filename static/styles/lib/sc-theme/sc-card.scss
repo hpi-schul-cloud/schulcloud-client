@@ -9,13 +9,20 @@
     margin: 0;
     border-radius: 2px;
     overflow: hidden;
+    .tag {
+        background: white;
+        color: black;
+        margin: .5rem 0 0 0;
+        text-shadow: none;
+        padding: 4px 8px;
+    }
     .sc-card-header {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         position: relative;
         min-height: 6rem;
-        padding: 1.5rem .5rem .5rem;
+        padding: 1rem 1rem .5rem;
         color: #fff;
         text-decoration: none !important;
         background-color: #70b5ce;
@@ -35,8 +42,12 @@
         .sc-card-title {
             .title {
                 color: inherit;
+                font-size: 1.6rem;
             }
-            align-self: flex-end;
+            small {
+                font-size: 0.9rem;
+                margin: .75rem 0 .5rem 0;
+            }
             font-weight: 700;
             overflow: hidden;
             z-index: 10;
@@ -47,8 +58,9 @@
         }
         .sc-card-menu {
             position: absolute;
+            bottom: 8px;
             right: 8px;
-            top: 8px;
+            z-index: 10;
             font-size: 0;
             .sc-card-menu-action {
                 display: inline-block;
@@ -144,8 +156,8 @@
             .sc-card-menu{
                 opacity: 1;
             }
-        } 
-    } 
+        }
+    }
 }
 
 /* IE8-11 specific styles go here */
