@@ -38,6 +38,12 @@ module.exports = {
             .setValue('textarea[name=description]', 'Test Beschreibung')
             .moveToElement('.btn-submit', 10, 10)
             .click('.btn-submit')
+            .pause(1000)
+            .setValue('input[name=startDate]', '01.01.2019')
+            .click('.btn-submit')
+            .pause(1000)
+            .setValue('input[name=untilDate]', '01.03.2019')
+            .click('.btn-submit')
             .pause(1000);
         browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
     },
