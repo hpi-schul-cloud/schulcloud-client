@@ -88,7 +88,7 @@ const createEventsForCourse = (req, res, course) => {
                     courseId: course._id,
                     courseTimeId: time._id
                 }
-            })
+            });
         }));
     }
 
@@ -324,7 +324,7 @@ router.get('/:courseId/json', function(req, res, next) {
                 courseId: req.params.courseId
             }
         })
-    ]).then(([course, lessons]) => res.json({ course, lessons }));
+    ]).then(([team, lessons]) => res.json({ team, lessons }));
 });
 
 router.get('/:courseId/usersJson', function(req, res, next) {

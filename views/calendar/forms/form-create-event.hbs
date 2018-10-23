@@ -29,13 +29,33 @@
         <div class="checkbox disabled">
             <label>
                 Für Kurs anlegen?
-                <input name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseId}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
+                <input id="toggle{{../collapseIdCourse}}" name="isCourseEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdCourse}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
             </label>
         </div>
-        <div id="collapse{{../collapseId}}" class="panel-collapse collapse">
+        <div id="collapse{{../collapseIdCourse}}" class="panel-collapse collapse">
             <div class="form-group">
                 <select class="course-selection form-control" name="courseId">
                     <option value="" selected hidden>Wähle einen Kurs...</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    {{/userHasPermission}}
+{{/if}}
+
+{{#if addTeam}}
+    {{#userHasPermission "COURSE_EDIT"}}
+    <div class="form-group create-team-event">
+        <div class="checkbox disabled">
+            <label>
+                Für Team anlegen?
+                <input id="toggle{{../collapseIdTeam}}" name="isTeamEvent" type="checkbox" data-collapseRef="collapse{{../collapseIdTeam}}" data-toggle="toggle" data-on="Ja" data-off="Nein">
+            </label>
+        </div>
+        <div id="collapse{{../collapseIdTeam}}" class="panel-collapse collapse">
+            <div class="form-group">
+                <select class="team-selection form-control" name="teamId">
+                    <option value="" selected hidden>Wähle eine Team...</option>
                 </select>
             </div>
         </div>
