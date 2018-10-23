@@ -83,24 +83,33 @@ window.addEventListener('load', function () {
     if (state == 'ONLINE') {
       $('a.offline').addClass('isOnline');
       $('a.offline').removeClass('isOffline');
+      $('a.offline').removeAttr("disabled");
+      $('a.offline').off("click");
     } else {
       $('a.offline').each(function () {
         var item = this;
         var url = $(item).attr('href');
         window.caches.match(url).then(function (response) {
-          console.log("cached:", url, response);
           if (response) {
             $(item).addClass('isOnline');
             $(item).removeClass('isOffline');
+            $(item).removeAttr("disabled");
+            $(item).off("click");
           } else {
-            console.log("not cached:", url);
             $(item).removeClass('isOnline');
             $(item).addClass('isOffline');
+            $(item).attr("disabled", "disabled");
+            $(item).on("click", function() {
+              return false; 
+          });
           }
         }).catch(function () {
-          console.log("not cached:", url);
           $(item).removeClass('isOnline');
           $(item).addClass('isOffline');
+          $(item).attr("disabled", "disabled");
+          $(item).on("click", function() {
+            return false; 
+        });
         });
       });
     }

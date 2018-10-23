@@ -50,6 +50,24 @@ workbox.routing.registerRoute(
     })
 );
 
+workbox.routing.registerRoute(
+    /\/news\/[a-f0-9]{24}$/,
+    workbox.strategies.networkFirst({
+        cacheName: 'pages',
+        maxAgeSeconds: 60 * 60,
+        networkTimeoutSeconds: 3,
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60,
+            }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200],
+            }),
+        ],
+    })
+);
+
 const queue = new workbox.backgroundSync.Queue('logs');
 
 function customHeaderRequestFetch(event) {
