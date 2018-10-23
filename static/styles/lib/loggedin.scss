@@ -691,10 +691,17 @@ footer {
     }
 }
 
-aside.nav-sidebar nav ul li a.isOffline .link-name {
-    color: red;
+aside.nav-sidebar nav ul li a.isOffline .link-name,
+a.isOffline {
+    color: currentColor;
+      cursor: not-allowed;
+      opacity: 0.5;
+      text-decoration: none;
 }
 
-aside.nav-sidebar nav ul li a.isOnline .link-name {
-    color: green;
+a[aria-disabled="true"] {
+    color: currentColor;
+    display: inline-block;  /* For IE11/ MS Edge bug */
+    pointer-events: none;
+    text-decoration: none;
 }
