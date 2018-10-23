@@ -83,7 +83,6 @@ $(document).ready(function () {
             }
         },
         eventClick: function(event) {
-            console.log(event)
             if (event.url) {
                 window.location.href = event.url;
                 return false;
