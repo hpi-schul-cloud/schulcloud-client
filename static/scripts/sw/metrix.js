@@ -84,32 +84,33 @@ window.addEventListener('load', function () {
       $('a.offline').addClass('isOnline');
       $('a.offline').removeClass('isOffline');
       $('a.offline').removeAttr("disabled");
-      $('a.offline').off("click");
+      $('a.offline').removeAttr('aria-disabled');
     } else {
       $('a.offline').each(function () {
         var item = this;
         var url = $(item).attr('href');
+        $(item).on("click", function (event) {
+          if ($(this).is("[disabled]")) {
+            event.preventDefault();
+          }
+        });
         window.caches.match(url).then(function (response) {
           if (response) {
             $(item).addClass('isOnline');
             $(item).removeClass('isOffline');
             $(item).removeAttr("disabled");
-            $(item).off("click");
+            $(item).removeAttr('aria-disabled');
           } else {
             $(item).removeClass('isOnline');
             $(item).addClass('isOffline');
             $(item).attr("disabled", "disabled");
-            $(item).on("click", function() {
-              return false; 
-          });
+            $(item).attr('aria-disabled', "true");
           }
         }).catch(function () {
           $(item).removeClass('isOnline');
           $(item).addClass('isOffline');
           $(item).attr("disabled", "disabled");
-          $(item).on("click", function() {
-            return false; 
-        });
+          $(item).attr('aria-disabled', "true");
         });
       });
     }
