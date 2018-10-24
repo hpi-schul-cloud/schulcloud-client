@@ -1,6 +1,6 @@
 <div class="live-search">
     <template class="result">
-        <a href="/help/confluence/${id}">
+        <a href="${link}" class="${class}">
             <div>
                 <b class="text-primary">${title}</b><br/>
                 <span class="text-muted">${short_description}</span>
@@ -8,7 +8,11 @@
         </a>
     </template>
 
-    <input class="search" type="text" placeholder="search..." autocomplete="false">
+    <div class="search-container">
+        <i class="fa fa-search search-icon" aria-hidden="true"></i>
+        <i class="fa fa-spinner fa-spin load-icon" aria-hidden="true"></i>
+        <input class="search" type="text" placeholder="suchen..." autocomplete="false">
+    </div>
     <div class="live-search-results">
         {{! the template will be inserted (populated with content) here}}
     </div>

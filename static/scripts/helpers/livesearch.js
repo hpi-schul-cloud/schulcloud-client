@@ -24,6 +24,7 @@ export default function init(config){
         let resultHtml = "";
         if(input.value.length){
             try{
+                livesearchRoot.classList.add("loading");
                 const response = await fetch(interpolate(config.url, {
                         inputValue: input.value
                     }), {
@@ -33,13 +34,33 @@ export default function init(config){
                         return response.json();
                     });
                 const resultArray = config.extractResultArray(response);
-                resultArray.forEach((result) => {
-                    resultHtml += interpolate(livesearchResultTemplateString, config.dataParser(result));
-                });
+                if(resultArray.length === 0){
+                    resultHtml += interpolate(livesearchResultTemplateString, config.dataParser(false));
+                }else{
+                    resultArray.forEach((result) => {
+                        resultHtml += interpolate(livesearchResultTemplateString, config.dataParser(result));
+                    });
+                }
             }catch(error){
                 // TODO: error handling
             }
+            livesearchRoot.classList.remove("loading");
         }
         livesearchResultContainer.innerHTML = resultHtml;
+        if(resultHtml.length === 0){
+            livesearchResultContainer.classList.remove("active");
+        }else{
+            livesearchResultContainer.classList.add("active");
+        }
+    });
+    
+    input.addEventListener("focus", () => {
+        livesearchRoot.classList.add("active");
+    });
+    livesearchRoot.addEventListener("mouseenter", () => {
+        livesearchRoot.classList.add("active");
+    });
+    livesearchRoot.addEventListener("mouseleave", () => {
+        livesearchRoot.classList.remove("active");
     });
 }

@@ -1,0 +1,78 @@
+@import '../lib/colors';
+
+.live-search{
+    position: relative;
+    width: 100%;
+    margin: 0 auto 2rem;
+    max-width: 500px;
+    .search-container{
+        //border-radius: 5rem;
+        border-bottom: 1px solid #555;
+
+        width: 100%;
+        background: #fffa;
+        color: #333;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        .fa, input{
+            padding: 16px 4px;
+            font-size: 1.5rem;
+        }
+        input{
+            flex: 1;
+            background: transparent;
+            outline: none;
+            border: none;
+            padding: 16px;
+        }
+    }
+    .live-search-results{
+        visibility: hidden;
+        width: 100%;
+        position: absolute;
+        z-index: 9999;
+        bottom: 0;
+        padding: 8px;
+        transform: translateY(100%);
+        background: #fff;
+        border: 1px solid $primaryColor;
+        max-height: 25rem;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 4px;
+        a{
+            text-decoration: none;
+            &:not(:last-of-type) div{
+                padding-bottom: .25em;
+                margin-bottom: .25em;
+                border-bottom:1px solid #999;
+            }
+            &.disabled{
+                filter: saturate(0);
+            }
+        }
+    }
+    .search-icon{
+        transition: transform .3s ease-in-out;
+    }
+    .load-icon{
+        display: none;
+    }
+    &.active{
+        .live-search-results.active{
+            visibility: visible;
+        }
+        .search-icon{
+            transform: rotate(90deg);
+        }
+    }
+    &.loading{
+        .search-icon{
+            display: none;
+        }
+        .load-icon{
+            display: initial;
+        }
+    }
+}

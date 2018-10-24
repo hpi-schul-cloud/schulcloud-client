@@ -11,6 +11,13 @@ $(document).ready(function () {
     });
 });
 
+// iFrame full height
+document.querySelectorAll("iframe").forEach((iframe)=>{
+    iframe.addEventListener("load", (event) => {
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+    });
+});
+
 // confluence live-search
 function truncate(text, length){
     if (text.length <= length) {
@@ -25,11 +32,21 @@ function extractResults(result){
 }
 
 function parseData(result){
-    return {
-        id: result.id, 
-        title: result.title, 
-        short_description: truncate(result.bodyTextHighlights, 100)
-    };
+    if(result){
+        return {
+            class: "",
+            link: `/help/confluence/${result.id}`, 
+            title: result.title, 
+            short_description: truncate(result.bodyTextHighlights, 100)
+        };
+    } else{
+        return {
+            class: "disabled",
+            link: "#",
+            title: "Keine Ergebnisse gefunden 😪", 
+            short_description: "Probiere es mit anderen Suchbegriffen erneut"
+        };
+    }
 }
 const config = {
     url: "https://docs.schul-cloud.org/rest/searchv3/1.0/search?queryString=${inputValue}&where=SCDOK&type=page&pageSize=10&highlight=false",

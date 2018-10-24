@@ -1,4 +1,5 @@
 @import '../lib/colors';
+@import './search';
 
 // NEW STYLES
 // iFrame styles for confluence integration
@@ -10,8 +11,6 @@ iframe.full{
   width: 100%;
   flex: 1;
 }
-
-
 
 // OLD STYLES
 .changelog {
