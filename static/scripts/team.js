@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("div#openCard").on("click", e => {
         let container = $(e.currentTarget).parents("div.content").prev("#modal-container-personcard");
         container.removeAttr('class').addClass("show");
-    
+
         container.one("click", () => {
             container.addClass("out");
             $('body').removeClass('modal-active');
@@ -11,7 +11,7 @@ $(document).ready(function () {
                     container.removeAttr('class');
                 }, 250);
         });
-    
+
         $('body').addClass('modal-active');
     });
 
