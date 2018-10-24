@@ -46,14 +46,14 @@ $(document).ready(function () {
 
     // Init modals
     var $modals = $('.modal');
-    var $feedbackModal = $('.feedback-modal');
+    var $contactHPIModal = $('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
-    var $problemModal = $('.problem-modal');
+    var $contactAdminModal = $('.contactAdmin-modal');
     var $modalForm = $('.modal-form');
 
     function showAJAXError(req, textStatus, errorThrown) {
-        $feedbackModal.modal('hide');
-        $problemModal.modal('hide');
+        $contactHPIModal.modal('hide');
+        $contactAdminModal.modal('hide');
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
         } else {
@@ -69,11 +69,9 @@ $(document).ready(function () {
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
-        let type = (modal[0].className.includes('feedback-modal')) ? 'feedback' : 'problem';
-
+        let type = (modal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
         let email = 'ticketsystem@schul-cloud.org';
-        let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let category = modal.find('#category').val();
+        let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
 
         $.ajax({
             url: '/helpdesk',
@@ -81,7 +79,7 @@ $(document).ready(function () {
             data: {
                 type: type,
                 subject: subject,
-                category: category,
+                category: modal.find('#category').val(),
                 role: modal.find('#role').val(),
                 desire: modal.find('#desire').val(),
                 benefit: modal.find("#benefit").val(),
@@ -97,41 +95,41 @@ $(document).ready(function () {
             error: showAJAXError
         });
 
-        $('.feedback-modal').find('.btn-submit').prop("disabled", true);
+        $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
     };
 
-    $('.submit-helpdesk').on('click', function (e) {
+    $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
 
-        $('.feedback-modal').find('.btn-submit').prop("disabled", false);
+        $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
-        populateModalForm($feedbackModal, {
+        populateModalForm($contactHPIModal, {
             title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden',
             fields: {
-                feedbackType: "wish"
+                feedbackType: "userstory"
             }
         });
         
-        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
-        $feedbackModal.appendTo('body').modal('show');
-        $feedbackModal.find('#title-area').html(area);
+        $contactHPIModal.find('.modal-form').on('submit', sendFeedback.bind(this, $contactHPIModal));
+        $contactHPIModal.appendTo('body').modal('show');
+        $contactHPIModal.find('#title-area').html(area);
     });
 
-    $('.submit-problem').on('click', function (e) {
+    $('.submit-contactAdmin').on('click', function (e) {
         e.preventDefault();
 
-        $('.problem-modal').find('.btn-submit').prop("disabled", false);
-        populateModalForm($problemModal, {
+        $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
+        populateModalForm($contactAdminModal, {
             title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
 
-        $problemModal.find('.modal-form').on('submit', sendFeedback.bind(this, $problemModal));
-        $problemModal.appendTo('body').modal('show');
+        $contactAdminModal.find('.modal-form').on('submit', sendFeedback.bind(this, $contactAdminModal));
+        $contactAdminModal.appendTo('body').modal('show');
     });
 
     $modals.find('.close, .btn-close').on('click', function () {

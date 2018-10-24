@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
+const logger = require('winston');
 
 // secure routes
 router.use(require('../helpers/authentication').authChecker);
@@ -19,7 +20,7 @@ router.post('/', function (req, res, next) {
             targetState: req.body.targetState,
             schoolName: res.locals.currentSchoolData.name,
             userId: res.locals.currentUser._id,
-            email: res.locals.currentUser.email ? res.locals.currentUser.email : "",
+            email: req.body.email,
             schoolId: res.locals.currentSchoolData._id,
             cloud: res.locals.theme.title
         }
@@ -27,7 +28,7 @@ router.post('/', function (req, res, next) {
     .then(_ => {
         res.sendStatus(200);
     }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
+        logger.warn(err);
     });
 });
 
