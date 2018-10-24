@@ -3,7 +3,7 @@
 @import "./editor";
 
 body {
-    background-color: white;
+    background-color: $colorWhite;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
@@ -77,8 +77,7 @@ aside.nav-sidebar {
     height: 100vh;
     margin: 0;
     color: #727272;
-    background-color: #ffffff;
-    //background-color: #c3c1c1;
+    background-color: $colorWhite;
     border-right: 1px solid rgba(0,0,0,.15);
 
     @include media-breakpoint-down(md) {
@@ -145,7 +144,7 @@ aside.nav-sidebar {
             width: 100%;
             height: 100vh;
             overflow: auto;
-            background: lightgrey;
+            background: white;
             box-shadow: 0 2px 5px rgba(0,0,0,.26);
             transform: translateY(-102%);
             transition: transform .3s ease-in-out;
@@ -186,12 +185,10 @@ aside.nav-sidebar {
                     white-space: nowrap;
 
                     &.child-active {
-                        background-color: #dbd7d7;
                         border-bottom: 1px solid transparent;
                     }
 
                     &.subitem {
-                        background-color: #dbd7d7;
                         height: 40px;
                         line-height: 40px;
                         border-bottom: 1px solid transparent;
@@ -221,17 +218,14 @@ aside.nav-sidebar {
                     }
 
                     &.active {
-                        background: #fff;
+                        background: $colorWhite;
                         color: $primaryColor;
                         border-bottom: 1px solid transparent;
                     }
 
                     &[href]:hover {
-                        //background: #434857;
-                        //color: #fff !important;
-                        background: rgba(0,0,0,0.1);
+                        background: $colorLightGrey;
                         cursor: pointer;
-                        //border-radius: 3px;
                     }
 
                     i.fa {
@@ -510,7 +504,7 @@ footer {
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;
         padding-left: 50px !important;
-        background: $colorBeige;
+        background: $colorWhite;
         box-shadow: 0 2px 5px rgba(0,0,0,.26);
     }
 
@@ -576,7 +570,7 @@ footer {
             }
 
             &:hover{
-                background-color: rgba(0,0,0,0.1);
+                background-color: $colorLightGrey;
             }
             &:after{
                 display: none;
