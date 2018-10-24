@@ -13,5 +13,11 @@
         {{> "help/search"}}
         {{> "help/contact"}}
 
+        {{#embed "help/component-card" title="First Test Card"}}
+            {{#content "card-body"}}
+                <p>Test Content</p>
+            {{/content}}
+        {{/embed}}
+
     {{/content}}
 {{/extend}}
