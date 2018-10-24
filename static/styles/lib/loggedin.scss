@@ -72,12 +72,14 @@ aside.nav-sidebar {
     position: fixed;
     top: 0;
     left: 0;
-    overflow: auto; 
+    overflow: auto;
     width: 240px;
     height: 100vh;
     margin: 0;
     color: #727272;
-    background-color: #c3c1c1;
+    background-color: #ffffff;
+    //background-color: #c3c1c1;
+    border-right: 1px solid rgba(0,0,0,.15);
 
     @include media-breakpoint-down(md) {
         width: 60px;
@@ -176,14 +178,13 @@ aside.nav-sidebar {
                     float: left;
                     height: 60px;
                     line-height: 60px;
-                    border-bottom: 1px solid #adadad;
-                    color: #727272;
+                    color: $fontColor;
                     padding: 0px 20px;
                     font-size: 14px;
                     text-decoration: none;
                     overflow-x: visible;
                     white-space: nowrap;
-    
+
                     &.child-active {
                         background-color: #dbd7d7;
                         border-bottom: 1px solid transparent;
@@ -226,9 +227,11 @@ aside.nav-sidebar {
                     }
 
                     &[href]:hover {
-                        background: #434857;
-                        color: #fff !important;
+                        //background: #434857;
+                        //color: #fff !important;
+                        background: rgba(0,0,0,0.1);
                         cursor: pointer;
+                        border-radius: 3px;
                     }
 
                     i.fa {
@@ -326,7 +329,7 @@ header {
     @include media-breakpoint-down(xs) {
         padding-left: 0px;
     }
-    
+
     .federal-state {
         height: 35px;
         margin-left: 8px !important;
@@ -632,7 +635,7 @@ footer {
     .dropdown-toggle:not(.recent) .tag {
         display: none;
     }
-    
+
     .dropdown-menu{
         width: 300px;
         max-height: 300px;
