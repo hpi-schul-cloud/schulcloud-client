@@ -1,5 +1,7 @@
 import "./helpers/lazyload.js";
 import livesearch from "./helpers/livesearch.js";
+import "./help/contactForm.js";
+
 
 $(document).ready(function () {
     $('.btn-poll').on('click', function (e) {
