@@ -6,11 +6,10 @@
 
     {{#content "scripts" mode="append"}}
         <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
-        <script src="/scripts/socket.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
-        <section class="section-timetable" data-step="7" data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
+        <section class="container-fluid section-timetable" data-step="7" data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
             <div class="row">
                 <div class="col-sm-12">
                     <h5>Stundenplan</h5>
@@ -18,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="container-fluid timetable">
+            <div class="timetable">
                 <div class="row lesson-cards">
                     <div>
                         {{#each events}}
@@ -95,6 +94,14 @@
         {{/embed}}
         {{/ifneq}}
         {{/ifneq}}
+        {{/if}}
+
+        {{#if showNewReleaseModal}}
+            {{#embed "lib/components/modal" class="feature-modal"}}
+                {{#content "body"}}
+                    {{> "lib/forms/form-features"}}
+                {{/content}}
+            {{/embed}}
         {{/if}}
 
     {{/content}}

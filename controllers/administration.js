@@ -697,7 +697,7 @@ const userFilterSettings = function (defaultOrder) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -821,7 +821,7 @@ const getTeacherUpdateHandler = () => {
 
         // do all db requests
         Promise.all(promises).then(([user, consent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -972,7 +972,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 classes,
                 editTeacher: true,
                 hidePwChangeButton,
-                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
+                referrer: req.header('Referer')
 
             }
         );
@@ -988,33 +989,37 @@ const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
         req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+        let studentConsent = {}, newParentConsent = {};
 
         // extractConsent
-        let studentConsent = {
-            _id: req.body.student_consentId,
-            userConsent: {
-                form: req.body.student_form || "analog",
-                privacyConsent: req.body.student_privacyConsent === "true",
-                researchConsent: req.body.student_researchConsent === "true",
-                thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
-                termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
-            }
-        };
-        let newParentConsent = {
-            form: req.body.parent_form || "analog",
-            privacyConsent: req.body.parent_privacyConsent === "true",
-            researchConsent: req.body.parent_researchConsent === "true",
-            thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
-            termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
-        };
+        if (req.body.student_form) {
+            studentConsent = {
+                _id: req.body.student_consentId,
+                userConsent: {
+                    form: req.body.student_form || "analog",
+                    privacyConsent: req.body.student_privacyConsent === "true",
+                    researchConsent: req.body.student_researchConsent === "true",
+                    thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
+                    termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
+                }
+            };
+        }
+        if (req.body.parent_form) {
+            newParentConsent = {
+                form: req.body.parent_form || "analog",
+                privacyConsent: req.body.parent_privacyConsent === "true",
+                researchConsent: req.body.parent_researchConsent === "true",
+                thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+                termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
+            };
+        }
         if(studentConsent._id){
             let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
             if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
-                orgUserConsent.parentConsents[0];
                 Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
                 studentConsent.parentConsents = orgUserConsent.parentConsents;
             }
-        }else if(studentConsent.userConsent.form){
+        }else if((studentConsent.userConsent||{}).form){
             studentConsent.parentConsents = [newParentConsent];
         }
     
@@ -1029,14 +1034,14 @@ const getStudentUpdateHandler = () => {
 
         if(studentConsent._id){ // update exisiting consent
             promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
-        } else if(studentConsent.userConsent.form){//create new consent entry
+        } else if((studentConsent.userConsent||{}).form){//create new consent entry
             delete studentConsent._id;
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
 
         Promise.all(promises).then(([user, studentConsent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -1147,7 +1152,11 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 head, body, pagination,
                 filterSettings: JSON.stringify(userFilterSettings())
             });
+        }).catch(err => {
+            next(err);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1176,9 +1185,12 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent,
-                hidePwChangeButton
+                hidePwChangeButton,
+                referrer: req.header('Referer')
             }
         );
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1240,9 +1252,12 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                isCustom
+                isCustom,
+                referrer: req.header('Referer')
             });
         });
+    }).catch(err => {
+        next(err);
     });
 };
 const getClassOverview = (req, res, next) => {
@@ -1352,7 +1367,8 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                         "title":"Passwort ändern",
                         "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
                     },
-                ]
+                ],
+                referrer: req.header('Referer')
             });
         });
     });
@@ -1367,7 +1383,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1434,7 +1450,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1475,7 +1491,7 @@ const classFilterSettings = function (years) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {

@@ -15,7 +15,6 @@
                 defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 
-        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
         <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
     
     {{/content}}
@@ -89,7 +88,7 @@
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
                                 <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{this.title}}</a>
+                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
                                 </li>
                             {{/each}}
                         </ol>
@@ -190,11 +189,15 @@
 
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                            {{#if currentSchoolData.logo_dataUrl}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
+                            {{else}}
+                                {{#if currentSchoolData.federalState}}
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                {{/if}}
                             {{/if}}
                         {{/if}}
-
+                        
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
@@ -215,7 +218,7 @@
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
                                 <div>
-                                    <h4 id="page-title">{{title}}</h4>
+                                    <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
                                 </div>
                                 <div>
                                     {{subtitle}}
@@ -265,11 +268,6 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal" class="feature-modal"}}
-                {{#content "body"}}
-                    {{> "lib/forms/form-features"}}
-                {{/content}}
-            {{/embed}}
         </section>
     {{/content}}
 {{/extend}}
