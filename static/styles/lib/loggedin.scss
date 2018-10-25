@@ -364,7 +364,7 @@ header {
 
 
 body.fullscreen{
-    .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle{
+    .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle, a[aria-disabled="true"].mobile-nav-toggle{
         display: none;
     }
     #titlebar{
@@ -691,17 +691,10 @@ footer {
     }
 }
 
-aside.nav-sidebar nav ul li a.isOffline .link-name,
-a.isOffline {
-    color: currentColor;
-      cursor: not-allowed;
-      opacity: 0.5;
-      text-decoration: none;
-}
-
 a[aria-disabled="true"] {
-    color: currentColor;
     display: inline-block;  /* For IE11/ MS Edge bug */
     pointer-events: none;
-    text-decoration: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
 }

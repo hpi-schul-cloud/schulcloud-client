@@ -63,58 +63,68 @@ function calculateMetrics() {
   });
 }
 
-window.addEventListener('load', function () {
-  function updateOnlineStatus(event) {
-    if (navigator.onLine) {
-      $('#offlineAlert').hide();
-      updateLinkState('ONLINE');
-    } else {
-      $('#offlineAlert').show();
-      updateLinkState('OFFLINE');
+
+
+
+function updateLinkState(state) {
+  function setOnline(link) {
+    if ($(link).attr('data-href')) {
+      $(link).removeAttr("disabled").removeAttr('aria-disabled');
+      $(link).attr('href', $(link).attr('data-href'));
     }
   }
+  function setOffline(link) {
+    if ($(link).attr('href')) {
+      $(link).attr("disabled", "disabled");
+      $(link).attr('aria-disabled', 'true');
+      $(link).attr('data-href', $(link).attr('href'));
+      $(link).attr('href', '');
+    }
+  }
+  if (state == 'ONLINE') {
+    $('a').each(function () {
+      setOnline(this);
+    });
+  } else {
+    $('a').each(function () {
+      var link = this;
+      var url = $(link).attr('href');
+      window.caches.match(url).then(function (response) {
+        if (response) {
+          setOnline(link);
+        } else {
+          setOffline(link);
+        }
+      });
+    });
+  }
+}
+
+function updateOnlineStatus(event) {
+  if (navigator.onLine) {
+    $('#offlineAlert').hide();
+    updateLinkState('ONLINE');
+  } else {
+    $('#offlineAlert').show();
+    updateLinkState('OFFLINE');
+  }
+}
+
+window.addEventListener('load', function () {
+  // disable click event on disabled links
+  document.body.addEventListener('click', function (event) {
+    if (event.target.nodeName == 'A' && event.target.getAttribute('aria-disabled') == 'true') {
+      event.preventDefault();
+    }
+  });
+
   let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
   if (testUserGroup == 1) {
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
   }
-  function updateLinkState(state) {
-    if (state == 'ONLINE') {
-      $('a.offline').addClass('isOnline');
-      $('a.offline').removeClass('isOffline');
-      $('a.offline').removeAttr("disabled");
-      $('a.offline').removeAttr('aria-disabled');
-    } else {
-      $('a.offline').each(function () {
-        var item = this;
-        var url = $(item).attr('href');
-        $(item).on("click", function (event) {
-          if ($(this).is("[disabled]")) {
-            event.preventDefault();
-          }
-        });
-        window.caches.match(url).then(function (response) {
-          if (response) {
-            $(item).addClass('isOnline');
-            $(item).removeClass('isOffline');
-            $(item).removeAttr("disabled");
-            $(item).removeAttr('aria-disabled');
-          } else {
-            $(item).removeClass('isOnline');
-            $(item).addClass('isOffline');
-            $(item).attr("disabled", "disabled");
-            $(item).attr('aria-disabled', "true");
-          }
-        }).catch(function () {
-          $(item).removeClass('isOnline');
-          $(item).addClass('isOffline');
-          $(item).attr("disabled", "disabled");
-          $(item).attr('aria-disabled', "true");
-        });
-      });
-    }
-  }
+
 });
 
 calculateMetrics();
