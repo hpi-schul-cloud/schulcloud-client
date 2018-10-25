@@ -628,7 +628,7 @@ router.get('/:courseId/members', async function(req, res, next) {
 
         let headClasses = [
             'Name',
-            'Mitglieder',
+            'Schüler',
             'Aktionen'
         ];
 
