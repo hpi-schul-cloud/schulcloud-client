@@ -124,7 +124,6 @@ window.addEventListener('load', function () {
     window.addEventListener('offline', updateOnlineStatus);
     updateOnlineStatus();
   }
-
 });
 
 calculateMetrics();
