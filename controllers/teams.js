@@ -504,22 +504,32 @@ router.post('/:courseId/events/', function (req, res, next) {
 router.get('/:courseId/members', async function(req, res, next) {
     const action = '/teams/' + req.params.courseId;
     const method = 'patch';
-    let course, courseUserIds;
 
     try {
-        course = await api(req).get('/teams/' + req.params.courseId, {
+        let course = await api(req).get('/teams/' + req.params.courseId, {
             qs: {
                 $populate: [
                     {
                         path: 'userIds.userId',
                         populate: ['schoolId']
-                    }, {
+                    },
+                    {
                         path: 'userIds.role',
                     }
                 ]
             }
         });
-        courseUserIds = course.userIds.map(user => user.userId._id);
+        let courseUserIds = course.userIds.map(user => user.userId._id);
+
+        const courseClasses = (await api(req).get('/classes', { qs: {
+            _id: {
+                $in: course.classIds
+            },
+            $populate: ["year"],
+            $limit: 1000
+        }})).data;
+
+        course.classes = courseClasses;
 
         const users = (await api(req).get('/users', {
             qs: {
@@ -528,6 +538,13 @@ router.get('/:courseId/members', async function(req, res, next) {
                 }
             }
         })).data;
+
+        let classes = (await api(req).get('/classes', { qs: {
+            $or: [{ "schoolId": res.locals.currentSchool }],
+            $populate: ["year"],
+            $limit: 1000
+        }})).data;
+        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
 
         let roles = (await api(req).get('/roles', {
             qs: {
@@ -609,6 +626,40 @@ router.get('/:courseId/members', async function(req, res, next) {
             return row;
         });
 
+        let headClasses = [
+            'Name',
+            'Mitglieder',
+            'Aktionen'
+        ];
+
+        const bodyClasses = course.classes.map(_class => {
+            let row = [
+                `${_class.displayName || _class.name} (${_class.year ? _class.year.name : ''})`,
+                _class.userIds.length,
+                // TODO: Populate funktioniert nicht.. Strange!
+                // _class.schoolId.name || '',
+                {
+                    payload: {
+                        classId: _class._id
+                    }
+                }
+            ];
+
+            let actions = [];
+
+            if (course.user.permissions.includes('REMOVE_MEMBERS')) {
+                actions.push({
+                    class: 'btn-delete-member',
+                    title: 'Klasse entfernen',
+                    icon: 'trash'
+                });
+            }
+
+            row.push(actions);
+
+            return row;
+        });
+
         let headInvitations = [
             'E-Mail',
             'Eingeladen am',
@@ -631,12 +682,15 @@ router.get('/:courseId/members', async function(req, res, next) {
             title: 'Deine Team-Teilnehmer',
             action,
             addMemberAction: `/teams/${req.params.courseId}/members`,
+            classes,
             inviteExternalMemberAction: `/teams/${req.params.courseId}/members/external`,
             deleteMemberAction: `/teams/${req.params.courseId}/members`,
             permissions: course.user.permissions,
             method,
             head,
             body,
+            headClasses,
+            bodyClasses,
             roles,
             rolesExternal,
             headInvitations,
@@ -661,9 +715,11 @@ router.get('/:courseId/members', async function(req, res, next) {
 router.post('/:courseId/members', async function(req, res, next) {
     const courseOld = await api(req).get('/teams/' + req.params.courseId);
     let userIds = courseOld.userIds.concat(req.body.userIds);
+    let classIds = req.body.classIds;
 
     await api(req).patch('/teams/' + req.params.courseId, {
         json: {
+            classIds,
             userIds
         }
     });

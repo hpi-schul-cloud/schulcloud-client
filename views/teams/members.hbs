@@ -54,14 +54,25 @@
                 </div>
             {{/ifCond}} --}}
 
-            <h4 class="padding-top">{{arrayLength body}}
-                {{#ifCond (arrayLength body) '==' 1}} Teilnehmer {{/ifCond}}
-                {{#ifCond (arrayLength body) '>' 1}} Teilnehmer {{/ifCond}}
+            <h4 class="padding-top">
+                {{arrayLength body}} Teilnehmer
             </h4>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 no-padding">
                         {{> "lib/components/table" head=head body=body}}
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="padding-top">{{arrayLength bodyClasses}}
+                {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
+                {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
+            </h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        {{> "lib/components/table" head=headClasses body=bodyClasses}}
                     </div>
                 </div>
             </div>
