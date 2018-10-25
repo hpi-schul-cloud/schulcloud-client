@@ -5,13 +5,9 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/help.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
-        
-        {{> "help/search"}}
-
         <section class="faqpanel">
             <div class="container-fluid">
                 {{#if this.currentSchoolData.pilot}}
@@ -162,7 +158,7 @@
                                          role="tabpanel" aria-labelledby="heading-{{@index}}"
                                          {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
                                         <div class="card-block">
-                                            <noscript class="lazyload">{{{this.body}}}</noscript>
+                                            {{{this.body}}}
                                         </div>
                                         <div class="card-footer">
                                             <a href="{{this.url}}" target="_blank">Weiterlesen</a>

@@ -4,7 +4,16 @@
         <link rel="stylesheet" href="/styles/help/help.css"/>
     {{/content}}
 
-    {{#content "page"}}
-        <iframe class="full" src="https://blog.schulcloud.org/faq/" frameborder="0"></iframe>
+    {{#content "scripts" mode="append"}}
+        <script defer>
+            setHeight = function() {
+                $('.faq-frame').css({
+                    'height': ($(document).height() - $('.navbar').height() * 3) + 400 + 'px'
+                });
+            };
+        </script>
+    {{/content}}
+     {{#content "page"}}
+        <iframe class="faq-frame" src="https://blog.schulcloud.org/faq/" frameborder="0" scrolling="no" width="100%" align="middle" onload="setHeight()"></iframe>
     {{/content}}
 {{/extend}}
