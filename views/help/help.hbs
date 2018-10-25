@@ -11,11 +11,10 @@
     {{#content "page"}}
         
         {{> "help/search"}}
-        {{> "help/contact"}}
-
-        {{#embed "help/component-card" title="First Test Card"}}
+        
+        {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card"}}
             {{#content "card-body"}}
-                <p>Test Content</p>
+                {{> "help/contact"}}
             {{/content}}
         {{/embed}}
 

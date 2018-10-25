@@ -17,16 +17,16 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 
         i{
-            font-size: 2em; 
+            font-size: 1.8em; 
         }
     }
     .card-content {
         background: white;
-        border: 1px solid white;
         border-radius: 4px;
-        padding: 8px;
+        padding: 16px;
         padding-top: 2rem;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        text-align: center;
 
         .card-title {
             text-align: center;
@@ -41,7 +41,40 @@
             height: 1px;
             bottom: 0;
             left: 25%;
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid #333;
+        }
+    }
+}
+.contact-card {
+    width: 50%;
+
+    .card-content {
+        background-color: #fa2;
+        color: #fff; 
+
+        .card-title:before{
+            border-bottom-color: #fff;
+        }
+        input, textarea, .chosen-single {
+            border-color: #333;
+            border-radius: 0px;
+        }
+        .message-input {
+
+            input[type="radio"] {
+                display: none;
+            }
+            label{
+                padding: 4px 11px;
+                cursor: pointer;
+                border: 1px solid #fff;
+                margin: -2px;
+                width: 40%;
+            }
+            input[type="radio"]:checked+label {
+                background-color: #fff;
+                color: #fa2;
+            }
         }
     }
 }
