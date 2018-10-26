@@ -15,6 +15,7 @@ function initForm(form){
             adminForm.classList.add("hidden");
             teamForm.classList.remove("hidden");
         }
+        form.scrollIntoView(true);
     });
 
     // handle form change when type changes
@@ -26,6 +27,7 @@ function initForm(form){
             wishForm.classList.add("hidden");
             bugForm.classList.remove("hidden");
         }
+        form.scrollIntoView(true);
     });
 }
 
