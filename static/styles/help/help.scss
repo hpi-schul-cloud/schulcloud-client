@@ -1,66 +1,91 @@
-@import '../lib/colors';
-@import './search';
-@import './component-card';
+@import "../lib/colors";
+@import "./search";
+@import "./component-card";
 
 // NEW STYLES
 // iFrame styles for confluence integration
-.content-min-height #main-content{
+.content-min-height #main-content {
   display: flex;
   flex-direction: column;
 }
-iframe.full{
+iframe.full {
   width: 100%;
   flex: 1;
 }
 
 .contact-card {
-  width: 50%;
+  .card-title:before {
+    border-bottom-color: #fff;
+  }
 
   .card-content {
-      background-color: #fa2;
-      color: #fff; 
+    form{
+      margin-top: 1rem;
+      p{
+        text-align: left;
+      }
+      label{
+        margin-bottom: 4px;
+      }
+    }
+    p{
+      margin-top: .75rem;
+      margin-bottom: .25rem;
+    }
+    background-color: $accentColor;
+    color: #fff;
 
-      .card-title:before{
-          border-bottom-color: #fff;
-      }
-      input, textarea, .chosen-single {
-          border-color: #333;
-          border-radius: 0px;
-      }
-      .switch{
+    input,
+    textarea,
+    .chosen-single {
+      border-color: #d9d9d9; // TODO: use sass variable
+      border-radius: 0px;
+    }
+    .form-group > label{
+      display: block;
+      text-align: left;
+      padding-right: 2rem;
+    }
+
+    // toggles
+    fieldset {
+      width: 100%;
+      max-width: 400px;
+      display: inline-block;
+      .switch {
+        display: flex;
+        flex-wrap: nowrap;
+
+        input[type="radio"] {
+          display: none;
+          &:checked + label {
+            color: $accentColor;
+            background-color: #fff;
+          }
+        }
+
+        label {
           display: flex;
-          flex-wrap: nowrap;
+          flex: 1;
+          flex-direction: column;
+          justify-content: center;
+          margin: 0;
+          padding: 4px;
+          border: 1px solid #fff;
+          border-left: none;
 
-          input[type="radio"] {
-              display: none;
-              &:checked + label{
-                color: #fa2;
-                background-color: #fff;
-              }
-          }
+          cursor: pointer;
+          text-transform: uppercase;
+          font-weight: normal;
+          text-align: center;
 
-          label{
-            text-transform: uppercase;
-              text-shadow: 0 0 #000a;
-              flex: 1;
-              cursor: pointer;
-              border: 1px solid #fff;
-              border-left: none;
-              margin: 0;
-              padding: 4px 0;
-              display: flex;
-              justify-content: center;
-              flex-direction: column;
-              text-align: center;
-              &:first-of-type{
-                border-left: 1px solid #fff;
-                border-radius: 5rem 0 0 5rem;
-              }
-              &:last-of-type{
-                border-radius: 0 5rem 5rem 0;
-              }
+          transition: color .3s, background-color .3s;
+          &:first-of-type {
+            border-left: 1px solid #fff;
           }
+        }
       }
+    }
   }
 }
 .first-steps-card {
