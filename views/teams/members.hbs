@@ -65,17 +65,19 @@
                 </div>
             </div>
 
-            <h4 class="padding-top">{{arrayLength bodyClasses}}
-                {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
-                {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
-            </h4>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12 no-padding">
-                        {{> "lib/components/table" head=headClasses body=bodyClasses}}
+            {{#if bodyClasses}}
+                <h4 class="padding-top">{{arrayLength bodyClasses}}
+                    {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
+                    {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
+                </h4>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=headClasses body=bodyClasses}}
+                        </div>
                     </div>
                 </div>
-            </div>
+            {{/if}}
 
             {{#embed "lib/components/modal-form" action=addMemberAction class="add-member-modal"}}
                 {{#content "fields"}}
@@ -104,6 +106,12 @@
             {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-member-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-delete-member"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-class-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-class"}}
                 {{/content}}
             {{/embed}}
         </section>

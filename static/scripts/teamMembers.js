@@ -223,4 +223,43 @@ $(document).ready(function () {
 
     return false;
   });
+
+  /////////////
+  // Delete Class
+  /////////////
+  $('.btn-delete-class').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $deleteClassModal = $('.delete-class-modal');
+    const classIdToRemove = $(this).parent().parent().find('[data-payload]').data('payload');
+    populateModalForm($deleteClassModal, {
+        title: 'Klasse löschen',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Klasse löschen',
+        payload: classIdToRemove
+    });
+
+    let $modalForm = $deleteClassModal.find(".modal-form");
+    $deleteClassModal.appendTo('body').modal('show');
+  });
+
+  $('.delete-class-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const classIdToRemove = $(this).data('payload').classId;
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'DELETE',
+      data: {
+        classIdToRemove
+      }
+    }).done(function() {
+      location.reload();
+    }).fail(function() {
+      $.showNotification('Problem beim Löschen des Teilnehmers', "danger", true);
+    });
+
+    return false;
+  });
 });

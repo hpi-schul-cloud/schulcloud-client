@@ -521,15 +521,15 @@ router.get('/:courseId/members', async function(req, res, next) {
         });
         let courseUserIds = course.userIds.map(user => user.userId._id);
 
-        const courseClasses = (await api(req).get('/classes', { qs: {
-            _id: {
-                $in: course.classIds
-            },
-            $populate: ["year"],
-            $limit: 1000
-        }})).data;
-
-        course.classes = courseClasses;
+        course.classes = course.classIds.length > 0 ? (await api(req).get('/classes', {
+            qs: {
+                _id: {
+                    $in: course.classIds
+                },
+                $populate: ["year"],
+                $limit: 1000
+            }
+        })).data : [];
 
         const users = (await api(req).get('/users', {
             qs: {
@@ -539,12 +539,15 @@ router.get('/:courseId/members', async function(req, res, next) {
             }
         })).data;
 
+
         let classes = (await api(req).get('/classes', { qs: {
             $or: [{ "schoolId": res.locals.currentSchool }],
             $populate: ["year"],
             $limit: 1000
         }})).data;
+
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
+
 
         let roles = (await api(req).get('/roles', {
             qs: {
@@ -649,7 +652,7 @@ router.get('/:courseId/members', async function(req, res, next) {
 
             if (course.user.permissions.includes('REMOVE_MEMBERS')) {
                 actions.push({
-                    class: 'btn-delete-member',
+                    class: 'btn-delete-class',
                     title: 'Klasse entfernen',
                     icon: 'trash'
                 });
@@ -759,10 +762,12 @@ router.post('/:courseId/members/external', async function(req, res, next) {
 router.delete('/:courseId/members', async function(req, res, next) {
     const courseOld = await api(req).get('/teams/' + req.params.courseId);
     let userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
+    let classIds = courseOld.classIds.filter(_class => _class !== req.body.classIdToRemove);
 
     await api(req).patch('/teams/' + req.params.courseId, {
         json: {
-            userIds
+            userIds,
+            classIds
         }
     });
 
