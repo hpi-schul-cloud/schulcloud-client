@@ -13,67 +13,53 @@ iframe.full{
   flex: 1;
 }
 
-// OLD STYLES
-.changelog {
-  .author {
-    float: right
+.contact-card {
+  width: 50%;
+
+  .card-content {
+      background-color: #fa2;
+      color: #fff; 
+
+      .card-title:before{
+          border-bottom-color: #fff;
+      }
+      input, textarea, .chosen-single {
+          border-color: #333;
+          border-radius: 0px;
+      }
+      .switch{
+          display: flex;
+          flex-wrap: nowrap;
+
+          input[type="radio"] {
+              display: none;
+              &:checked + label{
+                color: #fa2;
+                background-color: #fff;
+              }
+          }
+
+          label{
+            text-transform: uppercase;
+              text-shadow: 0 0 #000a;
+              flex: 1;
+              cursor: pointer;
+              border: 1px solid #fff;
+              border-left: none;
+              margin: 0;
+              padding: 4px 0;
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              text-align: center;
+              &:first-of-type{
+                border-left: 1px solid #fff;
+                border-radius: 5rem 0 0 5rem;
+              }
+              &:last-of-type{
+                border-radius: 0 5rem 5rem 0;
+              }
+          }
+      }
   }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    width: auto;
-  }
-
-  h4 {
-    margin-bottom: 20px;
-    color: $primaryColor;
-  }
-
-  i {
-    padding-right: 5px;
-    color: $primaryColor;
-  }
-}
-
-.faqpanel {
-  .card-img-top {
-      height: auto;
-      width: 100%;
-  }
-
-  .card-footer {
-    text-align: center;
-  }
-
-  .h-100 {
-    margin-bottom: 0px;
-    text-align: center;
-    position: relative;
-    padding-bottom: 75px;
-  }
-
-  .circular {
-    max-width: 300px;
-    max-height: 300px;
-    border-radius: 150px;
-    -webkit-border-radius: 150px;
-    -moz-border-radius: 150px;
-  }
-
-  .img-out {
-    padding-top: 20px;
-    display: inline-block;
-
-    .fa-bug {
-      font-size: 140px;
-      padding-top: 50px;
-      padding-bottom: 40px
-    }
-    .mooc-house {
-      margin: 80px 0 25px 0;
-    }
-  }
-
-  padding-bottom: 20px;
 }

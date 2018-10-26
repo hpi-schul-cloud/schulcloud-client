@@ -45,36 +45,3 @@
         }
     }
 }
-.contact-card {
-    width: 50%;
-
-    .card-content {
-        background-color: #fa2;
-        color: #fff; 
-
-        .card-title:before{
-            border-bottom-color: #fff;
-        }
-        input, textarea, .chosen-single {
-            border-color: #333;
-            border-radius: 0px;
-        }
-        .message-input {
-
-            input[type="radio"] {
-                display: none;
-            }
-            label{
-                padding: 4px 11px;
-                cursor: pointer;
-                border: 1px solid #fff;
-                margin: -2px;
-                width: 40%;
-            }
-            input[type="radio"]:checked+label {
-                background-color: #fff;
-                color: #fa2;
-            }
-        }
-    }
-}
