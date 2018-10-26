@@ -11,6 +11,51 @@
     {{#content "page"}}
         
         {{> "help/search"}}
+
+        {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card"}}
+            {{#content "card-body"}}
+                <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="Schüler">
+                        <span>
+                            <i class="fa fa-child"></i>
+                            Schüler
+                        </span>   
+                    </a>
+                </div>
+                <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="Lehrer">
+                        <span>
+                            <i class="fa fa-child"></i>
+                            Lehrer
+                        </span>                        
+                    </a>
+                </div>
+                <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="Admin">
+                        <span>
+                            <i class="fa fa-child"></i>
+                            Admin
+                        </span>   
+                    </a>
+                </div>
+                <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="Schulleitung">
+                        <span>
+                            <i class="fa fa-child"></i>
+                            Schulleitung
+                        </span>   
+                    </a>
+                </div>
+            {{/content}}
+        {{/embed}}
         
         {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card"}}
             {{#content "card-body"}}
