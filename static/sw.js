@@ -8,6 +8,10 @@ workbox.clientsClaim();
 
 workbox.precaching.precacheAndRoute([]);
 
+workbox.precaching.precacheAndRoute([
+    '/calendar/events/'
+]);
+
 // cache images
 workbox.routing.registerRoute(
     /\.(?:png|PNG|gif|GIF|jpg|JPG|jpeg|JPEG|svg|SVG)$/,
@@ -111,6 +115,7 @@ self.addEventListener('fetch', event => {
 workbox.routing.registerRoute(
     '/calendar/events/',
     workbox.strategies.staleWhileRevalidate({
+        cacheName: 'workbox-precache',
         plugins: [
             new workbox.broadcastUpdate.Plugin('calendar-event-updates')
         ]
