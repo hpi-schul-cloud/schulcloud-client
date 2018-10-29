@@ -80,17 +80,3 @@ $('.course-time-delete').click(function (e) {
     e.preventDefault();
     deleteCourseTime($(this).attr('href'));
 });
-
-// convert date/time values to german format after fetching from server
-$.datetimepicker.setLocale('de');
-$('input[data-time]').datetimepicker({
-    datepicker: false,
-    format: 'H:i',
-    mask: '29:59'
-});
-
-$('input[data-date]').datetimepicker({
-    timepicker: false,
-    format: 'd.m.Y',
-    mask: '39.19.9999'
-});
