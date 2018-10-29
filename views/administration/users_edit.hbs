@@ -2,7 +2,6 @@
     <script src="/scripts/administration/users_edit.js" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     <link rel="stylesheet" href="/styles/administration/users.css"/>
 {{/content}}
 {{#extend "lib/loggedin"}}
@@ -42,7 +41,7 @@
                 {{#unless editTeacher}}
                     <div class="form-group">
                         <label>Geburtsdatum: *</label>
-                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required autocomplete="off" value="{{dateToPicker user.birthday}}"/>
+                        <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required value="{{dateToPicker user.birthday}}"/>
                     </div>
 
                     <div class="row mb-2">

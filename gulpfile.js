@@ -24,6 +24,7 @@ const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
+const workbox = require('workbox-build');
 
 const baseScripts = [
   './static/scripts/jquery/jquery.min.js',
@@ -37,7 +38,7 @@ const baseScripts = [
   './static/scripts/qrcode/kjua-0.1.1.min.js'
 ];
 
-const nonBaseScripts = ['./static/scripts/**/*.js']
+const nonBaseScripts = ['./static/scripts/**/*.js', '!./static/scripts/sw/workbox/*.*']
   .concat(baseScripts.map(script => '!' + script));
 //used by all gulp tasks instead of gulp.src(...)
 //plumber prevents pipes from stopping when errors occur
@@ -117,7 +118,7 @@ gulp.task('fonts', () => {
 
 //compile/transpile JSX and ES6 to ES5 and minify scripts
 gulp.task('scripts', () => {
-  beginPipeAll(nonBaseScripts)
+  return beginPipeAll(nonBaseScripts)
     .pipe(named(
       file => {
         // As a preparation for webpack stream: Transform nonBaseScripts paths
@@ -131,7 +132,7 @@ gulp.task('scripts', () => {
       }
     ))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(`./build/${themeName()}/scripts`))
+    .pipe(gulp.dest(`./build/${themeName()}/scripts`));
 });
 
 
@@ -196,6 +197,57 @@ gulp.task('vendor-assets', () => {
     .pipe(gulp.dest(`./build/${themeName()}/vendor`));
 });
 
+gulp.task('sw-workbox', () => {
+  beginPipe(['./static/scripts/sw/workbox/*.js'])
+    .pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`));
+});
+
+// service worker patterns used for precaching of files
+let globPatterns = [
+    'fonts/**/*.{woff,css}',
+    'images/logo/*.svg',
+    'images/footer-logo.png',
+    'scripts/all.js',
+    'scripts/loggedin.js',
+    'scripts/sw/metrix.js',
+    'scripts/calendar.js',
+    'scripts/dashboard.js',
+    'scripts/courses.js',
+    'scripts/news.js',
+    'styles/lib/*.css',
+    'styles/lib/toggle/*.min.css',
+    'styles/lib/datetimepicker/*.min.css',
+    'styles/calendar/*.css',
+    'styles/news/*.css',
+    'styles/courses/*.css',
+    'styles/dashboard/*.css',
+    'vendor/introjs/intro*.{js,css}'
+  ];
+
+gulp.task('generate-service-worker', 
+  ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
+  'vendor-styles', 'vendor-scripts', 'vendor-assets'], () => {
+    return workbox.injectManifest({
+      globDirectory: `./build/${themeName()}/`,
+      globPatterns: globPatterns,
+      swSrc: './static/sw.js',
+      swDest: `./build/${themeName()}/sw.js`,
+      templatedUrls: {
+        '/calendar/': [
+          '../../views/calendar/calendar.hbs',
+         ]
+      },
+    })
+    .then(({count, size, warnings}) => {
+        // Optionally, log any warnings and details.
+        warnings.forEach(console.warn);
+        console.log(`${count} files will be precached, totaling ${size} bytes.`);
+        })
+    .catch((error) => {
+        console.warn('Service worker generation failed:', error);
+    });
+  });  
+
 //clear build folder + smart cache
 gulp.task('clear', () => {
   gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], { 
@@ -206,7 +258,7 @@ gulp.task('clear', () => {
 
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-  'vendor-styles', 'vendor-scripts', 'vendor-assets'
+                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker', 'sw-workbox'
 ]);
 
 gulp.task('build-theme-files', ['styles', 'images']);
@@ -217,13 +269,15 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/other/**/*.*'), ['other']);
   gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles']);
   gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts']);
-  gulp.watch(withTheme(nonBaseScripts), ['scripts']);
+  gulp.watch(withTheme(nonBaseScripts), ['scripts', 'generate-service-worker']);
   gulp.watch(withTheme(baseScripts), ['base-scripts']);
   gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles']);
   gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts']);
   gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
     '!./static/vendor/**/*.{css,sass,scss}'
   ], ['vendor-assets']);
+  gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
+  gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
 });
 
 //run this if only "gulp" is run on the commandline with no task specified
