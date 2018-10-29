@@ -152,3 +152,41 @@ iframe.full {
     padding: 1.6rem 0rem;
   }
 }
+.information-card {
+  .card-row {
+    display: flex;
+    &:nth-of-type(1) {
+      margin: 1.2rem 0rem;
+    }
+    
+    .link-wrapper {
+      display: inline-block;
+      width: 33.3%;
+      height: 5rem;
+      border-left: 1px solid black;
+      &:nth-of-type(1) {
+        border: none;
+      }
+      a {
+        color: #333;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+
+        span{
+          transition: all .2s ease-in-out;
+        }
+        i {
+          display: block;
+          font-size: 1.8rem;
+        }
+        &:hover span, &:focus span{
+          transform: scale(1.2);
+          text-shadow: 0px 2px 5px #333a;
+        }
+      }
+    }
+  }
+}
