@@ -118,7 +118,7 @@ const restrictSidebar = (req, res) => {
         if(!item.permission) return true;
         
         let hasRequiredPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
-        let hasNoExcludedPermission = !permissionsHelper.userHasPermission(res.locals.currentUser, item.excludedPermission)
+        let hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.excludedPermission)
         return hasRequiredPermission && hasNoExcludedPermission;
         // excludedPermission is used to prevent the case that an Admin has both: Verwaltung and Administration
     });
