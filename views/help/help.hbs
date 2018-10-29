@@ -12,36 +12,6 @@
         
         {{> "help/search"}}
 
-        {{#each tutorials}}
-            {{#embed "help/component-card" title=this.title icon="fa-child" class="accordion"}}
-                {{#content "card-body"}}
-                    {{#each this.categories}}
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                        {{this.title}}
-                                    </button>
-                                </h5>
-                            </div>
-
-                            <div id="{{this.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        {{#each this.articles}}
-                                            <li><a href="{{this.id}}">
-                                                {{this.title}}
-                                            </a></li>
-                                        {{/each}}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    {{/each}}
-                {{/content}}
-            {{/embed}}
-        {{/each}}
-
         {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card"}}
             {{#content "card-body"}}
                 <div class="link-wrapper">
@@ -84,6 +54,73 @@
                         </span>   
                     </a>
                 </div>
+            {{/content}}
+        {{/embed}}
+
+        {{#each tutorials}}
+            {{#embed "help/component-card" title=this.title icon="fa-child" class="accordion"}}
+                {{#content "card-body"}}
+                    {{#each this.categories}}
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                        {{this.title}}
+                                    </button>
+                                </h5>
+                            </div>
+
+                            <div id="{{this.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <ul>
+                                        {{#each this.articles}}
+                                            <li><a href="{{this.id}}">
+                                                {{this.title}}
+                                            </a></li>
+                                        {{/each}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/content}}
+            {{/embed}}
+        {{/each}}
+
+        {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card"}}
+            {{#content "card-body"}}
+            <div class="card-row">
+               <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="Online-Videokurse">
+                        <span>
+                            <i class="fa fa-video-camera"></i>
+                            Online-<br>Videokurse
+                        </span>   
+                    </a>
+                </div>
+                <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="MINT-EC Webinare">
+                        <span>
+                            <i class="fa fa-desktop"></i>
+                            MINT-EC <br>Webinare
+                        </span>   
+                    </a>
+                </div>
+                <div class="link-wrapper">
+                    <a href="#"
+                        target="_blank"
+                        title="Schnellstart PDF">
+                        <span>
+                            <i class="fa fa-file-pdf-o"></i>
+                            Schnellstart <br>PDF
+                        </span>   
+                    </a>
+                </div> 
+            </div>
             {{/content}}
         {{/embed}}
         
