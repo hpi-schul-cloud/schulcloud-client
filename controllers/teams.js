@@ -398,22 +398,28 @@ router.get('/:courseId', async function(req, res, next) {
             return news;
         });
 
-        let events = await api(req).get('/calendar/', {
-            qs: {
-                'scope-id': req.params.courseId,
-                all: true
-            }
-        });
+        let events = [];
 
-        events = events.map(event => {
-            let start = moment(event.start);
-            let end = moment(event.end);
-            event.day = start.format('D');
-            event.month = start.format('MMM').toUpperCase().split('.').join("");
-            event.dayOfTheWeek = start.format('dddd');
-            event.fromTo= start.format('hh:mm') + ' - ' + end.format('hh:mm');
-            return event;
-        });
+        try {
+            events = await api(req).get('/calendar/', {
+                qs: {
+                    'scope-id': req.params.courseId,
+                    all: true
+                }
+            });
+
+            events = events.map(event => {
+                let start = moment(event.start);
+                let end = moment(event.end);
+                event.day = start.format('D');
+                event.month = start.format('MMM').toUpperCase().split('.').join("");
+                event.dayOfTheWeek = start.format('dddd');
+                event.fromTo= start.format('hh:mm') + ' - ' + end.format('hh:mm');
+                return event;
+            });
+        } catch (e) {
+            events = [];
+        }
 
         res.render('teams/team', Object.assign({}, course, {
             title: course.name,
