@@ -197,6 +197,12 @@ gulp.task('vendor-assets', () => {
     .pipe(gulp.dest(`./build/${themeName()}/vendor`));
 });
 
+// copy MathJax
+gulp.task('mathjax', () => {
+  beginPipe(['./node_modules/mathjax/**/*.*'])
+  .pipe(gulp.dest(`./build/${themeName()}/vendor/mathjax`));
+});
+
 gulp.task('sw-workbox', () => {
   beginPipe(['./static/scripts/sw/workbox/*.js'])
     .pipe(gulp.dest(`./build/${themeName()}/scripts/sw/workbox`));
@@ -221,7 +227,12 @@ let globPatterns = [
     'styles/news/*.css',
     'styles/courses/*.css',
     'styles/dashboard/*.css',
-    'vendor/introjs/intro*.{js,css}'
+    'vendor/introjs/intro*.{js,css}',
+    'vendor/firebasejs/3.9.0/firebase-app.js',
+    'vendor/firebasejs/3.9.0/firebase-messaging.js',
+    'vendor/feathersjs/feathers.js',
+    'vendor/mathjax/MathJax.js',
+    'images/manifest.json'
   ];
 
 gulp.task('generate-service-worker', 
@@ -258,7 +269,8 @@ gulp.task('clear', () => {
 
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker', 'sw-workbox'
+                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker', 
+                        'sw-workbox', 'mathjax'
 ]);
 
 gulp.task('build-theme-files', ['styles', 'images']);

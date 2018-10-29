@@ -98,3 +98,19 @@ workbox.routing.registerRoute(
         ]
     })
 );
+
+workbox.routing.registerRoute(
+    /vendor\/mathjax\//,
+    workbox.strategies.cacheFirst({
+        cacheName: 'vendors',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60,
+            }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200],
+            }),
+        ],
+    })
+);
