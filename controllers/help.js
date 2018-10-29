@@ -10,10 +10,68 @@ const moment = require('moment');
 
 const faq = require('../helpers/content/faq.json');
 
+/*
+
+// GET tutorials.json
+
+async function articles(){
+    const cardsUrl = `https://docs.schul-cloud.org/rest/api/content/13828239/child/page?expand=children.page`;
+    const cardsResult = await fetch(cardsUrl);
+    const cardJson = await cardsResult.json();
+    let cards = cardJson.results.map((category) => {
+        return {
+            id: category.id,
+            title: category.title,
+            type: "topic"
+        };
+    }).map(async (card) => {
+        const articleResult = await fetch(`https://docs.schul-cloud.org/rest/api/content/${card.id}/child/page?expand=children.page`);
+        const articleJson = await articleResult.json();
+        let categories = articleJson.results.map((category) => {
+            return {
+                id: category.id,
+                title: category.title,
+                type: "category",
+                articles: category.children.page.results.map((article) => {
+                    return {
+                        id: article.id,
+                        title: article.title,
+                        type: "article"
+                    };
+                })
+            };
+        });
+        card.categories = categories;
+        return card;
+    });
+    let content = await Promise.all(cards);
+    let w = window.open();
+    w.document.write(JSON.stringify(content));
+}
+articles();
+*/
+const tutorials = require('../helpers/content/tutorials.json');
+
 // secure routes
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
+    api(req).get('/releases', {qs: {$sort: '-createdAt'}})
+        .then(releases => {
+            releases.data.map(release => {
+                release.body = converter.makeHtml(release.body);
+                release.publishedAt = moment(release.publishedAt).format('ddd, ll');
+            });
+
+            res.render('help/help', {
+                title: 'Hilfebereich',
+                release: releases.data,
+                tutorials: tutorials
+            });
+        });
+});
+
+router.get('/releases', function (req, res, next) {
     api(req).get('/releases', {qs: {$sort: '-createdAt'}})
         .then(releases => {
             releases.data.map(release => {
