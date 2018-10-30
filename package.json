@@ -24,6 +24,7 @@
     "express-session": "^1.15.2",
     "fast-csv": "^2.4.1",
     "feedr": "^2.13.5",
+    "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
