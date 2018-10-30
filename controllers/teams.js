@@ -58,17 +58,22 @@ const getSelectOptions = (req, service, query, values = []) => {
  * Deletes all events from the given course, clear function
  * @param teamId {string} - the id of the course the events will be deleted
  */
-const deleteEventsForTeam = (req, res, teamId) => {
+const deleteEventsForTeam = async (req, res, teamId) => {
     if (process.env.CALENDAR_SERVICE_ENABLED) {
-        return api(req).get('teams/' + teamId).then(team => {
-            return Promise.all((team.times || []).map(t => {
-                if (t.eventId) {
-                    return api(req).delete('calendar/' + t.eventId);
-                }
-            }));
+        let events = await api(req).get('/calendar/', {
+            qs: {
+                'scope-id': teamId
+            }
         });
+
+        for (let event of events) {
+            try {
+                await api(req).delete('/calendar/' + event._id);
+            } catch (e) {
+                res.sendStatus(500);
+            }
+        }
     }
-    return Promise.resolve(true);
 };
 
 const markSelected = (options, values = []) => {
@@ -447,14 +452,24 @@ router.patch('/:teamId', async function(req, res, next) {
     // });
 });
 
-router.delete('/:teamId', function(req, res, next) {
-    deleteEventsForTeam(req, res, req.params.teamId).then(_ => {
-        api(req).delete('/teams/' + req.params.teamId).then(_ => {
-            res.sendStatus(200);
-        });
-    }).catch(_ => {
+router.get('/:teamId/delete', async function(req, res, next) {
+    try {
+        await deleteEventsForTeam(req, res, req.params.teamId);
+        res.sendStatus(200);
+    } catch (e) {
         res.sendStatus(500);
-    });
+    }
+});
+
+router.delete('/:teamId', async function(req, res, next) {
+    try {
+        await deleteEventsForTeam(req, res, req.params.teamId);
+        await api(req).delete('/teams/' + req.params.teamId);
+
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(500);
+    }
 });
 
 router.post('/:teamId/events/', function (req, res, next) {
@@ -466,7 +481,7 @@ router.post('/:teamId/events/', function (req, res, next) {
     req.body.teamId = req.params.teamId;
 
     api(req).post('/calendar/', {json: req.body}).then(event => {
-        res.redirect('/calendar');
+        res.redirect(`/teams/${req.params.teamId}`);
     });
 });
 
