@@ -55,20 +55,22 @@ $(document).ready(function () {
         editable: false,
         timezone: 'UTC',
         events: function (start, end, timezone, callback) {
+            if('serviceWorker' in navigator){
+                navigator.serviceWorker.addEventListener('message', function (event) {
+                    if (event.origin !== location.origin)
+                        return; 
+                    if (event.data.tag == 'calendar-event-updates') {
+                        caches.open(event.data.cacheName)
+                            .then(cache => cache.match(event.data.url))
+                            .then(response => response.json())
+                            .then(data => callback(data));
+                    }
+                });
+            }
             $.getJSON('/calendar/events/',
                 function (events) {
                     callback(events);
                 });
-                if('BroadcastChannel' in window){
-                    const updatesChannel = new BroadcastChannel('calendar-event-updates');
-                    updatesChannel.addEventListener('message', async (event) => {
-                        const {cacheName, updatedUrl} = event.data.payload;
-                        const cache = await caches.open(cacheName);
-                        const updatedResponse = await cache.match(updatedUrl);
-                        const updatedText = await updatedResponse.json();
-                        callback(updatedText);
-                    });
-                }
         },
         eventRender: function (event, element) {
             if (event.cancelled) {
