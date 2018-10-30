@@ -33,6 +33,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
+    const isSSO = Boolean(res.locals.currentPayload.systemId);
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         api(req).get('/notification/devices')
             .then(device => {
@@ -45,18 +46,21 @@ router.get('/', function (req, res, next) {
                 res.render('account/settings', {
                     title: 'Dein Account',
                     device,
-                    userId: res.locals.currentUser._id
+                    userId: res.locals.currentUser._id,
+                    sso: isSSO
                 });
             }).catch(err => {
             res.render('account/settings', {
                 title: 'Dein Account',
-                userId: res.locals.currentUser._id
+                userId: res.locals.currentUser._id,
+                sso: isSSO
             });
         });
     } else {
         res.render('account/settings', {
             title: 'Dein Account',
-            userId: res.locals.currentUser._id
+            userId: res.locals.currentUser._id,
+            sso: isSSO
         });
     }
 });

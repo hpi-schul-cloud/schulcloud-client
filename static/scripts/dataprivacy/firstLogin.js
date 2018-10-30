@@ -10,9 +10,9 @@ window.addEventListener('DOMContentLoaded', ()=> {
         $('#showExistingLoginForm').on("click", ()=>{
             const baseUrl = '/firstLogin';
             if (radio14.checked){
-                window.location.href = `${baseUrl}/existingUE14`;
+                window.location.href = `${baseUrl}?ue14=true`;
             }else{
-                window.location.href = `${baseUrl}/existingU14`;
+                window.location.href = `${baseUrl}?u14=true`;
             }
         });
         $("#welcome-screen input[type='radio']").on("change", () => {

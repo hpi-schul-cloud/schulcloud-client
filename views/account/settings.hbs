@@ -13,6 +13,7 @@
         {{error}}
 
         <div class="route-account">
+            {{#unless sso}}
             <form method="post">
                 {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
@@ -44,22 +45,22 @@
                 <div class="form-group">
                     <label>Aktuelles Passwort</label>
                     <input type="password" name="password" class="form-control"
-                           placeholder="***************" required>
+                        placeholder="***************" required>
                 </div>
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
                     <label>Neues Passwort <sup>*</sup></label>
                     <input type="password" name="password_new" id="password_new" class="form-control"
-                           placeholder="***************"
-                           pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                           title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen">
+                        placeholder="***************"
+                        pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                        title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen">
                 </div>
 
                 <div class="form-group">
                     <label>Neues Passwort <sup>*</sup></label>
                     <input type="password" name="password_control" id="password_control"
-                           class="form-control" placeholder="***************">
+                        class="form-control" placeholder="***************">
                 </div>
                 {{/userHasPermission}}
 
@@ -74,6 +75,28 @@
                 <sup>*</sup>
                 Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
             </span>
+            {{else}}
+            <div>
+                <div class="form-group">
+                    <label>Vorname</label>
+                    <input type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Nachname</label>
+                    <input type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>E-Mail-Adresse</label>
+                    <input type="email" class="form-control" value="{{ currentUser.email }}" readonly>
+                </div>
+                <p class="warning">
+                    Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM)
+                    synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver),
+                    das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Administrator deiner Schule,
+                    um Änderungen an deinen Nutzerdaten vorzunehmen.
+                </p>
+            </div>
+            {{/unless}}
         </div>
 
         <div class="panel-group notification-div">
