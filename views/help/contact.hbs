@@ -3,9 +3,9 @@
   <fieldset id="message_target">
     <div class="switch">
       <input type="radio" id="admin" name="message_target" value="admin" checked>
-      <label for="admin">Admin</label> 
+      <label for="admin" tabindex="0" role="button">Admin</label>
       <input type="radio" id="team" name="message_target" value="team">
-      <label for="team"> {{theme.short_title}}-Team</label>
+      <label for="team" tabindex="0" role="button"> {{theme.short_title}}-Team</label>
     </div>
   </fieldset>
 
@@ -19,12 +19,12 @@
     <fieldset id="message_type">
       <div class="switch">
         <input type="radio" id="wish" name="message_type" value="wish" checked>
-        <label for="wish">Wunsch</label> 
+        <label for="wish" tabindex="0" role="button">Wunsch</label>
         <input type="radio" id="bug" name="message_type" value="bug">
-        <label for="bug">Problem</label>
+        <label for="bug" tabindex="0" role="button">Problem</label>
       </div>
     </fieldset>
-    
+
     <div class="wish_form">
       {{> "help/forms/form_wish"}}
     </div>

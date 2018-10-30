@@ -133,9 +133,12 @@ iframe.full {
             font-size: 1.8rem;
           }
           
-          &:hover span, &:focus span{
-            transform: scale(1.2);
-            text-shadow: 0px 2px 5px #333a;
+          &:hover, &:focus{
+            outline: none;
+            span{
+              transform: scale(1.1);
+              text-shadow: 0px 2px 5px #3333;
+            }
           }
         }
       }
@@ -182,9 +185,12 @@ iframe.full {
           display: block;
           font-size: 1.8rem;
         }
-        &:hover span, &:focus span{
-          transform: scale(1.2);
-          text-shadow: 0px 2px 5px #333a;
+        &:hover, &:focus{
+          outline: none;
+          span{
+            transform: scale(1.1);
+            text-shadow: 0px 2px 5px #3333;
+          }
         }
       }
     }
