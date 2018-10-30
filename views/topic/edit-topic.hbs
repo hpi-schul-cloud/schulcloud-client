@@ -18,11 +18,17 @@
                     <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                 {{/if}}
 
-                <input name="courseId" type="hidden" data-force-value="true" value="{{courseId}}" />
+                {{#if courseId}}
+                    <input name="courseId" type="hidden" data-force-value="true" value="{{courseId}}" />
+                {{/if}}
 
-                <input name="teamId" type="hidden" data-force-value="true" value="{{teamId}}" />
+                {{#if teamId}}
+                    <input name="teamId" type="hidden" data-force-value="true" value="{{teamId}}" />
+                {{/if}}
 
-                <input name="courseGroupId" type="hidden" data-force-value="true" value="{{courseGroupId}}" />
+                {{#if courseGroupId}}
+                    <input name="courseGroupId" type="hidden" data-force-value="true" value="{{courseGroupId}}" />
+                {{/if}}
 
                 <input name="position" type="hidden" data-force-value="true" value="{{lesson.position}}" />
 
