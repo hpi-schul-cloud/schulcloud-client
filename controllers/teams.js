@@ -54,6 +54,22 @@ const getSelectOptions = (req, service, query, values = []) => {
     });
 };
 
+/**
+ * Deletes all events from the given course, clear function
+ * @param teamId {string} - the id of the course the events will be deleted
+ */
+const deleteEventsForTeam = (req, res, teamId) => {
+    if (process.env.CALENDAR_SERVICE_ENABLED) {
+        return api(req).get('teams/' + teamId).then(team => {
+            return Promise.all((team.times || []).map(t => {
+                if (t.eventId) {
+                    return api(req).delete('calendar/' + t.eventId);
+                }
+            }));
+        });
+    }
+    return Promise.resolve(true);
+};
 
 const markSelected = (options, values = []) => {
     return options.map(option => {
@@ -432,7 +448,7 @@ router.patch('/:teamId', async function(req, res, next) {
 });
 
 router.delete('/:teamId', function(req, res, next) {
-    deleteEventsForCourse(req, res, req.params.teamId).then(_ => {
+    deleteEventsForTeam(req, res, req.params.teamId).then(_ => {
         api(req).delete('/teams/' + req.params.teamId).then(_ => {
             res.sendStatus(200);
         });
@@ -447,6 +463,7 @@ router.post('/:teamId/events/', function (req, res, next) {
 
     // filter params
     req.body.scopeId = req.params.teamId;
+    req.body.teamId = req.params.teamId;
 
     api(req).post('/calendar/', {json: req.body}).then(event => {
         res.redirect('/calendar');
