@@ -199,18 +199,6 @@ $(document).ready(function () {
         closeLabel: 'Abbrechen'
     });
 
-    // loading animation
-    const bodyClassList = document.querySelector("body").classList;
-    document.addEventListener("DOMContentLoaded", function() {
-        bodyClassList.add("transition-in");
-    });
-    window.addEventListener("beforeunload", function (e) {
-        bodyClassList.remove("transition-in");
-    });
-    window.addEventListener("pageshow", function (e) {
-        bodyClassList.add("transition-in");
-    });
-
     // from: https://stackoverflow.com/a/187557
     jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function (arg) {
         return function (elem) {
@@ -230,10 +218,22 @@ $(document).ready(function () {
     });
 });
 
-window.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
     }
+
+    // loading animation
+    const bodyClassList = document.querySelector("body").classList;
+    document.addEventListener("DOMContentLoaded", function() {
+        bodyClassList.add("loaded");
+    });
+    window.addEventListener("beforeunload", function (e) {
+        bodyClassList.remove("loaded");
+    });
+    window.addEventListener("pageshow", function (e) {
+        bodyClassList.add("loaded");
+    });
 });
 window.addEventListener("resize", function () {
     $('.sidebar-list').css({"height": window.innerHeight});
@@ -275,6 +275,5 @@ window.addEventListener("load", () => {
             navigator.serviceWorker.register('/sw.js');
         }
     }
+    document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
 });
-
-document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);

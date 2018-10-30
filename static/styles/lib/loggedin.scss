@@ -2,28 +2,24 @@
 @import './bootstrap/scss/bootstrap-flex';
 @import "./editor";
 
-
+// page transition animation
 ul.sidebar-list > li:not(:first-of-type),
 .section-title,
 #main-content,
 footer
 {
-    transition: opacity .4s;
     opacity: 0;
+    transition: opacity .4s;
 }
-.transition-in{
+.loaded{
     ul.sidebar-list > li:not(:first-of-type),
     .section-title,
     #main-content,
     footer
     {
-       opacity: 1;
-   }
+        opacity: 1;
+    }
 }
-.turbolinks-progress-bar {
-    height: 5px;
-    background-color: $accentColor;
-  }
 
 body {
     background-color: $colorWhite;
@@ -31,55 +27,42 @@ body {
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
     font-size: 0 !important;
-}
-body > * {
-    font-size: 1rem;
-    white-space: normal;
-}
 
-.preload-screen{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 99999999;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: rgba(0,0,0,.4);
-    .content{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
+    // loading spinner
+    &:not(.loaded) .content-min-height{
+        display: block;
         height: 100vh;
-        background: radial-gradient(farthest-corner, transparent 45%, rgba(0, 0, 0, .2));
-        transition: opacity .3s ease-in-out 1.3s;
-        text-shadow: 2px 2px 5px rgba(0,0,0,.3);
-        .center-wrapper{
+        overflow: hidden;
+        position: relative;
+        &:after{
+            content: "\f110";
+            display: inline-block;
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            font-size: 1.2rem;
-            .fa{
-                font-size: 2em;
-                margin-bottom: 1rem;
-                -webkit-animation: fa-spin 1.5s infinite linear;
-                animation: fa-spin 1.5s infinite linear;
-            }
-        }
-    }
-    &.hidden{
-        visibility: hidden;
-        .overlay-card{
-            transform: rotate(-90deg);
-        }
-        .content{
+            z-index: -1;
+            color: #777;
+            font: normal normal normal 2em/1 FontAwesome;
             opacity: 0;
+            transform: translate(-50%, -50%), rotate(0deg);
+            animation: loading-spinner 2.5s infinite linear 2s;
         }
     }
+}
+@keyframes loading-spinner {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(359deg);
+    }
+}
+
+body > * {
+    font-size: 1rem;
+    white-space: normal;
 }
 
 .navtooltips{
