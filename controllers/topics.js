@@ -49,6 +49,7 @@ const editTopicHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
+            teamId: req.params.teamId,
             courseGroupId: req.query.courseGroup,
             etherpadBaseUrl: etherpadBaseUrl
         });
