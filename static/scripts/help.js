@@ -35,15 +35,15 @@ function parseData(result){
     if(result){
         return {
             class: "",
-            link: `/help/confluence/${result.id}`, 
-            title: result.title, 
+            link: `/help/confluence/${result.id}`,
+            title: result.title,
             short_description: truncate(result.bodyTextHighlights, 100)
         };
     } else{
         return {
             class: "disabled",
             link: "#",
-            title: "Keine Ergebnisse gefunden 😪", 
+            title: "Keine Ergebnisse gefunden 😪",
             short_description: "Probiere es mit anderen Suchbegriffen erneut"
         };
     }

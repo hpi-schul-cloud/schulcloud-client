@@ -166,7 +166,7 @@ $(document).ready(function () {
         $qrbox.empty();
         $qrbox.append(image);
     });
-  
+
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
         document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
@@ -198,7 +198,7 @@ $(document).ready(function () {
         title: 'Neue Features sind verfügbar',
         closeLabel: 'Abbrechen'
     });
-  
+
     // loading animation
     const bodyClassList = document.querySelector("body").classList;
     document.addEventListener("DOMContentLoaded", function() {
@@ -268,13 +268,13 @@ window.addEventListener("load", () => {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
-    if ('serviceWorker' in navigator) { 
+    if ('serviceWorker' in navigator) {
         // enable sw for half of users only
         let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
         if(testUserGroup == 1) {
             navigator.serviceWorker.register('/sw.js');
         }
     }
-}); 
+});
 
 document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
