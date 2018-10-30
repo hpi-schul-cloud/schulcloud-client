@@ -26,7 +26,7 @@ const hasAccount = (req, res, next) => {
 
 // firstLogin
 router.get('/', async function (req, res, next) {
-    if(!res.locals.currentUser.birthday && !req.query.u14 && !req.query.ue14){
+    if(!res.locals.currentUser.birthday && res.locals.currentRole == "Schüler" && !req.query.u14 && !req.query.ue14){
         return res.redirect("firstLogin/existing");
     }
 
@@ -127,14 +127,14 @@ router.get('/', async function (req, res, next) {
 
 // deprecated
 router.get(['/U14','/existingU14'], function (req, res, next) {
-    res.redirect("/firstlogin/?u14=true");
+    res.redirect("/firstLogin/?u14=true");
 });
-router.get(['/UE18','existingUE14'], function (req, res, next) {
-    res.redirect("/firstlogin/?ue14=true");
+router.get(['/UE18','/existingUE14'], function (req, res, next) {
+    res.redirect("/firstLogin/?ue14=true");
 });
 
 router.get(['/14_17', '/existingGeb14', '/existingEmployee'], function (req, res, next) {
-    res.redirect("/firstlogin/");
+    res.redirect("/firstLogin/");
 });
 
 
