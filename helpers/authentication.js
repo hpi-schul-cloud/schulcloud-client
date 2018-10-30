@@ -36,6 +36,7 @@ const isAuthenticated = (req) => {
 const authChecker = (req, res, next) => {
     isAuthenticated(req)
         .then(isAuthenticated => {
+            const redirectUrl = `/login?challenge=${req.query.challenge}`;
             if(isAuthenticated) {
 
                 // fetch user profile
@@ -54,11 +55,11 @@ const authChecker = (req, res, next) => {
 							//print message?
 							res.redirect('/login/success');
 						}else{
-							res.redirect('/login/');
+							res.redirect(redirectUrl);
 						}
 					});
             } else {
-                res.redirect('/login/');
+                res.redirect(redirectUrl);
             }
         });
 };

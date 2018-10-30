@@ -1,0 +1,40 @@
+{{#extend "lib/default"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/authentication/home.css"/>
+        <link rel="stylesheet" href="/styles/authentication/login.css"/>
+    {{/content}}
+    {{#content "body"}}
+        <main class="container">
+            <div class="row">
+                <section class="col-md-6 offset-md-3">
+                    <section class="card">
+                        <div class="card-block">
+                            <div class="col-xs-12">
+                                {{> "lib/components/notification"}}
+                            </div>
+                            <div class="text-center">
+                                <h3>{{title}}</h3>
+                                <h4>{{subtitle}}</h4>
+                            </div>
+                            <div class="form-wrapper">
+                                <form method="post" class="registration-form" action={{action}}>
+                                    <input type="hidden" name="client_id" value="{{client}}" />
+                                    <div class="form-group">
+                                        <label>Um mit {{client}} zu arbeiten, müssen wir folgendes von dir weitergeben:</label>
+                                        <ul>
+                                            {{#each scopes}}
+                                                <li>{{this}}</li>
+                                                <input type="hidden" name="allowed_scopes" value="{{this}}" />
+                                            {{/each}}
+                                        </ul>
+                                    </div>
+                                    <input type="submit" class="btn btn-primary btn-block" value="{{buttonLabel}}" />
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+            </div>
+            </div>
+        </main>
+    {{/content}}
+{{/extend}}

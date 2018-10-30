@@ -153,19 +153,25 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
                     });
                 }
                 const consent = consents.data[0];
-                res.redirect(consent.redirect);
+                const redirectUrl = (req.session.login_challenge
+                  ? '/oauth2/login/success'
+                  : consent.redirect);
+                res.redirect(redirectUrl);
             });
     } else {
         // if this happens: SSO 	
-		const accountId = (res.locals.currentPayload||{}).accountId;
-		
-		ssoSchoolData( req, accountId ).then(school=>{
-			if(school==undefined){
-				res.redirect('/dashboard/');
-			}else{
-				res.redirect('/registration/' + school._id+'/sso/'+accountId); 
-			}
-		}); 
+        const accountId = (res.locals.currentPayload||{}).accountId;
+
+        ssoSchoolData( req, accountId ).then(school=>{
+          if(school==undefined){
+            const redirectUrl = (req.session.login_challenge
+              ? '/oauth2/login/success'
+              : '/dashboard/');
+            res.redirect(redirectUrl);
+          }else{
+            res.redirect('/registration/' + school._id+'/sso/'+accountId);
+          }
+        });
     }
 });
 
