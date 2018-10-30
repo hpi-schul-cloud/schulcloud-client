@@ -199,8 +199,7 @@ gulp.task('vendor-assets', () => {
 
 //copy vendor-optimized files
 gulp.task('vendor-optimized-assets', () => {
-  beginPipe(['./static/vendor-optimized/**/*.*'
-    ])
+  beginPipe(['./static/vendor-optimized/**/*.*'])
     .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`));
 });
 
