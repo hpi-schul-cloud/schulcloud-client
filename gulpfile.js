@@ -234,10 +234,10 @@ let globPatterns = [
     'styles/courses/*.css',
     'styles/dashboard/*.css',
     'vendor/introjs/intro*.{js,css}',
-    'vendor/firebasejs/3.9.0/firebase-app.js',
-    'vendor/firebasejs/3.9.0/firebase-messaging.js',
+    'vendor-optimized/firebasejs/3.9.0/firebase-app.js',
+    'vendor-optimized/firebasejs/3.9.0/firebase-messaging.js',
     'vendor/feathersjs/feathers.js',
-    'vendor/mathjax/MathJax.js',
+    'vendor-optimized/mathjax/MathJax.js',
     'images/manifest.json'
   ];
 
@@ -275,8 +275,8 @@ gulp.task('clear', () => {
 
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'generate-service-worker', 
-                        'sw-workbox', 'mathjax'
+                        'vendor-styles', 'vendor-scripts', 'vendor-assets', 'vendor-optimized-assets',
+                        'generate-service-worker', 'sw-workbox', 'mathjax'
 ]);
 
 gulp.task('build-theme-files', ['styles', 'images']);
@@ -294,6 +294,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
     '!./static/vendor/**/*.{css,sass,scss}'
   ], ['vendor-assets']);
+  gulp.watch(withTheme('./static/vendor-optimized/**/*.*'),['vendor-optimized-assets']);
   gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
   gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
 });
