@@ -197,10 +197,17 @@ gulp.task('vendor-assets', () => {
     .pipe(gulp.dest(`./build/${themeName()}/vendor`));
 });
 
+//copy vendor-optimized files
+gulp.task('vendor-optimized-assets', () => {
+  beginPipe(['./static/vendor-optimized/**/*.*'
+    ])
+    .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`));
+});
+
 // copy MathJax
 gulp.task('mathjax', () => {
   beginPipe(['./node_modules/mathjax/**/*.*'])
-  .pipe(gulp.dest(`./build/${themeName()}/vendor/mathjax`));
+  .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/mathjax`));
 });
 
 gulp.task('sw-workbox', () => {
