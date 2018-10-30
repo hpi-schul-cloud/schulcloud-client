@@ -57,7 +57,7 @@ $(document).ready(function () {
         events: function (start, end, timezone, callback) {
             if('serviceWorker' in navigator){
                 navigator.serviceWorker.addEventListener('message', function (event) {
-                    if (event.origin !== 'https://schul-cloud.org' || 'http://localhost:3100')
+                    if (event.origin !== location.origin)
                         return; 
                     if (event.data.tag == 'calendar-event-updates') {
                         caches.open(event.data.cacheName)
