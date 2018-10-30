@@ -6,11 +6,6 @@ const csrf = require('csurf');
 
 const csrfProtection = csrf({ cookie: true });
 
-// This get's executed when we want to tell hydra that the user is authenticated and that he authorized the application
-const resolveConsent = (r, w, consent, grantScopes = [], clientId) => {
-
-}
-
 router.get('/login', csrfProtection, (req, res, next) => {
   return api(req).get('/oauth2/loginRequest/' + req.query.login_challenge).then(loginRequest => {
     req.session.login_challenge = req.query.login_challenge;
@@ -45,7 +40,6 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
     return w.send(`${r.query.error}<br />${r.query.error_description}`);
   }
   return api(r).get('/oauth2/consentRequest/' + r.query.consent_challenge).then(consentRequest => {
-    console.log(consentRequest);
     return w.render('oauth2/consent', {
       inline: true,
       title: 'Login mit Schul-Cloud',
@@ -59,16 +53,16 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 })
 
 router.post('/consent', auth.authChecker, (r, w) => {
-  let grantScopes = r.body.allowed_scopes;
-  // Sometimes the body parser doesn't return an array, so let's fix that.
-  if (!Array.isArray(grantScopes)) {
-    grantScopes = [grantScopes]
+  const grantScopes = r.body.allowed_scopes;
+  const body = {
+    grant_scope: (Array.isArray(grantScopes) ? grantScopes : [grantScopes]),
+    session: {
+      id_token: { sub: 'test' },
+    }
   }
-  return api(r).patch('/oauth2/consentRequest/' +  r.query.challenge, {grantScopes}
-  ).then(consentRequest => {
-    console.log(consentRequest.redirect_to);
-    w.redirect(consentRequest.redirect_to);
-  });
+
+  return api(r).patch('/oauth2/consentRequest/' +  r.query.challenge + '/?accept=1', {body}
+  ).then(consentRequest => w.redirect(consentRequest.redirect_to));
 })
 
 module.exports = router
