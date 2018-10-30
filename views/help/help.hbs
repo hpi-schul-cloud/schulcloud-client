@@ -61,27 +61,40 @@
             {{#embed "help/component-card" title=this.title icon="fa-child" class="accordion"}}
                 {{#content "card-body"}}
                     {{#each this.categories}}
-                        <div class="card">
-                            <div class="card-header" id="headingOne">
-                                <h5 class="mb-0">
-                                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                        {{this.title}}
-                                    </button>
-                                </h5>
-                            </div>
-
-                            <div id="{{this.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                                <div class="card-body">
-                                    <ul>
-                                        {{#each this.articles}}
-                                            <li><a href="{{this.id}}">
-                                                {{this.title}}
-                                            </a></li>
-                                        {{/each}}
-                                    </ul>
+                        {{#if this.articles}}
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                            {{this.title}}
+                                        </button>
+                                    </h5>
+                                </div>
+                                <div id="{{this.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <ul>
+                                            {{#each this.articles}}
+                                                <li><a href="/help/confluence/{{this.id}}">
+                                                    {{this.title}}
+                                                </a></li>
+                                            {{/each}}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        {{else}}
+                        <a href="/help/confluence/{{this.id}}">
+                            <div class="card">
+                                <div class="card-header" id="headingOne">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link" type="button">
+                                            {{this.title}}
+                                        </button>
+                                    </h5>
+                                </div>
+                            </div>
+                        </a>
+                        {{/if}}
                     {{/each}}
                 {{/content}}
             {{/embed}}
