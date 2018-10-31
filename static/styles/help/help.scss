@@ -196,3 +196,38 @@ iframe.full {
     }
   }
 }
+.accordion {
+  
+  .card {
+    text-align: left;
+    border: none;
+    border-bottom: 1px solid #333;
+    border-radius: 0px;
+    margin: 0px;   
+    &:last-of-type {
+      border-bottom: none;
+    }
+    .card-header {
+      border: none;
+      background: #fff;
+      .btn-link {
+        padding: 0px;
+        color: black;
+        display: block;
+        width: 100%;
+        text-align: left;
+        border: none;
+        font-size: 1.2rem;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    .card-body {
+      ul {
+        list-style-type: none;
+        padding-left: 1.25rem;
+      }
+    }
+  }
+}

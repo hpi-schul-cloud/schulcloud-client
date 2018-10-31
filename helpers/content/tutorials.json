@@ -2,6 +2,7 @@
     "id": "17170472",
     "title": "Unterricht",
     "type": "topic",
+    "icon": "fa-graduation-cap",
     "categories": [{
         "id": "44072994",
         "title": "Kurserstellung",
@@ -104,6 +105,7 @@
     "id": "17170474",
     "title": "Organisation",
     "type": "topic",
+    "icon": "fa-sitemap",
     "categories": [{
         "id": "17170476",
         "title": "Sonstige Funktionen",

@@ -20,7 +20,6 @@ function initForm(formContainer){
             adminForm.classList.add("hidden");
             teamForm.classList.remove("hidden");
         }
-        scrollIntoView(formContainer);
     });
 
     // handle form change when type changes
@@ -32,7 +31,6 @@ function initForm(formContainer){
             wishForm.classList.add("hidden");
             bugForm.classList.remove("hidden");
         }
-        scrollIntoView(formContainer);
     });
 }
 
