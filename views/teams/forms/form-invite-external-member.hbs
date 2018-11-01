@@ -1,17 +1,35 @@
 <div class="form-group" data-teamId="{{teamId}}">
     <p>Lade Lehrer anderer Schulen als Team-Admin ein, damit diese Lehrer und Schüler ihrer Schule hinzufügen können.
-        Benutze dazu die E-Mail-Adresse, mit der der Lehrer in der {{theme.short_title}} registriert ist.</p>
+        Es sind nur Lehrer auswählbar, die in Ihren Einstellungen der Auswahl für Teams zugestimmt haben.</p>
     {{!-- <p>Lade externe Experten ein, sich in der {{theme.short_title}} zu registrieren deinem Team beizutreten.</p> --}}
     <div class="form-group" style="margin-top: 3rem">
-        <label for="email">Gebe die E-Mail der Person ein, an welche die Einladung verschickt wird.</label>
-        <input class="form-control" type="text" name="email" id="email" placeholder="E-Mail eingeben">
+        <label for="federalstate">Bundesland</label>
+        <select class="search-enabled" placeholder="Bundesland auswählen" data-force-value="true" data-placeholder="Bundesland auswählen" name="federalstate" id="federalstate">
+            {{#each federalStates}}
+                <option value="{{this._id}}" data-id="{{this._id}}" {{#ifeq @root.currentFederalState this._id}}selected="selected"{{/ifeq}}>{{this.name}}</option>
+            {{/each}}
+        </select>
     </div>
-    <div style="margin-bottom: 6rem" class="form-group padding-bottom">
-        <label for="role">Gebe ein, welche Rolle das Mitglied erhalten soll. *</label>
-        <select placeholder="Rolle angeben"  data-placeholder="Rolle angeben" name="role" id="role">
-            {{#each roles}}
+    <div class="form-group">
+        <label for="school">Schule</label>
+        <select class="search-enabled" placeholder="Schule auswählen"  data-placeholder="Schule auswählen" name="school" id="school">
+            {{#each schools}}
                 <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
             {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="teacher">Lehrer</label>
+        <select class="search-enabled" placeholder="Lehrer auswählen"  data-placeholder="Lehrer auswählen" name="teacher" id="teacher">
+            {{#each teachers}}
+                <option value="{{this._id.name}}" data-id="{{this._id._id}}">{{this.label}}</option>
+            {{/each}}
+        </select>
+    </div>
+    <div style="margin-bottom: 6rem" class="form-group padding-bottom">
+        <label for="role">Rolle des eingeladenen Lehrers</label>
+        <select name="role" id="role" data-force-value="true" disabled="disabled">
+                <option value="teamadministrator" selected="selected">Team-Admin</option>
         </select>
     </div>
 </div>

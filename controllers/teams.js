@@ -530,6 +530,14 @@ router.get('/:courseId/members', async function(req, res, next) {
             }
         ];
 
+        const federalStates = (await api(req).get('/federalStates')).data;
+
+        const currentFederalState = (await api(req).get('/schools/' + res.locals.currentSchool, {
+            qs: {
+                $populate: "federalState"
+            }
+        })).federalState._id;
+
         let head = [
             'Vorname',
             'Nachname',
@@ -608,6 +616,8 @@ router.get('/:courseId/members', async function(req, res, next) {
             headInvitations,
             bodyInvitations,
             users,
+            federalStates,
+            currentFederalState,
             breadcrumb: [{
                     title: 'Meine Teams',
                     url: '/teams'
@@ -649,6 +659,19 @@ router.patch('/:courseId/members', async function(req, res, next) {
     await api(req).patch('/teams/' + req.params.courseId, {
         json: {
             userIds
+        }
+    });
+
+    res.sendStatus(200);
+});
+
+router.post('/:courseId/members/externalteachers', async function(req, res, next) {
+    let userId = req.body.userIds;
+
+    await api(req).post('/teams/' + req.params.courseId, {
+        json: {
+            userId,
+            role : 'teamadministrator'
         }
     });
 

@@ -57,8 +57,85 @@ $(document).ready(function () {
         submitLabel: 'Teilnehmer einladen'
     });
 
+    $('#federalstate').trigger('change');
+
     let $modalForm = $inviteExternalMemberModal.find(".modal-form");
     $inviteExternalMemberModal.appendTo('body').modal('show');
+  });
+
+  const populateSchools = (federalState) => {
+    $.ajax({
+      type: "GET",
+      url: window.location.origin + "/schools",
+      data: {
+          federalState: federalState
+      }
+    }).done(schools => {
+      let schoolSelect = $('#school');
+      schoolSelect.find('option').remove();
+      schools.forEach(school => {
+        schoolSelect.append(`<option value="${school._id}">${school.name}</option>`);
+      });
+      schoolSelect.trigger("chosen:updated");
+      $('#school').trigger('change');
+    }).fail(function() {
+      $.showNotification('Problem beim Auslesen der Schulen', "danger", true);
+      $('#teacher').find('option').remove();
+    });
+  };
+
+  $('#federalstate').on('change', function (e) {
+    populateSchools(e.target.value);
+  });
+
+  const populateTeachers = (schoolId) => {
+    console.log(schoolId);
+    let teacherSelect = $('#teacher');
+    teacherSelect.find('option').remove();
+    teacherSelect.trigger("chosen:updated");
+    $.ajax({
+      type: "GET",
+      url: window.location.origin + "/users",
+      data: {
+          schoolId: schoolId
+      }
+    }).done(users => {
+      users.forEach(user => {
+        teacherSelect.append(`<option value="${user._id}">${user.firstName} ${user.lastName}</option>`);
+      });
+      teacherSelect.trigger("chosen:updated");
+    }).fail(function() {
+      $.showNotification('Problem beim Auslesen der Lehrer', "danger", true);
+    });
+  };
+
+  $('#school').on('change', function (e) {
+    populateTeachers(e.target.value);
+  });
+
+  $('.invite-external-member-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    let userIds = $('#teacher').val();
+    userIds = userIds.map(userId => {
+      return { userId };
+    });
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'POST',
+      data: {
+        userIds
+      }
+    }).done(function() {
+      $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
+      location.reload();
+    }).fail(function() {
+      $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
+    });
+
+    return false;
   });
 
   $('.invite-external-member-modal form').on('submit', function (e) {
