@@ -203,11 +203,14 @@ gulp.task('vendor-optimized-assets', () => {
     .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`));
 });
 
-// copy MathJax
-gulp.task('mathjax', () => {
-  beginPipe(['./node_modules/mathjax/**/*.*'])
-  .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/mathjax`));
-});
+// copy node modules
+const nodeModules = ['mathjax'];
+gulp.task('node-modules', () =>
+  Promise.all(nodeModules.map(module =>
+    beginPipe([`./node_modules/${module}/**/*.*`])
+      .pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`))
+  ))
+);
 
 gulp.task('sw-workbox', () => {
   beginPipe(['./static/scripts/sw/workbox/*.js'])
@@ -276,7 +279,7 @@ gulp.task('clear', () => {
 //run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets', 'vendor-optimized-assets',
-                        'generate-service-worker', 'sw-workbox', 'mathjax'
+                        'generate-service-worker', 'sw-workbox', 'node-modules'
 ]);
 
 gulp.task('build-theme-files', ['styles', 'images']);
@@ -297,6 +300,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/vendor-optimized/**/*.*'),['vendor-optimized-assets']);
   gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
   gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
+  gulp.watch(withTheme('./node_modules/**/*.*'), ['node-modules']);
 });
 
 //run this if only "gulp" is run on the commandline with no task specified
