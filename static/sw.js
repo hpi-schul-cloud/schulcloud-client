@@ -8,9 +8,11 @@ workbox.clientsClaim();
 
 workbox.precaching.precacheAndRoute([]);
 
-workbox.precaching.precacheAndRoute([
-    '/calendar/events/'
-]);
+self.addEventListener('install', (event) => {
+    const urls = ['/calendar/events/'];
+    const cacheName = workbox.core.cacheNames.runtime;
+    event.waitUntil(caches.open(cacheName).then((cache) => cache.addAll(urls)));
+});
 
 // cache images
 workbox.routing.registerRoute(
@@ -92,14 +94,43 @@ self.addEventListener('fetch', event => {
     }
 });
 
-// calendar events
-// https://developers.google.com/web/tools/workbox/modules/workbox-broadcast-cache-update
+// calendar events https://developers.google.com/web/tools/workbox/guides/advanced-recipes
+const postMessagePlugin = {
+    cacheDidUpdate: async ({ cacheName, url, oldResponse, newResponse }) => {
+        if (oldResponse && (oldResponse.headers.get('etag') !== newResponse.headers.get('etag'))) {
+            const clients = await self.clients.matchAll();
+            for (const client of clients) {
+                client.postMessage({
+                    "tag": "calendar-event-updates",
+                    "url": newResponse.url, 
+                    "cacheName": cacheName 
+                });
+            }
+        }
+    },
+};
 workbox.routing.registerRoute(
     '/calendar/events/',
     workbox.strategies.staleWhileRevalidate({
-        cacheName: 'workbox-precache',
+        cacheName: workbox.core.cacheNames.runtime,
         plugins: [
-            new workbox.broadcastUpdate.Plugin('calendar-event-updates')
+            postMessagePlugin
         ]
+    })
+);
+
+workbox.routing.registerRoute(
+    /vendor-optimized\/mathjax\//,
+    workbox.strategies.cacheFirst({
+        cacheName: 'vendors',
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60,
+            }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200],
+            }),
+        ],
     })
 );
