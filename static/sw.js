@@ -105,7 +105,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    /vendor\/mathjax\//,
+    /vendor-optimized\/mathjax\//,
     workbox.strategies.cacheFirst({
         cacheName: 'vendors',
         plugins: [
