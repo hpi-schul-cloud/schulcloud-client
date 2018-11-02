@@ -9,10 +9,8 @@ router.get('/', async function(req, res, next) {
     try {
         let schools = await api(req).get('/schools/', {
             qs: {
-                federalState: req.query.federalState/*,
-                _id : {
-                    $ne : res.locals.currentUser.school
-                }*/
+                federalState: req.query.federalState,
+                $sort: 'name'
             }
         });
 

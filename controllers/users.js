@@ -9,7 +9,10 @@ router.get('/', async function(req, res, next) {
     try {
         let users = await api(req).get('/users/', {
             qs: {
-                schoolId: req.query.schoolId
+                schoolId: req.query.schoolId,
+                roles: ['teacher'],
+                //teamsearchable: true,
+                $sort: 'firstName'
             }
         });
 
