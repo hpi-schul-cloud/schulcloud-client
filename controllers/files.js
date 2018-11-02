@@ -739,20 +739,14 @@ router.post('/permissions/', function (req, res, next) {
 router.get('/search/', function (req, res, next) {
     const {q, filter} = req.query;
 
-    let filterQuery = filter ?
+    const filterQuery = filter ?
         {type: filterQueries[filter]} :
         {name: {$regex: _.escapeRegExp(q), $options: 'i'}};
-
+    
     api(req).get('/files/', {
         qs: filterQuery
     }).then(result => {
-        let files = result.data;
-        files.forEach(file => {
-            let ending = file.name.split('.').pop();
-            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-            file.file = pathUtils.join(file.path, file.name);
-        });
-
+        let files = result.data.map(addThumbnails);
         let filterOption = filterOptions.filter(f => f.key === filter)[0];
 
         res.render('files/search', {
