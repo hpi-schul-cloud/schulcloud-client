@@ -23,9 +23,9 @@
                 font-size: 20px;
                 opacity: .54;
             }
-          .text:hover {
-            color: #00bcd4;
-          }
+            .text:hover {
+              color:$primaryColor;
+            }
             &.active {
                 color: $primaryColor;
                 opacity: 1 !important;
@@ -41,7 +41,7 @@
     }
 }
 .sectionsContainer {
-    padding: 10px 0px 0;
+    padding: 10px 5px 0;
     .sections {
         .section {
             display: none;

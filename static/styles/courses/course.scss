@@ -1,6 +1,7 @@
 @import '../lib/colors';
 .move-handle {
     cursor: move;
+    white-space: nowrap;
 }
 
 .section-course {
