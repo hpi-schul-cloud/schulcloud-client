@@ -37,6 +37,11 @@
     </div>
     <div class="sc-card-footer">
         <a href="{{url}}" rel="canonical">{{{link-text}}}</a>
+         <a class="sc-card-menu-action downloadOffline"
+                           target="_blank"
+                           data-id="{{{ stripOnlyScript this._id }}}">
+                            <i class="fa fa-download"></i>
+                        </a>
         {{#if additionalInfoName}}
             <div class="additionalInfo" >
                 {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}

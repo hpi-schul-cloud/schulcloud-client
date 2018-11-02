@@ -276,3 +276,16 @@ window.addEventListener("load", () => {
 }); 
 
 document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+
+function downloadCourse(event){
+    if(navigator.serviceWorker.controller){
+        navigator.serviceWorker.controller.postMessage({
+            tag: 'downloadCourse',
+            courseId: $(this).attr('data-id')
+        });
+    }
+}
+
+Array.from(document.getElementsByClassName('downloadOffline')).forEach(element=>{
+    element.addEventListener('click', downloadCourse, false);
+});
