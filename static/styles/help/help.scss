@@ -14,11 +14,10 @@ iframe.full {
 }
 
 .contact-card {
-  .card-title:before {
-    border-bottom-color: #fff;
-  }
-
   .card-content {
+    .card-title:before {
+      border-bottom-color: #fff;
+    }
     form{
       margin-top: 1rem;
       p{
@@ -150,6 +149,9 @@ iframe.full {
   .card-content {
     color: #fff;
     background: #e25617;
+    .card-title:before {
+      border-bottom-color: #fff;
+    }
   }
   #email-addresses {
     padding: 1.6rem 0rem;
