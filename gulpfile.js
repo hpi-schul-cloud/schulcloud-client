@@ -95,7 +95,8 @@ gulp.task('styles', () => {
     .pipe(filelog("PROCESS: "))
     .pipe(sourcemaps.init())
     .pipe(sass({
-      sourceMap: true
+      sourceMap: true,
+      includePaths: ['node_modules']
     }))
     .pipe(postcss([
       autoprefixer({
@@ -204,7 +205,7 @@ gulp.task('vendor-optimized-assets', () => {
 });
 
 // copy node modules
-const nodeModules = ['mathjax'];
+const nodeModules = ['mathjax', 'font-awesome'];
 gulp.task('node-modules', () =>
   Promise.all(nodeModules.map(module =>
     beginPipe([`./node_modules/${module}/**/*.*`])
@@ -244,7 +245,7 @@ let globPatterns = [
     'images/manifest.json'
   ];
 
-gulp.task('generate-service-worker', 
+gulp.task('generate-service-worker',
   ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
   'vendor-styles', 'vendor-scripts', 'vendor-assets'], () => {
     return workbox.injectManifest({
@@ -266,11 +267,11 @@ gulp.task('generate-service-worker',
     .catch((error) => {
         console.warn('Service worker generation failed:', error);
     });
-  });  
+  });
 
 //clear build folder + smart cache
 gulp.task('clear', () => {
-  gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], { 
+  gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], {
       read: false
     })
     .pipe(rimraf());
@@ -300,7 +301,6 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/vendor-optimized/**/*.*'),['vendor-optimized-assets']);
   gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
   gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
-  gulp.watch(withTheme('./node_modules/**/*.*'), ['node-modules']);
 });
 
 //run this if only "gulp" is run on the commandline with no task specified

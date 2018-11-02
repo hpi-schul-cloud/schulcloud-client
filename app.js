@@ -75,9 +75,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
     }
 }));
 
-// expose font awesome font to the public
-app.use('/fonts/fontawesome', express.static(__dirname + '/node_modules/font-awesome/fonts'));
-
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
 
