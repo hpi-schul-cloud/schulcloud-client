@@ -300,7 +300,6 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/vendor-optimized/**/*.*'),['vendor-optimized-assets']);
   gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
   gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
-  gulp.watch(withTheme('./node_modules/**/*.*'), ['node-modules']);
 });
 
 //run this if only "gulp" is run on the commandline with no task specified
