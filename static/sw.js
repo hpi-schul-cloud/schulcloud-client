@@ -121,3 +121,36 @@ workbox.routing.registerRoute(
         ]
     })
 );
+function downloadCourse(courseId){
+    const cacheName = 'courses';
+    fetch(`/courses/${courseId}/offline`)
+    .then(response => response.json())
+    .then(json => {
+        let urls = [];
+        urls.push(json.course.url);
+        json.lessons.forEach(lesson => {
+            urls.push(lesson.url);
+        });
+        return caches.open(cacheName).then((cache) => cache.addAll(urls));
+    });
+}
+
+self.addEventListener('message', function(event){
+    if(event.data.tag === 'downloadCourse'){
+        downloadCourse(event.data.courseId);
+    }
+});
+
+const courseRoutes = [
+    /\/courses\//,
+    /\/courses\/[a-f0-9]{24}/,
+    /\/courses\/[a-f0-9]{24}\/topics\/[a-f0-9]{24}\//
+];
+courseRoutes.forEach(route => {
+    workbox.routing.registerRoute(
+        route,
+        workbox.strategies.cacheFirst({
+            cacheName: 'courses',
+        })
+    );
+});
