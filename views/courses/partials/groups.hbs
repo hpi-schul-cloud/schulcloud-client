@@ -1,0 +1,25 @@
+<!-- Gruppen -->
+<div class="row">
+    <div class="col-sm-12">
+        {{#userHasPermission "COURSEGROUP_CREATE"}}
+            <a href="/courses/{{../../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" title="Gruppe hinzufügen">
+                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Schülergruppe hinzufügen</span>
+            </a>
+        {{/userHasPermission}}
+        <h4>
+            {{#userHasPermission "COURSE_EDIT" }}Schülergruppen{{else}}Meine Schülergruppen{{/userHasPermission}}
+            <small>({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
+        </h4>
+        <div id="courseGroups" class="container-fluid">
+            <ol class="courseGroup">
+                <div class="row">
+                    {{#each courseGroups}}
+                        <div class="col-sm-6 col-xs-12">
+                            {{> 'courses/components/courseGroup-card'}}
+                        </div>
+                    {{/each}}
+                </div>
+            </ol>
+        </div>
+    </div>
+</div>

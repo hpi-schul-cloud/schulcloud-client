@@ -11,9 +11,6 @@
         line-height: 24px;
         float: right;
     }
-    .description {
-        margin-bottom: 40px;
-    }
     .delete-material {
         float: right;
         cursor: pointer;
@@ -79,12 +76,30 @@
     cursor: pointer;
     .card-header {
         padding: .5rem .75rem;
+        background-color: $primaryColor;
+        color: $colorWhite;
     }
     .btn-hidden-toggle {
-        font-size: 20px;
+        font-size: 25px;
+        color: $colorWhite;
+        margin-left: 10px;
+        //border: 1px solid;
+        //border-radius: .2rem;
+        padding: 0 5px;
+    }
+    .btn-hidden-toggle:hover {
+      background: $colorLightGrey;
+    }
+    .btn-icon-card {
+      color: $colorWhite;
+      background: transparent;
+    }
+    .btn-icon-card:hover {
+      color: white;
+      background: $colorLightGrey;
     }
     .topic-label {
-        margin: 0;
+        margin-bottom: 0 !important;
     }
     .input-group-btn {
         padding-right: 10px;
@@ -92,6 +107,9 @@
     }
     .input-group {
         align-items: center;
+    }
+    .move-handle {
+      margin-right: 10px;
     }
     .right-btn-group {
         margin-left: auto;
