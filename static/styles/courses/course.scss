@@ -7,6 +7,9 @@
     h4 {
         margin-bottom: 20px;
     }
+    .btn-import-topic {
+      margin-bottom: 10px;
+    }
     .lesson-date {
         line-height: 24px;
         float: right;
@@ -172,6 +175,10 @@
             }
         }
     }
+}
+
+.section-my-tasks{
+  margin-top: 30px;
 }
 
 #member-modal-body {

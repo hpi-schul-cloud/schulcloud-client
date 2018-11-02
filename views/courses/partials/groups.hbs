@@ -1,11 +1,6 @@
 <!-- Gruppen -->
 <div class="row">
     <div class="col-sm-12">
-        {{#userHasPermission "COURSEGROUP_CREATE"}}
-            <a href="/courses/{{../../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" title="Gruppe hinzufügen">
-                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Schülergruppe hinzufügen</span>
-            </a>
-        {{/userHasPermission}}
         <h4>
             {{#userHasPermission "COURSE_EDIT" }}Schülergruppen{{else}}Meine Schülergruppen{{/userHasPermission}}
             <small>({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
@@ -21,5 +16,12 @@
                 </div>
             </ol>
         </div>
+    </div>
+    <div class="col-sm-12">
+      {{#userHasPermission "COURSEGROUP_CREATE"}}
+          <a href="/courses/{{../../_id}}/groups/add" class="btn btn-primary w-100 pull-right" title="Gruppe hinzufügen">
+              <i class="fa fa-plus" aria-hidden="true"></i><span> Schülergruppe hinzufügen</span>
+          </a>
+      {{/userHasPermission}}
     </div>
 </div>

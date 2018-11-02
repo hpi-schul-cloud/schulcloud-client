@@ -1,14 +1,14 @@
 
 <div class="row">
+    {{#userHasPermission "COURSE_EDIT"}}
+      <div class="col-sm-12">
+        <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic" title="Thema importieren">
+            <i class="fa fa-exchange" aria-hidden="true"></i>
+            <span>Thema importieren</span>
+        </a>
+      </div>
+    {{/userHasPermission}}
     <div class="col-sm-12">
-        {{#userHasPermission "COURSE_EDIT"}}
-            <a href="#" data-courseId="{{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1 btn-import-topic" title="Thema importieren">
-                <i class="fa fa-exchange" aria-hidden="true"></i>
-                <span class="hidden-lg-down">Thema importieren</span>
-            </a>
-        {{/userHasPermission}}
-        <h4>Themen</h4>
-
         <div class="list-group">
             {{#if lessons}}
                 <div id="topic-list">
@@ -105,9 +105,9 @@
             {{/if}}
         </div>
         {{#userHasPermission "COURSE_EDIT"}}
-            <a href="/courses/{{../_id}}/topics/add" class="btn btn-add btn-secondary pull-right ml-1" title="Thema hinzufügen">
+            <a href="/courses/{{../_id}}/topics/add" class="btn btn-add btn-secondary pull-right ml-1 w-100" title="Thema hinzufügen">
                 <i class="fa fa-plus" aria-hidden="true"></i>
-                <span class="hidden-lg-down">Thema hinzufügen</span>
+                <span>Thema hinzufügen</span>
             </a>
         {{/userHasPermission}}
     </div>
