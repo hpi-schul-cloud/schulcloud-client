@@ -63,12 +63,6 @@
                 <div class="col-sm-12">
                     <div class="pull-right">
                         {{#userHasPermission "COURSE_EDIT"}}
-                          <a href="/courses/{{../_id}}/"
-                             class="btn btn-delete-course btn-secondary"
-                             target="_blank"
-                             data-method="DELETE"
-                             data-name="{{../name}}"
-                             redirect="/courses/">Kurs löschen</a>
                             <a href="/courses/{{../_id}}/copy" class="btn btn-add btn-secondary">Kurs klonen</a>
                             <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Kurs teilen</a>
                             <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
@@ -78,21 +72,6 @@
                     </div>
                 </div>
             </div>
-
-            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-                {{#content "body"}}
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
-                            Abbrechen
-                        </button>
-
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            Löschen
-                        </button>
-                    </div>
-                {{/content}}
-            {{/embed}}
 
             {{#embed "lib/components/modal-form" class="invitation-modal"}}
                 {{#content "fields"}}
