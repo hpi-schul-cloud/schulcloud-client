@@ -1,0 +1,33 @@
+@import '../../../theme/default/style';
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.depseudo {
+    width: 170px;
+    height: 20px;
+    color: #fff;
+    background-color: $primaryColor;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .125rem 0.25rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    font-family: "PT Sans","Helvetica Neue",Helvetica,Arial,"sans-serif";
+}
+
+.cloud-logo {
+    display: inline-block;
+    width: 22.5px;
+    height: 15px;
+    margin-bottom: -2px;
+    margin-right: .25rem;
+    background: $logoBackground;
+    background-size: contain;
+}

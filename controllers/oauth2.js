@@ -51,7 +51,7 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
       scopes: consentRequest.requested_scope
     })
   })
-})
+});
 
 router.post('/consent', auth.authChecker, (r, w) => {
   const grantScopes = r.body.allowed_scopes;
@@ -61,6 +61,27 @@ router.post('/consent', auth.authChecker, (r, w) => {
 
   return api(r).patch('/oauth2/consentRequest/' +  r.query.challenge + '/?accept=1', {body}
   ).then(consentRequest => w.redirect(consentRequest.redirect_to));
-})
+});
+
+router.get('/username/:pseudonym', (req, res, next) => {
+  api(req).get('/pseudonym', {
+    qs: {
+      pseudonym: req.params.pseudonym,
+    }
+  }).then(pseudonym => {
+    let shortName, completeName, anonymousName = '???';
+    shortName = completeName = anonymousName;
+    if (pseudonym.data.length) {
+      completeName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName}`
+      shortName = `${pseudonym.data[0].user.firstName} ${pseudonym.data[0].user.lastName.charAt(0)}.`
+    }
+    res.render('oauth2/username', {
+      completeName,
+      shortName,
+      infoText: 'Der Anbieter dieses Bildungsinhaltes ist nicht im Wissen des echten Namens, da dieser hier direkt aus ' +
+      'der Schul-Cloud abgerufen wird. Es handelt sich um ein sogenanntes Iframe, das Seiten anderer Webserver ' +
+      'anzeigen kann.'});
+  });
+});
 
 module.exports = router
