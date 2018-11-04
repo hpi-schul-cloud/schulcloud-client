@@ -57,8 +57,3 @@ const config = {
     resultContainerSelector: ".live-search-results"
 };
 livesearch(config);
-
-var accordion_entrys = document.querySelectorAll(".entries-btn");
-accordion_entrys.addEventListener("click", (event) => {
-    console.log(EventTarget);
-});

@@ -198,6 +198,7 @@ iframe.full {
     }
   }
 }
+
 .accordion {
   
   .card {
@@ -206,29 +207,30 @@ iframe.full {
     border-bottom: 1px solid #333;
     border-radius: 0px;
     margin: 0px;   
+    cursor: pointer;
     &:last-of-type {
       border-bottom: none;
     }
     .card-header {
+      padding-left: 0;
+      display: flex;
+      align-items: center;
       border: none;
       background: #fff;
-      .btn-link {
+      &.single{
+        padding-left: 1.28571em;
+        color: $primaryColor;
+      }
+      h5{
+        padding-left: 8px;
+      }
+      .btn {
+        background: transparent;
+        font-weight: 400;
         padding: 0px;
-        color: black;
-        display: block;
-        width: 100%;
         text-align: left;
         border: none;
         font-size: 1.2rem;
-        &:hover {
-          text-decoration: none;
-        }
-      }
-    }
-    .card-body {
-      ul {
-        list-style-type: none;
-        padding-left: 1.25rem;
       }
     }
   }

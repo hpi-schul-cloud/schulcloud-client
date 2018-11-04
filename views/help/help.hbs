@@ -63,15 +63,14 @@
                     {{#each this.categories}}
                         {{#if this.articles}}
                             <div class="card">
-                                <div class="card-header" id="headingOne">
-                                    <i class="fa fa-chevron-right bullet-icon" aria-hidden="true"></i>
+                                <div class="card-header collapsed" data-toggle="collapse" data-target="#{{this.id}}">
+                                    <i class="fa fa-fw fa-chevron-right bullet-icon" aria-hidden="true" data-expand></i>
+                                    <i class="fa fa-fw fa-chevron-down bullet-icon" aria-hidden="true" data-collapse></i>
                                     <h5 class="mb-0">
-                                        <button class="btn btn-link entries-btn" type="button" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                            {{this.title}}
-                                        </button>
+                                        {{this.title}}
                                     </h5>
                                 </div>
-                                <div id="{{this.id}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                <div id="{{this.id}}" class="collapse">
                                     <div class="card-body">
                                         <ul>
                                             {{#each this.articles}}
@@ -87,12 +86,9 @@
                         <div class="card">
                             <a href="/help/confluence/{{this.id}}">
                                 <div class="card">
-                                    <div class="card-header" id="headingOne">
-                                        <i class="fa fa-chevron-right bullet-icon" aria-hidden="true"></i>
+                                    <div class="card-header single">
                                         <h5 class="mb-0">
-                                            <button class="btn btn-link entries-btn" type="button">
-                                                {{this.title}}
-                                            </button>
+                                            {{this.title}}
                                         </h5>
                                     </div>
                                 </div>

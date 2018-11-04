@@ -105,6 +105,23 @@ label,
 	display: initial;
 }
 
+[data-toggle="collapse"]{
+	&.collapsed {
+		[data-expand]{
+			display: initial;
+		}
+		[data-collapse]{
+			display: none;
+		}
+	}
+	[data-expand]{
+		display: none;
+	}
+	[data-collapse]{
+		display: initial;
+	}
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;

@@ -1,10 +1,3 @@
-function scrollIntoView(element){
-    element.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-    });
-}
-
 function initForm(formContainer){
     const adminForm = formContainer.querySelector(".admin_form");
     const teamForm = formContainer.querySelector(".team_form");
