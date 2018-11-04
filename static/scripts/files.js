@@ -264,6 +264,8 @@ $(document).ready(function() {
         $.post('/files/newFile', {
             name: $newFileModal.find('[name="new-file-name"]').val(),
             type: $("#file-ending").val(),
+            owner: getOwnerId(),
+            parent: getCurrentParent(),
             studentEdit
         }, function (data) {
             reloadFiles();
@@ -577,7 +579,7 @@ const fileTypes = {
     pdf: 'application/pdf'
 };
 
-window.fileViewer = function fileViewer(type, key, name, id) {
+window.fileViewer = function fileViewer(type, name, id) {
     $('#my-video').css("display" , "none");
 
     // detect filetype according to line ending
@@ -589,20 +591,20 @@ window.fileViewer = function fileViewer(type, key, name, id) {
     switch (type) {
         case 'application/pdf':
             $('#file-view').hide();
-            let win = window.open('/files/file?file=' + key, '_blank');
+            let win = window.open('/files/file?file=' + id, '_blank');
             win.focus();
             break;
 
         case 'image/' + type.substr(6) :
             $('#file-view').css('display','');
-            $('#picture').attr("src", '/files/file?file=' + key);
+            $('#picture').attr("src", '/files/file?file=' + id);
             break;
 
         case 'audio/' + type.substr(6):
         case 'video/' + type.substr(6):
             $('#file-view').css('display','');
             videojs('my-video').ready(function () {
-                this.src({type: type, src: '/files/file?file=' + key});
+                this.src({type: type, src: '/files/file?file=' + id});
             });
             $('#my-video').css("display","");
             break;
@@ -623,28 +625,9 @@ window.fileViewer = function fileViewer(type, key, name, id) {
 
             break;
 
-            /**
-             * GViewer still needed?
-            $('#file-view').css('display','');
-            let gviewer = "https://docs.google.com/viewer?url=";
-            let showAJAXError = showAJAXError; // for deeply use
-            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            $.post('/files/file?file=', {
-                path: (getCurrentDir()) ? getCurrentDir() + name : key,
-                type: type,
-                action: "getObject"
-            }, function (data) {
-                let url = data.signedUrl.url;
-                url = url.replace(/&/g, "%26");
-                openInIframe(gviewer + url + "&embedded=true");
-            })
-                .fail(showAJAXError);
-            break;
-             **/
-
         default:
             $('#file-view').css('display','');
-            $('#link').html('<a class="link" href="/files/file?file=' + key + '" target="_blank">Datei extern öffnen</a>');
+            $('#link').html('<a class="link" href="/files/file?file=' + id + '" target="_blank">Datei extern öffnen</a>');
             $('#link').css("display","");
     }
 };

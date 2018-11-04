@@ -86,6 +86,12 @@ const requestSignedUrl = (req, data) => {
     });
 };
 
+const retrieveSignedUrl = (req, data) => {
+    return api(req).get('/fileStorage/signedUrl', {
+        qs: data
+    });
+};
+
 /**
  * handles query params for file requests
  */
@@ -332,7 +338,6 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
         res.json({
             "uploaded": 1,
             "fileName": req.file.originalname,
-            "url": "/files/file?path=" + _path
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -358,29 +363,21 @@ router.delete('/file', function (req, res) {
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download, path, share, lool, fileId} = req.query;
+    const {file, download, name, share, lool} = req.query;
     const data = {
-        path: path || file,
-        fileType: mime.lookup(file || pathUtils.basename(path)),
-        action: 'getObject',
-		download:download||false
+        file, 
+        name,
+		download: download || false
     };
-    let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
+    const sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
-        if (lool) return res.redirect(307, `/files/file/${fileId}/lool`);
-        return requestSignedUrl(req, data).then(signedUrl => {
-			res.redirect(307,signedUrl.url);
-           /* return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
-                if (download && download !== 'undefined') {
-                    res.type('application/octet-stream');
-                    res.set('Content-Disposition', 'attachment;filename=' + encodeURI(pathUtils.basename(data.path)));
-                } else if (signedUrl.header['Content-Type']) {
-                    res.type(signedUrl.header['Content-Type']);
-                }
+        
+        if (lool) return res.redirect(307, `/files/file/${file}/lool`);
 
-                res.end(awsFile, 'binary');
-            }); */
+        return retrieveSignedUrl(req, data).then(signedUrl => {
+			res.redirect(307,signedUrl.url);
         });
+
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
     });
@@ -394,7 +391,7 @@ router.get('/file/:id/lool', function(req, res, next) {
     // workaround for faulty sanitze hook (& => &amp;)
     if (share) {
         api(req).get('/files/' + req.params.id).then(file => {
-            res.redirect(`/files/file?path=${file.key}&share=${share}&lool=true&fileId=${req.params.id}`);
+            res.redirect(`/files/file?file=${req.params.id}&share=${share}&lool=true`);
         });
     } else {
         res.render('files/lool', {
@@ -429,19 +426,18 @@ router.post('/file/:id/move', function (req, res) {
 
 // create newFile
 router.post('/newFile', function (req, res, next) {
-    const {name, dir, type, studentEdit} = req.body;
+    const {name, type, owner, parent, studentEdit} = req.body;
 
-    const basePath = dir;
     const fileName = name || 'Neue Datei';
+
     api(req).post('fileStorage/files/new', {
         json: {
-            key: `${basePath}${fileName}.${type}`,
-            path: basePath,
             name: `${fileName}.${type}`,
             studentCanEdit: studentEdit,
-            schoolId: res.locals.currentSchool
+            owner,
+            parent
         }
-    }).then(_ => {
+    }).then(() => {
         res.sendStatus(200);
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
@@ -794,11 +790,12 @@ router.post('/fileModel', function (req, res, next) {
 
 // get file by proxy id
 router.get('/fileModel/:id/proxy', function (req, res, next) {
-    let fileId = req.params.id;
-    const {download, share} = req.query;
+    const fileId = req.params.id;
+    const { download, share } = req.query;
+
     api(req).get('/files/' + fileId).then(file => {
         // redirects to real file getter
-        res.redirect(`/files/file?path=${file.key}&download=${download}&share=${share}`);
+        res.redirect(`/files/file?file=${fileId}&download=${download}&share=${share}`);
     });
 });
 
