@@ -26,14 +26,13 @@
         <link rel="preload" href="/fonts/ptsans/ptsans-regular.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin>
-        <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin>
+        <link rel="preload" href="/vendor-optimized/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff" crossorigin>
         <link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
-        <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.css" />
         <link rel="stylesheet" href="/styles/lib/base.css" />
     {{/block}}
 
-    {{#block "scripts"}} 
-        {{#embed "lib/sw-metrix"}}{{/embed}} 
+    {{#block "scripts"}}
+        {{#embed "lib/sw-metrix"}}{{/embed}}
         <script src="/scripts/all.js" type="text/javascript" defer></script>
     {{/block}}
 

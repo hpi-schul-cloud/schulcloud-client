@@ -1,5 +1,5 @@
-{
-  "high": {
+[
+  {
     "name": "Gremium und Projektleitung",
     "style": "standard",
     "team": [
@@ -50,7 +50,7 @@
       }
     ]
   },
-  "medium": {
+  {
     "name": "Projektkoordination und wissenschaftliche Mitarbeiter",
     "style": "standard",
     "team": [
@@ -373,7 +373,28 @@
       }
     ]
   },
-  "low": {
+  {
+    "name": "Bachelorprojekt 2018/2019",
+    "style": "small",
+    "team": [
+      {
+        "title": "",
+        "firstName": "Adrian",
+        "lastName": "Jost",
+        "position": "Bachelorstudent & Studentische Hilfskraft",
+        "description": "Adrian studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist im Projekt HPI Schul-Cloud unter anderem für den Aufgabenbereich, die News aber auch das UI und die UX zuständig. Aktuell ist er auch Teil des Bachelorprojekts 2018/2019 der Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.",
+        "pictureUrl": "/images/team/Adrian_Jost.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      }
+    ]
+  },
+  {
     "name": "Studierende",
     "style": "small",
     "team": [
@@ -618,11 +639,10 @@
       }
     ]
   },
-  "below": {
+  {
     "name": "Weitere Mitarbeiter",
     "style": "small",
-    "team":
-    [
+    "team": [
       {
         "title": "",
         "firstName": "Dominik",
@@ -699,11 +719,10 @@
       }
     ]
   },
-  "end": {
+  {
     "name": "Alumni",
     "style": "small",
-    "team":
-    [
+    "team": [
       {
         "title": "",
         "firstName": "Raoul",
@@ -841,4 +860,4 @@
       }
     ]
   }
-}
+]

@@ -357,11 +357,21 @@ header {
     text-align: center;
 
     .alert-warning {
-        height: 57.375px;
+        height: 63px;
+        border-radius: 0;
+        border: none;
     }
     p {
-        padding-top: 7px;
+        padding-top: 10px;
         font-weight: 900;
+    }
+    @include media-breakpoint-down(md){
+        .alert-warning {
+            height: 53px;
+        }
+        p {
+            padding-top: 5px;
+        }
     }
 }
 
