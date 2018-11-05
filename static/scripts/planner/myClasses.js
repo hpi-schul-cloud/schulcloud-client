@@ -7,6 +7,14 @@ class View extends React.Component {
   redirectToAddTemplate = (subjectId, classLevelId) => {
     window.location.pathname = `/planner/topicTemplates/new?subjectId=${subjectId}&classLevelId=${classLevelId}`;
   };
+  redirectToEditTemplate = templateId => {
+    window.location.pathname = `/planner/topicTemplates/${templateId}`;
+  };
+  redirectToEditInstance = instanceId => {
+    window.location.pathname = `/planner/topicInstances/${instanceId}`;
+  };
+  handleDeleteTemplate = templateId => {};
+  handleSaveClassIntances = classInstances => {};
 
   render() {
     return (
@@ -16,7 +24,10 @@ class View extends React.Component {
         allClassTopics={this.props.allClassTopics}
         allTopicTemplates={this.props.allTopicTemplates}
         onAddTemplate={this.redirectToAddTemplate}
-        onSaveClassInstances={instances => console.log(instances)}
+        onEditTemplate={this.redirectToEditTemplate}
+        onDeleteTemplate={this.handleDeleteTemplate}
+        onEditInstance={this.redirectToEditInstance}
+        onSaveClassInstances={this.handleSaveClassIntances}
       />
     );
   }
