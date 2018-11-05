@@ -153,38 +153,34 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <ul class="content list-group">
-                                        <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                <a href="/help" class="link">Hilfebereich</a>
+                                            </span>
+                                        </li>
                                         <div class="delimiter"></div>
-                                        <li class="list-group-item list-group-item-action">
+                                        <li id="intro-loggedin" class="list-group-item list-group-item-action">
                                             <span>
-                                                <i class="fa fa-info-circle" aria-hidden="true" style="margin-left:1px;"></i>
-                                                <a href="https://docs.schul-cloud.org/x/jwDT" target="_blank" class="link">Anleitungen</a>
+                                                <i class="fa fa-map-signs"aria-hidden="true"></i>
+                                                <a href="#" class="link">Intro</a>
                                             </span>
                                         </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-magic" aria-hidden="true"></i>
-                                                <a href="/help/#changelog" class="link">Neueste Funktionen</a>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a>
-                                            </span>
-                                        </li>
-                                        <li id="intro-loggedin" class="list-group-item list-group-item-action"><span><i class="fa fa-map-signs"
-                                                                                                    aria-hidden="true"></i><a
-                                                href="#" class="link">Intro</a></span></li>
                                         <div class="delimiter"></div>
                                         {{#ifneq this.currentRole "Schüler"}}
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
-                                                                                                    aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <a href="/help#contact" class="link submit-helpdesk">Eine User-Story eingeben</a>
+                                            </span>
+                                        </li>
                                         {{/ifneq}}
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
-                                                                                                    aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                                <a href="/help#contact" class="link submit-problem">Ein Problem melden</a>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -200,7 +196,7 @@
                                 {{/if}}
                             {{/if}}
                         {{/if}}
-                        
+
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"

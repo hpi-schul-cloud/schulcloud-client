@@ -45,7 +45,7 @@ document.querySelectorAll("label").forEach((label) => {
     if(!input || input.getAttribute("type") !== "radio"){return;}
     const fieldset = input.closest("fieldset");
 
-    label.addEventListener("keyup", (event) => {
+    label.addEventListener("keydown", (event) => {
         if(input.getAttribute("disabled") !== null || input.getAttribute("readonly") !== null){
             return true;
         }
@@ -62,5 +62,6 @@ document.querySelectorAll("label").forEach((label) => {
             const event = new CustomEvent('change', { target: fieldset });
             fieldset.dispatchEvent(event);
         }
-    });
+        return false;
+    }, false);
 });
