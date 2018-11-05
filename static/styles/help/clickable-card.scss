@@ -1,0 +1,42 @@
+.card-row{
+    display: flex;
+    flex-wrap: wrap;
+    &:nth-of-type(1) {
+    margin: 1.2rem 0rem;
+    width: 100%;
+    }
+    .link-wrapper {
+        display: inline-block;
+        flex: 1;
+        min-width: 5rem;
+        height: 5rem;
+        border-left: 1px solid black;
+        &:nth-of-type(1) {
+            border: none;
+        }
+        a {
+            color: #333;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+
+            span {
+                transition: all .2s ease-in-out;
+                padding: 0 8px;
+            }
+            i {
+                display: block;
+                font-size: 1.8rem;
+            }
+            &:hover, &:focus{
+                outline: none;
+                span{
+                    transform: scale(1.1);
+                    text-shadow: 0px 2px 5px #3333;
+                }
+            }
+        }
+    }
+}

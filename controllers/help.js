@@ -51,6 +51,70 @@ async function articles(){
 articles();
 */
 const tutorials = require('../helpers/content/tutorials.json');
+const firstStepsItems = [
+    {
+        title: "Schüler",
+        icon: "fa-child",
+        src: "#"
+    },
+    {
+        title: "Lehrer",
+        icon: "fa-child",
+        src: "#"
+    },{
+        title: "Admin",
+        icon: "fa-child",
+        src: "#"
+    },
+    {
+        title: "Schulleitung",
+        icon: "fa-child",
+        src: "#"
+    }
+]
+const quickHelpItems = [
+    {
+        title: "Online-Videokurse",
+        icon: "fa-video-camera",
+        src: "#"
+    },
+    {
+        title: "MINT-EC Webinare",
+        icon: "fa-desktop",
+        src: "#"
+    },{
+        title: "Schnellstart PDF",
+        icon: "fa-file-pdf-o",
+        src: "#"
+    }
+]
+const knowledgeItems =  [
+    {
+        title: "FAQ",
+        icon: "fa-comments",
+        src: "#"
+    },
+    {
+        title: "SSO",
+        icon: "fa-sign-in",
+        src: "#"
+    },
+    {
+        title: "Release Notes",
+        icon: "fa-clipboard",
+        src: "#"
+    },
+    {
+        title: "Über das Projekt",
+        icon: "fa-info",
+        src: "#"
+    },
+    {
+        title: "Website",
+        icon: "fa-globe",
+        src: "#"
+    }
+]
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -66,7 +130,10 @@ router.get('/', function (req, res, next) {
             res.render('help/help', {
                 title: 'Hilfebereich',
                 release: releases.data,
-                tutorials: tutorials
+                tutorials: tutorials,
+                knowledgeItems: knowledgeItems,
+                quickHelpItems: quickHelpItems,
+                firstStepsItems: firstStepsItems
             });
         });
 });

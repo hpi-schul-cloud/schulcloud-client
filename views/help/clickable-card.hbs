@@ -1,0 +1,14 @@
+<div class="card-row">
+    {{#each clickable}}
+        <div class="link-wrapper">
+            <a href="{{this.link}}"
+                target="_blank"
+                title="{{this.title}}">
+                <span>
+                    <i class="fa {{this.icon}}"></i>
+                    {{this.title}}
+                </span>
+            </a>
+        </div>
+    {{/each}}
+</div>

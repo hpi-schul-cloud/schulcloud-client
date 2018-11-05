@@ -1,6 +1,7 @@
 @import "../lib/colors";
 @import "./search";
 @import "./component-card";
+@import "./clickable-card";
 
 // NEW STYLES
 // iFrame styles for confluence integration
@@ -11,6 +12,10 @@
 iframe.full {
   width: 100%;
   flex: 1;
+}
+
+.card-content {
+  border: none !important;
 }
 
 .contact-card {
@@ -89,19 +94,13 @@ iframe.full {
 }
 .first-steps-card {
   .card-content {
-    padding-left: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-
-    .card-body {
-      display: flex;
-
-      .link-wrapper {
-        display: inline-block;
-        width: 25%;
-        height: 6rem;
-        color: #fff;
-
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    .card-row {
+      margin: 0;
+      .link-wrapper {  
+        border: none;
         &:nth-of-type(1) {
           background-color: #b00c36;
           border-bottom-left-radius: 4px;
@@ -115,34 +114,13 @@ iframe.full {
         &:nth-of-type(4) {
           background-color: #0c53b0;
           border-bottom-right-radius: 4px;
-        }
+        } 
         a {
           color: #fff;
-          height: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-decoration: none;
-          span{
-            transition: all .2s ease-in-out;
-          }
-
-          i {
-            display: block;
-            font-size: 1.8rem;
-          }
-
-          &:hover, &:focus{
-            outline: none;
-            span{
-              transform: scale(1.1);
-              text-shadow: 0px 2px 5px #3333;
-            }
-          }
         }
-      }
-    }
-  }
+      }    
+    }    
+  } 
 }
 .eMail-card {
 
@@ -157,47 +135,7 @@ iframe.full {
     padding: 1.6rem 0rem;
   }
 }
-.information-card, .quickHelp-card {
-  .card-row {
-    display: flex;
-    &:nth-of-type(1) {
-      margin: 1.2rem 0rem;
-    }
 
-    .link-wrapper {
-      display: inline-block;
-      width: 33.3%;
-      height: 5rem;
-      border-left: 1px solid black;
-      &:nth-of-type(1) {
-        border: none;
-      }
-      a {
-        color: #333;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-
-        span{
-          transition: all .2s ease-in-out;
-        }
-        i {
-          display: block;
-          font-size: 1.8rem;
-        }
-        &:hover, &:focus{
-          outline: none;
-          span{
-            transform: scale(1.1);
-            text-shadow: 0px 2px 5px #3333;
-          }
-        }
-      }
-    }
-  }
-}
 
 .accordion {
   

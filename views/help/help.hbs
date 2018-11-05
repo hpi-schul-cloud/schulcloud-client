@@ -14,46 +14,8 @@
 
         {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card"}}
             {{#content "card-body"}}
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Schüler">
-                        <span>
-                            <i class="fa fa-child"></i>
-                            Schüler
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Lehrer">
-                        <span>
-                            <i class="fa fa-child"></i>
-                            Lehrer
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Admin">
-                        <span>
-                            <i class="fa fa-child"></i>
-                            Admin
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Schulleitung">
-                        <span>
-                            <i class="fa fa-child"></i>
-                            Schulleitung
-                        </span>
-                    </a>
-                </div>
+                {{#embed "help/clickable-card" clickable=firstStepsItems}}
+                {{/embed}}
             {{/content}}
         {{/embed}}
 
@@ -102,41 +64,11 @@
 
         {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card"}}
             {{#content "card-body"}}
-            <div class="card-row">
-               <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Online-Videokurse">
-                        <span>
-                            <i class="fa fa-video-camera"></i>
-                            Online-<br>Videokurse
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="MINT-EC Webinare">
-                        <span>
-                            <i class="fa fa-desktop"></i>
-                            MINT-EC <br>Webinare
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Schnellstart PDF">
-                        <span>
-                            <i class="fa fa-file-pdf-o"></i>
-                            Schnellstart <br>PDF
-                        </span>
-                    </a>
-                </div>
-            </div>
+                {{#embed "help/clickable-card" clickable=quickHelpItems}}
+                {{/embed}}
             {{/content}}
         {{/embed}}
-
+        
         {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card"}}
             {{#content "card-body"}}
                 {{> "help/contact"}}
@@ -156,60 +88,8 @@
 
         {{#embed "help/component-card" title="Wissenswertes" icon="fa-lightbulb-o" class="information-card"}}
             {{#content "card-body"}}
-            <div class="card-row">
-               <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="FAQ">
-                        <span>
-                            <i class="fa fa-comments"></i>
-                            FAQ
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="SSO">
-                        <span>
-                            <i class="fa fa-sign-in"></i>
-                            SSO
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Release Notes">
-                        <span>
-                            <i class="fa fa-clipboard"></i>
-                            Release Notes
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="card-row">
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Über das Projekt">
-                        <span>
-                            <i class="fa fa-info"></i>
-                            Über das Projekt
-                        </span>
-                    </a>
-                </div>
-                <div class="link-wrapper">
-                    <a href="#"
-                        target="_blank"
-                        title="Website">
-                        <span>
-                            <i class="fa fa-globe"></i>
-                            Website
-                        </span>
-                    </a>
-                </div>
-            </div>
+                {{#embed "help/clickable-card" clickable=knowledgeItems}}
+                {{/embed}}
             {{/content}}
         {{/embed}}
 
