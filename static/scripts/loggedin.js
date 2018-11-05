@@ -99,7 +99,7 @@ $(document).ready(function () {
         $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
     };
 
-    $('.submit-helpdesk').on('click', function (e) {
+    $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
 
         $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
@@ -119,7 +119,7 @@ $(document).ready(function () {
         $contactHPIModal.find('#title-area').html(area);
     });
 
-    $('.submit-problem').on('click', function (e) {
+    $('.submit-contactAdmin').on('click', function (e) {
         e.preventDefault();
 
         $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
