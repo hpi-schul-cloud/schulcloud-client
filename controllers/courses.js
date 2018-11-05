@@ -380,7 +380,7 @@ router.get('/:courseId/offline', function (req, res, next) {
             return {
                 _id: lesson._id,
                 updatedAt: Date.parse(lesson.updatedAt),
-                url: '/courses/' + course._id + '/topic/' + lesson._id + '/'
+                url: '/courses/' + course._id + '/topics/' + lesson._id + '/'
             };
         });
         res.json({
@@ -390,6 +390,63 @@ router.get('/:courseId/offline', function (req, res, next) {
                 url: '/courses/' + course._id
             }, lessons
         });
+    });
+});
+
+router.post('/:courseId/offline', function (req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        }),
+        api(req).get('/lessons/', {
+            qs: {
+                courseId: req.params.courseId
+            }
+        })
+    ]).then(([course, lessons]) => {
+        lessons = lessons.data.map(lesson => {
+            return {
+                _id: lesson._id,
+                updatedAt: Date.parse(lesson.updatedAt),
+                url: '/courses/' + course._id + '/topics/' + lesson._id + '/'
+            };
+        });
+        const unfilteredResponse = {
+            course: {
+                _id: course._id,
+                updatedAt: Date.parse(course.updatedAt),
+                url: '/courses/' + course._id
+            }, lessons
+        };
+
+        function updateIfModified(unfiltered, filter){
+            if(!filter || filter.updatedAt < unfiltered.updatedAt)
+                return unfiltered;
+            return;
+        }
+
+        function filterResponse(unfiltered, filter){
+            let result = {};
+            result.course = updateIfModified(unfiltered.course,filter.course);
+            result.lessons = unfiltered.lessons.map(lesson =>{
+                if(filter && filter.lessons){
+                    let lessonFilter = filter.lessons.find(l => l._id === lesson._id);
+                    if(lessonFilter){
+                        return updateIfModified(lesson, lessonFilter);
+                    }
+                }
+                return lesson;
+            });
+            result.lessons = result.lessons.filter(lesson => lesson != null);
+            return result;
+        }
+
+        const filteredResponse = filterResponse (unfilteredResponse, req.body);
+
+
+        res.json(filteredResponse);
     });
 });
 
