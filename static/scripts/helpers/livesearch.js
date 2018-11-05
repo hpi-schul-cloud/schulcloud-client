@@ -53,7 +53,7 @@ export default function init(config){
             livesearchResultContainer.classList.add("active");
         }
     });
-    
+
     input.addEventListener("focus", () => {
         livesearchRoot.classList.add("active");
     });
@@ -61,6 +61,13 @@ export default function init(config){
         livesearchRoot.classList.add("active");
     });
     livesearchRoot.addEventListener("mouseleave", () => {
-        livesearchRoot.classList.remove("active");
+        if(input != document.activeElement){
+            livesearchRoot.classList.remove("active");
+        }
+    });
+    document.addEventListener("click", () => {
+        if(input != document.activeElement){
+            livesearchRoot.classList.remove("active");
+        }
     });
 }
