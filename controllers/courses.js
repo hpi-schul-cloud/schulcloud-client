@@ -440,6 +440,9 @@ router.post('/:courseId/offline', function (req, res, next) {
                 return lesson;
             });
             result.lessons = result.lessons.filter(lesson => lesson != null);
+            if(result.lessons.length === 0){
+                delete result.lessons;
+            }
             return result;
         }
 

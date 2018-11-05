@@ -161,23 +161,62 @@ let courseOfflineStore = localforage.createInstance({
     name: 'coursesOffline'
 });
 
-function downloadCourse(courseId) {
+function addToCache(data){
     const cacheName = 'courses';
+    return caches.open(cacheName)
+        .then(cache => cache.add(data.url))
+        .then(_=>courseStore.setItem(data.url, data))
+        .then(_=>Promise.resolve(data))
+        .catch(err=>console.log(err));
+}
+
+function downloadCourse(courseId) {
 
     let urls = {};
-    fetch(`/courses/${courseId}/offline`)
-        .then(response => response.json())
-        .then(json => {
-            courseOfflineStore.setItem(json.course._id, json); // todo set on success precache only
-            urls[json.course.url] = {updatedAt: json.course.updatedAt};
-            json.lessons.forEach(lesson => {
-                urls[lesson.url] = {updatedAt:lesson.updatedAt};
-            });
-            return caches.open(cacheName)
-                .then((cache) => Object.keys(urls).forEach(function (url) { // todo promise all?
-                    return cache.add(url).then(_ => courseStore.setItem(url,urls[url]));
-                }));
-    });
+
+    // todo test fetched content still in cache
+
+    // test course content already fetched
+    let currentVal, newVal;
+    courseOfflineStore.getItem(courseId).then(value=>{
+            currentVal = value;
+            fetch(`/courses/${courseId}/offline`, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(value || {})
+            }).then(response => response.json())
+            .then(json => {
+                newVal = json;
+                let urls = [];
+                if(json.course){
+                    urls.push(addToCache(json.course));
+                }
+                if(json.lessons && json.lessons.length !== 0){
+                    json.lessons.map(lesson=>urls.push(addToCache(lesson)));
+                }
+                return Promise.all(urls);
+            }).then(urls => {
+                        let updatedValue = Object.assign({}, currentVal, newVal);
+                        updatedValue.lessons = currentVal.lessons;
+                        if(newVal.lessons){
+                            newVal.lessons.map(lesson => {
+                                let oldLesson = updatedValue.lessons.find(l => l._id === lesson._id);
+                                if(oldLesson){
+                                    oldLesson = lesson;
+                                }else{
+                                    updatedValue.lessons.push(lesson);
+                                }
+                            });
+                        }
+                        return courseOfflineStore.setItem(courseId, updatedValue);
+                  
+            }).catch(err => console.log(err));
+        
+        }
+    );
 }
 
 self.addEventListener('message', function(event){

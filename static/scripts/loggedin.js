@@ -283,6 +283,8 @@ function downloadCourse(event){
             tag: 'downloadCourse',
             courseId: $(this).attr('data-id')
         });
+    }else{
+        console.log('SW not active!');
     }
 }
 
