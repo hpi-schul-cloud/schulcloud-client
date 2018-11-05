@@ -46,13 +46,13 @@ $(document).ready(function () {
 
     // Init modals
     var $modals = $('.modal');
-    var $feedbackModal = $('.feedback-modal');
+    var $contactHPIModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');
     var $problemModal = $('.problem-modal');
     var $modalForm = $('.modal-form');
 
     function showAJAXError(req, textStatus, errorThrown) {
-        $feedbackModal.modal('hide');
+        $contactHPIModal.modal('hide');
         $problemModal.modal('hide');
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
@@ -105,7 +105,7 @@ $(document).ready(function () {
         $('.feedback-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
-        populateModalForm($feedbackModal, {
+        populateModalForm($contactHPIModal, {
             title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden',
@@ -114,9 +114,9 @@ $(document).ready(function () {
             }
         });
         
-        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
-        $feedbackModal.appendTo('body').modal('show');
-        $feedbackModal.find('#title-area').html(area);
+        $contactHPIModal.find('.modal-form').on('submit', sendFeedback.bind(this, $contactHPIModal));
+        $contactHPIModal.appendTo('body').modal('show');
+        $contactHPIModal.find('#title-area').html(area);
     });
 
     $('.submit-problem').on('click', function (e) {
