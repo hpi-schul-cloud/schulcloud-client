@@ -1,0 +1,177 @@
+#########################
+## Sass Linter Config
+#########################
+
+# Linter Options
+options:
+  # Don't merge default rules
+  merge-default-rules: false
+  # Set the formatter to 'html' (output format)
+  formatter: html
+  # Output file
+  output-file: 'sass-lint.html'
+  # Raise an error if more than 50 warnings are generated
+  max-warnings: 100
+
+# File Options
+files:
+  #include:
+  #    - 'static/styles/**/*.css'
+  #    - 'static/styles/**/*.sass'
+  #    - 'static/styles/**/*.scss'
+  include: 'static/styles/**/*.s+(a|c)ss'
+  ignore:
+    - 'static/styles/lib/bootstrap/**/*.s?(a|c)ss'
+    - 'static/styles/lib/chosen/**/*.s?(a|c)ss'
+    - 'static/styles/lib/spectrum/**/*.s?(a|c)ss'
+    - 'static/styles/**/*.min.s?(a|c)ss'
+
+# Linter rules
+# Details: https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md
+linters:
+  Attribute Quotes:
+    enabled: true
+    include: true
+
+  BangFormat:
+    enabled: true
+
+  BemDepth:
+    enabled: false
+
+  BorderZero:
+    enabled: true
+    convention: zero
+
+  ColorKeyword:
+    enabled: true
+
+  DeclarationOrder:
+    enabled: true
+
+  DuplicateProperty:
+    enabled: true
+
+  EmptyLineBetweenBlocks:
+    enabled: true
+
+  EmptyRule:
+    enabled: true
+
+  FinalNewline:
+    enabled: true
+
+  HexLength:
+    enabled: true
+    style: short
+
+  HexNotation:
+    enabled: true
+    style: lowercase
+
+  HexValidation:
+    enabled: true
+
+  ImportPath:
+    enabled: true
+    leading_underscore: true
+    filename_extension: false
+
+  Indentation:
+    enabled: true
+    character: space
+    width: 2
+
+  LeadingZero:
+    enabled: true
+    style: exclude_zero
+
+  MergeableSelector:
+    enabled: true
+    force_nesting : true
+
+  NameFormat:
+    enabled: true
+    allow_leading_underscore: true
+    convention: camel_case
+
+  NestingDepth:
+    enabled: false
+
+  PropertySortOrder:
+    enabled: true
+    # options: concentric, smacss
+    order: concentric
+
+  PropertySpelling:
+    # If you found some unsupported attribute:
+    # https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md#propertyspelling
+    enabled: true
+
+  PseudoElement:
+    enabled: true
+
+  Shorthand:
+    enabled: true
+
+  SingleLinePerProperty:
+    enabled: true
+
+  SingleLinePerSelector:
+    enabled: true
+
+  SpaceAfterComma:
+    enabled: true
+    style: one_space
+
+  SpaceAfterComment:
+    enabled: true
+    style: one_space
+
+  SpaceAfterPropertyColon:
+    enabled: true
+    style: one_space
+
+  SpaceAfterPropertyName:
+    enabled: true
+
+  SpaceAfterVariableColon:
+    enabled: true
+    style: one_space
+
+  SpaceAfterVariableName:
+    enabled: true
+
+  SpaceAroundOperator:
+    enabled: true
+    style: one_space
+
+  SpaceBeforeBrace:
+    enabled: true
+    allow_single_line_padding: true
+    style: space
+
+  StringQuotes:
+    enabled: true
+    style: double_quotes
+
+  TrailingSemicolon:
+    enabled: true
+
+  TrailingZero:
+    enabled: true
+
+  UnnecessaryMantissa:
+    enabled: true
+
+  UnnecessaryParentReference:
+    enbaled: true
+
+  UrlQuotes:
+    enabled: true
+
+  VendorPrefix:
+    enabled: true
+
+  ZeroUnit:
+    enabled: true
