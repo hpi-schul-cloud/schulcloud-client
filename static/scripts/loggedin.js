@@ -48,12 +48,12 @@ $(document).ready(function () {
     var $modals = $('.modal');
     var $contactHPIModal = $('.feedback-modal');
     var $featureModal = $('.feature-modal');
-    var $problemModal = $('.problem-modal');
+    var $contactAdminModal = $('.problem-modal');
     var $modalForm = $('.modal-form');
 
     function showAJAXError(req, textStatus, errorThrown) {
         $contactHPIModal.modal('hide');
-        $problemModal.modal('hide');
+        $contactAdminModal.modal('hide');
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
         } else {
@@ -123,14 +123,14 @@ $(document).ready(function () {
         e.preventDefault();
 
         $('.problem-modal').find('.btn-submit').prop("disabled", false);
-        populateModalForm($problemModal, {
+        populateModalForm($contactAdminModal, {
             title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
 
-        $problemModal.find('.modal-form').on('submit', sendFeedback.bind(this, $problemModal));
-        $problemModal.appendTo('body').modal('show');
+        $contactAdminModal.find('.modal-form').on('submit', sendFeedback.bind(this, $contactAdminModal));
+        $contactAdminModal.appendTo('body').modal('show');
     });
 
     $modals.find('.close, .btn-close').on('click', function () {
