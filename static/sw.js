@@ -199,13 +199,13 @@ function downloadCourse(courseId) {
                 }
                 return Promise.all(urls);
             }).then(urls => {
-                        let updatedValue = Object.assign({}, currentVal, newVal);
+                        let updatedValue = Object.assign({}, currentVal, newVal); // todo copy only course
                         updatedValue.lessons = currentVal.lessons;
                         if(newVal.lessons){
                             newVal.lessons.map(lesson => {
                                 let oldLesson = updatedValue.lessons.find(l => l._id === lesson._id);
                                 if(oldLesson){
-                                    oldLesson = lesson;
+                                    Object.assign(oldLesson,lesson);
                                 }else{
                                     updatedValue.lessons.push(lesson);
                                 }
