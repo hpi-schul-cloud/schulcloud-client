@@ -1,4 +1,4 @@
-{{#extend "lib/loggedin"}}
+{{#extend "lib/loggedin" notitle="true"}}
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
@@ -15,17 +15,44 @@
     {{/content}}
 
     {{#content "page"}}
+      <h4 id="page-title">{{{stripOnlyScript name}}}
+      {{#userHasPermission "COURSE_EDIT"}}
+      <div class="dropdown dropdown-course minimal-button">
+          <a class="btn btn-sm dropdown-toggle" title="Hilfe" data-toggle="dropdown">
+              <i class="fa fa-cog"></i>
+          </a>
+          </a>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-course">
+              <a href="/courses/{{../_id}}/edit" class="dropdown-item">
+                <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten
+              </a>
+              <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
+                <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
+              </a>
+                <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
+                  <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
+                </a>
+                <a href="/courses/{{../_id}}/copy" class="dropdown-item">
+                  <i class="fa fa-clone" aria-hidden="true"></i> Kurs klonen
+                </a>
+            </div>
+        </div>
+      {{/userHasPermission}}
+      </h4>
     <div class="row description">
-        <div class="col-sm-12">
-            <p class="lead">Beschreibung: {{{stripOnlyScript description}}}</p>
+        <div class="col-sm-10">
+            <p class="lead">Kursbeschreibung: {{{stripOnlyScript description}}}</p>
             {{#if nextEvent}}<p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>{{/if}}
+        </div>
+        <div class="col-sm-2">
         </div>
     </div>
         <section class="section-course">
+          <div class="course-card">
             <div class="tabContainer">
               <div class="tabs" data-max-width="1024">
                 <span class="tab" data-tab="a">
-                  <span class="text">Einheiten</span>
+                  <span class="text">Themen</span>
                 </span>
                 <span class="tab" data-tab="b">
                   <span class="text">Aufgaben</span>
@@ -58,16 +85,10 @@
                 </div>
               </div>
             </div>
-            <hr>
+          </div>
             <div class="row padding-top">
                 <div class="col-sm-12">
                     <div class="pull-right">
-                        {{#userHasPermission "COURSE_EDIT"}}
-                            <a href="/courses/{{../_id}}/copy" class="btn btn-add btn-secondary">Kurs klonen</a>
-                            <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Kurs teilen</a>
-                            <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
-                            <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-secondary">Kurs bearbeiten</a>
-                        {{/userHasPermission}}
                         <a href="{{filesUrl}}" class="btn btn-add btn-primary">Zu den Kurs-Dateien</a>
                     </div>
                 </div>
