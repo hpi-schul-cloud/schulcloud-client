@@ -110,7 +110,7 @@ $(document).ready(function () {
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden',
             fields: {
-                feedbackType: "wish"
+                feedbackType: "userstory"
             }
         });
         
