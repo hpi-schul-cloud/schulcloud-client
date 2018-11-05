@@ -288,6 +288,53 @@ router.get('/', function(req, res, next) {
     });
 });
 
+router.get('/offline', function(req, res, next) {
+    Promise.all([
+        api(req).get('/courses/', {
+            qs: {
+                substitutionIds: res.locals.currentUser._id,
+                $limit: 75
+            }
+        }),
+        api(req).get('/courses/', {
+            qs: {
+                $or: [
+                    {userIds: res.locals.currentUser._id},
+                    {teacherIds: res.locals.currentUser._id}
+                ],
+                $limit: 75
+            }
+        })
+    ]).then(([substitutionCourses, courses]) => {
+        substitutionCourses = substitutionCourses.data.map(course => {
+            course.url = '/courses/' + course._id;
+            (course.times || []).forEach(time => {
+                time.startTime = moment(time.startTime, "x").format("HH:mm");
+                time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
+                course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
+            });
+            course.nextEvent= recurringEventsHelper.getNextEventForCourseTimes(course.times);
+            return course;
+        });
+
+        courses = courses.data.map(course => {
+            let c = {};
+            c._id = course._id;
+            c.nextEvent= recurringEventsHelper.getNextEventForCourseTimes(course.times);
+            c.nextEvent = Date.parse(c.nextEvent);
+            return c;
+        });
+        courses.sort((a, b) => {
+            if (a.nextEvent > b.nextEvent) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+        res.json({courses});
+    });
+});
+
 router.post('/', function(req, res, next) {
     // map course times to fit model
     (req.body.times || []).forEach(time => {
@@ -361,36 +408,6 @@ router.get('/:courseId/json', function(req, res, next) {
             }
         })
     ]).then(([course, lessons]) => res.json({ course, lessons }));
-});
-
-router.get('/:courseId/offline', function (req, res, next) {
-    Promise.all([
-        api(req).get('/courses/' + req.params.courseId, {
-            qs: {
-                $populate: ['ltiToolIds']
-            }
-        }),
-        api(req).get('/lessons/', {
-            qs: {
-                courseId: req.params.courseId
-            }
-        })
-    ]).then(([course, lessons]) => {
-        lessons = lessons.data.map(lesson => {
-            return {
-                _id: lesson._id,
-                updatedAt: Date.parse(lesson.updatedAt),
-                url: '/courses/' + course._id + '/topics/' + lesson._id + '/'
-            };
-        });
-        res.json({
-            course: {
-                _id: course._id,
-                updatedAt: Date.parse(course.updatedAt),
-                url: '/courses/' + course._id
-            }, lessons
-        });
-    });
 });
 
 router.post('/:courseId/offline', function (req, res, next) {

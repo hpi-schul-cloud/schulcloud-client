@@ -40,7 +40,7 @@ workbox.routing.registerRoute(
 
 // cache pages for one hour
 workbox.routing.registerRoute(
-    /\/(dashboard|news)\/$/,
+    /\/(dashboard|news|courses)\/$/,
     workbox.strategies.networkFirst({
         cacheName: 'pages',
         maxAgeSeconds: 60 * 60,
@@ -179,7 +179,7 @@ function downloadCourse(courseId) {
     // test course content already fetched
     let currentVal, newVal;
     courseOfflineStore.getItem(courseId).then(value=>{
-            currentVal = value;
+            currentVal = value || {};
             fetch(`/courses/${courseId}/offline`, {
                 method: 'POST',
                 headers: {
@@ -200,8 +200,8 @@ function downloadCourse(courseId) {
                 return Promise.all(urls);
             }).then(urls => {
                         let updatedValue = Object.assign({}, currentVal, newVal); // todo copy only course
-                        updatedValue.lessons = currentVal.lessons;
-                        if(newVal.lessons){
+                        updatedValue.lessons = currentVal.lessons || [];
+                        if(newVal.lessons){ // todo delete lessons removed
                             newVal.lessons.map(lesson => {
                                 let oldLesson = updatedValue.lessons.find(l => l._id === lesson._id);
                                 if(oldLesson){
@@ -211,7 +211,7 @@ function downloadCourse(courseId) {
                                 }
                             });
                         }
-                        return courseOfflineStore.setItem(courseId, updatedValue);
+                        return courseOfflineStore.setItem(courseId, updatedValue).then(_=>{console.log('updated', courseId);});
                   
             }).catch(err => console.log(err));
         
@@ -223,4 +223,18 @@ self.addEventListener('message', function(event){
     if(event.data.tag === 'downloadCourse'){
         downloadCourse(event.data.courseId);
     }
+});
+
+
+let courseRoutes = [
+    /\/courses\/[a-f0-9]{24}\/topics\/[a-f0-9]{24}\/$/,
+    /\/courses\/[a-f0-9]{24}$/
+];
+courseRoutes.forEach(route=>{
+    workbox.routing.registerRoute(
+        route,
+        workbox.strategies.cacheFirst({
+            cacheName: 'courses'
+        })
+    );
 });
