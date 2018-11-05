@@ -1,5 +1,5 @@
 importScripts('/scripts/sw/workbox/workbox-sw.js');
-importScripts('https://unpkg.com/dexie@2.0.4/dist/dexie.js');
+importScripts('/vendor-optimized/localforage/dist/localforage.min.js');
 
 workbox.setConfig({
     modulePathPrefix: '/scripts/sw/workbox/'
@@ -40,7 +40,7 @@ workbox.routing.registerRoute(
 
 // cache pages for one hour
 workbox.routing.registerRoute(
-    /\/(dashboard|news|courses)\/$/,
+    /\/(dashboard|news)\/$/,
     workbox.strategies.networkFirst({
         cacheName: 'pages',
         maxAgeSeconds: 60 * 60,
@@ -139,7 +139,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    /vendor-optimized\/mathjax\//,
+    /vendor-optimized\//,
     workbox.strategies.cacheFirst({
         cacheName: 'vendors',
         plugins: [
@@ -153,3 +153,35 @@ workbox.routing.registerRoute(
         ],
     })
 );
+
+let courseStore = localforage.createInstance({
+    name: 'courses'
+});
+let courseOfflineStore = localforage.createInstance({
+    name: 'coursesOffline'
+});
+
+function downloadCourse(courseId) {
+    const cacheName = 'courses';
+
+    let urls = {};
+    fetch(`/courses/${courseId}/offline`)
+        .then(response => response.json())
+        .then(json => {
+            courseOfflineStore.setItem(json.course._id, json); // todo set on success precache only
+            urls[json.course.url] = {updatedAt: json.course.updatedAt};
+            json.lessons.forEach(lesson => {
+                urls[lesson.url] = {updatedAt:lesson.updatedAt};
+            });
+            return caches.open(cacheName)
+                .then((cache) => Object.keys(urls).forEach(function (url) { // todo promise all?
+                    return cache.add(url).then(_ => courseStore.setItem(url,urls[url]));
+                }));
+    });
+}
+
+self.addEventListener('message', function(event){
+    if(event.data.tag === 'downloadCourse'){
+        downloadCourse(event.data.courseId);
+    }
+});
