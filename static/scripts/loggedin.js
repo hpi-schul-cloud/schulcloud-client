@@ -46,7 +46,7 @@ $(document).ready(function () {
 
     // Init modals
     var $modals = $('.modal');
-    var $contactHPIModal = $('.feedback-modal');
+    var $contactHPIModal = $('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
     var $contactAdminModal = $('.problem-modal');
     var $modalForm = $('.modal-form');
@@ -69,7 +69,7 @@ $(document).ready(function () {
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
-        let type = (modal[0].className.includes('feedback-modal')) ? 'feedback' : 'problem';
+        let type = (modal[0].className.includes('contactHPI-modal')) ? 'feedback' : 'problem';
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
@@ -96,13 +96,13 @@ $(document).ready(function () {
             error: showAJAXError
         });
 
-        $('.feedback-modal').find('.btn-submit').prop("disabled", true);
+        $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
     };
 
     $('.submit-helpdesk').on('click', function (e) {
         e.preventDefault();
 
-        $('.feedback-modal').find('.btn-submit').prop("disabled", false);
+        $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($contactHPIModal, {
