@@ -1,4 +1,5 @@
 importScripts('/scripts/sw/workbox/workbox-sw.js');
+importScripts('https://unpkg.com/dexie@2.0.4/dist/dexie.js');
 
 workbox.setConfig({
     modulePathPrefix: '/scripts/sw/workbox/'
@@ -121,18 +122,34 @@ workbox.routing.registerRoute(
         ]
     })
 );
-function downloadCourse(courseId){
+
+self.db = new Dexie("courses");
+self.db.version(1).stores({
+    pages: 'url,updatedAt'
+});
+
+function downloadCourse(courseId) {
     const cacheName = 'courses';
+
+    let urls = {};
     fetch(`/courses/${courseId}/offline`)
-    .then(response => response.json())
-    .then(json => {
-        let urls = [];
-        urls.push(json.course.url);
-        json.lessons.forEach(lesson => {
-            urls.push(lesson.url);
+        .then(response => response.json())
+        .then(json => {
+            urls[json.course.url] = json.course.updatedAt;
+            json.lessons.forEach(lesson => {
+                urls[lesson.url] = lesson.updatedAt;
+            });
+            return caches.open(cacheName)
+                .then((cache) => Promise.all(Object.keys(urls)
+                    .forEach(function (url, updatedAt) {
+                        cache.add(url)
+                            .then(_ => {
+                                return self.db.open().then(_=>{
+                                    return self.db.courses.add({ url: url, updatedAt: updatedAt });
+                                });
+                            });
+                    })));
         });
-        return caches.open(cacheName).then((cache) => cache.addAll(urls));
-    });
 }
 
 self.addEventListener('message', function(event){
@@ -142,9 +159,9 @@ self.addEventListener('message', function(event){
 });
 
 const courseRoutes = [
-    /\/courses\//,
-    /\/courses\/[a-f0-9]{24}/,
-    /\/courses\/[a-f0-9]{24}\/topics\/[a-f0-9]{24}\//
+    /\/courses\/$/,
+    /\/courses\/[a-f0-9]{24}\/?$/,
+    /\/courses\/[a-f0-9]{24}\/topics\/[a-f0-9]{24}\/?$/
 ];
 courseRoutes.forEach(route => {
     workbox.routing.registerRoute(
