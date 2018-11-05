@@ -6,25 +6,24 @@
     margin: 0 auto 2rem;
     max-width: 500px;
     .search-container{
-        //border-radius: 5rem;
-        border-bottom: 1px solid #555;
+        border-radius: 50rem;
 
         width: 100%;
-        background: #fffa;
+        background: #ddda;
         color: #333;
         display: flex;
         align-items: center;
         padding: 0 16px;
         .fa, input{
             padding: 16px 4px;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
         }
         input{
             flex: 1;
             background: transparent;
             outline: none;
             border: none;
-            padding: 16px;
+            padding: 12px;
         }
     }
     .live-search-results{

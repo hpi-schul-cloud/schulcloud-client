@@ -30,15 +30,12 @@ body {
 
     // loading spinner
     &:not(.loaded) .content-min-height{
-        display: block;
-        height: 100vh;
-        overflow: hidden;
         position: relative;
         &:after{
             content: "\f110";
             display: inline-block;
-            position: absolute;
-            top: 50%;
+            position: fixed;
+            top: 50vh;
             left: 50%;
             z-index: -1;
             color: #777;
