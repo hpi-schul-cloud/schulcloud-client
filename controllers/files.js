@@ -291,11 +291,11 @@ const getLibreOfficeUrl = (fileId, accessToken) => {
         return;
     }
 
-    // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980/
+    // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
     const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
-    const wopiRestUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030/';
+    const wopiRestUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
 
-    return `${libreOfficeBaseUrl}loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}wopi/files/${fileId}?access_token=${accessToken}`;
+    return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
 };
 
 

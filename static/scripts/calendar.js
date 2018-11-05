@@ -1,5 +1,5 @@
 import moment from 'moment';
-import 'jquery-datetimepicker';
+import './jquery/datetimepicker-easy.js';
 import 'script-loader!fullcalendar/dist/fullcalendar.min.js';
 import 'script-loader!fullcalendar/dist/locale/de.js';
 
@@ -59,6 +59,16 @@ $(document).ready(function () {
                 function (events) {
                     callback(events);
                 });
+                if('BroadcastChannel' in window){
+                    const updatesChannel = new BroadcastChannel('calendar-event-updates');
+                    updatesChannel.addEventListener('message', async (event) => {
+                        const {cacheName, updatedUrl} = event.data.payload;
+                        const cache = await caches.open(cacheName);
+                        const updatedResponse = await cache.match(updatedUrl);
+                        const updatedText = await updatedResponse.json();
+                        callback(updatedText);
+                    });
+                }
         },
         eventRender: function (event, element) {
             if (event.cancelled) {
@@ -135,12 +145,6 @@ $(document).ready(function () {
         .removeClass()
         .addClass('btn-group btn-group-sm');
 
-
-    $.datetimepicker.setLocale('de');
-    $('input[data-datetime]').datetimepicker({
-        format:'d.m.Y H:i',
-        mask: '39.19.9999 29:59'
-    });
 
     $("input[name='isCourseEvent']").change(function(e) {
         var isChecked = $(this).is(":checked");
