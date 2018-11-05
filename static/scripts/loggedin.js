@@ -48,7 +48,7 @@ $(document).ready(function () {
     var $modals = $('.modal');
     var $contactHPIModal = $('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
-    var $contactAdminModal = $('.problem-modal');
+    var $contactAdminModal = $('.contactAdmin-modal');
     var $modalForm = $('.modal-form');
 
     function showAJAXError(req, textStatus, errorThrown) {
@@ -69,10 +69,10 @@ $(document).ready(function () {
     const sendFeedback = function (modal, e) {
         e.preventDefault();
 
-        let type = (modal[0].className.includes('contactHPI-modal')) ? 'feedback' : 'problem';
+        let type = (modal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
 
         let email = 'ticketsystem@schul-cloud.org';
-        let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
+        let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
         
         $.ajax({
             url: '/helpdesk',
@@ -122,7 +122,7 @@ $(document).ready(function () {
     $('.submit-problem').on('click', function (e) {
         e.preventDefault();
 
-        $('.problem-modal').find('.btn-submit').prop("disabled", false);
+        $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($contactAdminModal, {
             title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
