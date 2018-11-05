@@ -52,7 +52,7 @@ $(document).ready(function () {
                 closeLabel: 'Abbrechen',	
                 submitLabel: 'Speichern',	
                 fields: result	
-            });	
+            });	 
              // post-fill gradiation selection	
             if ($editModal.find("input[name=gradeSystem]").length) {	
                 var $gradeInputPoints = $editModal.find("#gradeSystem0");	

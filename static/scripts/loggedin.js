@@ -73,15 +73,14 @@ $(document).ready(function () {
 
         let email = 'ticketsystem@schul-cloud.org';
         let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let category = modal.find('#category').val();
-
+        
         $.ajax({
             url: '/helpdesk',
             type: 'POST',
             data: {
                 type: type,
                 subject: subject,
-                category: category,
+                category: modal.find('#category').val(),
                 role: modal.find('#role').val(),
                 desire: modal.find('#desire').val(),
                 benefit: modal.find("#benefit").val(),
