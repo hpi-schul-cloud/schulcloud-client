@@ -33,6 +33,56 @@ function fullscreenBtnClicked() {
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
+function sendFeedback(modal, e) {
+    let fmodal = $(modal);
+    e.preventDefault();
+
+    let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
+
+    let email = 'ticketsystem@schul-cloud.org';
+    let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
+   
+    $.ajax({
+        url: '/helpdesk',
+        type: 'POST',
+        data: {
+            type: type,
+                subject: subject,
+                category: fmodal.find('#category').val(),
+                role: fmodal.find('#role').val(),
+                desire: fmodal.find('#desire').val(),
+                benefit: fmodal.find("#benefit").val(),
+                acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
+                currentState: fmodal.find('#hasHappened').val(),
+                targetState: fmodal.find('#supposedToHappen').val(),
+                email: email,
+                modalEmail: fmodal.find('#email').val()
+        },
+        success: function (result) {
+            showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
+        },
+        error: function (result) {
+            showAJAXError({}, "Fehler beim senden des Feedbacks", result);
+        }
+    });
+    $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
+};
+
+function showAJAXError(req, textStatus, errorThrown) {
+    $($contactHPIModal).modal('hide');
+    $($contactAdminModal).modal('hide');
+    if (textStatus === "timeout") {
+        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
+    } else {
+        $.showNotification(errorThrown, "danger", true);
+    }
+}
+
+function showAJAXSuccess(message, modal) {
+    modal.modal('hide');
+    $.showNotification(message, "success", true);
+}
+
 $(document).ready(function () {
     // Init mobile nav
     var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
@@ -46,58 +96,10 @@ $(document).ready(function () {
 
     // Init modals
     var $modals = $('.modal');
-    var $contactHPIModal = $('.contactHPI-modal');
+    var $contactHPIModal = document.querySelector('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
-    var $contactAdminModal = $('.contactAdmin-modal');
+    var $contactAdminModal = document.querySelector('.contactAdmin-modal');
     var $modalForm = $('.modal-form');
-
-    function showAJAXError(req, textStatus, errorThrown) {
-        $contactHPIModal.modal('hide');
-        $contactAdminModal.modal('hide');
-        if (textStatus === "timeout") {
-            $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
-        } else {
-            $.showNotification(errorThrown, "danger", true);
-        }
-    }
-
-    function showAJAXSuccess(message, modal) {
-        modal.modal('hide');
-        $.showNotification(message, "success", true);
-    }
-
-    const sendFeedback = function (modal, e) {
-        e.preventDefault();
-
-        let type = (modal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
-
-        let email = 'ticketsystem@schul-cloud.org';
-        let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        
-        $.ajax({
-            url: '/helpdesk',
-            type: 'POST',
-            data: {
-                type: type,
-                subject: subject,
-                category: modal.find('#category').val(),
-                role: modal.find('#role').val(),
-                desire: modal.find('#desire').val(),
-                benefit: modal.find("#benefit").val(),
-                acceptanceCriteria: modal.find("#acceptance_criteria").val(),
-                currentState: modal.find('#hasHappened').val(),
-                targetState: modal.find('#supposedToHappen').val(),
-                email: email,
-                modalEmail: modal.find('#email').val(),
-            },
-            success: function (result) {
-                showAJAXSuccess("Feedback erfolgreich versendet!", modal);
-            },
-            error: showAJAXError
-        });
-
-        $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
-    };
 
     $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
@@ -105,7 +107,7 @@ $(document).ready(function () {
         $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
         var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
-        populateModalForm($contactHPIModal, {
+        populateModalForm($($contactHPIModal), {
             title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden',
@@ -114,24 +116,24 @@ $(document).ready(function () {
             }
         });
         
-        $contactHPIModal.find('.modal-form').on('submit', sendFeedback.bind(this, $contactHPIModal));
-        $contactHPIModal.appendTo('body').modal('show');
-        $contactHPIModal.find('#title-area').html(area);
+        $($contactHPIModal).appendTo('body').modal('show');
     });
+    $contactHPIModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactHPIModal));
 
     $('.submit-contactAdmin').on('click', function (e) {
         e.preventDefault();
 
         $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
-        populateModalForm($contactAdminModal, {
+        populateModalForm($($contactAdminModal), {
             title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
 
-        $contactAdminModal.find('.modal-form').on('submit', sendFeedback.bind(this, $contactAdminModal));
-        $contactAdminModal.appendTo('body').modal('show');
+        $($contactAdminModal).appendTo('body').modal('show');
     });
+
+    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
