@@ -24,7 +24,7 @@ router.get(
 router.post("/topicTemplates", topicTemplatesRequestHandler.postTopicTemplates);
 router.get(
   "/topicTemplates/:id",
-  topicTemplatesRequestHandler.getTopicTemplatesNew
+  topicTemplatesRequestHandler.getTopicTemplate
 );
 router.put(
   "/topicTemplates/:id",

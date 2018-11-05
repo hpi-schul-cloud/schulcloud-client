@@ -1,6 +1,6 @@
 const handleGetTopicTemplatesNew = (req, res, next) => {
   res.render("planner/newTemplate", {
-    title: "Übersicht",
+    title: "Themenvorlage erstellen",
     id: "id1",
     initialValues: JSON.stringify({})
   });
@@ -12,7 +12,7 @@ const handlePostTopicTemplates = (req, res, next) => {
 
 const handleGetTopicTemplate = (req, res, next) => {
   res.render("planner/editTemplate", {
-    title: "Übersicht",
+    title: "Themenvorlage bearbeiten",
     id: "id1",
     initialValues: JSON.stringify({})
   });

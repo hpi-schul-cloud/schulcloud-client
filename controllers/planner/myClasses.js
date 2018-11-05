@@ -194,7 +194,7 @@ const DUMMY_OTHER_DATA = [
 
 const handleGetMyClasses = (req, res, next) => {
   res.render("planner/myClasses", {
-    title: "Konfiguration",
+    title: "Meine Klassen",
     schoolYear: JSON.stringify({
       utcStartDate: 1534723200000,
       utcEndDate: 1560902400000

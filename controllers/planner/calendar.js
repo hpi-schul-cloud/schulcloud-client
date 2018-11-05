@@ -157,7 +157,7 @@ const DUMMY_OTHER_DATA = [
 
 const handleGetCalendar = (req, res, next) => {
   res.render("planner/calendar", {
-    title: "Übersicht",
+    title: "Kalender",
     schoolYear: JSON.stringify({
       utcStartDate: 1534723200000,
       utcEndDate: 1560902400000

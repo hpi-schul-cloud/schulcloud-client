@@ -1,6 +1,6 @@
 const handleGetTopicInstance = (req, res, next) => {
   res.render("planner/editInstace", {
-    title: "Übersicht",
+    title: "Thema bearbeiten",
     id: "id1",
     initialValues: JSON.stringify({})
   });
