@@ -7,7 +7,7 @@
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch build/ --ext js,hbs ./bin/www",
     "debug": "nodemon --inspect=9310 --watch controllers/ --watch helpers/ --watch views/ --ext js,hbs ./bin/www",
     "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
-    "sasslint": "sass-lint",
+    "sasslint": "sass-lint -q -v",
     "sassfix": "sass-lint-auto-fix",
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run lint && npm run mocha",

@@ -7,32 +7,24 @@ options:
   # Don't merge default rules
   merge-default-rules: false
   # Set the formatter to 'html' (output format)
-  formatter: html
+  #formatter: html
   # Output file
-  output-file: 'sass-lint.html'
+  #output-file: './sass-lint.html'
   # Raise an error if more than 50 warnings are generated
-  max-warnings: 100
+  max-warnings: 1
 
 # File Options
 files:
-  #include:
-  #    - 'static/styles/**/*.css'
-  #    - 'static/styles/**/*.sass'
-  #    - 'static/styles/**/*.scss'
   include: 'static/styles/**/*.s+(a|c)ss'
-  ignore:
-    - 'static/styles/lib/bootstrap/**/*.s?(a|c)ss'
-    - 'static/styles/lib/chosen/**/*.s?(a|c)ss'
-    - 'static/styles/lib/spectrum/**/*.s?(a|c)ss'
-    - 'static/styles/**/*.min.s?(a|c)ss'
+  #ignore:
+    #- 'static/styles/lib/bootstrap/**/*.s?(a|c)ss'
+    #- 'static/styles/lib/chosen/**/*.s?(a|c)ss'
+    #- 'static/styles/lib/spectrum/**/*.s?(a|c)ss'
+    #- 'static/styles/**/*.min.s?(a|c)ss'
 
 # Linter rules
 # Details: https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md
 linters:
-  Attribute Quotes:
-    enabled: true
-    include: true
-
   BangFormat:
     enabled: true
 
@@ -175,3 +167,43 @@ linters:
 
   ZeroUnit:
     enabled: true
+
+# copied Rules from: https://git.art-ifact.de/root/wp-spottr-vuejs/blob/61f84004077f8eb2a8978af095669908def17106/.sass-lint.yml
+# TODO: REPLACE WITH REAL RULES
+
+rules:
+  extends-before-mixins: 2
+  extends-before-declarations: 2
+  placeholder-in-extend: 2
+  mixins-before-declarations:
+    - 2
+    -
+      exclude:
+        - breakpoint
+        - mq
+
+  no-warn: 1
+  no-debug: 1
+  no-ids: 2
+  no-important: 2
+  hex-notation:
+    - 2
+    -
+      style: uppercase
+  indentation:
+    - 2
+    -
+      size: 2
+  property-sort-order:
+    - 1
+    -
+      order:
+        - display
+        - margin
+      ignore-custom-properties: true
+  variable-for-property:
+    - 2
+    -
+      properties:
+        - margin
+        - content
