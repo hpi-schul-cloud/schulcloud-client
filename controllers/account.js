@@ -32,6 +32,13 @@ router.post('/', function (req, res, next) {
         });
 });
 
+router.get('/offline', function (req, res, next) {
+    res.render('lib/offline', {
+        title: "Ooops, du bist offline",
+        subtitle: "Wir laden dir diese Seite sobald du wieder online bist. 😊"
+    });
+});
+
 router.get('/', function (req, res, next) {
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         api(req).get('/notification/devices')
