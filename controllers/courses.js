@@ -380,7 +380,7 @@ router.get('/:courseId/offline', function (req, res, next) {
             return {
                 _id: lesson._id,
                 updatedAt: Date.parse(lesson.updatedAt),
-                url: '/courses/' + course._id + '/topic/' + lesson._id
+                url: '/courses/' + course._id + '/topic/' + lesson._id + '/'
             };
         });
         res.json({
