@@ -405,6 +405,20 @@
           "linkedin": ""
         },
         "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Hannes",
+        "lastName": "Kohlsaat",
+        "position": "Bachelorstudent",
+        "description": "Hannes studiert IT-Systems-Engineering am HPI und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat geht er gerne laufen und interessiert sich sehr für Wirtschaftsthemen. Außerdem ist er seit Beginn seines Studiums Mitglied im Chor der Universität Potsdam.",
+        "pictureUrl": "/images/team/Hannes_Kohlsaat.jpg",
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       }
     ]
   },
