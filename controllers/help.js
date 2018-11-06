@@ -107,7 +107,7 @@ const knowledgeItems =  [
     {
         title: "Release Notes",
         icon: "fa-clipboard",
-        src: "#"
+        src: "/help/releases"
     },
     {
         title: "Website",
@@ -146,8 +146,8 @@ router.get('/releases', function (req, res, next) {
                 release.publishedAt = moment(release.publishedAt).format('ddd, ll');
             });
 
-            res.render('help/help', {
-                title: 'Hilfebereich',
+            res.render('help/releases', {
+                title: 'Releases',
                 release: releases.data
             });
         });
