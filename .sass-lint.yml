@@ -40,7 +40,7 @@ rules:
   final-newline: 1
   force-attribute-nesting: 0
   force-element-nesting: 0
-  force-pseudo-nesting: 1
+  force-pseudo-nesting: 0
   function-name-format:
     - 1
     - allow-leading-underscore: true
