@@ -18,9 +18,7 @@
         vertical-align: middle;
         cursor: pointer;
         font-weight: 500;
-      }
 
-      .text {
         font-size: 20px;
         opacity: 0.54;
       }
@@ -29,10 +27,9 @@
         color: $primaryColor;
       }
 
-      &.active {
-        color: $primaryColor;
+      &.active .text {
         opacity: 1;
-        font-weight: 700;
+        color: $primaryColor;
       }
     }
 
