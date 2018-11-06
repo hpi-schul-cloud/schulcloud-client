@@ -31,7 +31,7 @@ rules:
     - convention: zero
   brace-style: 1
   clean-import-paths:
-    - 1
+    - 0
     - filename-extension: false
       leading-underscore: true
   empty-line-between-blocks: 1
