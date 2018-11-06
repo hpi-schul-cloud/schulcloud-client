@@ -174,11 +174,39 @@ function downloadCourse(courseId) {
 
     let urls = {};
 
-    // todo test fetched content still in cache
+    function testInCache(data) {
+        return caches.open('courses')
+            .then(cache => cache.match(data.url))
+            .then(response => {
+                data.inCache = response !== undefined;
+                Promise.resolve(response ? true : false);
+            });
+    }
 
-    // test course content already fetched
     let currentVal, newVal;
     courseOfflineStore.getItem(courseId).then(value=>{
+        if(value===null) return;
+        let promiseChain = [];
+        if(value.course){
+            promiseChain.push(testInCache(value.course));
+        }
+        if(value.lessons && value.lessons.length !== 0){
+            value.lessons.map(lesson => 
+                {
+                    promiseChain.push(testInCache(lesson));
+                }
+            );
+        }
+        return Promise.all(promiseChain).then(_=>{
+            if(value.course && value.course.inCache === false){
+                delete value.course;
+            }
+            if(value.lessons && value.lessons.length !== 0){
+                value.lessons = value.lessons.filter(lesson => lesson.inCache);
+            }
+            return Promise.resolve(value);
+        });
+    }).then(value=>{
             currentVal = value || {};
             fetch(`/courses/${courseId}/offline`, {
                 method: 'POST',
