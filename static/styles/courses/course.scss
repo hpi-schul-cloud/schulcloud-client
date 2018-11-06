@@ -8,18 +8,22 @@
 .dropdown-course {
   display: inline-block;
 
+  .btn-course-dropdown{
+    padding:0;
+  }
+
+  .course-headline {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
   .dropdown-toggle:hover {
-    background-color: $colorLightGrey;
     color: $primaryColor !important;
   }
 
   .dropdown-menu-course {
     .dropdown-item {
       padding: 10px 1.5rem;
-    }
-
-    i {
-      margin-right: 10px;
     }
   }
 }
@@ -38,10 +42,6 @@
     .sectionsContainer {
       padding: 10px 15px 0;
     }
-  }
-
-  .course-headline {
-    margin-bottom: 20px;
   }
 
   .btn-import-topic {

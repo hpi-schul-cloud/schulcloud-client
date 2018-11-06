@@ -15,30 +15,29 @@
   {{/content}}
 
   {{#content "page"}}
-    <h4 id="page-title" class="course-headline">{{{stripOnlyScript name}}}
-      {{#userHasPermission "COURSE_EDIT"}}
-        <div class="dropdown dropdown-course minimal-button">
-          <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
-            <i class="fa fa-cog"></i>
+    {{#userHasPermission "COURSE_EDIT"}}
+      <div class="dropdown dropdown-course minimal-button">
+        <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
+          <h4 id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}</h4>
+          <i class="fa fa-cog"></i>
+        </a>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-course">
+          <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
+            <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten
           </a>
+          <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
+            <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
           </a>
-          <div class="dropdown-menu dropdown-menu-right dropdown-menu-course">
-            <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
-              <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten
-            </a>
-            <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
-              <i class="fa fa-envelope" aria-hidden="true"></i> zum Kurs einladen
-            </a>
-            <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
-              <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
-            </a>
-            <a href="/courses/{{../_id}}/copy" class="dropdown-item">
-              <i class="fa fa-clone" aria-hidden="true"></i> Kurs klonen
-            </a>
-          </div>
+          <a class="dropdown-item btn-create-share-course" data-courseId="{{../_id}}">
+            <i class="fa fa-share" aria-hidden="true"></i> Kurs teilen
+          </a>
+          <a href="/courses/{{../_id}}/copy" class="dropdown-item">
+            <i class="fa fa-clone" aria-hidden="true"></i> Kurs klonen
+          </a>
         </div>
-      {{/userHasPermission}}
-    </h4>
+      </div>
+    {{/userHasPermission}}
     <div class="row description">
       <div class="col-sm-10">
         <p class="lead">Kursbeschreibung: {{{stripOnlyScript description}}}</p>
@@ -83,7 +82,7 @@
             </div>
             <!-- Gruppen -->
             <div class="section" data-section="d">
-              {{> "courses/components/groups"}}
+              {{> "courses/components/groups" id=../_id}}
             </div>
           </div>
         </div>
