@@ -17,8 +17,8 @@ if(!window.datetimepicker){
                 mask:       (input.dataset.datetime !== undefined ?'39.19.9999 29:59':'39.19.9999'),
                 timepicker: (input.dataset.datetime !==  undefined  || false),
                 startDate:  (input.dataset.startDate),
-                minDate:    (input.dataset.minDate), //default: unlimited minimum date 
-                maxDate:    (input.dataset.maxDate), //default: unlimited maximum date 
+                minDate:    (input.dataset.minDate), //default: unlimited minimum date
+                maxDate:    (input.dataset.maxDate), //default: unlimited maximum date
                 inline:     (input.dataset.inline=="true"),
                 onChangeDateTime: triggerInputEvent
             };
@@ -35,5 +35,5 @@ if(!window.datetimepicker){
             input.setAttribute("pattern", pattern);
         });
     }
-    window.addEventListener('load', window.datetimepicker);
+    document.addEventListener('DOMContentLoaded', window.datetimepicker);
 }
