@@ -216,6 +216,24 @@ function downloadCourse(courseId) {
                 },
                 body: JSON.stringify(value || {})
             }).then(response => response.json())
+                .then(json => {
+                    if (json.cleanup && json.cleanup.lessons) {
+                        let lessonsToRemove = currentVal.lessons.filter(lesson => json.cleanup.lessons.includes(lesson._id));
+                        if (lessonsToRemove) {
+                            return Promise.all(lessonsToRemove.map(lesson => {
+                                return caches.open('courses')
+                                    .then(cache => cache.delete(lesson.url))
+                                    .then(success => {
+                                        // handle success?
+                                        Promise.resolve(success);
+                                });
+                            })).then(_ => {
+                                currentVal.lessons = currentVal.lessons.filter(lesson => !json.cleanup.lessons.includes(lesson._id));
+                                return json;
+            });
+                    }
+                }
+            })
             .then(json => {
                 newVal = json;
                 let urls = [];
@@ -229,7 +247,8 @@ function downloadCourse(courseId) {
             }).then(urls => {
                         let updatedValue = Object.assign({}, currentVal, newVal); // todo copy only course
                         updatedValue.lessons = currentVal.lessons || [];
-                        if(newVal.lessons){ // todo delete lessons removed
+                        if(updatedValue.cleanup) delete updatedValue.cleanup;
+                        if(newVal.lessons){ 
                             newVal.lessons.map(lesson => {
                                 let oldLesson = updatedValue.lessons.find(l => l._id === lesson._id);
                                 if(oldLesson){

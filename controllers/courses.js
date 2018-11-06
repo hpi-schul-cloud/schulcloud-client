@@ -463,8 +463,20 @@ router.post('/:courseId/offline', function (req, res, next) {
             return result;
         }
 
-        const filteredResponse = filterResponse (unfilteredResponse, req.body);
+        function checkLessonsForRemoval(current, last){
+            // remove lessons if they are no more available
+            if(!last.lessons) return;
+            let currentLessonIds = current.lessons.map(lesson => lesson._id);
+            return last.lessons
+                .filter(lesson => !currentLessonIds.includes(lesson._id))
+                .map(lesson => lesson._id);
+        }
 
+        let filteredResponse = filterResponse (unfilteredResponse, req.body);
+        let lessonsForRemoval = checkLessonsForRemoval(unfilteredResponse, req.body);
+        if(lessonsForRemoval){
+            filteredResponse.cleanup = {lessons: lessonsForRemoval};
+        }
 
         res.json(filteredResponse);
     });
