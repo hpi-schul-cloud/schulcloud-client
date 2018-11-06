@@ -552,7 +552,7 @@ router.get('/:courseId', function(req, res, next) {
             courseGroups,
             breadcrumb: [{
                     title: 'Meine Kurse',
-                    url: '/courses'
+                    url: '/courses/'
                 },
                 {}
             ],
