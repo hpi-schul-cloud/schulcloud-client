@@ -12,7 +12,7 @@
 
         {{> "help/search"}}
 
-        {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card"}}
+        {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card" id="Erste_Schritte"}}
             {{#content "card-body"}}
                 {{#embed "help/clickable-card" clickable=firstStepsItems link-class="col-sm-3"}}
                 {{/embed}}
@@ -62,31 +62,26 @@
             {{/embed}}
         {{/each}}
 
-        {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card"}}
+        {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card" id="Nutzungshilfen"}}
             {{#content "card-body"}}
                 {{#embed "help/clickable-card" clickable=quickHelpItems link-class="col-sm-4"}}
                 {{/embed}}
             {{/content}}
         {{/embed}}
-        
-        {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card"}}
+
+        {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card" id="Kontakt"}}
             {{#content "card-body"}}
                 {{> "help/contact"}}
             {{/content}}
         {{/embed}}
 
-        {{#embed "help/component-card" title="E-Mail" icon="fa-envelope" class="eMail-card"}}
+        {{#embed "help/component-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card" id="E-Mail"}}
             {{#content "card-body"}}
-                <div>Cupcake ipsum dolor sit amet because jelly croissant jelly beans. Sweet biscuit bear is claw sesame. Snaps sugar plum chocolate cake ice cream sweet roll. Lollipop lemon drops jujubes, donut apple, pie gingerbread and dragée. I love ice cream so much. Chocolate cake lemon drops I love halvah dessert I love I love. Jelly-o cupcake donut, jelly halvah, chocolate bar and donut jelly bear claw. Jelly-o donut brownie cupcake marshmallow danish. Gummies jelly beans I love jelly beans gummies. Ice cream carrot cake powder liquorice. Tiramisu macaroon I love I love. Bonbon marzipan and gummi bears – what else?</div>
-                <div id="email-addresses">
-                    team@schulcloud.org <br>
-                    orga@mint-ec.de <br>
-                    ...
-                </div>
+                {{> "help/mail-card"}}
             {{/content}}
         {{/embed}}
 
-        {{#embed "help/component-card" title="Wissenswertes" icon="fa-lightbulb-o" class="information-card"}}
+        {{#embed "help/component-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card" id="About"}}
             {{#content "card-body"}}
                 {{#embed "help/clickable-card" clickable=knowledgeItems link-class="col-sm-4"}}
                 {{/embed}}

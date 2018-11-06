@@ -71,7 +71,7 @@ const firstStepsItems = [
         icon: "fa-child",
         src: "#"
     }
-]
+];
 const quickHelpItems = [
     {
         title: "Online-Videokurse",
@@ -87,8 +87,13 @@ const quickHelpItems = [
         icon: "fa-file-pdf-o",
         src: "#"
     }
-]
+];
 const knowledgeItems =  [
+    {
+        title: "Überblick",
+        icon: "fa-info",
+        src: "#"
+    },
     {
         title: "FAQ",
         icon: "fa-comments",
@@ -105,16 +110,11 @@ const knowledgeItems =  [
         src: "#"
     },
     {
-        title: "Über das Projekt",
-        icon: "fa-info",
-        src: "#"
-    },
-    {
         title: "Website",
         icon: "fa-globe",
-        src: "#"
+        src: "/logout"
     }
-]
+];
 
 // secure routes
 router.use(authHelper.authChecker);
