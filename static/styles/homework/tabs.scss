@@ -1,43 +1,52 @@
 @import "../lib/colors";
-@import '../lib/bootstrap/scss/bootstrap-grid';
+@import "../lib/bootstrap/scss/bootstrap-grid";
 
-.tab-links{
+.tab-links {
   border-bottom: 1px solid #d3d3d3;
   padding-bottom: 1px;
 }
+
 .tab-link {
   display: inline-block;
   margin-bottom: -2px;
   border-bottom: 4px solid transparent;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+
   @include media-breakpoint-up(sm) {
     font-size: 1.2rem;
   }
+
   padding: 5px 10px 0;
   text-decoration: none;
   color: #000;
   font-size: 1.1rem;
+
   &.active {
     border-bottom: 4px solid $primaryColor;
     color: $primaryColor !important;
     font-weight: 700;
   }
-  &:hover, &:focus{
+
+  &:hover,
+  &:focus {
     text-decoration: none;
     color: $primaryColor !important;
     font-weight: 700;
   }
 }
+
 .tab-content {
   display: none;
   clear: both;
   padding-top: .5rem;
   width: 100%;
+
   &.active {
     display: block;
   }
-  > h5 {
+
+  >h5 {
     color: $secondaryColor;
     font-size: 1.2rem;
     font-weight: 700;
@@ -48,11 +57,12 @@
   .nav-tabs {
     border-bottom: zero;
   }
+
   .nav-item {
     border-bottom: 1px solid #ddd;
   }
-  .nav-tabs .nav-item + .nav-item {
-    margin-left: 0;
+
+  .nav-tabs .nav-item+.nav-item {
     margin-left: 5px;
   }
 }

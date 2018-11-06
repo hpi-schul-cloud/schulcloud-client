@@ -66,11 +66,13 @@
     color: #fff;
     font-size: 30px;
   }
+
   .video-js {
     margin: 2% auto;
     max-width: 100%;
     max-height: 100%;
   }
+
   .vieweriframe {
     width: 90%;
     height: 90vh;
@@ -135,11 +137,13 @@
         color: $primaryColor;
       }
     }
+
     .card-block {
       a:hover {
         text-decoration: none;
       }
     }
+
     .title {
       display: inline-block;
       width: calc(75% - 30px);
@@ -147,11 +151,13 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     .file-preview {
       @media screen and (max-width: 575px) {
         display: none;
       }
     }
+
     .card-text {
       line-height: 2;
     }
@@ -180,6 +186,7 @@
     cursor: pointer;
     padding: 10px 15px 10px 15px;
   }
+
   .filter-option:hover {
     background-color: $primaryColor;
     color: #fff;
@@ -191,9 +198,11 @@
     .card-title {
       text-align: center;
     }
+
     .card-text {
       text-align: justify;
     }
+
     .text-red {
       color: $primaryColor;
     }
@@ -214,6 +223,7 @@
     span {
       color: $primaryColor;
     }
+
     span:hover {
       cursor: pointer;
     }
@@ -222,13 +232,16 @@
       margin-right: 5px;
       color: $primaryColor;
     }
+
     .toggle-icon:hover {
       cursor: pointer;
     }
+
     .fa-share {
       display: none;
       padding-left: 5px;
     }
+
     .fa-share:hover {
       cursor: pointer;
       color: $primaryColor;
@@ -238,10 +251,12 @@
   .dir-main-element {
     border-bottom: 1px solid #9e9e9e;
   }
+
   .dir-main-header {
     padding: 10px;
     font-weight: bold;
   }
+
   .dir-sub-element {
     padding: 10px 10px 10px 20px;
   }
@@ -263,6 +278,7 @@
   box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
   background-color: rgba(0,0,0,.2);
 }
+
 .popup-overlay.active{
   visibility: visible;
   text-align: center;

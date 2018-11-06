@@ -10,11 +10,14 @@
 
 @each $bp in map-keys($grid-breakpoints) {
   .hidden-#{$bp}-up {
+
     @include media-breakpoint-up($bp) {
       display: none !important;
     }
   }
+
   .hidden-#{$bp}-down {
+
     @include media-breakpoint-down($bp) {
       display: none !important;
     }
@@ -33,6 +36,7 @@
     display: block !important;
   }
 }
+
 .visible-print-inline {
   display: none !important;
 
@@ -40,6 +44,7 @@
     display: inline !important;
   }
 }
+
 .visible-print-inline-block {
   display: none !important;
 

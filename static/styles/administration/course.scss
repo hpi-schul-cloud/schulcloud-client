@@ -8,6 +8,7 @@
     i {
         cursor: pointer;
     }
+
     .disabled {
         cursor: not-allowed;
         input {
@@ -18,6 +19,7 @@
     .disabled > * {
         pointer-events: none;
     }
+
     .new-course-time-add {
         display: inline-block;
         margin-top: 10px;

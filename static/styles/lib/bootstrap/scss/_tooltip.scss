@@ -27,6 +27,7 @@
       content: "";
     }
   }
+
   &.tooltip-right,
   &.bs-tether-element-attached-left {
     margin-left: $tooltip-margin;
@@ -41,6 +42,7 @@
       content: "";
     }
   }
+
   &.tooltip-bottom,
   &.bs-tether-element-attached-top {
     margin-top: $tooltip-margin;
@@ -55,6 +57,7 @@
       content: "";
     }
   }
+
   &.tooltip-left,
   &.bs-tether-element-attached-right {
     margin-left: -$tooltip-margin;

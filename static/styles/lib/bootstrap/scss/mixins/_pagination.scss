@@ -12,6 +12,7 @@
         @include border-left-radius($border-radius);
       }
     }
+
     &:last-child {
       .page-link {
         @include border-right-radius($border-radius);

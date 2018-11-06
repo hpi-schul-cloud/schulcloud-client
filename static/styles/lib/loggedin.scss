@@ -6,7 +6,7 @@ body {
   background-color: $colorWhite;
   white-space: nowrap;
   font-size: 0 !important;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
   overflow-x: hidden;
 }
 
@@ -119,7 +119,7 @@ aside.nav-sidebar {
 
     .cloud-logo {
       display: inline-block;
-      margin-right: 0.25rem;
+      margin-right: .25rem;
       margin-bottom: -5px;
       background: $logoBackground;
       background-size: contain;
@@ -365,7 +365,7 @@ header {
     }
 
     h5 {
-      margin: 0 0 30px 0;
+      margin: 0 0 30px;
       color: $primaryColor;
     }
 
@@ -376,7 +376,7 @@ header {
   text-align: center;
 
   .alert-warning {
-    border: zero;
+    border: 0;
     border-radius: 0;
     height: 63px;
   }
@@ -496,7 +496,6 @@ footer {
       float: right;
       margin-top: -15px;
       margin-right: -10px;
-      cursor: pointer;
       cursor: pointer;
       width: 50px;
       height: 50px;
@@ -638,7 +637,7 @@ footer {
 
     &.open {
       .dropdown-toggle {
-        background-color: rgba(0, 0, 0, 0.05);
+        background-color: rgba(0, 0, 0, .05);
       }
     }
 
@@ -663,7 +662,7 @@ footer {
         left: 20px;
         margin-top: -11px;
         border-width: 11px;
-        border-color: transparent transparent #fff transparent;
+        border-color: transparent transparent #fff;
       }
 
       /* this border color controlls the outside, thin border */
@@ -671,7 +670,7 @@ footer {
         left: 20px;
         margin-top: -12px;
         border-width: 11px;
-        border-color: transparent transparent rgba(0, 0, 0, .15) transparent;
+        border-color: transparent transparent rgba(0, 0, 0, .15);
       }
     }
   }

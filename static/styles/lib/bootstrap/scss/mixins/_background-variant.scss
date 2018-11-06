@@ -4,7 +4,9 @@
   #{$parent} {
     background-color: $color !important;
   }
+
   a#{$parent} {
+
     @include hover-focus {
       background-color: darken($color, 10%) !important;
     }

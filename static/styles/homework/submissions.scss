@@ -1,39 +1,49 @@
 @import "../lib/colors";
-@import '../lib/bootstrap/scss/bootstrap-flex';
+@import "../lib/bootstrap/scss/bootstrap-flex";
 
 .tab-content#submissions {
   table {
     border: zero;
     width: 100%;
     border-collapse: collapse;
-    thead, thead tr {
+
+    thead,
+    thead tr {
       border: zero;
+
       @include media-breakpoint-down(xs) {
         display: none;
       }
+
       th:nth-of-type(n+3) {
         text-align: right;
       }
     }
+
     th span {
       color: #808080;
       font-weight: lighter;
+
       &::before {
         content: "(";
       }
+
       &::after {
         content: ")";
       }
     }
   }
+
   .usersubmission {
     clear: both;
-    border-top: 1px solid rgba(0, 0, 0, 0.125);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-top: 1px solid rgba(0, 0, 0, .125);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
     cursor: pointer;
     width: 100%;
+
     .userinfo {
       width: 100%;
+
       .picture {
         margin-right: 10px;
         border-radius: 50%;
@@ -41,42 +51,51 @@
         height: 32px;
       }
 
-      > td {
+      >td {
         border: zero;
         padding: 5px 0 5px 5px;
         vertical-align: middle;
         color: #808080;
+
         &:nth-of-type(n+3) {
           padding: 5px 5px 5px 0;
           text-align: right;
         }
       }
+
       .fa.green {
-        color: #008000
+        color: #008000;
       }
+
       .fa.red {
-        color: #f00
+        color: #f00;
       }
+
       @include media-breakpoint-down(xs) {
         position: relative;
+
         td {
           padding: 5px .1rem;
         }
+
         .picture {
           margin-right: 0;
         }
       }
     }
+
     &.active .evaluation {
       display: table-row;
       cursor: initial;
     }
+
     .evaluation {
       display: none;
       background: transparent;
     }
   }
-  .groupNames span:not(:last-child):after{
+
+  .groupNames span:not(:last-child):after {
     display: inline;
     content: ",";
   }
@@ -85,17 +104,19 @@
 .section-evaluation {
   clear: both;
 
-  .submission > h6,
-  .comment > h6 {
+  .submission>h6,
+  .comment>h6 {
     font-size: 1.2rem;
   }
 
   .nav-item.active {
     border-bottom: 1px solid $secondaryColor;
   }
+
   .feedback {
     margin: 0;
     max-width: 100%;
+
     .btn-primary {
       width: 100%;
     }
@@ -109,7 +130,7 @@
   text-align: center;
 }
 
-.loadingspinner > div {
+.loadingspinner>div {
   display: inline-block;
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
   margin: 0 1px;
@@ -117,31 +138,26 @@
   background-color: #fff;
   width: .5em;
   height: .5em;
-  -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
 .loadingspinner .bounce1 {
-  animation-delay: -0.32s;
-  -webkit-animation-delay: -0.32s;
+  animation-delay: -.32s;
 }
 
 .loadingspinner .bounce2 {
-  animation-delay: -0.16s;
-  -webkit-animation-delay: -0.16s;
-}
-
-@-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1) }
+  animation-delay: -.16s;
 }
 
 @keyframes sk-bouncedelay {
-  0%, 80%, 100% { 
+
+  0%,
+  80%,
+  100% {
     transform: scale(0);
-    -webkit-transform: scale(0);
-  } 40% { 
+  }
+
+  40% {
     transform: scale(1);
-    -webkit-transform: scale(1);
   }
 }
 
@@ -149,8 +165,10 @@
   .fa {
     margin-right: 10px;
   }
+
   .fa-active {
     float: right;
+
     .fa {
       cursor: pointer;
       color: $primaryColor;
@@ -162,7 +180,8 @@
   margin-bottom: 1rem;
   color: $primaryColor;
   font-size: 1rem;
+
   .fa {
-    padding-right: 0.5rem;
+    padding-right: .5rem;
   }
 }

@@ -1,22 +1,25 @@
 @import "../lib/colors";
-@import '../lib/bootstrap/scss/bootstrap-grid';
-@import 'homework';
+@import "../lib/bootstrap/scss/bootstrap-grid";
+@import "homework";
 
 .section-homework {
   clear: both;
   width: 100%;
+
   .dates {
     float: right;
     margin: 0;
     padding: 10px 0;
     text-align: right;
     color: #808080;
+
     @include media-breakpoint-down(xs) {
       padding: 0 0 10px;
       width: 100%;
     }
   }
-  .maintabs > .tab-links .tab-link{
+
+  .maintabs>.tab-links .tab-link {
     @include media-breakpoint-up(sm) {
       margin-top: 1.5rem;
     }

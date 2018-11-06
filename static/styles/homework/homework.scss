@@ -1,5 +1,5 @@
 @import "../lib/colors";
-@import '../lib/bootstrap/scss/bootstrap-grid';
+@import "../lib/bootstrap/scss/bootstrap-grid";
 
 .homework {
   clear: both;
@@ -8,26 +8,32 @@
   width: 100%;
   list-style: none;
 }
+
 .assignment {
   position: relative;
   padding: 10px;
   width: 100%;
   text-decoration: none;
+
   a {
     color: #373a3c;
+
     &:hover {
       text-decoration: none !important;
       color: #373a3c;
     }
   }
+
   .dates {
     float: right;
     text-align: right;
     color: #808080;
   }
-  &.has-stats{
+
+  &.has-stats {
     min-height: 165px;
   }
+
   .state {
     position: relative;
     float: right;
@@ -35,38 +41,71 @@
     text-align: right;
     color: #808080;
   }
+
   &.private {
     h5::before {
       content: "🔒";
     }
   }
+
   h5 {
     margin: 0;
     color: $primaryColor;
   }
+
   .description {
+    // sass-lint:disable-block no-duplicate-properties
+    // It's okay here, It's a browser fallback
     margin: 10px 0;
     min-height: 50px;
     text-decoration: none;
     color: #373a3c;
-    &:hover{text-decoration: none;}
     word-break: break-word;
     word-break: break-all;
+
+    &:hover {
+      text-decoration: none;
+    }
+
     @include media-breakpoint-down(xs) {
       margin-right: 25px;
     }
-    h1 {font-size: 1.3rem;font-weight: bold}
-    h2 {font-size: 1.2rem;font-weight: bold;font-style: italic}
-    h3 {text-decoration: underline;font-size: 1.1rem;font-style: italic}
-    p  {margin-bottom: .25rem;font-size: 1rem;}
-    a  {text-decoration: underline; color: $primaryColor;}
-    blockquote{
+
+    h1 {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      font-weight: bold;
+      font-style: italic;
+    }
+
+    h3 {
+      text-decoration: underline;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    p {
+      margin-bottom: .25rem;
+      font-size: 1rem;
+    }
+
+    a {
+      text-decoration: underline;
+      color: $primaryColor;
+    }
+
+    blockquote {
       margin-left: 1rem;
       border-left: 2px solid #808080;
       padding-left: 5px;
       color: #808080;
     }
   }
+
   .more {
     position: absolute;
     right: 10px;

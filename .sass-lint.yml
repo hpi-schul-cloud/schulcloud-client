@@ -34,7 +34,7 @@ rules:
     - 0
     - filename-extension: false
       leading-underscore: true
-  empty-line-between-blocks: 0
+  empty-line-between-blocks: 1
   extends-before-declarations: 1
   extends-before-mixins: 1
   final-newline: 1
@@ -42,7 +42,7 @@ rules:
   force-element-nesting: 0
   force-pseudo-nesting: 0
   function-name-format:
-    - 0
+    - 1
     - allow-leading-underscore: true
       convention: camelcase
   hex-length:
@@ -58,10 +58,10 @@ rules:
     - 1
     - include: false
   mixin-name-format:
-    - 1
+    - 0
     - allow-leading-underscore: true
       convention: camelcase
-  mixins-before-declarations: 1
+  mixins-before-declarations: 0
   nesting-depth: 0
   no-color-keywords: 1
   no-duplicate-properties: 1

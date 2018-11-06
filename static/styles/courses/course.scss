@@ -7,25 +7,31 @@
     h4 {
         margin-bottom: 20px;
     }
+
     .lesson-date {
         float: right;
         line-height: 24px;
     }
+
     .description {
         margin-bottom: 40px;
     }
+
     .delete-material {
         float: right;
         cursor: pointer;
     }
+
     .delete-tool {
         float: right;
         cursor: pointer;
         padding-top: 1.4em;
     }
+
     .card-tool {
         cursor: pointer;
     }
+
     .ui-state-highlight {
         margin-bottom: 12px;
         border: 2px dashed #373a3c;
@@ -33,27 +39,32 @@
         background: none !important;
         height: 55px;
     }
+
     .content-block {
         margin-bottom: 50px;
         img {
             max-width: 100%;
             height: auto !important;
         }
+
         iframe{
             outline: none;
             border: 1px solid $primaryColor;
             border-radius: 5px;
         }
     }
+
     .disabled {
         cursor: not-allowed;
         input {
             background-color: $colorGrey;
         }
     }
+
     .disabled>* {
         pointer-events: none;
     }
+
     .times {
         margin-bottom: 30px;
         box-shadow: 0 1px 1px 0 #c7c7c7 inset;
@@ -62,6 +73,7 @@
         i {
             cursor: pointer;
         }
+
         .new-course-time-add {
             display: inline-block;
             margin-top: 10px;
@@ -70,6 +82,7 @@
             color: $primaryColor;
         }
     }
+
     .new-course-time-template {
         display: none;
     }
@@ -80,19 +93,24 @@
     .card-header {
         padding: .5rem .75rem;
     }
+
     .btn-hidden-toggle {
         font-size: 20px;
     }
+
     .topic-label {
         margin: 0;
     }
+
     .input-group-btn {
         float: right;
         padding-right: 10px;
     }
+
     .input-group {
         align-items: center;
     }
+
     .right-btn-group {
         margin-left: auto;
         white-space: nowrap;
@@ -110,10 +128,12 @@
                 margin-right: 0.4rem;
             }
         }
+
         .geo-gebra-info {
             background-color: $primaryColor;
             color: #fff;
         }
+
         input{
             width: 100%;
         }
@@ -143,9 +163,11 @@
             margin: 0;
             color: $primaryColor;
         }
+
         a {
             color: #373a3c;
         }
+
         .card-tags {
             padding-top: 10px;
             .tag {
@@ -171,6 +193,7 @@
 #course-edit {
     text-align: right;
 }
+
 .modal-body {
     max-height: 75vh;
     overflow-y: auto;

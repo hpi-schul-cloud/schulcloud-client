@@ -31,8 +31,10 @@
     transform: translate(0, -25%);
     transition: transform .3s ease-out;
   }
+
   &.in .modal-dialog { transform: translate(0, 0); }
 }
+
 .modal-open .modal {
   overflow-y: auto;
   overflow-x: hidden;
@@ -69,6 +71,7 @@
 
   // Fade for backdrop
   &.fade { opacity: 0; }
+
   &.in { opacity: $modal-backdrop-opacity; }
 }
 

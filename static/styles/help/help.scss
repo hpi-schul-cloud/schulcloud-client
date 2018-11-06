@@ -2,7 +2,7 @@
 
 .changelog {
   .author {
-    float: right
+    float: right;
   }
 
   img {
@@ -24,8 +24,8 @@
 
 .faqpanel {
   .card-img-top {
-      width: 100%;
-      height: auto;
+    width: 100%;
+    height: auto;
   }
 
   .card-footer {
@@ -43,8 +43,6 @@
     border-radius: 150px;
     max-width: 300px;
     max-height: 300px;
-    -moz-border-radius: 150px;
-    -webkit-border-radius: 150px;
   }
 
   .img-out {
@@ -54,10 +52,11 @@
     .fa-bug {
       padding-top: 50px;
       padding-bottom: 40px;
-      font-size: 140px
+      font-size: 140px;
     }
+
     .mooc-house {
-      margin: 80px 0 25px 0;
+      margin: 80px 0 25px;
     }
   }
 

@@ -12,15 +12,19 @@
 .rounded {
   @include border-radius($border-radius);
 }
+
 .rounded-top {
   @include border-top-radius($border-radius);
 }
+
 .rounded-right {
   @include border-right-radius($border-radius);
 }
+
 .rounded-bottom {
   @include border-bottom-radius($border-radius);
 }
+
 .rounded-left {
   @include border-left-radius($border-radius);
 }

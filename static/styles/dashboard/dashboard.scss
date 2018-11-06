@@ -10,6 +10,7 @@
     .row.articles {
         margin: 5px -15px;
     }
+
     .row.timeline {
         display: none;
     }
@@ -29,16 +30,19 @@
         width: 100% !important;
     }
 }
+
 @include media-breakpoint-down(md) {
     .sc-card-wrapper:nth-child(n+4) {
         display: none;  
     }
 }
+
 @include media-breakpoint-down(lg) {
     .sc-card-wrapper:nth-child(n+4) {
         display: none;  
     }
 }
+
 @include media-breakpoint-down(xl) {
     .sc-card-wrapper:nth-child(n+5) {
         display: none;  
@@ -115,6 +119,7 @@
                 .card-text{
                     line-height: 130%;
                 }
+
                 .lesson-time {
                     display: block;
                     margin-top: -15px;
@@ -185,6 +190,7 @@
             color: #aaa;
             font-size: 10px;
         }
+
         .timelines{
             display: block;
             position: absolute;

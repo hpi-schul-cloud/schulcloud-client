@@ -3,7 +3,7 @@
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
-$fa-font-path: "/vendor-optimized/font-awesome/fonts";
+$fa-font-path: "/vendor-optimized/font-awesome/fonts"; // sass-lint:disable-line variable-name-format
 @import "font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
@@ -12,6 +12,7 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
+  // sass-lint:disable-block no-vendor-prefixes
   hyphens: auto;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -24,14 +25,14 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 .section-community {
   h4 {
     display: block;
-    margin: 30px 0 20px 0 !important;
+    margin: 30px 0 20px !important;
     width: 100%;
     font-weight: 500;
   }
 
   h5 {
     display: block;
-    margin: 30px 0 20px 0;
+    margin: 30px 0 20px;
     width: 100%;
     font-style: italic;
   }
@@ -112,7 +113,7 @@ label,
 }
 
 .btn-loading {
-  transition: width 0.3s;
+  transition: width .3s;
   font-size: 0 !important;
 
   &:before {
@@ -123,7 +124,6 @@ label,
     font-family: "FontAwesome";
     font-size: 16px;
     content: "\f1ce";
-    -webkit-animation: fa-spin 2s infinite linear;
   }
 }
 
@@ -132,7 +132,7 @@ label,
   margin-bottom: 1rem;
   max-width: 100%;
   overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
 
   table {
     margin-bottom: 0;
@@ -183,12 +183,10 @@ footer {
 @keyframes fa-spin {
   0% {
     transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
   }
 
   100% {
     transform: rotate(359deg);
-    -webkit-transform: rotate(359deg);
   }
 }
 
@@ -204,7 +202,6 @@ form.inline {
     border: 0;
     background: transparent;
     appearance: none;
-    -webkit-appearance: none;
   }
 }
 
@@ -237,7 +234,7 @@ form.inline {
   left: 0;
   z-index: 9999;
   border-radius: 0;
-  width: 100%
+  width: 100%;
 }
 
 .dropdown-item {
@@ -302,19 +299,19 @@ form.inline {
 
   h1 {
     font-size: 1.3rem;
-    font-weight: bold
+    font-weight: bold;
   }
 
   h2 {
     font-size: 1.2rem;
     font-weight: bold;
-    font-style: italic
+    font-style: italic;
   }
 
   h3 {
     text-decoration: underline;
     font-size: 1.1rem;
-    font-style: italic
+    font-style: italic;
   }
 
   p {
@@ -343,7 +340,7 @@ form.inline {
 
 .container .jumbotron {
   margin: 2rem 0;
-  padding: 2rem 2rem;
+  padding: 2rem;
 }
 
 .form-control {
@@ -356,10 +353,10 @@ form.inline {
 
 //the following adds fa-share-square-o for each external link except images
 .section-course .content-block {
-  a:not([href*='https://schul-cloud.org']):not([href^='#']):not([href^='/']) {
-    &:not([href$='.jpg']):not([href$='.png']):not([href$='.jpeg']):not([href$='.gif']):not([href$='.bmp']) {
+  a:not([href*="https://schul-cloud.org"]):not([href^="#"]):not([href^="/"]) {
+    &:not([href$=".jpg"]):not([href$=".png"]):not([href$=".jpeg"]):not([href$=".gif"]):not([href$=".bmp"]) {
       &:after {
-        font-family: 'FontAwesome';
+        font-family: "FontAwesome";
         font-size: .7em;
         content: "  \f08e";
       }

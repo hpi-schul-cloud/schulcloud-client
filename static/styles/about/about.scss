@@ -23,9 +23,11 @@
     width: 97%;
     height: 700px;
   }
+
   div.row {
     margin-bottom: 10px;
   }
+
   .single-pdf {
     margin: 0 15px 15px;
     border: 1px solid #d3d3d3;
@@ -34,6 +36,7 @@
     &.opened {
       border: 1px solid #b10438;
     }
+
     a {
       text-decoration: none;
 
@@ -41,6 +44,7 @@
         padding: 10px;
         height: 100%;
       }
+
       .single-pdf-thumbnail {
         margin-top: 10px;
         width: 100%;
