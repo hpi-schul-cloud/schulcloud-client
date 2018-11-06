@@ -9,6 +9,8 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts"; // sass-lint:disable-line
 @import "./datetimepicker/jquery.datetimepicker.min.css";
 @import "./toggle/bootstrap-toogle.min.css";
 
+@import "./tabbar/tabbar";
+
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
@@ -352,14 +354,14 @@ form.inline {
 }
 
 //the following adds fa-share-square-o for each external link except images
-.section-course .content-block {
-  a:not([href*="https://schul-cloud.org"]):not([href^="#"]):not([href^="/"]) {
-    &:not([href$=".jpg"]):not([href$=".png"]):not([href$=".jpeg"]):not([href$=".gif"]):not([href$=".bmp"]) {
-      &:after {
-        font-family: "FontAwesome";
-        font-size: .7em;
-        content: "  \f08e";
-      }
-    }
-  }
+.section-course .content-block{
+	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
+		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
+			&:after{
+				font-family: 'FontAwesome';
+				content: "  \f08e";
+				font-size: .7em;
+			}
+		}
+	}
 }
