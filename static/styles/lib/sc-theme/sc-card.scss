@@ -1,161 +1,184 @@
 @import "../colors";
 
 .sc-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0;
+  border-radius: 2px;
+  max-width: 100% !important;
+  height: 100%;
+  overflow: hidden;
+
+  .sc-card-header {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    margin: 0;
-    border-radius: 2px;
-    max-width: 100% !important;
-    height: 100%;
-    overflow: hidden;
-    .sc-card-header {
-        display: flex;
-        position: relative;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        border-top-left-radius: 2px;
-        border-top-right-radius: 2px;
-        background-color: #70b5ce;
-        padding: 1.5rem .5rem .5rem;
-        min-height: 6rem;
-        text-decoration: none !important;
-        color: #fff;
-        &::before {
-            display: block;
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            z-index: 5;
-            background-image: linear-gradient(to top, rgba(0,0,0,.1) 0%, transparent 85%);
-            content: " ";
-        }
-        .sc-card-title {
-            .title {
-                color: inherit;
-            }
-            align-self: flex-end;
-            z-index: 10;
-            padding-right: 5px;
-            overflow: hidden;
-            text-shadow: 2px 2px 5px rgba(0,0,0,.6);
-            font-weight: 700;
-            word-break: break-word;
-            word-break: break-all;
-        }
-        .sc-card-menu {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            font-size: 0;
-            .sc-card-menu-action {
-                display: inline-block;
-                transition: all .1s ease-in-out;
-                opacity: .5;
-                margin: 0;
-                border: zero;
-                border-radius: 50%;
-                background: none;
-                padding: 0;
-                width: 32px;
-                height: 32px;
-                overflow: hidden;
-                vertical-align: middle;
-                text-align: center;
-                text-decoration: none;
-                line-height: 32px;
-                color: #fff;
-                font-size: 20px;
-                &:hover {
-                    background: rgba(0,0,0,.2);
-                }
-            }
-            .sc-card-menu-info {
-                display: inline-block;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                color: #fff;
-                font-size: 14px;
-            }
-        }
-        &:hover{
-            .sc-card-menu-action{
-                opacity: 1;
-            }
-        }
+    position: relative;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    background-color: #70b5ce;
+    padding: 1.5rem .5rem .5rem;
+    min-height: 6rem;
+    text-decoration: none !important;
+    color: #fff;
+
+    &::before {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+      background-image: linear-gradient(to top, rgba(0, 0, 0, .1) 0%, transparent 85%);
+      content: " ";
     }
-    .sc-card-body {
-        flex: 1 1 0;
+
+    .sc-card-title {
+      .title {
+        color: inherit;
+      }
+      // sass-lint:disable-block no-duplicate-properties
+      align-self: flex-end;
+      z-index: 10;
+      padding-right: 5px;
+      overflow: hidden;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, .6);
+      font-weight: 700;
+      word-break: break-word;
+      word-break: break-all;
+    }
+
+    .sc-card-menu {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      font-size: 0;
+
+      .sc-card-menu-action {
+        display: inline-block;
+        transition: all .1s ease-in-out;
+        opacity: .5;
         margin: 0;
-        border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 0;
-        border-bottom-width: 0;
-        padding: .5rem .5rem 0;
-        width: 100%;
-        p{
-            word-break: break-word;
-            word-break: break-all;
+        border: zero;
+        border-radius: 50%;
+        background: none;
+        padding: 0;
+        width: 32px;
+        height: 32px;
+        overflow: hidden;
+        vertical-align: middle;
+        text-align: center;
+        text-decoration: none;
+        line-height: 32px;
+        color: #fff;
+        font-size: 20px;
+
+        &:hover {
+          background: rgba(0, 0, 0, .2);
         }
-        &:first-of-type{
-            border-top-width: 1px;
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-        }
-        &:last-of-type{
-            border-bottom-width: 1px;
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
-        }
+      }
+
+      .sc-card-menu-info {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        color: #fff;
+        font-size: 14px;
+      }
     }
-    .sc-card-footer {
-        flex: 0 1 0;
-        border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 0;
-        border-bottom-left-radius: 2px;
-        border-bottom-right-radius: 2px;
-        padding: .5rem;
-        width: 100%;
-        a, button {
-            display: inline-block;
-            float: right;
-            transition: all .1s ease-in-out;
-            border: zero;
-            border-radius: 2px;
-            padding: 0 8px;
-            text-align: center;
-            text-transform: uppercase;
-            text-decoration: none;
-            line-height: 36px;
-            color: $primaryColor;
-            font-size: 14px;
-            &:hover {
-                background-color: #eee;
-            }
-        }
-        .additionalInfo {
-            float: left;
-        }
+
+    &:hover {
+      .sc-card-menu-action {
+        opacity: 1;
+      }
     }
-     &:hover{
-        .sc-card-header{
-            .sc-card-menu{
-                opacity: 1;
-            }
-        } 
-    } 
+  }
+
+  .sc-card-body {
+    flex: 1 1 0;
+    margin: 0;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-top-width: 0;
+    border-bottom-width: 0;
+    padding: .5rem .5rem 0;
+    width: 100%;
+
+    p {
+      // sass-lint:disable-block no-duplicate-properties
+      word-break: break-word;
+      word-break: break-all;
+    }
+
+    &:first-of-type {
+      border-top-width: 1px;
+      border-top-left-radius: 2px;
+      border-top-right-radius: 2px;
+    }
+
+    &:last-of-type {
+      border-bottom-width: 1px;
+      border-bottom-left-radius: 2px;
+      border-bottom-right-radius: 2px;
+    }
+  }
+
+  .sc-card-footer {
+    flex: 0 1 0;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-top-width: 0;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding: .5rem;
+    width: 100%;
+
+    a,
+    button {
+      display: inline-block;
+      float: right;
+      transition: all .1s ease-in-out;
+      border: zero;
+      border-radius: 2px;
+      padding: 0 8px;
+      text-align: center;
+      text-transform: uppercase;
+      text-decoration: none;
+      line-height: 36px;
+      color: $primaryColor;
+      font-size: 14px;
+
+      &:hover {
+        background-color: #eee;
+      }
+    }
+
+    .additionalInfo {
+      float: left;
+    }
+  }
+
+  &:hover {
+    .sc-card-header {
+      .sc-card-menu {
+        opacity: 1;
+      }
+    }
+  }
 }
 
 /* IE8-11 specific styles go here */
 @media screen\0 {
-    .sc-card {
-        display: block;
-        .sc-card-footer{
-            a, button {
-                float: none;
-            }
-        }
+  .sc-card {
+    display: block;
+
+    .sc-card-footer {
+
+      a,
+      button {
+        float: none;
+      }
     }
+  }
 }
