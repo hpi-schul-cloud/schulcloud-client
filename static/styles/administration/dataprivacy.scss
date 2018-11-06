@@ -1,58 +1,62 @@
-@import 'progress';
+@import "progress";
 @import "../lib/colors";
 
-.panels{
-    /* insert custom css for the forms here */
-    .show-invalid{
-        input:invalid:not([type="checkbox"]):not([type="radio"]){
-            box-shadow: 0 0 5px $primaryColor;
-        }
+.panels {
 
-        input[type="checkbox"]:invalid + span,
-        input[type="radio"]:invalid + span{
-            text-decoration: underline;
-            color: $primaryColor;
-            font-weight: bold;
-            a{
-                color: $secondaryColor;
-            }
-        }
+  /* insert custom css for the forms here */
+  .show-invalid {
+    input:invalid:not([type="checkbox"]):not([type="radio"]) {
+      box-shadow: 0 0 5px $primaryColor;
     }
-}
 
-.recap{
-    margin: 8px 0;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-    background-color: #eee;
-    padding: 8px;
-    font-family: monospace;
-    p{
-        margin-bottom: 8px;
-        &:last-child{
-            margin-bottom: 0;
-        }
+    input[type="checkbox"]:invalid+span,
+    input[type="radio"]:invalid+span {
+      text-decoration: underline;
+      color: $primaryColor;
+      font-weight: bold;
+
+      a {
+        color: $secondaryColor;
+      }
     }
+  }
 }
 
-.form-group{
-    margin-top: 1rem;
-    margin-bottom: 0;
+.recap {
+  margin: 8px 0;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  background-color: #eee;
+  padding: 8px;
+  font-family: monospace;
+
+  p {
+    margin-bottom: 8px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
-.explanation{
-    margin-left: 18px;
-    font-size: .85em;
+.form-group {
+  margin-top: 1rem;
+  margin-bottom: 0;
 }
 
-.explanation.nomargin{
-    margin-left: 0;
+.explanation {
+  margin-left: 18px;
+  font-size: .85em;
 }
 
-label{
-    margin-bottom: 0;
+.explanation.nomargin {
+  margin-left: 0;
 }
 
-input[type="radio"]{
-    margin-right: 4px;
+label {
+  margin-bottom: 0;
+}
+
+input[type="radio"] {
+  margin-right: 4px;
 }

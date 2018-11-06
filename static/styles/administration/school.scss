@@ -3,8 +3,9 @@
 .teacher-option {
   h4 {
     padding-top: 20px;
-    color: $primaryColor
+    color: $primaryColor;
   }
+
   cursor: pointer;
   text-align: center;
 }
@@ -17,11 +18,11 @@
   visibility: hidden;
 }
 
-#logo-input{
+#logo-input {
   display: none;
 }
 
-#logo-filename{
+#logo-filename {
   margin-left: .5rem;
 }
 

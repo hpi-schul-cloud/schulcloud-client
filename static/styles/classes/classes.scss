@@ -22,6 +22,7 @@
 
   .content {
     margin-left: 15px;
+
     i {
       padding-right: 5px;
     }
@@ -29,24 +30,35 @@
 
   .disabled {
     cursor: not-allowed;
+
     input {
       background-color: $colorGrey;
     }
   }
 
-  .disabled > * {
+  .disabled>* {
     pointer-events: none;
   }
 }
 
-.chosen-container-multi .chosen-choices .search-choice{
-  @include media-breakpoint-up(xs) { min-width: 95%; }
+.chosen-container-multi .chosen-choices .search-choice {
+  @include media-breakpoint-up(xs) {
+    min-width: 95%;
+  }
 
-  @include media-breakpoint-up(sm) { min-width: 47%; }
+  @include media-breakpoint-up(sm) {
+    min-width: 47%;
+  }
 
-  @include media-breakpoint-up(md) { min-width: 32%; }
+  @include media-breakpoint-up(md) {
+    min-width: 32%;
+  }
 
-  @include media-breakpoint-up(lg) { min-width: 24%; }
+  @include media-breakpoint-up(lg) {
+    min-width: 24%;
+  }
 
-  @include media-breakpoint-up(xl) { min-width: 16%; }
+  @include media-breakpoint-up(xl) {
+    min-width: 16%;
+  }
 }

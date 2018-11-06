@@ -1,204 +1,213 @@
 @import "../lib/colors";
+
 .move-handle {
-    cursor: move;
+  cursor: move;
 }
 
 .section-course {
-    h4 {
-        margin-bottom: 20px;
+  h4 {
+    margin-bottom: 20px;
+  }
+
+  .lesson-date {
+    float: right;
+    line-height: 24px;
+  }
+
+  .description {
+    margin-bottom: 40px;
+  }
+
+  .delete-material {
+    float: right;
+    cursor: pointer;
+  }
+
+  .delete-tool {
+    float: right;
+    cursor: pointer;
+    padding-top: 1.4em;
+  }
+
+  .card-tool {
+    cursor: pointer;
+  }
+
+  .ui-state-highlight {
+    margin-bottom: 12px;
+    border: 2px dashed #373a3c;
+    border-radius: 3px;
+    background: none !important;
+    height: 55px;
+  }
+
+  .content-block {
+    margin-bottom: 50px;
+
+    img {
+      max-width: 100%;
+      height: auto !important;
     }
 
-    .lesson-date {
-        float: right;
-        line-height: 24px;
+    iframe {
+      outline: none;
+      border: 1px solid $primaryColor;
+      border-radius: 5px;
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+
+    input {
+      background-color: $colorGrey;
+    }
+  }
+
+  .disabled>* {
+    pointer-events: none;
+  }
+
+  .times {
+    margin-bottom: 30px;
+    box-shadow: 0 1px 1px 0 #c7c7c7 inset;
+    background: none repeat scroll 0 0;
+    padding: 16px;
+
+    i {
+      cursor: pointer;
     }
 
-    .description {
-        margin-bottom: 40px;
+    .new-course-time-add {
+      display: inline-block;
+      margin-top: 10px;
+      cursor: pointer;
+      padding-left: 5px;
+      color: $primaryColor;
     }
+  }
 
-    .delete-material {
-        float: right;
-        cursor: pointer;
-    }
-
-    .delete-tool {
-        float: right;
-        cursor: pointer;
-        padding-top: 1.4em;
-    }
-
-    .card-tool {
-        cursor: pointer;
-    }
-
-    .ui-state-highlight {
-        margin-bottom: 12px;
-        border: 2px dashed #373a3c;
-        border-radius: 3px;
-        background: none !important;
-        height: 55px;
-    }
-
-    .content-block {
-        margin-bottom: 50px;
-        img {
-            max-width: 100%;
-            height: auto !important;
-        }
-
-        iframe{
-            outline: none;
-            border: 1px solid $primaryColor;
-            border-radius: 5px;
-        }
-    }
-
-    .disabled {
-        cursor: not-allowed;
-        input {
-            background-color: $colorGrey;
-        }
-    }
-
-    .disabled>* {
-        pointer-events: none;
-    }
-
-    .times {
-        margin-bottom: 30px;
-        box-shadow: 0 1px 1px 0 #c7c7c7 inset;
-        background: none repeat scroll 0 0;
-        padding: 16px;
-        i {
-            cursor: pointer;
-        }
-
-        .new-course-time-add {
-            display: inline-block;
-            margin-top: 10px;
-            cursor: pointer;
-            padding-left: 5px;
-            color: $primaryColor;
-        }
-    }
-
-    .new-course-time-template {
-        display: none;
-    }
+  .new-course-time-template {
+    display: none;
+  }
 }
 
 .card-topic {
-    cursor: pointer;
-    .card-header {
-        padding: .5rem .75rem;
-    }
+  cursor: pointer;
 
-    .btn-hidden-toggle {
-        font-size: 20px;
-    }
+  .card-header {
+    padding: .5rem .75rem;
+  }
 
-    .topic-label {
-        margin: 0;
-    }
+  .btn-hidden-toggle {
+    font-size: 20px;
+  }
 
-    .input-group-btn {
-        float: right;
-        padding-right: 10px;
-    }
+  .topic-label {
+    margin: 0;
+  }
 
-    .input-group {
-        align-items: center;
-    }
+  .input-group-btn {
+    float: right;
+    padding-right: 10px;
+  }
 
-    .right-btn-group {
-        margin-left: auto;
-        white-space: nowrap;
-    }
+  .input-group {
+    align-items: center;
+  }
+
+  .right-btn-group {
+    margin-left: auto;
+    white-space: nowrap;
+  }
 }
 
 .topic {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .section-course-edit {
-    #content-blocks {
-        .btn-group {
-            .btn-secondary {
-                margin-right: 0.4rem;
-            }
-        }
-
-        .geo-gebra-info {
-            background-color: $primaryColor;
-            color: #fff;
-        }
-
-        input{
-            width: 100%;
-        }
+  #content-blocks {
+    .btn-group {
+      .btn-secondary {
+        margin-right: .4rem;
+      }
     }
+
+    .geo-gebra-info {
+      background-color: $primaryColor;
+      color: #fff;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
 }
 
 .btn-remove-resource {
-    float: right;
-    cursor: pointer;
-    i {
-        color: $primaryColor;
-    }
+  float: right;
+  cursor: pointer;
+
+  i {
+    color: $primaryColor;
+  }
 }
 
 .courseGroup {
-    clear: both;
-    margin: 0;
-    padding: 10px 0;
+  clear: both;
+  margin: 0;
+  padding: 10px 0;
+  width: 100%;
+  list-style: none;
+
+  .group-card {
+    position: relative;
+    padding: 10px;
     width: 100%;
-    list-style: none;
-    .group-card {
-        position: relative;
-        padding: 10px;
-        width: 100%;
-        text-decoration: none;
-        h5 {
-            margin: 0;
-            color: $primaryColor;
-        }
+    text-decoration: none;
 
-        a {
-            color: #373a3c;
-        }
-
-        .card-tags {
-            padding-top: 10px;
-            .tag {
-                margin-bottom: 10px;
-                font-size: 100%;
-            }
-        }
+    h5 {
+      margin: 0;
+      color: $primaryColor;
     }
+
+    a {
+      color: #373a3c;
+    }
+
+    .card-tags {
+      padding-top: 10px;
+
+      .tag {
+        margin-bottom: 10px;
+        font-size: 100%;
+      }
+    }
+  }
 }
 
 #member-modal-body {
-    columns: 3;
-    word-break: break-all;
+  columns: 3;
+  word-break: break-all;
 }
 
 #member-list {
-    li {
-        margin: 0;
-        padding: 0;
-    }
+  li {
+    margin: 0;
+    padding: 0;
+  }
 }
 
 #course-edit {
-    text-align: right;
+  text-align: right;
 }
 
 .modal-body {
-    max-height: 75vh;
-    overflow-y: auto;
+  max-height: 75vh;
+  overflow-y: auto;
 }
 
 .section-course-group {
-    padding-top: 20px;
+  padding-top: 20px;
 }

@@ -1,5 +1,5 @@
 @import "../lib/colors";
-@import url('https://vjs.zencdn.net/5.19.2/video-js.css');
+@import url("https://vjs.zencdn.net/5.19.2/video-js.css");
 @import "./upload";
 
 .section-title {
@@ -27,10 +27,10 @@
   }
 
   .card.folder {
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .1);
 
     &:hover {
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
       background: #f9f9f9;
       cursor: pointer;
     }
@@ -56,10 +56,11 @@
   top: 0;
   left: 0;
   z-index: 999;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, .8);
   width: 100%;
   height: 100%;
   text-align: center;
+
   .link {
     position: absolute;
     margin-top: 30%;
@@ -115,7 +116,7 @@
     color: $primaryColor;
 
     &:hover {
-      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
       background: #f9f9f9;
     }
 
@@ -133,6 +134,7 @@
       margin-right: 15px;
       vertical-align: text-top;
       color: #ccc;
+
       &:hover {
         color: $primaryColor;
       }
@@ -152,8 +154,8 @@
       white-space: nowrap;
     }
 
-    .file-preview {
-      @media screen and (max-width: 575px) {
+    @media screen and (max-width: 575px) {
+      .file-preview {
         display: none;
       }
     }
@@ -180,11 +182,12 @@
   z-index: 5;
   background: #fff;
   word-wrap: break-word;
+
   .filter-option {
     border: 1px solid rgba(0, 0, 0, .15);
     border-radius: .1rem;
     cursor: pointer;
-    padding: 10px 15px 10px 15px;
+    padding: 10px 15px;
   }
 
   .filter-option:hover {
@@ -266,7 +269,7 @@
   display: none;
 }
 
-.popup-overlay{
+.popup-overlay {
   position: absolute;
   top: 10%;
   right: 25%;
@@ -275,11 +278,11 @@
   visibility: hidden;
   outline: 1px solid transparent;
   border-radius: 5px;
-  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
-  background-color: rgba(0,0,0,.2);
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12), 0 5px 5px -3px rgba(0, 0, 0, .2);
+  background-color: rgba(0, 0, 0, .2);
 }
 
-.popup-overlay.active{
+.popup-overlay.active {
   visibility: visible;
   text-align: center;
 }
@@ -296,5 +299,3 @@
   margin-left: -10px;
   height: 2.2em;
 }
-
-

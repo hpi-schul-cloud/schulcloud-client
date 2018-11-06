@@ -10,10 +10,10 @@
   width: 100%;
   text-align: justify;
   font-size: 0;
-  content: '';
+  content: "";
 }
 
-.form > input[type="radio"] {
+.form>input[type="radio"] {
   display: none;
 }
 
@@ -33,54 +33,57 @@
   font-size: 0;
   font-weight: 700;
   user-select: none;
-  -ms-user-select: none;
-  -moz-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -webkit-touch-callout: none;
 }
 
 .stages label:after {
-  display: inline-block; /* Check Symbol */
+  display: inline-block;
+  /* Check Symbol */
   color: #4caf50;
   font-size: 16px;
-  content: '\2713';
+  content: "\2713";
   box-sizing: content-box;
 }
 
 
 
-@for $i from 1 through 10{
+@for $i from 1 through 10 {
+
   /* current circle = primary Color */
-  #section-#{$i}:checked ~ .stages label[for="section-#{$i}"]{
+  #section-#{$i}:checked~.stages label[for="section-#{$i}"] {
     border-color: $primaryColor;
   }
+
   /* show the step number inside the cicle */
-  #section-#{$i}:checked ~ .stages label[for="section-#{max($i - 1, 1)}"] ~ label {
+  #section-#{$i}:checked~.stages label[for="section-#{max($i - 1, 1)}"]~label {
     font-size: 1rem;
   }
+
   /* hide the questionmark for steps behind current */
-  #section-#{$i}:checked ~ .stages label[for="section-#{max($i - 1, 1)}"] ~ label:after {
+  #section-#{$i}:checked~.stages label[for="section-#{max($i - 1, 1)}"]~label:after {
     display: none;
   }
+
   /* draw progressbar */
-  @for $k from 1 through 10{
-    .sections-#{$k} #section-#{$i}:checked ~ .progressbar {
+  @for $k from 1 through 10 {
+    .sections-#{$k} #section-#{$i}:checked~.progressbar {
 
       width: calc(100% / #{$k - 1} * (#{$i - 1}));
     }
   }
+
   /* show content */
-  #section-#{$i}:checked ~ .panels [data-panel="section-#{$i}"] {
+  #section-#{$i}:checked~.panels [data-panel="section-#{$i}"] {
     display: block;
   }
 }
+
 /* for initial state */
-#section-1:checked ~ .stages label{
-    font-size: 1rem;
-    &:after{
-        display: none;
-    }
+#section-1:checked~.stages label {
+  font-size: 1rem;
+
+  &:after {
+    display: none;
+  }
 }
 
 /*
@@ -91,43 +94,45 @@
 .progressbar {
   display: inline-block;
   transform: translateY(-2.5em);
-  transition: 0.3s;
+  transition: .3s;
   background: #c0c0c0;
   width: 0;
   height: 3px;
 }
 
-.panels > section {
+.panels>section {
   display: none;
   margin: 1em 0 0;
   border-top: solid 1px #c0c0c0;
   padding: 1em 0 0;
 }
 
-#prevSection{
-  &[disabled]{
+#prevSection {
+  &[disabled] {
     display: none;
   }
+
   border: zero;
   color: #222;
 }
+
 /*
 new fancy button Design
 .btn-primary{
   background: $logoGradient;
   color: #fff;
   border: none;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
   transition: all .2s ease-in-out;
   outline: none;
   &:hover, &:focus{
       filter: opacity(.9);
-      box-shadow: 0 7px 28px rgba(0,0,0,0.25), 0 5px 10px rgba(0,0,0,0.22);
+      box-shadow: 0 7px 28px rgba(0,0,0,.25), 0 5px 10px rgba(0,0,0,.22);
   }
 
   &:disabled{
     opacity: .35;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
   }
 }
 */
