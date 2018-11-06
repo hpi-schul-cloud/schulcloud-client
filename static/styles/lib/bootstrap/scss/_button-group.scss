@@ -3,8 +3,8 @@
 // Make the div behave like a button
 .btn-group,
 .btn-group-vertical {
-  display: inline-block;
   position: relative;
+  display: inline-block;
   vertical-align: middle; // match .btn alignment given font-size hack above
 
   > .btn {
@@ -18,7 +18,6 @@
     &.active {
       z-index: 2;
     }
-
     @include hover {
       z-index: 2;
     }
@@ -74,18 +73,15 @@
 .btn-group > .btn-group {
   float: left;
 }
-
 .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
   border-radius: 0;
 }
-
 .btn-group > .btn-group:first-child:not(:last-child) {
   > .btn:last-child,
   > .dropdown-toggle {
     @include border-right-radius(0);
   }
 }
-
 .btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
   @include border-left-radius(0);
 }
@@ -102,7 +98,6 @@
 // Remix the default button sizing classes into new ones for easier manipulation.
 
 .btn-group-sm > .btn { @extend .btn-sm; }
-
 .btn-group-lg > .btn { @extend .btn-lg; }
 
 
@@ -194,27 +189,22 @@
   &:not(:first-child):not(:last-child) {
     border-radius: 0;
   }
-
   &:first-child:not(:last-child) {
     @include border-bottom-radius(0);
   }
-
   &:last-child:not(:first-child) {
     @include border-top-radius(0);
   }
 }
-
 .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {
   border-radius: 0;
 }
-
 .btn-group-vertical > .btn-group:first-child:not(:last-child) {
   > .btn:last-child,
   > .dropdown-toggle {
     @include border-bottom-radius(0);
   }
 }
-
 .btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child {
   @include border-top-radius(0);
 }
@@ -238,8 +228,8 @@
     input[type="radio"],
     input[type="checkbox"] {
       position: absolute;
-      pointer-events: none;
       clip: rect(0,0,0,0);
+      pointer-events: none;
     }
   }
 }

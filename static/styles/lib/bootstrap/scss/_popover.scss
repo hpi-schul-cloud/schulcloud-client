@@ -1,20 +1,20 @@
 .popover {
-  display: block;
   position: absolute;
   top: 0;
   left: 0;
   z-index: $zindex-popover;
-  border: $popover-border-width solid $popover-border-color;
-  background-clip: padding-box;
+  display: block;
+  max-width: $popover-max-width;
+  padding: $popover-inner-padding;
   // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
   // So reset our font and text properties to avoid inheriting weird values.
   @include reset-text();
-  background-color: $popover-bg;
-  // Allow breaking very long words so they don't overflow the popover's bounds
-  padding: $popover-inner-padding;
-  max-width: $popover-max-width;
   font-size: $font-size-sm;
+  // Allow breaking very long words so they don't overflow the popover's bounds
   word-wrap: break-word;
+  background-color: $popover-bg;
+  background-clip: padding-box;
+  border: $popover-border-width solid $popover-border-color;
   @include border-radius($border-radius-lg);
   @include box-shadow($popover-box-shadow);
 
@@ -91,14 +91,14 @@
 
     // This will remove the popover-title's border just below the arrow
     .popover-title::before {
-      display: block;
       position: absolute;
       top: 0;
       left: 50%;
-      margin-left: -10px;
-      border-bottom: 1px solid $popover-title-bg;
+      display: block;
       width: 20px;
+      margin-left: -10px;
       content: "";
+      border-bottom: 1px solid $popover-title-bg;
     }
   }
 
@@ -129,12 +129,12 @@
 
 // Offset the popover to account for the popover arrow
 .popover-title {
-  $offset-border-width: ($border-width / $font-size-root);
-  margin: 0; // reset heading margin
-  border-bottom: $popover-border-width solid darken($popover-title-bg, 5%);
-  background-color: $popover-title-bg;
   padding: $popover-title-padding-y $popover-title-padding-x;
+  margin: 0; // reset heading margin
   font-size: $font-size-base;
+  background-color: $popover-title-bg;
+  border-bottom: $popover-border-width solid darken($popover-title-bg, 5%);
+  $offset-border-width: ($border-width / $font-size-root);
   @include border-radius(($border-radius-lg - $offset-border-width) ($border-radius-lg - $offset-border-width) 0 0);
 
   &:empty {
@@ -153,20 +153,19 @@
 
 .popover::before,
 .popover::after {
-  display: block;
   position: absolute;
-  border-style: solid;
-  border-color: transparent;
+  display: block;
   width: 0;
   height: 0;
+  border-color: transparent;
+  border-style: solid;
 }
 
 .popover::before {
+  content: "";
   border-width: $popover-arrow-outer-width;
-  content: "";
 }
-
 .popover::after {
-  border-width: $popover-arrow-width;
   content: "";
+  border-width: $popover-arrow-width;
 }

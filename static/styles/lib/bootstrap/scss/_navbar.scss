@@ -70,11 +70,11 @@
 .navbar-brand {
   @media screen and (max-width: 400px) { display: none; }
   float: left;
-  margin-right: 1rem;
   padding-top: $navbar-brand-padding-y;
   padding-bottom: $navbar-brand-padding-y;
-  line-height: inherit;
+  margin-right: 1rem;
   font-size: $font-size-lg;
+  line-height: inherit;
 
   @include hover-focus {
     text-decoration: none;
@@ -84,11 +84,11 @@
 
 .navbar-divider {
   float: left;
-  margin-right: $navbar-padding-x;
-  margin-left:  $navbar-padding-x;
+  width: $border-width;
   padding-top: $navbar-divider-padding-y;
   padding-bottom: $navbar-divider-padding-y;
-  width: $border-width;
+  margin-right: $navbar-padding-x;
+  margin-left:  $navbar-padding-x;
   overflow: hidden;
 
   &::before {
@@ -114,14 +114,14 @@
 // Bootstrap JavaScript plugin.
 
 .navbar-toggler {
-  border: $border-width solid transparent;
-  background: transparent no-repeat center center;
-  background-size: 24px 24px;
-  padding: $navbar-toggler-padding-y $navbar-toggler-padding-x;
   width: 2.5em;
   height: 2em;
-  line-height: 1;
+  padding: $navbar-toggler-padding-y $navbar-toggler-padding-x;
   font-size: $navbar-toggler-font-size;
+  line-height: 1;
+  background: transparent no-repeat center center;
+  background-size: 24px 24px;
+  border: $border-width solid transparent;
   @include border-radius($navbar-toggler-border-radius);
 
   @include hover-focus {
@@ -220,8 +220,8 @@
   }
 
   .navbar-toggler {
-    border-color: $navbar-light-toggler-border;
     background-image: $navbar-light-toggler-bg;
+    border-color: $navbar-light-toggler-border;
   }
 
   .navbar-divider {
@@ -260,8 +260,8 @@
   }
 
   .navbar-toggler {
-    border-color: $navbar-dark-toggler-border;
     background-image: $navbar-dark-toggler-bg;
+    border-color: $navbar-dark-toggler-border;
   }
 
   .navbar-divider {

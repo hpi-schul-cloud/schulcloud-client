@@ -1,8 +1,8 @@
 .pagination {
   display: inline-block;
+  padding-left: 0;
   margin-top: $spacer-y;
   margin-bottom: $spacer-y;
-  padding-left: 0;
   @include border-radius();
 }
 
@@ -15,7 +15,6 @@
       @include border-left-radius($border-radius);
     }
   }
-
   &:last-child {
     .page-link {
       @include border-right-radius($border-radius);
@@ -25,20 +24,20 @@
   &.active .page-link {
     @include plain-hover-focus {
       z-index: 2;
-      border-color: $pagination-active-border;
-      background-color: $pagination-active-bg;
-      cursor: default;
       color: $pagination-active-color;
+      cursor: default;
+      background-color: $pagination-active-bg;
+      border-color: $pagination-active-border;
     }
   }
 
   &.disabled .page-link {
     @include plain-hover-focus {
-      border-color: $pagination-disabled-border;
-      background-color: $pagination-disabled-bg;
-      cursor: $cursor-disabled;
       color: $pagination-disabled-color;
       pointer-events: none;
+      cursor: $cursor-disabled;
+      background-color: $pagination-disabled-bg;
+      border-color: $pagination-disabled-border;
     }
   }
 }
@@ -46,17 +45,17 @@
 .page-link {
   position: relative;
   float: left; // Collapse white-space
-  margin-left: -1px;
-  border: $pagination-border-width solid $pagination-border-color;
-  background-color: $pagination-bg;
   padding: $pagination-padding-y $pagination-padding-x;
-  text-decoration: none;
+  margin-left: -1px;
   color: $pagination-color;
+  text-decoration: none;
+  background-color: $pagination-bg;
+  border: $pagination-border-width solid $pagination-border-color;
 
   @include hover-focus {
-    border-color: $pagination-hover-border;
-    background-color: $pagination-hover-bg;
     color: $pagination-hover-color;
+    background-color: $pagination-hover-bg;
+    border-color: $pagination-hover-border;
   }
 }
 

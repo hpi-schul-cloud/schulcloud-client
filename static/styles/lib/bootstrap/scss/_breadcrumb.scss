@@ -1,8 +1,8 @@
 .breadcrumb {
-  margin-bottom: $spacer-y;
-  background-color: $breadcrumb-bg;
   padding: $breadcrumb-padding-y $breadcrumb-padding-x;
+  margin-bottom: $spacer-y;
   list-style: none;
+  background-color: $breadcrumb-bg;
   @include border-radius($border-radius);
   @include clearfix;
 }
@@ -28,7 +28,6 @@
   + .breadcrumb-item:hover::before {
     text-decoration: underline;
   }
-
   + .breadcrumb-item:hover::before {
     text-decoration: none;
   }

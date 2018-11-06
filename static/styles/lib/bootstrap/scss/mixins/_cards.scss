@@ -1,8 +1,8 @@
 // Card variants
 
 @mixin card-variant($background, $border) {
-  border-color: $border;
   background-color: $background;
+  border-color: $border;
 
   .card-header,
   .card-footer {
@@ -11,8 +11,8 @@
 }
 
 @mixin card-outline-variant($color) {
-  border-color: $color;
   background-color: transparent;
+  border-color: $color;
 }
 
 //
@@ -24,21 +24,18 @@
   .card-footer {
     border-color: rgba(255,255,255,.2);
   }
-
   .card-header,
   .card-footer,
   .card-title,
   .card-blockquote {
     color: #fff;
   }
-
   .card-link,
   .card-text,
   .card-subtitle,
   .card-blockquote .blockquote-footer {
     color: rgba(255,255,255,.65);
   }
-
   .card-link {
     @include hover-focus {
       color: $card-link-hover-color;

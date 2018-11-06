@@ -11,52 +11,50 @@
 
 // Container that the modal scrolls within
 .modal {
-  display: none;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   z-index: $zindex-modal;
-  outline: 0;
+  display: none;
+  overflow: hidden;
   // Prevent Chrome on Windows from adding a focus outline. For details, see
   // https://github.com/twbs/bootstrap/pull/10951.
-  overflow: hidden;
+  outline: 0;
   // We deliberately don't use `-webkit-overflow-scrolling: touch;` due to a
   // gnarly iOS Safari bug: https://bugs.webkit.org/show_bug.cgi?id=158342
   // See also https://github.com/twbs/bootstrap/issues/17695
 
   // When fading in the modal, animate it to slide down
   &.fade .modal-dialog {
-    transform: translate(0, -25%);
     transition: transform .3s ease-out;
+    transform: translate(0, -25%);
   }
-
   &.in .modal-dialog { transform: translate(0, 0); }
 }
-
 .modal-open .modal {
-  overflow-y: auto;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 // Shell div to position the modal with bottom padding
 .modal-dialog {
   position: relative;
-  margin: $modal-dialog-margin;
   width: auto;
+  margin: $modal-dialog-margin;
 }
 
 // Actual modal
 .modal-content {
   position: relative;
-  outline: 0;
-  border: $modal-content-border-width solid $modal-content-border-color;
+  background-color: $modal-content-bg;
   background-clip: padding-box;
+  border: $modal-content-border-width solid $modal-content-border-color;
   @include border-radius($border-radius-lg);
   @include box-shadow($modal-content-xs-box-shadow);
   // Remove focus outline from opened modal
-  background-color: $modal-content-bg;
+  outline: 0;
 }
 
 // Modal background
@@ -71,15 +69,14 @@
 
   // Fade for backdrop
   &.fade { opacity: 0; }
-
   &.in { opacity: $modal-backdrop-opacity; }
 }
 
 // Modal header
 // Top section of the modal w/ title and dismiss
 .modal-header {
-  border-bottom: $modal-header-border-width solid $modal-header-border-color;
   padding: $modal-title-padding;
+  border-bottom: $modal-header-border-width solid $modal-header-border-color;
   @include clearfix;
 }
 // Close icon
@@ -102,9 +99,9 @@
 
 // Footer (for actions)
 .modal-footer {
+  padding: $modal-inner-padding;
+  text-align: right; // right align buttons
   border-top: $modal-footer-border-width solid $modal-footer-border-color;
-  padding: $modal-inner-padding; // right align buttons
-  text-align: right;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
 }
 
@@ -121,8 +118,8 @@
 @include media-breakpoint-up(sm) {
   // Automatically set modal's width for larger viewports
   .modal-dialog {
-    margin: $modal-dialog-sm-up-margin-y auto;
     max-width: $modal-md;
+    margin: $modal-dialog-sm-up-margin-y auto;
   }
 
   .modal-content {

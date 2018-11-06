@@ -12,11 +12,11 @@
 
 // Image thumbnails
 .img-thumbnail {
-  transition: all .2s ease-in-out;
-  border: $thumbnail-border-width solid $thumbnail-border-color;
-  background-color: $thumbnail-bg;
-  @include border-radius($thumbnail-border-radius);
   padding: $thumbnail-padding;
+  background-color: $thumbnail-bg;
+  border: $thumbnail-border-width solid $thumbnail-border-color;
+  @include border-radius($thumbnail-border-radius);
+  transition: all .2s ease-in-out;
   @include box-shadow($thumbnail-box-shadow);
 
   // Keep them at most 100% wide
@@ -38,6 +38,6 @@
 }
 
 .figure-caption {
-  color: $gray-light;
   font-size: $figure-caption-font-size;
+  color: $gray-light;
 }

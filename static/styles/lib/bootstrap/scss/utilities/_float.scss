@@ -3,11 +3,9 @@
     .float-#{$breakpoint}-left {
       @include float-left();
     }
-
     .float-#{$breakpoint}-right {
       @include float-right();
     }
-
     .float-#{$breakpoint}-none {
       float: none !important;
     }

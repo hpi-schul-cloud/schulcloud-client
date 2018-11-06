@@ -26,9 +26,9 @@
 
   // Set validation states also for addons
   .input-group-addon {
+    color: $color;
     border-color: $color;
     background-color: lighten($color, 40%);
-    color: $color;
   }
 }
 
@@ -46,10 +46,10 @@
 // contrast against a dark gray background.
 @mixin form-control-focus() {
   &:focus {
-    outline: none;
-    border-color: $input-border-focus;
-    background-color: $input-bg-focus;
     color: $input-color-focus;
+    background-color: $input-bg-focus;
+    border-color: $input-border-focus;
+    outline: none;
     @include box-shadow($input-box-shadow-focus);
   }
 }
@@ -62,10 +62,10 @@
 
 @mixin input-size($parent, $input-height, $padding-y, $padding-x, $font-size, $line-height, $border-radius) {
   #{$parent} {
-    padding: $padding-y $padding-x;
     height: $input-height;
-    line-height: $line-height;
+    padding: $padding-y $padding-x;
     font-size: $font-size;
+    line-height: $line-height;
     @include border-radius($border-radius);
   }
 
