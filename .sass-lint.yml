@@ -42,7 +42,7 @@ rules:
   force-element-nesting: 0
   force-pseudo-nesting: 0
   function-name-format:
-    - 0
+    - 1
     - allow-leading-underscore: true
       convention: camelcase
   hex-length:
@@ -58,7 +58,7 @@ rules:
     - 1
     - include: false
   mixin-name-format:
-    - 1
+    - 0
     - allow-leading-underscore: true
       convention: camelcase
   mixins-before-declarations: 1
