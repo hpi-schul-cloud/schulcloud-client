@@ -6,7 +6,7 @@ const authHelper = require('../helpers/authentication');
 const team = require('../helpers/content/team.json');
 
 router.get('/', function (req, res, next) {
-    let teamLength = team.below.team.length + team.end.team.length + team.high.team.length + team.low.team.length + team.medium.team.length;
+    let teamLength = team.reduce((accumulator, section) => {return accumulator + section.team.length;}, 0);
 
     authHelper.isAuthenticated(req).then(isAuthenticated => {
         let template = isAuthenticated ? 'team/team_loggedin' : 'team/team_guest';
