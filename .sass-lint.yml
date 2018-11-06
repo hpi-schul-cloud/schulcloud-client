@@ -16,194 +16,93 @@ options:
 # File Options
 files:
   include: 'static/styles/**/*.s+(a|c)ss'
-  #ignore:
-    #- 'static/styles/lib/bootstrap/**/*.s?(a|c)ss'
-    #- 'static/styles/lib/chosen/**/*.s?(a|c)ss'
-    #- 'static/styles/lib/spectrum/**/*.s?(a|c)ss'
-    #- 'static/styles/**/*.min.s?(a|c)ss'
+  ignore:
+    - 'static/styles/lib/bootstrap/**/*.s?(a|c)ss'
+    - 'static/styles/lib/chosen/**/*.s?(a|c)ss'
+    - 'static/styles/lib/spectrum/**/*.s?(a|c)ss'
+    - 'static/styles/**/*.min.s?(a|c)ss'
 
 # Linter rules
-# Details: https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md
-linters:
-  BangFormat:
-    enabled: true
-
-  BemDepth:
-    enabled: false
-
-  BorderZero:
-    enabled: true
-    convention: zero
-
-  ColorKeyword:
-    enabled: true
-
-  DeclarationOrder:
-    enabled: true
-
-  DuplicateProperty:
-    enabled: true
-
-  EmptyLineBetweenBlocks:
-    enabled: true
-
-  EmptyRule:
-    enabled: true
-
-  FinalNewline:
-    enabled: true
-
-  HexLength:
-    enabled: true
-    style: short
-
-  HexNotation:
-    enabled: true
-    style: lowercase
-
-  HexValidation:
-    enabled: true
-
-  ImportPath:
-    enabled: true
-    leading_underscore: true
-    filename_extension: false
-
-  Indentation:
-    enabled: true
-    character: space
-    width: 2
-
-  LeadingZero:
-    enabled: true
-    style: exclude_zero
-
-  MergeableSelector:
-    enabled: true
-    force_nesting : true
-
-  NameFormat:
-    enabled: true
-    allow_leading_underscore: true
-    convention: camel_case
-
-  NestingDepth:
-    enabled: false
-
-  PropertySortOrder:
-    enabled: true
-    # options: concentric, smacss
-    order: concentric
-
-  PropertySpelling:
-    # If you found some unsupported attribute:
-    # https://github.com/brigade/scss-lint/blob/master/lib/scss_lint/linter/README.md#propertyspelling
-    enabled: true
-
-  PseudoElement:
-    enabled: true
-
-  Shorthand:
-    enabled: true
-
-  SingleLinePerProperty:
-    enabled: true
-
-  SingleLinePerSelector:
-    enabled: true
-
-  SpaceAfterComma:
-    enabled: true
-    style: one_space
-
-  SpaceAfterComment:
-    enabled: true
-    style: one_space
-
-  SpaceAfterPropertyColon:
-    enabled: true
-    style: one_space
-
-  SpaceAfterPropertyName:
-    enabled: true
-
-  SpaceAfterVariableColon:
-    enabled: true
-    style: one_space
-
-  SpaceAfterVariableName:
-    enabled: true
-
-  SpaceAroundOperator:
-    enabled: true
-    style: one_space
-
-  SpaceBeforeBrace:
-    enabled: true
-    allow_single_line_padding: true
-    style: space
-
-  StringQuotes:
-    enabled: true
-    style: double_quotes
-
-  TrailingSemicolon:
-    enabled: true
-
-  TrailingZero:
-    enabled: true
-
-  UnnecessaryMantissa:
-    enabled: true
-
-  UnnecessaryParentReference:
-    enbaled: true
-
-  UrlQuotes:
-    enabled: true
-
-  VendorPrefix:
-    enabled: true
-
-  ZeroUnit:
-    enabled: true
-
-# copied Rules from: https://git.art-ifact.de/root/wp-spottr-vuejs/blob/61f84004077f8eb2a8978af095669908def17106/.sass-lint.yml
-# TODO: REPLACE WITH REAL RULES
-
+# Details: https://github.com/sasstools/sass-lint/tree/master/docs/rules
 rules:
-  extends-before-mixins: 2
-  extends-before-declarations: 2
-  placeholder-in-extend: 2
-  mixins-before-declarations:
-    - 2
-    -
-      exclude:
-        - breakpoint
-        - mq
-
-  no-warn: 1
-  no-debug: 1
-  no-ids: 2
-  no-important: 2
+  bem-depth: 0
+  border-zero:
+    - 1
+    - convention: zero
+  brace-style: 1
+  clean-import-paths:
+    - 1
+    - filename-extension: false
+      leading-underscore: true
+  empty-line-between-blocks: 1
+  extends-before-declarations: 1
+  extends-before-mixins: 1
+  final-newline: 1
+  force-attribute-nesting: 1
+  force-element-nesting: 1
+  force-pseudo-nesting: 1
+  function-name-format:
+    - 1
+    - allow-leading-underscore: true
+      convention: camelcase
+  hex-length:
+    - 1
+    - style: short
   hex-notation:
-    - 2
-    -
-      style: uppercase
+    - 1
+    - style: lowercase
   indentation:
-    - 2
-    -
-      size: 2
+    - 1
+    - size: 2
+  leading-zero:
+    - 1
+    - include: false
+  mixin-name-format:
+    - 1
+    - allow-leading-underscore: true
+      convention: camelcase
+  mixins-before-declarations: 1
+  nesting-depth: 0
+  no-color-keywords: 1
+  no-duplicate-properties: 1
+  no-empty-rulesets: 1
+  no-invalid-hex: 1
+  no-mergeable-selectors: 1
+  no-misspelled-properties: 1
+  no-trailing-zero: 1
+  no-vendor-prefixes: 1
+  placeholder-name-format:
+    - 1
+    - allow-leading-underscore: true
+      convention: camelcase
   property-sort-order:
     - 1
-    -
-      order:
-        - display
-        - margin
-      ignore-custom-properties: true
-  variable-for-property:
-    - 2
-    -
-      properties:
-        - margin
-        - content
+    - order: concentric
+  quotes:
+    - 1
+    - style: double
+  shorthand-values: 1
+  single-line-per-selector: 1
+  space-after-bang:
+    - 1
+    - include: false
+  space-after-colon:
+    - 1
+    - include: true
+  space-after-comma:
+    - 1
+    - include: true
+  space-before-bang:
+    - 1
+    - include: true
+  space-before-brace:
+    - 1
+    - include: true
+  space-before-colon: 1
+  trailing-semicolon: 1
+  url-quotes: 1
+  variable-name-format:
+    - 1
+    - allow-leading-underscore: true
+      convention: camelcase
+  zero-unit: 1
