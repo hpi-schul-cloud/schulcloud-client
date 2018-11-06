@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="/styles/homework/homework.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
-    
+
     {{#content "scripts" mode="append"}}
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
@@ -50,8 +50,8 @@
                                         <div class="card-header">
                                             <div class="input-group">
                                                 {{#userHasPermission "COURSE_EDIT"}}
-                                                    <a 
-                                                        class="btn btn-secondary btn-sm btn-hidden-toggle" 
+                                                    <a
+                                                        class="btn btn-secondary btn-sm btn-hidden-toggle"
                                                         href="{{../_id}}"
                                                         title="Thema verstecken">
                                                          <i class="fa fa-eye"></i>
@@ -91,7 +91,7 @@
                                         data-topicId="{{../_id}}">
                                             <div class="card-header">
                                                 <div class="input-group">
-                                                    <a 
+                                                    <a
                                                         class="btn btn-secondary btn-sm btn-hidden-toggle"
                                                         href="{{../_id}}"
                                                         title="Thema wieder anzeigen">
@@ -128,7 +128,7 @@
                             </div>
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                                <span>Keine Themen.</span>
+                                <span>Noch keine Themen</span>
                             </p>
                         {{/if}}
                     </div>
@@ -171,7 +171,7 @@
                             {{/each}}
                         {{else}}
                             <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-                                <span>Keine Tools.</span>
+                                <span>Noch keine Tools</span>
                             </p>
                         {{/if}}
                     </div>
@@ -184,7 +184,7 @@
                 <div class="col-sm-12">
                     {{#userHasPermission "COURSEGROUP_CREATE"}}
                         <a href="/courses/{{../../_id}}/groups/add" class="btn btn-secondary btn-sm pull-right ml-1" title="Gruppe hinzufügen">
-                            <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Gruppe hinzufügen</span>
+                            <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Schülergruppe hinzufügen</span>
                         </a>
                     {{/userHasPermission}}
                     <a data-toggle="collapse" class="collapse-toggle" href="#courseGroups">
@@ -219,7 +219,7 @@
                     <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
                         <h4>
                             <small title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                            Gestellte Aufgaben 
+                            Gestellte Aufgaben
                             <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
                         </h4>
                     </a>
@@ -242,7 +242,7 @@
                     <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
                         <h4>
                             <small title="Meine Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
-                            Meine Aufgaben 
+                            Meine Aufgaben
                             <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
                         </h4>
                     </a>
@@ -259,19 +259,21 @@
             </div>
             <div class="row padding-top">
                 <div class="col-sm-12">
-                    {{#userHasPermission "COURSE_EDIT"}}
-                        <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>
-                        <a href="/courses/{{../_id}}/copy" class="btn btn-add btn-secondary">Kurs klonen</a>
-                        <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Kurs teilen</a>
-                        <a href="/courses/{{../_id}}/"
-                           class="btn btn-delete-course btn-secondary"
-                           target="_blank"
-                           data-method="DELETE"
-                           data-name="{{../name}}"
-                           redirect="/courses/">Kurs löschen</a>
-                        <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
-                    {{/userHasPermission}}
-                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Kurs-Dateien</a>
+                    <div class="pull-right">
+                        {{#userHasPermission "COURSE_EDIT"}}
+                          <a href="/courses/{{../_id}}/"
+                             class="btn btn-delete-course btn-secondary"
+                             target="_blank"
+                             data-method="DELETE"
+                             data-name="{{../name}}"
+                             redirect="/courses/">Kurs löschen</a>
+                            <a href="/courses/{{../_id}}/copy" class="btn btn-add btn-secondary">Kurs klonen</a>
+                            <a class="btn btn-secondary btn-create-share-course" data-courseId="{{../_id}}">Kurs teilen</a>
+                            <a data-href="courses/{{../_id}}/" href="#" class="btn btn-add btn-secondary btn-create-invitation">zum Kurs einladen</a>
+                            <a href="/courses/{{../_id}}/edit" class="btn btn-add btn-secondary">Kurs bearbeiten</a>
+                        {{/userHasPermission}}
+                        <a href="{{filesUrl}}" class="btn btn-add btn-primary">Zu den Kurs-Dateien</a>
+                    </div>
                 </div>
             </div>
 
