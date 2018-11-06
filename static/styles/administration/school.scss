@@ -1,12 +1,12 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .teacher-option {
   h4 {
     padding-top: 20px;
     color: $primaryColor
   }
-  text-align: center;
   cursor: pointer;
+  text-align: center;
 }
 
 #preview-logo {
@@ -26,5 +26,5 @@
 }
 
 label {
-  margin-bottom: 0rem;
+  margin-bottom: 0;
 }

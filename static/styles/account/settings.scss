@@ -1,4 +1,4 @@
-@import '../lib/colors';
+@import "../lib/colors";
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
 .notification-div {
@@ -10,13 +10,13 @@
   .btn-default {
     margin-top: 20px;
     background-color: $primaryColor;
-    color: #ffffff;
+    color: #fff;
   }
 
   table {
-    padding: 16px;
     box-shadow: 0 1px 1px 0 #c7c7c7 inset;
     background: none repeat scroll 0 0;
+    padding: 16px;
   }
 
   .send-test-notification {
@@ -30,12 +30,12 @@
 
 .route-account {
   sup {
+    color: #f00;
     font-size: 16px;
-    color: red;
   }
 
   .hint {
+    color: #808080;
     font-size: 12px;
-    color: grey;
   }
 }

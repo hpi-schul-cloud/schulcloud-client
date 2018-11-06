@@ -13,8 +13,8 @@
     background-color: #fff !important;
 }
 .cke_bottom{
+    border-top: zero;
     background-color: $primaryColor !important;
-    border-top: none !important;
     a.cke_path_item{
         color: #fff !important;
         &:active, 
@@ -31,20 +31,20 @@
 /* DIALOG */
 
 a.cke_dialog_ui_button{
-    border:1px solid #ccc !important;
+    border: 1px solid #ccc !important;
     &:hover{
         text-decoration: none !important;
         filter: brightness(110%);
     }
     &:focus{
         box-shadow: none !important;
-        text-decoration: none !important;
         padding: 4px 1px !important;
+        text-decoration: none !important;
     }
 }
 a.cke_dialog_ui_button_ok{
-    background: $primaryColor !important;
     border: 1px solid $primaryColor !important;
+    background: $primaryColor !important;
     color: #fff !important;
 }
 input.cke_dialog_ui_input_password, 
@@ -60,14 +60,14 @@ a.cke_dialog_tab:focus{
     border-bottom-color: #d1d1d1 !important;
 }
 .cke_dialog_title{
-    color: #fff !important;
     background-color: $primaryColor !important;
+    color: #fff !important;
 }
 .cke_dialog_footer{
+    border-top: zero;
     background-color: #fff !important;
-    border-top: none !important;
 }
 a.cke_dialog_close_button{
-    filter: brightness(0) invert(1);
     opacity: 1 !important;
+    filter: brightness(0) invert(1);
 }

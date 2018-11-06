@@ -1,13 +1,13 @@
-@import '../lib/colors';
+@import "../lib/colors";
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
 .tab-content#submissions {
   table {
-    border: none;
+    border: zero;
     width: 100%;
     border-collapse: collapse;
     thead, thead tr {
-      border: none;
+      border: zero;
       @include media-breakpoint-down(xs) {
         display: none;
       }
@@ -16,7 +16,7 @@
       }
     }
     th span {
-      color: grey;
+      color: #808080;
       font-weight: lighter;
       &::before {
         content: "(";
@@ -27,35 +27,35 @@
     }
   }
   .usersubmission {
+    clear: both;
     border-top: 1px solid rgba(0, 0, 0, 0.125);
     border-bottom: 1px solid rgba(0, 0, 0, 0.125);
-    clear: both;
     cursor: pointer;
     width: 100%;
     .userinfo {
       width: 100%;
       .picture {
-        border-radius: 50%;
-        height: 32px;
-        width: 32px;
         margin-right: 10px;
+        border-radius: 50%;
+        width: 32px;
+        height: 32px;
       }
 
       > td {
-        border: none;
+        border: zero;
         padding: 5px 0 5px 5px;
         vertical-align: middle;
-        color: grey;
+        color: #808080;
         &:nth-of-type(n+3) {
-          text-align: right;
           padding: 5px 5px 5px 0;
+          text-align: right;
         }
       }
       .fa.green {
-        color: green
+        color: #008000
       }
       .fa.red {
-        color: red
+        color: #f00
       }
       @include media-breakpoint-down(xs) {
         position: relative;
@@ -78,7 +78,7 @@
   }
   .groupNames span:not(:last-child):after{
     display: inline;
-    content:",";
+    content: ",";
   }
 }
 
@@ -94,8 +94,8 @@
     border-bottom: 1px solid $secondaryColor;
   }
   .feedback {
-    max-width: 100%;
     margin: 0;
+    max-width: 100%;
     .btn-primary {
       width: 100%;
     }
@@ -103,45 +103,45 @@
 }
 
 .loadingspinner {
-  text-align: center;
-  display:inline-block;
-  vertical-align: bottom;
+  display: inline-block;
   margin-left: .5em;
+  vertical-align: bottom;
+  text-align: center;
 }
 
 .loadingspinner > div {
-  width: .5em;
-  height: .5em;
-  background-color: #fff;
+  display: inline-block;
+  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
   margin: 0 1px;
   border-radius: 100%;
-  display: inline-block;
+  background-color: #fff;
+  width: .5em;
+  height: .5em;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
-  animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
 .loadingspinner .bounce1 {
-  -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
+  -webkit-animation-delay: -0.32s;
 }
 
 .loadingspinner .bounce2 {
-  -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
+  -webkit-animation-delay: -0.16s;
 }
 
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
+  40% { -webkit-transform: scale(1) }
 }
 
 @keyframes sk-bouncedelay {
   0%, 80%, 100% { 
-    -webkit-transform: scale(0);
     transform: scale(0);
+    -webkit-transform: scale(0);
   } 40% { 
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
+    transform: scale(1);
+    -webkit-transform: scale(1);
   }
 }
 
@@ -152,16 +152,16 @@
   .fa-active {
     float: right;
     .fa {
-      color: $primaryColor;
       cursor: pointer;
+      color: $primaryColor;
     }
   }
 }
 
 .submissionLabel {
+  margin-bottom: 1rem;
   color: $primaryColor;
   font-size: 1rem;
-  margin-bottom: 1rem;
   .fa {
     padding-right: 0.5rem;
   }

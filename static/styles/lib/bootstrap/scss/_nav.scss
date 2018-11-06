@@ -4,8 +4,8 @@
 // `<nav>`s or `<ul>`s.
 
 .nav {
-  padding-left: 0;
   margin-bottom: 0;
+  padding-left: 0;
   list-style: none;
 }
 
@@ -21,9 +21,9 @@
     color: $nav-disabled-link-color;
 
     @include plain-hover-focus {
-      color: $nav-disabled-link-hover-color;
-      cursor: $cursor-disabled;
       background-color: $nav-disabled-link-hover-bg;
+      cursor: $cursor-disabled;
+      color: $nav-disabled-link-hover-color;
     }
   }
 }
@@ -63,8 +63,8 @@
 
   .nav-link {
     display: block;
-    padding: $nav-link-padding;
     border: $nav-tabs-border-width solid transparent;
+    padding: $nav-link-padding;
     @include border-top-radius($nav-tabs-border-radius);
 
     @include hover-focus {
@@ -73,9 +73,9 @@
 
     &.disabled {
       @include plain-hover-focus {
-        color: $nav-disabled-link-color;
-        background-color: transparent;
         border-color: transparent;
+        background-color: transparent;
+        color: $nav-disabled-link-color;
       }
     }
   }
@@ -83,9 +83,9 @@
   .nav-link.active,
   .nav-item.open .nav-link {
     @include plain-hover-focus {
-      color: $nav-tabs-active-link-hover-color;
-      background-color: $nav-tabs-active-link-hover-bg;
       border-color: $nav-tabs-active-link-hover-border-color $nav-tabs-active-link-hover-border-color transparent;
+      background-color: $nav-tabs-active-link-hover-bg;
+      color: $nav-tabs-active-link-hover-color;
     }
   }
 
@@ -122,9 +122,9 @@
   .nav-link.active,
   .nav-item.open .nav-link {
     @include plain-hover-focus {
-      color: $nav-pills-active-link-color;
-      cursor: default;
       background-color: $nav-pills-active-link-bg;
+      cursor: default;
+      color: $nav-pills-active-link-color;
     }
   }
 }

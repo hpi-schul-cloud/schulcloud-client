@@ -1,16 +1,16 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .stages {
-  font-size: 0;
   text-align: justify;
+  font-size: 0;
 }
 
 .stages:after {
-  content: '';
   display: inline-block;
-  font-size: 0;
-  text-align: justify;
   width: 100%;
+  text-align: justify;
+  font-size: 0;
+  content: '';
 }
 
 .form > input[type="radio"] {
@@ -18,33 +18,33 @@
 }
 
 .stages label {
-  background: #ffffff;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
   border: solid 3px #c0c0c0;
   border-radius: 50%;
+  background: #fff;
   cursor: pointer;
-  display: inline-block;
+  width: 3rem;
+  height: 3rem;
+  vertical-align: top;
+  text-align: center;
+  line-height: calc(3rem - 6px);
   font-size: 0;
   font-weight: 700;
-  height: 3rem;
-  line-height: calc(3rem - 6px);
-  position: relative;
-  text-align: center;
-  vertical-align: top;
-  width: 3rem;
-  z-index: 1;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .stages label:after {
-  content: '\2713'; /* Check Symbol */
+  display: inline-block; /* Check Symbol */
   color: #4caf50;
-  display: inline-block;
   font-size: 16px;
+  content: '\2713';
   box-sizing: content-box;
 }
 
@@ -88,18 +88,18 @@
 }*/
 
 .progressbar {
-  background: #c0c0c0;
   display: inline-block;
-  height: 3px;
   transform: translateY(-2.5em);
   transition: 0.3s;
+  background: #c0c0c0;
   width: 0;
+  height: 3px;
 }
 
 .panels > section {
   display: none;
-  border-top: solid 1px #c0c0c0;
   margin: 1em 0 0;
+  border-top: solid 1px #c0c0c0;
   padding: 1em 0 0;
 }
 
@@ -107,7 +107,7 @@
   &[disabled]{
     display: none;
   }
-  border:none;
+  border: zero;
   color: #222;
 }
 /*

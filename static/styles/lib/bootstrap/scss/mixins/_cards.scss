@@ -1,8 +1,8 @@
 // Card variants
 
 @mixin card-variant($background, $border) {
-  background-color: $background;
   border-color: $border;
+  background-color: $background;
 
   .card-header,
   .card-footer {
@@ -11,8 +11,8 @@
 }
 
 @mixin card-outline-variant($color) {
-  background-color: transparent;
   border-color: $color;
+  background-color: transparent;
 }
 
 //

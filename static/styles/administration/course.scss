@@ -1,10 +1,10 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .times {
-    padding: 16px;
-    box-shadow: 0 1px 1px 0 #C7C7C7 inset;
-    background: none repeat scroll 0 0;
     margin-bottom: 30px;
+    box-shadow: 0 1px 1px 0 #c7c7c7 inset;
+    background: none repeat scroll 0 0;
+    padding: 16px;
     i {
         cursor: pointer;
     }
@@ -21,8 +21,8 @@
     .new-course-time-add {
         display: inline-block;
         margin-top: 10px;
-        padding-left: 5px;
         cursor: pointer;
+        padding-left: 5px;
         color: $primaryColor;
     }
 }

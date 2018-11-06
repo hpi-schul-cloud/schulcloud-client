@@ -54,8 +54,8 @@
   @if not $enable-flex {
     width: 1%;
   }
-  white-space: nowrap;
-  vertical-align: middle; // Match the inputs
+  vertical-align: middle;
+  white-space: nowrap; // Match the inputs
 }
 
 
@@ -81,15 +81,15 @@
 //
 
 .input-group-addon {
+  margin-bottom: 0;
+  border: $input-btn-border-width solid $input-group-addon-border-color; // Allow use of <label> elements by overriding our default margin-bottom
+  background-color: $input-group-addon-bg;
   padding: $input-padding-y $input-padding-x;
-  margin-bottom: 0; // Allow use of <label> elements by overriding our default margin-bottom
-  font-size: $font-size-base;
-  font-weight: normal;
+  text-align: center;
   line-height: $input-line-height;
   color: $input-color;
-  text-align: center;
-  background-color: $input-group-addon-bg;
-  border: $input-btn-border-width solid $input-group-addon-border-color;
+  font-size: $font-size-base;
+  font-weight: normal;
   @include border-radius($input-border-radius);
 
   // Sizing
@@ -151,8 +151,8 @@
   position: relative;
   // Jankily prevent input button groups from wrapping with `white-space` and
   // `font-size` in combination with `inline-block` on buttons.
-  font-size: 0;
   white-space: nowrap;
+  font-size: 0;
 
   // Negative margin for spacing, position for bringing hovered/focused/actived
   // element above the siblings.

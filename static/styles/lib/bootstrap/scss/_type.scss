@@ -5,10 +5,10 @@
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: $headings-margin-bottom;
-  font-family: $headings-font-family;
-  font-weight: $headings-font-weight;
   line-height: $headings-line-height;
   color: $headings-color;
+  font-family: $headings-font-family;
+  font-weight: $headings-font-weight;
 }
 
 h1, .h1 { font-size: $font-size-h1; }
@@ -66,8 +66,8 @@ small,
 
 mark,
 .mark {
-  padding: $mark-padding;
   background-color: $mark-bg;
+  padding: $mark-padding;
 }
 
 
@@ -98,22 +98,22 @@ mark,
 
 // Builds on `abbr`
 .initialism {
-  font-size: 90%;
   text-transform: uppercase;
+  font-size: 90%;
 }
 
 // Blockquotes
 .blockquote {
-  padding: ($spacer / 2) $spacer;
   margin-bottom: $spacer;
-  font-size: $blockquote-font-size;
   border-left: $blockquote-border-width solid $blockquote-border-color;
+  padding: ($spacer / 2) $spacer;
+  font-size: $blockquote-font-size;
 }
 
 .blockquote-footer {
   display: block;
-  font-size: 80%; // back to default font-size
-  color: $blockquote-small-color;
+  color: $blockquote-small-color; // back to default font-size
+  font-size: 80%;
 
   &::before {
     content: "\2014 \00A0"; // em dash, nbsp
@@ -122,11 +122,11 @@ mark,
 
 // Opposite alignment of blockquote
 .blockquote-reverse {
+  border-right: $blockquote-border-width solid $blockquote-border-color;
+  border-left: 0;
   padding-right: $spacer;
   padding-left: 0;
   text-align: right;
-  border-right: $blockquote-border-width solid $blockquote-border-color;
-  border-left: 0;
 }
 
 .blockquote-reverse .blockquote-footer {

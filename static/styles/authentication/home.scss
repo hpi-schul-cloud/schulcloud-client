@@ -1,47 +1,47 @@
-@import '../lib/colors';
+@import "../lib/colors";
 @import '../lib/bootstrap/scss/bootstrap';
 
 body {
-    background: $colorBeige;
     position: absolute;
+    background: $colorBeige;
     width: 100vw;
     min-height: 100vh;
     p{
         margin: 0 0 10px 0;
     }
     ul {
+        margin: 0;
+        padding: 0;
         list-style-type: none;
-        padding:0;
-        margin:0;
     }
     header {
         background: $primaryColor;
         a {
-            color:#fff !important;
-            font-size: 1rem;
-            line-height: 1rem;
             padding: 1rem !important;
-            text-decoration: none; 
+            text-decoration: none;
+            line-height: 1rem;
+            color: #fff !important;
+            font-size: 1rem; 
         }
         #title {
-            font-size: 1.5rem;
-            line-height: 1.5rem;
-            font-weight: 400;
+            padding-top: .75rem !important;
+            padding-bottom: .75rem !important;
+            padding-left: 0 !important;
             &:hover{
                 text-decoration: none;
             }
-            padding-left: 0 !important;
-            padding-top: .75rem !important;
-            padding-bottom: .75rem !important;
+            line-height: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 400;
             .cloud-logo {
                 display: inline-block;
-                width: 2.5rem;
-                height: 2rem;
                 margin-top: -.25rem;
-                margin-bottom: -.5rem;
                 margin-right: .5rem;
+                margin-bottom: -.5rem;
                 background: $logoBackground;
                 background-size: contain;
+                width: 2.5rem;
+                height: 2rem;
             }
         }
         .nav-item{
@@ -61,20 +61,20 @@ body {
         @include media-breakpoint-down(md) {
             text-align: center;
             #title, ul.nav{
-                float: none;
                 display: block;
+                float: none;
             }
             ul.nav .nav-item{
-                float: none;
                 display: inline-block;
+                float: none;
             }
         }
     }
     main{
         min-height: calc(100vh - 228px);
         .illustration{
-            min-width: 150px;
             width: 25vw;
+            min-width: 150px;
             max-width: 300px;
             shape-outside: circle(50%);
         }
@@ -82,28 +82,28 @@ body {
             margin-top: 5px;
             &:before{
                 display: inline-block;
+                margin-right: 5px;
+                text-rendering: auto;
                 font: normal normal normal 14px/1 FontAwesome;
                 font-size: inherit;
-                text-rendering: auto;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
                 content: "\f105";
-                margin-right: 5px;
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
             }
         }
     }
     #loginarea{
         .btn{
-            word-wrap: break-word;
             white-space: normal;
+            word-wrap: break-word;
         }
         input {
             margin-bottom: 10px;
-            font-size: 1rem;
             padding: .5rem;
+            font-size: 1rem;
         }
         .login-providers {
-            display:none;
+            display: none;
         }
     }
     aside{
@@ -118,12 +118,12 @@ body {
     }
     footer:not(.small-footer){
         background-color: #555;
+        padding: 2rem 2rem 0;
         color: #fff;
-        padding:2rem 2rem 0;
         a{
             color: #fff;
             &:hover{
-                color:#fff!important;
+                color: #fff !important;
             }
         }
         .col-md-4{

@@ -1,5 +1,5 @@
 @import 'progress';
-@import '../lib/colors';
+@import "../lib/colors";
 
 .panels{
     /* insert custom css for the forms here */
@@ -9,9 +9,9 @@
         }
         input[type="checkbox"]:invalid + span,
         input[type="radio"]:invalid + span{
+            text-decoration: underline;
             color: $primaryColor;
             font-weight: bold;
-            text-decoration: underline;
             a{
                 color: $secondaryColor;
             }
@@ -20,11 +20,11 @@
 }
 
 .recap{
+    margin: 8px 0;
     border: 1px solid #aaa;
     border-radius: 5px;
     background-color: #eee;
     padding: 8px;
-    margin: 8px 0;
     font-family: monospace;
     p{
         margin-bottom: 8px;
@@ -43,11 +43,11 @@
     font-size: .85em;
 }
 .explanation.nomargin{
-    margin-left: 0px;
+    margin-left: 0;
 }
 
 label{
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 input[type="radio"]{
     margin-right: 4px;

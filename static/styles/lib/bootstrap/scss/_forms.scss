@@ -6,18 +6,18 @@
 
 .form-control {
   display: block;
-  width: 100%;
+  border: $input-btn-border-width solid $input-border-color;
   // // Make inputs at least the height of their button counterpart (base line-height + padding + border)
   // height: $input-height;
+  background-clip: padding-box;
+  background-color: $input-bg;
+  background-image: none;
   padding: $input-padding-y $input-padding-x;
-  font-size: $font-size-base;
+  width: 100%;
+  // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214.
   line-height: $input-line-height;
   color: $input-color;
-  background-color: $input-bg;
-  // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214.
-  background-image: none;
-  background-clip: padding-box;
-  border: $input-btn-border-width solid $input-border-color;
+  font-size: $font-size-base;
 
   // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
   @if $enable-rounded {
@@ -33,8 +33,8 @@
 
   // Unstyle the caret on `<select>`s in IE10+.
   &::-ms-expand {
-    background-color: transparent;
     border: 0;
+    background-color: transparent;
   }
 
   // Customize the `:focus` state to imitate native WebKit styles.
@@ -42,9 +42,9 @@
 
   // Placeholder
   &::placeholder {
-    color: $input-color-placeholder;
-    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
     opacity: 1;
+    // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
+    color: $input-color-placeholder;
   }
 
   // Disabled and read-only inputs
@@ -54,9 +54,9 @@
   // don't honor that edge case; we style them as disabled anyway.
   &:disabled,
   &[readonly] {
-    background-color: $input-bg-disabled;
-    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
     opacity: 1;
+    // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
+    background-color: $input-bg-disabled;
   }
 
   &:disabled {
@@ -76,8 +76,8 @@ select.form-control {
     // in IE and (under certain conditions) Edge, as it looks bad and cannot be made to
     // match the appearance of the native widget.
     // See https://github.com/twbs/bootstrap/issues/19398.
-    color: $input-color;
     background-color: $input-bg;
+    color: $input-color;
   }
 }
 
@@ -95,9 +95,9 @@ select.form-control {
 // For use with horizontal and inline forms, when you need the label text to
 // align with the form controls.
 .col-form-label {
+  margin-bottom: 0;
   padding-top: $input-padding-y;
-  padding-bottom: $input-padding-y;
-  margin-bottom: 0; // Override the `<label>` default
+  padding-bottom: $input-padding-y; // Override the `<label>` default
 }
 
 .col-form-label-lg {
@@ -120,9 +120,9 @@ select.form-control {
 // For use with horizontal and inline forms, when you need the legend text to
 // be the same size as regular labels, and to align with the form controls.
 .col-form-legend {
+  margin-bottom: 0;
   padding-top: $input-padding-y;
   padding-bottom: $input-padding-y;
-  margin-bottom: 0;
   font-size: $font-size-base;
 }
 
@@ -133,11 +133,11 @@ select.form-control {
 // horizontal form layout.
 
 .form-control-static {
+  border: solid transparent;
+  border-width: 1px 0;
   padding-top: $input-padding-y;
   padding-bottom: $input-padding-y;
   line-height: $input-line-height;
-  border: solid transparent;
-  border-width: 1px 0;
 
   &.form-control-sm,
   &.form-control-lg {
@@ -200,8 +200,8 @@ select.form-control-lg {
 // Indent the labels to position radios/checkboxes as hanging controls.
 
 .form-check {
-  position: relative;
   display: block;
+  position: relative;
   margin-bottom: ($spacer * .75);
 
   // Move up sibling radios or checkboxes for tighter spacing
@@ -211,16 +211,16 @@ select.form-control-lg {
 
   &.disabled {
     .form-check-label {
-      color: $text-muted;
       cursor: $cursor-disabled;
+      color: $text-muted;
     }
   }
 }
 
 .form-check-label {
+  margin-bottom: 0;
+  cursor: pointer; // Override default `<label>` bottom margin
   padding-left: 1.25rem;
-  margin-bottom: 0; // Override default `<label>` bottom margin
-  cursor: pointer;
 }
 
 .form-check-input {
@@ -235,20 +235,20 @@ select.form-control-lg {
 
 // Radios and checkboxes on same line
 .form-check-inline {
-  position: relative;
   display: inline-block;
+  position: relative;
+  margin-bottom: 0;
+  cursor: pointer; // Override default `<label>` bottom margin
   padding-left: 1.25rem;
-  margin-bottom: 0; // Override default `<label>` bottom margin
   vertical-align: middle;
-  cursor: pointer;
 
   + .form-check-inline {
     margin-left: .75rem;
   }
 
   &.disabled {
-    color: $text-muted;
     cursor: $cursor-disabled;
+    color: $text-muted;
   }
 }
 
@@ -264,10 +264,10 @@ select.form-control-lg {
 .form-control-success,
 .form-control-warning,
 .form-control-danger {
-  padding-right: ($input-padding-x * 3);
   background-repeat: no-repeat;
   background-position: center right ($input-height / 4);
   background-size: ($input-height / 2) ($input-height / 2);
+  padding-right: ($input-padding-x * 3);
 }
 
 // Form validation states

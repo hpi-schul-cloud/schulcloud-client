@@ -1,4 +1,4 @@
-@import '../lib/colors';
+@import "../lib/colors";
 .move-handle {
     cursor: move;
 }
@@ -8,8 +8,8 @@
         margin-bottom: 20px;
     }
     .lesson-date {
-        line-height: 24px;
         float: right;
+        line-height: 24px;
     }
     .description {
         margin-bottom: 40px;
@@ -27,11 +27,11 @@
         cursor: pointer;
     }
     .ui-state-highlight {
-        height: 55px;
+        margin-bottom: 12px;
         border: 2px dashed #373a3c;
         border-radius: 3px;
-        margin-bottom: 12px;
-        background: none!important;
+        background: none !important;
+        height: 55px;
     }
     .content-block {
         margin-bottom: 50px;
@@ -40,9 +40,9 @@
             height: auto !important;
         }
         iframe{
+            outline: none;
             border: 1px solid $primaryColor;
             border-radius: 5px;
-            outline: none;
         }
     }
     .disabled {
@@ -55,18 +55,18 @@
         pointer-events: none;
     }
     .times {
-        padding: 16px;
-        box-shadow: 0 1px 1px 0 #C7C7C7 inset;
-        background: none repeat scroll 0 0;
         margin-bottom: 30px;
+        box-shadow: 0 1px 1px 0 #c7c7c7 inset;
+        background: none repeat scroll 0 0;
+        padding: 16px;
         i {
             cursor: pointer;
         }
         .new-course-time-add {
             display: inline-block;
             margin-top: 10px;
-            padding-left: 5px;
             cursor: pointer;
+            padding-left: 5px;
             color: $primaryColor;
         }
     }
@@ -87,8 +87,8 @@
         margin: 0;
     }
     .input-group-btn {
-        padding-right: 10px;
         float: right;
+        padding-right: 10px;
     }
     .input-group {
         align-items: center;
@@ -111,8 +111,8 @@
             }
         }
         .geo-gebra-info {
-            color: white;
             background-color: $primaryColor;
+            color: #fff;
         }
         input{
             width: 100%;
@@ -129,15 +129,15 @@
 }
 
 .courseGroup {
-    width: 100%;
-    list-style: none;
+    clear: both;
     margin: 0;
     padding: 10px 0;
-    clear: both;
+    width: 100%;
+    list-style: none;
     .group-card {
-        width: 100%;
         position: relative;
         padding: 10px;
+        width: 100%;
         text-decoration: none;
         h5 {
             margin: 0;
@@ -149,8 +149,8 @@
         .card-tags {
             padding-top: 10px;
             .tag {
-                font-size: 100%;
                 margin-bottom: 10px;
+                font-size: 100%;
             }
         }
     }
@@ -163,8 +163,8 @@
 
 #member-list {
     li {
-        padding: 0px;
-        margin: 0px;
+        margin: 0;
+        padding: 0;
     }
 }
 

@@ -3,9 +3,9 @@
 //
 
 .alert {
-  padding: $alert-padding-y $alert-padding-x;
   margin-bottom: $spacer-y;
   border: $alert-border-width solid transparent;
+  padding: $alert-padding-y $alert-padding-x;
   @include border-radius($alert-border-radius);
 }
 

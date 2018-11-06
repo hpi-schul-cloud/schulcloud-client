@@ -4,8 +4,8 @@
 
 .list-group {
   // No need to set list-style: none; since .list-group-item is block level
-  padding-left: 0; // reset padding because ul and ol
-  margin-bottom: 0;
+  margin-bottom: 0; // reset padding because ul and ol
+  padding-left: 0;
 }
 
 
@@ -14,13 +14,13 @@
 // Use on `li`s or `div`s within the `.list-group` parent.
 
 .list-group-item {
-  position: relative;
   display: block;
-  padding: $list-group-item-padding-y $list-group-item-padding-x;
-  // Place the border on the list items and negative margin up for better styling
+  position: relative;
   margin-bottom: -$list-group-border-width;
-  background-color: $list-group-bg;
+  // Place the border on the list items and negative margin up for better styling
   border: $list-group-border-width solid $list-group-border-color;
+  background-color: $list-group-bg;
+  padding: $list-group-item-padding-y $list-group-item-padding-x;
 
   &:first-child {
     @include border-top-radius($list-group-border-radius);
@@ -33,9 +33,9 @@
 
   &.disabled {
     @include plain-hover-focus {
-      color: $list-group-disabled-color;
-      cursor: $cursor-disabled;
       background-color: $list-group-disabled-bg;
+      cursor: $cursor-disabled;
+      color: $list-group-disabled-color;
 
       // Force color to inherit for custom content
       .list-group-item-heading {
@@ -50,10 +50,10 @@
   &.active {
     @include plain-hover-focus {
       z-index: 2; // Place active items above their siblings for proper border styling
-      color: $list-group-active-color;
-      text-decoration: none; // Repeat here because it inherits global a:hover otherwise
-      background-color: $list-group-active-bg;
       border-color: $list-group-active-border;
+      background-color: $list-group-active-bg; // Repeat here because it inherits global a:hover otherwise
+      text-decoration: none;
+      color: $list-group-active-color;
 
       // Force color to inherit for custom content
       .list-group-item-heading,
@@ -84,8 +84,8 @@
 
 .list-group-item-action {
   width: 100%; // For `<button>`s (anchors become 100% by default though)
-  color: $list-group-link-color;
-  text-align: inherit; // For `<button>`s (anchors inherit)
+  text-align: inherit;
+  color: $list-group-link-color; // For `<button>`s (anchors inherit)
 
   .list-group-item-heading {
     color: $list-group-link-heading-color;
@@ -93,9 +93,9 @@
 
   // Hover state
   @include hover-focus {
-    color: $list-group-link-hover-color;
-    text-decoration: none;
     background-color: $list-group-hover-bg;
+    text-decoration: none;
+    color: $list-group-link-hover-color;
   }
 }
 

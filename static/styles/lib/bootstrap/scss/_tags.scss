@@ -6,13 +6,13 @@
 .tag {
   display: inline-block;
   padding: $tag-padding-y $tag-padding-x;
+  vertical-align: baseline;
+  text-align: center;
+  line-height: 1;
+  white-space: nowrap;
+  color: $tag-color;
   font-size: $tag-font-size;
   font-weight: $tag-font-weight;
-  line-height: 1;
-  color: $tag-color;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
   @include border-radius();
 
   // Empty tags collapse automatically
@@ -31,9 +31,9 @@
 // Add hover effects, but only for links
 a.tag {
   @include hover-focus {
-    color: $tag-link-hover-color;
-    text-decoration: none;
     cursor: pointer;
+    text-decoration: none;
+    color: $tag-link-hover-color;
   }
 }
 // scss-lint:enable QualifyingElement

@@ -3,20 +3,20 @@
 //
 
 .table {
+  margin-bottom: $spacer;
   width: 100%;
   max-width: 100%;
-  margin-bottom: $spacer;
 
   th,
   td {
+    border-top: $table-border-width solid $table-border-color;
     padding: $table-cell-padding;
     vertical-align: top;
-    border-top: $table-border-width solid $table-border-color;
   }
 
   thead th {
-    vertical-align: bottom;
     border-bottom: (2 * $table-border-width) solid $table-border-color;
+    vertical-align: bottom;
   }
 
   tbody + tbody {
@@ -105,21 +105,21 @@
 
 .thead-inverse {
   th {
-    color: #fff;
     background-color: $gray-dark;
+    color: #fff;
   }
 }
 
 .thead-default {
   th {
-    color: $gray;
     background-color: $gray-lighter;
+    color: $gray;
   }
 }
 
 .table-inverse {
-  color: $gray-lighter;
   background-color: $gray-dark;
+  color: $gray-lighter;
 
   th,
   td,

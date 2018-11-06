@@ -3,8 +3,8 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
 
 /* @group Base */
 .chosen-container {
-    position: relative;
     display: inline-block;
+    position: relative;
     vertical-align: middle;
     font-size: 13px;
     user-select: none;
@@ -15,11 +15,11 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
         position: absolute;
         top: 100%;
         z-index: 1010;
-        width: 100%;
         border: 1px solid #aaa;
-        border-top: 0;
-        background: #fff;
+        border-top: zero;
         box-shadow: 0 4px 5px rgba(#000,.15);
+        background: #fff;
+        width: 100%;
         clip: rect(0,0,0,0);
     }
     &.chosen-with-drop .chosen-drop {
@@ -33,14 +33,14 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
         .group-name{
             margin-right: 4px;
             overflow: hidden;
-            white-space: nowrap;
             text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #999;
             font-weight: normal;
-            color: #999999;
             &:after {
-                content: ":";
                 padding-left: 2px;
                 vertical-align: top;
+                content: ":";
             }
         }
     }
@@ -50,29 +50,29 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
 /* @group Single Chosen */
 .chosen-container-single{
     .chosen-single {
-        position: relative;
         display: block;
-        overflow: hidden;
-        padding: 0 0 0 8px;
-        height: 25px;
+        position: relative;
         border: 1px solid #aaa;
         border-radius: 5px;
-        background-color: #fff;
+        box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(#000,.1);
         background: linear-gradient(#fff 20%, #f6f6f6 50%, #eee 52%, #f4f4f4 100%);
         background-clip: padding-box;
-        box-shadow: 0 0 3px #fff inset, 0 1px 1px rgba(#000,.1);
-        color: #444;
+        background-color: #fff;
+        padding: 0 0 0 8px;
+        height: 25px;
+        overflow: hidden;
         text-decoration: none;
-        white-space: nowrap;
         line-height: 24px;
+        white-space: nowrap;
+        color: #444;
     }
     .chosen-default {
         color: #999;
     }
     .chosen-single span {
         display: block;
-        overflow: hidden;
         margin-right: 26px;
+        overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
     }
@@ -80,13 +80,13 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
         margin-right: 38px;
     }
     .chosen-single abbr {
+        display: block;
         position: absolute;
         top: 6px;
         right: 26px;
-        display: block;
+        background: $chosen-sprite -42px 1px no-repeat;
         width: 12px;
         height: 12px;
-        background: $chosen-sprite -42px 1px no-repeat;
         font-size: 1px;
         &:hover {
             background-position: -42px -10px;
@@ -96,17 +96,17 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
         background-position: -42px -10px;
     }
     .chosen-single div {
+        display: block;
         position: absolute;
         top: 0;
         right: 0;
-        display: block;
         width: 18px;
         height: 100%;
         b {
             display: block;
+            background: $chosen-sprite no-repeat 0 2px;
             width: 100%;
             height: 100%;
-            background: $chosen-sprite no-repeat 0px 2px;
         }
     }
     .chosen-search {
@@ -118,16 +118,16 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
 
         input[type="text"] {
             margin: 1px 0;
+            outline: 0;
+            border: 1px solid #aaa;
+            border-radius: 0;
+            background: $chosen-sprite no-repeat 100% -20px;
             padding: 4px 20px 4px 5px;
             width: 100%;
             height: auto;
-            outline: 0;
-            border: 1px solid #aaa;
-            background: $chosen-sprite no-repeat 100% -20px;
-            font-size: 1em;
-            font-family: sans-serif;
             line-height: normal;
-            border-radius: 0;
+            font-family: sans-serif;
+            font-size: 1em;
         }
     }
     .chosen-drop {
@@ -144,30 +144,30 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
 
 /* @group Results */
 .chosen-container .chosen-results {
-    color: #444;
     position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
     margin: 0 4px 4px 0;
     padding: 0 0 0 4px;
     max-height: 240px;
+    color: #444;
     -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+    overflow-x: hidden;
     li {
         display: none;
         margin: 0;
         padding: 5px 6px;
         list-style: none;
         line-height: 15px;
-        word-wrap: break-word;
         -webkit-touch-callout: none;
+        word-wrap: break-word;
         &.active-result {
             display: list-item;
             cursor: pointer;
         }
         &.disabled-result {
             display: list-item;
-            color: #ccc;
             cursor: default;
+            color: #ccc;
         }
         &.highlighted {
             background-color: #3875d7;
@@ -175,21 +175,21 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
             color: #fff;
         }
         &.no-results {
-            color: #777;
             display: list-item;
             background: #f4f4f4;
+            color: #777;
         }
         &.group-result {
             display: list-item;
-            font-weight: bold;
             cursor: default;
+            font-weight: bold;
         }
         &.group-option {
             padding-left: 15px;
         }
         em {
-            font-style: normal;
             text-decoration: underline;
+            font-style: normal;
         }
     }
 }
@@ -199,15 +199,15 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
 .chosen-container-multi{
     .chosen-choices {
         position: relative;
-        overflow: hidden;
         margin: 0;
-        padding: 0 5px;
-        width: 100%;
-        height: auto;
         border: 1px solid #aaa;
         background-color: #fff;
         background-image: linear-gradient(#eee 1%, #fff 15%);
         cursor: text;
+        padding: 0 5px;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
     }
     .chosen-choices li {
         float: left;
@@ -218,47 +218,47 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
             white-space: nowrap;
             input[type="text"] {
                 margin: 1px 0;
-                padding: 0;
-                height: 25px;
                 outline: 0;
-                border: 0 !important;
-                background: transparent !important;
-                box-shadow: none;
-                color: #999;
-                font-size: 100%;
-                font-family: sans-serif;
-                line-height: normal;
+                border: zero;
                 border-radius: 0;
+                box-shadow: none;
+                background: transparent !important;
+                padding: 0;
                 width: 25px;
+                height: 25px;
+                line-height: normal;
+                color: #999;
+                font-family: sans-serif;
+                font-size: 100%;
             }
         }
         &.search-choice {
             position: relative;
             margin: 3px 5px 3px 0;
-            padding: 3px 20px 3px 5px;
             border: 1px solid #aaa;
-            max-width: 100%;
             border-radius: 3px;
-            background-color: #eeeeee;
-            background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
-            background-size: 100% 19px;
-            background-repeat: repeat-x;
-            background-clip: padding-box;
             box-shadow: 0 0 2px #fff inset, 0 1px 0 rgba(#000,.05);
-            color: #333;
-            line-height: 13px;
+            background-clip: padding-box;
+            background-color: #eee;
+            background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
+            background-repeat: repeat-x;
+            background-size: 100% 19px;
             cursor: default;
+            padding: 3px 20px 3px 5px;
+            max-width: 100%;
+            line-height: 13px;
+            color: #333;
             span {
                 word-wrap: break-word;
             }
             .search-choice-close {
+                display: block;
                 position: absolute;
                 top: 4px;
                 right: 3px;
-                display: block;
+                background: $chosen-sprite -42px 1px no-repeat;
                 width: 12px;
                 height: 12px;
-                background: $chosen-sprite -42px 1px no-repeat;
                 font-size: 1px;
                 &:hover {
                     background-position: -42px -10px;
@@ -266,10 +266,10 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
             }
         }
         &.search-choice-disabled {
-            padding-right: 5px;
             border: 1px solid #ccc;
             background-color: #e4e4e4;
             background-image: linear-gradient(#f4f4f4 20%, #f0f0f0 50%, #e8e8e8 52%, #eee 100%);
+            padding-right: 5px;
             color: #666;
         }
         &.search-choice-focus {
@@ -285,8 +285,8 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
     }
     .chosen-drop .result-selected {
         display: list-item;
-        color: #ccc;
         cursor: default;
+        color: #ccc;
     }
 }
 /* @end */
@@ -300,15 +300,15 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
     &.chosen-with-drop{
         .chosen-single {
             border: 1px solid #aaa;
-            -moz-border-radius-bottomright: 0;
-            border-bottom-right-radius: 0;
-            -moz-border-radius-bottomleft: 0;
             border-bottom-left-radius: 0;
-            background-image: linear-gradient(#eee 20%, #fff 80%);
+            border-bottom-right-radius: 0;
             box-shadow: 0 1px 0 #fff inset;
+            background-image: linear-gradient(#eee 20%, #fff 80%);
+            -moz-border-radius-bottomleft: 0;
+            -moz-border-radius-bottomright: 0;
         }
         .chosen-single div {
-            border-left: none;
+            border-left: zero;
             background: transparent;
             b {
                 background-position: -18px 2px;
@@ -342,8 +342,8 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
 .chosen-rtl {
     text-align: right;
     .chosen-single {
-        overflow: visible;
         padding: 0 8px 0 0;
+        overflow: visible;
     }
     .chosen-single span {
         margin-right: 0;
@@ -384,11 +384,11 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
         padding-left: 0;
     }
     &.chosen-container-active.chosen-with-drop .chosen-single div {
-        border-right: none;
+        border-right: zero;
     }
     .chosen-search input[type="text"] {
-        padding: 4px 5px 4px 20px;
         background: $chosen-sprite no-repeat -30px -20px;
+        padding: 4px 5px 4px 20px;
         direction: rtl;
     }
     &.chosen-container-single{
@@ -415,8 +415,8 @@ $chosen-sprite-retina: url('/images/chosen-sprite@2x.png') !default;
     .chosen-container .chosen-results-scroll-down span,
     .chosen-container .chosen-results-scroll-up span {
         background-image: $chosen-sprite-retina !important;
-        background-size: 52px 37px !important;
         background-repeat: no-repeat !important;
+        background-size: 52px 37px !important;
     }
 }
 /* @end */

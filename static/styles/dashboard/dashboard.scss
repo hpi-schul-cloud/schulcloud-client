@@ -1,4 +1,4 @@
-@import '../lib/colors';
+@import "../lib/colors";
 @import '../lib/bootstrap/scss/bootstrap-flex';
 @import '../homework/homework';
 
@@ -15,7 +15,7 @@
     }
 
     .timetable {
-        border-top: none !important;
+        border-top: zero;
     }
 
     .timetable .row.lesson-cards {
@@ -23,9 +23,9 @@
     }
 
     .timetable .row.lesson-cards .lesson-card {
-        padding: 10px 0;
         position: relative !important;
-        left: 0px !important;
+        left: 0 !important;
+        padding: 10px 0;
         width: 100% !important;
     }
 }
@@ -50,9 +50,9 @@
 }
 
 .section-timetable {
-    width: 100%;
     float: left;
     padding-top: 15px;
+    width: 100%;
     line-height: 1.75rem;
 
     @include media-breakpoint-down(xs) {
@@ -65,50 +65,50 @@
 
     .selected-date {
         float: right;
+        line-height: 22px;
         color: #969696;
-        line-height:22px;
     }
 }
 
 
 .timetable {
-    width:100%;
-    float:left;
-    padding: 0px 15px 0px;
+    float: left;
+    border-top: 1px solid #c8c8c8;
+    padding: 0 15px 0;
+    width: 100%;
     line-height: 1.75rem;
-    border-top:1px solid #c8c8c8;
 
     .lesson-cards {
-        margin-top:40px;
-        margin-bottom:30px;
-        height:170px;
         position: relative;
+        margin-top: 40px;
+        margin-bottom: 30px;
+        height: 170px;
 
         .lesson-card {
-            padding:0px 1px;
-            top: 0px;
-            text-decoration: none !important;
             position: absolute;
+            top: 0;
+            padding: 0 1px;
+            text-decoration: none !important;
 
             .card-block {
                 padding: 0.5rem;
             }
 
             .card {
-                border:0px;
-                background:#e9e9e9;
-                border-top:6px solid $accentColor;
+                border: 0;
+                border-top: 6px solid $accentColor;
                 border-bottom: 6px solid transparent;
+                background: #e9e9e9;
+                height: 170px;
                 color: #646464;
-                height:170px;
 
                 &:not(.disabled):hover {
-                    background:#ddd;
+                    background: #ddd;
                 }
 
 
                 .card-title {
-                    font-size:1.063rem;
+                    font-size: 1.063rem;
                     font-weight: 600;
                 }
 
@@ -116,25 +116,25 @@
                     line-height: 130%;
                 }
                 .lesson-time {
-                    margin-bottom: 0px;
-                    margin-top: -15px;
-                    font-size: 0.75rem;
                     display: block;
+                    margin-top: -15px;
+                    margin-bottom: 0;
+                    font-size: 0.75rem;
                 }
 
                 &.disabled {
-                    border-top:6px solid transparent;
+                    border-top: 6px solid transparent;
                     border-bottom: 6px solid $primaryColor;
                     background: #f5f5f5;
                     color: #a9a9a9;
 
                     &:after {
-                        color:$primaryColor;
-                        content: attr(data-status);
-                        bottom:5px;
-                        right:10px;
                         position: absolute;
+                        right: 10px;
+                        bottom: 5px;
+                        color: $primaryColor;
                         font-weight: 600;
+                        content: attr(data-status);
                     }
                 }
             }
@@ -142,75 +142,75 @@
     }
 
     .timeline {
-        border-top:1px solid #c8c8c8;
-        width:100%;
-        float:left;
         position: relative;
-        margin-top:3px;
-        margin-bottom:20px;
+        float: left;
+        margin-top: 3px;
+        margin-bottom: 20px;
+        border-top: 1px solid #c8c8c8;
+        width: 100%;
 
         .current-time {
-            width: 100px;
-            height: 3px;
-            top: -3px;
-            left: 0px;
-            background: #696969;
             display: block;
             position: absolute;
+            top: -3px;
+            left: 0;
+            background: #696969;
+            width: 100px;
+            height: 3px;
 
             &:before {
+                position: absolute;
+                right: 1px;
+                bottom: 0;
+                background: $primaryColor;
+                width: 2px;
                 height: 245px;
                 content: '';
-                width: 2px;
-                background: $primaryColor;
-                right: 1px;
-                position: absolute;
-                bottom: 0px;
             }
 
             span {
-                font-size:10px;
-                padding: 0px 5px;
-                right: -15px;
-                position:absolute;
-                top: -28px;
-                background: #FFFFFF;
-                color: $primaryColor;
                 display: block;
+                position: absolute;
+                top: -28px;
+                right: -15px;
                 z-index: 2;
+                background: #fff;
+                padding: 0 5px;
+                color: $primaryColor;
+                font-size: 10px;
             }
         }
 
         .tick {
-            font-size:10px;
-            color:#aaa;
+            color: #aaa;
+            font-size: 10px;
         }
         .timelines{
-            width: 100px;
-            height: 3px;
-            top: -3px;
-            left: 0px;
-            background: #696969;
             display: block;
             position: absolute;
+            top: -3px;
+            left: 0;
+            background: #696969;
+            width: 100px;
+            height: 3px;
 
             &:before {
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                z-index: -1;
+                border-left: 1px dashed #ccc;
+                width: 1px;
                 height: 245px;
                 content: '';
-                width: 1px;
-                border-left: 1px dashed #ccc;
-                right: 0px;
-                position: absolute;
-                bottom: 0px;
-                z-index: -1;
             }
         }
     }
 }
 
 .poll {
-    text-align: center;
     padding-top: 8px;
-    padding-left: 8px;
     padding-right: 8px;
+    padding-left: 8px;
+    text-align: center;
 }

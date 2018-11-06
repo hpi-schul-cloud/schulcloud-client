@@ -1,8 +1,8 @@
 .breadcrumb {
-  padding: $breadcrumb-padding-y $breadcrumb-padding-x;
   margin-bottom: $spacer-y;
-  list-style: none;
   background-color: $breadcrumb-bg;
+  padding: $breadcrumb-padding-y $breadcrumb-padding-x;
+  list-style: none;
   @include border-radius($border-radius);
   @include clearfix;
 }

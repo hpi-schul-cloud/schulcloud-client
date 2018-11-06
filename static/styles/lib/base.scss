@@ -12,31 +12,31 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
 * {
-	-webkit-font-smoothing: antialiased;
-	text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
 	hyphens: auto;
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
 }
 
 .section-team, .section-partner, .section-about, .section-community {
 	h4 {
-		font-weight: 500;
-		margin: 30px 0px 20px 0px !important;
-		width: 100%;
 		display: block;
+		margin: 30px 0 20px 0 !important;
+		width: 100%;
+		font-weight: 500;
 	}
 	h5 {
-		font-style: italic;
-		margin: 30px 0px 20px 0px;
-		width: 100%;
 		display: block;
+		margin: 30px 0 20px 0;
+		width: 100%;
+		font-style: italic;
 	}
 }
 
 .section-title h3 {
+	margin-top: 10px;
 	color: $primaryColor;
 	font-weight: 700;
-	margin-top: 10px;
 }
 
 body h4:not(:first-of-type){
@@ -54,8 +54,8 @@ a[data-toggle="collapse"],
 a[data-toggle="collapse"]:hover,
 a[data-toggle="collapse"]:active,
 a[data-toggle="collapse"]:focus{
+	text-decoration: none !important;
 	color: inherit;
-	text-decoration:none !important;
 }
 
 .btn-link{
@@ -69,15 +69,15 @@ p.small {
 }
 
 .no-padding {
-	padding: 0px !important;
+	padding: 0 !important;
 }
 
 .pull-right {
-	float:right;
+	float: right;
 }
 
 .text-center {
-	text-align:center;
+	text-align: center;
 }
 
 label {
@@ -85,8 +85,8 @@ label {
 }
 
 .pagination-wrapper {
-	text-align: center;
 	width: 100%;
+	text-align: center;
 }
 
 label,
@@ -107,27 +107,27 @@ label,
 }
 
 .btn-loading {
-	font-size: 0px !important;
 	transition: width 0.3s;
+	font-size: 0 !important;
 
 	&:before {
-		content: "\f1ce";
-		-webkit-animation: fa-spin 2s infinite linear;
-		animation: fa-spin 2s infinite linear;
-		font-family: "FontAwesome";
 		display: inline-block;
+		animation: fa-spin 2s infinite linear;
 		width: 20px;
 		height: 20px;
+		font-family: "FontAwesome";
 		font-size: 16px;
+		content: "\f1ce";
+		-webkit-animation: fa-spin 2s infinite linear;
 	}
 }
 
 .table-wrapper{
-	max-width: 100%;
 	display: block;
+	margin-bottom: 1rem;
+	max-width: 100%;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
-	margin-bottom: 1rem;
 	table{
 		margin-bottom: 0;
 	}
@@ -135,7 +135,7 @@ label,
 
 footer {
 	.android-app {
-		margin-left:-11px;
+		margin-left: -11px;
 	}
 	&.small-footer {
 
@@ -143,16 +143,16 @@ footer {
 			background: $colorBeige;
 
 			img {
-				clear: both;
 				display: block;
+				clear: both;
 				margin: 0 auto 10px;
 			}
 		}
 
 		.imprint {
 			.center {
-				text-align: center;
 				align-items: center;
+				text-align: center;
 				.made-with-love {
 					margin-top: 8px;
 					.heart {
@@ -172,28 +172,28 @@ footer {
 
 @keyframes fa-spin {
 	0% {
-		-webkit-transform: rotate(0deg);
 		transform: rotate(0deg);
+		-webkit-transform: rotate(0deg);
 	}
 	100% {
-		-webkit-transform: rotate(359deg);
 		transform: rotate(359deg);
+		-webkit-transform: rotate(359deg);
 	}
 }
 
 
 .notification.hidden {
-	display:none;
+	display: none;
 }
 
 form.inline {
 	display: inline;
 
 	button:not(.no-inline-styling){
-		-webkit-appearance: none;
-		appearance: none;
+		border: 0;
 		background: transparent;
-		border: 0px;
+		appearance: none;
+		-webkit-appearance: none;
 	}
 }
 
@@ -212,20 +212,20 @@ form.inline {
 }
 
 .btn-thin {
-	padding-left: 15px !important;
 	padding-right: 15px !important;
+	padding-left: 15px !important;
 }
 .btn.hidden{
-	display:none;
+	display: none;
 }
 
 .alert-fixed {
-  position:fixed;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  z-index:9999;
-  border-radius:0
+  z-index: 9999;
+  border-radius: 0;
+  width: 100%
 }
 
 .dropdown-item {
@@ -233,10 +233,10 @@ form.inline {
 }
 
 .collapse-icon {
-	display:inline-block;
+	display: inline-block;
+	width: 1em;
 	vertical-align: baseline;
 	text-align: center;
-	width: 1em;
 }
 
 .window-inline .hide-inline {
@@ -250,52 +250,52 @@ form.inline {
 	}
 
 	.card {
-		max-width: 100% !important;
 		display: flex;
-		flex-wrap: wrap;
 		flex-direction: column;
+		flex-wrap: wrap;
+		max-width: 100% !important;
 
 		.card-block {
-			max-width: 100%;
-			width: 100%;
 			flex: 1 1 0;
+			width: 100%;
+			max-width: 100%;
 		}
 
 		.card-footer {
-			align-self: flex-end;
 			flex: 0 1 0;
+			align-self: flex-end;
 			width: 100%;
 		}
 	}
 }
 
-.print-only{display:none;}
+.print-only{display: none;}
 @media print {
-	.print-only{display:initial;}
+	.print-only{display: initial;}
 }
 
 .ckcontent {
 	margin: 10px 0;
+	text-decoration: none;
 	color: #373a3c;
-	text-decoration:none;
-	&:hover{text-decoration:none;}
-	h1 {font-size: 1.3rem;font-weight:bold}
-	h2 {font-size: 1.2rem;font-weight:bold;font-style:italic}
-	h3 {font-size: 1.1rem;font-style:italic;text-decoration:underline}
-	p  {font-size: 1rem;margin-bottom:.25rem;}
+	&:hover{text-decoration: none;}
+	h1 {font-size: 1.3rem;font-weight: bold}
+	h2 {font-size: 1.2rem;font-weight: bold;font-style: italic}
+	h3 {text-decoration: underline;font-size: 1.1rem;font-style: italic}
+	p  {margin-bottom: .25rem;font-size: 1rem;}
 	img, video{max-width: 100%;}
-	table{display: block; max-width:100%; overflow: auto;}
+	table{display: block; max-width: 100%; overflow: auto;}
 	blockquote{
-	  color: grey;
 	  margin-left: 1rem;
-	  border-left: 2px solid grey;
+	  border-left: 2px solid #808080;
 	  padding-left: 5px;
+	  color: #808080;
 	}
 }
 
 .container .jumbotron{
+	margin: 2rem 0;
 	padding: 2rem 2rem;
-	margin: 2rem 0rem;
 }
 
 .form-control{
@@ -312,8 +312,8 @@ form.inline {
 		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
 			&:after{
 				font-family: 'FontAwesome';
-				content: "  \f08e";
 				font-size: .7em;
+				content: "  \f08e";
 			}
 		}
 	}

@@ -8,14 +8,14 @@
   // Generate the caret automatically
   &::after {
     display: inline-block;
-    width: 0;
-    height: 0;
     margin-left: $caret-width;
-    vertical-align: middle;
-    content: "";
     border-top: $caret-width solid;
     border-right: $caret-width solid transparent;
     border-left: $caret-width solid transparent;
+    width: 0;
+    height: 0;
+    vertical-align: middle;
+    content: "";
   }
 
   // Prevent the focus on the dropdown toggle when closing dropdowns
@@ -35,22 +35,22 @@
 
 // The dropdown menu
 .dropdown-menu {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
+  float: left; // none by default, but block on "open" of the menu
   z-index: $zindex-dropdown;
-  display: none; // none by default, but block on "open" of the menu
-  float: left;
-  min-width: $dropdown-min-width;
-  padding: $dropdown-padding-y 0;
-  margin: $dropdown-margin-top 0 0; // override default ul
-  font-size: $font-size-base;
-  color: $body-color;
-  text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
-  list-style: none;
-  background-color: $dropdown-bg;
-  background-clip: padding-box;
+  margin: $dropdown-margin-top 0 0;
   border: $dropdown-border-width solid $dropdown-border-color;
+  background-clip: padding-box; // override default ul
+  background-color: $dropdown-bg;
+  padding: $dropdown-padding-y 0;
+  min-width: $dropdown-min-width; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+  list-style: none;
+  text-align: left;
+  color: $body-color;
+  font-size: $font-size-base;
   @include border-radius($border-radius);
   @include box-shadow($dropdown-box-shadow);
 }
@@ -65,29 +65,29 @@
 // `<button>`-specific styles are denoted with `// For <button>s`
 .dropdown-item {
   display: block;
-  width: 100%; // For `<button>`s
+  clear: both; // For `<button>`s
+  border: 0;
+  background: none;
   padding: 3px $dropdown-item-padding-x;
-  clear: both;
-  font-weight: normal;
-  color: $dropdown-link-color;
+  width: 100%;
   text-align: inherit; // For `<button>`s
   white-space: nowrap; // prevent links from randomly breaking onto new lines
-  background: none; // For `<button>`s
-  border: 0; // For `<button>`s
+  color: $dropdown-link-color; // For `<button>`s
+  font-weight: normal; // For `<button>`s
 
   @include hover-focus {
-    color: $dropdown-link-hover-color;
-    text-decoration: none;
     background-color: $dropdown-link-hover-bg;
+    text-decoration: none;
+    color: $dropdown-link-hover-color;
   }
 
   // Active state
   &.active {
     @include plain-hover-focus {
-      color: $dropdown-link-active-color;
-      text-decoration: none;
-      background-color: $dropdown-link-active-bg;
       outline: 0;
+      background-color: $dropdown-link-active-bg;
+      text-decoration: none;
+      color: $dropdown-link-active-color;
     }
   }
 
@@ -101,10 +101,10 @@
 
     // Nuke hover/focus effects
     @include hover-focus {
-      text-decoration: none;
-      cursor: $cursor-disabled;
       background-color: transparent;
-      background-image: none; // Remove CSS gradient
+      background-image: none;
+      cursor: $cursor-disabled;
+      text-decoration: none; // Remove CSS gradient
       @include reset-filter();
     }
   }
@@ -140,11 +140,11 @@
 // Dropdown section headers
 .dropdown-header {
   display: block;
-  padding: $dropdown-padding-y $dropdown-item-padding-x;
-  margin-bottom: 0; // for use with heading elements
-  font-size: $font-size-sm;
+  margin-bottom: 0;
+  padding: $dropdown-padding-y $dropdown-item-padding-x; // for use with heading elements
+  white-space: nowrap;
   color: $dropdown-header-color;
-  white-space: nowrap; // as with > li > a
+  font-size: $font-size-sm; // as with > li > a
 }
 
 // Backdrop to catch body clicks on mobile, etc.
@@ -166,9 +166,9 @@
 .navbar-fixed-bottom .dropdown {
   // Reverse the caret
   .caret {
-    content: "";
     border-top: 0;
     border-bottom: $caret-width solid;
+    content: "";
   }
 
   // Different positioning for bottom up menu

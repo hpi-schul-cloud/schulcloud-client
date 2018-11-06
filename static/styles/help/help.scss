@@ -1,4 +1,4 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .changelog {
   .author {
@@ -6,9 +6,9 @@
   }
 
   img {
+    width: auto;
     max-width: 100%;
     height: auto;
-    width: auto;
   }
 
   h4 {
@@ -24,8 +24,8 @@
 
 .faqpanel {
   .card-img-top {
-      height: auto;
       width: 100%;
+      height: auto;
   }
 
   .card-footer {
@@ -33,28 +33,28 @@
   }
 
   .h-100 {
-    margin-bottom: 0px;
-    text-align: center;
     position: relative;
+    margin-bottom: 0;
     padding-bottom: 75px;
+    text-align: center;
   }
 
   .circular {
+    border-radius: 150px;
     max-width: 300px;
     max-height: 300px;
-    border-radius: 150px;
-    -webkit-border-radius: 150px;
     -moz-border-radius: 150px;
+    -webkit-border-radius: 150px;
   }
 
   .img-out {
-    padding-top: 20px;
     display: inline-block;
+    padding-top: 20px;
 
     .fa-bug {
-      font-size: 140px;
       padding-top: 50px;
-      padding-bottom: 40px
+      padding-bottom: 40px;
+      font-size: 140px
     }
     .mooc-house {
       margin: 80px 0 25px 0;

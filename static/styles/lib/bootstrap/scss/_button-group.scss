@@ -3,8 +3,8 @@
 // Make the div behave like a button
 .btn-group,
 .btn-group-vertical {
-  position: relative;
   display: inline-block;
+  position: relative;
   vertical-align: middle; // match .btn alignment given font-size hack above
 
   > .btn {
@@ -228,8 +228,8 @@
     input[type="radio"],
     input[type="checkbox"] {
       position: absolute;
-      clip: rect(0,0,0,0);
       pointer-events: none;
+      clip: rect(0,0,0,0);
     }
   }
 }

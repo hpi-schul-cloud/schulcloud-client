@@ -1,5 +1,5 @@
 $primaryColor: #78aae5;
-$secondaryColor: #FF0000;
+$secondaryColor: #f00;
 $accentColor: #b10438;
 $logoGradient: linear-gradient(45deg, $primaryColor 30%, $primaryColor);
 
@@ -7,8 +7,8 @@ $logoBackground: url("../../images/logo/logo-wt.png") no-repeat center;
 
 aside.nav-sidebar{
     .sc-branding{
-        font-size: 18px;
         max-width: 240px;
+        font-size: 18px;
         .cloud-logo{
             vertical-align: top;
         }

@@ -3,13 +3,13 @@
 //
 
 .card {
-  position: relative;
   display: block;
+  position: relative;
   margin-bottom: $card-spacer-y;
-  background-color: $card-bg;
+  border: $card-border-width solid $card-border-color;
   // border: $card-border-width solid $card-border-color;
   @include border-radius($card-border-radius);
-  border: $card-border-width solid $card-border-color;
+  background-color: $card-bg;
 }
 
 .card-block {
@@ -69,10 +69,10 @@
 
 .card-header {
   @include clearfix;
-  padding: $card-spacer-y $card-spacer-x;
-  margin-bottom: 0; // Removes the default margin-bottom of <hN>
+  margin-bottom: 0;
+  border-bottom: $card-border-width solid $card-border-color; // Removes the default margin-bottom of <hN>
   background-color: $card-cap-bg;
-  border-bottom: $card-border-width solid $card-border-color;
+  padding: $card-spacer-y $card-spacer-x;
 
   &:first-child {
     @include border-radius($card-border-radius-inner $card-border-radius-inner 0 0);
@@ -81,9 +81,9 @@
 
 .card-footer {
   @include clearfix;
-  padding: $card-spacer-y $card-spacer-x;
-  background-color: $card-cap-bg;
   border-top: $card-border-width solid $card-border-color;
+  background-color: $card-cap-bg;
+  padding: $card-spacer-y $card-spacer-x;
 
   &:last-child {
     @include border-radius(0 0 $card-border-radius-inner $card-border-radius-inner);
@@ -161,9 +161,9 @@
 //
 
 .card-blockquote {
-  padding: 0;
   margin-bottom: 0;
   border-left: 0;
+  padding: 0;
 }
 
 // Card image
@@ -222,8 +222,8 @@
     $space-between-cards: (2 * $card-deck-margin);
     .card-deck {
       display: table;
-      width: 100%;
-      margin-bottom: $card-spacer-y; // Margin balancing
+      margin-bottom: $card-spacer-y;
+      width: 100%; // Margin balancing
       table-layout: fixed;
       border-spacing: $space-between-cards 0;
 
@@ -311,8 +311,8 @@
 
 @include media-breakpoint-up(sm) {
   .card-columns {
-    column-count: 3;
     column-gap: $card-columns-sm-up-column-gap;
+    column-count: 3;
 
     .card {
       display: inline-block; // Don't let them vertically span multiple columns

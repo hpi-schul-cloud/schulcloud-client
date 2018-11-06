@@ -1,19 +1,19 @@
-@import '../lib/colors';
+@import "../lib/colors";
 @import '../lib/bootstrap/scss/bootstrap-grid';
 @import 'homework';
 
 .section-homework {
-  width: 100%;
   clear: both;
+  width: 100%;
   .dates {
     float: right;
-    padding: 10px 0;
     margin: 0;
-    color: grey;
+    padding: 10px 0;
     text-align: right;
+    color: #808080;
     @include media-breakpoint-down(xs) {
-      width:100%;
       padding: 0 0 10px;
+      width: 100%;
     }
   }
   .maintabs > .tab-links .tab-link{
