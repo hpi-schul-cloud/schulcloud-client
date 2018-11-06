@@ -4,7 +4,7 @@ const router = express.Router();
 const authHelper = require('../helpers/authentication');
 const permissionHelper = require('../helpers/permissions');
 const api = require('../api');
-const showdown  = require('showdown');
+const showdown = require('showdown');
 const converter = new showdown.Converter();
 const moment = require('moment');
 
@@ -51,8 +51,7 @@ async function articles(){
 articles();
 */
 const tutorials = require('../helpers/content/tutorials.json');
-const firstStepsItems = [
-    {
+const firstStepsItems = [{
         title: "Schüler",
         icon: "fa-child",
         src: "#"
@@ -61,7 +60,7 @@ const firstStepsItems = [
         title: "Lehrer",
         icon: "fa-child",
         src: "#"
-    },{
+    }, {
         title: "Admin",
         icon: "fa-child",
         src: "#"
@@ -72,8 +71,7 @@ const firstStepsItems = [
         src: "#"
     }
 ];
-const quickHelpItems = [
-    {
+const quickHelpItems = [{
         title: "Online-Videokurse",
         icon: "fa-video-camera",
         src: "#"
@@ -82,14 +80,13 @@ const quickHelpItems = [
         title: "MINT-EC Webinare",
         icon: "fa-desktop",
         src: "#"
-    },{
+    }, {
         title: "Schnellstart PDF",
         icon: "fa-file-pdf-o",
         src: "#"
     }
 ];
-const knowledgeItems =  [
-    {
+const knowledgeItems = [{
         title: "Überblick",
         icon: "fa-info",
         src: "#"
@@ -120,7 +117,11 @@ const knowledgeItems =  [
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    api(req).get('/releases', {qs: {$sort: '-createdAt'}})
+    api(req).get('/releases', {
+            qs: {
+                $sort: '-createdAt'
+            }
+        })
         .then(releases => {
             releases.data.map(release => {
                 release.body = converter.makeHtml(release.body);
@@ -139,7 +140,11 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/releases', function (req, res, next) {
-    api(req).get('/releases', {qs: {$sort: '-createdAt'}})
+    api(req).get('/releases', {
+            qs: {
+                $sort: '-createdAt'
+            }
+        })
         .then(releases => {
             releases.data.map(release => {
                 release.body = converter.makeHtml(release.body);
@@ -164,9 +169,9 @@ router.get('/confluence/:id', function (req, res, next) {
 });
 
 router.get('/faq/sso', function (req, res, next) {
-faq.ssoFAQ.map(faq => {
-   faq.content = converter.makeHtml(faq.content);
-});
+    faq.ssoFAQ.map(faq => {
+        faq.content = converter.makeHtml(faq.content);
+    });
 
     res.render('help/sso-faq', {
         faq: faq.ssoFAQ,
@@ -177,11 +182,11 @@ faq.ssoFAQ.map(faq => {
 router.get('/faq/documents', function (req, res, next) {
     // check a random permission that demo users dont have to detect demo accounts
     let access = permissionHelper.userHasPermission(res.locals.currentUser, 'FEDERALSTATE_VIEW');
-    
+
     if (access) {
         let documents = faq.documents;
         documents[0].content = converter.makeHtml(documents[0].content);
-        
+
         res.render('help/sso-faq', {
             faq: documents,
             title: "Dokumente des Willkommensordners zum Download"
@@ -194,13 +199,6 @@ router.get('/faq/documents', function (req, res, next) {
         res.redirect('/help');
         return;
     }
-});
-
-router.get('/releases', function (req, res, next) {
-    api(req).get('/releases', {qs: {$sort: '-createdAt'}})
-        .then(releases => {
-           res.json(releases.data[0]);
-        });
 });
 
 
