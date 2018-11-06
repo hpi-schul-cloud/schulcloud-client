@@ -8,7 +8,7 @@
     "debug": "nodemon --inspect=9310 --watch controllers/ --watch helpers/ --watch views/ --ext js,hbs ./bin/www",
     "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
     "sasslint": "sass-lint -q -v",
-    "sasslint:fix": "sass-lint-auto-fix -s -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",
+    "sasslint:fix": "sass-lint-auto-fix -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",
     "startd": "echo 'Do you mean 'npm run watch'?'",
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test/mocha/ --recursive",

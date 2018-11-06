@@ -1,4 +1,4 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .move-handle {
   cursor: move;
@@ -8,8 +8,8 @@
 .dropdown-course {
   display: inline-block;
 
-  .btn-course-dropdown{
-    padding:0;
+  .btn-course-dropdown {
+    padding: 0;
   }
 
   .course-headline {
@@ -33,8 +33,8 @@
 
   @media (min-width: 576px) {
     .course-card {
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      transition: all .3s cubic-bezier(.25, .8, .25, 1);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
       //padding: 10px;
       padding-bottom: 20px;
     }
@@ -49,8 +49,8 @@
   }
 
   .lesson-date {
-    line-height: 24px;
     float: right;
+    line-height: 24px;
   }
 
   .delete-material {
@@ -69,11 +69,11 @@
   }
 
   .ui-state-highlight {
-    height: 55px;
+    margin-bottom: 12px;
     border: 2px dashed #373a3c;
     border-radius: 3px;
-    margin-bottom: 12px;
-    background: none!important;
+    background: none !important;
+    height: 55px;
   }
 
   .content-block {
@@ -85,9 +85,9 @@
     }
 
     iframe {
+      outline: none;
       border: 1px solid $primaryColor;
       border-radius: 5px;
-      outline: none;
     }
   }
 
@@ -99,15 +99,15 @@
     }
   }
 
-  .disabled > * {
+  .disabled>* {
     pointer-events: none;
   }
 
   .times {
-    padding: 16px;
-    box-shadow: 0 1px 1px 0 #C7C7C7 inset;
-    background: none repeat scroll 0 0;
     margin-bottom: 30px;
+    box-shadow: 0 1px 1px 0 #c7c7c7 inset;
+    background: none repeat scroll 0 0;
+    padding: 16px;
 
     i {
       cursor: pointer;
@@ -116,8 +116,8 @@
     .new-course-time-add {
       display: inline-block;
       margin-top: 10px;
-      padding-left: 5px;
       cursor: pointer;
+      padding-left: 5px;
       color: $primaryColor;
     }
   }
@@ -131,18 +131,18 @@
   cursor: pointer;
 
   .card-header {
-    padding: 0.5rem 0.75rem;
     background-color: $primaryColor;
+    padding: .5rem .75rem;
     color: $colorWhite;
   }
 
   .btn-hidden-toggle {
-    font-size: 25px;
-    color: $colorWhite;
     margin-left: 10px;
+    padding: 0 5px;
+    color: $colorWhite;
     //border: 1px solid;
     //border-radius: .2rem;
-    padding: 0 5px;
+    font-size: 25px;
   }
 
   .btn-hidden-toggle:hover {
@@ -150,13 +150,13 @@
   }
 
   .btn-icon-card {
-    color: $colorWhite;
     background: transparent;
+    color: $colorWhite;
   }
 
   .btn-icon-card:hover {
-    color: white;
     background: $colorLightGrey;
+    color: #fff;
   }
 
   .topic-label {
@@ -164,8 +164,8 @@
   }
 
   .input-group-btn {
-    padding-right: 10px;
     float: right;
+    padding-right: 10px;
   }
 
   .input-group {
@@ -190,13 +190,13 @@
   #content-blocks {
     .btn-group {
       .btn-secondary {
-        margin-right: 0.4rem;
+        margin-right: .4rem;
       }
     }
 
     .geo-gebra-info {
-      color: white;
       background-color: $primaryColor;
+      color: #fff;
     }
 
     input {
@@ -215,16 +215,16 @@
 }
 
 .courseGroup {
-  width: 100%;
-  list-style: none;
+  clear: both;
   margin: 0;
   padding: 10px 0;
-  clear: both;
+  width: 100%;
+  list-style: none;
 
   .group-card {
-    width: 100%;
     position: relative;
     padding: 10px;
+    width: 100%;
     text-decoration: none;
 
     h5 {
@@ -240,8 +240,8 @@
       padding-top: 10px;
 
       .tag {
-        font-size: 100%;
         margin-bottom: 10px;
+        font-size: 100%;
       }
     }
   }
@@ -258,8 +258,8 @@
 
 #member-list {
   li {
-    padding: 0;
     margin: 0;
+    padding: 0;
   }
 }
 

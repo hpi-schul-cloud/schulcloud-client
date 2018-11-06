@@ -1,26 +1,26 @@
 .tabContainer {
   .tabs {
-    position: relative;
     display: flex;
+    position: relative;
     flex-flow: row nowrap;
     justify-content: space-around;
 
     .tab {
       display: block;
+      cursor: pointer;
       padding: 20px;
       width: 100%;
       text-align: center;
       white-space: nowrap;
-      cursor: pointer;
 
       .text {
         display: inline-block;
-        vertical-align: middle;
+        opacity: .54;
         cursor: pointer;
-        font-weight: 500;
+        vertical-align: middle;
 
         font-size: 20px;
-        opacity: 0.54;
+        font-weight: 500;
       }
 
       .text:hover {
@@ -36,8 +36,8 @@
     .indicator {
       position: absolute;
       bottom: 11px;
-      height: 3px;
       background: $primaryColor;
+      height: 3px;
     }
   }
 }
@@ -50,9 +50,9 @@
       display: none;
 
       p {
-        font-size: 18px;
-        line-height: 1.2;
         margin-bottom: 25px;
+        line-height: 1.2;
+        font-size: 18px;
       }
 
       &.active {

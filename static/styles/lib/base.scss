@@ -15,10 +15,10 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts"; // sass-lint:disable-line
 
 * {
   // sass-lint:disable-block no-vendor-prefixes
-  hyphens: auto;
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  hyphens: auto;
 }
 
 .section-team,
@@ -354,14 +354,14 @@ form.inline {
 }
 
 //the following adds fa-share-square-o for each external link except images
-.section-course .content-block{
-	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
-		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
-			&:after{
-				font-family: 'FontAwesome';
-				content: "  \f08e";
-				font-size: .7em;
-			}
-		}
-	}
+.section-course .content-block {
+  a:not([href*="https://schul-cloud.org"]):not([href^="#"]):not([href^="/"]) {
+    &:not([href$=".jpg"]):not([href$=".png"]):not([href$=".jpeg"]):not([href$=".gif"]):not([href$=".bmp"]) {
+      &:after {
+        font-family: "FontAwesome";
+        font-size: .7em;
+        content: "  \f08e";
+      }
+    }
+  }
 }
