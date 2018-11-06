@@ -93,37 +93,27 @@ iframe.full {
   }
 }
 .first-steps-card {
-  .card-content {
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    .card-row {
-      margin: 0;
-      .link-wrapper {  
-        border: none;
-        &:nth-of-type(1) {
-          background-color: #b00c36;
-          border-bottom-left-radius: 4px;
-        }
-        &:nth-of-type(2) {
-          background-color: #e25617;
-        }
-        &:nth-of-type(3) {
-          background-color: #f89c0e;
-        }
-        &:nth-of-type(4) {
-          background-color: #0c53b0;
-          border-bottom-right-radius: 4px;
-        } 
-        a {
-          color: #fff;
-        }
-      }    
-    }    
-  } 
-}
-.eMail-card {
+  .link-wrapper {  
+    border: none;
+    &:nth-of-type(1) {
+      background-color: #b00c36;
+    }
+    &:nth-of-type(2) {
+      background-color: #e25617;
+    }
+    &:nth-of-type(3) {
+      background-color: #f89c0e;
+    }
+    &:nth-of-type(4) {
+      background-color: #0c53b0;
+    } 
+    a {
+      color: #fff;
+    }
+  }    
+} 
 
+.eMail-card {
   .card-content {
     color: #fff;
     background: #e25617;
@@ -136,9 +126,7 @@ iframe.full {
   }
 }
 
-
-.accordion {
-  
+.accordion { 
   .card {
     text-align: left;
     border: none;
@@ -171,5 +159,11 @@ iframe.full {
         font-size: 1.2rem;
       }
     }
+  }
+}
+
+.first-steps-card, .information-card, .quickHelp-card {
+  .card-content{
+    padding: 2rem 0 0 0;
   }
 }
