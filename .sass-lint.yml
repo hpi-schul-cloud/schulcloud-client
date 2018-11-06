@@ -17,9 +17,9 @@ options:
 files:
   include: 'static/styles/**/*.s+(a|c)ss'
   ignore:
-    - 'static/styles/lib/bootstrap/**/*.s?(a|c)ss'
-    - 'static/styles/lib/chosen/**/*.s?(a|c)ss'
-    - 'static/styles/lib/spectrum/**/*.s?(a|c)ss'
+    - 'static/styles/lib/bootstrap/**'
+    - 'static/styles/lib/chosen/**'
+    - 'static/styles/lib/spectrum/**'
     - 'static/styles/**/*.min.s?(a|c)ss'
 
 # Linter rules
