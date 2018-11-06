@@ -90,8 +90,8 @@ const editCourseHandler = (req, res, next) => {
         method = 'post';
         coursePromise = Promise.resolve({});
     }
-    
-    const classesPromise = api(req).get('/classes', { qs: { 
+
+    const classesPromise = api(req).get('/classes', { qs: {
         $or: [{ "schoolId": res.locals.currentSchool }],
         $populate: ["year"],
         $limit: 1000
@@ -435,7 +435,10 @@ router.get('/:courseId', function(req, res, next) {
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
-                {}
+                {
+                    title: course.name,
+                    url: '/courses/' + course._id
+                }
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
