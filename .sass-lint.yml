@@ -34,12 +34,12 @@ rules:
     - 0
     - filename-extension: false
       leading-underscore: true
-  empty-line-between-blocks: 1
+  empty-line-between-blocks: 0
   extends-before-declarations: 1
   extends-before-mixins: 1
   final-newline: 1
-  force-attribute-nesting: 1
-  force-element-nesting: 1
+  force-attribute-nesting: 0
+  force-element-nesting: 0
   force-pseudo-nesting: 1
   function-name-format:
     - 1
@@ -82,7 +82,7 @@ rules:
     - 1
     - style: double
   shorthand-values: 1
-  single-line-per-selector: 1
+  single-line-per-selector: 0
   space-after-bang:
     - 1
     - include: false
