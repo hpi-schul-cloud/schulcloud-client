@@ -266,6 +266,13 @@ window.addEventListener("load", () => {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
+    if ('serviceWorker' in navigator) { 
+        // enable sw for half of users only
+        let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+        if(testUserGroup == 1) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    }
 }); 
 
 document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);

@@ -24,6 +24,7 @@
     "express-session": "^1.15.2",
     "fast-csv": "^2.4.1",
     "feedr": "^2.13.5",
+    "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
@@ -33,6 +34,7 @@
     "jsonwebtoken": "^7.3.0",
     "lodash": "^4.17.4",
     "marked": "^0.3.6",
+    "mathjax": "^2.7.5",
     "maxmind": "^2.3.0",
     "method-override": "^2.3.7",
     "moment": "^2.22.2",
@@ -90,8 +92,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nightwatch": "^1.0.6",
-    "nodemon": "^1.18.3",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.18.3",
     "pump": "^1.0.2",
     "rebuild-changed-entrypoints-webpack-plugin": "^1.0.1",
     "script-loader": "^0.7.2",
@@ -99,6 +101,8 @@
     "vinyl-map": "^1.0.2",
     "vinyl-named": "^1.1.0",
     "webpack": "^4.16.1",
-    "webpack-stream": "^4.0.3"
+    "webpack-stream": "^4.0.3",
+    "workbox-build": "^3.4.1",
+    "workbox-cli": "^3.5.0"
   }
 }

@@ -93,3 +93,23 @@ window.startIntro = function startIntro() {
         document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
     })
 }
+
+if ('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+            if(registration.active && registration.active.scriptURL.endsWith('/sw.js')){
+                registration.unregister();
+                caches.keys().then(function(cacheNames) {
+                    return Promise.all(
+                      cacheNames.filter(function(cacheName) {
+                        return cacheName.startsWith('workbox') | cacheName.startsWith('images') 
+                        | cacheName.startsWith('pages') | cacheName.startsWith('vendors');
+                      }).map(function(cacheName) {
+                        return caches.delete(cacheName);
+                      })
+                    );
+                });
+            }
+        } 
+    });
+}

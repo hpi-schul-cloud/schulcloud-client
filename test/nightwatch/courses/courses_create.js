@@ -30,13 +30,19 @@ module.exports = {
     'Create Course': function (browser) {
         browser.url(base_url + 'courses/');
         browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
-        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/a', 10, 10)
+        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/a', 10, 10)
             .useCss()
             .click('.btn-add')
             .pause(1000)
             .setValue('input[name=name]', 'Test Kurs')
             .setValue('textarea[name=description]', 'Test Beschreibung')
             .moveToElement('.btn-submit', 10, 10)
+            .click('.btn-submit')
+            .pause(1000)
+            .setValue('input[name=startDate]', '01.01.2019')
+            .click('.btn-submit')
+            .pause(1000)
+            .setValue('input[name=untilDate]', '01.03.2019')
             .click('.btn-submit')
             .pause(1000);
         browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
