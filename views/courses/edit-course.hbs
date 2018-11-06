@@ -169,6 +169,14 @@
 
 
                 <div class="modal-footer">
+                  {{#if course._id}}
+                    <a href="/courses/{{course._id}}/"
+                       class="btn btn-delete-course btn-secondary pull-left"
+                       target="_blank"
+                       data-method="DELETE"
+                       data-name="{{course.name}}"
+                       redirect="/courses/">Kurs löschen</a>
+                  {{/if}}
                     <button class="btn btn-secondary btn-cancel">
                         {{closeLabel}}
                     </button>
@@ -181,9 +189,23 @@
             </form>
 
 
-                {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+                {{#content "body"}}
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-close">
+                            Abbrechen
+                        </button>
 
-                {{/embed}}
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            Löschen
+                        </button>
+                    </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+
+            {{/embed}}
 
 
         </section>
