@@ -434,6 +434,21 @@
           "linkedin": ""
         },
         "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Marco",
+        "lastName": "Schaarschmidt",
+        "position": "Bachelorstudent",
+        "description": "Marco studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Als Ausgleich geht er gerne schwimmen. Außerdem verbringt er seine Freizeit sehr gerne damit zu reisen und neue, interessante Orte kennenzulernen.",
+        "pictureUrl": "/images/team/Marco_Schaarschmidt.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       }
     ]
   },
