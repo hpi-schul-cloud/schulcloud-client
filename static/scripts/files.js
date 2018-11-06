@@ -321,8 +321,8 @@ $(document).ready(function() {
         let path = $(this).attr('data-file-path');
 
         populateRenameModal(
-            oldName, 
-            path, 
+            oldName,
+            path,
             '/files/fileModel/' + fileId +  '/rename',
             'Datei umbenennen');
     });
@@ -369,8 +369,8 @@ $(document).ready(function() {
         let path = $(this).attr('data-directory-path');
 
         populateRenameModal(
-            oldName, 
-            path, 
+            oldName,
+            path,
             '/files/directoryModel/' + dirId +  '/rename',
             'Ordner umbenennen');
     });
@@ -439,7 +439,7 @@ $(document).ready(function() {
                     },
                     success: function (data) {
                         populateModalForm($shareModal, {
-                            title: 'Einladungslink generiert!',
+                            title: 'Freigabe Einstellungen',
                             closeLabel: 'Abbrechen',
                             submitLabel: 'Speichern',
                             fields: {invitation: data.newUrl}
@@ -656,7 +656,7 @@ window.fileViewer = function fileViewer(type, key, name, id) {
 
 /**
  * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
- * @deprecated 
+ * @deprecated
 **/
 function openInIframe(source){
     $("input.box").each(function() {

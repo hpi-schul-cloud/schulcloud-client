@@ -8,17 +8,16 @@
 </style>
 
 <div id="share-files" class="form-group">
-    <div class="alert alert-info" role="alert">
+    {{!-- <div class="alert alert-info" role="alert">
         <h5>Standard-Freigabeinstellungen</h5>
         <ul class="mb-0">
             <li>Experten dürfen {{#if allowExternalExperts}}alle{{else}}keine{{/if}} Dateien und Ordner sehen</li>
             <li>Team Mitglieder dürfen {{#if allowMembers}}alle{{else}}keine{{/if}} Dateien und Ordner sehen</li>
         </ul>
-    </div>
+    </div> --}}
 
     <h5 class="mt-2">Freigeben für:</h5>
     <div>
-        {{!-- {{#unless allowExternalExperts}} --}}
         <table class="file-permissions">
             <tr>
                 <th>Rolle</th>

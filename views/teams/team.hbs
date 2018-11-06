@@ -102,7 +102,7 @@
                 <div class="col-sm-12">
                     <h4>Dateien</h4>
                     {{#embed "files/file-viewer"}}{{/embed}}
-                    {{#embed "files/files-grid" files=files}}{{/embed}}
+                    {{#embed "files/files-grid" files=files teamId=../_id}}{{/embed}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
                 </div>
             </section>
@@ -179,19 +179,6 @@
                     {{> "calendar/forms/form-create-event"}}
                 {{/content}}
             {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="import-modal"}}
-                {{#content "fields"}}
-                    {{> "courses/forms/form-import-topic"}}
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="share-modal"}}
-                {{#content "fields"}}
-                    {{> "topic/forms/form-share"}}
-                {{/content}}
-            {{/embed}}
-
         </section>
     {{/content}}
 {{/extend}}
