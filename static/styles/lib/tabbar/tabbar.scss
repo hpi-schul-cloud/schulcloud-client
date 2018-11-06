@@ -1,60 +1,66 @@
 .tabContainer {
-    .tabs {
-        position: relative;
-        display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-around;
-        .tab {
-            display: block;
-            padding-left: 24px;
-            padding-right: 24px;
-            padding: 20px;
-            width: 100%;
-            text-align: center;
-            white-space: nowrap;
-            cursor: pointer;
-            .text {
-                display: inline-block;
-                vertical-align: middle;
-                cursor: pointer;
-                font-weight: 500;
-            }
-            .text {
-                font-size: 20px;
-                opacity: .54;
-            }
-            .text:hover {
-              color:$primaryColor;
-            }
-            &.active {
-                color: $primaryColor;
-                opacity: 1 !important;
-                font-weight: 700 !important;
-            }
-        }
-        .indicator {
-            position: absolute;
-            bottom: 11px;
-            height: 3px;
-            background: $primaryColor;
-        }
+  .tabs {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+
+    .tab {
+      display: block;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      white-space: nowrap;
+      cursor: pointer;
+
+      .text {
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .text {
+        font-size: 20px;
+        opacity: 0.54;
+      }
+
+      .text:hover {
+        color: $primaryColor;
+      }
+
+      &.active {
+        color: $primaryColor;
+        opacity: 1 !important;
+        font-weight: 700 !important;
+      }
     }
+
+    .indicator {
+      position: absolute;
+      bottom: 11px;
+      height: 3px;
+      background: $primaryColor;
+    }
+  }
 }
+
 .sectionsContainer {
-    padding: 10px 0 0;
-    .sections {
-        .section {
-            display: none;
+  padding: 10px 0 0;
 
-            p {
-                font-size: 18px;
-                line-height: 1.2;
-                margin-bottom: 25px;
-            }
+  .sections {
+    .section {
+      display: none;
 
-            &.active {
-                display: block;
-            }
-        }
+      p {
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: 25px;
+      }
+
+      &.active {
+        display: block;
+      }
     }
+  }
 }
