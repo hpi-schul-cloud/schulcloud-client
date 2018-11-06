@@ -419,6 +419,21 @@
           "linkedin": ""
         },
         "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Carolin",
+        "lastName": "Goerke",
+        "position": "Bachelorstudent",
+        "description": "Carolin studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat arbeitet sie gerne mit Kindern und Jugendlichen zusammen. Außerdem tanzt sie gerne.",
+        "pictureUrl": "/images/team/Carolin_Goerke.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
       }
     ]
   },
