@@ -12,15 +12,31 @@
 
         {{> "help/search"}}
 
-        {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card" id="Erste_Schritte"}}
+        {{#embed "help/component-card" title="Inhaltsverzeichnis" icon="fa-list" class="list-of-content-card hidden-sm-up"}}
             {{#content "card-body"}}
-                {{#embed "help/clickable-card" clickable=firstStepsItems link-class="col-sm-3"}}
-                {{/embed}}
+            <ul>
+                <li><a href="#Erste_Schritte">Erste Schritte</a></li>
+                <li><a href="#Nutzungshilfen">Nutzungshilfen</a></li>
+                {{#each tutorials}}
+                    <li><a href="#{{this.title}}">{{this.title}}</a></li>
+                {{/each}}
+                <li><a href="#Kontakt">Kontaktformular</a></li>
+                <li><a href="#E-Mail">Schreib uns eine E-Mail</a></li>
+                <li><a href="#About">Über das Projekt</a></li>
+            </ul>
             {{/content}}
         {{/embed}}
 
+        {{#if false}}
+        {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card" id="Erste_Schritte"}}
+            {{#content "card-body"}}
+                {{> "help/clickable-card" clickable=firstStepsItems link-class="col-sm-3"}}
+            {{/content}}
+        {{/embed}}
+        {{/if}}
+
         {{#each tutorials}}
-            {{#embed "help/component-card" title=this.title icon=this.icon class="accordion"}}
+            {{#embed "help/component-card" title=this.title icon=this.icon class="accordion" id=this.title}}
                 {{#content "card-body"}}
                     {{#each this.categories}}
                         {{#if this.articles}}
@@ -64,8 +80,7 @@
 
         {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card" id="Nutzungshilfen"}}
             {{#content "card-body"}}
-                {{#embed "help/clickable-card" clickable=quickHelpItems link-class="col-sm-4"}}
-                {{/embed}}
+                {{> "help/clickable-card" clickable=quickHelpItems link-class="col-sm-4"}}
             {{/content}}
         {{/embed}}
 
@@ -83,8 +98,7 @@
 
         {{#embed "help/component-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card" id="About"}}
             {{#content "card-body"}}
-                {{#embed "help/clickable-card" clickable=knowledgeItems link-class="col-sm-4"}}
-                {{/embed}}
+                {{> "help/clickable-card" clickable=knowledgeItems link-class="col-sm-4"}}
             {{/content}}
         {{/embed}}
 
