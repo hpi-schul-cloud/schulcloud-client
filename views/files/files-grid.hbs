@@ -24,6 +24,14 @@
                                         </i>
                                     </div>
                                 </div>
+                                <a class="title">
+                                    {{this.name}}
+                                </a>
+                                <i data-file-id="{{this._id}}"
+                                    data-file-name="{{this.name}}"
+                                    data-file-path="{{this.path}}"
+                                    class="fa fa-edit file-name-edit">
+                                </i>
                             </div>
                             <div class="card-text">
                                 <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
