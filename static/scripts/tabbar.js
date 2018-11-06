@@ -70,31 +70,11 @@ var app = {
       var indicatorRect = indicator.getBoundingClientRect();
 
       if (indicatorRect.left < newTabRect.left) {
-        // TweenMax.to(indicator, .2, {
-        //   right: ((parentRect.left + parentRect.width) - (newTabRect.left + newTabRect.width)) + 'px',
-        //   ease: Power2.easeOut
-        // });
         indicator.style.right = ((parentRect.left + parentRect.width) - (newTabRect.left + newTabRect.width)) + 'px';
-
         indicator.style.left = (newTabRect.left - parentRect.left) + 'px';
-        // TweenMax.to(indicator, .2, {
-        //   left: (newTabRect.left - parentRect.left) + 'px',
-        //   ease: Power2.easeOut,
-        //   delay: .1
-        // });
       } else {
-        // TweenMax.to(indicator, .2, {
-        //   left: (newTabRect.left - parentRect.left) + 'px',
-        //   ease: Power2.easeOut
-        // });
         indicator.style.left = (newTabRect.left - parentRect.left) + 'px';
-
         indicator.style.right = ((parentRect.left + parentRect.width) - (newTabRect.left + newTabRect.width)) + 'px';
-        // TweenMax.to(indicator, .2, {
-        //   right: ((parentRect.left + parentRect.width) - (newTabRect.left + newTabRect.width)) + 'px',
-        //   ease: Power2.easeOut,
-        //   delay: .1
-        // });
       }
 
       oldTab.classList.remove('active');
