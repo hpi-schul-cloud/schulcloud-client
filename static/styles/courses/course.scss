@@ -126,7 +126,11 @@
     display: none;
   }
 }
-
+.course-task-header {
+  padding: 0.5rem 0.75rem;
+  background-color: $primaryColor;
+  color: $colorWhite;
+}
 .card-topic {
   cursor: pointer;
 
