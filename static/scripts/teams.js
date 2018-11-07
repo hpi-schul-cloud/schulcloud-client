@@ -2,6 +2,7 @@ import moment from 'moment';
 
 $(document).ready(function () {
   var $createEventModal = $('.create-event-modal');
+  var $filePermissionsModal = $('.file-permissions-modal');
 
   $('.btn-create-event').click(function (e) {
     // open create event modal
@@ -20,24 +21,34 @@ $(document).ready(function () {
     $createEventModal.appendTo('body').modal('show');
   });
 
+  $('.btn-file-permissions').click(function (e) {
+    // open create event modal
 
-  // $('.create-event-modal form').on('submit', function (e) {
-  //   e.stopPropagation();
-  //   e.preventDefault();
+    populateModalForm($filePermissionsModal, {
+        title: 'Freigabe-Einstellungen ändern',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Speichern',
+    });
+    $filePermissionsModal.appendTo('body').modal('show');
+  });
 
-  //   console.log('OK!!')
+  $('.file-permissions-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
 
-  //   $.ajax({
-  //     url: $(this).attr('action'),
-  //     method: 'POST',
-  //     data: {}
-  //   }).done(function() {
-  //     $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
-  //     location.reload();
-  //   }).fail(function() {
-  //     $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
-  //   });
+    console.log('OK!!')
 
-  //   return false;
-  // });
+    // $.ajax({
+    //   url: $(this).attr('action'),
+    //   method: 'POST',
+    //   data: {}
+    // }).done(function() {
+    //   $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
+    //   location.reload();
+    // }).fail(function() {
+    //   $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
+    // });
+
+    return false;
+  });
 });

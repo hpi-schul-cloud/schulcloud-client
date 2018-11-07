@@ -1,0 +1,34 @@
+<style>
+    .team-file-permissions th, .team-file-permissions td {
+        text-align: left;
+        padding: 11px;
+        text-align: center;
+        border: 1px solid grey
+    }
+</style>
+
+<div class="form-group">
+    <h4>Dateifreigabe-Einstellungen</h4>
+    <strong>Voreingestellte Zugriffsberechtigungen für neue Ordner und Dateien innerhalb des Teams:</strong>
+    <br><br>
+    <table class="team-file-permissions">
+        <tr>
+            <th>Rolle</th>
+            <th>Zugriff auf Dateien</th>
+        </tr>
+        <tr>
+            <td>Externe Experten</td>
+            <td>
+                <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" checked="checked" />
+            </td>
+        </tr>
+        <tr>
+            <td>Teilnehmer</td>
+            <td>
+                <input class="box" type="checkbox" name="externalExperts" value="allowMembers" checked="checked" />
+            </td>
+        </tr>
+    </table>
+    <br>
+    <i>Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.</i>
+</div>
