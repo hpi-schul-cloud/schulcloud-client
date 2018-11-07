@@ -234,7 +234,13 @@ gulp.task('browser-sync', ['nodemon'], function() {
 		proxy: "http://localhost:3100",
         open: false,
         port: 7000,
-        reloadOnRestart: true
+        ghostMode: false,
+        reloadOnRestart: false,
+        socket:{
+          clients: {
+            heartbeatTimeout: 60000
+          } 
+        }
 	});
 });
 
@@ -251,7 +257,7 @@ gulp.task('nodemon', function (cb) {
 			cb();
 			started = true; 
     } 
-    setTimeout(browserSync.reload, 2000); //server-start takes some time
+    setTimeout(browserSync.reload, 3000); //server-start takes some time
 	});
 });
 
