@@ -225,26 +225,34 @@ const getDirectoryTree = (req, directory) => {
 /**
  * register a new filePermission for the given user for the given file
  * @param userId {String} - the user which should be granted permission
- * @param filePath {String} - the file for which a new permission should be created
+ * @param fileId {String} - the file for which a new permission should be created
  * @param shareToken {String} - a token for verify enabled sharing
  */
-const registerSharedPermission = (userId, filePath, shareToken, req) => {
+const registerSharedPermission = (userId, fileId, shareToken, req) => {
+    
     // check whether sharing is enabled for given file
-    return api(req).get('/files/', {qs: {key: encodeURI(filePath), shareToken: shareToken}}).then(res => {
-        let file = res.data[0];
-        // verify given share token
-        if (!file || file.shareToken !== shareToken) {
+    return api(req).get(`/files/${fileId}`, { qs: { shareToken } }).then(res => {
+    
+        const { data: [file,] } = res;
+    
+        if ( !file ) {
             // owner permits sharing of given file
             return Promise.reject("Zu dieser Datei haben Sie keinen Zugriff!");
         } else {
+            
+            const permission = file.permission.find((perm) => perm.refId.toString() === userId);
 
-            let file = res.data[0];
-            if (!_.some(file.permissions, {userId: userId})) {
+            if(!permission) {
                 file.permissions.push({
-                    userId: userId,
-                    permissions: ['can-read', 'can-write'] // todo: make it selectable
+                    refId: userId,
+                    refPermModel: 'user',
+                    read: true,
+                    write: false,
+                    delete: false,
+                    create: false,
                 });
-                return api(req).patch('/files/' + res.data[0]._id, {json: file});
+
+                return api(req).patch(`/files/${fileId}`, { json: file });
             }
         }
     });
@@ -361,18 +369,21 @@ router.delete('/file', function (req, res) {
 });
 
 // get file
-router.get('/file', function (req, res, next) {
+router.get('/file', function (req, res) {
 
-    const {file, download, name, share, lool} = req.query;
+    const { file, download, name, share, lool } = req.query;
     const data = {
         file, 
         name,
 		download: download || false
     };
-    const sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
-    sharedPromise.then(_ => {
+    const sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.file, share, req) : Promise.resolve();
+    
+    sharedPromise.then(() => {
         
-        if (lool) return res.redirect(307, `/files/file/${file}/lool`);
+        if ( lool ) {
+            return res.redirect(307, `/files/file/${file}/lool`);
+        }
 
         return retrieveSignedUrl(req, data).then(signedUrl => {
 			res.redirect(307,signedUrl.url);
