@@ -513,7 +513,8 @@ router.get('/shared/', function (req, res, next) {
             files.files.map(file => {
                 file.file = file.path + file.name;
                 let ending = file.name.split('.').pop();
-                file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+               // file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+               file = addThumbnails(file); /* fix */
             });
 
             res.render('files/files', Object.assign({
@@ -869,7 +870,7 @@ router.post('/studentCanEdit', function(req, res, next) {
    })
        .then(_ => {
            res.json({success: true});
-       })
+       });
 });
 
 
