@@ -53,7 +53,7 @@ const authChecker = (req, res, next) => {
 					.catch(err=>{
 						if(err=="firstLogin was not completed, redirecting..."){
 							//print message?
-							res.redirect('/login/success');
+							res.redirect('/firstLogin');
 						}else{
 							res.redirect('/login/');
 						}

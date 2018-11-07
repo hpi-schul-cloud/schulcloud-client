@@ -8,6 +8,8 @@ const getDataValue = function(attr) {
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
+import { getQueryParameterByName } from './helpers/queryStringParameter';
+
 $(document).ready(function() {
     let $form = $(".form-upload");
     let $progressBar = $('.progress-bar');

@@ -1,10 +1,10 @@
 import { softNavigate } from './helpers/navigation';
-import { updateQueryStringParam } from './helpers/updateQueryStringParameter';
+import { updateQueryStringParameter } from './helpers/queryStringParameter';
 
 
 function loadSearchResult(event){
 	event.preventDefault();
-	const newUrl = updateQueryStringParam("q",document.querySelector(".search-field").value);
+	const newUrl = updateQueryStringParameter("q",document.querySelector(".search-field").value, true);
 	softNavigate(newUrl, ".ajaxcontent", ".pagination");
 }
 
