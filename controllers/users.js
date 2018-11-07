@@ -7,7 +7,7 @@ const api = require('../api');
 router.get('/teachersOfSchool', async function(req, res, next) {
 
     try {
-        let users = await api(req).get('/users/', {
+        let users = await api(req).get('/publicTeachers/', {
             qs: {
                 schoolId: req.query.schoolId,
                 roles: ['teacher'],
