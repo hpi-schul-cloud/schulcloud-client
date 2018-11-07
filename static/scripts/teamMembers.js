@@ -92,13 +92,12 @@ $(document).ready(function () {
   });
 
   const populateTeachers = (schoolId) => {
-    console.log(schoolId);
     let teacherSelect = $('#teacher');
     teacherSelect.find('option').remove();
     teacherSelect.trigger("chosen:updated");
     $.ajax({
       type: "GET",
-      url: window.location.origin + "/users",
+      url: window.location.origin + "/users/teachersOfSchool",
       data: {
           schoolId: schoolId
       }
