@@ -759,7 +759,9 @@ router.post('/:teamId/members/externalteachers', async function(req, res, next) 
     res.sendStatus(200);
 });
 
-router.post('/:teamId/members/external', async function(req, res, next) {    await api(req).patch('/teams/' + req.params.teamId, {        json: {
+router.post('/:teamId/members/external', async function(req, res, next) {
+    await api(req).patch('/teams/' + req.params.teamId, {
+        json: {
             email: req.body.email,
             role: req.body.role
         }
