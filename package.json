@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon --watch ./ --watch views/ --watch controllers/ --watch build/ --ext js,hbs ./bin/www",
     "debug": "nodemon --inspect=9310 --watch controllers/ --watch helpers/ --watch views/ --ext js,hbs ./bin/www",
+    "watch-reload": "gulp watch-reload",
     "lint": "eslint ./bin ./controllers ./helpers ./test/mocha ./api.js ./app.js --ext .js --fix",
     "sasslint": "sass-lint -q -v",
     "sasslint:fix": "sass-lint-auto-fix -s -c ./.sass-lint-auto-fix.yml && sass-lint -q -v",
@@ -18,6 +19,7 @@
   "sasslintConfig": "./.sass-lint.yml",
   "dependencies": {
     "body-parser": "~1.16.0",
+    "browser-sync": "^2.24.7",
     "compression": "^1.6.2",
     "cookie-parser": "~1.4.3",
     "csv-parse": "^1.2.0",
@@ -29,6 +31,7 @@
     "feedr": "^2.13.5",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
+    "gulp-nodemon": "^2.2.1",
     "handlebars-layouts": "^3.1.4",
     "handlebars-wax": "^5.1.1",
     "hbs": "~4.0.1",
