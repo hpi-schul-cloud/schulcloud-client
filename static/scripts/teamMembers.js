@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+
   const $inviteExternalMemberModal = $('.invite-external-member-modal');
 
   /////////////
@@ -23,16 +23,19 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
 
-    let userIds = $('.add-member-modal form select').val();
+    let userIds = $('.add-member-modal form .form-users select').val();
     userIds = userIds.map(userId => {
       return { userId };
     });
+
+    let classIds = $('.add-member-modal form .form-classes select').val();
 
     $.ajax({
       url: $(this).attr('action'),
       method: 'POST',
       data: {
-        userIds
+        userIds,
+        classIds
       }
     }).done(function() {
       $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
@@ -150,26 +153,26 @@ $(document).ready(function () {
       $.showNotification('Bitte gib eine gültige E-Mail an.', "danger", true);
       return false;
     }
-    
+
     const role = $(this).find('#role').val();
     if (!role) {
       $.showNotification('Bitte wähle eine Rolle aus.', "danger", true);
       return false;
     }
-    
+
     const teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
     if (!teamId) {
       $.showNotification('Bitte lade die Seite neu.', "danger", true);
       return false;
     }
     const origin = window.location.origin;
-    
+
     // collect some information for invite mail from UI, possibly not very stable at long-term
     const infos = {
       userName: $(".navbar .account-toggle strong").html().split(" (")[0],
       teamName: $(".breadcrumb .breadcrumb-item:eq(1) a").html()
     };
-    
+
     $.ajax({
         type: "POST",
         url: origin + "/teams/invitelink",
@@ -258,7 +261,7 @@ $(document).ready(function () {
 
     return false;
   });
-    
+
   /////////////
   // Delete Member
   /////////////
@@ -288,6 +291,45 @@ $(document).ready(function () {
       method: 'DELETE',
       data: {
         userIdToRemove
+      }
+    }).done(function() {
+      location.reload();
+    }).fail(function() {
+      $.showNotification('Problem beim Löschen des Teilnehmers', "danger", true);
+    });
+
+    return false;
+  });
+
+  /////////////
+  // Delete Class
+  /////////////
+  $('.btn-delete-class').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $deleteClassModal = $('.delete-class-modal');
+    const classIdToRemove = $(this).parent().parent().find('[data-payload]').data('payload');
+    populateModalForm($deleteClassModal, {
+        title: 'Klasse löschen',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Klasse löschen',
+        payload: classIdToRemove
+    });
+
+    let $modalForm = $deleteClassModal.find(".modal-form");
+    $deleteClassModal.appendTo('body').modal('show');
+  });
+
+  $('.delete-class-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const classIdToRemove = $(this).data('payload').classId;
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'DELETE',
+      data: {
+        classIdToRemove
       }
     }).done(function() {
       location.reload();
