@@ -24,6 +24,8 @@ const named = require('vinyl-named');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const webpackConfig = require('./webpack.config');
+const nodemon = require('gulp-nodemon');
+const browserSync = require('browser-sync');
 const workbox = require('workbox-build');
 
 const baseScripts = [
@@ -107,7 +109,8 @@ gulp.task('styles', () => {
       compatibility: 'ie9'
     }))
     .pipe(sourcemaps.write('./sourcemaps'))
-    .pipe(gulp.dest(`./build/${themeName()}/styles`));
+    .pipe(gulp.dest(`./build/${themeName()}/styles`))
+    .pipe(browserSync.stream());
   firstRun = false;
 });
 
@@ -133,7 +136,8 @@ gulp.task('scripts', () => {
       }
     ))
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(`./build/${themeName()}/scripts`));
+    .pipe(gulp.dest(`./build/${themeName()}/scripts`))
+    .pipe(browserSync.stream());
 });
 
 
@@ -170,7 +174,8 @@ gulp.task('vendor-styles', () => {
       compatibility: 'ie9'
     }))
     .pipe(sourcemaps.write('./sourcemaps'))
-    .pipe(gulp.dest(`./build/${themeName()}/vendor`));
+    .pipe(gulp.dest(`./build/${themeName()}/vendor`))
+    .pipe(browserSync.stream());
 });
 
 //compile/transpile vendor JSX and ES6 to ES5 and minify scripts
@@ -287,20 +292,49 @@ gulp.task('build-theme-files', ['styles', 'images']);
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
-  gulp.watch(withTheme('./static/images/**/*.*'), ['images']);
-  gulp.watch(withTheme('./static/other/**/*.*'), ['other']);
-  gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), ['styles']);
-  gulp.watch(withTheme('./static/fonts/**/*.*'), ['fonts']);
-  gulp.watch(withTheme(nonBaseScripts), ['scripts', 'generate-service-worker']);
-  gulp.watch(withTheme(baseScripts), ['base-scripts']);
-  gulp.watch(withTheme('./static/vendor/**/*.{css,sass,scss}'), ['vendor-styles']);
-  gulp.watch(withTheme('./static/vendor/**/*.js'), ['vendor-scripts']);
-  gulp.watch(['./static/vendor/**/*.*', '!./static/vendor/**/*.js',
-    '!./static/vendor/**/*.{css,sass,scss}'
-  ], ['vendor-assets']);
-  gulp.watch(withTheme('./static/vendor-optimized/**/*.*'),['vendor-optimized-assets']);
-  gulp.watch(withTheme('./static/sw.js'), ['generate-service-worker']);
-  gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), ['sw-workbox']);
+  let watchOptions = { interval: 1000 };
+  gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), watchOptions, ['styles']);
+  gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, ['images'])
+    .on('change', browserSync.reload);
+  gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts', 'generate-service-worker']);
+  
+  gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, ['vendor-optimized-assets']);
+  gulp.watch(withTheme('./static/sw.js'), watchOptions, ['generate-service-worker']);
+  gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), watchOptions, ['sw-workbox']);
+});
+
+gulp.task('watch-reload', ['watch', 'browser-sync']);
+
+gulp.task('browser-sync', ['nodemon'], function() {
+	browserSync.init(null, {
+		proxy: "http://localhost:3100",
+        open: false,
+        port: 7000,
+        ghostMode: false,
+        reloadOnRestart: false,
+        socket:{
+          clients: {
+            heartbeatTimeout: 60000
+          } 
+        }
+	});
+});
+
+gulp.task('nodemon', function (cb) {
+	var started = false;
+	return nodemon({
+    ext: 'js hbs',
+    script: './bin/www',
+    watch: ['views/', 'controllers/'],
+    exec: "node --inspect",
+	}).on('start', function () {
+    
+		if (!started) {
+			cb();
+			started = true; 
+    } 
+    setTimeout(browserSync.reload, 3000); //server-start takes some time
+	});
 });
 
 //run this if only "gulp" is run on the commandline with no task specified
