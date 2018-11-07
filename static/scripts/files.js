@@ -1,4 +1,5 @@
 /* global videojs */
+import { getQueryParameterByName } from './helpers/queryStringParameter';
 
 function getCurrentDir() {
     return $('.section-upload').data('path');

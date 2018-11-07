@@ -16,7 +16,7 @@ router.get(['/register', '/register/*'], function (req, res, next) {
 router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
-            json: { email: req.body.email, byRole: req.body.byRole }
+            json: { email: req.body.email, mailTextForRole: req.body.byRole }
         }).then(() => {
             res.sendStatus(200);
         }).catch(err => res.status(500).send(err));

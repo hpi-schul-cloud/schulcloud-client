@@ -572,6 +572,14 @@ router.get('/:teamId/members', async function(req, res, next) {
             }
         ];
 
+        const federalStates = (await api(req).get('/federalStates')).data;
+
+        const currentFederalState = (await api(req).get('/schools/' + res.locals.currentSchool, {
+            qs: {
+                $populate: "federalState"
+            }
+        })).federalState._id;
+
         let head = [
             'Vorname',
             'Nachname',
@@ -687,6 +695,8 @@ router.get('/:teamId/members', async function(req, res, next) {
             headInvitations,
             bodyInvitations,
             users,
+            federalStates,
+            currentFederalState,
             breadcrumb: [{
                     title: 'Meine Teams',
                     url: '/teams'
@@ -730,6 +740,19 @@ router.patch('/:teamId/members', async function(req, res, next) {
     await api(req).patch('/teams/' + req.params.teamId, {
         json: {
             userIds
+        }
+    });
+
+    res.sendStatus(200);
+});
+
+router.post('/:teamId/members/externalteachers', async function(req, res, next) {
+    let userId = req.body.userIds;
+
+    await api(req).post('/teams/' + req.params.teamId, {
+        json: {
+            userId,
+            role : 'teamadministrator'
         }
     });
 
@@ -943,6 +966,7 @@ const generateInviteLink = (params, internalReturn) => {
                 res.locals.options = options;
                 next();
             }).catch(err => {
+                logger.warn(err);
                 req.session.notification = {
                     'type': 'danger',
                     'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
@@ -984,11 +1008,13 @@ ${res.locals.theme.short_title}-Team`
                 if(internalReturn) return true;
                 next();
             }).catch(err => {
+                logger.warn(err);
                 if(internalReturn) return false;
                 next();
             });
         } else {
-            if(internalReturn) return true;
+            if(internalReturn) return false;
+            logger.warn("Nicht alle benötigten Informationen für den Mailversand vorhanden (1)");
             next();
         }
     }
@@ -1014,17 +1040,21 @@ const addUserToTeam = (params, internalReturn) => {
                         res.redirect('/teams/'+result._id);
                     } else {
                         if(internalReturn) return false;
+                        logger.warn("Fehler beim Einladen in das Team. (1)");
                         req.session.notification = errornotification;
                         res.redirect('/teams/');
                     }
                 })
                 .catch(err => {
                     if(internalReturn) return false;
+                    logger.warn("Fehler beim Einladen in das Team. (2)");
+                    logger.warn(err);
                     req.session.notification = errornotification;
                     res.redirect('/teams/');
                 });
         } else {
             if(internalReturn) return false;
+            logger.warn("Fehler beim Einladen in das Team. (3)");
             req.session.notification = errornotification;
             res.redirect('/teams/');
         }
