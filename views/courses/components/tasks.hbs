@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-sm-12 container">
+    <h4>
+      <i class="fa fa-eye"></i>
+      Gestellte Aufgaben
+      <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
+    </h4>
+    <div id="homeworks" class="container-fluid">
+      <ol class="homework">
+        <div class="row">
+          {{#each homeworks}}
+            {{> 'homework/components/course_overview_card_template'}}
+          {{/each}}
+        </div>
+      </ol>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    {{#userHasPermission "COURSE_EDIT" }}
+      <a href="/homework/new?course={{../_id}}" class="btn btn-primary w-100 pull-right" title="Aufgabe hinzufügen">
+        <i class="fa fa-plus" aria-hidden="true"></i><span> Aufgabe hinzufügen</span>
+      </a>
+    {{/userHasPermission}}
+  </div>
+</div>
+<div class="section-my-tasks">
+  <div class="row">
+    <div class="col-sm-12">
+      {{#userHasPermission "HOMEWORK_CREATE" }}
+        <a href="/homework/new?course={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" title="private Aufgabe hinzufügen">
+          <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span>
+        </a>
+      {{/userHasPermission}}
+      <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
+        <h4>
+          <small title="Private Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+          <i class="fa fa-eye-slash"></i>
+          Private Aufgaben
+          <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
+        </h4>
+      </a>
+      <div id="myhomeworks" class="container-fluid collapse">
+        <ol class="homework">
+          <div class="row">
+            {{#each myhomeworks}}
+              {{> 'homework/components/course_overview_card_template'}}
+            {{/each}}
+          </div>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>

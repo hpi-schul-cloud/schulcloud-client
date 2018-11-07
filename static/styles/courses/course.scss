@@ -1,181 +1,277 @@
 @import '../lib/colors';
+
 .move-handle {
-    cursor: move;
+  cursor: move;
+  white-space: nowrap;
+}
+
+.dropdown-course {
+  display: inline-block;
+
+  .btn-course-dropdown{
+    padding:0;
+  }
+
+  .course-headline {
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .dropdown-toggle:hover {
+    color: $primaryColor !important;
+  }
+
+  .dropdown-menu-course {
+    .dropdown-item {
+      padding: 10px 1.5rem;
+    }
+  }
 }
 
 .section-course {
-    h4 {
-        margin-bottom: 20px;
+  margin-top: 30px;
+
+  @media (min-width: 576px) {
+    .course-card {
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+      //padding: 10px;
+      padding-bottom: 20px;
     }
-    .lesson-date {
-        line-height: 24px;
-        float: right;
+
+    .sectionsContainer {
+      padding: 10px 15px 0;
     }
-    .description {
-        margin-bottom: 40px;
+  }
+
+  .btn-import-topic {
+    margin-bottom: 10px;
+  }
+
+  .lesson-date {
+    line-height: 24px;
+    float: right;
+  }
+
+  .delete-material {
+    float: right;
+    cursor: pointer;
+  }
+
+  .delete-tool {
+    float: right;
+    cursor: pointer;
+    padding-top: 1.4em;
+  }
+
+  .card-tool {
+    cursor: pointer;
+  }
+
+  .ui-state-highlight {
+    height: 55px;
+    border: 2px dashed #373a3c;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    background: none!important;
+  }
+
+  .content-block {
+    margin-bottom: 50px;
+
+    img {
+      max-width: 100%;
+      height: auto !important;
     }
-    .delete-material {
-        float: right;
-        cursor: pointer;
+
+    iframe {
+      border: 1px solid $primaryColor;
+      border-radius: 5px;
+      outline: none;
     }
-    .delete-tool {
-        float: right;
-        cursor: pointer;
-        padding-top: 1.4em;
+  }
+
+  .disabled {
+    cursor: not-allowed;
+
+    input {
+      background-color: $colorGrey;
     }
-    .card-tool {
-        cursor: pointer;
+  }
+
+  .disabled > * {
+    pointer-events: none;
+  }
+
+  .times {
+    padding: 16px;
+    box-shadow: 0 1px 1px 0 #C7C7C7 inset;
+    background: none repeat scroll 0 0;
+    margin-bottom: 30px;
+
+    i {
+      cursor: pointer;
     }
-    .ui-state-highlight {
-        height: 55px;
-        border: 2px dashed #373a3c;
-        border-radius: 3px;
-        margin-bottom: 12px;
-        background: none!important;
+
+    .new-course-time-add {
+      display: inline-block;
+      margin-top: 10px;
+      padding-left: 5px;
+      cursor: pointer;
+      color: $primaryColor;
     }
-    .content-block {
-        margin-bottom: 50px;
-        img {
-            max-width: 100%;
-            height: auto !important;
-        }
-        iframe{
-            border: 1px solid $primaryColor;
-            border-radius: 5px;
-            outline: none;
-        }
-    }
-    .disabled {
-        cursor: not-allowed;
-        input {
-            background-color: $colorGrey;
-        }
-    }
-    .disabled>* {
-        pointer-events: none;
-    }
-    .times {
-        padding: 16px;
-        box-shadow: 0 1px 1px 0 #C7C7C7 inset;
-        background: none repeat scroll 0 0;
-        margin-bottom: 30px;
-        i {
-            cursor: pointer;
-        }
-        .new-course-time-add {
-            display: inline-block;
-            margin-top: 10px;
-            padding-left: 5px;
-            cursor: pointer;
-            color: $primaryColor;
-        }
-    }
-    .new-course-time-template {
-        display: none;
-    }
+  }
+
+  .new-course-time-template {
+    display: none;
+  }
 }
 
 .card-topic {
-    cursor: pointer;
-    .card-header {
-        padding: .5rem .75rem;
-    }
-    .btn-hidden-toggle {
-        font-size: 20px;
-    }
-    .topic-label {
-        margin: 0;
-    }
-    .input-group-btn {
-        padding-right: 10px;
-        float: right;
-    }
-    .input-group {
-        align-items: center;
-    }
-    .right-btn-group {
-        margin-left: auto;
-        white-space: nowrap;
-    }
+  cursor: pointer;
+
+  .card-header {
+    padding: 0.5rem 0.75rem;
+    background-color: $primaryColor;
+    color: $colorWhite;
+  }
+
+  .btn-hidden-toggle {
+    font-size: 25px;
+    color: $colorWhite;
+    margin-left: 10px;
+    //border: 1px solid;
+    //border-radius: .2rem;
+    padding: 0 5px;
+  }
+
+  .btn-hidden-toggle:hover {
+    background: $colorLightGrey;
+  }
+
+  .btn-icon-card {
+    color: $colorWhite;
+    background: transparent;
+  }
+
+  .btn-icon-card:hover {
+    color: white;
+    background: $colorLightGrey;
+  }
+
+  .topic-label {
+    margin-bottom: 0 !important;
+  }
+
+  .input-group-btn {
+    padding-right: 10px;
+    float: right;
+  }
+
+  .input-group {
+    align-items: center;
+  }
+
+  .move-handle {
+    margin-right: 10px;
+  }
+
+  .right-btn-group {
+    margin-left: auto;
+    white-space: nowrap;
+  }
 }
 
 .topic {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .section-course-edit {
-    #content-blocks {
-        .btn-group {
-            .btn-secondary {
-                margin-right: 0.4rem;
-            }
-        }
-        .geo-gebra-info {
-            color: white;
-            background-color: $primaryColor;
-        }
-        input{
-            width: 100%;
-        }
+  #content-blocks {
+    .btn-group {
+      .btn-secondary {
+        margin-right: 0.4rem;
+      }
     }
+
+    .geo-gebra-info {
+      color: white;
+      background-color: $primaryColor;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
 }
 
 .btn-remove-resource {
-    float: right;
-    cursor: pointer;
-    i {
-        color: $primaryColor;
-    }
+  float: right;
+  cursor: pointer;
+
+  i {
+    color: $primaryColor;
+  }
 }
 
 .courseGroup {
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  clear: both;
+
+  .group-card {
     width: 100%;
-    list-style: none;
-    margin: 0;
-    padding: 10px 0;
-    clear: both;
-    .group-card {
-        width: 100%;
-        position: relative;
-        padding: 10px;
-        text-decoration: none;
-        h5 {
-            margin: 0;
-            color: $primaryColor;
-        }
-        a {
-            color: #373a3c;
-        }
-        .card-tags {
-            padding-top: 10px;
-            .tag {
-                font-size: 100%;
-                margin-bottom: 10px;
-            }
-        }
+    position: relative;
+    padding: 10px;
+    text-decoration: none;
+
+    h5 {
+      margin: 0;
+      color: $primaryColor;
     }
+
+    a {
+      color: #373a3c;
+    }
+
+    .card-tags {
+      padding-top: 10px;
+
+      .tag {
+        font-size: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.section-my-tasks {
+  margin-top: 30px;
 }
 
 #member-modal-body {
-    columns: 3;
-    word-break: break-all;
+  columns: 3;
+  word-break: break-all;
 }
 
 #member-list {
-    li {
-        padding: 0px;
-        margin: 0px;
-    }
+  li {
+    padding: 0;
+    margin: 0;
+  }
 }
 
 #course-edit {
-    text-align: right;
+  text-align: right;
 }
+
 .modal-body {
-    max-height: 75vh;
-    overflow-y: auto;
+  max-height: 75vh;
+  overflow-y: auto;
 }
 
 .section-course-group {
-    padding-top: 20px;
+  padding-top: 20px;
 }
