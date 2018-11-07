@@ -3,13 +3,13 @@
 
 .tab-content#submissions {
   table {
-    border: zero;
+    border: 0;
     width: 100%;
     border-collapse: collapse;
 
     thead,
     thead tr {
-      border: zero;
+      border: 0;
 
       @include media-breakpoint-down(xs) {
         display: none;
@@ -52,7 +52,7 @@
       }
 
       >td {
-        border: zero;
+        border: 0;
         padding: 5px 0 5px 5px;
         vertical-align: middle;
         color: #808080;
