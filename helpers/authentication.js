@@ -116,8 +116,11 @@ const checkConsent = (req, res) => {
 const restrictSidebar = (req, res) => {
     res.locals.sidebarItems = res.locals.sidebarItems.filter(item => {
         if(!item.permission) return true;
-
-        return permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
+        
+        let hasRequiredPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
+        let hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.excludedPermission)
+        return hasRequiredPermission && !hasExcludedPermission;
+        // excludedPermission is used to prevent the case that an Admin has both: Verwaltung and Administration
     });
 };
 
