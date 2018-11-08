@@ -2,6 +2,9 @@
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 
+var $contactHPIModal;
+var $contactAdminModal;
+
 if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
@@ -83,15 +86,14 @@ $(document).ready(function () {
 
     // Init modals
     var $modals = $('.modal');
-    var $contactHPIModal = document.querySelector('.contactHPI-modal');
+    $contactHPIModal = document.querySelector('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
-    var $contactAdminModal = document.querySelector('.contactAdmin-modal');
+    $contactAdminModal = document.querySelector('.contactAdmin-modal');
 
     $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
 
         $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
-        var title = $(document).find("title").text();
         populateModalForm($($contactHPIModal), {
             title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
@@ -167,7 +169,6 @@ $(document).ready(function () {
         populateModalForm($cancelModal, {
             title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
         });
-        let $modalForm = $cancelModal.find(".modal-form");
         $cancelModal.appendTo('body').modal('show');
     });
 
