@@ -285,17 +285,17 @@ gulp.task('clear', () => {
 });
 
 //run all tasks, processing changed files
-gulp.task('build-all', ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
+gulp.task('build-all', ['images', 'other', 'styles', 'styles-done', 'fonts', 'scripts', 'base-scripts',
                         'vendor-styles', 'vendor-scripts', 'vendor-assets', 'vendor-optimized-assets',
                         'generate-service-worker', 'sw-workbox', 'node-modules'
 ]);
 
-gulp.task('build-theme-files', ['styles', 'images']);
+gulp.task('build-theme-files', ['styles', 'styles-done', 'images']);
 
 //watch and run corresponding task on change, process changed files only
 gulp.task('watch', ['build-all'], () => {
   let watchOptions = { interval: 1000 };
-  gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), watchOptions, ['styles']);
+  gulp.watch(withTheme('./static/styles/**/*.{css,sass,scss}'), watchOptions, ['styles', 'styles-done']);
   gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, ['images'])
     .on('change', browserSync.reload);
   gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts', 'generate-service-worker']);
