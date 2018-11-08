@@ -1023,7 +1023,24 @@ ${res.locals.theme.short_title}-Team`
 // client-side use
 // WITH PERMISSION - NEEDED FOR LIVE
 // router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
-router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { res.json({inviteCallDone:true}) });
+router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { 
+    res.json({
+        inviteCallDone:true
+    });
+});
+
+router.post('/inviteexternalteacher/', (req, res) => {
+    return api(req).patch("/teams/extern/add/" + req.body.teamId , {
+        json:
+        {
+            'userId': req.body.userId,
+            'role': 'teamadministrator'
+        }
+    }).then(result => {
+        let test = result;
+        return true;
+    });
+});
 
 const addUserToTeam = (params, internalReturn) => {
     return function (req, res, next) {
