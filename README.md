@@ -12,8 +12,10 @@ You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcl
 
 ## Setup  
   
-There are blog posts on how to setup [client](https://github.com/schul-cloud/schulcloud-client) and [server](https://github.com/schul-cloud/schulcloud-server) under [Windows](https://schul-cloud.github.io/blog/2017-05-18/setup-schul-cloud-client-and-sever-under-windows) and [Linux](https://schul-cloud.github.io/blog/2017-04-21/setup-development-under-ubuntu).  
+German docs on installing: [Setup SC](https://docs.schul-cloud.org/display/SCDOK/Setup)
   
+Short version:
+
 1. Clone directory into local folder  
 2. Go into the cloned folder and enter `npm install`  
 3. Install nodemon and gulp globally by entering `npm install -g nodemon gulp`  
