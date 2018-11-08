@@ -242,7 +242,6 @@ aside.nav-sidebar {
                     span {
                         display: inline-block;
                         text-transform: uppercase;
-                        font-weight: bold;
                         text-decoration: none;
 
                         @include media-breakpoint-down(md) {
