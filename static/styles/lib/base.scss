@@ -4,7 +4,7 @@
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
 $fa-font-path: "/vendor-optimized/font-awesome/fonts";
-@import "font-awesome/scss/font-awesome.scss";
+@import "../../../node_modules/font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
 @import "./toggle/bootstrap-toogle.min.css";

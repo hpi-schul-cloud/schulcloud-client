@@ -97,8 +97,7 @@ gulp.task('styles', () => {
     .pipe(filelog("PROCESS: "))
     .pipe(sourcemaps.init())
     .pipe(sass({
-      sourceMap: true,
-      includePaths: ['node_modules']
+      sourceMap: true
     }))
     .pipe(postcss([
       autoprefixer({
