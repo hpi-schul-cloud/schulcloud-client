@@ -39,7 +39,6 @@ function sendFeedback(modal, e) {
 
     let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
 
-    let email = 'ticketsystem@schul-cloud.org';
     let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
    
     $.ajax({
@@ -55,8 +54,7 @@ function sendFeedback(modal, e) {
                 acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
                 currentState: fmodal.find('#hasHappened').val(),
                 targetState: fmodal.find('#supposedToHappen').val(),
-                email: email,
-                modalEmail: fmodal.find('#email').val()
+                email: ""
         },
         success: function (result) {
             showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
@@ -67,16 +65,6 @@ function sendFeedback(modal, e) {
     });
     $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
 };
-
-function showAJAXError(req, textStatus, errorThrown) {
-    $($contactHPIModal).modal('hide');
-    $($contactAdminModal).modal('hide');
-    if (textStatus === "timeout") {
-        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
-    } else {
-        $.showNotification(errorThrown, "danger", true);
-    }
-}
 
 function showAJAXSuccess(message, modal) {
     modal.modal('hide');
@@ -99,14 +87,12 @@ $(document).ready(function () {
     var $contactHPIModal = document.querySelector('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
     var $contactAdminModal = document.querySelector('.contactAdmin-modal');
-    var $modalForm = $('.modal-form');
 
     $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
 
         $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
         var title = $(document).find("title").text();
-        var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
         populateModalForm($($contactHPIModal), {
             title: 'Wunsch oder Problem senden',
             closeLabel: 'Abbrechen',
@@ -219,6 +205,16 @@ $(document).ready(function () {
         return !(e.key === "Unidentified");
     });
 });
+
+function showAJAXError(req, textStatus, errorThrown) {
+    $($contactHPIModal).modal('hide');
+    $($contactAdminModal).modal('hide');
+    if (textStatus === "timeout") {
+        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
+    } else {
+        $.showNotification(errorThrown, "danger", true);
+    }
+}
 
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {

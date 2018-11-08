@@ -29,6 +29,7 @@ router.post('/', function (req, res, next) {
         res.sendStatus(200);
     }).catch(err => {
         logger.warn(err);
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
