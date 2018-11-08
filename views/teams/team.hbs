@@ -104,6 +104,9 @@
                     {{#embed "files/file-viewer"}}{{/embed}}
                     {{#embed "files/files-grid" files=files teamId=../_id}}{{/embed}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                    <button class="btn btn-add btn-secondary btn-file-permissions">
+                        Freigabe-Einstellungen ändern
+                    </button>
                 </div>
             </section>
 
@@ -171,6 +174,12 @@
                             Löschen
                         </button>
                     </div>
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" class="file-permissions-modal" title="Freigabe-Einstellungen ändern"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-file-permissions"}}
                 {{/content}}
             {{/embed}}
 
