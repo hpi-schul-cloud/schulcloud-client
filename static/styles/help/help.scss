@@ -167,3 +167,12 @@ iframe.full {
     padding: 2rem 0 0 0;
   }
 }
+
+.row-wrapper{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  div {
+    flex:1;
+  }
+}

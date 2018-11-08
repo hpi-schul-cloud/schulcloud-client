@@ -35,48 +35,50 @@
         {{/embed}}
         {{/if}}
 
-        {{#each tutorials}}
-            {{#embed "help/component-card" title=this.title icon=this.icon class="accordion" id=this.title}}
-                {{#content "card-body"}}
-                    {{#each this.categories}}
-                        {{#if this.articles}}
-                            <div class="card">
-                                <div class="card-header collapsed" data-toggle="collapse" data-target="#{{this.id}}">
-                                    <i class="fa fa-fw fa-chevron-right bullet-icon" aria-hidden="true" data-expand></i>
-                                    <i class="fa fa-fw fa-chevron-down bullet-icon" aria-hidden="true" data-collapse></i>
-                                    <h5 class="mb-0">
-                                        {{this.title}}
-                                    </h5>
-                                </div>
-                                <div id="{{this.id}}" class="collapse">
-                                    <div class="card-body">
-                                        <ul>
-                                            {{#each this.articles}}
-                                                <li><a href="/help/confluence/{{this.id}}">
-                                                    {{this.title}}
-                                                </a></li>
-                                            {{/each}}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        {{else}}
-                        <div class="card">
-                            <a href="/help/confluence/{{this.id}}">
+        <div class="row-wrapper"> 
+            {{#each tutorials}}
+                {{#embed "help/component-card" title=this.title icon=this.icon class="accordion" id=this.title}}
+                    {{#content "card-body"}}
+                        {{#each this.categories}}
+                            {{#if this.articles}}
                                 <div class="card">
-                                    <div class="card-header single">
+                                    <div class="card-header collapsed" data-toggle="collapse" data-target="#{{this.id}}">
+                                        <i class="fa fa-fw fa-chevron-right bullet-icon" aria-hidden="true" data-expand></i>
+                                        <i class="fa fa-fw fa-chevron-down bullet-icon" aria-hidden="true" data-collapse></i>
                                         <h5 class="mb-0">
                                             {{this.title}}
                                         </h5>
                                     </div>
+                                    <div id="{{this.id}}" class="collapse">
+                                        <div class="card-body">
+                                            <ul>
+                                                {{#each this.articles}}
+                                                    <li><a href="/help/confluence/{{this.id}}">
+                                                        {{this.title}}
+                                                    </a></li>
+                                                {{/each}}
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
-                            </a>
-                        </div>
-                        {{/if}}
-                    {{/each}}
-                {{/content}}
-            {{/embed}}
-        {{/each}}
+                            {{else}}
+                            <div class="card">
+                                <a href="/help/confluence/{{this.id}}">
+                                    <div class="card">
+                                        <div class="card-header single">
+                                            <h5 class="mb-0">
+                                                {{this.title}}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {{/if}}
+                        {{/each}}
+                    {{/content}}
+                {{/embed}}
+            {{/each}}
+        </div>
 
         {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card" id="Nutzungshilfen"}}
             {{#content "card-body"}}
@@ -84,17 +86,19 @@
             {{/content}}
         {{/embed}}
 
-        {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card" id="Kontakt"}}
-            {{#content "card-body"}}
-                {{> "help/contact"}}
-            {{/content}}
-        {{/embed}}
+        <div class="row-wrapper">
+            {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card" id="Kontakt"}}
+                {{#content "card-body"}}
+                    {{> "help/contact"}}
+                {{/content}}
+            {{/embed}}
 
-        {{#embed "help/component-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card" id="E-Mail"}}
-            {{#content "card-body"}}
-                {{> "help/mail-card"}}
-            {{/content}}
-        {{/embed}}
+            {{#embed "help/component-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card" id="E-Mail"}}
+                {{#content "card-body"}}
+                    {{> "help/mail-card"}}
+                {{/content}}
+            {{/embed}}
+        </div>
 
         {{#embed "help/component-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card" id="About"}}
             {{#content "card-body"}}
