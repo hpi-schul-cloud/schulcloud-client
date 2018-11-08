@@ -77,7 +77,7 @@
       {{/if}}
     </div>
     {{#userHasPermission "COURSE_EDIT"}}
-      <a href="/courses/{{../_id}}/topics/add" class="btn btn-add btn-secondary pull-right ml-1 w-100" title="Thema hinzufügen">
+      <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary{{else}}btn-primary{{/if}} pull-right ml-1 w-100" title="Thema hinzufügen">
         <i class="fa fa-plus" aria-hidden="true"></i>
         <span>Thema hinzufügen</span>
       </a>
