@@ -81,7 +81,7 @@ const quickHelpItems = [{
         icon: "fa-desktop",
         src: "#"
     }, {
-        title: "Schnellstart PDF",
+        title: "Schnellstart-PDF",
         icon: "fa-file-pdf-o",
         src: "#"
     }
