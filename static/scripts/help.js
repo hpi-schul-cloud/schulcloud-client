@@ -14,7 +14,7 @@ $(document).ready(function () {
 // iFrame full height
 document.querySelectorAll("iframe").forEach((iframe)=>{
     iframe.addEventListener("load", (event) => {
-        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 'px';
+        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 10 + 'px';
     });
 });
 
