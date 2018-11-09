@@ -666,6 +666,10 @@ router.get('/:teamId/members', async function(req, res, next) {
             class: 'btn-edit-invitation',
             title: 'Einladung bearbeiten',
             icon: 'edit'
+        }, {
+            class: 'btn-delete-invitation',
+            title: 'Einladung löschen',
+            icon: 'trash'
         }];
 
         const bodyInvitations = course.invitedUserIds.map(invitation => {
@@ -674,17 +678,23 @@ router.get('/:teamId/members', async function(req, res, next) {
                 moment(invitation.createdAt).format("DD.MM.YYYY"),
                 invitation.role === 'teamexpert' ? 'Team Experte' : 
                 invitation.role === 'teamadministrator' ? 'Team Administrator' : '',
-                invitationActions
+                {
+                    payload: {
+                        email: invitation.email
+                    }
+                },      
+                invitationActions,
             ]
         })
 
         res.render('teams/members', Object.assign({}, course, {
             title: 'Deine Team-Teilnehmer',
             action,
-            addMemberAction: `/teams/${req.params.teamId}/members`,
             classes,
+            addMemberAction: `/teams/${req.params.teamId}/members`,
             inviteExternalMemberAction: `/teams/${req.params.teamId}/members/external`,
             deleteMemberAction: `/teams/${req.params.teamId}/members`,
+            deleteInvitationAction: `/teams/${req.params.teamId}/invitation`,
             permissions: course.user.permissions,
             method,
             head,
@@ -784,6 +794,20 @@ router.delete('/:teamId/members', async function(req, res, next) {
     });
 
     res.sendStatus(200);
+});
+
+router.delete('/:teamId/invitation', async function(req, res, next) {
+    try {
+        await api(req).patch('/teams/extern/remove/' + req.params.teamId, {
+            json: {
+                email: req.body.email
+            }
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(500);
+    }
+
 });
 
 /*

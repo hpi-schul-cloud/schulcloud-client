@@ -97,6 +97,12 @@
                 {{/content}}
             {{/embed}}
 
+            {{#embed "lib/components/modal-form" action=deleteInvitationAction class="delete-invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-invitation"}}
+                {{/content}}
+            {{/embed}}            
+
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-invite-external-member" teamId=../_id roles=rolesExternal}}

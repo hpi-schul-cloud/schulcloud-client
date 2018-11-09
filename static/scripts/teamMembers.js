@@ -1,4 +1,23 @@
 $(document).ready(function () {
+  let handler = {
+    get: function (target, name) {
+      return name in target ?
+        target[name] :
+        '';
+    },
+    set: function (obj, prop, value) {
+      obj[prop] = value;
+      if (['role', 'method'].includes(prop)) {
+        renderInviteModal();
+      }
+    }
+  };
+
+  let state = new Proxy({
+    role: 'teacher',
+    method: 'directory',
+    currentInvitationEmail: ''
+  }, handler);
 
   const $inviteExternalMemberModal = $('.invite-external-member-modal');
 
@@ -66,24 +85,7 @@ $(document).ready(function () {
     $inviteExternalMemberModal.appendTo('body').modal('show');
   });
 
-  let handler = {
-    get: function (target, name) {
-      return name in target ?
-        target[name] :
-        '';
-    },
-    set: function (obj, prop, value) {
-      obj[prop] = value;
-      render();
-    }
-  };
-
-  let state = new Proxy({
-    role: 'teacher',
-    method: 'directory'
-  }, handler);
-
-  function render() {
+  function renderInviteModal() {
     $(`.btn-set-role[data-role]`).removeClass('btn-primary');
     $(`.btn-set-role[data-role]`).addClass('btn-secondary');
     $(`.btn-set-role[data-role='${state.role}']`).removeClass('btn-secondary');
@@ -101,7 +103,7 @@ $(document).ready(function () {
     $(`.form-group[data-method='${state.method}']`).show();
   }
 
-  render();
+  renderInviteModal();
 
   $('.btn-set-role').click(function (e) {
     e.stopPropagation();
@@ -190,8 +192,8 @@ $(document).ready(function () {
         type: "POST",
         url: origin + "/teams/inviteexternalteacher",
         data: {
-          teamId: teamId,
-          userId: userId
+          teamId,
+          userId
         }
       }).done(function () {
         $.showNotification('Lehrer erfolgreich zum Team hinzugefügt', "success", true);
@@ -343,6 +345,41 @@ $(document).ready(function () {
     let $modalForm = $editInvitationModal.find(".modal-form");
     $editInvitationModal.appendTo('body').modal('show');
   });
+
+  $('.btn-delete-invitation').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $deleteMemberModal = $('.delete-invitation-modal');
+    state.currentInvitationEmail = $(this).parent().parent().find('[data-payload]').data('payload').email;
+    
+    populateModalForm($deleteMemberModal, {
+      title: 'Einladung löschen',
+      closeLabel: 'Abbrechen',
+      submitLabel: 'Einladung löschen'
+    });
+
+    let $modalForm = $deleteMemberModal.find(".modal-form");
+    $deleteMemberModal.appendTo('body').modal('show');
+  });  
+
+  $('.delete-invitation-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+
+    $.ajax({
+      url: $(this).attr('action'),
+      method: 'DELETE',
+      data: {
+        email: state.currentInvitationEmail
+      }
+    }).done(function () {
+      location.reload();
+    }).fail(function () {
+      $.showNotification('Problem beim Löschen der Einladung', "danger", true);
+    });
+
+    return false;
+  });  
 
   /////////////
   // Edit Member
