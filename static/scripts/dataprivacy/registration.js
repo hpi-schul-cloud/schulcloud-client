@@ -1,5 +1,4 @@
-import '../helpers/inputLinking';
-import './pin';
+import './dataprivacy';
 
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
