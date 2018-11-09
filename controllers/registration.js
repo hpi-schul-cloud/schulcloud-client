@@ -119,7 +119,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byemployee'], async function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/:byRole'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(400);
@@ -131,31 +131,17 @@ router.get(['/registration/:classOrSchoolId/byemployee'], async function (req, r
     if (user.importHash) {
         let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
         Object.assign(user, existingUser);
+    }
+    
+    let roleText;
+    if (req.params.byRole === "byemployee") {
+        roleText = "Lehrer*/Admins*";
+    } else {
+        roleText = "Experte*";
     }
 
     res.render('registration/registration-employee', {
-        title: 'Registrierung - Lehrer*/Admins*',
-        hideMenu: true,
-        user
-    });
-});
-
-router.get(['/registration/:classOrSchoolId/byexpert'], async function (req, res, next) {
-    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
-        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(400);
-    
-    let user = {};
-    user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
-    user.classOrSchoolId = req.params.classOrSchoolId;
-    
-    if (user.importHash) {
-        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
-        Object.assign(user, existingUser);
-    }
-    
-    res.render('registration/registration-expert', {
-        title: 'Registrierung - Experte*',
+        title: 'Registrierung - ' + roleText,
         hideMenu: true,
         user
     });
