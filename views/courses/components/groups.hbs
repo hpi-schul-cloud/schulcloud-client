@@ -1,10 +1,18 @@
 <div class="row">
   <div class="col-sm-12">
-    <h4>
-      {{#userHasPermission "COURSE_EDIT" }}Schülergruppen
-        {{else}}Meine Schülergruppen{{/userHasPermission}}
-      <small>({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})</small>
-    </h4>
+    <div class="course-groups-header">
+   
+      {{#userHasPermission "COURSE_EDIT" }}Schülergruppen{{else}}Meine Schülergruppen{{/userHasPermission}}
+      <small>
+        {{#ifneq 0 (arrayLength courseGroups)}}
+          ({{arrayLength courseGroups}} Gruppe{{#ifneq 1 (arrayLength courseGroups)}}n{{/ifneq}})
+        {{else}}
+          (Noch keine Gruppen)
+        {{/ifneq}}
+      </small>
+      
+
+    </div>  
     <div id="courseGroups" class="container-fluid">
       <ol class="courseGroup">
         <div class="row">
