@@ -22,6 +22,7 @@ iframe.full {
 // wrapper
 label.form-group{
   display: block;
+  margin-bottom: 8px;
 }
 // Label
 .control-label{
@@ -33,9 +34,17 @@ label.form-group{
 
 // Inputs
 .form-control, .chosen-single{
-  border-color: #d9d9d9;
+  border: 1px solid #d9d9d9;
   border-radius: 0;
+  text-align: left;
+  font-weight: normal;
 }
+// chosen options
+.chosen-container .chosen-results li{
+  text-align: left;
+}
+
+
 // Toggle
 fieldset.switch_wrapper {
   width: 100%;

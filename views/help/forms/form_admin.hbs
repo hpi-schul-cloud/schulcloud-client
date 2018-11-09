@@ -1,24 +1,34 @@
-<form>
-  <p>Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über dein Kontaktgesuch informiert.</p>
-  <div class="form-group">
-    <label for="email">Kurzbeschreibung des Problems</label>
-    <input id="email" class="form-control" type="email" name="email" placeholder="user@schul-cloud.org">
-  </div>
-  <div class="form-group">
-    <label for="comment">IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?</label>
-    <textarea class="form-control" rows="5" id="comment"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="comment">SOLL-Zustand: Was sollte stattdessen geschehen?</label>
-    <textarea class="form-control" rows="5" id="comment"></textarea>
-  </div>
-  <div class="form-group">
-    <label for="sel1">Bereich auswählen</label>
-    <select class="form-control" id="sel1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-    </select>
-  </div>
-</form>
+<input type="hidden" name="type" value="contactAdmin">
+<p>Hier erreichst du den Administrator deiner Schule. Er kann dir z.B. bei Login-Problemen helfen und wird per E-Mail über deinen Kontaktgesuch informiert.</p>
+<label class="form-group">
+    <span class="control-label">Kurzbeschreibung des Problems</span>
+    <input type="text" name="title" placeholder="Kurzbeschreibung des Problems" class="form-control" required>
+</label>
+<label class="form-group">
+    <span class="control-label">IST-Zustand: Was geschieht zur Zeit, nachdem ich welche Schritte durchgeführt habe?</span>
+    <textarea class="form-control" cols="50" name="hasHappened" rows="6" required></textarea>
+</label>
+<label class="form-group">
+    <span class="control-label" for="supposedToHappen">SOLL-Zustand: Was sollte stattdessen geschehen?</span>
+    <textarea class="form-control" cols="50" name="supposedToHappen" rows="6" required></textarea>
+</label>
+<label class="form-group">
+  <span class="control-label optional">Kategorie wählen</span>
+  <select placeholder="Kategorie wählen (optional)" class="form-control" name="category">
+    <optgroup label="Bereich">
+      <option value="dashboard">Übersicht</option>
+      <option value="courses">Kurse</option>
+      <option value="classes">Klassen</option>
+      <option value="calendar">Termine</option>
+      <option value="homework">Aufgaben</option>
+      <option value="files">Meine Dateien</option>
+      <option value="content">Materialien</option>
+      <option value="administration">Verwaltung</option>
+      <option value="login_registration">Anmeldung/Registrierung</option>
+      <option value="other">Sonstiges</option>
+    </optgroup>
+    <optgroup label="Technisches">
+      <option value="technical_problem">Technische Probleme</option>
+    </optgroup>
+  </select>
+</label>

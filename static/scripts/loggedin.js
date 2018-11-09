@@ -49,14 +49,14 @@ function sendFeedback(modal, e) {
         type: 'POST',
         data: {
             type: type,
-                subject: subject,
-                category: fmodal.find('#category').val(),
-                role: fmodal.find('#role').val(),
-                desire: fmodal.find('#desire').val(),
-                benefit: fmodal.find("#benefit").val(),
-                acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
-                currentState: fmodal.find('#hasHappened').val(),
-                targetState: fmodal.find('#supposedToHappen').val()
+            subject: subject,
+            category: fmodal.find('#category').val(),
+            role: fmodal.find('#role').val(),
+            desire: fmodal.find('#desire').val(),
+            benefit: fmodal.find("#benefit").val(),
+            acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
+            currentState: fmodal.find('#hasHappened').val(),
+            targetState: fmodal.find('#supposedToHappen').val()
         },
         success: function (result) {
             showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
