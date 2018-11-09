@@ -10,8 +10,6 @@ router.get('/teachersOfSchool', async function(req, res, next) {
         let users = await api(req).get('/publicTeachers/', {
             qs: {
                 schoolId: req.query.schoolId,
-                roles: ['teacher'],
-                //teamsearchable: true,
                 $sort: 'firstName'
             }
         });

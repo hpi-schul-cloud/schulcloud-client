@@ -79,21 +79,21 @@ $(document).ready(function () {
   }, handler);
 
   function render () {
-    $(`.btn-set-role[data-role]`).removeClass('btn-primary')
-    $(`.btn-set-role[data-role]`).addClass('btn-secondary')
-    $(`.btn-set-role[data-role='${state.role}']`).removeClass('btn-secondary')
-    $(`.btn-set-role[data-role='${state.role}']`).addClass('btn-primary')
+    $(`.btn-set-role[data-role]`).removeClass('btn-primary');
+    $(`.btn-set-role[data-role]`).addClass('btn-secondary');
+    $(`.btn-set-role[data-role='${state.role}']`).removeClass('btn-secondary');
+    $(`.btn-set-role[data-role='${state.role}']`).addClass('btn-primary');
 
-    $(`.form-group[data-role]`).hide()
-    $(`.form-group[data-role='${state.role}']`).show()
+    $(`.form-group[data-role]`).hide();
+    $(`.form-group[data-role='${state.role}']`).show();
 
-    $(`.btn-set-method[data-method]`).removeClass('btn-primary')
-    $(`.btn-set-method[data-method]`).addClass('btn-secondary')
-    $(`.btn-set-method[data-method='${state.method}']`).removeClass('btn-secondary')
-    $(`.btn-set-method[data-method='${state.method}']`).addClass('btn-primary')
+    $(`.btn-set-method[data-method]`).removeClass('btn-primary');
+    $(`.btn-set-method[data-method]`).addClass('btn-secondary');
+    $(`.btn-set-method[data-method='${state.method}']`).removeClass('btn-secondary');
+    $(`.btn-set-method[data-method='${state.method}']`).addClass('btn-primary');
 
-    $(`.form-group[data-method]`).hide()
-    $(`.form-group[data-method='${state.method}']`).show()
+    $(`.form-group[data-method]`).hide();
+    $(`.form-group[data-method='${state.method}']`).show();
   }
 
   render();
@@ -103,14 +103,14 @@ $(document).ready(function () {
     e.preventDefault();    
     state.role = this.getAttribute("data-role"); 
     return false;
-  })
+  });
 
   $('.btn-set-method').click(function (e) {
     e.stopPropagation();
     e.preventDefault();    
     state.method = this.getAttribute("data-method"); 
     return false;
-  })
+  });
   
   $('.btn-invite-external-member').click(function (e) {
     e.stopPropagation();
@@ -181,26 +181,99 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
 
-    let userIds = $('#teacher').val();
-    userIds = userIds.map(userId => {
-      return { userId };
-    });
+    const origin = window.location.origin;
+    const teamId = $inviteExternalMemberModal.find(".modal-form .form-group").attr('data-teamId');
+    const email = $(this).find('#email').val();
+    function validateEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    }
 
-    $.ajax({
-      url: $(this).attr('action'),
-      method: 'POST',
-      data: {
-        userIds
+    if (email)
+    {
+      if (!validateEmail(email)) {
+        $.showNotification('Bitte gib eine gültige E-Mail an.', "danger", true);
+        return false;
       }
-    }).done(function() {
-      $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
-      location.reload();
-    }).fail(function() {
-      $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
-    });
 
+      const role = $(this).find('#roleexpert').val();
+      if (!role) {
+        $.showNotification('Bitte wähle eine Rolle für den externen Experten aus.', "danger", true);
+        return false;
+      }
+
+      if (!teamId) {
+        $.showNotification('Bitte lade die Seite neu.', "danger", true);
+        return false;
+      }
+
+      // collect some information for invite mail from UI, possibly not very stable at long-term TODO! Should be done on the server
+      const infos = {
+        userName: $(".navbar .account-toggle strong").html().split(" (")[0],
+        teamName: $(".breadcrumb .breadcrumb-item:eq(1) a").html()
+      };
+
+      $.ajax({
+          type: "POST",
+          url: origin + "/teams/invitelink",
+          data: {
+              host: origin,
+              role: role,
+              teamId: teamId,
+              invitee: email,
+              infos: infos
+          }
+      }).done(result => {
+        $inviteExternalMemberModal.modal('hide');
+        if (result.inviteCallDone) $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
+        else $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.', "danger", true);
+      }).fail(function() {
+        $.showNotification('Problem beim Versenden der Einladung', "danger", true);
+      });
     return false;
+    
+    } else {
+
+      let userId = $('#teacher').val();
+
+      $.ajax({
+        type: "POST",
+        url: origin + "/teams/inviteexternalteacher",
+        data: {
+            teamId: teamId,
+            userId: userId
+        }
+      }).done(function() {
+        $.showNotification('Lehrer erfolgreich zum Team hinzugefügt', "success", true);
+        location.reload();
+      }).fail(function() {
+        $.showNotification('Problem beim Hinzufügen des Lehrers', "danger", true);
+      });
+
+      return false;
+    }
   });
+
+//    let userIds = $('#teacher').val();
+//    userIds = userIds.map(userId => {
+//      return { userId };
+//    });
+
+//    $.ajax({
+//      url: $(this).attr('action'),
+//      method: 'POST',
+//      data: {
+//        userIds
+//      }
+//    }).done(function() {
+//      $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
+//      location.reload();
+//    }).fail(function() {
+//      $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
+//    });
+
+//    return false;
+//  });
 
   // $('.invite-external-member-modal form').on('submit', function (e) {
   //   e.stopPropagation();
