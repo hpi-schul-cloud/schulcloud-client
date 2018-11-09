@@ -3,8 +3,9 @@
 @import "./component-card";
 @import "./clickable-card";
 
-// NEW STYLES
-// iFrame styles for confluence integration
+/********************************************************
+ * iFrame (for confluence integration)
+ ********************************************************/
 .content-min-height #main-content {
   display: flex;
   flex-direction: column;
@@ -15,9 +16,87 @@ iframe.full {
   flex: 1;
 }
 
+/********************************************************
+ * FORM
+ ********************************************************/
+// wrapper
+label.form-group{
+  display: block;
+}
+// Label
+.control-label{
+  &.optional::after{
+    content: " (optional)";
+    font-weight: lighter;
+  }
+}
+
+// Inputs
+.form-control, .chosen-single{
+  border-color: #d9d9d9;
+  border-radius: 0;
+}
+// Toggle
+fieldset.switch_wrapper {
+  width: 100%;
+  max-width: 400px;
+  display: inline-block;
+  .switch {
+    display: flex;
+    flex-wrap: nowrap;
+
+    input[type="radio"] {
+      display: none;
+      &:checked + label {
+        color: $accentColor;
+        background-color: #fff;
+      }
+    }
+
+    label {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+
+      margin: 0;
+      padding: 4px;
+      border: 1px solid #fff;
+      border-left: none;
+
+      cursor: pointer;
+      text-transform: uppercase;
+      font-weight: normal;
+      text-align: center;
+
+      transition: color .3s, background-color .3s;
+      &:first-of-type {
+        border-left: 1px solid #fff;
+      }
+    }
+  }
+}
+
+// (submit-) Button
+button{
+  border-radius: 20rem;
+  border: 1px solid #fff;
+  padding: 8px 16px;
+  font-weight: bold;
+  color: #fff;
+  background: transparent;
+  margin-top: 16px;
+}
+
+
+/********************************************************
+ * Cards
+ ********************************************************/
+
 .card-content {
   border: none !important;
 }
+
 
 .contact-card {
   .card-content {
@@ -32,6 +111,9 @@ iframe.full {
       label{
         margin-bottom: 4px;
       }
+      .chosen-container{
+        color: initial;
+      }
     }
     p{
       margin-top: .75rem;
@@ -40,56 +122,10 @@ iframe.full {
     background-color: $accentColor;
     color: #fff;
 
-    input,
-    textarea,
-    .chosen-single {
-      border-color: #d9d9d9; // TODO: use sass variable
-      border-radius: 0px;
-    }
-    .form-group > label{
+    .control-label{
       display: block;
       text-align: left;
       padding-right: 2rem;
-    }
-
-    // toggles
-    fieldset {
-      width: 100%;
-      max-width: 400px;
-      display: inline-block;
-      .switch {
-        display: flex;
-        flex-wrap: nowrap;
-
-        input[type="radio"] {
-          display: none;
-          &:checked + label {
-            color: $accentColor;
-            background-color: #fff;
-          }
-        }
-
-        label {
-          display: flex;
-          flex: 1;
-          flex-direction: column;
-          justify-content: center;
-          margin: 0;
-          padding: 4px;
-          border: 1px solid #fff;
-          border-left: none;
-
-          cursor: pointer;
-          text-transform: uppercase;
-          font-weight: normal;
-          text-align: center;
-
-          transition: color .3s, background-color .3s;
-          &:first-of-type {
-            border-left: 1px solid #fff;
-          }
-        }
-      }
     }
   }
 }
