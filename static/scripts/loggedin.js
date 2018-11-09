@@ -43,7 +43,7 @@ function sendFeedback(modal, e) {
     let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
 
     let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
-   
+
     $.ajax({
         url: '/helpdesk',
         type: 'POST',
@@ -211,7 +211,7 @@ window.addEventListener('DOMContentLoaded', function() {
         setupFirebasePush();
     }
 
-    let  feedbackSelector = document.querySelector('#feedbackType');
+    let feedbackSelector = document.querySelector('#feedbackType');
     if(feedbackSelector){
         feedbackSelector.onchange = function(){
             if(feedbackSelector.value === "problem"){
@@ -239,6 +239,19 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 window.addEventListener("resize", function () {
     $('.sidebar-list').css({"height": window.innerHeight});
+});
+
+// loading animation
+document.addEventListener("DOMContentLoaded", function (e) {
+    document.querySelector("body").classList.add("loaded");
+});
+window.addEventListener("beforeunload", function (e) {
+    document.querySelector("body").classList.remove("loaded");
+
+});
+window.addEventListener("pageshow", function (e) {
+    document.querySelector("body").classList.add("loaded");
+
 });
 
 function changeNavBarPositionToAbsolute() {
