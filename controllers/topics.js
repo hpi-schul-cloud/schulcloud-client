@@ -23,13 +23,17 @@ const editTopicHandler = (req, res, next) => {
     const context = req.originalUrl.split('/')[1];
     let lessonPromise, action, method;
     if (req.params.topicId) {
-        action = `/${context}/` + req.params.courseId + '/topics/' + req.params.topicId +
-            (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
+        action = `/${context}/`
+                + (context === 'courses' ? req.params.courseId : req.params.teamId)
+                + '/topics/' + req.params.topicId
+                + (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'patch';
         lessonPromise = api(req).get('/lessons/' + req.params.topicId);
     } else {
-        action = `/${context}/` + req.params.courseId + '/topics' +
-            (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
+        action = `/${context}/`
+                + (context === 'courses' ? req.params.courseId : req.params.teamId)
+                + '/topics'
+                + (req.query.courseGroup ? '?courseGroup=' + req.query.courseGroup : '');
         method = 'post';
         lessonPromise = Promise.resolve({});
     }
@@ -49,6 +53,7 @@ const editTopicHandler = (req, res, next) => {
             closeLabel: 'Abbrechen',
             lesson,
             courseId: req.params.courseId,
+            teamId: req.params.teamId,
             courseGroupId: req.query.courseGroup,
             etherpadBaseUrl: etherpadBaseUrl
         });
@@ -101,7 +106,7 @@ router.post('/', async function(req, res, next) {
             context === 'courses'
             ? `/courses/` + req.params.courseId +
                 (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '')
-            : `/teams/` + req.params.courseId + '/topics'
+            : `/teams/` + req.params.teamId + '/topics'
         );
     }).catch(_ => {
         res.sendStatus(500);

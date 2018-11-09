@@ -444,7 +444,7 @@ $(document).ready(function() {
                     },
                     success: function (data) {
                         populateModalForm($shareModal, {
-                            title: 'Einladungslink generiert!',
+                            title: 'Freigabe Einstellungen',
                             closeLabel: 'Abbrechen',
                             submitLabel: 'Speichern',
                             fields: {invitation: data.newUrl}
@@ -636,7 +636,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 
 /**
  * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
- * @deprecated 
+ * @deprecated
 **/
 function openInIframe(source){
     $("input.box").each(function() {
