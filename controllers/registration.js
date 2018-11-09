@@ -77,7 +77,7 @@ ${res.locals.theme.short_title}-Team`
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
     
     let user = {};
     user.importHash = req.query.importHash;
@@ -99,7 +99,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
 
     let user = {};
     user.importHash = req.query.importHash;
@@ -119,7 +119,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], async function (req, res, next) {
+router.get(['/registration/:classOrSchoolId/byemployee'], async function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(400);
@@ -127,8 +127,6 @@ router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOr
     let user = {};
     user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
     user.classOrSchoolId = req.params.classOrSchoolId;
-    user.sso = req.params.sso==="sso";
-    user.account = req.params.accountId||"";
 
     if (user.importHash) {
         let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
@@ -142,10 +140,31 @@ router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOr
     });
 });
 
+router.get(['/registration/:classOrSchoolId/byexpert'], async function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+        if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
+            return res.sendStatus(400);
+    
+    let user = {};
+    user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
+    user.classOrSchoolId = req.params.classOrSchoolId;
+    
+    if (user.importHash) {
+        let existingUser = await api(req).get('/users/linkImport/'+user.importHash);
+        Object.assign(user, existingUser);
+    }
+    
+    res.render('registration/registration-expert', {
+        title: 'Registrierung - Experte*',
+        hideMenu: true,
+        user
+    });
+});
+
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
     if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
     
     res.render('registration/registration', {
         title: 'Herzlich Willkommen bei der Registrierung',
