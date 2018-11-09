@@ -195,7 +195,9 @@ module.exports = {
       // Ensure the middleware is initialized by waiting for the promise to resolve
       initializeMiddleware.then(() => middleware(req, res, next));
     };
-  }
+  },
+  anonymizeIp: (ip) => anonymizeIp(ip),
+  getGeoId: (ip) => getGeoId(ip)
 };
 
 // Flush hit queue on exit

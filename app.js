@@ -51,11 +51,16 @@ app.use(session({
     resave: 'true',
     secret: 'secret'
 }));
+
 // Custom flash middleware
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.notification = req.session.notification;
     res.locals.inline = req.query.inline || false;
+    res.locals.theme = {
+        title: process.env.SC_TITLE || "HPI Schul-Cloud",
+        short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
+    };
     delete req.session.notification;
     next();
 });
@@ -69,7 +74,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
         return method;
     }
 }));
-
 
 // Initialize the modules and their routes
 app.use(require('./controllers/'));

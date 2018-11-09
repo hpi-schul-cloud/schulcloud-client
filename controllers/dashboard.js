@@ -16,14 +16,14 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    // we display time from 8 a.m. to 8 p.m.
-    const timeStart = 8;
-    const timeEnd = 18;
+    // we display time from 7 a.m. to 5 p.m.
+    const timeStart = 7;
+    const timeEnd = 17;
     const numHours = timeEnd - timeStart;
     const numMinutes = numHours * 60;
     const hours = [];
 
-    for(let j = 0; j < numHours; j++) {
+    for(let j = 0; j <= numHours; j++) {
         hours.push(j + timeStart);
     }
     const start = new Date();
@@ -135,11 +135,21 @@ router.get('/', function (req, res, next) {
             return news;
     }).sort(sortFunction).slice(0,3));
 
+    let newestReleasePromise = api(req).get('/releases', {
+        qs:{
+            $limit: 1,
+            $sort: {
+                createdAt: -1
+            }
+        }
+    }).then(({data}) => data);
+
     Promise.all([
         eventsPromise,
         homeworksPromise,
-        newsPromise
-    ]).then(([events, homeworks, news]) => {
+        newsPromise,
+        newestReleasePromise
+    ]).then(([events, homeworks, news, newestReleases]) => {
 
         homeworks.sort((a,b) => {
             if(a.dueDate > b.dueDate) {
@@ -148,6 +158,17 @@ router.get('/', function (req, res, next) {
                 return -1;
             }
         });
+
+        let user = res.locals.currentUser || {};
+        let userPreferences = user.preferences || {};
+        let newestRelease = newestReleases[0] || {};
+        let newRelease = !!(Date.parse(userPreferences.releaseDate) < Date.parse(newestRelease.createdAt));
+
+        if(newRelease || !userPreferences.releaseDate) {
+            api(req).patch('/users/' + user._id, {
+                json: {"preferences.releaseDate" : newestRelease.createdAt}
+            }).catch((error) => {});
+        }
 
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
@@ -158,7 +179,8 @@ router.get('/', function (req, res, next) {
             news,
             hours,
             currentTimePercentage,
-            currentTime: moment(currentTime).format('kk:mm')
+            showNewReleaseModal: newRelease,
+            currentTime: moment(currentTime).format('HH:mm'),
         });
     });
 });

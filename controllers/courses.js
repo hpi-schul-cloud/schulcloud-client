@@ -7,6 +7,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
+const shortId = require('shortid');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -90,7 +91,11 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const classesPromise = api(req).get('/classes', { qs: {
+        $or: [{ "schoolId": res.locals.currentSchool }],
+        $populate: ["year"],
+        $limit: 1000
+    }}).then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
     const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
@@ -100,7 +105,7 @@ const editCourseHandler = (req, res, next) => {
         teachersPromise,
         studentsPromise
     ]).then(([course, classes, teachers, students]) => {
-
+        // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
         teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
         students = students.filter(s => s.schoolId == res.locals.currentSchool);
@@ -430,7 +435,10 @@ router.get('/:courseId', function(req, res, next) {
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
-                {}
+                {
+                    title: course.name,
+                    url: '/courses/' + course._id
+                }
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
@@ -565,5 +573,37 @@ router.post('/:courseId/importTopic', function(req, res, next) {
 router.get('/:courseId/edit', editCourseHandler);
 
 router.get('/:courseId/copy', copyCourseHandler);
+
+// return shareToken
+router.get('/:id/share', function(req, res, next) {
+    return api(req).get('/courses/share/' + req.params.id)
+        .then(course => {
+            return res.json(course);
+    });
+});
+
+// return course Name for given shareToken
+router.get('/share/:id', function (req, res, next) {
+   return api(req).get('/courses/share', { qs: { shareToken: req.params.id }})
+        .then(name => {
+            return res.json({ msg: name, status: 'success' });
+        })
+       .catch(err => {
+            return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
+       });
+});
+
+router.post('/import', function(req, res, next) {
+    let shareToken = req.body.shareToken;
+    let courseName = req.body.name;
+
+    api(req).post('/courses/share', { json: { shareToken, courseName }})
+        .then(course => {
+            res.redirect(`/courses/${course._id}/edit/`);
+        })
+        .catch(err => {
+            res.status((err.statusCode || 500)).send(err);
+        });
+});
 
 module.exports = router;

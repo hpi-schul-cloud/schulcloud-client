@@ -1,6 +1,6 @@
 <section class="section-partner">
 
-    <h5>Projektdurchführung</h5>
+    <h4>Projektdurchführung</h4>
     <div class="container">
         <div class="row">
             {{#each partners.project_partners}}
@@ -16,49 +16,7 @@
         </div>
     </div>
 
-    <h5>Pilotpartner für Lerninhalte</h5>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die Schul-Cloud erfahrbar wird.</p>
-            </div>
-        </div>  
-        <div class="row">
-            {{#each partners.content_partners}}
-                <div class="partner-box-wrapper col-xs-6 col-md-3">
-                    <div class="partner-box">
-                        <a href="{{{url}}}" target="_blank">
-                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                        </a>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-    </div>
-
-    <h5>Unterstützer für Schulinfrastruktur</h5>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p>Wir danken unseren Unterstützern für Schulinfrastruktur.</p>
-            </div>
-        </div>    
-        <div class="row">
-            {{#each partners.sponsors}}
-                <div class="partner-box-wrapper col-xs-6 col-md-3">
-                    <div class="partner-box">
-                        <a href="{{{url}}}" target="_blank">
-                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
-                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
-                        </a>
-                    </div>
-                </div>
-            {{/each}}
-        </div>
-    </div>
-
-    <h5>Fachbeirat</h5>
+    <h4>Fachbeirat</h4>
     <div class="container">
         <div class="row">
             <div class="intro-box col-sm-12">
@@ -80,7 +38,82 @@
                         </div>
                     </div>
                 {{/each}}
+                <div class="col-xs-12">
+                    <div id="hiddenAdvisers" class="collapse row">   
+                        {{#each hiddenAdvisers}}
+                            <div class="partner-box-wrapper col-xs-6 col-md-3">
+                                <div class="partner-box">
+                                    {{#if url}}<a href="{{{url}}}" target="_blank">{{/if}}
+                                        <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                    {{#if url}}</a>{{/if}}
+                                </div> 
+                            </div>
+                    {{/each}}
+                    </div>
+                </div>
+                <div class="buttonWrapper">
+                    <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenAdvisers">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                </div>
         </div>
     </div>
 
+    <h4>Pilotpartner für Lerninhalte</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>Wir danken unseren Partnern, die im Rahmen der Pilotphase verschiedene Lerninhalte zur freien Verfügung stellen, damit die HPI Schul-Cloud erfahrbar wird.</p>
+            </div>
+        </div>  
+        <div class="row">
+            {{#each partners.content_partners}}
+                <div class="partner-box-wrapper col-xs-6 col-md-3">
+                    <div class="partner-box">
+                        <a href="{{{url}}}" target="_blank">
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+            <div class="col-xs-12">
+                <div id="hiddenContentPartner" class="collapse row">   
+                    {{#each hiddenContentPartners}}
+                        <div class="partner-box-wrapper col-xs-6 col-md-3">
+                            <div class="partner-box">
+                                <a href="{{{url}}}" target="_blank">
+                                    <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                        {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                </a>
+                            </div> 
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="buttonWrapper">
+                <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenContentPartner">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+            </div>
+        </div>
+    </div>
+
+    <h4>Unterstützer für Schulinfrastruktur</h4>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p>Wir danken unseren Unterstützern für Schulinfrastruktur.</p>
+            </div>
+        </div>    
+        <div class="row">
+            {{#each partners.sponsors}}
+                <div class="partner-box-wrapper col-xs-6 col-md-6">
+                    <div class="partner-box">
+                        <a href="{{{url}}}" target="_blank">
+                            <img src="{{{../logo_prefix}}}{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                        </a>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
 </section>

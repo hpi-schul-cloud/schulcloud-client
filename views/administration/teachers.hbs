@@ -1,16 +1,18 @@
 {{#extend "administration/administration"}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/lib/filter/filter.css"/>
+        <link rel="stylesheet" href="/styles/administration/users.css"/>
     {{/content}}
     {{#content "page"}}
         <div class="route-administration">
-            <section class="section-school section-default">
+            <section class="section-teachers section-default">
                 <div><feathers-filter id="filter"
                                       filter='{{filterSettings}}'
                                       add-label='Filter hinzufügen'
                                       apply-label='Übernehmen'
                                       cancle-label='Abbrechen'
                                       handle-url='true'
+                                      save-state='true'
                 /></div>
                 <div class="container-fluid ajaxcontent">
                     <div class="row">
@@ -19,25 +21,30 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <center>
+                                <i class="fa fa-times consent-status"></i>
+                                Keine Einverständniserklärung vorhanden &emsp;
+                                <i class="fa fa-check consent-status"></i>
+                                Alle Zustimmungen vorhanden
+                            </center>
+                        </div>
+                    </div>
+                    <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <button type="submit" class="btn btn-primary btn-add">
+                            <button type="submit" class="btn btn-primary btn-add-modal">
                                 Lehrer hinzufügen
                             </button>
-                            <button class="btn btn-secondary btn-import">
+                            <button class="btn btn-secondary btn-import teacher">
                                 Lehrer importieren
                             </button>
                         </div>
                     </div>
                 </div>
 
-                {{#embed "lib/components/modal-form" method="patch" class="edit-modal"}}
-                    {{#content "fields"}}
-                        {{> "administration/forms/form-teachers"}}
-                    {{/content}}
-                {{/embed}}
 
                 {{#embed "lib/components/modal-form" action="/administration/teachers/" method="post" class="add-modal"}}
                     {{#content "fields"}}
@@ -45,15 +52,15 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
+                {{#embed "lib/components/modal-form" class="invitation-modal"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-import" roles="teacher"}}
+                        {{> "administration/forms/form-invitation-teacher"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
+                {{#embed "lib/components/modal-form" action="/administration/teachers/import/" method="post" class="import-modal" enctype="multipart/form-data"}}
                     {{#content "fields"}}
-                        {{> "administration/forms/form-delete-user"}}
+                        {{> "administration/forms/form-import" roles="teacher"}}
                     {{/content}}
                 {{/embed}}
 

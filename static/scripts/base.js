@@ -1,3 +1,29 @@
+/**
+ * HELPER - addEventListener
+ * 1. allow multiple events "clicked input" ...
+ * 2. define addEventListener on NodeLists (document.querySelectorAll)
+ */
+if (!NodeList.prototype.addEventListener) {
+    NodeList.prototype.addEventListener = function(events, callback, useCapture) {
+        this.forEach((entry)=>{
+            events.split(" ").forEach((event)=>{
+                entry.addEventListener(event, callback, useCapture);
+            });
+        });
+        return this;
+    };
+}
+
+const nativeEventListener = EventTarget.prototype.addEventListener;
+EventTarget.prototype.addEventListener = function(events, callback, useCapture) {
+    this.nativeListener = nativeEventListener;
+    events.split(" ").forEach((event)=>{
+        this.nativeListener(event, callback, useCapture);
+    });
+    return this;
+};
+
+
 function getQueryParameterByName(name, url) {
     if (!url) {
         url = window.location.href;
@@ -115,7 +141,7 @@ $(document).ready(function () {
         if (timeout) {
             setTimeout(function () {
                 $notification.fadeOut();
-            }, 5000);
+            }, (Number.isInteger(timeout)?timeout:5000));
         }
     };
 
@@ -127,9 +153,17 @@ $(document).ready(function () {
 
 
     // Initialize bootstrap-select
-    $('select').not('.no-bootstrap').chosen({
+    $('select:not(.no-bootstrap):not(.search-enabled)').chosen({
         width: "100%",
         "disable_search": true
+    }).change(function() {
+        this.dispatchEvent(new Event('input'));
+    });
+    $('select.search-enabled:not(.no-bootstrap)').chosen({
+        width: "100%",
+        "disable_search": false
+    }).change(function() {
+        this.dispatchEvent(new Event('input'));
     });
 
     // collapse toggle
@@ -178,13 +212,22 @@ $(document).ready(function () {
         }
     }
 
-    $('a[data-method="delete-material"]').on('click', function(e) {
+    function decodingHelper(encodedString){
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + encodedString,
+            'text/html');
+        var decodedString = dom.body.textContent;
+        return decodedString;
+    }
+
+    $('a[data-method="DELETE"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);
-
+        
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + decodingHelper($buttonContext.data('name')) + "' löschen möchtest?");
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
                 url: $buttonContext.attr('href'),
@@ -195,10 +238,6 @@ $(document).ready(function () {
                 },
             });
         });
-    });
-
-    $deleteModal.find('.close, .btn-close').on('click', function() {
-        $deleteModal.modal('hide');
     });
 
     $modals.find('.close, .btn-close').on('click', function() {
@@ -269,4 +308,14 @@ $(document).ready(function () {
 
     $(".chosen-container-multi").off( "touchstart");
     $(".chosen-container-multi").off( "touchend");
+});
+
+
+/* Mail Validation
+official firefox regex https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
+*/
+window.addEventListener('DOMContentLoaded', ()=>{
+    document.querySelectorAll('input[type="email"]:not([pattern])').forEach((input) => {
+        input.setAttribute('pattern', "^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
+    });
 });

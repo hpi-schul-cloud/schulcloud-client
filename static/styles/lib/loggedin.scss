@@ -3,8 +3,9 @@
 @import "./editor";
 
 body {
-    background: white !important;
-    overflow: hidden;
+    background-color: $colorWhite;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
     white-space: nowrap;
     font-size: 0 !important;
 }
@@ -68,13 +69,16 @@ body > * {
     }
 }
 aside.nav-sidebar {
-    color: #727272;
-    display: inline-block;
-    vertical-align: top;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: auto;
     width: 240px;
     height: 100vh;
     margin: 0;
-    background-color: #c3c1c1;
+    color: #727272;
+    background-color: $colorWhite;
+    border-right: 1px solid rgba(0,0,0,.15);
 
     @include media-breakpoint-down(md) {
         width: 60px;
@@ -83,6 +87,8 @@ aside.nav-sidebar {
     @include media-breakpoint-down(xs) {
         width: 100%;
         height: 0;
+        z-index: 9998;
+        overflow: visible;
         display: block;
     }
 
@@ -132,14 +138,13 @@ aside.nav-sidebar {
 
     nav {
         width: 100%;
-        overflow-y: auto;
 
         @include media-breakpoint-down(xs) {
-            overflow: hidden;
-            height: 100vh;
             position: absolute;
-            z-index: 9998;
-            background: lightgrey;
+            width: 100%;
+            height: 100vh;
+            overflow: auto;
+            background: $colorWhite;
             box-shadow: 0 2px 5px rgba(0,0,0,.26);
             transform: translateY(-102%);
             transition: transform .3s ease-in-out;
@@ -162,7 +167,6 @@ aside.nav-sidebar {
             list-style-type: none;
             padding: 0px;
             margin: 0px;
-            overflow-y: auto;
 
             li {
                 width: 100%;
@@ -173,21 +177,18 @@ aside.nav-sidebar {
                     float: left;
                     height: 60px;
                     line-height: 60px;
-                    border-bottom: 1px solid #adadad;
-                    color: #727272;
+                    color: $fontColor;
                     padding: 0px 20px;
                     font-size: 14px;
                     text-decoration: none;
                     overflow-x: visible;
                     white-space: nowrap;
-    
+
                     &.child-active {
-                        background-color: #dbd7d7;
                         border-bottom: 1px solid transparent;
                     }
 
                     &.subitem {
-                        background-color: #dbd7d7;
                         height: 40px;
                         line-height: 40px;
                         border-bottom: 1px solid transparent;
@@ -217,14 +218,13 @@ aside.nav-sidebar {
                     }
 
                     &.active {
-                        background: #fff;
+                        background: $colorWhite;
                         color: $primaryColor;
                         border-bottom: 1px solid transparent;
                     }
 
                     &[href]:hover {
-                        background: #434857;
-                        color: #fff !important;
+                        background: $colorLightGrey;
                         cursor: pointer;
                     }
 
@@ -240,7 +240,6 @@ aside.nav-sidebar {
                     span {
                         display: inline-block;
                         text-transform: uppercase;
-                        font-weight: bold;
                         text-decoration: none;
 
                         @include media-breakpoint-down(md) {
@@ -283,12 +282,6 @@ aside.nav-sidebar {
     }
 }
 
-.content-min-height{
-    min-height: calc(100vh - 193px);
-    @include media-breakpoint-down(xs) {
-        min-height: calc(100vh - 244px);
-    }
-}
 header {
     width:100%;
     float:left;
@@ -298,28 +291,39 @@ header {
     padding: 20px !important;
 }
 
+.content-min-height {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    #main-content {
+        flex:1;
+        position: relative;
+        padding: 0;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+}
+
 .content-wrapper {
-    position: relative;
-    display: inline-block;
     vertical-align: top;
-    width: calc(100vw - 240px);
-    height: 100vh;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    width: 100%;
     padding: 0;
+    padding-left: 240px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 
     @include media-breakpoint-down(md) {
-        width: calc(100vw - 60px);
+        padding-left: 60px;
     }
 
     @include media-breakpoint-down(xs) {
-        width: 100vw;
+        padding-left: 0px;
     }
-    .school-data {
-        padding-top: 11px;
-    }
+
     .federal-state {
-        padding-top: 10px;
         height: 35px;
         margin-left: 8px !important;
     }
@@ -346,11 +350,21 @@ header {
     text-align: center;
 
     .alert-warning {
-        height: 57.375px;
+        height: 63px;
+        border-radius: 0;
+        border: none;
     }
     p {
-        padding-top: 7px;
+        padding-top: 10px;
         font-weight: 900;
+    }
+    @include media-breakpoint-down(md){
+        .alert-warning {
+            height: 53px;
+        }
+        p {
+            padding-top: 5px;
+        }
     }
 }
 
@@ -369,9 +383,7 @@ body.fullscreen{
     }
     .content-wrapper{
         width: 100vw;
-        .content-min-height{
-            min-height: 100vh;
-        }
+        padding-left: 0;
     }
     .btn-fullscreen{
         position: fixed;
@@ -391,12 +403,7 @@ body.fullscreen{
 
 footer {
     width: 100%;
-    position: inherit;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    clear: both;
-    padding: 30px 0px;
+    padding: 20px 0px;
 
     @include media-breakpoint-down(xs) {
         background: $colorBeige;
@@ -506,7 +513,7 @@ footer {
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;
         padding-left: 50px !important;
-        background: $colorBeige;
+        background: $colorWhite;
         box-shadow: 0 2px 5px rgba(0,0,0,.26);
     }
 
@@ -572,7 +579,7 @@ footer {
             }
 
             &:hover{
-                background-color: rgba(0,0,0,0.1);
+                background-color: $colorLightGrey;
             }
             &:after{
                 display: none;
@@ -631,7 +638,7 @@ footer {
     .dropdown-toggle:not(.recent) .tag {
         display: none;
     }
-    
+
     .dropdown-menu{
         width: 300px;
         max-height: 300px;
@@ -662,7 +669,7 @@ footer {
 
 .help-drodown {
     .dropdown-menu {
-        width: 236px;
+        width: 261px;
     }
 
     .list-group-item {

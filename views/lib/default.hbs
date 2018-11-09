@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{#if title}}{{title}} - {{/if}}{{themeTitle}}</title>
+    <title>{{#if title}}{{title}} - {{/if}}{{theme.short_title}}</title>
 
     {{#block "meta"}}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
-        <meta name="apple-mobile-web-app-title" content="{{themeTitle}}">
+        <meta name="apple-mobile-web-app-title" content="{{theme.short_title}}">
         <meta name="theme-color" content="#b10438">
-        <meta name="application-name" content="{{themeTitle}}">
+        <meta name="application-name" content="{{theme.short_title}}">
     {{/block}}
 
     {{#block "styles"}}
         <link rel="preload" href="/fonts/ptsans/ptsans-regular.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/ptsans/ptsans-bold.woff" as="font" type="font/woff" crossorigin>
         <link rel="preload" href="/fonts/ptsans/ptsans-italic.woff" as="font" type="font/woff" crossorigin>
-        <link rel="preload" href="/fonts/fontawesome/fontawesome-webfont.woff" as="font" type="font/woff" crossorigin>
+        <link rel="preload" href="/vendor-optimized/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff" crossorigin>
         <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438">
         <link rel="apple-touch-icon" href= "/images/logo/app-icon-512.png">
         <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/app-icon-120.png">
@@ -28,11 +28,11 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16.png">
         <link rel="manifest" href="/images/manifest.json">
         <link rel="stylesheet" href="/fonts/ptsans/ptsans.css" />
-        <link rel="stylesheet" href="/fonts/fontawesome/fontawesome.css" />
         <link rel="stylesheet" href="/styles/lib/base.css" />
     {{/block}}
 
     {{#block "scripts"}}
+        {{#embed "lib/sw-metrix"}}{{/embed}}
         <script src="/scripts/all.js" type="text/javascript" defer></script>
     {{/block}}
 

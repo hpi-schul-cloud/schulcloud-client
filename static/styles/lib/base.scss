@@ -3,10 +3,13 @@
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
-@import "./fontawesome/font-awesome";
+$fa-font-path: "/vendor-optimized/font-awesome/fonts";
+@import "font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
 @import "./toggle/bootstrap-toogle.min.css";
+
+@import "./tabbar/tabbar";
 
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
@@ -15,6 +18,31 @@
 	text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 	hyphens: auto;
+}
+
+.section-team, .section-partner, .section-about, .section-community {
+	h4 {
+		font-weight: 500;
+		margin: 30px 0px 20px 0px !important;
+		width: 100%;
+		display: block;
+	}
+	h5 {
+		font-style: italic;
+		margin: 30px 0px 20px 0px;
+		width: 100%;
+		display: block;
+	}
+}
+
+.section-title h3 {
+	color: $primaryColor;
+	font-weight: 700;
+	margin-top: 10px;
+}
+
+body h4:not(:first-of-type){
+	margin-top: 1rem;
 }
 
 a {
@@ -30,6 +58,11 @@ a[data-toggle="collapse"]:active,
 a[data-toggle="collapse"]:focus{
 	color: inherit;
 	text-decoration:none !important;
+}
+
+.btn-link{
+	margin: 0;
+	padding: 0;
 }
 
 p.small {
@@ -70,6 +103,7 @@ label,
 .hidden{
 	display: none;
 }
+
 .show{
 	display: initial;
 }
@@ -90,24 +124,23 @@ label,
 	}
 }
 
+.table-wrapper{
+	max-width: 100%;
+	display: block;
+	overflow: auto;
+	-webkit-overflow-scrolling: touch;
+	margin-bottom: 1rem;
+	table{
+		margin-bottom: 0;
+	}
+}
+
 footer {
 	.android-app {
 		margin-left:-11px;
 	}
 	&.small-footer {
-		width: 100%;
-		margin-top: 40px;
-		position: inherit;
-		@media screen and (max-height: 700px) {
-			top: 510px;
-		}
-		bottom: 0;
-		right: 0;
-		left: 0;
-		clear: both;
-		padding: 30px 0px;
-		font-size: 0.9em;
-		margin-bottom: 5px;
+
 		@include media-breakpoint-down(xs) {
 			background: $colorBeige;
 
@@ -183,6 +216,9 @@ form.inline {
 .btn-thin {
 	padding-left: 15px !important;
 	padding-right: 15px !important;
+}
+.btn.hidden{
+	display:none;
 }
 
 .alert-fixed {
@@ -266,4 +302,21 @@ form.inline {
 
 .form-control{
 	hyphens: none;
+}
+
+.position-absolute{
+	position: absolute !important;
+}
+
+//the following adds fa-share-square-o for each external link except images
+.section-course .content-block{
+	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
+		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
+			&:after{
+				font-family: 'FontAwesome';
+				content: "  \f08e";
+				font-size: .7em;
+			}
+		}
+	}
 }

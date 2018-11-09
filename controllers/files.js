@@ -15,6 +15,7 @@ const multer = require('multer');
 const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
 const _ = require('lodash');
+const winston = require('winston');
 
 const filterOptions = [
     {key: 'pics', label: 'Bilder'},
@@ -22,6 +23,17 @@ const filterOptions = [
     {key: 'pdfs', label: 'PDF Dokumente'},
     {key: 'msoffice', label: 'Word/Excel/PowerPoint'}
 ];
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 const filterQueries = {
     pics: {$regex: 'image'},
@@ -55,12 +67,19 @@ const thumbs = {
     tiff: "/images/thumbs/tiffs.png"
 };
 
+/**
+ * sends a signedUrl request to the server
+ * @param {*} data, contains the path for the requested file
+ */
 const requestSignedUrl = (req, data) => {
     return api(req).post('/fileStorage/signedUrl', {
         json: data
     });
 };
 
+/**
+ * handles query params for file requests
+ */
 const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
     const urlParts = url.parse(originalUrl, true);
 
@@ -76,6 +95,9 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
     return url.format(urlParts);
 };
 
+/**
+ * generates the displayed breadcrumbs on the actual file page
+ */
 const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) => {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
@@ -99,6 +121,9 @@ const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'}
     return breadcrumbs;
 };
 
+/**
+ * generates the correct file's or directory's storage context for further requests
+ */
 const getStorageContext = (req, res, options = {}) => {
 
     if (req.query.storageContext) {
@@ -118,7 +143,9 @@ const getStorageContext = (req, res, options = {}) => {
     return pathUtils.join(storageContext, currentDir);
 };
 
-
+/**
+ * fetches all files and directories for a given storageContext
+ */
 const FileGetter = (req, res, next) => {
     let path = getStorageContext(req, res);
     let pathComponents = path.split('/');
@@ -145,6 +172,8 @@ const FileGetter = (req, res, next) => {
             return dir;
         });
 
+        checkIfOfficeFiles(files);
+
         res.locals.files = {
             files,
             directories,
@@ -157,6 +186,9 @@ const FileGetter = (req, res, next) => {
     });
 };
 
+/**
+ * fetches all sub-scopes (courses, classes etc.) for a given user and super-scope
+ */
 const getScopeDirs = (req, res, scope) => {
     return api(req).get('/' + scope + '/', {
         qs: {
@@ -221,6 +253,49 @@ const registerSharedPermission = (userId, filePath, shareToken, req) => {
             }
         }
     });
+};
+
+/**
+ * check whether given files can be opened in LibreOffice
+ */
+const checkIfOfficeFiles = files => {
+    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+        logger.error('LibreOffice env is currently not defined.');
+        return;
+    }
+
+    const officeFileTypes = [
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
+        'application/vnd.ms-powerpoint',                                               //.ppt
+        'application/vnd.ms-excel',                                                    //.xlx
+        'application/vnd.ms-word',                                                     //.doc
+        'application/vnd.oasis.opendocument.text',                                     //.odt
+        'text/plain',                                                                  //.txt
+        'application/msword'                                                           //.doc
+    ];
+
+    files.forEach(f => f.isOfficeFile = officeFileTypes.indexOf(f.type) >= 0);
+};
+
+/**
+ * generates the correct LibreOffice url for (only) opening office-files
+ * @param {*} fileId, the id of the file which has to be opened in LibreOffice
+ * @param {*} accessToken, the auth token for the wopi-host later on
+ * see https://wopi.readthedocs.io/en/latest/overview.html#integration-process for further details
+ */
+const getLibreOfficeUrl = (fileId, accessToken) => {
+    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+        logger.error('LibreOffice env is currently not defined.');
+        return;
+    }
+
+    // in the form like: http://ecs-80-158-4-11.reverse.open-telekom-cloud.com:9980
+    const libreOfficeBaseUrl = process.env.LIBRE_OFFICE_CLIENT_URL;
+    const wopiRestUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
+
+    return `${libreOfficeBaseUrl}/loleaflet/dist/loleaflet.html?WOPISrc=${wopiRestUrl}/wopi/files/${fileId}?access_token=${accessToken}`;
 };
 
 
@@ -292,21 +367,22 @@ router.delete('/file', function (req, res, next) {
     });
 });
 
-
 // get file
 router.get('/file', function (req, res, next) {
 
-    const {file, download = false, path, share} = req.query;
+    const {file, download, path, share, lool, fileId} = req.query;
     const data = {
         path: path || file,
         fileType: mime.lookup(file || pathUtils.basename(path)),
-        action: 'getObject'
+        action: 'getObject',
+		download:download||false
     };
-
     let sharedPromise = share && share !== 'undefined' ? registerSharedPermission(res.locals.currentUser._id, data.path, share, req) : Promise.resolve();
     sharedPromise.then(_ => {
+        if (lool) return res.redirect(307, `/files/file/${fileId}/lool`);
         return requestSignedUrl(req, data).then(signedUrl => {
-            return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
+			res.redirect(307,signedUrl.url);
+           /* return rp.get(signedUrl.url, {encoding: null}).then(awsFile => {
                 if (download && download !== 'undefined') {
                     res.type('application/octet-stream');
                     res.set('Content-Disposition', 'attachment;filename=' + encodeURI(pathUtils.basename(data.path)));
@@ -315,11 +391,29 @@ router.get('/file', function (req, res, next) {
                 }
 
                 res.end(awsFile, 'binary');
-            });
+            }); */
         });
     }).catch(err => {
         res.status((err.statusCode || 500)).send(err);
     });
+});
+
+
+// open in LibreOffice Online frame
+router.get('/file/:id/lool', function(req, res, next) {
+    const { share } = req.query;
+
+    // workaround for faulty sanitze hook (& => &amp;)
+    if (share) {
+        api(req).get('/files/' + req.params.id).then(file => {
+            res.redirect(`/files/file?path=${file.key}&share=${share}&lool=true&fileId=${req.params.id}`);
+        });
+    } else {
+        res.render('files/lool', {
+            title: 'LibreOffice Online',
+            libreOfficeUrl: getLibreOfficeUrl(req.params.id, req.cookies.jwt)
+        });
+    }
 });
 
 // move file
@@ -344,6 +438,27 @@ router.post('/file/:id/move', function (req, res, next) {
                 : e.error.message
         };
         res.send(e);
+    });
+});
+
+// create newFile
+router.post('/newFile', function (req, res, next) {
+    const {name, dir, type, studentEdit} = req.body;
+
+    const basePath = dir;
+    const fileName = name || 'Neue Datei';
+    api(req).post('fileStorage/files/new', {
+        json: {
+            key: `${basePath}${fileName}.${type}`,
+            path: basePath,
+            name: `${fileName}.${type}`,
+            studentCanEdit: studentEdit,
+            schoolId: res.locals.currentSchool
+        }
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        res.status((err.statusCode || 500)).send(err);
     });
 });
 
@@ -393,6 +508,7 @@ router.get('/my/', FileGetter, function (req, res, next) {
         }),
         canUploadFile: true,
         canCreateDir: true,
+        canCreateFile: true,
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor
@@ -499,10 +615,15 @@ router.get('/courses/:courseId', FileGetter, function (req, res, next) {
             url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
         });
 
+        let canCreateFile = true;
+        if (['Schüler', 'Demo'].includes(res.locals.currentRole))
+            canCreateFile = false;
+
         res.render('files/files', Object.assign({
             title: 'Dateien',
             canUploadFile: true,
             canCreateDir: true,
+            canCreateFile,
             path: res.locals.files.path,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
@@ -711,6 +832,17 @@ router.post('/directoryModel/:id/rename', function(req, res, next) {
 
             res.redirect(req.header('Referer'));
         });
+});
+
+router.post('/studentCanEdit', function(req, res, next) {
+   api(req).patch(`/files/${req.body.id}`, {
+       json: {
+           studentCanEdit: req.body.bool
+       }
+   })
+       .then(_ => {
+           res.json({success: true});
+       })
 });
 
 

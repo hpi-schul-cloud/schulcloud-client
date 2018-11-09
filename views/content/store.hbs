@@ -4,37 +4,74 @@
         <link rel="stylesheet" href="/styles/content/content.css"/>
     {{/content}}
 
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/content.js" type="text/javascript" defer></script>
+        <script src="/scripts/filter/custom-element-polyfill.js" defer></script>
+        <script src="/scripts/filter/feathers-filter.js" defer></script>
+    {{/content}}
+
     {{#content "page"}}
         <section class="store container">
 
             <div class="row">
                 <div class="col-sm-12">
                     {{> "content/forms/form-search" }}
+
+                    {{#if query}}
+                        <div><feathers-filter id="filter"
+                                filter='{{@root.filterSettings}}'
+                                add-label='Filter hinzufügen'
+                                apply-label='Übernehmen'
+                                cancle-label='Abbrechen'
+                                handle-url='false'
+                        /></div>
+                    {{/if}}
                 </div>
             </div>
-
-            {{#with featuredContent}}
-            <h3>Aktuelle Inhalte</h3>
-            <div class="row equal-height">
-                {{#each this}}
-                    <div class="col-md-6 col-lg-4">
-                        {{> "content/item" }}
+            <div class="ajaxcontent">
+                {{#if query}}
+                    {{#if searchResults}}
+                        <h5 class="mb-1">{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h5>
+                    {{else}}
+                        <h5 class="mb-1">Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h5>
+                    {{/if}}
+                    <hr class="mt-0">
+                {{/if}}
+                {{#unless query }}
+                    {{#with featuredContent}}
+                    <h3>Aktuelle Inhalte</h3>
+                    <div class="row equal-height">
+                        {{#each this}}
+                            <div class="col-md-6 col-lg-4">
+                                {{> "content/item" }}
+                            </div>
+                        {{/each}}
                     </div>
-                {{/each}}
-            </div>
-            {{/with}}
+                    {{/with}}
 
-            {{#with trendingContent}}
-            <h3>Beliebte Inhalte</h3>
-            <div class="row equal-height">
-                {{#each this}}
-                    <div class="col-md-6 col-lg-4">
-                        {{> "content/item" }}
+                    {{#with trendingContent}}
+                    <h3>Beliebte Inhalte</h3>
+                    <div class="row equal-height">
+                        {{#each this}}
+                            <div class="col-md-6 col-lg-4">
+                                {{> "content/item" }}
+                            </div>
+                        {{/each}}
                     </div>
-                {{/each}}
+                    {{/with}}
+                {{else}}
+                    <div class="row equal-height">
+                        {{#each searchResults.data}}
+                            <div class="col-md-6 col-lg-4">
+                                {{> "content/item" }}
+                            </div>
+                        {{/each}}
+                    </div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
+                {{/unless}}
             </div>
-            {{/with}}
-
         </section>
 
         {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
@@ -50,9 +87,4 @@
         {{/embed}}
 
     {{/content}}
-
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/content.js" type="text/javascript" defer></script>
-    {{/content}}
-
 {{/extend}}

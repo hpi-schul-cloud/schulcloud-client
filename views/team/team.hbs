@@ -1,13 +1,13 @@
 <section class="section-team">
-    <div id="teamLength" hidden>
+    <div id="teamLength" class="hidden">
         {{teamLength}}
     </div>
-    {{#each teams as |currentteam childKey|}}
-    <h5>{{name}}</h5>
+    {{#each teams as |currentteam index|}}
+    <h4>{{name}}</h4>
     <div class="container">
         <div class="row">
             {{#each currentteam.team}}
-            {{#if subheader_before}}<h6>{{subheader_before}}</h6>{{/if}}
+            {{#if subheader_before}}<h5>{{subheader_before}}</h5>{{/if}}
             <div id="modal-container-personcard">
                 <div class="modal-background {{#if ../../loggedin}}modal-padding{{/if}}">
                     <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">

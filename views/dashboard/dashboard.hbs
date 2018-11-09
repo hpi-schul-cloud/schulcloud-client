@@ -6,11 +6,10 @@
 
     {{#content "scripts" mode="append"}}
         <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
-        <script src="/scripts/socket.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
-        <section class="section-timetable">
+        <section class="container-fluid section-timetable" data-step="7" data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
             <div class="row">
                 <div class="col-sm-12">
                     <h5>Stundenplan</h5>
@@ -18,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="container-fluid timetable">
+            <div class="timetable">
                 <div class="row lesson-cards">
                     <div>
                         {{#each events}}
@@ -37,27 +36,28 @@
 
                 <div class="row">
                     <div class="timeline">
-                        <div class="container-fluid">
-                                <table style="width:100%">
-                                    <tr>
-                                        {{#each hours}}
-                                            <td style="width:10%">
-                                                <div class="tick">{{this}}.00</div>
-                                            </td>
-                                        {{/each}}
-                                    </tr>
-                                </table>
-                        </div>
+                        <table style="width:100%">
+                            <tr>
+                                {{#each hours}}
+                                    <td style="width:10%">
+                                        <div class="tick">{{this}}.00</div>
+                                    </td>
+                                {{/each}}
+                            </tr>
+                        </table>
                         <div class="current-time" style="width:{{currentTimePercentage}}%;">
                             <span>{{currentTime}}</span>
                         </div>
+                        {{#times 11}}
+                            <div class="timelines" style="width:{{this}}0%"></div>
+                        {{/times}}
                     </div>
                 </div>
             </div>
         </section>
 
         {{#ifeq this.currentRole "Beta"}}
-            <section class="section section-my-material" data-step="8" data-intro="Hier finden Sie eine Übersicht über Ihre Materialien.">
+            <section class="section section-my-material">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12"><h5>Meine Materialien</h5></div>
@@ -79,10 +79,10 @@
             </section>
         {{/ifeq}}
 
-        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="6" intro="Hier finden Sie eine Übersicht über Ihren Stundenplan und anstehende Termine."}}
-        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine Aufgaben" content=myhomeworks link-text="Zur Aufgabe" step="7" intro="Hier finden Sie eine Übersicht über Ihre gestellten Aufgaben. Diese Aufgaben sind mit ihren Schüler*innen geteilt und für diese sichtbar. Sie können unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
+        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="8" intro="Hier findest du eine Übersicht über deine gestellten Aufgaben. Diese Aufgaben sind mit deinen Schülern geteilt und für diese sichtbar. Du kannst unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
+        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine ToDos" content=myhomeworks link-text="Zur Aufgabe" step="9" intro="An dieser Stelle findest du eine Übersicht über deine private “To Do” Liste. Die Aufgaben, die du hier siehst, kannst du selbst unter “Aufgaben” auswählen und bearbeiten. Deine “To Do” Liste ist privat und daher nur für dich einsehbar."}}
 
-        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten" content=news link-text="Weiterlesen" step="8" intro="An dieser Stelle finden Sie eine Übersicht über ihre private “To Do” Liste. Die Aufgaben, die sie hier sehen, können Sie selbst unter “Aufgaben” auswählen und bearbeiten. Ihre “To Do” Liste ist privat und daher nur für sie einsehbar. "}}
+        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten aus meiner Schule" content=news link-text="Weiterlesen" step="10" intro="Hier erhälst du einen Überblick über Neuigkeiten, die zum Beispiel von deiner Schulleitung oder dem Entwicklerteam erstellt werden können."}}
 
         {{#if this.currentSchoolData.pilot}}
         {{#ifneq this.currentRole "Schüler"}}
@@ -94,6 +94,14 @@
         {{/embed}}
         {{/ifneq}}
         {{/ifneq}}
+        {{/if}}
+
+        {{#if showNewReleaseModal}}
+            {{#embed "lib/components/modal" class="feature-modal"}}
+                {{#content "body"}}
+                    {{> "lib/forms/form-features"}}
+                {{/content}}
+            {{/embed}}
         {{/if}}
 
     {{/content}}

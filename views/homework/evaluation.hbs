@@ -2,10 +2,7 @@
     <nav class="tab-links">
         <a id="submission-tab-link" class="tab-link active">Abgabe</a>
         {{#if @root.isTeacher}}
-            <a id="comment-tab-link" 	class="tab-link">Bewertung</a>
-        {{/if}}
-        {{#if this.submission}}
-            <a id="discussion-tab-link" class="tab-link">Diskussion</a>
+            <a id="comment-tab-link" class="tab-link">Bewertung</a>
         {{/if}}
     </nav>
     <div class="tabs">
@@ -71,8 +68,5 @@
                 </div>
             {{/if}}
         </div>
-        {{#if this.submission}}
-            {{> 'homework/discussion'}}
-        {{/if}}
     </div>
 </section>

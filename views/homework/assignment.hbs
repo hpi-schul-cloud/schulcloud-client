@@ -84,10 +84,6 @@
                                 <a id="feedback-tab-link" class="tab-link" href="#activetabid=feedback" alt="Bewertung deiner Abgabe durch den Lehrer">Feedback</a>
                                 {{#if publicSubmissions}}
                                     <a id="submissions-tab-link" class="tab-link" href="#activetabid=submissions" alt="alle Abgaben">Abgaben</a>
-                                {{else}}
-                                    {{#if submission}}
-                                        <a id="discussion-tab-link" class="tab-link" href="#activetabid=discussion" alt="Diskussionsbereich zu deiner Abgabe">Diskussion</a>
-                                    {{/if}}
                                 {{/if}}
                             {{/inArray}}
                         {{/ifvalue}}
@@ -108,10 +104,6 @@
 {{> 'homework/submission'}}
                                 {{#if publicSubmissions}}
 {{> 'homework/submissions'}}
-                                {{else}}
-                                    {{#if submission}}
-{{> 'homework/discussion'}}
-                                    {{/if}}
                                 {{/if}}
                             {{/inArray}}
                         {{/ifvalue}}

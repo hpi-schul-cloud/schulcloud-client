@@ -6,17 +6,12 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js" defer></script>
-        <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"
-                defer></script>
+        <script type="text/javascript" src="/vendor-optimized/firebasejs/3.9.0/firebase-app.js" defer></script>
+        <script type="text/javascript" src="/vendor-optimized/firebasejs/3.9.0/firebase-messaging.js" defer></script>
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-        <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"
-                defer></script>
+        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
-
-        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
-        <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
+        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
     {{/content}}
 
     {{#content "body"}}
@@ -35,11 +30,11 @@
                     <li>
                         <a class="sc-branding" href="/">
                             <div class="cloud-logo"></div>
-                            <div class="sc-title"><span>{{themeTitle}}</span></div>
+                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
                         </a>
                     </li>
                     {{#each sidebarItems}}
-                        <li>
+                        <li data-step={{this.introNumber}} data-intro="{{this.introText}}">
                             <a class="{{this.class}}" href="{{this.link}}"
                                  title="{{this.name}}">
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
@@ -73,6 +68,11 @@
                 <i class="fa fa-bars"></i>
             </a>
             <div class="content-min-height">
+                <section class="demo" id="offlineAlert" style="display:none;">
+                    <div class="alert alert-warning" role="alert">
+                        <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.</span></p>
+                    </div>
+                </section>
                 {{#ifeq currentRole "Demo"}}
                     <section class="demo">
                         <div class="alert alert-warning" role="alert">
@@ -88,14 +88,14 @@
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
                                 <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{this.title}}</a>
+                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
                                 </li>
                             {{/each}}
                         </ol>
                     {{/if}}
 
-                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier finden Sie übergreifende Informationen">
-                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Blendet Menus aus">
+                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier findest du übergreifende Informationen.">
+                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Hiermit blendest du die Menüs aus.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
                                     <i class="fa fa-expand"></i>
@@ -115,7 +115,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhalten sie Benachrichtigungen">
+                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
                                         recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
@@ -145,7 +145,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item help-drodown" data-step="5" data-intro="Hilfebereich für Ihre Fragen und Probleme">
+                        <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
                                     <i class="fa fa-question"></i>
@@ -154,21 +154,34 @@
                                     <ul class="content list-group">
                                         <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
                                         <div class="delimiter"></div>
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-magic"
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-info-circle" aria-hidden="true" style="margin-left:1px;"></i>
+                                                <a href="https://docs.schul-cloud.org/x/jwDT" target="_blank" class="link">Anleitungen</a>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-magic" aria-hidden="true"></i>
+                                                <a href="/help/#changelog" class="link">Neueste Funktionen</a>
+                                            </span>
+                                        </li>
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-comments-o" aria-hidden="true"></i>
+                                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a>
+                                            </span>
+                                        </li>
+                                        <li id="intro-loggedin" class="list-group-item list-group-item-action"><span><i class="fa fa-map-signs"
                                                                                                     aria-hidden="true"></i><a
-                                                href="/help/#changelog" class="link">Neuste Funktionen</a></span></li>
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comments-o"
-                                                                                                    aria-hidden="true"></i><a
-                                                href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a></span></li>
+                                                href="#" class="link">Intro</a></span></li>
                                         <div class="delimiter"></div>
-                                        {{#ifneq this.currentRole "Schüler"}}
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                     aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
-                                        {{/ifneq}}
+                                            <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a></span></li>
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
                                                                                                     aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
+                                            <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -176,17 +189,22 @@
 
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                            {{#if currentSchoolData.logo_dataUrl}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
+                            {{else}}
+                                {{#if currentSchoolData.federalState}}
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                {{/if}}
                             {{/if}}
                         {{/if}}
 
-                        <li class="nav-item" data-step="6" data-intro="Einstellungen und Log-Out">
+                        <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong>{{ currentUser.displayName }} ({{ currentRole }})</strong>
                                 </button>
+                                <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="/account/">Einstellungen</a>
                                     <a class="dropdown-item" href="/logout/">Abmelden</a>
@@ -200,9 +218,11 @@
                     <div class="container-fluid">
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
-                                <div>
-                                    <h4>{{title}}</h4>
-                                </div>
+                                {{#unless notitle}}
+                                  <div>
+                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                                  </div>
+                                {{/unless}}
                                 <div>
                                     {{subtitle}}
                                 </div>
@@ -239,23 +259,18 @@
                 {{#embed "lib/footer"}}{{/embed}}
             {{/unless}}
 
-            {{#embed "lib/components/modal-form" class="feedback-modal"}}
+            {{#embed "lib/components/modal-form" class="contactHPI-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-helpdesk"}}
+                    {{> "lib/forms/form-contactHPI"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="problem-modal"}}
+            {{#embed "lib/components/modal-form" class="contactAdmin-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-problems"}}
+                    {{> "lib/forms/form-contactAdmin"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal" class="feature-modal"}}
-                {{#content "body"}}
-                    {{> "lib/forms/form-features"}}
-                {{/content}}
-            {{/embed}}
         </section>
     {{/content}}
 {{/extend}}

@@ -163,7 +163,7 @@
                 content: '';
                 width: 2px;
                 background: $primaryColor;
-                right: 0px;
+                right: 1px;
                 position: absolute;
                 bottom: 0px;
             }
@@ -184,6 +184,26 @@
         .tick {
             font-size:10px;
             color:#aaa;
+        }
+        .timelines{
+            width: 100px;
+            height: 3px;
+            top: -3px;
+            left: 0px;
+            background: #696969;
+            display: block;
+            position: absolute;
+
+            &:before {
+                height: 245px;
+                content: '';
+                width: 1px;
+                border-left: 1px dashed #ccc;
+                right: 0px;
+                position: absolute;
+                bottom: 0px;
+                z-index: -1;
+            }
         }
     }
 }

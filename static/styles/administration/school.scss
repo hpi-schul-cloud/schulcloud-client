@@ -8,3 +8,23 @@
   text-align: center;
   cursor: pointer;
 }
+
+#preview-logo {
+  display: inline-block;
+}
+
+#logo-canvas {
+  visibility: hidden;
+}
+
+#logo-input{
+  display: none;
+}
+
+#logo-filename{
+  margin-left: .5rem;
+}
+
+label {
+  margin-bottom: 0rem;
+}

@@ -1,5 +1,9 @@
 {{#extend "lib/default"}}
 
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/partners.js" type="text/javascript" defer></script>
+    {{/content}}
+
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/partner/partner.css"/>
         <link rel="stylesheet" href="/styles/authentication/home.css"/>
@@ -21,7 +25,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-block">
-                    <div class="section-title"><h4>Partner</h4></div>
+                    <div class="section-title"><h3>Partner</h3></div>
                     {{#embed "partner/partner"}}{{/embed}}
                 </div>
             </div>
@@ -29,6 +33,4 @@
         {{#embed "lib/extended_footer"}}{{/embed}}
     {{/content}}
 
-    {{#content "scripts" mode="append"}}
-    {{/content}}
 {{/extend}}

@@ -129,6 +129,7 @@
     .fa {
       margin-top: 10px;
       margin-right: 15px;
+      vertical-align: text-top;
       color: #ccc;
       &:hover {
         color: $primaryColor;
@@ -140,8 +141,11 @@
       }
     }
     .title {
-      position: absolute;
       white-space: nowrap;
+      width: calc(75% - 30px);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
     }
     .file-preview {
       @media screen and (max-width: 575px) {
@@ -245,6 +249,36 @@
 
 .file-name-edit {
   display: none;
+}
+
+.popup-overlay{
+  visibility:hidden;
+  position:absolute;
+  background-color: rgba(0,0,0,.2);
+  outline: 1px solid transparent;
+  right:25%;
+  top:10%;
+  left:25%;
+  bottom: 10%;
+  border-radius: 5px;
+  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+}
+.popup-overlay.active{
+  visibility:visible;
+  text-align:center;
+}
+
+.popup-content {
+  visibility:hidden;
+}
+
+.popup-content.active {
+  visibility:visible;
+}
+
+.fa-stack {
+  margin-left: -10px;
+  height: 2.2em;
 }
 
 

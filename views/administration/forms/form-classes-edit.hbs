@@ -1,0 +1,102 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+{{#if edit}}
+    <input type="hidden" name="_id" value="{{class._id}}" />
+    <input type="hidden" name="referrer" value="{{referrer}}" />
+
+    <a class="d-block mb-1"
+        href="/administration/classes/{{@root.class/_id}}/manage"
+        title="Klasse '{{@root.class.name}}' verwalten.">
+        <i class="fa fa-users"></i> Klasse verwalten
+    </a>
+{{/if}}
+
+<div class="form-group">
+    <label>Schuljahr *</label>
+    <select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen" {{#ifCond edit '&&' isCustom}}{{#unless class.keepYear}}disabled="true"{{/unless}}{{/ifCond}}>
+        {{#each schoolyears}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{this.name}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Lehrer auswählen (auch später möglich)</label>
+
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
+        {{#each teachers}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<section id="createnew">
+    <div class="row">
+        <div class="form-group col-sm-6 col-xs-12">
+            <label>Jahrgangsstufe *</label>
+            <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
+                <option disabled value>keine Auswahl</option>
+                {{#each gradeLevels}}
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                        {{this.name}}
+                    </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+            <label>Klassenbezeichnung</label>
+            <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc." value="{{class.classsuffix}}" {{#if isCustom}}disabled{{/if}}/>
+        </div>
+    </div>
+
+    <p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.</p>
+
+    <section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
+        <p>Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
+        <div class="form-group">
+            <label>Klassenbezeichnung</label>
+            <input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4" required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}}/>
+        </div>
+        <label class="my-1">
+            <input name="keepyear" type="checkbox" value="true" {{#ifCond edit '&&' isCustom}}{{#if class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}} {{#unless isCustom}}disabled{{/unless}}/>
+            <span>Schuljahreszuordnung beibehalten</span>
+        </label>  
+    </section>
+
+    <div class="recap">
+        <div class="class-default {{#if isCustom}}hidden{{/if}}">
+            <p>Klassenname: 
+                    <span data-from="grade"></span><span data-from="classsuffix"></span>
+            </p>
+            <p>Schuljahr: <span data-from="schoolyear"/></p>
+        </div>
+        <div class="class-custom {{#unless isCustom}}hidden{{/unless}}">
+            <p>Klassenname: 
+                <span data-from="classcustom"></span>
+            </p>
+            <p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless class.keepYear}}hidden{{/unless}}"{{/ifCond}}>Schuljahr: <span data-from="schoolyear"/></p>
+        </div>
+    </div>
+</section>
+
+<div class="modal-footer mt-1">
+    <a class="btn btn-secondary btn-cancel">Abbrechen</a>
+    {{#unless edit}}
+        <button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
+        {{#userHasPermission 'ADMIN_VIEW'}}
+        {{else}}
+            <p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
+        {{/userHasPermission}}
+    {{else}}
+        <button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
+    {{/unless}}
+</div>
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

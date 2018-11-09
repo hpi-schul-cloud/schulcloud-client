@@ -90,4 +90,30 @@ $(document).ready(function () {
         },
     });
     $( "#topic-list" ).disableSelection();
+
+    $('.btn-create-share-course').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let courseId = $(this).attr("data-courseId");
+        let $shareModal = $('.share-modal');
+        $.ajax({
+            type: "GET",
+            url: `/courses/${courseId}/share/`,
+            success: function(data) {
+                populateModalForm($shareModal, {
+                    title: 'Kopiercode generiert!',
+                    closeLabel: 'Schließen',
+                    fields: {shareToken: data.shareToken}
+                });
+                $shareModal.find('.btn-submit').remove();
+                $shareModal.find("input[name='shareToken']").click(function () {
+                    $(this).select();
+                });
+
+                $shareModal.appendTo('body').modal('show');
+
+                $("label[for='shareToken']").text('Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.');
+            }
+        });
+    });
 });

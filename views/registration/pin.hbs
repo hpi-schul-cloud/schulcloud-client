@@ -1,0 +1,61 @@
+<div class="pin-input {{class}}">
+  <input class="combined-pin" type="text" name="{{name}}" pattern="{{pattern}}{ {{~digits~}} }" {{#if required}}required{{/if}} tabIndex="-1"/>
+  {{#times digits}}
+    <input class="digit" type="text" pattern="{{../pattern~}} {1}" maxlength="1" placeholder="·" {{#if ../required}}required{{/if}}>
+  {{/times}}
+</div>
+<script>
+/* TODO - move code anywhere save, not inside an .hbs file */
+function buildPin(wrapper){
+  let pin = "";
+  wrapper.querySelectorAll('.digit').forEach((input) => {
+    pin += input.value;
+  });
+  return pin;
+}
+function handleInput(event){
+  this.checkValidity();
+  if(this.value.length === 1){
+    this.parentElement.querySelector("input.combined-pin").value = buildPin(this.parentElement);
+    if(this.nextElementSibling){
+      this.nextElementSibling.focus();
+    }
+  }
+}
+function initializePin(){
+  document.querySelectorAll(".pin-input").forEach((pinInput) => {
+    pinInput.querySelectorAll(".digit").forEach((digit) => {
+      digit.addEventListener("input", handleInput)
+    });
+  })
+}
+window.addEventListener("DOMContentLoaded", initializePin)
+</script>
+<style>
+.pin-input input.combined-pin{
+  display: inline-block;
+  width: 0; 
+  height:0; 
+  border: none; 
+  outline: none; 
+}
+.pin-input .digit{
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+  padding: .5rem;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1rem;
+  border: 1px solid #555;
+  margin: 0 .15rem;
+}
+.show-invalid .pin-input .digit:invalid{
+  border-color: #f55
+}
+.pin-input .digit:focus{
+  outline: none;
+  border-color: #b10438;
+}
+</style>

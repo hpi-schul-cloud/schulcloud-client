@@ -8,6 +8,7 @@ const chaiHttp = require('chai-http');
 const loginHelper = require('../helper/login-helper');
 chai.use(chaiHttp);
 
+/* functionallity currently disabled
 describe('Classes tests', function () {
     this.timeout(10000);
     before(function (done) {
@@ -27,7 +28,7 @@ describe('Classes tests', function () {
     it('GET /classes', function () {
         return new Promise((resolve, reject) => {
             this.agent
-                .get('/classes/')
+                .get('/administration/classes/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Meine Klassen');
@@ -36,3 +37,4 @@ describe('Classes tests', function () {
         });
     });
 });
+*/

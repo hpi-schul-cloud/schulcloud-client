@@ -35,4 +35,56 @@ $(document).ready(function () {
         });
     });
 
+    $('.btn-import-course').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $importModal = $('.import-modal');
+        populateModalForm($importModal, {
+            title: 'Kurs importieren',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Abschicken'
+        });
+
+        let $modalForm = $importModal.find(".modal-form");
+        $modalForm.attr('action', `/courses/import`);
+        $importModal.appendTo('body').modal('show');
+        $('.import-modal').trigger('hideButton');
+    });
+
+    $('.import-modal').bind('hideButton', () => {
+        $('.btn-submit').hide();
+        $('.btn-next-step').remove();
+
+        $('#step1').show();
+        $('#step2').hide();
+
+        $('.modal-footer').append("<button type='button' class='btn btn-primary btn-next-step'>Nächster Schritt</button>");
+    });
+
+    $('.modal-footer').on('click', '.btn-next-step', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        let shareToken = $('#shareToken').val();
+
+        if (shareToken) {
+            $('#step1').hide();
+
+            $.get('/courses/share/' + shareToken, function (data, status) {
+                if (status === 'success' && data.status === 'success') {
+                    $('#courseName').val(data.msg);
+                } else {
+                    $('.import-modal').modal('hide');
+                    $.showNotification('Dieser shareToken scheint nicht in Verwendung zu sein!', 'danger', 10000);
+                }
+            });
+
+            $('#step2').show();
+
+            $('.btn-next-step').hide();
+            $('.btn-submit').show();
+        } else {
+            $('<input type="submit">').hide().appendTo($('.import-modal').find(".modal-form")).click().remove();
+        }
+    })
 });
