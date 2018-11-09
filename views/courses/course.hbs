@@ -51,16 +51,16 @@
         <div class="tabContainer">
           <div class="tabs" data-max-width="1024">
             <span class="tab" data-tab="a">
-              <span class="text">Themen</span>
+              <span class="text">Themen ({{lessons.length}})</span>
             </span>
             <span class="tab" data-tab="b">
-              <span class="text">Aufgaben</span>
+              <span class="text">Aufgaben ({{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }})</span>
             </span>
             <span class="tab" data-tab="c">
-              <span class="text">Tools</span>
+              <span class="text">Tools ({{ltiToolIds.length}})</span>
             </span>
             <span class="tab" data-tab="d">
-              <span class="text">Gruppen</span>
+              <span class="text">Gruppen ({{courseGroups.length}})</span>
             </span>
           </div>
         </div>
