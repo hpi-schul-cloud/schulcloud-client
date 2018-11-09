@@ -608,7 +608,7 @@ const getSSOTypes = () => {
 const createBucket = (req, res, next) => {
     if (req.body.fileStorageType) {
         Promise.all([
-            api(req).post('/fileStorage', {
+            api(req).post('/fileStorage/bucket', {
                 json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
             }),
             api(req).patch('/schools/' + req.params.id, {

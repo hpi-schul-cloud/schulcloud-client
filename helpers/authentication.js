@@ -40,14 +40,15 @@ const authChecker = (req, res, next) => {
 
                 // fetch user profile
                 populateCurrentUser(req, res)
-                    .then(_ => {
+                    .then(() => {
                         return checkConsent(req, res);
                     })
-                    .then(_ => {
+                    .then(() => {
                         return restrictSidebar(req, res);
                     })
-                    .then(_ => {
+                    .then(() => {
                         next();
+                        return null;
                     })
 					.catch(err=>{
 						if(err=="firstLogin was not completed, redirecting..."){

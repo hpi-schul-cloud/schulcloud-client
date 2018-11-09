@@ -316,43 +316,39 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
-        let data = await api(req).get('/fileStorage', {
-            qs: { path: 'teams/' + course._id + '/' }
-        });
-        let files = data.files.map(file => {
-            file.file = file.key;
-            let ending = file.name.split('.').pop();
-            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-            return file;
-        });
 
-        if (data.directories && data.directories.length > 0) {
-            const filesPromises = data.directories.map(dir => {
-                return api(req).get('/fileStorage', {
-                    qs: {
-                        path: dir.key + '/'
-                    }
-                });
-            });
-            const dataSubdirectories = await Promise.all(filesPromises);
-            let subdirectoriesFiles = dataSubdirectories.map(sub => {
-                return sub.files.map(file => {
-                    file.file = file.key;
-                    let ending = file.name.split('.').pop();
-                    file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-                    return file;
-                });
-            });
-            subdirectoriesFiles = subdirectoriesFiles[0];
+        const files = await api(req).get('/fileStorage', {
+            qs: { owner: course._id }
+        });
+        
+        files.sort(function(a,b){
+            return new Date(b.updatedAt) - new Date(a.updatedAt);
+        })
+        .slice(0, 6);
 
-            files = files.concat(subdirectoriesFiles);
-        }
+        // if (data.directories && data.directories.length > 0) {
+        //     const filesPromises = data.directories.map(dir => {
+        //         return api(req).get('/fileStorage', {
+        //             qs: {
+        //                 path: dir.key + '/'
+        //             }
+        //         });
+        //     });
+        //     const dataSubdirectories = await Promise.all(filesPromises);
+        //     let subdirectoriesFiles = dataSubdirectories.map(sub => {
+        //         return sub.files.map(file => {
+        //             file.file = file.key;
+        //             let ending = file.name.split('.').pop();
+        //             file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+        //             return file;
+        //         });
+        //     });
+        //     subdirectoriesFiles = subdirectoriesFiles[0];
+
+        //     files = files.concat(subdirectoriesFiles);
+        // }
 
         // Sort by most recent files and limit to 6 files
-        files = files.sort(function(a,b){
-            return new Date(b.updatedAt) - new Date(a.updatedAt);
-        });
-        files = files.slice(0, 6);
 
         let news = (await api(req).get('/news/', {
             qs: {
