@@ -1037,8 +1037,16 @@ router.post('/inviteexternalteacher/', (req, res) => {
             'role': 'teamadministrator'
         }
     }).then(result => {
-        let test = result;
-        return true;
+        if (result._id)
+        {
+            res.sendStatus(200);
+        }
+        else
+        {
+            res.sendStatus(401);
+        }
+    }).catch(error => {
+        res.sendStatus(500);
     });
 });
 
