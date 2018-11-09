@@ -243,7 +243,6 @@ aside.nav-sidebar {
                     span {
                         display: inline-block;
                         text-transform: uppercase;
-                        font-weight: bold;
                         text-decoration: none;
 
                         @include media-breakpoint-down(md) {
@@ -673,7 +672,7 @@ footer {
 
 .help-drodown {
     .dropdown-menu {
-        width: 236px;
+        width: 261px;
     }
 
     .list-group-item {
