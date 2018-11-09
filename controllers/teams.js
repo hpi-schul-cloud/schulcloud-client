@@ -668,10 +668,15 @@ router.get('/:teamId/members', async function(req, res, next) {
             icon: 'edit'
         }];
 
-        const bodyInvitations = [
-            ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
-            ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
-        ];
+        const bodyInvitations = course.invitedUserIds.map(invitation => {
+            return [
+                invitation.email,
+                moment(invitation.createdAt).format("DD.MM.YYYY"),
+                invitation.role === 'teamexpert' ? 'Team Experte' : 
+                invitation.role === 'teamadministrator' ? 'Team Administrator' : '',
+                invitationActions
+            ]
+        })
 
         res.render('teams/members', Object.assign({}, course, {
             title: 'Deine Team-Teilnehmer',
