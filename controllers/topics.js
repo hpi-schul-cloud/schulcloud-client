@@ -162,8 +162,12 @@ router.get('/:topicId', function(req, res, next) {
                     url: '/courses'
                 },
                 {
-                    title: course.name,
-                    url: '/courses/' + course._id
+                    title: course.name + ' ' + '> Themen',
+                    url: '/courses/' + course._id 
+                },
+                {
+                    title: lesson.name,
+                    url: '/courses/' + course._id + '/topics/' + lesson._id
                 },
                 courseGroup._id ? {
                     title: courseGroup.name,
