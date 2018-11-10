@@ -28,7 +28,7 @@
     {{/ifneq}}
 
     {{#userHasPermission "COURSEGROUP_CREATE"}}
-    <a href="/courses/{{../id}}/groups/add" class="btn btn-primary w-100 pull-right" title="Gruppe hinzufügen">
+    <a href="/courses/{{../id}}/groups/add" class="btn {{#ifneq 0 (arrayLength ../courseGroups)}}btn-secondary{{else}}btn-primary{{/ifneq}} w-100 pull-right" title="Gruppe hinzufügen">
       <i class="fa fa-plus" aria-hidden="true"></i><span> Schülergruppe hinzufügen</span>
     </a>
     {{/userHasPermission}}
