@@ -21,7 +21,6 @@
           <h4 id="page-title" class="course-headline">{{{stripOnlyScript ../name}}}</h4>
           <i class="fa fa-cog"></i>
         </a>
-        </a>
         <div class="dropdown-menu dropdown-menu-right dropdown-menu-course">
           <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
             <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten
@@ -51,19 +50,21 @@
     <section class="section-course">
       <div class="course-card">
         <div class="tabContainer">
-          <div class="tabs" data-max-width="1024">
-            <span class="tab" data-tab="a">
-              <span class="text">Themen ({{lessons.length}})</span>
-            </span>
-            <span class="tab" data-tab="b">
-              <span class="text">Aufgaben ({{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }})</span>
-            </span>
-            <span class="tab" data-tab="c">
-              <span class="text">Tools ({{ltiToolIds.length}})</span>
-            </span>
-            <span class="tab" data-tab="d">
-              <span class="text">Gruppen ({{courseGroups.length}})</span>
-            </span>
+          <div class="col-sm-12">
+            <div class="tabs" data-max-width="1024">
+              <span class="tab" data-tab="a">
+                <span class="text">Themen ({{lessons.length}})</span>
+              </span>
+              <span class="tab" data-tab="b">
+                <span class="text">Aufgaben ({{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }})</span>
+              </span>
+              <span class="tab" data-tab="c">
+                <span class="text">Tools ({{ltiToolIds.length}})</span>
+              </span>
+              <span class="tab" data-tab="d">
+                <span class="text">Gruppen ({{courseGroups.length}})</span>
+              </span>
+            </div>
           </div>
         </div>
         <div class="sectionsContainer">
