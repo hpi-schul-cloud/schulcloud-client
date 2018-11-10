@@ -40,7 +40,9 @@
     {{/userHasPermission}}
     <div class="row description">
       <div class="col-sm-12">
+        {{#if description}}
         <p class="lead">Kursbeschreibung: {{{stripOnlyScript description}}}</p>
+        {{/if}}
         {{#if nextEvent}}
           <p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>
         {{/if}}
