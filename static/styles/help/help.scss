@@ -27,11 +27,17 @@ label.form-group{
 }
 
 // Inputs
-.form-control, .chosen-single{
+.form-control,
+.chosen-container-single .chosen-single{
   border: 1px solid #d9d9d9;
   border-radius: 0;
   text-align: left;
   font-weight: normal;
+
+  &:focus, &:active{
+    outline: none;
+    border-color: $primaryColor;
+  }
 }
 // chosen options
 .chosen-container .chosen-results li{
@@ -83,12 +89,18 @@ fieldset.switch_wrapper {
 // (submit-) Button
 button{
   border-radius: 20rem;
-  border: 1px solid #fff;
+  border: 1px solid #333;
   padding: 8px 16px;
   font-weight: bold;
-  color: #fff;
+  color: #333;
   background: transparent;
   margin-top: 16px;
+  transition: color .3s ease-in-out, background-color .3s ease-in-out;
+  &:hover{
+    outline: none;
+    color: #fff;
+    background-color: #333;
+  }
 }
 
 
@@ -96,83 +108,13 @@ button{
  * Cards
  ********************************************************/
 
-.card-content {
-  border: none !important;
-}
-
-
-.contact-card {
-  .card-content {
-    .card-title:before {
-      border-bottom-color: #fff;
-    }
-    form{
-      margin-top: 1rem;
-      p{
-        text-align: left;
-      }
-      label{
-        margin-bottom: 4px;
-      }
-      .chosen-container{
-        color: initial;
-      }
-    }
-    p{
-      margin-top: .75rem;
-      margin-bottom: .25rem;
-    }
-    background-color: $accentColor;
-    color: #fff;
-
-    .control-label{
-      display: block;
-      text-align: left;
-      padding-right: 2rem;
-    }
-  }
-}
-.first-steps-card {
-  .link-wrapper {  
-    border: none;
-    &:nth-of-type(1) {
-      background-color: #b00c36;
-    }
-    &:nth-of-type(2) {
-      background-color: #e25617;
-    }
-    &:nth-of-type(3) {
-      background-color: #f89c0e;
-    }
-    &:nth-of-type(4) {
-      background-color: #0c53b0;
-    } 
-    a {
-      color: #fff;
-    }
-  }    
-} 
-
-.eMail-card {
-  .card-content {
-    color: #fff;
-    background: #e25617;
-    .card-title:before {
-      border-bottom-color: #fff;
-    }
-  }
-  #email-addresses {
-    padding: 1.6rem 0rem;
-  }
-}
-
-.accordion { 
+.accordion {
   .card {
     text-align: left;
     border: none;
     border-bottom: 1px solid #333;
     border-radius: 0px;
-    margin: 0px;   
+    margin: 0px;
     cursor: pointer;
     &:last-of-type {
       border-bottom: none;
@@ -202,11 +144,87 @@ button{
   }
 }
 
-.first-steps-card, .information-card, .quickHelp-card {
+.first-steps-card, .quickHelp-card, .information-card {
   .card-content{
     padding: 2rem 0 0 0;
   }
 }
+
+.contact-card {
+  .card-content {
+    background-color: $accentColor;
+    color: #fff;
+    .card-title:before {
+      border-bottom-color: #fff;
+    }
+    form{
+      margin-top: 1rem;
+      p{
+        text-align: left;
+      }
+      .control-label{
+        display: block;
+        text-align: left;
+        padding-right: 2rem;
+        margin-bottom: 4px;
+      }
+      .chosen-container{
+        color: initial;
+      }
+      button{
+        border-color: #fff;
+        color: #fff;
+        &:hover{
+          color: $accentColor;
+          background-color: #fff;
+        }
+      }
+    }
+    p{
+      margin-top: .75rem;
+      margin-bottom: .25rem;
+    }
+  }
+}
+.first-steps-card {
+  .link-wrapper {
+    border: none;
+    &:nth-of-type(1) {
+      background-color: #b00c36;
+    }
+    &:nth-of-type(2) {
+      background-color: #e25617;
+    }
+    &:nth-of-type(3) {
+      background-color: #f89c0e;
+    }
+    &:nth-of-type(4) {
+      background-color: #0c53b0;
+    }
+    a {
+      color: #fff;
+    }
+  }
+}
+
+.eMail-card {
+  .card-content {
+    color: #fff;
+    background: #e25617;
+    .card-title:before {
+      border-bottom-color: #fff;
+    }
+  }
+  a{
+    color: #fff;
+    text-decoration: underline;
+    &:hover{
+      color: $accentColor;
+    }
+  }
+}
+
+
 
 .row-wrapper{
   display: flex;
