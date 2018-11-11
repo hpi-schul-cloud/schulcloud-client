@@ -6,7 +6,6 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
-const request = require('request');
 
 const createToolHandler = (req, res, next) => {
     api(req).post('/ltiTools/', {
@@ -66,17 +65,19 @@ const runToolHandler = (req, res, next) => {
            roles: customer.mapSchulcloudRoleToLTIRole(role.name),
            launch_presentation_document_target: 'window',
            launch_presentation_locale: 'en',
-           lis_person_name_full: (tool.privacy_permission === 'name'
-             ? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
-             : null),
-           lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
-             ? currentUser.email
-             : null),
            user_id
        };
-       tool.customs.forEach((custom) => {
-           payload[customer.customFieldToString(custom)] = custom.value;
-       });
+
+      if (tool.privacy_permission === 'name') {
+        payload.lis_person_name_full = currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`;
+      }
+      if (tool.privacy_permission === 'e-mail') {
+        payload.lis_person_contact_email_primary = currentUser.email;
+      }
+
+      tool.customs.forEach((custom) => {
+         payload[customer.customFieldToString(custom)] = custom.value;
+      });
 
        let request_data = {
            url: tool.url,
