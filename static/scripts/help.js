@@ -12,11 +12,42 @@ $(document).ready(function () {
 });
 
 // iFrame full height
-document.querySelectorAll("iframe").forEach((iframe)=>{
+document.querySelectorAll("iframe").forEach((iframe, index)=>{
+    const identifier = "iframe-"+index;
+    iframe.dataset.identifier = identifier;
     iframe.addEventListener("load", (event) => {
-        iframe.style.height = iframe.contentWindow.document.body.scrollHeight + 10 + 'px';
+        iframe.contentWindow.postMessage(JSON.stringify({
+            function: "getSize",
+            identifier: identifier
+        }), '*');
     });
 });
+
+window.addEventListener("message", (event) => {
+    const message = JSON.parse(event.data);
+    if(message.size && message.identifier){
+        document.querySelectorAll(`iframe[data-identifier="${message.identifier}"]`).forEach((iframe) => {
+            iframe.style.height = message.size.y + 10 + 'px';
+        });
+    }
+}, false);
+
+/* script for iFrame
+window.addEventListener("message", (event) => {
+    const message = JSON.parse(event.data);
+    if(message.function){
+        if(message.function === "getSize" && message.identifier){
+            window.parent.postMessage(JSON.stringify({
+                identifier: message.identifier,
+                size: {
+                    x: document.body.scrollWidth,
+                    y: document.body.scrollHeight
+                }
+            }), '*');
+        }
+    }
+}, false);
+*/
 
 // confluence live-search
 function truncate(text, length){

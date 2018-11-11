@@ -6,14 +6,8 @@
 /********************************************************
  * iFrame (for confluence integration)
  ********************************************************/
-.content-min-height #main-content {
-  display: flex;
-  flex-direction: column;
-}
 iframe.full {
   width: 100%;
-  min-height: 100vh;
-  flex: 1;
 }
 
 /********************************************************
