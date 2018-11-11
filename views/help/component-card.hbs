@@ -1,7 +1,9 @@
 <div class="help-card {{class}}" id="{{id}}">
-    <div class="icon-wrapper">
-        <i class="fa fa-fw {{icon}}" aria-hidden="true"></i>
-    </div>
+    {{#if icon}}
+        <div class="icon-wrapper">
+            <i class="fa fa-fw {{../icon}}" aria-hidden="true"></i>
+        </div>
+    {{/if}}
     <div class="card-content">
         <h4 class="card-title">{{title}}</h4>
         <div class="card-body">

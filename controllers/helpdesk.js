@@ -10,7 +10,7 @@ router.post('/', function (req, res, next) {
     if (!req.body.subject && req.body.target) {
         if(req.body.target === "HPI"){ // Contact Admin
             // title? Y: Feedback N: Problem
-            req.body.subject = req.body.type + ((req.body.title) ? `:${req.body.title}` : '');
+            req.body.subject = req.body.type + ((req.body.title) ? `: ${req.body.title}` : '');
         }
         req.body.type = `contact${req.body.target}`;
     }
