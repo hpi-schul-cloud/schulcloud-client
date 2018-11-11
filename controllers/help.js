@@ -55,24 +55,24 @@ const firstStepsItems = [{
         title: "Schüler",
         icon: "fa-child",
         src: "/help/confluence/40304731",
-        color: ""
+        color: "#ea9d4a"
     },
     {
         title: "Lehrer",
         icon: "fa-child",
         src: "/help/confluence/40304726",
-        color: ""
+        color: "#29b24b"
     }, {
         title: "Admin",
         icon: "fa-child",
         src: "/help/confluence/40304667",
-        color: ""
+        color: "#b11e3b"
     },
     {
         title: "Schulleitung",
         icon: "fa-child",
         src: "/help/confluence/40304728",
-        color: ""
+        color: "#41bcec"
     }
 ];
 const quickHelpItems = [{
@@ -121,26 +121,13 @@ const knowledgeItems = [{
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    api(req).get('/releases', {
-            qs: {
-                $sort: '-createdAt'
-            }
-        })
-        .then(releases => {
-            releases.data.map(release => {
-                release.body = converter.makeHtml(release.body);
-                release.publishedAt = moment(release.publishedAt).format('ddd, ll');
-            });
-
-            res.render('help/help', {
-                title: 'Hilfebereich',
-                release: releases.data,
-                tutorials: tutorials,
-                knowledgeItems: knowledgeItems,
-                quickHelpItems: quickHelpItems,
-                firstStepsItems: firstStepsItems
-            });
-        });
+    res.render('help/help', {
+        title: 'Hilfebereich',
+        tutorials: tutorials,
+        knowledgeItems: knowledgeItems,
+        quickHelpItems: quickHelpItems,
+        firstStepsItems: firstStepsItems
+    });
 });
 
 router.get('/releases', function (req, res, next) {

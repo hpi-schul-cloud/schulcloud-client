@@ -1,23 +1,25 @@
-<input type="hidden" name="type" value="contactHPI">
+<input type="hidden" name="target" value="HPI">
+<input type="hidden" name="type" value="wish">
+
 <label class="form-group">
   <span class="control-label">Als...</span>
-  <input type="text" name="role" id="role" placeholder="z.B. Schüler, Lehrer, Administrator, Hausmeister usw." class="form-control" required>
+  <input type="text" name="role" placeholder="z.B. Schüler, Lehrer, Administrator, Hausmeister usw." class="form-control" required>
 </label>
 <label class="form-group">
   <span class="control-label">möchte ich ...</span>
-  <textarea class="form-control" id="desire" cols="50" name="desire" rows="6" required placeholder="z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können"></textarea>
+  <textarea class="form-control" cols="50" name="desire" rows="6" placeholder="z.B. eine im System angelegte Schüleraufgabe leicht auffinden und ändern können" required></textarea>
 </label>
 <label class="form-group">
   <span class="control-label">um ...</span>
-  <textarea class="form-control" id="benefit" cols="50" name="benefit" rows="6" placeholder="z.B. sie zu aktualisieren" required></textarea>
+  <textarea class="form-control" cols="50" name="benefit" rows="6" placeholder="z.B. sie zu aktualisieren" required></textarea>
 </label>
 <label class="form-group">
     <span class="control-label optional">Akzeptanzkriterien</span>
-    <textarea class="form-control" id="acceptance_criteria" cols="50" name="acceptance_criteria" rows="6" placeholder="z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren."></textarea>
+    <textarea class="form-control" cols="50" name="acceptanceCriteria" rows="6" placeholder="z.B. Nach der Systemanmeldung gelange ich in maximal zwei Schritten zum Stundenkontext, kann die Schüleraufgabe dort mit einem Klick bearbeiten und die SchülerInnen bei Bedarf automatisch über die Änderung informieren."></textarea>
 </label>
 <label class="form-group">
   <span class="control-label optional">Bereich wählen</span>
-  <select name="category" id="category" placeholder="Bereich wählen (optional)">
+  <select name="category" placeholder="Bereich wählen (optional)">
       <option value="dashboard">Übersicht</option>
       <option value="courses">Kurse</option>
       <option value="classes">Klassen</option>

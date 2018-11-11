@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        {{#each clickable}}
-            <div class="link-wrapper col-xs-6 {{../link-class}} col-md">
+        {{#each links}}
+            <div class="link-wrapper col-xs-6 {{../link-class}} col-md" style="background-color: {{this.color}}">
                 <a href="{{this.src}}"
                     target="_blank"
                     title="{{this.title}}">

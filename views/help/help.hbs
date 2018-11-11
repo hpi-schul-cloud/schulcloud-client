@@ -10,7 +10,7 @@
 
     {{#content "page"}}
 
-        {{> "help/search"}}
+        {{> "help/search" class="md-2"}}
 
         {{#embed "help/component-card" title="Inhaltsverzeichnis" icon="fa-list" class="list-of-content-card hidden-sm-up"}}
             {{#content "card-body"}}
@@ -27,15 +27,15 @@
             {{/content}}
         {{/embed}}
 
-        {{#if false}}
+        {{#if true}}
         {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card" id="Erste_Schritte"}}
             {{#content "card-body"}}
-                {{> "help/clickable-card" clickable=firstStepsItems link-class="col-sm-3"}}
+                {{> "help/icon-link-group" links=firstStepsItems link-class="col-sm-3"}}
             {{/content}}
         {{/embed}}
         {{/if}}
 
-        <div class="row-wrapper"> 
+        <div class="row-wrapper">
             {{#each tutorials}}
                 {{#embed "help/component-card" title=this.title icon=this.icon class="accordion" id=this.title}}
                     {{#content "card-body"}}
@@ -82,7 +82,7 @@
 
         {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card" id="Nutzungshilfen"}}
             {{#content "card-body"}}
-                {{> "help/clickable-card" clickable=quickHelpItems link-class="col-sm-4"}}
+                {{> "help/icon-link-group" links=quickHelpItems link-class="col-sm-4"}}
             {{/content}}
         {{/embed}}
 
@@ -102,7 +102,7 @@
 
         {{#embed "help/component-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card" id="About"}}
             {{#content "card-body"}}
-                {{> "help/clickable-card" clickable=knowledgeItems link-class="col-sm-4"}}
+                {{> "help/icon-link-group" links=knowledgeItems link-class="col-sm-4"}}
             {{/content}}
         {{/embed}}
 

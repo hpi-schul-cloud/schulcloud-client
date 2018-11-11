@@ -141,7 +141,7 @@ module.exports = (req, res, next) => {
     // helpdesk views
     res.locals.sidebarItems.push({
        name: 'Helpdesk',
-       icon: 'cogs',
+       icon: 'ticket',
        link: '/administration/helpdesk/',
        permission: 'HELPDESK_VIEW'
     });
