@@ -54,21 +54,25 @@ const tutorials = require('../helpers/content/tutorials.json');
 const firstStepsItems = [{
         title: "Schüler",
         icon: "fa-child",
-        src: "#"
+        src: "/help/confluence/40304731",
+        color: ""
     },
     {
         title: "Lehrer",
         icon: "fa-child",
-        src: "#"
+        src: "/help/confluence/40304726",
+        color: ""
     }, {
         title: "Admin",
         icon: "fa-child",
-        src: "#"
+        src: "/help/confluence/40304667",
+        color: ""
     },
     {
         title: "Schulleitung",
         icon: "fa-child",
-        src: "#"
+        src: "/help/confluence/40304728",
+        color: ""
     }
 ];
 const quickHelpItems = [{
@@ -94,12 +98,12 @@ const knowledgeItems = [{
     {
         title: "FAQ",
         icon: "fa-comments",
-        src: "#"
+        src: "/help/confluence/23232533"
     },
     {
         title: "SSO",
         icon: "fa-sign-in",
-        src: "#"
+        src: "/help/faq/sso"
     },
     {
         title: "Release Notes",
@@ -156,10 +160,6 @@ router.get('/releases', function (req, res, next) {
                 release: releases.data
             });
         });
-});
-
-router.get('/faq', function (req, res, next) {
-    res.render('help/faq', {});
 });
 
 router.get('/confluence/:id', function (req, res, next) {
