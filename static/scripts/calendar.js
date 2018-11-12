@@ -29,9 +29,9 @@ $(document).ready(function () {
      * @param modal {DOM-Element} - the given modal which will be transformed
      * @param event {object} - a event, maybe a course-event
      */
-    function transformCourseEvent(modal, event) {
-        var courseId = event["x-sc-courseId"];
-        if (courseId) {
+    function transformCourseOrTeamEvent(modal, event) {
+        if (event["x-sc-courseId"]) {
+            var courseId = event["x-sc-courseId"];
             $.getJSON("/courses/" + courseId + "/json", function (course) {
                 var $title = modal.find(".modal-title");
                 $title.html($title.html() + " , Kurs: " + course.course.name);
@@ -45,7 +45,24 @@ $(document).ready(function () {
                 modal.find("input[name='scopeId']").attr("value", event["x-sc-courseId"]);
                 modal.find(".modal-form").append("<input name='courseId' value='" + courseId +"' type='hidden'>");
                 modal.find(".create-course-event").remove();
+                modal.find(".create-team-event").remove();
+            });
+        } else if (event["x-sc-teamId"]) {
+            var teamId = event["x-sc-teamId"];
+            $.getJSON("/teams/" + teamId + "/json", function (team) {
+                var $title = modal.find(".modal-title");
+                $title.html($title.html() + " , Team: " + team.team.name);
 
+                // if not teacher, not allow editing team events
+                if($('.create-team-event').length <= 0) {
+                    modal.find(".modal-form :input").attr("disabled", true);
+                }
+
+                // set fix team on editing
+                modal.find("input[name='scopeId']").attr("value", event["x-sc-teamId"]);
+                modal.find(".modal-form").append("<input name='teamId' value='" + teamId +"' type='hidden'>");
+                modal.find(".create-team-event").remove();
+                modal.find(".create-course-event").remove();
             });
         }
     }
@@ -82,7 +99,7 @@ $(document).ready(function () {
                     action: '/calendar/events/' + event.attributes.uid
                 });
 
-                transformCourseEvent($editEventModal, event);
+                transformCourseOrTeamEvent($editEventModal, event);
 
                 $editEventModal.find('.btn-delete').click(e => {
                     $.ajax({
@@ -144,16 +161,20 @@ $(document).ready(function () {
 
     $("input[name='isCourseEvent']").change(function(e) {
         var isChecked = $(this).is(":checked");
-        var $collapse = $("#" + $(this).attr("data-collapseRef"));
+        var ref = $(this).attr("data-collapseRef");
+        var $collapse = $("#" + ref);
         var $selection = $collapse.find('.course-selection');
         $selection.find('option')
-            .remove()
-            .end();
+        .remove()
+        .end();
 
         if (isChecked) {
             // fetch all courses for teacher and show selection
             $.getJSON('/courses?json=true', function(courses) {
                 $collapse.collapse('show');
+                var $toggleTeam = $("#toggle" + (parseInt(ref.substr(ref.length - 1, ref.length)) + 1));
+                $toggleTeam.bootstrapToggle('off');
+
                 courses.forEach(function (course) {
                     var option = document.createElement("option");
                     option.text = course.name;
@@ -161,7 +182,34 @@ $(document).ready(function () {
                     $selection.append(option);
                 });
                 $selection.chosen().trigger("chosen:updated");
+            });
+        } else {
+            $collapse.collapse('hide');
+        }
+    });
 
+    $("input[name='isTeamEvent']").change(function(e) {
+        var isChecked = $(this).is(":checked");
+        var ref = $(this).attr("data-collapseRef");
+        var $collapse = $("#" + $(this).attr("data-collapseRef"));
+        var $selection = $collapse.find('.team-selection');
+        $selection.find('option')
+            .remove()
+            .end();
+
+        if (isChecked) {
+            // fetch all courses for teacher and show selection
+            $.getJSON('/teams?json=true', function(teams) {
+                $collapse.collapse('show');
+                var $toggleTCourse = $("#toggle" + (parseInt(ref.substr(ref.length - 1, ref.length)) - 1));
+                $toggleTCourse.bootstrapToggle('off');
+                teams.forEach(function (team) {
+                    var option = document.createElement("option");
+                    option.text = team.name;
+                    option.value = team._id;
+                    $selection.append(option);
+                });
+                $selection.chosen().trigger("chosen:updated");
             });
         } else {
             $collapse.collapse('hide');
