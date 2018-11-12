@@ -1,7 +1,7 @@
 @import "../lib/colors";
 @import "./search";
 @import "./component-card";
-@import "./clickable-card";
+@import "./icon-link-group";
 
 /********************************************************
  * iFrame (for confluence integration)
@@ -88,7 +88,6 @@ fieldset.switch_wrapper {
 
 // (submit-) Button
 button{
-  border-radius: 20rem;
   border: 1px solid #333;
   padding: 8px 16px;
   font-weight: bold;
@@ -107,6 +106,11 @@ button{
 /********************************************************
  * Cards
  ********************************************************/
+
+//Layout
+.accordion .icon-card__content .fa-fw {
+  text-align: left;
+}
 
 .accordion {
   .card {
@@ -145,16 +149,16 @@ button{
 }
 
 .first-steps-card, .quickHelp-card, .information-card {
-  .card-content{
+  .icon-card__content{
     padding: 2rem 0 0 0;
   }
 }
 
 .contact-card {
-  .card-content {
+  .icon-card__content {
     background-color: $accentColor;
     color: #fff;
-    .card-title:before {
+    .icon-card__title:before {
       border-bottom-color: #fff;
     }
     form{
@@ -187,31 +191,16 @@ button{
   }
 }
 .first-steps-card {
-  .link-wrapper {
-    border: none;
-    &:nth-of-type(1) {
-      background-color: #b00c36;
-    }
-    &:nth-of-type(2) {
-      background-color: #e25617;
-    }
-    &:nth-of-type(3) {
-      background-color: #f89c0e;
-    }
-    &:nth-of-type(4) {
-      background-color: #0c53b0;
-    }
-    a {
-      color: #fff;
-    }
+  .link-wrapper a {
+    color: #fff;
   }
 }
 
 .eMail-card {
-  .card-content {
+  .icon-card__content {
     color: #fff;
     background: #e25617;
-    .card-title:before {
+    .icon-card__title:before {
       border-bottom-color: #fff;
     }
   }
