@@ -112,38 +112,33 @@ button{
   text-align: left;
 }
 
-.accordion {
-  .card {
-    text-align: left;
-    border: none;
-    border-bottom: 1px solid #333;
-    border-radius: 0px;
-    margin: 0px;
+.collapse__section {
+  .collapse__item {
+
+    &:not(:last-of-type){
+      border-bottom: 1px solid #333;
+    }
+
     cursor: pointer;
     &:last-of-type {
       border-bottom: none;
     }
-    .card-header {
-      padding-left: 0;
-      display: flex;
-      align-items: center;
-      border: none;
-      background: #fff;
+    .collapse__title{
+      text-align: left;
+      padding: 12px 20px 12px 0;
+      font-size: 1.2em;
+      h5{
+        display: inline;
+        padding-left: 8px;
+        font-size: inherit;
+      }
       &.single{
-        padding-left: 1.28571em;
         color: $primaryColor;
       }
-      h5{
-        padding-left: 8px;
-      }
-      .btn {
-        background: transparent;
-        font-weight: 400;
-        padding: 0px;
-        text-align: left;
-        border: none;
-        font-size: 1.2rem;
-      }
+    }
+
+    .collapse__content{
+      text-align: left;
     }
   }
 }

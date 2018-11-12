@@ -38,44 +38,41 @@
                 {{/if}}
 
                 {{#each tutorials}}
-                    {{#embed "help/component-card" title=this.title icon=this.icon class="accordion col-md-6" id=this.title}}
+                    {{#embed "help/component-card" title=this.title icon=this.icon id=this.title class="col-md-6"}}
                         {{#content "card-body"}}
-                            {{#each this.categories}}
-                                {{#if this.articles}}
-                                    <div class="card">
-                                        <div class="card-header collapsed" data-toggle="collapse" data-target="#{{this.id}}">
-                                            <i class="fa fa-fw fa-chevron-right bullet-icon" aria-hidden="true" data-expand></i>
-                                            <i class="fa fa-fw fa-chevron-down bullet-icon" aria-hidden="true" data-collapse></i>
-                                            <h5 class="mb-0">
-                                                {{this.title}}
-                                            </h5>
-                                        </div>
-                                        <div id="{{this.id}}" class="collapse">
-                                            <div class="card-body">
-                                                <ul>
-                                                    {{#each this.articles}}
-                                                        <li><a href="/help/confluence/{{this.id}}">
-                                                            {{this.title}}
-                                                        </a></li>
-                                                    {{/each}}
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                {{else}}
-                                <div class="card">
-                                    <a href="/help/confluence/{{this.id}}">
-                                        <div class="card">
-                                            <div class="card-header single">
-                                                <h5 class="mb-0">
+                            <div class="collapse__section">
+                                {{#each this.categories}}
+                                    {{#if this.articles}}
+                                        <div class="collapse__item">
+                                            <div class="collapse__title collapsed" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="false">
+                                                <i class="fa fa-fw fa-chevron-right" aria-hidden="true" data-expand></i>
+                                                <i class="fa fa-fw fa-chevron-down" aria-hidden="true" data-collapse></i>
+                                                <h5>
                                                     {{this.title}}
                                                 </h5>
                                             </div>
+                                            <ul id="{{this.id}}" class="collapse collapse__content">
+                                                {{#each this.articles}}
+                                                    <li><a href="/help/confluence/{{this.id}}">
+                                                        {{this.title}}
+                                                    </a></li>
+                                                {{/each}}
+                                            </ul>
                                         </div>
-                                    </a>
-                                </div>
-                                {{/if}}
-                            {{/each}}
+                                    {{else}}
+                                        <div class="collapse__item">
+                                            <div class="collapse__title single">
+                                                <i class="fa fa-fw" aria-hidden="true"></i>
+                                                <a href="/help/confluence/{{this.id}}">
+                                                    <h5>
+                                                        {{this.title}}
+                                                    </h5>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    {{/if}}
+                                {{/each}}
+                            </div>
                         {{/content}}
                     {{/embed}}
                 {{/each}}
@@ -85,7 +82,7 @@
                         {{> "help/icon-link-group" links=quickHelpItems link-class="col-sm-4"}}
                     {{/content}}
                 {{/embed}}
-                
+
                 {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="Kontakt"}}
                     {{#content "card-body"}}
                         {{> "help/contact"}}
@@ -97,7 +94,7 @@
                         {{> "help/mail-card"}}
                     {{/content}}
                 {{/embed}}
-            
+
                 {{#embed "help/component-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="About"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=knowledgeItems link-class="col-sm-4"}}

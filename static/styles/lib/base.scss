@@ -113,19 +113,16 @@ label,
 }
 
 [data-toggle="collapse"]{
-	&.collapsed {
+	&[aria-expanded="true"] {
 		[data-expand]{
-			display: initial;
-		}
-		[data-collapse]{
 			display: none;
 		}
 	}
-	[data-expand]{
-		display: none;
-	}
-	[data-collapse]{
-		display: initial;
+
+	&[aria-expanded="false"] {
+		[data-collapse]{
+			display: none;
+		}
 	}
 }
 
