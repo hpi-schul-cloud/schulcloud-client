@@ -96,6 +96,12 @@ aside.nav-sidebar {
         display: block;
     }
 
+    nav{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
     .sc-branding {
         display: block;
         padding: 15px;
