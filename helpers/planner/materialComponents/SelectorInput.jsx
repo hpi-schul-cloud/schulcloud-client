@@ -44,7 +44,6 @@ function SelectorInput(props) {
             initialValue={value.typeValue}
             onChange={event =>
               changeField(index, {
-                // @ts-ignore
                 typeValue: event.target.value
               })
             }
@@ -57,7 +56,6 @@ function SelectorInput(props) {
             initialValue={value.timeValue}
             onChange={event =>
               changeField(index, {
-                // @ts-ignore
                 timeValue: event.target.value
               })
             }

@@ -48,7 +48,6 @@ const CustomTabs = props => {
           onChange={(event, value) => onClick(value)}
           classes={{ root: classes.tabsRoot, indicator: classes.tabsIndicator }}
           style={{
-            // @ts-ignore tab-color is a css variable
             "--tab-color": `${selectedItem.color}`
           }}
         >

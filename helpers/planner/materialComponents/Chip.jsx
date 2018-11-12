@@ -1,8 +1,7 @@
 import React from "react";
 import Chip from "@material-ui/core/Chip";
 import createStyles from "@material-ui/core/styles/createStyles";
-import { Theme } from "@material-ui/core/styles/createMuiTheme";
-import withStyles, { WithStyles } from "@material-ui/core/styles/withStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import SCTheme from "./SchulCloudThemeProvider";
 
 const styles = theme =>
