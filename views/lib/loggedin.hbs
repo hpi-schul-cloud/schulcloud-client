@@ -175,14 +175,12 @@
                                                                                                     aria-hidden="true"></i><a
                                                 href="#" class="link">Intro</a></span></li>
                                         <div class="delimiter"></div>
-                                        {{#ifneq this.currentRole "Schüler"}}
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                     aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
-                                        {{/ifneq}}
+                                            <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a></span></li>
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
                                                                                                     aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
+                                            <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -260,15 +258,15 @@
                 {{#embed "lib/footer"}}{{/embed}}
             {{/unless}}
 
-            {{#embed "lib/components/modal-form" class="feedback-modal"}}
+            {{#embed "lib/components/modal-form" class="contactHPI-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-helpdesk"}}
+                    {{> "lib/forms/form-contactHPI"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="problem-modal"}}
+            {{#embed "lib/components/modal-form" class="contactAdmin-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-problems"}}
+                    {{> "lib/forms/form-contactAdmin"}}
                 {{/content}}
             {{/embed}}
 
