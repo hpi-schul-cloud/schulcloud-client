@@ -184,7 +184,7 @@ router.use(authHelper.authChecker);
  */
 
 router.get('/', async function(req, res, next) {
-    let courses = await api(req).get('/teams/', {
+    let teams = await api(req).get('/teams/', {
         qs: {
             userIds: {
                 $elemMatch: { userId: res.locals.currentUser._id }
@@ -193,28 +193,43 @@ router.get('/', async function(req, res, next) {
         }
     });
 
-    courses = courses.data.map(course => {
-        course.url = '/teams/' + course._id;
-        course.title = course.name;
-        course.content = (course.description||"").substr(0, 140);
-        course.secondaryTitle = '';
-        course.background = course.color;
-        course.memberAmount = course.userIds.length;
-        (course.times || []).forEach(time => {
+    teams = teams.data.map(team => {
+        team.url = '/teams/' + team._id;
+        team.title = team.name;
+        team.content = (team.description||"").substr(0, 140);
+        team.secondaryTitle = '';
+        team.background = team.color;
+        team.memberAmount = team.userIds.length;
+        (team.times || []).forEach(time => {
             time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
             time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-            course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
+            team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
         });
 
-        return course;
+        return team;
+    });
+
+    let teamInvitations = (await api(req).get('/teams/extern/get/')).data;    
+
+    teamInvitations = teamInvitations.map(team => {
+        team.url = '/teams/' + team._id;
+        team.title = team.name;
+        team.content = (team.description||"").substr(0, 140);
+        team.secondaryTitle = '';
+        team.background = team.color;
+        team.memberAmount = team.userIds.length;
+        team.id = team._id
+        
+        return team;
     });
 
     if (req.query.json) {
-        res.json(courses);
+        res.json(teams);
     } else {
         res.render('teams/overview', {
             title: 'Meine Teams',
-            courses,
+            teams,
+            teamInvitations,
             // substitutionCourses,
             searchLabel: 'Suche nach Teams',
             searchAction: '/teams',
@@ -808,6 +823,12 @@ router.delete('/:teamId/invitation', async function(req, res, next) {
         res.sendStatus(500);
     }
 
+});
+
+router.get('/invitation/accept/:teamId', async function(req, res, next) {
+    await api(req).get('/teams/extern/accept/' + req.params.teamId);
+
+    res.sendStatus(200);
 });
 
 /*
