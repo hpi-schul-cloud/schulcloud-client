@@ -599,7 +599,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 
         case 'image/' + type.substr(6) :
             $('#file-view').css('display','');
-            $('#picture').attr("src", '/files/file?file=' + id);
+            $('#picture').attr("src", '/files/file?file=' + id+'&name='+name);
             break;
 
         case 'audio/' + type.substr(6):
