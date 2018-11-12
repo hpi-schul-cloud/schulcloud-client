@@ -45,13 +45,14 @@ $(document).ready(function () {
         e.preventDefault();	
         var entry = $(this).attr('href');	
         $.getJSON(entry, function (result) {	
+            result.createdAt = new Date(result.createdAt).toLocaleString();
             populateModalForm($editModal, {	
                 action: entry,	
                 title: 'Bearbeiten',	
                 closeLabel: 'Abbrechen',	
                 submitLabel: 'Speichern',	
                 fields: result	
-            });	
+            });	 
              // post-fill gradiation selection	
             if ($editModal.find("input[name=gradeSystem]").length) {	
                 var $gradeInputPoints = $editModal.find("#gradeSystem0");	
