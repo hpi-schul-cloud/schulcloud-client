@@ -102,7 +102,7 @@ $(document).ready(function () {
                 feedbackType: "userstory"
             }
         });
-        
+
         $($contactHPIModal).appendTo('body').modal('show');
     });
     $contactHPIModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactHPIModal));

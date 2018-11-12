@@ -14,7 +14,7 @@
 
         <div class="container">
             <div class="row">
-                {{#embed "help/component-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12"}}
+                {{#embed "help/icon-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12"}}
                     {{#content "card-body"}}
                     <ul>
                         <li><a href="#Erste_Schritte">Erste Schritte</a></li>
@@ -30,7 +30,7 @@
                 {{/embed}}
 
                 {{#if false}}
-                {{#embed "help/component-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="Erste_Schritte"}}
+                {{#embed "help/icon-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="Erste_Schritte"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=firstStepsItems link-class="col-sm-3"}}
                     {{/content}}
@@ -38,7 +38,7 @@
                 {{/if}}
 
                 {{#each tutorials}}
-                    {{#embed "help/component-card" title=this.title icon=this.icon id=this.title class="col-md-6"}}
+                    {{#embed "help/icon-card" title=this.title icon=this.icon id=this.title class="col-md-6"}}
                         {{#content "card-body"}}
                             <div class="collapse__section">
                                 {{#each this.categories}}
@@ -77,25 +77,25 @@
                     {{/embed}}
                 {{/each}}
 
-                {{#embed "help/component-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="Nutzungshilfen"}}
+                {{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="Nutzungshilfen"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=quickHelpItems link-class="col-sm-4"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/component-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="Kontakt"}}
+                {{#embed "help/icon-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="Kontakt"}}
                     {{#content "card-body"}}
                         {{> "help/contact"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/component-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="E-Mail"}}
+                {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="E-Mail"}}
                     {{#content "card-body"}}
                         {{> "help/mail-card"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/component-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="About"}}
+                {{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="About"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=knowledgeItems link-class="col-sm-4"}}
                     {{/content}}

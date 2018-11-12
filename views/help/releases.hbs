@@ -1,4 +1,9 @@
 {{#extend "lib/loggedin"}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/helpers/lazyload.js" type="text/javascript" defer></script>
+    {{/content}}
+
     {{#content "page"}}
         <section class="changelog" id="changelog">
             <h4>Neueste Funktionen</h4>
@@ -31,7 +36,9 @@
                                             role="tabpanel" aria-labelledby="heading-{{@index}}"
                                             {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
                                         <div class="card-block">
-                                            {{{this.body}}}
+                                            {{#ifneq @index 0}}<noscript class="lazyload">{{/ifneq}}
+                                                {{{this.body}}}
+                                            {{#ifneq @index 0}}</noscript>{{/ifneq}}
                                         </div>
                                         <div class="card-footer">
                                             <a href="{{this.url}}" target="_blank">Weiterlesen</a>

@@ -1,4 +1,3 @@
-import "./helpers/lazyload.js";
 import livesearch from "./helpers/livesearch.js";
 import "./help/contactForm.js";
 
