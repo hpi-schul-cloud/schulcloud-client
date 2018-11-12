@@ -28,8 +28,7 @@ function initForm(formContainer){
 }
 
 function init(){
-    //document.querySelectorAll(".contact-form").forEach(initForm);
-    document.querySelectorAll(".contact-card .card-content").forEach(initForm);
+    document.querySelectorAll(".contact-form").forEach(initForm);
 }
 
 
