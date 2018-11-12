@@ -13,10 +13,8 @@ import {
   TextFieldTable,
   TopicElement
 } from "./materialComponents";
-import {
-  setupComponentMap,
-  setupCustomStyles
-} from "../../static/vendor/rucola-core-lib";
+import { setupComponentMap } from "planner-core-lib/lib/components/provider/componentProvider";
+import { setupCustomStyles } from "planner-core-lib/lib/components/provider/generalStylesProvider";
 
 let didSetup = false;
 

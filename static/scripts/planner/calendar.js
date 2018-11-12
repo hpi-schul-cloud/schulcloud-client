@@ -1,13 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { CalendarView } from "../../vendor/rucola-core-lib";
+import { CalendarView } from "planner-core-lib/lib/components/views/calendar";
 import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
   render() {
     return (
       <CalendarView
-        rasterSize={15}
         schoolYear={this.props.schoolYear}
         utcToday={this.props.utcToday}
         classTopicsData={this.props.classTopicsData}

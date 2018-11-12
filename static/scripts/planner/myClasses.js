@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { ClassConfigurationView } from "../../vendor/rucola-core-lib";
+import { ClassConfigurationView } from "planner-core-lib/lib/components/views/classConfiguration";
 import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
@@ -19,7 +19,7 @@ class View extends React.Component {
   render() {
     return (
       <ClassConfigurationView
-        schoolYear={this.props.schoolYear}
+        schoolYearData={this.props.schoolYearData}
         eventData={this.props.eventData}
         allClassTopics={this.props.allClassTopics}
         allTopicTemplates={this.props.allTopicTemplates}
@@ -42,7 +42,7 @@ const data = $reactRoot.data();
 
 ReactDOM.render(
   <View
-    schoolYear={data.schoolyear}
+    schoolYearData={data.schoolyeardata}
     eventData={data.eventdata}
     allClassTopics={data.allclasstopics}
     allTopicTemplates={data.alltopictemplates}

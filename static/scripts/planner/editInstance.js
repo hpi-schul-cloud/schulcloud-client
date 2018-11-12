@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { TopicInstanceView } from "../../vendor/rucola-core-lib";
+import TopicInstanceView from "planner-core-lib/lib/components/views/topicInstance";
 import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
@@ -10,9 +10,9 @@ class View extends React.Component {
   render() {
     return (
       <TopicInstanceView
-        id={this.props.id}
         initialValues={this.props.initialValues}
         onSave={() => {}}
+        onTemplateClick={() => {}}
         onDelete={() => {}}
       />
     );

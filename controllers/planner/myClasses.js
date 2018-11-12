@@ -192,13 +192,21 @@ const DUMMY_OTHER_DATA = [
   }
 ];
 
+const DUMMY_SCHOOL_YEAR_DATA = {
+  "17/18": {
+    utcStartDate: 1503900000000,
+    utcEndDate: 1530079200000
+  },
+  "18/19": {
+    utcStartDate: 1534723200000,
+    utcEndDate: 1560902400000
+  }
+};
+
 const handleGetMyClasses = (req, res, next) => {
   res.render("planner/myClasses", {
     title: "Meine Klassen",
-    schoolYear: JSON.stringify({
-      utcStartDate: 1534723200000,
-      utcEndDate: 1560902400000
-    }),
+    schoolYearData: JSON.stringify(DUMMY_SCHOOL_YEAR_DATA),
     eventData: JSON.stringify([...DUMMY_HOLIDAY_DATA, ...DUMMY_OTHER_DATA]),
     allClassTopics: JSON.stringify(DUMMY_CLASS_TOPICS),
     allTopicTemplates: JSON.stringify(DUMMY_TOPIC_TEMPLATES)
