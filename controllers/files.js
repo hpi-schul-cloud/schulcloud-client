@@ -231,16 +231,14 @@ const getDirectoryTree = (req, directory) => {
 const registerSharedPermission = (userId, fileId, shareToken, req) => {
     
     // check whether sharing is enabled for given file
-    return api(req).get(`/files/${fileId}`, { qs: { shareToken } }).then(res => {
-    
-        const { data: [file,] } = res;
-    
+    return api(req).get(`/files/${fileId}`, { qs: { shareToken } }).then(file => {
+        
         if ( !file ) {
             // owner permits sharing of given file
             return Promise.reject("Zu dieser Datei haben Sie keinen Zugriff!");
         } else {
             
-            const permission = file.permission.find((perm) => perm.refId.toString() === userId);
+            const permission = file.permissions.find((perm) => perm.refId.toString() === userId);
 
             if(!permission) {
                 file.permissions.push({
