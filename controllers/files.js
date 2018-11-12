@@ -503,19 +503,18 @@ router.get('/my/:folderId?', FileGetter, function (req, res, next) {
     }, res.locals.files));
 });
 
-router.get('/shared/', function (req, res, next) {
+router.get('/shared/', function (req, res) {
 
     api(req).get('/files')
-        .then(files => {
-            files.files = files.data.filter(f => f.context === 'geteilte Datei');
+        .then(result => {
+            let { data } = result;
+            data = data.filter(_ => Boolean(_)).map(addThumbnails);
 
-            files.files.map(file => {
-                file.file = file.path + file.name;
-                let ending = file.name.split('.').pop();
-               // file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-               file = addThumbnails(file); /* fix */
-            });
-
+            const files = {
+                files: checkIfOfficeFiles(data.filter(f => !f.isDirectory)),
+                directories: data.filter(f => f.isDirectory)
+            };
+            
             res.render('files/files', Object.assign({
                 title: 'Dateien',
                 path: '/',
