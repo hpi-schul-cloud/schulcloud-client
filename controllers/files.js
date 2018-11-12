@@ -488,7 +488,7 @@ router.delete('/directory', function (req, res) {
 
 router.get('/my/:folderId?', FileGetter, function (req, res, next) {
     res.locals.files.files = res.locals.files.files.map(addThumbnails);
-
+ 
     res.render('files/files', Object.assign({
         title: 'Dateien',
         path: res.locals.files.path,
@@ -506,6 +506,7 @@ router.get('/my/:folderId?', FileGetter, function (req, res, next) {
 });
 
 router.get('/shared/', function (req, res, next) {
+
     api(req).get('/files')
         .then(files => {
             files.files = files.data.filter(f => f.context === 'geteilte Datei');
@@ -533,6 +534,7 @@ router.get('/shared/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
+
     // get count of personal and course files/directories
     /*let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
     let courseFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^courses"}}});
@@ -815,7 +817,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
     
     api(req).post('/fileStorage/rename', {json: {
         _id: req.params.id,
-        name: req.body.name
+        newName: req.body.name
     }})
         .then(_ => {
             req.session.notification = {
@@ -839,7 +841,7 @@ router.post('/fileModel/:id/rename', (req, res) => {
 
 router.post('/directoryModel/:id/rename', function(req, res, next) {
     api(req).post('/fileStorage/directories/rename', {json: {
-        path: req.body.key,
+        _id: req.params.id,
         newName: req.body.name
     }})
         .then(_ => {
