@@ -785,15 +785,25 @@ router.post('/:teamId/members/externalteachers', async function(req, res, next) 
     res.sendStatus(200);
 });
 
-router.post('/:teamId/members/external', async function(req, res, next) {
-    await api(req).patch('/teams/' + req.params.teamId, {
-        json: {
-            email: req.body.email,
-            role: req.body.role
+router.post('/external/invite', (req, res) => {
+    return api(req).patch("/teams/extern/add/" + req.body.teamId , {
+        json:
+        {
+            'userId': req.body.userId,
+            'role': 'teamadministrator'
         }
+    }).then(result => {
+        if (result._id)
+        {
+            res.sendStatus(200);
+        }
+        else
+        {
+            res.sendStatus(401);
+        }
+    }).catch(error => {
+        res.sendStatus(500);
     });
-
-    res.sendStatus(200);
 });
 
 router.delete('/:teamId/members', async function(req, res, next) {
@@ -832,7 +842,7 @@ router.get('/invitation/accept/:teamId', async function(req, res, next) {
 });
 
 /*
- * Single Course Topics, Tools & Lessons
+ * Single Team Topics, Tools & Lessons
  */
 
 router.get('/:teamId/topics', async function(req, res, next) {
@@ -1075,26 +1085,6 @@ router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res
     });
 });
 
-router.post('/inviteexternalteacher/', (req, res) => {
-    return api(req).patch("/teams/extern/add/" + req.body.teamId , {
-        json:
-        {
-            'userId': req.body.userId,
-            'role': 'teamadministrator'
-        }
-    }).then(result => {
-        if (result._id)
-        {
-            res.sendStatus(200);
-        }
-        else
-        {
-            res.sendStatus(401);
-        }
-    }).catch(error => {
-        res.sendStatus(500);
-    });
-});
 
 const addUserToTeam = (params, internalReturn) => {
     return function (req, res, next) {

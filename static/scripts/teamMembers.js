@@ -190,14 +190,14 @@ $(document).ready(function () {
     
       $.ajax({
         type: "POST",
-        url: origin + "/teams/inviteexternalteacher",
+        url: origin + "/teams/external/invite",
         data: {
           teamId,
           userId
         }
       }).done(function () {
-        $.showNotification('Lehrer erfolgreich zum Team hinzugefügt', "success", true);
-        location.reload();
+        $.showNotification('Lehrer erfolgreich zum Team eingeladen', "success", true);
+        $inviteExternalMemberModal.modal('hide');
       }).fail(function () {
         $.showNotification('Problem beim Hinzufügen des Lehrers', "danger", true);
       });
