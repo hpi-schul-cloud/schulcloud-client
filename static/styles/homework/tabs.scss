@@ -55,7 +55,7 @@
 
 @include media-breakpoint-down(xs) {
   .nav-tabs {
-    border-bottom: zero;
+    border-bottom: 0;
   }
 
   .nav-item {
