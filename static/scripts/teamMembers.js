@@ -205,9 +205,9 @@ $(document).ready(function () {
       url: origin + "/teams/external/invite",
       data: {
         teamId,
-        userId,
+        userId: state.method === 'directory' ? userId : undefined,
         role: userRole,
-        email
+        email: state.method === 'email' ? email : undefined
       }
     }).done(function () {
       if (method === 'email') {
