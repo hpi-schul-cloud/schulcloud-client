@@ -837,33 +837,19 @@ router.patch('/:teamId/members', async function(req, res, next) {
     res.sendStatus(200);
 });
 
-router.post('/:teamId/members/externalteachers', async function(req, res, next) {
-    let userId = req.body.userIds;
-
-    await api(req).post('/teams/' + req.params.teamId, {
-        json: {
-            userId,
-            role : 'teamadministrator'
-        }
-    });
-
-    res.sendStatus(200);
-});
-
 router.post('/external/invite', (req, res) => {
+    const json = {
+        'userId': req.body.userId,
+        'email': req.body.email,
+        'role': 'teamadministrator'
+    }
     return api(req).patch("/teams/extern/add/" + req.body.teamId , {
-        json:
-        {
-            'userId': req.body.userId,
-            'role': 'teamadministrator'
-        }
+        json
     }).then(result => {
         if (result._id)
         {
             res.sendStatus(200);
-        }
-        else
-        {
+        } else {
             res.sendStatus(401);
         }
     }).catch(error => {
