@@ -10,6 +10,25 @@
     {{#content "page"}}
         {{> "help/search"}}
 
+        <div class="mobile-warning mb-2">
+            <p>Solltest du den Artikel nicht lesen können (häufig auf mobilen Geräten der Fall), kannst du ihn auch 
+                <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank">
+                    in Confluence öffnen
+                    <i class="fa fa-external-link"></i>
+                </a>
+            </p>
+        </div>
+
         <iframe class="full" src="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}&frameable=true" frameborder="0" scrolling="no"></iframe>
+
+        <a href="https://docs.schul-cloud.org/pages/viewpage.action?pageId={{articleId}}" target="_blank" class="pull-right">
+            Artikel in Confluence öffnen
+            <i class="fa fa-external-link"></i>
+        </a>
+
+        <div class="py-1">
+            Sprachlicher Hinweis: {{> "help/language-hint"}}
+        </div>
+
     {{/content}}
 {{/extend}}

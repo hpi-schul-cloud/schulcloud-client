@@ -14,23 +14,24 @@
 
         <div class="container">
             <div class="row">
-                {{#embed "help/icon-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12"}}
+                {{#embed "help/icon-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12" id="inhaltsverzeichnis"}}
                     {{#content "card-body"}}
                     <ul>
-                        <li><a href="#Erste_Schritte">Erste Schritte</a></li>
-                        <li><a href="#Nutzungshilfen">Nutzungshilfen</a></li>
+                        {{#if false}}<li><a href="#erste_schritte">Erste Schritte</a></li>{{/if}}
+                        <li><a href="#nutzungshilfen">Nutzungshilfen</a></li>
                         {{#each tutorials}}
                             <li><a href="#{{this.title}}">{{this.title}}</a></li>
                         {{/each}}
-                        <li><a href="#Kontakt">Kontaktformular</a></li>
-                        <li><a href="#E-Mail">Schreib uns eine E-Mail</a></li>
-                        <li><a href="#About">Über das Projekt</a></li>
+                        <li><a href="#kontakt">Kontaktformular</a></li>
+                        <li><a href="#email">Schreib uns eine E-Mail</a></li>
+                        <li><a href="#ueber_das_projekt">Über das Projekt</a></li>
+                        <li><a href="#sprachhinweis">Sprachlicher Hinweis</a></li>
                     </ul>
                     {{/content}}
                 {{/embed}}
 
                 {{#if false}}
-                {{#embed "help/icon-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="Erste_Schritte"}}
+                {{#embed "help/icon-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="erste_schritte"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=firstStepsItems link-class="col-sm-3"}}
                     {{/content}}
@@ -77,27 +78,33 @@
                     {{/embed}}
                 {{/each}}
 
-                {{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="Nutzungshilfen"}}
+                {{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=quickHelpItems link-class="col-sm-4"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/icon-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="Kontakt"}}
+                {{#embed "help/icon-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="kontakt"}}
                     {{#content "card-body"}}
                         {{> "help/contact"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="E-Mail"}}
+                {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="email"}}
                     {{#content "card-body"}}
                         {{> "help/mail-card"}}
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="About"}}
+                {{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="ueber_das_projekt"}}
                     {{#content "card-body"}}
                         {{> "help/icon-link-group" links=knowledgeItems link-class="col-sm-4"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "help/icon-card" title="Sprachlicher Hinweis" icon="fa-magic" class="" id="sprachhinweis"}}
+                    {{#content "card-body"}}
+                        {{> "help/language-hint"}}
                     {{/content}}
                 {{/embed}}
             </div>

@@ -93,7 +93,7 @@ const quickHelpItems = [{
 const knowledgeItems = [{
         title: "Überblick",
         icon: "fa-info",
-        src: "#"
+        src: "/about"
     },
     {
         title: "FAQ",
@@ -121,11 +121,21 @@ const knowledgeItems = [{
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
+    let quickhelp = quickHelpItems.slice(0);
+    if(res.locals.currentUser.roles.every((role) => {
+        return (role.name != "student") && (!role.name.includes("demo"));
+    })){
+        quickhelp.push({
+            title: "Dokumente des Willkommensordners",
+            icon: "fa-folder-open",
+            src: "/help/faq/documents "
+        });
+    }
     res.render('help/help', {
         title: 'Hilfebereich',
         tutorials: tutorials,
         knowledgeItems: knowledgeItems,
-        quickHelpItems: quickHelpItems,
+        quickHelpItems: quickhelp,
         firstStepsItems: firstStepsItems
     });
 });

@@ -26,7 +26,11 @@ window.addEventListener("message", (event) => {
     const message = JSON.parse(event.data);
     if(message.size && message.identifier){
         document.querySelectorAll(`iframe[data-identifier="${message.identifier}"]`).forEach((iframe) => {
-            iframe.style.height = message.size.y + 10 + 'px';
+            iframe.style.height = message.size.y + 'px';
+        });
+        console.log("remove!");
+        document.querySelectorAll(".mobile-warning").forEach((warning) => {
+            warning.remove();
         });
     }
 }, false);

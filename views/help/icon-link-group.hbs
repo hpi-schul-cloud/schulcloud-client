@@ -3,7 +3,9 @@
         {{#each links}}
             <div class="link-wrapper col-xs-6 {{../link-class}} col-md" style="background-color: {{this.color}}">
                 <a href="{{this.src}}"
-                    target="_blank"
+                    {{#inArray "http" this.src}}
+                        target="_blank"
+                    {{/inArray}}
                     title="{{this.title}}">
                     <span>
                         <i class="fa {{this.icon}}"></i>

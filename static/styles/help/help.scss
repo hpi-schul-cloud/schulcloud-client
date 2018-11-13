@@ -8,6 +8,8 @@
  ********************************************************/
 iframe.full {
   width: 100%;
+  min-height: 500px;
+  overflow: hidden;
 }
 
 /********************************************************
@@ -109,28 +111,27 @@ button{
  ********************************************************/
 //table-of-contents
 .table-of-contents-card {
-  .icon-card__content {
-    background: $primaryColor;
-    color: #fff;
+  background: $primaryColor;
+  color: #fff;
 
-    .icon-card__title:before {
-      border-bottom-color: #fff;
-    }
+  .icon-card__title:before {
+    border-bottom-color: #fff;
+  }
 
-    .icon-card__body {
-      text-align: center;
+  .icon-card__body {
+    text-align: center;
 
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-        margin: 0;
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
 
-        li {
-          padding: 4px 0;
+      li {
+        padding: 4px 0;
 
-          a {
-            color: #fff;
-          }
+        a {
+          color: #fff;
+          text-decoration: underline;
         }
       }
     }
@@ -171,9 +172,7 @@ button{
 
 // link cards
 .first-steps-card, .quickHelp-card, .information-card {
-  .icon-card__content{
-    padding: 2rem 0 0 0;
-  }
+  padding: 2rem 0 0 0;
 }
 
 .first-steps-card {

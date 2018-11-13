@@ -1,10 +1,10 @@
 <div class="icon-card {{class}}" id="{{id}}">
-    {{#if icon}}
-        <div class="icon-card__wrapper">
-            <i class="fa fa-fw {{icon}}" aria-hidden="true"></i>
-        </div>
-    {{/if}}
     <div class="icon-card__content">
+        {{#if icon}}
+            <div class="icon-card__icon">
+                <i class="fa fa-fw {{icon}}" aria-hidden="true"></i>
+            </div>
+        {{/if}}
         <h4 class="icon-card__title">{{title}}</h4>
         <div class="icon-card__body">
             {{#block "card-body"}}{{/block}}
