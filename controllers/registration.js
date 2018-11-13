@@ -137,6 +137,8 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async function (req, res,
     if (req.params.byRole === "byemployee") {
         roleText = "Lehrer*/Admins*";
     } else {
+        delete user.firstName;
+        delete user.lastName;
         roleText = "Experte*";
     }
 
