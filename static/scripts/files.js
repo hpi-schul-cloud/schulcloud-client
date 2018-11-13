@@ -469,7 +469,6 @@ $(document).ready(function() {
                             fields: {invitation: data.newUrl}
                         });
 
-                        // $shareModal.find('.btn-submit').remove();
                         $shareModal.find("input[name='invitation']").click(function () {
                             $(this).select();
                         });
