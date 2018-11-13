@@ -217,6 +217,7 @@ $(document).ready(function () {
       }
 
       $inviteExternalMemberModal.modal('hide');
+      location.reload();
     }).fail(function () {
       $.showNotification('Möglicherweise gab es Probleme bei der Einladung. Bitte eingeladenen Nutzer oder Admins fragen.', "danger", true);
     });
