@@ -154,6 +154,12 @@ router.get('/releases', function (req, res, next) {
 
             res.render('help/releases', {
                 title: 'Releases',
+                breadcrumb: [
+                    {
+                        title: 'Hilfebereich',
+                        url: '/help'
+                    }
+                ],
                 release: releases.data
             });
         });
@@ -161,6 +167,12 @@ router.get('/releases', function (req, res, next) {
 
 router.get('/confluence/:id', function (req, res, next) {
     res.render('help/confluence', {
+        breadcrumb: [
+            {
+                title: 'Hilfebereich',
+                url: '/help'
+            }
+        ],
         articleId: req.params.id
     });
 });
@@ -171,8 +183,14 @@ router.get('/faq/sso', function (req, res, next) {
     });
 
     res.render('help/sso-faq', {
-        faq: faq.ssoFAQ,
-        title: "Häufig gestellte Fragen zu SSO"
+        title: "Häufig gestellte Fragen zu SSO",
+        breadcrumb: [
+            {
+                title: 'Hilfebereich',
+                url: '/help'
+            },
+        ],
+        faq: faq.ssoFAQ
     });
 });
 
@@ -185,8 +203,14 @@ router.get('/faq/documents', function (req, res, next) {
         documents[0].content = converter.makeHtml(documents[0].content);
 
         res.render('help/sso-faq', {
-            faq: documents,
-            title: "Dokumente des Willkommensordners zum Download"
+            title: "Dokumente des Willkommensordners zum Download",
+            breadcrumb: [
+                {
+                    title: 'Hilfebereich',
+                    url: '/help'
+                },
+            ],
+            faq: documents
         });
     } else {
         req.session.notification = {
