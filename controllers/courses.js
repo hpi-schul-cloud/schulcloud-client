@@ -314,6 +314,7 @@ router.get('/offline', function(req, res, next) {
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
             course.nextEvent= recurringEventsHelper.getNextEventForCourseTimes(course.times);
+            course.nextEvent = moment(course.nextEvent).unix();
             return course;
         });
 
@@ -321,7 +322,7 @@ router.get('/offline', function(req, res, next) {
             let c = {};
             c._id = course._id;
             c.nextEvent= recurringEventsHelper.getNextEventForCourseTimes(course.times);
-            c.nextEvent = Date.parse(c.nextEvent);
+            c.nextEvent = moment(c.nextEvent, 'dd.mm.yyyy HH:ii').unix();
             return c;
         });
         courses.sort((a, b) => {
