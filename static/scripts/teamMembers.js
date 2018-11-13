@@ -184,7 +184,7 @@ $(document).ready(function () {
 
     const userId = $('#teacher').val();
     const userRole = state.role === 'teacher' ? 'teamadministrator'
-    : state.role === 'expert' ? 'teamexpert' : '';
+    : (state.role === 'expert' ? 'teamexpert' : '');
     let email;
 
     if (state.method === 'email') {

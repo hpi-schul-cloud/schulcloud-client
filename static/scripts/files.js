@@ -538,7 +538,8 @@ $(document).ready(function() {
                 permissions: filePermissions
             }
           }).done(function() {
-            $.showNotification('Standard Berechtigungen erfolgreich geändert', "success", true);
+            $.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
+            $('.share-modal').modal('hide')
           }).fail(function() {
             $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
           });        

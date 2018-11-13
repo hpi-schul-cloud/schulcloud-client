@@ -22,8 +22,6 @@ $(document).ready(function () {
   });
 
   $('.btn-file-permissions').click(function (e) {
-    // open create event modal
-
     populateModalForm($filePermissionsModal, {
         title: 'Freigabe-Einstellungen ändern',
         closeLabel: 'Abbrechen',
@@ -35,7 +33,6 @@ $(document).ready(function () {
   $('.file-permissions-modal form').on('submit', function (e) {
     e.stopPropagation();
     e.preventDefault();
-
 
     $.ajax({
       url: '/teams/' + $('.section-teams').data('id') + '/json',
@@ -72,7 +69,8 @@ $(document).ready(function () {
           filePermission
         }
       }).done(function() {
-        $.showNotification('Standard Berechtigungen erfolgreich geändert', "success", true);
+        $.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
+        $('.file-permissions-modal').modal('hide')
       }).fail(function() {
         $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
       });
