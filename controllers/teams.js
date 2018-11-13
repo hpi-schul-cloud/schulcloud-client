@@ -848,12 +848,7 @@ router.post('/external/invite', (req, res) => {
     return api(req).patch("/teams/extern/add/" + req.body.teamId , {
         json
     }).then(result => {
-        if (result._id)
-        {
-            res.sendStatus(200);
-        } else {
-            res.sendStatus(401);
-        }
+        res.sendStatus(200);
     }).catch(error => {
         res.sendStatus(500);
     });
