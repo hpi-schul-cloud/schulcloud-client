@@ -1,3 +1,5 @@
+const api = require("../../api");
+
 const DUMMY_CLASS_DATA = [
   {
     className: "Klasse 8a",
@@ -131,21 +133,6 @@ const DUMMY_CLASS_DATA = [
   }
 ];
 
-const DUMMY_HOLIDAY_DATA = [
-  {
-    name: "Herbstferien",
-    color: "#FBFFCF",
-    utcStartDate: 1540166400000,
-    utcEndDate: 1541116800000
-  },
-  {
-    name: "Weihnachtsferien",
-    color: "#FBFFCF",
-    utcStartDate: 1545436800000,
-    utcEndDate: 1546646400000
-  }
-];
-
 const DUMMY_OTHER_DATA = [
   {
     name: "Projektwoche",
@@ -155,16 +142,104 @@ const DUMMY_OTHER_DATA = [
   }
 ];
 
-const handleGetCalendar = (req, res, next) => {
+const getUTCDate = date => {
+  return Date.UTC(
+    date.getFullYear(),
+    date.getMonth(),
+    date.getDate(),
+    date.getHours(),
+    date.getMinutes(),
+    0
+  );
+};
+
+const getFederalState = async (req, schoolId) => {
+  const schoolData = await api(req).get("/schools/" + schoolId, {
+    qs: {
+      $populate: ["federalState"]
+    }
+  });
+  return schoolData.federalState.abbreviation;
+};
+const transfromISODateToUTC = date => getUTCDate(new Date(Date.parse(date)));
+const capitalizeFirstLetter = string =>
+  string.charAt(0).toUpperCase() + string.slice(1);
+const DAY = 1000 * 60 * 60 * 24;
+
+const getSchoolYear = async (req, stateCode) => {
+  const getSommerHolidays = holidays =>
+    holidays.find(holiday => holiday.name === "sommerferien");
+  const today = new Date();
+  const currentYearHolidays = await api(req).get(
+    `/holidays?stateCode=${stateCode}&year=${today.getFullYear()}`
+  );
+  const currentYearSummerHolidays = getSommerHolidays(currentYearHolidays);
+  const middleOfSummerHolidays = Math.round(
+    (Date.parse(currentYearSummerHolidays.start) +
+      Date.parse(currentYearSummerHolidays.end)) /
+      2
+  );
+  if (today.getTime() < middleOfSummerHolidays) {
+    const previousYear = today.getFullYear() - 1;
+    const previousYearHolidays = await api(req).get(
+      `/holidays?stateCode=${stateCode}&year=${previousYear}`
+    );
+    const previousYearSummerHolidays = getSommerHolidays(previousYearHolidays);
+    return {
+      utcStartDate: transfromISODateToUTC(previousYearSummerHolidays.end) + DAY,
+      utcEndDate: transfromISODateToUTC(currentYearSummerHolidays.start) - DAY
+    };
+  } else {
+    const nextYear = today.getFullYear() + 1;
+    const nextYearHolidays = await api(req).get(
+      `/holidays?stateCode=${stateCode}&year=${nextYear}`
+    );
+    const nextYearSummerHolidays = getSommerHolidays(nextYearHolidays);
+    return {
+      utcStartDate: transfromISODateToUTC(currentYearSummerHolidays.end) + DAY,
+      utcEndDate: transfromISODateToUTC(nextYearSummerHolidays.start) - DAY
+    };
+  }
+};
+
+const getHolidaysData = async (req, { schoolYear, stateCode }) => {
+  const firstYear = new Date(schoolYear.utcStartDate).getFullYear();
+  const secondYear = new Date(schoolYear.utcEndDate).getFullYear();
+  const firstYearHolidays = await api(req).get(
+    `/holidays?stateCode=${stateCode}&year=${firstYear}`
+  );
+  const secondYearHolidays = await api(req).get(
+    `/holidays?stateCode=${stateCode}&year=${secondYear}`
+  );
+  const holidays = [...firstYearHolidays, ...secondYearHolidays];
+
+  return holidays
+    .map(holiday => ({
+      name: capitalizeFirstLetter(holiday.name),
+      color: "#FBFFCF",
+      utcStartDate: transfromISODateToUTC(holiday.start),
+      utcEndDate: transfromISODateToUTC(holiday.end)
+    }))
+    .filter(
+      holiday =>
+        holiday.utcEndDate > schoolYear.utcStartDate &&
+        holiday.utcStartDate < schoolYear.utcEndDate
+    );
+};
+
+const handleGetCalendar = async (req, res, next) => {
+  const utcToday = getUTCDate(new Date());
+  const schoolId = res.locals.currentUser.schoolId;
+  const stateCode = await getFederalState(req, schoolId);
+  const schoolYear = await getSchoolYear(req, stateCode);
+  const holidaysData = await getHolidaysData(req, { schoolYear, stateCode });
+
   res.render("planner/calendar", {
     title: "Kalender",
-    schoolYear: JSON.stringify({
-      utcStartDate: 1534723200000,
-      utcEndDate: 1560902400000
-    }),
-    utcToday: 1539043200000,
+    schoolYear: JSON.stringify(schoolYear),
+    utcToday,
     classTopicsData: JSON.stringify(DUMMY_CLASS_DATA),
-    holidaysData: JSON.stringify(DUMMY_HOLIDAY_DATA),
+    holidaysData: JSON.stringify(holidaysData),
     otherEventsData: JSON.stringify(DUMMY_OTHER_DATA)
   });
 };
