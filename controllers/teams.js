@@ -651,7 +651,6 @@ router.get('/:teamId/members', async function(req, res, next) {
         ];
 
         const federalStates = (await api(req).get('/federalStates')).data;
-
         const currentFederalState = (await api(req).get('/schools/' + res.locals.currentSchool, {
             qs: {
                 $populate: "federalState"
@@ -822,8 +821,8 @@ router.post('/:teamId/members', async function(req, res, next) {
 });
 
 router.patch('/:teamId/members', async function(req, res, next) {
-    const course = await api(req).get('/teams/' + req.params.teamId);
-    const userIds = course.userIds.map(user => {
+    const team = await api(req).get('/teams/' + req.params.teamId);
+    const userIds = team.userIds.map(user => {
         if (user.userId === req.body.user.userId) {
             user.role = req.body.user.role;
         }
@@ -841,10 +840,11 @@ router.patch('/:teamId/members', async function(req, res, next) {
 
 router.post('/external/invite', (req, res) => {
     const json = {
-        'userId': req.body.userId,
-        'email': req.body.email,
-        'role': 'teamadministrator'
+        userId: req.body.userId,
+        email: req.body.email,
+        role: req.body.role
     }
+    
     return api(req).patch("/teams/extern/add/" + req.body.teamId , {
         json
     }).then(result => {
