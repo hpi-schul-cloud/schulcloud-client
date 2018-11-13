@@ -485,7 +485,12 @@ router.delete('/directory', function (req, res) {
 });
 
 router.get('/my/:folderId?', FileGetter, function (req, res, next) {
-    res.locals.files.files = res.locals.files.files.map(addThumbnails);
+    const userId = res.locals.currentUser._id;
+
+    res.locals.files.files = res.locals.files.files
+        .filter(_ => Boolean(_))
+        .filter(file => file.owner === userId)
+        .map(addThumbnails);
  
     res.render('files/files', Object.assign({
         title: 'Dateien',
@@ -504,11 +509,23 @@ router.get('/my/:folderId?', FileGetter, function (req, res, next) {
 });
 
 router.get('/shared/', function (req, res) {
+    const userId = res.locals.currentUser._id;
 
     api(req).get('/files')
         .then(result => {
             let { data } = result;
-            data = data.filter(_ => Boolean(_)).map(addThumbnails);
+            data = data
+                .filter(_ => Boolean(_))
+                .filter(file => {
+                    if( file.owner === userId ) {
+                        return false;
+                    }
+                    else {
+                        const permission = file.permissions.find(perm => perm.refId === userId);
+                        return permission ? !permission.write : false;
+                    }
+                })
+                .map(addThumbnails);
 
             const files = {
                 files: checkIfOfficeFiles(data.filter(f => !f.isDirectory)),
