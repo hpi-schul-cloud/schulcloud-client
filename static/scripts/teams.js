@@ -36,18 +36,49 @@ $(document).ready(function () {
     e.stopPropagation();
     e.preventDefault();
 
-    console.log('OK!!')
 
-    // $.ajax({
-    //   url: $(this).attr('action'),
-    //   method: 'POST',
-    //   data: {}
-    // }).done(function() {
-    //   $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
-    //   location.reload();
-    // }).fail(function() {
-    //   $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
-    // });
+    $.ajax({
+      url: '/teams/' + $('.section-teams').data('id') + '/json',
+      method: 'GET'
+    }).done(function(data) {
+      let filePermission = data.team.filePermission
+      let allowExternalExperts = $('input[name="externalExperts"]').prop('checked')
+      let allowMembers = $('input[name="teamMembers"]').prop('checked')
+
+      filePermission = filePermission.map(permission => {
+        if (permission.roleName === 'teamexpert') {
+          permission = Object.assign(permission, {
+            create: allowExternalExperts,
+            read: allowExternalExperts,
+            delete: allowExternalExperts,
+            write: allowExternalExperts
+          })
+        } else if (permission.roleName === 'teammember') {
+          permission = Object.assign(permission, {
+            create: allowMembers,
+            read: allowMembers,
+            delete: allowMembers,
+            write: allowMembers
+          })
+        }
+
+        return permission
+      })
+
+      $.ajax({
+        url: '/teams/' + $('.section-teams').data('id') + '/permissions',
+        method: 'PATCH',
+        data: {
+          filePermission
+        }
+      }).done(function() {
+        $.showNotification('Standard Berechtigungen erfolgreich geändert', "success", true);
+      }).fail(function() {
+        $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+      });
+    }).fail(function() {
+      $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+    });
 
     return false;
   });
