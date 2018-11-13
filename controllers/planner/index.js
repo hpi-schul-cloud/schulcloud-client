@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-
+const authHelper = require("../../helpers/authentication");
 const calendarRequestHandler = require("./calendar");
 const myClassesRequestHandler = require("./myClasses");
 const topicTemplatesRequestHandler = require("./topicTemplates");
 const topicInstancesRequestHandler = require("./topicInstances");
+
+router.use(authHelper.authChecker);
 
 // Calendar
 router.get("/", (req, res, next) => {
