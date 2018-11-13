@@ -184,7 +184,7 @@ router.use(authHelper.authChecker);
  */
 
 router.get('/', async function(req, res, next) {
-    let courses = await api(req).get('/teams/', {
+    let teams = await api(req).get('/teams/', {
         qs: {
             userIds: {
                 $elemMatch: { userId: res.locals.currentUser._id }
@@ -193,28 +193,43 @@ router.get('/', async function(req, res, next) {
         }
     });
 
-    courses = courses.data.map(course => {
-        course.url = '/teams/' + course._id;
-        course.title = course.name;
-        course.content = (course.description||"").substr(0, 140);
-        course.secondaryTitle = '';
-        course.background = course.color;
-        course.memberAmount = course.userIds.length;
-        (course.times || []).forEach(time => {
+    teams = teams.data.map(team => {
+        team.url = '/teams/' + team._id;
+        team.title = team.name;
+        team.content = (team.description||"").substr(0, 140);
+        team.secondaryTitle = '';
+        team.background = team.color;
+        team.memberAmount = team.userIds.length;
+        (team.times || []).forEach(time => {
             time.startTime = moment(time.startTime, "x").utc().format("HH:mm");
             time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-            course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
+            team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
         });
 
-        return course;
+        return team;
+    });
+
+    let teamInvitations = (await api(req).get('/teams/extern/get/')).data;    
+
+    teamInvitations = teamInvitations.map(team => {
+        team.url = '/teams/' + team._id;
+        team.title = team.name;
+        team.content = (team.description||"").substr(0, 140);
+        team.secondaryTitle = '';
+        team.background = team.color;
+        team.memberAmount = team.userIds.length;
+        team.id = team._id
+        
+        return team;
     });
 
     if (req.query.json) {
-        res.json(courses);
+        res.json(teams);
     } else {
         res.render('teams/overview', {
             title: 'Meine Teams',
-            courses,
+            teams,
+            teamInvitations,
             // substitutionCourses,
             searchLabel: 'Suche nach Teams',
             searchAction: '/teams',
@@ -316,43 +331,39 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
-        let data = await api(req).get('/fileStorage', {
-            qs: { path: 'teams/' + course._id + '/' }
-        });
-        let files = data.files.map(file => {
-            file.file = file.key;
-            let ending = file.name.split('.').pop();
-            file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-            return file;
-        });
 
-        if (data.directories && data.directories.length > 0) {
-            const filesPromises = data.directories.map(dir => {
-                return api(req).get('/fileStorage', {
-                    qs: {
-                        path: dir.key + '/'
-                    }
-                });
-            });
-            const dataSubdirectories = await Promise.all(filesPromises);
-            let subdirectoriesFiles = dataSubdirectories.map(sub => {
-                return sub.files.map(file => {
-                    file.file = file.key;
-                    let ending = file.name.split('.').pop();
-                    file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-                    return file;
-                });
-            });
-            subdirectoriesFiles = subdirectoriesFiles[0];
+        const files = await api(req).get('/fileStorage', {
+            qs: { owner: course._id }
+        });
+        
+        files.sort(function(a,b){
+            return new Date(b.updatedAt) - new Date(a.updatedAt);
+        })
+        .slice(0, 6);
 
-            files = files.concat(subdirectoriesFiles);
-        }
+        // if (data.directories && data.directories.length > 0) {
+        //     const filesPromises = data.directories.map(dir => {
+        //         return api(req).get('/fileStorage', {
+        //             qs: {
+        //                 path: dir.key + '/'
+        //             }
+        //         });
+        //     });
+        //     const dataSubdirectories = await Promise.all(filesPromises);
+        //     let subdirectoriesFiles = dataSubdirectories.map(sub => {
+        //         return sub.files.map(file => {
+        //             file.file = file.key;
+        //             let ending = file.name.split('.').pop();
+        //             file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
+        //             return file;
+        //         });
+        //     });
+        //     subdirectoriesFiles = subdirectoriesFiles[0];
+
+        //     files = files.concat(subdirectoriesFiles);
+        // }
 
         // Sort by most recent files and limit to 6 files
-        files = files.sort(function(a,b){
-            return new Date(b.updatedAt) - new Date(a.updatedAt);
-        });
-        files = files.slice(0, 6);
 
         let news = (await api(req).get('/news/', {
             qs: {
@@ -670,20 +681,35 @@ router.get('/:teamId/members', async function(req, res, next) {
             class: 'btn-edit-invitation',
             title: 'Einladung bearbeiten',
             icon: 'edit'
+        }, {
+            class: 'btn-delete-invitation',
+            title: 'Einladung löschen',
+            icon: 'trash'
         }];
 
-        const bodyInvitations = [
-            ['marco@polo.de', '24. September 2018', 'Experte', invitationActions],
-            ['axel@schweiss.de', '4. Oktober 2018', 'Experte', invitationActions]
-        ];
+        const bodyInvitations = course.invitedUserIds.map(invitation => {
+            return [
+                invitation.email,
+                moment(invitation.createdAt).format("DD.MM.YYYY"),
+                invitation.role === 'teamexpert' ? 'Team Experte' : 
+                invitation.role === 'teamadministrator' ? 'Team Administrator' : '',
+                {
+                    payload: {
+                        email: invitation.email
+                    }
+                },      
+                invitationActions,
+            ]
+        })
 
         res.render('teams/members', Object.assign({}, course, {
             title: 'Deine Team-Teilnehmer',
             action,
-            addMemberAction: `/teams/${req.params.teamId}/members`,
             classes,
+            addMemberAction: `/teams/${req.params.teamId}/members`,
             inviteExternalMemberAction: `/teams/${req.params.teamId}/members/external`,
             deleteMemberAction: `/teams/${req.params.teamId}/members`,
+            deleteInvitationAction: `/teams/${req.params.teamId}/invitation`,
             permissions: course.user.permissions,
             method,
             head,
@@ -759,15 +785,25 @@ router.post('/:teamId/members/externalteachers', async function(req, res, next) 
     res.sendStatus(200);
 });
 
-router.post('/:teamId/members/external', async function(req, res, next) {
-    await api(req).patch('/teams/' + req.params.teamId, {
-        json: {
-            email: req.body.email,
-            role: req.body.role
+router.post('/external/invite', (req, res) => {
+    return api(req).patch("/teams/extern/add/" + req.body.teamId , {
+        json:
+        {
+            'userId': req.body.userId,
+            'role': 'teamadministrator'
         }
+    }).then(result => {
+        if (result._id)
+        {
+            res.sendStatus(200);
+        }
+        else
+        {
+            res.sendStatus(401);
+        }
+    }).catch(error => {
+        res.sendStatus(500);
     });
-
-    res.sendStatus(200);
 });
 
 router.delete('/:teamId/members', async function(req, res, next) {
@@ -785,8 +821,28 @@ router.delete('/:teamId/members', async function(req, res, next) {
     res.sendStatus(200);
 });
 
+router.delete('/:teamId/invitation', async function(req, res, next) {
+    try {
+        await api(req).patch('/teams/extern/remove/' + req.params.teamId, {
+            json: {
+                email: req.body.email
+            }
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(500);
+    }
+
+});
+
+router.get('/invitation/accept/:teamId', async function(req, res, next) {
+    await api(req).get('/teams/extern/accept/' + req.params.teamId);
+
+    res.sendStatus(200);
+});
+
 /*
- * Single Course Topics, Tools & Lessons
+ * Single Team Topics, Tools & Lessons
  */
 
 router.get('/:teamId/topics', async function(req, res, next) {
@@ -932,6 +988,7 @@ router.post('/import', function(req, res, next) {
 });
 
 /**
+ * DEPRECATED - REMOVE AFTER N21 RELEASE
  * Generates short team invite link. can be used as function or as hook call.
  * @param params = object {
  *      role: user role = string "teamexpert"/"teamadministrator"
@@ -942,7 +999,7 @@ router.post('/import', function(req, res, next) {
  *      infos: object with multiple infos = object
  *  }
  * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
- */
+ 
 const generateInviteLink = (params, internalReturn) => {
     return function (req, res, next) {
         let options = JSON.parse(JSON.stringify(params));
@@ -1029,26 +1086,6 @@ router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res
     });
 });
 
-router.post('/inviteexternalteacher/', (req, res) => {
-    return api(req).patch("/teams/extern/add/" + req.body.teamId , {
-        json:
-        {
-            'userId': req.body.userId,
-            'role': 'teamadministrator'
-        }
-    }).then(result => {
-        if (result._id)
-        {
-            res.sendStatus(200);
-        }
-        else
-        {
-            res.sendStatus(401);
-        }
-    }).catch(error => {
-        res.sendStatus(500);
-    });
-});
 
 const addUserToTeam = (params, internalReturn) => {
     return function (req, res, next) {
@@ -1087,6 +1124,6 @@ const addUserToTeam = (params, internalReturn) => {
 };
 
 router.get('/invite/:role/to/:teamHash', addUserToTeam());
-
+ */
 
 module.exports = router;
