@@ -444,7 +444,7 @@ $(document).ready(function() {
                     },
                     success: function (data) {
                         populateModalForm($shareModal, {
-                            title: 'Freigabe Einstellungen',
+                            title: 'Freigabe-Einstellungen',
                             closeLabel: 'Abbrechen',
                             submitLabel: 'Speichern',
                             fields: {invitation: data.newUrl}

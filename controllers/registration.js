@@ -43,8 +43,10 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
         }
         eMailAdresses.forEach(eMailAdress => {
             let passwordText = "";
+            let studentInfotext = "";
             if (req.body.roles.includes("student")) {
                 passwordText = `Startpasswort: ${req.body["password_1"]}`;
+                studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.`;
             }
             return api(req).post('/mails/', {
                 json: { email: eMailAdress,
@@ -56,7 +58,7 @@ mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einlo
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
-Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
+${studentInfotext}
 Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                         }

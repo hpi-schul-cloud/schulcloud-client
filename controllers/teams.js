@@ -298,8 +298,23 @@ router.get('/add/', editCourseHandler);
  * Single Course
  */
 
+function mapPermissionRoles (permissions, roles) {
+    return permissions.map(permission => {
+        const role = roles.find(role => role._id === permission.refId)
+        permission.roleName = role ? role.name : ''
+        return permission
+    })
+}
+
 router.get('/:teamId/json', function(req, res, next) {
     Promise.all([
+        api(req).get('/roles', {
+            qs: {
+                name: {
+                    $regex: '^team'
+                }
+            }
+        }),
         api(req).get('/teams/' + req.params.teamId, {
             qs: {
                 $populate: ['ltiToolIds']
@@ -310,7 +325,13 @@ router.get('/:teamId/json', function(req, res, next) {
                 teamId: req.params.teamId
             }
         })
-    ]).then(([team, lessons]) => res.json({ team, lessons }));
+    ]).then(([roles, team, lessons]) => {
+        team.filePermission = mapPermissionRoles(team.filePermission, roles.data)
+
+        res.json({ team, lessons })
+    }).catch(e => {
+        res.sendStatus(500)
+    });
 });
 
 router.get('/:teamId/usersJson', function(req, res, next) {
@@ -324,19 +345,50 @@ router.get('/:teamId/usersJson', function(req, res, next) {
 });
 
 router.get('/:teamId', async function(req, res, next) {
+    
     try {
+        const roles = (await api(req).get('/roles', {
+            qs: {
+                name: {
+                    $regex: '^team'
+                }
+            }
+        })).data;
+
         const course = await api(req).get('/teams/' + req.params.teamId, {
             qs: {
-                $populate: ['ltiToolIds']
+                $populate: [
+                    'ltiToolIds'
+                ]
             }
         });
 
+        course.filePermission = mapPermissionRoles(course.filePermission, roles)
 
-        const files = await api(req).get('/fileStorage', {
-            qs: { owner: course._id }
+        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert')
+        const allowExternalExperts = externalExpertsPermission.create &&
+                                    externalExpertsPermission.read &&
+                                    externalExpertsPermission.write &&
+                                    externalExpertsPermission.delete;
+        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember')
+        const allowTeamMembers = teamMembersPermission.create &&
+                                    teamMembersPermission.read &&
+                                    teamMembersPermission.write &&
+                                    teamMembersPermission.delete;
+
+        let files = await api(req).get('/fileStorage', {
+            qs: { 
+                owner: course._id
+            }
         });
-        
-        files.sort(function(a,b){
+
+        files = files.map(file => {
+            file.permissions = mapPermissionRoles(file.permissions, roles)
+            return file
+        })
+
+        // Sort by most recent files and limit to 6 files
+        files.sort(function(a,b) {
             return new Date(b.updatedAt) - new Date(a.updatedAt);
         })
         .slice(0, 6);
@@ -363,7 +415,6 @@ router.get('/:teamId', async function(req, res, next) {
         //     files = files.concat(subdirectoriesFiles);
         // }
 
-        // Sort by most recent files and limit to 6 files
 
         let news = (await api(req).get('/news/', {
             qs: {
@@ -417,6 +468,9 @@ router.get('/:teamId', async function(req, res, next) {
             files,
             filesUrl: `/files/teams/${req.params.teamId}`,
             createEventAction: `/teams/${req.params.teamId}/events/`,
+            allowExternalExperts: allowExternalExperts ? 'checked' : '',
+            allowTeamMembers: allowTeamMembers ? 'checked' : '',
+            defaultFilePermissions: [],
             news,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
             userId: res.locals.currentUser._id,
@@ -461,6 +515,17 @@ router.patch('/:teamId', async function(req, res, next) {
     // }).catch(error => {
     //     res.sendStatus(500);
     // });
+});
+
+router.patch('/:teamId/permissions', async function(req, res, next) {
+    try {
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: req.body
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(500);
+    }    
 });
 
 router.get('/:teamId/delete', async function(req, res, next) {
@@ -772,33 +837,19 @@ router.patch('/:teamId/members', async function(req, res, next) {
     res.sendStatus(200);
 });
 
-router.post('/:teamId/members/externalteachers', async function(req, res, next) {
-    let userId = req.body.userIds;
-
-    await api(req).post('/teams/' + req.params.teamId, {
-        json: {
-            userId,
-            role : 'teamadministrator'
-        }
-    });
-
-    res.sendStatus(200);
-});
-
 router.post('/external/invite', (req, res) => {
+    const json = {
+        'userId': req.body.userId,
+        'email': req.body.email,
+        'role': 'teamadministrator'
+    }
     return api(req).patch("/teams/extern/add/" + req.body.teamId , {
-        json:
-        {
-            'userId': req.body.userId,
-            'role': 'teamadministrator'
-        }
+        json
     }).then(result => {
         if (result._id)
         {
             res.sendStatus(200);
-        }
-        else
-        {
+        } else {
             res.sendStatus(401);
         }
     }).catch(error => {
