@@ -101,16 +101,6 @@
             word-break: break-all;
             word-break: break-word;
         }
-        &:first-of-type{
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-top-width: 1px;
-        }
-        &:last-of-type{
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
-            border-bottom-width: 1px;
-        }
     }
     .sc-card-footer {
         flex: 0 1 0;
@@ -141,6 +131,20 @@
             float:left;
         }
     }
+
+    > a, > div {
+        &:first-child{
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            border-top-width: 1px;
+        }
+        &:last-child{
+            border-bottom-left-radius: 2px;
+            border-bottom-right-radius: 2px;
+            border-bottom-width: 1px;
+        }
+    }
+
      &:hover{
         .sc-card-header{
             .sc-card-menu{
