@@ -65,8 +65,11 @@
         // cleaning
         tool.isTemplate = false;
         tool.courseId = courseId;
+        tool.originTool = tool._id;
+        delete tool.oAuthClientId;
+        delete tool.useIframePseudonym;
         delete tool._id;
-
+        console.log(tool);
         $.ajax({
             action: href,
             data: tool,
