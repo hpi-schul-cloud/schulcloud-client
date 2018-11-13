@@ -24,8 +24,8 @@ label.form-group {
 // Label
 .control-label {
   &.optional::after {
-    content: " (optional)";
     font-weight: lighter;
+    content: " (optional)";
   }
 }
 
@@ -51,9 +51,9 @@ label.form-group {
 
 // Toggle
 fieldset.switch_wrapper {
+  display: inline-block;
   width: 100%;
   max-width: 400px;
-  display: inline-block;
 
   .switch {
     display: flex;
@@ -63,8 +63,8 @@ fieldset.switch_wrapper {
       display: none;
 
       &:checked+label {
-        color: $accentColor;
         background-color: #fff;
+        color: $accentColor;
       }
     }
 
@@ -74,17 +74,17 @@ fieldset.switch_wrapper {
       flex-direction: column;
       justify-content: center;
 
+      transition: color .3s, background-color .3s;
       margin: 0;
-      padding: 4px;
       border: 1px solid #fff;
-      border-left: none;
+      border-left: 0;
 
       cursor: pointer;
-      text-transform: uppercase;
-      font-weight: normal;
+      padding: 4px;
       text-align: center;
+      text-transform: uppercase;
 
-      transition: color .3s, background-color .3s;
+      font-weight: normal;
 
       &:first-of-type {
         border-left: 1px solid #fff;
@@ -95,18 +95,18 @@ fieldset.switch_wrapper {
 
 // (submit-) Button
 button {
-  border: 1px solid #333;
-  padding: 8px 16px;
-  font-weight: bold;
-  color: #333;
-  background: transparent;
-  margin-top: 16px;
   transition: color .3s ease-in-out, background-color .3s ease-in-out;
+  margin-top: 16px;
+  border: 1px solid #333;
+  background: transparent;
+  padding: 8px 16px;
+  color: #333;
+  font-weight: bold;
 
   &:hover {
     outline: none;
-    color: #fff;
     background-color: #333;
+    color: #fff;
   }
 }
 
@@ -127,16 +127,16 @@ button {
     text-align: center;
 
     ul {
-      list-style-type: none;
-      padding-left: 0;
       margin: 0;
+      padding-left: 0;
+      list-style-type: none;
 
       li {
         padding: 4px 0;
 
         a {
-          color: #fff;
           text-decoration: underline;
+          color: #fff;
         }
       }
     }
@@ -154,12 +154,12 @@ button {
     cursor: pointer;
 
     &:last-of-type {
-      border-bottom: none;
+      border-bottom: 0;
     }
 
     .collapse__title {
-      text-align: left;
       padding: 12px 20px 12px 0;
+      text-align: left;
       font-size: 1.2em;
 
       h5 {
@@ -183,7 +183,7 @@ button {
 .first-steps-card,
 .quickHelp-card,
 .information-card {
-  padding: 2rem 0 0 0;
+  padding: 2rem 0 0;
 }
 
 .first-steps-card {
@@ -211,9 +211,9 @@ button {
 
       .control-label {
         display: block;
-        text-align: left;
-        padding-right: 2rem;
         margin-bottom: 4px;
+        padding-right: 2rem;
+        text-align: left;
       }
 
       .chosen-container {
@@ -225,8 +225,8 @@ button {
         color: #fff;
 
         &:hover {
-          color: $accentColor;
           background-color: #fff;
+          color: $accentColor;
         }
       }
     }
@@ -240,8 +240,8 @@ button {
 
 .eMail-card {
   .icon-card__content {
-    color: #fff;
     background: #e25617;
+    color: #fff;
 
     .icon-card__title:before {
       border-bottom-color: #fff;
@@ -249,8 +249,8 @@ button {
   }
 
   a {
-    color: #fff;
     text-decoration: underline;
+    color: #fff;
 
     &:hover {
       color: $accentColor;

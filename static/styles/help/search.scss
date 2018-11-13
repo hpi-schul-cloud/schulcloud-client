@@ -1,20 +1,20 @@
-@import '../lib/colors';
+@import "../lib/colors";
 
 .live-search {
   position: relative;
-  width: 100%;
   margin: 0 auto 2rem;
+  width: 100%;
   max-width: 500px;
 
   .search-container {
-    border-radius: 50rem;
-
-    width: 100%;
-    background: #ddda;
-    color: #333;
     display: flex;
+
     align-items: center;
+    border-radius: 50rem;
+    background: $colorGrey;
     padding: 0 16px;
+    width: 100%;
+    color: #333;
 
     .fa,
     input {
@@ -24,35 +24,35 @@
 
     input {
       flex: 1;
-      background: transparent;
       outline: none;
-      border: none;
+      border: 0;
+      background: transparent;
       padding: 12px;
     }
   }
 
   .live-search-results {
-    visibility: hidden;
-    width: 100%;
     position: absolute;
-    z-index: 9999;
     bottom: 0;
-    padding: 8px;
     transform: translateY(100%);
-    background: #fff;
+    visibility: hidden;
+    z-index: 9999;
     border: 1px solid $primaryColor;
-    max-height: 25rem;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     border-radius: 4px;
+    background: #fff;
+    padding: 8px;
+    width: 100%;
+    max-height: 25rem;
+    -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
+    overflow-y: auto;
 
     a {
       text-decoration: none;
 
       &:not(:last-of-type) div {
-        padding-bottom: .25em;
         margin-bottom: .25em;
         border-bottom: 1px solid #999;
+        padding-bottom: .25em;
       }
 
       &.disabled {
