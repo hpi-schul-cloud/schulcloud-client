@@ -988,6 +988,7 @@ router.post('/import', function(req, res, next) {
 });
 
 /**
+ * DEPRECATED - REMOVE AFTER N21 RELEASE
  * Generates short team invite link. can be used as function or as hook call.
  * @param params = object {
  *      role: user role = string "teamexpert"/"teamadministrator"
@@ -998,7 +999,7 @@ router.post('/import', function(req, res, next) {
  *      infos: object with multiple infos = object
  *  }
  * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
- */
+ 
 const generateInviteLink = (params, internalReturn) => {
     return function (req, res, next) {
         let options = JSON.parse(JSON.stringify(params));
@@ -1123,6 +1124,6 @@ const addUserToTeam = (params, internalReturn) => {
 };
 
 router.get('/invite/:role/to/:teamHash', addUserToTeam());
-
+ */
 
 module.exports = router;
