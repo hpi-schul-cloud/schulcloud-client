@@ -26,7 +26,10 @@ const hasAccount = (req, res, next) => {
 
 // firstLogin
 router.get('/', async function (req, res, next) {
-    if(!res.locals.currentUser.birthday && res.locals.currentRole == "Schüler" && !req.query.u14 && !req.query.ue14){
+    if(
+        !res.locals.currentUser.birthday && res.locals.currentRole == "Schüler" 
+        && !req.query.u14 && !req.query.ue14 && !req.query.ue18
+    ){
         return res.redirect("firstLogin/existing");
     }
 
@@ -81,13 +84,18 @@ router.get('/', async function (req, res, next) {
             sections.push("birthdate_U14");
         }else if(req.query.ue14 == "true"){
             sections.push("birthdate_UE14");
+        }else if(req.query.ue18 == "true"){
+            sections.push("birthdate_UE18");
         }else {
             sections.push("birthdate");
         }
     }
 
     // USER CONSENT
-    if(!userConsent && (!res.locals.currentUser.age || res.locals.currentUser.age > 14)){
+    if(
+        !userConsent && 
+        ((!res.locals.currentUser.age && !req.query.u14)|| res.locals.currentUser.age > 14)
+    ){
         submitPageIndex += 1;
         sections.push("consent");
     }
