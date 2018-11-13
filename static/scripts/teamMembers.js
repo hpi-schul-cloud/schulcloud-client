@@ -210,7 +210,7 @@ $(document).ready(function () {
         email: state.method === 'email' ? email : undefined
       }
     }).done(function () {
-      if (method === 'email') {
+      if (state.method === 'email') {
         $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);        
       } else {
         $.showNotification('Lehrer erfolgreich zum Team eingeladen', "success", true);
