@@ -24,7 +24,7 @@ function sendPin(sendConfirm) {
     try {
         role = window.location.pathname.split("/by")[1].split("/")[0].replace("/","");
     } catch(e){
-        $.showNotification(`Fehler bei der Erkennung der Nutzerrole. Bitte lade die Seite neu und versuche es erneut.`, "danger", 7000);
+        $.showNotification(`Fehler bei der Erkennung der Nutzerrolle. Bitte lade die Seite neu und versuche es erneut.`, "danger", 7000);
         return;
     }
     $.ajax({
