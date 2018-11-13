@@ -117,7 +117,7 @@ $(document).ready(function() {
                     $form.fadeIn(50);
                     showAJAXSuccess("Datei(en) erfolgreich hinzugefügt und werden gleich nach einer Aktualisierung der Seite angezeigt.");
                     setTimeout(function () {
-                        // reloadFiles(); // waiting for success message
+                        reloadFiles(); // waiting for success message
                     }, 2000);
                 });
             });
@@ -509,9 +509,6 @@ $(document).ready(function() {
 
         let allowExternalExperts = $('.share-modal input[name="externalExperts"]').prop('checked')
         let allowMembers = $('.share-modal input[name="teamMembers"]').prop('checked')
-
-        console.log(allowExternalExperts)
-        console.log(allowMembers)
 
         const filePermissions = state.permissions.map(permission => {
             if (permission.roleName === 'teamexpert') {
