@@ -1,41 +1,42 @@
-.icon-card{
-    margin-top: 3rem;
-    margin-bottom: 1rem;
+.icon-card {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
 
-    .icon-card__content {
-        position: relative;
-        border-radius: 4px;
-        padding: 16px;
-        padding-top: 2rem;
-        border: 1px solid $colorLightGrey;
-        text-align: center;
+  .icon-card__content {
+    position: relative;
+    border-radius: 4px;
+    padding: 16px;
+    padding-top: 2rem;
+    border: 1px solid $colorLightGrey;
+    text-align: center;
 
-        .icon-card__icon{
-            display: inline-block;
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 12px;
-            background: #333;
-            border-radius: 8px;
-            color: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-            font-size: 2em;
-        }
-
-        .icon-card__title {
-            position: relative;
-            padding: 5px;
-            padding-top: 15px;
-        }
-        .icon-card__title:before{
-            content: "";
-            position: absolute;
-            width: 50%;
-            bottom: 0;
-            left: 25%;
-            border-bottom: 1px solid #333;
-        }
+    .icon-card__icon {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 12px;
+      background: #333;
+      border-radius: 8px;
+      color: #fff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      font-size: 2em;
     }
+
+    .icon-card__title {
+      position: relative;
+      padding: 5px;
+      padding-top: 15px;
+    }
+
+    .icon-card__title:before {
+      content: "";
+      position: absolute;
+      width: 50%;
+      bottom: 0;
+      left: 25%;
+      border-bottom: 1px solid #333;
+    }
+  }
 }
