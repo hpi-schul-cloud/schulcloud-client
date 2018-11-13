@@ -580,7 +580,8 @@ router.get('/:teamId/members', async function(req, res, next) {
                     {
                         path: 'userIds.role',
                     }
-                ]
+                ],
+                $limit: 2000
             }
         });
         let courseUserIds = course.userIds.map(user => user.userId._id);
@@ -591,7 +592,7 @@ router.get('/:teamId/members', async function(req, res, next) {
                     $in: course.classIds
                 },
                 $populate: ["year"],
-                $limit: 1000
+                $limit: 2000
             }
         })).data : [];
 
@@ -599,7 +600,8 @@ router.get('/:teamId/members', async function(req, res, next) {
             qs: {
                 _id: {
                     $nin: courseUserIds
-                }
+                },
+                $limit: 2000
             }
         })).data;
 
@@ -607,7 +609,7 @@ router.get('/:teamId/members', async function(req, res, next) {
         let classes = (await api(req).get('/classes', { qs: {
             $or: [{ "schoolId": res.locals.currentSchool }],
             $populate: ["year"],
-            $limit: 1000
+            $limit: 2000
         }})).data;
 
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
