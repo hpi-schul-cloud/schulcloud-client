@@ -25,6 +25,8 @@ $(document).ready(function() {
 
     let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
+    let currentFile = {};
+
     // TODO: replace with something cooler
     let reloadFiles = function () {
         window.location.reload();
@@ -409,10 +411,27 @@ $(document).ready(function() {
         fileShare(fileId, $shareModal);
     });
 
+    let handler = {
+        get: function (target, name) {
+          return name in target ?
+            target[name] :
+            '';
+        },
+        set: function (obj, prop, value) {
+          obj[prop] = value;
+        }
+      };
+    
+      let state = new Proxy({
+        currentFileId: '',
+        permissions: []
+      }, handler);
+
     $('.btn-file-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
+        state.currentFileId = fileId;
         let fileName = $(this).attr('data-file-name');
         let $shareModal = $('.share-modal');
         let id = e.target.parentElement.id;
@@ -434,13 +453,13 @@ $(document).ready(function() {
             data: {
                 id: fileId
             },
-            success: function (data) {
-                let target = view ? `files/file/${fileId}/lool?share=${data.shareToken}` : `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
+            success: function (file) {
+                let target = view ? `files/file/${fileId}/lool?share=${file.shareToken}` : `files/fileModel/${file._id}/proxy?share=${file.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
                     data: {
-                        target: target
+                        target
                     },
                     success: function (data) {
                         populateModalForm($shareModal, {
@@ -449,18 +468,85 @@ $(document).ready(function() {
                             submitLabel: 'Speichern',
                             fields: {invitation: data.newUrl}
                         });
-                        $shareModal.find('.btn-submit').remove();
+
+                        // $shareModal.find('.btn-submit').remove();
                         $shareModal.find("input[name='invitation']").click(function () {
                             $(this).select();
                         });
 
-                        $shareModal.appendTo('body').modal('show');
+                        const externalExpertsPermission = file.permissions.find(p => p.roleName === 'teamexpert')
+                        const allowExternalExperts = externalExpertsPermission.create &&
+                                                    externalExpertsPermission.read &&
+                                                    externalExpertsPermission.write &&
+                                                    externalExpertsPermission.delete;
+                        const teamMembersPermission = file.permissions.find(p => p.roleName === 'teammember')
+                        const allowTeamMembers = teamMembersPermission.create &&
+                                                    teamMembersPermission.read &&
+                                                    teamMembersPermission.write &&
+                                                    teamMembersPermission.delete;
 
+                        state.permissions = file.permissions;
+
+                        $('input[name="externalExperts"]').prop('checked', allowExternalExperts)
+                        $('input[name="teamMembers"]').prop('checked', allowTeamMembers)
+
+                        $shareModal.appendTo('body').modal('show');
+                    },
+                    error: function (err) {
+                        console.log('error')
                     }
                 });
+            },
+            error: function (err) {
+                console.log('error')
             }
         });
     };
+
+    $('.share-modal').on('submit', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        let allowExternalExperts = $('.share-modal input[name="externalExperts"]').prop('checked')
+        let allowMembers = $('.share-modal input[name="teamMembers"]').prop('checked')
+
+        console.log(allowExternalExperts)
+        console.log(allowMembers)
+
+        const filePermissions = state.permissions.map(permission => {
+            if (permission.roleName === 'teamexpert') {
+                permission = Object.assign(permission, {
+                    create: allowExternalExperts,
+                    read: allowExternalExperts,
+                    delete: allowExternalExperts,
+                    write: allowExternalExperts
+                })
+            } else if (permission.roleName === 'teammember') {
+                permission = Object.assign(permission, {
+                    create: allowMembers,
+                    read: allowMembers,
+                    delete: allowMembers,
+                    write: allowMembers
+                })
+            }
+    
+            return permission
+        })     
+
+        $.ajax({
+            url: '/files/permissions',
+            method: 'PATCH',
+            data: {
+                fileId: state.currentFileId,
+                permissions: filePermissions
+            }
+          }).done(function() {
+            $.showNotification('Standard Berechtigungen erfolgreich geändert', "success", true);
+          }).fail(function() {
+            $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+          });        
+    });
+
 
     $moveModal.on('hidden.bs.modal', function () {
         // delete the directory-tree
