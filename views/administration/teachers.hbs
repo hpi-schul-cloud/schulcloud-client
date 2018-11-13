@@ -34,12 +34,14 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <button type="submit" class="btn btn-primary btn-add-modal">
-                                Lehrer hinzufügen
-                            </button>
-                            <button class="btn btn-secondary btn-import teacher">
-                                Lehrer importieren
-                            </button>
+                            {{#unless schoolUsesLdap}}
+                                <button type="submit" class="btn btn-primary btn-add-modal">
+                                    Lehrer hinzufügen
+                                </button>
+                                <button class="btn btn-secondary btn-import teacher">
+                                    Lehrer importieren
+                                </button>
+                            {{/unless}}
                         </div>
                     </div>
                 </div>
