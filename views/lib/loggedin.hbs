@@ -176,14 +176,12 @@
                                                                                                     aria-hidden="true"></i><a
                                                 href="#" class="link">Intro</a></span></li>
                                         <div class="delimiter"></div>
-                                        {{#ifneq this.currentRole "Schüler"}}
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
                                                                                                     aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
-                                        {{/ifneq}}
+                                            <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a></span></li>
                                         <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
                                                                                                     aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
+                                            <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -199,7 +197,7 @@
                                 {{/if}}
                             {{/if}}
                         {{/if}}
-                        
+
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
@@ -220,9 +218,11 @@
                     <div class="container-fluid">
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
-                                <div>
-                                    <h1 id="page-title">{{{stripOnlyScript title}}}</h1>
-                                </div>
+                                {{#unless notitle}}
+                                  <div>
+                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                                  </div>
+                                {{/unless}}
                                 <div>
                                     {{subtitle}}
                                 </div>
@@ -259,15 +259,15 @@
                 {{#embed "lib/footer"}}{{/embed}}
             {{/unless}}
 
-            {{#embed "lib/components/modal-form" class="feedback-modal"}}
+            {{#embed "lib/components/modal-form" class="contactHPI-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-helpdesk"}}
+                    {{> "lib/forms/form-contactHPI"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="problem-modal"}}
+            {{#embed "lib/components/modal-form" class="contactAdmin-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-problems"}}
+                    {{> "lib/forms/form-contactAdmin"}}
                 {{/content}}
             {{/embed}}
 

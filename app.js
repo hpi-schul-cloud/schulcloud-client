@@ -51,6 +51,7 @@ app.use(session({
     resave: 'true',
     secret: 'secret'
 }));
+
 // Custom flash middleware
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
@@ -73,7 +74,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
         return method;
     }
 }));
-
 
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
