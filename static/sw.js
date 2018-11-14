@@ -161,13 +161,13 @@ let courseOfflineStore = localforage.createInstance({
     name: 'coursesOffline'
 });
 
-function addToCache(data){
+function addToCache(data) {
     const cacheName = 'courses';
     return caches.open(cacheName)
         .then(cache => cache.add(data.url))
-        .then(_=>courseStore.setItem(data.url, data))
-        .then(_=>Promise.resolve(data))
-        .catch(err=>console.log(err));
+        .then(_ => courseStore.setItem(data.url, data))
+        .then(_ => Promise.resolve(data))
+        .catch(err => console.log(err));
 }
 
 function downloadCourse(courseId) {
@@ -184,86 +184,105 @@ function downloadCourse(courseId) {
     }
 
     let currentVal, newVal;
-    courseOfflineStore.getItem(courseId).then(value=>{
-        if(value===null) return;
+    courseOfflineStore.getItem(courseId).then(value => {
+
+        // cleanup existing data
+
+        // step over, if course never seen before
+        if (value === null) return;
         let promiseChain = [];
-        if(value.course){
+        // test course in cache as expected, otherwise remove
+        if (value.course) {
             promiseChain.push(testInCache(value.course));
         }
-        if(value.lessons && value.lessons.length !== 0){
-            value.lessons.map(lesson => 
-                {
-                    promiseChain.push(testInCache(lesson));
-                }
+        // test lessons in cache as expected, otherwise remove
+        if (value.lessons && value.lessons.length !== 0) {
+            value.lessons.forEach(lesson => {
+                promiseChain.push(testInCache(lesson));
+            }
             );
         }
-        return Promise.all(promiseChain).then(_=>{
-            if(value.course && value.course.inCache === false){
+        // remove data from course if no more in cache
+        return Promise.all(promiseChain).then(_ => {
+            if (value.course && value.course.inCache === false) {
                 delete value.course;
             }
-            if(value.lessons && value.lessons.length !== 0){
+            if (value.lessons && value.lessons.length !== 0) {
                 value.lessons = value.lessons.filter(lesson => lesson.inCache);
             }
             return Promise.resolve(value);
         });
-    }).then(value=>{
-            currentVal = value || {};
-            fetch(`/courses/${courseId}/offline`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(value || {})
-            }).then(response => response.json())
-                .then(json => {
-                    if (json.cleanup && json.cleanup.lessons) {
-                        let lessonsToRemove = currentVal.lessons.filter(lesson => json.cleanup.lessons.includes(lesson._id));
-                        if (lessonsToRemove) {
-                            return Promise.all(lessonsToRemove.map(lesson => {
-                                return caches.open('courses')
-                                    .then(cache => cache.delete(lesson.url))
-                                    .then(success => {
-                                        // handle success?
-                                        Promise.resolve(success);
-                                });
-                            })).then(_ => {
-                                currentVal.lessons = currentVal.lessons.filter(lesson => !json.cleanup.lessons.includes(lesson._id));
-                                return json;
-            });
-                    }
-                }
-            })
-            .then(json => {
-                newVal = json;
-                let urls = [];
-                if(json.course){
-                    urls.push(addToCache(json.course));
-                }
-                if(json.lessons && json.lessons.length !== 0){
-                    json.lessons.map(lesson=>urls.push(addToCache(lesson)));
-                }
-                return Promise.all(urls);
-            }).then(urls => {
-                        let updatedValue = Object.assign({}, currentVal, newVal); // todo copy only course
-                        updatedValue.lessons = currentVal.lessons || [];
-                        if(updatedValue.cleanup) delete updatedValue.cleanup;
-                        if(newVal.lessons){ 
-                            newVal.lessons.map(lesson => {
-                                let oldLesson = updatedValue.lessons.find(l => l._id === lesson._id);
-                                if(oldLesson){
-                                    Object.assign(oldLesson,lesson);
-                                }else{
-                                    updatedValue.lessons.push(lesson);
-                                }
+    }).then(value => {
+
+        // fetch course data, if something already cached,
+        // request diff and convert to json
+
+        currentVal = value || {};
+        return fetch(`/courses/${courseId}/offline`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(currentVal)
+        }).then(response => response.json());
+    })
+        .then(json => {
+
+            // remove data which has been removed on server side
+
+            if (json.cleanup && json.cleanup.lessons) {
+                let lessonsToRemove = currentVal.lessons.filter(lesson => json.cleanup.lessons.includes(lesson._id));
+                if (lessonsToRemove) {
+                    // remove data from cache
+                    return Promise.all(lessonsToRemove.map(lesson => {
+                        return caches.open('courses')
+                            .then(cache => cache.delete(lesson.url))
+                            .then(success => {
+                                // handle success?
+                                Promise.resolve(success);
                             });
-                        }
-                        return courseOfflineStore.setItem(courseId, updatedValue).then(_=>{console.log('updated', courseId);});
-                  
-            }).catch(err => console.log(err));
-        
-        }
-    );
+                    })).then(_ => {
+                        // cleanup dataset
+                        currentVal.lessons = currentVal.lessons.filter(lesson => !json.cleanup.lessons.includes(lesson._id));
+                        if (currentVal.cleanup) delete currentVal.cleanup;
+                        return json;
+                    });
+                }
+            }
+            return json;
+
+        })
+        .then(json => {
+            // dataset contains content for adding to cache, download data
+            newVal = json;
+            let urls = [];
+            if (json.course) {
+                urls.push(addToCache(json.course));
+            }
+            if (json.lessons && json.lessons.length !== 0) {
+                json.lessons.map(lesson => urls.push(addToCache(lesson)));
+            }
+            return Promise.all(urls);
+        }).then(_ => {
+            // add downloaded dataset to already existing one
+            let updatedValue = {};
+            updatedValue.course = newVal.course || currentVal.course;
+            updatedValue.lessons = currentVal.lessons || [];
+            if (newVal.lessons) {
+                newVal.lessons.forEach(lesson => {
+                    let oldLesson = updatedValue.lessons.find(l => l._id === lesson._id);
+                    if (oldLesson) {
+                        Object.assign(oldLesson, lesson);
+                    } else {
+                        updatedValue.lessons.push(lesson);
+                    }
+                });
+            }
+            return courseOfflineStore.setItem(courseId, updatedValue)
+                .then(_ => { console.log('updated', courseId); });
+
+        }).catch(err => console.log(err));
 }
 
 self.addEventListener('message', function(event){
@@ -292,9 +311,11 @@ function getNextCourses(){
         return response.json();
     }).then(data => {
         if(data.courses && data.courses.length){
-            Promise.all([data.courses.map(course =>{
+            return Promise.all(data.courses.map(course =>{
                 downloadCourse(course._id);
-            })]);
+            }));
+        }else{
+            return Promise.resolve();
         }
     }).catch(err => console.log(err));
 }
