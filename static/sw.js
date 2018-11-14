@@ -285,3 +285,16 @@ courseRoutes.forEach(route=>{
         })
     );
 });
+
+
+function getNextCourses(){
+    return fetch('/courses/offline').then(response => {
+        return response.json();
+    }).then(data => {
+        if(data.courses && data.courses.length){
+            Promise.all([data.courses.map(course =>{
+                downloadCourse(course._id);
+            })]);
+        }
+    }).catch(err => console.log(err));
+}

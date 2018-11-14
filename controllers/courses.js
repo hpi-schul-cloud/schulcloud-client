@@ -289,34 +289,17 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/offline', function(req, res, next) {
-    Promise.all([
-        api(req).get('/courses/', {
-            qs: {
-                substitutionIds: res.locals.currentUser._id,
-                $limit: 75
-            }
-        }),
-        api(req).get('/courses/', {
-            qs: {
-                $or: [
-                    {userIds: res.locals.currentUser._id},
-                    {teacherIds: res.locals.currentUser._id}
-                ],
-                $limit: 75
-            }
-        })
-    ]).then(([substitutionCourses, courses]) => {
-        substitutionCourses = substitutionCourses.data.map(course => {
-            course.url = '/courses/' + course._id;
-            (course.times || []).forEach(time => {
-                time.startTime = moment(time.startTime, "x").format("HH:mm");
-                time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-                course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
-            });
-            course.nextEvent= recurringEventsHelper.getNextEventForCourseTimes(course.times);
-            course.nextEvent = moment(course.nextEvent).unix();
-            return course;
-        });
+
+    api(req).get('/courses/', {
+        qs: {
+            $or: [
+                {userIds: res.locals.currentUser._id},
+                {teacherIds: res.locals.currentUser._id}
+            ],
+            $limit: 75
+        }
+    })
+    .then(courses => {
 
         courses = courses.data.map(course => {
             let c = {};
@@ -332,6 +315,11 @@ router.get('/offline', function(req, res, next) {
                 return -1;
             }
         });
+
+        // reduce to courses within of next week
+        const nextWeek = moment().add({days:7}).unix();
+        courses = courses.filter(course => course.nextEvent < nextWeek);
+
         res.json({courses});
     });
 });
