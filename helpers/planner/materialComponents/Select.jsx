@@ -19,7 +19,7 @@ const CustomSelect = ({ caption, initialValue, values, onChange }) => {
           }}
         >
           {values.map(value => (
-            <MenuItem key={value.value} value={value.value}>
+            <MenuItem key={value.id} value={value.id}>
               {value.text}
             </MenuItem>
           ))}

@@ -10,6 +10,7 @@ class View extends React.Component {
   render() {
     return (
       <TopicTemplateView
+        valueOptions={this.props.valueOptions}
         initialValues={this.props.initialValues}
         mode="NEW"
         onCreate={() => {}}
@@ -25,4 +26,7 @@ setupMaterialComponents();
 const $reactRoot = $("#react-root");
 const data = $reactRoot.data();
 
-ReactDOM.render(<View initialValues={data.initialvalues} />, $reactRoot[0]);
+ReactDOM.render(
+  <View initialValues={data.initialvalues} valueOptions={data.valueoptions} />,
+  $reactRoot[0]
+);

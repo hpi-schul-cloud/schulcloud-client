@@ -49,7 +49,7 @@ function SelectorInput(props) {
             }
             values={typeOptions.map(option => ({
               text: option.text,
-              value: option.value
+              id: option.value
             }))}
           />
           <Select
@@ -61,7 +61,7 @@ function SelectorInput(props) {
             }
             values={timeOptions.map(option => ({
               text: option.text,
-              value: option.value
+              id: option.value
             }))}
           />
           <TextField
