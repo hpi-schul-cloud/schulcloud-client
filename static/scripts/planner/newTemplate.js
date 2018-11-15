@@ -13,6 +13,7 @@ class View extends React.Component {
       url: "/planner/topicTemplates",
       data: formValues,
       success: () => {
+        // window.location.pathname = "/planner/myClasses";
         console.log("Success");
       }
     });

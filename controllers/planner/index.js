@@ -25,15 +25,15 @@ router.get(
 );
 router.post("/topicTemplates", topicTemplatesRequestHandler.postTopicTemplates);
 router.get(
-  "/topicTemplates/:id",
+  "/topicTemplates/:templateId",
   topicTemplatesRequestHandler.getTopicTemplate
 );
 router.put(
-  "/topicTemplates/:id",
+  "/topicTemplates/:templateId",
   topicTemplatesRequestHandler.putTopicTemplate
 );
 router.delete(
-  "/topicTemplates/:id",
+  "/topicTemplates/:templateId",
   topicTemplatesRequestHandler.deleteTopicTemplate
 );
 

@@ -30,6 +30,30 @@ const getValueOptions = async req => {
     classLevel: await getClassLevelOptions(req)
   };
 };
+const getInitialValues = async req => {
+  const { templateId } = req.params;
+  const initialValues = await api(req).get(`/topicTemplates/${templateId}`);
+  const {
+    subjectId,
+    gradeLevelId: classLevelId,
+    name,
+    numberOfWeeks,
+    unitsPerWeek,
+    content,
+    lectureUnits: subjectUnits,
+    examinations
+  } = initialValues;
+  return {
+    subjectId,
+    classLevelId,
+    name,
+    numberOfWeeks,
+    unitsPerWeek,
+    content,
+    subjectUnits,
+    examinations
+  };
+};
 
 const handleGetTopicTemplatesNew = async (req, res, next) => {
   const valueOptions = await getValueOptions(req);
@@ -44,9 +68,11 @@ const handleGetTopicTemplatesNew = async (req, res, next) => {
 const handlePostTopicTemplates = async (req, res, next) => {
   // API Request + Redirect to myClasses
   try {
+    const { classLevelId, ...others } = req.body;
     await api(req).post("/topicTemplates", {
       json: {
-        ...req.body,
+        ...others,
+        gradeLevelId: classLevelId,
         userId: res.locals.currentUser._id
       }
     });
@@ -58,13 +84,15 @@ const handlePostTopicTemplates = async (req, res, next) => {
 };
 
 const handleGetTopicTemplate = async (req, res, next) => {
+  const { templateId: id } = req.params;
   const valueOptions = await getValueOptions(req);
-
+  const initialValues = await getInitialValues(req);
+  console.log(initialValues);
   res.render("planner/editTemplate", {
     title: "Themenvorlage bearbeiten",
-    id: "id1",
     valueOptions: JSON.stringify(valueOptions),
-    initialValues: JSON.stringify({})
+    id,
+    initialValues: JSON.stringify(initialValues)
   });
 };
 
