@@ -1,4 +1,5 @@
 const api = require("../../api");
+const logger = require("winston");
 
 const getSubjectTypeOptions = async req => {
   const subjectTypes = await api(req).get("/subjectTypes");
@@ -40,8 +41,20 @@ const handleGetTopicTemplatesNew = async (req, res, next) => {
   });
 };
 
-const handlePostTopicTemplates = (req, res, next) => {
+const handlePostTopicTemplates = async (req, res, next) => {
   // API Request + Redirect to myClasses
+  try {
+    await api(req).post("/topicTemplates", {
+      json: {
+        ...req.body,
+        userId: res.locals.currentUser._id
+      }
+    });
+    res.sendStatus(200);
+  } catch (e) {
+    logger.warn(e);
+    res.status(e.statusCode || 500).send(e);
+  }
 };
 
 const handleGetTopicTemplate = async (req, res, next) => {
@@ -56,10 +69,12 @@ const handleGetTopicTemplate = async (req, res, next) => {
 };
 
 const handlePutTopicTemplate = (req, res, next) => {
+  res.sendStatus(200);
   // API Request + Redirect to myClasses
 };
 
 const handleDeleteTopicTemplate = (req, res, next) => {
+  res.sendStatus(200);
   // API Request + Redirect to myClasses
 };
 

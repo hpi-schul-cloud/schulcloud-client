@@ -7,13 +7,24 @@ class View extends React.Component {
   /**
    * Render the list items.
    */
+  onCreate = formValues => {
+    $.ajax({
+      type: "POST",
+      url: "/planner/topicTemplates",
+      data: formValues,
+      success: () => {
+        console.log("Success");
+      }
+    });
+  };
+
   render() {
     return (
       <TopicTemplateView
         valueOptions={this.props.valueOptions}
         initialValues={this.props.initialValues}
         mode="NEW"
-        onCreate={() => {}}
+        onCreate={this.onCreate}
       />
     );
   }

@@ -4,6 +4,10 @@ import TopicTemplateView from "planner-core-lib/lib/components/views/topicTempla
 import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
+  onSave = formValues => {
+    console.log(formValues);
+  };
+  onDelete = () => {};
   /**
    * Render the list items.
    */
@@ -13,8 +17,8 @@ class View extends React.Component {
         valueOptions={this.props.valueOptions}
         initialValues={this.props.initialValues}
         mode="EDIT"
-        onSave={() => {}}
-        onDelete={() => {}}
+        onSave={this.onSave}
+        onDelete={this.onDelete}
       />
     );
   }
