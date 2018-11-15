@@ -2,6 +2,9 @@
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
 
+var $contactHPIModal;
+var $contactAdminModal;
+
 if (window.opener && window.opener !== window) {
     window.isInline = true;
 }
@@ -33,6 +36,51 @@ function fullscreenBtnClicked() {
     sessionStorage.setItem("fullscreen", JSON.stringify(fullscreen));
 }
 
+function sendFeedback(modal, e) {
+    let fmodal = $(modal);
+    e.preventDefault();
+    let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
+    let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
+    
+    $.ajax({
+        url: '/helpdesk',
+        type: 'POST',
+        data: {
+            type: type,
+            subject: subject,
+            category: fmodal.find('#category').val(),
+            role: fmodal.find('#role').val(),
+            desire: fmodal.find('#desire').val(),
+            benefit: fmodal.find("#benefit").val(),
+            acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
+            currentState: fmodal.find('#hasHappened').val(),
+            targetState: fmodal.find('#supposedToHappen').val()
+        },
+        success: function (result) {
+            showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
+        },
+        error: function (result) {
+            showAJAXError({}, "Fehler beim senden des Feedbacks", result);
+        }
+    });
+    $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
+}
+
+function showAJAXSuccess(message, modal) {
+    modal.modal('hide');
+    $.showNotification(message, "success", true);
+}
+
+function showAJAXError(req, textStatus, errorThrown) {
+    $($contactHPIModal).modal('hide');
+    $($contactAdminModal).modal('hide');
+    if (textStatus === "timeout") {
+        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
+    } else {
+        $.showNotification(errorThrown, "danger", true);
+    }
+}
+
 $(document).ready(function () {
     // Init mobile nav
     var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
@@ -46,102 +94,41 @@ $(document).ready(function () {
 
     // Init modals
     var $modals = $('.modal');
-    var $feedbackModal = $('.feedback-modal');
+    $contactHPIModal = document.querySelector('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
-    var $problemModal = $('.problem-modal');
-    var $modalForm = $('.modal-form');
-
-    function showAJAXError(req, textStatus, errorThrown) {
-        $feedbackModal.modal('hide');
-        $problemModal.modal('hide');
-        if (textStatus === "timeout") {
-            $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
-        } else {
-            $.showNotification(errorThrown, "danger", true);
-        }
-    }
-
-    function showAJAXSuccess(message, modal) {
-        modal.modal('hide');
-        $.showNotification(message, "success", true);
-    }
-
-    /**
-     * creates the feedback-message which will be sent to the Schul-Cloud helpdesk
-     * @param modal {object} - modal containing content from feedback-form
-     */
-    const createFeedbackMessage = function (modal) {
-        return "Als " + modal.find('#role').val() + "\n" +
-            "möchte ich " + modal.find('#desire').val() + ",\n" +
-            "um " + modal.find("#benefit").val() + ".\n" +
-            "Akzeptanzkriterien: " + modal.find("#acceptance_criteria").val();
-    };
-
-    const sendFeedback = function (modal, e) {
+    $contactAdminModal = document.querySelector('.contactAdmin-modal');
+    
+    $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
-
-        let type = (modal[0].className.includes('feedback-modal')) ? 'feedback' : 'problem';
-
-        let email = 'ticketsystem@schul-cloud.org';
-        let subject = (type === 'feedback') ? 'Feedback' : 'Problem ' + modal.find('#title').val();
-        let text = createFeedbackMessage(modal);
-        let content = {text: text};
-        let category = modal.find('#category').val();
-        let currentState = modal.find('#hasHappened').val();
-        let targetState = modal.find('#supposedToHappen').val();
-
-        $.ajax({
-            url: '/helpdesk',
-            type: 'POST',
-            data: {
-                email: email,
-                modalEmail: modal.find('#email').val(),
-                subject: subject,
-                content: content,
-                type: type,
-                category: category,
-                currentState: currentState,
-                targetState: targetState
-            },
-            success: function (result) {
-                showAJAXSuccess("Feedback erfolgreich versendet!", modal);
-            },
-            error: showAJAXError
+        
+        $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
+        populateModalForm($($contactHPIModal), {
+            title: 'Wunsch oder Problem senden',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Senden',
+            fields: {
+                feedbackType: "userstory"
+            }
         });
-
-        $('.feedback-modal').find('.btn-submit').prop("disabled", true);
-    };
-
-    $('.submit-helpdesk').on('click', function (e) {
+        
+        $($contactHPIModal).appendTo('body').modal('show');
+    });
+    $contactHPIModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactHPIModal));
+    
+    $('.submit-contactAdmin').on('click', function (e) {
         e.preventDefault();
-
-        $('.feedback-modal').find('.btn-submit').prop("disabled", false);
-        var title = $(document).find("title").text();
-        var area = title.slice(0, title.indexOf('- Schul-Cloud') === -1 ? title.length : title.indexOf('- Schul-Cloud'));
-        populateModalForm($feedbackModal, {
-            title: 'User Story eingeben',
+        
+        $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
+        populateModalForm($($contactAdminModal), {
+            title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
-
-        $feedbackModal.find('.modal-form').on('submit', sendFeedback.bind(this, $feedbackModal));
-        $feedbackModal.appendTo('body').modal('show');
-        $feedbackModal.find('#title-area').html(area);
+        
+        $($contactAdminModal).appendTo('body').modal('show');
     });
-
-    $('.submit-problem').on('click', function (e) {
-        e.preventDefault();
-
-        $('.problem-modal').find('.btn-submit').prop("disabled", false);
-        populateModalForm($problemModal, {
-            title: 'Problem melden',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Senden'
-        });
-
-        $problemModal.find('.modal-form').on('submit', sendFeedback.bind(this, $problemModal));
-        $problemModal.appendTo('body').modal('show');
-    });
+    
+    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $modals.find('.close, .btn-close').on('click', function () {
         $modals.modal('hide');
@@ -190,7 +177,6 @@ $(document).ready(function () {
         populateModalForm($cancelModal, {
             title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
         });
-        let $modalForm = $cancelModal.find(".modal-form");
         $cancelModal.appendTo('body').modal('show');
     });
 
@@ -231,6 +217,31 @@ $(document).ready(function () {
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
+    }
+    let  feedbackSelector = document.querySelector('#feedbackType');
+    if(feedbackSelector){
+        feedbackSelector.onchange = function(){
+            if(feedbackSelector.value === "problem"){
+                document.getElementById("problemDiv").style.display = "block";
+                document.getElementById("userstoryDiv").style.display = "none";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+            } else {
+                document.getElementById("problemDiv").style.display = "none";
+                document.getElementById("userstoryDiv").style.display = "block";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.getElementById("acceptance_criteria").required = false;
+            }
+        };
     }
 });
 window.addEventListener("resize", function () {

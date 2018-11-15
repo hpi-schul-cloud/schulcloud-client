@@ -66,8 +66,10 @@ const getTableActionsSend = (item, path, state) => {
     if (state === 'submitted' || state === 'closed') {
         actions.push(
             {
-                class: 'disabled',
-                icon: 'edit'
+                link: path + item._id,
+                class: 'btn-edit',
+                icon: 'edit',
+                title: 'Eintrag bearbeiten'
             },
             {
                 class: 'disabled',
@@ -1638,7 +1640,8 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
+            $sort: req.query.sort? req.query.sort : {order: 1},
+            "schoolId": res.locals.currentSchool
         }
     }).then(data => {
         const head = [
@@ -1657,7 +1660,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.subject||""),
                 truncate(item.currentState||""),
                 truncate(item.targetState||""),
-                dictionary[item.category],
+                (item.category === "")? "": dictionary[item.category],
                 dictionary[item.state],
                 moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes||""),
