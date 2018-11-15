@@ -78,16 +78,16 @@ const firstStepsItems = [{
 const quickHelpItems = [{
         title: "Online-Videokurse",
         icon: "fa-video-camera",
-        src: "#"
+        src: "https://mooc.house/courses/schulcloud2018"
     },
     {
         title: "MINT-EC Webinare",
         icon: "fa-desktop",
-        src: "#"
+        src: "https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/das-projekt/"
     }, {
         title: "Schnellstart-PDF",
         icon: "fa-file-pdf-o",
-        src: "#"
+        src: "https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
     }
 ];
 const knowledgeItems = [{
