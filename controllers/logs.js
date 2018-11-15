@@ -37,10 +37,15 @@ function idCleanup(url){
     return url;
 }
 
+// removes query string and anchor from url
+function getPathFromUrl(url) {
+    return url.split(/[?#]/)[0];
+  }
+
 router.post('/', function (req, res, next) {
     let data = req.body;
     let context = data.attributes.context;
-    data.attributes.url = idCleanup(data.attributes.url);
+    data.attributes.url = getPathFromUrl(idCleanup(data.attributes.url));
     let dataUrl = url.parse(data.attributes.url);
     let hit = {
         tid: process.env.SW_GOOGLE_ANALYTICS_TRACKING_ID, // Tracking ID

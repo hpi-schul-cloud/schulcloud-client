@@ -71,12 +71,13 @@ window.addEventListener('load', function () {
       $('#offlineAlert').show();
     }
   }
-  let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-  if (testUserGroup == 1) {
-    window.addEventListener('online', updateOnlineStatus);
-    window.addEventListener('offline', updateOnlineStatus);
-    updateOnlineStatus();
+  if(document.getElementById('testUserGroup')){
+    let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+    if (testUserGroup == 1) {
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
+      updateOnlineStatus();
+    }
+    calculateMetrics();
   }
 });
-
-calculateMetrics();
