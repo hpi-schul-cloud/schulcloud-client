@@ -50,21 +50,19 @@
     <section class="section-course">
       <div class="course-card">
         <div class="tabContainer">
-          <div class="col-sm-12">
-            <div class="tabs" data-max-width="1024">
-              <span class="tab" data-tab="a">
-                <span class="text">Themen ({{lessons.length}})</span>
-              </span>
-              <span class="tab" data-tab="b">
-                <span class="text">Aufgaben ({{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }})</span>
-              </span>
-              <span class="tab" data-tab="c">
-                <span class="text">Tools ({{ltiToolIds.length}})</span>
-              </span>
-              <span class="tab" data-tab="d">
-                <span class="text">Gruppen ({{courseGroups.length}})</span>
-              </span>
-            </div>
+          <div class="tabs" data-max-width="1024">
+            <span class="tab" data-tab="a">
+              <span class="text count-badge" data-badge="{{lessons.length}}">Themen</span>
+            </span>
+            <span class="tab" data-tab="b">
+              <span class="text count-badge" data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}">Aufgaben</span>
+            </span>
+            <span class="tab" data-tab="c">
+              <span class="text count-badge" data-badge="{{ltiToolIds.length}}">Tools</span>
+            </span>
+            <span class="tab" data-tab="d">
+              <span class="text count-badge" data-badge="{{courseGroups.length}}">Gruppen</span>
+            </span>
           </div>
         </div>
         <div class="sectionsContainer">
