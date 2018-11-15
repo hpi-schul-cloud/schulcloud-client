@@ -6,7 +6,7 @@
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.key}}', '{{this.name}}', '{{this._id}}');">
+                                     fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
                                 <div class="row">
                                     <div class="col-xs-3">
@@ -27,7 +27,7 @@
                             </div>
                             <div class="card-text">
                                 <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
-                                <a href="/files/file?download=1&file={{this.file}}"
+                                <a href="/files/file?download&file={{this._id}}&name={{this.storageFileName}}"
                                    target="_blank"
                                    data-method="download"
                                    title="Datei herunterladen">
@@ -40,8 +40,7 @@
                                    target="_blank"
                                    data-method="delete"
                                    title="Datei löschen"
-                                   data-file-key="{{../this.key}}"
-                                   data-file-name="{{../this.name}}"
+                                   data-file-id="{{../this._id}}"
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                                 {{/userHasPermission}}
@@ -130,7 +129,7 @@
 
 {{#embed "lib/components/modal-form" class="share-modal"}}
     {{#content "fields"}}
-        {{> "files/forms/form-share-file"}}
+        {{> "files/forms/form-share-file" teamId=teamId}}
     {{/content}}
 {{/embed}}
 

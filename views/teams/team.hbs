@@ -64,8 +64,11 @@
                 <div class="col-sm-12">
                     <h4>Dateien</h4>
                     {{#embed "files/file-viewer"}}{{/embed}}
-                    {{#embed "files/files-grid" files=files}}{{/embed}}
+                    {{#embed "files/files-grid" files=files teamId=../_id}}{{/embed}}
                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                    <button class="btn btn-add btn-secondary btn-file-permissions">
+                        Freigabe-Einstellungen ändern
+                    </button>
                 </div>
             </section>
 
@@ -78,7 +81,7 @@
                         {{/each}}
                     </div>
                     <div style="margin-top: .5rem">
-                        <a href="/teams/{{../_id}}/events" class="btn btn-add btn-secondary">
+                        <a href="/calendar" class="btn btn-add btn-secondary">
                             Zur Termin-Übersicht
                         </a>
                         {{#inArray "CREATE_NEWS" permissions}}
@@ -136,24 +139,17 @@
                 {{/content}}
             {{/embed}}
 
+            {{#embed "lib/components/modal-form" class="file-permissions-modal" title="Freigabe-Einstellungen ändern"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-file-permissions"}}
+                {{/content}}
+            {{/embed}}
+
             {{#embed "lib/components/modal-form" class="create-event-modal" action=../createEventAction collapseId=1 userId=../userId teamId=../teamId}}
                 {{#content "fields"}}
                     {{> "calendar/forms/form-create-event"}}
                 {{/content}}
             {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="import-modal"}}
-                {{#content "fields"}}
-                    {{> "courses/forms/form-import-topic"}}
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="share-modal"}}
-                {{#content "fields"}}
-                    {{> "topic/forms/form-share"}}
-                {{/content}}
-            {{/embed}}
-
         </section>
     </div>
 

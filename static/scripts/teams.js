@@ -2,6 +2,7 @@ import moment from 'moment';
 
 $(document).ready(function () {
   var $createEventModal = $('.create-event-modal');
+  var $filePermissionsModal = $('.file-permissions-modal');
 
   $('.btn-create-event').click(function (e) {
     // open create event modal
@@ -20,24 +21,63 @@ $(document).ready(function () {
     $createEventModal.appendTo('body').modal('show');
   });
 
+  $('.btn-file-permissions').click(function (e) {
+    populateModalForm($filePermissionsModal, {
+        title: 'Freigabe-Einstellungen ändern',
+        closeLabel: 'Abbrechen',
+        submitLabel: 'Speichern',
+    });
+    $filePermissionsModal.appendTo('body').modal('show');
+  });
 
-  // $('.create-event-modal form').on('submit', function (e) {
-  //   e.stopPropagation();
-  //   e.preventDefault();
+  $('.file-permissions-modal form').on('submit', function (e) {
+    e.stopPropagation();
+    e.preventDefault();
 
-  //   console.log('OK!!')
+    $.ajax({
+      url: '/teams/' + $('.section-teams').data('id') + '/json',
+      method: 'GET'
+    }).done(function(data) {
+      let filePermission = data.team.filePermission
+      let allowExternalExperts = $('input[name="externalExperts"]').prop('checked')
+      let allowMembers = $('input[name="teamMembers"]').prop('checked')
 
-  //   $.ajax({
-  //     url: $(this).attr('action'),
-  //     method: 'POST',
-  //     data: {}
-  //   }).done(function() {
-  //     $.showNotification('Teilnehmer erfolgreich zum Team hinzugefügt', "success", true);
-  //     location.reload();
-  //   }).fail(function() {
-  //     $.showNotification('Problem beim Hinzufügen der Teilnehmer', "danger", true);
-  //   });
+      filePermission = filePermission.map(permission => {
+        if (permission.roleName === 'teamexpert') {
+          permission = Object.assign(permission, {
+            create: allowExternalExperts,
+            read: allowExternalExperts,
+            delete: allowExternalExperts,
+            write: allowExternalExperts
+          })
+        } else if (permission.roleName === 'teammember') {
+          permission = Object.assign(permission, {
+            create: allowMembers,
+            read: allowMembers,
+            delete: allowMembers,
+            write: allowMembers
+          })
+        }
 
-  //   return false;
-  // });
+        return permission
+      })
+
+      $.ajax({
+        url: '/teams/' + $('.section-teams').data('id') + '/permissions',
+        method: 'PATCH',
+        data: {
+          filePermission
+        }
+      }).done(function() {
+        $.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
+        $('.file-permissions-modal').modal('hide')
+      }).fail(function() {
+        $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+      });
+    }).fail(function() {
+      $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+    });
+
+    return false;
+  });
 });

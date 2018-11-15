@@ -40,19 +40,20 @@ const authChecker = (req, res, next) => {
 
                 // fetch user profile
                 populateCurrentUser(req, res)
-                    .then(_ => {
+                    .then(() => {
                         return checkConsent(req, res);
                     })
-                    .then(_ => {
+                    .then(() => {
                         return restrictSidebar(req, res);
                     })
-                    .then(_ => {
+                    .then(() => {
                         next();
+                        return null;
                     })
 					.catch(err=>{
 						if(err=="firstLogin was not completed, redirecting..."){
 							//print message?
-							res.redirect('/login/success');
+							res.redirect('/firstLogin');
 						}else{
 							res.redirect('/login/');
 						}
@@ -92,8 +93,8 @@ const populateCurrentUser = (req, res) => {
 const checkConsent = (req, res) => {
     if (
     ((res.locals.currentUser||{}).preferences||{}).firstLogin ||	//do not exist if 3. system login
-    req.path == "/login/success" ||
-    req.baseUrl == "/firstLogin") {
+    req.path.startsWith("/login/success") ||
+    req.baseUrl.startsWith("/firstLogin")) {
         return Promise.resolve();
     }else{
 		return Promise.reject("firstLogin was not completed, redirecting...");
