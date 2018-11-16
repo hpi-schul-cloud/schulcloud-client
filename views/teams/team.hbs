@@ -1,56 +1,9 @@
 
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/teams/teams.css"/>
         <link rel="stylesheet" href="/styles/files/files.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
-        <style>
-            .section-teams .section-news .container-fluid {
-                padding: 0;
-            }
-            .section-teams h4 {
-                margin-bottom: 1rem;
-            }
-            .section-teams .lead:empty {
-                margin-bottom: 0
-            }
-            .section-teams > section {
-                margin-top: 3rem
-            }
-            .section-teams .files {
-                margin-bottom: 10px;
-            }
-            .section-teams .btn {
-                margin-bottom: 0.5rem;
-            }
-
-            .create-course-event, .create-team-event {
-                label {
-                    margin-right: 0.5rem;
-                }
-                .toggle {
-                    height: 2rem !important;
-                    width: 7rem !important;
-                    .toggle-handle {
-                        width: 0.3rem !important;
-                        background: whitesmoke !important;
-                    }
-                }
-
-                .off {
-                    background: grey !important;
-                    label {
-                        color: whitesmoke !important;
-                        padding-left: 48px !important;
-                    }
-                }
-
-                .on {
-                    label {
-                        padding-right: 48px !important;
-                    }
-                }
-            }
-        </style>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
