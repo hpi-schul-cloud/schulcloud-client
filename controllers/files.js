@@ -70,7 +70,7 @@ const addThumbnails = (file) => {
 
     if( !file.isDirectoy ) {
         const ending = file.name.split('.').pop();
-        file.thumbnail = thumbs[ ending || 'default' ];
+        file.thumbnail = thumbs[ending.toLowerCase()] || thumbs['default'];
     }
     return file;
 };
