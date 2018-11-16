@@ -56,13 +56,18 @@ const getInitialValues = async req => {
 };
 
 const handleGetTopicTemplatesNew = async (req, res, next) => {
-  const valueOptions = await getValueOptions(req);
+  try {
+    const valueOptions = await getValueOptions(req);
 
-  res.render("planner/newTemplate", {
-    title: "Themenvorlage erstellen",
-    valueOptions: JSON.stringify(valueOptions),
-    initialValues: JSON.stringify({})
-  });
+    res.render("planner/newTemplate", {
+      title: "Themenvorlage erstellen",
+      valueOptions: JSON.stringify(valueOptions),
+      initialValues: JSON.stringify({})
+    });
+  } catch (e) {
+    logger.warn(e);
+    next(e);
+  }
 };
 
 const handlePostTopicTemplates = async (req, res, next) => {
@@ -84,26 +89,49 @@ const handlePostTopicTemplates = async (req, res, next) => {
 };
 
 const handleGetTopicTemplate = async (req, res, next) => {
-  const { templateId: id } = req.params;
-  const valueOptions = await getValueOptions(req);
-  const initialValues = await getInitialValues(req);
-  console.log(initialValues);
-  res.render("planner/editTemplate", {
-    title: "Themenvorlage bearbeiten",
-    valueOptions: JSON.stringify(valueOptions),
-    id,
-    initialValues: JSON.stringify(initialValues)
-  });
+  try {
+    const { templateId: id } = req.params;
+    const valueOptions = await getValueOptions(req);
+    const initialValues = await getInitialValues(req);
+    res.render("planner/editTemplate", {
+      title: "Themenvorlage bearbeiten",
+      valueOptions: JSON.stringify(valueOptions),
+      id,
+      initialValues: JSON.stringify(initialValues)
+    });
+  } catch (e) {
+    logger.warn(e);
+    next(e);
+  }
 };
 
-const handlePutTopicTemplate = (req, res, next) => {
-  res.sendStatus(200);
-  // API Request + Redirect to myClasses
+const handlePutTopicTemplate = async (req, res, next) => {
+  try {
+    const { templateId } = req.params;
+    const { classLevelId, ...others } = req.body;
+    await api(req).put(`/topicTemplates/${templateId}`, {
+      json: {
+        ...others,
+        ...(classLevelId ? { gradeLevelId: classLevelId } : {}),
+        userId: res.locals.currentUser._id
+      }
+    });
+    res.sendStatus(200);
+  } catch (e) {
+    logger.warn(e);
+    res.status(e.statusCode || 500).send(e);
+  }
 };
 
-const handleDeleteTopicTemplate = (req, res, next) => {
-  res.sendStatus(200);
-  // API Request + Redirect to myClasses
+const handleDeleteTopicTemplate = async (req, res, next) => {
+  try {
+    const { templateId } = req.params;
+    await api(req).delete(`/topicTemplates/${templateId}`);
+    res.sendStatus(200);
+  } catch (e) {
+    logger.warn(e);
+    res.status(e.statusCode || 500).send(e);
+  }
 };
 
 module.exports = {

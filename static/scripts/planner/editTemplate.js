@@ -5,9 +5,24 @@ import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
   onSave = formValues => {
-    console.log(formValues);
+    $.ajax({
+      type: "PUT",
+      url: `/planner/topicTemplates/${this.props.id}`,
+      data: formValues,
+      success: () => {
+        window.location.pathname = "/planner/myClasses";
+      }
+    });
   };
-  onDelete = () => {};
+  onDelete = () => {
+    $.ajax({
+      type: "DELETE",
+      url: `/planner/topicTemplates/${this.props.id}`,
+      success: () => {
+        window.location.pathname = "/planner/myClasses";
+      }
+    });
+  };
   /**
    * Render the list items.
    */
