@@ -383,13 +383,19 @@ router.get('/:teamId', async function(req, res, next) {
         });
 
         files = files.map(file => {
-            file.permissions = mapPermissionRoles(file.permissions, roles)
+            if (file && file.permissions) {
+                file.permissions = mapPermissionRoles(file.permissions, roles)
+            }
             return file
         })
 
         // Sort by most recent files and limit to 6 files
         files.sort(function(a,b) {
-            return new Date(b.updatedAt) - new Date(a.updatedAt);
+            if (b && b.updatedAt && a && a.updatedAt) {
+                return new Date(b.updatedAt) - new Date(a.updatedAt);
+            } else {
+                return 0
+            }
         })
         .slice(0, 6);
 
