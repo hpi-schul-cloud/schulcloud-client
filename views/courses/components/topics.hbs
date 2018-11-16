@@ -44,7 +44,7 @@
             {{else}}
               <!-- TOPIC IS HIDDEN, just teacher has access -->
               {{#userHasPermission "COURSE_EDIT"}}
-                <div class="card card-topic" onclick="location.href='{{../url}}'" data-topicId="{{../_id}}">
+                <div class="card card-topic card-transparent" onclick="location.href='{{../url}}'" data-topicId="{{../_id}}">
                   <div class="card-header">
                     <div class="input-group">
                       <a class="move-handle hidden-xs-down" title="Thema verschieben">
