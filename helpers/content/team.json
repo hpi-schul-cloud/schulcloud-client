@@ -408,6 +408,21 @@
       },
       {
         "title": "",
+        "firstName": "Ivan",
+        "lastName": "Ilic",
+        "position": "Bachelorstudent",
+        "description": "Ivan studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat spielt er gerne Basketball und Tennis. Außerdem hört er liebend gerne Musik.",
+        "pictureUrl": "/images/team/Ivan_Ilic.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Adrian",
         "lastName": "Jost",
         "position": "Bachelorstudent & Studentische Hilfskraft",
@@ -420,7 +435,7 @@
           "linkedin": ""
         },
         "longDesc": false
-      },
+      },      
       {
         "title": "",
         "firstName": "Hannes",
@@ -435,7 +450,6 @@
         },
         "longDesc": false
       },
-
       {
         "title": "",
         "firstName": "Marco",
