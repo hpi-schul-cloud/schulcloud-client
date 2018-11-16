@@ -19,6 +19,9 @@
             .section-teams .files {
                 margin-bottom: 10px;
             }
+            .section-teams .btn {
+                margin-bottom: 0.5rem;
+            }
 
             .create-course-event, .create-team-event {
                 label {
@@ -53,6 +56,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
+        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
         <script src="/scripts/files.js" type="text/javascript" defer></script>
         <script src="/scripts/teams.js" type="text/javascript" defer></script>
     {{/content}}
@@ -98,8 +102,16 @@
                 </div>
             </section>
 
-            <section class="directories">
-                <h4>Ordner</h4>
+            <section>
+                <h4>Dateien & Ordner</h4>
+            </section>
+
+            {{#if canUploadFile}}
+                {{#embed "files/file-upload"}}{{/embed}}
+            {{/if}}
+
+            <section style="margin-top: 1rem" class="directories">
+                <h5 style="color: #373a3c">Ordner</h5>
                 <div class="row">
                     {{#each directories}}
 						<div class="col-sm-6 col-xs-12 col-md-4">
@@ -135,15 +147,45 @@
 
             <section style="padding-top: 2rem" class="row">
                 <div class="col-sm-12">
-                    <h4>Dateien</h4>
+                    <h5 style="padding: 10px 0 20px">Dateien</h5>
                     {{#embed "files/file-viewer"}}{{/embed}}
                     {{#embed "files/files-grid" files=files teamId=../_id}}{{/embed}}
-                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
-                    <button class="btn btn-add btn-secondary btn-file-permissions">
-                        Freigabe-Einstellungen ändern
-                    </button>
                 </div>
             </section>
+
+            <section style="margin-top: 1rem">
+                <h5 style="padding: 10px 0 20px">Aktionen</h5>
+
+                <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                <button class="btn btn-add btn-secondary btn-file-permissions">
+                    Freigabe-Einstellungen ändern
+                </button>
+                {{#if ../canCreateDir}}
+                    <span class="btn btn-secondary create-directory">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                    </span>
+                {{/if}}
+                {{!-- {{#if ../canCreateFile}}
+                    <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
+                    </span>
+                {{/if}}                 --}}
+            </section>
+
+            {{#userHasPermission "FOLDER_CREATE"}}
+            <section class="new-directory">
+                <div class="row">
+                        <div class="col-sm-10 col-xs-16 col-md-8">
+                            <div data-toggle="modal">
+                                <div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </section>
+            {{/userHasPermission}}            
 
             <section class="row">
                 <div class="col-sm-12">
