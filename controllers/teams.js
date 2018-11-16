@@ -376,21 +376,34 @@ router.get('/:teamId', async function(req, res, next) {
                                     teamMembersPermission.write &&
                                     teamMembersPermission.delete;
 
-        let files = await api(req).get('/fileStorage', {
+        let files, directories;
+        files = await api(req).get('/fileStorage', {
             qs: { 
                 owner: course._id
             }
         });
-
+        
         files = files.map(file => {
             if (file && file.permissions) {
                 file.permissions = mapPermissionRoles(file.permissions, roles)
             }
             return file
-        })
+        });
+
+        directories = files.filter(f => f.isDirectory)
+        files = files.filter(f => !f.isDirectory)
 
         // Sort by most recent files and limit to 6 files
         files.sort(function(a,b) {
+            if (b && b.updatedAt && a && a.updatedAt) {
+                return new Date(b.updatedAt) - new Date(a.updatedAt);
+            } else {
+                return 0
+            }
+        })
+        .slice(0, 6);
+
+        directories.sort(function(a,b) {
             if (b && b.updatedAt && a && a.updatedAt) {
                 return new Date(b.updatedAt) - new Date(a.updatedAt);
             } else {
@@ -471,6 +484,7 @@ router.get('/:teamId', async function(req, res, next) {
             permissions: course.user.permissions,
             course,
             events,
+            directories,
             files,
             filesUrl: `/files/teams/${req.params.teamId}`,
             createEventAction: `/teams/${req.params.teamId}/events/`,
@@ -611,7 +625,6 @@ router.get('/:teamId/members', async function(req, res, next) {
             }
         })).data;
 
-
         let classes = (await api(req).get('/classes', { qs: {
             $or: [{ "schoolId": res.locals.currentSchool }],
             $populate: ["year"],
@@ -751,8 +764,8 @@ router.get('/:teamId/members', async function(req, res, next) {
 
         const invitationActions = [{
             class: 'btn-edit-invitation',
-            title: 'Einladung bearbeiten',
-            icon: 'edit'
+            title: 'Einladung erneut versenden',
+            icon: 'envelope'
         }, {
             class: 'btn-delete-invitation',
             title: 'Einladung löschen',

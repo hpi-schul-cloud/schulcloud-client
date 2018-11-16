@@ -98,7 +98,42 @@
                 </div>
             </section>
 
-            <section class="row">
+            <section class="directories">
+                <h4>Ordner</h4>
+                <div class="row">
+                    {{#each directories}}
+						<div class="col-sm-6 col-xs-12 col-md-4">
+							<div class="card card-block folder" onclick="location.href = '/files/teams/{{../_id}}?dir={{this._id}}';">
+								<strong class="card-title-directory">
+									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+								</strong>
+                                {{#userHasPermission "FOLDER_DELETE"}}
+								<a href="/files/directory/"
+								   target="_blank"
+								   data-method="delete"
+                                   title="Ordner löschen"
+								   data-file-name="{{../this.name}}"
+								   data-file-key="{{../this.path}}">
+									<i class="fa fa-trash-o pull-right"></i>
+								</a>
+
+                                <a href="/directoryModel/{{../this._id}}/rename"
+								   target="_blank"
+								   data-method="dir-rename"
+                                   title="Ordner umbenennen"
+                                   data-directory-id="{{../this._id}}"
+								   data-directory-name="{{../this.name}}"
+								   >
+									<i class="fa fa-edit pull-right"></i>
+								</a>
+                                {{/userHasPermission}}
+							</div>
+						</div>
+                    {{/each}}
+                </div>
+            </section>
+
+            <section style="padding-top: 2rem" class="row">
                 <div class="col-sm-12">
                     <h4>Dateien</h4>
                     {{#embed "files/file-viewer"}}{{/embed}}
