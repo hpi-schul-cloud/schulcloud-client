@@ -1,5 +1,5 @@
 const api = require("../../api");
-
+const { getUTCDate, getFederalState, getHolidays } = require("./helper");
 const DUMMY_CLASS_DATA = [
   {
     className: "Klasse 8a",
@@ -142,62 +142,50 @@ const DUMMY_OTHER_DATA = [
   }
 ];
 
-const getUTCDate = date => {
-  return Date.UTC(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate(),
-    date.getHours(),
-    date.getMinutes(),
-    0
-  );
-};
-
-const getFederalState = async (req, schoolId) => {
-  const schoolData = await api(req).get("/schools/" + schoolId, {
-    qs: {
-      $populate: ["federalState"]
-    }
-  });
-  return schoolData.federalState.abbreviation;
-};
-const transfromISODateToUTC = date => getUTCDate(new Date(Date.parse(date)));
-const capitalizeFirstLetter = string =>
-  string.charAt(0).toUpperCase() + string.slice(1);
 const DAY = 1000 * 60 * 60 * 24;
 
-const getSchoolYear = async (req, stateCode) => {
+const getCurrentSchoolYear = async (req, stateCode) => {
   const getSommerHolidays = holidays =>
-    holidays.find(holiday => holiday.name === "sommerferien");
+    holidays.find(holiday => holiday.name.toLowerCase() === "sommerferien");
   const today = new Date();
-  const currentYearHolidays = await api(req).get(
-    `/holidays?stateCode=${stateCode}&year=${today.getFullYear()}`
-  );
+  const currentYearHolidays = await getHolidays(req, {
+    year: today.getFullYear(),
+    stateCode
+  });
   const currentYearSummerHolidays = getSommerHolidays(currentYearHolidays);
   const middleOfSummerHolidays = Math.round(
     (Date.parse(currentYearSummerHolidays.start) +
       Date.parse(currentYearSummerHolidays.end)) /
       2
   );
+  /* If current time is smaller than middle of summer holidays,
+    -> schoolyear = determined by summer holidays from this year (e.g. 18) and last year (e.g. 17)
+    Otherwise
+    -> schoolyear = determined by summer holidays from this year (e.g. 18) and next year (e.g. 19)
+  */
   if (today.getTime() < middleOfSummerHolidays) {
     const previousYear = today.getFullYear() - 1;
-    const previousYearHolidays = await api(req).get(
-      `/holidays?stateCode=${stateCode}&year=${previousYear}`
-    );
+    const previousYearHolidays = await getHolidays(req, {
+      year: previousYear,
+      stateCode
+    });
     const previousYearSummerHolidays = getSommerHolidays(previousYearHolidays);
     return {
-      utcStartDate: transfromISODateToUTC(previousYearSummerHolidays.end) + DAY,
-      utcEndDate: transfromISODateToUTC(currentYearSummerHolidays.start) - DAY
+      // School year start date is end of summer holidays + one day
+      utcStartDate: previousYearSummerHolidays.utcEndDate + DAY,
+      // School year end date is start of summer holidays - one day
+      utcEndDate: currentYearSummerHolidays.utcStartDate - DAY
     };
   } else {
     const nextYear = today.getFullYear() + 1;
-    const nextYearHolidays = await api(req).get(
-      `/holidays?stateCode=${stateCode}&year=${nextYear}`
-    );
+    const nextYearHolidays = await getHolidays(req, {
+      year: nextYear,
+      stateCode
+    });
     const nextYearSummerHolidays = getSommerHolidays(nextYearHolidays);
     return {
-      utcStartDate: transfromISODateToUTC(currentYearSummerHolidays.end) + DAY,
-      utcEndDate: transfromISODateToUTC(nextYearSummerHolidays.start) - DAY
+      utcStartDate: currentYearSummerHolidays.utcEndDate + DAY,
+      utcEndDate: nextYearSummerHolidays.utcStartDate - DAY
     };
   }
 };
@@ -205,33 +193,28 @@ const getSchoolYear = async (req, stateCode) => {
 const getHolidaysData = async (req, { schoolYear, stateCode }) => {
   const firstYear = new Date(schoolYear.utcStartDate).getFullYear();
   const secondYear = new Date(schoolYear.utcEndDate).getFullYear();
-  const firstYearHolidays = await api(req).get(
-    `/holidays?stateCode=${stateCode}&year=${firstYear}`
-  );
-  const secondYearHolidays = await api(req).get(
-    `/holidays?stateCode=${stateCode}&year=${secondYear}`
-  );
+  const firstYearHolidays = await getHolidays(req, {
+    year: firstYear,
+    stateCode
+  });
+  const secondYearHolidays = await getHolidays(req, {
+    year: secondYear,
+    stateCode
+  });
   const holidays = [...firstYearHolidays, ...secondYearHolidays];
 
-  return holidays
-    .map(holiday => ({
-      name: capitalizeFirstLetter(holiday.name),
-      color: "#FBFFCF",
-      utcStartDate: transfromISODateToUTC(holiday.start),
-      utcEndDate: transfromISODateToUTC(holiday.end)
-    }))
-    .filter(
-      holiday =>
-        holiday.utcEndDate > schoolYear.utcStartDate &&
-        holiday.utcStartDate < schoolYear.utcEndDate
-    );
+  return holidays.filter(
+    holiday =>
+      holiday.utcEndDate > schoolYear.utcStartDate &&
+      holiday.utcStartDate < schoolYear.utcEndDate
+  );
 };
 
 const handleGetCalendar = async (req, res, next) => {
   const utcToday = getUTCDate(new Date());
   const schoolId = res.locals.currentUser.schoolId;
   const stateCode = await getFederalState(req, schoolId);
-  const schoolYear = await getSchoolYear(req, stateCode);
+  const schoolYear = await getCurrentSchoolYear(req, stateCode);
   const holidaysData = await getHolidaysData(req, { schoolYear, stateCode });
 
   res.render("planner/calendar", {
