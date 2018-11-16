@@ -29,7 +29,7 @@
 }
 
 .section-course {
-  margin-top: 30px;
+  margin-top: 15px;
 
   @media (min-width: 576px) {
     .course-card {
@@ -42,6 +42,24 @@
     .sectionsContainer {
       padding: 10px 15px 0;
     }
+  }
+
+  .count-badge {
+     position:relative;
+  }
+  .count-badge[data-badge]:after {
+     content:attr(data-badge);
+     position:absolute;
+     top:-10px;
+     right:-26px;
+     font-size:0.85em;
+     background:$colorLightGrey;
+     color:$primaryColor;
+     width:23px;height:23px;
+     text-align:center;
+     line-height:25px;
+     border-radius:50%;
+     box-shadow:0 0 2px #333;
   }
 
   .btn-import-topic {
@@ -126,7 +144,7 @@
     display: none;
   }
 }
-.course-task-header {
+.course-tasks-header, .course-groups-header {
   padding: 0.5rem 0.75rem;
   color: $fontColor;
 }
@@ -185,6 +203,10 @@
   }
 }
 
+.card-topic.card-transparent{
+  opacity: 0.6;
+}
+
 .topic {
   margin-top: 10px;
 }
@@ -224,6 +246,10 @@
   padding: 10px 0;
   clear: both;
 
+  .group-card:hover {
+    background-color: $colorLightGrey;
+  }
+
   .group-card {
     width: 100%;
     position: relative;
@@ -237,6 +263,7 @@
 
     a {
       color: #373a3c;
+      text-decoration: none;
     }
 
     .card-tags {
@@ -252,6 +279,14 @@
 
 .section-my-tasks {
   margin-top: 30px;
+}
+
+.card.assignment:hover{
+  background-color: $colorLightGrey;
+}
+
+.card.assignment a {
+  text-decoration: none;
 }
 
 #member-modal-body {

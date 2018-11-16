@@ -379,40 +379,11 @@
     "team": [
       {
         "title": "",
-        "firstName": "Adrian",
-        "lastName": "Jost",
-        "position": "Bachelorstudent & Studentische Hilfskraft",
-        "description": "Adrian studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist im Projekt HPI Schul-Cloud unter anderem für den Aufgabenbereich, die News aber auch das UI und die UX zuständig. Aktuell ist er auch Teil des Bachelorprojekts 2018/2019 der Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.",
-        "pictureUrl": "/images/team/Adrian_Jost.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
         "firstName": "Katharina",
         "lastName": "Blaß",
         "position": "Bachelorstudent & Studentische Hilfskraft",
         "description": "Katharina studiert IT-Systems-Engineering am HPI und unterstützt seit August 2018 das HPI Schul-Cloud Team im Bereich Frontend. Zusätzlich ist sie Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Neben Studium und Arbeit verbringt sie ihre Zeit gern sportlich aktiv und hat eine Leidenschaft für das Backen von Torten.",
         "pictureUrl": "/images/team/Katharina_Blass.jpg",
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Hannes",
-        "lastName": "Kohlsaat",
-        "position": "Bachelorstudent",
-        "description": "Hannes studiert IT-Systems-Engineering am HPI und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat geht er gerne laufen und interessiert sich sehr für Wirtschaftsthemen. Außerdem ist er seit Beginn seines Studiums Mitglied im Chor der Universität Potsdam.",
-        "pictureUrl": "/images/team/Hannes_Kohlsaat.jpg",
         "social": {
           "facebook": "",
           "twitter": "",
@@ -435,6 +406,36 @@
         },
         "longDesc": false
       },
+      {
+        "title": "",
+        "firstName": "Adrian",
+        "lastName": "Jost",
+        "position": "Bachelorstudent & Studentische Hilfskraft",
+        "description": "Adrian studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist im Projekt HPI Schul-Cloud unter anderem für den Aufgabenbereich, die News aber auch das UI und die UX zuständig. Aktuell ist er auch Teil des Bachelorprojekts 2018/2019 der Schul-Cloud. Privat hat er seinen Ausgleich im Rennrad fahren und Mountainbiken gefunden.",
+        "pictureUrl": "/images/team/Adrian_Jost.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Hannes",
+        "lastName": "Kohlsaat",
+        "position": "Bachelorstudent",
+        "description": "Hannes studiert IT-Systems-Engineering am HPI und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Privat geht er gerne laufen und interessiert sich sehr für Wirtschaftsthemen. Außerdem ist er seit Beginn seines Studiums Mitglied im Chor der Universität Potsdam.",
+        "pictureUrl": "/images/team/Hannes_Kohlsaat.jpg",
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+
       {
         "title": "",
         "firstName": "Marco",
