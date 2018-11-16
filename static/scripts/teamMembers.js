@@ -234,9 +234,9 @@ $(document).ready(function () {
     const invitationId = $(this).parent().parent().find('[data-payload]').data('payload');
 
     populateModalForm($editInvitationModal, {
-      title: 'Einladung bearbeiten',
+      title: 'Einladung erneut versenden',
       closeLabel: 'Abbrechen',
-      submitLabel: 'Änderungen speichern',
+      submitLabel: 'Einladung versenden',
       payload: invitationId
     });
 
