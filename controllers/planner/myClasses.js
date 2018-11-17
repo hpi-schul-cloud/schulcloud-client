@@ -1,3 +1,7 @@
+const logger = require("winston");
+const api = require("../../api");
+const { getFederalState, getHolidays } = require("./helper");
+
 const getSubjects = () => ({
   biology: {
     subjectId: "biology",
@@ -20,12 +24,12 @@ const getSubjects = () => ({
       }
     }
   },
-  chemistry: {
-    subjectId: "chemistry",
+  "5beb4c59f745b16c3630dd2b": {
+    subjectId: "5beb4c59f745b16c3630dd2b",
     subjectName: "Chemie",
     classLevels: {
-      "8": {
-        classLevelId: "8",
+      "5beb4c57f745b16c3630dcdd": {
+        classLevelId: "5beb4c57f745b16c3630dcdd",
         classLevelName: "Jahrgang 8",
         classes: getClassInstances(8)
       },
@@ -136,52 +140,6 @@ const getClassInstances = classLevel => ({
 });
 
 const DUMMY_CLASS_TOPICS = getAllClassInstances();
-const DUMMY_TOPIC_TEMPLATES = {
-  biology: {
-    "8": [
-      { id: "4", text: "Evolution", width: 5, color: "#92DB92" },
-      { id: "5", text: "Replikation", width: 10, color: "#92DB92" },
-      { id: "6", text: "Zellteilung", width: 8, color: "#92DB92" }
-    ],
-    "10": [
-      { id: "4", text: "Evolution", width: 5, color: "#92DB92" },
-      { id: "5", text: "Replikation", width: 10, color: "#92DB92" },
-      { id: "6", text: "Zellteilung", width: 8, color: "#92DB92" }
-    ],
-    "11": [
-      { id: "4", text: "Evolution", width: 5, color: "#92DB92" },
-      { id: "5", text: "Replikation", width: 10, color: "#92DB92" },
-      { id: "6", text: "Zellteilung", width: 8, color: "#92DB92" }
-    ]
-  },
-  chemistry: {
-    "8": [
-      { id: "4", text: "Evolution", width: 5, color: "#92DB92" },
-      { id: "5", text: "Replikation", width: 10, color: "#92DB92" },
-      { id: "6", text: "Zellteilung", width: 8, color: "#92DB92" }
-    ],
-    "9": [
-      { id: "4", text: "Evolution", width: 5, color: "#92DB92" },
-      { id: "5", text: "Replikation", width: 10, color: "#92DB92" },
-      { id: "6", text: "Zellteilung", width: 8, color: "#92DB92" }
-    ]
-  }
-};
-
-const DUMMY_HOLIDAY_DATA = [
-  {
-    name: "Herbstferien",
-    color: "#FBFFCF",
-    utcStartDate: 1540166400000,
-    utcEndDate: 1541116800000
-  },
-  {
-    name: "Weihnachtsferien",
-    color: "#FBFFCF",
-    utcStartDate: 1545436800000,
-    utcEndDate: 1546646400000
-  }
-];
 
 const DUMMY_OTHER_DATA = [
   {
@@ -194,23 +152,56 @@ const DUMMY_OTHER_DATA = [
 
 const DUMMY_SCHOOL_YEAR_DATA = {
   "17/18": {
-    utcStartDate: 1503900000000,
-    utcEndDate: 1530079200000
+    utcStartDate: 1504500000000,
+    utcEndDate: 1530679200000
   },
   "18/19": {
     utcStartDate: 1534723200000,
     utcEndDate: 1560902400000
   }
 };
+const getAllTopicTemplates = async req => {
+  const templatesData = await api(req).get("/topicTemplates");
+  return templatesData.data.reduce((templatesMap, template) => {
+    const { subjectId, gradeLevelId, _id, name, numberOfWeeks } = template;
+    const defaultGradeLevelId = gradeLevelId || "not_defined";
+    const newTemplate = {
+      id: _id,
+      text: name,
+      width: +numberOfWeeks,
+      color: "#92DB92"
+    };
+    if (!templatesMap[subjectId]) templatesMap[subjectId] = {};
+    if (!templatesMap[subjectId][defaultGradeLevelId])
+      templatesMap[subjectId][defaultGradeLevelId] = [newTemplate];
+    else
+      templatesMap[subjectId][defaultGradeLevelId] = [
+        ...templatesMap[subjectId][defaultGradeLevelId],
+        newTemplate
+      ];
 
-const handleGetMyClasses = (req, res, next) => {
-  res.render("planner/myClasses", {
-    title: "Meine Klassen",
-    schoolYearData: JSON.stringify(DUMMY_SCHOOL_YEAR_DATA),
-    eventData: JSON.stringify([...DUMMY_HOLIDAY_DATA, ...DUMMY_OTHER_DATA]),
-    allClassTopics: JSON.stringify(DUMMY_CLASS_TOPICS),
-    allTopicTemplates: JSON.stringify(DUMMY_TOPIC_TEMPLATES)
-  });
+    return templatesMap;
+  }, {});
+};
+
+const handleGetMyClasses = async (req, res, next) => {
+  try {
+    const schoolId = res.locals.currentUser.schoolId;
+    const stateCode = await getFederalState(req, schoolId);
+    const holidays = await getHolidays(req, { stateCode });
+    const allTopicTemplates = await getAllTopicTemplates(req);
+    console.log(allTopicTemplates);
+    res.render("planner/myClasses", {
+      title: "Meine Klassen",
+      schoolYearData: JSON.stringify(DUMMY_SCHOOL_YEAR_DATA),
+      eventData: JSON.stringify([...holidays, ...DUMMY_OTHER_DATA]),
+      allClassTopics: JSON.stringify(DUMMY_CLASS_TOPICS),
+      allTopicTemplates: JSON.stringify(allTopicTemplates)
+    });
+  } catch (e) {
+    logger.warn(e);
+    next(e);
+  }
 };
 
 const handlePostMyClasses = (req, res, next) => {};
