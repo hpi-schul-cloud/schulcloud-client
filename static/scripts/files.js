@@ -473,23 +473,28 @@ $(document).ready(function() {
                             $(this).select();
                         });
 
-                        const externalExpertsPermission = file.permissions.find(p => p.roleName === 'teamexpert')
-                        const allowExternalExperts = externalExpertsPermission.create &&
-                                                    externalExpertsPermission.read &&
-                                                    externalExpertsPermission.write &&
-                                                    externalExpertsPermission.delete;
-                        const teamMembersPermission = file.permissions.find(p => p.roleName === 'teammember')
-                        const allowTeamMembers = teamMembersPermission.create &&
-                                                    teamMembersPermission.read &&
-                                                    teamMembersPermission.write &&
-                                                    teamMembersPermission.delete;
+                        try {
+                            const externalExpertsPermission = file.permissions.find(p => p.roleName === 'teamexpert')
+                            const allowExternalExperts = externalExpertsPermission.create &&
+                                                        externalExpertsPermission.read &&
+                                                        externalExpertsPermission.write &&
+                                                        externalExpertsPermission.delete;
+                            const teamMembersPermission = file.permissions.find(p => p.roleName === 'teammember')
+                            const allowTeamMembers = teamMembersPermission.create &&
+                                                        teamMembersPermission.read &&
+                                                        teamMembersPermission.write &&
+                                                        teamMembersPermission.delete;
+                            state.permissions = file.permissions;
+    
+                            $('input[name="externalExperts"]').prop('checked', allowExternalExperts)
+                            $('input[name="teamMembers"]').prop('checked', allowTeamMembers)
+    
+                            $shareModal.appendTo('body').modal('show');
+                        } catch (e) {
+                            $.showNotification('Problem beim Freigeben der Datei', "danger", true);
+                        }
 
-                        state.permissions = file.permissions;
 
-                        $('input[name="externalExperts"]').prop('checked', allowExternalExperts)
-                        $('input[name="teamMembers"]').prop('checked', allowTeamMembers)
-
-                        $shareModal.appendTo('body').modal('show');
                     },
                     error: function (err) {
                         console.log('error')
