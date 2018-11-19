@@ -396,12 +396,16 @@ router.get('/:teamId', async function(req, res, next) {
                 owner: course._id
             }
         });
+
+        files = files.filter(file => file);
         
         files = files.map(file => {
             if (file && file.permissions) {
                 file.permissions = mapPermissionRoles(file.permissions, roles);
+                return file;
+            } else {
+                return undefined;
             }
-            return file;
         });
 
         directories = files.filter(f => f.isDirectory);
