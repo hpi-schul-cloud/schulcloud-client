@@ -374,15 +374,21 @@ router.get('/:teamId', async function(req, res, next) {
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
         const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert');
-        const allowExternalExperts = externalExpertsPermission.create &&
+        let allowExternalExperts, allowTeamMembers; 
+        if (externalExpertsPermission) {
+            allowExternalExperts =  externalExpertsPermission.create &&
                                     externalExpertsPermission.read &&
                                     externalExpertsPermission.write &&
                                     externalExpertsPermission.delete;
+        }
         const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember');
-        const allowTeamMembers = teamMembersPermission.create &&
-                                    teamMembersPermission.read &&
-                                    teamMembersPermission.write &&
-                                    teamMembersPermission.delete;
+
+        if (teamMembersPermission) {
+            allowTeamMembers = teamMembersPermission.create &&
+                               teamMembersPermission.read &&
+                               teamMembersPermission.write &&
+                               teamMembersPermission.delete;
+        }
 
         let files, directories;
         files = await api(req).get('/fileStorage', {
