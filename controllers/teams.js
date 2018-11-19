@@ -226,7 +226,7 @@ router.get('/', async function(req, res, next) {
         team.secondaryTitle = '';
         team.background = team.color;
         team.memberAmount = team.userIds.length;
-        team.id = team._id
+        team.id = team._id;
         
         return team;
     });
@@ -308,10 +308,10 @@ router.get('/add/', editCourseHandler);
 
 function mapPermissionRoles (permissions, roles) {
     return permissions.map(permission => {
-        const role = roles.find(role => role._id === permission.refId)
-        permission.roleName = role ? role.name : ''
-        return permission
-    })
+        const role = roles.find(role => role._id === permission.refId);
+        permission.roleName = role ? role.name : '';
+        return permission;
+    });
 }
 
 router.get('/:teamId/json', function(req, res, next) {
@@ -334,11 +334,11 @@ router.get('/:teamId/json', function(req, res, next) {
             }
         })
     ]).then(([roles, team, lessons]) => {
-        team.filePermission = mapPermissionRoles(team.filePermission, roles.data)
+        team.filePermission = mapPermissionRoles(team.filePermission, roles.data);
 
-        res.json({ team, lessons })
+        res.json({ team, lessons });
     }).catch(e => {
-        res.sendStatus(500)
+        res.sendStatus(500);
     });
 });
 
@@ -371,14 +371,14 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
-        course.filePermission = mapPermissionRoles(course.filePermission, roles)
+        course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
-        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert')
+        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert');
         const allowExternalExperts = externalExpertsPermission.create &&
                                     externalExpertsPermission.read &&
                                     externalExpertsPermission.write &&
                                     externalExpertsPermission.delete;
-        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember')
+        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember');
         const allowTeamMembers = teamMembersPermission.create &&
                                     teamMembersPermission.read &&
                                     teamMembersPermission.write &&
@@ -393,20 +393,20 @@ router.get('/:teamId', async function(req, res, next) {
         
         files = files.map(file => {
             if (file && file.permissions) {
-                file.permissions = mapPermissionRoles(file.permissions, roles)
+                file.permissions = mapPermissionRoles(file.permissions, roles);
             }
-            return file
+            return file;
         });
 
-        directories = files.filter(f => f.isDirectory)
-        files = files.filter(f => !f.isDirectory)
+        directories = files.filter(f => f.isDirectory);
+        files = files.filter(f => !f.isDirectory);
 
         // Sort by most recent files and limit to 6 files
         files.sort(function(a,b) {
             if (b && b.updatedAt && a && a.updatedAt) {
                 return new Date(b.updatedAt) - new Date(a.updatedAt);
             } else {
-                return 0
+                return 0;
             }
         })
         .slice(0, 6);
@@ -417,7 +417,7 @@ router.get('/:teamId', async function(req, res, next) {
             if (b && b.updatedAt && a && a.updatedAt) {
                 return new Date(b.updatedAt) - new Date(a.updatedAt);
             } else {
-                return 0
+                return 0;
             }
         })
         .slice(0, 6);
@@ -775,8 +775,8 @@ router.get('/:teamId/members', async function(req, res, next) {
                     }
                 },      
                 invitationActions,
-            ]
-        })
+            ];
+        });
 
         res.render('teams/members', Object.assign({}, course, {
             title: 'Deine Team-Teilnehmer',
@@ -853,7 +853,7 @@ router.post('/external/invite', (req, res) => {
         userId: req.body.userId,
         email: req.body.email,
         role: req.body.role
-    }
+    };
     
     return api(req).patch("/teams/extern/add/" + req.body.teamId , {
         json
