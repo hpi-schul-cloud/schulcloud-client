@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            {{!-- {{#ifCond (arrayLength bodyInvitations) '>' 0}}
+            {{#ifCond (arrayLength bodyInvitations) '>' 0}}
                 <h4 style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h4>
                 <div class="container-fluid">
                     <div class="row">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-            {{/ifCond}} --}}
+            {{/ifCond}}
 
             <h4 class="padding-top">
                 {{arrayLength body}} Teilnehmer
@@ -93,9 +93,15 @@
 
             {{#embed "lib/components/modal-form" class="edit-invitation-modal"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-edit-invitation"}}
+                    {{> "teams/forms/form-resend-invitation"}}
                 {{/content}}
             {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=deleteInvitationAction class="delete-invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-invitation"}}
+                {{/content}}
+            {{/embed}}            
 
             {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
                 {{#content "fields"}}

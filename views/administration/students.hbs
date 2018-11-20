@@ -53,20 +53,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-12 no-padding">
-                            <h4>
-                                Aktionen
-                            </h4>
-                            <button type="submit" class="btn btn-primary btn-add-modal">
-                                Schüler hinzufügen
-                            </button>
-                            <button class="btn btn-secondary btn-invitation-link student">
-                                Einladungslink generieren
-                            </button>
-                            <button class="btn btn-secondary btn-import student">
-                                Schüler importieren
-                            </button>
-                        </div>
+                        {{#unless schoolUsesLdap}}
+                            <div class="col-sm-12 no-padding">
+                                <button type="submit" class="btn btn-primary btn-add-modal">
+                                    Schüler hinzufügen
+                                </button>
+                                <button class="btn btn-secondary btn-invitation-link student">
+                                    Einladungslink generieren
+                                </button>
+                                <button class="btn btn-secondary btn-import student">
+                                    Schüler importieren
+                                </button>
+                            </div>
+                        {{/unless}}
                     </div>
                 </div>
 

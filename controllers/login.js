@@ -154,7 +154,12 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
                     });
                 }
                 const consent = consents.data[0];
-                res.redirect(consent.redirect);
+                if (consent.access) {
+                    res.redirect('/dashboard');
+                } else {
+                    //make sure fistLogin flag is not set
+                    res.redirect('/firstLogin');
+                }
             });
     } else {
         // if this happens: SSO 	

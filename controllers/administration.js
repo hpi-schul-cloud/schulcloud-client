@@ -66,8 +66,10 @@ const getTableActionsSend = (item, path, state) => {
     if (state === 'submitted' || state === 'closed') {
         actions.push(
             {
-                class: 'disabled',
-                icon: 'edit'
+                link: path + item._id,
+                class: 'btn-edit',
+                icon: 'edit',
+                title: 'Eintrag bearbeiten'
             },
             {
                 class: 'disabled',
@@ -608,7 +610,7 @@ const getSSOTypes = () => {
 const createBucket = (req, res, next) => {
     if (req.body.fileStorageType) {
         Promise.all([
-            api(req).post('/fileStorage', {
+            api(req).post('/fileStorage/bucket', {
                 json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
             }),
             api(req).patch('/schools/' + req.params.id, {
@@ -782,7 +784,14 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         let ssoTypes = getSSOTypes();
 
         api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', { title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage });
+            res.render('administration/school', { 
+                title: title + 'Allgemein', 
+                school: data, 
+                provider, 
+                ssoTypes, 
+                totalStorage: totalStorage,
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+            });
         });
     });
 });
@@ -948,7 +957,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             res.render('administration/teachers', {
                 title: title + 'Lehrer',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings('lastName'))
+                filterSettings: JSON.stringify(userFilterSettings('lastName')),
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
             });
         });
     });
@@ -986,8 +996,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 classes,
                 editTeacher: true,
                 hidePwChangeButton,
-                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW")
-
+                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
             }
         );
     });
@@ -1161,7 +1171,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings())
+                filterSettings: JSON.stringify(userFilterSettings()),
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
             });
         });
     });
@@ -1192,7 +1203,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent,
-                hidePwChangeButton
+                hidePwChangeButton,
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
             }
         );
     });
@@ -1650,7 +1662,8 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
+            $sort: req.query.sort? req.query.sort : {order: 1},
+            "schoolId": res.locals.currentSchool
         }
     }).then(data => {
         const head = [
@@ -1666,10 +1679,10 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 
         const body = data.data.map(item => {
             return [
-                truncate(item.subject || ""),
-                truncate(item.currentState || ""),
-                truncate(item.targetState || ""),
-                dictionary[item.category],
+                truncate(item.subject||""),
+                truncate(item.currentState||""),
+                truncate(item.targetState||""),
+                (item.category === "")? "": dictionary[item.category],
                 dictionary[item.state],
                 moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes || ""),

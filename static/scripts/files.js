@@ -1,8 +1,15 @@
-/* global videojs */
+const getDataValue = function(attr) {
+    return function() {
+        const value = $('.section-upload').data(attr);
+        return value ? value : undefined;    
+    };
+};
 
-function getCurrentDir() {
-    return $('.section-upload').data('path');
-}
+const getOwnerId = getDataValue('owner');
+const getCurrentParent = getDataValue('parent');
+
+import { getQueryParameterByName } from './helpers/queryStringParameter';
+
 $(document).ready(function() {
     let $form = $(".form-upload");
     let $progressBar = $('.progress-bar');
@@ -17,6 +24,8 @@ $(document).ready(function() {
     let $newFileModal = $('.new-file-modal');
 
     let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
+
+    let currentFile = {};
 
     // TODO: replace with something cooler
     let reloadFiles = function () {
@@ -53,17 +62,16 @@ $(document).ready(function() {
         accept: function (file, done) {
             // get signed url before processing the file
             // this is called on per-file basis
-
-            let currentDir = getCurrentDir();
-
+            
             $.post('/files/file', {
-                path: currentDir + file.name,
-                type: file.type
+                parent: getCurrentParent(),
+                type: file.type,
+                filename: file.name,
             }, function (data) {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-                .fail(showAJAXError);
+            .fail(showAJAXError);
         },
         createImageThumbnails: false,
         method: 'put',
@@ -114,19 +122,24 @@ $(document).ready(function() {
                 });
             });
 
-            this.on("success", function (file, response) {
+            this.on("success", function (file, response) {                
                 finishedFilesSize += file.size;
-
-                // post file meta to proxy file service for persisting data
-                $.post('/files/fileModel', {
-                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
-                    path: file.signedUrl.header['x-amz-meta-path'] + '/',
+                var parentId = getCurrentParent();
+                var params = {
                     name: file.name,
+                    owner: getOwnerId(),
                     type: file.type,
                     size: file.size,
-                    flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
+                    storageFileName: file.signedUrl.header['x-amz-meta-flat-name'],
                     thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
-                });
+                };
+
+                if( parentId ) {
+                    params.parent = parentId;
+                }
+
+                // post file meta to proxy file service for persisting data
+                $.post('/files/fileModel', params);
 
                 this.removeFile(file);
 
@@ -167,11 +180,9 @@ $(document).ready(function() {
                 url: $buttonContext.attr('href'),
                 type: 'DELETE',
                 data: {
-                    key: $buttonContext.data('file-key')
+                    id: $buttonContext.data('file-id')
                 },
-                success: function (result) {
-                    reloadFiles();
-                },
+                success: reloadFiles,
                 error: showAJAXError
             });
         });
@@ -241,7 +252,8 @@ $(document).ready(function() {
         e.preventDefault();
         $.post('/files/directory', {
             name: $editModal.find('[name="new-dir-name"]').val(),
-            dir: getCurrentDir()
+            owner: getOwnerId(),
+            parent: getCurrentParent(),
         }, function (data) {
             reloadFiles();
         }).fail(showAJAXError);
@@ -256,7 +268,8 @@ $(document).ready(function() {
         $.post('/files/newFile', {
             name: $newFileModal.find('[name="new-file-name"]').val(),
             type: $("#file-ending").val(),
-            dir: getCurrentDir(),
+            owner: getOwnerId(),
+            parent: getCurrentParent(),
             studentEdit
         }, function (data) {
             reloadFiles();
@@ -295,7 +308,7 @@ $(document).ready(function() {
         $(this).find('.file-name-edit').css('display', 'none');
     });
 
-    let populateRenameModal = function(oldName, path, action, title) {
+    const populateRenameModal = function(oldName, action, title) {
         let form = $renameModal.find('.modal-form');
         form.attr('action', action);
 
@@ -305,8 +318,6 @@ $(document).ready(function() {
             submitLabel: 'Speichern',
             fields: {
                 name: oldName,
-                path: path,
-                key: path + oldName
             }
         });
 
@@ -318,11 +329,9 @@ $(document).ready(function() {
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
         let oldName = $(this).attr('data-file-name');
-        let path = $(this).attr('data-file-path');
 
         populateRenameModal(
             oldName, 
-            path, 
             '/files/fileModel/' + fileId +  '/rename',
             'Datei umbenennen');
     });
@@ -366,11 +375,9 @@ $(document).ready(function() {
         e.preventDefault();
         let dirId = $(this).attr('data-directory-id');
         let oldName = $(this).attr('data-directory-name');
-        let path = $(this).attr('data-directory-path');
 
         populateRenameModal(
             oldName, 
-            path, 
             '/files/directoryModel/' + dirId +  '/rename',
             'Ordner umbenennen');
     });
@@ -404,10 +411,27 @@ $(document).ready(function() {
         fileShare(fileId, $shareModal);
     });
 
+    let handler = {
+        get: function (target, name) {
+          return name in target ?
+            target[name] :
+            '';
+        },
+        set: function (obj, prop, value) {
+          obj[prop] = value;
+        }
+      };
+    
+      let state = new Proxy({
+        currentFileId: '',
+        permissions: []
+      }, handler);
+
     $('.btn-file-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
+        state.currentFileId = fileId;
         let fileName = $(this).attr('data-file-name');
         let $shareModal = $('.share-modal');
         let id = e.target.parentElement.id;
@@ -429,65 +453,128 @@ $(document).ready(function() {
             data: {
                 id: fileId
             },
-            success: function (data) {
-                let target = view ? `files/file/${fileId}/lool?share=${data.shareToken}` : `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
+            success: function (file) {
+                let target = view ? `files/file/${fileId}/lool?share=${file.shareToken}` : `files/fileModel/${file._id}/proxy?share=${file.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
                     data: {
-                        target: target
+                        target
                     },
                     success: function (data) {
                         populateModalForm($shareModal, {
-                            title: 'Einladungslink generiert!',
+                            title: 'Freigabe-Einstellungen',
                             closeLabel: 'Abbrechen',
                             submitLabel: 'Speichern',
                             fields: {invitation: data.newUrl}
                         });
-                        $shareModal.find('.btn-submit').remove();
+
                         $shareModal.find("input[name='invitation']").click(function () {
                             $(this).select();
                         });
 
-                        $shareModal.appendTo('body').modal('show');
+                        try {
+                            const externalExpertsPermission = file.permissions.find(p => p.roleName === 'teamexpert')
+                            const allowExternalExperts = externalExpertsPermission.create &&
+                                                        externalExpertsPermission.read &&
+                                                        externalExpertsPermission.write &&
+                                                        externalExpertsPermission.delete;
+                            const teamMembersPermission = file.permissions.find(p => p.roleName === 'teammember')
+                            const allowTeamMembers = teamMembersPermission.create &&
+                                                        teamMembersPermission.read &&
+                                                        teamMembersPermission.write &&
+                                                        teamMembersPermission.delete;
+                            state.permissions = file.permissions;
+    
+                            $('input[name="externalExperts"]').prop('checked', allowExternalExperts)
+                            $('input[name="teamMembers"]').prop('checked', allowTeamMembers)
+    
+                            $shareModal.appendTo('body').modal('show');
+                        } catch (e) {
+                            $.showNotification('Problem beim Freigeben der Datei', "danger", true);
+                        }
 
+
+                    },
+                    error: function (err) {
+                        console.log('error')
                     }
                 });
+            },
+            error: function (err) {
+                console.log('error')
             }
         });
     };
+
+    $('.share-modal').on('submit', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        let allowExternalExperts = $('.share-modal input[name="externalExperts"]').prop('checked')
+        let allowMembers = $('.share-modal input[name="teamMembers"]').prop('checked')
+
+        const filePermissions = state.permissions.map(permission => {
+            if (permission.roleName === 'teamexpert') {
+                permission = Object.assign(permission, {
+                    create: allowExternalExperts,
+                    read: allowExternalExperts,
+                    delete: allowExternalExperts,
+                    write: allowExternalExperts
+                })
+            } else if (permission.roleName === 'teammember') {
+                permission = Object.assign(permission, {
+                    create: allowMembers,
+                    read: allowMembers,
+                    delete: allowMembers,
+                    write: allowMembers
+                })
+            }
+    
+            return permission
+        })     
+
+        $.ajax({
+            url: '/files/permissions',
+            method: 'PATCH',
+            data: {
+                fileId: state.currentFileId,
+                permissions: filePermissions
+            }
+          }).done(function() {
+            $.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
+            $('.share-modal').modal('hide')
+          }).fail(function() {
+            $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+          });        
+    });
+
 
     $moveModal.on('hidden.bs.modal', function () {
         // delete the directory-tree
         $('.directories-tree').empty();
     });
 
-    let moveToDirectory = function (modal, path) {
-        let fileId = modal.find('.modal-form').find("input[name='fileId']").val();
-        let fileName = modal.find('.modal-form').find("input[name='fileName']").val();
-        let fileOldPath = modal.find('.modal-form').find("input[name='filePath']").val();
-
+    const moveToDirectory = function (modal, targetId) {
+        const fileId = modal.find('.modal-form').find("input[name='fileId']").val();
+        
         $.ajax({
             url: '/files/file/' + fileId + '/move/',
             type: 'POST',
             data: {
-                fileName: fileName,
-                oldPath: fileOldPath,
-                newPath: path
+                parent: targetId
             },
-            success: function (result) {
-                reloadFiles();
-            },
+            success: reloadFiles,
             error: showAJAXError
         });
     };
 
-    let openSubTree = function (e) {
-        let $parent = $(e.target).parent();
-        let $parentDirElement = $parent.parent();
-        let $toggle = $parent.find('.toggle-icon');
-        let $subMenu = $parentDirElement.children('.dir-sub-menu');
-        let isCollapsed = $toggle.hasClass('fa-plus-square-o');
+    const openSubTree = function (e) {
+        const $parent = $(e.target).parent();
+        const $parentDirElement = $parent.parent();
+        const $toggle = $parent.find('.toggle-icon');
+        const $subMenu = $parentDirElement.children('.dir-sub-menu');
+        const isCollapsed = $toggle.hasClass('fa-plus-square-o');
 
         if (isCollapsed) {
             $subMenu.css('display', 'block');
@@ -502,16 +589,16 @@ $(document).ready(function() {
 
     let addDirTree = function ($parent, dirTree, isMainFolder = true) {
         dirTree.forEach(d => {
-           let $dirElement =  $(`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'}-element" id="${d.path}" data-href="${d.path}"></div>`);
+           const $dirElement =  $(`<div class="dir-element dir-${isMainFolder ? 'main' : 'sub'}-element" id="${d._id}" data-href="${d._id}"></div>`);
 
-           let $dirHeader = $(`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'}-header"></div>`);
-           let $toggle = $(`<i class="fa fa-plus-square-o toggle-icon"></i>`)
-               .click(openSubTree.bind(this));
-           let $dirSpan = $(`<span>${d.name}</span>`)
-               .click(openSubTree.bind(this));
+           const $dirHeader = $(`<div class="dir-header dir-${isMainFolder ? 'main' : 'sub'}-header"></div>`);
+           const $toggle = $(`<i class="fa fa-plus-square-o toggle-icon"></i>`)
+               .click(openSubTree);
+           const $dirSpan = $(`<span>${d.name}</span>`)
+               .click(openSubTree);
            // just displayed on hovering parent element
-           let $move = $(`<i class="fa ${d.path ? 'fa-share' :''}"></i>`)
-               .click(d.path ? moveToDirectory.bind(this, $moveModal, d.path): '');
+           const $move = $(`<i class="fa ${d._id ? 'fa-share' :''}"></i>`)
+               .click(d._id ? moveToDirectory.bind(this, $moveModal, d._id): '');
 
            $dirHeader.append($toggle);
            $dirHeader.append($dirSpan);
@@ -524,9 +611,9 @@ $(document).ready(function() {
 
            $dirElement.append($dirHeader);
 
-           if (d.subDirs.length) {
-               let $newList = $('<div class="dir-sub-menu"></div>');
-               addDirTree($newList, d.subDirs, false);
+           if (d.children && d.children.length) {
+               const $newList = $('<div class="dir-sub-menu"></div>');
+               addDirTree($newList, d.children, false);
                $dirElement.append($newList);
            } else {
                $toggle.css('visibility', 'hidden');
@@ -582,7 +669,7 @@ const fileTypes = {
     pdf: 'application/pdf'
 };
 
-window.fileViewer = function fileViewer(type, key, name, id) {
+window.fileViewer = function fileViewer(type, name, id) {
     $('#my-video').css("display" , "none");
 
     // detect filetype according to line ending
@@ -594,20 +681,20 @@ window.fileViewer = function fileViewer(type, key, name, id) {
     switch (type) {
         case 'application/pdf':
             $('#file-view').hide();
-            let win = window.open('/files/file?file=' + key, '_blank');
+            let win = window.open('/files/file?file=' + id, '_blank');
             win.focus();
             break;
 
         case 'image/' + type.substr(6) :
             $('#file-view').css('display','');
-            $('#picture').attr("src", '/files/file?file=' + key);
+            $('#picture').attr("src", '/files/file?file=' + id+'&name='+name);
             break;
 
         case 'audio/' + type.substr(6):
         case 'video/' + type.substr(6):
             $('#file-view').css('display','');
             videojs('my-video').ready(function () {
-                this.src({type: type, src: '/files/file?file=' + key});
+                this.src({type: type, src: '/files/file?file=' + id});
             });
             $('#my-video').css("display","");
             break;
@@ -628,35 +715,16 @@ window.fileViewer = function fileViewer(type, key, name, id) {
 
             break;
 
-            /**
-             * GViewer still needed?
-            $('#file-view').css('display','');
-            let gviewer = "https://docs.google.com/viewer?url=";
-            let showAJAXError = showAJAXError; // for deeply use
-            $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
-            $.post('/files/file?file=', {
-                path: (getCurrentDir()) ? getCurrentDir() + name : key,
-                type: type,
-                action: "getObject"
-            }, function (data) {
-                let url = data.signedUrl.url;
-                url = url.replace(/&/g, "%26");
-                openInIframe(gviewer + url + "&embedded=true");
-            })
-                .fail(showAJAXError);
-            break;
-             **/
-
         default:
             $('#file-view').css('display','');
-            $('#link').html('<a class="link" href="/files/file?file=' + key + '" target="_blank">Datei extern öffnen</a>');
+            $('#link').html('<a class="link" href="/files/file?file=' + id + '" target="_blank">Datei extern öffnen</a>');
             $('#link').css("display","");
     }
 };
 
 /**
  * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
- * @deprecated 
+ * @deprecated
 **/
 function openInIframe(source){
     $("input.box").each(function() {

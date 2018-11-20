@@ -21,8 +21,8 @@ router.use('/courses/:courseId/tools/', require('./tools'));
 router.use('/courses/:courseId/groups/', require('./coursegroups'));
 router.use('/teams/', require('./teams'));
 router.use('/teams/:targetId/news', require('./news'));
-router.use('/teams/:courseId/topics/', require('./topics'));
-router.use('/teams/:courseId/tools/', require('./tools'));
+router.use('/teams/:teamId/topics/', require('./topics'));
+router.use('/teams/:teamId/tools/', require('./tools'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
@@ -39,6 +39,8 @@ router.use('/impressum/', require('./imprint'));
 router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/schools/', require('./schools'));
+router.use('/users/', require('./users'));
 
 router.use('/administration/', require('./administration'));
 

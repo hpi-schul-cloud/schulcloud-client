@@ -25,6 +25,8 @@
                     <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
                 {{/if}}
 
+                <h4>Allgemeine Informationen</h4>
+
                 <div class="form-group">
                     <label>Name des Teams</label>
                     <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{course.name}}"
@@ -40,19 +42,6 @@
                     <label>Farbe des Teams:</label>
                     <input name="color" type="color"
                            value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
-                </div>
-
-                <div style="margin-bottom: 2rem" class="padding-top">
-                    <strong>Voreingestellte Zugriffsberechtigungen für neue Ordner und Dateien innerhalb des Teams:</strong>
-                    <br><br>
-                    <label for="externalExperts">Externe Experten dürfen zugreifen</label>
-                    <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" checked="checked" />
-                    <br>
-                    <label for="members">Teilnehmer dürfen zugreifen</label>
-                    <input class="box" type="checkbox" name="members" value="allowExternalMembers" checked="checked" />
-                    <br><br>
-                    <i>Du kannst die Zugriffsberechtigungen für einzelne Dateien und Ordner jederzeit bearbeiten.</i>
-                    <br>
                 </div>
 
                 <div class="modal-footer">
