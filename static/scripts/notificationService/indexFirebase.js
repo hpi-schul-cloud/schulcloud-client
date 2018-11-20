@@ -4,16 +4,19 @@ import { sendShownCallback } from './callback';
 
 export function setupFirebasePush() {
   if (!window.firebase) {
+    console.log('firebase missing!');
     return;
   }
 
   var config = {
-    messagingSenderId: "764547597772"
+    messagingSenderId: "876444946816"
   };
 
   // When app was already initialized just return.
-  if (firebase.apps.length)
+  if (firebase.apps.length){
+    console.log('apps without permission?', firebase.apps);
     return;
+  }
     
   firebase.initializeApp(config);
   
@@ -62,16 +65,15 @@ export function setupFirebasePush() {
       }
 
       function requestPermission() {
-        messaging.requestPermission()
+        return messaging.requestPermission()
           .then(function() {
-            getToken();
+            return getToken();
           })
           .catch(function(err) {
             pushManager.error(err, 'Unable to get permission to notify.');
           });
       }
 
-      getToken();
+      requestPermission();
     });
 }
-
