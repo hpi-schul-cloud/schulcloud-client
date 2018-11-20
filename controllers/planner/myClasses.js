@@ -1,6 +1,10 @@
 const logger = require("winston");
 const api = require("../../api");
-const { getFederalState, getHolidays } = require("./helper");
+const {
+  getFederalState,
+  getHolidays,
+  checkForSommerHoliday
+} = require("./helper");
 
 const getSubjects = () => ({
   biology: {
@@ -43,13 +47,13 @@ const getSubjects = () => ({
 });
 
 const getAllClassInstances = () => ({
-  "17/18": {
-    schoolYearId: "17/18",
+  "5b7de0021a3a07c20a1c165d": {
+    schoolYearId: "5b7de0021a3a07c20a1c165d",
     schoolYearName: "2017/2018",
     subjects: getSubjects()
   },
-  "18/19": {
-    schoolYearId: "18/19",
+  "5b7de0021a3a07c20a1c165e": {
+    schoolYearId: "5b7de0021a3a07c20a1c165e",
     schoolYearName: "2018/2019",
     subjects: getSubjects()
   }
@@ -184,16 +188,62 @@ const getAllTopicTemplates = async req => {
   }, {});
 };
 
+const DAY = 1000 * 60 * 60 * 24;
+const getSchoolYearDatesFromSummerHolidays = (
+  firstSummerHolidays,
+  secondSummerHolidays
+) => {
+  const schoolYearStartDay = new Date(
+    firstSummerHolidays.utcEndDate
+  ).getUTCDay();
+  // We cannot be sure what the definiton of the utc end date of the summer holidays actually is
+  // -> We add time until we reach the next Monday ( Sunday = 0, Saturday = 6, ...)
+  const factor = Math.abs((schoolYearStartDay - 7 - 1) % 7);
+
+  return {
+    utcStartDate: firstSummerHolidays.utcEndDate + factor * DAY,
+    utcEndDate: secondSummerHolidays.utcStartDate - DAY
+  };
+};
+const getSchoolYearData = async (req, holidays) => {
+  const years = await api(req).get("/years");
+  const getCurrentYearDates = currentYear => {
+    const relevantData = holidays
+      .filter(checkForSommerHoliday)
+      .filter(
+        holiday =>
+          holiday.year === currentYear || holiday.year === currentYear + 1
+      )
+      .sort((a, b) => a.year - b.year);
+    // Array should have two items: summer holidays from current year and next year
+    if (relevantData.length !== 2) return null;
+    return getSchoolYearDatesFromSummerHolidays(
+      relevantData[0],
+      relevantData[1]
+    );
+  };
+
+  return years.data.reduce((schoolYearMap, year) => {
+    const currentYear = +year.name.split("/")[0]; // name is in the format "2017/18"
+    const currentSchoolYearDates = getCurrentYearDates(currentYear);
+    if (currentSchoolYearDates)
+      schoolYearMap[year._id] = currentSchoolYearDates;
+
+    return schoolYearMap;
+  }, {});
+};
+
 const handleGetMyClasses = async (req, res, next) => {
   try {
     const schoolId = res.locals.currentUser.schoolId;
     const stateCode = await getFederalState(req, schoolId);
     const holidays = await getHolidays(req, { stateCode });
     const allTopicTemplates = await getAllTopicTemplates(req);
-    console.log(allTopicTemplates);
+    const schoolYearData = await getSchoolYearData(req, holidays);
+    console.log(schoolYearData);
     res.render("planner/myClasses", {
       title: "Meine Klassen",
-      schoolYearData: JSON.stringify(DUMMY_SCHOOL_YEAR_DATA),
+      schoolYearData: JSON.stringify(schoolYearData),
       eventData: JSON.stringify([...holidays, ...DUMMY_OTHER_DATA]),
       allClassTopics: JSON.stringify(DUMMY_CLASS_TOPICS),
       allTopicTemplates: JSON.stringify(allTopicTemplates)
