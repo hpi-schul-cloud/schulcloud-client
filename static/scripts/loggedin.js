@@ -10,7 +10,7 @@ if (window.opener && window.opener !== window) {
 }
 
 function toggleMobileNav() {
-    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+    document.querySelector('aside.nav-sidebar').classList.toggle('active');
     this.classList.toggle('active');
 }
 
@@ -236,9 +236,6 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         }
     }
-});
-window.addEventListener("resize", function () {
-    $('.sidebar-list').css({"height": window.innerHeight});
 });
 
 // loading animation
