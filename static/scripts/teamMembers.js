@@ -13,6 +13,7 @@ $(document).ready(function () {
       if (['role', 'method'].includes(prop)) {
         renderInviteModal();
       }
+      return true;
     }
   };
 
