@@ -21,7 +21,9 @@ const getFederalState = async (req, schoolId) => {
   });
   return schoolData.federalState.abbreviation;
 };
-
+const checkForSommerHoliday = holiday =>
+  holiday.name.toLowerCase() === "sommerferien";
+const getFirstSommerHolidays = holidays => holidays.find(checkForSommerHoliday);
 const capitalizeFirstLetter = string =>
   string.charAt(0).toUpperCase() + string.slice(1);
 const getHolidays = async (req, { year, stateCode }) => {
@@ -33,7 +35,9 @@ const getHolidays = async (req, { year, stateCode }) => {
     name: capitalizeFirstLetter(holiday.name),
     color: "#FBFFCF",
     utcStartDate: transfromISODateToUTC(holiday.start),
-    utcEndDate: transfromISODateToUTC(holiday.end)
+    utcEndDate: transfromISODateToUTC(holiday.end),
+    year: holiday.year,
+    stateCode: holiday.stateCode
   }));
 };
 
@@ -41,5 +45,7 @@ module.exports = {
   getUTCDate,
   transfromISODateToUTC,
   getFederalState,
-  getHolidays
+  getHolidays,
+  checkForSommerHoliday,
+  getFirstSommerHolidays
 };

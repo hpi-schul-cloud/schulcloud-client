@@ -1,5 +1,10 @@
 const api = require("../../api");
-const { getUTCDate, getFederalState, getHolidays } = require("./helper");
+const {
+  getUTCDate,
+  getFederalState,
+  getHolidays,
+  getFirstSommerHolidays
+} = require("./helper");
 const DUMMY_CLASS_DATA = [
   {
     className: "Klasse 8a",
@@ -145,14 +150,12 @@ const DUMMY_OTHER_DATA = [
 const DAY = 1000 * 60 * 60 * 24;
 
 const getCurrentSchoolYear = async (req, stateCode) => {
-  const getSommerHolidays = holidays =>
-    holidays.find(holiday => holiday.name.toLowerCase() === "sommerferien");
   const today = new Date();
   const currentYearHolidays = await getHolidays(req, {
     year: today.getFullYear(),
     stateCode
   });
-  const currentYearSummerHolidays = getSommerHolidays(currentYearHolidays);
+  const currentYearSummerHolidays = getFirstSommerHolidays(currentYearHolidays);
   const middleOfSummerHolidays = Math.round(
     (Date.parse(currentYearSummerHolidays.start) +
       Date.parse(currentYearSummerHolidays.end)) /
@@ -169,7 +172,9 @@ const getCurrentSchoolYear = async (req, stateCode) => {
       year: previousYear,
       stateCode
     });
-    const previousYearSummerHolidays = getSommerHolidays(previousYearHolidays);
+    const previousYearSummerHolidays = getFirstSommerHolidays(
+      previousYearHolidays
+    );
     return {
       // School year start date is end of summer holidays + one day
       utcStartDate: previousYearSummerHolidays.utcEndDate + DAY,
@@ -182,7 +187,7 @@ const getCurrentSchoolYear = async (req, stateCode) => {
       year: nextYear,
       stateCode
     });
-    const nextYearSummerHolidays = getSommerHolidays(nextYearHolidays);
+    const nextYearSummerHolidays = getFirstSommerHolidays(nextYearHolidays);
     return {
       utcStartDate: currentYearSummerHolidays.utcEndDate + DAY,
       utcEndDate: nextYearSummerHolidays.utcStartDate - DAY
