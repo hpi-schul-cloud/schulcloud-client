@@ -153,10 +153,12 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
     const owner = getStorageContext(req, res);
-    const { params: { folderId: parent } } = req;
     
     return api(req).get('/fileStorage', {
-        qs: { owner, parent },
+        qs: { 
+            owner, 
+            parent: req.query.dir ? req.query.dir.split('/')[req.query.dir.split('/').length - 1] : ''
+        },
     }).then(files => {
 
         res.locals.files = {
@@ -690,7 +692,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
             courseId: req.params.teamId,
             ownerId: req.params.teamId,
             courseUrl: `/teams/${req.params.teamId}/`,
-            parentId: req.params.folderId
+            parentId: req.query.dir ? req.query.dir.split('/')[req.query.dir.split('/').length - 1] : ''
         }, res.locals.files));
 
     });
