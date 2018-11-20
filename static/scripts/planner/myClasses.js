@@ -5,15 +5,23 @@ import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
   redirectToAddTemplate = (subjectId, classLevelId) => {
-    window.location.pathname = `/planner/topicTemplates/new?subjectId=${subjectId}&classLevelId=${classLevelId}`;
+    window.location = `/planner/topicTemplates/new?subjectId=${subjectId}&classLevelId=${classLevelId}`;
   };
   redirectToEditTemplate = templateId => {
-    window.location.pathname = `/planner/topicTemplates/${templateId}`;
+    window.location = `/planner/topicTemplates/${templateId}`;
   };
   redirectToEditInstance = instanceId => {
-    window.location.pathname = `/planner/topicInstances/${instanceId}`;
+    window.location = `/planner/topicInstances/${instanceId}`;
   };
-  handleDeleteTemplate = templateId => {};
+  handleDeleteTemplate = templateId => {
+    $.ajax({
+      type: "DELETE",
+      url: `/planner/topicTemplates/${templateId}`,
+      success: () => {
+        window.location.pathname = "/planner/myClasses";
+      }
+    });
+  };
   handleSaveClassIntances = classInstances => {};
 
   render() {
