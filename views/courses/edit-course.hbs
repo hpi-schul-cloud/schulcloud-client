@@ -33,6 +33,16 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Fach</label>
+
+                    <select name="subjectId" data-placeholder="Fach auswählen">
+                        {{#each subjects}}
+                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label>Beschreibung des Kurses</label>
                     <textarea class="form-control" name="description">{{{stripOnlyScript course.description}}}</textarea>
                 </div>
