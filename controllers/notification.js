@@ -16,16 +16,25 @@ const postRequest = (req, res, next) => {
     }
 };
 
+router.delete('/device', function (req,res,next){
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+        api(req).delete('notification/devices/' + req.body._id)
+        .then(_ => res.json(_)).catch(err=> res.json(err));
+    }
+});
+
 router.post('/devices', function (req, res, next) {
     res.locals.url = 'notification/devices';
     res.locals.body = {
         "service": req.body.service ? req.body.service : "firebase",
         "type": req.body.type ? req.body.type : "mobile",
         "name": req.body.name ? req.body.name : "Gerät",
-        "token": res.locals.currentUser._id,
-        "device_token": req.body.id,
+        "id": res.locals.currentUser._id,
+        "token": req.body.id,
         "OS": req.body.device ? req.body.device : "android7"
     };
+    let body = res.locals.body;
+    body.platform = `${body.name} (${body.type}) on ${body.OS}`;
 
     next();
 }, postRequest);

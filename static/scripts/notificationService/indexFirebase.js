@@ -2,6 +2,8 @@
 import { pushManager } from './index';
 import { sendShownCallback } from './callback';
 
+window.pushManager = pushManager;
+
 export function setupFirebasePush() {
   if (!window.firebase) {
     console.log('firebase missing!');
@@ -74,6 +76,8 @@ export function setupFirebasePush() {
           });
       }
 
-      requestPermission();
+      window.requestPushPermission = requestPermission;
+
+      getToken();
     });
 }

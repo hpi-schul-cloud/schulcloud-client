@@ -25,7 +25,7 @@ $(document).ready(function() {
 
     var cookies = getCookiesMap(document.cookie);
     if (cookies["notificationPermission"])
-        $(".btn-device").prop("disabled", true);
+        //$(".btn-device").prop("disabled", true); // todo alert when registration fails instead
 
     $('a[data-method="delete"]').on('click', function(e) {
         e.stopPropagation();

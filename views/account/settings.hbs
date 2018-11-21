@@ -90,23 +90,19 @@
                             <table width="100%" cellpadding="5px">
                                 <thead>
                                 <th></th>
-                                <th><label>Name</label></th>
-                                <th><label>Typ</label></th>
-                                <th><label>Betriebssystem</label></th>
+                                <th><label>Platform</label></th>
                                 </thead>
                                 <tbody>
                                 {{#each device}}
                                     <tr id="{{this._id}}">
-                                        <td>{{#if this.selected}}<a href="/account/settings/device"
+                                        <td>{{#if this.selected}}<a href="/notification/device"
                                                                     target="_blank"
                                                                     data-method="delete"
-                                                                    data-device-name="{{this.name}}"
-                                                                    data-device-id="{{this.token}}">
+                                                                    data-device-id="{{this.token}}"
+                                                                    data-name="{{this.platform}}">
                                             <i class="fa fa-trash-o"></i></a>
                                         {{/if}}</td>
-                                        <td class="form-group">{{this.name}}</td>
-                                        <td class="form-group">{{this.type}}</td>
-                                        <td class="form-group">{{this.OS}}</td>
+                                        <td class="form-group">{{this.platform}}</td>
                                     </tr>
                                 {{/each}}
                                 </tbody>
@@ -118,7 +114,7 @@
                         {{/if}}
                         <div class="panel-footer">
                             <button type="button" class="btn btn-default btn-device"
-                                    onclick="pushManager.requestPermission()">
+                                    onclick="requestPushPermission()">
                                 <i class="fa fa-bell" aria-hidden="true"></i>
                                 Benachrichtigungen
                                 aktivieren
