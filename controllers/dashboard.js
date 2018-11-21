@@ -131,7 +131,8 @@ router.get('/', function (req, res, next) {
             news.url = '/news/' + news._id;
             news.secondaryTitle = moment(news.displayAt).fromNow();
             // ToDo: insert real Header Image from News
-            news.background = '#'+colors[(news.title||"").length % colors.length];
+            //news.background = '#'+colors[(news.title||"").length % colors.length];
+            news.background = '#b10438';
             return news;
     }).sort(sortFunction).slice(0,3));
 

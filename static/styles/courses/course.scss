@@ -151,11 +151,13 @@
 }
 .card-topic {
   cursor: pointer;
+  border: none;
 
   .card-header {
     padding: 0.5rem 0.75rem;
     background-color: $primaryColor;
     color: $colorWhite;
+    border-radius: 0;
   }
 
   .btn-hidden-toggle {
@@ -205,7 +207,8 @@
 }
 
 .card-topic.card-transparent{
-  opacity: 0.6;
+  -webkit-filter: grayscale(100%) opacity(0.7);
+  filter: grayscale(100%) opacity(0.7);
 }
 
 .topic {

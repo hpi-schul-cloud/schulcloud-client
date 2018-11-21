@@ -123,7 +123,8 @@ router.all('/', function (req, res, next) {
         news = news.data.map(news => {
             news.url = '/news/' + news._id;
             news.secondaryTitle = moment(news.displayAt).fromNow();
-            news.background = '#'+colors[(news.title||"").length % colors.length];
+            //news.background = '#'+colors[(news.title||"").length % colors.length];
+            news.background = '#b10438';
             if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
                 news.actions = getActions(news, '/news/');
             }
