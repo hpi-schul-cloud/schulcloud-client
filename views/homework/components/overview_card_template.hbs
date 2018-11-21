@@ -1,5 +1,5 @@
-<li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'"> 
+<li class="assignment card {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border:2px solid {{this.color}};border-left:10px solid {{this.color}}">
+    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'">
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br/>{{/if}}
                 bis {{timeToString dueDate}}
@@ -12,7 +12,7 @@
                     data="{{this.stats.submissionPercentage}}"
                     {{#if this.stats.gradePercentage}}secdata="{{this.stats.gradePercentage}}" {{/if}}
                     width="70" height="70" style="width: 70px; height: 70px;"
-                    data-toggle="tooltip" data-placement="left" data-html="true" 
+                    data-toggle="tooltip" data-placement="left" data-html="true"
                     data-original-title="
                         Abgegeben: {{this.stats.submissionCount}}</br>
                         Bewertet: {{#if this.stats.gradeCount}}{{this.stats.gradeCount}}{{else}}-{{/if}}</br>
@@ -31,7 +31,7 @@
             </div>
         </a>
     {{/if}}
-    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{this.name}}}'"> 
+    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{this.name}}}'">
         <h5 class="title">
             {{#if this.courseId}}
                 [<span>{{{stripOnlyScript this.courseId.name}}}</span>{{#if this.isSubstitution}} <sub>Vertretung</sub>{{/if}}] -

@@ -8,6 +8,12 @@
   padding: 10px 0;
   clear: both;
 }
+.assignment.card {
+  border-radius: 0 !important;
+  &:hover {
+      background: $colorLightGrey;
+  }
+}
 .assignment {
   width: 100%;
   position: relative;
