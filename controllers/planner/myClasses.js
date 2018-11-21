@@ -240,7 +240,7 @@ const handleGetMyClasses = async (req, res, next) => {
     const holidays = await getHolidays(req, { stateCode });
     const allTopicTemplates = await getAllTopicTemplates(req);
     const schoolYearData = await getSchoolYearData(req, holidays);
-    console.log(schoolYearData);
+
     res.render("planner/myClasses", {
       title: "Meine Klassen",
       schoolYearData: JSON.stringify(schoolYearData),
