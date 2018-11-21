@@ -5,6 +5,22 @@ const getDataValue = function(attr) {
     };
 };
 
+window.openFolder = function(id) {
+    let href = location.href;
+    const reg = new RegExp('^https?:\/\/.*?\/files\/(?:teams|courses)\/(?:.+?)\/(.+)$');
+
+    if(reg.test(href)) {
+        href = href.replace(reg, function(m, g){
+            return m.replace(g, id);
+        });
+    }
+    else {
+        href = href + (href.split('').pop() !== '/' ? '/' : '') + id;
+    }
+
+    return href;
+};
+
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 

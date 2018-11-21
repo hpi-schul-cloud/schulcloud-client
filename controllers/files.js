@@ -159,12 +159,10 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
     const owner = getStorageContext(req, res);
+    const { params: { folderId: parent } } = req;
     
     return api(req).get('/fileStorage', {
-        qs: { 
-            owner, 
-            parent: req.query.dir ? req.query.dir.split('/')[req.query.dir.split('/').length - 1] : ''
-        },
+        qs: { owner, parent },
     }).then(files => {
 
         res.locals.files = {
@@ -641,7 +639,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, function (req, res, next
             showSearch: true,
             courseId: req.params.courseId,
             ownerId: req.params.courseId,
-            courseUrl: `/courses/${req.params.courseId}/`
+            courseUrl: `/courses/${req.params.courseId}/`,
+            parentId: req.params.folderId
         }, res.locals.files));
 
     });
@@ -698,7 +697,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
             courseId: req.params.teamId,
             ownerId: req.params.teamId,
             courseUrl: `/teams/${req.params.teamId}/`,
-            parentId: req.query.dir ? req.query.dir.split('/')[req.query.dir.split('/').length - 1] : ''
+            parentId: req.params.folderId
         }, res.locals.files));
 
     });
