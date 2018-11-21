@@ -113,35 +113,31 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
 /**
  * generates the displayed breadcrumbs on the actual file page
  */
-const getBreadcrumbs = async function (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) {
-    let dirParts = '';
-    const currentDir = dir || req.query.dir || '';
-    let pathComponents = currentDir ? currentDir.split('/') : [];
-    if (pathComponents[0] === 'users' || pathComponents[0] === 'courses' ||
-        pathComponents[0] === 'teams' ||
-        pathComponents[0] === 'classes') pathComponents = pathComponents.slice(2);   // remove context and ID, if present
+const getBreadcrumbs = (req, dirId, breadcrumbs = [],) => {
 
-    pathComponents = pathComponents.filter(value => value);
-    let breadcrumbs = [];
-    
-    for (let dirPart of pathComponents) {
-        dirParts += '/' + dirPart;
+    return api(req).get(`/files/${dirId}`)
+        .then((directory) => {
 
-        const folder = await api(req).get('/fileStorage/directories/' + dirPart);
-        breadcrumbs.push ({
-            label: folder ? folder.name : dirPart,
-            url: changeQueryParams(req.originalUrl, {dir: dirParts}, basePath)
-        });
-    }
+            if(directory.parent) {
+                return getBreadcrumbs(req, directory.parent, breadcrumbs)
+                    .then(breadcrumbs => {
 
-    if (baseLabel) {
-        breadcrumbs.unshift({
-            label: baseLabel,
-            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath)
-        });
-    }
+                        breadcrumbs.push({
+                            label: directory.name,
+                            id: directory._id,
+                        });
 
-    return breadcrumbs;
+                        return Promise.resolve(breadcrumbs);
+                    });
+            }
+            
+            breadcrumbs.push({
+                label: directory.name,
+                id: directory._id,
+            });
+
+            return Promise.resolve(breadcrumbs);
+        });    
 };
 
 /**
@@ -492,18 +488,31 @@ router.delete('/directory', function (req, res) {
 
 router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
     const userId = res.locals.currentUser._id;
+    const basePath = '/files/my/';
 
     res.locals.files.files = res.locals.files.files
         .filter(_ => Boolean(_))
         .filter(file => file.owner === userId)
         .map(addThumbnails);
+    
+    let breadcrumbs = [{
+        label: 'Meine persönlichen Dateien',
+        url: basePath
+    }];
+        
+    if( req.params.folderId ) {
+        const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+            crumb.url = `${basePath}${crumb.id}`;
+            return crumb;
+        });
+
+        breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+    }        
  
     res.render('files/files', Object.assign({
         title: 'Dateien',
         path: res.locals.files.path,
-        breadcrumbs: await getBreadcrumbs(req, {
-            baseLabel: 'Meine persönlichen Dateien'
-        }),
+        breadcrumbs,
         canUploadFile: true,
         canCreateDir: true,
         canCreateFile: true,
@@ -541,9 +550,10 @@ router.get('/shared/', function (req, res) {
             res.render('files/files', Object.assign({
                 title: 'Dateien',
                 path: '/',
-                breadcrumbs: await getBreadcrumbs(req, {
-                    baseLabel: 'Mit mir geteilte Dateien'
-                }),
+                breadcrumbs: [{
+                    label: 'Mit mir geteilte Dateien',
+                    url: '/files/shared/',
+                }],
                 canUploadFile: false,
                 canCreateDir: false,
                 showSearch: true,
@@ -589,12 +599,10 @@ router.get('/', function (req, res, next) {
 router.get('/courses/', function (req, res, next) {
     const basePath = '/files/courses/';
     getScopeDirs(req, res, 'courses').then(async directories => {
-        const breadcrumbs = await getBreadcrumbs(req, {basePath});
-
-        breadcrumbs.unshift({
+        const breadcrumbs = [{
             label: 'Dateien aus meinen Kursen',
-            url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/courses/')
-        });
+            url: basePath
+        }];
 
         res.render('files/files', {
             title: 'Dateien',
@@ -613,15 +621,22 @@ router.get('/courses/:courseId/:folderId?', FileGetter, function (req, res, next
     api(req).get('/courses/' + req.params.courseId).then(async record => {
         res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
-        const breadcrumbs = await getBreadcrumbs(req, {basePath: basePath + record._id});
-
-        breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
-            url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
-        }, {
+        let breadcrumbs = [{
+            label: 'Dateien aus meinen Teams',
+            url: basePath
+            }, {
             label: record.name,
-            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
-        });
+            url: basePath + record._id
+        }];
+        
+        if( req.params.folderId ) {
+            const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+                crumb.url = `${basePath}${record._id}/${crumb.id}`;
+                return crumb;
+            });
+
+            breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+        }
 
         let canCreateFile = true;
         if (['Schüler', 'Demo'].includes(res.locals.currentRole))
@@ -649,12 +664,10 @@ router.get('/courses/:courseId/:folderId?', FileGetter, function (req, res, next
 router.get('/teams/', function (req, res, next) {
     const basePath = '/files/teams/';
     getScopeDirs(req, res, 'teams').then(async directories => {
-        const breadcrumbs = await getBreadcrumbs(req, {basePath});
-
-        breadcrumbs.unshift({
+        const breadcrumbs =[{
             label: 'Dateien aus meinen Teams',
-            url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/teams/')
-        });
+            url: basePath,
+        }];
 
         res.render('files/files', {
             title: 'Dateien',
@@ -674,16 +687,23 @@ router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
     api(req).get('/teams/' + req.params.teamId).then(async record => {
         
         res.locals.files.files = res.locals.files.files.map(addThumbnails);
-        
-        const breadcrumbs = await getBreadcrumbs(req, {basePath: basePath + record._id});
 
-        breadcrumbs.unshift({
+        let breadcrumbs = [{
             label: 'Dateien aus meinen Teams',
-            url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
-        }, {
+            url: basePath
+            }, {
             label: record.name,
-            url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
-        });
+            url: basePath + record._id
+        }];
+        
+        if( req.params.folderId ) {
+            const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+                crumb.url = `${basePath}${record._id}/${crumb.id}`;
+                return crumb;
+            });
+
+            breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+        }
 
         res.render('files/files', Object.assign({
             title: 'Dateien',
@@ -706,12 +726,10 @@ router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
 
 router.get('/classes/', function (req, res, next) {
     getScopeDirs(req, res, 'classes').then(async directories => {
-        const breadcrumbs = await getBreadcrumbs(req);
-
-        breadcrumbs.unshift({
+        const breadcrumbs = [{
             label: 'Dateien aus meinen Klassen',
-            url: changeQueryParams(req.originalUrl, {dir: ''}, '/files/classes/')
-        });
+            url: '/files/classes/'
+        }];
 
         res.render('files/files', {
             title: 'Dateien',
@@ -730,15 +748,22 @@ router.get('/classes/:classId/:folderId?', FileGetter, function (req, res, next)
     api(req).get('/classes/' + req.params.classId).then(async record => {
         const files = res.locals.files.map(addThumbnails);
 
-        const breadcrumbs = await getBreadcrumbs(req, {basePath});
-
-        breadcrumbs.unshift({
+        let breadcrumbs = [{
             label: 'Dateien aus meinen Klassen',
             url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
         }, {
             label: record.name,
             url: changeQueryParams(req.originalUrl, {dir: ''}, basePath + record._id)
-        });
+        }];
+
+        if( req.params.folderId ) {
+            const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((bread) => {
+                bread.url = `${basePath}${record._id}/${bread.id}`;
+                return bread;
+            });
+
+            breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+        }        
 
         res.render('files/files', Object.assign({
             title: 'Dateien',

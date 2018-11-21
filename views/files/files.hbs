@@ -36,7 +36,7 @@
                     </div>
                 </div>
             </section>
-
+            {{#if directories}}
             <h6 style="padding: 1rem 0 1.5rem">Ordner</h6>
             <section class="directories">
                 <div class="row">
@@ -71,7 +71,7 @@
                     {{/each}}
                 </div>
             </section>
-
+            {{/if}}
             <h6 style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h6>
             {{#embed "files/file-viewer"}}{{/embed}}
             {{#embed "files/files-grid"}}{{/embed}}
