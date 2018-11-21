@@ -168,7 +168,7 @@ gulp.task("base-scripts", () => {
 		.pipe(count("## js-files selected"))
 		.pipe(
 			babel({
-				presets: ["@babel/preset-env"]
+				presets: [["@babel/preset-env", { modules: false }]]
 			})
 		)
 		.pipe(optimizejs())

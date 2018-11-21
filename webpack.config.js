@@ -2,7 +2,7 @@ const webpack = require("webpack");
 const RebuildChangedPlugin = require("rebuild-changed-entrypoints-webpack-plugin");
 
 module.exports = {
-  mode: "production",
+  mode: "development",
   module: {
     rules: [
       // Make webpack load css files
