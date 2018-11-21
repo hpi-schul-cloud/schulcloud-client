@@ -6,7 +6,7 @@ const getDataValue = function(attr) {
 };
 
 window.openFolder = function(id) {
-    let href = location.href;
+    let href = location.href.split('#').shift();
     const reg = new RegExp('^https?:\/\/.*?\/files\/(?:teams|courses)\/(?:.+?)\/(.+)$');
 
     if(reg.test(href)) {
