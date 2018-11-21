@@ -113,20 +113,26 @@ const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
 /**
  * generates the displayed breadcrumbs on the actual file page
  */
-const getBreadcrumbs = (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) => {
+const getBreadcrumbs = async function (req, {dir = '', baseLabel = '', basePath = '/files/my/'} = {}) {
     let dirParts = '';
     const currentDir = dir || req.query.dir || '';
-    let pathComponents = currentDir.split('/') || [];
+    let pathComponents = currentDir ? currentDir.split('/') : [];
     if (pathComponents[0] === 'users' || pathComponents[0] === 'courses' ||
         pathComponents[0] === 'teams' ||
         pathComponents[0] === 'classes') pathComponents = pathComponents.slice(2);   // remove context and ID, if present
-    const breadcrumbs = pathComponents.filter(value => value).map(dirPart => {
+
+    pathComponents = pathComponents.filter(value => value);
+    let breadcrumbs = [];
+    
+    for (let dirPart of pathComponents) {
         dirParts += '/' + dirPart;
-        return {
-            label: dirPart,
+
+        const folder = await api(req).get('/fileStorage/directories/' + dirPart);
+        breadcrumbs.push ({
+            label: folder ? folder.name : dirPart,
             url: changeQueryParams(req.originalUrl, {dir: dirParts}, basePath)
-        };
-    });
+        });
+    }
 
     if (baseLabel) {
         breadcrumbs.unshift({
@@ -486,7 +492,7 @@ router.delete('/directory', function (req, res) {
     });
 });
 
-router.get('/my/:folderId?', FileGetter, function (req, res, next) {
+router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
     const userId = res.locals.currentUser._id;
 
     res.locals.files.files = res.locals.files.files
@@ -497,7 +503,7 @@ router.get('/my/:folderId?', FileGetter, function (req, res, next) {
     res.render('files/files', Object.assign({
         title: 'Dateien',
         path: res.locals.files.path,
-        breadcrumbs: getBreadcrumbs(req, {
+        breadcrumbs: await getBreadcrumbs(req, {
             baseLabel: 'Meine persönlichen Dateien'
         }),
         canUploadFile: true,
@@ -514,7 +520,7 @@ router.get('/shared/', function (req, res) {
     const userId = res.locals.currentUser._id;
 
     api(req).get('/files')
-        .then(result => {
+        .then(async result => {
             let { data } = result;
             data = data
                 .filter(_ => Boolean(_))
@@ -537,7 +543,7 @@ router.get('/shared/', function (req, res) {
             res.render('files/files', Object.assign({
                 title: 'Dateien',
                 path: '/',
-                breadcrumbs: getBreadcrumbs(req, {
+                breadcrumbs: await getBreadcrumbs(req, {
                     baseLabel: 'Mit mir geteilte Dateien'
                 }),
                 canUploadFile: false,
@@ -584,8 +590,8 @@ router.get('/', function (req, res, next) {
 
 router.get('/courses/', function (req, res, next) {
     const basePath = '/files/courses/';
-    getScopeDirs(req, res, 'courses').then(directories => {
-        const breadcrumbs = getBreadcrumbs(req, {basePath});
+    getScopeDirs(req, res, 'courses').then(async directories => {
+        const breadcrumbs = await getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Kursen',
@@ -606,10 +612,10 @@ router.get('/courses/', function (req, res, next) {
 
 router.get('/courses/:courseId/:folderId?', FileGetter, function (req, res, next) {
     const basePath = '/files/courses/';
-    api(req).get('/courses/' + req.params.courseId).then(record => {
+    api(req).get('/courses/' + req.params.courseId).then(async record => {
         res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
-        const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
+        const breadcrumbs = await getBreadcrumbs(req, {basePath: basePath + record._id});
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Kursen',
@@ -643,8 +649,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, function (req, res, next
 
 router.get('/teams/', function (req, res, next) {
     const basePath = '/files/teams/';
-    getScopeDirs(req, res, 'teams').then(directories => {
-        const breadcrumbs = getBreadcrumbs(req, {basePath});
+    getScopeDirs(req, res, 'teams').then(async directories => {
+        const breadcrumbs = await getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Teams',
@@ -666,14 +672,14 @@ router.get('/teams/', function (req, res, next) {
 router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
     const basePath = '/files/teams/';
 
-    api(req).get('/teams/' + req.params.teamId).then(record => {
+    api(req).get('/teams/' + req.params.teamId).then(async record => {
         
         res.locals.files.files = res.locals.files.files.map(addThumbnails);
         
-        const breadcrumbs = getBreadcrumbs(req, {basePath: basePath + record._id});
+        const breadcrumbs = await getBreadcrumbs(req, {basePath: basePath + record._id});
 
         breadcrumbs.unshift({
-            label: 'Dateien aus meinen Kursen',
+            label: 'Dateien aus meinen Teams',
             url: req.query.CKEditor ? '#' : changeQueryParams(req.originalUrl, {dir: ''}, basePath)
         }, {
             label: record.name,
@@ -700,8 +706,8 @@ router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
 
 
 router.get('/classes/', function (req, res, next) {
-    getScopeDirs(req, res, 'classes').then(directories => {
-        const breadcrumbs = getBreadcrumbs(req);
+    getScopeDirs(req, res, 'classes').then(async directories => {
+        const breadcrumbs = await getBreadcrumbs(req);
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Klassen',
@@ -722,10 +728,10 @@ router.get('/classes/', function (req, res, next) {
 
 router.get('/classes/:classId/:folderId?', FileGetter, function (req, res, next) {
     const basePath = '/files/classes/';
-    api(req).get('/classes/' + req.params.classId).then(record => {
+    api(req).get('/classes/' + req.params.classId).then(async record => {
         const files = res.locals.files.map(addThumbnails);
 
-        const breadcrumbs = getBreadcrumbs(req, {basePath});
+        const breadcrumbs = await getBreadcrumbs(req, {basePath});
 
         breadcrumbs.unshift({
             label: 'Dateien aus meinen Klassen',
