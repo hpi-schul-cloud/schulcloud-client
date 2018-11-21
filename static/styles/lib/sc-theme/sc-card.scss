@@ -1,5 +1,8 @@
 @import "../colors";
-
+.sc-card-link{
+  text-decoration: none!important;
+  display:block;
+}
 .sc-card {
     display: flex;
     flex-wrap: wrap;
@@ -7,22 +10,26 @@
     max-width: 100% !important;
     height: 100%;
     margin: 0;
-    border-radius: 2px;
     overflow: hidden;
     transition: 0.3s;
-    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+    background-color: $colorWhite;
+    border: 2px solid rgba(0,0,0,.125);
+    display: flex;
+    justify-content: space-between;
+    &:hover {
+        background: rgba(0,0,0,.2);
+    }
+    .sc-card-top-header {
+      height:25px;
+    }
     .sc-card-header {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
         position: relative;
         min-height: 6rem;
-        padding: 1.5rem .5rem .5rem;
-        color: #fff;
-        text-decoration: none !important;
-        background-color: #70b5ce;
-        border-top-left-radius: 2px;
-        border-top-right-radius: 2px;
+        padding: .5rem .5rem .5rem;
+        color: $fontColor;
         &::before {
             content: " ";
             display: block;
@@ -32,18 +39,21 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background-image: linear-gradient(to top, rgba(0,0,0,.1) 0%, transparent 85%);
         }
         .sc-card-title {
             .title {
                 color: inherit;
             }
+            .secondary-title{
+              border-top: 2px solid;
+              padding: 10px 0 5px 0;
+              margin-top: 8px;
+            }
+            border-bottom: 2px solid;
             align-self: flex-end;
             font-weight: 700;
             overflow: hidden;
             z-index: 10;
-            text-shadow: 2px 2px 5px rgba(0,0,0,.6);
-            padding-right: 5px;
             word-break: break-all;
             word-break: break-word;
         }
@@ -63,7 +73,6 @@
                 border: none;
                 color: #fff;
                 font-size: 20px;
-                text-decoration: none;
                 text-align: center;
                 vertical-align: middle;
                 line-height: 32px;
@@ -83,49 +92,25 @@
                 overflow: hidden;
             }
         }
-        &:hover{
-            .sc-card-menu-action{
-                opacity: 1;
-            }
-        }
+
     }
     .sc-card-body {
         padding: .5rem .5rem 0rem;
         margin: 0;
         flex: 1 1 0;
         width: 100%;
-        border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 0;
-        border-bottom-width: 0;
         p{
             word-break: break-all;
             word-break: break-word;
-        }
-        &:first-of-type{
-            border-top-left-radius: 2px;
-            border-top-right-radius: 2px;
-            border-top-width: 1px;
-        }
-        &:last-of-type{
-            border-bottom-left-radius: 2px;
-            border-bottom-right-radius: 2px;
-            border-bottom-width: 1px;
         }
     }
     .sc-card-footer {
         flex: 0 1 0;
         width: 100%;
-        padding: .5rem;
-        border: 1px solid rgba(0,0,0,.125);
-        border-top-width: 0;
-        border-bottom-left-radius: 2px;
-        border-bottom-right-radius: 2px;
-        a, button {
+        button,a {
             float:right;
             color: $primaryColor;
             border: none;
-            border-radius: 2px;
-            padding: 0 8px;
             display: inline-block;
             font-size: 14px;
             text-transform: uppercase;
@@ -139,6 +124,7 @@
         }
         .additionalInfo {
             float:left;
+            margin-left: 10px;
         }
     }
      &:hover{
@@ -147,7 +133,6 @@
                 opacity: 1;
             }
         }
-        box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
     }
 }
 

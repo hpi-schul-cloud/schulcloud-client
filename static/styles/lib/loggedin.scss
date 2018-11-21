@@ -104,7 +104,7 @@ aside.nav-sidebar {
 
     .sc-branding {
         display: block;
-        padding: 15px;
+        padding: 14px;
         font-size: 24px;
         background: $primaryColor;
         color: whitesmoke;
@@ -318,6 +318,7 @@ header {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-color: $colorWhite;
 
     @include media-breakpoint-down(md) {
         padding-left: 60px;
@@ -513,6 +514,7 @@ footer {
 
 .topbar {
     text-align: right;
+    background-color: $colorWhite;
 
     @include media-breakpoint-down(xs) {
         margin-bottom: 15px;

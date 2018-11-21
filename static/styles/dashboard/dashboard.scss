@@ -31,17 +31,17 @@
 }
 @include media-breakpoint-down(md) {
     .sc-card-wrapper:nth-child(n+4) {
-        display: none;  
+        display: none;
     }
 }
 @include media-breakpoint-down(lg) {
     .sc-card-wrapper:nth-child(n+4) {
-        display: none;  
+        display: none;
     }
 }
 @include media-breakpoint-down(xl) {
     .sc-card-wrapper:nth-child(n+5) {
-        display: none;  
+        display: none;
     }
 }
 
@@ -54,7 +54,9 @@
     float: left;
     padding-top: 15px;
     line-height: 1.75rem;
-
+    background-color: $colorWhite;
+    margin-bottom: 30px;
+    border: 1px solid rgba(0,0,0,.12);
     @include media-breakpoint-down(xs) {
         display: none;
     }
