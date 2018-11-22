@@ -6,144 +6,29 @@ const {
   checkForSommerHoliday
 } = require("./helper");
 
-const getSubjects = () => ({
-  biology: {
-    subjectId: "biology",
-    subjectName: "Biologie",
-    classLevels: {
-      "8": {
-        classLevelId: "8",
-        classLevelName: "Jahrgang 8",
-        classes: getClassInstances(8)
-      },
-      "10": {
-        classLevelId: "10",
-        classLevelName: "Jahrgang 10",
-        classes: getClassInstances(10)
-      },
-      "11": {
-        classLevelId: "11",
-        classLevelName: "Jahrgang 11",
-        classes: getClassInstances(11)
-      }
-    }
-  },
-  "5beb4c59f745b16c3630dd2b": {
-    subjectId: "5beb4c59f745b16c3630dd2b",
-    subjectName: "Chemie",
-    classLevels: {
-      "5beb4c57f745b16c3630dcdd": {
-        classLevelId: "5beb4c57f745b16c3630dcdd",
-        classLevelName: "Jahrgang 8",
-        classes: getClassInstances(8)
-      },
-      "9": {
-        classLevelId: "9",
-        classLevelName: "Jahrgang 9",
-        classes: getClassInstances(9)
-      }
-    }
-  }
-});
-
-const getAllClassInstances = () => ({
-  "5b7de0021a3a07c20a1c165d": {
-    schoolYearId: "5b7de0021a3a07c20a1c165d",
-    schoolYearName: "2017/2018",
-    subjects: getSubjects()
-  },
-  "5b7de0021a3a07c20a1c165e": {
-    schoolYearId: "5b7de0021a3a07c20a1c165e",
-    schoolYearName: "2018/2019",
-    subjects: getSubjects()
-  }
-});
-
-const getClassInstances = classLevel => ({
-  [`${classLevel}a`]: {
-    id: `${classLevel}a`,
-    name: `Klasse ${classLevel}a`,
-    topics: [
-      {
-        id: "1",
-        text: "1.Topic",
-        color: "#92DB92",
-        startIndex: 0,
-        endIndex: 3
-      },
-      {
-        id: "2",
-        text: "2.Topic",
-        color: "#92DB92",
-        startIndex: 4,
-        endIndex: 6
-      },
-      {
-        id: "3",
-        text: "3.Topic",
-        color: "#92DB92",
-        startIndex: 8,
-        endIndex: 12
-      }
-    ]
-  },
-  [`${classLevel}b`]: {
-    id: `${classLevel}b`,
-    name: `Klasse ${classLevel}b`,
-    topics: [
-      {
-        id: "1",
-        text: "1.Topic",
-        color: "#92DB92",
-        startIndex: 0,
-        endIndex: 3
-      },
-      {
-        id: "2",
-        text: "2.Topic",
-        color: "#92DB92",
-        startIndex: 4,
-        endIndex: 6
-      },
-      {
-        id: "3",
-        text: "3.Topic",
-        color: "#92DB92",
-        startIndex: 8,
-        endIndex: 12
-      }
-    ]
-  },
-  [`${classLevel}c`]: {
-    id: `${classLevel}c`,
-    name: `Klasse ${classLevel}c`,
-    topics: [
-      {
-        id: "1",
-        text: "1.Topic",
-        color: "#92DB92",
-        startIndex: 0,
-        endIndex: 3
-      },
-      {
-        id: "2",
-        text: "2.Topic",
-        color: "#92DB92",
-        startIndex: 4,
-        endIndex: 6
-      },
-      {
-        id: "3",
-        text: "3.Topic",
-        color: "#92DB92",
-        startIndex: 8,
-        endIndex: 12
-      }
-    ]
-  }
-});
-
-const DUMMY_CLASS_TOPICS = getAllClassInstances();
+// topics: [
+//   {
+//     id: "1",
+//     text: "1.Topic",
+//     color: "#92DB92",
+//     startIndex: 0,
+//     endIndex: 3
+//   },
+//   {
+//     id: "2",
+//     text: "2.Topic",
+//     color: "#92DB92",
+//     startIndex: 4,
+//     endIndex: 6
+//   },
+//   {
+//     id: "3",
+//     text: "3.Topic",
+//     color: "#92DB92",
+//     startIndex: 8,
+//     endIndex: 12
+//   }
+// ]
 
 const DUMMY_OTHER_DATA = [
   {
@@ -154,16 +39,6 @@ const DUMMY_OTHER_DATA = [
   }
 ];
 
-const DUMMY_SCHOOL_YEAR_DATA = {
-  "17/18": {
-    utcStartDate: 1504500000000,
-    utcEndDate: 1530679200000
-  },
-  "18/19": {
-    utcStartDate: 1534723200000,
-    utcEndDate: 1560902400000
-  }
-};
 const getAllTopicTemplates = async req => {
   const templatesData = await api(req).get("/topicTemplates");
   return templatesData.data.reduce((templatesMap, template) => {
@@ -233,6 +108,115 @@ const getSchoolYearData = async (req, holidays) => {
   }, {});
 };
 
+const transformToAPIShape = coursesWithTopics => {
+  return coursesWithTopics.reduce((topicsMap, course) => {
+    if (!topicsMap[course.schoolYearId])
+      topicsMap[course.schoolYearId] = {
+        schoolYearId: course.schoolYearId,
+        schoolYearName: course.schoolYearName,
+        subjects: {}
+      };
+    if (!topicsMap[course.schoolYearId].subjects[course.subjectId])
+      topicsMap[course.schoolYearId].subjects[course.subjectId] = {
+        subjectId: course.subjectId,
+        subjectName: course.subjectName,
+        classLevels: {}
+      };
+    if (
+      !topicsMap[course.schoolYearId].subjects[course.subjectId].classLevels[
+        course.classLevelId
+      ]
+    )
+      topicsMap[course.schoolYearId].subjects[course.subjectId].classLevels[
+        course.classLevelId
+      ] = {
+        classLevelId: course.classLevelId,
+        classLevelName: `Jahrgang ${course.classLevelName}`,
+        classes: {}
+      };
+    if (
+      !topicsMap[course.schoolYearId].subjects[course.subjectId].classLevels[
+        course.classLevelId
+      ].classes[course.id]
+    ) {
+      topicsMap[course.schoolYearId].subjects[course.subjectId].classLevels[
+        course.classLevelId
+      ].classes[course.id] = {
+        id: course.id,
+        name: course.name,
+        topics: course.topics
+      };
+    }
+    return topicsMap;
+  }, {});
+};
+const populateClassesWithTopics = async flattenedCourses => {
+  const coursePromises = flattenedCourses.map(course => {
+    // API CALL for topic instance mit course.id
+    return new Promise(res => res([]));
+  });
+  const topicInstanceData = await Promise.all(coursePromises);
+  return flattenedCourses.map((course, index) => ({
+    ...course,
+    // topicInstanceData has to be transformed here -> startIndex/endIndex
+    topics: topicInstanceData[index]
+  }));
+};
+const filterAndFlattenCourseData = courses => {
+  return courses.data.reduce((relevantCourseData, course) => {
+    // A course must have at least one assigned class
+    if (course.classIds.length < 1) return relevantCourseData;
+    // Currently we simply use the first defined class
+    const courseClass = course.classIds[0];
+    // If a class has no year assigned, we ignore it
+    if (!courseClass.year) return relevantCourseData;
+    const courseData = {
+      id: course._id,
+      name: course.name,
+      ...(course.subjectId
+        ? {
+            subjectId: course.subjectId._id,
+            subjectName: course.subjectId.label
+          }
+        : {
+            subjectId: "",
+            subjectName: "Nicht zugeordnet"
+          })
+    };
+    const courseClassData = {
+      schoolYearId: courseClass.year._id,
+      schoolYearName: courseClass.year.name,
+      ...(courseClass.gradeLevel
+        ? {
+            classLevelId: courseClass.gradeLevel._id,
+            classLevelName: courseClass.gradeLevel.name
+          }
+        : { classLevelId: "", classLevelName: "Nicht zugeordnet" })
+    };
+    relevantCourseData.push({
+      ...courseData,
+      ...courseClassData
+    });
+    return relevantCourseData;
+  }, []);
+};
+const getAllClassTopics = async req => {
+  const courses = await api(req).get("/courses", {
+    qs: {
+      $populate: [
+        { path: "classIds", populate: ["year", "gradeLevel"] },
+        "subjectId"
+      ]
+    }
+  });
+  const transformedCourseData = filterAndFlattenCourseData(courses);
+  const coursesWithTopics = await populateClassesWithTopics(
+    transformedCourseData
+  );
+  // Transform data into api required shape
+  return transformToAPIShape(coursesWithTopics);
+};
+
 const handleGetMyClasses = async (req, res, next) => {
   try {
     const schoolId = res.locals.currentUser.schoolId;
@@ -240,15 +224,17 @@ const handleGetMyClasses = async (req, res, next) => {
     const holidays = await getHolidays(req, { stateCode });
     const allTopicTemplates = await getAllTopicTemplates(req);
     const schoolYearData = await getSchoolYearData(req, holidays);
+    const allClassTopics = await getAllClassTopics(req);
 
     res.render("planner/myClasses", {
       title: "Meine Klassen",
       schoolYearData: JSON.stringify(schoolYearData),
       eventData: JSON.stringify([...holidays, ...DUMMY_OTHER_DATA]),
-      allClassTopics: JSON.stringify(DUMMY_CLASS_TOPICS),
+      allClassTopics: JSON.stringify(allClassTopics),
       allTopicTemplates: JSON.stringify(allTopicTemplates)
     });
   } catch (e) {
+    console.log(e);
     logger.warn(e);
     next(e);
   }
