@@ -25,6 +25,17 @@ const markSelected = (options, values = []) => {
     });
 };
 
+const getActions = (item, path) => {
+    return [
+        {
+            link: path + item._id + "/edit",
+            class: 'btn-edit',
+            icon: 'edit',
+            alt: 'bearbeiten'
+        }
+    ];
+};
+
 /**
  * creates an event for a created course. following params has to be included in @param course for creating the event:
  * startDate {Date} - the date the course is first take place
@@ -269,7 +280,9 @@ router.get('/', function(req, res, next) {
                 time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
                 course.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?('| '+time.room):''}</div>`;
             });
-
+            if (res.locals.currentUser.permissions.includes('COURSE_EDIT')) {
+                course.actions = getActions(course, '/courses/');
+            }
             return course;
         });
         if (req.query.json) {
