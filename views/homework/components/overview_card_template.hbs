@@ -1,4 +1,4 @@
-<li class="assignment card {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border:2px solid {{this.color}};border-left:10px solid {{this.color}}">
+<li class="assignment card {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border:1px solid rgba(0,0,0,.12);border-left:10px solid {{this.color}}">
     <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'">
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br/>{{/if}}

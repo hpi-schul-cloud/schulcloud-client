@@ -21,12 +21,18 @@
       {{#each this.actions}}
         {{#if this.method}}
           <button class="sc-card-menu-action {{this.class}}" target="_blank" data-method="DELETE" data-name="{{../title}}" alt="'{{../title}}' löschen">
+          <a class="sc-card-menu-action {{this.class}}"
+             href="{{this.link}}"
+             target="_blank"
+             data-method="DELETE"
+             data-name="{{../title}}"
+             alt="'{{../title}}' löschen">
             <i class="fa fa-{{this.icon}}"></i>
-          </button>
+           </a>
         {{else}}
-          <button class="sc-card-menu-action {{this.class}}" onClick="window.open({{this.link}})" alt="'{{../../title}}' {{this.alt}}.">
+          <a class="sc-card-menu-action {{this.class}}" href="{{this.link}}" alt="'{{../../title}}' {{this.alt}}.">
             <i class="fa fa-{{this.icon}}"></i>
-          </button>
+          </a>
         {{/if}}
       {{else}}
         {{#if this.menuInfo}}

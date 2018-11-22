@@ -9,9 +9,9 @@
     overflow: hidden;
     transition: 0.3s;
     background-color: $colorWhite;
-    border: 2px solid rgba(0,0,0,.125);
     display: flex;
     justify-content: space-between;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     cursor: pointer;
     &:hover {
         background: rgba(0,0,0,.2);
@@ -40,6 +40,7 @@
         .sc-card-title {
             .title {
                 color: inherit;
+                font-size: large;
             }
             .secondary-title{
               border-top: 2px solid;
@@ -122,6 +123,9 @@
         .additionalInfo {
             float:left;
             margin-left: 10px;
+        }
+        .sc-card-menu-action{
+          padding: 5px 10px 5px 10px;
         }
     }
      &:hover{
