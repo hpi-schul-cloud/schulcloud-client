@@ -27,6 +27,7 @@ class View extends React.Component {
   render() {
     return (
       <ClassConfigurationView
+        initialSchoolYearId={this.props.initialSchoolYearId}
         schoolYearData={this.props.schoolYearData}
         eventData={this.props.eventData}
         allClassTopics={this.props.allClassTopics}
@@ -51,6 +52,7 @@ const data = $reactRoot.data();
 ReactDOM.render(
   <View
     schoolYearData={data.schoolyeardata}
+    initialSchoolYearId={data.initialschoolyearid}
     eventData={data.eventdata}
     allClassTopics={data.allclasstopics}
     allTopicTemplates={data.alltopictemplates}

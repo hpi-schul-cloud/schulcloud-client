@@ -99,7 +99,7 @@ const getSchoolYearData = async (req, holidays) => {
   };
 
   return years.data.reduce((schoolYearMap, year) => {
-    const currentYear = +year.name.split("/")[0]; // name is in the format "2017/18"
+    const currentYear = +year.name.split("/")[0]; // name is in the format "2017/18" -> extract 2017
     const currentSchoolYearDates = getCurrentYearDates(currentYear);
     if (currentSchoolYearDates)
       schoolYearMap[year._id] = currentSchoolYearDates;
@@ -216,6 +216,30 @@ const getAllClassTopics = async req => {
   // Transform data into api required shape
   return transformToAPIShape(coursesWithTopics);
 };
+// Get the current school year id based on the school year data
+// Todo: implementation is brittle, because we rely on schoolYearData being sorted
+const getInitialSchoolYearId = schoolYearData => {
+  const today = new Date().getTime();
+  let lastEndDate = null;
+  let lastId = null;
+  for (let key in schoolYearData) {
+    if (
+      today > schoolYearData[key].utcStartDate &&
+      today < schoolYearData[key].utcEndDate
+    )
+      return key;
+    else if (today < schoolYearData[key].utcStartDate) {
+      if (!lastEndDate) return null;
+      const middleOfSchoolYears =
+        (schoolYearData[key].utcStartDate - lastEndDate) / 2 + lastEndDate;
+      if (today > middleOfSchoolYears) return key;
+      else return lastId;
+    }
+    lastEndDate = schoolYearData[key].utcEndDate;
+    lastId = key;
+  }
+  return null;
+};
 
 const handleGetMyClasses = async (req, res, next) => {
   try {
@@ -224,10 +248,12 @@ const handleGetMyClasses = async (req, res, next) => {
     const holidays = await getHolidays(req, { stateCode });
     const allTopicTemplates = await getAllTopicTemplates(req);
     const schoolYearData = await getSchoolYearData(req, holidays);
+    const initialSchoolYearId = getInitialSchoolYearId(schoolYearData);
     const allClassTopics = await getAllClassTopics(req);
 
     res.render("planner/myClasses", {
       title: "Meine Klassen",
+      initialSchoolYearId: initialSchoolYearId,
       schoolYearData: JSON.stringify(schoolYearData),
       eventData: JSON.stringify([...holidays, ...DUMMY_OTHER_DATA]),
       allClassTopics: JSON.stringify(allClassTopics),
