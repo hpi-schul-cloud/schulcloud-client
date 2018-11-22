@@ -1123,8 +1123,6 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                     return consent.userId == user._id;
                 });
 
-                console.log(consent)
-
                 user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent)}</p>`;
                 // add classes to user
                 user.classesString = classes.filter((currentClass) => {
