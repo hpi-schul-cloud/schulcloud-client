@@ -3,140 +3,33 @@ const {
   getUTCDate,
   getFederalState,
   getHolidays,
-  getFirstSommerHolidays
+  getFirstSommerHolidays,
+  getCurrentSchoolYearId
 } = require("./helper");
-const DUMMY_CLASS_DATA = [
-  {
-    className: "Klasse 8a",
-    classes: [
-      {
-        subjectId: "biology",
-        subjectName: "Biologie",
-        topics: [
-          {
-            id: "Thema 1",
-            text: "Thema 1",
-            color: "#92DB92",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1535932799999
-          },
-          {
-            id: "Thema 2",
-            text: "Thema 2",
-            color: "#92DB92",
-            utcStartDate: 1535932800000,
-            utcEndDate: 1539561599999
-          },
-          {
-            id: "Thema 3",
-            text: "Thema 3",
-            color: "#92DB92",
-            utcStartDate: 1539561600000,
-            utcEndDate: 1541980799999
-          }
-        ]
-      }
-    ]
-  },
-  {
-    className: "Klasse 8b",
-    classes: [
-      {
-        subjectId: "biology",
-        subjectName: "Biologie",
-        topics: [
-          {
-            id: "Thema 4",
-            text: "Thema 4",
-            color: "#92DB92",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1536537599999
-          },
-          {
-            id: "Thema 5",
-            text: "Thema 5",
-            color: "#92DB92",
-            utcStartDate: 1536537600000,
-            utcEndDate: 1538956799999
-          },
-          {
-            id: "Thema 6",
-            text: "Thema 6",
-            color: "#92DB92",
-            utcStartDate: 1538956800000,
-            utcEndDate: 1542585599999
-          }
-        ]
-      },
-      {
-        subjectId: "chemistry",
-        subjectName: "Chemie",
-        topics: [
-          {
-            id: "Thema 7",
-            text: "Thema 7",
-            color: "#DBC192",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1535327999999
-          },
-          {
-            id: "Thema 8",
-            text: "Thema 8",
-            color: "#DBC192",
-            utcStartDate: 1535328000000,
-            utcEndDate: 1537747199999
-          },
-          {
-            id: "Thema 9",
-            text: "Thema 9",
-            color: "#DBC192",
-            utcStartDate: 1537747200000,
-            utcEndDate: 1540771199999
-          }
-        ]
-      }
-    ]
-  },
-  {
-    className: "Klasse 10a",
-    classes: [
-      {
-        subjectId: "chemistry",
-        subjectName: "Chemie",
-        topics: [
-          {
-            id: "Thema 10",
-            text: "Thema 10",
-            color: "#DBC192",
-            utcStartDate: 1534723200000,
-            utcEndDate: 1537142399999
-          },
-          {
-            id: "Thema 11",
-            text: "Thema 11",
-            color: "#DBC192",
-            utcStartDate: 1537142400000,
-            utcEndDate: 1538351999999
-          },
-          {
-            id: "Thema 12",
-            text: "Thema 12",
-            color: "#DBC192",
-            utcStartDate: 1538352000000,
-            utcEndDate: 1540771199999
-          },
-          {
-            id: "Thema 13",
-            text: "Thema 13",
-            color: "#DBC192",
-            utcStartDate: 1540771200000,
-            utcEndDate: 1543795199999
-          }
-        ]
-      }
-    ]
-  }
-];
+
+// topics: [
+//   {
+//     id: "Thema 1",
+//     text: "Thema 1",
+//     color: "#92DB92",
+//     utcStartDate: 1534723200000,
+//     utcEndDate: 1535932799999
+//   },
+//   {
+//     id: "Thema 2",
+//     text: "Thema 2",
+//     color: "#92DB92",
+//     utcStartDate: 1535932800000,
+//     utcEndDate: 1539561599999
+//   },
+//   {
+//     id: "Thema 3",
+//     text: "Thema 3",
+//     color: "#92DB92",
+//     utcStartDate: 1539561600000,
+//     utcEndDate: 1541980799999
+//   }
+// ]
 
 const DUMMY_OTHER_DATA = [
   {
@@ -215,18 +108,109 @@ const getHolidaysData = async (req, { schoolYear, stateCode }) => {
   );
 };
 
+const normalizeCourseData = courses => {
+  return courses.reduce((relevantCourseData, course) => {
+    // A course must have at least one assigned class
+    const courseClass = course.classIds[0];
+    // If a class has no year assigned, we ignore it
+    const courseData = {
+      id: course._id,
+      name: course.name,
+      ...(course.subjectId
+        ? {
+            subjectId: course.subjectId._id,
+            subjectName: course.subjectId.label
+          }
+        : {
+            subjectId: "",
+            subjectName: "Nicht zugeordnet"
+          })
+    };
+    const courseClassData = {
+      classId: courseClass._id,
+      ...(courseClass.gradeLevel
+        ? {
+            classLevel: courseClass.gradeLevel.name,
+            className: `${courseClass.gradeLevel.name}${courseClass.name}`
+          }
+        : { classLevel: "Nicht zugeordnet", className: courseClass.name })
+    };
+    relevantCourseData.push({
+      ...courseData,
+      ...courseClassData
+    });
+    return relevantCourseData;
+  }, []);
+};
+const populateClassesWithTopics = async flattenedCourses => {
+  const coursePromises = flattenedCourses.map(course => {
+    // API CALL for topic instance mit course.id
+    return new Promise(res => res([]));
+  });
+  const topicInstanceData = await Promise.all(coursePromises);
+  return flattenedCourses.map((course, index) => ({
+    ...course,
+    // topicInstanceData has to be transformed here -> startIndex/endIndex
+    topics: topicInstanceData[index]
+  }));
+};
+const transformToAPIShape = coursesWithTopics => {
+  const classTopicsData = coursesWithTopics.reduce((classMap, course) => {
+    if (!classMap[course.classId])
+      classMap[course.classId] = {
+        className: course.className,
+        classes: []
+      };
+    classMap[course.classId].classes.push({
+      subjectId: course.subjectId,
+      subjectName: course.subjectName,
+      topics: course.topics
+    });
+
+    return classMap;
+  }, {});
+
+  return Object.values(classTopicsData);
+};
+const getClassTopicsData = async (req, schoolYear) => {
+  const schoolYearId = await getCurrentSchoolYearId(req, schoolYear);
+  const courseData = await api(req).get("/courses", {
+    qs: {
+      $populate: [
+        {
+          path: "classIds",
+          match: { year: schoolYearId },
+          populate: ["gradeLevel"]
+        },
+        "subjectId"
+      ]
+    }
+  });
+  // Filter all courses without classes (because of the query,
+  // these are the course that do not take place this school year)
+  const courses = courseData.data.filter(course => course.classIds.length > 0);
+  // Prepare the data for following operations + sort based on classLevel
+  const normalizedCourses = normalizeCourseData(courses).sort(
+    (courseA, courseB) => courseA.classLevel.localeCompare(courseB.classLevel)
+  );
+  const coursesWithTopics = await populateClassesWithTopics(normalizedCourses);
+
+  return transformToAPIShape(coursesWithTopics);
+};
+
 const handleGetCalendar = async (req, res, next) => {
   const utcToday = getUTCDate(new Date());
   const schoolId = res.locals.currentUser.schoolId;
   const stateCode = await getFederalState(req, schoolId);
   const schoolYear = await getCurrentSchoolYear(req, stateCode);
   const holidaysData = await getHolidaysData(req, { schoolYear, stateCode });
+  const classTopicsData = await getClassTopicsData(req, schoolYear);
 
   res.render("planner/calendar", {
     title: "Kalender",
     schoolYear: JSON.stringify(schoolYear),
     utcToday,
-    classTopicsData: JSON.stringify(DUMMY_CLASS_DATA),
+    classTopicsData: JSON.stringify(classTopicsData),
     holidaysData: JSON.stringify(holidaysData),
     otherEventsData: JSON.stringify(DUMMY_OTHER_DATA)
   });
