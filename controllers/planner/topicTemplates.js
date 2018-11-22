@@ -24,7 +24,7 @@ const getClassLevelOptions = async req => {
     }))
     .sort((a, b) => +a.text - +b.text);
 };
-const getValueOptions = async req => {
+const getSelectOptions = async req => {
   return {
     subject: await getSubjectTypeOptions(req),
     classLevel: await getClassLevelOptions(req)
@@ -56,13 +56,17 @@ const getInitialValues = async req => {
 };
 
 const handleGetTopicTemplatesNew = async (req, res, next) => {
+  const { subjectId, classLevelId } = req.query;
   try {
-    const valueOptions = await getValueOptions(req);
+    const valueOptions = await getSelectOptions(req);
 
     res.render("planner/newTemplate", {
       title: "Themenvorlage erstellen",
       valueOptions: JSON.stringify(valueOptions),
-      initialValues: JSON.stringify({})
+      initialValues: JSON.stringify({
+        subjectId,
+        classLevelId
+      })
     });
   } catch (e) {
     logger.warn(e);
@@ -91,7 +95,7 @@ const handlePostTopicTemplates = async (req, res, next) => {
 const handleGetTopicTemplate = async (req, res, next) => {
   try {
     const { templateId: id } = req.params;
-    const valueOptions = await getValueOptions(req);
+    const valueOptions = await getSelectOptions(req);
     const initialValues = await getInitialValues(req);
     res.render("planner/editTemplate", {
       title: "Themenvorlage bearbeiten",
