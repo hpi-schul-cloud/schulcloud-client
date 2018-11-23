@@ -39,15 +39,15 @@ router.delete(
 
 // Topic Instances
 router.get(
-  "/topicInstances/:id",
+  "/topicInstances/:instanceId",
   topicInstancesRequestHandler.getTopicInstance
 );
 router.put(
-  "/topicInstances/:id",
+  "/topicInstances/:instanceId",
   topicInstancesRequestHandler.putTopicInstance
 );
 router.delete(
-  "/topicInstances/:id",
+  "/topicInstances/:instanceId",
   topicInstancesRequestHandler.deleteTopicInstance
 );
 

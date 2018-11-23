@@ -4,6 +4,28 @@ import TopicInstanceView from "planner-core-lib/lib/components/views/topicInstan
 import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
+  onSave = formValues => {
+    $.ajax({
+      type: "PUT",
+      url: `/planner/topicInstances/${this.props.id}`,
+      data: formValues,
+      success: () => {
+        window.location = "/planner/myClasses";
+      }
+    });
+  };
+  onDelete = () => {
+    $.ajax({
+      type: "DELETE",
+      url: `/planner/topicInstances/${this.props.id}`,
+      success: () => {
+        window.location = "/planner/myClasses";
+      }
+    });
+  };
+  onParentTemplateClick = templateId => {
+    window.location = `/planner/topicTemplates/${templateId}`;
+  };
   /**
    * Render the list items.
    */
@@ -11,9 +33,9 @@ class View extends React.Component {
     return (
       <TopicInstanceView
         initialValues={this.props.initialValues}
-        onSave={() => {}}
-        onTemplateClick={() => {}}
-        onDelete={() => {}}
+        onSave={this.onSave}
+        onTemplateClick={this.onParentTemplateClick}
+        onDelete={this.onDelete}
       />
     );
   }
