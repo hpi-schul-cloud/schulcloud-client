@@ -65,6 +65,18 @@
 								   >
 									<i class="fa fa-edit pull-right"></i>
 								</a>
+                                {{#if ../../teamFiles}}
+                                    <a href="/directoryModel/{{../this._id}}/share"
+                                    target="_blank"
+                                    class="btn-file-share"
+                                    data-method="dir-share"
+                                    title="Ordner-Freigabe"
+                                    data-file-id="{{../this._id}}"
+                                    data-file-name="{{../this.name}}"
+                                    >
+                                        <i class="fa fa-share-alt pull-right"></i>
+                                    </a>  
+                                {{/if}}
                                 {{/userHasPermission}}
 							</div>
 						</div>
@@ -74,7 +86,7 @@
             {{/if}}
             <h6 style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h6>
             {{#embed "files/file-viewer"}}{{/embed}}
-            {{#embed "files/files-grid"}}{{/embed}}
+            {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
 
             {{#userHasPermission "FOLDER_CREATE"}}
             <section class="new-directory">

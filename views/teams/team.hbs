@@ -113,7 +113,7 @@
                 <div class="col-sm-12">
                     <h5 style="padding: 10px 0 20px">Dateien</h5>
                     {{#embed "files/file-viewer"}}{{/embed}}
-                    {{#embed "files/files-grid" files=files teamId=../_id}}{{/embed}}
+                    {{#embed "files/files-grid" files=files teamFiles=true teamId=../_id}}{{/embed}}
                 </div>
             </section>
 
@@ -209,7 +209,7 @@
 
             {{#embed "lib/components/modal-form" class="file-permissions-modal" title="Freigabe-Einstellungen ändern"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-file-permissions"}}
+                    {{> "teams/forms/form-file-permissions" teamFiles=true}}
                 {{/content}}
             {{/embed}}
 

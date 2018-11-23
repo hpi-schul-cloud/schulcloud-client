@@ -673,6 +673,7 @@ router.get('/teams/', function (req, res, next) {
             title: 'Dateien',
             path: getStorageContext(req, res),
             breadcrumbs,
+            teamFiles: true,
             files: [],
             directories,
             showSearch: true
@@ -712,6 +713,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
             path: res.locals.files.path,
             inline: req.query.inline || req.query.CKEditor,
             CKEditor: req.query.CKEditor,
+            teamFiles: true,
             breadcrumbs,
             showSearch: true,
             courseId: req.params.teamId,
