@@ -415,7 +415,6 @@ const getSendHelper = (service) => {
                         }
                     });
                 }).catch(err => {
-                    logger.warn(err);
                     res.status((err.statusCode || 500)).send(err);
                 });
                 res.redirect(req.get('Referrer'));
