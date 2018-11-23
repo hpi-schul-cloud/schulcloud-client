@@ -77,16 +77,18 @@ const handleGetTopicTemplatesNew = async (req, res, next) => {
 const handlePostTopicTemplates = async (req, res, next) => {
   // API Request + Redirect to myClasses
   try {
-    const { classLevelId, ...others } = req.body;
+    const { classLevelId, subjectUnits, ...others } = req.body;
     await api(req).post("/topicTemplates", {
       json: {
         ...others,
+        lectureUnits: subjectUnits,
         gradeLevelId: classLevelId,
         userId: res.locals.currentUser._id
       }
     });
     res.sendStatus(200);
   } catch (e) {
+    console.log(e);
     logger.warn(e);
     res.status(e.statusCode || 500).send(e);
   }
@@ -112,11 +114,12 @@ const handleGetTopicTemplate = async (req, res, next) => {
 const handlePutTopicTemplate = async (req, res, next) => {
   try {
     const { templateId } = req.params;
-    const { classLevelId, ...others } = req.body;
+    const { classLevelId, subjectUnits, ...others } = req.body;
     await api(req).put(`/topicTemplates/${templateId}`, {
       json: {
         ...others,
         ...(classLevelId ? { gradeLevelId: classLevelId } : {}),
+        lectureUnits: subjectUnits,
         userId: res.locals.currentUser._id
       }
     });
