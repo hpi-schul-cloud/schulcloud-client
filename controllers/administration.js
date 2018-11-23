@@ -387,7 +387,6 @@ const getSendHelper = (service) => {
             .then(data => {
 
                 let user = res.locals.currentUser;
-                let targetStatePlusNotes = data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes;
 
                 api(req).post('/helpdesk', {
                     json: {
@@ -399,7 +398,8 @@ const getSendHelper = (service) => {
                         benefit: "",
                         acceptanceCriteria: "",
                         currentState : data.currentState,
-                        targetState: targetStatePlusNotes,
+                        targetState: data.targetState,
+                        notes: data.notes,
                         schoolName: res.locals.currentSchoolData.name,
                         userId: user._id,
                         email: user.email ? user.email : "",
