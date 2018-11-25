@@ -161,6 +161,8 @@ const FileGetter = (req, res, next) => {
         qs: { owner, parent },
     }).then(files => {
 
+        files = files.filter(f => f);
+
         res.locals.files = {
             files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
             directories: files.filter(f => f.isDirectory)
@@ -616,49 +618,49 @@ router.get('/courses/', function (req, res, next) {
 });
 
 
-router.get('/courses/:courseId/:folderId?', FileGetter, function (req, res, next) {
+router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res, next) {
     const basePath = '/files/courses/';
-    api(req).get('/courses/' + req.params.courseId).then(async record => {
-        res.locals.files.files = res.locals.files.files.map(addThumbnails);
+    const record = await api(req).get('/courses/' + req.params.courseId);
+    
+    res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
-        let breadcrumbs = [{
-            label: 'Dateien aus meinen Teams',
-            url: basePath
-            }, {
-            label: record.name,
-            url: basePath + record._id
-        }];
-        
-        if( req.params.folderId ) {
-            const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
-                crumb.url = `${basePath}${record._id}/${crumb.id}`;
-                return crumb;
-            });
+    let breadcrumbs = [{
+        label: 'Dateien aus meinen Teams',
+        url: basePath
+        }, {
+        label: record.name,
+        url: basePath + record._id
+    }];
+    
+    if( req.params.folderId ) {
+        const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+            crumb.url = `${basePath}${record._id}/${crumb.id}`;
+            return crumb;
+        });
 
-            breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
-        }
+        breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+    }
 
-        let canCreateFile = true;
-        if (['Schüler', 'Demo'].includes(res.locals.currentRole))
-            canCreateFile = false;
+    let canCreateFile = true;
+    if (['Schüler', 'Demo'].includes(res.locals.currentRole))
+        canCreateFile = false;
 
-        res.render('files/files', Object.assign({
-            title: 'Dateien',
-            canUploadFile: true,
-            canCreateDir: true,
-            canCreateFile,
-            path: res.locals.files.path,
-            inline: req.query.inline || req.query.CKEditor,
-            CKEditor: req.query.CKEditor,
-            breadcrumbs,
-            showSearch: true,
-            courseId: req.params.courseId,
-            ownerId: req.params.courseId,
-            courseUrl: `/courses/${req.params.courseId}/`,
-            parentId: req.params.folderId
-        }, res.locals.files));
-
-    });
+    res.render('files/files', Object.assign({
+        title: 'Dateien',
+        canUploadFile: true,
+        canCreateDir: true,
+        canCreateFile,
+        path: res.locals.files.path,
+        inline: req.query.inline || req.query.CKEditor,
+        CKEditor: req.query.CKEditor,
+        breadcrumbs,
+        showSearch: true,
+        courseId: req.params.courseId,
+        ownerId: req.params.courseId,
+        toCourseText: 'Zum Kurs',
+        courseUrl: `/courses/${req.params.courseId}/`,
+        parentId: req.params.folderId
+    }, res.locals.files));
 });
 
 router.get('/teams/', function (req, res, next) {
@@ -682,47 +684,46 @@ router.get('/teams/', function (req, res, next) {
 });
 
 
-router.get('/teams/:teamId/:folderId?', FileGetter, function (req, res, next) {
+router.get('/teams/:teamId/:folderId?', FileGetter, async function (req, res, next) {
     const basePath = '/files/teams/';
+    const team = await api(req).get('/teams/' + req.params.teamId);
+    
+    res.locals.files.files = res.locals.files.files.map(addThumbnails);
 
-    api(req).get('/teams/' + req.params.teamId).then(async record => {
-        
-        res.locals.files.files = res.locals.files.files.map(addThumbnails);
+    let breadcrumbs = [{
+        label: 'Dateien aus meinen Teams',
+        url: basePath
+        }, {
+        label: team.name,
+        url: basePath + team._id
+    }];
+    
+    if( req.params.folderId ) {
+        const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+            crumb.url = `${basePath}${team._id}/${crumb.id}`;
+            return crumb;
+        });
 
-        let breadcrumbs = [{
-            label: 'Dateien aus meinen Teams',
-            url: basePath
-            }, {
-            label: record.name,
-            url: basePath + record._id
-        }];
-        
-        if( req.params.folderId ) {
-            const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
-                crumb.url = `${basePath}${record._id}/${crumb.id}`;
-                return crumb;
-            });
+        breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
+    }
 
-            breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
-        }
-
-        res.render('files/files', Object.assign({
-            title: 'Dateien',
-            canUploadFile: true,
-            canCreateDir: true,
-            path: res.locals.files.path,
-            inline: req.query.inline || req.query.CKEditor,
-            CKEditor: req.query.CKEditor,
-            teamFiles: true,
-            breadcrumbs,
-            showSearch: true,
-            courseId: req.params.teamId,
-            ownerId: req.params.teamId,
-            courseUrl: `/teams/${req.params.teamId}/`,
-            parentId: req.params.folderId
-        }, res.locals.files));
-
-    });
+    res.render('files/files', Object.assign({
+        title: 'Dateien',
+        canUploadFile: true,
+        canCreateDir: true,
+        path: res.locals.files.path,
+        inline: req.query.inline || req.query.CKEditor,
+        CKEditor: req.query.CKEditor,
+        teamFiles: true,
+        breadcrumbs,
+        showSearch: true,
+        courseId: req.params.teamId,
+        ownerId: req.params.teamId,
+        canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),
+        toCourseText: 'Zum Team',
+        courseUrl: `/teams/${req.params.teamId}/`,
+        parentId: req.params.folderId
+    }, res.locals.files));
 });
 
 

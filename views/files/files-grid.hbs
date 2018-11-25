@@ -45,14 +45,15 @@
                                 </a>
                                 {{/userHasPermission}}
 
-                                <a href="#"
-                                   class="btn-file-share"
-                                   title="Datei teilen"
-                                   data-file-id="{{../this._id}}"
-                                   data-file-name="{{../this.name}}"
-                                   id="{{@index}}">
-                                    <i class="fa fa-share-alt"></i>
-                                </a>
+                                {{#if ../../canEditPermissions}}
+                                    <a href="#"
+                                    class="btn-file-share"
+                                    title="Datei teilen"
+                                    data-file-id="{{../this._id}}"
+                                    data-file-name="{{../this.name}}"
+                                    id="{{@index}}">
+                                        <i class="fa fa-share-alt"></i>
+                                    </a>
 
                                     <div class="popup-overlay" id="{{@index}}">
 
@@ -62,6 +63,7 @@
                                             <a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
                                         </div>
                                     </div>
+                                {{/if}}
 
                                 {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"

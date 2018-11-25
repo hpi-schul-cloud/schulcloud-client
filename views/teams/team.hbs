@@ -91,17 +91,18 @@
                                     >
                                         <i class="fa fa-edit pull-right"></i>
                                     </a>
-
-                                    <a href="/directoryModel/{{../this._id}}/share"
-                                    target="_blank"
-                                    class="btn-file-share"
-                                    data-method="dir-share"
-                                    title="Ordner-Freigabe"
-                                    data-file-id="{{../this._id}}"
-                                    data-file-name="{{../this.name}}"
-                                    >
-                                        <i class="fa fa-share-alt pull-right"></i>
-                                    </a>
+                                    {{#inArray "EDIT_ALL_FILES" ../../permissions}}
+                                        <a href="/directoryModel/{{../this._id}}/share"
+                                        target="_blank"
+                                        class="btn-file-share"
+                                        data-method="dir-share"
+                                        title="Ordner-Freigabe"
+                                        data-file-id="{{../this._id}}"
+                                        data-file-name="{{../this.name}}"
+                                        >
+                                            <i class="fa fa-share-alt pull-right"></i>
+                                        </a>
+                                    {{/inArray}}
                                 {{/userHasPermission}}
 							</div>
 						</div>
@@ -113,7 +114,7 @@
                 <div class="col-sm-12">
                     <h5 style="padding: 10px 0 20px">Dateien</h5>
                     {{#embed "files/file-viewer"}}{{/embed}}
-                    {{#embed "files/files-grid" files=files teamFiles=true teamId=../_id}}{{/embed}}
+                    {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
                 </div>
             </section>
 

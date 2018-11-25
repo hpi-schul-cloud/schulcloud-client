@@ -29,7 +29,7 @@
                             </h5>
                             {{#if courseUrl}}
                                 <a href="{{courseUrl}}" class="btn btn-secondary btn-sm btn-thin pull-right">
-                                    Zum Kurs
+                                    {{ toCourseText }}
                                 </a>
                             {{/if}}
                         </div>
@@ -65,7 +65,7 @@
 								   >
 									<i class="fa fa-edit pull-right"></i>
 								</a>
-                                {{#if ../../teamFiles}}
+                                {{#if ../../canEditPermissions}}
                                     <a href="/directoryModel/{{../this._id}}/share"
                                     target="_blank"
                                     class="btn-file-share"
@@ -86,7 +86,7 @@
             {{/if}}
             <h6 style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h6>
             {{#embed "files/file-viewer"}}{{/embed}}
-            {{#embed "files/files-grid" teamFiles=teamFiles}}{{/embed}}
+            {{#embed "files/files-grid" canEditPermissions=canEditPermissions teamFiles=teamFiles}}{{/embed}}
 
             {{#userHasPermission "FOLDER_CREATE"}}
             <section class="new-directory">

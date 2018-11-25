@@ -469,6 +469,8 @@ router.get('/:teamId', async function(req, res, next) {
         } catch (e) {
             events = [];
         }
+        
+        let test = course.user.permissions.includes('EDIT_ALL_FILES')
 
         res.render('teams/team', Object.assign({}, course, {
             title: course.name,
@@ -488,6 +490,7 @@ router.get('/:teamId', async function(req, res, next) {
             canUploadFile: true,
             canCreateDir: true,
             canCreateFile: true,
+            canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
             createEventAction: `/teams/${req.params.teamId}/events/`,
             allowExternalExperts: allowExternalExperts ? 'checked' : '',
             allowTeamMembers: allowTeamMembers ? 'checked' : '',
