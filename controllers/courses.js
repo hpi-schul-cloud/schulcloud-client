@@ -8,6 +8,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
+const {FileGetter} = require('../helpers/files/fileGetter');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -399,7 +400,11 @@ router.get('/:courseId/json', function(req, res, next) {
     ]).then(([course, lessons]) => res.json({ course, lessons }));
 });
 
-router.post('/:courseId/offline', function (req, res, next) {
+router.post('/:courseId/offline', function(req,res,next){
+    // prepare URL for FileGetter
+    req.originalUrl = req.originalUrl.replace(/\/offline$/,'');
+    next();
+}, FileGetter, function (req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -410,8 +415,16 @@ router.post('/:courseId/offline', function (req, res, next) {
             qs: {
                 courseId: req.params.courseId
             }
-        })
-    ]).then(([course, lessons]) => {
+        }),
+        Promise.resolve(res.locals.files.files)
+    ]).then(([course, lessons, files]) => {
+        files = files.map(file => {
+            return {
+                _id: file._id,
+                updatedAt: Date.parse(file.updatedAt),
+                url: '/files/file?path=' + file.file
+            };
+        });
         lessons = lessons.data.map(lesson => {
             return {
                 _id: lesson._id,
@@ -424,7 +437,7 @@ router.post('/:courseId/offline', function (req, res, next) {
                 _id: course._id,
                 updatedAt: Date.parse(course.updatedAt),
                 url: '/courses/' + course._id
-            }, lessons
+            }, lessons, files
         };
 
         function updateIfModified(unfiltered, filter){
@@ -433,38 +446,52 @@ router.post('/:courseId/offline', function (req, res, next) {
             return;
         }
 
+        // only keep data not in filter
+        function filterGroup(result, group, unfiltered, filter){
+            result[group] = unfiltered[group].map(e =>{
+                if(filter && filter[group]){
+                    let f = filter[group].find(l => l._id === e._id);
+                    if(f){
+                        return updateIfModified(e, f);
+                    }
+                }
+                return e;
+            });
+            result[group] = result[group].filter(l => l != null);
+            if(result[group].length === 0){
+                delete result[group];
+            }
+        }
+
         function filterResponse(unfiltered, filter){
             let result = {};
             result.course = updateIfModified(unfiltered.course,filter.course);
-            result.lessons = unfiltered.lessons.map(lesson =>{
-                if(filter && filter.lessons){
-                    let lessonFilter = filter.lessons.find(l => l._id === lesson._id);
-                    if(lessonFilter){
-                        return updateIfModified(lesson, lessonFilter);
-                    }
-                }
-                return lesson;
-            });
-            result.lessons = result.lessons.filter(lesson => lesson != null);
-            if(result.lessons.length === 0){
-                delete result.lessons;
-            }
+            filterGroup(result, 'lessons', unfiltered, filter);
+            filterGroup(result, 'files', unfiltered, filter);
             return result;
         }
 
-        function checkLessonsForRemoval(current, last){
+        function checkForRemoval(current, last, type){
             // remove lessons if they are no more available
-            if(!last.lessons) return;
-            let currentLessonIds = current.lessons.map(lesson => lesson._id);
-            return last.lessons
-                .filter(lesson => !currentLessonIds.includes(lesson._id))
-                .map(lesson => lesson._id);
+            if(!last[type]) return;
+            let currentIds = current[type].map(lesson => lesson._id);
+            return last[type]
+                .filter(e => !currentIds.includes(e._id))
+                .map(e => e._id);
         }
-
+        
+        // remove data from response the client already has loaded
         let filteredResponse = filterResponse (unfilteredResponse, req.body);
-        let lessonsForRemoval = checkLessonsForRemoval(unfilteredResponse, req.body);
+
+        // create list of data the client should remove locally
+        filteredResponse.cleanup={};
+        let lessonsForRemoval = checkForRemoval(unfilteredResponse, req.body, 'lessons');
         if(lessonsForRemoval){
-            filteredResponse.cleanup = {lessons: lessonsForRemoval};
+            filteredResponse.cleanup = Object.assign(filteredResponse.cleanup, {lessons: lessonsForRemoval});
+        }
+        let filesForRemoval = checkForRemoval(unfilteredResponse, req.body, 'files');
+        if(filesForRemoval){
+            filteredResponse.cleanup = Object.assign(filteredResponse.cleanup, {files: filesForRemoval});
         }
 
         res.json(filteredResponse);
