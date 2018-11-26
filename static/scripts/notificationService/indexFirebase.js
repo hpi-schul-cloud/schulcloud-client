@@ -11,7 +11,7 @@ export function setupFirebasePush() {
   }
 
   var config = {
-    messagingSenderId: "876444946816"
+    messagingSenderId: "693501688706"
   };
 
   // When app was already initialized just return.
@@ -30,33 +30,13 @@ export function setupFirebasePush() {
     .then((registration) => {
       messaging.useServiceWorker(registration);
 
-      // Callback fired if Instance ID token is updated.
-      messaging.onTokenRefresh(getToken);
-
-      // Handle incoming messages. Called when:
-      // - a message is received while the app has focus
-      messaging.onMessage(function(payload) {
-        //pushManager.handleNotification(payload);
-          payload.data.notification = JSON.parse(payload.data.news);
-          // Customize notification here
-          const notificationTitle = payload.data.notification.title;
-          const notificationOptions = {
-              body: payload.data.notification.body,
-              icon: payload.data.notification.img || '/images/cloud.png',
-              data: payload.data
-          };
-
-          sendShownCallback(payload.data);
-
-          return registration.showNotification(notificationTitle, notificationOptions);
-      });
-
       function getToken() {
         messaging.getToken()
           .then(function(token) {
             if (token) {
-              pushManager.setRegistrationId(token);
+              pushManager.setRegistrationId(token, 'firebase');
             } else {
+              // todo request permission
               pushManager.error('No Instance ID token available. Request permission to generate one.');
             }
             pushManager.registerSuccessfulSetup('firebase', requestPermission);
@@ -75,9 +55,40 @@ export function setupFirebasePush() {
             pushManager.error(err, 'Unable to get permission to notify.');
           });
       }
+      window.requestPushPermission = requestPermission; 
 
-      window.requestPushPermission = requestPermission;
+
+      // Callback fired if Instance ID token is updated.
+      messaging.onTokenRefresh(getToken);
+
+      // Handle incoming messages. Called when:
+      // - a message is received while the app has focus
+      messaging.onMessage(function(payload) {
+        console.log('frontend', payload);
+
+        if (navigator.serviceWorker.controller) {
+          navigator.serviceWorker.controller.postMessage(payload);
+      } else {
+          console.log('SW not active!');
+      }
+
+        pushManager.handleNotification(payload);
+          payload.data.notification = JSON.parse(payload.data.news);
+          // Customize notification here
+          const notificationTitle = payload.data.notification.title;
+          const notificationOptions = {
+              body: payload.data.notification.body,
+              icon: payload.data.notification.img || '/images/cloud.png',
+              data: payload.data
+          };
+
+          sendShownCallback(payload.data);
+
+          return registration.showNotification(notificationTitle, notificationOptions);
+      });
+
+
 
       getToken();
     });
-}
+ }

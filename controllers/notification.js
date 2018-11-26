@@ -26,15 +26,12 @@ router.delete('/device', function (req,res,next){
 router.post('/devices', function (req, res, next) {
     res.locals.url = 'notification/devices';
     res.locals.body = {
-        "service": req.body.service ? req.body.service : "firebase",
         "type": req.body.type ? req.body.type : "mobile",
         "name": req.body.name ? req.body.name : "Gerät",
-        "id": res.locals.currentUser._id,
+        "userId": res.locals.currentUser._id,
         "token": req.body.id,
         "OS": req.body.device ? req.body.device : "android7"
     };
-    let body = res.locals.body;
-    body.platform = `${body.name} (${body.type}) on ${body.OS}`;
 
     next();
 }, postRequest);
@@ -48,6 +45,13 @@ router.post('/callback', function (req, res, next) {
 
 router.post('/message', function (req, res, next) {
     res.locals.url = 'notification/messages';
+    res.locals.body = req.body;
+
+    next();
+}, postRequest);
+
+router.post('/push', function (req, res, next) {
+    res.locals.url = 'notification/push';
     res.locals.body = req.body;
 
     next();

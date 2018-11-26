@@ -1,7 +1,7 @@
 import { sendRegistrationId } from './callback';
 
 export const pushManager = {
-    requestPermissionCallback: null,
+    requestPermissionCallback:  null,
 
     setRegistrationId: function (id, service, device) {
         //console.log('set registration id: ' + id);
@@ -30,7 +30,7 @@ export const pushManager = {
         document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
         if (this.requestPermissionCallback) {
             this.requestPermissionCallback(); // async, without promise
-            setTimeout(function(){ window.location.reload() }, 2000);
+            setTimeout(function(){ window.location.reload(); }, 2000);
         }
     },
 
@@ -39,6 +39,7 @@ export const pushManager = {
         this.requestPermissionCallback = requestPermissionCallback;
     }
 };
+
 
 export const getCookiesMap = (cookiesString) => {
     return cookiesString.split(";")

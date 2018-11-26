@@ -55,21 +55,21 @@ $(document).ready(function() {
     }
 
     $(".send-test-notification").on('click', function () {
-        $.post('/notification/message', {
-            "title": "Neue Test-Benachrichtigung",
-            "body": "Du hast eine neue Benachrichtigung",
-            "action": document.location.origin + '/dashboard/',
-            "token": $("[name='userId']").val(),
-            "scopeIds": [
+        $.post('/notification/push', {
+            "notification": {
+                "title": "Neue Test-Benachrichtigung",
+                "body": "Du hast eine neue Benachrichtigung"
+            },
+            "data": {
+                "tag": "course-data-updated",
+                "course-id": "mycourseid",
+            },
+            "receivers": [
                 $("[name='userId']").val()
-            ]
+            ],
+            "template": "tpl",
+            "languagePayloads": "lp"
         });
     });
 
-    function sendTestNotification () {
-
-    }
-
 });
-
-window.pushManager = pushManager;
