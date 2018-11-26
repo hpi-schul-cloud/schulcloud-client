@@ -2,12 +2,14 @@
     <div class="row">
         {{#each links}}
             <div class="link-wrapper col-xs-6 {{../link-class}} col-md" style="background-color: {{this.color}}">
-                <a href="{{this.src}}"
-                    {{#inArray "http" this.src}}
-                        target="_blank"
-                    {{/inArray}}
+                <a href="{{this.src}}" class="icon-link"
+                    {{#ifneq (indexOf this.src "/") 0}}
+                        {{#ifneq (indexOf ../this.src "#") 0}}
+                            target="_blank"
+                        {{/ifneq}}
+                    {{/ifneq}}
                     title="{{this.title}}">
-                    <span>
+                    <span class="icon-wrapper">
                         <i class="fa {{this.icon}}"></i>
                         {{this.title}}
                     </span>

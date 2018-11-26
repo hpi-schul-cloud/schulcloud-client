@@ -1,3 +1,5 @@
+@import "../lib/colors";
+
 .icon-card {
   margin-top: 3rem;
   margin-bottom: 1rem;
@@ -20,7 +22,7 @@
       box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
       background: #333;
       padding: 12px;
-      color: #fff;
+      color: $colorWhite;
       font-size: 2em;
     }
 

@@ -10,10 +10,6 @@ const moment = require('moment');
 
 const faq = require('../helpers/content/faq.json');
 
-/*
-
-// GET tutorials.json
-
 async function articles(){
     const cardsUrl = `https://docs.schul-cloud.org/rest/api/content/13828239/child/page?expand=children.page`;
     const cardsResult = await fetch(cardsUrl);
@@ -49,8 +45,10 @@ async function articles(){
     w.document.write(JSON.stringify(content));
 }
 articles();
-*/
+
+// read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
+
 const firstStepsItems = [{
         title: "Schüler",
         icon: "fa-child",

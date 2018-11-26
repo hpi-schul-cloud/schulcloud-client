@@ -36,6 +36,9 @@ window.addEventListener("message", (event) => {
 }, false);
 
 /* script for iFrame
+// this needs to be embedded on every page that should be displayed via iFrame and the message to the parent should be send, whenever the page resizes.
+// This script shouldn't be removed from here unless it's saved somewhere save where we can find it when needed.
+
 window.addEventListener("message", (event) => {
     const message = JSON.parse(event.data);
     if(message.function){
