@@ -1,6 +1,6 @@
 const pathUtils = require('path').posix;
 const url = require('url');
-const api = require('../api');
+const api = require('../../api');
 const winston = require('winston');
 
 
