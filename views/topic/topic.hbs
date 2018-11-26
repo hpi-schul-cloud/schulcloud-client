@@ -9,7 +9,34 @@
     {{/content}}
 
     {{#content "page"}}
-
+        {{#if isCourseGroupTopic}}
+            <div class="row padding-top">
+                <div class="col-sm-12">
+                  <div class="pull-right">
+                    <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}" class="btn btn-sm btn-add btn-primary">Thema
+                        bearbeiten</a>
+                  </div>
+                </div>
+            </div>
+        {{else}}
+            {{#userHasPermission "COURSE_EDIT"}}
+                <div class="row padding-top">
+                    <div class="col-sm-12">
+                      <div class="pull-right">
+                        <a href="#"
+                        data-href="{{../_id}}"
+                        data-courseId="{{../courseId}}"
+                        class="btn btn-sm btn-add btn-secondary btn-create-share">
+                            <i class="fa fa-share-alt"></i>
+                        </a>
+                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-secondary btn-sm btn-add">
+                          <i class="fa fa-pencil"></i>
+                        </a>
+                      </div>
+                    </div>
+                </div>
+            {{/userHasPermission}}
+        {{/if}}
         <section class="section-course">
             {{#each contents}}
                 {{#unless hidden}}
