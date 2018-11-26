@@ -21,7 +21,7 @@ module.exports = {
             .pause(1000);
     },
     'Schul-Cloud Checkups': function (browser) {
-        
+
         browser.expect.element('#titlebar h4#page-title').text.to.contain('Übersicht').before(10000);
         browser.expect.element('#main-content > section.section-timetable > div.row > div > h5').text.to.contain('Stundenplan').before(10000);
         browser.setCookie({
@@ -75,7 +75,7 @@ module.exports = {
 
         //Settings
         browser.url(base_url + 'account/');
-        browser.expect.element('#titlebar h4#page-title').text.to.contain('Dein Account').before(10000);
+        browser.expect.element('#titlebar h4#page-title').text.to.contain('Dein Profil').before(10000);
     },
     'Schul-Cloud End': function (browser) {
         browser.end();

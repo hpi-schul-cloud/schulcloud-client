@@ -25,7 +25,7 @@ router.post('/', function (req, res, next) {
                 res.redirect('/account/');
             });
         }).catch((err) => {
-            res.render('account/settings', {title: 'Dein Account', notification: {
+            res.render('account/settings', {title: 'Dein Profil', notification: {
                 type: 'danger',
                 message: err.error.message
             }});
@@ -43,19 +43,19 @@ router.get('/', function (req, res, next) {
                     return d;
                 });
                 res.render('account/settings', {
-                    title: 'Dein Account',
+                    title: 'Dein Profil',
                     device,
                     userId: res.locals.currentUser._id
                 });
             }).catch(err => {
             res.render('account/settings', {
-                title: 'Dein Account',
+                title: 'Dein Profil',
                 userId: res.locals.currentUser._id
             });
         });
     } else {
         res.render('account/settings', {
-            title: 'Dein Account',
+            title: 'Dein Profil',
             userId: res.locals.currentUser._id
         });
     }
