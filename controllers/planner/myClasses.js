@@ -6,30 +6,6 @@ const {
   checkForSommerHoliday
 } = require("./helper");
 
-// topics: [
-//   {
-//     id: "1",
-//     text: "1.Topic",
-//     color: "#92DB92",
-//     startIndex: 0,
-//     endIndex: 3
-//   },
-//   {
-//     id: "2",
-//     text: "2.Topic",
-//     color: "#92DB92",
-//     startIndex: 4,
-//     endIndex: 6
-//   },
-//   {
-//     id: "3",
-//     text: "3.Topic",
-//     color: "#92DB92",
-//     startIndex: 8,
-//     endIndex: 12
-//   }
-// ]
-
 const DUMMY_OTHER_DATA = [
   {
     name: "Projektwoche",
@@ -38,6 +14,7 @@ const DUMMY_OTHER_DATA = [
     utcEndDate: 1548979200000
   }
 ];
+const WEEK = 1000 * 60 * 60 * 24 * 7;
 
 const getAllTopicTemplates = async req => {
   const templatesData = await api(req).get("/topicTemplates");
@@ -150,17 +127,48 @@ const transformToAPIShape = coursesWithTopics => {
     return topicsMap;
   }, {});
 };
-const populateClassesWithTopics = async flattenedCourses => {
+const populateClassesWithTopics = async (
+  req,
+  { flattenedCourses, schoolYearData }
+) => {
+  const transformTopicsData = (topicsData, schoolYearUTCStartDate) => {
+    if (topicsData.data.length === 0) return [];
+    return topicsData.data.map(topicData => {
+      const startIndex = Math.round(
+        (topicData.utcStartDate - schoolYearUTCStartDate) / WEEK
+      );
+      return {
+        id: topicData._id,
+        text: topicData.name,
+        color: "#92DB92",
+        startIndex,
+        endIndex: startIndex + +topicData.numberOfWeeks - 1
+      };
+    });
+  };
   const coursePromises = flattenedCourses.map(course => {
     // API CALL for topic instance mit course.id
-    return new Promise(res => res([]));
+    return api(req).get("/topicInstances", {
+      qs: {
+        courseId: course.id
+      }
+    });
   });
   const topicInstanceData = await Promise.all(coursePromises);
-  return flattenedCourses.map((course, index) => ({
-    ...course,
-    // topicInstanceData has to be transformed here -> startIndex/endIndex
-    topics: topicInstanceData[index]
-  }));
+
+  return flattenedCourses.map((course, index) => {
+    const schoolYearUTCStartDate =
+      schoolYearData[course.schoolYearId].utcStartDate;
+    const topics = transformTopicsData(
+      topicInstanceData[index],
+      schoolYearUTCStartDate
+    );
+    return {
+      ...course,
+      // topicInstanceData has to be transformed here -> startIndex/endIndex
+      topics
+    };
+  });
 };
 const filterAndFlattenCourseData = courses => {
   return courses.data.reduce((relevantCourseData, course) => {
@@ -200,7 +208,7 @@ const filterAndFlattenCourseData = courses => {
     return relevantCourseData;
   }, []);
 };
-const getAllClassTopics = async req => {
+const getAllClassTopics = async (req, schoolYearData) => {
   const courses = await api(req).get("/courses", {
     qs: {
       $populate: [
@@ -210,9 +218,10 @@ const getAllClassTopics = async req => {
     }
   });
   const transformedCourseData = filterAndFlattenCourseData(courses);
-  const coursesWithTopics = await populateClassesWithTopics(
-    transformedCourseData
-  );
+  const coursesWithTopics = await populateClassesWithTopics(req, {
+    flattenedCourses: transformedCourseData,
+    schoolYearData
+  });
   // Transform data into api required shape
   return transformToAPIShape(coursesWithTopics);
 };
@@ -249,7 +258,7 @@ const handleGetMyClasses = async (req, res, next) => {
     const allTopicTemplates = await getAllTopicTemplates(req);
     const schoolYearData = await getSchoolYearData(req, holidays);
     const initialSchoolYearId = getInitialSchoolYearId(schoolYearData);
-    const allClassTopics = await getAllClassTopics(req);
+    const allClassTopics = await getAllClassTopics(req, schoolYearData);
 
     res.render("planner/myClasses", {
       title: "Meine Klassen",
@@ -266,7 +275,54 @@ const handleGetMyClasses = async (req, res, next) => {
   }
 };
 
-const handlePostMyClasses = (req, res, next) => {};
+const handlePostMyClasses = async (req, res, next) => {
+  try {
+    const apiCommands = req.body;
+    // API commands can be to create, patch or delete a topic instance
+    const { create, patch, delete: deleteInstances } = apiCommands;
+    if (create && create.length > 0) {
+      await api(req).post("/topicInstances", {
+        json: create.map(topicInstance => ({
+          ...topicInstance,
+          userId: res.locals.currentUser._id
+        }))
+      });
+    }
+    if (patch && patch.length > 0) {
+      // Could be replaced with a bulk operation
+      await Promise.all(
+        patch.map(topicInstance => {
+          const { _id, numberOfWeeks, utcStartDate } = topicInstance;
+          return api(req).patch(`/topicInstances/${topicInstance._id}`, {
+            json: {
+              numberOfWeeks,
+              utcStartDate
+            }
+          });
+        })
+      );
+    }
+    if (deleteInstances && deleteInstances.length > 0) {
+      await api(req).delete("/topicInstances", {
+        qs: {
+          _id: { $in: deleteInstances }
+        }
+      });
+    }
+
+    const schoolId = res.locals.currentUser.schoolId;
+    const stateCode = await getFederalState(req, schoolId);
+    const holidays = await getHolidays(req, { stateCode });
+    const schoolYearData = await getSchoolYearData(req, holidays);
+    const allClassTopics = await getAllClassTopics(req, schoolYearData);
+
+    res.status(200).send(allClassTopics);
+  } catch (e) {
+    console.log(e);
+    logger.warn(e);
+    res.status(e.statusCode || 500).send(e);
+  }
+};
 
 module.exports = {
   getMyClasses: handleGetMyClasses,
