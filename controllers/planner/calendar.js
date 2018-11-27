@@ -142,17 +142,39 @@ const normalizeCourseData = courses => {
     return relevantCourseData;
   }, []);
 };
-const populateClassesWithTopics = async flattenedCourses => {
+
+const WEEK = 1000 * 60 * 60 * 24 * 7;
+const populateClassesWithTopics = async (req, flattenedCourses) => {
+  const transformTopicsData = topicsData => {
+    return topicsData.data.length === 0
+      ? []
+      : topicsData.data.map(topicData => ({
+          id: topicData._id,
+          text: topicData.name,
+          color: "#92DB92",
+          utcStartDate: topicData.utcStartDate,
+          // The week starts at Monday; + x * 7 days -> Monday; - 1 -> Sunday 23:59
+          utcEndDate:
+            topicData.utcStartDate + topicData.numberOfWeeks * WEEK - 1
+        }));
+  };
   const coursePromises = flattenedCourses.map(course => {
     // API CALL for topic instance mit course.id
-    return new Promise(res => res([]));
+    return api(req).get("/topicInstances", {
+      qs: {
+        courseId: course.id
+      }
+    });
   });
   const topicInstanceData = await Promise.all(coursePromises);
-  return flattenedCourses.map((course, index) => ({
-    ...course,
-    // topicInstanceData has to be transformed here -> startIndex/endIndex
-    topics: topicInstanceData[index]
-  }));
+
+  return flattenedCourses.map((course, index) => {
+    return {
+      ...course,
+      // topicInstanceData has to be transformed here -> startIndex/endIndex
+      topics: transformTopicsData(topicInstanceData[index])
+    };
+  });
 };
 const transformToAPIShape = coursesWithTopics => {
   const classTopicsData = coursesWithTopics.reduce((classMap, course) => {
@@ -193,7 +215,10 @@ const getClassTopicsData = async (req, schoolYear) => {
   const normalizedCourses = normalizeCourseData(courses).sort(
     (courseA, courseB) => courseA.classLevel.localeCompare(courseB.classLevel)
   );
-  const coursesWithTopics = await populateClassesWithTopics(normalizedCourses);
+  const coursesWithTopics = await populateClassesWithTopics(
+    req,
+    normalizedCourses
+  );
 
   return transformToAPIShape(coursesWithTopics);
 };
