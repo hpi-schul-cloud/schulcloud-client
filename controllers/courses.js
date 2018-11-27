@@ -404,7 +404,15 @@ router.post('/:courseId/offline', function(req,res,next){
     // prepare URL for FileGetter
     req.originalUrl = req.originalUrl.replace(/\/offline$/,'');
     next();
-}, FileGetter, function (req, res, next) {
+}, FileGetter, function (err, req, res, next) {
+    if (err) {
+        if (err.statusCode === 403) {
+            // if course removed 
+            return res.json({ "cleanup": req.body });
+        } else {
+            return res.json({ "error": "message" });
+        }
+    }
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -495,6 +503,8 @@ router.post('/:courseId/offline', function(req,res,next){
         }
 
         res.json(filteredResponse);
+    }).catch(err =>{
+        res.json(err);
     });
 });
 
