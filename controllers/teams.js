@@ -585,6 +585,19 @@ router.post('/:teamId/events/', function (req, res, next) {
     });
 });
 
+router.put('/events/:eventId', function (req, res, next) {
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+
+    api(req).put('/calendar/' + req.params.eventId, {
+        json: req.body
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        next(err);
+    });
+});
+
 /*
  * Single Course Members
  */
