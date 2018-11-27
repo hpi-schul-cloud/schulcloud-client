@@ -30,7 +30,7 @@ module.exports = {
     'Create Course': function (browser) {
         browser.url(base_url + 'courses/');
         browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
-        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/a', 10, 10)
+        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/div', 10, 10)
             .useCss()
             .click('.btn-add')
             .pause(1000)
