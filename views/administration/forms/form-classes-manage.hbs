@@ -1,0 +1,119 @@
+<input name="classid" type="hidden" value="{{class._id}}"/>
+<input type="hidden" name="referrer" value="{{referrer}}" />
+
+<a class="d-block mb-1"
+    href="/administration/classes/{{@root.class/_id}}/edit"
+    title="Klasse '{{@root.class.name}}' bearbeiten.">
+    <i class="fa fa-pencil"></i> Klasse umbenennen
+</a>
+
+<div class="form-group">
+    <label>Lehrer {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
+
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
+        {{#each teachers}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<div class="form-group">
+    <label>Schüler</label>
+    <button type="button" class="btn-link pull-right btn-import-class">Schüler aus Vorjahresklasse hinzufügen</button>
+    <select name="userIds" multiple data-placeholder="Schüler auswählen">
+        {{#each students}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+
+
+<div class="modal-footer mt-1">
+    <a class="btn btn-secondary btn-cancel">Abbrechen</a>
+    <button type="submit" class="btn btn-primary">Änderungen speichern</button>
+</div>
+
+<hr class="my-2"/>
+
+<p>
+    <b>Deine Schüler sind noch nicht in der {{theme.short_title}}?</b><br/>
+    Lade die Eltern per Link ein, ihre Kinder in deiner Klasse zu registrieren und die elektronische Einwilligungserklärung abzugeben.
+</p>
+
+<input id="invitationLink" class="w-100" value="{{invitationLink}}" readonly/>
+<div class="clearfix">
+    <button type="button" class="pull-left btn-link copy" data-copy-selector="#invitationLink">Link kopieren</button>
+    <button type="button" class="pull-right btn-link" id="printInvitation">Link mit QR-Code Drucken</button>
+</div>
+
+<p class="mt-1">Bitte beachte:</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div id="accordion" role="tablist" aria-multiselectable="true">
+            {{#each notes}}
+                <div class="card">
+                    <a data-toggle="collapse" data-parent="#accordion"
+                        href="#collapse-{{@index}}"
+                        {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
+                        aria-controls="collapse-{{@index}}">
+                        <div class="card-header" role="tab" id="heading-{{@index}}">
+                            <h5 class="mb-0">
+                                {{this.title}}
+                            </h5>
+                        </div>
+                    </a>
+                    <div id="collapse-{{@index}}" class="collapse"
+                            role="tabpanel" aria-labelledby="heading-{{@index}}"
+                            {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
+                        <div class="card-block">
+                            {{{this.content}}}
+                        </div>
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+
+{{#embed "lib/components/modal-form" class="import-modal"}}
+    {{#content "fields"}}
+    
+        <div class="form-group">
+            <label for="filter_schoolyear">Nach Schuljahr filtern</label>
+            <select id="filter_schoolyear" name="classes" data-placeholder="Nach Schuljahr filtern">
+                <option value="" selected>Alle</option>
+                {{#each schoolyears}}
+                    <option value="{{this._id}}">
+                        {{this.name}}
+                    </option>
+                {{/each}}
+            </select>
+            <p>Achtung! Wenn du das Schuljahr wechselst wird deine Auswahl an Vorjahres-Klassen zurückgesetzt.</p>
+        </div>
+        <div class="form-group">
+            <label for="student_from_class_import">Schüler aus Vorjahres-Klasse hinzufügen</label>
+            <select id="student_from_class_import" name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
+                {{#each classes}}
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                        {{this.displayName}}
+                    </option>
+                {{/each}}
+            </select>
+        </div>
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

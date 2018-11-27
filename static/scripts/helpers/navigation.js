@@ -1,4 +1,4 @@
-/* global jQuery*/
+/* global jQuery */
 
 import diffDom from 'diff-dom';
 const diffDOM = new diffDom();
@@ -20,6 +20,12 @@ export function softNavigate(newurl, selector = 'html', listener, callback) {
             document.querySelectorAll((listener || selector) + " a").forEach(link => {
                 const linkClone = link.cloneNode(true);
                 linkClone.addEventListener("click", function (e) {
+                    const navigateEvent = new CustomEvent("softNavigate", {
+                        detail: {
+                            target_url: $(this).attr('href')
+                        }
+                    });
+                    window.dispatchEvent(navigateEvent);
                     softNavigate($(this).attr('href'), selector, listener);
                     e.preventDefault();
                     e.stopPropagation();

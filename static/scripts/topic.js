@@ -25,3 +25,7 @@ $(document).ready(function () {
         });
     });
 });
+
+document.querySelectorAll('.content-block a').forEach((target) => { 
+    target.setAttribute("target","_blank"); 
+}); 

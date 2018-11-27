@@ -1,0 +1,21 @@
+<form class="form sections-{{sections}} {{class}}" action="{{action}}{{#if sso}}/sso/{{account}}{{/if}}" method="{{method}}" >
+  {{#for 1 (add sections 1) 1}}
+    <input id="section-{{this}}" type="radio" name="stage" {{#ifvalue this value=1}}checked="checked"{{/ifvalue}}/>
+  {{/for}}
+
+  <div class="stages">
+    {{#for 1 (add sections 1) 1}}
+      <label for="section-{{this}}">{{this}}</label>
+    {{/for}}
+  </div>
+
+  <span class="progressbar"></span>
+
+  <div class="panels mb-2">
+    {{#block "panels"}}{{/block}}
+  </div>
+
+  <button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">Zurück</button>
+  <button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit" 
+    data-next-label="Weiter" data-submit-label="Absenden">Weiter</button>
+</form>

@@ -8,6 +8,41 @@ const api = require('../api');
 // secure routes
 router.use(authHelper.authChecker);
 
+const contentFilterSettings = function() {
+    return [
+        {
+            type: "sort",
+            title: 'Sortierung',
+            displayTemplate: 'Sortieren nach: %1',
+            options: [
+                ["updatedAt", "Aktualität"],
+                ["providerName", "Anbieter"],
+                ["clickCount", "Beliebtheit"]
+            ],
+            defaultOrder: "DESC"
+        },
+        {
+            type: "limit",
+            title: 'Einträge pro Seite',
+            displayTemplate: 'Einträge pro Seite: %1',
+            options: [9, 18, 24, 48, 99],
+            defaultSelection: 9
+        },
+        {
+            type: "select",
+            title: 'Dateityp',
+            displayTemplate: 'Dateitypen: %1',
+            property: 'mimeType',
+            multiple: true,
+            expanded: true,
+            options: [
+                ["text/html", "Text"],
+                ["video", "Video"]
+            ]
+        },
+    ];
+};
+
 router.get('/', function (req, res, next) {
     return res.render('content/search');
 });

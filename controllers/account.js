@@ -169,18 +169,12 @@ router.post('/preferences', (req, res, next) => {
     const {attribute} = req.body;
 
     return api(req).patch('/users/' + res.locals.currentUser._id, {
-        json: constructJson("preferences." + attribute.key , attribute.value)
+        json: {["preferences." + attribute.key] : attribute.value}
     }).then(() => {
         return "Präferenzen wurden aktualisiert!";
     }).catch((err) => {
         return "Es ist ein Fehler bei den Präferenzen aufgetreten!";
     });
 });
-
-const constructJson = (jsonKey, jsonValue) => {
-    let jsonObj = {};
-    jsonObj[jsonKey] = jsonValue;
-    return jsonObj;
-};
 
 module.exports = router;

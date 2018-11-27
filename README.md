@@ -6,12 +6,16 @@ Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client
   
 ## Requirements  
   
-* node.js 6 or later (You can install it from https://nodejs.org/en/download/)  
-  
+* node.js 8.7 or later (You can install it from https://nodejs.org/en/download/)
+
+You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
+
 ## Setup  
   
-There are blog posts on how to setup [client](https://github.com/schul-cloud/schulcloud-client) and [server](https://github.com/schul-cloud/schulcloud-server) under [Windows](https://schul-cloud.github.io/blog/2017-05-18/setup-schul-cloud-client-and-sever-under-windows) and [Linux](https://schul-cloud.github.io/blog/2017-04-21/setup-development-under-ubuntu).  
+German docs on installing: [Setup SC](https://docs.schul-cloud.org/display/SCDOK/Setup)
   
+Short version:
+
 1. Clone directory into local folder  
 2. Go into the cloned folder and enter `npm install`  
 3. Install nodemon and gulp globally by entering `npm install -g nodemon gulp`  
@@ -21,9 +25,14 @@ There are blog posts on how to setup [client](https://github.com/schul-cloud/sch
 1. Start the [schul-cloud server](https://github.com/schulcloud/schulcloud-server)  
 2. Go into project folder
 3. run `gulp watch` to run gulp
-4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`)
+4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` and `SC_SHORT_TITLE=Schul-Cloud` if you want.
 5. run `npm run watch` to boot the application
 6. go to `http://localhost:3100`
+
+**Alternative with browser-sync**
+
+1. run `gulp watch reload` to run gulp with browser sync. It also starts the node-client-server.
+2. go to `http://localhost:7000`
   
 For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   

@@ -1,9 +1,5 @@
 @import '../lib/colors';
 
-h3 {
-    color: $primaryColor;
-    font-weight: bold;
-}
 hgroup {
     text-align: center;
     font-weight: bold;
@@ -13,7 +9,6 @@ hgroup {
 
 .section-title {
     width: 100%;
-    padding: 10px 0 20px;
     line-height: 1.75rem;
     h4 {
         color: $primaryColor;
@@ -24,15 +19,6 @@ hgroup {
 }
 
 .section-partner {
-    h5 {
-        color: $primaryColor !important;
-        margin-top: 20px;
-    }
-    h4 {
-        color: $primaryColor;
-        font-weight: bold;
-        margin-top: 20px;
-    }
     ul {
         color: $primaryColor;
         padding-left: 20px;
@@ -58,5 +44,22 @@ hgroup {
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+    }
+    .collapse.collapse.in {
+        display: flex !important;
+    }
+    .toggle-partner {
+        background-color: white;
+        color: #b10438;
+        position: relative;
+        font-weight: 500;
+        i {
+            display: block;
+            pointer-events: none;
+        }
+    }
+    .buttonWrapper {
+        width: 100%;
+        text-align: center;
     }
 }

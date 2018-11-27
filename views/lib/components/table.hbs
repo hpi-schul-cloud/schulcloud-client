@@ -9,46 +9,52 @@
     </select>
     </div>
 {{/if}}
-<table class="{{#if class}}{{class}}{{else}}table table-hover table-bordered{{/if}}">
-    {{#if head}}
-        <thead>
-            <tr>
-                {{#each head}}
-                    <th>{{this}}</th>
-                {{/each}}
-            </tr>
-        </thead>
-    {{/if}}
-
-
-    {{#if body}}
-        <tbody>
-            {{#each body}}
+<div class="table-wrapper {{#unless class}}table table-hover table-bordered{{/unless}}">
+    <table class="{{#if class}}{{class}}{{else}}table table-hover table-bordered{{/if}}">
+        {{#if head}}
+            <thead>
                 <tr>
-                    {{#each this}}
-                        {{#ifArray this}}
-                            <td class="table-actions">
-                                {{#each this}}
-                                    {{#if this.method}}
-                                        <form action="{{this.link}}" method="post" class="inline">
-                                            <input type="hidden" name="_method" value="{{this.method}}"/>
-                                            <button type="submit" class="btn btn-secondary btn-sm no-inline-styling {{this.class}}" title="{{this.title}}">
-                                                <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                                            </button>
-                                        </form>
-                                    {{else}}
-                                        <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" title="{{this.title}}">
-                                            <i class="fa fa-{{this.icon}}"></i> {{this.label}}
-                                        </a>
-                                    {{/if}}
-                                {{/each}}
-                            </td>
-                        {{else}}
-                            <td>{{{this}}}</td>
-                        {{/ifArray}}
+                    {{#each head}}
+                        <th>{{this}}</th>
                     {{/each}}
                 </tr>
-            {{/each}}
-        </tbody>
-    {{/if}}
-</table>
+            </thead>
+        {{/if}}
+
+
+        {{#if body}}
+            <tbody>
+                {{#each body}}
+                    <tr>
+                        {{#each this}}
+                            {{#ifArray this}}
+                                <td class="table-actions">
+                                    {{#each this}}
+                                        {{#if this.method}}
+                                            <form action="{{this.link}}" method="post" class="inline">
+                                                <input type="hidden" name="_method" value="{{this.method}}"/>
+                                                <button type="submit" class="btn btn-secondary btn-sm no-inline-styling {{this.class}}" title="{{this.title}}">
+                                                    <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                                                </button>
+                                            </form>
+                                        {{else}}
+                                            <a class="btn btn-secondary btn-sm {{this.class}}" href="{{this.link}}" title="{{this.title}}">
+                                                <i class="fa fa-{{this.icon}}"></i> {{this.label}}
+                                            </a>
+                                        {{/if}}
+                                    {{/each}}
+                                </td>
+                            {{else}}
+                                {{#if this.useHTML}}
+                                    <td>{{{this.content}}}</td>
+                                {{else}}
+                                    <td>{{this}}</td>
+                                {{/if}}
+                            {{/ifArray}}
+                        {{/each}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        {{/if}}
+    </table>
+</div>

@@ -3,10 +3,13 @@
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
-@import "./fontawesome/font-awesome";
+$fa-font-path: "/vendor-optimized/font-awesome/fonts";
+@import "font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
 @import "./toggle/bootstrap-toogle.min.css";
+
+@import "./tabbar/tabbar";
 
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 .md-theme-default, html {
@@ -15,6 +18,31 @@
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     hyphens: auto;
+  }
+
+  .section-team, .section-partner, .section-about, .section-community {
+    h4 {
+      font-weight: 500;
+      margin: 30px 0px 20px 0px !important;
+      width: 100%;
+      display: block;
+    }
+    h5 {
+      font-style: italic;
+      margin: 30px 0px 20px 0px;
+      width: 100%;
+      display: block;
+    }
+  }
+
+  .section-title h3 {
+    color: $primaryColor;
+    font-weight: 700;
+    margin-top: 10px;
+  }
+
+  body h4:not(:first-of-type){
+    margin-top: 1rem;
   }
 
   a {
@@ -32,31 +60,36 @@
     text-decoration:none !important;
   }
 
-  p.small {
-    line-height: 18px;
-    font-size: 12px;
+  .btn-link{
+    margin: 0;
+    padding: 0;
   }
 
-  .no-padding {
-    padding: 0px !important;
-  }
+    p.small {
+      line-height: 18px;
+      font-size: 12px;
+    }
 
-  .pull-right {
-    float:right;
-  }
+    .no-padding {
+      padding: 0px !important;
+    }
 
-  .text-center {
-    text-align:center;
-  }
+    .pull-right {
+      float:right;
+    }
 
-  label {
-    font-weight: bold;
-  }
+    .text-center {
+      text-align:center;
+    }
 
-  .pagination-wrapper {
-    text-align: center;
-    width: 100%;
-  }
+    label {
+      font-weight: bold;
+    }
+
+    .pagination-wrapper {
+      text-align: center;
+      width: 100%;
+    }
 
   label,
   .noselect{
@@ -70,6 +103,7 @@
   .hidden{
     display: none;
   }
+
   .show{
     display: initial;
   }
@@ -90,38 +124,50 @@
     }
   }
 
-  footer.small-footer {
-    width: 100%;
-    margin-top: 40px;
-    position: inherit;
-    @media screen and (max-height: 700px) { top: 510px; }
-    bottom: 0;
-    right: 0;
-    left: 0;
-    clear: both;
-    padding: 30px 0px;
-    font-size: 0.9em;
-    margin-bottom: 5px;
-    @include media-breakpoint-down(xs) {
-      background: $colorBeige;
-
-      img {
-        clear: both;
-        display: block;
-        margin: 0 auto 10px;
-      }
+  .table-wrapper{
+    max-width: 100%;
+    display: block;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 1rem;
+    table{
+      margin-bottom: 0;
     }
+  }
 
-    .imprint {
-      .center {
-        text-align: center;
-        align-items: center;
+  footer {
+    .android-app {
+      margin-left:-11px;
+    }
+    &.small-footer {
+
+      @include media-breakpoint-down(xs) {
+        background: $colorBeige;
+
+        img {
+          clear: both;
+          display: block;
+          margin: 0 auto 10px;
+        }
       }
-      img{
-        width: auto;
-        max-width: 175px;
-        height: auto;
-        max-height: 44px;
+
+      .imprint {
+        .center {
+          text-align: center;
+          align-items: center;
+          .made-with-love {
+            margin-top: 8px;
+            .heart {
+              color: #b10438;
+            }
+          }
+        }
+        img {
+          width: auto;
+          max-width: 175px;
+          height: auto;
+          max-height: 44px;
+        }
       }
     }
   }
@@ -157,33 +203,45 @@
     margin-top: 30px;
   }
 
-  .padding-top {
-    padding-top: 30px;
-  }
+      .imprint {
+        .center {
+          text-align: center;
+          align-items: center;
+        }
+        img{
+          width: auto;
+          max-width: 175px;
+          height: auto;
+          max-height: 44px;
+        }
+      }
+    }
 
-  .btn-tertiary,
-  .btn.btn-tertiary,
-  .list-group-item.btn-tertiary {
-    background-color: $colorGrey;
-  }
+    @keyframes fa-spin {
+      0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+      }
+      100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+      }
+    }
 
   .btn-thin {
     padding-left: 15px !important;
     padding-right: 15px !important;
   }
-
-  .alert-fixed {
-    position:fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index:9999;
-    border-radius:0
+  .btn.hidden{
+    display:none;
   }
 
-  .dropdown-item {
-    cursor: pointer;
-  }
+    .notification.hidden {
+      display:none;
+    }
+
+    form.inline {
+      display: inline;
 
   .collapse-icon {
     display:inline-block;
@@ -192,35 +250,11 @@
     width: 1em;
   }
 
-  .window-inline .hide-inline {
-    display: none;
-  }
-
-  .card-deck-row {
-
-    & > div {
-      margin-bottom: 30px;
+    .window-inline .hide-inline {
+      display: none;
     }
 
-    .card {
-      max-width: 100% !important;
-      display: flex;
-      flex-wrap: wrap;
-      flex-direction: column;
-
-      .card-block {
-        max-width: 100%;
-        width: 100%;
-        flex: 1 1 0;
-      }
-
-      .card-footer {
-        align-self: flex-end;
-        flex: 0 1 0;
-        width: 100%;
-      }
-    }
-  }
+    .card-deck-row {
 
   .print-only{display:none;}
   @media print {
@@ -249,5 +283,26 @@
   .container .jumbotron{
     padding: 2rem 2rem;
     margin: 2rem 0rem;
+  }
+
+  .form-control{
+    hyphens: none;
+  }
+
+  .position-absolute{
+    position: absolute !important;
+  }
+
+  //the following adds fa-share-square-o for each external link except images
+  .section-course .content-block{
+    a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
+      &:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
+        &:after{
+          font-family: 'FontAwesome';
+          content: "  \f08e";
+          font-size: .7em;
+        }
+      }
+    }
   }
 }

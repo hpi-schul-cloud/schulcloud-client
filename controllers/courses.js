@@ -7,6 +7,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
+const shortId = require('shortid');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -90,7 +91,11 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const classesPromise = api(req).get('/classes', { qs: {
+        $or: [{ "schoolId": res.locals.currentSchool }],
+        $populate: ["year"],
+        $limit: 1000
+    }}).then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
     const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
@@ -100,7 +105,7 @@ const editCourseHandler = (req, res, next) => {
         teachersPromise,
         studentsPromise
     ]).then(([course, classes, teachers, students]) => {
-
+        // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
         classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
         teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
         students = students.filter(s => s.schoolId == res.locals.currentSchool);
@@ -137,6 +142,75 @@ const editCourseHandler = (req, res, next) => {
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
             students: markSelected(students, _.map(course.userIds, '_id'))
+        });
+    });
+};
+
+const copyCourseHandler = (req, res, next) => {
+    let coursePromise, action, method;
+    if (req.params.courseId) {
+        action = '/courses/copy/' + req.params.courseId;
+        method = 'post';
+        coursePromise = api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds', 'classIds', 'teacherIds', 'userIds', 'substitutionIds']
+            }
+        });
+    } else {
+        action = '/courses/copy';
+        method = 'post';
+        coursePromise = Promise.resolve({});
+    }
+
+    const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
+    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+
+    Promise.all([
+        coursePromise,
+        classesPromise,
+        teachersPromise,
+        studentsPromise
+    ]).then(([course, classes, teachers, students]) => {
+
+        classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
+        teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
+        students = students.filter(s => s.schoolId == res.locals.currentSchool);
+        let substitutions = _.cloneDeep(teachers);
+
+        // map course times to fit into UI
+        (course.times || []).forEach((time, count) => {
+            time.duration = time.duration / 1000 / 60;
+            const duration = moment.duration(time.startTime);
+            time.startTime = ("00" + duration.hours()).slice(-2) + ':' + ("00" + duration.minutes()).slice(-2);
+            time.count = count;
+        });
+
+        // format course start end until date
+        if (course.startDate) {
+            course.startDate = moment(new Date(course.startDate).getTime()).format("DD.MM.YYYY");
+            course.untilDate = moment(new Date(course.untilDate).getTime()).format("DD.MM.YYYY");
+        }
+
+        // preselect current teacher when creating new course
+        if (!req.params.courseId) {
+            course.teacherIds = [];
+            course.teacherIds.push(res.locals.currentUser);
+        }
+
+        course.name = course.name + ' - Kopie';
+
+        res.render('courses/edit-course', {
+            action,
+            method,
+            title: 'Kurs klonen',
+            submitLabel: 'Kurs klonen',
+            closeLabel: 'Abbrechen',
+            course,
+            classes: classes,
+            teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+            substitutions: substitutions,
+            students: students
         });
     });
 };
@@ -229,17 +303,38 @@ router.post('/', function(req, res, next) {
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
 
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
-
     api(req).post('/courses/', {
         json: req.body // TODO: sanitize
     }).then(course => {
         createEventsForCourse(req, res, course).then(_ => {
             res.redirect('/courses');
         });
+    }).catch(err => {
+        res.sendStatus(500);
+    });
+});
+
+router.post('/copy/:courseId', function(req, res, next) {
+    // map course times to fit model
+    (req.body.times || []).forEach(time => {
+        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+        time.duration = time.duration * 60 * 1000;
+    });
+
+    req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
+    req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
+
+    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.startDate;
+    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
+        delete req.body.untilDate;
+
+    req.body._id = req.params.courseId;
+
+    api(req).post('/courses/copy/', {
+        json: req.body // TODO: sanitize
+    }).then(course => {
+        res.redirect('/courses/' + course._id);
     }).catch(err => {
         res.sendStatus(500);
     });
@@ -340,7 +435,10 @@ router.get('/:courseId', function(req, res, next) {
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
-                {}
+                {
+                    title: course.name,
+                    url: '/courses/' + course._id
+                }
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
@@ -361,11 +459,6 @@ router.patch('/:courseId', function(req, res, next) {
 
     req.body.startDate = moment(req.body.startDate, "DD:MM:YYYY")._d;
     req.body.untilDate = moment(req.body.untilDate, "DD:MM:YYYY")._d;
-
-    if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.startDate;
-    if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-        delete req.body.untilDate;
 
     if (!req.body.classIds)
         req.body.classIds = [];
@@ -468,63 +561,49 @@ router.post('/:courseId/importTopic', function(req, res, next) {
             res.redirect(req.header('Referer'));
         }
 
-        // copy topic to course
-        let originalTopic = lessons.data[0];
-        let originalTopicId = originalTopic._id;
-        let originalSchoolId = originalTopic.courseId.schoolId;
-        let originalCourseId = JSON.parse(JSON.stringify(originalTopic.courseId._id)); // copy value, not reference
-        originalTopic.originalTopic = JSON.parse(JSON.stringify(originalTopic._id)); // copy value, not reference
-        delete originalTopic._id;
-        delete originalTopic.shareToken;
-        originalTopic.courseId = req.params.courseId;
-        let fileChangelog = [];
-        
-        // we need to get all files of that one lesson, we need multiple steps to do this
-        return api(req).post('/lessons/', { json: originalTopic }).then(topic => {
-
-            // get all files of that lessons course
-            return api(req).get('/lessons/' + originalTopicId + '/files', { qs: { shareToken: shareToken} }).then(lessonFiles => {
-                return Promise.all(lessonFiles.map(f => {
-
-                    return api(req).patch('/files/' + f._id, { json: f }).then(_ => {
-
-                        // copy file
-                        let fileData = {
-                            fileName: f.name,
-                            oldPath: f.path,
-                            newPath: `courses/${topic.courseId}/`,
-                            externalSchoolId: originalSchoolId
-                        };
-
-                        return api(req).post('/fileStorage/copy/', { json: fileData }).then(newFile => {
-                            fileChangelog.push({"old": `${originalCourseId}/${f.name}`, "new": `${topic.courseId}/${newFile.name}` });
-                        });
-                    });
-                })).then(_ => {
-                    // rewrite courseid in text to fit new file paths and patch db afterwards
-                    topic.contents.map(content => {
-                        if (content.component === "text" && content.content.text) {
-                            fileChangelog.map(change => {
-                                content.content.text = content.content.text.replace(new RegExp(change.old, "g"), change.new);
-                            });
-                        }
-                    });
-
-                    return api(req).patch('/lessons/'+topic._id, { json: topic }).then(_ => {
-                        req.session.notification = {
-                            type: 'success',
-                            message: `Thema '${topic.name}' wurde erfolgreich zum Kurs hinzugefügt.`
-                        };
-    
-                        res.redirect(req.header('Referer'));
-                    });
-                });
+        api(req).post("/lessons/copy", { json: {lessonId: lessons.data[0]._id, newCourseId: req.params.courseId, shareToken}})
+            .then(_ => {
+                res.redirect(req.header('Referer'));
             });
-        });
+
     }).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
 
 router.get('/:courseId/edit', editCourseHandler);
+
+router.get('/:courseId/copy', copyCourseHandler);
+
+// return shareToken
+router.get('/:id/share', function(req, res, next) {
+    return api(req).get('/courses/share/' + req.params.id)
+        .then(course => {
+            return res.json(course);
+    });
+});
+
+// return course Name for given shareToken
+router.get('/share/:id', function (req, res, next) {
+   return api(req).get('/courses/share', { qs: { shareToken: req.params.id }})
+        .then(name => {
+            return res.json({ msg: name, status: 'success' });
+        })
+       .catch(err => {
+            return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
+       });
+});
+
+router.post('/import', function(req, res, next) {
+    let shareToken = req.body.shareToken;
+    let courseName = req.body.name;
+
+    api(req).post('/courses/share', { json: { shareToken, courseName }})
+        .then(course => {
+            res.redirect(`/courses/${course._id}/edit/`);
+        })
+        .catch(err => {
+            res.status((err.statusCode || 500)).send(err);
+        });
+});
 
 module.exports = router;

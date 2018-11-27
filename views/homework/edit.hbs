@@ -1,6 +1,3 @@
-{{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-{{/content}}
 {{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
     <script src="/scripts/mousetrap/mousetrap.js" defer></script>
@@ -10,7 +7,7 @@
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
-            
+
             $.datetimepicker.setLocale('de');
             $('input[data-datetime]').datetimepicker({
                 format:'d.m.Y H:i',
@@ -18,7 +15,6 @@
                 onShow:function(ct, input){
                     if(input[0].id == "availableDate"){
                         let due = $("#dueDate").val().split(" ");
-                        console.log(due[0]);
                         this.setOptions({
                             minDate:0,
                             maxDate:(due[0]!="__.__.____")?due[0]:false,
@@ -35,7 +31,7 @@
                     }
                 }
             });
-
+            
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('homework-form').submit();
                 return false;
@@ -85,9 +81,9 @@
                         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
                     {{/if}}
 
-                    {{#if referrer}}﻿<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
+                    {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
                     
-                    ﻿<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+                    <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
                     {{#unless isSubstitution}}
                         <input name="teacherId" type="hidden" data-force-value="true" value="{{currentUser._id}}" />
@@ -95,7 +91,7 @@
 
                     <div class="form-group">
                         <label>Titel</label>
-                        <input class="form-control" name="name" type="text" placeholder="Titel" required value="{{assignment.name}}"/>
+                        <input class="form-control" name="name" type="text" placeholder="Titel" required value="{{{assignment.name}}}"/>
                     </div>
 
                     <div class="row">
@@ -106,7 +102,7 @@
                                     <select class="" name="courseId" id="coursePicker" data-placeholder="Kurs auswählen">
                                         <option value="" {{#unless assignment.courseId}}selected{{/unless}}>Keine Zuordnung</option>
                                         {{#each courses}}
-                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{this.name}}</option>
+                                            <option value="{{this._id}}" {{#ifvalue this._id value=@root.assignment.courseId._id}}selected{{/ifvalue}}>{{{stripOnlyScript this.name}}}</option>
                                         {{/each}}
                                     </select>
                                 {{else}}
@@ -162,13 +158,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Für Schüler sichtbar und zu bearbeiten ab:</label>
-                                <input class="form-control" data-datetime name="availableDate" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
+                                <input class="form-control" data-datetime name="availableDate" autocomplete="off" id="availableDate" type="text" value="{{assignment.availableDate}}"/>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Bearbeitungszeitraum endet am:</label>
-                                <input class="form-control" data-datetime name="dueDate" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
+                                <input class="form-control" data-datetime name="dueDate" autocomplete="off" id="dueDate" type="text" value="{{assignment.dueDate}}"/>
                             </div>
                         </div>
                     </div>

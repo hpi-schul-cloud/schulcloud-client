@@ -19,7 +19,7 @@ $(document).ready(function() {
         }
     }
 
-    $('a[data-method="delete-material"]').on('click', function(e) {
+    $('a[data-method="DELETE"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);

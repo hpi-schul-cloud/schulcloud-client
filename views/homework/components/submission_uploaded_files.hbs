@@ -4,11 +4,16 @@
     <ul class="list-group-files d-flex flex-row">
         {{#each this.submission.fileIds}}
             <li class="list-group-item">
-                <i class="fa fa-file" aria-hidden="true"></i> {{this.name}}
+                <i class="fa fa-file" aria-hidden="true"></i> 
+				<a href="/files/file?file={{this.key}}" target="_blank">
+                    {{#if this.clearName}}
+						{{this.clearName}}
+					{{else}}	
+						{{this.name}}
+					{{/if}}
+                </a>			
                 <span class="fa-active">
-                    <a href="/files/file?download=1&file={{this.key}}"
-                    target="_blank"
-                    data-method="download">
+                    <a href="/files/file?download=true&file={{this.key}}" target="_blank">
                     <i class="fa fa-cloud-download"></i>
                     </a>
                     {{#if ../deletionAllowed}}

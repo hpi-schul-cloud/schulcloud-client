@@ -27,16 +27,7 @@ script:
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 - git fetch
 - "./diff.sh"
-- "./frontend_test.sh"
-after_success:
-- bash <(curl -X POST --data "apiKey=$apiKey&branch=$BRANCH" http://$url/update)
-notifications:
-  slack:
-    rooms:
-    - secure: fgpxKHtMJYafHSdAG0kJWLTJOqOkGMAJCCP2FBC/CIxtKs+DCvS3AzSa+W7VRmXg9wgtIyfjHRTD6G3C6LriG1jNnRt+uUK5g13TXhZyIxLGj4U6Ng/rs1rWD31NcSH2NhK8kytSn6+xIeDj9kFjNwE7NCTdmbbh/UckhFLsS6ayGn8oGi1kbdc1VU3G9R4e+yFgmA3fLAMYE8/nRPf4/kIyN2UERR2CSzK2ib7ODoTlrA3Eb6uVKk/Vw+wf6Md1JXiv3k46YRuyXxZUj2ouWVcH7glO5cIUNX6+CRO2syEX+ABOxNJnPP0h5AGDawZriRna7SGSQFczYB+Nbc57/O/fECrVwXtBps9Wec3/OFsViwEmtJ+ylLC4n7hWGuBMYQjNp74H6fPZJqIuowuBrbQKs5SY3q5U1jucgnoG77kPnaPfibr3ynJt8zJS23hUhnObYTgyGDMZ7/p45OQTEZa1hizJveynoDwfP/sNGMUEuRKE4M2yU36GK1l/xtu0HqoF+fxhmX+CpHsGTvDX9Zm/v49LUXYx5+m4Ys5H/Tb93lop5MAki65zk7pyt6B1N0ajNkcgxQ4Y3dL8BCZJWWMCf/rNpfkdn0YBBAj/A9W0N4muEMCXQ/vMdmKfzKm/5oM7gOTt0jX3RGtb0kU11xGHxMA/YFggyR0d3QQKlVI=
-    on_success: change
-    on_failure: always
-    on_pull_requests: false
+- if [ "$SKIP_NIGHTWATCH" == "true" ]; then echo "skipping nightwatch tests"; else sh ./frontend_test.sh; fi
 cache:
   directories:
   - node_modules

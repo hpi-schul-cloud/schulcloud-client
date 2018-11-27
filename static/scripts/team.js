@@ -1,34 +1,32 @@
 $(document).ready(function () {
-    let teamLength = $('#teamLength').text();
-    for (let i = 0; i <= teamLength; i++) {
-        $('.button' + i).click(function () {
-            let buttonId = 'two';
-            $('#modal-container-' + i).removeAttr('class').addClass(buttonId);
-            $('body').addClass('modal-active');
-        });
-
-        $('#modal-container-' + i).click(function () {
-            $(this).addClass('out');
+    $("div#openCard").on("click", e => {
+        let container = $(e.currentTarget).parents("div.content").prev("#modal-container-personcard");
+        container.removeAttr('class').addClass("show");
+    
+        container.one("click", () => {
+            container.addClass("out");
             $('body').removeClass('modal-active');
             setTimeout(
                 function () {
-                    $('#modal-container-' + i).removeAttr('class');
+                    container.removeAttr('class');
                 }, 250);
         });
-        }
+    
+        $('body').addClass('modal-active');
+    });
 
-        $('.modal-content').click(function (e) {
-            if ($(e.target).is('a'))
-                return true;
+    $('.modal-content').click(function (e) {
+        if ($(e.target).is('a'))
+            return true;
 
-            if ($(e.target).is('button.close'))
-                return true;
+        if ($(e.target).is('button.close'))
+            return true;
 
-            if ($(e.target).is('i.fa.fa-times'))
-                return true;
+        if ($(e.target).is('i.fa.fa-times'))
+            return true;
 
-            return false;
-        });
+        return false;
+    });
 
     $(document).on('mousemove', function(e){
         $('.light').css({
