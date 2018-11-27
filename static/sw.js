@@ -277,12 +277,23 @@ function downloadCourse(courseId) {
             body: JSON.stringify(currentVal)
         }).then(response => response.json());
     })
+    .then(json =>{
+        if(json.cleanup && json.cleanup.course){
+            return caches.open('courses')
+                .then(cache=>cache.delete(json.cleanup.course.url))
+                .then(_=> cacheEvents.removed('courses',json.cleanup.course.url))
+                .then(_=>{
+                    if(currentVal.course){
+                        delete currentVal.course;
+                    }
+                    return json;
+                });
+        }
+        return json;
+    })
         .then(json => {
 
             // remove data which has been removed on server side
-
-        // todo remove course itself
-
             if (json.cleanup && json.cleanup.lessons) {
                 let lessonsToRemove = currentVal.lessons.filter(lesson => json.cleanup.lessons.includes(lesson._id));
                 if (lessonsToRemove) {
@@ -297,7 +308,7 @@ function downloadCourse(courseId) {
                     })).then(_ => {
                         // cleanup dataset
                         currentVal.lessons = currentVal.lessons.filter(lesson => !json.cleanup.lessons.includes(lesson._id));
-                        if (currentVal.cleanup) delete currentVal.cleanup;
+                    if (currentVal.cleanup.lessons) delete currentVal.cleanup.lessons;
                         return json;
                     });
                 }
@@ -307,9 +318,6 @@ function downloadCourse(courseId) {
     }) .then(json => {
 
         // remove data which has been removed on server side
-
-        // todo remove course itself
-
         if (json.cleanup && json.cleanup.files) {
             let filesToRemove = currentVal.files.filter(file => json.cleanup.files.includes(file._id));
             if (filesToRemove) {
@@ -324,7 +332,7 @@ function downloadCourse(courseId) {
                 })).then(_ => {
                     // cleanup dataset
                     currentVal.files = currentVal.files.filter(file => !json.cleanup.files.includes(file._id));
-                    if (currentVal.cleanup) delete currentVal.cleanup;
+                    if (currentVal.cleanup.files) delete currentVal.cleanup.files;
                     return json;
                 });
             }
