@@ -128,6 +128,7 @@ $(document).ready(function () {
       type: "GET",
       url: window.location.origin + "/schools",
       data: {
+        $limit: false,
         federalState
       }
     }).done(schools => {

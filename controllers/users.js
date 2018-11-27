@@ -9,6 +9,7 @@ router.get('/teachersOfSchool', async function(req, res, next) {
     try {
         let users = await api(req).get('/publicTeachers/', {
             qs: {
+                $limit: false,
                 schoolId: req.query.schoolId,
                 $sort: 'firstName'
             }
