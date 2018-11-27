@@ -385,28 +385,35 @@ const getSendHelper = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id)
             .then(data => {
-                let user = res.locals.currentUser;
-                let email = user.email ? user.email : "";
-                let innerText = "Problem in Kategorie: " + data.category + "\n";
-                let content = {
-                    "text": "User: " + user.displayName + "\n"
-                        + "E-Mail: " + email + "\n"
-                        + "Schule: " + res.locals.currentSchoolData.name + "\n"
-                        + innerText
-                        + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
-                };
-                req.body.email = "ticketsystem@schul-cloud.org";
-                req.body.subject = data.subject;
-                req.body.content = content;
 
-                api(req).post('/mails', { json: req.body }).then(_ => {
+                let user = res.locals.currentUser;
+
+                api(req).post('/helpdesk', {
+                    json: {
+                        type: "contactHPI",
+                        subject: data.subject,
+                        category: data.category,
+                        role: "",
+                        desire: "",
+                        benefit: "",
+                        acceptanceCriteria: "",
+                        currentState : data.currentState,
+                        targetState: data.targetState,
+                        notes: data.notes,
+                        schoolName: res.locals.currentSchoolData.name,
+                        userId: user._id,
+                        email: user.email ? user.email : "",
+                        schoolId: res.locals.currentSchoolData._id,
+                        cloud: res.locals.theme.title
+                    }
+                })
+                .then(_ => {
                     api(req).patch('/' + service + '/' + req.params.id, {
                         json: {
                             state: 'submitted',
                             order: 1
                         }
                     });
-                    res.sendStatus(200);
                 }).catch(err => {
                     res.status((err.statusCode || 500)).send(err);
                 });
