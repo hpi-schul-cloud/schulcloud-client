@@ -29,20 +29,20 @@
                             </h5>
                             {{#if courseUrl}}
                                 <a href="{{courseUrl}}" class="btn btn-secondary btn-sm btn-thin pull-right">
-                                    Zum Kurs
+                                    {{ toCourseText }}
                                 </a>
                             {{/if}}
                         </div>
                     </div>
                 </div>
             </section>
-
+            {{#if directories}}
             <h6 style="padding: 1rem 0 1.5rem">Ordner</h6>
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
 						<div class="col-sm-6 col-xs-12 col-md-4">
-							<div class="card card-block folder" onclick="location.href = location.href + (location.href.split('').pop() !== '/' ? '/' : '') +'{{this._id}}';">
+							<div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
 								</strong>
@@ -65,16 +65,28 @@
 								   >
 									<i class="fa fa-edit pull-right"></i>
 								</a>
+                                {{#if ../../canEditPermissions}}
+                                    <a href="/directoryModel/{{../this._id}}/share"
+                                    target="_blank"
+                                    class="btn-file-share"
+                                    data-method="dir-share"
+                                    title="Ordner-Freigabe"
+                                    data-file-id="{{../this._id}}"
+                                    data-file-name="{{../this.name}}"
+                                    >
+                                        <i class="fa fa-share-alt pull-right"></i>
+                                    </a>  
+                                {{/if}}
                                 {{/userHasPermission}}
 							</div>
 						</div>
                     {{/each}}
                 </div>
             </section>
-
+            {{/if}}
             <h6 style="display: block; clear: both; padding: 1.5rem 0 1.5rem">Dateien</h6>
             {{#embed "files/file-viewer"}}{{/embed}}
-            {{#embed "files/files-grid"}}{{/embed}}
+            {{#embed "files/files-grid" canEditPermissions=canEditPermissions teamFiles=teamFiles}}{{/embed}}
 
             {{#userHasPermission "FOLDER_CREATE"}}
             <section class="new-directory">

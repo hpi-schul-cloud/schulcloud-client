@@ -16,33 +16,35 @@
         </ul>
     </div> --}}
 
-    <h5>Freigeben für:</h5>
-    <div>
-        <table class="file-permissions">
-            <tr>
-                <th>Rolle</th>
-                <th>Zugriffsrechte</th>
-            </tr>
-            <tr>
-                <td>Externe Experten</td>
-                <td>
-                    <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" />
-                </td>
-            </tr>
-            <tr>
-                <td>Teilnehmer</td>
-                <td>
-                    <input class="box" type="checkbox" name="teamMembers" value="allowTeamMembers" />
-                </td>
-            </tr>
-            <tr>
-                <td>Leiter und Team-Admins</td>
-                <td>
-                    <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked" disabled />
-                </td>
-            </tr>
-        </table>
-    </div>
+    {{#if teamFiles}}
+        <h5>Freigeben für:</h5>
+        <div>
+            <table class="file-permissions">
+                <tr>
+                    <th>Rolle</th>
+                    <th>Zugriffsrechte</th>
+                </tr>
+                <tr>
+                    <td>Externe Experten</td>
+                    <td>
+                        <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Teilnehmer</td>
+                    <td>
+                        <input class="box" type="checkbox" name="teamMembers" value="allowTeamMembers" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Leiter und Team-Admins</td>
+                    <td>
+                        <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked" disabled />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {{/if}}
 
     <h5 class="mt-2">Freigabe-Link</h5>
     <label for="invitation">Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten. </label>

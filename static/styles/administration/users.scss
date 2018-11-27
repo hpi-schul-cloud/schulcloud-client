@@ -2,12 +2,16 @@
 
 .consent-status{
     &.fa-check{
+        color: orange;
+    }
+    &.fa-check.double-check{
         color: green;
     }
-    &.fa-circle-thin{
-        color: orange;
-        font-weight: bold;
-    }
+    // Legacy
+    // &.fa-circle-thin{
+    //     color: orange;
+    //     font-weight: bold;
+    // }
     &.fa-times{
         color: red;
     }

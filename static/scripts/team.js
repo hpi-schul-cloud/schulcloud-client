@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    var $editEventModal = $('.edit-event-modal');
+
     $("div#openCard").on("click", e => {
         let container = $(e.currentTarget).parents("div.content").prev("#modal-container-personcard");
         container.removeAttr('class').addClass("show");

@@ -1,6 +1,6 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
   <h4>Ihre Daten</h4>
-  <p>Für Schüler unter 18 Jahren muss ein Erziehungsberechtigter in die Nutzung der {{theme.short_title}} einwilligen.</p>
+  <p>Für Schüler unter 18 Jahren muss ein Erziehungsberechtigter in die Nutzung der {{@root.theme.short_title}} einwilligen.</p>
   <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
   <div class="row">
     <div class="form-group col-md-6 col-sm-12">
@@ -18,7 +18,7 @@
     <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
   </div>
   <p class="explanation nomargin">
-    Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{theme.short_title}} rechtlich gültig ist. Die {{theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.
+    Wir benötigen eine E-Mail-Adresse, damit Ihre Einwilligung in die Nutzung der {{@root.theme.short_title}} rechtlich gültig ist. Die {{@root.theme.short_title}} gibt die Adresse nicht weiter. Sie erhalten keine unerwünschten Mails.
     <br/>
     Zusätzlich planen wir die Entwicklung eines Eltern-Zugangs, über den Sie mit dem Klassenlehrer kommunizieren und mit dem Sie die Lernfortschritte Ihres Kindes nachvollziehen können. Sobald diese Funktionen zur Verfügung stehen, fragen wir Sie, ob wir Ihre E-Mail-Adresse dafür verwenden dürfen.
   </p>

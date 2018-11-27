@@ -45,11 +45,10 @@
                                     {{/each}}
                                 </td>
                             {{else}}
-                                {{#if this.useHTML}}
-                                    <td>{{{this.content}}}</td>
-                                {{/if}}
                                 {{#if this.payload}}
                                     <td style="display: none" data-payload={{{json this.payload}}}></td>
+                                {{else if this.useHTML}}
+                                    <td>{{{this.content}}}</td>
                                 {{else}}
                                     <td>{{this}}</td>
                                 {{/if}}

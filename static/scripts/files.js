@@ -5,6 +5,22 @@ const getDataValue = function(attr) {
     };
 };
 
+window.openFolder = function(id) {
+    let href = location.href.split('#').shift();
+    const reg = new RegExp('^https?:\/\/.*?\/files\/(?:teams|courses)\/(?:.+?)\/(.+)$');
+
+    if(reg.test(href)) {
+        href = href.replace(reg, function(m, g){
+            return m.replace(g, id);
+        });
+    }
+    else {
+        href = href + (href.split('').pop() !== '/' ? '/' : '') + id;
+    }
+
+    return href;
+};
+
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
@@ -473,23 +489,37 @@ $(document).ready(function() {
                             $(this).select();
                         });
 
-                        const externalExpertsPermission = file.permissions.find(p => p.roleName === 'teamexpert')
-                        const allowExternalExperts = externalExpertsPermission.create &&
-                                                    externalExpertsPermission.read &&
-                                                    externalExpertsPermission.write &&
-                                                    externalExpertsPermission.delete;
-                        const teamMembersPermission = file.permissions.find(p => p.roleName === 'teammember')
-                        const allowTeamMembers = teamMembersPermission.create &&
-                                                    teamMembersPermission.read &&
-                                                    teamMembersPermission.write &&
-                                                    teamMembersPermission.delete;
+                        try {
+                            let allowExternalExperts, allowTeamMembers;
+                            const externalExpertsPermission = file.permissions.find(p => p.roleName === 'teamexpert');
 
-                        state.permissions = file.permissions;
+                            if (externalExpertsPermission) {
+                                allowExternalExperts = externalExpertsPermission.create &&
+                                                            externalExpertsPermission.read &&
+                                                            externalExpertsPermission.write &&
+                                                            externalExpertsPermission.delete;
+                            }
+                            const teamMembersPermission = file.permissions.find(p => p.roleName === 'teammember');
 
-                        $('input[name="externalExperts"]').prop('checked', allowExternalExperts)
-                        $('input[name="teamMembers"]').prop('checked', allowTeamMembers)
+                            if (teamMembersPermission) {
+                                allowTeamMembers = teamMembersPermission.create &&
+                                                            teamMembersPermission.read &&
+                                                            teamMembersPermission.write &&
+                                                            teamMembersPermission.delete;
+                            }
 
-                        $shareModal.appendTo('body').modal('show');
+                            state.permissions = file.permissions;
+    
+                            $('input[name="externalExperts"]').prop('checked', allowExternalExperts);
+                            $('input[name="teamMembers"]').prop('checked', allowTeamMembers);
+    
+                            $shareModal.appendTo('body').modal('show');
+                        } catch (e) {
+                            console.log(e)
+                            $.showNotification('Problem beim Freigeben der Datei', "danger", true);
+                        }
+
+
                     },
                     error: function (err) {
                         console.log('error')

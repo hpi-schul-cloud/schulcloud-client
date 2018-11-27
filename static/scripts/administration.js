@@ -37,7 +37,8 @@ $(document).ready(function () {
     $('.btn-edit').on('click', function (e) {	
         e.preventDefault();	
         var entry = $(this).attr('href');	
-        $.getJSON(entry, function (result) {	
+        $.getJSON(entry, function (result) {
+            result.createdAt = new Date(result.createdAt).toLocaleString();
             populateModalForm($editModal, {	
                 action: entry,	
                 title: 'Bearbeiten',	

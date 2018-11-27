@@ -1,6 +1,7 @@
 
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/teams/teams.css"/>
         <link rel="stylesheet" href="/styles/files/files.css"/>
         <link rel="stylesheet" href="/styles/teams/team.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
@@ -9,6 +10,7 @@
     {{#content "scripts" mode="append"}}
         <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
         <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
+        <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
         <script src="/scripts/files.js" type="text/javascript" defer></script>
         <script src="/scripts/teams.js" type="text/javascript" defer></script>
     {{/content}}
@@ -60,16 +62,86 @@
                 </div>
             </section>
 
-            <section class="row">
-                <div class="col-sm-12">
-                    <h4>Dateien</h4>
-                    {{#embed "files/file-viewer"}}{{/embed}}
-                    {{#embed "files/files-grid" files=files teamId=../_id}}{{/embed}}
-                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
-                    <button class="btn btn-add btn-secondary btn-file-permissions">
-                        Freigabe-Einstellungen ändern
-                    </button>
+            <section>
+                <h4>Dateien & Ordner</h4>
+            </section>
+
+            {{#if canUploadFile}}
+                {{#embed "files/file-upload"}}{{/embed}}
+            {{/if}}
+
+            <section style="margin-top: 1rem" class="directories">
+                <h5 style="color: #373a3c">Ordner</h5>
+                <div class="row">
+                    {{#each directories}}
+						<div class="col-sm-6 col-xs-12 col-md-4">
+							<div class="card card-block folder" onclick="location.href = '/files/teams/{{../_id}}/{{this._id}}';">
+								<strong class="card-title-directory">
+									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+								</strong>
+                                {{#userHasPermission "FOLDER_DELETE"}}
+                                    <a href="/files/directory/"
+                                    target="_blank"
+                                    data-method="delete"
+                                    title="Ordner löschen"
+                                    data-file-name="{{../this.name}}"
+                                    data-file-key="{{../this.path}}">
+                                        <i class="fa fa-trash-o pull-right"></i>
+                                    </a>
+
+                                    <a href="/directoryModel/{{../this._id}}/rename"
+                                    target="_blank"
+                                    data-method="dir-rename"
+                                    title="Ordner umbenennen"
+                                    data-directory-id="{{../this._id}}"
+                                    data-directory-name="{{../this.name}}"
+                                    >
+                                        <i class="fa fa-edit pull-right"></i>
+                                    </a>
+                                    {{#inArray "EDIT_ALL_FILES" ../../permissions}}
+                                        <a href="/directoryModel/{{../this._id}}/share"
+                                        target="_blank"
+                                        class="btn-file-share"
+                                        data-method="dir-share"
+                                        title="Ordner-Freigabe"
+                                        data-file-id="{{../this._id}}"
+                                        data-file-name="{{../this.name}}"
+                                        >
+                                            <i class="fa fa-share-alt pull-right"></i>
+                                        </a>
+                                    {{/inArray}}
+                                {{/userHasPermission}}
+							</div>
+						</div>
+                    {{/each}}
                 </div>
+            </section>
+
+            <section style="padding-top: 2rem; clear: both" class="row">
+                <div class="col-sm-12">
+                    <h5 style="padding: 10px 0 20px">Dateien</h5>
+                    {{#embed "files/file-viewer"}}{{/embed}}
+                    {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
+                </div>
+            </section>
+
+            <section style="margin-top: 1rem">
+                <h5 style="padding: 10px 0 20px">Aktionen</h5>
+
+                <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                <button class="btn btn-add btn-secondary btn-file-permissions">
+                    Freigabe-Einstellungen ändern
+                </button>
+                {{#if ../canCreateDir}}
+                    <span class="btn btn-secondary create-directory">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                    </span>
+                {{/if}}
+                {{!-- {{#if ../canCreateFile}}
+                    <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
+                    </span>
+                {{/if}}                 --}}
             </section>
 
             <section class="row">
@@ -105,22 +177,26 @@
 
             <section class="row">
                 <div class="col-sm-12">
-                    {{#inArray "RENAME_TEAM" permissions}}
-                        <h4>Aktionen</h4>
-                    {{/inArray}}
+                    {{#userHasPermission "TEAM_EDIT"}}
+                        <div>
+                            {{#inArray "RENAME_TEAM" ../permissions}}
+                                <h4>Aktionen</h4>
+                            {{/inArray}}
 
-                    {{#inArray "RENAME_TEAM" permissions}}
-                        <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
-                    {{/inArray}}
+                            {{#inArray "RENAME_TEAM"../ permissions}}
+                                <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
+                            {{/inArray}}
 
-                    {{#inArray "DELETE_TEAM" permissions}}
-                        <a href="/teams/{{../_id}}/"
-                           class="btn btn-delete-course btn-secondary"
-                           target="_blank"
-                           data-method="DELETE"
-                           data-name="{{../name}}"
-                           redirect="/teams/">Team löschen</a>
-                    {{/inArray}}
+                            {{#inArray "DELETE_TEAM" ../permissions}}
+                                <a href="/teams/{{../_id}}/"
+                                class="btn btn-delete-course btn-secondary"
+                                target="_blank"
+                                data-method="DELETE"
+                                data-name="{{../name}}"
+                                redirect="/teams/">Team löschen</a>
+                            {{/inArray}}
+                        </div>
+                    {{/userHasPermission}}
                 </div>
             </section>
 
@@ -141,7 +217,7 @@
 
             {{#embed "lib/components/modal-form" class="file-permissions-modal" title="Freigabe-Einstellungen ändern"}}
                 {{#content "fields"}}
-                    {{> "teams/forms/form-file-permissions"}}
+                    {{> "teams/forms/form-file-permissions" teamFiles=true}}
                 {{/content}}
             {{/embed}}
 
@@ -150,6 +226,17 @@
                     {{> "calendar/forms/form-create-event"}}
                 {{/content}}
             {{/embed}}
+
+            {{#embed "lib/components/modal-form" method="put" action="/calendar/events/" class="edit-event-modal"}}
+                {{#content "fields"}}
+                    {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
+                {{/content}}
+                {{#content "additional-actions"}}
+                        <button type="button" class="btn btn-primary btn-danger btn-delete">
+                            <i class="fa fa-trash-o"></i> Löschen
+                        </button>
+                {{/content}}
+            {{/embed}}            
         </section>
     </div>
 

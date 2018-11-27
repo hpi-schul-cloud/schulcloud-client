@@ -21,29 +21,37 @@ const logger = winston.createLogger({
     ]
 });
 
-const thumbs = {
-    default: "/images/thumbs/default.png",
-    psd: "/images/thumbs/psds.png",
-    txt: "/images/thumbs/txts.png",
-    doc: "/images/thumbs/docs.png",
-    png: "/images/thumbs/pngs.png",
-    mp4: "/images/thumbs/mp4s.png",
-    mp3: "/images/thumbs/mp3s.png",
-    aac: "/images/thumbs/aacs.png",
-    avi: "/images/thumbs/avis.png",
-    gif: "/images/thumbs/gifs.png",
-    html: "/images/thumbs/htmls.png",
-    js: "/images/thumbs/jss.png",
-    mov: "/images/thumbs/movs.png",
-    xls: "/images/thumbs/xlss.png",
-    xlsx: "/images/thumbs/xlss.png",
-    pdf: "/images/thumbs/pdfs.png",
-    flac: "/images/thumbs/flacs.png",
-    jpg: "/images/thumbs/jpgs.png",
-    jpeg: "/images/thumbs/jpgs.png",
-    docx: "/images/thumbs/docs.png",
-    ai: "/images/thumbs/ais.png",
-    tiff: "/images/thumbs/tiffs.png"
+const addThumbnails = (file) => {
+    const thumbs = {
+        default: "/images/thumbs/default.png",
+        psd: "/images/thumbs/psds.png",
+        txt: "/images/thumbs/txts.png",
+        doc: "/images/thumbs/docs.png",
+        png: "/images/thumbs/pngs.png",
+        mp4: "/images/thumbs/mp4s.png",
+        mp3: "/images/thumbs/mp3s.png",
+        aac: "/images/thumbs/aacs.png",
+        avi: "/images/thumbs/avis.png",
+        gif: "/images/thumbs/gifs.png",
+        html: "/images/thumbs/htmls.png",
+        js: "/images/thumbs/jss.png",
+        mov: "/images/thumbs/movs.png",
+        xls: "/images/thumbs/xlss.png",
+        xlsx: "/images/thumbs/xlss.png",
+        pdf: "/images/thumbs/pdfs.png",
+        flac: "/images/thumbs/flacs.png",
+        jpg: "/images/thumbs/jpgs.png",
+        jpeg: "/images/thumbs/jpgs.png",
+        docx: "/images/thumbs/docs.png",
+        ai: "/images/thumbs/ais.png",
+        tiff: "/images/thumbs/tiffs.png"
+    };
+
+    if( !file.isDirectoy ) {
+        const ending = file.name.split('.').pop();
+        file.thumbnail = thumbs[ending.toLowerCase()] || thumbs['default'];
+    }
+    return file;
 };
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -218,7 +226,7 @@ router.get('/', async function(req, res, next) {
         team.secondaryTitle = '';
         team.background = team.color;
         team.memberAmount = team.userIds.length;
-        team.id = team._id
+        team.id = team._id;
         
         return team;
     });
@@ -300,10 +308,10 @@ router.get('/add/', editCourseHandler);
 
 function mapPermissionRoles (permissions, roles) {
     return permissions.map(permission => {
-        const role = roles.find(role => role._id === permission.refId)
-        permission.roleName = role ? role.name : ''
-        return permission
-    })
+        const role = roles.find(role => role._id === permission.refId);
+        permission.roleName = role ? role.name : '';
+        return permission;
+    });
 }
 
 router.get('/:teamId/json', function(req, res, next) {
@@ -326,11 +334,11 @@ router.get('/:teamId/json', function(req, res, next) {
             }
         })
     ]).then(([roles, team, lessons]) => {
-        team.filePermission = mapPermissionRoles(team.filePermission, roles.data)
+        team.filePermission = mapPermissionRoles(team.filePermission, roles.data);
 
-        res.json({ team, lessons })
+        res.json({ team, lessons });
     }).catch(e => {
-        res.sendStatus(500)
+        res.sendStatus(500);
     });
 });
 
@@ -363,59 +371,67 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
-        course.filePermission = mapPermissionRoles(course.filePermission, roles)
+        course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
-        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert')
-        const allowExternalExperts = externalExpertsPermission.create &&
+        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert');
+        let allowExternalExperts, allowTeamMembers; 
+        if (externalExpertsPermission) {
+            allowExternalExperts =  externalExpertsPermission.create &&
                                     externalExpertsPermission.read &&
                                     externalExpertsPermission.write &&
                                     externalExpertsPermission.delete;
-        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember')
-        const allowTeamMembers = teamMembersPermission.create &&
-                                    teamMembersPermission.read &&
-                                    teamMembersPermission.write &&
-                                    teamMembersPermission.delete;
+        }
+        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember');
 
-        let files = await api(req).get('/fileStorage', {
+        if (teamMembersPermission) {
+            allowTeamMembers = teamMembersPermission.create &&
+                               teamMembersPermission.read &&
+                               teamMembersPermission.write &&
+                               teamMembersPermission.delete;
+        }
+
+        let files, directories;
+        files = await api(req).get('/fileStorage', {
             qs: { 
                 owner: course._id
             }
         });
 
+        files = files.filter(file => file);
+        
         files = files.map(file => {
-            file.permissions = mapPermissionRoles(file.permissions, roles)
-            return file
-        })
+            if (file && file.permissions) {
+                file.permissions = mapPermissionRoles(file.permissions, roles);
+                return file;
+            } else {
+                return undefined;
+            }
+        });
+
+        directories = files.filter(f => f.isDirectory);
+        files = files.filter(f => !f.isDirectory);
 
         // Sort by most recent files and limit to 6 files
         files.sort(function(a,b) {
-            return new Date(b.updatedAt) - new Date(a.updatedAt);
+            if (b && b.updatedAt && a && a.updatedAt) {
+                return new Date(b.updatedAt) - new Date(a.updatedAt);
+            } else {
+                return 0;
+            }
         })
         .slice(0, 6);
 
-        // if (data.directories && data.directories.length > 0) {
-        //     const filesPromises = data.directories.map(dir => {
-        //         return api(req).get('/fileStorage', {
-        //             qs: {
-        //                 path: dir.key + '/'
-        //             }
-        //         });
-        //     });
-        //     const dataSubdirectories = await Promise.all(filesPromises);
-        //     let subdirectoriesFiles = dataSubdirectories.map(sub => {
-        //         return sub.files.map(file => {
-        //             file.file = file.key;
-        //             let ending = file.name.split('.').pop();
-        //             file.thumbnail = thumbs[ending] ? thumbs[ending] : thumbs['default'];
-        //             return file;
-        //         });
-        //     });
-        //     subdirectoriesFiles = subdirectoriesFiles[0];
+        files.map(addThumbnails);
 
-        //     files = files.concat(subdirectoriesFiles);
-        // }
-
-
+        directories.sort(function(a,b) {
+            if (b && b.updatedAt && a && a.updatedAt) {
+                return new Date(b.updatedAt) - new Date(a.updatedAt);
+            } else {
+                return 0;
+            }
+        })
+        .slice(0, 6);
+        
         let news = (await api(req).get('/news/', {
             qs: {
                 target: req.params.teamId,
@@ -453,6 +469,8 @@ router.get('/:teamId', async function(req, res, next) {
         } catch (e) {
             events = [];
         }
+        
+        let test = course.user.permissions.includes('EDIT_ALL_FILES')
 
         res.render('teams/team', Object.assign({}, course, {
             title: course.name,
@@ -465,8 +483,14 @@ router.get('/:teamId', async function(req, res, next) {
             permissions: course.user.permissions,
             course,
             events,
+            directories,
             files,
             filesUrl: `/files/teams/${req.params.teamId}`,
+            ownerId: req.params.teamId,            
+            canUploadFile: true,
+            canCreateDir: true,
+            canCreateFile: true,
+            canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
             createEventAction: `/teams/${req.params.teamId}/events/`,
             allowExternalExperts: allowExternalExperts ? 'checked' : '',
             allowTeamMembers: allowTeamMembers ? 'checked' : '',
@@ -561,6 +585,19 @@ router.post('/:teamId/events/', function (req, res, next) {
     });
 });
 
+router.put('/events/:eventId', function (req, res, next) {
+    req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+    req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+
+    api(req).put('/calendar/' + req.params.eventId, {
+        json: req.body
+    }).then(_ => {
+        res.sendStatus(200);
+    }).catch(err => {
+        next(err);
+    });
+});
+
 /*
  * Single Course Members
  */
@@ -604,7 +641,6 @@ router.get('/:teamId/members', async function(req, res, next) {
                 $limit: 2000
             }
         })).data;
-
 
         let classes = (await api(req).get('/classes', { qs: {
             $or: [{ "schoolId": res.locals.currentSchool }],
@@ -745,8 +781,8 @@ router.get('/:teamId/members', async function(req, res, next) {
 
         const invitationActions = [{
             class: 'btn-edit-invitation',
-            title: 'Einladung bearbeiten',
-            icon: 'edit'
+            title: 'Einladung erneut versenden',
+            icon: 'envelope'
         }, {
             class: 'btn-delete-invitation',
             title: 'Einladung löschen',
@@ -765,8 +801,8 @@ router.get('/:teamId/members', async function(req, res, next) {
                     }
                 },      
                 invitationActions,
-            ]
-        })
+            ];
+        });
 
         res.render('teams/members', Object.assign({}, course, {
             title: 'Deine Team-Teilnehmer',
@@ -843,7 +879,7 @@ router.post('/external/invite', (req, res) => {
         userId: req.body.userId,
         email: req.body.email,
         role: req.body.role
-    }
+    };
     
     return api(req).patch("/teams/extern/add/" + req.body.teamId , {
         json
@@ -884,9 +920,13 @@ router.delete('/:teamId/invitation', async function(req, res, next) {
 });
 
 router.get('/invitation/accept/:teamId', async function(req, res, next) {
-    await api(req).get('/teams/extern/accept/' + req.params.teamId);
-
-    res.sendStatus(200);
+    await api(req).get('/teams/extern/accept/' + req.params.teamId).then(_ => {
+        req.session.notification = {type: 'success', message: `Teameinladung erfolgreich angenommen.`};
+        res.redirect(`/teams/${req.params.teamId}`);
+    }).catch(err => {
+        logger.warn("Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. ", err);
+        res.redirect('/teams/');
+    });
 });
 
 /*
@@ -1034,144 +1074,5 @@ router.post('/import', function(req, res, next) {
             res.status((err.statusCode || 500)).send(err);
         });
 });
-
-/**
- * DEPRECATED - REMOVE AFTER N21 RELEASE
- * Generates short team invite link. can be used as function or as hook call.
- * @param params = object {
- *      role: user role = string "teamexpert"/"teamadministrator"
- *      host: current webaddress from client = string, looks for req.headers.origin first
- *      teamId: users teamId = string
- *      invitee: user who gets invited = string
- *      save: make hash link-friendly? = boolean (might be string)
- *      infos: object with multiple infos = object
- *  }
- * @param internalReturn: just return results to callee if true, for use as a hook false = boolean
- 
-const generateInviteLink = (params, internalReturn) => {
-    return function (req, res, next) {
-        let options = JSON.parse(JSON.stringify(params));
-        if (!options.role) options.role = req.body.role || "";
-        if (!options.host) options.host = req.headers.origin || req.body.host || "";
-        if (!options.teamId) options.teamId = req.body.teamId || "";
-        if (!options.invitee) options.invitee = req.body.email || req.body.invitee || "";
-        if (!options.save) options.save = req.body.save || "true";
-        if (!options.infos) options.infos = req.body.infos || {};
-        options.inviter = res.locals.currentUser._id;
-
-        if(internalReturn){
-            return api(req).post("/teaminvitelink/", {
-                json: options
-            });
-        } else {
-            return api(req).post("/teaminvitelink/", {
-                json: options
-            }).then(linkData => {
-                res.locals.linkData = linkData;
-                res.locals.options = options;
-                next();
-            }).catch(err => {
-                logger.warn(err);
-                req.session.notification = {
-                    'type': 'danger',
-                    'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error||{}).message || err.message || err || ""}`
-                };
-                res.redirect(req.header('Referer'));
-            });
-        }
-    };
-};
-
-const sendMailHandler = (internalReturn) => {
-    return function (req, res, next) {
-        let data = Object.assign(res.locals.options, res.locals.linkData);
-        if(data.invitee && data.teamId && data.shortLink && data.link) {
-            let inviteText = '';
-            if (!data.link.includes("registration")) {
-                inviteText = `Hallo ${data.invitee}!
-\nDu wurdest von ${data.infos.userName} eingeladen, dem Team '${data.infos.teamName}' der ${res.locals.theme.short_title} beizutreten.
-Klicke auf diesen Link, um die Einladung anzunehmen: ${data.shortLink}
-\nViel Spaß und gutes Gelingen wünscht dir dein
-${res.locals.theme.short_title}-Team`
-            } else {
-                inviteText = `Hallo ${data.invitee}!
-\nDu wurdest von ${data.infos.userName} eingeladen, dem Team '${data.infos.teamName}' beizutreten.
-Da du noch keinen ${res.locals.theme.short_title} Account besitzt, folge bitte diesem Link, um die Registrierung abzuschließen und dem Team beizutreten: ${data.shortLink}
-\nViel Spaß und einen guten Start wünscht dir dein
-${res.locals.theme.short_title}-Team`
-            }
-            return api(req).post('/mails/', {
-                json: {
-                    email: data.invitee,
-                    subject: `Einladung in ein Team der ${res.locals.theme.short_title}!`,
-                    headers: {},
-                    content: {
-                        "text": inviteText
-                    }
-                }
-            }).then(_ => {
-                if(internalReturn) return true;
-                next();
-            }).catch(err => {
-                logger.warn(err);
-                if(internalReturn) return false;
-                next();
-            });
-        } else {
-            if(internalReturn) return false;
-            logger.warn("Nicht alle benötigten Informationen für den Mailversand vorhanden (1)");
-            next();
-        }
-    }
-};
-
-// client-side use
-// WITH PERMISSION - NEEDED FOR LIVE
-// router.post('/invitelink/', permissionHelper.permissionsChecker(['ADD_SCHOOL_MEMBERS']), generateInviteLink({}), sendMailHandler(), (req, res) => { res.json(res.locals.linkData) });
-router.post('/invitelink/', generateInviteLink({}), sendMailHandler(), (req, res) => { 
-    res.json({
-        inviteCallDone:true
-    });
-});
-
-
-const addUserToTeam = (params, internalReturn) => {
-    return function (req, res, next) {
-        let errornotification = {type: 'danger',message: `Fehler beim Einladen in das Team.`};
-        if (["teamadministrator","teamexpert"].includes(req.params.role) && req.query.shortId) {
-            return api(req).patch('/teams/adduser/', {json:{shortId: req.query.shortId}})
-                .then(result => {
-                    if(result._id){
-                        if(internalReturn) return true;
-                        req.session.notification = {
-                            type: 'success',
-                            message: `Du wurdest dem Team erfolgreich hinzugefügt.`
-                        };
-                        res.redirect('/teams/'+result._id);
-                    } else {
-                        if(internalReturn) return false;
-                        logger.warn("Fehler beim Einladen in das Team. (1)");
-                        req.session.notification = errornotification;
-                        res.redirect('/teams/');
-                    }
-                })
-                .catch(err => {
-                    if(internalReturn) return false;
-                    logger.warn("Fehler beim Einladen in das Team. (2)");
-                    logger.warn(err);
-                    req.session.notification = errornotification;
-                    res.redirect('/teams/');
-                });
-        } else {
-            if(internalReturn) return false;
-            logger.warn("Fehler beim Einladen in das Team. (3)");
-            req.session.notification = errornotification;
-            res.redirect('/teams/');
-        }
-    }
-};
-
-router.get('/invite/:role/to/:teamHash', addUserToTeam());
- */
 
 module.exports = router;

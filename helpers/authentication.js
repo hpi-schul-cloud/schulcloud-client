@@ -12,6 +12,7 @@ const rolesDisplayName = {
     'demoStudent': 'Demo',
     'helpdesk': 'Helpdesk',
     'betaTeacher': 'Beta',
+    'expert': 'Experte',
 };
 
 const isJWT = (req) => {

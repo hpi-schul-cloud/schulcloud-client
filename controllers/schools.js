@@ -9,6 +9,7 @@ router.get('/', async function(req, res, next) {
     try {
         let schools = await api(req).get('/schools/', {
             qs: {
+                $limit: req.query.$limit,
                 federalState: req.query.federalState,
                 $sort: 'name'
             }
