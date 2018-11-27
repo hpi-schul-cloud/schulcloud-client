@@ -120,9 +120,14 @@ router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
     let quickhelp = quickHelpItems.slice(0);
-    if(res.locals.currentUser.roles.every((role) => {
-        return (role.name != "student") && (!role.name.includes("demo"));
-    })){
+    const isDemo = res.locals.currentUser.roles.every((role) => {
+        return (role.name.includes("demo"));
+    });
+    const isStudent = res.locals.currentUser.roles.every((role) => {
+        return (role.name === "student");
+    });
+
+    if(!isDemo && !isStudent){
         quickhelp.push({
             title: "Dokumente des Willkommensordners",
             icon: "fa-folder-open",
@@ -134,7 +139,8 @@ router.get('/', function (req, res, next) {
         tutorials: tutorials,
         knowledgeItems: knowledgeItems,
         quickHelpItems: quickhelp,
-        firstStepsItems: firstStepsItems
+        firstStepsItems: firstStepsItems,
+        demo: isDemo
     });
 });
 
