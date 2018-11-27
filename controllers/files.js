@@ -117,7 +117,6 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = [],) => {
 
     return api(req).get(`/files/${dirId}`)
         .then((directory) => {
-
             if(directory.parent) {
                 return getBreadcrumbs(req, directory.parent, breadcrumbs)
                     .then(breadcrumbs => {
@@ -621,8 +620,8 @@ router.get('/courses/', function (req, res, next) {
 router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res, next) {
     const basePath = '/files/courses/';
     const record = await api(req).get('/courses/' + req.params.courseId);
-    
     res.locals.files.files = res.locals.files.files.map(addThumbnails);
+    let canCreateFile = true;
 
     let breadcrumbs = [{
         label: 'Dateien aus meinen Teams',
@@ -637,11 +636,9 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
             crumb.url = `${basePath}${record._id}/${crumb.id}`;
             return crumb;
         });
-
         breadcrumbs = [...breadcrumbs, ...folderBreadcrumbs];
     }
 
-    let canCreateFile = true;
     if (['Schüler', 'Demo'].includes(res.locals.currentRole))
         canCreateFile = false;
 
