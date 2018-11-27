@@ -1084,16 +1084,21 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         qs: query
     }).then(userData => {
         let users = userData.data;
-
+        let consentsPromise;
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {
-            userId: {
-                $in: users.map((user) => {
-                    return user._id;
-                })
-            },
-            $limit: itemsPerPage
-        });
+
+        if(users.length > 0) {
+                consentsPromise = getSelectOptions(req, 'consents', {
+                userId: {
+                    $in: users.map((user) => {
+                        return user._id;
+                    })
+                },
+                $limit: itemsPerPage
+            });
+        } else {
+            consentsPromise = Promise.resolve();
+        }
         Promise.all([
             classesPromise,
             consentsPromise
