@@ -84,17 +84,25 @@
                     {{/content}}
                 {{/embed}}
 
-                {{#embed "help/icon-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="kontakt"}}
-                    {{#content "card-body"}}
-                        {{> "help/contact"}}
-                    {{/content}}
-                {{/embed}}
+                {{#if demo}}
+                    {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-12" id="email"}}
+                        {{#content "card-body"}}
+                            {{> "help/mail-card"}}
+                        {{/content}}
+                    {{/embed}}
+                {{else}}
+                    {{#embed "help/icon-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="kontakt"}}
+                        {{#content "card-body"}}
+                            {{> "help/contact"}}
+                        {{/content}}
+                    {{/embed}}
 
-                {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="email"}}
-                    {{#content "card-body"}}
-                        {{> "help/mail-card"}}
-                    {{/content}}
-                {{/embed}}
+                    {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="email"}}
+                        {{#content "card-body"}}
+                            {{> "help/mail-card"}}
+                        {{/content}}
+                    {{/embed}}
+                {{/if}}
 
                 {{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="ueber_das_projekt"}}
                     {{#content "card-body"}}
