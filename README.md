@@ -1,4 +1,7 @@
 # Schul-Cloud Client  
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/schul-cloud/schulcloud-client.svg)](https://greenkeeper.io/)
+
 _An implementation of the Schul-Cloud client with NodeJS and Express._  
   
 Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>  
