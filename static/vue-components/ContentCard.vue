@@ -154,18 +154,10 @@
 
     methods: {
       open() {
-        if (this.data.providerName === "Schul-Cloud" ) {
-          if (this.inReview) {
-            location.href = '/content/review/' + this.contentId;
-          } else {
-            location.href = '/content/view/' + this.contentId;
-          }
-        } else {
-          this.dialog.active = true;
-        }
+        this.dialog.active = true;
       },
       onConfirm() {
-        location.href = '/content/review/external';
+        this.dialog.active = false;
         window.open(this.$config.API.baseUrl + this.$config.API.clientPort + this.$config.API.redirectPath + this.contentId, '_blank');
       },
       onCancle() {

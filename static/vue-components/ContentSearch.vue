@@ -132,7 +132,7 @@
         this.updateURL(this.urlQuery);
 
         //let path = this.$config.API.searchPath + this.constructPathFromURL(this.urlQuery);
-        let path = this.$config.API.searchPath + `?$limit=${this.pagination.itemsPerPage}&$skip=${this.pagination.page - 1}${searchString?`&_all[$match]=${searchString}`:''}`;
+        let path = this.$config.API.searchPath + `?$limit=${this.pagination.itemsPerPage}&$skip=${this.pagination.itemsPerPag * (this.pagination.page - 1)}${searchString?`&_all[$match]=${searchString}`:''}`;
 
         let jwt
         try{
