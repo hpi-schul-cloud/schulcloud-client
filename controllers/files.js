@@ -349,17 +349,6 @@ router.post('/upload', upload.single('upload'), function (req, res, next) {
     });
 });
 
-router.post('/uploadToShare', function (req, res, next) {
-    let path = 'todo';
-    console.log(req);
-    res.json({
-        "uploaded": 1,
-        "fileName": req.file.originalname,
-        "url": "/files/file?path=" + _path
-    });
-
-});
-
 
 // delete file
 router.delete('/file', function (req, res, next) {
@@ -400,7 +389,6 @@ router.get('/file', function (req, res, next) {
                 } else if (signedUrl.header['Content-Type']) {
                     res.type(signedUrl.header['Content-Type']);
                 }
-
                 res.end(awsFile, 'binary');
             }); */
         });
@@ -556,7 +544,6 @@ router.get('/', function (req, res, next) {
     // get count of personal and course files/directories
     /*let myFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^users"}}});
     let courseFilesPromise = api(req).get("/files/", {qs: {path: {$regex: "^courses"}}});
-
     Promise.all([myFilesPromise, courseFilesPromise]).then(([myFiles, courseFiles]) => {
         // filter shared files
         let sharedFiles = [];

@@ -181,6 +181,14 @@ module.exports = (req, res, next) => {
         ]
     });
 
+    // beta user view
+    res.locals.sidebarItems.push({
+        name: 'Meine Materialien',
+        icon: 'book',
+        link: '/my-material/',
+        permission: 'BETA_FEATURES'
+    });
+
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
     let notificationsPromise = [];

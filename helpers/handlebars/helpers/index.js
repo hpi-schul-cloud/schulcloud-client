@@ -24,17 +24,6 @@ module.exports = {
     arrayLength: (array) => {
         return array.length;
     },
-    ratingOverallAverage: (array) => {
-        let sum = 0;
-        for (var i = 0; i < array.length; i++) {
-          sum += array[i].overall;
-        }
-        if (array.length > 0) {
-          return sum/array.length;
-        } else {
-          return 0;
-        }
-    },
     truncate: (text = '', {length = 140} = {}) => {
         if (text.length <= length) {
             return text;

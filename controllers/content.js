@@ -8,71 +8,7 @@ const api = require('../api');
 // secure routes
 router.use(authHelper.authChecker);
 
-const contentFilterSettings = function() {
-    return [
-        {
-            type: "sort",
-            title: 'Sortierung',
-            displayTemplate: 'Sortieren nach: %1',
-            options: [
-                ["updatedAt", "Aktualität"],
-                ["providerName", "Anbieter"],
-                ["clickCount", "Beliebtheit"]
-            ],
-            defaultOrder: "DESC"
-        },
-        {
-            type: "limit",
-            title: 'Einträge pro Seite',
-            displayTemplate: 'Einträge pro Seite: %1',
-            options: [9, 18, 24, 48, 99],
-            defaultSelection: 9
-        },
-        {
-            type: "select",
-            title: 'Dateityp',
-            displayTemplate: 'Dateitypen: %1',
-            property: 'mimeType',
-            multiple: true,
-            expanded: true,
-            options: [
-                ["text/html", "Text"],
-                ["video", "Video"]
-            ]
-        },
-    ];
-};
-
 router.get('/', function (req, res, next) {
-    return res.render('content/search');
-});
-
-router.get('/my-content', function (req, res, next) {
-    return res.render('content/my-content');
-});
-
-router.get('/create', function (req, res, next) {
-    return res.render('content/create');
-});
-
-router.get('/edit/:id', function (req, res, next) {
-    return res.render('content/create');
-});
-
-router.get('/view/:id', function (req, res, next) {
-    return res.render('content/edit');
-});
-
-router.get('/review/:id', function (req, res, next) {
-    return res.render('content/review-content');
-});
-
-
-router.get('/review', function (req, res, next) {
-    return res.render('content/review');
-});
-
-router.get('/search', function (req, res, next) {
     return res.render('content/search');
 });
 
@@ -118,13 +54,9 @@ router.get('/redirect/:id', function (req, res, next) {
 });
 
 router.post('/addToLesson', function (req, res, next) {
-    console.log("In /addToLesson of client content controller");
-    console.log(req.body);
     api(req).post('/materials/', {
         json: req.body
     }).then(material => {
-        console.log("after post call to /materials");
-        console.log(material);
         api(req).patch('/lessons/' + req.body.lessonId, {
             json: {
                 courseId: req.body.courseId,
@@ -133,33 +65,9 @@ router.post('/addToLesson', function (req, res, next) {
                 }
             }
         }).then(result => {
-            console.log("Successfully patches lesson");
             res.redirect('/content/?q=' + req.body.query);
         });
     });
 });
-
-// router.post('/publish', function (req, res, next) {
-//     api(req).post('/content/resources/', {
-//         json: req.body
-//     }).then(response => {
-//       console.log("Inside response of publish call");
-//       console.log(response);
-//     }).then(result => {
-//             res.redirect('/content/?q=' + req.body.query);
-//     });
-// });
-//
-// router.post('/rate', function (req, res, next) {
-//     console.log("In rate call with body: ", req.body);
-//     api(req).patch('/content/resources/' + req.body.id, {
-//         json: req.body
-//     }).then(response => {
-//       console.log("Inside response of publish call");
-//       console.log(response);
-//     }).then(result => {
-//             res.redirect('/content/?q=' + req.body.query);
-//     });
-// });
 
 module.exports = router;
