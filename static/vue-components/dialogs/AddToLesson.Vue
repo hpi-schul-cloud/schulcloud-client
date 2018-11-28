@@ -129,7 +129,7 @@
           })
           .then((response) => {
             console.log("trying to redirect");
-            window.location.href = this.inReview ? "content/review?msg=Inhalt erfolgreich hinzugefügt." : "/content/search?msg=Inhalt erfolgreich hinzugefügt.";
+            window.location.href = this.inReview ? "content/?msg=Inhalt erfolgreich hinzugefügt." : "/content/?msg=Inhalt erfolgreich hinzugefügt.";
           })
           .catch((e) => {
             console.error(e);

@@ -8,26 +8,15 @@
           <b>{{this.pagination.totalEntrys}}</b> Ergebnisse <span v-if="searchQuery">für <b>"{{this.searchQuery}}"</b></span>
         </span>
       </div>
-      <div>
-        <md-field class="no-bootstrap">
-          <label for="itemsPerPage">Einträge pro Seite</label>
-          <md-select v-model.number="pagination.itemsPerPage" name="itemsPerPage" id="itemsPerPage" class="no-bootstrap">
-            <md-option value=12>12</md-option>
-            <md-option value=24>24</md-option>
-            <md-option value=48>48</md-option>
-            <md-option value=48>96</md-option>
-          </md-select>
-        </md-field>
-      </div>
     </div>
     <div>
-      <search-filter :inReview="inReview" :userId="userId" @newFilter="updateFilter" :gamification="gamification"></search-filter>
+      <search-filter addLabel="Filter hinzufügen" :filter="JSON.stringify(filter)" @newFilter="updateFilter" :handleUrl="true" />
     </div>
   </div>
 </template>
 
 <script>
-  import filter from './Filter.vue';
+  import filter from './filter.vue';
 
   const qs = require('query-string');
 
@@ -39,6 +28,38 @@
     props: ['inReview', 'userId', 'pagination', 'gamification', 'initialSearchQuery'],
     data() {
       return {
+        filter: [
+          {
+            type: "sort",
+            title: 'Sortierung',
+            displayTemplate: 'Sortieren nach: %1',
+            options: [
+              ["updatedAt", "Aktualität"],
+              ["providerName", "Anbieter"],
+              ["clickCount", "Beliebtheit"]
+            ],
+            defaultOrder: "DESC"
+          },
+          {
+            type: "limit",
+            title: 'Einträge pro Seite',
+            displayTemplate: 'Einträge pro Seite: %1',
+            options: [12, 24, 48, 96],
+            defaultSelection: 12
+          },
+          {
+            type: "select",
+            title: 'Dateityp',
+            displayTemplate: 'Dateitypen: %1',
+            property: 'mimeType',
+            multiple: true,
+            expanded: true,
+            options: [
+              ["text/html", "Text"],
+              ["video", "Video"]
+            ]
+          },
+        ],
         searchQuery: '',
         apiQuery: {},
         urlQuery: {}

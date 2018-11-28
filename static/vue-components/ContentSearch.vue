@@ -80,6 +80,7 @@
         this.apiFilterQuery = apiQuery;
         this.urlQuery = urlQuery;
         this.searchQuery = searchQuery;
+        this.pagination.itemsPerPage = apiQuery["$limit"] || this.pagination.itemsPerPage;
         this.loadContent();
       },
       pageChanged(page) {
