@@ -94,7 +94,7 @@ fieldset.switch_wrapper {
 }
 
 // (submit-) Button
-button[type="submit"] {
+.icon-card button[type="submit"] {
   transition: color .3s ease-in-out, background-color .3s ease-in-out;
   margin-top: 16px;
   border: 1px solid #333;
