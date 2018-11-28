@@ -19,7 +19,7 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
     -webkit-text-size-adjust: 100%;
     hyphens: auto;
   }
-  
+
   .section-team, .section-partner, .section-about, .section-community {
     h4 {
       font-weight: 500;
@@ -34,24 +34,24 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       display: block;
     }
   }
-  
+
   .section-title h3 {
     color: $primaryColor;
     font-weight: 700;
     margin-top: 10px;
   }
-  
+
   body h4:not(:first-of-type){
     margin-top: 1rem;
   }
-  
+
   a {
     text-decoration: none;
     &:hover {
       text-decoration: none;
     }
   }
-  
+
   a[data-toggle="collapse"],
   a[data-toggle="collapse"]:hover,
   a[data-toggle="collapse"]:active,
@@ -59,62 +59,79 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
     color: inherit;
     text-decoration:none !important;
   }
-  
+
+  img{
+    max-width: 100%;
+  }
+
   .btn-link{
     margin: 0;
     padding: 0;
   }
-  
+
   p.small {
     line-height: 18px;
     font-size: 12px;
   }
-  
+
   .no-padding {
     padding: 0px !important;
   }
-  
+
   .pull-right {
     float:right;
   }
-  
+
   .text-center {
     text-align:center;
   }
-  
+
   label {
     font-weight: bold;
   }
-  
+
   .pagination-wrapper {
     text-align: center;
     width: 100%;
   }
-  
+
   label,
   .noselect{
     user-select: none;
   }
-  
+
   .intro-trigger {
     display: none;
   }
-  
+
   .hidden{
     display: none;
   }
-  
+
   .show{
     display: initial;
   }
-  
+
+  [data-toggle="collapse"]{
+    &[aria-expanded="true"] {
+      [data-expand]{
+        display: none;
+      }
+    }
+
+    &[aria-expanded="false"] {
+      [data-collapse]{
+        display: none;
+      }
+    }
+  }
+
   .btn-loading {
     font-size: 0px !important;
     transition: width 0.3s;
-  
+
     &:before {
       content: "\f1ce";
-      -webkit-animation: fa-spin 2s infinite linear;
       animation: fa-spin 2s infinite linear;
       font-family: "FontAwesome";
       display: inline-block;
@@ -123,7 +140,7 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       font-size: 16px;
     }
   }
-  
+
   .table-wrapper{
     max-width: 100%;
     display: block;
@@ -134,23 +151,23 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       margin-bottom: 0;
     }
   }
-  
+
   footer {
     .android-app {
       margin-left:-11px;
     }
     &.small-footer {
-  
+
       @include media-breakpoint-down(xs) {
         background: $colorBeige;
-  
+
         img {
           clear: both;
           display: block;
           margin: 0 auto 10px;
         }
       }
-  
+
       .imprint {
         .center {
           text-align: center;
@@ -171,7 +188,7 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       }
     }
   }
-  
+
   @keyframes fa-spin {
     0% {
       -webkit-transform: rotate(0deg);
@@ -182,15 +199,15 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       transform: rotate(359deg);
     }
   }
-  
-  
+
+
   .notification.hidden {
     display:none;
   }
-  
+
   form.inline {
     display: inline;
-  
+
     button:not(.no-inline-styling){
       -webkit-appearance: none;
       appearance: none;
@@ -198,21 +215,21 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       border: 0px;
     }
   }
-  
+
   .margin-top {
     margin-top: 30px;
   }
-  
+
   .padding-top {
     padding-top: 30px;
   }
-  
+
   .btn-tertiary,
   .btn.btn-tertiary,
   .list-group-item.btn-tertiary {
     background-color: $colorGrey;
   }
-  
+
   .btn-thin {
     padding-left: 15px !important;
     padding-right: 15px !important;
@@ -220,7 +237,7 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
   .btn.hidden{
     display:none;
   }
-  
+
   .alert-fixed {
     position:fixed;
     top: 0;
@@ -229,40 +246,40 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
     z-index:9999;
     border-radius:0
   }
-  
+
   .dropdown-item {
     cursor: pointer;
   }
-  
+
   .collapse-icon {
     display:inline-block;
     vertical-align: baseline;
     text-align: center;
     width: 1em;
   }
-  
+
   .window-inline .hide-inline {
     display: none;
   }
-  
+
   .card-deck-row {
-  
+
     & > div {
       margin-bottom: 30px;
     }
-  
+
     .card {
       max-width: 100% !important;
       display: flex;
       flex-wrap: wrap;
       flex-direction: column;
-  
+
       .card-block {
         max-width: 100%;
         width: 100%;
         flex: 1 1 0;
       }
-  
+
       .card-footer {
         align-self: flex-end;
         flex: 0 1 0;
@@ -270,12 +287,12 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       }
     }
   }
-  
+
   .print-only{display:none;}
   @media print {
     .print-only{display:initial;}
   }
-  
+
   .ckcontent {
     margin: 10px 0;
     color: #373a3c;
@@ -294,20 +311,20 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
       padding-left: 5px;
     }
   }
-  
+
   .container .jumbotron{
     padding: 2rem 2rem;
     margin: 2rem 0rem;
   }
-  
+
   .form-control{
     hyphens: none;
   }
-  
+
   .position-absolute{
     position: absolute !important;
   }
-  
+
   //the following adds fa-share-square-o for each external link except images
   .section-course .content-block{
     a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
