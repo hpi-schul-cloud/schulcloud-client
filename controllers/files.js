@@ -842,7 +842,7 @@ router.post('/studentCanEdit', function(req, res, next) {
    })
        .then(_ => {
            res.json({success: true});
-       })
+       });
 });
 
 

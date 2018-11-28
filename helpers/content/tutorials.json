@@ -1,0 +1,207 @@
+[{
+    "id": "17170472",
+    "title": "Unterricht",
+    "type": "topic",
+    "icon": "fa-graduation-cap",
+    "categories": [{
+        "id": "44072994",
+        "title": "Kurserstellung",
+        "type": "category",
+        "articles": [{
+            "id": "13828241",
+            "title": "Erstellen von Kursen",
+            "type": "article"
+        }, {
+            "id": "13828373",
+            "title": "Kurse bearbeiten",
+            "type": "article"
+        }, {
+            "id": "21921821",
+            "title": "Kurse klonen",
+            "type": "article"
+        }, {
+            "id": "13828369",
+            "title": "Schülergruppen im Kurs anlegen",
+            "type": "article"
+        }]
+    }, {
+        "id": "44072996",
+        "title": "Themen & Tools",
+        "type": "category",
+        "articles": [{
+            "id": "39387173",
+            "title": "Kurse teilen und importieren",
+            "type": "article"
+        }, {
+            "id": "13828870",
+            "title": "Themen im Kurs anlegen",
+            "type": "article"
+        }, {
+            "id": "13828893",
+            "title": "Themen teilen (in einen Kurs importieren)",
+            "type": "article"
+        }, {
+            "id": "13828873",
+            "title": "Tools in Themen einfügen",
+            "type": "article"
+        }]
+    }, {
+        "id": "44072998",
+        "title": "Aufgaben",
+        "type": "category",
+        "articles": [{
+            "id": "13829025",
+            "title": "Abgaben einsehen und bewerten",
+            "type": "article"
+        }, {
+            "id": "13829035",
+            "title": "Aufgabe archivieren",
+            "type": "article"
+        }, {
+            "id": "13829029",
+            "title": "Aufgabe drucken",
+            "type": "article"
+        }, {
+            "id": "13829061",
+            "title": "Aufgaben abgeben (Schüler*innenansicht)",
+            "type": "article"
+        }, {
+            "id": "13829023",
+            "title": "Aufgaben im Kurs hinzufügen",
+            "type": "article"
+        }]
+    }, {
+        "id": "44073000",
+        "title": "Materialsuche",
+        "type": "category",
+        "articles": [{
+            "id": "13828452",
+            "title": "Materialsuche im LernStore",
+            "type": "article"
+        }, {
+            "id": "13828454",
+            "title": "Materialsuche im Thema",
+            "type": "article"
+        }]
+    }, {
+        "id": "44073002",
+        "title": "Dateiablage",
+        "type": "category",
+        "articles": [{
+            "id": "13828554",
+            "title": "Dateisuche",
+            "type": "article"
+        }, {
+            "id": "13828551",
+            "title": "Dateiupload",
+            "type": "article"
+        }, {
+            "id": "13828549",
+            "title": "Dateiübersicht",
+            "type": "article"
+        }]
+    }]
+}, {
+    "id": "17170474",
+    "title": "Organisation",
+    "type": "topic",
+    "icon": "fa-sitemap",
+    "categories": [{
+        "id": "17170476",
+        "title": "Sonstige Funktionen",
+        "type": "category",
+        "articles": [{
+            "id": "13828761",
+            "title": "Feedback-Funktion: User-Story erstellen",
+            "type": "article"
+        }, {
+            "id": "13828795",
+            "title": "Feedback-Funktion: Ein Problem melden",
+            "type": "article"
+        }, {
+            "id": "13828292",
+            "title": "Neuigkeiten erstellen",
+            "type": "article"
+        }, {
+            "id": "13828371",
+            "title": "Termine erstellen",
+            "type": "article"
+        }, {
+            "id": "13829031",
+            "title": "Filterfunktion",
+            "type": "article"
+        }, {
+            "id": "13828660",
+            "title": "QR-Code Funktion",
+            "type": "article"
+        }, {
+            "id": "15106089",
+            "title": "Hilfebereich",
+            "type": "article"
+        }]
+    }, {
+        "id": "17956927",
+        "title": "Übersicht - So gelingt der Start mit der Schul-Cloud",
+        "type": "category",
+        "articles": []
+    }, {
+        "id": "44073004",
+        "title": "Login & Anlegen von Benutzeraccounts",
+        "type": "category",
+        "articles": [{
+            "id": "13828670",
+            "title": "Erstellen einer CSV-Datei",
+            "type": "article"
+        }, {
+            "id": "13828662",
+            "title": "Lehrer hinzufügen",
+            "type": "article"
+        }, {
+            "id": "13828427",
+            "title": "Login HPI Schul-Cloud",
+            "type": "article"
+        }, {
+            "id": "13828806",
+            "title": "Passwörter von Schüler*innen zurücksetzen",
+            "type": "article"
+        }, {
+            "id": "13828666",
+            "title": "Schüler hinzufügen",
+            "type": "article"
+        }]
+    }, {
+        "id": "44073006",
+        "title": "Klassenverwaltung",
+        "type": "category",
+        "articles": [{
+            "id": "13828804",
+            "title": "Klassen anlegen",
+            "type": "article"
+        }, {
+            "id": "36700233",
+            "title": "Klassen verwalten",
+            "type": "article"
+        }]
+    }, {
+        "id": "44073009",
+        "title": "Hinweise für Administrator*innen",
+        "type": "category",
+        "articles": [{
+            "id": "13828868",
+            "title": "Authentifizierung",
+            "type": "article"
+        }, {
+            "id": "39649285",
+            "title": "Helpdesk",
+            "type": "article"
+        }, {
+            "id": "36700189",
+            "title": "Registrierung und Einverständniserklärung",
+            "type": "article"
+        }, {
+            "id": "39387143",
+            "title": "Testschüler für Schulungszwecke anlegen",
+            "type": "article"
+        }]
+    }]
+}]
