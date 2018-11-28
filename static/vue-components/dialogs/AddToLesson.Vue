@@ -10,6 +10,7 @@
     md-confirm-text="Hinzufügen"
     md-cancel-text="Abbrechen"
     @md-cancel="cancelAdd()"
+    @md-clicked-outside="cancelAdd()"
     @md-confirm="confirmAdd()" />
   </div>
 </template>
@@ -42,25 +43,37 @@
         let that = this;
         that.addToCourseDialogActive = true;
 
-        $.getJSON('/content/' + this.contentId, function (result) {
-          var courses = result.courses.data;
-          var $selection = $('.course-selection');
-          courses.forEach(function (course) {
-            var option = document.createElement("option");
-            option.text = course.name;
-            option.value = course._id;
-            $selection.append(option);
-          });
+        let jwt
+        try{
+          jwt = document.cookie.split(';').find((cookie) => { return cookie.includes('jwt');}).split('=')[1];
+        } catch (error) {
+          console.error("not authenticated")
+        }
 
-          $('.course-selection').on('change', function () {
-            var selectedCourse = $(this).find("option:selected").val();
-            that.courseId = selectedCourse;
-            $.getJSON('/courses/' + selectedCourse + '/json', function (res) {
-              that.populateLessonSelection(res.lessons.data);
+        this.$http
+          .get(this.$config.API.baseUrl + this.$config.API.port + "/courses?", {
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }).then((response) => {
+            const courses = response.body.data;
+
+            var $selection = $('.course-selection');
+            courses.forEach(function (course) {
+              var option = document.createElement("option");
+              option.text = course.name;
+              option.value = course._id;
+              $selection.append(option);
+            });
+
+            $('.course-selection').on('change', function () {
+              var selectedCourse = $(this).find("option:selected").val();
+              that.courseId = selectedCourse;
+              $.getJSON('/courses/' + selectedCourse + '/json', function (res) {
+                that.populateLessonSelection(res.lessons.data);
+              });
             });
           });
-        });
-
       },
       populateLessonSelection(lessons) {
         var $selection = $('.lesson-selection');
@@ -95,13 +108,23 @@
           lessonId: this.lessonId,
           courseId: this.courseId,
           title: this.data.title,
+          client: this.data.providerName,
+          url: this.data.url,
           description: this.data.description,
           content: this.data.content,
         }
+
+        let jwt
+        try{
+          jwt = document.cookie.split(';').find((cookie) => { return cookie.includes('jwt');}).split('=')[1];
+        } catch (error) {
+          console.error("not authenticated")
+        }
+
         this.$http
           .post(this.$config.API.baseUrl + this.$config.API.clientPort + '/content/addToLesson', dataToSend, { //TODO: ask if we can skip material; then send contentId as well
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
+              Authorization: `Bearer ${jwt}`,
             }
           })
           .then((response) => {
