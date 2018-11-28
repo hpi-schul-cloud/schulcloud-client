@@ -21,7 +21,7 @@
                 <div class="row lesson-cards">
                     <div>
                         {{#each events}}
-                            <a class="lesson-card"{{#if url}}href="{{url}}"{{/if}}
+                            <a class="lesson-card" {{#if url}}href="{{url}}"{{/if}}
                                style="width: {{style.width}}%; left: {{style.left}}%;">
                                 <div class="card card-block" style="{{#if color}}background-color: {{color}};
                                         border-color: {{color}};{{/if}}">
@@ -70,30 +70,11 @@
                         {{else}}
                             <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
                                 <div class="alert">
-                                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/content/my-content">"Meine Materialien"-Abschnitt</a> vorbei.
+                                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine Materialien"-Abschnitt</a> vorbei.
                                 </div>
                             </div>
                         </div>
                     {{/each}}
-                </div>
-            </section>
-
-            <section class="section section-my-material" data-step="8" data-intro="Hier finden Sie Materialien Ihrer Kolleg*Innen, die Sie reviewen können.">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12"><h5>Review</h5></div>
-                    </div>
-                    <div class="row tasks card-deck-row">
-                        <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-                          {{#if ../reviewCount}}
-                            Insgesamt gibt es {{../reviewCount.overall}} Inhalte zum Reviewen. Für Sie persönlich sehen {{../reviewCount.personalized}} so aus, als könnten sie interessant sein. Schauen Sie doch mal im <a href="/content/review">Review-Bereich</a> vorbei.
-                          {{else}}
-                            <div class="alert">
-                              Momentan gibt es keine Inhalte, die Sie reviewen können. Erstellen Sie doch einen <a href="/content/create">eigenen Inhalt</a> und teilen diesen mit Ihren Kolleg*Innen.
-                            </div>
-                          {{/if}}
-                        </div>
-                    </div>
                 </div>
             </section>
         {{/ifeq}}
