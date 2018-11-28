@@ -1,23 +1,21 @@
 <template>
   <div>
     <section class="section-title">
-      <div class="container-fluid">
-        <div v-if="msg" class="alert alert-success">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          {{ msg }}
-        </div>
-        <div class="row" id="titlebar">
-          <div class="col-sm-9">
-            <div>
-                <h4>{{heading}}</h4>
-            </div>
+      <div v-if="msg" class="alert alert-success">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ msg }}
+      </div>
+      <div class="row" id="titlebar">
+        <div class="col-sm-9">
+          <div>
+              <h4>{{heading}}</h4>
           </div>
         </div>
       </div>
     </section>
-    <search-bar @newSearch="newSearch" :pagination="pagination" :inReview="inReview" :userId="userId" />
+    <search-bar @newSearch="newSearch" :pagination="pagination" :inReview="inReview" :userId="userId" :gamification="false" :initialSearchQuery="this.searchQuery"/>
     <div md-gutter class="grid">
-        <contentCard v-for="item in data" :key="item._id  + '#card'" :inReview="inReview" :data="item['_source']" :contentId="item['_id']"></contentCard>
+        <contentCard v-for="item in data" :key="item._id  + '#card'" :inReview="inReview" :data="item" :contentId="item['_id']"></contentCard>
     </div>
 
     <md-empty-state v-if="data.length == 0" class="md-primary"
@@ -49,13 +47,13 @@
         data: [],
         msg: undefined,
         searchQuery: '',
+        watchSearchQuery: true,
         apiFilterQuery: {},
         urlQuery: {},
         pagination: {
           page: 1,
           itemsPerPage: 12,
           totalEntrys: 0,
-          buttonRange: 2,
           scroll: {
             top: 0,
             left: 0,
@@ -67,7 +65,14 @@
     created() {
       var query = qs.parse(window.location.href.substring(window.location.href.indexOf('?')+1));
       this.msg = query.msg || this.passedMessage ;
+
+      this.watchSearchQuery = false;
+      this.searchQuery = query.term || '';
+      this.pagination.page = parseInt(query.page || 0);
+      this.watchSearchQuery = true;
+
       this.loadContent();
+
     },
     methods: {
       newSearch(apiQuery, urlQuery, searchQuery) {
@@ -96,12 +101,17 @@
         }
       },
       constructPathFromURL(urlQuery) {
-        let queryString = '?limit=' + this.pagination.itemsPerPage + '&userId=' + this.userId + '&';
+        let queryString = '?limit=' + this.pagination.itemsPerPage + /* '&userId=' + this.userId +*/ '&';
         if (this.task) {
           queryString += 'task=' + this.task + '&';
+        } else if (urlQuery.term){
+          queryString += '_all[$match]=' + urlQuery.term + '&';
         } else {
           queryString += 'task=search&';
         }
+        urlQuery["_all[$match]"] = urlQuery.term;
+        delete urlQuery.term;
+        delete urlQuery.page;
         Object.keys(urlQuery).forEach(function(key) {
           queryString += key + '=' + urlQuery[key] + '&';
         });
@@ -118,24 +128,34 @@
         // set unique url
         this.urlQuery.term = searchString;
         this.urlQuery.page = page;
+
         this.updateURL(this.urlQuery);
 
-        let path = this.$config.API.searchPath + this.constructPathFromURL(this.urlQuery);
-        console.log(path);
+        //let path = this.$config.API.searchPath + this.constructPathFromURL(this.urlQuery);
+        let path = this.$config.API.searchPath + `?$limit=${this.pagination.itemsPerPage}&$skip=${this.pagination.page - 1}${searchString?`&_all[$match]=${searchString}`:''}`;
+
+        let jwt
+        try{
+          jwt = document.cookie.split(';').find((cookie) => { return cookie.includes('jwt');}).split('=')[1];
+        } catch (error) {
+          console.error("not authenticated")
+        }
 
         this.$http
           .get(this.$config.API.baseUrl + this.$config.API.port + path, {
             headers: {
-              Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6ImFjY2VzcyJ9.eyJhY2NvdW50SWQiOiI1YjM3Y2NmNWRhNWU4NDI3Y2Y3ZTAwOWQiLCJ1c2VySWQiOiI1YjM3Y2MxNmRhNWU4NDI3Y2Y3ZTAwOWMiLCJpYXQiOjE1MzIwMDE2MDUsImV4cCI6MTUzNDU5MzYwNSwiYXVkIjoiaHR0cHM6Ly9zY2h1bC1jbG91ZC5vcmciLCJpc3MiOiJmZWF0aGVycyIsInN1YiI6ImFub255bW91cyIsImp0aSI6IjlhY2JhYzJiLTY2MGMtNDU0YS05ODJiLTE1MDNiMDMxNTNjMyJ9.XgP2sFf30mNdyAyrhib57irYoBeVEz3fex1xg7B8sT0`, //${localStorage.getItem('jwt')}
+              Authorization: `Bearer ${jwt}`,
             },
           })
           .then((response) => {
-            this.data = response.body.hits.hits;
-            this.pagination.totalEntrys = response.body.hits.total;
-            this.searching = false;
+            this.data = response.body.data;
+            this.pagination.totalEntrys = response.body.total;
           })
           .catch((e) => {
-            console.error(e);
+            console.error("CATCH",e);
+          })
+          .finally(() => {
+            this.searching = false
           });
       },
       updateFilter(newApiQuery, newUrlQuery) {
@@ -148,13 +168,13 @@
     },
     watch: {
       searchQuery(to, from) {
-        if (to != from) {
+        if (to != from && this.watchSearchQuery) {
           this.pagination.page = 1;
           this.loadContent();
         }
       },
       'pagination.page': function (to, from) {
-        if (to != from) {
+        if (to != from && this.watchSearchQuery) {
           this.loadContent();
         }
       },
@@ -176,12 +196,18 @@
 
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 10px;
     clear: both;
   }
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1300px) {
+    .grid {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  @media only screen and (max-width: 900px) {
     .grid {
         grid-template-columns: 1fr 1fr;
     }

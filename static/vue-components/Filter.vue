@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <span class="points-message">Sie haben noch genügend Punkte für {{ weeksLeft }} Wochen.</span>
+    <span class="points-message" v-if="gamification">Sie haben noch genügend Punkte für {{ weeksLeft }} Wochen.</span>
 
     <md-chip v-for="chip in activeFilter" v-model="activeFilter" :key="chip[0]" v-on:click="visibleProvider = chip[0]"
              @md-delete.stop="removeFilter(chip[0], true)" md-clickable md-deletable>{{ chip[1].displayString }}
@@ -12,29 +12,29 @@
         FILTER HINZUFÜGEN
       </md-button>
       <!-- TODO nur bestaetigte inhalte -->
-      <md-button v-show="!inReview" class="md-primary" v-on:click="toggleOnlyApproved">
+      <!-- <md-button v-show="!inReview" class="md-primary" v-on:click="toggleOnlyApproved">
         {{approvedOnly ? "Alle Inhalte" : "Nur akzeptierte Inhalte" }}
-      </md-button>
+      </md-button> -->
       <md-menu-content>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('subjects')" v-on:click="visibleProvider = 'subjects'">
+        <md-menu-item :disabled="!enoughPoints && gamification" v-if="!isApplied('subjects')" v-on:click="visibleProvider = 'subjects'">
             Fach
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints && gamification" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('topics')" v-on:click="visibleProvider = 'topics'">
+        <md-menu-item :disabled="!enoughPoints && gamification" v-if="!isApplied('topics')" v-on:click="visibleProvider = 'topics'">
             Thema
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints && gamification" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('goal')" v-on:click="visibleProvider = 'goal'">
+        <md-menu-item :disabled="!enoughPoints && gamification" v-if="!isApplied('goal')" v-on:click="visibleProvider = 'goal'">
             Unterrichtsziel
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints && gamification" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('difficulty')" v-on:click="visibleProvider = 'difficulty'">
+        <md-menu-item :disabled="!enoughPoints && gamification" v-if="!isApplied('difficulty')" v-on:click="visibleProvider = 'difficulty'">
             Niveaustufe
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints && gamification" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
-        <md-menu-item :disabled="!enoughPoints" v-if="!isApplied('age')" v-on:click="visibleProvider = 'age'">
+        <md-menu-item :disabled="!enoughPoints && gamification" v-if="!isApplied('age')" v-on:click="visibleProvider = 'age'">
             Alter
-            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
+            <md-tooltip class="tooltip" md-direction="right" v-if="!enoughPoints && gamification" md-delay="1000">Um diese Suchfilter benutzen zu können, benötigen Sie mehr Punkte. Wie Sie diese erhalten, können Sie hier (todo) nachlesen</md-tooltip>
         </md-menu-item>
         <md-menu-item v-if="!isApplied('provider')" v-on:click="visibleProvider = 'provider'">
             Anbieter
@@ -88,7 +88,7 @@
         activeFilter: [],
       };
     },
-    props: ['inReview', 'userId'],
+    props: ['inReview', 'userId', 'gamification'],
     created() {
       this.getTeacherPoints();
       if (this.inReview) {

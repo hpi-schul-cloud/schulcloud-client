@@ -6,6 +6,7 @@
     :md-confirm-text="config.confirm || 'Agree'"
     :md-cancel-text="config.cancle || 'Disagree'"
     @md-cancel="onCancel"
+    @md-clicked-outside="onCancel"
     @md-confirm="onConfirm"/>
 </template>
 

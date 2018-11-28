@@ -104,13 +104,42 @@ module.exports = (req, res, next) => {
         ],
         introNumber: 16,
         introText: "Hier gelangst du zum Dateibereich, in dem du Dateien hochladen und verwalten kannst. Deine Dateien werden hierbei in folgende Kategorien unterteilt: deine persönlichen Dateien, Kursdateien und mit dir geteilte Dateien."
-    }, {
+    }/*, {
         name: 'LernStore',
         icon: 'search',
         link: '/content/',
         introNumber: 17,
         introText: "Hier gelangst du zur Materialsuche, bei der du in der Datenbank der Schul-Cloud nach Materialien für deine Unterrichtsstunde suchen kannst."
-    }];
+    }*/];
+
+    // beta user view
+    res.locals.sidebarItems.push({
+        name: 'Lernstore',
+        icon: 'book',
+        link: '/content/',
+        children: [
+            {
+                name: 'Suche',
+                icon: 'search',
+                link: '/content/search/'
+            },
+            {
+                name: 'Meine Materialien',
+                icon: 'file',
+                link: '/content/my-content/'
+            },
+            {
+                name: 'Erstellen',
+                icon: 'edit',
+                link: '/content/create/'
+            },
+            {
+                name: 'Review',
+                icon: 'check',
+                link: '/content/review/'
+            }
+        ]
+    });
 
     // teacher views
     res.locals.sidebarItems.push({
@@ -179,35 +208,6 @@ module.exports = (req, res, next) => {
                 link: '/administration/systems/'
             }
         ]
-    });
-
-    // beta user view
-    res.locals.sidebarItems.push({
-       name: 'Lernstore',
-       icon: 'book',
-       link: '/content/',
-			 children: [
-					 {
-							 name: 'Suche',
-							 icon: 'search',
-							 link: '/content/search/'
-					 },
-					 {
-							 name: 'Meine Materialien',
-							 icon: 'file',
-							 link: '/content/my-content/'
-					 },
-					 {
-							 name: 'Erstellen',
-							 icon: 'edit',
-							 link: '/content/create/'
-					 },
-					 {
-							 name: 'Review',
-							 icon: 'check',
-							 link: '/content/review/'
-					 }
-			 ]
     });
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);

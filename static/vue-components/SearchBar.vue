@@ -21,7 +21,7 @@
       </div>
     </div>
     <div>
-      <search-filter :inReview="inReview" :userId="userId" @newFilter="updateFilter"></search-filter>
+      <search-filter :inReview="inReview" :userId="userId" @newFilter="updateFilter" :gamification="gamification"></search-filter>
     </div>
   </div>
 </template>
@@ -36,13 +36,16 @@
       'search-filter': filter
     },
     name: 'SearchBar',
-    props: ['inReview', 'userId', 'pagination'],
+    props: ['inReview', 'userId', 'pagination', 'gamification', 'initialSearchQuery'],
     data() {
       return {
         searchQuery: '',
         apiQuery: {},
         urlQuery: {}
       };
+    },
+    created(){
+      this.searchQuery = this.initialSearchQuery;
     },
     methods: {
       updateFilter(apiQuery, urlQuery) {
@@ -56,6 +59,11 @@
         if (to != from) {
           this.pagination.page = 1;
           this.$emit('newSearch', this.apiQuery, this.urlQuery, this.searchQuery);
+        }
+      },
+      initialSearchQuery(to, from) {
+        if(to !== from && to !== this.searchQuery){
+          this.searchQuery = to;
         }
       }
     },

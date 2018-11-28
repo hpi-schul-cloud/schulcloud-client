@@ -72,7 +72,7 @@
         </md-button>
         <add-to-lesson :data="data" :contentId="contentId" v-if="!inReview" />
       </md-card-actions>
-      <confirmDialog v-bind:config="dialog" @confirm="onConfirm"/>
+      <confirmDialog v-bind:config="dialog" @confirm="onConfirm" @cancle="onCancle"/>
     </md-card>
   </article>
 </template>
@@ -166,8 +166,11 @@
       },
       onConfirm() {
         location.href = '/content/review/external';
-        window.open(this.$config.API.baseUrl + this.$config.API.redirectPath + this.contentId, '_blank');
-      }
+        window.open(this.$config.API.baseUrl + this.$config.API.clientPort + this.$config.API.redirectPath + this.contentId, '_blank');
+      },
+      onCancle() {
+        this.dialog.active = false;
+      },
     },
   };
 </script>
