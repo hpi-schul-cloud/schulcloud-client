@@ -1,10 +1,12 @@
 import { sendRegistrationId } from './callback';
+import { notificationHandler } from './notificationHandler';
 
 export const pushManager = {
-    requestPermissionCallback:  null,
+    requestPermissionCallback: null,
+    handledMessages:[],
 
     setRegistrationId: function (id, service, device) {
-        //console.log('set registration id: ' + id);
+        console.log('set registration id: ' + id);
 
         var deviceToken = "deviceToken=" + id;
         document.cookie = deviceToken + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
@@ -22,15 +24,25 @@ export const pushManager = {
         console.log(msg || 'Push error: ', error);
     },
 
-    handleNotification: function (data) {
-        console.log('notification event', data);
+    handleNotification: function (registration, data) {
+        if(this.handledMessages.includes(data.data._id) === false){
+            console.log('notification event arrived in pushManager', data);
+            this.handledMessages.push(data.data._id);
+            while(this.handledMessages.length>100){
+                this.handledMessages.shift();
+            }
+            notificationHandler.handle(registration, data);
+            //sendShownCallback(data);
+        }else{
+            console.log('ignore push duplicate', data);
+        }
     },
 
     requestPermission: function () {
         document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
         if (this.requestPermissionCallback) {
             this.requestPermissionCallback(); // async, without promise
-            setTimeout(function(){ window.location.reload(); }, 2000);
+            setTimeout(function () { window.location.reload(); }, 2000);
         }
     },
 
@@ -72,8 +84,8 @@ const browser = () => {
 
     // Safari 3.0+ "[object HTMLElementConstructor]"
     var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) {
-            return p.toString() === "[object SafariRemoteNotification]";
-        })(!window['safari'] || safari.pushNotification);
+        return p.toString() === "[object SafariRemoteNotification]";
+    })(!window['safari'] || safari.pushNotification);
 
     // Internet Explorer 6-11
     var isIE = /*@cc_on!@*/false || !!document.documentMode;
@@ -98,6 +110,6 @@ const browser = () => {
 };
 
 const isMobile = () => {
-    try{ document.createEvent("TouchEvent"); return true; }
-    catch(e){ return false; }
+    try { document.createEvent("TouchEvent"); return true; }
+    catch (e) { return false; }
 };

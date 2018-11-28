@@ -217,9 +217,6 @@ function showAJAXError(req, textStatus, errorThrown) {
 }
 
 window.addEventListener('DOMContentLoaded', function() {
-    if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-        setupFirebasePush();
-    }
 
     let  feedbackSelector = document.querySelector('#feedbackType');
     if(feedbackSelector){
@@ -284,7 +281,11 @@ window.addEventListener("load", () => {
         // enable sw for half of users only
         let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
         if(testUserGroup == 1) {
-            navigator.serviceWorker.register('/sw.js');
+            navigator.serviceWorker.register('/sw.js').then(registration=>{
+                if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+                    setupFirebasePush(registration);
+                }
+            });
         }
     }
 }); 

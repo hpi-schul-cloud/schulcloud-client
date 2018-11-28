@@ -62,13 +62,15 @@ $(document).ready(function() {
             },
             "data": {
                 "tag": "course-data-updated",
-                "course-id": "mycourseid",
+                "courseId": "0000dcfbfb5c7a3f00bf21ab",
             },
             "receivers": [
                 $("[name='userId']").val()
             ],
             "template": "tpl",
             "languagePayloads": "lp"
+        }, function(data){
+            console.log('answer',data);
         });
     });
 
