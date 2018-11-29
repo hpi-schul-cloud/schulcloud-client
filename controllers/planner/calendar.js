@@ -7,30 +7,6 @@ const {
   getCurrentSchoolYearId
 } = require("./helper");
 
-// topics: [
-//   {
-//     id: "Thema 1",
-//     text: "Thema 1",
-//     color: "#92DB92",
-//     utcStartDate: 1534723200000,
-//     utcEndDate: 1535932799999
-//   },
-//   {
-//     id: "Thema 2",
-//     text: "Thema 2",
-//     color: "#92DB92",
-//     utcStartDate: 1535932800000,
-//     utcEndDate: 1539561599999
-//   },
-//   {
-//     id: "Thema 3",
-//     text: "Thema 3",
-//     color: "#92DB92",
-//     utcStartDate: 1539561600000,
-//     utcEndDate: 1541980799999
-//   }
-// ]
-
 const DUMMY_OTHER_DATA = [
   {
     name: "Projektwoche",
