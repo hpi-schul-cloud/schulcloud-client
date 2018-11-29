@@ -3,61 +3,21 @@
         {{#content "styles" mode="append"}}
             <link rel="stylesheet" href="/styles/lib/error.css"/>
         {{/content}}
-
         {{#content "page"}}
-            <div class="error-page">
-                <section class="details">
-                    <div class="error-code">
-                        <h3 class="title">{{error.status}}</h3>
-                        <h4 class="message">{{message}}</h4>
-                    </div>
-                    {{#if error.stack}}
-                        <div class="card error-card">
-                            <div class="card-header">
-                                Fehler-Details
-                            </div>
-                            <div class="card-block error-description">
-                                {{error.stack}}
-                            </div>
-                        </div>
-                    {{/if}}
-                    <button class="btn btn-secondary" onclick="window.history.back();"><i class="fa fa-arrow-left"></i> zurück</button>
-                </section>
-            </div>
+            {{#embed "lib/error_content"}}{{/embed}}
         {{/content}}
     {{/extend}}
 {{else}}
     {{#extend "lib/default"}}
         {{#content "styles" mode="append"}}
-            <link rel="stylesheet" href="/styles/lib/error.css"/>
             <link rel="stylesheet" href="/styles/authentication/home.css"/>
+            <link rel="stylesheet" href="/styles/lib/error.css"/>
         {{/content}}
 
         {{#content "body"}}
             {{#embed "lib/header"}}{{/embed}}
-            <main class="container">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                        <div class="error-page card">
-                            <section class="details card-block">
-                                <div class="text-center">
-                                    <h3>{{error.status}}</h3>
-                                    <h4>{{message}}</h4>
-                                </div>
-                                {{#if error.stack}}
-                                    <div class="card error-card">
-                                        <div class="card-header">
-                                            Fehler-Details
-                                        </div>
-                                        <div class="card-block error-description">
-                                            {{error.stack}}
-                                        </div>
-                                    </div>
-                                {{/if}}
-                            </section>
-                        </div>
-                    </div>
-                </div>
+            <main class="container pt-3">
+                {{#embed "lib/error_content"}}{{/embed}}
             </main>
             {{#embed "lib/extended_footer"}}{{/embed}}
         {{/content}}

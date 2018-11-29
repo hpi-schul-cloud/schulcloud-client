@@ -5,6 +5,7 @@ $(document).ready(function () {
         e.preventDefault();
         var $hiddenToggleBtn = $(this);
         var $hiddenToggleIcon = $(this).find('.fa');
+        var $card = $(this).closest('.card');
         $.ajax({
             method: 'PATCH',
             url: window.location.href + '/topics/' + $(this).attr('href') + '?json=true',
@@ -14,10 +15,12 @@ $(document).ready(function () {
                     $hiddenToggleIcon.addClass('fa-eye-slash');
                     $hiddenToggleIcon.removeClass('fa-eye');
                     $hiddenToggleBtn.attr('data-original-title', "Thema sichtbar machen");
+                    $card.addClass('card-transparent');
                 } else {
                     $hiddenToggleIcon.removeClass('fa-eye-slash');
                     $hiddenToggleIcon.addClass('fa-eye');
                     $hiddenToggleBtn.attr('data-original-title', "Thema verstecken");
+                    $card.removeClass('card-transparent');
                 }
             }
         });

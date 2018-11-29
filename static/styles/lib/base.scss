@@ -3,10 +3,13 @@
 
 @import "./tether/tether.min.css";
 @import "./bootstrap/scss/bootstrap-flex";
-@import "./fontawesome/font-awesome";
+$fa-font-path: "/vendor-optimized/font-awesome/fonts";
+@import "font-awesome/scss/font-awesome.scss";
 @import "./chosen/bootstrap-chosen";
 @import "./datetimepicker/jquery.datetimepicker.min.css";
 @import "./toggle/bootstrap-toogle.min.css";
+
+@import "./tabbar/tabbar";
 
 /* customize bootstrap stuff in /bootstrap/scss/_custom.scss */
 
@@ -25,7 +28,7 @@
 		display: block;
 	}
 	h5 {
-		font-style: italic; 
+		font-style: italic;
 		margin: 30px 0px 20px 0px;
 		width: 100%;
 		display: block;
@@ -55,6 +58,10 @@ a[data-toggle="collapse"]:active,
 a[data-toggle="collapse"]:focus{
 	color: inherit;
 	text-decoration:none !important;
+}
+
+img{
+	max-width: 100%;
 }
 
 .btn-link{
@@ -105,13 +112,26 @@ label,
 	display: initial;
 }
 
+[data-toggle="collapse"]{
+	&[aria-expanded="true"] {
+		[data-expand]{
+			display: none;
+		}
+	}
+
+	&[aria-expanded="false"] {
+		[data-collapse]{
+			display: none;
+		}
+	}
+}
+
 .btn-loading {
 	font-size: 0px !important;
 	transition: width 0.3s;
 
 	&:before {
 		content: "\f1ce";
-		-webkit-animation: fa-spin 2s infinite linear;
 		animation: fa-spin 2s infinite linear;
 		font-family: "FontAwesome";
 		display: inline-block;
@@ -137,19 +157,7 @@ footer {
 		margin-left:-11px;
 	}
 	&.small-footer {
-		width: 100%;
-		margin-top: 40px;
-		position: inherit;
-		@media screen and (max-height: 700px) {
-			top: 510px;
-		}
-		bottom: 0;
-		right: 0;
-		left: 0;
-		clear: both;
-		padding: 30px 0px;
-		font-size: 0.9em;
-		margin-bottom: 5px;
+
 		@include media-breakpoint-down(xs) {
 			background: $colorBeige;
 
@@ -315,4 +323,17 @@ form.inline {
 
 .position-absolute{
 	position: absolute !important;
+}
+
+//the following adds fa-share-square-o for each external link except images
+.section-course .content-block{
+	a:not( [href*='https://schul-cloud.org'] ):not( [href^='#'] ):not( [href^='/'] ){
+		&:not( [href$='.jpg'] ):not( [href$='.png'] ):not( [href$='.jpeg'] ):not( [href$='.gif'] ):not( [href$='.bmp'] ){
+			&:after{
+				font-family: 'FontAwesome';
+				content: "  \f08e";
+				font-size: .7em;
+			}
+		}
+	}
 }
