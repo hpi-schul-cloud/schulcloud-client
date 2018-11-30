@@ -9151,7 +9151,7 @@ pkg-dir@^2.0.0:
 
 "planner-core-lib@https://github.com/schul-cloud/planner.git":
   version "0.1.1"
-  resolved "https://github.com/schul-cloud/planner.git#15a8d898dab13c11986b3cba6912d935f633927c"
+  resolved "https://github.com/schul-cloud/planner.git#8a8a4bc890b274d645be29a763e91e7c51093a65"
   dependencies:
     "@tippy.js/react" "^1.0.1"
     lodash "^4.17.11"
