@@ -4,7 +4,7 @@ var path = require('path');
 const RebuildChangedPlugin = require('rebuild-changed-entrypoints-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: process.env.NODE_ENV || 'development',
     module: {
         rules: [
             // All files that end on .js or .jsx are transpilled by babel

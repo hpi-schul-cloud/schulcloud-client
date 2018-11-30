@@ -44,6 +44,11 @@
 
       <md-card-actions class="content-card-footer">
         <div class="content-card-footer-text">
+          <div>
+            via {{data.providerName}}
+          </div>
+
+          <!-- License -->
           <div v-if="data.licenses" class="licenses">
             <a @click="showDialog = true">Lizenzbestimmungen</a>
           </div>
@@ -63,9 +68,6 @@
             </md-dialog-actions>
           </md-dialog>
 
-          <div>
-            via {{data.providerName}}
-          </div>
         </div>
         <md-button class="md-primary" @click="open()">
           <md-icon>{{ openIconName }}</md-icon>
