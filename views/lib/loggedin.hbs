@@ -3,32 +3,26 @@
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
+        <noscript><style>
+            .section-title,
+            #main-content,
+            footer
+            {
+                opacity: 1;
+            }
+        </style></noscript>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.9.0/firebase-app.js" defer></script>
-        <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.9.0/firebase-messaging.js"
-                defer></script>
+        <script type="text/javascript" src="/vendor-optimized/firebasejs/3.9.0/firebase-app.js" defer></script>
+        <script type="text/javascript" src="/vendor-optimized/firebasejs/3.9.0/firebase-messaging.js" defer></script>
         <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-        <script type="text/javascript"
-                src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"
-                defer></script>
+        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
         <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
-
-        <script type="text/javascript" src="https://unpkg.com/socket.io-client@1.7.3/dist/socket.io.js" defer></script>
-        <script type="text/javascript" src="https://unpkg.com/@feathersjs/client@3.5.1/dist/feathers.js" defer></script>
-    
+        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
     {{/content}}
 
     {{#content "body"}}
-        <div class="preload-screen hidden">
-            <div class="content">
-                <div class="center-wrapper">
-                    <i class="fa fa-spinner" aria-hidden="true"></i>
-                    <p>laden...</p>
-                </div>
-            </div>
-        </div>
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -41,8 +35,7 @@
                     </li>
                     {{#each sidebarItems}}
                         <li data-step={{this.introNumber}} data-intro="{{this.introText}}">
-                            <a class="{{this.class}}" href="{{this.link}}"
-                                 title="{{this.name}}">
+                            <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}">
                                 <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
                                 <span class="link-name">{{this.name}}</span>
                             </a>
@@ -74,6 +67,11 @@
                 <i class="fa fa-bars"></i>
             </a>
             <div class="content-min-height">
+                <section class="demo" id="offlineAlert" style="display:none;">
+                    <div class="alert alert-warning" role="alert">
+                        <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.</span></p>
+                    </div>
+                </section>
                 {{#ifeq currentRole "Demo"}}
                     <section class="demo">
                         <div class="alert alert-warning" role="alert">
@@ -89,7 +87,7 @@
                         <ol class="breadcrumb">
                             {{#each breadcrumb}}
                                 <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{this.title}}</a>
+                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
                                 </li>
                             {{/each}}
                         </ol>
@@ -116,6 +114,7 @@
                                 </div>
                             </div>
                         </li>
+                        {{#if false}}
                         <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
@@ -145,7 +144,7 @@
                                 </div>
                             </div>
                         </li>
-
+    	                {{/if}}
                         <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
@@ -153,38 +152,32 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <ul class="content list-group">
-                                        <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
-                                        <div class="delimiter"></div>
                                         <li class="list-group-item list-group-item-action">
                                             <span>
-                                                <i class="fa fa-info-circle" aria-hidden="true" style="margin-left:1px;"></i>
-                                                <a href="https://docs.schul-cloud.org/x/jwDT" class="link">Anleitungen</a>
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                <a href="/help" class="link">Hilfebereich</a>
+                                            </span>
+                                        </li>
+
+                                        <li id="intro-loggedin" class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-map-signs"aria-hidden="true"></i>
+                                                <a href="#" class="link">Intro</a>
+                                            </span>
+                                        </li>
+
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a>
                                             </span>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
                                             <span>
-                                                <i class="fa fa-magic" aria-hidden="true"></i>
-                                                <a href="/help/#changelog" class="link">Neueste Funktionen</a>
+                                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                                <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a>
                                             </span>
                                         </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a>
-                                            </span>
-                                        </li>
-                                        <li id="intro-loggedin" class="list-group-item list-group-item-action"><span><i class="fa fa-map-signs"
-                                                                                                    aria-hidden="true"></i><a
-                                                href="#" class="link">Intro</a></span></li>
-                                        <div class="delimiter"></div>
-                                        {{#ifneq this.currentRole "Schüler"}}
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
-                                                                                                    aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-helpdesk">Eine User-Story eingeben</a></span></li>
-                                        {{/ifneq}}
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
-                                                                                                    aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-problem">Ein Problem melden</a></span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -192,17 +185,22 @@
 
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                            {{#if currentSchoolData.logo_dataUrl}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
+                            {{else}}
+                                {{#if currentSchoolData.federalState}}
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                {{/if}}
                             {{/if}}
                         {{/if}}
 
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
-                            <div class="btn-group">
+                            <div class="btn-group" data-matomo-mask>
                                 <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <strong>{{ currentUser.displayName }} ({{ currentRole }})</strong>
                                 </button>
+                                <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="/account/">Einstellungen</a>
                                     <a class="dropdown-item" href="/logout/">Abmelden</a>
@@ -216,9 +214,11 @@
                     <div class="container-fluid">
                         <div class="row" id="titlebar">
                             <div class="col-sm-9">
-                                <div>
-                                    <h4 id="page-title">{{title}}</h4>
-                                </div>
+                                {{#unless notitle}}
+                                  <div>
+                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                                  </div>
+                                {{/unless}}
                                 <div>
                                     {{subtitle}}
                                 </div>
@@ -255,23 +255,18 @@
                 {{#embed "lib/footer"}}{{/embed}}
             {{/unless}}
 
-            {{#embed "lib/components/modal-form" class="feedback-modal"}}
+            {{#embed "lib/components/modal-form" class="contactHPI-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-helpdesk"}}
+                    {{> "lib/forms/form-contactHPI"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="problem-modal"}}
+            {{#embed "lib/components/modal-form" class="contactAdmin-modal"}}
                 {{#content "fields"}}
-                    {{> "lib/forms/form-problems"}}
+                    {{> "lib/forms/form-contactAdmin"}}
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal" class="feature-modal"}}
-                {{#content "body"}}
-                    {{> "lib/forms/form-features"}}
-                {{/content}}
-            {{/embed}}
         </section>
     {{/content}}
 {{/extend}}

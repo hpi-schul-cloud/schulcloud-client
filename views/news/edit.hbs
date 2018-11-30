@@ -1,24 +1,14 @@
-{{#content "styles" mode="append"}}>
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
-{{/content}}
 {{#content "scripts" mode="append"}}
     <script src="/vendor/ckeditor/ckeditor.js" defer></script>
     <script src="/scripts/mousetrap/mousetrap.js" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
+    <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
     <script src="/scripts/news.js" defer></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
-            
-            $.datetimepicker.setLocale('de');
-            $('input[data-datetime]').datetimepicker({
-                format:'d.m.Y H:i',
-                mask: '39.19.9999 29:59',
-                minDate:0
-            });
-
+          
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('news-form').submit();
                 return false;
@@ -48,7 +38,7 @@
 
             <div class="form-group">
                 <label>Datum</label>
-                <input class="form-control" data-datetime name="displayAt" type="text" value="{{news.displayAt}}"/>
+                <input class="form-control" data-datetime data-min-date="0" name="displayAt" type="text" value="{{news.displayAt}}"/>
             </div>
 
             <div class="modal-footer">

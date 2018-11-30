@@ -30,7 +30,7 @@ module.exports = {
     'Create Course': function (browser) {
         browser.url(base_url + 'courses/');
         browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
-        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/a', 10, 10)
+        browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/div', 10, 10)
             .useCss()
             .click('.btn-add')
             .pause(1000)
@@ -38,15 +38,25 @@ module.exports = {
             .setValue('textarea[name=description]', 'Test Beschreibung')
             .moveToElement('.btn-submit', 10, 10)
             .click('.btn-submit')
+            .pause(1000)
+            .setValue('input[name=startDate]', '01.01.2019')
+            .click('.btn-submit')
+            .pause(1000)
+            .setValue('input[name=untilDate]', '01.03.2019')
+            .click('.btn-submit')
             .pause(1000);
         browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
     },
     'Delete Course': function (browser) {
         browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
         browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");
-        browser.useCss().expect.element('#titlebar > div > div:nth-child(1) > h4').text.to.contain('Test Kurs').before(10000);
-        browser.useCss().expect.element('#main-content > section > div.row.description > div > p').text.to.contain('Test Beschreibung').before(10000);
+        browser.useCss().expect.element('#main-content > div.dropdown-course > a > h4').text.to.contain('Test Kurs').before(10000);
+        browser.useCss().expect.element('#main-content > div.row.description > div > p').text.to.contain('Test Beschreibung').before(10000);
         browser.useCss()
+            .waitForElementVisible('.btn-course-dropdown', 1000)
+            .click('.btn-course-dropdown')
+            .waitForElementVisible('.btn-course-edit', 1000)
+            .click('.btn-course-edit')
             .waitForElementVisible('.btn-delete-course', 1000)
             .click('.btn-delete-course')
             .waitForElementVisible('.delete-modal', 1000)

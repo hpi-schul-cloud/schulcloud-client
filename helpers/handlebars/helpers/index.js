@@ -254,4 +254,7 @@ module.exports = {
     add: (a, b) => {
         return a + b;
     },
+    indexOf: (item, searchValue, fromIndex) => {
+        return item.indexOf(searchValue, fromIndex);
+    }
 };
