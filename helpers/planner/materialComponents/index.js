@@ -7,7 +7,6 @@ import IconButton from "./IconButton";
 import Text from "./Text";
 import TextField from "./TextField";
 import TextArea from "./TextArea";
-import Chip from "./Chip";
 import SelectorInput from "./SelectorInput";
 import TextFieldTable from "./TextFieldTable";
 import TopicElement from "./TopicElement";
@@ -22,7 +21,6 @@ export {
   Text,
   TextField,
   TextArea,
-  Chip,
   SelectorInput,
   TextFieldTable,
   TopicElement
