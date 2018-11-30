@@ -1,7 +1,13 @@
+import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import TopicTemplateView from "planner-core-lib/lib/components/views/topicTemplate";
 import { setupMaterialComponents } from "../../../helpers/planner";
+import {
+  handleFileClick,
+  handleFileAdd,
+  handleFileRemove
+} from "../../../helpers/planner/fileHelper";
 
 class View extends React.Component {
   onSave = formValues => {
@@ -23,6 +29,9 @@ class View extends React.Component {
       }
     });
   };
+  onFileAdd = data => {
+    handleFileAdd(data, "users/0000d231816abba584714c9e/");
+  };
   /**
    * Render the list items.
    */
@@ -34,6 +43,9 @@ class View extends React.Component {
         mode="EDIT"
         onSave={this.onSave}
         onDelete={this.onDelete}
+        onFileClick={handleFileClick}
+        onFileAdd={this.onFileAdd}
+        onFileRemove={() => {}}
       />
     );
   }

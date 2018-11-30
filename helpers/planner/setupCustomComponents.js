@@ -8,7 +8,6 @@ import {
   Text,
   TextField,
   TextArea,
-  Chip,
   SelectorInput,
   TextFieldTable,
   TopicElement
@@ -30,7 +29,6 @@ export const setupMaterialComponents = () => {
     text: Text,
     textField: TextField,
     textArea: TextArea,
-    chip: Chip,
     selectorInput: SelectorInput,
     textFieldTable: TextFieldTable,
     topicElement: TopicElement

@@ -19,7 +19,12 @@ const getInitialValues = topicInstanceData => {
     content: topicInstanceData.content,
     subjectUnits: topicInstanceData.lectureUnits,
     examinations: topicInstanceData.examinations,
-    material: topicInstanceData.material
+    material: topicInstanceData.material.map(entity => ({
+      file: entity.path,
+      name: entity.name,
+      type: entity.type,
+      id: entity._id
+    }))
   };
 };
 
@@ -41,7 +46,8 @@ const handleGetTopicInstance = async (req, res, next) => {
                 "subjectId"
               ]
             },
-            "parentTemplateId"
+            "parentTemplateId",
+            "material"
           ]
         }
       }
@@ -72,6 +78,8 @@ const handlePutTopicInstance = async (req, res, next) => {
       examinations,
       material
     } = req.body;
+    const materialIds = (material || []).map(entity => entity.id);
+
     await api(req).patch(`/topicInstances/${instanceId}`, {
       json: {
         name,
@@ -80,7 +88,7 @@ const handlePutTopicInstance = async (req, res, next) => {
         content,
         lectureUnits: subjectUnits,
         examinations,
-        material
+        material: materialIds
       }
     });
     res.sendStatus(200);

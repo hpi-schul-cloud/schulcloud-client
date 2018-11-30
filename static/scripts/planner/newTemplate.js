@@ -1,7 +1,13 @@
+import "@babel/polyfill";
 import React from "react";
 import ReactDOM from "react-dom";
 import TopicTemplateView from "planner-core-lib/lib/components/views/topicTemplate";
 import { setupMaterialComponents } from "../../../helpers/planner";
+import {
+  handleFileClick,
+  handleFileAdd,
+  handleFileRemove
+} from "../../../helpers/planner/fileHelper";
 
 class View extends React.Component {
   /**
@@ -18,6 +24,10 @@ class View extends React.Component {
     });
   };
 
+  onFileAdd = data => {
+    handleFileAdd(data, "users/0000d231816abba584714c9e/");
+  };
+
   render() {
     return (
       <TopicTemplateView
@@ -25,6 +35,9 @@ class View extends React.Component {
         initialValues={this.props.initialValues}
         mode="NEW"
         onCreate={this.onCreate}
+        onFileClick={handleFileClick}
+        onFileAdd={this.onFileAdd}
+        onFileRemove={handleFileRemove}
       />
     );
   }

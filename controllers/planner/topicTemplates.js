@@ -32,7 +32,11 @@ const getSelectOptions = async req => {
 };
 const getInitialValues = async req => {
   const { templateId } = req.params;
-  const initialValues = await api(req).get(`/topicTemplates/${templateId}`);
+  const initialValues = await api(req).get(`/topicTemplates/${templateId}`, {
+    qs: {
+      $populate: ["material"]
+    }
+  });
   const {
     subjectId,
     gradeLevelId: classLevelId,
@@ -41,8 +45,10 @@ const getInitialValues = async req => {
     unitsPerWeek,
     content,
     lectureUnits: subjectUnits,
-    examinations
+    examinations,
+    material
   } = initialValues;
+
   return {
     subjectId,
     classLevelId,
@@ -51,7 +57,13 @@ const getInitialValues = async req => {
     unitsPerWeek,
     content,
     subjectUnits,
-    examinations
+    examinations,
+    material: material.map(entity => ({
+      file: entity.path,
+      name: entity.name,
+      type: entity.type,
+      id: entity._id
+    }))
   };
 };
 
@@ -77,13 +89,14 @@ const handleGetTopicTemplatesNew = async (req, res, next) => {
 const handlePostTopicTemplates = async (req, res, next) => {
   // API Request + Redirect to myClasses
   try {
-    const { classLevelId, subjectUnits, ...others } = req.body;
+    const { classLevelId, subjectUnits, material, ...others } = req.body;
     await api(req).post("/topicTemplates", {
       json: {
         ...others,
         lectureUnits: subjectUnits,
         gradeLevelId: classLevelId,
-        userId: res.locals.currentUser._id
+        userId: res.locals.currentUser._id,
+        material: material.map(entity => entity.id)
       }
     });
     res.sendStatus(200);
@@ -114,13 +127,14 @@ const handleGetTopicTemplate = async (req, res, next) => {
 const handlePutTopicTemplate = async (req, res, next) => {
   try {
     const { templateId } = req.params;
-    const { classLevelId, subjectUnits, ...others } = req.body;
+    const { classLevelId, subjectUnits, material, ...others } = req.body;
     await api(req).put(`/topicTemplates/${templateId}`, {
       json: {
         ...others,
         ...(classLevelId ? { gradeLevelId: classLevelId } : {}),
         lectureUnits: subjectUnits,
-        userId: res.locals.currentUser._id
+        userId: res.locals.currentUser._id,
+        material: material.map(entity => entity.id)
       }
     });
     res.sendStatus(200);
