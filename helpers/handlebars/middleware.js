@@ -111,8 +111,25 @@ module.exports = (req, res, next) => {
         introNumber: 17,
         introText: "Hier gelangst du zur Materialsuche, bei der du in der Datenbank der Schul-Cloud nach Materialien für deine Unterrichtsstunde suchen kannst."
     }];
-
+    
     // teacher views
+    res.locals.sidebarItems.push({
+        name: 'Schuljahresplaner',
+        icon: 'graduation-cap',
+        link: '/planner/',
+        children: [
+            {
+                name: 'Kalendar',
+                icon: 'table',
+                link: '/planner/calendar/'
+            },
+            {
+                name: 'Meine Klassen',
+                icon: 'odnoklassniki',
+                link: '/planner/myClasses/'
+            },
+        ]
+    });
     res.locals.sidebarItems.push({
         name: 'Verwaltung',
         icon: 'cogs',
@@ -135,23 +152,6 @@ module.exports = (req, res, next) => {
                 icon: 'users',
                 link: '/administration/classes/'
             }
-        ]
-    });
-    res.locals.sidebarItems.push({
-        name: 'Schuljahresplaner',
-        icon: 'graduation-cap',
-        link: '/planner/',
-        children: [
-            {
-                name: 'Kalendar',
-                icon: 'odnoklassniki',
-                link: '/planner/calendar/'
-            },
-            {
-                name: 'Meine Klassen',
-                icon: 'odnoklassniki',
-                link: '/planner/myClasses/'
-            },
         ]
     });
 
