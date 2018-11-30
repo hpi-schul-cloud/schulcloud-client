@@ -10,42 +10,6 @@ const moment = require('moment');
 
 const faq = require('../helpers/content/faq.json');
 
-async function articles(){
-    const cardsUrl = `https://docs.schul-cloud.org/rest/api/content/13828239/child/page?expand=children.page`;
-    const cardsResult = await fetch(cardsUrl);
-    const cardJson = await cardsResult.json();
-    let cards = cardJson.results.map((category) => {
-        return {
-            id: category.id,
-            title: category.title,
-            type: "topic"
-        };
-    }).map(async (card) => {
-        const articleResult = await fetch(`https://docs.schul-cloud.org/rest/api/content/${card.id}/child/page?expand=children.page`);
-        const articleJson = await articleResult.json();
-        let categories = articleJson.results.map((category) => {
-            return {
-                id: category.id,
-                title: category.title,
-                type: "category",
-                articles: category.children.page.results.map((article) => {
-                    return {
-                        id: article.id,
-                        title: article.title,
-                        type: "article"
-                    };
-                })
-            };
-        });
-        card.categories = categories;
-        return card;
-    });
-    let content = await Promise.all(cards);
-    let w = window.open();
-    w.document.write(JSON.stringify(content));
-}
-articles();
-
 // read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
 

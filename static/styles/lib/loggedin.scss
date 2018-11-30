@@ -3,7 +3,6 @@
 @import "./editor";
 
 // page transition animation
-ul.sidebar-list > li:not(:first-of-type),
 .section-title,
 #main-content,
 footer
@@ -12,7 +11,6 @@ footer
     transition: opacity .4s;
 }
 .loaded{
-    ul.sidebar-list > li:not(:first-of-type),
     .section-title,
     #main-content,
     footer
