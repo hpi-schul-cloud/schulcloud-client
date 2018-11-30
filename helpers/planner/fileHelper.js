@@ -51,11 +51,10 @@ export const handleFileAdd = (
         name: file.name,
         type: file.type,
         id
-      });
+      }, tempId);
     },
     e => {
       onError(tempId);
-      console.log(e);
     }
   );
 };
