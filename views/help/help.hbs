@@ -5,175 +5,117 @@
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-
+        <script src="/scripts/help.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
-        <section class="faqpanel">
-            <div class="container-fluid">
-                {{#if this.currentSchoolData.pilot}}
-                    {{#ifneq this.currentRole "Schüler"}}
-                        {{#ifneq this.currentRole "Demo"}}
-                            <div class="row">
-                                <div class="col-md-12 col-sm-12 col-xs-12">
-                                    <div class="card" style="text-align: center">
-                                        <div class="card-block">
-                                            <div class="card-text">
-                                                <h4 class="card-title">Befragung II im Projekt Schul-Cloud</h4>
-                                                <p class="card-text">
-                                                    Die nächste Befragung zum Projekt Schul-Cloud ist online. Gerne möchten wir Sie erneut um Ihre Mitarbeit bitten! Die Bearbeitung wird ca. 20 - 25 Minuten Ihrer Zeit in Anspruch nehmen.
-                                                </p>
-                                                <p class="card-text">
-                                                    Vielen Dank für Ihre Unterstützung!
-                                                </p>
+
+        {{> "help/search" class="md-2"}}
+
+        <div class="container">
+            <div class="row">
+                {{#embed "help/icon-card" title="Inhaltsverzeichnis" icon="fa-list" class="table-of-contents-card hidden-sm-up col-xs-12" id="inhaltsverzeichnis"}}
+                    {{#content "card-body"}}
+                    <ul>
+                        {{#if false}}<li><a href="#erste_schritte">Erste Schritte</a></li>{{/if}}
+                        <li><a href="#nutzungshilfen">Nutzungshilfen</a></li>
+                        {{#each tutorials}}
+                            <li><a href="#{{this.title}}">{{this.title}}</a></li>
+                        {{/each}}
+                        <li><a href="#kontakt">Kontaktformular</a></li>
+                        <li><a href="#email">Schreib uns eine E-Mail</a></li>
+                        <li><a href="#ueber_das_projekt">Über das Projekt</a></li>
+                        <li><a href="#sprachhinweis">Sprachlicher Hinweis</a></li>
+                    </ul>
+                    {{/content}}
+                {{/embed}}
+
+                {{#if false}}
+                {{#embed "help/icon-card" title="Erste Schritte" icon="fa-child" class="first-steps-card col-xs-12" id="erste_schritte"}}
+                    {{#content "card-body"}}
+                        {{> "help/icon-link-group" links=firstStepsItems link-class="col-sm-3"}}
+                    {{/content}}
+                {{/embed}}
+                {{/if}}
+
+                {{#each tutorials}}
+                    {{#embed "help/icon-card" title=this.title icon=this.icon id=this.title class="col-md-6"}}
+                        {{#content "card-body"}}
+                            <div class="collapse__section">
+                                {{#each this.categories}}
+                                    {{#if this.articles}}
+                                        <div class="collapse__item">
+                                            <div class="collapse__title collapsed" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="false">
+                                                <i class="fa fa-fw fa-chevron-right" aria-hidden="true" data-expand></i>
+                                                <i class="fa fa-fw fa-chevron-down" aria-hidden="true" data-collapse></i>
+                                                <h5>
+                                                    {{this.title}}
+                                                </h5>
+                                            </div>
+                                            <ul id="{{this.id}}" class="collapse collapse__content">
+                                                {{#each this.articles}}
+                                                    <li><a href="/help/confluence/{{this.id}}">
+                                                        {{this.title}}
+                                                    </a></li>
+                                                {{/each}}
+                                            </ul>
+                                        </div>
+                                    {{else}}
+                                        <div class="collapse__item">
+                                            <div class="collapse__title single">
+                                                <i class="fa fa-fw" aria-hidden="true"></i>
+                                                <a href="/help/confluence/{{this.id}}">
+                                                    <h5>
+                                                        {{this.title}}
+                                                    </h5>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="card-footer">
-                                            <a href="https://tools.openhpi.de/survey/index.php?r=survey/index&sid=345643&newtest=Y&lang=de"
-                                               target="_blank">
-                                                <button class="btn btn-primary btn-poll">Zur Umfrage</button>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {{/if}}
+                                {{/each}}
                             </div>
-                        {{/ifneq}}
-                    {{/ifneq}}
-                {{/if}}
-                <div class="row">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="card h-100">
-                            <div class="img-out">
-                                <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
-                            </div>
-                            <div class="card-block">
-                                <div class="card-text">
-                                    <h4 class="card-title">Häufig gestellte Fragen</h4>
-                                    <p class="card-text">Hier finden Sie Antworten auf häufig gestellte Fragen rund zum
-                                        Thema Schul-Cloud.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="btn btn-primary">Zu
-                                    den Fragen</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="card h-100">
-                            <div class="img-out">
-                                <img class="card-img-top circular" src="/images/login-right.png" alt="Card image cap">
-                            </div>
-                            <div class="card-block">
-                                <div class="card-text">
-                                    <h4 class="card-title">SSO in der Schul-Cloud</h4>
-                                    <p class="card-text">Hier finden Sie Erläuterungen zum SSO generell sowie zum SSO in
-                                        der Schul-Cloud.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                <a href="/help/faq/sso" class="btn btn-primary">Zu den Fragen</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="card h-100">
-                            <div class="img-out">
-                                <img class="card-img-top circular" src="/images/login-left.png" alt="Card image cap">
-                            </div>
-                            <div class="card-block">
-                                <div class="card-text">
-                                    <h4 class="card-title">Dokumente aus dem Willkommensordner</h4>
-                                    <p class="card-text">Hier finden Sie Dokumente zu folgenden Themen: Datenschutz, Pressearbeit, Arbeitsgruppen sowie Vorlagen für Briefe und Checklisten. Zudem finden Sie hier Begleitmaterial rund um die Anwendung der HPI Schul-Cloud im Unterricht.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                <a href="/help/faq/documents" class="btn btn-primary">Zu den Dokumenten</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="padding-top: 20px">
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="card h-100">
-                            <div class="img-out">
-                                <i class="fa fa-bug card-img-top circular" aria-hidden="true"></i>
-                            </div>
-                            <div class="card-block">
-                                <div class="card-text">
-                                    <h4 class="card-title">Problem melden</h4>
-                                    <p class="card-text">Sie haben ein Problem in der Schul-Cloud gefunden? Schreiben
-                                        Sie uns doch! Für Ihre Hinweise sind wir dankbar!</p>
-                                </div>
-                            </div>
-                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                <a href="#" target="_blank" class="btn btn-primary submit-problem">Problem melden</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <div class="card h-100">
-                            <div class="img-out">
-                                <img class="mooc-house card-img-top circular" src="/images/logo-mooc-house.png"
-                                     alt="MOOC House Schul-Cloud Kurs">
-                            </div>
-                            <div class="card-block">
-                                <div class="card-text">
-                                    <h4 class="card-title">Online-Kurs: Erste Schritte in der Schul-Cloud</h4>
-                                    <p class="card-text">Um Sie bei Ihren ersten Klicks in der Schul-Cloud zu begleiten, haben wir einen Online-Kurs zusammengestellt und auf der etablierten Bildungsplattform mooc.house für Sie bereitgestellt. Er soll Sie durch die Schul-Cloud lotsen und die einzelnen Funktionsbereiche erläutern.</p>
-                                </div>
-                            </div>
-                            <div class="card-footer" style="position: absolute; bottom: 0px; width: 100%;">
-                                <a href="https://mooc.house/courses/schulcloud2018" target="_blank"
-                                   class="btn btn-primary">Zum Kurs</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="changelog" id="changelog">
-            <h4>Neueste Funktionen</h4>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div id="accordion" role="tablist" aria-multiselectable="true">
-                            {{#each release}}
-                                <div class="card">
-                                    <div class="card-header" role="tab" id="heading-{{@index}}">
-                                        <h5 class="mb-0">
-                                            <a data-toggle="collapse" data-parent="#accordion"
-                                               href="#collapse-{{@index}}"
-                                               {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
-                                               aria-controls="collapse-{{@index}}">
-                                                <div>
-                                                    {{this.name}}
-                                                    <span class="text-muted author">
-                                                        {{this.publishedAt}}
-                                                    </span>
-                                                </div>
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapse-{{@index}}" class="collapse"
-                                         role="tabpanel" aria-labelledby="heading-{{@index}}"
-                                         {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
-                                        <div class="card-block">
-                                            {{{this.body}}}
-                                        </div>
-                                        <div class="card-footer">
-                                            <a href="{{this.url}}" target="_blank">Weiterlesen</a>
-                                            <span class="author"><i class="fa fa-user"></i><a href="{{this.authorUrl}}"
-                                                                                              target="_blank">{{this.author}}</a></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            {{/each}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                        {{/content}}
+                    {{/embed}}
+                {{/each}}
 
+                {{#embed "help/icon-card" title="Nutzungshilfen" icon="fa-map-signs" class="quickHelp-card col-xs-12" id="nutzungshilfen"}}
+                    {{#content "card-body"}}
+                        {{> "help/icon-link-group" links=quickHelpItems link-class="col-sm-4"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#if demo}}
+                    {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-12" id="email"}}
+                        {{#content "card-body"}}
+                            {{> "help/mail-card"}}
+                        {{/content}}
+                    {{/embed}}
+                {{else}}
+                    {{#embed "help/icon-card" title="Kontaktformular" icon="fa-pencil" class="contact-card col-md-6" id="kontakt"}}
+                        {{#content "card-body"}}
+                            {{> "help/contact"}}
+                        {{/content}}
+                    {{/embed}}
+
+                    {{#embed "help/icon-card" title="Schreib uns eine E-Mail" icon="fa-envelope" class="eMail-card col-md-6" id="email"}}
+                        {{#content "card-body"}}
+                            {{> "help/mail-card"}}
+                        {{/content}}
+                    {{/embed}}
+                {{/if}}
+
+                {{#embed "help/icon-card" title="Über das Projekt" icon="fa-lightbulb-o" class="information-card col-xs-12" id="ueber_das_projekt"}}
+                    {{#content "card-body"}}
+                        {{> "help/icon-link-group" links=knowledgeItems link-class="col-sm-4"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "help/icon-card" title="Sprachlicher Hinweis" icon="fa-magic" class="" id="sprachhinweis"}}
+                    {{#content "card-body"}}
+                        {{> "help/language-hint"}}
+                    {{/content}}
+                {{/embed}}
+            </div>
+        </div>
     {{/content}}
 {{/extend}}

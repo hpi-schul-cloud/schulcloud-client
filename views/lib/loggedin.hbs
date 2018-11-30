@@ -3,6 +3,14 @@
         <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
+        <noscript><style>
+            .section-title,
+            #main-content,
+            footer
+            {
+                opacity: 1;
+            }
+        </style></noscript>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -15,14 +23,6 @@
     {{/content}}
 
     {{#content "body"}}
-        <div class="preload-screen hidden">
-            <div class="content">
-                <div class="center-wrapper">
-                    <i class="fa fa-spinner" aria-hidden="true"></i>
-                    <p>laden...</p>
-                </div>
-            </div>
-        </div>
         <div class="navtooltips"></div>
         <aside class="nav-sidebar hide-inline">
             <nav>
@@ -114,6 +114,7 @@
                                 </div>
                             </div>
                         </li>
+                        {{#if false}}
                         <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
@@ -143,7 +144,7 @@
                                 </div>
                             </div>
                         </li>
-
+    	                {{/if}}
                         <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
@@ -151,36 +152,32 @@
                                 </a>
                                 <div class="dropdown-menu">
                                     <ul class="content list-group">
-                                        <li class="list-group-item list-group-item-action"><span>Schnellhilfe <a href="/help/" style="float: right">Hilfebereich</a></span></li>
-                                        <div class="delimiter"></div>
                                         <li class="list-group-item list-group-item-action">
                                             <span>
-                                                <i class="fa fa-info-circle" aria-hidden="true" style="margin-left:1px;"></i>
-                                                <a href="https://docs.schul-cloud.org/x/jwDT" target="_blank" class="link">Anleitungen</a>
+                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                                <a href="/help" class="link">Hilfebereich</a>
+                                            </span>
+                                        </li>
+
+                                        <li id="intro-loggedin" class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-map-signs"aria-hidden="true"></i>
+                                                <a href="#" class="link">Intro</a>
+                                            </span>
+                                        </li>
+
+                                        <li class="list-group-item list-group-item-action">
+                                            <span>
+                                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                                                <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a>
                                             </span>
                                         </li>
                                         <li class="list-group-item list-group-item-action">
                                             <span>
-                                                <i class="fa fa-magic" aria-hidden="true"></i>
-                                                <a href="/help/#changelog" class="link">Neueste Funktionen</a>
+                                                <i class="fa fa-comment" aria-hidden="true"></i>
+                                                <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a>
                                             </span>
                                         </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-comments-o" aria-hidden="true"></i>
-                                                <a href="https://blog.schul-cloud.org/faq/" target="_blank" class="link">FAQ</a>
-                                            </span>
-                                        </li>
-                                        <li id="intro-loggedin" class="list-group-item list-group-item-action"><span><i class="fa fa-map-signs"
-                                                                                                    aria-hidden="true"></i><a
-                                                href="#" class="link">Intro</a></span></li>
-                                        <div class="delimiter"></div>
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-pencil"
-                                                                                                    aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a></span></li>
-                                        <li class="list-group-item list-group-item-action"><span><i class="fa fa-comment"
-                                                                                                    aria-hidden="true"></i></i>
-                                            <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a></span></li>
                                     </ul>
                                 </div>
                             </div>
