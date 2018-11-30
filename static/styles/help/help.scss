@@ -1,65 +1,259 @@
-@import '../lib/colors';
+@import "../lib/colors";
+@import "./search";
+@import "./icon-card";
+@import "./icon-link-group";
 
-.changelog {
-  .author {
-    float: right
-  }
+/********************************************************
+ * iFrame (for confluence integration)
+ ********************************************************/
+iframe.full {
+  width: 100%;
+  min-height: 500px;
+  overflow: hidden;
+}
 
-  img {
-    max-width: 100%;
-    height: auto;
-    width: auto;
-  }
+/********************************************************
+ * FORM
+ ********************************************************/
+// wrapper
+label.form-group {
+  display: block;
+  margin-bottom: 8px;
+}
 
-  h4 {
-    margin-bottom: 20px;
-    color: $primaryColor;
-  }
-
-  i {
-    padding-right: 5px;
-    color: $primaryColor;
+// Label
+.control-label {
+  &.optional::after {
+    font-weight: lighter;
+    content: " (optional)";
   }
 }
 
-.faqpanel {
-  .card-img-top {
-      height: auto;
-      width: 100%;
+// Inputs
+.form-control,
+.chosen-container-single .chosen-single {
+  border: 1px solid #d9d9d9;
+  border-radius: 0;
+  text-align: left;
+  font-weight: normal;
+
+  &:focus,
+  &:active {
+    outline: none;
+    border-color: $primaryColor;
   }
+}
 
-  .card-footer {
-    text-align: center;
-  }
+// chosen options
+.chosen-container .chosen-results li {
+  text-align: left;
+}
 
-  .h-100 {
-    margin-bottom: 0px;
-    text-align: center;
-    position: relative;
-    padding-bottom: 75px;
-  }
+// Toggle
+fieldset.switch_wrapper {
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
 
-  .circular {
-    max-width: 300px;
-    max-height: 300px;
-    border-radius: 150px;
-    -webkit-border-radius: 150px;
-    -moz-border-radius: 150px;
-  }
+  .switch {
+    display: flex;
+    flex-wrap: nowrap;
 
-  .img-out {
-    padding-top: 20px;
-    display: inline-block;
+    input[type="radio"] {
+      display: none;
 
-    .fa-bug {
-      font-size: 140px;
-      padding-top: 50px;
-      padding-bottom: 40px
+      &:checked+label {
+        background-color: $colorWhite;
+        color: $accentColor;
+      }
     }
-    .mooc-house {
-      margin: 80px 0 25px 0;
+
+    label {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+
+      transition: color .3s, background-color .3s;
+      margin: 0;
+      border: 1px solid $colorWhite;
+      border-left: 0;
+
+      cursor: pointer;
+      padding: 4px;
+      text-align: center;
+      text-transform: uppercase;
+
+      font-weight: normal;
+
+      &:first-of-type {
+        border-left: 1px solid $colorWhite;
+      }
+    }
+  }
+}
+
+// (submit-) Button
+.icon-card button[type="submit"] {
+  transition: color .3s ease-in-out, background-color .3s ease-in-out;
+  margin-top: 16px;
+  border: 1px solid #333;
+  background: transparent;
+  padding: 8px 16px;
+  color: #333;
+  font-weight: bold;
+
+  &:hover {
+    outline: none;
+    background-color: #333;
+    color: $colorWhite;
+  }
+}
+
+
+/********************************************************
+ * Cards
+ ********************************************************/
+//table-of-contents
+.table-of-contents-card {
+  background: $primaryColor;
+  color: $colorWhite;
+
+  .icon-card__title:before {
+    border-bottom-color: $colorWhite;
+  }
+
+  .icon-card__body {
+    text-align: center;
+
+    ul {
+      margin: 0;
+      padding-left: 0;
+      list-style-type: none;
+
+      li {
+        padding: 4px 0;
+
+        a {
+          text-decoration: underline;
+          color: $colorWhite;
+        }
+      }
+    }
+  }
+}
+
+// help links
+.collapse__section {
+  .collapse__item {
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #333;
+    }
+
+    cursor: pointer;
+
+    &:last-of-type {
+      border-bottom: 0;
+    }
+
+    .collapse__title {
+      padding: 12px 20px 12px 0;
+      text-align: left;
+      font-size: 1.2em;
+
+      h5 {
+        display: inline;
+        padding-left: 8px;
+        font-size: inherit;
+      }
+
+      &.single {
+        color: $primaryColor;
+      }
+    }
+
+    .collapse__content {
+      text-align: left;
+    }
+  }
+}
+
+// link cards
+.first-steps-card,
+.quickHelp-card,
+.information-card {
+  padding: 2rem 0 0;
+}
+
+.first-steps-card {
+  .link-wrapper a {
+    color: $colorWhite;
+  }
+}
+
+// contact cards
+.contact-card {
+  .icon-card__content {
+    background-color: $accentColor;
+    color: $colorWhite;
+
+    .icon-card__title:before {
+      border-bottom-color: $colorWhite;
+    }
+
+    form {
+      margin-top: 1rem;
+
+      p {
+        text-align: left;
+      }
+
+      .control-label {
+        display: block;
+        margin-bottom: 4px;
+        padding-right: 2rem;
+        text-align: left;
+      }
+
+      .chosen-container {
+        color: initial;
+      }
+
+      button {
+        border-color: $colorWhite;
+        color: $colorWhite;
+
+        &:hover {
+          background-color: $colorWhite;
+          color: $accentColor;
+        }
+      }
+    }
+
+    p {
+      margin-top: .75rem;
+      margin-bottom: .25rem;
+    }
+  }
+}
+
+.eMail-card {
+  .icon-card__content {
+    background: #e25617;
+    color: $colorWhite;
+
+    .icon-card__title:before {
+      border-bottom-color: $colorWhite;
     }
   }
 
-  padding-bottom: 20px;
+  a {
+    text-decoration: underline;
+    color: $colorWhite;
+
+    &:hover {
+      color: $accentColor;
+    }
+  }
 }

@@ -2,61 +2,62 @@
 @import './bootstrap/scss/bootstrap-flex';
 @import "./editor";
 
+// page transition animation
+.section-title,
+#main-content,
+footer
+{
+    opacity: 0;
+    transition: opacity .4s;
+}
+.loaded{
+    .section-title,
+    #main-content,
+    footer
+    {
+        opacity: 1;
+    }
+}
+
 body {
     background-color: $colorWhite;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
     white-space: nowrap;
     font-size: 0 !important;
+
+    // loading spinner
+    &:not(.loaded) .content-min-height{
+        position: relative;
+        &:after{
+            content: "\f110";
+            display: inline-block;
+            position: fixed;
+            top: 50vh;
+            left: 50%;
+            z-index: -1;
+            color: #777;
+            font: normal normal normal 2em/1 FontAwesome;
+            opacity: 0;
+            transform: translate(-50%, -50%), rotate(0deg);
+            animation: loading-spinner 2.5s infinite linear 2s;
+        }
+    }
 }
+@keyframes loading-spinner {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(359deg);
+    }
+}
+
 body > * {
     font-size: 1rem;
     white-space: normal;
-}
-
-.preload-screen{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 99999999;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: rgba(0,0,0,.4);
-    .content{
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: radial-gradient(farthest-corner, transparent 45%, rgba(0, 0, 0, .2));
-        transition: opacity .3s ease-in-out 1.3s;
-        text-shadow: 2px 2px 5px rgba(0,0,0,.3);
-        .center-wrapper{
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            font-size: 1.2rem;
-            .fa{
-                font-size: 2em;
-                margin-bottom: 1rem;
-                -webkit-animation: fa-spin 1.5s infinite linear;
-                animation: fa-spin 1.5s infinite linear;
-            }
-        }
-    }
-    &.hidden{
-        visibility: hidden;
-        .overlay-card{
-            transform: rotate(-90deg);
-        }
-        .content{
-            opacity: 0;
-        }
-    }
 }
 
 .navtooltips{
@@ -79,17 +80,27 @@ aside.nav-sidebar {
     color: #727272;
     background-color: $colorWhite;
     border-right: 1px solid rgba(0,0,0,.15);
+    display: flex;
+    flex-direction: column;
 
     @include media-breakpoint-down(md) {
         width: 60px;
+        overflow-x: hidden;
     }
 
     @include media-breakpoint-down(xs) {
         width: 100%;
+        overflow-x: auto;
         height: 0;
         z-index: 9998;
         overflow: visible;
         display: block;
+    }
+
+    nav{
+        display: flex;
+        flex-direction: column;
+        flex: 1;
     }
 
     .sc-branding {
@@ -135,120 +146,114 @@ aside.nav-sidebar {
             }
         }
     }
-
-    nav {
+    @include media-breakpoint-down(xs) {
+        position: absolute;
         width: 100%;
-
-        @include media-breakpoint-down(xs) {
-            position: absolute;
-            width: 100%;
-            height: 100vh;
-            overflow: auto;
-            background: $colorWhite;
-            box-shadow: 0 2px 5px rgba(0,0,0,.26);
-            transform: translateY(-102%);
-            transition: transform .3s ease-in-out;
-            .sc-branding{
-                box-sizing: border-box;
-                padding-left: 54px;
-                .cloud-logo{
-                    display: none;
-                }
-            }
-            &.active {
-                transition: transform .3s ease-in-out;
-                transform: none;
+        height: 100vh;
+        overflow: auto;
+        background: $colorWhite;
+        box-shadow: 0 2px 5px rgba(0,0,0,.26);
+        transform: translateY(-102%);
+        transition: transform .3s ease-in-out;
+        &.active {
+            transform: none;
+        }
+        .sc-branding{
+            box-sizing: border-box;
+            padding-left: 54px;
+            .cloud-logo{
+                display: none;
             }
         }
+    }
+    ul {
+        flex: 1;
+        width: 100%;
+        float: left;
+        list-style-type: none;
+        padding: 0px;
+        margin: 0px;
 
-        ul {
+        li {
             width: 100%;
             float: left;
-            list-style-type: none;
-            padding: 0px;
-            margin: 0px;
 
-            li {
+            a:not(.sc-branding) {
                 width: 100%;
                 float: left;
+                height: 60px;
+                line-height: 60px;
+                color: $fontColor;
+                padding: 0px 20px;
+                font-size: 14px;
+                text-decoration: none;
+                overflow-x: visible;
+                white-space: nowrap;
 
-                a:not(.sc-branding) {
-                    width: 100%;
-                    float: left;
-                    height: 60px;
-                    line-height: 60px;
-                    color: $fontColor;
-                    padding: 0px 20px;
-                    font-size: 14px;
-                    text-decoration: none;
-                    overflow-x: visible;
-                    white-space: nowrap;
+                &.child-active {
+                    border-bottom: 1px solid transparent;
+                }
 
-                    &.child-active {
-                        border-bottom: 1px solid transparent;
+                &.subitem {
+                    height: 40px;
+                    line-height: 40px;
+                    border-bottom: 1px solid transparent;
+
+                    .fa {
+                        margin-left: 10px;
                     }
 
-                    &.subitem {
+                    @include media-breakpoint-down(md) {
+                        height: 60px;
+                        line-height: 60px;
+
+                        .fa {
+                            display: inline-block;
+                            margin: 0;
+                        }
+                    }
+
+                    @include media-breakpoint-down(xs) {
                         height: 40px;
                         line-height: 40px;
-                        border-bottom: 1px solid transparent;
 
                         .fa {
                             margin-left: 10px;
                         }
+                    }
+                }
 
-                        @include media-breakpoint-down(md) {
-                            height: 60px;
-                            line-height: 60px;
+                &.active {
+                    background: $colorLightGrey;
+                    color: $primaryColor;
+                    border-bottom: 1px solid transparent;
+                }
 
-                            .fa {
-                                display: inline-block;
-                                margin-left: 0;
-                            }
-                        }
+                &[href]:hover {
+                    background: $colorLightGrey;
+                    cursor: pointer;
+                }
 
-                        @include media-breakpoint-down(xs) {
-                            height: 40px;
-                            line-height: 40px;
+                i.fa {
+                    font-size: 20px;
+                    width: 20px;
+                    margin-right: 20px;
+                    display: inline-block;
+                    text-align: center;
+                    vertical-align: middle;
+                }
 
-                            .fa {
-                                margin-left: 10px;
-                            }
-                        }
+                span {
+                    display: inline-block;
+                    text-transform: uppercase;
+                    text-decoration: none;
+
+                    @include media-breakpoint-down(md) {
+                        display: none;
                     }
 
-                    &.active {
-                        background: $colorWhite;
-                        color: $primaryColor;
-                        border-bottom: 1px solid transparent;
-                    }
-
-                    &[href]:hover {
-                        background: $colorLightGrey;
-                        cursor: pointer;
-                    }
-
-                    i.fa {
-                        font-size: 20px;
-                        width: 20px;
-                        margin-right: 20px;
+                    @include media-breakpoint-down(xs) {
                         display: inline-block;
-                        text-align: center;
-                        vertical-align: middle;
-                    }
-
-                    span {
-                        display: inline-block;
-                        text-transform: uppercase;
-                        text-decoration: none;
-
-                        @include media-breakpoint-down(md) {
-                            display: none;
-                        }
-
-                        @include media-breakpoint-down(xs) {
-                            display: inline-block;
-                        }
                     }
                 }
             }

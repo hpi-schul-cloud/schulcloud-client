@@ -147,7 +147,7 @@
     text-align: center;
     transition: all .5s;
     cursor: pointer;
-    overflow: hidden;
+    overflow-wrap: break-word;
     &:hover {
       z-index: 1;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
