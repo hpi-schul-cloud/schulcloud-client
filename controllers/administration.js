@@ -18,6 +18,7 @@ const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
 const parse = require('csv-parse/lib/sync');
 const _ = require('lodash');
+
 moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -1116,7 +1117,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         Promise.all([
             classesPromise,
             consentsPromise
-        ]).then(([classes, consents]) => {
+        ]).then(async ([classes, consents]) => {
             users = users.map((user) => {
                 // add consentStatus to user
                 const consent = (consents || []).find((consent) => {
@@ -1166,15 +1167,109 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
 
+            const studentsWithoutConsent = await getStudentsWithoutConsent(req);
+
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
                 filterSettings: JSON.stringify(userFilterSettings()),
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+                studentsWithoutConsent: studentsWithoutConsent.length
             });
         });
     });
 });
+
+const getStudentsWithoutConsent = async (req) => {
+    const usersPromise = api(req).get('/users', { $limit: false });
+    const consentsPromise = api(req).get('/consents', { $limit: false });
+
+    const [users, consents] = await Promise.all([
+        usersPromise,
+        consentsPromise
+    ]);
+
+    const studentsWithoutConsent = users.data.filter(user => {
+        let userWithConsent = consents.data.find(consent => {
+            return consent.userId === user._id;
+        });
+
+        return userWithConsent ? false : true;
+    });
+
+    return studentsWithoutConsent;
+};
+
+
+router.get('/students-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    const usersWithoutConsent = await getStudentsWithoutConsent(req);
+
+    try {
+        for (const user of usersWithoutConsent) {
+            const content = `Hallo ${user.displayName},
+            Leider fehlt uns von dir noch die Einverständniserklärung.
+            Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
+            
+            Melde dich bitte mit deinen Daten an, um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
+            
+            Gehe jetzt auf <a href="${req.headers.host || process.env.HOST}">${req.headers.host || process.env.HOST}</a>, und melde dich an.
+            `;
+
+            await api(req).post('/mails', {
+                json: {
+                    headers: {},
+                    email: user.email,
+                    subject: `Der letzte Schritt zur Aktivierung für die ${res.locals.theme.short_title}`,
+                    content
+                }
+            });
+        }
+        res.sendStatus(200);
+    } catch (err) {
+        res.status((err.statusCode || 500)).send(err);
+    }
+});
+
+router.get('/students-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    try {
+        const usersWithoutConsent = await getStudentsWithoutConsent(req);
+
+        res.json(usersWithoutConsent);
+    } catch (err) {
+        res.status((err.statusCode || 500)).send(err);
+    }
+});
+
+router.get('/students-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    
+    try {
+        const usersWithoutConsent = await getStudentsWithoutConsent(req);
+
+        for (const user of usersWithoutConsent) {
+            const content = `Hallo ${user.displayName},
+            Leider fehlt uns von dir noch die Einverständniserklärung.
+            Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
+            
+            Melde dich bitte mit deinen Daten an, um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
+            
+            Gehe jetzt auf <a href="${req.headers.host || process.env.HOST}">${req.headers.host || process.env.HOST}</a>, und melde dich an.
+            `;
+
+            await api(req).post('/mails', {
+                json: {
+                    headers: {},
+                    email: user.email,
+                    subject: `Der letzte Schritt zur Aktivierung für die ${res.locals.theme.short_title}`,
+                    content
+                }
+            });
+        }
+        res.sendStatus(200);
+    } catch (err) {
+        res.status((err.statusCode || 500)).send(err);
+    }
+});
+
 
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
@@ -1207,7 +1302,6 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
         );
     });
 });
-
 
 
 /*

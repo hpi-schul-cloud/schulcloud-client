@@ -95,6 +95,60 @@ $(document).ready(function () {
         });
     });
 
+    $('.btn-send-links-emails').on('click', function (e) {
+        e.preventDefault();
+        const $this = $(this);
+        
+        const text  = $this.html();
+        $this.html('E-Mails werden gesendet...');
+        $this.attr("disabled", "disabled");
+
+        let schoolId = $invitationModal.find("input[name='schoolId']").val();
+
+        $.ajax({
+            type: "GET",
+            url: window.location.origin+"/administration/students-without-consent/send-email",
+            data: {
+                schoolId,
+            }
+        }).done(function(data) {
+            $.showNotification('Erinnerungs-Emails erfolgreich versendet', "success", true);
+            $this.attr("disabled", false);
+            $this.html(text);
+        }).fail(function (data) {
+            $.showNotification('Fehler beim senden der Erinnerungs-Emails', "danger", true);
+            $this.attr("disabled", false);
+            $this.html(text);
+        });
+    });
+
+    $('.btn-print-links').on('click', function (e) {
+        e.preventDefault();
+        const $this = $(this);
+        
+        const text  = $this.html();
+        $this.html('Druckbogen wird generiert...');
+        $this.attr("disabled", "disabled");
+
+        let schoolId = $invitationModal.find("input[name='schoolId']").val();
+
+        $.ajax({
+            type: "GET",
+            url: window.location.origin+"/administration/students-without-consent/get-json",
+            data: {
+                schoolId
+            }
+        }).done(function(data) {
+            $.showNotification('Druckbogen erfolgreich generiert', "success", true);
+            $this.attr("disabled", false);
+            $this.html(text);
+        }).fail(function (data) {
+            $.showNotification('Problem beim Erstellen des Druckbogens', "danger", true);
+            $this.attr("disabled", false);
+            $this.html(text);
+        });
+    });
+
     $('.btn-import').on('click', function (e) {
         e.preventDefault();
         populateModalForm($importModal, {
