@@ -420,6 +420,7 @@ const getCSVImportHandler = () => {
                     target: 'csv',
                     school: req.body.schoolId,
                     role: req.body.roles[0],
+                    sendEmails: Boolean(req.body.sendRegistration),
                 },
                 json: {
                     data: csvData,
