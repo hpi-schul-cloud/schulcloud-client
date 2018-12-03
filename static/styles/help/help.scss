@@ -119,6 +119,9 @@ fieldset.switch_wrapper {
   background: $primaryColor;
   color: $colorWhite;
 
+  .icon-card__content{
+    border-color: transparent;
+  }
   .icon-card__title:before {
     border-bottom-color: $colorWhite;
   }

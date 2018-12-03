@@ -15,26 +15,26 @@ const tutorials = require('../helpers/content/tutorials.json');
 
 const firstStepsItems = [{
         title: "Schüler",
-        icon: "fa-child",
+        "img-src": "/images/help/schueler-icon.png",
         src: "/help/confluence/40304731",
-        color: "#ea9d4a"
+        color: "#f8a41b"
     },
     {
         title: "Lehrer",
-        icon: "fa-child",
+        "img-src": "/images/help/lehrer-icon.png",
         src: "/help/confluence/40304726",
-        color: "#29b24b"
+        color: "#e2661d"
     }, {
         title: "Admin",
-        icon: "fa-child",
+        "img-src": "/images/help/admin-icon.png",
         src: "/help/confluence/40304667",
-        color: "#b11e3b"
+        color: "#b10438"
     },
     {
         title: "Schulleitung",
-        icon: "fa-child",
+        "img-src": "/images/help/schulleitung-icon.png",
         src: "/help/confluence/40304728",
-        color: "#41bcec"
+        color: "#373a3c"
     }
 ];
 const quickHelpItems = [{
@@ -83,14 +83,14 @@ const knowledgeItems = [{
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    let quickhelp = quickHelpItems.slice(0);
     const isDemo = res.locals.currentUser.roles.every((role) => {
-        return (role.name.includes("demo"));
+        return role.name.includes("demo");
     });
     const isStudent = res.locals.currentUser.roles.every((role) => {
-        return (role.name === "student");
+        return role.name === "student";
     });
 
+    let quickhelp = quickHelpItems.slice(0);
     if(!isDemo && !isStudent){
         quickhelp.push({
             title: "Dokumente des Willkommensordners",
@@ -100,10 +100,10 @@ router.get('/', function (req, res, next) {
     }
     res.render('help/help', {
         title: 'Hilfebereich',
-        tutorials: tutorials,
-        knowledgeItems: knowledgeItems,
+        tutorials,
+        knowledgeItems,
         quickHelpItems: quickhelp,
-        firstStepsItems: firstStepsItems,
+        firstStepsItems,
         demo: isDemo
     });
 });
