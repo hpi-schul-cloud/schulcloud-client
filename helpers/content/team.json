@@ -668,6 +668,21 @@
       },
       {
         "title": "",
+        "firstName": "Christian",
+        "lastName": "Weissmann",
+        "position": "Studentische Hilfskraft",
+        "description": "Christian studiert Computer Science im Master an der Technischen Universität Berlin. Neben seiner bisherigen Arbeit im Bereich e-Mobility in San Francisco, konzentriert er sich derzeit auf die Frage, wie sich dem Nutzer Verschlüsselung näher bringen lässt. Hier bei der HPI Schul-Cloud arbeitet er am User-Interface. Wenn nicht vor dem Bildschirm, findet man ihn auch beim Basteln in Repair-Cafés oder beim Surfen im Meer.",
+        "pictureUrl": "/images/team/Christian_Weissmann.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Tobias",
         "lastName": "Wollowski",
         "position": "Student",
