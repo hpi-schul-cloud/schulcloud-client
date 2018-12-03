@@ -423,7 +423,7 @@ const getCSVImportHandler = () => {
                 qs: {
                     target: 'csv',
                     school: req.body.schoolId,
-                    role: req.body.roles,
+                    role: req.body.roles[0],
                 },
                 json: {
                     data: csvData,
