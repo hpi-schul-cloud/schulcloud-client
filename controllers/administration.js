@@ -7,16 +7,12 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
-const handlebars = require('handlebars');
-const fs = require('fs');
-const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
-const parse = require('csv-parse/lib/sync');
 const _ = require('lodash');
 moment.locale('de');
 
