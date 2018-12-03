@@ -3,26 +3,29 @@ import {courseDownloader} from './courseDownloader';
 export const notificationHandler = {
     
     handle: function(registration, message){
-        if(message.data){
-            this.handleData(message.data);
+        let promiseChain = [];
+        if(message.data && message.data.tag){
+            promiseChain.push(this.handleData(message.data));
         }
         if(message.notification){
-            this.showNotification(registration, message.notification);
+            promiseChain.push(this.showNotification(registration, message.notification));
         }
+        return Promise.all(promiseChain);
     },
+    
     handleData: function(data){
         switch(data.tag){
             case 'course-data-updated':
-            console.log('download course data...');
-            if(courseDownloader.isReady() !== true){
-                courseDownloader.initialize({
-                    cacheName: 'courses'
-                });
-            }
-            courseDownloader.downloadCourse(data.courseId);
-            break;
+                console.log('download course data...');
+                if(courseDownloader.isReady() !== true){
+                    courseDownloader.initialize({
+                        cacheName: 'courses'
+                    });
+                }
+                return courseDownloader.downloadCourse(data.courseId);
             default:
-            console.log('unknown notification tag received', data.tag);
+                console.log('unknown notification tag received', data.tag);
+                return Promise.reject(`unknown data.tag ${data.tag}`);
         }
     },
     

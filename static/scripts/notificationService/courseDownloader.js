@@ -27,8 +27,7 @@ const courseDownloader = {
             .then(cache => cache.add(data.url))
             .then(_ => this._courseStore.setItem(data.url, data))
             .then(_ => cacheEvents.added(this._cacheName, data.url))
-            .then(_ => Promise.resolve(data))
-            .catch(err => console.log(err));
+            .then(_ => Promise.resolve(data));
     },
 
     testInCache(data) {
@@ -51,7 +50,7 @@ const courseDownloader = {
         let urls = {};
 
         let currentVal, newVal;
-        this._courseOfflineStore.getItem(courseId).then(value => {
+        return this._courseOfflineStore.getItem(courseId).then(value => {
 
             // cleanup existing data
 
@@ -103,8 +102,7 @@ const courseDownloader = {
                 },
                 body: JSON.stringify(currentVal)
             }).then(response => response.json());
-        })
-            .then(json => {
+        }).then(json => {
                 if (json.cleanup && json.cleanup.course) {
                     return caches.open(this._cacheName)
                         .then(cache => cache.delete(json.cleanup.course.url))
@@ -117,8 +115,7 @@ const courseDownloader = {
                         });
                 }
                 return json;
-            })
-            .then(json => {
+            })            .then(json => {
 
                 // remove data which has been removed on server side
                 if (json.cleanup && json.cleanup.lessons) {
@@ -207,10 +204,8 @@ const courseDownloader = {
                     });
                 }
                 return this._courseOfflineStore.setItem(courseId, updatedValue)
-                    .then(_ => { console.log('updated', courseId); });
+                    .then(_ => { console.log('updated', courseId); return Promise.resolve('course updated'); });
 
-            }).catch(err => {
-                console.log(err);
             });
     }
 
@@ -227,6 +222,7 @@ const cacheEvents = {
             cacheName,
             url
         }));
+        return;
     },
 
     removed: function (cacheName, url) {
@@ -240,6 +236,7 @@ const cacheEvents = {
                 });
             }
         });
+        return;
     },
 
     subscribe: function (observer) {

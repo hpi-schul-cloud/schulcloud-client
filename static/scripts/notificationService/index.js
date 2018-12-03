@@ -26,15 +26,16 @@ export const pushManager = {
 
     handleNotification: function (registration, data) {
         if(this.handledMessages.includes(data.data._id) === false){
-            console.log('notification event arrived in pushManager', data);
             this.handledMessages.push(data.data._id);
             while(this.handledMessages.length>100){
                 this.handledMessages.shift();
             }
-            notificationHandler.handle(registration, data);
+            console.log('notification event arrived in pushManager', data);
+            return notificationHandler.handle(registration, data);
             //sendShownCallback(data);
         }else{
             console.log('ignore push duplicate', data);
+            return Promise.resolve('push duplicate');
         }
     },
 
