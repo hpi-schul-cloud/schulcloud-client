@@ -7,6 +7,14 @@
     &.fa-check.double-check{
         color: green;
     }
+    &.fa-check.double-check{
+        position: relative; 
+        left: 3px;
+    }
+    &.fa-check.double-check:last-child{
+        position: relative; 
+        left: -3px;
+    }
     // Legacy
     // &.fa-circle-thin{
     //     color: orange;

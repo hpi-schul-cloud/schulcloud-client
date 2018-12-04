@@ -15,6 +15,35 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
+function printInvitations (users){
+    event.preventDefault();
+    let w = window.open();
+    w.document.write(`<style>
+    @page {size: A4; margin: 16px;}
+    .part{ border: 1px solid #999; width: 110px; float: left; padding: 8px; margin: 4px;}
+    img{width: 100% !important; height: auto !important;}
+    p{font-size: 10px; color: #555; margin: 8px 0 0; text-align: center; word-break: break-all;}
+    </style>`);
+    for (let user of users) {
+        const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
+        
+        w.document.write(`<div class="part">
+                            <div class="image-wrapper" id="user-${user._id}"></div>
+                            <h4 style="margin-bottom: 10px">${user.displayName}</h4>
+                            <p>${user.registrationLink.shortLink}</p>
+                        </div>`);
+        w.document.querySelector('#user-' + user._id).appendChild(image.cloneNode(true));
+    }
+
+    w.document.close();
+    /* eventListener is needed to give the browser some rendering time for the image */
+    w.addEventListener('load', () => {
+        w.focus();
+        w.print();
+        w.close();
+    });
+}
+
 $(document).ready(function () {
 
     var $modals = $('.modal');
@@ -138,7 +167,8 @@ $(document).ready(function () {
             data: {
                 schoolId
             }
-        }).done(function(data) {
+        }).done(function(users) {
+            printInvitations(users);
             $.showNotification('Druckbogen erfolgreich generiert', "success", true);
             $this.attr("disabled", false);
             $this.html(text);
