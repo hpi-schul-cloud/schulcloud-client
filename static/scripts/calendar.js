@@ -51,14 +51,14 @@ $(document).ready(function () {
     }
 
     $calendar.fullCalendar({
-        defaultView: view || 'month',
+        defaultView: view || 'agendaWeek',
         editable: false,
         timezone: 'UTC',
         events: function (start, end, timezone, callback) {
             if('serviceWorker' in navigator){
                 navigator.serviceWorker.addEventListener('message', function (event) {
                     if (event.origin !== location.origin)
-                        return; 
+                        return;
                     if (event.data.tag == 'calendar-event-updates') {
                         caches.open(event.data.cacheName)
                             .then(cache => cache.match(event.data.url))
