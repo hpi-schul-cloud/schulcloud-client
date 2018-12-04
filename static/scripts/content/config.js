@@ -5,7 +5,6 @@ module.exports = {
       baseUrl: 'http://localhost', //'https://schul-cloud.org',
       port: ':3030',
       clientPort: ':3100',
-      pushPort: ':4040',
       authPath: '/authentication',
       pwRecoveryPath: '/login?recovery=true',
       getPath: '/content/resources/',

@@ -27,7 +27,3 @@ var vm = new Vue({
 		this.userId = this.$el.attributes['data-user-id'].value;
   },
 })
-
-// The search page gets loaded as default when you click on "Materialen", therefore it should be marked as active
-$('a[title="Suche"]').addClass('active')
-$('a[title="Materialien"]').removeClass('active')
