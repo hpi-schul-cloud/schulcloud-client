@@ -4,7 +4,6 @@
         <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
         <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
         <noscript><style>
-            ul.sidebar-list > li:not(:first-of-type),
             .section-title,
             #main-content,
             footer
@@ -187,10 +186,10 @@
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
                             {{#if currentSchoolData.logo_dataUrl}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
                             {{else}}
                                 {{#if currentSchoolData.federalState}}
-                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}" alt="Landeswappen">
                                 {{/if}}
                             {{/if}}
                         {{/if}}

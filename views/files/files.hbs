@@ -28,8 +28,9 @@
                                 {{/each}}
                             </h5>
                             {{#if courseUrl}}
-                                <a href="{{courseUrl}}" class="btn btn-secondary btn-sm btn-thin pull-right">
-                                    Zum Kurs
+                                <a href="{{courseUrl}}" class="btn btn-add btn-secondary pull-right">
+                                  <i class="fa fa-graduation-cap"></i>
+                                  Zum Kurs
                                 </a>
                             {{/if}}
                         </div>
@@ -54,7 +55,7 @@
 								   data-file-key="{{../this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
-                                
+
                                 <a href="/directoryModel/{{../this._id}}/rename"
 								   target="_blank"
 								   data-method="dir-rename"
