@@ -53,10 +53,23 @@ app.use(session({
 }));
 
 // Custom flash middleware
+function getUrlParameter(url, name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(url);
+    return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+}
+
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.notification = req.session.notification;
     res.locals.inline = req.query.inline || false;
+
+    if(req.headers.referer && getUrlParameter(req.headers.referer, "inline")){
+        console.log("Referrer:", req.headers.referer, "Inline?", getUrlParameter(req.headers.referer, "inline"));
+        res.locals.inline = true;
+    }
+
     res.locals.theme = {
         title: process.env.SC_TITLE || "HPI Schul-Cloud",
         short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
@@ -107,7 +120,7 @@ app.use(function (err, req, res, next) {
     res.status(status);
     res.render('lib/error', {
             loggedin: res.locals.loggedin,
-            inline: !res.locals.loggedin
+            inline: res.locals.inline ? true : !res.locals.loggedin
         });
 });
 

@@ -1,3 +1,7 @@
+import { resizeiFrames } from './helpers/iFrameResize';
+
+resizeiFrames();
+
 $(document).ready(function () {
     $('.btn-create-share').click(function (e) {
         e.stopPropagation();
