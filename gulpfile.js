@@ -214,7 +214,7 @@ gulp.task('vendor-optimized-assets', () => {
 });
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome', 'localforage'];
+const nodeModules = ['mathjax', 'font-awesome', 'localforage', 'izitoast'];
 gulp.task('node-modules', () =>
   Promise.all(nodeModules.map(module =>
     beginPipe([`./node_modules/${module}/**/*.*`])
