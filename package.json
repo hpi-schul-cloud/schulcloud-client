@@ -55,7 +55,6 @@
     "react-sortable-hoc": "^0.8.3",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
-    "serve-favicon": "~2.3.2",
     "shortid": "^2.2.8",
     "showdown": "^1.7.1",
     "string-strip-html": "^3.2.0",
