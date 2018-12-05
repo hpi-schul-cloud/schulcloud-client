@@ -40,7 +40,7 @@
         <p>Bitte ändere das Startpasswort. Notiere dir das neue Passwort gleich und bewahre es gut auf!</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Altes Passwort: *</label>
+            <label>Altes Passwort: <sup>*</sup></label>
             <input class="form-control" id="password_verification" name="password_verification" type="password" placeholder="*******" required/>
           </div>
         </div>
@@ -48,12 +48,13 @@
         {{> "lib/forms/password-hint"}}
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Neues Passwort: *</label>
+            <label>Neues Passwort: <sup>*</sup></label>
             <input class="form-control" id="password" name="password-1" type="password" placeholder="Neues Passwort" minlength="8" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$" title="{{> "lib/forms/password-hint" plaintext=true}}" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Wiederhole dein neues Passwort: *</label>
-            <input class="form-control" id="password_control" name="password-2" type="password" placeholder="Neues Passwort wiederholen" required/>
+            <label>Neues Password wiederholen: <sup>*</sup></label>
+            <input class="form-control" id="password_control" name="password-2" type="password"
+                   title="{{> "lib/forms/password-hint" plaintext=true}}" placeholder="Neues Passwort wiederholen" required/>
           </div>
         </div>
 

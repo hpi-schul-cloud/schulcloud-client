@@ -37,6 +37,10 @@
 .form-group{
     margin-top: 1rem;
     margin-bottom: 0;
+    sup {
+        color: red;
+        font-size: 16px;
+    }
 }
 .explanation{
     margin-left: 18px;
