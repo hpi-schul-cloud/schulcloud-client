@@ -102,6 +102,21 @@
       },
       {
         "title": "",
+        "firstName": "Falko",
+        "lastName": "Benthin",
+        "position": "Wissenschaftlicher Mitarbeiter, HPI",
+        "description": "Falko hat an der HTW Berlin sein Bachelor- und Masterstudium absolviert und anschließend mehrere Jahre im Ops-Team eines namhaften Hosters zugebracht. Jetzt unterstützt er das HPI Schul-Cloud-Team als System-Engineer DevOps. In seiner Freizeit bespaßt er seine Kinder, liest und engagiert sich im HochDrei - Bilden und Begegnen in Brandenburg e.V.",
+        "pictureUrl": "/images/team/Falko_Benthin.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Max",
         "lastName": "Bothe",
         "position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -348,6 +363,21 @@
         "position": "Konzeptionelle Mitarbeiterin, MINT-EC",
         "description": "Christina ist bei MINT-EC für die Kommunikation rund um die HPI Schul-Cloud zuständig. Sie steht im Kontakt mit Journalisten und den teilnehmenden MINT-EC-Schulen in ganz Deutschland. Als Naturwissenschaftlerin (M. Sc., FU Berlin) ist Christina vielfältig interessiert: Nach der Arbeit engagiert sie sich für die Initiative „foodsharing“, treibt gern Sport im Grünen oder probt mit ihrer Band für den nächsten Auftritt.",
         "pictureUrl": "/images/team/Christina_Anders.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Rasmus ",
+        "lastName": "Geßner",
+        "position": "Konzeptioneller Mitarbeiter, MINT-EC",
+        "description": "Rasmus ist seit November 2018 konzeptioneller Mitarbeiter bei MINT-EC und betreut u.a. gemeinsam mit Sophie die Pilotschulen. Er bringt neben seinem Studium der Soziologie und Kulturwissenschaften (M.A., Europa-Universität Viadrina, Frankfurt /Oder) vier Jahre Erfahrungen in der universitären Erwachsenenbildung mit und entwickelte bei einem Berliner Bildungsträger eine e-Learning-Lernplattform. Außerhalb des Büros zieht es ihn in die nächstgelegene Boulderhalle, in Parks zum Joggen, zur nächsten Chorprobe oder gen Skandinavien.",
+        "pictureUrl": "/images/team/Rasmus_Gessner.png",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -613,6 +643,36 @@
         "position": "Studentische Hilfskraft",
         "description": "Andrea studiert Bachelor IT-Systems Engineering am HPI. Seit Mai 2018 ist sie im Bereich der Android App-Entwicklung im HPI Schul-Cloud Projekt tätig. In ihrer Freizeit zeichnet sie und ist in den Sportarten historischer Schwertkampf und historische Tänze aktiv.",
         "pictureUrl": "/images/team/Andrea_Nathansen.JPG",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Sebastian",
+        "lastName": "Serth",
+        "position": "Student",
+        "description": "Sebastian schreibt derzeit seine Masterarbeit im Kontext der HPI Schul-Cloud. Als Grundlage dazu dienen ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner aktuellen Arbeit untersucht er, wie Lehrer individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrer sogar eigenständig überprüfen können. Die Lehrer erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenen Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.",
+        "pictureUrl": "/images/team/Sebastian_Serth.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Christian",
+        "lastName": "Weissmann",
+        "position": "Studentische Hilfskraft",
+        "description": "Christian studiert Computer Science im Master an der Technischen Universität Berlin. Neben seiner bisherigen Arbeit im Bereich e-Mobility in San Francisco, konzentriert er sich derzeit auf die Frage, wie sich dem Nutzer Verschlüsselung näher bringen lässt. Hier bei der HPI Schul-Cloud arbeitet er am User-Interface. Wenn nicht vor dem Bildschirm, findet man ihn auch beim Basteln in Repair-Cafés oder beim Surfen im Meer.",
+        "pictureUrl": "/images/team/Christian_Weissmann.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
