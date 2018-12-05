@@ -53,7 +53,7 @@
                     <input type="password" name="password_new" id="password_new" class="form-control"
                            placeholder="***************"
                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                           title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen">
+                           title="{{> "lib/forms/password-hint" plaintext=true}}">
                 </div>
 
                 <div class="form-group">
@@ -71,8 +71,8 @@
             <input type="hidden" name="userId" value="{{userId}}"/>
 
             <span class="hint">
-                <sup>*</sup>
-                Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
+                <span class="star-reference">*</span>
+                {{> "lib/forms/password-hint" plaintext=false style="display: inline;"}}
             </span>
         </div>
 
