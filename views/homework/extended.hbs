@@ -48,7 +48,7 @@
             {{/userHasPermission}}
             {{/inArray}}
         {{/ifvalue}}
-        
+
         {{#inArray this.currentUser._id this.archived}}
             {{#userHasPermission "HOMEWORK_CREATE"}}
             <a class="btn btn-secondary btn-archive"
@@ -73,10 +73,20 @@
             {{/userHasPermission}}
         {{/inArray}}
         {{#if courseId._id}}
-            <a class="btn btn-secondary" href="/courses/{{courseId._id}}" alt="zum Kurs der Aufgabe">zum Kurs</a>
+            <a href="/files/courses/{{courseId._id}}" class="btn btn-add btn-secondary">
+              <i class="fa fa-folder-open"></i>
+              Zu den Kursdateien
+            </a>
+            <a class="btn btn-secondary" href="/courses/{{courseId._id}}" alt="Zum Kurs der Aufgabe">
+              <i class="fa fa-graduation-cap"></i>
+              Zum Kurs
+            </a>
             {{#if lessonId}}
                 <a class="btn btn-secondary" href="/courses/{{courseId._id}}/topics/{{lessonId}}"
-                   alt="zum Thema der Aufgabe">zum Thema</a>
+                   alt="Zum Thema der Aufgabe">
+                   
+                   Zum Thema
+                 </a>
             {{/if}}
         {{/if}}
     </div>
