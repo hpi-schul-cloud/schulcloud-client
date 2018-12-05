@@ -174,12 +174,12 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
                     let isAlreadyInside = _.filter(file.permissions, f => {
                         return JSON.stringify(f.userId) === JSON.stringify(cw);
                     }).length > 0;
-    
+
                     !isAlreadyInside ? file.permissions.push({
                         userId: cw,
                         permissions: ['can-read', 'can-write']
                     }) : '';
-    
+
                     return file;
                 })).then(_ => {
                     return api(req).patch('/files/' + file._id, { json: file });
@@ -294,19 +294,6 @@ const getUpdateHandler = (service) => {
     };
 };
 
-const getDetailHandler = (service) => {
-    return function(req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id).then(
-            data => {
-                data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
-                data.dueDate = moment(data.dueDate).format('DD.MM.YYYY HH:mm');
-                res.json(data);
-            }).catch(err => {
-            next(err);
-        });
-    };
-};
-
 const getImportHandler = (service) => {
     return function(req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
@@ -319,21 +306,15 @@ const getImportHandler = (service) => {
 };
 
 
-const getDeleteHandlerR = (service) => {
+const getDeleteHandler = (service, redirectToReferer) => {
     return function(req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.redirect(req.header('Referer'));
-        }).catch(err => {
-            next(err);
-        });
-    };
-};
-
-const getDeleteHandler = (service) => {
-    return function(req, res, next) {
-        api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.sendStatus(200);
-            res.redirect('/' + service);
+            if(redirectToReferer){
+                res.redirect(req.header('Referer'));
+            }else{
+                res.sendStatus(200);
+                res.redirect('/' + service);
+            }
         }).catch(err => {
             next(err);
         });
@@ -347,15 +328,15 @@ router.delete('/:id', getDeleteHandler('homework'));
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
-router.delete('/submit/:id', getDeleteHandlerR('submissions'));
-router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
+router.delete('/submit/:id', getDeleteHandler('submissions', true));
+router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
 
 router.post('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).get("/submissions/" + submissionId).then(submission => {
         submission.fileIds.push(req.body.fileId);
-        return api(req).patch("/submissions/" + submissionId, { 
-            json: submission 
+        return api(req).patch("/submissions/" + submissionId, {
+            json: submission
         });
     })
     .then(result => res.json(result))
@@ -399,8 +380,8 @@ router.delete('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).get("/submissions/" + submissionId).then(submission => {
         submission.fileIds = _.filter(submission.fileIds, id => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
-        return api(req).patch("/submissions/" + submissionId, { 
-            json: submission 
+        return api(req).patch("/submissions/" + submissionId, {
+            json: submission
         });
     })
     .then(result => res.json(result))
@@ -408,7 +389,7 @@ router.delete('/submit/:id/files', function(req, res, next) {
 });
 
 router.post('/comment', getCreateHandler('comments'));
-router.delete('/comment/:id', getDeleteHandlerR('comments'));
+router.delete('/comment/:id', getDeleteHandler('comments', true));
 
 
 const splitDate = function(date) {
@@ -743,10 +724,10 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 const addClearNameForFileIds=(submission_s)=>{
 	if(submission_s==undefined) return;
 	//if array = submissions  else submission
-	if(submission_s.length>0){ 
+	if(submission_s.length>0){
 		submission_s.forEach(submission=>{
 			addClearNameForFileIds(submission);
-		});	
+		});
 	}else if(submission_s.fileIds && submission_s.fileIds.length>0){
 		return submission_s.fileIds.map(file=>{
 			if(file.name){
@@ -867,7 +848,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         })[0]
                     };
                 });
-          
+
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
                     if (e.courseGroupId) {
@@ -883,7 +864,7 @@ router.get('/:assignmentId', function(req, res, next) {
                     }
                 });
                 let studentsWithoutSubmission = [];
-                assignment.courseId.userIds.forEach(e => {
+                ((assignment.courseId || {}).userIds || []).forEach(e => {
                     if (!studentsWithSubmission.includes(e.toString())) {
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
@@ -917,11 +898,11 @@ router.get('/:assignmentId', function(req, res, next) {
                         return role.name;
                     });
                     // Render assignment.hbs
-					//submission>single=student=upload || submissionS>multi=teacher=overview
-					addClearNameForFileIds(assignment.submission||assignment.submissions);	
+                    //submission>single=student=upload || submissionS>multi=teacher=overview
+                    addClearNameForFileIds(assignment.submission||assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     res.render('homework/assignment', Object.assign({}, assignment, {
-                        title: assignment.courseId.name + ' - ' + assignment.name,
+                        title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [{
                                 title: breadcrumbTitle + " Aufgaben",
                                 url: breadcrumbUrl

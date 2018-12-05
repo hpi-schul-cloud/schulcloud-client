@@ -285,6 +285,8 @@ router.get('/', function(req, res, next) {
                 liveSearch: true
             });
         }
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -360,7 +362,10 @@ router.get('/:courseId/json', function(req, res, next) {
                 courseId: req.params.courseId
             }
         })
-    ]).then(([course, lessons]) => res.json({ course, lessons }));
+    ]).then(([course, lessons]) => res.json({ course, lessons }))
+    .catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:courseId/usersJson', function(req, res, next) {
@@ -370,7 +375,10 @@ router.get('/:courseId/usersJson', function(req, res, next) {
                 $populate: ['userIds']
             }
         })
-    ]).then(([course]) => res.json({ course }));
+    ]).then(([course]) => res.json({ course }))
+    .catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:courseId', function(req, res, next) {
