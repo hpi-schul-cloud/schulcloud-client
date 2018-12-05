@@ -186,10 +186,10 @@
                         {{#if currentSchoolData}}
                             <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
                             {{#if currentSchoolData.logo_dataUrl}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}">
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
                             {{else}}
                                 {{#if currentSchoolData.federalState}}
-                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}" alt="Landeswappen">
                                 {{/if}}
                             {{/if}}
                         {{/if}}
