@@ -482,6 +482,21 @@
       },
       {
         "title": "",
+        "firstName": "Elias",
+        "lastName": "Maass",
+        "position": "Bachelorstudent",
+        "description": "Elias studiert aktuell am Hasso-Plattner-Insitut IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. In seiner Freizeit hört er Musik verschiedenster Künstler und macht regelmäßig Sport.",
+        "pictureUrl": "/images/team/Elias_Maass.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Marco",
         "lastName": "Schaarschmidt",
         "position": "Bachelorstudent",
