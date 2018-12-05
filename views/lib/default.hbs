@@ -4,21 +4,40 @@
     <title>{{#if title}}{{title}} - {{/if}}{{theme.short_title}}</title>
 
     {{#block "meta"}}
+        <!-- Generic Metadata -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" sizes="48x48" href="/images/logo/favicon-48.png">
+        <link rel="icon" type="image/png" sizes="36x36" href="/images/logo/favicon-36.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16.png">
+        <link rel="icon" href="/images/logo/favicon.ico">
+
+        <meta name="author" content="HPI Schul-Cloud – Hasso-Plattner-Institut für Digital Engineering gGmbH ">
+        <meta name="application-name" content="{{theme.short_title}}">
+
+        <!-- Apple Meta-data -->
         <meta name="apple-mobile-web-app-capable" content="yes">
+
         <meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
         <meta name="apple-mobile-web-app-title" content="{{theme.short_title}}">
-        <meta name="theme-color" content="#b10438">
-        <meta name="application-name" content="{{theme.short_title}}">
         <link rel="mask-icon" href="/images/logo/safari-pinned-tab.svg" color="#b10438">
         <link rel="apple-touch-icon" href= "/images/logo/app-icon-512.png">
         <link rel="apple-touch-icon" sizes="120x120" href="/images/logo/app-icon-120.png">
         <link rel="apple-touch-icon" sizes="152x152" href="/images/logo/app-icon-152.png">
         <link rel="apple-touch-icon" sizes="167x167" href="/images/logo/app-icon-167.png">
         <link rel="apple-touch-icon" sizes="180x180" href="/images/logo/app-icon-180.png">
-        <link rel="icon" type="image/png" sizes="48x48" href="/images/logo/favicon-48.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16.png">
+
+        <!-- Microsoft Tile -->
+        <meta name="msapplication-TileColor" content="#b10438" />
+        <meta name="msapplication-TileImage" content="/images/logo/app-icon-144.png" />
+        <meta name="msapplication-square70x70logo" content="/images/logo/mstile-70x70.png" />
+        <meta name="msapplication-square150x150logo" content="/images/logo/mstile-150x150.png" />
+        <meta name="msapplication-wide310x150logo" content="/images/logo/mstile-310x150.png" />
+        <meta name="msapplication-square310x310logo" content="/images/logo/mstile-310x310.png" />
+        <meta name="msapplication-config" content="/images/tile.xml" />
+
+        <!-- Google App Manifest -->
+        <meta name="theme-color" content="#b10438">
         <link rel="manifest" href="/images/manifest.json">
     {{/block}}
 
