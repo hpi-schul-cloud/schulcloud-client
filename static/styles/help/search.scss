@@ -92,7 +92,7 @@
       transform: rotate(90deg);
     }
 
-    .clear-icon {
+    .hasContent ~ .clear-icon {
       visibility: visible;
       opacity: 1;
     }

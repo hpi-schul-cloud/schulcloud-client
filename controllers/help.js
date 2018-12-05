@@ -17,32 +17,25 @@ const firstStepsItems = [{
         title: "Schüler",
         "img-src": "/images/help/schueler-icon.png",
         src: "/help/confluence/40304731",
-        color: "#f8a41b"
-    },
-    {
+    }, {
         title: "Lehrer",
         "img-src": "/images/help/lehrer-icon.png",
         src: "/help/confluence/40304726",
-        color: "#e2661d"
     }, {
         title: "Admin",
         "img-src": "/images/help/admin-icon.png",
         src: "/help/confluence/40304667",
-        color: "#b10438"
-    },
-    {
+    }, {
         title: "Schulleitung",
         "img-src": "/images/help/schulleitung-icon.png",
         src: "/help/confluence/40304728",
-        color: "#373a3c"
     }
 ];
 const quickHelpItems = [{
         title: "Online-Videokurse",
         icon: "fa-video-camera",
         src: "https://mooc.house/courses/schulcloud2018"
-    },
-    {
+    }, {
         title: "MINT-EC Webinare",
         icon: "fa-desktop",
         src: "https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/das-projekt/"
@@ -56,24 +49,20 @@ const knowledgeItems = [{
         title: "Überblick",
         icon: "fa-info",
         src: "/about"
-    },
-    {
+    }, {
         title: "FAQ",
         icon: "fa-comments",
         src: "/help/confluence/23232533"
-    },
-    {
+    }, {
         title: "SSO",
         icon: "fa-sign-in",
         src: "/help/faq/sso"
-    },
-    {
+    }, {
         title: "Release Notes",
         icon: "fa-clipboard",
         src: "/help/releases"
-    },
-    {
-        title: "Website",
+    }, {
+        title: "Website (Logout)",
         icon: "fa-globe",
         src: "/logout"
     }

@@ -161,6 +161,11 @@ fieldset.switch_wrapper {
     }
 
     .collapse__title {
+      display: block;
+      background: none;
+      border: none;
+      box-sizing: border-box;
+      width: 100%;
       padding: 12px 20px 12px 0;
       text-align: left;
       font-size: 1.2em;
@@ -187,12 +192,6 @@ fieldset.switch_wrapper {
 .quickHelp-card,
 .information-card {
   padding: 2rem 0 0;
-}
-
-.first-steps-card {
-  .link-wrapper a {
-    color: $colorWhite;
-  }
 }
 
 // contact cards
@@ -227,7 +226,7 @@ fieldset.switch_wrapper {
         border-color: $colorWhite;
         color: $colorWhite;
 
-        &:hover {
+        &:hover, &:focus {
           background-color: $colorWhite;
           color: $accentColor;
         }

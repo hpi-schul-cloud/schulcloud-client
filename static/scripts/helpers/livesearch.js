@@ -61,6 +61,13 @@ export default function init(config){
             input.select();
         }
     });
+    input.addEventListener("keyup", (event) => {
+        if(input.value.length > 0) {
+            input.classList.add("hasContent");
+        }else{
+            input.classList.remove("hasContent");
+        }
+    });
     if(clearButton){
         clearButton.addEventListener("click", () => {
             input.value = "";
@@ -72,10 +79,10 @@ export default function init(config){
     input.addEventListener("focus", () => {
         livesearchRoot.classList.add("active");
     });
-    livesearchRoot.addEventListener("mouseenter", () => {
+    livesearchRoot.addEventListener("focus", () => {
         livesearchRoot.classList.add("active");
     });
-    livesearchRoot.addEventListener("mouseleave", () => {
+    livesearchRoot.addEventListener("blur", () => {
         if(input != document.activeElement){
             livesearchRoot.classList.remove("active");
         }

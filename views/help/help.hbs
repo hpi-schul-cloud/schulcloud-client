@@ -43,14 +43,15 @@
                                 {{#each this.categories}}
                                     {{#if this.articles}}
                                         <div class="collapse__item">
-                                            <div class="collapse__title collapsed" data-toggle="collapse" data-target="#{{this.id}}" aria-expanded="false">
+                                            <button class="collapse__title collapsed" data-toggle="collapse" data-target="#collapsable-{{this.id}}"
+                                                aria-expanded="false" aria-controls="collapsable-{{this.id}}" type="button" tabindex="0">
                                                 <i class="fa fa-fw fa-chevron-right" aria-hidden="true" data-expand></i>
                                                 <i class="fa fa-fw fa-chevron-down" aria-hidden="true" data-collapse></i>
                                                 <h5>
                                                     {{this.title}}
                                                 </h5>
-                                            </div>
-                                            <ul id="{{this.id}}" class="collapse collapse__content">
+                                            </button>
+                                            <ul id="collapsable-{{this.id}}" class="collapse collapse__content">
                                                 {{#each this.articles}}
                                                     <li><a href="/help/confluence/{{this.id}}">
                                                         {{this.title}}
