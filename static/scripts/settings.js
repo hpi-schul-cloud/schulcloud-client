@@ -55,22 +55,11 @@ $(document).ready(function() {
     }
 
     $(".send-test-notification").on('click', function () {
-        $.post('/notification/push', {
-            "notification": {
-                "title": "Neue Test-Benachrichtigung",
-                "body": "Du hast eine neue Benachrichtigung"
-            },
-            "data": {
-                "tag": "course-data-updated",
-                "courseId": "0000dcfbfb5c7a3f00bf21ab",
-            },
-            "receivers": [
-                $("[name='userId']").val()
-            ],
-            "template": "tpl",
-            "languagePayloads": "lp"
-        }, function(data){
-            console.log('answer',data);
+        $.post('/notification/push/test', {}, function(data, textStatus, jqXHR){
+            iziToast.show({
+                title: 'Test-Benachrichtigung wurde versendet!',
+                message: 'Die Benachrichtigung wird zugestellt...'
+            });
         });
     });
 

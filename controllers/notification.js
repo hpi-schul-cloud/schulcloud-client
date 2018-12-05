@@ -12,7 +12,11 @@ const postRequest = (req, res, next) => {
             body: res.locals.body
         }).then((response) => {
             res.json(response);
+        }).catch(err => {
+            res.status(err.statusCode).send(err.message);
         });
+    }else{
+        res.status(500).send('notification service not enabled');
     }
 };
 
@@ -50,10 +54,17 @@ router.post('/message', function (req, res, next) {
     next();
 }, postRequest);
 
-router.post('/push', function (req, res, next) {
+router.post('/push/test', function (req, res, next) {
+    let userId = res.locals.currentUser._id;
     res.locals.url = 'notification/push';
-    res.locals.body = req.body;
-
+    res.locals.body = {
+        data: {
+            tag: 'test-notification'
+        },
+        receivers: [userId],
+        template: 'tpl',
+        languagePayloads: 'lp'
+    };
     next();
 }, postRequest);
 

@@ -2,6 +2,55 @@
 import { pushManager } from './index';
 import { sendShownCallback } from './callback';
 
+const htmlClass = {
+  hasClass: function (el, className) {
+    if (el.classList)
+      return el.classList.contains(className);
+    return !!el.className.match(new RegExp('(\\s|^)' + className + '(\\s|$)'));
+  },
+
+  addClass: function (el, className) {
+    if (el.classList)
+      el.classList.add(className);
+    else if (!this.hasClass(el, className))
+      el.className += " " + className;
+  },
+
+  removeClass: function (el, className) {
+    if (el.classList)
+      el.classList.remove(className);
+    else if (this.hasClass(el, className)) {
+      var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+      el.className = el.className.replace(reg, ' ');
+    }
+  }
+};
+
+const updateUI = function(task){
+  if(task === 'enable-registration'){
+    var btn = document.getElementsByClassName("btn-push-disabled");
+    for (var i = 0; i < btn.length; i++) {
+      htmlClass.removeClass(btn[i], 'hidden');
+    }
+    btn = document.getElementsByClassName("btn-push-enabled");
+    for (var i = 0; i < btn.length; i++) {
+      htmlClass.addClass(btn[i], 'hidden');
+    }
+  }
+
+  if(task === 'disable-registration'){
+    var btn = document.getElementsByClassName("btn-push-enabled");
+    for (var i = 0; i < btn.length; i++) {
+      htmlClass.removeClass(btn[i], 'hidden');
+    }
+    btn = document.getElementsByClassName("btn-push-disabled");
+    for (var i = 0; i < btn.length; i++) {
+      htmlClass.addClass(btn[i], 'hidden');
+    }
+  }
+};
+
+
 
 export function setupFirebasePush(registration) {
   if (!window.firebase) {
@@ -24,24 +73,37 @@ export function setupFirebasePush(registration) {
   // Retrieve Firebase Messaging object.
   const messaging = firebase.messaging();
 
-  // Change Service Worker to use another path than root
-
   messaging.useServiceWorker(registration);
 
   function getToken() {
     messaging.getToken()
       .then(function (token) {
         if (token) {
+          // push permission granted
           pushManager.setRegistrationId(token, 'firebase');
+          // disable registration button
+          updateUI('disable-registration');
+          // todo alert success
+          iziToast.show({
+            title: 'Einstellungen wurden erfolgreich aktualisiert!',
+            message: 'Push-Benachrichtigungen sind für dieses Gerät aktiviert.'
+          });
         } else {
-          // todo request permission
+          // push permission not granted, request permission
           pushManager.error('No Instance ID token available. Request permission to generate one.');
-          requestPermission();
+          // enable registration button
+          updateUI('enable-registration');
+          iziToast.show({
+            title: 'Push-Benachrichtigungen deaktiviert!',
+            message: 'Warum solltest du Push-Benachrichtigungen für dieses Gerät aktivieren?'
+          });
         }
         pushManager.registerSuccessfulSetup('firebase', requestPermission);
       })
       .catch(function (err) {
+        // push disabled
         pushManager.error(err, 'Unable to retrieve refreshed token ');
+        updateUI('enable-registration');
       });
   }
 
@@ -52,6 +114,8 @@ export function setupFirebasePush(registration) {
       })
       .catch(function (err) {
         pushManager.error(err, 'Unable to get permission to notify.');
+        updateUI('enable-registration');
+        alert(err.code);
       });
   }
   window.requestPushPermission = requestPermission;

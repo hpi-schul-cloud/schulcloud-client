@@ -240,11 +240,11 @@ const cacheEvents = {
     },
 
     subscribe: function (observer) {
-        this._observers.push(observer);
+        return this._observers.push(observer);
     },
 
     unsubscribe: function (observer) {
-        this._observers = this._observers.filter(o => o !== observer);
+        return this._observers = this._observers.filter(o => o !== observer);
     }
 };
 
