@@ -1,34 +1,25 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 <input name="roles[]" type="hidden" data-force-value="true" value="{{roles}}" />
 
+<p>
+    Importiere Nutzerdaten per .csv-Datei (<a href="#">Beispiel</a>) und lass deinen Nutzern einen Registrierungslink zukommen.
+</p>
+<p>
+    Mehr Informationen zu Struktur der .csv-Datei, Klassenzuordnung und Ablauf des Registrierungsprozesses findest du im <a href="#">Hilfebereich</a>.
+</p>
+<p>
+    <img src="/images/csv_example.png" />
+</p>
 <div class="form-group">
-    <label>CSV Datei</label>
+    <label>CSV-Datei auswählen</label>
     <input class="form-control" name="csvFile" type="file" required />
-    <p>
-        <strong>Struktur der .csv:</strong><br>
-        Die ausgewählte .csv Datei sollte dann nach folgendem Schema aufgebaut sein:<br>
-        <img src="/images/csv_example.png" />
-        <br>
-        Die Kopfzeile "firstName,lastName,email" muss auch die erste Zeile der .csv Datei sein. Als Trennzeichen muss , (Komma) verwendet werden.
-    </p>
 </div>
-
 <div class="form-group">
     <label>
         <input name="sendRegistration" type="checkbox" value="sendRegistration" />
-        Registrierungslink per E-Mail an alle Nutzer senden
+        Registrierungslinks sofort nach Import an Nutzer senden
     </label>
-    <p>Wenn keine Registrierungslinks per E-Mail verschickt werden, müssen diese nachträglich pro Nutzer im "Nutzer bearbeiten"-Dialog erstellt und weitergegeben werden.</p>
-</div>
-
-<div class="form-group">
-    <label>Ausgangssystem</label>
-
-    <select name="exportSystem" data-placeholder="Ausgangssystem auswählen">
-        {{#each classes}}
-            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}</option>
-        {{/each}}
-        <option value="">Anderes</option>
-    </select>
-    <p>Falls Sie ihr derzeitiges System nicht in der Liste unterstützter Systeme finden, wählen Sie bitte "Anderes".</p>
+    <p>
+        Alternativ kannst du die Registrierungslinks später abrufen und deinen Nutzern per Mail oder QR-Druckbogen zukommen lassen.
+    </p>
 </div>
