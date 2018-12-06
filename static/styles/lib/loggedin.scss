@@ -301,6 +301,10 @@ header {
         display: block;
         flex: initial;
     }
+    .mobile-nav-toggle,
+    .error-header-wrapper button.btn-primary {
+        display: none;
+    }
 }
 
 .content-min-height {
