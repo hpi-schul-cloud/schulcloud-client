@@ -28,6 +28,7 @@ const htmlClass = {
 
 const updateUI = function(task){
   if(task === 'enable-registration'){
+    updateUI('hide-loading');
     var btn = document.getElementsByClassName("btn-push-disabled");
     for (var i = 0; i < btn.length; i++) {
       htmlClass.removeClass(btn[i], 'hidden');
@@ -39,6 +40,7 @@ const updateUI = function(task){
   }
 
   if(task === 'disable-registration'){
+    updateUI('hide-loading');
     var btn = document.getElementsByClassName("btn-push-enabled");
     for (var i = 0; i < btn.length; i++) {
       htmlClass.removeClass(btn[i], 'hidden');
@@ -46,6 +48,13 @@ const updateUI = function(task){
     btn = document.getElementsByClassName("btn-push-disabled");
     for (var i = 0; i < btn.length; i++) {
       htmlClass.addClass(btn[i], 'hidden');
+    }
+  }
+
+  if(task === 'hide-loading'){
+    var row = document.getElementsByClassName("row-push-loading");
+    for (var i = 0; i < row.length; i++) {
+      htmlClass.addClass(row[i], 'hidden');
     }
   }
 };
