@@ -79,6 +79,10 @@ module.exports = {
         // By default, moment loads aaaall the locale files, which bloats the bundle size
         // This plugin forces moment to only load the German locale
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /de/),
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new webpack.EnvironmentPlugin({
+            'HOST': "http://localhost:3100",
+            'BACKEND_URL': "http://localhost:3030",
+        })
     ]
 };

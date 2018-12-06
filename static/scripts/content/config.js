@@ -1,8 +1,8 @@
 module.exports = {
   configs: {
     API: {
-      clientURL: (process.env.HOST || 'http://localhost:3100'),
-      serverURL: (process.env.BACKEND_URL || 'http://localhost:3030'),
+      clientURL: process.env.HOST,
+      serverURL: process.env.BACKEND_URL,
       authPath: '/authentication',
       pwRecoveryPath: '/login?recovery=true',
       getPath: '/content/resources/',
