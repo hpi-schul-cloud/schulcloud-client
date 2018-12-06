@@ -15,8 +15,9 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
-$(document).ready(function () {
+let handlerRegistered = false;
 
+$(document).ready(function () {
     var $modals = $('.modal');
     var $addModal = $('.add-modal');
     var $editModal = $('.edit-modal');
@@ -142,4 +143,26 @@ $(document).ready(function () {
             $deleteModal.appendTo('body').modal('show');
         });
     });
+
+    if (! handlerRegistered) {
+        // softNavigate triggers documentReady again duplicating click handlers
+        handlerRegistered = true;
+
+        $('#csv-import-example').on('click', (e) => {
+            e.preventDefault();
+            const lines = [
+                'firstName,lastName,email,class',
+                'Max,Mustermann,max@mustermann.de,',
+                'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
+                'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
+            ];
+            const csvContent = 'data:text/csv;charset=utf-8,' + lines.join("\n");
+            const link = document.createElement('a');
+            link.setAttribute('href', encodeURI(csvContent));
+            link.setAttribute('download', 'beispiel.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
 });
