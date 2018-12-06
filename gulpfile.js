@@ -319,7 +319,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
         socket:{
           clients: {
             heartbeatTimeout: 60000
-          } 
+          }
         }
 	});
 });
@@ -330,13 +330,13 @@ gulp.task('nodemon', function (cb) {
     ext: 'js hbs',
     script: './bin/www',
     watch: ['views/', 'controllers/'],
-    exec: "node --inspect",
+    exec: "node --inspect=9310",
 	}).on('start', function () {
-    
+
 		if (!started) {
 			cb();
-			started = true; 
-    } 
+			started = true;
+    }
     setTimeout(browserSync.reload, 3000); //server-start takes some time
 	});
 });

@@ -152,40 +152,41 @@ label,
 }
 
 footer {
-  .android-app {
-    margin-left:-11px;
-  }
-  &.small-footer {
+	.android-app {
+		margin-left:-11px;
+	}
+	&.small-footer {
 
-    @include media-breakpoint-down(xs) {
-      background: $colorBeige;
+		@include media-breakpoint-down(xs) {
+			background: $colorBeige;
+			margin-top: 50px;
 
-      img {
-        clear: both;
-        display: block;
-        margin: 0 auto 10px;
-      }
-    }
+			img {
+				clear: both;
+				display: block;
+				margin: 0 auto 10px;
+			}
+		}
 
-    .imprint {
-      .center {
-        text-align: center;
-        align-items: center;
-        .made-with-love {
-          margin-top: 8px;
-          .heart {
-            color: #b10438;
-          }
-        }
-      }
-      img {
-        width: auto;
-        max-width: 175px;
-        height: auto;
-        max-height: 44px;
-      }
-    }
-  }
+		.imprint {
+			.center {
+				text-align: center;
+				align-items: center;
+				.made-with-love {
+					margin-top: 8px;
+					.heart {
+						color: #b10438;
+					}
+				}
+			}
+			img {
+				width: auto;
+				max-width: 175px;
+				height: auto;
+				max-height: 44px;
+			}
+		}
+	}
 }
 
 @keyframes fa-spin {

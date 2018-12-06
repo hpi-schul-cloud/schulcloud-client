@@ -80,7 +80,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Vertretungs Lehrer</label>
+                    <label>Vertretungslehrer</label>
                     <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -177,7 +177,7 @@
                        data-name="{{course.name}}"
                        redirect="/courses/">Kurs löschen</a>
                   {{/if}}
-                    <button class="btn btn-secondary btn-cancel">
+                    <button type="button" class="btn btn-secondary btn-cancel">
                         {{closeLabel}}
                     </button>
 
