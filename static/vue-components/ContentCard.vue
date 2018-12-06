@@ -160,7 +160,7 @@
       },
       onConfirm() {
         this.dialog.active = false;
-        window.open(this.$config.API.baseUrl + this.$config.API.clientPort + this.$config.API.redirectPath + this.contentId, '_blank');
+        window.open(this.$config.API.clientURL + this.$config.API.redirectPath + this.contentId, '_blank');
       },
       onCancle() {
         this.dialog.active = false;

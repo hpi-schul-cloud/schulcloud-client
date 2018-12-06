@@ -51,7 +51,7 @@
         }
 
         this.$http
-          .get(this.$config.API.baseUrl + this.$config.API.port + "/courses?", {
+          .get(this.$config.API.serverURL + "/courses?", {
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
@@ -122,7 +122,7 @@
         }
 
         this.$http
-          .post(this.$config.API.baseUrl + this.$config.API.clientPort + '/content/addToLesson', dataToSend, { //TODO: ask if we can skip material; then send contentId as well
+          .post(this.$config.API.clientURL + '/content/addToLesson', dataToSend, { //TODO: ask if we can skip material; then send contentId as well
             headers: {
               Authorization: `Bearer ${jwt}`,
             }

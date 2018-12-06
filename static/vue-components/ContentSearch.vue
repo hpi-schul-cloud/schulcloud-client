@@ -143,7 +143,7 @@
         }
 
         this.$http
-          .get(this.$config.API.baseUrl + this.$config.API.port + path, {
+          .get(this.$config.API.serverURL + path, {
             headers: {
               Authorization: `Bearer ${jwt}`,
             },
