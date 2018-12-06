@@ -39,7 +39,7 @@ body {
             color: #777;
             font: normal normal normal 2em/1 FontAwesome;
             opacity: 0;
-            transform: translate(-50%, -50%), rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg);
             animation: loading-spinner 2.5s infinite linear 2s;
         }
     }
@@ -328,11 +328,6 @@ header {
         padding-left: 0px;
     }
 
-    .federal-state {
-        height: 35px;
-        margin-left: 8px !important;
-    }
-
     .section-default {
         width: 100%;
         float: left;
@@ -542,6 +537,9 @@ footer {
     .account-toggle {
         padding-left: 10px;
         padding-right: 10px;
+        .avatar-circle {
+            float:left;
+        }
     }
     .navbar-nav .nav-item {
         float: none;
@@ -701,9 +699,32 @@ footer {
         display: none;
     }
 
-.form-group {
-    sup {
-        color: red;
-        font-size: 16px;
+    .form-group {
+        sup {
+            color: red;
+            font-size: 16px;
+        }
     }
 }
+
+@mixin avatar($size) 
+{
+    width: $size;
+    height: $size;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    .initials {
+      position: relative;
+      top: $size*0.20;
+      font-size: $size*0.5;
+      line-height: $size*0.4;
+      color: #fff;
+      font-weight: bold;
+    }
+}
+
+.avatar-circle      { @include avatar(40px); }
+.avatar-circle-sm   { @include avatar(25px); }
+.avatar-circle-lg   { @include avatar(100px); }
