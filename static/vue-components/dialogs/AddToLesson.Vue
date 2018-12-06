@@ -122,7 +122,7 @@
         }
 
         this.$http
-          .post(this.$config.API.clientURL + '/content/addToLesson', dataToSend, { //TODO: ask if we can skip material; then send contentId as well
+          .post(this.$config.API.clientURL + '/content/addToLesson', dataToSend, {
             headers: {
               Authorization: `Bearer ${jwt}`,
             }

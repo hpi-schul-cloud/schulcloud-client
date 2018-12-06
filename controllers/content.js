@@ -57,7 +57,7 @@ router.post('/addToLesson', function (req, res, next) {
     api(req).post('/materials/', {
         json: req.body
     }).then(material => {
-        api(req).patch('/lessons/' + req.body.lessonId, {
+        return api(req).patch('/lessons/' + req.body.lessonId, {
             json: {
                 courseId: req.body.courseId,
                 $push: {
@@ -67,6 +67,8 @@ router.post('/addToLesson', function (req, res, next) {
         }).then(result => {
             res.redirect('/content/?q=' + req.body.query);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
