@@ -65,9 +65,9 @@
     padding: 8px;
     width: 100%;
     max-height: 25rem;
-    -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
-    box-sizing: border-box;
     overflow-y: auto;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
 
     a {
       text-decoration: none;
