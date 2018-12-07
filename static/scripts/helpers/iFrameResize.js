@@ -28,7 +28,7 @@ export function resizeiFrames(iFrameNodes, callback){
       if(message.size && message.identifier){
           console.log("gotSize", message.identifier, message.size.y);
           document.querySelectorAll(`iframe[data-identifier="${message.identifier}"]`).forEach((iframe) => {
-              iframe.style.height = message.size.y + 'px';
+              iframe.style.height = message.size.y + 4 + 'px'; // add a bit more height to prevent scrollbar from appearing
           });
           if(callback){
             callback();
