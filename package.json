@@ -50,6 +50,7 @@
     "oauth-1.0a": "^2.1.0",
     "path.join": "^1.0.0",
     "query-string": "^5.0.1",
+    "querystring": "^0.2.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-sortable-hoc": "^0.8.3",
