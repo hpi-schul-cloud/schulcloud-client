@@ -1,6 +1,6 @@
-import { resizeiFrames } from './helpers/iFrameResize';
+import { resizeIframes } from './helpers/iFrameResize';
 
-resizeiFrames();
+resizeIframes();
 
 $(document).ready(function () {
     $('.btn-create-share').click(function (e) {
@@ -30,6 +30,6 @@ $(document).ready(function () {
     });
 });
 
-document.querySelectorAll('.content-block a').forEach((target) => { 
-    target.setAttribute("target","_blank"); 
-}); 
+document.querySelectorAll('.content-block a').forEach((target) => {
+    target.setAttribute("target","_blank");
+});
