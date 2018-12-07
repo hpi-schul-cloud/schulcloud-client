@@ -61,9 +61,11 @@
                                 <button class="btn btn-secondary btn-invitation-link student">
                                     Einladungslink generieren
                                 </button>
-                                <button class="btn btn-secondary btn-import student">
-                                    Schüler importieren
-                                </button>
+                                {{#ifeq currentRole "Administrator"}}
+                                    <button class="btn btn-secondary btn-import student">
+                                        Schüler importieren
+                                    </button>
+                                {{/ifeq}}
                             </div>
                         {{/unless}}
                     </div>
