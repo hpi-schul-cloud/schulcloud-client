@@ -711,5 +711,11 @@ footer {
     .intro-trigger {
         display: none;
     }
-}
 
+    .form-group {
+        sup {
+            color: red;
+            font-size: 16px;
+        }
+    }
+}

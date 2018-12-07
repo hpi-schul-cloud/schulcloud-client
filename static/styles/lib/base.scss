@@ -160,6 +160,7 @@ footer {
 
 		@include media-breakpoint-down(xs) {
 			background: $colorBeige;
+			margin-top: 50px;
 
 			img {
 				clear: both;

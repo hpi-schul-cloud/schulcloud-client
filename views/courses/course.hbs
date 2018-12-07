@@ -45,6 +45,10 @@
         {{#if nextEvent}}
           <p class="text-muted">Nächste Unterrichtsstunde: {{nextEvent}}</p>
         {{/if}}
+        <a href="{{filesUrl}}" class="btn btn-add btn-secondary pull-right">
+          <i class="fa fa-folder-open"></i>
+          Zu den Kursdateien
+        </a>
       </div>
     </div>
     <section class="section-course">
@@ -83,13 +87,6 @@
             <div class="section" data-section="d">
               {{> "courses/components/groups" id=../_id}}
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="row padding-top">
-        <div class="col-sm-12">
-          <div class="pull-right">
-            <a href="{{filesUrl}}" class="btn btn-add btn-primary">Zu den Kurs-Dateien</a>
           </div>
         </div>
       </div>
