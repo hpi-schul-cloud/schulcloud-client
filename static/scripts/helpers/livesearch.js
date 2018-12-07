@@ -6,6 +6,7 @@ const defaultConfig = {
     dataParser: undefined,
     livesearchRootSelector: ".livesearch",
     inputSelector: "input",
+    clearButtonSelector: ".clear-icon",
     resultTemplateSelector: "template.result",
     resultContainerSelector: ".livesearch-result",
 };
@@ -15,8 +16,10 @@ export default function init(config){
     // override default config with user settings
     config = Object.assign(defaultConfig, config);
 
+    // GET ALL ITEMS
     const livesearchRoot = document.querySelector(config.livesearchRootSelector);
     const input = livesearchRoot.querySelector(config.inputSelector);
+    const clearButton = livesearchRoot.querySelector(config.clearButtonSelector);
     const livesearchResultTemplateString = livesearchRoot.querySelector(config.resultTemplateSelector).innerHTML;
     const livesearchResultContainer = livesearchRoot.querySelector(config.resultContainerSelector);
 
@@ -53,14 +56,33 @@ export default function init(config){
             livesearchResultContainer.classList.add("active");
         }
     });
+    input.addEventListener("keydown", (event) => {
+        if(event.key === "Escape") {
+            input.select();
+        }
+    });
+    input.addEventListener("keyup", (event) => {
+        if(input.value.length > 0) {
+            input.classList.add("hasContent");
+        }else{
+            input.classList.remove("hasContent");
+        }
+    });
+    if(clearButton){
+        clearButton.addEventListener("click", () => {
+            input.value = "";
+            input.focus();
+        });
+    }
 
+    // CLASS HANDLING ON EVENTS
     input.addEventListener("focus", () => {
         livesearchRoot.classList.add("active");
     });
-    livesearchRoot.addEventListener("mouseenter", () => {
+    livesearchRoot.addEventListener("focus", () => {
         livesearchRoot.classList.add("active");
     });
-    livesearchRoot.addEventListener("mouseleave", () => {
+    livesearchRoot.addEventListener("blur", () => {
         if(input != document.activeElement){
             livesearchRoot.classList.remove("active");
         }
