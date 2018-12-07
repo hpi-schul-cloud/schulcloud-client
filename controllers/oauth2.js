@@ -22,7 +22,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
 
   const body = {
     remember: false,
-    remember_for: 3600
+    remember_for: 0
   }
 
   api(req).patch('/oauth2/loginRequest/' + req.session.login_challenge + '/?accept=1',
@@ -32,6 +32,18 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
     });
 });
 
+const acceptConsent = (r, w, challenge, grantScopes, remember=false) => {
+
+  const body = {
+    grant_scope: (Array.isArray(grantScopes) ? grantScopes : [grantScopes]),
+    remember,
+    remember_for: 60*60*24*30
+  }
+
+  return api(r).patch('/oauth2/consentRequest/' +  challenge + '/?accept=1', {body}
+  ).then(consentRequest => w.redirect(consentRequest.redirect_to));
+}
+
 router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
   // This endpoint is hit when hydra initiates the consent flow
   if (r.query.error) {
@@ -39,11 +51,15 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
     return w.send(`${r.query.error}<br />${r.query.error_description}`);
   }
   return api(r).get('/oauth2/consentRequest/' + r.query.consent_challenge).then(consentRequest => {
+    if (consentRequest.skip) {
+      return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
+    }
+
     return w.render('oauth2/consent', {
       inline: true,
       title: 'Login mit Schul-Cloud',
       subtitle: '',
-      client: consentRequest.client.client_id,
+      client: consentRequest.client.client_name,
       action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
       buttonLabel: 'Akzeptieren',
       scopes: consentRequest.requested_scope
@@ -52,13 +68,7 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
 });
 
 router.post('/consent', auth.authChecker, (r, w) => {
-  const grantScopes = r.body.allowed_scopes;
-  const body = {
-    grant_scope: (Array.isArray(grantScopes) ? grantScopes : [grantScopes]),
-  }
-
-  return api(r).patch('/oauth2/consentRequest/' +  r.query.challenge + '/?accept=1', {body}
-  ).then(consentRequest => w.redirect(consentRequest.redirect_to));
+  return acceptConsent(r, w, r.query.challenge, r.body.grantScopes, true);
 });
 
 router.get('/username/:pseudonym', (req, res, next) => {
