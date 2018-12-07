@@ -22,8 +22,8 @@ const postRequest = (req, res, next) => {
 
 router.delete('/device', function (req,res,next){
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
-        api(req).delete('notification/devices/' + req.body._id)
-        .then(_ => res.json(_)).catch(err=> res.json(err));
+        api(req).delete('notification/devices/' + req.body.id)
+        .then(_ => res.json(_)).catch(err=> res.status(500).json(err));
     }
 });
 
@@ -39,6 +39,14 @@ router.post('/devices', function (req, res, next) {
 
     next();
 }, postRequest);
+
+router.post('/getDevices', function(req, res, next) {
+    api(req).get('/notification/devices').then(devices =>{
+        res.json(devices);
+    }).catch(err =>{
+        res.send(500);
+    });
+});
 
 router.post('/callback', function (req, res, next) {
    res.locals.url = 'notification/callback';

@@ -8,7 +8,7 @@ var DEFAULT_HEADERS = {
     'Content-Type': 'application/json'
 };
 
-export function sendRegistrationId(id, service, device, type, name) {
+export function sendRegistrationId(id, service, device, type, name, successcb, errorcb) {
     $.post('/notification/devices', {
         id: id,
         service: service,
@@ -16,9 +16,22 @@ export function sendRegistrationId(id, service, device, type, name) {
         type: type,
         name: name
     }, function (data) {
-        // Register notification permission cookie
-        document.cookie = "notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+            successcb(data);
+    }).fail(function(){
+        errorcb();
     });
+}
+
+export function removeRegistrationId(id, successcb, errorcb){
+ 
+    $.ajax({
+          url: '/notification/device',
+          type: 'DELETE',
+          success: successcb,
+          data: JSON.stringify({id: id}),
+          contentType: 'application/json'
+        }).fail(function(){errorcb();});
+    
 }
 
 export function sendShownCallback(notificationData, background, url) {

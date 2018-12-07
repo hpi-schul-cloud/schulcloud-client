@@ -1,23 +1,23 @@
-import { sendRegistrationId } from './callback';
+import { sendRegistrationId, removeRegistrationId } from './callback';
 import { notificationHandler } from './notificationHandler';
 
 export const pushManager = {
     requestPermissionCallback: null,
     handledMessages:[],
 
-    setRegistrationId: function (id, service, device) {
+    setRegistrationId: function (id, service, successCallback, errorCallback) {
         console.log('set registration id: ' + id);
 
         var deviceToken = "deviceToken=" + id;
         document.cookie = deviceToken + "; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
 
-        device = navigator.platform;
+        var device = navigator.platform;
         var type = isMobile() ? 'mobile' : 'desktop';
         var name = browser();
-
+        
         var cookies = getCookiesMap(document.cookie);
         if (cookies["notificationPermission"])
-            sendRegistrationId(id, service, device, type, name);
+            sendRegistrationId(id, service, device, type, name, successCallback, errorCallback);
     },
 
     error: function (error, msg) {
@@ -50,7 +50,20 @@ export const pushManager = {
     registerSuccessfulSetup: function (service, requestPermissionCallback) {
         //console.log('server ', service, ' is set up!');
         this.requestPermissionCallback = requestPermissionCallback;
+    },
+
+    removePermission: function(){
+        document.cookie = "notificationPermission=false; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/";
+    },
+
+    permissionGranted: function(grantedcb, errorcb){
+        var cookies = getCookiesMap(document.cookie);
+        if (cookies["notificationPermission"])
+            grantedcb();
+            else
+            errorcb();
     }
+
 };
 
 

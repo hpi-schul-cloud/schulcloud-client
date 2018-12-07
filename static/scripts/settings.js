@@ -1,4 +1,5 @@
 import { getCookiesMap, pushManager } from './notificationService/index';
+import toast from './toasts';
 
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
@@ -56,10 +57,7 @@ $(document).ready(function() {
 
     $(".send-test-notification").on('click', function () {
         $.post('/notification/push/test', {}, function(data, textStatus, jqXHR){
-            iziToast.show({
-                title: 'Test-Benachrichtigung wurde versendet!',
-                message: 'Die Benachrichtigung wird zugestellt...'
-            });
+            toast('successfullySendPushTestMessage');
         });
     });
 

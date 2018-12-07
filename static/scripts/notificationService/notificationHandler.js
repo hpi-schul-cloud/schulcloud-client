@@ -23,6 +23,12 @@ export const notificationHandler = {
                     });
                 }
                 return courseDownloader.downloadCourse(data.courseId);
+            case 'test-notification':
+                this.showNotification(self.registration, {
+                    title: 'Test-Benachrichtigung',
+                    body: 'Deine Test-Benachrichtigung wurde erfolgreich zugestellt.'
+                });
+                break;
             default:
                 console.log('unknown notification tag received', data.tag);
                 return Promise.reject(`unknown data.tag ${data.tag}`);

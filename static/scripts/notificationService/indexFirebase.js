@@ -1,6 +1,7 @@
 /* global firebase */
 import { pushManager } from './index';
-import { sendShownCallback } from './callback';
+import { sendShownCallback, removeRegistrationId } from './callback';
+import toast from '../toasts';
 
 const htmlClass = {
   hasClass: function (el, className) {
@@ -26,8 +27,8 @@ const htmlClass = {
   }
 };
 
-const updateUI = function(task){
-  if(task === 'enable-registration'){
+const updateUI = function (task) {
+  if (task === 'enable-registration') {
     updateUI('hide-loading');
     var btn = document.getElementsByClassName("btn-push-disabled");
     for (var i = 0; i < btn.length; i++) {
@@ -39,7 +40,7 @@ const updateUI = function(task){
     }
   }
 
-  if(task === 'disable-registration'){
+  if (task === 'disable-registration') {
     updateUI('hide-loading');
     var btn = document.getElementsByClassName("btn-push-enabled");
     for (var i = 0; i < btn.length; i++) {
@@ -51,13 +52,14 @@ const updateUI = function(task){
     }
   }
 
-  if(task === 'hide-loading'){
+  if (task === 'hide-loading') {
     var row = document.getElementsByClassName("row-push-loading");
     for (var i = 0; i < row.length; i++) {
       htmlClass.addClass(row[i], 'hidden');
     }
   }
 };
+
 
 
 
@@ -84,54 +86,93 @@ export function setupFirebasePush(registration) {
 
   messaging.useServiceWorker(registration);
 
+  function onSuccess() {
+    // success cb
+    updateUI('disable-registration');
+    toast('notificationsEnabled');
+  }
+  function onError() {
+    // error cb
+    toast('notificationRegistrationError');
+    updateUI('enable-registration');
+  }
+
+  
   function getToken() {
+    
     messaging.getToken()
-      .then(function (token) {
-        if (token) {
-          // push permission granted
-          pushManager.setRegistrationId(token, 'firebase');
-          // disable registration button
-          updateUI('disable-registration');
-          // todo alert success
-          iziToast.show({
-            title: 'Einstellungen wurden erfolgreich aktualisiert!',
-            message: 'Push-Benachrichtigungen sind für dieses Gerät aktiviert.'
-          });
-        } else {
-          // push permission not granted, request permission
-          pushManager.error('No Instance ID token available. Request permission to generate one.');
-          // enable registration button
+    .then(function (token) {
+      if (token) {
+        // check devices registerd
+        $.post('/notification/getDevices', {}, function(data){
+          if(data && data.length && data.includes(token)){
+            updateUI('disable-registration');
+          }else{
+            updateUI('enable-registration');
+          }
+        }).fail(function(){
           updateUI('enable-registration');
-          iziToast.show({
-            title: 'Push-Benachrichtigungen deaktiviert!',
-            message: 'Warum solltest du Push-Benachrichtigungen für dieses Gerät aktivieren?'
-          });
-        }
-        pushManager.registerSuccessfulSetup('firebase', requestPermission);
-      })
-      .catch(function (err) {
-        // push disabled
-        pushManager.error(err, 'Unable to retrieve refreshed token ');
+        });
+      } else {
         updateUI('enable-registration');
-      });
+      }
+    })
+    .catch(function (err) {
+      updateUI('enable-registration');
+    });
   }
-
-  function requestPermission() {
+  
+  function updateToken() {
+    return messaging.getToken()
+    .then(function (token) {
+      if (token) {
+        // push permission granted, update token
+        pushManager.setRegistrationId(token, 'firebase', onSuccess, onError);
+      } else {
+        // push permission not granted, request permission
+        pushManager.error('No Instance ID token available. Request permission to generate one.');
+        // enable registration button
+        updateUI('enable-registration');
+      }
+    });
+  }
+  
+  
+  getToken();
+  
+  window.requestPushPermission =   function requestPermission() {
     return messaging.requestPermission()
-      .then(function () {
-        return getToken();
-      })
-      .catch(function (err) {
-        pushManager.error(err, 'Unable to get permission to notify.');
-        updateUI('enable-registration');
-        alert(err.code);
-      });
-  }
-  window.requestPushPermission = requestPermission;
-
+    .then(function () {
+      return updateToken();
+    })
+    .catch(function (err) {
+      pushManager.error(err, 'Unable to get permission to notify.');
+      updateUI('enable-registration');
+      toast('notificationsDisabled');
+    });
+    
+  };
+  
+  pushManager.registerSuccessfulSetup('firebase', window.requestPushPermission);
+  
+  window.requestDisablePush = function () {
+    messaging.getToken().then(token => {
+      if (!token) return toast('pushNotRegistered');
+      removeRegistrationId(token,
+        function () {
+          toast('pushDisabled');
+          updateUI('enable-registration');
+          pushManager.removePermission();
+        }, function () {
+          toast('errorDisablePush');
+        });
+    });
+  };
 
   // Callback fired if Instance ID token is updated.
-  messaging.onTokenRefresh(getToken);
+  pushManager.permissionGranted(function(){
+    messaging.onTokenRefresh(updateToken);
+  });
 
   // Handle incoming messages. Called when:
   // - a message is received while the app has focus
@@ -140,6 +181,4 @@ export function setupFirebasePush(registration) {
   //   pushManager.handleNotification(registration, payload);
   //   return Promise.resolve();
   // });
-
-  getToken();
 }
