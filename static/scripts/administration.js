@@ -15,8 +15,9 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
-$(document).ready(function () {
+let handlerRegistered = false;
 
+$(document).ready(function () {
     var $modals = $('.modal');
     var $addModal = $('.add-modal');
     var $editModal = $('.edit-modal');
@@ -34,33 +35,33 @@ $(document).ready(function () {
         $addModal.appendTo('body').modal('show');
     });
 
-    $('.btn-edit').on('click', function (e) {	
-        e.preventDefault();	
-        var entry = $(this).attr('href');	
+    $('.btn-edit').on('click', function (e) {
+        e.preventDefault();
+        var entry = $(this).attr('href');
         $.getJSON(entry, function (result) {
             result.createdAt = new Date(result.createdAt).toLocaleString();
-            populateModalForm($editModal, {	
-                action: entry,	
-                title: 'Bearbeiten',	
-                closeLabel: 'Abbrechen',	
-                submitLabel: 'Speichern',	
-                fields: result	
-            });	
-             // post-fill gradiation selection	
-            if ($editModal.find("input[name=gradeSystem]").length) {	
-                var $gradeInputPoints = $editModal.find("#gradeSystem0");	
-                var $gradeInputMarks = $editModal.find("#gradeSystem1");	
-                if(result.gradeSystem) {	
-                    $gradeInputMarks.attr("checked", true);	
-                    $gradeInputPoints.removeAttr("checked");	
-                } else {	
-                    $gradeInputPoints.attr("checked", true);	
-                    $gradeInputMarks.removeAttr("checked");	
-                }	
-            }	
-            populateCourseTimes($editModal, result.times || []);	
-            $editModal.appendTo('body').modal('show');	
-        });	
+            populateModalForm($editModal, {
+                action: entry,
+                title: 'Bearbeiten',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Speichern',
+                fields: result
+            });
+             // post-fill gradiation selection
+            if ($editModal.find("input[name=gradeSystem]").length) {
+                var $gradeInputPoints = $editModal.find("#gradeSystem0");
+                var $gradeInputMarks = $editModal.find("#gradeSystem1");
+                if(result.gradeSystem) {
+                    $gradeInputMarks.attr("checked", true);
+                    $gradeInputPoints.removeAttr("checked");
+                } else {
+                    $gradeInputPoints.attr("checked", true);
+                    $gradeInputMarks.removeAttr("checked");
+                }
+            }
+            populateCourseTimes($editModal, result.times || []);
+            $editModal.appendTo('body').modal('show');
+        });
     });
 
     $('.btn-invitation-link').on('click', function (e) {
@@ -98,7 +99,7 @@ $(document).ready(function () {
     $('.btn-import').on('click', function (e) {
         e.preventDefault();
         populateModalForm($importModal, {
-            title: 'CSV Importieren',
+            title: 'Nutzer Importieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Importieren',
             fields: {
@@ -142,4 +143,26 @@ $(document).ready(function () {
             $deleteModal.appendTo('body').modal('show');
         });
     });
+
+    if (! handlerRegistered) {
+        // softNavigate triggers documentReady again duplicating click handlers
+        handlerRegistered = true;
+
+        $('#csv-import-example').on('click', (e) => {
+            e.preventDefault();
+            const lines = [
+                'firstName,lastName,email,class',
+                'Max,Mustermann,max@mustermann.de,',
+                'Fritz,Schmidt,fritz.schmidt@schul-cloud.org,1a',
+                'Paula,Meyer,paula.meyer@schul-cloud.org,12/2+12/3',
+            ];
+            const csvContent = 'data:text/csv;charset=utf-8,' + lines.join("\n");
+            const link = document.createElement('a');
+            link.setAttribute('href', encodeURI(csvContent));
+            link.setAttribute('download', 'beispiel.csv');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    }
 });
