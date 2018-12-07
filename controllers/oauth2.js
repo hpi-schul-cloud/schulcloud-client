@@ -9,7 +9,6 @@ const csrfProtection = csrf({ cookie: true });
 router.get('/login', csrfProtection, (req, res, next) => {
   return api(req).get('/oauth2/loginRequest/' + req.query.login_challenge).then(loginRequest => {
     req.session.login_challenge = req.query.login_challenge;
-    req.session.clientId = loginRequest.client.client_id;
     if (loginRequest.skip) {
       res.redirect('/oauth2/login/success');
     } else {
@@ -26,10 +25,9 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
     remember_for: 3600
   }
 
-  api(req).patch('/oauth2/loginRequest/' + req.session.login_challenge + '/?accept=1&clientId=' + req.session.clientId,
+  api(req).patch('/oauth2/loginRequest/' + req.session.login_challenge + '/?accept=1',
     {body}).then(loginRequest => {
       delete(req.session.login_challenge);
-      delete(req.session.clientId);
         res.redirect(loginRequest.redirect_to);
     });
 });
