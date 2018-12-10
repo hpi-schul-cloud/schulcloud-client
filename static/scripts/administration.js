@@ -15,14 +15,14 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
-function printInvitations (users){
+function printInvitations (users) {
     event.preventDefault();
     let w = window.open();
     w.document.write(`<style>
     @page {size: A4; margin: 16px;}
     .part{ border: 1px solid #999; width: 110px; float: left; padding: 8px; margin: 4px;}
     img{width: 100% !important; height: auto !important;}
-    p{font-size: 10px; color: #555; margin: 8px 0 0; text-align: center; word-break: break-all;}
+    p{font-size: 10px; color: #555; min-height: 26px; margin: 8px 0 0; text-align: center; word-break: break-all;}
     </style>`);
     for (let user of users) {
         const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
@@ -45,7 +45,6 @@ function printInvitations (users){
 }
 
 $(document).ready(function () {
-
     var $modals = $('.modal');
     var $addModal = $('.add-modal');
     var $editModal = $('.edit-modal');

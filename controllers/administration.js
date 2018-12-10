@@ -1102,6 +1102,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         qs: query
     }).then(userData => {
         let users = userData.data;
+        const allStudentsCount = userData.total;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
         const consentsPromise = getSelectOptions(req, 'consents', {
@@ -1172,16 +1173,20 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 head, body, pagination,
                 filterSettings: JSON.stringify(userFilterSettings()),
                 schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-                studentsWithoutConsent: studentsWithoutConsent.length
+                studentsWithoutConsentCount: studentsWithoutConsent.length,
+                allStudentsCount
             });
         });
     });
 });
 
 const getStudentsWithoutConsent = async (req) => {
+    const role = await api(req).get('/roles', { qs: { name: 'student' }, $limit: false });
+    const qs = { roles: role.data[0]._id };
+
     const [users, consents] = await Promise.all([
-        api(req).get('/users', { $limit: false }),
-        api(req).get('/consents', { $limit: false })
+        api(req).get('/users', { qs, $limit: false }),
+        api(req).get('/consents', { $limit: false }),
     ]);
 
     const studentsWithoutConsent = users.data.filter(user => {
