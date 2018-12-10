@@ -871,13 +871,24 @@ router.get('/permittedDirectories/', function (req, res, next) {
 
 
     api(req).get('/fileStorage/directories').then(directories => {
-        return Promise.all(directories.map(dir => getDirectoryTree(req, dir)));
+        return Promise.all(directories.map(dir => {
+            if (dir) {
+                return getDirectoryTree(req, dir);
+            } else {
+                return undefined;
+            }
+        }));
     })
     .then(directories => {
+        directories = directories.filter(d => d);
         res.json(directoryTree.map((tree) => {
             tree.children = directories.filter(dir => dir.refOwnerModel === tree.model);
             return tree;
         }));
+    })
+    .catch(err => {
+        console.log(err)
+        res.sendStatus(500);
     });
 });
 
