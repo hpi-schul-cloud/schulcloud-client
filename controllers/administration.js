@@ -7,16 +7,12 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
-const handlebars = require('handlebars');
-const fs = require('fs');
-const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
-const parse = require('csv-parse/lib/sync');
 const _ = require('lodash');
 
 moment.locale('de');
@@ -417,71 +413,31 @@ const getSendHelper = (service) => {
 };
 
 const getCSVImportHandler = () => {
-    return function (req, res, next) {
-        let csvData = '';
-        let records = [];
-        let importCount = 0;
-
+    return async function (req, res, next) {
         try {
-            const delimiters = [',', ';', '|', '\t'];
-            delimiters.some(delimiter => {
-                csvData = decoder.write(req.file.buffer);
-                records = parse(csvData, { columns: true, delimiter: delimiter });
-                if (Object.keys(records[0]).length > 1) {
-                    return true;
-                }
-                return false;
+            const csvData = decoder.write(req.file.buffer);
+            const [stats] = await api(req).post('/sync/', {
+                qs: {
+                    target: 'csv',
+                    school: req.body.schoolId,
+                    role: req.body.roles[0],
+                    sendEmails: Boolean(req.body.sendRegistration),
+                },
+                json: {
+                    data: csvData,
+                },
             });
-            if (Object.keys(records[0]).length <= 1) {
-                throw "PARSING FAILED";
-            }
+            const numberOfUsers = (stats.users.successful || 0) + (stats.users.failed || 0);
+            req.session.notification = {
+                type: stats.users.successful ? 'success' : 'info',
+                message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`
+            };
+            res.redirect(req.header('Referer'));
+            return;
         } catch (err) {
-            req.session.notification = {
-                type: 'danger',
-                message: 'Import fehlgeschlagen. (Format überprüfen)'
-            };
+            res.redirect(req.header('Referer'));
+            return;
         }
-
-        const groupData = {
-            schoolId: req.body.schoolId,
-            roles: req.body.roles
-        };
-
-        const recordPromises = records.map(async (user) => {
-            user = Object.assign(user, groupData);
-            let linkdData = await (generateRegistrationLink({
-                role: req.body.roles[0],
-                save: true,
-                toHash: user.email
-            }, true))(req, res, next);
-            return { user: user, linkData: linkdData };
-        });
-
-        Promise.all(recordPromises).then(async (allData) => {
-            for (let data of allData) {
-                if (req.body.sendRegistration) {
-                    req.body = data.user;
-                    req.body.sendRegistration = true;
-                } else {
-                    req.body = data.user;
-                }
-                req.body.importHash = data.linkData.hash;
-                req.body.shortLink = data.linkData.shortLink;
-                const success = await (getUserCreateHandler(true))(req, res, next);
-                if (success) {
-                    importCount += 1;
-                }
-            }
-            req.session.notification = {
-                type: importCount ? 'success' : 'info',
-                message: `${importCount} von ${records.length} Nutzer${records.length > 1 ? 'n' : ''} importiert.`
-            };
-            res.redirect(req.header('Referer'));
-            return;
-        }).catch(err => {
-            res.redirect(req.header('Referer'));
-            return;
-        });
     };
 };
 
@@ -783,11 +739,11 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         let ssoTypes = getSSOTypes();
 
         api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', { 
-                title: title + 'Allgemein', 
-                school: data, 
-                provider, 
-                ssoTypes, 
+            res.render('administration/school', {
+                title: title + 'Allgemein',
+                school: data,
+                provider,
+                ssoTypes,
                 totalStorage: totalStorage,
                 schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
             });

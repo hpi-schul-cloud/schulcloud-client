@@ -435,6 +435,8 @@ $(document).ready(function() {
         },
         set: function (obj, prop, value) {
           obj[prop] = value;
+          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set#Return_value
+          return obj[prop] === value;
         }
       };
     
