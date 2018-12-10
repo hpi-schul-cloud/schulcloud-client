@@ -8,16 +8,20 @@ $(document).ready(function () {
     set: function (obj, prop, value) {
       obj[prop] = value;
       if (prop === 'role' && value === 'expert') {
-        obj.method = 'email'
+        obj.method = 'email';
       }
       if (['role', 'method'].includes(prop)) {
-        renderInviteModal();
+        renderExternalInviteModal();
+      }
+      if (['tab'].includes(prop)) {
+        renderInternalInviteModal();
       }
       return true;
     }
   };
 
   let state = new Proxy({
+    tab: 'person',
     role: 'teacher',
     method: 'directory',
     currentInvitationEmail: ''
@@ -26,8 +30,20 @@ $(document).ready(function () {
   const $inviteExternalMemberModal = $('.invite-external-member-modal');
 
   /////////////
-  // Add Member
+  // Add internal member
   /////////////
+  function renderInternalInviteModal() {
+    $(`.btn-set-tab[data-tab]`).removeClass('btn-primary');
+    $(`.btn-set-tab[data-tab]`).addClass('btn-secondary');
+    $(`.btn-set-tab[data-tab='${state.tab}']`).removeClass('btn-secondary');
+    $(`.btn-set-tab[data-tab='${state.tab}']`).addClass('btn-primary');
+
+    $(`.form-group[data-tab]`).hide();
+    $(`.form-group[data-tab='${state.tab}']`).show();
+  }
+
+  renderInternalInviteModal();
+
   $('.btn-add-member').click(function (e) {
     e.stopPropagation();
     e.preventDefault();
@@ -35,11 +51,18 @@ $(document).ready(function () {
     populateModalForm($addMemberModal, {
       title: 'Teilnehmer hinzufügen',
       closeLabel: 'Abbrechen',
-      submitLabel: 'Teilnehmer hinzufügen'
+      submitLabel: 'Hinzufügen'
     });
 
     let $modalForm = $addMemberModal.find(".modal-form");
     $addMemberModal.appendTo('body').modal('show');
+  });
+
+  $('.btn-set-tab').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    state.tab = this.getAttribute("data-tab");
+    return false;
   });
 
   $('.add-member-modal form').on('submit', function (e) {
@@ -73,23 +96,7 @@ $(document).ready(function () {
   /////////////
   // Add external Member
   /////////////
-  $('.btn-invite-external-member').click(function (e) {
-    e.stopPropagation();
-    e.preventDefault();
-    let $inviteExternalMemberModal = $('.invite-external-member-modal');
-    populateModalForm($inviteExternalMemberModal, {
-      title: 'Externen Teilnehmer einladen',
-      closeLabel: 'Abbrechen',
-      submitLabel: 'Teilnehmer einladen'
-    });
-
-    $('#federalstate').trigger('change');
-
-    let $modalForm = $inviteExternalMemberModal.find(".modal-form");
-    $inviteExternalMemberModal.appendTo('body').modal('show');
-  });
-
-  function renderInviteModal() {
+  function renderExternalInviteModal() {
     $(`.btn-set-role[data-role]`).removeClass('btn-primary');
     $(`.btn-set-role[data-role]`).addClass('btn-secondary');
     $(`.btn-set-role[data-role='${state.role}']`).removeClass('btn-secondary');
@@ -107,7 +114,23 @@ $(document).ready(function () {
     $(`.form-group[data-method='${state.method}']`).show();
   }
 
-  renderInviteModal();
+  renderExternalInviteModal();
+
+  $('.btn-invite-external-member').click(function (e) {
+    e.stopPropagation();
+    e.preventDefault();
+    let $inviteExternalMemberModal = $('.invite-external-member-modal');
+    populateModalForm($inviteExternalMemberModal, {
+      title: 'Externen Teilnehmer einladen',
+      closeLabel: 'Abbrechen',
+      submitLabel: 'Teilnehmer einladen'
+    });
+
+    $('#federalstate').trigger('change');
+
+    let $modalForm = $inviteExternalMemberModal.find(".modal-form");
+    $inviteExternalMemberModal.appendTo('body').modal('show');
+  });
 
   $('.btn-set-role').click(function (e) {
     e.stopPropagation();
