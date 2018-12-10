@@ -14,7 +14,9 @@
     "test": "npm run lint && npm run mocha",
     "mocha": "mocha test/mocha/ --recursive",
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js",
-    "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
+    "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "sasslintConfig": "./.sass-lint.yml",
   "dependencies": {
@@ -112,6 +114,7 @@
     "webpack": "^4.18.0",
     "webpack-stream": "^5.1.1",
     "workbox-build": "^3.4.1",
-    "workbox-cli": "^3.5.0"
+    "workbox-cli": "^3.5.0",
+    "@storybook/html": "^4.0.12"
   }
 }
