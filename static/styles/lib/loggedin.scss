@@ -565,6 +565,10 @@ footer {
           margin-left: -.75rem;
           background: transparent;
 
+          .avatar-circle{
+              background-color: $fontColor;
+          }
+
           .avatar-circle:hover{
               background-color: $colorLightGrey !important;
           }
