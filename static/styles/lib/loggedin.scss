@@ -537,9 +537,6 @@ footer {
     .account-toggle {
         padding-left: 10px;
         padding-right: 10px;
-        .avatar-circle {
-            float:left;
-        }
     }
     .navbar-nav .nav-item {
         float: none;
@@ -558,6 +555,23 @@ footer {
     .btn-thin {
         padding-left: 5px!important;
         padding-right: 5px!important;
+    }
+    .btn-avatar{
+      .dropdown-toggle{
+          padding: 0 !important;
+          border-radius: 50%;
+          border: none;
+          margin-left: -.75rem;
+          background: transparent;
+
+          .avatar-circle:hover{
+              background-color: $colorLightGrey !important;
+          }
+
+          &:after{
+              display: none;
+          }
+      }
     }
     .minimal-button{
         .dropdown-toggle{
@@ -707,7 +721,7 @@ footer {
     }
 }
 
-@mixin avatar($size) 
+@mixin avatar($size)
 {
     width: $size;
     height: $size;
@@ -717,7 +731,7 @@ footer {
     -moz-border-radius: 50%;
     .initials {
       position: relative;
-      top: $size*0.20;
+      top: $size*0.3;
       font-size: $size*0.5;
       line-height: $size*0.4;
       color: #fff;
