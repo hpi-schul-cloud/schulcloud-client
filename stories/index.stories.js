@@ -1,6 +1,5 @@
 import { document, console } from 'global';
 import { storiesOf } from '@storybook/html';
-import "../static/styles/lib/bootstrap/scss/_buttons.scss";
 
 storiesOf('Demo', module)
   .add('heading', () => '<h1>Hello World</h1>')
