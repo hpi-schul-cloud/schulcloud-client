@@ -184,27 +184,27 @@
                         </li>
 
                         {{#if currentSchoolData}}
-                            <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                            <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
                             {{#if currentSchoolData.logo_dataUrl}}
                                 <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
-                            {{else}}
-                                {{#if currentSchoolData.federalState}}
-                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}" alt="Landeswappen">
-                                {{/if}}
                             {{/if}}
                         {{/if}}
 
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
                             <div class="btn-group" data-matomo-mask>
-                                <button type="button" class="btn btn-secondary dropdown-toggle account-toggle"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <strong>{{ currentUser.displayName }} ({{ currentRole }})</strong>
-                                </button>
+                              <div class="dropdown btn-avatar">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle" style="background:{{currentUser.avatarBackgroundColor}};"
+                                   title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
+                                  <div class="avatar-circle" >
+                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
+                                  </div>
+                                </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="/account/">Einstellungen</a>
                                     <a class="dropdown-item" href="/logout/">Abmelden</a>
                                 </div>
+                              </div>
                             </div>
                         </li>
                     </ul>
