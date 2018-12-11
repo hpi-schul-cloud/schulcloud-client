@@ -61,6 +61,7 @@ const courseDownloader = {
           }
 
          function refreshNotification(progress){
+             progress = parseInt(progress);
              const options = { tag: 'course-data-downloading' };
              return self.registration.getNotifications(options)
                  .then(notifications =>{
@@ -208,6 +209,7 @@ const courseDownloader = {
                 if (json.files && json.files.length !== 0) {
                     json.files.map(file => urls.push(this.addToCache(file)));
                 }
+                // todo add courseId to notification tag
                 return this.updateNotificationDownloadState(urls);
                 //return Promise.all(urls);
             }).then(_ => {
