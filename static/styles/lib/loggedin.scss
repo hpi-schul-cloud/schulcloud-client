@@ -39,7 +39,7 @@ body {
             color: #777;
             font: normal normal normal 2em/1 FontAwesome;
             opacity: 0;
-            transform: translate(-50%, -50%), rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg);
             animation: loading-spinner 2.5s infinite linear 2s;
         }
     }
@@ -328,11 +328,6 @@ header {
         padding-left: 0px;
     }
 
-    .federal-state {
-        height: 35px;
-        margin-left: 8px !important;
-    }
-
     .section-default {
         width: 100%;
         float: left;
@@ -561,6 +556,23 @@ footer {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
+    .btn-avatar{
+      .dropdown-toggle{
+          padding: 0 !important;
+          border-radius: 50%;
+          border: none;
+          margin-left: -.75rem;
+          background: transparent;
+
+          .avatar-circle:hover{
+              background-color: $colorLightGrey !important;
+          }
+
+          &:after{
+              display: none;
+          }
+      }
+    }
     .minimal-button{
         .dropdown-toggle{
             padding: 10px !important;
@@ -701,11 +713,32 @@ footer {
         display: none;
     }
 
-.form-group {
-    sup {
-        color: red;
-        font-size: 16px;
+    .form-group {
+        sup {
+            color: red;
+            font-size: 16px;
+        }
     }
 }
 
+@mixin avatar($size)
+{
+    width: $size;
+    height: $size;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    .initials {
+      position: relative;
+      top: $size*0.3;
+      font-size: $size*0.5;
+      line-height: $size*0.4;
+      color: #fff;
+      font-weight: bold;
+    }
 }
+
+.avatar-circle      { @include avatar(40px); }
+.avatar-circle-sm   { @include avatar(25px); }
+.avatar-circle-lg   { @include avatar(100px); }
