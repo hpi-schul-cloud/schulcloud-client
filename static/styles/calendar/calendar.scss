@@ -5,10 +5,8 @@
         float: left;
         width: 100%;
 
-        h2 {
-            font-size: 20px;
-            font-weight: 800;
-            line-height: 30px;
+        .fc-time-grid .fc-slats .fc-minor td {
+          border: 0px;
         }
         .fc-view-container {
           background-color: $colorWhite;
@@ -36,13 +34,7 @@
             }
 
             &.fc-time-grid-event {
-                border-top: 6px solid $accentColor;
-                border-bottom: 6px solid transparent;
-
                 &.fc-event-cancelled {
-                    border-top: 6px solid transparent;
-                    border-bottom: 6px solid $primaryColor;
-
                     &:after {
                         color: $primaryColor;
                         content: attr(data-status);
