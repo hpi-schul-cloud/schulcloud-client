@@ -197,14 +197,8 @@ workbox.routing.registerRoute(
 
 
 
-function handleMessages(event){ // todo make promise
-    if(event.data.tag === 'downloadCourse'){
-        courseDownloader.downloadCourse(event.data.courseId);
-    }
-}
-
 self.addEventListener('message', function(event){
-    event.waitUntil(handleMessages(event));
+    event.waitUntil(pushManager.handleNotification(self.registration, event));
 });
 
 self.addEventListener('push', function(event){

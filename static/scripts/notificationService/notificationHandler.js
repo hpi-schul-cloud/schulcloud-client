@@ -22,7 +22,13 @@ export const notificationHandler = {
                         cacheName: 'courses'
                     });
                 }
-                return courseDownloader.downloadCourse(data.courseId);
+                return courseDownloader.downloadCourse(
+                    data.courseId,
+                    this.showNotification(self.registration, {
+                        title: 'Deine Kurse wurden aktualisiert',
+                        body: 'Geänderte Daten werden im Hintergrund aktualisiert.',
+                        tag: 'course-data-downloading'
+                    }));
             case 'test-notification':
                 this.showNotification(self.registration, {
                     title: 'Test-Benachrichtigung',

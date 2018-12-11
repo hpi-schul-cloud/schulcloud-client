@@ -295,8 +295,9 @@ document.getElementById("intro-loggedin").addEventListener("click", startIntro, 
 function downloadCourse(event){
     if(navigator.serviceWorker.controller){
         navigator.serviceWorker.controller.postMessage({
-            tag: 'downloadCourse',
-            courseId: $(this).attr('data-id')
+            tag: 'course-data-updated',
+            courseId: $(this).attr('data-id'),
+            _id: Date.now()
         });
     }else{
         console.log('SW not active!');

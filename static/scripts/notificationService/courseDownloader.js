@@ -45,7 +45,39 @@ const courseDownloader = {
             });
     },
 
-    downloadCourse(courseId) {
+    updateNotificationDownloadState(urls){
+        
+        // https://stackoverflow.com/questions/42341331/es6-promise-all-progress
+        function allProgress(promises, progress_cb) {
+            let d = 0;
+            progress_cb(0);
+            promises.forEach((p) => {
+              p.then(()=> {    
+                d ++;
+                progress_cb( (d * 100) / promises.length );
+              });
+            });
+            return Promise.all(promises);
+          }
+
+         function refreshNotification(progress){
+             const options = { tag: 'course-data-downloading' };
+             return self.registration.getNotifications(options)
+                 .then(notifications =>{
+                     notifications.forEach(notification => notification.close());
+                     const notificationTitle = 'Kursinhalte werden aktualisiert.';
+                     const notificationOptions = {
+                         body: `${progress}% der Inhalte heruntergeladen.`,
+                         tag: 'course-data-downloading'
+                     };
+                    return self.registration.showNotification(notificationTitle, notificationOptions);  
+                 });
+         } 
+
+        return allProgress(urls, refreshNotification);
+        },
+
+    downloadCourse(courseId, notification) {
 
         let urls = {};
 
@@ -176,7 +208,8 @@ const courseDownloader = {
                 if (json.files && json.files.length !== 0) {
                     json.files.map(file => urls.push(this.addToCache(file)));
                 }
-                return Promise.all(urls);
+                return this.updateNotificationDownloadState(urls);
+                //return Promise.all(urls);
             }).then(_ => {
                 // add downloaded dataset to already existing one
                 let updatedValue = {};
