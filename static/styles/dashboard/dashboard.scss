@@ -55,7 +55,7 @@
     padding-top: 15px;
     line-height: 1.75rem;
     margin-bottom: 30px;
-    border: 1px solid rgba(0,0,0,.12);
+    //border: 1px solid rgba(0,0,0,.12);
     @include media-breakpoint-down(xs) {
         display: none;
     }
