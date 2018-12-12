@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
 // Schools
@@ -22,6 +23,18 @@ router.get('/', function (req, res, next) {
             schools
         })
     );
+});
+
+router.get('/timeline.json', function (req, res, next) {
+    api(req).get('/timelines/', {
+        qs: {
+            title: 'about'
+        }
+    }).then(timelineData => {
+        res.json(JSON.parse(timelineData.data[0].json));
+    }).catch(err => {
+        next(err);
+    });
 });
 
 module.exports = router;

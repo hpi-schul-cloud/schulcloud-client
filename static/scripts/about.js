@@ -1,1 +1,8 @@
-const timeline = new TL.Timeline('timeline-embed', 'https://docs.google.com/spreadsheets/d/1_GRxhkebkBZi8tfgTFXMfLAMZf9fKbnM6d0caR1mTLs/pubhtml');
+async function initTimeline(selector, url){
+  const res = await fetch(url, {
+    credentials: "same-origin"
+  });
+  const googleTimelineData = await res.json();
+  const timeline = new TL.Timeline(selector, TL.ConfigFactory.googleFeedJSONtoTimelineJSON(googleTimelineData));
+}
+initTimeline('timeline-embed', '/about/timeline.json')
