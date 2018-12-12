@@ -131,6 +131,9 @@ const editCourseHandler = (req, res, next) => {
             course.teacherIds.push(res.locals.currentUser);
         }
 
+        // populate colors
+          const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
+
         res.render('courses/edit-course', {
             action,
             method,
@@ -138,6 +141,7 @@ const editCourseHandler = (req, res, next) => {
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
             closeLabel: 'Abbrechen',
             course,
+            colors,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
