@@ -853,41 +853,48 @@ router.get('/search/', function (req, res, next) {
 });
 
 /** fetch all personal folders and all course folders in a directory-tree **/
-router.get('/permittedDirectories/', function (req, res, next) {
+router.get('/permittedDirectories/', async (req, res) => {
+    const extractor = ({_id, name}) => ({_id, name, children:[] });
 
     const directoryTree = [{
         name: 'Meine Dateien',
         model: 'user',
-        children: []
+        children: [{
+            name: 'Persönliche Dateien',
+            _id: res.locals.currentUser._id,
+            children: []
+        }]
     }, {
         name: 'Meine Kurs-Dateien',
         model: 'course',
-        children: []
+        children: (await getScopeDirs(req, res, 'courses')).map(extractor)
     }, {
         name: 'Meine Team-Dateien',
         model: 'teams',
-        children: []
+        children: (await getScopeDirs(req, res, 'teams')).map(extractor)
     }];
 
-
     api(req).get('/fileStorage/directories').then(directories => {
-        return Promise.all(directories.map(dir => {
-            if (dir) {
-                return getDirectoryTree(req, dir);
-            } else {
-                return undefined;
-            }
-        }));
+        const promises = directories
+                .filter(dir => dir)
+                .map(dir => getDirectoryTree(req, dir));
+
+        return Promise.all(promises);
     })
     .then(directories => {
-        directories = directories.filter(d => d);
-        res.json(directoryTree.map((tree) => {
-            tree.children = directories.filter(dir => dir.refOwnerModel === tree.model);
-            return tree;
-        }));
+        
+        directoryTree.forEach(tree => {
+            tree.children.forEach(child => {
+                child.children = directories.filter(dir => {
+                    return dir.owner === child._id && dir.refOwnerModel === tree.model;
+                });
+            });    
+        });
+        
+        res.json(directoryTree);
     })
     .catch(err => {
-        console.log(err)
+        console.log(err);
         res.sendStatus(500);
     });
 });
