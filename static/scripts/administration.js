@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
-function printInvitations (users) {
+function printInvitations (users, role) {
     event.preventDefault();
     let w = window.open();
     w.document.write(`<style>
@@ -26,10 +26,10 @@ function printInvitations (users) {
     </style>`);
     for (let user of users) {
         const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
-        
+        console.log(user)
         w.document.write(`<div class="part">
                             <div class="image-wrapper" id="user-${user._id}"></div>
-                            <h4 style="margin-bottom: 10px">${user.displayName}</h4>
+                            <h4 style="margin-bottom: 10px">${user.displayName} $</h4>
                             <p>${user.registrationLink.shortLink}</p>
                         </div>`);
         w.document.querySelector('#user-' + user._id).appendChild(image.cloneNode(true));
@@ -197,11 +197,11 @@ $(document).ready(function () {
                     role
                 }
             }).done(function(data) {
-                $.showNotification('Erinnerungs-Emails erfolgreich versendet', "success", true);
+                $.showNotification('Erinnerungs-E-Mails erfolgreich versendet', "success", true);
                 $this.attr("disabled", false);
                 $this.html(text);
             }).fail(function (data) {
-                $.showNotification('Fehler beim senden der Erinnerungs-Emails', "danger", true);
+                $.showNotification('Fehler beim senden der Erinnerungs-E-Mails', "danger", true);
                 $this.attr("disabled", false);
                 $this.html(text);
             });
@@ -226,7 +226,7 @@ $(document).ready(function () {
                     role
                 }
             }).done(function(users) {
-                printInvitations(users);
+                printInvitations(users, role);
                 $.showNotification('Druckbogen erfolgreich generiert', "success", true);
                 $this.attr("disabled", false);
                 $this.html(text);
