@@ -184,6 +184,11 @@ module.exports = (req, res, next) => {
                 link: '/administration/classes/'
             },
             {
+                name: 'Teams',
+                icon: 'users',
+                link: '/administration/teams/'
+            },
+            {
                 name: 'Authentifizierung',
                 icon: 'key',
                 link: '/administration/systems/'

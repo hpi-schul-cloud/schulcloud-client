@@ -1122,7 +1122,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
 
-            const studentsWithoutConsent = await getStudentsWithoutConsent(req);
+            const studentsWithoutConsent = await getUsersWithoutConsent(req, 'student');
 
             res.render('administration/students', {
                 title: title + 'Schüler',
@@ -1136,8 +1136,8 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     });
 });
 
-const getStudentsWithoutConsent = async (req) => {
-    const role = await api(req).get('/roles', { qs: { name: 'student' }, $limit: false });
+const getUsersWithoutConsent = async (req, roleName) => {
+    const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
     const qs = { roles: role.data[0]._id };
 
     const [users, consents] = await Promise.all([
@@ -1145,7 +1145,7 @@ const getStudentsWithoutConsent = async (req) => {
         api(req).get('/consents', { $limit: false }),
     ]);
 
-    const studentsWithoutConsent = users.data.filter(user => {
+    const usersWithoutConsent = users.data.filter(user => {
         let userWithConsent = consents.data.find(consent => {
             return consent.userId === user._id;
         });
@@ -1153,16 +1153,17 @@ const getStudentsWithoutConsent = async (req) => {
         return userWithConsent ? false : true;
     });
 
-    return studentsWithoutConsent;
+    return usersWithoutConsent;
 };
 
 
-router.get('/students-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
-    let usersWithoutConsent = await getStudentsWithoutConsent(req);
+router.get('/users-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    let usersWithoutConsent = await getUsersWithoutConsent(req, 'student');
+    const role = req.query.role;
 
     usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
         user.registrationLink = await (generateRegistrationLink({
-            role: 'student',
+            role,
             save: true,
             host: req.headers.host || process.env.HOST,
             schoolId: res.locals.currentSchool,
@@ -1202,13 +1203,15 @@ Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${user.registrationL
     }
 });
 
-router.get('/students-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+router.get('/users-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    const role = req.query.role;
+
     try {
-        let usersWithoutConsent = await getStudentsWithoutConsent(req);
+        let usersWithoutConsent = await getUsersWithoutConsent(req, role);
 
         usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
             user.registrationLink = await (generateRegistrationLink({
-                role: 'student',
+                role,
                 save: true,
                 host: req.headers.host || process.env.HOST,
                 schoolId: res.locals.currentSchool,
@@ -1787,6 +1790,80 @@ router.get('/courses/:id', getDetailHandler('courses'));
 router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
 
 router.all('/courses', function (req, res, next) {
+
+    const itemsPerPage = (req.query.limit || 10);
+    const currentPage = parseInt(req.query.p) || 1;
+
+    api(req).get('/courses', {
+        qs: {
+            $populate: ['classIds', 'teacherIds'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
+        }
+    }).then(data => {
+        const head = [
+            'Name',
+            'Klasse(n)',
+            'Lehrer',
+            ''
+        ];
+
+        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+        const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+
+        Promise.all([
+            classesPromise,
+            teachersPromise,
+            substitutionPromise,
+            studentsPromise
+        ]).then(([classes, teachers, substitutions, students]) => {
+            const body = data.data.map(item => {
+                return [
+                    item.name,
+                    (item.classIds || []).map(item => item.displayName).join(', '),
+                    (item.teacherIds || []).map(item => item.lastName).join(', '),
+                    getTableActions(item, '/administration/courses/').map(action => {
+
+                        return action;
+                    })
+                ];
+            });
+
+            let sortQuery = '';
+            if (req.query.sort) {
+                sortQuery = '&sort=' + req.query.sort;
+            }
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/courses/?p={{page}}' + sortQuery + limitQuery
+            };
+
+            res.render('administration/courses', {
+                title: 'Administration: Kurse',
+                head,
+                body,
+                classes,
+                teachers,
+                substitutions,
+                students,
+                pagination,
+                limit: true
+            });
+        });
+    });
+});
+
+router.all('/teams', function (req, res, next) {
 
     const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;

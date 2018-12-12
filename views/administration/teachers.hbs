@@ -32,6 +32,39 @@
                     <div class="row">
                         {{> "lib/components/pagination" settings=pagination }}
                     </div>
+
+                    <div class="row mb-2">
+                        <div class="col-sm-12 no-padding">
+                            <h4>
+                                Einverständniserklärung einholen
+                            </h4>
+                            {{#if schoolUsesLdap}}
+                                <strong>Lehrer loggen sich ein</strong>
+                                
+                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Lehrer bereits in der <short title> einloggen. 
+                                    Fordere die Lehrer auf, den ersten Login vorzunehmen, damit diese ihr Einverständnis erklären kann und die Registrierung abschließen kann.</p>
+                            {{else}}
+                                <strong>Lade Lehrer per Link ein, die Einverständniserklärung abzugeben</strong>
+                                <p>
+                                    Lass deinen Lehrern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. 
+                                    Bei Abschluss der Registrierung wird ein Loginpasswort für den Lehrer erstellt.
+                                </p>
+                                <p>Für alle Lehrer</strong> ohne vollständige Einverständniserklärung:</p>
+                                <p>
+                                    <button data-role="teacher" class="btn btn-secondary btn-send-links-emails">
+                                        Links an Lehrer E-Mail Adressen senden
+                                    </button>
+                                    <button data-role="teacher" class="btn btn-secondary btn-print-links">
+                                        Link-Druckbogen erstellen
+                                    </button>
+                                </p>
+                                <p>
+                                    Oder wähle Lehrer in der Tabelle aus.
+                                </p>
+                            {{/if}}
+                        </div>
+                    </div>
+
                     <div class="row">
                         <div class="col-sm-12 no-padding">
                             {{#unless schoolUsesLdap}}
