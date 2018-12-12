@@ -1136,17 +1136,31 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     });
 });
 
-const getUsersWithoutConsent = async (req, roleName) => {
+const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
     const qs = { roles: role.data[0]._id };
 
-    const [users, consents] = await Promise.all([
-        api(req).get('/users', { qs, $limit: false }),
-        api(req).get('/consents', { $limit: false }),
-    ]);
+    let users = [];
 
-    const usersWithoutConsent = users.data.filter(user => {
-        let userWithConsent = consents.data.find(consent => {
+    if (classId) {
+        const _class = await api(req).get('/classes/' + classId, { 
+            qs: { 
+                $populate: ['teacherIds', 'userIds'],
+            }
+        });
+        users = _class.userIds;
+        users = users.map(user => {
+            user.displayName = `${user.firstName} ${user.lastName}`;
+            return user;
+        });
+    } else {
+        users = (await api(req).get('/users', { qs, $limit: false })).data;
+    }
+    
+    const consents = (await api(req).get('/consents', { $limit: false })).data;
+
+    const usersWithoutConsent = users.filter(user => {
+        let userWithConsent = consents.find(consent => {
             return consent.userId === user._id;
         });
 
@@ -1158,7 +1172,7 @@ const getUsersWithoutConsent = async (req, roleName) => {
 
 
 router.get('/users-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
-    let usersWithoutConsent = await getUsersWithoutConsent(req, 'student');
+    let usersWithoutConsent = await getUsersWithoutConsent(req, 'student', req.query.classId);
     const role = req.query.role;
 
     usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
@@ -1207,7 +1221,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
     const role = req.query.role;
 
     try {
-        let usersWithoutConsent = await getUsersWithoutConsent(req, role);
+        let usersWithoutConsent = await getUsersWithoutConsent(req, role, req.query.classId);
 
         usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
             user.registrationLink = await (generateRegistrationLink({
@@ -1224,6 +1238,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
         
         res.json(usersWithoutConsent);
     } catch (err) {
+        console.log(err)
         res.status((err.statusCode || 500)).send(err);
     }
 });
@@ -1406,10 +1421,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 });
                 res.render('administration/classes-manage', {
                     title: `Klasse '${currentClass.displayName}' verwalten `,
-                    "class": currentClass,
+                    class: currentClass,
                     classes,
                     teachers,
                     students,
+                    schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
                     schoolyears,
                     notes: [
                         {

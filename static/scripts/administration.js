@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
-function printInvitations (users, role) {
+function printInvitations (users) {
     event.preventDefault();
     let w = window.open();
     w.document.write(`<style>
@@ -26,10 +26,9 @@ function printInvitations (users, role) {
     </style>`);
     for (let user of users) {
         const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
-        console.log(user)
         w.document.write(`<div class="part">
                             <div class="image-wrapper" id="user-${user._id}"></div>
-                            <h4 style="margin-bottom: 10px">${user.displayName} $</h4>
+                            <h4 style="margin-bottom: 10px">${user.displayName}</h4>
                             <p>${user.registrationLink.shortLink}</p>
                         </div>`);
         w.document.querySelector('#user-' + user._id).appendChild(image.cloneNode(true));
@@ -177,7 +176,6 @@ $(document).ready(function () {
         // softNavigate triggers documentReady again duplicating click handlers
         handlerRegistered = true;
 
-
         $('.btn-send-links-emails').on('click', function (e) {
             e.preventDefault();
             const $this = $(this);
@@ -187,13 +185,10 @@ $(document).ready(function () {
             $this.html('E-Mails werden gesendet...');
             $this.attr("disabled", "disabled");
     
-            let schoolId = $invitationModal.find("input[name='schoolId']").val();
-    
             $.ajax({
                 type: "GET",
                 url: window.location.origin+"/administration/users-without-consent/send-email",
                 data: {
-                    schoolId,
                     role
                 }
             }).done(function(data) {
@@ -216,17 +211,14 @@ $(document).ready(function () {
             $this.html('Druckbogen wird generiert...');
             $this.attr("disabled", "disabled");
     
-            let schoolId = $invitationModal.find("input[name='schoolId']").val();
-    
             $.ajax({
                 type: "GET",
                 url: window.location.origin+"/administration/users-without-consent/get-json",
                 data: {
-                    schoolId,
                     role
                 }
             }).done(function(users) {
-                printInvitations(users, role);
+                printInvitations(users);
                 $.showNotification('Druckbogen erfolgreich generiert', "success", true);
                 $this.attr("disabled", false);
                 $this.html(text);
