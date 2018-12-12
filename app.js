@@ -15,7 +15,7 @@ const handlebarsWax = require('handlebars-wax');
 
 const app = express();
 app.use(compression());
-app.use(expiry(appOrNull, { location: 'query' }));
+app.use(expiry(app, { location: 'query' }));
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';
 // view engine setup
