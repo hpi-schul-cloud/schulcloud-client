@@ -68,10 +68,10 @@ const runToolHandler = (req, res, next) => {
            launch_presentation_locale: 'en',
            lis_person_name_full: (tool.privacy_permission === 'name'
              ? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
-             : null),
+             : ''),
            lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
              ? currentUser.email
-             : null),
+             : ''),
            user_id
        };
        tool.customs.forEach((custom) => {
