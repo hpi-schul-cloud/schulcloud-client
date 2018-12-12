@@ -264,6 +264,7 @@ gulp.task('generate-service-worker',
       templatedUrls: {
         '/calendar/': [
           '../../views/calendar/calendar.hbs',
+          '../../views/lib/loggedin.hbs'
          ]
       },
     })
@@ -300,7 +301,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, ['images'])
     .on('change', browserSync.reload);
   gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts', 'generate-service-worker']);
-  
+
   gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, ['vendor-optimized-assets']);
   gulp.watch(withTheme('./static/sw.js'), watchOptions, ['generate-service-worker']);
   gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), watchOptions, ['sw-workbox']);
@@ -318,7 +319,7 @@ gulp.task('browser-sync', ['nodemon'], function() {
         socket:{
           clients: {
             heartbeatTimeout: 60000
-          } 
+          }
         }
 	});
 });
@@ -329,13 +330,13 @@ gulp.task('nodemon', function (cb) {
     ext: 'js hbs',
     script: './bin/www',
     watch: ['views/', 'controllers/'],
-    exec: "node --inspect",
+    exec: "node --inspect=9310",
 	}).on('start', function () {
-    
+
 		if (!started) {
 			cb();
-			started = true; 
-    } 
+			started = true;
+    }
     setTimeout(browserSync.reload, 3000); //server-start takes some time
 	});
 });
