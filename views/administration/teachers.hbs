@@ -34,7 +34,12 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{#unless schoolUsesLdap}}
+                            {{#if schoolUsesLdap}}
+                                <div class="col-sm-12 alert alert-info">
+                                    <strong>Warum kann ich keine Lehrer und Schüler bearbeiten?</strong><br>
+                                    Die {{theme.short_title}} ist mit einem Identitätsmanagement deiner Schule, deines Schulträgers oder deines Landes synchronisiert, in dem die Daten der Lehrer und Schüler zentral verwaltet werden. Bitte nimm dort die gewünschten Änderungen vor. Auch Passwörter müssen in diesem System zurückgesetzt werden.
+                                </div>
+                            {{else}}
                                 <button type="submit" class="btn btn-primary btn-add-modal">
                                     Lehrer hinzufügen
                                 </button>
@@ -43,7 +48,7 @@
                                         Lehrer importieren
                                     </button>
                                 {{/ifeq}}
-                            {{/unless}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>

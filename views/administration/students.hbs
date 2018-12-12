@@ -54,7 +54,7 @@
                             {{#if schoolUsesLdap}}
                                 <strong>Schüler loggen sich in Anwesenheit eines Erziehungberechtigten ein</strong>
                                 
-                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der <short title> einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
+                                <p>Durch Anbindung an ein Landes- oder Schulsystem können sich die Schüler bereits in der {{theme.short_title}} einloggen. Fordere deine Schüler auf, den ersten Login im Beisein eines Erziehungsberechtigten vorzunehmen, damit dieser sein Einverständnis erklären kann und die Registrierung abschließen kann.</p>
                             {{else}}
                                 <strong>Lade Eltern und Schüler per Link ein, die Einverständniserklärung abzugeben</strong>
                                 <p>
@@ -76,7 +76,12 @@
                         </div>
                     </div>
                     <div class="row">
-                        {{#unless schoolUsesLdap}}
+                        {{#if schoolUsesLdap}}
+                            <div class="col-sm-12 alert alert-info">
+                                <strong>Warum kann ich keine Lehrer und Schüler bearbeiten?</strong><br>
+                                Die {{theme.short_title}} ist mit einem Identitätsmanagement deiner Schule, deines Schulträgers oder deines Landes synchronisiert, in dem die Daten der Lehrer und Schüler zentral verwaltet werden. Bitte nimm dort die gewünschten Änderungen vor. Auch Passwörter müssen in diesem System zurückgesetzt werden.
+                            </div>
+                        {{else}}
                             <div class="col-sm-12 no-padding">
                                 <button type="submit" class="btn btn-primary btn-add-modal">
                                     Schüler hinzufügen
@@ -90,7 +95,7 @@
                                     </button>
                                 {{/ifeq}}
                             </div>
-                        {{/unless}}
+                        {{/if}}
                     </div>
                 </div>
 

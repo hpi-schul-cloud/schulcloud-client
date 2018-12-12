@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         <label>E-Mail-Adresse: *</label>
-                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required {{#if schoolUsesLdap}} readonly {{/if}}>
+                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required {{#if schoolUsesLdap}}readonly{{/if}}>
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">
@@ -112,7 +112,12 @@
                     <div class="row">
                         <div class="modal-footer w-100">
                             <div class="pull-left">
-                                {{#unless schoolUsesLdap}}
+                                {{#if schoolUsesLdap}}
+                                    <div class="col-sm-12 alert alert-info" style="text-align:left;">
+                                        <strong>Warum kann ich keine Lehrer und Schüler bearbeiten?</strong><br>
+                                        Die {{theme.short_title}} ist mit einem Identitätsmanagement deiner Schule, deines Schulträgers oder deines Landes synchronisiert, in dem die Daten der Lehrer und Schüler zentral verwaltet werden. Bitte nimm dort die gewünschten Änderungen vor. Auch Passwörter müssen in diesem System zurückgesetzt werden.
+                                    </div>
+                                {{else}}
                                     {{#ifCond isAdmin '|| !' editTeacher}}
                                         <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>Passwort ändern</button>
                                         <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
@@ -121,7 +126,7 @@
                                     {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
                                         Persönlichen Einladungslink generieren
                                     </button>
-                                {{/unless}}
+                                {{/if}}
                             </div>
 
                             <button class="btn btn-secondary btn-cancel">
