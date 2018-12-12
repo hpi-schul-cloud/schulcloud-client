@@ -257,7 +257,7 @@ async function createNewNexBoards(req, res, contents = []) {
                 content.content.title,
                 content.content.description,
                 await getNexBoardProjectFromUser(req, res.locals.currentUser),
-                'demo');
+                'schulcloud');
 
             content.content.title = board.title;
             content.content.board = board.id;

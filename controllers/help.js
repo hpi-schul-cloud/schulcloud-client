@@ -10,78 +10,35 @@ const moment = require('moment');
 
 const faq = require('../helpers/content/faq.json');
 
-async function articles(){
-    const cardsUrl = `https://docs.schul-cloud.org/rest/api/content/13828239/child/page?expand=children.page`;
-    const cardsResult = await fetch(cardsUrl);
-    const cardJson = await cardsResult.json();
-    let cards = cardJson.results.map((category) => {
-        return {
-            id: category.id,
-            title: category.title,
-            type: "topic"
-        };
-    }).map(async (card) => {
-        const articleResult = await fetch(`https://docs.schul-cloud.org/rest/api/content/${card.id}/child/page?expand=children.page`);
-        const articleJson = await articleResult.json();
-        let categories = articleJson.results.map((category) => {
-            return {
-                id: category.id,
-                title: category.title,
-                type: "category",
-                articles: category.children.page.results.map((article) => {
-                    return {
-                        id: article.id,
-                        title: article.title,
-                        type: "article"
-                    };
-                })
-            };
-        });
-        card.categories = categories;
-        return card;
-    });
-    let content = await Promise.all(cards);
-    let w = window.open();
-    w.document.write(JSON.stringify(content));
-}
-articles();
-
 // read here for updateding the tutorials.json: https://docs.schul-cloud.org/display/Intern/Hilfe-Artikel+aktualisieren
 const tutorials = require('../helpers/content/tutorials.json');
 
 const firstStepsItems = [{
         title: "Schüler",
-        icon: "fa-child",
+        "img-src": "/images/help/schueler-icon.png",
         src: "/help/confluence/40304731",
-        color: "#ea9d4a"
-    },
-    {
+    }, {
         title: "Lehrer",
-        icon: "fa-child",
+        "img-src": "/images/help/lehrer-icon.png",
         src: "/help/confluence/40304726",
-        color: "#29b24b"
     }, {
         title: "Admin",
-        icon: "fa-child",
+        "img-src": "/images/help/admin-icon.png",
         src: "/help/confluence/40304667",
-        color: "#b11e3b"
-    },
-    {
+    }, {
         title: "Schulleitung",
-        icon: "fa-child",
+        "img-src": "/images/help/schulleitung-icon.png",
         src: "/help/confluence/40304728",
-        color: "#41bcec"
     }
 ];
 const quickHelpItems = [{
         title: "Online-Videokurse",
         icon: "fa-video-camera",
         src: "https://mooc.house/courses/schulcloud2018"
-    },
-    {
+    }, {
         title: "MINT-EC Webinare",
         icon: "fa-desktop",
-        src: "https://www.mint-ec.de/schulnetzwerk/hpi-schul-cloud/das-projekt/"
+        src: "https://www.mint-ec.de/aktuelles/blog-facebook/jetzt-mitmachen-webinare-zur-hpi-schul-cloud/"
     }, {
         title: "Schnellstart-PDF",
         icon: "fa-file-pdf-o",
@@ -92,24 +49,20 @@ const knowledgeItems = [{
         title: "Überblick",
         icon: "fa-info",
         src: "/about"
-    },
-    {
+    }, {
         title: "FAQ",
         icon: "fa-comments",
         src: "/help/confluence/23232533"
-    },
-    {
+    }, {
         title: "SSO",
         icon: "fa-sign-in",
         src: "/help/faq/sso"
-    },
-    {
+    }, {
         title: "Release Notes",
         icon: "fa-clipboard",
         src: "/help/releases"
-    },
-    {
-        title: "Website",
+    }, {
+        title: "Website (Logout)",
         icon: "fa-globe",
         src: "/logout"
     }
@@ -119,14 +72,14 @@ const knowledgeItems = [{
 router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
-    let quickhelp = quickHelpItems.slice(0);
     const isDemo = res.locals.currentUser.roles.every((role) => {
-        return (role.name.includes("demo"));
+        return role.name.includes("demo");
     });
     const isStudent = res.locals.currentUser.roles.every((role) => {
-        return (role.name === "student");
+        return role.name === "student";
     });
 
+    let quickhelp = quickHelpItems.slice(0);
     if(!isDemo && !isStudent){
         quickhelp.push({
             title: "Dokumente des Willkommensordners",
@@ -136,10 +89,10 @@ router.get('/', function (req, res, next) {
     }
     res.render('help/help', {
         title: 'Hilfebereich',
-        tutorials: tutorials,
-        knowledgeItems: knowledgeItems,
+        tutorials,
+        knowledgeItems,
         quickHelpItems: quickhelp,
-        firstStepsItems: firstStepsItems,
+        firstStepsItems,
         demo: isDemo
     });
 });
