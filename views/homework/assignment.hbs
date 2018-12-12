@@ -1,7 +1,7 @@
 ﻿{{#content "scripts" mode="append"}}
-    <script src="/vendor/ckeditor/ckeditor.js" defer></script>
-    <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
-    <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
+    <script src="{{ furl('/vendor/ckeditor/ckeditor.js') }} defer></script>
+    <script src="{{ furl('/scripts/jquery/jquery.datetimepicker.full.min.js') }}" type="text/javascript" defer></script>
+    <script src="{{ furl('/scripts/dropzone/dropzone.js') }}" type="text/javascript" defer></script>
     <script type="text/javascript">
         window.addEventListener('load', function() {
             $('.userinfo').click(function () {
@@ -47,16 +47,16 @@
             });
         });
     </script>
-    <script src="/scripts/lessons.js" type="text/javascript" defer></script>
+    <script src="{{ furl('/scripts/lessons.js') }}" type="text/javascript" defer></script>
 {{/content}}
 {{#content "styles" mode="append"}}
-    <link rel="stylesheet" href="/styles/homework/homework.css"/>
-    <link rel="stylesheet" href="/styles/homework/assignment.css"/>
-    <link rel="stylesheet" href="/styles/homework/submissions.css"/>
-    <link rel="stylesheet" href="/styles/homework/discussions.css"/>
-    <link rel="stylesheet" href="/styles/homework/tabs.css"/>
-    <link rel="stylesheet" href="/styles/files/upload.css"/>
-    <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+    <link rel="stylesheet" href="{{ furl('/styles/homework/homework.css') }}"/>
+    <link rel="stylesheet" href="{{ furl('/styles/homework/assignment.css') }}"/>
+    <link rel="stylesheet" href="{{ furl('/styles/homework/submissions.css') }}"/>
+    <link rel="stylesheet" href="{{ furl('/styles/homework/discussions.css') }}"/>
+    <link rel="stylesheet" href="{{ furl('/styles/homework/tabs.css') }}"/>
+    <link rel="stylesheet" href="{{ furl('/styles/files/upload.css') }}"/>
+    <link rel="stylesheet" href="{{ furl('/styles/lib/datetimepicker/jquery.datetimepicker.min.css') }}"/>
     <style>.section-title h4::before{content:"● {{#if private}}🔒 {{/if}}";color:{{this.color}};</style>
 {{/content}}
 

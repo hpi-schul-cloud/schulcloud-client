@@ -1,10 +1,10 @@
 {{#extend "lib/loggedin"}}
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/help/help.css"/>
+        <link rel="stylesheet" href="{{ furl('/styles/help/help.css') }}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/help.js" type="text/javascript" defer></script>
+        <script src="{{ furl('/scripts/help.js') }}  type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}

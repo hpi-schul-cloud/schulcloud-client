@@ -1,8 +1,8 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/tools/tools.css"/>
+        <link rel="stylesheet" href="{{ furl('/styles/courses/course.css') }}"/>
+        <link rel="stylesheet" href="{{ furl('/styles/tools/tools.css') }}"/>
     {{/content}}
 
     {{#content "page"}}

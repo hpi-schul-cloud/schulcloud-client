@@ -5,7 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-
+const expiry = require('static-expiry');
 const session = require('express-session');
 
 // template stuff
@@ -15,6 +15,7 @@ const handlebarsWax = require('handlebars-wax');
 
 const app = express();
 app.use(compression());
+app.use(expiry(appOrNull, { location: 'query' }));
 app.set('trust proxy', true);
 const themeName = process.env.SC_THEME || 'default';
 // view engine setup
