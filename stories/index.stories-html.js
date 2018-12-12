@@ -3,8 +3,11 @@ import { storiesOf } from '@storybook/html';
 
 import '../static/styles/lib/base.scss';
 
-storiesOf('Demo', module)
-  .add('h4', () => '<h4>Hello World</h4>')
+storiesOf('Headers', module)
+  .add('h4', () => '<h4>Hello World</h4>');
+
+
+storiesOf('Buttons', module)
   .add('button', () => {
     const button = document.createElement('button');
     button.type = 'button';
