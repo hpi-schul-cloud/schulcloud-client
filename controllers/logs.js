@@ -68,12 +68,13 @@ router.post('/', function (req, res, next) {
         cm7: context['request-start'],
         cm8: context['response-start'],
         cm9: context['response-end'],
-
+        
         cd1: context['connection'], // connection type http://wicg.github.io/netinfo/ 
         cd2: data.attributes.url.includes('localhost') ? 'local' : 'default',
         cd3: req.headers['sw-offline'] === 'true' ? true : false,
         cd4: req.headers['sw-enabled'] === 'true' ? true : false,
-        cd5: res.locals.currentSchool
+        cd5: res.locals.currentSchool,
+        cd6: context['networkProtocol'], // http1.1 / http2 / unknown
     };
     api(req).post('/analytics', { json: hit }).then(result => {
         res.send(result);
