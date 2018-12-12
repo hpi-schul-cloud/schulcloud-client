@@ -54,21 +54,10 @@ app.use(session({
 }));
 
 // Custom flash middleware
-function getUrlParameter(urlString, name) {
-    const splittedURL = urlString.split('?');
-    if(splittedURL[1]){
-        const querys = querystring.parse(splittedURL[1]);
-        return querys[name];
-    }
-}
-
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.notification = req.session.notification;
     res.locals.inline = req.query.inline || false;
-    if(req.headers.referer && getUrlParameter(req.headers.referer, "inline")){
-        res.locals.inline = true;
-    }
     res.locals.theme = {
         title: process.env.SC_TITLE || "HPI Schul-Cloud",
         short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
