@@ -158,6 +158,7 @@ export function setupFirebasePush(registration) {
   window.requestDisablePush = function () {
     messaging.getToken().then(token => {
       if (!token) return toast('pushNotRegistered');
+      messaging.deleteToken(token);
       removeRegistrationId(token,
         function () {
           toast('pushDisabled');
