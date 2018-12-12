@@ -264,6 +264,7 @@ gulp.task('generate-service-worker',
       templatedUrls: {
         '/calendar/': [
           '../../views/calendar/calendar.hbs',
+          '../../views/lib/loggedin.hbs'
          ]
       },
     })
