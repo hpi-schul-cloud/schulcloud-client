@@ -131,8 +131,8 @@ const editCourseHandler = (req, res, next) => {
             course.teacherIds.push(res.locals.currentUser);
         }
 
-        // populate colors
-          const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
+        // populate course colors - to be replaced system scope
+        const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
 
         res.render('courses/edit-course', {
             action,
