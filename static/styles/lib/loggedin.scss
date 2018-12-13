@@ -557,6 +557,13 @@ footer {
         padding-right: 5px!important;
     }
     .btn-avatar{
+      .dropdown-menu{
+        min-width: 12rem;
+        .dropdown-item {
+          padding: 8px 1.5rem;
+        }
+      }
+
       .dropdown-toggle{
           padding: 0 !important;
           border-radius: 50%;
@@ -577,9 +584,8 @@ footer {
           }
       }
       .dropdown-name{
-        text-align: center;
-        padding-top: 5px;
-        padding-bottom: 10px;
+        text-align: left;
+        padding: 5px 15px 10px 15px;
         border-bottom: solid 1px lightgrey;
         margin-bottom: 5px;
         cursor: default;
