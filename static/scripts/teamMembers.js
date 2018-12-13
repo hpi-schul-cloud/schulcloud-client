@@ -149,7 +149,7 @@ $(document).ready(function () {
   const populateSchools = (federalState) => {
     $.ajax({
       type: "GET",
-      url: window.location.origin + "/schools",
+      url: window.location.origin + "/schools/exc/expert",
       data: {
         $limit: false,
         federalState
@@ -180,7 +180,7 @@ $(document).ready(function () {
       type: "GET",
       url: window.location.origin + "/users/teachersOfSchool",
       data: {
-        schoolId: schoolId
+        schoolId
       }
     }).done(users => {
       users.forEach(user => {

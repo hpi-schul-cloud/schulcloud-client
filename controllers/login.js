@@ -79,9 +79,8 @@ router.all('/', function (req, res, next) {
                     });
                 } catch(e) {
                     // just catching the blog-error
-                }
-                // exclude Expertenschule
-                let schoolsPromise = getSelectOptions(req, 'schools', { _id:{$ne:"598ec0bc8e4e364ec18ff46d"}, $limit: false, $sort: 'name'});
+                } 
+                let schoolsPromise = getSelectOptions(req, 'schools', { purpose:{$ne:"expert"}, $limit: false, $sort: 'name'});
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
@@ -102,7 +101,7 @@ router.all('/login/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+            let schoolsPromise = getSelectOptions(req, 'schools', { purpose:{$ne:"expert"}, $limit: false, $sort: 'name'});
 
             Promise.all([
                 schoolsPromise
