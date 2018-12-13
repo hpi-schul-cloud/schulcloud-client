@@ -742,6 +742,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
             res.render('administration/school', {
                 title: title + 'Allgemein',
                 school: data,
+                isExpertSchool: data.purpose === "expert",
                 provider,
                 ssoTypes,
                 totalStorage: totalStorage,
@@ -1238,7 +1239,6 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
         
         res.json(usersWithoutConsent);
     } catch (err) {
-        console.log(err)
         res.status((err.statusCode || 500)).send(err);
     }
 });
