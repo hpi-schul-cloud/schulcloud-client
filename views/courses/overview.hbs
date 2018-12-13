@@ -1,7 +1,11 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "scripts" mode="append"}}
+        <script src="https://unpkg.com/vue"></script>
+        <!--Load the web component polyfill-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-loader.js"></script>
         <script src="/scripts/coursesOverview.js" type="text/javascript" defer></script>
+        <script src="/scripts/vue-components/my-custom-element.js"></script>
     {{/content}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
@@ -9,6 +13,7 @@
 
     {{#content "page"}}
         <section class="section-courses">
+                <my-custom-element></my-custom-element>
                 {{#if courses}}
                     {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
                 {{else}}
