@@ -83,6 +83,7 @@ const populateCurrentUser = (req, res) => {
             }}).then(data => {
                 res.locals.currentSchool = res.locals.currentUser.schoolId;
                 res.locals.currentSchoolData = data;
+                res.locals.currentSchoolData.isExpertSchool = data.name === "Expertenschule";
                 return data;
             });
         });
