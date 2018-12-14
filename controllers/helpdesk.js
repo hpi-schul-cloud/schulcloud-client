@@ -14,6 +14,7 @@ router.post('/', function (req, res, next) {
         }
         req.body.type = `contact${req.body.target}`;
     }
+
     api(req).post('/helpdesk', {
         json: {
             type: req.body.type,
@@ -30,7 +31,7 @@ router.post('/', function (req, res, next) {
             email: req.body.email,
             schoolId: res.locals.currentSchoolData._id,
             cloud: res.locals.theme.title,
-            metadata: req.body.metadata
+            metadata: req.headers["user-agent"]
         }
     })
     .then(_ => {

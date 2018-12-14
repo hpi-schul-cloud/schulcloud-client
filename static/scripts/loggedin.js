@@ -54,8 +54,7 @@ function sendFeedback(modal, e) {
             benefit: fmodal.find("#benefit").val(),
             acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
             currentState: fmodal.find('#hasHappened').val(),
-            targetState: fmodal.find('#supposedToHappen').val(),
-            metadata: navigator.userAgent
+            targetState: fmodal.find('#supposedToHappen').val()
         },
         success: function (result) {
             showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
