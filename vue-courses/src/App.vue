@@ -27,6 +27,7 @@ export default {
       courses: [{
           "_id": "0000dcfbfb5c7a3f00bf21abc",
           "name": "Mathe",
+          "color": "lightgrey",
           "schoolId": "0000d186816abba584714c5f",
           "teacherIds": [
             "0000d231816abba584714c9e"
@@ -44,6 +45,7 @@ export default {
         {
           "_id": "0000dcfbfb5c7a3f00bf21ab",
           "name": "Deutsch",
+          "color": "lightblue",
           "schoolId": "0000d186816abba584714c5f",
           "teacherIds": [
             "0000d231816abba584714c9e"
@@ -62,11 +64,11 @@ export default {
     }
   },
   watch: {
-    firstName(alt,neu) {
-      console.log('obacht');
-      console.log(alt);
-      console.log(neu);
-    }
+    //firstName(alt,neu) {
+      //console.log('obacht');
+      //console.log(alt);
+      //console.log(neu);
+    //}
   }
 }
 </script>
