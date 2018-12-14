@@ -38,7 +38,7 @@ describe('Login tests', function () {
             expect(result.res).to.redirect;
             expect(result.res.statusCode).to.equal(200);
             expect(result.res.text).to.contain('Übersicht');
-            expect(result.res.text).to.contain('Ida Renz');
+            expect(result.res.text).to.contain('Marla Mathe');
             expect(result.res.text).to.contain('Schüler');
             return;
         });

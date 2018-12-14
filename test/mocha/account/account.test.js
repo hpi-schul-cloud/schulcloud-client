@@ -32,9 +32,9 @@ describe('Account tests', function () {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Dein Account');
                     expect(res.text).to.not.contain('Vorname');
-                    expect(res.text).to.contain('Ida');
+                    expect(res.text).to.contain('Marla');
                     expect(res.text).to.not.contain('Nachname');
-                    expect(res.text).to.contain('Renz');
+                    expect(res.text).to.contain('Mathe');
                     resolve();
                 });
         });
