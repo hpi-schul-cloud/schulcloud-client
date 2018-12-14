@@ -5,6 +5,7 @@ $(document).ready(function () {
         e.preventDefault();
         var $hiddenToggleBtn = $(this);
         var $hiddenToggleIcon = $(this).find('.fa');
+        var $card = $(this).closest('.card');
         $.ajax({
             method: 'PATCH',
             url: window.location.href + '/topics/' + $(this).attr('href') + '?json=true',
@@ -14,10 +15,12 @@ $(document).ready(function () {
                     $hiddenToggleIcon.addClass('fa-eye-slash');
                     $hiddenToggleIcon.removeClass('fa-eye');
                     $hiddenToggleBtn.attr('data-original-title', "Thema sichtbar machen");
+                    $card.addClass('card-transparent');
                 } else {
                     $hiddenToggleIcon.removeClass('fa-eye-slash');
                     $hiddenToggleIcon.addClass('fa-eye');
                     $hiddenToggleBtn.attr('data-original-title', "Thema verstecken");
+                    $card.removeClass('card-transparent');
                 }
             }
         });
@@ -90,4 +93,30 @@ $(document).ready(function () {
         },
     });
     $( "#topic-list" ).disableSelection();
+
+    $('.btn-create-share-course').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let courseId = $(this).attr("data-courseId");
+        let $shareModal = $('.share-modal');
+        $.ajax({
+            type: "GET",
+            url: `/courses/${courseId}/share/`,
+            success: function(data) {
+                populateModalForm($shareModal, {
+                    title: 'Kopiercode generiert!',
+                    closeLabel: 'Schließen',
+                    fields: {shareToken: data.shareToken}
+                });
+                $shareModal.find('.btn-submit').remove();
+                $shareModal.find("input[name='shareToken']").click(function () {
+                    $(this).select();
+                });
+
+                $shareModal.appendTo('body').modal('show');
+
+                $("label[for='shareToken']").text('Verteile folgenden Code an einen Lehrer-Kollegen, um den Kurs mit diesem zu teilen. Die Funktion befindet sich auf der Übersichtsseite für Kurse.');
+            }
+        });
+    });
 });

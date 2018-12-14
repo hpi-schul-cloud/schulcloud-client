@@ -24,12 +24,13 @@
                             <h5>
                                 {{#each breadcrumbs}}
                                     <a class="{{#if @last}}active{{/if}}"
-                                       href="{{this.url}}">{{this.label}}</a><span> / </span>
+                                       href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
                                 {{/each}}
                             </h5>
                             {{#if courseUrl}}
-                                <a href="{{courseUrl}}" class="btn btn-secondary btn-sm btn-thin pull-right">
-                                    Zum Kurs
+                                <a href="{{courseUrl}}" class="btn btn-add btn-secondary pull-right">
+                                  <i class="fa fa-graduation-cap"></i>
+                                  Zum Kurs
                                 </a>
                             {{/if}}
                         </div>
@@ -43,24 +44,24 @@
 						<div class="col-sm-6 col-xs-12 col-md-4">
 							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
 								<strong class="card-title-directory">
-									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
                                 {{#userHasPermission "FOLDER_DELETE"}}
 								<a href="/files/directory/"
 								   target="_blank"
 								   data-method="delete"
                                    title="Ordner löschen"
-								   data-file-name="{{../this.name}}"
+								   data-file-name="{{{../this.name}}}"
 								   data-file-key="{{../this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
-                                
+
                                 <a href="/directoryModel/{{../this._id}}/rename"
 								   target="_blank"
 								   data-method="dir-rename"
                                    title="Ordner umbenennen"
                                    data-directory-id="{{../this._id}}"
-								   data-directory-name="{{../this.name}}"
+								   data-directory-name="{{{../this.name}}}"
 								   data-directory-path="{{../this.originalPath}}">
 									<i class="fa fa-edit pull-right"></i>
 								</a>
@@ -77,15 +78,18 @@
             <section class="new-directory">
                 <div class="row">
                     {{#if ../canCreateDir}}
-                        <div class="col-sm-12">
-
-                        </div>
-                        <div class="col-sm-6 col-xs-12 col-md-4">
+                        <div class="col-sm-12"></div>
+                        <div class="col-sm-10 col-xs-16 col-md-8">
                             <div data-toggle="modal">
                                 <div>
                                         <span class="btn btn-secondary create-directory">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
                                         </span>
+                                    {{#if ../canCreateFile}}
+                                        <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
+                                        </span>
+                                    {{/if}}
                                 </div>
                             </div>
                         </div>

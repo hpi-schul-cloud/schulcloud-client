@@ -7,6 +7,7 @@ const authHelper = require('../helpers/authentication');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
+const shortId = require('shortid');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -89,9 +90,12 @@ const editCourseHandler = (req, res, next) => {
         method = 'post';
         coursePromise = Promise.resolve({});
     }
-    
-    const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
-        .then(data => data.data );
+
+    const classesPromise = api(req).get('/classes', { qs: {
+        $or: [{ "schoolId": res.locals.currentSchool }],
+        $populate: ["year"],
+        $limit: 1000
+    }}).then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
     const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
@@ -127,6 +131,9 @@ const editCourseHandler = (req, res, next) => {
             course.teacherIds.push(res.locals.currentUser);
         }
 
+        // populate course colors - to be replaced system scope
+        const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
+
         res.render('courses/edit-course', {
             action,
             method,
@@ -134,6 +141,7 @@ const editCourseHandler = (req, res, next) => {
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
             closeLabel: 'Abbrechen',
             course,
+            colors,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
@@ -431,7 +439,10 @@ router.get('/:courseId', function(req, res, next) {
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
-                {}
+                {
+                    title: course.name,
+                    url: '/courses/' + course._id
+                }
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)
@@ -566,5 +577,37 @@ router.post('/:courseId/importTopic', function(req, res, next) {
 router.get('/:courseId/edit', editCourseHandler);
 
 router.get('/:courseId/copy', copyCourseHandler);
+
+// return shareToken
+router.get('/:id/share', function(req, res, next) {
+    return api(req).get('/courses/share/' + req.params.id)
+        .then(course => {
+            return res.json(course);
+    });
+});
+
+// return course Name for given shareToken
+router.get('/share/:id', function (req, res, next) {
+   return api(req).get('/courses/share', { qs: { shareToken: req.params.id }})
+        .then(name => {
+            return res.json({ msg: name, status: 'success' });
+        })
+       .catch(err => {
+            return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
+       });
+});
+
+router.post('/import', function(req, res, next) {
+    let shareToken = req.body.shareToken;
+    let courseName = req.body.name;
+
+    api(req).post('/courses/share', { json: { shareToken, courseName }})
+        .then(course => {
+            res.redirect(`/courses/${course._id}/edit/`);
+        })
+        .catch(err => {
+            res.status((err.statusCode || 500)).send(err);
+        });
+});
 
 module.exports = router;

@@ -48,6 +48,10 @@ const obscure_email = (email) => {
     return result;
 };
 
+router.get('/error', function (req, res, next) {
+    res.render('pwRecovery/pwRecoveryError');
+});
+
 router.get('/:pwId', function (req, res, next) {
     api(req).get('/passwordRecovery/' + req.params.pwId, { qs: { $populate: ['account']}}).then(result => {
         if(result.changed) {
@@ -78,9 +82,8 @@ router.post('/', function (req, res, next) {
         res.locals.result = result;
         next();
     }).catch(err => {
-        let error = new Error("Ein Nutzer mit diesem Nutzernamen ist leider nicht vorhanden.");
-        error.status = 404;
-        next(error);
+        res.redirect('error');
+        next(err);
     });
 }, sendMailHandler);
 

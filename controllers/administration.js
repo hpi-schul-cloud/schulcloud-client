@@ -66,8 +66,10 @@ const getTableActionsSend = (item, path, state) => {
     if (state === 'submitted' || state === 'closed') {
         actions.push(
             {
-                class: 'disabled',
-                icon: 'edit'
+                link: path + item._id,
+                class: 'btn-edit',
+                icon: 'edit',
+                title: 'Eintrag bearbeiten'
             },
             {
                 class: 'disabled',
@@ -383,28 +385,35 @@ const getSendHelper = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id)
             .then(data => {
-                let user = res.locals.currentUser;
-                let email = user.email ? user.email : "";
-                let innerText = "Problem in Kategorie: " + data.category + "\n";
-                let content = {
-                    "text": "User: " + user.displayName + "\n"
-                        + "E-Mail: " + email + "\n"
-                        + "Schule: " + res.locals.currentSchoolData.name + "\n"
-                        + innerText
-                        + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
-                };
-                req.body.email = "ticketsystem@schul-cloud.org";
-                req.body.subject = data.subject;
-                req.body.content = content;
 
-                api(req).post('/mails', { json: req.body }).then(_ => {
+                let user = res.locals.currentUser;
+
+                api(req).post('/helpdesk', {
+                    json: {
+                        type: "contactHPI",
+                        subject: data.subject,
+                        category: data.category,
+                        role: "",
+                        desire: "",
+                        benefit: "",
+                        acceptanceCriteria: "",
+                        currentState : data.currentState,
+                        targetState: data.targetState,
+                        notes: data.notes,
+                        schoolName: res.locals.currentSchoolData.name,
+                        userId: user._id,
+                        email: user.email ? user.email : "",
+                        schoolId: res.locals.currentSchoolData._id,
+                        cloud: res.locals.theme.title
+                    }
+                })
+                .then(_ => {
                     api(req).patch('/' + service + '/' + req.params.id, {
                         json: {
                             state: 'submitted',
                             order: 1
                         }
                     });
-                    res.sendStatus(200);
                 }).catch(err => {
                     res.status((err.statusCode || 500)).send(err);
                 });
@@ -464,7 +473,7 @@ const getCSVImportHandler = () => {
                 }
                 req.body.importHash = data.linkData.hash;
                 req.body.shortLink = data.linkData.shortLink;
-                const success = await (getUserCreateHandler(true))(req, res, next)
+                const success = await (getUserCreateHandler(true))(req, res, next);
                 if(success){
                     importCount += 1;
                 }
@@ -695,7 +704,7 @@ const userFilterSettings = function (defaultOrder) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -819,7 +828,7 @@ const getTeacherUpdateHandler = () => {
 
         // do all db requests
         Promise.all(promises).then(([user, consent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -862,15 +871,20 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         qs: query
     }).then(userData => {
         let users = userData.data;
+        let consentsPromise;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {
-            userId: {
-                $in: users.map((user) => {
-                    return user._id;
-                })
-            }
-        });
+        if(users.length > 0) {
+            consentsPromise = getSelectOptions(req, 'consents', {
+                userId: {
+                    $in: users.map((user) => {
+                        return user._id;
+                    })
+                }
+            });
+        } else {
+            consentsPromise = Promise.resolve();
+        }
         Promise.all([
             classesPromise,
             consentsPromise
@@ -970,7 +984,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 classes,
                 editTeacher: true,
                 hidePwChangeButton,
-                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW")
+                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
+                referrer: req.header('Referer')
 
             }
         );
@@ -986,33 +1001,37 @@ const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
         req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+        let studentConsent = {}, newParentConsent = {};
 
         // extractConsent
-        let studentConsent = {
-            _id: req.body.student_consentId,
-            userConsent: {
-                form: req.body.student_form || "analog",
-                privacyConsent: req.body.student_privacyConsent === "true",
-                researchConsent: req.body.student_researchConsent === "true",
-                thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
-                termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
-            }
-        };
-        let newParentConsent = {
-            form: req.body.parent_form || "analog",
-            privacyConsent: req.body.parent_privacyConsent === "true",
-            researchConsent: req.body.parent_researchConsent === "true",
-            thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
-            termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
-        };
+        if (req.body.student_form) {
+            studentConsent = {
+                _id: req.body.student_consentId,
+                userConsent: {
+                    form: req.body.student_form || "analog",
+                    privacyConsent: req.body.student_privacyConsent === "true",
+                    researchConsent: req.body.student_researchConsent === "true",
+                    thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
+                    termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
+                }
+            };
+        }
+        if (req.body.parent_form) {
+            newParentConsent = {
+                form: req.body.parent_form || "analog",
+                privacyConsent: req.body.parent_privacyConsent === "true",
+                researchConsent: req.body.parent_researchConsent === "true",
+                thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+                termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
+            };
+        }
         if(studentConsent._id){
             let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
             if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
-                orgUserConsent.parentConsents[0];
                 Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
                 studentConsent.parentConsents = orgUserConsent.parentConsents;
             }
-        }else if(studentConsent.userConsent.form){
+        }else if((studentConsent.userConsent||{}).form){
             studentConsent.parentConsents = [newParentConsent];
         }
     
@@ -1027,14 +1046,14 @@ const getStudentUpdateHandler = () => {
 
         if(studentConsent._id){ // update exisiting consent
             promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
-        } else if(studentConsent.userConsent.form){//create new consent entry
+        } else if((studentConsent.userConsent||{}).form){//create new consent entry
             delete studentConsent._id;
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
 
         Promise.all(promises).then(([user, studentConsent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer'))); 
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -1077,16 +1096,21 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         qs: query
     }).then(userData => {
         let users = userData.data;
-
+        let consentsPromise;
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {
-            userId: {
-                $in: users.map((user) => {
-                    return user._id;
-                })
-            },
-            $limit: itemsPerPage
-        });
+
+        if(users.length > 0) {
+                consentsPromise = getSelectOptions(req, 'consents', {
+                userId: {
+                    $in: users.map((user) => {
+                        return user._id;
+                    })
+                },
+                $limit: itemsPerPage
+            });
+        } else {
+            consentsPromise = Promise.resolve();
+        }
         Promise.all([
             classesPromise,
             consentsPromise
@@ -1145,7 +1169,11 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 head, body, pagination,
                 filterSettings: JSON.stringify(userFilterSettings())
             });
+        }).catch(err => {
+            next(err);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1174,9 +1202,12 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 user,
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent,
-                hidePwChangeButton
+                hidePwChangeButton,
+                referrer: req.header('Referer')
             }
         );
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1238,9 +1269,12 @@ const renderClassEdit = (req, res, next, edit) => {
                 teachers,
                 class: currentClass,
                 gradeLevels,
-                isCustom
+                isCustom,
+                referrer: req.header('Referer')
             });
         });
+    }).catch(err => {
+        next(err);
     });
 };
 const getClassOverview = (req, res, next) => {
@@ -1350,7 +1384,8 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                         "title":"Passwort ändern",
                         "content":"Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
                     },
-                ]
+                ],
+                referrer: req.header('Referer')
             });
         });
     });
@@ -1365,7 +1400,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1432,7 +1467,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1473,7 +1508,7 @@ const classFilterSettings = function (years) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -1628,7 +1663,8 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
+            $sort: req.query.sort? req.query.sort : {order: 1},
+            "schoolId": res.locals.currentSchool
         }
     }).then(data => {
         const head = [
@@ -1647,7 +1683,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
                 truncate(item.subject||""),
                 truncate(item.currentState||""),
                 truncate(item.targetState||""),
-                dictionary[item.category],
+                (item.category === "")? "": dictionary[item.category],
                 dictionary[item.state],
                 moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes||""),

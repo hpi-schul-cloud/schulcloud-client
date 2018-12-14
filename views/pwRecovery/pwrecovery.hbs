@@ -32,12 +32,12 @@
                                     <div class="form-group">
                                         <label>Neues Passwort</label>
                                         <input type="password" name="password" id="password" class="form-control form-control-lg" placeholder="***************" pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                                               title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen" required>
+                                               title="{{> "lib/forms/password-hint" plaintext=true}}" required>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Zur Kontrolle</label>
-                                        <input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" required>
+                                        <label>Neues Passwort wiederholen</label>
+                                        <input type="password" name="password_control" id="password_control" class="form-control form-control-lg" placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}" required>
                                     </div>
 
 

@@ -1,0 +1,13 @@
+<div class="icon-card {{class}}" id="{{id}}">
+    <div class="icon-card__content">
+        {{#if icon}}
+            <a href="#{{id}}" class="icon-card__icon" tabindex="-1">
+                <i class="fa fa-fw {{icon}}" aria-hidden="true"></i>
+            </a>
+        {{/if}}
+        <h4 class="icon-card__title">{{title}}</h4>
+        <div class="icon-card__body">
+            {{#block "card-body"}}{{/block}}
+        </div>
+    </div>
+</div>
