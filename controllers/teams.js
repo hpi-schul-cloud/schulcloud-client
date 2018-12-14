@@ -371,7 +371,11 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
-        const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
+        let rocketChatChannel
+        try{
+            rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
+        }
+        catch(e) {rocketChatChannel = null};
 
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
