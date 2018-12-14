@@ -12,7 +12,13 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String,
-    course: {}
+    course: {
+      type: Object,
+      default: {
+        color: '#555',
+        name: 'default name'
+      }
+    }
   },
   computed: {
     background_style () {
