@@ -14,7 +14,6 @@ router.post('/', function (req, res, next) {
         }
         req.body.type = `contact${req.body.target}`;
     }
-
     api(req).post('/helpdesk', {
         json: {
             type: req.body.type,
