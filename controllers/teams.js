@@ -371,6 +371,8 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
+        const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
+
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
         const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert');
@@ -498,7 +500,8 @@ router.get('/:teamId', async function(req, res, next) {
             news,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
             userId: res.locals.currentUser._id,
-            teamId: req.params.teamId
+            teamId: req.params.teamId,
+            rocketChatChannelName: rocketChatChannel.channelName
         }));
     } catch (e) {
         next(e);
