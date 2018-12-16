@@ -58,7 +58,7 @@ const getInitialValues = async req => {
     content,
     subjectUnits,
     examinations,
-    material: material.map(entity => ({
+    material: (material || []).map(entity => ({
       file: entity.path,
       name: entity.name,
       type: entity.type,
@@ -96,7 +96,7 @@ const handlePostTopicTemplates = async (req, res, next) => {
         lectureUnits: subjectUnits,
         gradeLevelId: classLevelId,
         userId: res.locals.currentUser._id,
-        material: material.map(entity => entity.id)
+        material: (material || []).map(entity => entity.id)
       }
     });
     res.sendStatus(200);
@@ -134,7 +134,7 @@ const handlePutTopicTemplate = async (req, res, next) => {
         ...(classLevelId ? { gradeLevelId: classLevelId } : {}),
         lectureUnits: subjectUnits,
         userId: res.locals.currentUser._id,
-        material: material.map(entity => entity.id)
+        material: (material || []).map(entity => entity.id)
       }
     });
     res.sendStatus(200);
