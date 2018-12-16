@@ -4,6 +4,10 @@ import { CalendarView } from "planner-core-lib/lib/components/views/calendar";
 import { setupMaterialComponents } from "../../../helpers/planner";
 
 class View extends React.Component {
+  redirectToEditInstance = instanceId => {
+    window.location = `/planner/topicInstances/${instanceId}`;
+  };
+
   render() {
     return (
       <CalendarView
@@ -12,7 +16,7 @@ class View extends React.Component {
         classTopicsData={this.props.classTopicsData}
         holidaysData={this.props.holidaysData}
         otherEventsData={this.props.otherEventsData}
-        onTopicInstanceClick={id => console.log(id)}
+        onTopicInstanceClick={this.redirectToEditInstance}
       />
     );
   }
