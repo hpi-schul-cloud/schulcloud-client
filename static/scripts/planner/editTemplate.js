@@ -45,7 +45,7 @@ class View extends React.Component {
         onDelete={this.onDelete}
         onFileClick={handleFileClick}
         onFileAdd={this.onFileAdd}
-        onFileRemove={() => {}}
+        onFileRemove={handleFileRemove}
       />
     );
   }
