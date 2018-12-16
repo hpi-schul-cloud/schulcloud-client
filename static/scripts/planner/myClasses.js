@@ -90,7 +90,8 @@ class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      allClassTopics: this.props.allClassTopics
+      allClassTopics: this.props.allClassTopics,
+      allTopicTemplates: this.props.allTopicTemplates
     };
   }
   redirectToAddTemplate = (subjectId, classLevelId) => {
@@ -102,12 +103,24 @@ class View extends React.Component {
   redirectToEditInstance = instanceId => {
     window.location = `/planner/topicInstances/${instanceId}`;
   };
-  handleDeleteTemplate = templateId => {
+  handleDeleteTemplate = (subjectId, classLevelId, templateId) => {
     $.ajax({
       type: "DELETE",
       url: `/planner/topicTemplates/${templateId}`,
       success: () => {
-        window.location.pathname = "/planner/myClasses";
+        // If deletion was successful we remove the template from the local state
+        const newTopicTemplates = {
+          ...this.state.allTopicTemplates,
+          [subjectId]: {
+            ...this.state.allTopicTemplates[subjectId],
+            [classLevelId]: this.state.allTopicTemplates[subjectId][
+              classLevelId
+            ].filter(template => template.id !== templateId)
+          }
+        };
+        this.setState({
+          allTopicTemplates: newTopicTemplates
+        });
       }
     });
   };
@@ -140,7 +153,7 @@ class View extends React.Component {
         schoolYearData={this.props.schoolYearData}
         eventData={this.props.eventData}
         allClassTopics={this.state.allClassTopics}
-        allTopicTemplates={this.props.allTopicTemplates}
+        allTopicTemplates={this.state.allTopicTemplates}
         onAddTemplate={this.redirectToAddTemplate}
         onEditTemplate={this.redirectToEditTemplate}
         onDeleteTemplate={this.handleDeleteTemplate}
