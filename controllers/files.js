@@ -708,6 +708,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async function (req, res, ne
         title: 'Dateien',
         canUploadFile: true,
         canCreateDir: true,
+        canCreateFile: true,
         path: res.locals.files.path,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
