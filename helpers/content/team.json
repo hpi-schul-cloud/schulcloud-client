@@ -269,7 +269,7 @@
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
-        "position": "Content Manager, HPI",
+        "position": "Educational Knowledge Engineer, HPI",
         "description": "Arne ist Physiker (Diplom, TU Berlin) und war bisher Physikdidaktiker und Produktentwickler einer Reihe von Web- und Elearning-Projekten. Er managt im Team der HPI Schul-Cloud das Content-Angebot von der ersten Idee bis zur Tür der Entwickler. Privat engagiert er sich im Projekt \"Schulkontext.de\", spielt Volleyball, oder programmiert erfrischende Synthesizersounds.",
         "pictureUrl": "/images/team/Arne_Oberländer.jpg",
         "priority": 0,
@@ -317,21 +317,6 @@
         "position": "Projektreferentin und wissenschaftliche Mitarbeiterin, HPI",
         "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem HPI Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
         "pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Matthias",
-        "lastName": "Wiesner",
-        "position": "Admin, HPI",
-        "description": "Matthias hat an der FH Brandenburg und der FH Potsdam studiert und ist nun als Web-Administrator am HPI angestellt. Für das HPI Schul-Cloud Projekt baut er an der IT Infrastruktur und hält diese am Leben. Ein Kesselflicker eben.<br>Die Freizeit verbringt er mit der Familie und schaut lustige Filme, wenn er nicht gerade in einer Bar sitzt.",
-        "pictureUrl": "/images/team/Matthias_Wiesner.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
