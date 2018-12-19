@@ -42,7 +42,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build/'+themeName, {index: false, etag: false, maxAge: '1y'})));
+app.use(express.static(path.join(__dirname, 'build/'+themeName), {index: false, etag: false, maxAge: '1y'}));
 
 const sessionStore = new session.MemoryStore;
 app.use(session({

@@ -1,13 +1,13 @@
 {{#extend "lib/loggedin" searchLabel="Dateien durchsuchen ..." searchAction="/files/search/" searchClass="file-search"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="{{ furl('/styles/files/files.css') }}"/>
+        <link rel="stylesheet" href="{{ furl '/styles/files/files.css' }}"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="{{ furl('/scripts/dropzone/dropzone.js') }}" type="text/javascript" defer></script>
-        <script src="{{ furl('/scripts/files.js') }}" type="text/javascript" defer></script>
-        <script src="{{ furl('/scripts/jquery.cookie.js') }}" type="text/javascript" defer></script>
+        <script src="{{ furl '/scripts/dropzone/dropzone.js' }}" type="text/javascript" defer></script>
+        <script src="{{ furl '/scripts/files.js' }}" type="text/javascript" defer></script>
+        <script src="{{ furl '/scripts/jquery.cookie.js' }}" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}

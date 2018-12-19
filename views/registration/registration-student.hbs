@@ -1,12 +1,12 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="{{ furl('/scripts/dataprivacy/dataprivacy.js') }}" type="text/javascript" defer></script>
-      <script src="{{ furl('/scripts/dataprivacy/registration.js') }}" type="text/javascript" defer></script>
-      <script src="{{ furl('/scripts/jquery/jquery.datetimepicker.full.min.js') }}" type="text/javascript" defer></script>
+      <script src="{{ furl '/scripts/dataprivacy/dataprivacy.js' }}" type="text/javascript" defer></script>
+      <script src="{{ furl '/scripts/dataprivacy/registration.js' }}" type="text/javascript" defer></script>
+      <script src="{{ furl '/scripts/jquery/jquery.datetimepicker.full.min.js' }}" type="text/javascript" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
-      <link rel="stylesheet" href="{{ furl('/styles/administration/dataprivacy.css') }}"/>
-      <link rel="stylesheet" href="{{ furl('/styles/lib/datetimepicker/jquery.datetimepicker.min.css') }}"/>
+      <link rel="stylesheet" href="{{ furl '/styles/administration/dataprivacy.css' }}"/>
+      <link rel="stylesheet" href="{{ furl '/styles/lib/datetimepicker/jquery.datetimepicker.min.css' }}"/>
   {{/content}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=4 action="/registration/submit" method="post" class="registration-form student"}}
