@@ -371,11 +371,14 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
-        let rocketChatChannel
+        let rocketChatChannel;
         try{
             rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
         }
-        catch(e) {rocketChatChannel = null};
+        catch(e) {
+            logger.warn(e);
+            rocketChatChannel = {};
+        }
 
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
@@ -476,7 +479,7 @@ router.get('/:teamId', async function(req, res, next) {
             events = [];
         }
         
-        let test = course.user.permissions.includes('EDIT_ALL_FILES')
+        let test = course.user.permissions.includes('EDIT_ALL_FILES');
 
         res.render('teams/team', Object.assign({}, course, {
             title: course.name,
@@ -505,7 +508,7 @@ router.get('/:teamId', async function(req, res, next) {
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
             userId: res.locals.currentUser._id,
             teamId: req.params.teamId,
-            rocketChatChannelName: rocketChatChannel.channelName
+            rocketChatChannelName: rocketChatChannel.channelName || null
         }));
     } catch (e) {
         next(e);
