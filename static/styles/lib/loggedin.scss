@@ -568,6 +568,13 @@ footer {
         padding-right: 5px!important;
     }
     .btn-avatar{
+      .dropdown-menu{
+        min-width: 12rem;
+        .dropdown-item {
+          padding: 8px 1.5rem;
+        }
+      }
+
       .dropdown-toggle{
           padding: 0 !important;
           border-radius: 50%;
@@ -580,12 +587,19 @@ footer {
           }
 
           .avatar-circle:hover{
-              background-color: $colorLightGrey !important;
+              background-color: $colorDarkerGrey !important;
           }
 
           &:after{
               display: none;
           }
+      }
+      .dropdown-name{
+        text-align: left;
+        padding: 5px 15px 10px 15px;
+        border-bottom: solid 1px lightgrey;
+        margin-bottom: 5px;
+        cursor: default;
       }
     }
     .minimal-button{
@@ -728,11 +742,9 @@ footer {
         display: none;
     }
 
-    .form-group {
-        sup {
-            color: red;
-            font-size: 16px;
-        }
+    .form-group sup {
+        color: red;
+        font-size: 16px;
     }
 }
 
