@@ -10,6 +10,7 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "ajv": "^5.5.2",
     "vue": "^2.5.17"
   },
   "devDependencies": {

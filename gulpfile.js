@@ -301,7 +301,7 @@ gulp.task('watch', ['build-all'], () => {
   gulp.watch(withTheme('./static/images/**/*.*'), watchOptions, ['images'])
     .on('change', browserSync.reload);
   gulp.watch(withTheme(nonBaseScripts), watchOptions, ['scripts', 'generate-service-worker']);
-
+  gulp.watch(withTheme('./static/vue-components/**/*.vue'), ['scripts']);
   gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, ['vendor-optimized-assets']);
   gulp.watch(withTheme('./static/sw.js'), watchOptions, ['generate-service-worker']);
   gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), watchOptions, ['sw-workbox']);
