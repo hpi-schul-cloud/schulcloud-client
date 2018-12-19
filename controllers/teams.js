@@ -333,11 +333,20 @@ router.get('/:teamId/json', function(req, res, next) {
                 teamId: req.params.teamId
             }
         })
-    ]).then(([roles, team, lessons]) => {
-        team.filePermission = mapPermissionRoles(team.filePermission, roles.data);
+    ]).then(([result, team, lessons]) => {
+        
+        const { data: roles } = result;
+
+        team.filePermission = team.filePermission.map(permission => {
+            const role = roles.find(role => role._id === permission.refId);
+            permission.roleName = role ? role.name : '';
+            return permission;
+        });
+
 
         res.json({ team, lessons });
     }).catch(e => {
+        logger.warn(e);
         res.sendStatus(500);
     });
 });
@@ -353,6 +362,11 @@ router.get('/:teamId/usersJson', function(req, res, next) {
 });
 
 router.get('/:teamId', async function(req, res, next) {
+
+    const isAllowed = function(permissions, role) {
+        const permission = permissions.find(p => p.roleName === role);
+        return Object.keys(permission).every(p => permission[p]);
+    };    
     
     try {
         const roles = (await api(req).get('/roles', {
@@ -373,22 +387,9 @@ router.get('/:teamId', async function(req, res, next) {
 
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
-        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert');
-        let allowExternalExperts, allowTeamMembers; 
-        if (externalExpertsPermission) {
-            allowExternalExperts =  externalExpertsPermission.create &&
-                                    externalExpertsPermission.read &&
-                                    externalExpertsPermission.write &&
-                                    externalExpertsPermission.delete;
-        }
-        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember');
+        const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
+        const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
-        if (teamMembersPermission) {
-            allowTeamMembers = teamMembersPermission.create &&
-                               teamMembersPermission.read &&
-                               teamMembersPermission.write &&
-                               teamMembersPermission.delete;
-        }
 
         let files, directories;
         files = await api(req).get('/fileStorage', {
@@ -541,15 +542,15 @@ router.patch('/:teamId', async function(req, res, next) {
     // });
 });
 
-router.patch('/:teamId/permissions', async function(req, res, next) {
-    try {
-        await api(req).patch('/teams/' + req.params.teamId, {
-            json: req.body
-        });
-        res.sendStatus(200);
-    } catch (e) {
+router.patch('/:teamId/permissions', function(req, res) {
+    api(req).patch('/teams/' + req.params.teamId, {
+        json: req.body
+    })
+    .then(() => res.sendStatus(200))
+    .catch((e) => {
+        logger.warn(e);
         res.sendStatus(500);
-    }    
+    });
 });
 
 router.get('/:teamId/delete', async function(req, res, next) {
