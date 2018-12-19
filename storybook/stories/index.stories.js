@@ -47,8 +47,8 @@ export const defaultCourse = {
 
 import MyButton from './MyButton';
 import Welcome from './Welcome';
-import CourseCard from '../src/components/CourseCard'
-import CourseCardHeader from '../src/components/CourseCardHeader'
+import CourseCard from '../../static/vue-components/courses/CourseCard'
+import CourseCardHeader from '../../static/vue-components/courses/CourseCardHeader'
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },

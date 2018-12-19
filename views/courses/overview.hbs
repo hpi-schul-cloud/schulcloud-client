@@ -14,7 +14,7 @@
 
   {{#content "page"}}
     <section class="section-courses">
-      <div data-user-id="{{ ../currentUser._id }}" id="vue-course-cards">
+      <div data-user-id="{{ ../currentUser._id }}" data-courses="{{json courses}}" id="vue-course-cards">
       </div>
       {{#if courses}}
         {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
