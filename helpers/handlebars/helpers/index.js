@@ -9,7 +9,6 @@ const app = express();
 moment.locale('de');
 
 module.exports = {
-    furl: app.locals.furl,
     pagination: require('./pagination'),
     ifArray: (item, options) => {
         if(Array.isArray(item)) {

@@ -13,11 +13,17 @@ const handlebars = require("handlebars");
 const layouts = require("handlebars-layouts");
 const handlebarsWax = require('handlebars-wax');
 
+const themeName = process.env.SC_THEME || 'default';
 const app = express();
 app.use(compression());
-app.use(expiry(app, { location: 'query' }));
+app.use(expiry(app, {
+    location: 'query',
+    duration: 31556900, // defaults to 1 year
+    conditional: 'none',
+    unconditional: 'both',
+    dir: path.join(__dirname, 'build/' + themeName),
+}));
 app.set('trust proxy', true);
-const themeName = process.env.SC_THEME || 'default';
 // view engine setup
 const handlebarsHelper = require('./helpers/handlebars');
 const wax = handlebarsWax(handlebars)
@@ -42,7 +48,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build/'+themeName), {index: false, etag: false, maxAge: '1y'}));
+app.use(express.static(path.join(__dirname, 'build/' + themeName), { index: false, etag: false }));
 
 const sessionStore = new session.MemoryStore;
 app.use(session({
