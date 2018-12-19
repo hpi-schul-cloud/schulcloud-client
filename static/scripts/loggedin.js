@@ -1,6 +1,9 @@
 /* global kjua jQuery introJs*/
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+import { iFrameListen } from './helpers/iFrameResize';
+
+iFrameListen();
 
 var $contactHPIModal;
 var $contactAdminModal;
