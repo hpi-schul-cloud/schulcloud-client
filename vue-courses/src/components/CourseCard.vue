@@ -1,13 +1,17 @@
 <template>
   <div class="card-border">
-      <div class="card-main-content" v-bind:style="background_style"></div>
-      <div class="card-info">
-        <p>{{course.name}}</p>
-      </div>
+    <div class="card-info">
+      <p>{{course.name}}</p>
     </div>
+    <div class="card-main-content" :style="background_style"></div>
+    <div>{{course.schoolId}}</div>
+    <CardFooter :course="course"></CardFooter>
+  </div>
 </template>
 
 <script>
+import CardFooter from '../components/CardFooter.vue'
+
 export default {
   name: 'HelloWorld',
   props: {
@@ -24,6 +28,9 @@ export default {
     background_style () {
       return 'background: ' + this.course.color
     }
+  }, 
+  components: {
+    CardFooter
   }
 }
 </script>
@@ -43,14 +50,10 @@ export default {
   cursor: pointer;
 }
 .card-main-content {
-  position: absolute;
-  height: 75%;
   width: 100%;
 }
 .card-info {
-  position: absolute;
-  bottom: 8%;
-  left: 2%;
+
 }
 .card-info p {
   font-family: 'Asul', sans-serif;
