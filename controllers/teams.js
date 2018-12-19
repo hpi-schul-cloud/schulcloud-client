@@ -621,7 +621,11 @@ router.get('/:teamId/members', async function(req, res, next) {
                 $limit: 2000
             }
         });
-        let courseUserIds = course.userIds.map(user => user.userId._id);
+        course.userIds = course.userIds.filter(user => user.userId);
+        let courseUserIds = course.userIds.map(user => {
+                return user.userId._id;
+            }
+        );
 
         course.classes = course.classIds.length > 0 ? (await api(req).get('/classes', {
             qs: {
@@ -837,41 +841,50 @@ router.get('/:teamId/members', async function(req, res, next) {
             ]
         }));
     } catch (e) {
+        console.log(e);
         next(e);
     }
 });
 
 router.post('/:teamId/members', async function(req, res, next) {
-    const courseOld = await api(req).get('/teams/' + req.params.teamId);
-    let userIds = courseOld.userIds.concat(req.body.userIds);
-    let classIds = req.body.classIds;
-
-    await api(req).patch('/teams/' + req.params.teamId, {
-        json: {
-            classIds,
-            userIds
-        }
-    });
-
-    res.sendStatus(200);
+    try {
+        const courseOld = await api(req).get('/teams/' + req.params.teamId);
+        let userIds = courseOld.userIds.concat(req.body.userIds);
+        let classIds = req.body.classIds;
+    
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: {
+                classIds,
+                userIds
+            }
+        });
+    
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);        
+    }
 });
 
 router.patch('/:teamId/members', async function(req, res, next) {
-    const team = await api(req).get('/teams/' + req.params.teamId);
-    const userIds = team.userIds.map(user => {
-        if (user.userId === req.body.user.userId) {
-            user.role = req.body.user.role;
-        }
-        return user;
-    });
+    try {
+        const team = await api(req).get('/teams/' + req.params.teamId);
+        const userIds = team.userIds.map(user => {
+            if (user.userId === req.body.user.userId) {
+                user.role = req.body.user.role;
+            }
+            return user;
+        });
 
-    await api(req).patch('/teams/' + req.params.teamId, {
-        json: {
-            userIds
-        }
-    });
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: {
+                userIds
+            }
+        });
 
-    res.sendStatus(200);
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);        
+    }    
 });
 
 router.post('/external/invite', (req, res) => {
