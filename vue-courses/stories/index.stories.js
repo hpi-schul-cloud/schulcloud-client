@@ -5,26 +5,50 @@ import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
 export const defaultCourse = {
-    "_id": "0000dcfbfb5c7a3f00bf21abc",
-    "name": "Mathe",
-    "color": "lightgrey",
-    "schoolId": "0000d186816abba584714c5f",
-    "teacherIds": [
-      "0000d231816abba584714c9e"
-    ],
-    "userIds": [
-      "0000d213816abba584714c0a",
-      "0000d224816abba584714c9c"
-    ],
-    "updatedAt": "2017-01-01T00:06:37.148+0000",
-    "createdAt": "2017-01-01T00:06:37.148+0000",
-    "classIds": []
-  };
+  "_id": "0000dcfbfb5c7a3f00bf21abc",
+  "name": "Biologie 9b",
+  "description": "Dieser Kurs wurde als Beispiel für den Demo-Zugang erstellt und enthält verschiedene Themen und Inhalte aus dem Fach Biologie! Wir wollen Ihnen dadurch die Breite der Einsatzmöglichkeit der Schul-Cloud im Unterricht aufzeigen! Schauen Sie doch selbst!",
+  "gradeSystem": false,
+  "startDate": "2017-10-26T22:00:00.000+0000",
+  "untilDate": "2018-04-29T22:00:00.000+0000",
+  "times": [
+    {
+      "_id": "5a0ea5c88620d77b4c87e77f",
+      "room": "1.6",
+      "duration": 5400000,
+      "startTime": 36000000,
+      "weekday": 2,
+      "eventId": "0fc1c965-bcc8-4263-a294-6de20b31968f"
+    },
+    {
+      "_id": "5a0ea5c88620d77b4c87e77e",
+      "room": "1.6",
+      "duration": 5400000,
+      "startTime": 36000000,
+      "weekday": 1,
+      "eventId": "fb241b3a-c8ae-4166-90f1-6f3e1d61c85d"
+    }
+  ],
+  "color": "lightgrey",
+  "schoolId": "0000d186816abba584714c5f",
+  "teacherIds": [
+    "599ec1688e4e364ec18ff46e",
+    "59ad4c412b442b7f81810285"
+  ],
+  "userIds": [
+    "0000d213816abba584714c0a",
+    "0000d224816abba584714c9c"
+  ],
+  "updatedAt": "2017-01-01T00:06:37.148+0000",
+  "createdAt": "2017-01-01T00:06:37.148+0000",
+  "classIds": ["59a3c81ca2049554a93fec58"]
+};
 
 
 import MyButton from './MyButton';
 import Welcome from './Welcome';
 import CourseCard from '../src/components/CourseCard'
+import CourseCardHeader from '../src/components/CourseCardHeader'
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },
@@ -44,7 +68,10 @@ storiesOf('CourseCard', module).add('empty', () => ({
   components: { CourseCard },
   template: '<CourseCard/>',
 }));
-
+storiesOf('CourseCardHeader', module).add('empty', () => ({
+  components: { CourseCardHeader },
+  template: '<CourseCardHeader/>',
+}));
 storiesOf('Button', module)
   .add('with text', () => ({
     components: { MyButton },
