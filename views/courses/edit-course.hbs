@@ -2,6 +2,7 @@
 
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="{{ furl '/styles/courses/course.css' }}"/>
+        <link rel="stylesheet" href="{{ furl '/styles/courses/course-edit.css' }}"/>
         <link rel="stylesheet" href="{{ furl '/styles/lib/spectrum/spectrum.css' }}"/>
         <link rel="stylesheet" href="{{ furl '/styles/lib/datetimepicker/jquery.datetimepicker.min.css' }}"/>
     {{/content}}
@@ -37,9 +38,23 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Farbe des Kurses:</label>
-                    <input name="color" type="color"
-                           value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
+                  <label>Farbe des Kurses:</label>
+                  <div class="color-picker">
+                    {{#if course.color}}
+                      <div class="color-picker__item">
+                        <input id="input0" type="radio" class="color-picker__input" name="color" value="{{course.color}}" checked="checked"/>
+                        <label for="input0" class="color-picker__color" style="background: {{course.color}}"></label>
+                      </div>
+                    {{/if}}
+                    {{#each colors}}
+                      {{#ifneq this ../course.color}}
+                        <div class="color-picker__item">
+                          <input id="input{{../this}}" type="radio" class="color-picker__input" name="color" value="{{../this}}" {{#ifeq @index 0}}{{#unless ../../../course.color}}checked="checked"{{/unless}}{{/ifeq}}/>
+                          <label for="input{{../this}}" class="color-picker__color" style="background: {{../this}}"></label>
+                        </div>
+                      {{/ifneq}}
+                    {{/each}}
+                  </div>
                 </div>
 
                 <div class="form-group">

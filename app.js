@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const expiry = require('@tofixx/static-expiry');
+const querystring = require('querystring');
 const session = require('express-session');
 
 // template stuff
@@ -114,7 +115,7 @@ app.use(function (err, req, res, next) {
     res.status(status);
     res.render('lib/error', {
             loggedin: res.locals.loggedin,
-            inline: !res.locals.loggedin
+            inline: res.locals.inline ? true : !res.locals.loggedin
         });
 });
 
