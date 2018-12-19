@@ -9,10 +9,15 @@
                         {{/ifneq}}
                     {{/ifneq}}
                     title="{{this.title}}">
-                    <span class="icon-wrapper">
-                        <i class="fa {{this.icon}}"></i>
-                        {{this.title}}
-                    </span>
+                    <div class="item-wrapper">
+                        {{#if this.img-src}}
+                            <img src="{{this.img-src}}" alt="{{this.img-alt}}">
+                        {{/if}}
+                        {{#if this.icon}}
+                            <i class="fa {{this.icon}}"></i>
+                        {{/if}}
+                        <span>{{this.title}}</span>
+                    </div>
                 </a>
             </div>
         {{/each}}
