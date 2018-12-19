@@ -292,8 +292,19 @@ header {
     float:left;
 }
 
-.window-inline .content-wrapper {
-    padding: 20px !important;
+.window-inline {
+    .content-wrapper {
+        min-height: auto;
+        padding: 20px !important;
+    }
+    .content-min-height{
+        display: block;
+        flex: initial;
+    }
+    .mobile-nav-toggle,
+    .error-header-wrapper button.btn-primary {
+        display: none;
+    }
 }
 
 .content-min-height {
