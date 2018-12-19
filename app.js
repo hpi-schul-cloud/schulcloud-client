@@ -5,7 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const expiry = require('static-expiry');
+const expiry = require('@tofixx/static-expiry');
 const session = require('express-session');
 
 // template stuff
