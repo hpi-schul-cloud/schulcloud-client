@@ -69,7 +69,9 @@
 
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{#unless schoolUsesLdap}}
+                            {{#if schoolUsesLdap}}
+                                {{> "lib/ldap-info"}}
+                            {{else}}
                                 <button type="submit" class="btn btn-primary btn-add-modal">
                                     Lehrer hinzufügen
                                 </button>
@@ -78,7 +80,7 @@
                                         Lehrer importieren
                                     </button>
                                 {{/ifeq}}
-                            {{/unless}}
+                            {{/if}}
                         </div>
                     </div>
                 </div>

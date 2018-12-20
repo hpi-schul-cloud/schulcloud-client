@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         <label>E-Mail-Adresse: *</label>
-                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required {{#if schoolUsesLdap}} readonly {{/if}}>
+                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required {{#if schoolUsesLdap}}readonly{{/if}}>
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">
@@ -134,6 +134,9 @@
                         </div>
                     </div>
                 </form>
+                {{#if schoolUsesLdap}}
+                    {{> "lib/ldap-info"}}
+                {{/if}}
 
 
                 {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
