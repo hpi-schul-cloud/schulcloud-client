@@ -5,7 +5,6 @@ const api = require('../api');
 // schools
 
 router.get('/', async function(req, res, next) {
-
     try {
         let schools = await api(req).get('/schools/', {
             qs: {
@@ -18,7 +17,8 @@ router.get('/', async function(req, res, next) {
         const result = schools.data.map((school) => {
             return {
                 _id : school._id,
-                name: school.name
+                name: school.name,
+                purpose: school.purpose,
             };
         });
 
@@ -29,5 +29,4 @@ router.get('/', async function(req, res, next) {
         return next(error);
     }
 });
-
 module.exports = router;
