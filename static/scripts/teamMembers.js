@@ -149,7 +149,7 @@ $(document).ready(function () {
   const populateSchools = (federalState) => {
     $.ajax({
       type: "GET",
-      url: window.location.origin + "/schools/exc/expert",
+      url: window.location.origin + "/schools",
       data: {
         $limit: false,
         federalState
@@ -158,6 +158,7 @@ $(document).ready(function () {
       let schoolSelect = $('#school');
       schoolSelect.find('option').remove();
       schools.forEach(school => {
+        if (school.purpose === 'expert') return;
         schoolSelect.append(`<option value="${school._id}">${school.name}</option>`);
       });
       schoolSelect.trigger("chosen:updated");
@@ -236,7 +237,7 @@ $(document).ready(function () {
       }
     }).done(function () {
       if (state.method === 'email') {
-        $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);        
+        $.showNotification('Wenn die E-Mail in unserem System existiert, wurde eine Team-Einladungsmail versendet.', "info", true);
       } else {
         $.showNotification('Lehrer erfolgreich zum Team eingeladen', "success", true);
       }
@@ -274,7 +275,7 @@ $(document).ready(function () {
     e.preventDefault();
     let $deleteMemberModal = $('.delete-invitation-modal');
     state.currentInvitationEmail = $(this).parent().parent().find('[data-payload]').data('payload').email;
-    
+
     populateModalForm($deleteMemberModal, {
       title: 'Einladung löschen',
       closeLabel: 'Abbrechen',
@@ -283,7 +284,7 @@ $(document).ready(function () {
 
     let $modalForm = $deleteMemberModal.find(".modal-form");
     $deleteMemberModal.appendTo('body').modal('show');
-  });  
+  });
 
   $('.delete-invitation-modal form').on('submit', function (e) {
     e.stopPropagation();
@@ -302,7 +303,7 @@ $(document).ready(function () {
     });
 
     return false;
-  });  
+  });
 
   /////////////
   // Edit Member
