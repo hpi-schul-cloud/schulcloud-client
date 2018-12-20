@@ -83,6 +83,7 @@ const populateCurrentUser = (req, res) => {
             }}).then(data => {
                 res.locals.currentSchool = res.locals.currentUser.schoolId;
                 res.locals.currentSchoolData = data;
+                res.locals.currentSchoolData.isExpertSchool = data.purpose === 'expert';
                 return data;
             });
         });
@@ -99,7 +100,7 @@ const checkConsent = (req, res) => {
         return Promise.resolve();
     }else{
 		return Promise.reject("firstLogin was not completed, redirecting...");
-	} 
+	}
 };
 
 

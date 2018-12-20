@@ -18,7 +18,7 @@
 
                                     <div class="form-group">
                                         <label>Name der Schule</label>
-                                        <input value="{{../school.name}}" type="text" class="form-control" name="name" placeholder="Einhorn Gymnasium" required {{#if ../schoolUsesLdap}}readonly{{/if}} />
+                                        <input value="{{../school.name}}" type="text" class="form-control" name="name" required {{#if ../schoolUsesLdap}}readonly{{/if}} {{#if ../isExpertSchool}}readonly{{/if}} />
                                     </div>
 
                                     {{#if ../school.fileStorageType}}
@@ -65,7 +65,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                          
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <div class="card h-100 teacher-option" onclick="location.href='/administration/classes/'">

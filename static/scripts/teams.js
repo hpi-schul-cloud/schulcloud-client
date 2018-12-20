@@ -163,47 +163,42 @@ $(document).ready(function () {
     $.ajax({
       url: '/teams/' + $('.section-teams').data('id') + '/json',
       method: 'GET'
-    }).done(function(data) {
-      let filePermission = data.team.filePermission
-      let allowExternalExperts = $('input[name="externalExperts"]').prop('checked')
-      let allowMembers = $('input[name="teamMembers"]').prop('checked')
+    })
+    .done(function(data) {
+      const allowed = {
+        'teamexpert': $('.file-permissions-modal input[name="externalExperts"]').prop('checked'),
+        'teammember': $('.file-permissions-modal input[name="teamMembers"]').prop('checked'),
+      };
 
-      filePermission = filePermission.map(permission => {
-        if (permission.roleName === 'teamexpert') {
-          permission = Object.assign(permission, {
-            create: allowExternalExperts,
-            read: allowExternalExperts,
-            delete: allowExternalExperts,
-            write: allowExternalExperts
-          })
-        } else if (permission.roleName === 'teammember') {
-          permission = Object.assign(permission, {
-            create: allowMembers,
-            read: allowMembers,
-            delete: allowMembers,
-            write: allowMembers
-          })
-        }
+      const filePermission = data.team.filePermission;
 
-        return permission
-      })
+      const newPermission = filePermission
+        .filter(permission => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
+        .map(permission => {
+
+            const setPermission = ['create', 'read', 'delete', 'write'].reduce((obj, right) => {
+                obj[right] = allowed[permission.roleName];
+                return obj;
+            }, {});
+
+            return Object.assign(permission, setPermission);
+        });  
 
       $.ajax({
         url: '/teams/' + $('.section-teams').data('id') + '/permissions',
         method: 'PATCH',
-        data: {
-          filePermission
-        }
-      }).done(function() {
+        data: { filePermission: Object.assign(filePermission, newPermission) }
+      })
+      .done(function() {
         $.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
-        $('.file-permissions-modal').modal('hide')
-      }).fail(function() {
+        $('.file-permissions-modal').modal('hide');
+      })
+      .fail(function() {
         $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
       });
-    }).fail(function() {
+    })
+    .fail(function() {
       $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
     });
-
-    return false;
   });
 });

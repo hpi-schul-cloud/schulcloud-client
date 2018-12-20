@@ -333,11 +333,20 @@ router.get('/:teamId/json', function(req, res, next) {
                 teamId: req.params.teamId
             }
         })
-    ]).then(([roles, team, lessons]) => {
-        team.filePermission = mapPermissionRoles(team.filePermission, roles.data);
+    ]).then(([result, team, lessons]) => {
+        
+        const { data: roles } = result;
+
+        team.filePermission = team.filePermission.map(permission => {
+            const role = roles.find(role => role._id === permission.refId);
+            permission.roleName = role ? role.name : '';
+            return permission;
+        });
+
 
         res.json({ team, lessons });
     }).catch(e => {
+        logger.warn(e);
         res.sendStatus(500);
     });
 });
@@ -353,6 +362,11 @@ router.get('/:teamId/usersJson', function(req, res, next) {
 });
 
 router.get('/:teamId', async function(req, res, next) {
+
+    const isAllowed = function(permissions, role) {
+        const permission = permissions.find(p => p.roleName === role);
+        return Object.keys(permission).every(p => permission[p]);
+    };    
     
     try {
         const roles = (await api(req).get('/roles', {
@@ -373,22 +387,9 @@ router.get('/:teamId', async function(req, res, next) {
 
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
-        const externalExpertsPermission = course.filePermission.find(p => p.roleName === 'teamexpert');
-        let allowExternalExperts, allowTeamMembers; 
-        if (externalExpertsPermission) {
-            allowExternalExperts =  externalExpertsPermission.create &&
-                                    externalExpertsPermission.read &&
-                                    externalExpertsPermission.write &&
-                                    externalExpertsPermission.delete;
-        }
-        const teamMembersPermission = course.filePermission.find(p => p.roleName === 'teammember');
+        const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
+        const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
-        if (teamMembersPermission) {
-            allowTeamMembers = teamMembersPermission.create &&
-                               teamMembersPermission.read &&
-                               teamMembersPermission.write &&
-                               teamMembersPermission.delete;
-        }
 
         let files, directories;
         files = await api(req).get('/fileStorage', {
@@ -541,15 +542,15 @@ router.patch('/:teamId', async function(req, res, next) {
     // });
 });
 
-router.patch('/:teamId/permissions', async function(req, res, next) {
-    try {
-        await api(req).patch('/teams/' + req.params.teamId, {
-            json: req.body
-        });
-        res.sendStatus(200);
-    } catch (e) {
+router.patch('/:teamId/permissions', function(req, res) {
+    api(req).patch('/teams/' + req.params.teamId, {
+        json: req.body
+    })
+    .then(() => res.sendStatus(200))
+    .catch((e) => {
+        logger.warn(e);
         res.sendStatus(500);
-    }    
+    });
 });
 
 router.get('/:teamId/delete', async function(req, res, next) {
@@ -621,7 +622,11 @@ router.get('/:teamId/members', async function(req, res, next) {
                 $limit: 2000
             }
         });
-        let courseUserIds = course.userIds.map(user => user.userId._id);
+        course.userIds = course.userIds.filter(user => user.userId);
+        let courseUserIds = course.userIds.map(user => {
+                return user.userId._id;
+            }
+        );
 
         course.classes = course.classIds.length > 0 ? (await api(req).get('/classes', {
             qs: {
@@ -837,41 +842,50 @@ router.get('/:teamId/members', async function(req, res, next) {
             ]
         }));
     } catch (e) {
+        console.log(e);
         next(e);
     }
 });
 
 router.post('/:teamId/members', async function(req, res, next) {
-    const courseOld = await api(req).get('/teams/' + req.params.teamId);
-    let userIds = courseOld.userIds.concat(req.body.userIds);
-    let classIds = req.body.classIds;
-
-    await api(req).patch('/teams/' + req.params.teamId, {
-        json: {
-            classIds,
-            userIds
-        }
-    });
-
-    res.sendStatus(200);
+    try {
+        const courseOld = await api(req).get('/teams/' + req.params.teamId);
+        let userIds = courseOld.userIds.concat(req.body.userIds);
+        let classIds = req.body.classIds;
+    
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: {
+                classIds,
+                userIds
+            }
+        });
+    
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);        
+    }
 });
 
 router.patch('/:teamId/members', async function(req, res, next) {
-    const team = await api(req).get('/teams/' + req.params.teamId);
-    const userIds = team.userIds.map(user => {
-        if (user.userId === req.body.user.userId) {
-            user.role = req.body.user.role;
-        }
-        return user;
-    });
+    try {
+        const team = await api(req).get('/teams/' + req.params.teamId);
+        const userIds = team.userIds.map(user => {
+            if (user.userId === req.body.user.userId) {
+                user.role = req.body.user.role;
+            }
+            return user;
+        });
 
-    await api(req).patch('/teams/' + req.params.teamId, {
-        json: {
-            userIds
-        }
-    });
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: {
+                userIds
+            }
+        });
 
-    res.sendStatus(200);
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);        
+    }    
 });
 
 router.post('/external/invite', (req, res) => {

@@ -44,8 +44,8 @@
                             <strong>{{ studentsWithoutConsentCount }} von {{ allStudentsCount }}</strong> Schüler in deiner Klasse benötigen noch die Einverständniserklärung zur Nutzung der {{theme.short_title}}.
                             Schüler unter 18 Jahren brauchen zuerst das Einverständnis eines Erziehungsberechtigten, Schüler ab 14 müssen zusätzlich selbst ihr Einverständnis erklären.                        
                         </p>
-                        
                     </div>
+
                     <div class="row mb-2">
                         <div class="col-sm-12 no-padding">
                             <h4>
@@ -60,12 +60,12 @@
                                 <p>
                                     Lass deinen Schülern und deren Eltern individuelle Links zum Erklären des Einverständnisses digital oder analog zukommen. Bei Abschluss der Registrierung wird ein Loginpasswort für den Schüler erstellt.
                                 </p>
-                                <p>Für alle Schüler</strong> ohne vollständige Einverständniserklärung:</p>
+                                <p>Für alle Schüler ohne vollständige Einverständniserklärung:</p>
                                 <p>
-                                    <button class="btn btn-secondary btn-send-links-emails">
+                                    <button data-role="student" class="btn btn-secondary btn-send-links-emails">
                                         Links an Schüler E-Mail Adressen senden
                                     </button>
-                                    <button class="btn btn-secondary btn-print-links">
+                                    <button data-role="student" class="btn btn-secondary btn-print-links">
                                         Link-Druckbogen erstellen
                                     </button>
                                 </p>
@@ -75,6 +75,7 @@
                             {{/if}}
                         </div>
                     </div>
+
                     <div class="row">
                         {{#if schoolUsesLdap}}
                             {{> "lib/ldap-info"}}

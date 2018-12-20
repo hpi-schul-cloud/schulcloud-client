@@ -192,10 +192,12 @@
                         </li>
 
                         {{#if currentSchoolData}}
-                            <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.federalState}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
-                            {{/if}}
+                            {{#unless currentSchoolData.isExpertSchool}}
+                                <li class="nav-item school-data">{{ currentSchoolData.name }}</li>
+                                {{#if currentSchoolData.federalState}}
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.federalState.logoUrl }}">
+                                {{/if}}
+                            {{/unless}}
                         {{/if}}
 
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">

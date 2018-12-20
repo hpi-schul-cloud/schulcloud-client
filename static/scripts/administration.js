@@ -26,7 +26,6 @@ function printInvitations (users) {
     </style>`);
     for (let user of users) {
         const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
-        
         w.document.write(`<div class="part">
                             <div class="image-wrapper" id="user-${user._id}"></div>
                             <h4 style="margin-bottom: 10px">${user.displayName}</h4>
@@ -102,7 +101,7 @@ $(document).ready(function () {
             type: "POST",
             url: window.location.origin+"/administration/registrationlink",
             data: {
-                role: role,
+                role,
                 save: true,
                 schoolId: schoolId,
                 host: window.location.origin
@@ -122,33 +121,6 @@ $(document).ready(function () {
                 $invitationModal.appendTo('body').modal('show');
 
             }
-        });
-    });
-
-    $('.btn-send-links-emails').on('click', function (e) {
-        e.preventDefault();
-        const $this = $(this);
-        
-        const text  = $this.html();
-        $this.html('E-Mails werden gesendet...');
-        $this.attr("disabled", "disabled");
-
-        let schoolId = $invitationModal.find("input[name='schoolId']").val();
-
-        $.ajax({
-            type: "GET",
-            url: window.location.origin+"/administration/students-without-consent/send-email",
-            data: {
-                schoolId,
-            }
-        }).done(function(data) {
-            $.showNotification('Erinnerungs-Emails erfolgreich versendet', "success", true);
-            $this.attr("disabled", false);
-            $this.html(text);
-        }).fail(function (data) {
-            $.showNotification('Fehler beim senden der Erinnerungs-Emails', "danger", true);
-            $this.attr("disabled", false);
-            $this.html(text);
         });
     });
 
@@ -204,21 +176,46 @@ $(document).ready(function () {
         // softNavigate triggers documentReady again duplicating click handlers
         handlerRegistered = true;
 
-        $('.btn-print-links').on('click', function (e) {
+        $('.btn-send-links-emails').on('click', function (e) {
             e.preventDefault();
             const $this = $(this);
-            
             const text  = $this.html();
-            $this.html('Druckbogen wird generiert...');
-            $this.attr("disabled", "disabled");
+            const role  = $this.data('role');
     
-            let schoolId = $invitationModal.find("input[name='schoolId']").val();
+            $this.html('E-Mails werden gesendet...');
+            $this.attr("disabled", "disabled");
     
             $.ajax({
                 type: "GET",
-                url: window.location.origin+"/administration/students-without-consent/get-json",
+                url: window.location.origin+"/administration/users-without-consent/send-email",
                 data: {
-                    schoolId
+                    role
+                }
+            }).done(function(data) {
+                $.showNotification('Erinnerungs-E-Mails erfolgreich versendet', "success", true);
+                $this.attr("disabled", false);
+                $this.html(text);
+            }).fail(function (data) {
+                $.showNotification('Fehler beim senden der Erinnerungs-E-Mails', "danger", true);
+                $this.attr("disabled", false);
+                $this.html(text);
+            });
+        });
+
+        $('.btn-print-links').on('click', function (e) {
+            e.preventDefault();
+            const $this = $(this);
+            const text  = $this.html();
+            const role  = $this.data('role');
+
+            $this.html('Druckbogen wird generiert...');
+            $this.attr("disabled", "disabled");
+    
+            $.ajax({
+                type: "GET",
+                url: window.location.origin+"/administration/users-without-consent/get-json",
+                data: {
+                    role
                 }
             }).done(function(users) {
                 printInvitations(users);

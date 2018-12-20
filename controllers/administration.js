@@ -742,6 +742,7 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
             res.render('administration/school', {
                 title: title + 'Allgemein',
                 school: data,
+                isExpertSchool: data.purpose === "expert",
                 provider,
                 ssoTypes,
                 totalStorage: totalStorage,
@@ -842,15 +843,20 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         qs: query
     }).then(userData => {
         let users = userData.data;
+        let consentsPromise;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {
-            userId: {
-                $in: users.map((user) => {
-                    return user._id;
-                })
-            }
-        });
+        if(users.length > 0) {
+            consentsPromise = getSelectOptions(req, 'consents', {
+                userId: {
+                    $in: users.map((user) => {
+                        return user._id;
+                    })
+                }
+            });
+        } else {
+            consentsPromise = Promise.resolve();
+        }
         Promise.all([
             classesPromise,
             consentsPromise
@@ -1058,17 +1064,22 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         qs: query
     }).then(userData => {
         let users = userData.data;
+        let consentsPromise;
         const allStudentsCount = userData.total;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        const consentsPromise = getSelectOptions(req, 'consents', {
+        if(users.length > 0) {
+            consentsPromise = getSelectOptions(req, 'consents', {
             userId: {
                 $in: users.map((user) => {
                     return user._id;
                 })
             },
             $limit: itemsPerPage
-        });
+            });
+        } else {
+            consentsPromise = Promise.resolve();
+        }
         Promise.all([
             classesPromise,
             consentsPromise
@@ -1122,7 +1133,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
 
-            const studentsWithoutConsent = await getStudentsWithoutConsent(req);
+            const studentsWithoutConsent = await getUsersWithoutConsent(req, 'student');
 
             res.render('administration/students', {
                 title: title + 'Schüler',
@@ -1136,33 +1147,48 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     });
 });
 
-const getStudentsWithoutConsent = async (req) => {
-    const role = await api(req).get('/roles', { qs: { name: 'student' }, $limit: false });
+const getUsersWithoutConsent = async (req, roleName, classId) => {
+    const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
     const qs = { roles: role.data[0]._id };
+    
+    let users = [];
+    
+    if (classId) {
+        const _class = await api(req).get('/classes/' + classId, { 
+            qs: { 
+                $populate: ['teacherIds', 'userIds'],
+            }
+        });
+        users = _class.userIds;
+        users = users.map(user => {
+            user.displayName = `${user.firstName} ${user.lastName}`;
+            return user;
+        });
+    } else {
+        users = (await api(req).get('/users', { qs, $limit: false })).data;
+    }
+    
+    const consents = (await api(req).get('/consents', { $limit: false })).data;
 
-    const [users, consents] = await Promise.all([
-        api(req).get('/users', { qs, $limit: false }),
-        api(req).get('/consents', { $limit: false }),
-    ]);
-
-    const studentsWithoutConsent = users.data.filter(user => {
-        let userWithConsent = consents.data.find(consent => {
+    const usersWithoutConsent = users.filter(user => {
+        let userWithConsent = consents.find(consent => {
             return consent.userId === user._id;
         });
 
         return userWithConsent ? false : true;
     });
 
-    return studentsWithoutConsent;
+    return usersWithoutConsent;
 };
 
 
-router.get('/students-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
-    let usersWithoutConsent = await getStudentsWithoutConsent(req);
+router.get('/users-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    let usersWithoutConsent = await getUsersWithoutConsent(req, 'student', req.query.classId);
+    const role = req.query.role;
 
     usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
         user.registrationLink = await (generateRegistrationLink({
-            role: 'student',
+            role,
             save: true,
             host: req.headers.host || process.env.HOST,
             schoolId: res.locals.currentSchool,
@@ -1202,13 +1228,15 @@ Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${user.registrationL
     }
 });
 
-router.get('/students-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+router.get('/users-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    const role = req.query.role;
+
     try {
-        let usersWithoutConsent = await getStudentsWithoutConsent(req);
+        let usersWithoutConsent = await getUsersWithoutConsent(req, role, req.query.classId);
 
         usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
             user.registrationLink = await (generateRegistrationLink({
-                role: 'student',
+                role,
                 save: true,
                 host: req.headers.host || process.env.HOST,
                 schoolId: res.locals.currentSchool,
@@ -1403,10 +1431,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 });
                 res.render('administration/classes-manage', {
                     title: `Klasse '${currentClass.displayName}' verwalten `,
-                    "class": currentClass,
+                    class: currentClass,
                     classes,
                     teachers,
                     students,
+                    schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
                     schoolyears,
                     notes: [
                         {
@@ -1787,6 +1816,80 @@ router.get('/courses/:id', getDetailHandler('courses'));
 router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('courses'));
 
 router.all('/courses', function (req, res, next) {
+
+    const itemsPerPage = (req.query.limit || 10);
+    const currentPage = parseInt(req.query.p) || 1;
+
+    api(req).get('/courses', {
+        qs: {
+            $populate: ['classIds', 'teacherIds'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
+        }
+    }).then(data => {
+        const head = [
+            'Name',
+            'Klasse(n)',
+            'Lehrer',
+            ''
+        ];
+
+        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+        const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+        const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+
+        Promise.all([
+            classesPromise,
+            teachersPromise,
+            substitutionPromise,
+            studentsPromise
+        ]).then(([classes, teachers, substitutions, students]) => {
+            const body = data.data.map(item => {
+                return [
+                    item.name,
+                    (item.classIds || []).map(item => item.displayName).join(', '),
+                    (item.teacherIds || []).map(item => item.lastName).join(', '),
+                    getTableActions(item, '/administration/courses/').map(action => {
+
+                        return action;
+                    })
+                ];
+            });
+
+            let sortQuery = '';
+            if (req.query.sort) {
+                sortQuery = '&sort=' + req.query.sort;
+            }
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/courses/?p={{page}}' + sortQuery + limitQuery
+            };
+
+            res.render('administration/courses', {
+                title: 'Administration: Kurse',
+                head,
+                body,
+                classes,
+                teachers,
+                substitutions,
+                students,
+                pagination,
+                limit: true
+            });
+        });
+    });
+});
+
+router.all('/teams', function (req, res, next) {
 
     const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;

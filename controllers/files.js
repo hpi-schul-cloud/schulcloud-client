@@ -708,6 +708,7 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async function (req, res, ne
         title: 'Dateien',
         canUploadFile: true,
         canCreateDir: true,
+        canCreateFile: true,
         path: res.locals.files.path,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
@@ -779,15 +780,8 @@ router.get('/classes/:classId/:folderId?', FileGetter, function (req, res, next)
     });
 });
 
-function mapPermissionRoles (permissions, roles) {
-    return permissions.map(permission => {
-        const role = roles.find(role => role._id === permission.refId);
-        permission.roleName = role ? role.name : '';
-        return permission;
-    });
-}
+router.post('/permissions/', function (req, res) {
 
-router.post('/permissions/', function (req, res, next) {
     Promise.all([
         api(req).get('/roles', {
             qs: {
@@ -797,38 +791,45 @@ router.post('/permissions/', function (req, res, next) {
             }
         }),    
         api(req).get('/files/' + req.body.id)
-    ]).then(([roles, file]) => {
+    ]).then(([result, file]) => {
+
         if (!file) {
             res.json({});
             return;
         }
         
+        const { data: roles } = result;
+
         file.shareToken = file.shareToken || shortid.generate();
-        api(req).patch("/files/" + file._id, {json: file}).then(filePermission => {
-            filePermission.permissions = mapPermissionRoles(filePermission.permissions, roles.data);
-            res.json(filePermission);
+        api(req).patch("/files/" + file._id, {json: file}).then(file => {
+            
+            file.permissions = file.permissions.map(permission => {
+                const role = roles.find(role => role._id === permission.refId);
+                permission.roleName = role ? role.name : '';
+                return permission;
+            });
+            
+            res.json(file);
         });
     });
 });
 
-router.patch('/permissions/', async function (req, res, next) {
-    try {
-        for (const permission of req.body.permissions) {
-            if (permission.roleName) {
-                const json = {
-                    role: permission.roleName,
-                    read: permission.read,
-                    write: permission.write,
-                    create: permission.create,
-                    delete: permission.delete
-                };
-                await api(req).patch(`/fileStorage/permission/${req.body.fileId}`, { json });
-            }
-        }
-        res.sendStatus(200);
-    } catch (e) {
-        res.sendStatus(500);
-    }
+router.patch('/permissions/', function (req, res) {
+    const apiPromises = req.body.permissions
+        .map(p => ({
+            role: p.roleName,
+            read: p.read,
+            write: p.write,
+            create: p.create,
+            delete: p.delete
+        }))
+        .map(json => {
+            return api(req).patch(`/fileStorage/permission/${req.body.fileId}`, { json });
+        });
+
+    Promise.all(apiPromises)
+        .then(() => res.sendStatus(200))
+        .catch(() => res.sendStatus(500));
 });
 
 router.get('/search/', function (req, res, next) {
@@ -853,41 +854,48 @@ router.get('/search/', function (req, res, next) {
 });
 
 /** fetch all personal folders and all course folders in a directory-tree **/
-router.get('/permittedDirectories/', function (req, res, next) {
+router.get('/permittedDirectories/', async (req, res) => {
+    const extractor = ({_id, name}) => ({_id, name, children:[] });
 
     const directoryTree = [{
         name: 'Meine Dateien',
         model: 'user',
-        children: []
+        children: [{
+            name: 'Persönliche Dateien',
+            _id: res.locals.currentUser._id,
+            children: []
+        }]
     }, {
         name: 'Meine Kurs-Dateien',
         model: 'course',
-        children: []
+        children: (await getScopeDirs(req, res, 'courses')).map(extractor)
     }, {
         name: 'Meine Team-Dateien',
         model: 'teams',
-        children: []
+        children: (await getScopeDirs(req, res, 'teams')).map(extractor)
     }];
 
-
     api(req).get('/fileStorage/directories').then(directories => {
-        return Promise.all(directories.map(dir => {
-            if (dir) {
-                return getDirectoryTree(req, dir);
-            } else {
-                return undefined;
-            }
-        }));
+        const promises = directories
+                .filter(dir => dir)
+                .map(dir => getDirectoryTree(req, dir));
+
+        return Promise.all(promises);
     })
     .then(directories => {
-        directories = directories.filter(d => d);
-        res.json(directoryTree.map((tree) => {
-            tree.children = directories.filter(dir => dir.refOwnerModel === tree.model);
-            return tree;
-        }));
+        
+        directoryTree.forEach(tree => {
+            tree.children.forEach(child => {
+                child.children = directories.filter(dir => {
+                    return dir.owner === child._id && dir.refOwnerModel === tree.model;
+                });
+            });    
+        });
+        
+        res.json(directoryTree);
     })
     .catch(err => {
-        console.log(err)
+        console.log(err);
         res.sendStatus(500);
     });
 });
