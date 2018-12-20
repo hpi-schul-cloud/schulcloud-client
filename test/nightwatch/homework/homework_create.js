@@ -45,8 +45,8 @@ module.exports = {
           .click('#extended > div.homework > a.btn.btn-secondary.btn-delete')
           .waitForElementVisible('.delete-modal');
         browser.useXpath()
-          .waitForElementVisible('/html/body/div[7]/div/div/div[2]/button[2]', 1000)
-          .click('/html/body/div[7]/div/div/div[2]/button[2]')
+          .waitForElementVisible('//div[@id = "modal-delete-homework-footer"][1]//button[2]', 1000)
+          .click('//div[@id = "modal-delete-homework-footer"][1]//button[2]')
           .pause(1000);
     },
     'Schul-Cloud End': function (browser) {
