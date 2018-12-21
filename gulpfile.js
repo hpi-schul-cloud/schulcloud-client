@@ -264,6 +264,7 @@ gulp.task('generate-service-worker',
       templatedUrls: {
         '/calendar/': [
           '../../views/calendar/calendar.hbs',
+          '../../views/lib/loggedin.hbs'
          ]
       },
     })
@@ -327,9 +328,9 @@ gulp.task('browser-sync', ['nodemon'], function() {
 gulp.task('nodemon', function (cb) {
 	var started = false;
 	return nodemon({
-    ext: 'js hbs',
+    ext: 'js hbs json',
     script: './bin/www',
-    watch: ['views/', 'controllers/'],
+    watch: ['views/', 'controllers/', 'helpers'],
     exec: "node --inspect=9310",
 	}).on('start', function () {
 

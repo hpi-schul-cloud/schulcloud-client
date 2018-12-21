@@ -39,7 +39,7 @@ body {
             color: #777;
             font: normal normal normal 2em/1 FontAwesome;
             opacity: 0;
-            transform: translate(-50%, -50%), rotate(0deg);
+            transform: translate(-50%, -50%) rotate(0deg);
             animation: loading-spinner 2.5s infinite linear 2s;
         }
     }
@@ -119,8 +119,8 @@ aside.nav-sidebar {
         .cloud-logo {
             display: inline-block;
             vertical-align: top;
-            width: 45px;
-            height: 30px;
+            width: 54px;
+            height: 36px;
             margin-bottom: -5px;
             margin-right: 0.25rem;
             background: $logoBackground;
@@ -292,8 +292,19 @@ header {
     float:left;
 }
 
-.window-inline .content-wrapper {
-    padding: 20px !important;
+.window-inline {
+    .content-wrapper {
+        min-height: auto;
+        padding: 20px !important;
+    }
+    .content-min-height{
+        display: block;
+        flex: initial;
+    }
+    .mobile-nav-toggle,
+    .error-header-wrapper button.btn-primary {
+        display: none;
+    }
 }
 
 .content-min-height {
@@ -326,11 +337,6 @@ header {
 
     @include media-breakpoint-down(xs) {
         padding-left: 0px;
-    }
-
-    .federal-state {
-        height: 35px;
-        margin-left: 8px !important;
     }
 
     .section-default {
@@ -561,6 +567,41 @@ footer {
         padding-left: 5px!important;
         padding-right: 5px!important;
     }
+    .btn-avatar{
+      .dropdown-menu{
+        min-width: 12rem;
+        .dropdown-item {
+          padding: 8px 1.5rem;
+        }
+      }
+
+      .dropdown-toggle{
+          padding: 0 !important;
+          border-radius: 50%;
+          border: none;
+          margin-left: -.75rem;
+          background: transparent;
+
+          .avatar-circle{
+              background-color: $fontColor;
+          }
+
+          .avatar-circle:hover{
+              background-color: $colorDarkerGrey !important;
+          }
+
+          &:after{
+              display: none;
+          }
+      }
+      .dropdown-name{
+        text-align: left;
+        padding: 5px 15px 10px 15px;
+        border-bottom: solid 1px lightgrey;
+        margin-bottom: 5px;
+        cursor: default;
+      }
+    }
     .minimal-button{
         .dropdown-toggle{
             padding: 10px !important;
@@ -701,11 +742,30 @@ footer {
         display: none;
     }
 
-.form-group {
-    sup {
+    .form-group sup {
         color: red;
         font-size: 16px;
     }
 }
 
+@mixin avatar($size)
+{
+    width: $size;
+    height: $size;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    .initials {
+      position: relative;
+      top: $size*0.3;
+      font-size: $size*0.5;
+      line-height: $size*0.4;
+      color: #fff;
+      font-weight: bold;
+    }
 }
+
+.avatar-circle      { @include avatar(40px); }
+.avatar-circle-sm   { @include avatar(25px); }
+.avatar-circle-lg   { @include avatar(100px); }
