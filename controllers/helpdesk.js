@@ -26,11 +26,13 @@ router.post('/', function (req, res, next) {
             currentState: req.body.currentState,
             targetState: req.body.targetState,
             schoolName: res.locals.currentSchoolData.name,
-            userId: res.locals.currentUser._id,
             email: req.body.email,
             schoolId: res.locals.currentSchoolData._id,
             cloud: res.locals.theme.title,
-            metadata: req.headers["user-agent"]
+            metadata: req.headers["user-agent"],
+            currentRole: res.locals.currentRole,
+            currentUser: res.locals.currentUser,
+            currentSchool: res.locals.currentSchoolData
         }
     })
     .then(_ => {
