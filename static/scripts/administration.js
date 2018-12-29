@@ -119,7 +119,6 @@ $(document).ready(function () {
                 });
 
                 $invitationModal.appendTo('body').modal('show');
-
             }
         });
     });

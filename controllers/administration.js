@@ -1894,39 +1894,33 @@ router.all('/teams', function (req, res, next) {
     const itemsPerPage = (req.query.limit || 10);
     const currentPage = parseInt(req.query.p) || 1;
 
-    api(req).get('/courses', {
+    api(req).get('/teams/manage/admin', {
         qs: {
-            $populate: ['classIds', 'teacherIds'],
+            $populate: ['userIds'],
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
             $sort: req.query.sort
         }
     }).then(data => {
+
         const head = [
             'Name',
             'Klasse(n)',
-            'Lehrer',
             ''
         ];
 
         const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-        const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+        const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
 
         Promise.all([
             classesPromise,
-            teachersPromise,
-            substitutionPromise,
-            studentsPromise
-        ]).then(([classes, teachers, substitutions, students]) => {
-            const body = data.data.map(item => {
+            usersPromise
+        ]).then(([classes, users]) => {
+            const body = data.map(item => {
                 return [
                     item.name,
                     (item.classIds || []).map(item => item.displayName).join(', '),
-                    (item.teacherIds || []).map(item => item.lastName).join(', '),
-                    getTableActions(item, '/administration/courses/').map(action => {
-
+                    getTableActions(item, '/administration/teams/').map(action => {
                         return action;
                     })
                 ];
@@ -1945,23 +1939,49 @@ router.all('/teams', function (req, res, next) {
             const pagination = {
                 currentPage,
                 numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/courses/?p={{page}}' + sortQuery + limitQuery
+                baseUrl: '/administration/teams/?p={{page}}' + sortQuery + limitQuery
             };
 
-            res.render('administration/courses', {
-                title: 'Administration: Kurse',
+            res.render('administration/teams', {
+                title: 'Administration: Teams',
                 head,
                 body,
                 classes,
-                teachers,
-                substitutions,
-                students,
+                users,
                 pagination,
                 limit: true
             });
         });
     });
 });
+
+router.get('/teams/:id', (req, res, next) => {
+    api(req).get('/teams/manage/admin/' + req.params.id).then(data => {
+        res.json(mapEventProps(data));
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.patch('/teams/:id', (req, res, next) => {
+    api(req).patch('/teams/manage/admin/' + req.params.id, {
+        userId: req.body.userId
+    }).then(data => {
+        res.redirect('/administration/teams/');
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.delete('/teams/:id', (req, res, next) => {
+    api(req).delete('/teams/manage/admin/' + req.params.id).then(data => {
+        res.redirect('/administration/teams/');
+    }).catch(err => {
+        next(err);
+    });
+});
+
+
 
 /*
     SYSTEMS
