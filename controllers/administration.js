@@ -428,10 +428,18 @@ const getCSVImportHandler = () => {
                 },
             });
             const numberOfUsers = (stats.users.successful || 0) + (stats.users.failed || 0);
-            req.session.notification = {
-                type: stats.users.successful ? 'success' : 'info',
-                message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`
-            };
+            if (stats.successful) {
+                req.session.notification = {
+                    type: 'success',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
+                };
+            } else {
+                const errors = stats.errors.map(err => `${err.entity} (${err.message})`).join(', ');
+                req.session.notification = {
+                    type: 'warning',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler: ${errors}`,
+                };
+            }
             res.redirect(req.header('Referer'));
             return;
         } catch (err) {
@@ -1150,12 +1158,12 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
     const qs = { roles: role.data[0]._id };
-    
+
     let users = [];
-    
+
     if (classId) {
-        const _class = await api(req).get('/classes/' + classId, { 
-            qs: { 
+        const _class = await api(req).get('/classes/' + classId, {
+            qs: {
                 $populate: ['teacherIds', 'userIds'],
             }
         });
@@ -1167,7 +1175,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
     } else {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
-    
+
     const consents = (await api(req).get('/consents', { $limit: false })).data;
 
     const usersWithoutConsent = users.filter(user => {
@@ -1246,7 +1254,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
 
             return Promise.resolve(user);
         }));
-        
+
         res.json(usersWithoutConsent);
     } catch (err) {
         res.status((err.statusCode || 500)).send(err);
