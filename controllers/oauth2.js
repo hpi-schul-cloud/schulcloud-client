@@ -28,7 +28,7 @@ router.get('/login/success', csrfProtection, auth.authChecker, (req, res, next) 
   api(req).patch('/oauth2/loginRequest/' + req.session.login_challenge + '/?accept=1',
     {body}).then(loginRequest => {
       delete(req.session.login_challenge);
-        res.redirect(loginRequest.redirect_to);
+	res.redirect(loginRequest.redirect_to);
     });
 });
 
