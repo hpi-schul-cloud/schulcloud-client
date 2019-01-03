@@ -82,7 +82,7 @@ describe('Homework tests', function () {
                 .get('/homework/59cce1d381297026d02cdc4b')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain("Private Aufgabe von Ida");
+                    expect(res.text).to.contain("Private Aufgabe von Marla");
                     resolve();
                 });
         });
@@ -93,7 +93,7 @@ describe('Homework tests', function () {
                 .get('/homework/59d1f63ce0a06325e8b5288b')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
-                    expect(res.text).to.contain("Aufgabe an Ida");
+                    expect(res.text).to.contain("Aufgabe an Marla");
                     resolve();
                 });
         });

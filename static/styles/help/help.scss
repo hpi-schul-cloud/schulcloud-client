@@ -4,8 +4,8 @@
 @import "./icon-link-group";
 
 /********************************************************
- * iFrame (for confluence integration)
- ********************************************************/
+* iFrame (for confluence integration)
+********************************************************/
 iframe.full {
   width: 100%;
   min-height: 500px;
@@ -13,8 +13,8 @@ iframe.full {
 }
 
 /********************************************************
- * FORM
- ********************************************************/
+* FORM
+********************************************************/
 // wrapper
 label.form-group {
   display: block;
@@ -112,16 +112,17 @@ fieldset.switch_wrapper {
 
 
 /********************************************************
- * Cards
- ********************************************************/
+* Cards
+********************************************************/
 //table-of-contents
 .table-of-contents-card {
   background: $primaryColor;
   color: $colorWhite;
 
-  .icon-card__content{
+  .icon-card__content {
     border-color: transparent;
   }
+
   .icon-card__title:before {
     border-bottom-color: $colorWhite;
   }
@@ -162,13 +163,13 @@ fieldset.switch_wrapper {
 
     .collapse__title {
       display: block;
+      border: 0;
       background: none;
-      border: none;
-      box-sizing: border-box;
-      width: 100%;
       padding: 12px 20px 12px 0;
+      width: 100%;
       text-align: left;
       font-size: 1.2em;
+      box-sizing: border-box;
 
       h5 {
         display: inline;
@@ -226,7 +227,8 @@ fieldset.switch_wrapper {
         border-color: $colorWhite;
         color: $colorWhite;
 
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           background-color: $colorWhite;
           color: $accentColor;
         }
