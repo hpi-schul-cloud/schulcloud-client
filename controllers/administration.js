@@ -428,7 +428,7 @@ const getCSVImportHandler = () => {
                 },
             });
             const numberOfUsers = (stats.users.successful || 0) + (stats.users.failed || 0);
-            if (stats.successful) {
+            if (stats.success) {
                 req.session.notification = {
                     type: 'success',
                     message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
