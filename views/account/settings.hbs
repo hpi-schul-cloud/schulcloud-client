@@ -76,67 +76,67 @@
                 {{> "lib/forms/password-hint" plaintext=false style="display: inline;"}}
             </span>
         </div>
-<!-- the following is hidden until the feature is fixed
 
-        <div class="panel-group notification-div">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>Benachrichtigungseinstellungen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
-                </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse">
+        {{#if false}} <!-- the following is hidden until the feature is fixed -->
+            <div class="panel-group notification-div">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>Benachrichtigungseinstellungen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+                    </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
 
-                    <div class="notification">
-                        {{#if device}}
-                            <table width="100%" cellpadding="5px">
-                                <thead>
-                                <th></th>
-                                <th><label>Name</label></th>
-                                <th><label>Typ</label></th>
-                                <th><label>Betriebssystem</label></th>
-                                </thead>
-                                <tbody>
-                                {{#each device}}
-                                    <tr id="{{this._id}}">
-                                        <td>{{#if this.selected}}<a href="/account/settings/device"
-                                                                    target="_blank"
-                                                                    data-method="delete"
-                                                                    data-device-name="{{this.name}}"
-                                                                    data-device-id="{{this.token}}">
-                                            <i class="fa fa-trash-o"></i></a>
-                                        {{/if}}</td>
-                                        <td class="form-group">{{this.name}}</td>
-                                        <td class="form-group">{{this.type}}</td>
-                                        <td class="form-group">{{this.OS}}</td>
-                                    </tr>
-                                {{/each}}
-                                </tbody>
-                            </table>
-                        {{else}}
-                            <h5 class="text-muted text-center">
-                                <span>Keine Geräte eingetragen</span>
-                            </h5>
-                        {{/if}}
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-default btn-device"
-                                    onclick="pushManager.requestPermission()">
-                                <i class="fa fa-bell" aria-hidden="true"></i>
-                                Benachrichtigungen
-                                aktivieren
-                            </button>
+                        <div class="notification">
+                            {{#if device}}
+                                <table width="100%" cellpadding="5px">
+                                    <thead>
+                                    <th></th>
+                                    <th><label>Name</label></th>
+                                    <th><label>Typ</label></th>
+                                    <th><label>Betriebssystem</label></th>
+                                    </thead>
+                                    <tbody>
+                                    {{#each device}}
+                                        <tr id="{{this._id}}">
+                                            <td>{{#if this.selected}}<a href="/account/settings/device"
+                                                                        target="_blank"
+                                                                        data-method="delete"
+                                                                        data-device-name="{{this.name}}"
+                                                                        data-device-id="{{this.token}}">
+                                                <i class="fa fa-trash-o"></i></a>
+                                            {{/if}}</td>
+                                            <td class="form-group">{{this.name}}</td>
+                                            <td class="form-group">{{this.type}}</td>
+                                            <td class="form-group">{{this.OS}}</td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <h5 class="text-muted text-center">
+                                    <span>Keine Geräte eingetragen</span>
+                                </h5>
+                            {{/if}}
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-default btn-device"
+                                        onclick="pushManager.requestPermission()">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                    Benachrichtigungen
+                                    aktivieren
+                                </button>
 
-                            <button type="button" class="btn btn-default send-test-notification">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                Test-Benachrichtigung
-                                senden
-                            </button>
+                                <button type="button" class="btn btn-default send-test-notification">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    Test-Benachrichtigung
+                                    senden
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
--->
+        {{/if}}
 
         {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
             {{#content "body"}}
