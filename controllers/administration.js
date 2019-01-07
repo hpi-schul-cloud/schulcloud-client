@@ -434,10 +434,17 @@ const getCSVImportHandler = () => {
                     message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
                 };
             } else {
-                const errors = stats.errors.map(err => `${err.entity} (${err.message})`).join(', ');
+                const whitelist = ['file', 'user', 'class'];
+                let errorText = stats.errors
+                    .filter(err => whitelist.includes(err.type))
+                    .map(err => `${err.entity} (${err.message})`)
+                    .join(', ');
+                if (errorText === '') {
+                    errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+                }
                 req.session.notification = {
                     type: 'warning',
-                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler: ${errors}`,
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
                 };
             }
             res.redirect(req.header('Referer'));
