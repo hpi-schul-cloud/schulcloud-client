@@ -434,7 +434,7 @@ const getCSVImportHandler = () => {
                     message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
                 };
             } else {
-                const whitelist = ['file', 'user', 'class'];
+                const whitelist = ['file', 'user', 'invitation', 'class'];
                 let errorText = stats.errors
                     .filter(err => whitelist.includes(err.type))
                     .map(err => `${err.entity} (${err.message})`)
