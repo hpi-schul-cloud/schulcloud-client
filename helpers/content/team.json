@@ -269,7 +269,7 @@
         "title": "",
         "firstName": "Arne",
         "lastName": "Oberländer",
-        "position": "Content Manager, HPI",
+        "position": "Educational Knowledge Engineer, HPI",
         "description": "Arne ist Physiker (Diplom, TU Berlin) und war bisher Physikdidaktiker und Produktentwickler einer Reihe von Web- und Elearning-Projekten. Er managt im Team der HPI Schul-Cloud das Content-Angebot von der ersten Idee bis zur Tür der Entwickler. Privat engagiert er sich im Projekt \"Schulkontext.de\", spielt Volleyball, oder programmiert erfrischende Synthesizersounds.",
         "pictureUrl": "/images/team/Arne_Oberländer.jpg",
         "priority": 0,
@@ -317,21 +317,6 @@
         "position": "Projektreferentin und wissenschaftliche Mitarbeiterin, HPI",
         "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem HPI Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
         "pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Matthias",
-        "lastName": "Wiesner",
-        "position": "Admin, HPI",
-        "description": "Matthias hat an der FH Brandenburg und der FH Potsdam studiert und ist nun als Web-Administrator am HPI angestellt. Für das HPI Schul-Cloud Projekt baut er an der IT Infrastruktur und hält diese am Leben. Ein Kesselflicker eben.<br>Die Freizeit verbringt er mit der Familie und schaut lustige Filme, wenn er nicht gerade in einer Bar sitzt.",
-        "pictureUrl": "/images/team/Matthias_Wiesner.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -548,6 +533,21 @@
       },
       {
         "title": "",
+        "firstName": "Christopher",
+        "lastName": "Eschenbecher",
+        "position": "Studentische Hilfskraft",
+        "description": "Christopher hat in Regensburg das Studium in Medieninformatik erfolgreich abgeschlossen und im Anschluss daran als Entwickler für Trivago in Düsseldorf gearbeitet. Im Moment absolviert er Design Thinking als 'Fortbildung' am HPI und arbeitet nebenbei als Werkstudent an der HPI Schul-Cloud. Seine Aufgabe ist es, diese sowohl für Lehrer als auch Schüler attraktiv zu gestalten. Somit ist seine Arbeit für die HPI Schul-Cloud eine perfekte Ergänzung zum Design Thinking Studium. Wenn Christopher ausnahmsweise nicht am HPI anzutreffen ist, fährt er Fahrrad, kocht, oder betreibt Yoga.",
+        "pictureUrl": "/images/team/Christopher_Eschenbecher.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
         "firstName": "Dominik",
         "lastName": "Glandorf",
         "position": "Studentische Hilfskraft",
@@ -568,36 +568,6 @@
         "position": "Studentische Hilfskraft",
         "description": "Dominik war Teil des Bachelorprojektes 2017/2018, dort schrieb er Blogbeiträge und arbeitete am Content-Editor. Seit August 2018 ist er Studentische Hilfskraft und unterstützt bei der HPI Schul-Cloud-Entwicklung. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
         "pictureUrl": "/images/team/Dominik_Jaekel.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Michael",
-        "lastName": "Janke",
-        "position": "Student",
-        "description": "Michael schreibt seine Masterarbeit im Projekt HPI Schul-Cloud. Nicht nur sein Studium am HPI, auch seine Erfahrungen durch die Tätigkeit an einem Gymnasium als Administrator und technischer Berater gehen mit in die Arbeit an der HPI Schul-Cloud ein. Dabei entstand die Idee der Entwicklung einer Ablagezone für nicht-formalisierte Interaktion. Bilder oder andere Medien sollen einfach in eine gemeinsame Ablage geteilt werden können. Auch sollen Inhalte einfach auf einer digitalen Tafel angezeigt werden können. In seiner Freizeit verbindet er sein Studium mit seinen handwerklichen Fähigkeiten. 3D-Drucken, Smart-Home, aber auch Hammer und Wasserwaage sind keine Fremdworte für ihn. Zum Ausspannen wandert Michael gerne in der Natur und sucht dafür immer neue Orte und Abenteuer.",
-        "pictureUrl": "/images/team/Michael_Janke.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Jonas",
-        "lastName": "Keutel",
-        "position": "Student",
-        "description": "Jonas schreibt seine Masterarbeit im Projekt HPI Schul-Cloud. Der Schwerpunkt in seinem Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Die Idee hinter seiner Masterarbeit ist Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. ",
-        "pictureUrl": "/images/team/Jonas_Keutel.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -849,6 +819,36 @@
         "position": "Ehem. Bachelorstudent",
         "description": "Max war Teil des Bachelorprojekts 2017/2018 und beschäftigt sich mit Contenterstellung für Lehrkräfte. Nebenbei philosophiert er gerne über die Zukunft der Bildung inner- und außerhalb der Cloud. In seiner Freizeit macht er mit Freunden Musik, und ist auf der Suche nach Abenteuer, guten Büchern und Gott.",
         "pictureUrl": "/images/team/Max_Haubold.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Michael",
+        "lastName": "Janke",
+        "position": "Ehem. Masterstudent",
+        "description": "Michael hat seine Masterarbeit im Projekt HPI Schul-Cloud geschrieben. Nicht nur sein Studium am HPI, auch seine Erfahrungen durch die Tätigkeit an einem Gymnasium als Administrator und technischer Berater gingen mit in die Arbeit an der HPI Schul-Cloud ein. Dabei entstand die Idee der Entwicklung einer Ablagezone für nicht-formalisierte Interaktion. Bilder oder andere Medien sollen einfach in eine gemeinsame Ablage geteilt werden können. Auch sollen Inhalte einfach auf einer digitalen Tafel angezeigt werden können. In seiner Freizeit verbindet er sein Studium mit seinen handwerklichen Fähigkeiten. 3D-Drucken, Smart-Home, aber auch Hammer und Wasserwaage sind keine Fremdworte für ihn. Zum Ausspannen wandert Michael gerne in der Natur und sucht dafür immer neue Orte und Abenteuer.",
+        "pictureUrl": "/images/team/Michael_Janke.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+      {
+        "title": "",
+        "firstName": "Jonas",
+        "lastName": "Keutel",
+        "position": "Ehem. Masterstudent",
+        "description": "Jonas hat seine Masterarbeit im Projekt HPI Schul-Cloud geschrieben. Der Schwerpunkt in seinem Studium liegt neben der Webentwicklung in letzter Zeit immer mehr auf dem Design Thinking. Die Idee hinter seiner Masterarbeit ist Lehrer bei der Planung und vor allem dem Teilen ihrer Unterrichtsstunden sowie Unterrichtsreihen zu unterstützen. Durch eine Bereitstellung der Unterrichtsplanung kann eine Diskussion sowie eine Mix-and-Match-Mentalität hervorgerufen werden, die der Qualität des Unterrichts nur guttun kann. Abseits des Studiums findet man Jonas meistens auf Fußballplätzen oder auf der Suche nach neuen Reisezielen. ",
+        "pictureUrl": "/images/team/Jonas_Keutel.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
