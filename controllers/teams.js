@@ -374,7 +374,7 @@ router.get('/:teamId', async function(req, res, next) {
         let rocketChatChannelName;
         try{
             const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
-            rocketChatChannelName = rocketChatChannel.name;
+            rocketChatChannelName = rocketChatChannel.channelName;
         }
         catch(e) {
             logger.warn(e);
