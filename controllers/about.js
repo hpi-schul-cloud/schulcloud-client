@@ -5,6 +5,9 @@ const authHelper = require('../helpers/authentication');
 
 // Schools
 const schools = require('../helpers/content/schools.json');
+let hiddenBPSchools = schools.bp.splice(4);
+let hiddenSchoolsMarch2017 = schools.march2017.splice(4);
+let hiddenSchoolsMai2018 = schools.mai2018.splice(4);
 
 router.get('/', function (req, res, next) {
 
@@ -20,8 +23,11 @@ router.get('/', function (req, res, next) {
         res.render(template, {
             title: 'Projekt',
             inline: !!template.includes('guest'),
-            schools
-        })
+            schools: schools,
+            hiddenBPSchools: hiddenBPSchools,
+            hiddenSchoolsMarch2017: hiddenSchoolsMarch2017,
+            hiddenSchoolsMai2018: hiddenSchoolsMai2018
+        }),
     );
 });
 

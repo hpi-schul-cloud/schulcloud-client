@@ -31,6 +31,23 @@
                         </div>
                     </div>
                 {{/each}}
+                <div class="col-xs-12">
+                    <div id="hiddenBPSchools" class="collapse row">
+                        {{#each hiddenBPSchools}}
+                            <div class="partner-box-wrapper col-xs-6 col-md-3">
+                                <div class="partner-box">
+                                    <a href="{{{url}}}" target="_blank">
+                                        <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                    </a>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="buttonWrapper">
+                    <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenBPSchools">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                </div>
             </div>
         </div>
 
@@ -47,10 +64,26 @@
                     </div>
                 </div>
             {{/each}}
+            <div class="col-xs-12">
+                <div id="hiddenSchoolsMarch2017" class="collapse row">
+                    {{#each hiddenSchoolsMarch2017}}
+                        <div class="partner-box-wrapper col-xs-6 col-md-3">
+                            <div class="partner-box">
+                                <a href="{{{url}}}" target="_blank">
+                                    <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                        {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                </a>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="buttonWrapper">
+                <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsMarch2017">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+            </div>
         </div>
-    </div>
-        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start Mai 2018)</span></h5>
 
+        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start Mai 2018)</span></h5>
         <div class="container">
             <div class="row">
                 {{#each schools.mai2018}}
@@ -63,6 +96,23 @@
                         </div>
                     </div>
                 {{/each}}
+                <div class="col-xs-12">
+                    <div id="hiddenSchoolsMai2018" class="collapse row">
+                        {{#each hiddenSchoolsMai2018}}
+                            <div class="partner-box-wrapper col-xs-6 col-md-3">
+                                <div class="partner-box">
+                                    <a href="{{{url}}}" target="_blank">
+                                        <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                    </a>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="buttonWrapper">
+                    <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsMai2018">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                </div>
             </div>
         </div>
     </div>

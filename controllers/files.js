@@ -468,15 +468,17 @@ router.post('/directory', function (req, res, next) {
 
     const basePath = dir;
     const dirName = name || 'Neuer Ordner';
-    api(req).post('/fileStorage/directories', {
-        json: {
-            path: basePath + dirName,
-        }
-    }).then(_ => {
-        res.sendStatus(200);
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
-    });
+    const path = `${basePath}${dirName}`;
+
+	api(req).post('/fileStorage/directories', {
+		json: {
+			path,
+		}
+	}).then(_ => {
+		res.sendStatus(200);
+	}).catch(err => {
+		res.status((err.statusCode || 500)).send(err);
+	});
 });
 
 // delete directory
@@ -566,7 +568,7 @@ router.get('/', function (req, res, next) {
     */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            showSearch: true                                            
+            showSearch: true
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
