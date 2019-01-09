@@ -107,6 +107,9 @@ body {
         }
     }
     aside{
+        .card-block {
+            padding: 1rem 1.25rem;
+        }
         .card-title{
             break-word: break-all;
         }
