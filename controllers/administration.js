@@ -450,6 +450,10 @@ const getCSVImportHandler = () => {
             res.redirect(req.header('Referer'));
             return;
         } catch (err) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+            };
             res.redirect(req.header('Referer'));
             return;
         }
