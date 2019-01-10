@@ -427,7 +427,7 @@ const getCSVImportHandler = () => {
                     data: csvData,
                 },
             });
-            const numberOfUsers = (stats.users.successful || 0) + (stats.users.failed || 0);
+            const numberOfUsers = stats.users.successful + stats.users.failed;
             if (stats.success) {
                 req.session.notification = {
                     type: 'success',
