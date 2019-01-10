@@ -87,7 +87,7 @@ $(document).ready(function() {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-                .fail(showAJAXError);
+                .fail((err) => { this.removeFile(file); showAJAXError(err.responseJSON.error.code, err.responseJSON.error.message, `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`); });
         },
         createImageThumbnails: false,
         method: 'put',
