@@ -169,8 +169,9 @@
 								</thead>
 								<tbody>
 								{{#each session}}
-									<tr id="{{this.consent_request.challenge}}">
-										<td></td>
+									<tr id="{{this.consent_request.client.client_id}}">
+										<td><a href="/account/oauth2/revoke/{{this.consent_request.client.client_id}}">
+											<i class="fa fa-trash-o"></i></a></td>
 										<td class="form-group">{{this.consent_request.client.client_name}}</td>
 									</tr>
 								{{/each}}

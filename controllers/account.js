@@ -66,6 +66,15 @@ router.delete('/settings/device', function (req, res, next) {
     });
 });
 
+// revoke oauth2 session
+router.get('/oauth2/revoke/:client', function (req, res, next) {
+	api(req).delete(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}?client=${req.params.client}`).then(_ => {
+		res.redirect('/account');
+	}).catch(err => {
+		res.send(err);
+	});
+});
+
 router.get('/user', function (req, res, next) {
     res.locals.currentUser.schoolName = res.locals.currentSchoolData.name;
     res.json(res.locals.currentUser);
