@@ -27,7 +27,7 @@ describe('Homework tests', function () {
     // OVERVIEW PAGES
     it('GET /homework', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -39,7 +39,7 @@ describe('Homework tests', function () {
     });
     it('GET /homework/asked', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/asked')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -52,7 +52,7 @@ describe('Homework tests', function () {
     });
     it('GET /homework/private', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/private')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -65,7 +65,7 @@ describe('Homework tests', function () {
     });
     it('GET /homework/archive', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/archive')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -78,7 +78,7 @@ describe('Homework tests', function () {
     // DETAIL VIEW
     it('GET /homework/{users private task}', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/59cce1d381297026d02cdc4b')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -89,7 +89,7 @@ describe('Homework tests', function () {
     });
     it('GET /homework/{users asked task}', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/59d1f63ce0a06325e8b5288b')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -100,7 +100,7 @@ describe('Homework tests', function () {
     });
     it('GET /homework/{teachers private task}', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/59cce4c3c6abf042248e888e')
                 .end((err, res) => {
                     expect(res.statusCode).to.not.equal(200);
@@ -113,7 +113,7 @@ describe('Homework tests', function () {
     // CREATE & EDIT TASKS
     it('GET /homework/new', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/new')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -125,7 +125,7 @@ describe('Homework tests', function () {
     // users task
     it('GET /homework/{users task}/edit', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/59cce2c61113d1132c98dc06/edit')
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
@@ -137,7 +137,7 @@ describe('Homework tests', function () {
     // teachers task
     it('GET /homework/{teachers task}/edit', function () {
         return new Promise((resolve, reject) => {
-            return this.agent
+            this.agent
                 .get('/homework/59cce3f6c6abf042248e888d/edit')
                 .end((err, res) => {
                     expect(res.statusCode).to.not.equal(200);
