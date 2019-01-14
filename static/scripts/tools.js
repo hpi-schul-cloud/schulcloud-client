@@ -29,7 +29,7 @@
 
     var populateCustomField = function ($customFields, field) {
         if (!field.key || field.key == '') return;
-        
+
         var _id = guidGenerator();
         var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value: " + field.value + "</div>")
             .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' type='hidden'></input>"))
@@ -69,7 +69,6 @@
         delete tool.oAuthClientId;
         delete tool.useIframePseudonym;
         delete tool._id;
-        console.log(tool);
         $.ajax({
             action: href,
             data: tool,
