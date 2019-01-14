@@ -2,7 +2,7 @@
   <div class="card-main-content" v-bind:style="background_style">
     {{course.name}}
     <br>
-    <div v-for="(time,i) of times_computed" :key="i">{{time.weekday}} at {{time.startTime}}</div>
+    <div v-for="(time,i) of times_computed" :key="i">{{time.weekday}} um {{time.startTime}}</div>
   </div>
 </template>
 
@@ -46,5 +46,6 @@ export default {
 .card-main-content {
   font-family: "Asul", sans-serif;
   color: aliceblue;
+
 }
 </style>
