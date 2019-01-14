@@ -1,7 +1,6 @@
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
-const password = process.env.PASSWORD || "schulcloud";
-const short_title = (process.env.SC_SHORT_TITLE || "Schul-Cloud").trim();
+const password = process.env.PASSWORD || "Schulcloud1!";
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
@@ -37,16 +36,18 @@ module.exports = {
         browser.useXpath().click('//*[@id="homework-form"]/div[7]/button[2]');
         browser.useCss().waitForElementPresent("#titlebar h4", 10000);
         browser.assert.containsText("#titlebar h4", "Aufgaben");
-        browser.assert.title(`Aufgaben - ${short_title}`);
+        browser.getTitle((title) => {
+            browser.assert.ok(title.includes('Aufgaben'));
+        });
     },
     'Delete Homework': function (browser) {
         browser.useXpath().click("//*[contains(text(), 'Test Aufgabe')]");
         browser.useCss()
           .click('#extended > div.homework > a.btn.btn-secondary.btn-delete')
-          .waitForElementVisible('.delete-modal');
-        browser.useXpath()
-          .waitForElementVisible('/html/body/div[7]/div/div/div[2]/button[2]', 1000)
-          .click('/html/body/div[7]/div/div/div[2]/button[2]')
+          .waitForElementVisible('.delete-modal')
+          .waitForElementVisible('body > .modal.delete-modal.in button.btn-submit', 1000)
+          .moveToElement('body > div.modal.delete-modal.in div.modal-footer button.btn-submit', 10, 10)
+          .mouseButtonClick(0)
           .pause(1000);
     },
     'Schul-Cloud End': function (browser) {
