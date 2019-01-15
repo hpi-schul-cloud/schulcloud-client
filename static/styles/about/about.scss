@@ -48,3 +48,31 @@
     }
   }
 }
+
+.embed-award {
+  padding-left: 0;
+  div.row {
+    margin-bottom: 10px;
+    padding-left: 0;
+  }
+  .single-award {
+    margin: 0 15px 15px;
+    padding: 3px 6px 3px 6px;
+    border: 1px solid #d3d3d3;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.1);
+    &.opened {
+      border: 1px solid #b10438;
+    }
+    .single-award-wrapper {
+      padding: 10px;
+      height: 100%;
+      a {
+        text-decoration: none; 
+        .single-award-thumbnail {
+          margin-top: 10px;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
