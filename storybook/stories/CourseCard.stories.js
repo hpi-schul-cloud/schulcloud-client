@@ -6,7 +6,7 @@ import { linkTo } from '@storybook/addon-links';
 
 export const defaultCourse = {
   "_id": "0000dcfbfb5c7a3f00bf21abc",
-  "name": "Biologie 9b",
+  "name": "Biologie",
   "abbreviation": "BIO",
   "description": "Dieser Kurs wurde als Beispiel für den Demo-Zugang erstellt und enthält verschiedene Themen und Inhalte aus dem Fach Biologie! Wir wollen Ihnen dadurch die Breite der Einsatzmöglichkeit der Schul-Cloud im Unterricht aufzeigen! Schauen Sie doch selbst!",
   "gradeSystem": false,
@@ -30,7 +30,7 @@ export const defaultCourse = {
       "eventId": "fb241b3a-c8ae-4166-90f1-6f3e1d61c85d"
     }
   ],
-  "color": "#01B1AA",
+  "color": "#E42C85",
   "schoolId": "0000d186816abba584714c5f",
   "teacherIds": [
     "599ec1688e4e364ec18ff46e",
@@ -46,7 +46,7 @@ export const defaultCourse = {
 };
 
 
-import CourseCard from '../../static/vue-components/courses/CourseCard'
+import CourseCard from '../../static/vue-components/courses/CourseCard';
 
 storiesOf('Welcome', module).add('to Storybook', () => ({
   components: { Welcome },

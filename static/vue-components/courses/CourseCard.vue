@@ -8,25 +8,23 @@
     <div class="card-info" v-bind:style="background_style">
       <h1 class="mt-0 mb-0"> {{course.abbreviation}}</h1>
       <h3 class="mt-0 mb-0"> {{course.name}}</h3>
-      <img src="./clock-regular.svg">
-      <!-- <p>{{course.description}}</p> -->
     </div>
-    <CardFooter :course="course"></CardFooter>
+      <CardFooter :course="course"></CardFooter>
   </div>
 </template>
 
 <script>
 import CardFooter from "./CardFooter.vue";
-import CourseCardHeader from "./CourseCardHeader.vue";
+// import CourseCardHeader from "./CourseCardHeader.vue";
 
 export default {
-  name: "HelloWorld",
+  name: "CourseCard",
   props: {
     msg: String,
     course: {
       type: Object,
       default: {
-        color: "#555",
+        color: "#E42C85",
         name: "default name",
         times: [{ weekday: 1, startTime: 36000000 }]
       }
@@ -39,7 +37,7 @@ export default {
   },
   components: {
     CardFooter,
-    CourseCardHeader
+    // CourseCardHeader
   }
 };
 </script>
@@ -53,6 +51,16 @@ export default {
 .mb-0 {
   margin-bottom: 0 !important;
 }
+h1 {
+  font-size: 60px;
+  font-weight: bold;
+  font-family: PT Sans Caption;
+}
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  font-family: PT Sans Narrow;
+}
 .course-card {
   width: 260px;
   border-radius: 3px;
@@ -64,7 +72,8 @@ export default {
   margin-top: -5px;
   border-radius: 4px;
   padding: 10px;
-  background-image: linear-gradient(-225deg, #3B1E65 100%, #E42C85 0%);
+  color: white
+  /* background-image: linear-gradient(-225deg, #E42C85 0%, #3B1E65 100%); */
 }
 .card-info p {
   font-family: "Asul", sans-serif;
@@ -92,7 +101,7 @@ white-space: nowrap;
 }
 
 .tab:before {
-  background: #dedede;
+  background-color: #dedede;
   content: "";
   position: absolute;
   top: 0;
