@@ -619,7 +619,7 @@ router.get('/:teamId/members', async function(req, res, next) {
                         path: 'userIds.role',
                     }
                 ],
-                $limit: 2000
+                $limit: false
             }
         });
         course.userIds = course.userIds.filter(user => user.userId);
@@ -643,7 +643,7 @@ router.get('/:teamId/members', async function(req, res, next) {
                 _id: {
                     $nin: courseUserIds
                 },
-                $limit: 2000
+                $limit: false
             }
         })).data;
 
