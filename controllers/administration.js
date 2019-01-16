@@ -427,14 +427,33 @@ const getCSVImportHandler = () => {
                     data: csvData,
                 },
             });
-            const numberOfUsers = (stats.users.successful || 0) + (stats.users.failed || 0);
-            req.session.notification = {
-                type: stats.users.successful ? 'success' : 'info',
-                message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`
-            };
+            const numberOfUsers = stats.users.successful + stats.users.failed;
+            if (stats.success) {
+                req.session.notification = {
+                    type: 'success',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
+                };
+            } else {
+                const whitelist = ['file', 'user', 'invitation', 'class'];
+                let errorText = stats.errors
+                    .filter(err => whitelist.includes(err.type))
+                    .map(err => `${err.entity} (${err.message})`)
+                    .join(', ');
+                if (errorText === '') {
+                    errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+                }
+                req.session.notification = {
+                    type: 'warning',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
+                };
+            }
             res.redirect(req.header('Referer'));
             return;
         } catch (err) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+            };
             res.redirect(req.header('Referer'));
             return;
         }
@@ -1150,12 +1169,12 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
     const qs = { roles: role.data[0]._id };
-    
+
     let users = [];
-    
+
     if (classId) {
-        const _class = await api(req).get('/classes/' + classId, { 
-            qs: { 
+        const _class = await api(req).get('/classes/' + classId, {
+            qs: {
                 $populate: ['teacherIds', 'userIds'],
             }
         });
@@ -1167,7 +1186,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
     } else {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
-    
+
     const consents = (await api(req).get('/consents', { $limit: false })).data;
 
     const usersWithoutConsent = users.filter(user => {
@@ -1246,7 +1265,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
 
             return Promise.resolve(user);
         }));
-        
+
         res.json(usersWithoutConsent);
     } catch (err) {
         res.status((err.statusCode || 500)).send(err);
