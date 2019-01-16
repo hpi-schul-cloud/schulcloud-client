@@ -1149,7 +1149,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
-    const qs = { roles: role.data[0]._id };
+    const qs = { roles: role.data[0]._id, $limit: false };
     
     let users = [];
     
