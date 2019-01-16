@@ -4,6 +4,7 @@
     <!-- <CourseCardHeader v-bind:course="course"></CourseCardHeader> -->
     <div class="tab">
       <div class = "tab-label">MusterLehrerin</div>
+      <div v-if="course.newAssignments != 0" class = "assignments-label">{{course.newAssignments}} <font-awesome-icon :icon="['far', 'calendar-check']" size="lg"/></div>
     </div>
     <div class="card-info" v-bind:style="background_style">
       <h1 class="mt-0 mb-0"> {{course.abbreviation}}</h1>
@@ -24,7 +25,7 @@ export default {
     course: {
       type: Object,
       default: {
-        color: "#E42C85",
+        color: "#01B1AA",
         name: "default name",
         times: [{ weekday: 1, startTime: 36000000 }]
       }
@@ -55,18 +56,26 @@ h1 {
   font-size: 60px;
   font-weight: bold;
   font-family: PT Sans Caption;
+  align-content: bottom;
 }
 h3 {
   font-size: 20px;
   font-weight: bold;
   font-family: PT Sans Narrow;
 }
+.assignments-label {
+  float:right;
+  padding: 5px;
+  font-family: PT Sans Caption;
+}
 .course-card {
   width: 260px;
-  border-radius: 3px;
+  border-radius: 4px;
   box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 4px 0 rgba(0,0,0,0.20);
   padding: 10px;
+  font-size: 16px;
   cursor: pointer;
+  
 }
 .card-info {
   margin-top: -5px;
@@ -83,13 +92,14 @@ h3 {
   box-shadow: 0px 4px 14px rgb(126, 124, 124);
 }
 .tab-label {
-padding: 7.5px 10px;
-transform: skewX(0deg);
-transform-origin: bottom left;
-width: 100px;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
+  float:left;
+  padding: 7.5px 10px;
+  transform: skewX(0deg);
+  transform-origin: bottom left;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .tab {
   height: 34px;

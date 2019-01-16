@@ -1,7 +1,8 @@
 <template>
   <div class="card-footer">
-    <font-awesome-icon :icon="['far', 'clock']"/>
-    Heute 10:15 I R-1.21
+    <font-awesome-icon :icon="['far', 'clock']" size="lg"/>
+    {{times_computed[1]}} {{times_computed[1].startTime}} | R-{{times_computed[1].room}}
+
   </div>
 </template>
 
@@ -14,6 +15,29 @@ export default {
     }
   },
   components: {
+  },
+  computed: {
+    times_computed() {
+      let weekdays = [
+        "Montag",
+        "Dienstag",
+        "Mittwoch",
+        "Donnerstag",
+        "Freitag",
+        "Samstag",
+        "Sonntag"
+      ];
+      return this.course.times.map(time => {
+        time.weekday = weekdays[time.weekday];
+        let startTime =
+          time.startTime / 1000 / 60 / 60 +
+          ":" +
+          ((time.startTime / 1000 / 60 / 60) % 60);
+        time.startTime = startTime;
+        return time;
+      });
+    }
+
   }
 }
 </script>
@@ -21,10 +45,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .card-footer {
-  
-  position: absolute;
+  height: 24px;
   text-align: left;
-  background: green;
-  
+  padding-top: 5px;
+  margin-bottom: -5px;
+  font-size: 16px;
+  font-family: PT Sans Narrow;
 }
 </style>
