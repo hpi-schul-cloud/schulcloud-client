@@ -3,6 +3,18 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 
+const winston = require('winston');
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
+
 // secure routes
 router.use(authHelper.authChecker);
 
@@ -13,6 +25,8 @@ const postRequest = (req, res, next) => {
         }).then((response) => {
             res.json(response);
         });
+    } else {
+        res.status(423).send('notification service has been disabled');
     }
 };
 
@@ -30,12 +44,28 @@ router.post('/devices', function (req, res, next) {
     next();
 }, postRequest);
 
-router.post('/callback', function (req, res, next) {
-   res.locals.url = 'notification/callback';
-   res.locals.body = req.body;
-
-   next();
-}, postRequest);
+router.get('/callback/:messageId/seen', function (req, res, next) {
+    if (!req.query.redirect) {
+        return res.send(400);
+    }
+    res.locals.url = 'notification/callback';
+    res.locals.body = {
+        messageId: req.params.messageId,
+    };
+    if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+        api(req).post(res.locals.url, {
+            body: res.locals.body
+        }).then((response) => {
+            res.redirect(req.query.redirect);
+        }).catch(err => {
+            logger.error('could not mark message as read', err);
+            res.redirect(req.query.redirect);
+        });
+    } else {
+        logger.warn('could not mark message as read because notification service was disabled, redirect');
+        res.redirect(req.query.redirect);
+    }
+});
 
 router.post('/message', function (req, res, next) {
     res.locals.url = 'notification/messages';
