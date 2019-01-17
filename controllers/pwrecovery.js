@@ -21,7 +21,7 @@ const sendMailHandler = (req, res, next) => {
                     content: content
                 }
             }).then(_ => {
-                res.redirect('/login/');
+                res.redirect('/login/?pw-recovery=send');
             }).catch(err => {
                 res.status((err.statusCode || 500)).send(err);
             });

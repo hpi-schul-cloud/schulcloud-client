@@ -102,6 +102,13 @@ router.all('/login/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
+            if(req.query["pw-recovery"] === "send"){
+                res.locals.notification = {
+                    'type': 'success',
+                    'message': 'Es wurde eine Wiederherstellungsmail an die im Account hinterlegte E-Mail-Adresse versendet.'
+                };
+                // pw-recovery=send
+            }
             let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
 
             Promise.all([
@@ -135,8 +142,7 @@ const ssoSchoolData = (req,accountId) =>{
 		});
 	}).catch(err=>{
 		return undefined;
-	});	
-	
+	});
 };
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
