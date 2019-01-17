@@ -21,7 +21,11 @@ const sendMailHandler = (req, res, next) => {
                     content: content
                 }
             }).then(_ => {
-                res.redirect('/login/?pw-recovery=send');
+                req.session.notification = {
+                    'type': 'success',
+                    'message': `Es wurde eine Wiederherstellungsmail an die im Account hinterlegte E-Mail-Adresse versendet.`
+                };
+                res.redirect('/login/');
             }).catch(err => {
                 res.status((err.statusCode || 500)).send(err);
             });

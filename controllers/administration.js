@@ -674,6 +674,10 @@ const userIdtoAccountIdUpdate = (service) => {
                 api(req).patch('/' + service + '/' + users[0]._id, {
                     json: req.body
                 }).then(data => {
+                    req.session.notification = {
+                        'type': 'success',
+                        'message': `Update erfolgreich.`
+                    };
                     res.redirect(req.header('Referer'));
                 }).catch(err => {
                     next(err);
