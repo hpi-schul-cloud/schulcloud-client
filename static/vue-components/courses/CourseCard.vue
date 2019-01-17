@@ -1,4 +1,3 @@
-
 <template>
   <div class="course-card">
     <!-- <CourseCardHeader v-bind:course="course"></CourseCardHeader> -->
@@ -17,9 +16,9 @@
 </template>
 
 <script>
+  import '../styles/base.css';
   import CardFooter from "./CardFooter.vue";
-  // import CourseCardHeader from "./CourseCardHeader.vue";
-  
+
   export default {
     name: "CourseCard",
     props: {
@@ -51,37 +50,25 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
   .mt-0 {
     margin-top: 0 !important;
   }
-  
+
   .mb-0 {
     margin-bottom: 0px !important;
   }
-  
+
   .mb-10 {
     margin-bottom: -10px !important;
   }
-  
-  h1 {
-    font-size: 60px;
-    font-weight: bold;
-    font-family: PT Sans Caption;
-    align-content: bottom;
-  }
-  
-  h3 {
-    font-size: 20px;
-    font-weight: bold;
-    font-family: PT Sans Narrow;
-  }
-  
+
   .assignments-label {
     float: right;
     padding: 5px;
     font-family: PT Sans Caption;
   }
-  
+
   .course-card {
     width: 260px;
     border-radius: 4px;
@@ -90,7 +77,7 @@
     font-size: 16px;
     cursor: pointer;
   }
-  
+
   .card-info {
     margin-top: -5px;
     border-radius: 4px;
@@ -98,16 +85,16 @@
     color: white
     /* background-image: linear-gradient(-225deg, #E42C85 0%, #3B1E65 100%); */
   }
-  
+
   .card-info p {
     font-family: "Asul", sans-serif;
     margin: 0;
   }
-  
+
   .card-border:hover {
     box-shadow: 0px 4px 14px rgb(126, 124, 124);
   }
-  
+
   .tab-label {
     float: left;
     padding: 7.5px 10px;
@@ -118,7 +105,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  
+
   .tab {
     height: 34px;
     position: relative;
@@ -127,7 +114,7 @@
     border-radius: 5px;
     border-bottom-left-radius: 0px;
   }
-  
+
   .tab:before {
     background-color: #dedede;
     content: "";

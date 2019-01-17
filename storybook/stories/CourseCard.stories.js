@@ -124,6 +124,7 @@ export const courseWithAlert = {
 };
 import CourseCard from "../../static/vue-components/courses/CourseCard";
 
+
 storiesOf("Welcome", module).add("to Storybook", () => ({
   components: { Welcome },
   template: '<welcome :showApp="action" />',

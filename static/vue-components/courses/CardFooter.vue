@@ -4,16 +4,14 @@
       <font-awesome-icon :icon="['far', 'clock']" size="lg" /> {{course.nextCourseTime}}
     </div>
     <div class="footer-alert" v-else>
-      <div class="ring-container">
-        <div class="ringring"></div>
-        <div class="circle"></div>
-      </div>
+      <PulsatingDot></PulsatingDot>
       <div class="alert-label"> {{course.courseAlert}}</div>
     </div>
   </div>
 </template>
 
 <script>
+import PulsatingDot from "./PulsatingDot.vue";
   export default {
     name: 'CardFooter',
     props: {
@@ -22,9 +20,9 @@
         default: {}
       }
     },
-    components: {},
+    components: {PulsatingDot},
     computed: {}
-  
+
   }
 </script>
 
@@ -36,26 +34,26 @@
     margin-bottom: -5px;
     overflow: hidden;
   }
-  
+
   .footer-next-course {
     text-align: left;
     font-size: 16px;
     font-family: PT Sans Narrow;
     color: #494949;
   }
-  
+
   .footer-alert {
     display: flex;
     align-items: center;
   }
-  
+
   .alert-label {
     flex: 1;
     font-family: "PT Sans Narrow";
     font-weight: bold;
     color: #DD0000;
   }
-  
+
   .ring-container {
     display: flex;
     justify-content: center;
@@ -63,7 +61,7 @@
     width: 25px;
     height: 25px;
   }
-  
+
   .circle {
     width: 9px;
     height: 9px;
@@ -71,7 +69,7 @@
     border-radius: 50%;
     position: absolute;
   }
-  
+
   .ringring {
     border: 1px solid #DD0000;
     -webkit-border-radius: 30px;
@@ -82,7 +80,7 @@
     -webkit-animation-iteration-count: infinite;
     opacity: 0.0
   }
-  
+
   @-webkit-keyframes pulsate {
     0% {
       -webkit-transform: scale(0.1, 0.1);
