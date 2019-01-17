@@ -676,7 +676,7 @@ const userIdtoAccountIdUpdate = (service) => {
                 }).then(data => {
                     req.session.notification = {
                         'type': 'success',
-                        'message': `Update erfolgreich.`
+                        'message': `Änderungen erfolgreich gespeichert.`
                     };
                     res.redirect(req.header('Referer'));
                 }).catch(err => {
