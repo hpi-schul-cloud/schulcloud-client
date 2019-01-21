@@ -323,6 +323,19 @@
           "twitter": "",
           "linkedin": ""
         },
+		{
+        "title": "",
+        "firstName": "Tobias",
+        "lastName": "Wollowski",
+        "position": "Wissenschaftlicher Mitarbeiter",
+        "description": "Tobias hat vor seinem Master-Studium am HPI an der Technischen Hochschule in Brandenburg Applied Computer Science studiert. Während seines Studiums konzentrierte er sich auf Verteilte Systeme und verbrachte ein Semester an der German Jordanian University in Amman, Jordanien.<br>Am HPI vertiefte er u.a. sein Wissen über Progressive-Web-Apps und Page-Speed-Optimization und moderne Web-Technologien. Im Projekt HPI Schul-Cloud schreibt er derzeit seine Masterarbeit und forscht an Strategien zur Offline-Verfügbarkeit von Web-Anwendungen und Peer-2-Peer Technologien.<br>In seiner Freizeit trainiert Tobias im Potsdamer Seglerverein Kinder und Jugendliche im Segeln.",
+        "pictureUrl": "/images/team/Tobias_Wollowski.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
         "longDesc": false
       },
       {
@@ -518,21 +531,6 @@
     "team": [
       {
         "title": "",
-        "firstName": "Georg",
-        "lastName": "Berecz",
-        "position": "Student",
-        "description": "Georg schreibt derzeit seine Masterarbeit im Projekt HPI Schul-Cloud. Er befasst sich fachlich mit der Frage, wie kompetenz-basiertes Lernen in die HPI Schul-Cloud integriert werden kann. Technisch geht es dabei um die modulare Erweiterung von Microservice Architekturen. Sein Bachelorstudium hat Georg ebenfalls am HPI absolviert und anschließend hat er im Zuge seines Masterstudiums zwei Semester in Estland studiert. In seiner Freizeit schießt bzw. wirft er Bälle in Tore oder Körbe und malträtiert sein elektronisches Schlagzeug.",
-        "pictureUrl": "/images/team/Georg_Berecz.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
         "firstName": "Christopher",
         "lastName": "Eschenbecher",
         "position": "Studentische Hilfskraft",
@@ -568,21 +566,6 @@
         "position": "Studentische Hilfskraft",
         "description": "Dominik war Teil des Bachelorprojektes 2017/2018, dort schrieb er Blogbeiträge und arbeitete am Content-Editor. Seit August 2018 ist er Studentische Hilfskraft und unterstützt bei der HPI Schul-Cloud-Entwicklung. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
         "pictureUrl": "/images/team/Dominik_Jaekel.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Katrin",
-        "lastName": "Klein",
-        "position": "Studentische Hilfskraft",
-        "description": "Katrin studiert im 4. Bachelorsemester IT-Systems Engineering am Hasso-Plattner-Institut und unterstützt das Team HPI Schul-Cloud seit März 2018 in der Entwicklung. In Ihrer Freizeit probiert sie sich in unterschiedlichen Sportarten aus und spielt in einer Band.",
-        "pictureUrl": "/images/team/Katrin_Klein.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -681,19 +664,6 @@
         },
         "longDesc": false
       },
-      {
-        "title": "",
-        "firstName": "Tobias",
-        "lastName": "Wollowski",
-        "position": "Student",
-        "description": "Tobias hat vor seinem Master-Studium am HPI an der Technischen Hochschule in Brandenburg Applied Computer Science studiert. Während seines Studiums konzentrierte er sich auf Verteilte Systeme und verbrachte ein Semester an der German Jordanian University in Amman, Jordanien.<br>Am HPI vertiefte er u.a. sein Wissen über Progressive-Web-Apps und Page-Speed-Optimization und moderne Web-Technologien. Im Projekt HPI Schul-Cloud schreibt er derzeit seine Masterarbeit und forscht an Strategien zur Offline-Verfügbarkeit von Web-Anwendungen und Peer-2-Peer Technologien.<br>In seiner Freizeit trainiert Tobias im Potsdamer Seglerverein Kinder und Jugendliche im Segeln.",
-        "pictureUrl": "/images/team/Tobias_Wollowski.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
         "longDesc": false
       }
     ]
@@ -723,21 +693,6 @@
         "position": "Praktikantin",
         "description": "Caroline hat Kultur-, Politik- und Literaturwissenschaften studiert und unterstützt als wissenschaftliche Hilfskraft seit September 2018 die politische Kommunikation und den Kontakt zu Projektpartnern. Privat engagiert sie sich in der politischen Bildung, bereist und bewandert den Osten Europas und genießt das Berliner Kulturleben.",
         "pictureUrl": "/images/team/Caroline_Morfeld.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-     {
-        "title": "",
-        "firstName": "Michael",
-        "lastName": "Schmid",
-        "position": "Freier Mitarbeiter",
-        "description": "Michael hat Medieninformatik an der Hochschule Aalen studiert und ist im Team HPI Schul-Cloud seit Oktober 2018 vor allem für das UX Design zuständig. Privat spielt er gerne Gitarre und betreibt Yoga.",
-        "pictureUrl": "/images/team/Michael_Schmid.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -789,6 +744,21 @@
         "position": "Ehem. Bachelorstudent",
         "description": "Raoul ist Teil des Bachelorprojekts 2017/18 und für IT-System Engineering am HPI eingeschrieben. Für die HPI Schul-Cloud ist er primär für die Pseudonymisierung zuständig. In der Vergangenheit hat er zudem einige Erfahrungen durch Start-Ups im Bereich von Schule gesammelt. In seiner Freizeit rappt er gerne und spielt Geige.",
         "pictureUrl": "/images/team/Raoul_Baron.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+		{
+        "title": "",
+        "firstName": "Georg",
+        "lastName": "Berecz",
+        "position": "Ehem. Masterstudent",
+        "description": "Georg schreibt derzeit seine Masterarbeit im Projekt HPI Schul-Cloud. Er befasst sich fachlich mit der Frage, wie kompetenz-basiertes Lernen in die HPI Schul-Cloud integriert werden kann. Technisch geht es dabei um die modulare Erweiterung von Microservice Architekturen. Sein Bachelorstudium hat Georg ebenfalls am HPI absolviert und anschließend hat er im Zuge seines Masterstudiums zwei Semester in Estland studiert. In seiner Freizeit schießt bzw. wirft er Bälle in Tore oder Körbe und malträtiert sein elektronisches Schlagzeug.",
+        "pictureUrl": "/images/team/Georg_Berecz.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
