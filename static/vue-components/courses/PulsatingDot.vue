@@ -11,7 +11,7 @@ export default {
   props: {},
   components: {},
   computed: {}
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -34,25 +34,25 @@ export default {
 
   .ringring {
     border: 1px solid #DD0000;
-    -webkit-border-radius: 30px;
+    border-radius: 30px;
     height: 15px;
     width: 15px;
     align-self: center;
-    -webkit-animation: pulsate 2s ease-out;
-    -webkit-animation-iteration-count: infinite;
+    animation: pulsate 2s ease-out;
+    animation-iteration-count: infinite;
     opacity: 0.0
   }
 
-  @-webkit-keyframes pulsate {
+  @keyframes pulsate {
     0% {
-      -webkit-transform: scale(0.1, 0.1);
+      transform: scale(0.1, 0.1);
       opacity: 0.0;
     }
     50% {
       opacity: 1.0;
     }
     100% {
-      -webkit-transform: scale(1.2, 1.2);
+      transform: scale(1.2, 1.2);
       opacity: 0.0;
     }
   }

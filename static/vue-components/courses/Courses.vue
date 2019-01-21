@@ -1,11 +1,11 @@
 <template>
-<div id="app">
-  <CourseCard v-for="course in courses_obj" :course="course" :key="course._id" />
-</div>
+  <div id="app">
+    <CourseCard v-for="course in courses_obj" :course="course" :key="course._id"/>
+  </div>
 </template>
 
 <script>
-import CourseCard from './CourseCard.vue'
+import CourseCard from "./CourseCard.vue";
 
 export default {
   components: {
@@ -19,12 +19,11 @@ export default {
       return JSON.parse(this.courses);
     }
   }
-}
+};
 </script>
 
 <style>
-
-#app{
+#app {
   display: flex;
   flex-wrap: wrap;
 }

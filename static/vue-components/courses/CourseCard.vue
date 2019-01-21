@@ -1,6 +1,5 @@
 <template>
   <div class="course-card">
-    <!-- <CourseCardHeader v-bind:course="course"></CourseCardHeader> -->
     <div class="tab">
       <div class="tab-label">{{course.teacherName}}</div>
       <div v-if="course.newAssignments != 0" class="assignments-label">{{course.newAssignments}}
@@ -42,7 +41,6 @@
     },
     components: {
       CardFooter,
-      // CourseCardHeader
     }
   };
 </script>

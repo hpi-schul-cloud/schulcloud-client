@@ -1,7 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope, react/no-this-in-sfc */
 
 import { storiesOf } from "@storybook/vue";
-import { action } from "@storybook/addon-actions";
 import { linkTo } from "@storybook/addon-links";
 
 export const defaultCourse = {
@@ -123,7 +122,7 @@ export const courseWithAlert = {
   teacherName: "Mustermensch"
 };
 import CourseCard from "../../static/vue-components/courses/CourseCard";
-
+import Welcome from "./Welcome";
 
 storiesOf("Welcome", module).add("to Storybook", () => ({
   components: { Welcome },
