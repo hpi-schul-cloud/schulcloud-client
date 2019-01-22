@@ -386,7 +386,7 @@ router.get('/:teamId', async function(req, res, next) {
         });
 
         let rocketChatCompleteURL;
-        if (process.env.ROCKETCHAT_SERVICE_ENABLED) {
+        if (process.env.ROCKETCHAT_SERVICE_ENABLED || req.params.teamId == "ffffd213816abba584714c00") { //for demo
             try{
                 const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
                 const rocketChatURL = process.env.ROCKET_CHAT
