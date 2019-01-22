@@ -372,13 +372,15 @@ router.get('/:teamId', async function(req, res, next) {
         });
 
         let rocketChatChannelName;
-        try{
-            const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
-            rocketChatChannelName = rocketChatChannel.channelName;
-        }
-        catch(e) {
-            logger.warn(e);
-            rocketChatChannelName = '';
+        if (process.env.ROCKETCHAT_SERVICE_ENABLED) {
+            try{
+                const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
+                rocketChatChannelName = rocketChatChannel.channelName;
+            }
+            catch(e) {
+                logger.warn(e);
+                rocketChatChannelName = undefined;
+            }
         }
 
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
