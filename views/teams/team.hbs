@@ -15,6 +15,7 @@
     {{/content}}
 
     {{#content "page"}}
+     <div id="team-wrapper"></div>
 
         <section class="section-teams" data-id="{{../_id}}">
 
@@ -24,7 +25,16 @@
                 </div>
             </div>
 
-            <section style="margin-top: 2rem" class="row">
+            {{#if rocketChatURL}}
+            <section class="section-chat" style="margin-top: 2rem">
+                <h4>Chat</h4>
+                <div class="rocketchat">
+                    <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
+                </div>
+            </section>
+            {{/if}}
+
+            <section class="section-members row">
                 <div class="col-sm-12">
                     <h4>Teilnehmer</h4>
                     <p>
@@ -231,5 +241,7 @@
                 {{/content}}
             {{/embed}}            
         </section>
+    </div>
+
     {{/content}}
 {{/extend}}
