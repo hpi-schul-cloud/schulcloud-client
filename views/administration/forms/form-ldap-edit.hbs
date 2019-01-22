@@ -1,0 +1,156 @@
+<input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
+<input type="hidden" name="_id" value="{{class._id}}" />
+
+<a class="d-block mb-1"
+    href="/administration/classes/{{@root.class/_id}}/manage"
+    title="Klasse '{{@root.class.name}}' verwalten.">
+    <i class="fa fa-users"></i> Klasse verwalten
+</a>
+
+<div class="form-group">
+    <label>Typ</label>
+    <select class="linked" name="ldaptype" data-linktext data-placeholder="LDAP-Typ auswählen">
+            <option value="iserv">
+                iServ
+            </option>
+            <option value="general">
+                Allgemein
+            </option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label>URL</label>
+    <input class="form-control linked" name="ldapurl" type="text" placeholder="ldaps://" value=""/>
+</div>
+
+<div class="form-group">
+    <label>root-Pfad <i class="fa fa-question-circle"></i></label>
+    <input class="form-control linked" name="rootpath" type="text" value=""/>
+</div>
+
+<div class="form-group">
+    <label>search-Nutzer <i class="fa fa-question-circle"></i></label>
+    <input class="form-control linked" name="searchuser" type="text" value=""/>
+</div>
+
+<div class="form-group">
+    <label>search-Nutzer Passwort</label>
+    <input class="form-control linked" name="searchuserpassword" type="password" value=""/>
+</div>
+
+<h5>Nutzer-Attribute <i class="fa fa-question-circle"></i></h5>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>Vorname</label>
+        <input class="form-control linked" name="givenName" type="text" value=""/>
+    </div>
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>Nachname</label>
+        <input class="form-control linked" name="sn" type="text" value=""/>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>Domainname</label>
+        <input class="form-control linked" name="dn" type="text" value=""/>
+    </div>
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>uid <i class="fa fa-question-circle"></i></label>
+        <input class="form-control linked" name="uid" type="text" value=""/>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>uuid <i class="fa fa-question-circle"></i></label>
+        <input class="form-control linked" name="uuid" type="text" value=""/>
+    </div>
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>E-Mail</label>
+        <input class="form-control linked" name="mail" type="text" value=""/>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-sm-6 col-xs-12">
+        <label>Rolle <i class="fa fa-question-circle"></i></label>
+        <input class="form-control linked" name="role" type="text" value=""/>
+    </div>
+</div>
+
+<div class="form-group">
+    <label>Lehrer auswählen (auch später möglich)</label>
+
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
+        {{#each teachers}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<section id="createnew">
+    <div class="row">
+        <div class="form-group col-sm-6 col-xs-12">
+            <label>Jahrgangsstufe *</label>
+            <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
+                <option disabled value>keine Auswahl</option>
+                {{#each gradeLevels}}
+                    <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                        {{this.name}}
+                    </option>
+                {{/each}}
+            </select>
+        </div>
+        <div class="form-group col-sm-6 col-xs-12">
+            <label>Klassenbezeichnung</label>
+            <input class="form-control linked" name="classsuffix" type="text" placeholder="a, b, c, ..., I, II, III, ..., etc." value="{{class.classsuffix}}" {{#if isCustom}}disabled{{/if}}/>
+        </div>
+    </div>
+
+    <p class="mt-1">Deine Klasse passt nicht ins klassische Schema? <a href="#" class="createcustom">Mehr Optionen</a>.</p>
+
+    <section id="createcustom" class="{{#unless isCustom}}hidden{{/unless}}">
+        <p>Du kannst jahrgangsunabhängige Klassen mit freier Bezeichnung erstellen. Diese Klassen können nicht vom Administrator <i>"versetzt"</i> werden, sondern müssen manuell aktualisiert werden.</p>
+        <div class="form-group">
+            <label>Klassenbezeichnung</label>
+            <input class="form-control linked" name="classcustom" type="text" placeholder="z.B. Froschklasse 3-4" required value="{{class.customName}}" {{#unless isCustom}}disabled{{/unless}}/>
+        </div>
+        <label class="my-1">
+            <input name="keepyear" type="checkbox" value="true" {{#ifCond edit '&&' isCustom}}{{#if class.keepYear}}checked{{/if}}{{else}}checked{{/ifCond}} {{#unless isCustom}}disabled{{/unless}}/>
+            <span>Schuljahreszuordnung beibehalten</span>
+        </label>  
+    </section>
+
+    <div class="recap">
+        <div class="class-default {{#if isCustom}}hidden{{/if}}">
+            <p>Klassenname: 
+                    <span data-from="grade"></span><span data-from="classsuffix"></span>
+            </p>
+            <p>Schuljahr: <span data-from="schoolyear"/></p>
+        </div>
+        <div class="class-custom {{#unless isCustom}}hidden{{/unless}}">
+            <p>Klassenname: 
+                <span data-from="classcustom"></span>
+            </p>
+            <p id="recap-keepyear" {{#ifCond edit '&&' isCustom}}class="{{#unless class.keepYear}}hidden{{/unless}}"{{/ifCond}}>Schuljahr: <span data-from="schoolyear"/></p>
+        </div>
+    </div>
+</section>
+
+<div class="modal-footer mt-1">
+    <a href="/administration/classes" class="btn btn-secondary">Abbrechen</a>
+    {{#unless edit}}
+        <button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
+        {{#userHasPermission 'ADMIN_VIEW'}}
+        {{else}}
+            <p>Im nächsten Schritt kannst du Schüler zur Klasse einladen oder hinzufügen.</p>
+        {{/userHasPermission}}
+    {{else}}
+        <button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
+    {{/unless}}
+</div>

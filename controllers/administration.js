@@ -2037,4 +2037,23 @@ router.all('/systems', function (req, res, next) {
     });
 });
 
+/*
+    LDAP SYSTEMS
+*/
+
+router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+    //Create ID for LDAP
+
+    //TODO change ID
+    res.redirect('/administration/systems/ldap/5c3c9f03732a7cf5b2665cc9');
+});
+router.get('/systems/ldap/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+
+    res.render('administration/ldap-edit', {
+        title: 'LDAP bearbeiten',
+    });
+
+});
+
+
 module.exports = router;
