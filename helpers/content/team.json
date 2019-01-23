@@ -72,11 +72,11 @@
       },
       {
         "title": "",
-        "firstName": "Catrina",
-        "lastName": "John",
+        "firstName": "Vivien",
+        "lastName": "Malyska",
         "position": "Projektkoordinatorin, HPI",
-        "description": "Catrina hat einen Masterabschluss der Freien Universität Berlin in Soziologie und ist Projektkoordinatorin der Projekt HPI Schul-Cloud. Im Rahmen ihrer Promotion beschäftigt sie sich mit Gender Diversity im Rahmen digital unterstützter Bildung. Einen Großteil ihrer Freizeit verbringt sie im Tischtennisverein.",
-        "pictureUrl": "/images/team/Catrina_John.png",
+        "description": "Vivien ist Erziehungswissenschaftlerin (M.A., Universität Potsdam) und befasst sich insbesondere aus bildungswissenschaftlicher Perspektive mit dem Thema Digitale Bildung an Schulen. Im Projekt HPI Schul-Cloud ist sie hauptsächlich für die Durchführung der Evaluation und den Austausch mit den Pilotschulen zuständig. In ihrer Freizeit findet man sie meistens auf dem Volleyballfeld oder im Grünen.",
+        "pictureUrl": "/images/team/Vivien_Malyska.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -85,13 +85,13 @@
         },
         "longDesc": false
       },
-      {
+		{
         "title": "",
-        "firstName": "Vivien",
-        "lastName": "Malyska",
-        "position": "Projektkoordination und bildungswissenschaftliche Mitarbeiterin, HPI",
-        "description": "Vivien ist Erziehungswissenschaftlerin (M.A., Universität Potsdam) und befasst sich insbesondere aus bildungswissenschaftlicher Perspektive mit dem Thema Digitale Bildung an Schulen. Im Projekt HPI Schul-Cloud ist sie hauptsächlich für die Durchführung der Evaluation und den Austausch mit den Pilotschulen zuständig. In ihrer Freizeit findet man sie meistens auf dem Volleyballfeld oder im Grünen.",
-        "pictureUrl": "/images/team/Vivien_Malyska.jpg",
+        "firstName": "Matthias",
+        "lastName": "Luderich",
+        "position": "Leiter externe Kommunikation und Partnerschaften, HPI",
+        "description": "Matthias ist Politikwissenschaftler (M.A.) und hat sich als Berater vor allem mit den politischen Seiten der digitalen Transformation im Bildungsbereich befasst. Seit Juli 2018 ist er im Team zuständig für die politische Kommunikation. Wenn Matthias nicht gerade fasziniert den Berliner Politikkosmos verfolgt, spielt er beim USV Potsdam Regionalliga-Basketball oder verbringt seine Zeit im heimischen Garten.",
+        "pictureUrl": "/images/team/matthias_luderich.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -190,6 +190,21 @@
         },
         "longDesc": false
       },
+		{
+        "title": "",
+        "firstName": "Catrina",
+        "lastName": "John",
+        "position": "Wissenschaftliche Mitarbeiterin, HPI",
+        "description": "Catrina hat einen Masterabschluss der Freien Universität Berlin in Soziologie und ist Projektkoordinatorin der Projekt HPI Schul-Cloud. Im Rahmen ihrer Promotion beschäftigt sie sich mit Gender Diversity im Rahmen digital unterstützter Bildung. Einen Großteil ihrer Freizeit verbringt sie im Tischtennisverein.",
+        "pictureUrl": "/images/team/Catrina_John.png",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
       {
         "title": "",
         "firstName": "Konstantin",
@@ -212,21 +227,6 @@
         "position": "Wissenschaftlicher Mitarbeiter, HPI",
         "description": "Alex hat Angewandte Informatik an der HTW Berlin im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftlicher Mitarbeiter tätig. Hier programmiert er an diversen Diensten und sorgt unter anderem dafür, dass externe Inhalte in die HPI Schul-Cloud kommen. Neben der Arbeit stehen sein Hund Dexter und das neu gewonnene Hobby Segeln im Fokus.",
         "pictureUrl": "/images/team/Alexander_Kremer.jpg",
-        "priority": 0,
-        "social": {
-          "facebook": "",
-          "twitter": "",
-          "linkedin": ""
-        },
-        "longDesc": false
-      },
-      {
-        "title": "",
-        "firstName": "Matthias",
-        "lastName": "Luderich",
-        "position": "Wissenschaftlicher Mitarbeiter, HPI",
-        "description": "Matthias ist Politikwissenschaftler (M.A.) und hat sich als Berater vor allem mit den politischen Seiten der digitalen Transformation im Bildungsbereich befasst. Seit Juli 2018 ist er im Team zuständig für die politische Kommunikation. Wenn Matthias nicht gerade fasziniert den Berliner Politikkosmos verfolgt, spielt er beim USV Potsdam Regionalliga-Basketball oder verbringt seine Zeit im heimischen Garten.",
-        "pictureUrl": "/images/team/matthias_luderich.jpg",
         "priority": 0,
         "social": {
           "facebook": "",
@@ -314,7 +314,7 @@
         "title": "",
         "firstName": "Jacqueline",
         "lastName": "Thorns",
-        "position": "Projektreferentin und wissenschaftliche Mitarbeiterin, HPI",
+        "position": "Wissenschaftliche Mitarbeiterin, HPI",
         "description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem HPI Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
         "pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
         "priority": 0,
