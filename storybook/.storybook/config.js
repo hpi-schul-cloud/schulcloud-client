@@ -1,10 +1,14 @@
-import { configure } from "@storybook/vue";
+import { configure, addDecorator } from "@storybook/vue";
 import Vue from "vue";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faClock, faCalendarCheck } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faClock, faCalendarCheck);
+import { withNotes } from '@storybook/addon-notes';
+import { withCssResources } from '@storybook/addon-cssresources';library.add(faClock, faCalendarCheck);
+
+addDecorator(withNotes);
+
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 // automatically import all files ending in *.stories.js
