@@ -41,26 +41,34 @@ router.post('/devices', authHelper.authChecker, function (req, res, next) {
     next();
 }, postRequest);
 
-router.get('/callback/:messageId/seen', function (req, res, next) {
-    if (!req.query.redirect) {
-        return res.send(400);
+router.get('/callback/:messageId/seenBy/:receiverId/', function (req, res, next) {
+
+    const sendClientResponse = (response) => {
+        if (response && response.redirect && response.redirect !== null) {
+            return res.redirect(response.redirect);
+        } else {
+            return res.redirect('/');
+        }
     }
+
     res.locals.url = 'notification/callback';
     res.locals.body = {
         messageId: req.params.messageId,
+        receiverId: req.params.receiverId,
+        redirect: req.query.redirect || null
     };
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         api(req).post(res.locals.url, {
             body: res.locals.body
         }).then((response) => {
-            res.redirect(req.query.redirect);
+            return sendClientResponse(response);
         }).catch(err => {
             logger.error('could not mark message as read', err);
-            res.redirect(req.query.redirect);
+            return sendClientResponse();
         });
     } else {
-        logger.warn('could not mark message as read because notification service was disabled, redirect');
-        res.redirect(req.query.redirect);
+        logger.error('could not mark message as read because notification service was disabled, redirect');
+        return sendClientResponse();
     }
 });
 
