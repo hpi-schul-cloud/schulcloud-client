@@ -1186,7 +1186,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
 
-    const consents = (await api(req).get('/consents', { $limit: false })).data;
+    const consents = (await api(req).get('/consents')).data;
 
     const usersWithoutConsent = users.filter(user => {
         let userWithConsent = consents.find(consent => {
