@@ -100,6 +100,8 @@ router.patch('/:newsId', function (req, res, next) {
 });
 router.delete('/:id', getDeleteHandler('news'));
 
+const feed=require("feed-read")
+
 router.all('/', function (req, res, next) {
     const query = req.query.q;
     const itemsPerPage = 9;
@@ -107,28 +109,60 @@ router.all('/', function (req, res, next) {
 
     let queryObject = {
         $limit: itemsPerPage,
-        displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : {$lte: new Date().getTime()},
-        $skip: (itemsPerPage * (currentPage -1)),
+        displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : { $lte: new Date().getTime() },
+        $skip: (itemsPerPage * (currentPage - 1)),
         $sort: '-displayAt',
         title: { $regex: query, $options: 'i' }
     };
 
-    if (!query)
-        delete queryObject.title;
+    if (!query) delete queryObject.title;
 
-    return api(req).get('/news/', { qs: queryObject })
-        .then(news => {
-        const totalNews = news.total;
-        const colors = ["F44336","E91E63","3F51B5","2196F3","03A9F4","00BCD4","009688","4CAF50","CDDC39","FFC107","FF9800","FF5722"];
-        news = news.data.map(news => {
-            news.url = '/news/' + news._id;
-            news.secondaryTitle = moment(news.displayAt).fromNow();
-            news.background = '#'+colors[(news.title||"").length % colors.length];
-            if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
-                news.actions = getActions(news, '/news/');
-            }
-            return news;
-        });
+    const feeds = [
+        "http://craphound.com/?feed=rss2",
+        "http://craphound.com/?feed=rss2",
+    ]
+    const colors = ["F44336", "E91E63", "3F51B5", "2196F3", "03A9F4", "00BCD4", "009688", "4CAF50", "CDDC39", "FFC107", "FF9800", "FF5722"];
+
+    let promise = api(req).get('/news/', { qs: queryObject })
+
+    promise = promise.then(news => news.data.map(item => {
+        item.date = moment(item.createdAt)
+        item.url = '/news/' + item._id;
+        item.secondaryTitle = moment(item.displayAt).fromNow();
+        item.background = '#' + colors[(item.title || "").length % colors.length];
+        item.external = false
+        if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
+            item.actions = getActions(item, '/news/');
+        }
+        return item;
+    }))
+
+    for (let i = 0; i < feeds.length; i++) {
+        promise = promise.then(news => new Promise((resolve, reject) => {
+            feed(feeds[i], (err, rss) => {
+                if (err) {
+                    reject(err)
+                } else {
+                    resolve(news.concat(rss.map(item => ({
+                        date: moment(item.published),
+                        title: item.title,
+                        url: item.link,
+                        secondaryTitle: moment(item.published).fromNow(),
+                        background: '#' + colors[(item.title || "").length % colors.length],
+                        external: true
+                    }))))
+                }
+            })
+        }))
+    }
+
+    promise = promise.then(news => {
+        news.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
+        return news
+    })
+
+    promise = promise.then(news => {
+        const totalNews = news.length;
         const pagination = {
             currentPage,
             numPages: Math.ceil(totalNews / itemsPerPage),
@@ -140,11 +174,13 @@ router.all('/', function (req, res, next) {
             pagination,
             searchLabel: 'Suche nach Neuigkeiten',
             searchAction: '/news/',
-            showSearch: true
-        });
-    }).catch(err => {
-        next(err);
-    });
+            showSearch: true,
+        })
+    })
+
+    promise = promise.catch(err => next(err))
+
+    return promise
 });
 
 router.get('/new', function (req, res, next) {

@@ -100,7 +100,8 @@ $(document).ready(function () {
 		});
 	});
 
-	$('.external-link').on('click', function () {
+	$('.external-link').on('click', function (e) {
+		e.preventDefault()
 		populateModalForm($externalLinkModal, {
 				title: 'Sie verlassen jetzt die Schul-Cloud',
 				closeLabel: 'Abbrechen',
