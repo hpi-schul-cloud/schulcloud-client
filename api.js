@@ -4,7 +4,7 @@ var rp = require('request-promise');
 const api = (req, {useCallback = false, json = true} = {}) => {
     const headers = {};
     if(req && req.cookies && req.cookies.jwt) {
-        headers['Authorization'] = req.cookies.jwt;
+        headers['Authorization'] = "Bearer " + req.cookies.jwt;
     }
 
     const handler = useCallback ? request : rp;
