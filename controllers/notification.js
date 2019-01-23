@@ -15,9 +15,6 @@ const logger = winston.createLogger({
     ]
 });
 
-// secure routes
-router.use(authHelper.authChecker);
-
 const postRequest = (req, res, next) => {
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         api(req).post(res.locals.url, {
@@ -30,7 +27,7 @@ const postRequest = (req, res, next) => {
     }
 };
 
-router.post('/devices', function (req, res, next) {
+router.post('/devices', authHelper.authChecker, function (req, res, next) {
     res.locals.url = 'notification/devices';
     res.locals.body = {
         "service": req.body.service ? req.body.service : "firebase",
@@ -67,7 +64,7 @@ router.get('/callback/:messageId/seen', function (req, res, next) {
     }
 });
 
-router.post('/message', function (req, res, next) {
+router.post('/message', authHelper.authChecker, function (req, res, next) {
     res.locals.url = 'notification/messages';
     res.locals.body = req.body;
 
