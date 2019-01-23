@@ -19,7 +19,7 @@ moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
-        qs: query
+		qs: query
     }).then(data => {
         return data.data;
     });
@@ -1168,8 +1168,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
-    const qs = { roles: role.data[0]._id };
-
+    const qs = { roles: role.data[0]._id, $limit: false };
     let users = [];
 
     if (classId) {
@@ -1187,7 +1186,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
 
-    const consents = (await api(req).get('/consents', { $limit: false })).data;
+    const consents = (await api(req).get('/consents')).data;
 
     const usersWithoutConsent = users.filter(user => {
         let userWithConsent = consents.find(consent => {
@@ -1314,7 +1313,7 @@ const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
         .then(classes => {
             let promises = [
-                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 }), //teachers
+                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
                 getSelectOptions(req, 'years', { $sort: { name: -1 } }),
                 getSelectOptions(req, 'gradeLevels')
             ];
@@ -1414,10 +1413,10 @@ router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW'
 router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] } })
         .then(currentClass => {
-            const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 }); // TODO limit classes to scope (year before, current and without year)
-            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: 1000 });
-            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000 });
-            const yearsPromise = getSelectOptions(req, 'years', { $limit: 10000 });
+            const classesPromise = getSelectOptions(req, 'classes', { $limit: false }); // TODO limit classes to scope (year before, current and without year)
+            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: false });
+            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: false });
+            const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
             Promise.all([
                 classesPromise,
