@@ -25,3 +25,39 @@ function transformToBase64(image_src){
 }     
 
 document.querySelector('#logo-input').addEventListener("change", loadFile, false);
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("rss-feeds-add").onclick=function(e){
+        e.preventDefault()
+        
+        const node = document.createElement("div")
+        node.className="input-group"
+        
+        const input = document.createElement("input")
+        input.type = "url"
+        input.className = "form-control"
+        input.name = "feeds"
+        input.required = true
+
+        const group = document.createElement("div")
+        group.className = "input-group-btn"
+
+        const button = document.createElement("button")
+        button.className = "btn btn-outline-primary btn-rss-delete"
+        button.type = "button"
+        button.onclick = () => button.parentNode.parentNode.remove()
+
+        const icon = document.createElement("i")
+        icon.className = "fa fa-trash-o"
+
+        button.append(icon)
+        group.append(button)
+        node.append(input)
+        node.append(group)
+       
+        this.parentNode.insertBefore(node,this)
+    }
+    Array.from(document.getElementsByClassName("btn-rss-delete")).forEach(el=>{
+        el.onclick=()=>el.parentNode.parentNode.remove()
+    })
+})

@@ -46,6 +46,21 @@
                                     </div>
                                     {{/if}}
 
+                                    <div id="rss-feeds" class="form-group">
+                                        <div>
+                                            <label>RSS Feeds</label>
+                                        </div>
+                                        {{#each ../school.feeds}}
+                                            <div class="input-group">
+                                                <input type="url" class="form-control" name="feeds" value="{{this}}" required />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-outline-primary btn-rss-delete" type="button"><i class="fa fa-trash-o"></i></button>
+                                                </span>
+                                            </div>
+                                        {{/each}}
+                                        <a id="rss-feeds-add" class="btn btn-outline-primary" href='#'>RSS Feed hinzufügen</a>
+                                    </div>
+                                    
                                     <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 
                                 </form>
