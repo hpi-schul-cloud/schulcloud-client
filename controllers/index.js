@@ -41,6 +41,7 @@ router.use('/my-material', require('./my-material'));
 router.use('/firstLogin', require('./firstLogin'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
+router.use('/rocketChat/', require('./rocketChat'));
 
 router.use('/administration/', require('./administration'));
 

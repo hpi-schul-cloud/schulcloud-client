@@ -385,6 +385,19 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
+        let rocketChatCompleteURL;
+        if (process.env.ROCKETCHAT_SERVICE_ENABLED || req.params.teamId == "ffffd213816abba584714c00") { //for demo
+            try{
+                const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
+                const rocketChatURL = process.env.ROCKET_CHAT
+                rocketChatCompleteURL = rocketChatURL + "/group/" + rocketChatChannel.channelName;
+            }
+            catch(e) {
+                logger.warn(e);
+                rocketChatCompleteURL = undefined;
+            }
+        }
+
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
         const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -499,7 +512,8 @@ router.get('/:teamId', async function(req, res, next) {
             news,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
             userId: res.locals.currentUser._id,
-            teamId: req.params.teamId
+            teamId: req.params.teamId,
+            rocketChatURL: rocketChatCompleteURL
         }));
     } catch (e) {
         next(e);
