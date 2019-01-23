@@ -8,6 +8,7 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
+const feed = require("feed-read")
 const moment = require("moment");
 moment.locale('de');
 
@@ -99,8 +100,6 @@ router.patch('/:newsId', function (req, res, next) {
     });
 });
 router.delete('/:id', getDeleteHandler('news'));
-
-const feed=require("feed-read")
 
 router.all('/', function (req, res, next) {
     const query = req.query.q;
