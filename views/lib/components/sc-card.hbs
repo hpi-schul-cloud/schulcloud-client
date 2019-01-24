@@ -1,7 +1,13 @@
 <article class="sc-card">
-    <a href="{{this.url}}" rel="canonical" class="sc-card-header" 
-    {{#if this.background}} style="background:{{this.background}};" {{/if}} 
-    {{#if external}} class="external-link" data-external-link="{{url}}" {{/if}}>
+    <a href="{{url}}" rel="canonical"  
+        {{#if this.background}} 
+            style="background:{{this.background}};" 
+        {{/if}} 
+        {{#if external}} 
+            class="sc-card-header external-link" data-external-link="{{url}}" 
+        {{else}} 
+            class="sc-card-header" 
+        {{/if}}>
         <span class="sc-card-title">
             <span class="title">{{{ stripOnlyScript this.title }}}</span>
             {{#if this.secondaryTitle}}
@@ -38,7 +44,9 @@
         {{truncateHTML (conflictFreeHtml this.content)}}
     </div>
     <div class="sc-card-footer">
-        <a {{#if external}} class="external-link" data-external-link="{{url}}" {{/if}} rel="canonical" href="{{url}}">{{{link-text}}}</a>
+        <a  rel="canonical" href="{{url}}" {{#if external}} class="external-link" data-external-link="{{url}}" {{/if}}>
+            {{{link-text}}}
+        </a>
         {{#if additionalInfoName}}
             <div class="additionalInfo" >
                 {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
