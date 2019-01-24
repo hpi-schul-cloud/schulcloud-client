@@ -29,6 +29,9 @@ document.querySelector('#logo-input').addEventListener("change", loadFile, false
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("rss-feeds-add").onclick=function(e){
         e.preventDefault()
+
+        const formGroup = document.createElement("div")
+        formGroup.className = "form-group"
         
         const node = document.createElement("div")
         node.className="input-group"
@@ -54,8 +57,9 @@ document.addEventListener("DOMContentLoaded", function () {
         group.append(button)
         node.append(input)
         node.append(group)
+        formGroup.append(node)
        
-        this.parentNode.insertBefore(node,this)
+        this.parentNode.insertBefore(formGroup,this)
     }
     Array.from(document.getElementsByClassName("btn-rss-delete")).forEach(el=>{
         el.onclick=()=>{
