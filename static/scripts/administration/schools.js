@@ -58,6 +58,16 @@ document.addEventListener("DOMContentLoaded", function () {
         this.parentNode.insertBefore(node,this)
     }
     Array.from(document.getElementsByClassName("btn-rss-delete")).forEach(el=>{
-        el.onclick=()=>el.parentNode.parentNode.remove()
+        el.onclick=()=>{
+            el.parentNode.parentNode.remove()
+            const feeds = document.getElementById("rss-feeds")
+            if (!feeds.querySelectorAll("input").length){
+                const input = document.createElement("input")
+                input.type = "hidden"
+                input.name = "feeds"
+                input.value = ""
+                feeds.append(input)
+            }
+        }
     })
 })

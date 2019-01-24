@@ -12,6 +12,8 @@ const feed = require("feed-read")
 const moment = require("moment");
 moment.locale('de');
 
+const COLORS = ["F44336", "E91E63", "3F51B5", "2196F3", "03A9F4", "00BCD4", "009688", "4CAF50", "CDDC39", "FFC107", "FF9800", "FF5722"];
+
 router.use(authHelper.authChecker);
 
 const getActions = (item, path) => {
@@ -101,7 +103,26 @@ router.patch('/:newsId', function (req, res, next) {
 });
 router.delete('/:id', getDeleteHandler('news'));
 
-router.all('/', function (req, res, next) {
+const readSchoolFeeds = src => {
+    return new Promise((resolve, reject) => {
+        feed(src, (err, rss) => {
+            if (err) {
+                reject(err)
+            } else {
+                resolve(rss.map(item => ({
+                    date: moment(item.published),
+                    title: item.title,
+                    url: item.link,
+                    secondaryTitle: moment(item.published).fromNow(),
+                    background: '#' + COLORS[(item.title || "").length % COLORS.length],
+                    external: true
+                })))
+            }
+        })
+    }) 
+}
+
+router.all('/', async function (req, res, next) {
     const query = req.query.q;
     const itemsPerPage = 9;
     const currentPage = parseInt(req.query.p) || 1;
@@ -116,51 +137,32 @@ router.all('/', function (req, res, next) {
 
     if (!query) delete queryObject.title;
 
-    const feeds = [
-        "http://craphound.com/?feed=rss2",
-        "http://craphound.com/?feed=rss2",
-    ]
-    const colors = ["F44336", "E91E63", "3F51B5", "2196F3", "03A9F4", "00BCD4", "009688", "4CAF50", "CDDC39", "FFC107", "FF9800", "FF5722"];
+    try {
 
-    let promise = api(req).get('/news/', { qs: queryObject })
+        const newsData = await api(req).get('/news/', { qs: queryObject })
 
-    promise = promise.then(news => news.data.map(item => {
-        item.date = moment(item.createdAt)
-        item.url = '/news/' + item._id;
-        item.secondaryTitle = moment(item.displayAt).fromNow();
-        item.background = '#' + colors[(item.title || "").length % colors.length];
-        item.external = false
-        if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
-            item.actions = getActions(item, '/news/');
+        let news = newsData.data.map(item => {
+            item.date = moment(item.createdAt)
+            item.url = '/news/' + item._id;
+            item.secondaryTitle = moment(item.displayAt).fromNow();
+            item.background = '#' + COLORS[(item.title || "").length % COLORS.length];
+            item.external = false
+            if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
+                item.actions = getActions(item, '/news/');
+            }
+            return item;
+        })
+
+        const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
+        const schoolFeeds = schoolData.feeds
+
+        for (let i = 0; i < schoolFeeds.length; i++) {
+            const feed = await readSchoolFeeds(schoolFeeds[i])
+            news = news.concat(feed)
         }
-        return item;
-    }))
 
-    for (let i = 0; i < feeds.length; i++) {
-        promise = promise.then(news => new Promise((resolve, reject) => {
-            feed(feeds[i], (err, rss) => {
-                if (err) {
-                    reject(err)
-                } else {
-                    resolve(news.concat(rss.map(item => ({
-                        date: moment(item.published),
-                        title: item.title,
-                        url: item.link,
-                        secondaryTitle: moment(item.published).fromNow(),
-                        background: '#' + colors[(item.title || "").length % colors.length],
-                        external: true
-                    }))))
-                }
-            })
-        }))
-    }
-
-    promise = promise.then(news => {
         news.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
-        return news
-    })
 
-    promise = promise.then(news => {
         const totalNews = news.length;
         const pagination = {
             currentPage,
@@ -175,11 +177,11 @@ router.all('/', function (req, res, next) {
             searchAction: '/news/',
             showSearch: true,
         })
-    })
 
-    promise = promise.catch(err => next(err))
+    } catch (err) {
+        next(err)
+    }
 
-    return promise
 });
 
 router.get('/new', function (req, res, next) {
