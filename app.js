@@ -92,7 +92,6 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-    console.log(err)
     // set locals, only providing error in development
     let status = err.status || err.statusCode || 503; // status code is not always included in err
     if (err.statusCode) {
