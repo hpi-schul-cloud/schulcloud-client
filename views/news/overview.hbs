@@ -11,9 +11,11 @@
 
             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
 
-            <div class="container">
-                {{> "lib/components/pagination" settings=pagination }}
-            </div>
+            {{#if pagination}}
+                <div class="container">
+                    {{> "lib/components/pagination" settings=pagination }}
+                </div>
+            {{/if}}
 
         </div>
         {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}

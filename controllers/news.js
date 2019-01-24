@@ -105,58 +105,22 @@ router.patch('/:newsId', function (req, res, next) {
 });
 router.delete('/:id', getDeleteHandler('news'));
 
-const readSchoolFeeds = src => {
-    return new Promise((resolve, reject) => {
-        feed(src, (err, rss) => {
-            if (err) {
-                reject(new Error(`RSS Feed ${src} konnte nicht verarbeitet werden.`))
-            } else {
-                console.log(rss)
-                resolve(rss.map(item => ({
-                    date: moment(item.published),
-                    title: item.title,
-                    content: item.content,
-                    url: item.link,
-                    secondaryTitle: moment(item.published).fromNow(),
-                    background: '#' + COLORS[(item.title || "").length % COLORS.length],
-                    external: true
-                })))
-            }
-        })
-    }) 
+function createNewsEntry(item, currentUser) {
+    item.date = moment(item.createdAt)
+    item.url = '/news/' + item._id
+    item.secondaryTitle = moment(item.displayAt).fromNow()
+    item.background = '#' + COLORS[(item.title || "").length % COLORS.length]
+    if (currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
+        item.actions = getActions(item, '/news/')
+    }
+    return item
 }
 
 router.all('/', async function (req, res, next) {
-    const query = req.query.q;
-    const itemsPerPage = 9;
-    const currentPage = parseInt(req.query.p) || 1;
 
-    let queryObject = {
-        $limit: itemsPerPage,
-        displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : { $lte: new Date().getTime() },
-        $skip: (itemsPerPage * (currentPage - 1)),
-        $sort: '-displayAt',
-        title: { $regex: query, $options: 'i' }
-    };
-
-    if (!query) delete queryObject.title;
+    let items = []
 
     try {
-
-        const news = await api(req).get('/news/', { qs: queryObject })
-        let items = news.data.map(item => {
-            item.date = moment(item.createdAt)
-            item.url = '/news/' + item._id;
-            item.secondaryTitle = moment(item.displayAt).fromNow();
-            item.background = '#' + COLORS[(item.title || "").length % COLORS.length];
-            if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
-                item.actions = getActions(item, '/news/');
-            }
-            return item;
-        })
-
-        const newsAmount = items.length
-        let feedsAmount = 0
 
         const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
         const schoolFeedUrls = schoolData.feeds
@@ -164,9 +128,8 @@ router.all('/', async function (req, res, next) {
         for (let i = 0; i < schoolFeedUrls.length; i++) {
 
             const feed = await rssParser.parseURL(schoolFeedUrls[i])
-            console.log(feed)
-
-            const feeds = feed.items.map(item => ({
+            // new Error(`RSS Feed ${src} konnte nicht verarbeitet werden.`)
+            items = items.concat(feed.items.map(item => ({
                 date: moment(item.isoDate),
                 title: item.title,
                 content: item.contentSnippet,
@@ -174,31 +137,60 @@ router.all('/', async function (req, res, next) {
                 secondaryTitle: moment(item.pubDate).fromNow(),
                 background: '#' + COLORS[(item.title || "").length % COLORS.length],
                 tags: item.categories
-            }))
-
-            feedsAmount += feeds.length
-
-            items = items.concat(feeds)
+            })))
 
         }
 
-        items.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
+        if (items.length) {
 
-        const totalNews = newsAmount+feedsAmount;
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(totalNews / itemsPerPage),
-            baseUrl: '/news/?p={{page}}'
+            const news = await api(req).get('/news/')
+            items = items.concat(news.data.map(item => createNewsEntry(item, res.locals.currentUser)))
+
+            items.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
+
+            res.render('news/overview', {
+                title: 'Neuigkeiten aus meiner Schule',
+                news: items,
+                searchLabel: 'Suche nach Neuigkeiten',
+                searchAction: '/news/',
+                showSearch: true,
+            })
+
+        } else {
+
+            const query = req.query.q;
+            const itemsPerPage = 9;
+            const currentPage = parseInt(req.query.p) || 1;
+
+            let queryObject = {
+                $limit: itemsPerPage,
+                displayAt: (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) ? {} : { $lte: new Date().getTime() },
+                $skip: (itemsPerPage * (currentPage - 1)),
+                $sort: '-displayAt',
+                title: { $regex: query, $options: 'i' }
+            };
+
+            if (!query) delete queryObject.title;
+
+            const news = await api(req).get('/news/', { qs: queryObject })
+            items = items.concat(news.data.map(item => createNewsEntry(item, res.locals.currentUser)))
+
+            items.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
+
+            res.render('news/overview', {
+                title: 'Neuigkeiten aus meiner Schule',
+                news: items,
+                pagination: {
+                    currentPage,
+                    numPages: Math.ceil(news.total / itemsPerPage),
+                    baseUrl: '/news/?p={{page}}'
+                },
+                searchLabel: 'Suche nach Neuigkeiten',
+                searchAction: '/news/',
+                showSearch: true,
+            })
+
         }
-
-        res.render('news/overview', {
-            title: 'Neuigkeiten aus meiner Schule',
-            news: items,
-            pagination,
-            searchLabel: 'Suche nach Neuigkeiten',
-            searchAction: '/news/',
-            showSearch: true,
-        })
 
     } catch (err) {
         next(err)
@@ -207,6 +199,7 @@ router.all('/', async function (req, res, next) {
 });
 
 router.get('/feeds/:id', async (req,res,next)=>{
+
     const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
     const schoolFeedUrls = schoolData.feeds
 
