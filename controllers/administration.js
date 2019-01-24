@@ -511,7 +511,11 @@ const getUpdateHandler = (service) => {
     return function (req, res, next) {
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
-            json: req.body
+            json: service === "schools" ? {
+                ...req.body,
+                //need to set empty array manually. mongoose ignores no existing property
+                feeds: req.body.feeds ? req.body.feeds : []
+            } : req.body
         }).then(data => {
             createEventsForData(data, service, req, res).then(_ => {
                 res.redirect(cutEditOffUrl(req.header('Referer')));
