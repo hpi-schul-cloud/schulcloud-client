@@ -107,7 +107,7 @@ const readSchoolFeeds = src => {
     return new Promise((resolve, reject) => {
         feed(src, (err, rss) => {
             if (err) {
-                reject(err)
+                reject(new Error(`RSS Feed ${src} konnte nicht verarbeitet werden.`))
             } else {
                 resolve(rss.map(item => ({
                     date: moment(item.published),
