@@ -23,19 +23,19 @@
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: *</label>
+            <label>Vorname: <sup>*</sup></label>
             <input class="form-control linked" name="firstName" type="text" placeholder="Dein offizieller Vorname, kein Spitzname" 
                 value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}}/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: *</label>
+            <label>Nachname: <sup>*</sup></label>
             <input class="form-control linked" name="lastName" type="text" placeholder="Dein offizieller Nachname" 
                 value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
-            <label>Geburtsdatum: *</label>
+            <label>Geburtsdatum: <sup>*</sup></label>
             <input class="form-control linked" name="birthDate" type="text" 
                 data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 18 0 0}}" 
                 value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{else}}{{datePickerTodayMinus 19 0 0 "DD.MM.YYYY"}}{{/if}}"
@@ -44,7 +44,7 @@
         </div>
 
         <div class="form-group">
-            <label>E-Mail-Adresse: *</label>
+            <label>E-Mail-Adresse: <sup>*</sup></label>
             <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org" 
                 value="{{user.email}}" required {{#if user.email}}readonly{{/if}}>
         </div>
@@ -54,7 +54,7 @@
 
         <div class="row">
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <Label>Geschlecht: *</Label>
+            <label>Geschlecht: <sup>*</sup></label>
             <select class="form-control form-control-lg" type="text" name="gender" required>
               <option value="noinfo" selected>keine Angabe</option>
               <option value="male">männlich</option>

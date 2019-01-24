@@ -91,8 +91,11 @@ const editCourseHandler = (req, res, next) => {
         coursePromise = Promise.resolve({});
     }
 
-    const classesPromise = api(req).get('/classes', { qs: { $or: [{ "schoolId": res.locals.currentSchool }], $limit: 1000 }})
-        .then(data => data.data );
+    const classesPromise = api(req).get('/classes', { qs: {
+        $or: [{ "schoolId": res.locals.currentSchool }],
+        $populate: ["year"],
+        $limit: 1000
+    }}).then(data => data.data );
     const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
     const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
 
@@ -128,6 +131,9 @@ const editCourseHandler = (req, res, next) => {
             course.teacherIds.push(res.locals.currentUser);
         }
 
+        // populate course colors - to be replaced system scope
+        const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
+
         res.render('courses/edit-course', {
             action,
             method,
@@ -135,6 +141,7 @@ const editCourseHandler = (req, res, next) => {
             submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
             closeLabel: 'Abbrechen',
             course,
+            colors,
             classes: markSelected(classes, _.map(course.classIds, '_id')),
             teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
@@ -432,7 +439,10 @@ router.get('/:courseId', function(req, res, next) {
                     title: 'Meine Kurse',
                     url: '/courses'
                 },
-                {}
+                {
+                    title: course.name,
+                    url: '/courses/' + course._id
+                }
             ],
             filesUrl: `/files/courses/${req.params.courseId}`,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times)

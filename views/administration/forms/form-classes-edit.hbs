@@ -1,6 +1,7 @@
 <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 {{#if edit}}
     <input type="hidden" name="_id" value="{{class._id}}" />
+    <input type="hidden" name="referrer" value="{{referrer}}" />
 
     <a class="d-block mb-1"
         href="/administration/classes/{{@root.class/_id}}/manage"
@@ -10,7 +11,7 @@
 {{/if}}
 
 <div class="form-group">
-    <label>Schuljahr *</label>
+    <label>Schuljahr <sup>*</sup></label>
     <select class="linked" name="schoolyear" data-linktext data-placeholder="Schuljahr auswählen" {{#ifCond edit '&&' isCustom}}{{#unless class.keepYear}}disabled="true"{{/unless}}{{/ifCond}}>
         {{#each schoolyears}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -39,7 +40,7 @@
 <section id="createnew">
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
-            <label>Jahrgangsstufe *</label>
+            <label>Jahrgangsstufe <sup>*</sup></label>
             <select class="linked" name="grade" data-linktext data-placeholder="Jahrgangsstufe wählen" required  {{#if isCustom}}disabled{{/if}}>
                 <option disabled value>keine Auswahl</option>
                 {{#each gradeLevels}}
@@ -86,7 +87,7 @@
 </section>
 
 <div class="modal-footer mt-1">
-    <a href="/administration/classes" class="btn btn-secondary">Abbrechen</a>
+    <a class="btn btn-secondary btn-cancel">Abbrechen</a>
     {{#unless edit}}
         <button class="btn btn-primary" type="submit" disabled>Klasse hinzufügen</button>
         {{#userHasPermission 'ADMIN_VIEW'}}
@@ -97,3 +98,5 @@
         <button class="btn btn-primary" type="submit" disabled>Änderungen speichern</button>
     {{/unless}}
 </div>
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

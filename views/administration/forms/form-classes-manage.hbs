@@ -1,4 +1,5 @@
 <input name="classid" type="hidden" value="{{class._id}}"/>
+<input type="hidden" name="referrer" value="{{referrer}}" />
 
 <div class="container-fluid ajaxcontent">
 
@@ -46,12 +47,9 @@
         </div>
     </div>
 
-
-    <div class="row">
-        <div style="width: 100%" class="modal-footer mt-1">
-            <a href="/administration/classes" class="btn btn-secondary">Abbrechen</a>
-            <button type="submit" class="btn btn-primary">Änderungen speichern</button>
-        </div>
+    <div class="modal-footer mt-1">
+        <a class="btn btn-secondary btn-cancel">Abbrechen</a>
+        <button type="submit" class="btn btn-primary">Änderungen speichern</button>
     </div>
 
     <hr class="my-2"/>
@@ -160,3 +158,5 @@
         </div>
     {{/content}}
 {{/embed}}
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

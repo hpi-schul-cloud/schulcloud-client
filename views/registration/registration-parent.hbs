@@ -23,19 +23,19 @@
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben für Ihr Kind:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: *</label>
+            <label>Vorname: <sup>*</sup></label>
             <input class="form-control linked" name="firstName" type="text" placeholder="Vorname des Kindes in offizieller Schreibweise, keine Spitznamen" 
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}} />
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: *</label>
+            <label>Nachname: <sup>*</sup></label>
             <input class="form-control linked" name="lastName" type="text"  placeholder="Nachname des Kindes" 
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Geburtsdatum des Schülers: *</label>
+          <label>Geburtsdatum des Schülers: <sup>*</sup></label>
           <input class="form-control linked" name="birthDate" type="text"
             data-date data-min-date="{{datePickerTodayMinus 18 0 -1}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" 
             value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{else}}{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}{{/if}}" autocomplete="off" required {{#if user.birthday}}readonly{{/if}}/>
@@ -52,7 +52,7 @@
 
         <div class="row">
           <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-            <Label>Geschlecht: *</Label>
+            <label>Geschlecht: <sup>*</sup></label>
             <select class="form-control form-control-lg" name="gender" type="text">
               <option value="noinfo" selected>keine Angabe</option>
               <option value="male">männlich</option>
@@ -72,17 +72,17 @@
         <p>Dazu benötigen wir folgende Angaben von Ihnen:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: *</label>
+            <label>Vorname: <sup>*</sup></label>
             <input class="form-control linked" name="parent_firstName" type="text" placeholder="Ihren Vornamen hier eingeben" required/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: *</label>
+            <label>Nachname: <sup>*</sup></label>
             <input class="form-control linked" name="parent_lastName" type="text" placeholder="Ihren Nachname hier eingeben" required/>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Ihre E-Mail-Adresse * <small>(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)</small></label>
+          <label>Ihre E-Mail-Adresse: <sup>*</sup> <small>(Darf nicht gleich der E-Mail-Adresse Ihres Kindes sein)</small></label>
           <input class="form-control" type="email" name="parent_email" required placeholder="eltern@schul-cloud.org" autocomplete />
         </div>
         <p class="explanation nomargin">

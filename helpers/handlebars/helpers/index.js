@@ -272,4 +272,7 @@ module.exports = {
         }
         options.data.root[varName] += incrementor;
     },
+    indexOf: (item, searchValue, fromIndex) => {
+        return item.indexOf(searchValue, fromIndex);
+    },
 };

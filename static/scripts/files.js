@@ -70,6 +70,8 @@ $(document).ready(function() {
         return fullPath.split("/").slice(0, -1).join('/');
     }
 
+    /** temp save for createdDirs, reset after reload **/
+    let createdDirs = [];
 
     /** loads dropzone, if it exists on current page **/
     let progressBarActive = false;
@@ -87,7 +89,7 @@ $(document).ready(function() {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-            .fail(showAJAXError);
+            .fail((err) => { this.removeFile(file); showAJAXError(err.responseJSON.error.code, err.responseJSON.error.message, `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`); });
         },
         createImageThumbnails: false,
         method: 'put',

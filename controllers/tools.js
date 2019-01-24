@@ -53,38 +53,38 @@ const runToolHandler = (req, res, next) => {
     api(req).get('/roles/' + currentUser.roles[0]._id),
     api(req).get('/pseudonym?userId=' + currentUser._id + '&toolId=' + req.params.ltiToolId)
     ]).then(([tool, role, pseudonym]) => {
-    let customer = new ltiCustomer.LTICustomer();
-    let consumer = customer.createConsumer(tool.key, tool.secret);
-    let user_id = '';
-    if (tool.privacy_permission === 'pseudonymous') {
-        user_id = pseudonym.data[0].pseudonym;
-    } else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
-        user_id = currentUser._id;
-    }
-    let payload = {
-        lti_version: tool.lti_version,
-        lti_message_type: tool.lti_message_type,
-        resource_link_id: tool.resource_link_id || req.params.courseId,
-        roles: customer.mapSchulcloudRoleToLTIRole(role.name),
-        launch_presentation_document_target: 'window',
-        launch_presentation_locale: 'en',
-        lis_person_name_full: (tool.privacy_permission === 'name'
-            ? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
-            : null),
-        lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
-            ? currentUser.email
-            : null),
-        user_id
-    };
-    tool.customs.forEach((custom) => {
-        payload[customer.customFieldToString(custom)] = custom.value;
-    });
+       let customer = new ltiCustomer.LTICustomer();
+       let consumer = customer.createConsumer(tool.key, tool.secret);
+       let user_id = '';
+       if (tool.privacy_permission === 'pseudonymous') {
+         user_id = pseudonym.data[0].pseudonym;
+       } else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
+         user_id = currentUser._id;
+       }
+       let payload = {
+           lti_version: tool.lti_version,
+           lti_message_type: tool.lti_message_type,
+           resource_link_id: tool.resource_link_id || req.params.courseId,
+           roles: customer.mapSchulcloudRoleToLTIRole(role.name),
+           launch_presentation_document_target: 'window',
+           launch_presentation_locale: 'en',
+           lis_person_name_full: (tool.privacy_permission === 'name'
+             ? currentUser.displayName || `${currentUser.firstName} ${currentUser.lastName}`
+             : ''),
+           lis_person_contact_email_primary: (tool.privacy_permission === 'e-mail'
+             ? currentUser.email
+             : ''),
+           user_id
+       };
+       tool.customs.forEach((custom) => {
+           payload[customer.customFieldToString(custom)] = custom.value;
+       });
 
-    let request_data = {
-        url: tool.url,
-        method: 'POST',
-        data: payload
-    };
+       let request_data = {
+           url: tool.url,
+           method: 'POST',
+           data: payload
+       };
 
         var formData = consumer.authorize(request_data);
 

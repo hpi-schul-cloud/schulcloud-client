@@ -31,7 +31,7 @@ describe('Dashboard tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Übersicht');
-                    expect(res.text).to.contain('Ida Renz');
+                    expect(res.text).to.contain('Marla Mathe');
                     expect(res.text).to.contain('Schüler');
                     resolve();
                 });
