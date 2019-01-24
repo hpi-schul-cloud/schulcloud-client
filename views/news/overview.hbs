@@ -1,7 +1,4 @@
 {{#extend "news/news"}}
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/content.js" type="text/javascript" defer></script>
-    {{/content}}
     {{#content "page"}}
 
         <div class="route-news">
@@ -19,11 +16,6 @@
             </div>
 
         </div>
-        {{#embed "lib/components/modal" class="external-link-modal"}}
-            {{#content "body"}}
-                {{> "content/forms/form-external-link"}}
-            {{/content}}
-        {{/embed}}
         {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
             {{#content "body"}}
                 <div class="modal-footer">

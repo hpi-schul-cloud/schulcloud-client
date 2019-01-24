@@ -8,9 +8,11 @@ const marked = require('marked');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const handlebars = require("handlebars");
-const feed = require("feed-read")
 const moment = require("moment");
 moment.locale('de');
+
+const RSSParser = require('rss-parser')
+const rssParser = new RSSParser()
 
 const COLORS = ["F44336", "E91E63", "3F51B5", "2196F3", "03A9F4", "00BCD4", "009688", "4CAF50", "CDDC39", "FFC107", "FF9800", "FF5722"];
 
@@ -109,9 +111,11 @@ const readSchoolFeeds = src => {
             if (err) {
                 reject(new Error(`RSS Feed ${src} konnte nicht verarbeitet werden.`))
             } else {
+                console.log(rss)
                 resolve(rss.map(item => ({
                     date: moment(item.published),
                     title: item.title,
+                    content: item.content,
                     url: item.link,
                     secondaryTitle: moment(item.published).fromNow(),
                     background: '#' + COLORS[(item.title || "").length % COLORS.length],
@@ -139,39 +143,57 @@ router.all('/', async function (req, res, next) {
 
     try {
 
-        const newsData = await api(req).get('/news/', { qs: queryObject })
-
-        let news = newsData.data.map(item => {
+        const news = await api(req).get('/news/', { qs: queryObject })
+        let items = news.data.map(item => {
             item.date = moment(item.createdAt)
             item.url = '/news/' + item._id;
             item.secondaryTitle = moment(item.displayAt).fromNow();
             item.background = '#' + COLORS[(item.title || "").length % COLORS.length];
-            item.external = false
             if (res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')) {
                 item.actions = getActions(item, '/news/');
             }
             return item;
         })
 
-        const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
-        const schoolFeeds = schoolData.feeds
+        const newsAmount = items.length
+        let feedsAmount = 0
 
-        for (let i = 0; i < schoolFeeds.length; i++) {
-            const feed = await readSchoolFeeds(schoolFeeds[i])
-            news = news.concat(feed)
+        const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
+        const schoolFeedUrls = schoolData.feeds
+
+        for (let i = 0; i < schoolFeedUrls.length; i++) {
+
+            const feed = await rssParser.parseURL(schoolFeedUrls[i])
+            console.log(feed)
+
+            const feeds = feed.items.map(item => ({
+                date: moment(item.isoDate),
+                title: item.title,
+                content: item.contentSnippet,
+                url: `/news/feeds/${encodeURIComponent(item.guid)}`,
+                secondaryTitle: moment(item.pubDate).fromNow(),
+                background: '#' + COLORS[(item.title || "").length % COLORS.length],
+                tags: item.categories
+            }))
+
+            feedsAmount += feeds.length
+
+            items = items.concat(feeds)
+
         }
 
-        news.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
+        items.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
 
-        const totalNews = news.length;
+        const totalNews = newsAmount+feedsAmount;
         const pagination = {
             currentPage,
             numPages: Math.ceil(totalNews / itemsPerPage),
             baseUrl: '/news/?p={{page}}'
-        };
+        }
+
         res.render('news/overview', {
             title: 'Neuigkeiten aus meiner Schule',
-            news,
+            news: items,
             pagination,
             searchLabel: 'Suche nach Neuigkeiten',
             searchAction: '/news/',
@@ -183,6 +205,25 @@ router.all('/', async function (req, res, next) {
     }
 
 });
+
+router.get('/feeds/:id', async (req,res,next)=>{
+    const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
+    const schoolFeedUrls = schoolData.feeds
+
+    const feeds=[]
+    for (let i = 0; i < schoolFeedUrls.length; i++) {
+        const feed = await rssParser.parseURL(schoolFeedUrls[i])
+        feeds.push(...feed.items)
+    }
+
+    const feed = feeds.find(feed=>feed.guid===req.params.id)
+    if (!feed){
+        return next(new Error("Feed not found"))
+    }
+    res.render('news/feed', {
+        feed: feed
+    })
+})
 
 router.get('/new', function (req, res, next) {
     res.render('news/edit', {
