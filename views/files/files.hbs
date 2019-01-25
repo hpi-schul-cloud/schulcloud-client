@@ -15,6 +15,9 @@
         <div class="route-files">
             {{#if canUploadFile}}
                 {{#embed "files/file-upload"}}{{/embed}}
+				<div class="container-fluid pre-scrollable">
+					<ul class="list-group list-group-flush" id="files-uploaded"></ul>
+				</div>
             {{/if}}
 
             <section class="section-title">

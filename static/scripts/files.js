@@ -20,7 +20,7 @@ $(document).ready(function() {
 
     // TODO: replace with something cooler
     let reloadFiles = function () {
-        window.location.reload();
+    	window.location.reload();
     };
 
     function showAJAXSuccess(message) {
@@ -37,6 +37,11 @@ $(document).ready(function() {
         }
     }
 
+    function showUploadFile(fileName, success) {
+    	let marker = success ? '✔️' : '❌';
+		$('#files-uploaded').prepend(`<li class="list-group-item d-flex justify-content-between align-items-center">${fileName}<span style="float:right">${marker}</span></li>`);
+	}
+
     /**
      * gets the directory name of a file's fullPath (all except last path-part)
      * @param {string} fullPath - the fullPath of a file
@@ -47,6 +52,9 @@ $(document).ready(function() {
 
     /** temp save for createdDirs, reset after reload **/
     let createdDirs = [];
+
+    /** temp save for forbiddenDirs, reset after reload **/
+    let forbiddenDirs = [];
 
     /** loads dropzone, if it exists on current page **/
     let progressBarActive = false;
@@ -65,11 +73,26 @@ $(document).ready(function() {
 
 				if (fullPath.length >= 1) {
 					for (let i = 0; i < fullPath.length; i++) {
+
+						// check whether forbidden dir is contained in fullPath
+						if (forbiddenDirs.some(st => { return file.fullPath.includes(st); }))
+							return this.removeFile(file);
+
 						// check whether directory was already created if so skip
 						if (!createdDirs.includes(`${currentDir}${fullPath[i]}`)) {
-							$.post('/files/directory', {
-								dir: currentDir,
-								name: fullPath[i]
+							// make sync call to be able to add it to forbiddenDirs
+							$.ajax({
+								type: 'POST',
+								url: '/files/directory',
+								data: {
+									dir: currentDir,
+									name: fullPath[i]
+								},
+								async:false
+							}).fail(err => {
+								forbiddenDirs.push(`${fullPath[i]}/`);
+								this.removeFile(file);
+								showAJAXError(500, '', `Der Ordner "${fullPath[i]}" ist nicht erlaubt!`);
 							});
 
 							createdDirs.push(`${currentDir}${fullPath[i]}`);
@@ -87,10 +110,15 @@ $(document).ready(function() {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-                .fail((err) => { this.removeFile(file); showAJAXError(err.responseJSON.error.code, err.responseJSON.error.message, `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`); });
+                .fail((err) => {
+                	showUploadFile(file.name, false);
+					this.removeFile(file);
+                	showAJAXError(err.responseJSON.error.code, err.responseJSON.error.message, `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`);
+                });
         },
         createImageThumbnails: false,
         method: 'put',
+		maxFilesize: 512,
         init: function () {
             // this is called on per-file basis
             this.on("processing", function (file) {
@@ -140,7 +168,6 @@ $(document).ready(function() {
 
             this.on("success", function (file, response) {
                 finishedFilesSize += file.size;
-
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', {
                     key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
@@ -151,6 +178,8 @@ $(document).ready(function() {
                     flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
                     thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
                 });
+
+                showUploadFile(file.name, true);
 
                 this.removeFile(file);
 
