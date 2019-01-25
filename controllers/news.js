@@ -119,7 +119,7 @@ function createNewsEntry(item, currentUser) {
 router.all('/', function (req, res, next) {
 
     api(req).get('/schools/' + res.locals.currentSchool)
-    .then(response => response.feeds)
+    .then(response => response.feeds || [])
     .then(async feeds => {
         let arr = []
         for (let i = 0; i < feeds.length; i++) {
