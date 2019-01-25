@@ -1,0 +1,111 @@
+@import "../lib/colors";
+
+.live-search {
+  position: relative;
+  margin: 0 auto 2rem;
+  width: 100%;
+  max-width: 500px;
+
+  .search-container {
+    display: flex;
+
+    align-items: center;
+    border-radius: 50rem;
+    background: $colorGrey;
+    padding: 0 16px;
+    width: 100%;
+    color: #333;
+    box-sizing: border-box;
+
+    .fa,
+    input {
+      padding: 16px 4px;
+      font-size: 1.3rem;
+    }
+
+    input {
+      flex: 1;
+      outline: none;
+      border: 0;
+      background: transparent;
+      padding: 12px;
+    }
+
+    .search-icon {
+      transition: transform .3s ease-in-out;
+    }
+
+    .load-icon {
+      display: none;
+    }
+
+    .clear-icon {
+      position: absolute;
+      top: 0;
+      right: 8px;
+      transition: opacity .3s ease-in-out;
+      visibility: hidden;
+      opacity: 0;
+      cursor: pointer;
+      padding: 16px;
+    }
+
+  }
+
+  .live-search-results {
+    position: absolute;
+    bottom: 0;
+    transform: translateY(100%);
+    visibility: hidden;
+    z-index: 9999;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .258824), 0 2px 10px 0 rgba(0, 0, 0, .156863) !important;
+    background: $colorWhite;
+    padding: 8px;
+    width: 100%;
+    max-height: 25rem;
+    overflow-y: auto;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch; // sass-lint:disable-line no-vendor-prefixes
+
+    a {
+      text-decoration: none;
+
+      &:not(:last-of-type) div {
+        margin-bottom: .25em;
+        border-bottom: 1px solid #999;
+        padding-bottom: .25em;
+      }
+
+      &.disabled {
+        filter: saturate(0);
+      }
+    }
+  }
+
+  &.active {
+    .live-search-results.active {
+      visibility: visible;
+    }
+
+    .search-icon {
+      transform: rotate(90deg);
+    }
+
+    .hasContent~.clear-icon {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &.loading {
+    .search-icon {
+      display: none;
+    }
+
+    .load-icon {
+      display: initial;
+    }
+  }
+}

@@ -19,7 +19,7 @@ moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
-        qs: query
+		qs: query
     }).then(data => {
         return data.data;
     });
@@ -382,28 +382,35 @@ const getSendHelper = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id)
             .then(data => {
-                let user = res.locals.currentUser;
-                let email = user.email ? user.email : "";
-                let innerText = "Problem in Kategorie: " + data.category + "\n";
-                let content = {
-                    "text": "User: " + user.displayName + "\n"
-                        + "E-Mail: " + email + "\n"
-                        + "Schule: " + res.locals.currentSchoolData.name + "\n"
-                        + innerText
-                        + "User schrieb folgendes: \nIst Zustand:\n" + data.currentState + "\n\nSoll-Zustand:\n" + data.targetState + "\n\nAnmerkungen vom Admin:\n" + data.notes
-                };
-                req.body.email = "ticketsystem@schul-cloud.org";
-                req.body.subject = data.subject;
-                req.body.content = content;
 
-                api(req).post('/mails', { json: req.body }).then(_ => {
+                let user = res.locals.currentUser;
+
+                api(req).post('/helpdesk', {
+                    json: {
+                        type: "contactHPI",
+                        subject: data.subject,
+                        category: data.category,
+                        role: "",
+                        desire: "",
+                        benefit: "",
+                        acceptanceCriteria: "",
+                        currentState : data.currentState,
+                        targetState: data.targetState,
+                        notes: data.notes,
+                        schoolName: res.locals.currentSchoolData.name,
+                        userId: user._id,
+                        email: user.email ? user.email : "",
+                        schoolId: res.locals.currentSchoolData._id,
+                        cloud: res.locals.theme.title
+                    }
+                })
+                .then(_ => {
                     api(req).patch('/' + service + '/' + req.params.id, {
                         json: {
                             state: 'submitted',
                             order: 1
                         }
                     });
-                    res.sendStatus(200);
                 }).catch(err => {
                     res.status((err.statusCode || 500)).send(err);
                 });
@@ -673,7 +680,7 @@ const userFilterSettings = function (defaultOrder) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -819,7 +826,7 @@ const getTeacherUpdateHandler = () => {
 
         // do all db requests
         Promise.all(promises).then(([user, consent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer')));
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -977,7 +984,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 editTeacher: true,
                 hidePwChangeButton,
                 isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+                referrer: req.header('Referer'),
             }
         );
     });
@@ -992,33 +1000,37 @@ const getStudentUpdateHandler = () => {
     return async function (req, res, next) {
         const birthday = req.body.birthday.split('.');
         req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+        let studentConsent = {}, newParentConsent = {};
 
         // extractConsent
-        let studentConsent = {
-            _id: req.body.student_consentId,
-            userConsent: {
-                form: req.body.student_form || "analog",
-                privacyConsent: req.body.student_privacyConsent === "true",
-                researchConsent: req.body.student_researchConsent === "true",
-                thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
-                termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
-            }
-        };
-        let newParentConsent = {
-            form: req.body.parent_form || "analog",
-            privacyConsent: req.body.parent_privacyConsent === "true",
-            researchConsent: req.body.parent_researchConsent === "true",
-            thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
-            termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
-        };
-        if (studentConsent._id) {
-            let orgUserConsent = await api(req).get('/consents/' + studentConsent._id);
-            if (orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]) {
-                orgUserConsent.parentConsents[0];
+        if (req.body.student_form) {
+            studentConsent = {
+                _id: req.body.student_consentId,
+                userConsent: {
+                    form: req.body.student_form || "analog",
+                    privacyConsent: req.body.student_privacyConsent === "true",
+                    researchConsent: req.body.student_researchConsent === "true",
+                    thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
+                    termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
+                }
+            };
+        }
+        if (req.body.parent_form) {
+            newParentConsent = {
+                form: req.body.parent_form || "analog",
+                privacyConsent: req.body.parent_privacyConsent === "true",
+                researchConsent: req.body.parent_researchConsent === "true",
+                thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+                termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
+            };
+        }
+        if(studentConsent._id){
+            let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
+            if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
                 Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
                 studentConsent.parentConsents = orgUserConsent.parentConsents;
             }
-        } else if (studentConsent.userConsent.form) {
+        }else if((studentConsent.userConsent||{}).form){
             studentConsent.parentConsents = [newParentConsent];
         }
 
@@ -1033,14 +1045,14 @@ const getStudentUpdateHandler = () => {
 
         if (studentConsent._id) { // update exisiting consent
             promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
-        } else if (studentConsent.userConsent.form) {//create new consent entry
+        } else if((studentConsent.userConsent||{}).form){//create new consent entry
             delete studentConsent._id;
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
 
         Promise.all(promises).then(([user, studentConsent]) => {
-            res.redirect(cutEditOffUrl(req.header('Referer')));
+            res.redirect(req.body.referrer); 
         }).catch(err => {
             next(err);
         });
@@ -1162,14 +1174,17 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 studentsWithoutConsentCount: studentsWithoutConsent.length,
                 allStudentsCount
             });
+        }).catch(err => {
+            next(err);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
-    const qs = { roles: role.data[0]._id };
-
+    const qs = { roles: role.data[0]._id, $limit: false };
     let users = [];
 
     if (classId) {
@@ -1187,7 +1202,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
 
-    const consents = (await api(req).get('/consents', { $limit: false })).data;
+    const consents = (await api(req).get('/consents')).data;
 
     const usersWithoutConsent = users.filter(user => {
         let userWithConsent = consents.find(consent => {
@@ -1299,9 +1314,12 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent,
                 hidePwChangeButton,
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+                referrer: req.header('Referer'),
             }
         );
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -1314,7 +1332,7 @@ const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
         .then(classes => {
             let promises = [
-                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 }), //teachers
+                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
                 getSelectOptions(req, 'years', { $sort: { name: -1 } }),
                 getSelectOptions(req, 'gradeLevels')
             ];
@@ -1355,17 +1373,20 @@ const renderClassEdit = (req, res, next, edit) => {
                     }
                 }
 
-                res.render('administration/classes-edit', {
-                    title: `${edit ? `Klasse '${currentClass.displayName}' bearbeiten` : "Erstelle eine neue Klasse"}`,
-                    edit,
-                    schoolyears,
-                    teachers,
-                    class: currentClass,
-                    gradeLevels,
-                    isCustom
-                });
+            res.render('administration/classes-edit', {
+                title: `${edit?`Klasse '${currentClass.displayName}' bearbeiten`:"Erstelle eine neue Klasse"}`,
+                edit,
+                schoolyears,
+                teachers,
+                class: currentClass,
+                gradeLevels,
+                isCustom,
+                referrer: req.header('Referer')
             });
         });
+    }).catch(err => {
+        next(err);
+    });
 };
 const getClassOverview = (req, res, next) => {
     let query = {
@@ -1414,10 +1435,10 @@ router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW'
 router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] } })
         .then(currentClass => {
-            const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 }); // TODO limit classes to scope (year before, current and without year)
-            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: 1000 });
-            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000 });
-            const yearsPromise = getSelectOptions(req, 'years', { $limit: 10000 });
+            const classesPromise = getSelectOptions(req, 'classes', { $limit: false }); // TODO limit classes to scope (year before, current and without year)
+            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: false });
+            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: false });
+            const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
             Promise.all([
                 classesPromise,
@@ -1477,7 +1498,8 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                             "title": "Passwort ändern",
                             "content": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
                         },
-                    ]
+                    ],
+                    referrer: req.header('Referer'),
                 });
             });
         });
@@ -1492,7 +1514,7 @@ router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['A
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1559,7 +1581,7 @@ router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADM
         // TODO: sanitize
         json: changedClass
     }).then(data => {
-        res.redirect(`/administration/classes/`);
+        res.redirect(req.body.referrer);
     }).catch(err => {
         next(err);
     });
@@ -1600,7 +1622,7 @@ const classFilterSettings = function (years) {
             type: "limit",
             title: 'Einträge pro Seite',
             displayTemplate: 'Einträge pro Seite: %1',
-            options: [10, 25, 50, 100],
+            options: [25, 50, 100],
             defaultSelection: 25
         },
         {
@@ -2055,5 +2077,24 @@ router.all('/systems', function (req, res, next) {
         });
     });
 });
+
+/*
+    LDAP SYSTEMS
+*/
+
+router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+    //Create ID for LDAP
+
+    //TODO change ID
+    res.redirect('/administration/systems/ldap/5c3c9f03732a7cf5b2665cc9');
+});
+router.get('/systems/ldap/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+
+    res.render('administration/ldap-edit', {
+        title: 'LDAP bearbeiten',
+    });
+
+});
+
 
 module.exports = router;

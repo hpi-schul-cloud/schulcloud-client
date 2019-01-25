@@ -1,6 +1,12 @@
 /* global kjua jQuery introJs*/
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+import { iFrameListen } from './helpers/iFrameResize';
+
+iFrameListen();
+
+var $contactHPIModal;
+var $contactAdminModal;
 
 var $contactHPIModal;
 var $contactAdminModal;
@@ -10,7 +16,7 @@ if (window.opener && window.opener !== window) {
 }
 
 function toggleMobileNav() {
-    document.querySelector('aside.nav-sidebar nav:first-child').classList.toggle('active');
+    document.querySelector('aside.nav-sidebar').classList.toggle('active');
     this.classList.toggle('active');
 }
 
@@ -39,9 +45,10 @@ function fullscreenBtnClicked() {
 function sendFeedback(modal, e) {
     let fmodal = $(modal);
     e.preventDefault();
+
     let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
     let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
-    
+
     $.ajax({
         url: '/helpdesk',
         type: 'POST',
@@ -64,21 +71,11 @@ function sendFeedback(modal, e) {
         }
     });
     $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
-}
+};
 
 function showAJAXSuccess(message, modal) {
     modal.modal('hide');
     $.showNotification(message, "success", true);
-}
-
-function showAJAXError(req, textStatus, errorThrown) {
-    $($contactHPIModal).modal('hide');
-    $($contactAdminModal).modal('hide');
-    if (textStatus === "timeout") {
-        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
-    } else {
-        $.showNotification(errorThrown, "danger", true);
-    }
 }
 
 $(document).ready(function () {
@@ -97,10 +94,10 @@ $(document).ready(function () {
     $contactHPIModal = document.querySelector('.contactHPI-modal');
     var $featureModal = $('.feature-modal');
     $contactAdminModal = document.querySelector('.contactAdmin-modal');
-    
+
     $('.submit-contactHPI').on('click', function (e) {
         e.preventDefault();
-        
+
         $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($($contactHPIModal), {
             title: 'Wunsch oder Problem senden',
@@ -110,24 +107,25 @@ $(document).ready(function () {
                 feedbackType: "userstory"
             }
         });
-        
+
         $($contactHPIModal).appendTo('body').modal('show');
     });
     $contactHPIModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactHPIModal));
-    
+
     $('.submit-contactAdmin').on('click', function (e) {
         e.preventDefault();
-        
+
         $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
         populateModalForm($($contactAdminModal), {
             title: 'Admin deiner Schule kontaktieren',
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
-        
         $($contactAdminModal).appendTo('body').modal('show');
     });
     
+    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
+
     $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $modals.find('.close, .btn-close').on('click', function () {
@@ -153,7 +151,7 @@ $(document).ready(function () {
         $qrbox.empty();
         $qrbox.append(image);
     });
-  
+
     // Init mobile nav
     if (document.getElementById('searchBar') instanceof Object) {
         document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
@@ -184,16 +182,6 @@ $(document).ready(function () {
         title: 'Neue Features sind verfügbar',
         closeLabel: 'Abbrechen'
     });
-  
-    // loading animation
-    window.addEventListener("beforeunload", function (e) {
-        const loaderClassList = document.querySelector(".preload-screen").classList;
-        loaderClassList.remove("hidden");
-    });
-    window.addEventListener("pageshow", function (e) {
-        const loaderClassList = document.querySelector(".preload-screen").classList;
-        loaderClassList.add("hidden");
-    });
 
     // from: https://stackoverflow.com/a/187557
     jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function (arg) {
@@ -214,11 +202,22 @@ $(document).ready(function () {
     });
 });
 
+function showAJAXError(req, textStatus, errorThrown) {
+    $($contactHPIModal).modal('hide');
+    $($contactAdminModal).modal('hide');
+    if (textStatus === "timeout") {
+        $.showNotification("Zeitüberschreitung der Anfrage", "warn", true);
+    } else {
+        $.showNotification(errorThrown, "danger", true);
+    }
+}
+
 window.addEventListener('DOMContentLoaded', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
     }
-    let  feedbackSelector = document.querySelector('#feedbackType');
+
+    let feedbackSelector = document.querySelector('#feedbackType');
     if(feedbackSelector){
         feedbackSelector.onchange = function(){
             if(feedbackSelector.value === "problem"){
@@ -244,8 +243,18 @@ window.addEventListener('DOMContentLoaded', function() {
         };
     }
 });
-window.addEventListener("resize", function () {
-    $('.sidebar-list').css({"height": window.innerHeight});
+
+// loading animation
+document.addEventListener("DOMContentLoaded", function (e) {
+    document.querySelector("body").classList.add("loaded");
+});
+window.addEventListener("beforeunload", function (e) {
+    document.querySelector("body").classList.remove("loaded");
+
+});
+window.addEventListener("pageshow", function (e) {
+    document.querySelector("body").classList.add("loaded");
+
 });
 
 function changeNavBarPositionToAbsolute() {
@@ -277,6 +286,12 @@ window.addEventListener("load", () => {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
-}); 
-
-document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+    if ('serviceWorker' in navigator) {
+        // enable sw for half of users only
+        let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+        if(testUserGroup == 1) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    }
+    document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+});

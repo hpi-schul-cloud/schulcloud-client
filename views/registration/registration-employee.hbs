@@ -35,29 +35,27 @@
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben:</p>
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
-            <label>Vorname: *</label>
+            <label>Vorname: <sup>*</sup></label>
             <input class="form-control linked" name="firstName" type="text" placeholder="Ihren Vornamen hier eingeben"
               value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}}/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
-            <label>Nachname: *</label>
+            <label>Nachname: <sup>*</sup></label>
             <input class="form-control linked" name="lastName" type="text" placeholder="Ihren Nachname hier eingeben" 
               value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
-          <label>Ihre E-Mail-Adresse *</label>
+          <label>Ihre E-Mail-Adresse: <sup>*</sup></label>
           <input class="form-control linked" type="email" name="email" placeholder="lehrer@schul-cloud.org" 
             value="{{user.email}}" required {{#if user.email}}readonly{{else}}autocomplete{{/if}} />
         </div>
 
-        <p style="margin-top:1rem;">Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
-            <br/>
-            Erlaubte Sonderzeichen sind: <code>!§$%&/()=?\;:,.#+*~</code></p>
+        {{> "lib/forms/password-hint" style="margin-top:1rem"}}
         <div class="row">
           <div class="form-group col-md-6 col-sm-12" style="margin-top:0;">
-            <label>Passwort: *</label>
+            <label>Passwort: <sup>*</sup></label>
             <input
               class="form-control linked"
               id="password"
@@ -66,11 +64,11 @@
               placeholder="Passwort"
               minlength="8"
               pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-              title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen."
+              title="{{> "lib/forms/password-hint" plaintext=true}}"
               required/>
           </div>
           <div class="form-group col-md-6 col-sm-12" style="margin-top:0;">
-            <label>Passwort wiederholen: *</label>
+            <label>Passwort wiederholen: <sup>*</sup></label>
             <input
                     class="form-control"
                     id="password-control"
@@ -79,7 +77,7 @@
                     placeholder="Passwort wiederholen"
                     minlength="8"
                     pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                    title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen."
+                    title="{{> "lib/forms/password-hint" plaintext=true}}"
                     required/>
           </div>
         </div>

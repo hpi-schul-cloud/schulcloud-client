@@ -192,13 +192,22 @@ $(document).ready(function () {
         }
     }
 
+    function decodingHelper(encodedString){
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + encodedString,
+            'text/html');
+        var decodedString = dom.body.textContent;
+        return decodedString;
+    }
+
     $('a[data-method="DELETE"]').on('click', function(e) {
         e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);
-
+        
         $deleteModal.appendTo('body').modal('show');
-        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + $buttonContext.data('name') + "' löschen möchtest?");
+        $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + decodingHelper($buttonContext.data('name')) + "' löschen möchtest?");
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
             $.ajax({
                 url: $buttonContext.attr('href'),

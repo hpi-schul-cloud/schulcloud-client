@@ -24,11 +24,12 @@
                             <h5>
                                 {{#each breadcrumbs}}
                                     <a class="{{#if @last}}active{{/if}}"
-                                       href="{{this.url}}">{{this.label}}</a><span> / </span>
+                                       href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
                                 {{/each}}
                             </h5>
                             {{#if courseUrl}}
-                                <a href="{{courseUrl}}" class="btn btn-secondary btn-sm btn-thin pull-right">
+                                <a href="{{courseUrl}}" class="btn btn-secondary pull-right">
+                                    <i class="fa fa-graduation-cap"></i>
                                     {{ toCourseText }}
                                 </a>
                             {{/if}}
@@ -44,14 +45,14 @@
 						<div class="col-sm-6 col-xs-12 col-md-4">
 							<div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
 								<strong class="card-title-directory">
-									<i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
 								</strong>
                                 {{#userHasPermission "FOLDER_DELETE"}}
 								<a href="/files/directory/"
 								   target="_blank"
 								   data-method="delete"
                                    title="Ordner löschen"
-								   data-file-name="{{../this.name}}"
+								   data-file-name="{{{../this.name}}}"
 								   data-file-key="{{../this.path}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>

@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const querystring = require('querystring');
 
 const session = require('express-session');
 
@@ -51,6 +52,7 @@ app.use(session({
     resave: 'true',
     secret: 'secret'
 }));
+
 // Custom flash middleware
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
@@ -73,7 +75,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
         return method;
     }
 }));
-
 
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
@@ -107,7 +108,7 @@ app.use(function (err, req, res, next) {
     res.status(status);
     res.render('lib/error', {
             loggedin: res.locals.loggedin,
-            inline: !res.locals.loggedin
+            inline: res.locals.inline ? true : !res.locals.loggedin
         });
 });
 
