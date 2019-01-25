@@ -29,7 +29,7 @@ module.exports = {
     },
     'Create News': function (browser) {
         browser.url(base_url + 'news/');
-        browser.expect.element('h4').text.to.contain('Neuigkeiten').before(10000);
+        browser.expect.element('h4').text.to.contain('Neuigkeiten aus meiner Schule').before(10000);
         browser
             .click('.create')
             .pause(1000)
