@@ -5,36 +5,34 @@
         {{/if}}
     >
         <span class="sc-card-title">
-            <span class="title">{{{ stripOnlyScript this.title }}}</span>
-            {{#if this.secondaryTitle}}
-                <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
+            <h2 class="title">{{{ stripOnlyScript this.title }}}</h2>
+            {{#if this.tag}}
+                <p class="tag">{{{ tag }}}</p>
             {{/if}}
+            <div class="second-title">
+                {{#if this.secondaryTitle}}
+                    <small>{{{ stripOnlyScript this.secondaryTitle }}}</small>
+                {{/if}}
+                <div class="sc-card-menu">
+                    {{#each this.actions}}
+                        {{#if this.method}}
+                            <button class="sc-card-menu-action {{this.class}}" target="_blank" data-method="DELETE" data-name="{{../title}}"
+                                alt="'{{../title}}' löschen">
+                                <i class="fa fa-{{this.icon}}"></i>
+                            </button>
+                        {{else}}
+                            <button class="sc-card-menu-action {{this.class}}" onClick="window.open({{this.link}})" alt="'{{../../title}}' {{this.alt}}.">
+                                <i class="fa fa-{{this.icon}}"></i>
+                            </button>
+                        {{/if}}
+                        {{else}}
+                        {{#if this.menuInfo}}
+                            <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
+                        {{/if}}
+                    {{/each}}
+                </div>
+            </div>
         </span>
-
-        <div class="sc-card-menu">
-            {{#each this.actions}}
-                {{#if this.method}}
-                        <button class="sc-card-menu-action {{this.class}}"
-                           
-                           target="_blank"
-                           data-method="DELETE"
-                           data-name="{{../title}}"
-                           alt="'{{../title}}' löschen">
-                            <i class="fa fa-{{this.icon}}"></i>
-                        </button>
-                {{else}}
-                    <button class="sc-card-menu-action {{this.class}}" 
-                      onClick="window.open({{this.link}})"
-                      alt="'{{../../title}}' {{this.alt}}.">
-                        <i class="fa fa-{{this.icon}}"></i>
-                    </button>
-                {{/if}}
-            {{else}}
-                {{#if this.menuInfo}}
-                    <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
-                {{/if}}
-            {{/each}}
-        </div>
     </a>
     <div class="sc-card-body ckcontent">
         {{truncateHTML (conflictFreeHtml this.content)}}

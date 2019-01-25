@@ -507,14 +507,26 @@ const dictionary = {
     technical_problems: 'Techn. Probleme'
 };
 
+//need to map data manually
+const mapFeedsIntoModel = feeds => {
+    console.log("feeds",feeds)
+    const ret = []
+    for (i = 0, j = 1; i < feeds.length; i=i+2, j=j+2) {
+        console.log({ source: feeds[i], tag: feeds[j] })
+        ret.push({ source: feeds[i], tag: feeds[j] })
+    }
+    console.log("ret",ret)
+    return ret
+}
+
 const getUpdateHandler = (service) => {
     return function (req, res, next) {
         api(req).patch('/' + service + '/' + req.params.id, {
             // TODO: sanitize
             json: service === "schools" ? {
                 ...req.body,
-                //need to set empty array manually. mongoose ignores no existing property
-                feeds: req.body.feeds ? req.body.feeds : []
+                 //need to set empty array manually. mongoose ignores no existing property
+                feeds: req.body.feeds ? mapFeedsIntoModel(req.body.feeds) : []
             } : req.body
         }).then(data => {
             createEventsForData(data, service, req, res).then(_ => {

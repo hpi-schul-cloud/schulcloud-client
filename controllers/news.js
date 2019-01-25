@@ -116,38 +116,35 @@ function createNewsEntry(item, currentUser) {
     return item
 }
 
-router.all('/', async function (req, res, next) {
+router.all('/', function (req, res, next) {
 
-    let items = []
-
-    try {
-
-        const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
-        const schoolFeedUrls = schoolData.feeds
-
-        for (let i = 0; i < schoolFeedUrls.length; i++) {
-
-            const feed = await rssParser.parseURL(schoolFeedUrls[i])
-            // new Error(`RSS Feed ${src} konnte nicht verarbeitet werden.`)
-            items = items.concat(feed.items.map(item => ({
-                date: moment(item.isoDate),
-                title: item.title,
-                content: item.contentSnippet,
-                url: `/news/feeds/${encodeURIComponent(item.guid)}`,
-                secondaryTitle: moment(item.pubDate).fromNow(),
-                background: '#' + COLORS[(item.title || "").length % COLORS.length],
-                tags: item.categories
-            })))
-
+    api(req).get('/schools/' + res.locals.currentSchool)
+    .then(response => response.feeds)
+    .then(async feeds => {
+        let arr = []
+        for (let i = 0; i < feeds.length; i++) {
+            try {
+                const feed = await rssParser.parseURL(feeds[i].source)
+                arr = arr.concat(feed.items.map(item => ({
+                    date: moment(item.isoDate),
+                    title: item.title,
+                    content: item.contentSnippet,
+                    url: `/news/feeds/${encodeURIComponent(item.guid)}`,
+                    secondaryTitle: moment(item.pubDate).fromNow(),
+                    background: '#' + COLORS[(item.title || "").length % COLORS.length],
+                    tag: feeds[i].tag
+                })))
+            } catch (err) {
+                throw new Error(`RSS Feed ${feeds[i].source} konnte nicht verarbeitet werden.`)
+            }
         }
-
-        if (items.length) {
-
+        return arr
+    })
+    .then(async items=>{
+        if(items.length){
             const news = await api(req).get('/news/')
             items = items.concat(news.data.map(item => createNewsEntry(item, res.locals.currentUser)))
-
             items.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
-
             res.render('news/overview', {
                 title: 'Neuigkeiten aus meiner Schule',
                 news: items,
@@ -155,9 +152,7 @@ router.all('/', async function (req, res, next) {
                 searchAction: '/news/',
                 showSearch: true,
             })
-
-        } else {
-
+        }else{
             const query = req.query.q;
             const itemsPerPage = 9;
             const currentPage = parseInt(req.query.p) || 1;
@@ -174,7 +169,6 @@ router.all('/', async function (req, res, next) {
 
             const news = await api(req).get('/news/', { qs: queryObject })
             items = items.concat(news.data.map(item => createNewsEntry(item, res.locals.currentUser)))
-
             items.sort((a, b) => a.date.isAfter(b.date) ? -1 : a.date.isBefore(b.date) ? 1 : 0)
 
             res.render('news/overview', {
@@ -189,33 +183,30 @@ router.all('/', async function (req, res, next) {
                 searchAction: '/news/',
                 showSearch: true,
             })
-
         }
-
-    } catch (err) {
-        next(err)
-    }
-
-});
+    })
+    .catch(err=>next(err))
+})
 
 router.get('/feeds/:id', async (req,res,next)=>{
 
-    const schoolData = await api(req).get('/schools/' + res.locals.currentSchool)
-    const schoolFeedUrls = schoolData.feeds
-
-    const feeds=[]
-    for (let i = 0; i < schoolFeedUrls.length; i++) {
-        const feed = await rssParser.parseURL(schoolFeedUrls[i])
-        feeds.push(...feed.items)
-    }
-
-    const feed = feeds.find(feed=>feed.guid===req.params.id)
-    if (!feed){
-        return next(new Error("Feed not found"))
-    }
-    res.render('news/feed', {
-        feed: feed
+    api(req).get('/schools/' + res.locals.currentSchool)
+    .then(response=>response.feeds)
+    .then(async feeds=>{
+        const arr = []
+        for (let i = 0; i < feeds.length; i++) {
+            const feed = await rssParser.parseURL(feeds[i].source)
+            arr.push(...feed.items)
+        }
+        const ret = arr.find(feed => feed.guid === req.params.id)
+        if (!ret) {
+            throw new Error("Feed not found")
+        }
+        res.render('news/feed', {
+            feed: ret
+        })
     })
+    .catch(err=>next(err))
 })
 
 router.get('/new', function (req, res, next) {

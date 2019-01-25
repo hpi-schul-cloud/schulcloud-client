@@ -51,7 +51,8 @@
                                         {{#each ../school.feeds}}
                                             <div class="form-group">
                                                 <div class="input-group">
-                                                    <input type="url" class="form-control" name="feeds" value="{{this}}" required />
+                                                    <input type="url" class="form-control" name="feeds" value="{{source}}" placeholder="Quelle" required />
+                                                    <input type="text" class="form-control" name="feeds" value="{{tag}}" placeholder="Tag (z.B. Politik)" required />
                                                     <span class="input-group-btn">
                                                         <button class="btn btn-outline-primary btn-rss-delete" type="button"><i class="fa fa-trash-o"></i></button>
                                                     </span>

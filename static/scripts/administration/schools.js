@@ -36,11 +36,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const node = document.createElement("div")
         node.className="input-group"
         
-        const input = document.createElement("input")
-        input.type = "url"
-        input.className = "form-control"
-        input.name = "feeds"
-        input.required = true
+        const src = document.createElement("input")
+        src.type = "url"
+        src.className = "form-control"
+        src.name = "feeds"
+        src.required = true
+        src.placeholder = "Quelle"
+        
+        const tag = document.createElement("input")
+        tag.type = "text"
+        tag.className = "form-control"
+        tag.name = "feeds"
+        tag.required = true
+        tag.placeholder = "Tag"
 
         const group = document.createElement("div")
         group.className = "input-group-btn"
@@ -48,14 +56,15 @@ document.addEventListener("DOMContentLoaded", function () {
         const button = document.createElement("button")
         button.className = "btn btn-outline-primary btn-rss-delete"
         button.type = "button"
-        button.onclick = () => button.parentNode.parentNode.remove()
+        button.onclick = () => button.parentNode.parentNode.parentNode.remove()
 
         const icon = document.createElement("i")
         icon.className = "fa fa-trash-o"
 
         button.append(icon)
         group.append(button)
-        node.append(input)
+        node.append(src)
+        node.append(tag)
         node.append(group)
         formGroup.append(node)
        
@@ -63,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     Array.from(document.getElementsByClassName("btn-rss-delete")).forEach(el=>{
         el.onclick=()=>{
-            el.parentNode.parentNode.remove()
+            el.parentNode.parentNode.parentNode.remove()
             const feeds = document.getElementById("rss-feeds")
             if (!feeds.querySelectorAll("input").length){
                 const input = document.createElement("input")

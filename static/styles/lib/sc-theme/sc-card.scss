@@ -17,7 +17,7 @@
         flex-wrap: nowrap;
         position: relative;
         min-height: 6rem;
-        padding: 1.5rem .5rem .5rem;
+        padding: .5rem;
         color: #fff;
         text-decoration: none !important;
         background-color: #70b5ce;
@@ -35,10 +35,27 @@
             background-image: linear-gradient(to top, rgba(0,0,0,.1) 0%, transparent 85%);
         }
         .sc-card-title {
+            width: 100%;
+            display: grid;
+            grid-template-rows: 1fr auto;     
             .title {
+                font-size:1.125rem;
                 color: inherit;
+                margin: 0;
             }
-            align-self: flex-end;
+            .second-title{
+                margin: 1em 0 0 0;
+                display: grid;
+                grid-template-columns: 1fr auto;
+            }
+            .tag {
+                margin: .5em 0 0;
+                justify-self: start;
+                background-color: white;
+                color: black;
+                text-shadow: none;
+                font-size:.75rem;
+            }
             font-weight: 700;
             overflow: hidden;
             z-index: 10;
@@ -48,10 +65,9 @@
             word-break: break-word;
         }
         .sc-card-menu {
-            position: absolute;
-            right: 8px;
-            top: 8px;
-            font-size: 0;
+            display: grid;
+            align-items: center;
+            grid-template-columns: auto auto;
             .sc-card-menu-action {
                 display: inline-block;
                 width: 32px;
@@ -70,6 +86,7 @@
                 overflow: hidden;
                 opacity: .5;
                 transition: all .1s ease-in-out;
+                cursor: pointer;
                 &:hover {
                     background: rgba(0,0,0,.2);
                 }
