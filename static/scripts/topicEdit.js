@@ -2,17 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {SortableContainer, SortableElement, SortableHandle, arrayMove} from 'react-sortable-hoc';
 
-function decodingHelper(encodedString){
-    console.log(encodedString);
-    if (encodedString == undefined) return encodedString;
-    var parser = new DOMParser;
-    var dom = parser.parseFromString(
-        '<!doctype html><body>' + encodedString,
-        'text/html');
-    var decodedString = dom.body.textContent;
-    return decodedString;
-}
-
 /**
  * A wrapper for each block including a title field, remove, sortable, ...
  * @extends React.Component
@@ -99,7 +88,7 @@ class TopicBlockWrapper extends React.Component {
 
                             <input
                                 placeholder="Titel des Abschnitts"
-                                value={decodingHelper(this.props.title)}
+                                value={this.props.title}
                                 className="form-control"
                                 onChange={this.updateTitle.bind(this)}
                                 name={`contents[${this.props.position}][title]`}
@@ -877,14 +866,14 @@ class TopicEtherpad extends TopicBlock {
                     <input className="form-control"
                         name={`contents[${this.props.position}][content][title]`}
                         type="text" placeholder="Brainstorming zum Thema XYZ"
-                        value={decodingHelper(this.props.content.title)}/>
+                        value={this.props.content.title}/>
                 </div>
                 <div className="form-group">
                     <label>Beschreibung des Etherpads</label>
                     <textarea className="form-control"
                         name={`contents[${this.props.position}][content][description]`}
                         placeholder="Erstellt im nachfolgenden Etherpad eine Pro-Contra-Liste zum Thema XYC ">
-                        {decodingHelper(this.props.content.description)}
+                        {this.props.content.description}
                     </textarea>
                 </div>
                 <input type="hidden" name={`contents[${this.props.position}][content][url]`}
