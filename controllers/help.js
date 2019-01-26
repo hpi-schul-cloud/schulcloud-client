@@ -82,7 +82,7 @@ router.get('/', function (req, res, next) {
     let quickhelp = quickHelpItems.slice(0);
     if(!isDemo && !isStudent){
         quickhelp.push({
-            title: "Dokumente des Willkommensordners",
+            title: "Willkommens-Dokumente",
             icon: "fa-folder-open",
             src: "/help/faq/documents "
         });
@@ -160,7 +160,7 @@ router.get('/faq/documents', function (req, res, next) {
         documents[0].content = converter.makeHtml(documents[0].content);
 
         res.render('help/sso-faq', {
-            title: "Dokumente des Willkommensordners zum Download",
+            title: "Willkommens-Dokumente zum Download",
             breadcrumb: [
                 {
                     title: 'Hilfebereich',
