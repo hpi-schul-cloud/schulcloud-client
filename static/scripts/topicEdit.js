@@ -739,7 +739,7 @@ class TopicGeoGebra extends TopicBlock {
                     className="form-control"
                     id={this.editorId}
                     onChange={this.updateMaterialId.bind(this)}
-                    value={decodingHelper((this.props.content || {}).materialId)}
+                    value={(this.props.content || {}).materialId}
                     placeholder="GeoGebra Material-ID eingeben, z.B. kEBfU7AR"
                     name={`contents[${this.props.position}][content][materialId]`}
                 />
@@ -833,7 +833,7 @@ class TopicInternal extends TopicBlock {
                         type="url" 
                         required
                         placeholder={`${this.state.baseUrl}/homework/5aba1085b0efc43a64f1f5d2`} 
-                        value={decodingHelper((this.props.content || {}).url)}
+                        value={(this.props.content || {}).url}
                     />
                 </div>
             </div>
@@ -966,13 +966,13 @@ class TopicNexboard extends TopicBlock {
                 <div type="hidden" className="form-group">
                     <label>Name des neXboards</label>
                     <input className="form-control" name={`contents[${this.props.position}][content][title]`}
-                           type="text" placeholder="Brainstorming zum Thema XYZ" value={decodingHelper((this.props.content || {}).title)}/>
+                           type="text" placeholder="Brainstorming zum Thema XYZ" value={(this.props.content || {}).title}/>
                 </div>
                 <div className="form-group">
                     <label>Beschreibung des neXboards</label>
                     <textarea className="form-control" name={`contents[${this.props.position}][content][description]`}
                               placeholder="Erstellt im nachfolgendem neXboard eine Pro-Contra-Liste zum Thema XYC ">
-                        {decodingHelper((this.props.content || {}).description)}
+                        {(this.props.content || {}).description}
                     </textarea>
                 </div>
                 <div className="form-group">
