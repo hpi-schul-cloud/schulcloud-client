@@ -9,7 +9,7 @@
 <script>
   import '../styles/base.css';
   export default {
-    name: 'btnPrimary',
+    name: 'BtnPrimary',
     data() {
       return {
       };
@@ -25,9 +25,6 @@
 
 <style scoped>
   .btn {
-    position: relative;
-
-    display: block;
     padding: 0;
 
     overflow: hidden;
