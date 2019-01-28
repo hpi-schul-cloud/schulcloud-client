@@ -7,6 +7,10 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { withNotes } from '@storybook/addon-notes';
 import { withCssResources } from '@storybook/addon-cssresources';library.add(faClock, faCalendarCheck);
 
+import centered from '@storybook/addon-centered';
+
+addDecorator(centered);
+
 addDecorator(withNotes);
 
 
