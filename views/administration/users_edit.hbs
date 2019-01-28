@@ -44,17 +44,6 @@
                         <input class="form-control linked" id="birthday" data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 4 0 0}}" name="birthday" type="text" required value="{{dateToPicker user.birthday}}"/>
                     </div>
 
-                    <div class="row mb-2">
-                        <div class="form-group col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                            <Label>Geschlecht: <sup>*</sup></Label>
-                            <select class="form-control form-control-lg" type="text" name="gender" required>
-                                <option value="noinfo" {{#ifeq user.gender 'noinfo'}}selected{{/ifeq}}>keine Angabe</option>
-                                <option value="male" {{#ifeq user.gender 'male'}}selected{{/ifeq}}>männlich</option>
-                                <option value="female" {{#ifeq user.gender 'female'}}selected{{/ifeq}}>weiblich</option>
-                                <option value="other" {{#ifeq user.gender 'other'}}selected{{/ifeq}}>anderes</option>
-                            </select>
-                        </div>
-                    </div>
                     <p>Die Erhebung erfolgt für Forschung und Optimierung.</p>
                 {{else}}
                     <div class="form-group mb-2">

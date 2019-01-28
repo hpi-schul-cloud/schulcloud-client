@@ -685,20 +685,6 @@ const userFilterSettings = function (defaultOrder) {
         },
         {
             type: "select",
-            title: 'Geschlecht',
-            displayTemplate: 'Geschlecht: %1',
-            property: 'gender',
-            multiple: true,
-            expanded: true,
-            options: [
-                ["male", "Männlich"],
-                ["female", "Weiblich"],
-                ["other", "Anderes"],
-                [null, "nicht Angegeben"]
-            ]
-        },
-        {
-            type: "select",
             title: 'Einverständniserklärung Status',
             displayTemplate: 'Status: %1',
             property: 'consentStatus',
