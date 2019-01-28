@@ -14,7 +14,7 @@ storiesOf('Welcome', module).add('to Storybook', () => ({
   methods: { action: linkTo('Button') },
 }));
 
-storiesOf('Button', module)
+storiesOf('Buttons', module)
   .add('with text', () => ({
     components: { MyButton },
     template: '<my-button @click="action">Hello Button</my-button>',

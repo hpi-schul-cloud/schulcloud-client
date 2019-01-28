@@ -180,15 +180,6 @@ storiesOf("CourseCard", module)
   template: "<CourseCard/>",
 }));
 
-storiesOf('CourseCard', module).add('with some emoji', () => <CourseCard />, {
-  notes: 'A very simple component',
-});
-// storiesOf('CourseCard', module).add('with some emoji', () => <CourseCard />, {
-//   notes: 'A very simple component',
-// });
-
-
-
 // storiesOf('WithEvents', module)
 //   .addDecorator(
 //     withEvents({
