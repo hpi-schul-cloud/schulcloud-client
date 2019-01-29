@@ -26,7 +26,7 @@ const hasAccount = (req, res) => {
 router.get('/', async function (req, res, next) {
 	if(
 		!res.locals.currentUser.birthday && res.locals.currentRole == "Schüler" 
-		&& !req.query.u14 && !req.query.ue14 && !req.query.ue18
+		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
 	){
 		return res.redirect("firstLogin/existing");
 	}
@@ -53,11 +53,11 @@ router.get('/', async function (req, res, next) {
 		if(res.locals.currentUser.age < 14){
 			// U14
 			sections.push("welcome");
-		}else if(res.locals.currentUser.age < 18 && !(res.locals.currentUser.preferences || {}).firstLogin){
-			// 14-17
-			sections.push("welcome_14-17");
+		}else if(res.locals.currentUser.age < 16 && !(res.locals.currentUser.preferences || {}).firstLogin){
+			// 14-15
+			sections.push("welcome_14-15");
 		}else if(userConsent && (res.locals.currentUser.preferences || {}).firstLogin){
-			// UE18 (schonmal eingeloggt)
+			// UE16 (schonmal eingeloggt)
 			sections.push("welcome_existing");
 		}else if(!userConsent && parentConsent && (res.locals.currentUser.preferences || {}).firstLogin){
 			// GEB 14
@@ -82,8 +82,8 @@ router.get('/', async function (req, res, next) {
 			sections.push("birthdate_U14");
 		}else if(req.query.ue14 == "true"){
 			sections.push("birthdate_UE14");
-		}else if(req.query.ue18 == "true"){
-			sections.push("birthdate_UE18");
+		}else if(req.query.ue16 == "true"){
+			sections.push("birthdate_UE16");
 		}else {
 			sections.push("birthdate");
 		}
