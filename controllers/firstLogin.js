@@ -76,7 +76,7 @@ router.get('/', async function (req, res, next) {
 	sections.push("email");
 
 	// BIRTHDATE
-	if(!res.locals.currentUser.birthday && isStudent(req, res, next)){
+	if(!res.locals.currentUser.birthday && isStudent(res)){
 		submitPageIndex += 1;
 		if(req.query.u14 == "true"){
 			sections.push("birthdate_U14");
@@ -101,8 +101,7 @@ router.get('/', async function (req, res, next) {
 	// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
 	const userHasAccount = await hasAccount(req,res,next);
 	if( !userHasAccount
-		|| (!(res.locals.currentUser.preferences||{}).firstLogin
-			&& isStudent(req, res, next))){
+		|| (!(res.locals.currentUser.preferences||{}).firstLogin && isStudent(res)) ){
 		submitPageIndex += 1;
 		sections.push("password");
 	}

@@ -28,7 +28,6 @@ router.post('/registration/pincreation', function (req, res, next) {
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], function (req, res, next) {
     // normalize form data
     req.body.privacyConsent = req.body.privacyConsent === "true";
-    req.body.researchConsent = req.body.researchConsent === "true";
     req.body.thirdPartyConsent = req.body.thirdPartyConsent === "true";
     req.body.termsOfUseConsent = req.body.termsOfUseConsent === "true";
     req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
