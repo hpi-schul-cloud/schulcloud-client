@@ -2,14 +2,16 @@
 
 import { storiesOf } from "@storybook/vue";
 import ScButton from "../../static/vue-components/buttons/ScButton";
+import primaryButtonDoc from "../markdown/primaryButton.md";
+import { withMarkdownNotes } from "@storybook/addon-notes";
 
-
-storiesOf("Buttons", module).add("Button Primary", () => ({
+storiesOf("Buttons", module)
+.addDecorator(withMarkdownNotes(primaryButtonDoc))
+.add("Button Primary", () => ({
   components: { ScButton },
-  template: "<ScButton class='btn-primary'>Standard Button</ScButton>"
-}));
-
-storiesOf("Buttons", module).add("Button Secondary", () => ({
+  template: "<ScButton class='btn-primary'>Standard Button</ScButton>",
+}))
+.add("Button Secondary", () => ({
   components: { ScButton },
   template: "<ScButton class='btn-secondary'>Secondary Button</ScButton>"
 }));

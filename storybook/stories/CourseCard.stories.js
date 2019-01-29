@@ -4,16 +4,8 @@ import { storiesOf } from "@storybook/vue";
 import { linkTo } from "@storybook/addon-links";
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 
-// import withEvents from '@storybook/addon-events';
-// import EventEmiter from 'event-emiter';
-
 import { withCssResources } from '@storybook/addon-cssresources';
 
-// import Logger from './Logger';
-// import * as EVENTS from './events';
-
-// const emiter = new EventEmiter();
-// const emit = emiter.emit.bind(emiter);
 
 export const defaultCourse = {
   _id: "0000dcfbfb5c7a3f00bf21abc",
@@ -134,20 +126,6 @@ export const courseWithAlert = {
   teacherName: "Mustermensch"
 };
 import CourseCard from "../../static/vue-components/courses/CourseCard";
-import Welcome from "./Welcome";
-
-storiesOf("Welcome", module).addDecorator(
-  withCssResources({
-    cssresources: [{
-        name: `background`,
-        code: `<style>body { background-color: lightblue; }</style>`,
-        picked: false,
-      }]}))
-  .add("to Storybook", () => ({
-  components: { Welcome },
-  template: '<welcome :showApp="action" />',
-  methods: { action: linkTo("Button") }
-}));
 
 storiesOf("CourseCard", module)
   .add("CourseCard mit Content", () => ({
@@ -156,82 +134,24 @@ storiesOf("CourseCard", module)
   data: () => ({
     course: defaultCourse
   })
-}));
-
-storiesOf("CourseCard", module).add("CourseCard mit Aufgabe", () => ({
+}))
+.add("CourseCard mit Aufgabe", () => ({
   components: { CourseCard },
   template: '<CourseCard :course="course"/>',
   data: () => ({
     course: courseWithAssignment
   })
-}));
-
-storiesOf("CourseCard", module).add("CourseCard mit Alert", () => ({
+}))
+.add("CourseCard mit Alert", () => ({
   components: { CourseCard },
   template: '<CourseCard :course="course"/>',
   data: () => ({
     course: courseWithAlert
   })
-}));
-
-storiesOf("CourseCard", module)
-  .add("CourseCard Empty", () => ({
+}))
+.add("CourseCard Empty", () => ({
   components: { CourseCard },
   template: "<CourseCard/>",
 }));
 
-// storiesOf('WithEvents', module)
-//   .addDecorator(
-//     withEvents({
-//       emit,
-//       events: [
-//         {
-//           name: EVENTS.TEST_EVENT_1,
-//           title: 'Test event 1',
-//           payload: 0,
-//         },
-//         {
-//           name: EVENTS.TEST_EVENT_2,
-//           title: 'Test event 2',
-//           payload: 'asdasdad asdasdasd',
-//         },
-//         {
-//           name: EVENTS.TEST_EVENT_3,
-//           title: 'Test event 3',
-//           payload: {
-//             string: 'value',
-//             number: 123,
-//             array: [1, 2, 3],
-//             object: {
-//               string: 'value',
-//               number: 123,
-//               array: [1, 2, 3],
-//             },
-//           },
-//         },
-//         {
-//           name: EVENTS.TEST_EVENT_4,
-//           title: 'Test event 4',
-//           payload: [
-//             {
-//               string: 'value',
-//               number: 123,
-//               array: [1, 2, 3],
-//             },
-//             {
-//               string: 'value',
-//               number: 123,
-//               array: [1, 2, 3],
-//             },
-//             {
-//               string: 'value',
-//               number: 123,
-//               array: [1, 2, 3],
-//             },
-//           ],
-//         },
-//       ]
-//     })
-//   )
-//   .add('Logger', () => <Logger emiter={emiter} />);
 /* eslint-enable react/react-in-jsx-scope */
