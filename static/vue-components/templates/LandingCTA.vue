@@ -52,4 +52,12 @@
     margin-bottom: 30px;
     width: 35%;
   }
+
+  @media only screen and (max-width: 600px) {
+    .cta-button{
+      width: 90%;
+    }
+
+  }
+
 </style>

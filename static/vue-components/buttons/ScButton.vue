@@ -48,8 +48,6 @@
   }
 
   .btn:hover, .btn:focus {
-  background-color: #555;
-  color: #fff;
   cursor: pointer;
   }
 
