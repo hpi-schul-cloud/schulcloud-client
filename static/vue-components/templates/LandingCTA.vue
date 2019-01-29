@@ -1,7 +1,7 @@
 <template>
   <div class="landing">
-    <h3 class="center medium-emphasis">Willkommen in der HPI Schul-Cloud, Cord Carl</h3>
-    <h2 class="center medium-emphasis">Mit der Schul-Cloud Unterricht digital gestalten</h2>
+    <h3 class="center medium-emphasis">{{subtitle}}</h3>
+    <h2 class="center medium-emphasis">{{title}}</h2>
     <img class="landing-image" src="../../images/onboarding/lehrer_klasse.png"/>
     <div class="cta-group center">
       <ScButton class="cta-button btn-secondary">
@@ -21,6 +21,10 @@
     name: 'LandingCTA',
     components: {
       ScButton
+    },
+    props: {
+      subtitle: String,
+      title: String
     },
     data() {
       return {
