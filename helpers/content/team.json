@@ -498,7 +498,7 @@
 			{
 				"title": "",
 				"firstName": "Marco",
-				"lastName": "Schaarschmidt",
+				"lastName": "Schaar-schmidt",
 				"position": "Bachelorstudent",
 				"description": "Marco studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Neben dem Studium geht er schwimmen und verbringt er seine Freizeit sehr gerne damit zu reisen und neue, interessante Orte kennenzulernen.",
 				"pictureUrl": "/images/team/Marco_Schaarschmidt.jpg",
@@ -515,8 +515,8 @@
 				"firstName": "Johannes",
 				"lastName": "Unruh",
 				"position": "Bachelorstudent",
-				"description": "Johannes studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Zuvor hat er einen Master in Wirtschaftsingenieurwesen an der TU Berlin erworben. Neben der Uni beschäftigt er sich mit Themen der Künstlichen Intelligenz und des Web Development",
-				"pictureUrl": "",
+				"description": "Johannes studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Zuvor hat er einen Master in Wirtschaftsingenieurwesen an der TU Berlin erworben. Neben der Uni beschäftigt er sich mit Themen der Künstlichen Intelligenz und des Web Development.",
+				"pictureUrl": "/images/team/Johannes_Unruh.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
