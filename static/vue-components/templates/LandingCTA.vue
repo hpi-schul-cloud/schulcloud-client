@@ -1,26 +1,26 @@
 <template>
   <div class="landing">
-    <h4 class="center">Willkommen in der HPI Schul-Cloud, Cord Carl</h4>
-    <h2 class="center">Mit der Schul-Cloud Unterricht digital gestalten</h2>
+    <h3 class="center medium-emphasis">Willkommen in der HPI Schul-Cloud, Cord Carl</h3>
+    <h2 class="center medium-emphasis">Mit der Schul-Cloud Unterricht digital gestalten</h2>
     <img class="landing-image" src="../../images/onboarding/lehrer_klasse.png"/>
     <div class="cta-group center">
-      <BtnPrimary class="cta-button">
+      <ScButton class="cta-button btn-secondary">
         Material hochladen
-      </BtnPrimary>
-      <BtnPrimary class="cta-button">
+      </ScButton>
+      <ScButton class="cta-button btn-primary">
         Erstelle deinen ersten Kurs
-      </BtnPrimary>
+      </ScButton>
   </div>
   </div>
 </template>
 
 <script>
   import '../styles/base.css';
-  import BtnPrimary from '../buttons/BtnPrimary.vue';
+  import ScButton from '../buttons/ScButton.vue';
   export default {
     name: 'LandingCTA',
     components: {
-      BtnPrimary
+      ScButton
     },
     data() {
       return {

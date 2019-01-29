@@ -9,7 +9,7 @@
 <script>
   import '../styles/base.css';
   export default {
-    name: 'BtnPrimary',
+    name: 'ScButton',
     data() {
       return {
       };
@@ -34,14 +34,22 @@
     border-radius: 2px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
 
-    background-color: #b10438;
-    color: #fff;
-
     transition: background-color .3s;
   }
 
+  .btn-primary {
+    background-color: #b10438;
+    color: #fff;
+  }
+
+  .btn-secondary {
+    color: #000;
+    background-color: white;
+  }
+
   .btn:hover, .btn:focus {
-  background-color: #555555;
+  background-color: #555;
+  color: #fff;
   cursor: pointer;
   }
 
