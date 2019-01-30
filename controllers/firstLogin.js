@@ -92,7 +92,7 @@ router.get('/', async function (req, res, next) {
 	// USER CONSENT
 	if(
 		!userConsent && 
-		((!res.locals.currentUser.age && !req.query.u14)|| res.locals.currentUser.age > 14)
+		((!res.locals.currentUser.age && !req.query.u14)|| res.locals.currentUser.age >= 14)
 	){
 		submitPageIndex += 1;
 		sections.push("consent");
@@ -129,20 +129,6 @@ router.get('/', async function (req, res, next) {
 		submitPageIndex
 	});
 });
-
-// deprecated
-router.get(['/U14','/existingU14'], function (req, res, next) {
-	res.redirect("/firstLogin/?u14=true");
-});
-router.get(['/UE18','/existingUE14'], function (req, res, next) {
-	res.redirect("/firstLogin/?ue14=true");
-});
-
-router.get(['/14_17', '/existingGeb14', '/existingEmployee'], function (req, res, next) {
-	res.redirect("/firstLogin/");
-});
-
-
 
 // submit & error handling
 router.get('/existing', function (req, res, next) {
