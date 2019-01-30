@@ -799,7 +799,7 @@ router.get('/:teamId/members', async function(req, res, next) {
         ];
 
         const invitationActions = [{
-            class: 'btn-edit-invitation',
+            class: 'btn-resend-invitation',
             title: 'Einladung erneut versenden',
             icon: 'envelope'
         }, {
@@ -831,6 +831,7 @@ router.get('/:teamId/members', async function(req, res, next) {
             inviteExternalMemberAction: `/teams/${req.params.teamId}/members/external`,
             deleteMemberAction: `/teams/${req.params.teamId}/members`,
             deleteInvitationAction: `/teams/${req.params.teamId}/invitation`,
+            resendInvitationAction: `/teams/${req.params.teamId}/invitation`,
             permissions: course.user.permissions,
             method,
             head,
@@ -933,9 +934,23 @@ router.delete('/:teamId/members', async function(req, res, next) {
     res.sendStatus(200);
 });
 
+router.patch('/:teamId/invitation', async function(req, res, next) {
+    try {
+        await api(req).patch(`/teams/extern/add/${req.params.teamId}`, {
+            json: {
+                email: req.body.email
+            }
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(500);
+    }
+
+});
+
 router.delete('/:teamId/invitation', async function(req, res, next) {
     try {
-        await api(req).patch('/teams/extern/remove/' + req.params.teamId, {
+        await api(req).patch(`/teams/extern/remove/${req.params.teamId}`, {
             json: {
                 email: req.body.email
             }
