@@ -90,15 +90,15 @@
                 {{/content}}
             {{/embed}}
 
-            {{#embed "lib/components/modal-form" class="edit-invitation-modal"}}
-                {{#content "fields"}}
-                    {{> "teams/forms/form-resend-invitation"}}
-                {{/content}}
-            {{/embed}}
-
             {{#embed "lib/components/modal-form" action=deleteInvitationAction class="delete-invitation-modal"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-delete-invitation"}}
+                {{/content}}
+            {{/embed}}            
+
+            {{#embed "lib/components/modal-form" action=resendInvitationAction class="resend-invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-resend-invitation"}}
                 {{/content}}
             {{/embed}}            
 
