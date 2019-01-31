@@ -13,7 +13,6 @@ import centered from "@storybook/addon-centered";
 addDecorator(VueInfoAddon);
 addDecorator(checkA11y);
 addDecorator(withKnobs);
-addDecorator(centered);
 
 library.add(faClock, faCalendarCheck);
 Vue.component("font-awesome-icon", FontAwesomeIcon);

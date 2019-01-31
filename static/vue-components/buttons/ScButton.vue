@@ -60,4 +60,9 @@
     padding: 10px 20px;
   }
 
+  .btn-large span {
+    display: block;
+    padding: 20px 40px;
+  }
+
 </style>

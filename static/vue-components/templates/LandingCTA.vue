@@ -1,16 +1,13 @@
 <template>
   <div class="landing">
-    <h3 class="center medium-emphasis">{{subtitle}}</h3>
-    <h2 class="center medium-emphasis">{{title}}</h2>
     <img class="landing-image" src="../../images/onboarding/lehrer_klasse.png"/>
-    <div class="cta-group center">
-      <ScButton class="cta-button btn-secondary">
-        Material hochladen
+    <h2 class="center medium-emphasis title">{{title}}</h2>
+    <h3 class="center medium-emphasis subtitle">{{subtitle}}</h3>
+    <div class="center">
+      <ScButton class="cta-button btn-primary btn-large">
+        {{ctaText}}
       </ScButton>
-      <ScButton class="cta-button btn-primary">
-        Erstelle deinen ersten Kurs
-      </ScButton>
-  </div>
+    </div>
   </div>
 </template>
 
@@ -24,7 +21,8 @@
     },
     props: {
       subtitle: String,
-      title: String
+      title: String,
+      ctaText: String
     },
     data() {
       return {
@@ -42,6 +40,14 @@
 <style scoped>
   .center{
     text-align: center;
+  }
+
+  .title{
+    margin-bottom: 0;
+  }
+
+  .subtitle{
+    margin-bottom: 30px;
   }
 
   .cta-button{
