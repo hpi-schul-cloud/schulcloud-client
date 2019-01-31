@@ -40,7 +40,7 @@
                             <div class="card h-100 teacher-option" onclick="location.href='/administration/courses/'">
                                 <div class="card-block homework">
                                     <div class="card-text">
-                                        <h4><i class="fa fa-users"></i> Kurse verwalten</h4>
+                                        <h4><i class="fa fa-graduation-cap"></i> Kurse verwalten</h4>
                                     </div>
                                 </div>
                             </div>
@@ -75,27 +75,6 @@
         </div>
 </div>
 </section>
-{{#unless school.fileStorageType}}
-<section class="section-school section-default">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12 no-padding">
-                <form action="/administration/schools/{{currentSchool}}/bucket" method="post" class="edit-form-school">
-
-                    <div class="form-group">
-                        <label>Cloud-Storage Anbieter</label>
-                        <select name="fileStorageType" type="text">
-                            <option disabled="disabled" selected="selected">Anbieter auswählen</option>
-                            {{#each provider}}
-                            <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}} </option>
-                                {{/each}} </select> </div> <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
-
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-{{/unless}}
 </div>
 {{/content}}
 {{/extend}}

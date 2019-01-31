@@ -749,32 +749,8 @@ const getConsentStatusIcon = (consent, bool) => {
 // teacher admin permissions
 router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
     let title = returnAdminPrefix(res.locals.currentUser.roles);
-
-    api(req).get('/schools/' + res.locals.currentSchool).then(data => {
-        let provider = getStorageProviders();
-        provider = (provider || []).map(prov => {
-            if (prov.value == data.fileStorageType) {
-                return Object.assign(prov, {
-                    selected: true
-                });
-            } else {
-                return prov;
-            }
-        });
-
-        let ssoTypes = getSSOTypes();
-
-        api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', {
-                title: title + 'Allgemein',
-                school: data,
-                isExpertSchool: data.purpose === "expert",
-                provider,
-                ssoTypes,
-                totalStorage: totalStorage,
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
-            });
-        });
+    res.render('administration/dashboard', {
+        title: title + 'Allgemein',
     });
 });
 
@@ -2067,8 +2043,6 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
         }
     }), api(req).get('/fileStorage/total')]);
 
-    console.log(school.rssFeeds)
-
     // SYSTEMS
     const systemsHead = [
         'Alias',
@@ -2137,6 +2111,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
         rssHead,
         rssBody,
         hasRSS: rssBody && !!rssBody.length,
+        schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
     });
 });
 
