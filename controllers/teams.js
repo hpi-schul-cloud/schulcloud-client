@@ -385,6 +385,19 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
+        let rocketChatCompleteURL;
+        if (process.env.ROCKETCHAT_SERVICE_ENABLED || req.params.teamId == "ffffd213816abba584714c00") { //for demo
+            try{
+                const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
+                const rocketChatURL = process.env.ROCKET_CHAT
+                rocketChatCompleteURL = rocketChatURL + "/group/" + rocketChatChannel.channelName;
+            }
+            catch(e) {
+                logger.warn(e);
+                rocketChatCompleteURL = undefined;
+            }
+        }
+
         course.filePermission = mapPermissionRoles(course.filePermission, roles);
 
         const allowExternalExperts = isAllowed(course.filePermission, 'teamexpert');
@@ -499,7 +512,8 @@ router.get('/:teamId', async function(req, res, next) {
             news,
             nextEvent: recurringEventsHelper.getNextEventForCourseTimes(course.times),
             userId: res.locals.currentUser._id,
-            teamId: req.params.teamId
+            teamId: req.params.teamId,
+            rocketChatURL: rocketChatCompleteURL
         }));
     } catch (e) {
         next(e);
@@ -619,7 +633,7 @@ router.get('/:teamId/members', async function(req, res, next) {
                         path: 'userIds.role',
                     }
                 ],
-                $limit: 2000
+                $limit: false
             }
         });
         course.userIds = course.userIds.filter(user => user.userId);
@@ -643,7 +657,7 @@ router.get('/:teamId/members', async function(req, res, next) {
                 _id: {
                     $nin: courseUserIds
                 },
-                $limit: 2000
+                $limit: false
             }
         })).data;
 
@@ -785,7 +799,7 @@ router.get('/:teamId/members', async function(req, res, next) {
         ];
 
         const invitationActions = [{
-            class: 'btn-edit-invitation',
+            class: 'btn-resend-invitation',
             title: 'Einladung erneut versenden',
             icon: 'envelope'
         }, {
@@ -817,6 +831,7 @@ router.get('/:teamId/members', async function(req, res, next) {
             inviteExternalMemberAction: `/teams/${req.params.teamId}/members/external`,
             deleteMemberAction: `/teams/${req.params.teamId}/members`,
             deleteInvitationAction: `/teams/${req.params.teamId}/invitation`,
+            resendInvitationAction: `/teams/${req.params.teamId}/invitation`,
             permissions: course.user.permissions,
             method,
             head,
@@ -919,9 +934,23 @@ router.delete('/:teamId/members', async function(req, res, next) {
     res.sendStatus(200);
 });
 
+router.patch('/:teamId/invitation', async function(req, res, next) {
+    try {
+        await api(req).patch(`/teams/extern/add/${req.params.teamId}`, {
+            json: {
+                email: req.body.email
+            }
+        });
+        res.sendStatus(200);
+    } catch (e) {
+        res.sendStatus(500);
+    }
+
+});
+
 router.delete('/:teamId/invitation', async function(req, res, next) {
     try {
-        await api(req).patch('/teams/extern/remove/' + req.params.teamId, {
+        await api(req).patch(`/teams/extern/remove/${req.params.teamId}`, {
             json: {
                 email: req.body.email
             }

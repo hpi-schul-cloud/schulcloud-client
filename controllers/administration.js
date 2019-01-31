@@ -19,7 +19,7 @@ moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
-        qs: query
+		qs: query
     }).then(data => {
         return data.data;
     });
@@ -427,14 +427,33 @@ const getCSVImportHandler = () => {
                     data: csvData,
                 },
             });
-            const numberOfUsers = (stats.users.successful || 0) + (stats.users.failed || 0);
-            req.session.notification = {
-                type: stats.users.successful ? 'success' : 'info',
-                message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`
-            };
+            const numberOfUsers = stats.users.successful + stats.users.failed;
+            if (stats.success) {
+                req.session.notification = {
+                    type: 'success',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
+                };
+            } else {
+                const whitelist = ['file', 'user', 'invitation', 'class'];
+                let errorText = stats.errors
+                    .filter(err => whitelist.includes(err.type))
+                    .map(err => `${err.entity} (${err.message})`)
+                    .join(', ');
+                if (errorText === '') {
+                    errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+                }
+                req.session.notification = {
+                    type: 'warning',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
+                };
+            }
             res.redirect(req.header('Referer'));
             return;
         } catch (err) {
+            req.session.notification = {
+                type: 'danger',
+                message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+            };
             res.redirect(req.header('Referer'));
             return;
         }
@@ -1149,13 +1168,12 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
     const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
-    const qs = { roles: role.data[0]._id };
-    
+    const qs = { roles: role.data[0]._id, $limit: false };
     let users = [];
-    
+
     if (classId) {
-        const _class = await api(req).get('/classes/' + classId, { 
-            qs: { 
+        const _class = await api(req).get('/classes/' + classId, {
+            qs: {
                 $populate: ['teacherIds', 'userIds'],
             }
         });
@@ -1167,8 +1185,8 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
     } else {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
-    
-    const consents = (await api(req).get('/consents', { $limit: false })).data;
+
+    const consents = (await api(req).get('/consents')).data;
 
     const usersWithoutConsent = users.filter(user => {
         let userWithConsent = consents.find(consent => {
@@ -1246,7 +1264,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
 
             return Promise.resolve(user);
         }));
-        
+
         res.json(usersWithoutConsent);
     } catch (err) {
         res.status((err.statusCode || 500)).send(err);
@@ -1295,7 +1313,7 @@ const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
         .then(classes => {
             let promises = [
-                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 }), //teachers
+                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
                 getSelectOptions(req, 'years', { $sort: { name: -1 } }),
                 getSelectOptions(req, 'gradeLevels')
             ];
@@ -1395,10 +1413,10 @@ router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW'
 router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] } })
         .then(currentClass => {
-            const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 }); // TODO limit classes to scope (year before, current and without year)
-            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: 1000 });
-            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000 });
-            const yearsPromise = getSelectOptions(req, 'years', { $limit: 10000 });
+            const classesPromise = getSelectOptions(req, 'classes', { $limit: false }); // TODO limit classes to scope (year before, current and without year)
+            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: false });
+            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: false });
+            const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
             Promise.all([
                 classesPromise,
@@ -2036,5 +2054,24 @@ router.all('/systems', function (req, res, next) {
         });
     });
 });
+
+/*
+    LDAP SYSTEMS
+*/
+
+router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+    //Create ID for LDAP
+
+    //TODO change ID
+    res.redirect('/administration/systems/ldap/5c3c9f03732a7cf5b2665cc9');
+});
+router.get('/systems/ldap/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+
+    res.render('administration/ldap-edit', {
+        title: 'LDAP bearbeiten',
+    });
+
+});
+
 
 module.exports = router;
