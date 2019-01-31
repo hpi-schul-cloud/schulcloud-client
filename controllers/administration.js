@@ -2009,24 +2009,37 @@ router.patch('/systems/:id', getUpdateHandler('systems'));
 router.get('/systems/:id', getDetailHandler('systems'));
 router.delete('/systems/:id', removeSystemFromSchoolHandler, getDeleteHandler('systems'));
 
+router.get('/rss/:id', async (req, res) => {
+    const school = await api(req).patch('/schools/' + res.locals.currentSchool);
+
+    const matchingRSSFeed = school.rssFeeds.find(feed => feed._id === req.params.id);
+
+    res.send(matchingRSSFeed);
+})
+
 router.post('/rss/', async (req, res) => {
+    const school = await api(req).get('/schools/' + req.body.schoolId);
+
+    if (school.rssFeeds.find(el => el.url === req.body.rssURL)) {
+        return res.redirect('/administration/school');
+    }
+
     await api(req).patch('/schools/' + req.body.schoolId, {
         json: {
             $push: {
-                rssFeeds: req.body.rssURL
+                rssFeeds: { url: req.body.rssURL, description: req.body.description }
             }
         }
     });
 
-    res.redirect('/administration/school')
+    res.redirect('/administration/school');
 });
 
-router.delete('/rss/:url', async (req, res) => {
-    console.log(req.params.url)
+router.delete('/rss/:id', async (req, res) => {
     await api(req).patch('/schools/' + res.locals.currentSchool, {
         json: {
             $pull: {
-                rssFeeds: req.params.url
+                rssFeeds: { _id: req.params.id }
             }
         }
     });
@@ -2068,13 +2081,14 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
     }
 
     // RSS
-    const rssHead = ['URL', '']
+    const rssHead = ['URL', 'Kurzbeschreibung', ''];
     let rssBody;
     if (school.rssFeeds) {
-        rssBody = school.rssFeeds.map(rssFeedUrl => [
-            rssFeedUrl,
+        rssBody = school.rssFeeds.map(({ _id, url, description }) => [
+            url,
+            description,
             [{
-                link: `/administration/rss/${encodeURIComponent(rssFeedUrl)}`,
+                link: `/administration/rss/${_id}`,
                 class: 'btn-delete btn-delete--rss',
                 icon: 'trash-o',
                 method: 'delete',

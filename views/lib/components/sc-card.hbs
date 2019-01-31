@@ -13,6 +13,9 @@
             {{#if this.target.name}}
             <div class="tag tag-default">{{this.target.name}}</div>
             {{/if}}
+            {{#if this.sourceDescription}}
+            <div class="tag tag-default">{{this.sourceDescription}}</div>
+            {{/if}}
             {{#if this.secondaryTitle}}
             <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
             {{/if}}

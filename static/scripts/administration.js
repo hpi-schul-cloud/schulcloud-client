@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-function printInvitations (users) {
+function printInvitations(users) {
     event.preventDefault();
     let w = window.open();
     w.document.write(`<style>
@@ -26,7 +26,7 @@ function printInvitations (users) {
     p{font-size: 10px; color: #555; min-height: 26px; margin: 8px 0 0; text-align: center; word-break: break-all;}
     </style>`);
     for (let user of users) {
-        const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
+        const image = kjua({ text: user.registrationLink.shortLink, render: 'image' });
         w.document.write(`<div class="part">
                             <div class="image-wrapper" id="user-${user._id}"></div>
                             <h4 style="margin-bottom: 10px">${user.displayName}</h4>
@@ -177,7 +177,6 @@ $(document).ready(function () {
         e.preventDefault();
         var entry = $(this).parent().attr('action');
         $.getJSON(entry, function (result) {
-            console.log(result)
             populateModalForm($deleteSystemsModal, {
                 action: entry,
                 title: 'Löschen',
@@ -193,16 +192,18 @@ $(document).ready(function () {
     $('.btn-delete.btn-delete--rss').on('click', function (e) {
         e.preventDefault();
         const action = $(this).parent().attr('action');
-        const url = decodeURIComponent(action.split('administration/rss/').reverse()[0])
-        populateModalForm($deleteRSSModal, {
-            action: $(this).parent().attr('action'),
-            fields: { url },
-            title: 'Löschen',
-            closeLabel: 'Abbrechen',
-            submitLabel: 'Löschen',
-        });
+        const url = $(this).parent().attr('data-url');
+        $.getJSON(action, function (result) {
+            populateModalForm($deleteRSSModal, {
+                action,
+                fields: { url: result.url },
+                title: 'Löschen',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Löschen',
+            });
 
-        $deleteRSSModal.modal('show');
+            $deleteRSSModal.modal('show');
+        });
     });
 
     if (!handlerRegistered) {
@@ -212,19 +213,19 @@ $(document).ready(function () {
         $('.btn-send-links-emails').on('click', function (e) {
             e.preventDefault();
             const $this = $(this);
-            const text  = $this.html();
-            const role  = $this.data('role');
-    
+            const text = $this.html();
+            const role = $this.data('role');
+
             $this.html('E-Mails werden gesendet...');
             $this.attr("disabled", "disabled");
-    
+
             $.ajax({
                 type: "GET",
-                url: window.location.origin+"/administration/users-without-consent/send-email",
+                url: window.location.origin + "/administration/users-without-consent/send-email",
                 data: {
                     role
                 }
-            }).done(function(data) {
+            }).done(function (data) {
                 $.showNotification('Erinnerungs-E-Mails erfolgreich versendet', "success", true);
                 $this.attr("disabled", false);
                 $this.html(text);
@@ -238,19 +239,19 @@ $(document).ready(function () {
         $('.btn-print-links').on('click', function (e) {
             e.preventDefault();
             const $this = $(this);
-            const text  = $this.html();
-            const role  = $this.data('role');
+            const text = $this.html();
+            const role = $this.data('role');
 
             $this.html('Druckbogen wird generiert...');
             $this.attr("disabled", "disabled");
-    
+
             $.ajax({
                 type: "GET",
-                url: window.location.origin+"/administration/users-without-consent/get-json",
+                url: window.location.origin + "/administration/users-without-consent/get-json",
                 data: {
                     role
                 }
-            }).done(function(users) {
+            }).done(function (users) {
                 printInvitations(users);
                 $.showNotification('Druckbogen erfolgreich generiert', "success", true);
                 $this.attr("disabled", false);

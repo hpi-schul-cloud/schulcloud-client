@@ -127,7 +127,7 @@ router.all('/', async (req, res, next) => {
 		$populate: ['target']
 	};
 
-	if (req.params.targetId) {
+	if (req.params.targetId) { // FIXME this will actually never execute, since there is no params in the route handler.
 		queryObject.target = req.params.targetId;
 	}
 
