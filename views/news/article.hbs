@@ -2,9 +2,22 @@
 {{#content "page"}}
 <p>
     <small class="text-muted">{{timeFromNow news.displayAt}}</small>
+    {{#unless isRSS}}
     <small class="text-muted">
         von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
     </small>
+    {{/unless}}
+    {{#if isRSS}}
+    {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+    <small class="text-muted">
+        &nbsp;-
+    </small>
+    <small style="color: #b10438;">
+        &nbsp;RSS
+    </small>
+    {{/userHasPermission}}
+    {{/if}}
+
 </p>
 <div class="ckcontent">
     {{{news.content}}}
