@@ -1,7 +1,7 @@
 const getDataValue = function(attr) {
     return function() {
         const value = $('.section-upload').data(attr);
-        return value ? value : undefined;    
+        return value ? value : undefined;
     };
 };
 
@@ -76,15 +76,54 @@ $(document).ready(function() {
     let finishedFilesSize = 0;
     $form.dropzone ? $form.dropzone({
         accept: function (file, done) {
-            // get signed url before processing the file
-            // this is called on per-file basis
-            
+
+			if (file.fullPath) {
+
+				const promisePost = function(name, parent) {
+					return new Promise(function(resolve, reject){
+						$.post('/files/directory', {
+							name: name,
+							owner: getOwnerId(),
+							parent: parent,
+						})
+						.done(resolve)
+						.fail(reject);
+					});
+				};
+
+				const pathArray = file.fullPath.split('/');
+				pathArray.pop();
+
+				const lastPromise = pathArray.reduce(function(seq, name) {
+					return seq.then(function(parent){
+						return promisePost(name, parent._id);
+					})
+					.catch(() => undefined);
+				}, Promise.resolve({ _id: getCurrentParent()}));
+
+				lastPromise.then(function(result){
+					$.post('/files/file', {
+						parent: result._id,
+						type: file.type,
+						filename: file.name,
+					}, function (data) {
+						file.signedUrl = data.signedUrl;
+						file.parent = result._id;
+						done();
+					})
+					.fail(showAJAXError);
+				});
+
+				return;
+			}
+
             $.post('/files/file', {
                 parent: getCurrentParent(),
                 type: file.type,
                 filename: file.name,
             }, function (data) {
-                file.signedUrl = data.signedUrl;
+				file.signedUrl = data.signedUrl;
+				file.parent = getCurrentParent();
                 done();
             })
             .fail(showAJAXError);
@@ -138,9 +177,9 @@ $(document).ready(function() {
                 });
             });
 
-            this.on("success", function (file, response) {                
+            this.on("success", function (file, response) {
                 finishedFilesSize += file.size;
-                var parentId = getCurrentParent();
+                var parentId = file.parent || getCurrentParent();
                 var params = {
                     name: file.name,
                     owner: getOwnerId(),
@@ -347,7 +386,7 @@ $(document).ready(function() {
         let oldName = $(this).attr('data-file-name');
 
         populateRenameModal(
-            oldName, 
+            oldName,
             '/files/fileModel/' + fileId +  '/rename',
             'Datei umbenennen');
     });
@@ -393,7 +432,7 @@ $(document).ready(function() {
         let oldName = $(this).attr('data-directory-name');
 
         populateRenameModal(
-            oldName, 
+            oldName,
             '/files/directoryModel/' + dirId +  '/rename',
             'Ordner umbenennen');
     });
@@ -439,7 +478,7 @@ $(document).ready(function() {
           return obj[prop] === value;
         }
       };
-    
+
       let state = new Proxy({
         currentFileId: '',
         permissions: []
@@ -480,12 +519,12 @@ $(document).ready(function() {
                 data: { target },
             })]);
         })
-        .then(function ([file, data]) {            
+        .then(function ([file, data]) {
             const isAllowed = function(file, role) {
                 const permission = file.permissions.find(p => p.roleName === role);
                 return Object.keys(permission).every(p => permission[p]);
             };
-            
+
             populateModalForm($shareModal, {
                 title: 'Freigabe-Einstellungen',
                 closeLabel: 'Abbrechen',
@@ -528,7 +567,7 @@ $(document).ready(function() {
                 }, {});
 
                 return Object.assign(permission, setPermission);
-            });  
+            });
 
         $.ajax({
             url: '/files/permissions',
@@ -544,7 +583,7 @@ $(document).ready(function() {
           })
           .fail(function() {
             $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
-          });        
+          });
     });
 
 
@@ -555,7 +594,7 @@ $(document).ready(function() {
 
     const moveToDirectory = function (modal, targetId) {
         const fileId = modal.find('.modal-form').find("input[name='fileId']").val();
-        
+
         $.ajax({
             url: '/files/file/' + fileId + '/move/',
             type: 'POST',
