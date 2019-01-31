@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="21px" viewBox="0 0 20 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="03_Icons" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-42.000000, -41.000000)">
+            <g id="ic-presentation-24" transform="translate(40.000000, 40.000000)">
+                <path d="M10,3 C10,1.8954305 10.8954305,1 12,1 C13.1045695,1 14,1.8954305 14,3 L22,3 L22,5 L21,5 L21,17 L15.25,17 L17,22 L15,22 L13.25,17 L10.75,17 L9,22 L7,22 L8.75,17 L3,17 L3,5 L2,5 L2,3 L10,3 Z M5,5 L5,15 L19,15 L19,5 L5,5 Z" id="Shape" fill="#000000" fill-rule="nonzero"></path>
+                <polygon id="Path" points="0 0 24 0 24 24 0 24"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

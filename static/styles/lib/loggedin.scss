@@ -638,32 +638,7 @@ footer {
         }
         .dropdown-menu{
             padding: 0;
-            left: -25px;
-            /* this CS forms the triangles */
-            &:after,
-            &:before {
-                content: '';
-                display: block;
-                position: absolute;
-                top: -10px;
-                width: 0;
-                height: 0;
-                border-style: solid;
-            }
-            /* this border color controlls the color of the triangle (what looks like the fill of the triangle) */
-            &:after {
-                left: 20px;
-                border-color: transparent transparent #fff transparent;
-                border-width: 11px;
-                margin-top: -11px;
-            }
-            /* this border color controlls the outside, thin border */
-            &:before {
-                left: 20px;
-                border-color: transparent transparent rgba(0,0,0,.15) transparent;
-                border-width: 11px;
-                margin-top: -12px;
-            }
+
         }
     }
 }

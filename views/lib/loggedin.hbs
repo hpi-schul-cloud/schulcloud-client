@@ -106,7 +106,7 @@
                                 <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
                                     <i class="fa fa-qrcode"></i>
                                 </a>
-                                <div class="dropdown-menu print">
+                                <div class="dropdown-menu dropdown-menu-right print">
                                     <div class="content qr-show"></div>
                                     <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
                                         <i class="fa fa-print"></i> Drucken
@@ -123,7 +123,7 @@
                                     <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
                                 </a>
 
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-left">
                                     <div class="content">
                                         {{#if notifications}}
                                             {{#each notifications}}
@@ -145,12 +145,39 @@
                             </div>
                         </li>
     	                {{/if}}
+
+                        {{#if currentSchoolData}}
+                            <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
+                            {{#if currentSchoolData.logo_dataUrl}}
+                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
+                            {{/if}}
+                        {{/if}}
+
+                        <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
+                            <div class="btn-group" data-matomo-mask>
+                              <div class="dropdown btn-avatar">
+                                <a class="btn btn-secondary btn-thin dropdown-toggle"
+                                   title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
+                                  <div class="avatar-circle" >
+                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
+                                  </div>
+                                </a>
+                                <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
+                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
+                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+
                         <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
                             <div class="dropdown minimal-button">
                                 <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
                                     <i class="fa fa-question"></i>
                                 </a>
-                                <div class="dropdown-menu">
+                                <div class="dropdown-menu dropdown-menu-right">
                                     <ul class="content list-group">
                                         <li class="list-group-item list-group-item-action">
                                             <span>
@@ -183,31 +210,6 @@
                             </div>
                         </li>
 
-                        {{#if currentSchoolData}}
-                            <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.logo_dataUrl}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
-                            {{/if}}
-                        {{/if}}
-
-                        <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
-                            <div class="btn-group" data-matomo-mask>
-                              <div class="dropdown btn-avatar">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle"
-                                   title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
-                                  <div class="avatar-circle" >
-                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
-                                  </div>
-                                </a>
-                                <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
-                                </div>
-                              </div>
-                            </div>
-                        </li>
                     </ul>
                 </nav>
 
