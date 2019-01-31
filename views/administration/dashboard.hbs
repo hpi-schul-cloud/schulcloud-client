@@ -1,0 +1,90 @@
+{{#extend "administration/administration"}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/administration/dashboard.css" />
+{{/content}}
+
+{{#content "scripts" mode="append"}}
+{{/content}}
+
+{{#content "page"}}
+<div class="route-administration">
+    <section class="section-school section-default">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12 no-padding">
+                    <!-- Teacher View -->
+                    {{#userHasPermission 'STUDENT_CREATE'}}
+                    <div class="row card-deck-row">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="card h-100 teacher-option" onclick="location.href='/administration/students'">
+                                <div class="card-block homework">
+                                    <div class="card-text">
+                                        <h4><i class="fa fa-odnoklassniki"></i> Schüler verwalten</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="card h-100 teacher-option" onclick="location.href='/administration/teachers/'">
+                                <div class="card-block homework">
+                                    <div class="card-text">
+                                        <h4><i class="fa fa-user"></i> Lehrer verwalten</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="card h-100 teacher-option" onclick="location.href='/administration/classes/'">
+                                <div class="card-block homework">
+                                    <div class="card-text">
+                                        <h4><i class="fa fa-users"></i> Klassen verwalten</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{#userHasPermission 'ADMIN_VIEW'}}
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <div class="card h-100 teacher-option" onclick="location.href='/administration/school/'">
+                                <div class="card-block homework">
+                                    <div class="card-text">
+                                        <h4><i class="fa fa-building"></i> Schule verwalten</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/userHasPermission}}
+                        </div>
+                    </div>
+                </div>
+                {{/userHasPermission}}
+
+
+            </div>
+        </div>
+</div>
+</section>
+{{#unless school.fileStorageType}}
+<section class="section-school section-default">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 no-padding">
+                <form action="/administration/schools/{{currentSchool}}/bucket" method="post" class="edit-form-school">
+
+                    <div class="form-group">
+                        <label>Cloud-Storage Anbieter</label>
+                        <select name="fileStorageType" type="text">
+                            <option disabled="disabled" selected="selected">Anbieter auswählen</option>
+                            {{#each provider}}
+                            <option value="{{this.value}}" {{#if this.selected}} selected{{/if}}>{{this.label}} </option>
+                                {{/each}} </select> </div> <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{{/unless}}
+</div>
+{{/content}}
+{{/extend}}
