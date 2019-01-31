@@ -1,19 +1,25 @@
 <article class="sc-card">
-    {{#if this.isRSS}}
-    {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
-    <span class="rss-icon">RSS</span>
-    {{/userHasPermission}}
-    {{/if}}
     <a href="{{this.url}}" rel="canonical" class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
         {{/if}}>
+        {{#if this.isRSS}}
+        {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+        <span class="rss-icon">RSS</span>
+        {{/userHasPermission}}
+        {{/if}}
         <span class="sc-card-title">
-            <span class="title">{{{ stripOnlyScript this.title }}}</span>
+            <div>
+                <span class="title">{{{ stripOnlyScript this.title }}}</span>
+            </div>
+            {{#if this.target.name}}
+            <div class="tag tag-default">{{this.target.name}}</div>
+            {{/if}}
             {{#if this.secondaryTitle}}
             <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
             {{/if}}
         </span>
 
         <div class="sc-card-menu">
+
             {{#each this.actions}}
             {{#if this.method}}
             <button class="sc-card-menu-action {{this.class}}" target="_blank" data-method="DELETE" data-name="{{../title}}"

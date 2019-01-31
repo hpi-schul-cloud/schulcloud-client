@@ -1,8 +1,14 @@
 ﻿import { softNavigate } from './helpers/navigation';
 
-function getCurrentDir() {
-    return $('.section-upload').data('path');
-}
+const getDataValue = function(attr) {
+    return function() {
+        const value = $('.section-upload').data(attr);
+        return value ? value : undefined;    
+    };
+};
+
+const getOwnerId = getDataValue('owner');
+const getCurrentParent = getDataValue('parent');
 
 function archiveTask(e){
     e.preventDefault();
@@ -234,16 +240,15 @@ $(document).ready(function() {
             // get signed url before processing the file
             // this is called on per-file basis
 
-            let currentDir = getCurrentDir();
-
             $.post('/files/file', {
-                path: currentDir + file.name,
-                type: file.type
+                parent: getCurrentParent(),
+                type: file.type,
+                filename: file.name,
             }, function (data) {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-                .fail(showAJAXError);
+            .fail(showAJAXError);
         },
         createImageThumbnails: false,
         method: 'put',
@@ -298,16 +303,22 @@ $(document).ready(function() {
             this.on("success", function (file, response) {
                 finishedFilesSize += file.size;
 
-                // post file meta to proxy file service for persisting data
-                $.post('/files/fileModel', {
-                    key: file.signedUrl.header['x-amz-meta-path'] + '/' + encodeURIComponent(file.name),
-                    path: file.signedUrl.header['x-amz-meta-path'] + '/',
+                var parentId = getCurrentParent();
+                var params = {
                     name: file.name,
+                    owner: getOwnerId(),
                     type: file.type,
                     size: file.size,
-                    flatFileName: file.signedUrl.header['x-amz-meta-flat-name'],
+                    storageFileName: file.signedUrl.header['x-amz-meta-flat-name'],
                     thumbnail: file.signedUrl.header['x-amz-meta-thumbnail']
-                }, (data) => {
+                };
+
+                if( parentId ) {
+                    params.parent = parentId;
+                }              
+
+                // post file meta to proxy file service for persisting data
+                $.post('/files/fileModel', params , (data) => {
                     // add submitted file reference to submission
                     // hint: this only runs when an submission is already existing. if not, the file submission will be
                     // only saved when hitting the save button in the corresponding submission form

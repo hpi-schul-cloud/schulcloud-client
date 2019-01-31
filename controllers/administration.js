@@ -7,17 +7,14 @@ const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
-const handlebars = require('handlebars');
-const fs = require('fs');
-const path = require('path');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
 const decoder = new StringDecoder('utf8');
-const parse = require('csv-parse/lib/sync');
 const _ = require('lodash');
+
 moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
@@ -233,7 +230,7 @@ const deleteEventsForData = (service) => {
  *          role: user role = string "teacher"/"student"
  *          save: hash will be generated with URI-safe characters
  *          patchUser: hash will be patched into the user (DB)
- *          host: current webaddress from client
+ *          host: current webaddress from client = string, looks for req.headers.origin first
  *          schoolId: users schoolId = string
  *          toHash: optional, user account mail for hash generation = string
  *      }
@@ -244,7 +241,7 @@ const generateRegistrationLink = (params, internalReturn) => {
         if (!options.role) options.role = req.body.role || "";
         if (!options.save) options.save = req.body.save || "";
         if (!options.patchUser) options.patchUser = req.body.patchUser || "";
-        if (!options.host) options.host = req.headers.origin || "";
+        if (!options.host) options.host = req.headers.origin || req.body.host || "";
         if (!options.schoolId) options.schoolId = req.body.schoolId || "";
         if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
 
@@ -324,7 +321,7 @@ ${res.locals.theme.short_title}-Team`
                 "firstName": user.firstName,
                 "lastName": user.lastName
             });
-            
+
             let content = {
                 "html": outputString,
                 "text": "Sehr geehrte/r " + user.firstName + " " + user.lastName + ",\n\n" +
@@ -423,71 +420,50 @@ const getSendHelper = (service) => {
 };
 
 const getCSVImportHandler = () => {
-    return function (req, res, next) {
-        let csvData = '';
-        let records = [];
-        let importCount = 0;
-
+    return async function (req, res, next) {
         try {
-            const delimiters = [',', ';', '|', '\t'];
-            delimiters.some(delimiter => {
-                csvData = decoder.write(req.file.buffer);
-                records = parse(csvData, { columns: true, delimiter: delimiter });
-                if (Object.keys(records[0]).length > 1) {
-                    return true;
-                }
-                return false;
+            const csvData = decoder.write(req.file.buffer);
+            const [stats] = await api(req).post('/sync/', {
+                qs: {
+                    target: 'csv',
+                    school: req.body.schoolId,
+                    role: req.body.roles[0],
+                    sendEmails: Boolean(req.body.sendRegistration),
+                },
+                json: {
+                    data: csvData,
+                },
             });
-            if (Object.keys(records[0]).length <= 1) {
-                throw "PARSING FAILED";
+            const numberOfUsers = stats.users.successful + stats.users.failed;
+            if (stats.success) {
+                req.session.notification = {
+                    type: 'success',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
+                };
+            } else {
+                const whitelist = ['file', 'user', 'invitation', 'class'];
+                let errorText = stats.errors
+                    .filter(err => whitelist.includes(err.type))
+                    .map(err => `${err.entity} (${err.message})`)
+                    .join(', ');
+                if (errorText === '') {
+                    errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+                }
+                req.session.notification = {
+                    type: 'warning',
+                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
+                };
             }
+            res.redirect(req.header('Referer'));
+            return;
         } catch (err) {
             req.session.notification = {
                 type: 'danger',
-                message: 'Import fehlgeschlagen. (Format überprüfen)'
+                message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
             };
+            res.redirect(req.header('Referer'));
+            return;
         }
-
-        const groupData = {
-            schoolId: req.body.schoolId,
-            roles: req.body.roles
-        };
-
-        const recordPromises = records.map(async (user) => {
-            user = Object.assign(user, groupData);
-            let linkdData = await (generateRegistrationLink({
-                role: req.body.roles[0],
-                save: true,
-                toHash: user.email
-            }, true))(req, res, next);
-            return { user: user, linkData: linkdData };
-        });
-
-        Promise.all(recordPromises).then(async (allData) => {
-            for (let data of allData) {
-                if (req.body.sendRegistration) {
-                    req.body = data.user;
-                    req.body.sendRegistration = true;
-                } else {
-                    req.body = data.user;
-                }
-                req.body.importHash = data.linkData.hash;
-                req.body.shortLink = data.linkData.shortLink;
-                const success = await (getUserCreateHandler(true))(req, res, next);
-                if (success) {
-                    importCount += 1;
-                }
-            }
-            req.session.notification = {
-                type: importCount ? 'success' : 'info',
-                message: `${importCount} von ${records.length} Nutzer${records.length > 1 ? 'n' : ''} importiert.`
-            };
-            res.redirect(req.header('Referer'));
-            return;
-        }).catch(err => {
-            res.redirect(req.header('Referer'));
-            return;
-        });
     };
 };
 
@@ -617,7 +593,7 @@ const getSSOTypes = () => {
 const createBucket = (req, res, next) => {
     if (req.body.fileStorageType) {
         Promise.all([
-            api(req).post('/fileStorage', {
+            api(req).post('/fileStorage/bucket', {
                 json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
             }),
             api(req).patch('/schools/' + req.params.id, {
@@ -721,6 +697,20 @@ const userFilterSettings = function (defaultOrder) {
                 [null, "nicht Angegeben"]
             ]
         },
+        {
+            type: "select",
+            title: 'Einverständniserklärung Status',
+            displayTemplate: 'Status: %1',
+            property: 'consentStatus',
+            multiple: true,
+            expanded: true,
+            options: [
+                ["missing", "Keine Einverständniserklärung vorhanden"],
+                ["parentsAgreed", "Eltern haben zugestimmt (oder Schüler ist über 18)"],
+                ["ok", "Alle Zustimmungen vorhanden"],
+                [null, "nicht Angegeben"]
+            ]
+        }
     ];
 };
 
@@ -739,16 +729,16 @@ const getConsentStatusIcon = (consent, bool) => {
                 return `<i class="fa fa-times consent-status"></i>`;
             } else {
                 if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent) {
-                    return `<i class="fa fa-check consent-status"></i>`;
+                    return `<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>`;
                 } else {
-                    return `<i class="fa fa-circle-thin consent-status"></i>`;
+                    return `<i class="fa fa-check consent-status"></i>`;
                 }
             }
         } else {
             if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent) {
-                return `<i class="fa fa-check consent-status"></i>`;
+                return `<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>`;
             } else {
-                return `<i class="fa fa-circle-thin consent-status"></i>`;
+                return `<i class="fa fa-check consent-status"></i>`;
             }
         }
     } else {
@@ -775,7 +765,15 @@ router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CRE
         let ssoTypes = getSSOTypes();
 
         api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/dashboard', { title: title + 'Allgemein', school: data, provider, ssoTypes, totalStorage: totalStorage });
+            res.render('administration/school', {
+                title: title + 'Allgemein',
+                school: data,
+                isExpertSchool: data.purpose === "expert",
+                provider,
+                ssoTypes,
+                totalStorage: totalStorage,
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+            });
         });
     });
 });
@@ -946,7 +944,8 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
             res.render('administration/teachers', {
                 title: title + 'Lehrer',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings('lastName'))
+                filterSettings: JSON.stringify(userFilterSettings('lastName')),
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
             });
         });
     });
@@ -985,8 +984,8 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 editTeacher: true,
                 hidePwChangeButton,
                 isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
-                referrer: req.header('Referer')
-
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+                referrer: req.header('Referer'),
             }
         );
     });
@@ -1097,8 +1096,9 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
     }).then(userData => {
         let users = userData.data;
         let consentsPromise;
-        const classesPromise = getSelectOptions(req, 'classes', {});
+        const allStudentsCount = userData.total;
 
+        const classesPromise = getSelectOptions(req, 'classes', {});
         if (users.length > 0) {
             consentsPromise = getSelectOptions(req, 'consents', {
                 userId: {
@@ -1114,7 +1114,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         Promise.all([
             classesPromise,
             consentsPromise
-        ]).then(([classes, consents]) => {
+        ]).then(async ([classes, consents]) => {
             users = users.map((user) => {
                 // add consentStatus to user
                 const consent = (consents || []).find((consent) => {
@@ -1164,10 +1164,15 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
                 baseUrl: '/administration/students/?p={{page}}' + filterQueryString
             };
 
+            const studentsWithoutConsent = await getUsersWithoutConsent(req, 'student');
+
             res.render('administration/students', {
                 title: title + 'Schüler',
                 head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings())
+                filterSettings: JSON.stringify(userFilterSettings()),
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+                studentsWithoutConsentCount: studentsWithoutConsent.length,
+                allStudentsCount
             });
         }).catch(err => {
             next(err);
@@ -1176,6 +1181,112 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         next(err);
     });
 });
+
+const getUsersWithoutConsent = async (req, roleName, classId) => {
+    const role = await api(req).get('/roles', { qs: { name: roleName }, $limit: false });
+    const qs = { roles: role.data[0]._id, $limit: false };
+    let users = [];
+
+    if (classId) {
+        const _class = await api(req).get('/classes/' + classId, {
+            qs: {
+                $populate: ['teacherIds', 'userIds'],
+            }
+        });
+        users = _class.userIds;
+        users = users.map(user => {
+            user.displayName = `${user.firstName} ${user.lastName}`;
+            return user;
+        });
+    } else {
+        users = (await api(req).get('/users', { qs, $limit: false })).data;
+    }
+
+    const consents = (await api(req).get('/consents')).data;
+
+    const usersWithoutConsent = users.filter(user => {
+        let userWithConsent = consents.find(consent => {
+            return consent.userId === user._id;
+        });
+
+        return userWithConsent ? false : true;
+    });
+
+    return usersWithoutConsent;
+};
+
+
+router.get('/users-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    let usersWithoutConsent = await getUsersWithoutConsent(req, 'student', req.query.classId);
+    const role = req.query.role;
+
+    usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
+        user.registrationLink = await (generateRegistrationLink({
+            role,
+            save: true,
+            host: req.headers.host || process.env.HOST,
+            schoolId: res.locals.currentSchool,
+            toHash: user.email,
+            patchUser: true
+        }, true)(req, res, next));
+
+        return Promise.resolve(user);
+    }));
+
+    try {
+        for (const user of usersWithoutConsent) {
+            const content = {
+                text: `Hallo ${user.displayName},
+Leider fehlt uns von dir noch die Einverständniserklärung.
+Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
+
+Melde dich bitte mit deinen Daten an, um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
+
+Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${user.registrationLink.shortLink}</a>, und melde dich an.`
+            };
+
+            const json = {
+                headers: {},
+                email: user.email,
+                subject: `Der letzte Schritt zur Aktivierung für die ${res.locals.theme.short_title}`,
+                content
+            };
+
+            await api(req).post('/mails', {
+                json
+            });
+        }
+        res.sendStatus(200);
+    } catch (err) {
+        res.status((err.statusCode || 500)).send(err);
+    }
+});
+
+router.get('/users-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
+    const role = req.query.role;
+
+    try {
+        let usersWithoutConsent = await getUsersWithoutConsent(req, role, req.query.classId);
+
+        usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
+            user.registrationLink = await (generateRegistrationLink({
+                role,
+                save: true,
+                host: req.headers.host || process.env.HOST,
+                schoolId: res.locals.currentSchool,
+                toHash: user.email,
+                patchUser: true
+            }, true)(req, res, next));
+
+            return Promise.resolve(user);
+        }));
+
+        res.json(usersWithoutConsent);
+    } catch (err) {
+        res.status((err.statusCode || 500)).send(err);
+    }
+});
+
 
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
     const userPromise = api(req).get('/users/' + req.params.id);
@@ -1203,7 +1314,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
                 consentStatusIcon: getConsentStatusIcon(consent),
                 consent,
                 hidePwChangeButton,
-                referrer: req.header('Referer')
+                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+                referrer: req.header('Referer'),
             }
         );
     }).catch(err => {
@@ -1212,8 +1324,7 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 });
 
 
-
-/* 
+/*
   CLASSES
 */
 
@@ -1221,7 +1332,7 @@ const renderClassEdit = (req, res, next, edit) => {
     api(req).get('/classes/')
         .then(classes => {
             let promises = [
-                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 }), //teachers
+                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
                 getSelectOptions(req, 'years', { $sort: { name: -1 } }),
                 getSelectOptions(req, 'gradeLevels')
             ];
@@ -1324,10 +1435,10 @@ router.delete('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW'
 router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
     api(req).get('/classes/' + req.params.classId, { qs: { $populate: ['teacherIds', 'substitutionIds', 'userIds'] } })
         .then(currentClass => {
-            const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 }); // TODO limit classes to scope (year before, current and without year)
-            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: 1000 });
-            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: 10000 });
-            const yearsPromise = getSelectOptions(req, 'years', { $limit: 10000 });
+            const classesPromise = getSelectOptions(req, 'classes', { $limit: false }); // TODO limit classes to scope (year before, current and without year)
+            const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $sort: 'lastName', $limit: false });
+            const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $sort: 'lastName', $limit: false });
+            const yearsPromise = getSelectOptions(req, 'years', { $limit: false });
 
             Promise.all([
                 classesPromise,
@@ -1360,10 +1471,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                 });
                 res.render('administration/classes-manage', {
                     title: `Klasse '${currentClass.displayName}' verwalten `,
-                    "class": currentClass,
+                    class: currentClass,
                     classes,
                     teachers,
                     students,
+                    schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
                     schoolyears,
                     notes: [
                         {
@@ -1387,7 +1499,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                             "content": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
                         },
                     ],
-                    referrer: req.header('Referer')
+                    referrer: req.header('Referer'),
                 });
             });
         });
@@ -1818,6 +1930,100 @@ router.all('/courses', function (req, res, next) {
     });
 });
 
+router.all('/teams', function (req, res, next) {
+
+    const itemsPerPage = (req.query.limit || 10);
+    const currentPage = parseInt(req.query.p) || 1;
+
+    api(req).get('/teams/manage/admin', {
+        qs: {
+            $populate: ['userIds'],
+            $limit: itemsPerPage,
+            $skip: itemsPerPage * (currentPage - 1),
+            $sort: req.query.sort
+        }
+    }).then(data => {
+
+        const head = [
+            'Name',
+            'Klasse(n)',
+            ''
+        ];
+
+        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+        const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
+
+        Promise.all([
+            classesPromise,
+            usersPromise
+        ]).then(([classes, users]) => {
+            const body = data.map(item => {
+                return [
+                    item.name,
+                    (item.classIds || []).map(item => item.displayName).join(', '),
+                    getTableActions(item, '/administration/teams/').map(action => {
+                        return action;
+                    })
+                ];
+            });
+
+            let sortQuery = '';
+            if (req.query.sort) {
+                sortQuery = '&sort=' + req.query.sort;
+            }
+
+            let limitQuery = '';
+            if (req.query.limit) {
+                limitQuery = '&limit=' + req.query.limit;
+            }
+
+            const pagination = {
+                currentPage,
+                numPages: Math.ceil(data.total / itemsPerPage),
+                baseUrl: '/administration/teams/?p={{page}}' + sortQuery + limitQuery
+            };
+
+            res.render('administration/teams', {
+                title: 'Administration: Teams',
+                head,
+                body,
+                classes,
+                users,
+                pagination,
+                limit: true
+            });
+        });
+    });
+});
+
+router.get('/teams/:id', (req, res, next) => {
+    api(req).get('/teams/manage/admin/' + req.params.id).then(data => {
+        res.json(mapEventProps(data));
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.patch('/teams/:id', (req, res, next) => {
+    api(req).patch('/teams/manage/admin/' + req.params.id, {
+        userId: req.body.userId
+    }).then(data => {
+        res.redirect('/administration/teams/');
+    }).catch(err => {
+        next(err);
+    });
+});
+
+router.delete('/teams/:id', (req, res, next) => {
+    api(req).delete('/teams/manage/admin/' + req.params.id).then(data => {
+        res.redirect('/administration/teams/');
+    }).catch(err => {
+        next(err);
+    });
+});
+
+
+
 /*
     SCHOOL / SYSTEMS / RSS
 */
@@ -1933,5 +2139,24 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
         hasRSS: rssBody && !!rssBody.length,
     });
 });
+
+/*
+    LDAP SYSTEMS
+*/
+
+router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+    //Create ID for LDAP
+
+    //TODO change ID
+    res.redirect('/administration/systems/ldap/5c3c9f03732a7cf5b2665cc9');
+});
+router.get('/systems/ldap/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+
+    res.render('administration/ldap-edit', {
+        title: 'LDAP bearbeiten',
+    });
+
+});
+
 
 module.exports = router;

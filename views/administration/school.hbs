@@ -1,7 +1,6 @@
 {{#extend "administration/administration"}}
 {{#content "styles" mode="append"}}
 <link rel="stylesheet" href="/styles/administration/school.css" />
-<link rel="stylesheet" href="/styles/administration/system.css" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
@@ -24,6 +23,7 @@
                         <div class="form-group">
                             <label>Name der Schule</label>
                             <input value="{{../school.name}}" type="text" class="form-control" name="name" placeholder="Einhorn Gymnasium"
+                                {{#if ../schoolUsesLdap}} readonly{{/if}} {{#if ../isExpertSchool}} readonly{{/if}}
                                 required />
                         </div>
 
@@ -89,9 +89,14 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 no-padding">
-                    <button type="submit" class="btn btn-primary btn-add-modal btn-add-modal--systems">
-                        System hinzufügen
-                    </button>
+                    <form action="/administration/systems/ldap/add" method="POST">
+                        <button type="submit" class="btn btn-primary btn-add-modal btn-add-modal--systems">
+                            System hinzufügen
+                        </button>
+                        <!--<button type="submit" class="btn btn-primary">
+                                LDAP System hinzufügen
+                            </button>-->
+                    </form>
                 </div>
             </div>
         </div>

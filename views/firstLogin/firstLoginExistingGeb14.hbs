@@ -1,37 +1,15 @@
 {{#extend "lib/simple"}}
-  {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
-      <script src="/scripts/confetti/confetti.js" type="text/javascript" defer></script>
-      <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
-  {{/content}}
-  {{#content "styles" mode="append"}}
-      <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
-      <link rel="stylesheet" href="/styles/lib/confetti/confetti.css"/>
-      <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
- {{/content}}
+  {{> "firstLogin/partials/imports"}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=3 action="/firstLogin/submit" method="POST"}}
       {{#content "panels"}}
-      <section data-panel="section-1" class="confetti-wrapper">
-        <h4>Herzlichen Glückwunsch, {{currentUser.firstName}} {{currentUser.lastName}}! 🎉🎈</h4>
-        <p>Du bist jetzt 14 Jahre alt. Bitte erkläre im folgenden Schritt dein Einverständnis zur Nutzung der {{theme.title}}. Ab 14 Jahren ist dies zusätzlich zum bereits erklärten Einverständnis deiner Eltern nötig, damit du die {{theme.short_title}} weiter nutzen kannst.</p>
-      </section>
 
-      <section data-panel="section-2" class="submit-page">
-        <h4>Einwilligungserklärung</h4>
-        <p>Bitte bestätige jetzt folgende Einwilligungserklärungen, damit du die {{theme.title}} weiter nutzen kannst.</p>
+        {{> "firstLogin/sections/welcome_existing_geb14" section-nr=1}}
 
-          <p>Ich, <b>{{currentUser.firstName}} {{currentUser.lastName}}</b>, erkläre Folgendes:</p>
-          {{#embed "registration/forms/einwilligungserklaerung"}}{{/embed}}
+        {{> "firstLogin/sections/consent" section-nr=2 submit-page=true}}
 
-      </section>
+        {{> "firstLogin/sections/thanks" section-nr=3}}
 
-      <section data-panel="section-3">
-        <h4>Danke!</h4>
-        <p>Du kannst jetzt mit der Benutzung der {{theme.short_title}} fortfahren.<br>
-            <a class="btn btn-primary mt-2" href="/">{{theme.short_title}} erkunden</a>
-        </p>
-      </section>
       {{/content}}
     {{/embed}}
   {{/content}}

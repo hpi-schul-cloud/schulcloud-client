@@ -1,0 +1,22 @@
+{{#extend "lib/loggedin"}}
+
+{{#content "scripts" mode="append"}}
+<script src="/scripts/administration/systems/ldap-edit.js" type="text/javascript" defer></script>
+{{/content}}
+
+{{#content "styles" mode="append"}}
+{{!--
+<link rel="stylesheet" href="/styles/systems/systems.css" /> NOTE: This stylesheet wasn't available on the branch.
+Probably delete it.--}}
+<!-- dataprivacy is only used for .recap -->
+<link rel="stylesheet" href="/styles/administration/dataprivacy.css" />
+{{/content}}
+
+{{#content "page"}}
+<section class="section-classes-create">
+    <form class="create-form" method="post" action="">
+        {{> "administration/forms/form-ldap-edit"}}
+    </form>
+</section>
+{{/content}}
+{{/extend}}

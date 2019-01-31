@@ -79,9 +79,8 @@ router.all('/', function (req, res, next) {
                     });
                 } catch(e) {
                     // just catching the blog-error
-                }
-
-                let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+                } 
+                let schoolsPromise = getSelectOptions(req, 'schools', { purpose:{$ne:"expert"}, $limit: false, $sort: 'name'});
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
@@ -102,7 +101,7 @@ router.all('/login/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+            let schoolsPromise = getSelectOptions(req, 'schools', { purpose:{$ne:"expert"}, $limit: false, $sort: 'name'});
 
             Promise.all([
                 schoolsPromise
@@ -154,7 +153,12 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
                     });
                 }
                 const consent = consents.data[0];
-                res.redirect(consent.redirect);
+                if (consent.access) {
+                    res.redirect('/dashboard');
+                } else {
+                    //make sure fistLogin flag is not set
+                    res.redirect('/firstLogin');
+                }
             });
     } else {
         // if this happens: SSO 	
