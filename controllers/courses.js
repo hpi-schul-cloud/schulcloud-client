@@ -261,6 +261,7 @@ router.get('/', function(req, res, next) {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             course.title = course.name;
+            course.notificationId = shortId.generate,
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
@@ -479,6 +480,8 @@ router.post('/:courseId/offline', function(req,res,next){
                 .filter(e => !currentIds.includes(e._id))
                 .map(e => e._id);
         }
+
+        // todo update course if lessons changed
         
         // remove data from response the client already has loaded
         let filteredResponse = filterResponse (unfilteredResponse, req.body);

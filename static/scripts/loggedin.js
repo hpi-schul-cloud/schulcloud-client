@@ -1,6 +1,8 @@
 /* global kjua jQuery introJs*/
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+import toast from './toasts';
+import messageClient from './message/message-client';
 
 var $contactHPIModal;
 var $contactAdminModal;
@@ -284,7 +286,9 @@ window.addEventListener("load", () => {
             navigator.serviceWorker.register('/sw.js').then(registration=>{
                 if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
                     setupFirebasePush(registration);
+                    messageClient.setupMessagingClient(registration);
                 }
+                
             });
         }
     }

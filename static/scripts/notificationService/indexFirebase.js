@@ -3,6 +3,8 @@ import { pushManager } from './index';
 import { sendShownCallback, removeRegistrationId } from './callback';
 import toast from '../toasts';
 
+// check https://github.com/firebase/quickstart-js/blob/master/messaging/index.html#L123 for updating this file.
+
 const htmlClass = {
   hasClass: function (el, className) {
     if (el.classList)

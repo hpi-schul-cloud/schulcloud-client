@@ -66,12 +66,20 @@ router.post('/push/test', function (req, res, next) {
     let userId = res.locals.currentUser._id;
     res.locals.url = 'notification/push';
     res.locals.body = {
-        data: {
-            tag: 'test-notification'
+        payload:{
+            action: {
+                click: 'http://hpi.de'
+            }
         },
         receivers: [userId],
-        template: 'tpl',
-        languagePayloads: 'lp'
+        template: 'global-push-message',
+        languagePayloads: [{
+            language: 'de',
+            payload: {
+                title: 'Test-Benachrichtigung',
+                message: 'wurde erfolgreich zugestellt!'
+            }
+        }]
     };
     next();
 }, postRequest);

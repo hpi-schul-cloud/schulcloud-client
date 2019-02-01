@@ -30,6 +30,7 @@ module.exports = {
                 },
             }
         },
+        minimize: false,
     },
     externals: {
         "jquery": "jQuery",

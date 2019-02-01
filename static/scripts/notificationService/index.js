@@ -26,7 +26,7 @@ export const pushManager = {
 
     handleNotification: function (registration, data) {
         if(this.handledMessages.includes(data.data._id) === false){
-            this.handledMessages.push(data.data._id);
+            //this.handledMessages.push(data.data._id);
             while(this.handledMessages.length>100){
                 this.handledMessages.shift();
             }

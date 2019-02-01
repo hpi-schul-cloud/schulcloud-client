@@ -7,7 +7,7 @@ export const notificationHandler = {
         if(message.data && message.data.tag){
             promiseChain.push(this.handleData(message.data));
         }
-        if(message.notification){
+        if(message.notification && message.notification.shown !== true){
             promiseChain.push(this.showNotification(registration, message.notification));
         }
         return Promise.all(promiseChain);
@@ -47,7 +47,22 @@ export const notificationHandler = {
             body: notification.body,
             icon: notification.img || '/images/cloud.png'
         };
+        this.sendNotificationToClients(notificationTitle, notificationOptions);
         return registration.showNotification(notificationTitle, notificationOptions);
     },
+
+    sendNotificationToClients(title, options){
+        self.clients.matchAll().then(function (clients){
+            clients.forEach(function(client){
+              client.postMessage({
+                  tag: 'notification',
+                  data: {
+                      title,
+                      options
+                  }
+              });
+            });
+          });
+    }
 
 };

@@ -2,10 +2,14 @@
 // Give the service worker access to Firebase Messaging.
 // Note that you can only use Firebase Messaging here, other Firebase libraries
 // are not available in the service worker.
-// importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
-// importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
+importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
 
 import {pushManager} from './scripts/notificationService/index';
+import messagingSW from './scripts/message/message-sw';
+
+messagingSW.setupMessaging();
+
 // import { sendShownCallback, sendReadCallback} from './scripts/notificationService/callback';
 // import {courseDownloader} from './scripts/notificationService/courseDownloader';
 
@@ -17,26 +21,25 @@ import {pushManager} from './scripts/notificationService/index';
 
 // //importScripts('/scripts/notificationService/callback.js');
 
-// // Initialize the Firebase app in the service worker by passing in the
-// // messagingSenderId.
-// firebase.initializeApp({
-//   'messagingSenderId': '693501688706'
-// });
+// Initialize the Firebase app in the service worker by passing in the
+// messagingSenderId.
+firebase.initializeApp({
+  'messagingSenderId': '693501688706'
+});
 
-// // Retrieve an instance of Firebase Messaging so that it can handle background
-// // messages.
-// const messaging = firebase.messaging();
-// // [END initialize_firebase_in_sw]
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
+const messaging = firebase.messaging();
+// [END initialize_firebase_in_sw]
 
-// // If you would like to customize notifications that are received in the
-// // background (Web app is closed or not in browser focus) then you should
-// // implement this optional method.
-// // [START background_handler]
-// messaging.setBackgroundMessageHandler(function(payload) {
-//   console.log('Received background message in sw', payload);
-//   pushManager.handleNotification(self.registration, payload);
-//   return Promise.resolve();
-// });
+// If you would like to customize notifications that are received in the
+// background (Web app is closed or not in browser focus) then you should
+// implement this optional method.
+// [START background_handler]
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('Received background message in sw', payload);
+  return pushManager.handleNotification(self.registration, payload);
+});
 // [END background_handler]
 
 importScripts('/scripts/sw/workbox/workbox-sw.js');
@@ -198,14 +201,16 @@ workbox.routing.registerRoute(
 
 
 self.addEventListener('message', function(event){
-    event.waitUntil(pushManager.handleNotification(self.registration, event));
+    if(event.data.tag === 'course-data-updated'){
+        event.waitUntil(pushManager.handleNotification(self.registration, event));
+    }
 });
 
-self.addEventListener('push', function(event){
-    const data = event.data.json();
-    console.log('push sw', data);
-    event.waitUntil(pushManager.handleNotification(self.registration, data));
-});
+// self.addEventListener('push', function(event){
+//     const data = event.data.json();
+//     console.log('push sw', data);
+//     event.waitUntil(pushManager.handleNotification(self.registration, data));
+// });
 
 
 let courseRoutes = [
