@@ -62,6 +62,7 @@ app.use(function(req, res, next){
         title: process.env.SC_TITLE || "HPI Schul-Cloud",
         short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
     };
+    res.locals.domain = process.env.SC_DOMAIN || false;
     delete req.session.notification;
     next();
 });

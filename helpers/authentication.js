@@ -124,11 +124,19 @@ const restrictSidebar = (req, res) => {
     });
 };
 
+const cookieDomain = (res) => {
+    if (res.locals.domain) {
+        return { domain: res.locals.domain };
+    } else {
+        return {};
+    }
+}
 
 module.exports = {
     isJWT,
     authChecker,
     isAuthenticated,
     restrictSidebar,
-    populateCurrentUser
+    populateCurrentUser,
+    cookieDomain
 };

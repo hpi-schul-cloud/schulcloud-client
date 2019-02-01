@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const api = require('../api');
+const { cookieDomain } = require('../helpers/authentication');
 
 /*
  * Warnings for users who wan't to use the old register version if not teacher
@@ -65,7 +66,11 @@ ${res.locals.theme.short_title}-Team`
         });
     }).then(function() {
         if (req.params.sso) {
-            res.cookie('jwt', req.cookies.jwt, { domain: req.hostname, expires: new Date(Date.now() - 100000) });
+            res.cookie('jwt', req.cookies.jwt,
+                Object.assign({},
+                    { expires: new Date(Date.now() - 100000) },
+                    cookieDomain(res)
+                ));
         }
     }).then(function () {
         res.sendStatus(200);

@@ -36,8 +36,12 @@ router.post('/login/', function (req, res, next) {
                 next();
             } else {
                 const login = (data) => {
-                    return api(req).post('/authentication', {json: data}).then(data => {
-                        res.cookie('jwt', data.accessToken, { domain: req.hostname, expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) });
+                    return api(req).post('/authentication', { json: data }).then(data => {
+                        res.cookie('jwt', data.accessToken,
+                            Object.assign({},
+                                { expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
+                                authHelper.cookieDomain(res)
+                            ));
                         res.redirect('/login/success/');
                     }).catch(_ => {
                         res.locals.notification = {
@@ -181,11 +185,11 @@ router.get('/login/systems/:schoolId', function (req, res, next) {
 router.get('/logout/', function (req, res, next) {
     api(req).del('/authentication')
         .then(_ => {
-            res.clearCookie('jwt', { domain: req.hostname });
+            res.clearCookie('jwt', authHelper.cookieDomain(res));
             return res.redirect('/');
         }).catch(_ => {
-        return res.redirect('/');
-    });
+            return res.redirect('/');
+        });
 });
 
 module.exports = router;
