@@ -9,6 +9,7 @@ services:
 env:
   global:
     - GIT_SHA=$(git rev-parse HEAD)
+    - secure=JDd0wgh8iHR6OJ1256n1PsIM4p5LO1VGTgnNQMzk7M5OT+4yQsOgx5g3V3VOkthrdhEY/CAQgBBduKZ+FKilh0Jabczdbkh3vFD36jWbhjyTamuaXdTkDAkGPaGtYyXAbM4Q4pEm8NS17C5nX2DAM4boK+JxGrSTD13tevSKfo84MYGVVNqDD21OMuvEVWRvNHUbbh7qgBAgWW2QRg1wHacyv2QVP8iTVFOmwFhSG8Zttmq86OVdB6/tsyRR8z6/2FqDKJszIRkNfGWRFuvqqcsX9xZfFGiVdUSNpF1FM/Hkuuq0WYQJNCJtfXJYMZSWcCcVAKndX9TQ33Po4a4aeKj45scWtUX1n4TKYw30jh76D0famWzYzzjEtxK89Vpxyykr1Q7hsL/msxoEtA1oNvPQEbWbX2WSvWEu1bLhUd/30sJnz2QU9rpcnu0KtbENkCeHIBA7wCdJbyCeJoIX85QwP0wCSt/1g2lWoubpVztg6NJq0rm+HVCtiu4m30D/cy8vCY5u0FlliAvni07q9QzhYJRvLz6FcXjW/pFW9f4Pyrm698CywXDrupfOWqDcEAPjbuuymYFMzx2JRDLYFfRS9kbOxRxq9FQeVIStwkt4hi8TBTO6P093ggp5wu+tutf4axHXBLXswIlfPuXBYa3+aiLsleMbjUfB5MSs86c=
 
 addons:
   chrome: stable
@@ -23,6 +24,8 @@ before_install:
 - sh -e /etc/init.d/xvfb start
 - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile
   --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
+# decrypt ssh-key
+- openssl aes-256-cbc -k "$super_secret_password" -in travis_rsa.enc -out travis_rsa -d 
 install:
 - npm install
 before_script:
@@ -46,4 +49,5 @@ deploy:
  provider: script
   script: ./deploy.sh
   on:
-   branch: development
+   all_branches: true
+   condition:  $TRAVIS_BRANCH =~ ^development|N21/merge$
