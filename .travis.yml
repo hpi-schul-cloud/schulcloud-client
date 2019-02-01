@@ -44,7 +44,7 @@ cache:
     - node_modules
 
 deploy:
- provider: script
+  provider: script
   script: ./deploy.sh
   on:
    all_branches: true
