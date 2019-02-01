@@ -26,7 +26,7 @@ router.post('/login/', function (req, res, next) {
     const systemId = req.body.systemId;
     const schoolId = req.body.schoolId;
 
-    return api(req).get('/accounts/', {qs: {username: username}})
+    return api(req).get('/accounts/', { qs: { username: username } })
         .then(account => {
             if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) { // undefined for currently existing users
                 res.locals.notification = {
@@ -54,10 +54,10 @@ router.post('/login/', function (req, res, next) {
 
                 if (systemId) {
                     return api(req).get('/systems/' + req.body.systemId).then(system => {
-                        return login({strategy: system.type, username, password, systemId, schoolId});
+                        return login({ strategy: system.type, username, password, systemId, schoolId });
                     });
                 } else {
-                    return login({strategy: 'local', username, password});
+                    return login({ strategy: 'local', username, password });
                 }
             }
         });
@@ -70,22 +70,22 @@ router.all('/', function (req, res, next) {
             return res.redirect('/login/success/');
         } else {
             feedr.readFeed('https://blog.schul-cloud.org/rss', {
-                requestOptions: {timeout:2000}
+                requestOptions: { timeout: 2000 }
             }, function (err, data, headers) {
                 let blogFeed = [];
                 try {
                     blogFeed = data.rss.channel[0].item.slice(0, 5).map(function (e) {
                         let date = new Date(e.pubDate),
                             locale = "en-us",
-                            month = date.toLocaleString(locale, {month: "long"});
+                            month = date.toLocaleString(locale, { month: "long" });
                         e.pubDate = date.getDate() + ". " + month;
                         return e;
                     });
-                } catch(e) {
+                } catch (e) {
                     // just catching the blog-error
                 }
 
-                let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+                let schoolsPromise = getSelectOptions(req, 'schools', { $limit: false, $sort: 'name' });
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
@@ -106,7 +106,7 @@ router.all('/login/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+            let schoolsPromise = getSelectOptions(req, 'schools', { $limit: false, $sort: 'name' });
 
             Promise.all([
                 schoolsPromise
@@ -121,26 +121,26 @@ router.all('/login/', function (req, res, next) {
     });
 });
 
-const ssoSchoolData = (req,accountId) =>{
+const ssoSchoolData = (req, accountId) => {
 
-	return api(req).get('/accounts/' + accountId).then(account => {
+    return api(req).get('/accounts/' + accountId).then(account => {
         return api(req).get('/schools/', {
             qs: {
                 systems: account.systemId
             }
         }).then(schools => {
-			if( schools.data.length > 0 ){
-				return schools.data[0];
-			}else{
-				return undefined;
-			}
-		}).catch(err=>{
-			return undefined;
-		});
-	}).catch(err=>{
-		return undefined;
-	});	
-	
+            if (schools.data.length > 0) {
+                return schools.data[0];
+            } else {
+                return undefined;
+            }
+        }).catch(err => {
+            return undefined;
+        });
+    }).catch(err => {
+        return undefined;
+    });
+
 };
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
@@ -148,35 +148,35 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     if (res.locals.currentUser) {
         const user = res.locals.currentUser;
 
-        api(req).get('/consents/', {qs: { userId: user._id }})
+        api(req).get('/consents/', { qs: { userId: user._id } })
             .then(consents => {
                 if (consents.data.length === 0) {
                     // user has no consent; create one and try again to get the proper redirect.
-                    return api(req).post('/consents/', {json: {userId: user._id}})
-                    .then(_ => {
-                        res.redirect('/login/success');
-                    });
+                    return api(req).post('/consents/', { json: { userId: user._id } })
+                        .then(_ => {
+                            res.redirect('/login/success');
+                        });
                 }
                 const consent = consents.data[0];
                 res.redirect(consent.redirect);
             });
     } else {
         // if this happens: SSO 	
-		const accountId = (res.locals.currentPayload||{}).accountId;
-		
-		ssoSchoolData( req, accountId ).then(school=>{
-			if(school==undefined){
-				res.redirect('/dashboard/');
-			}else{
-				res.redirect('/registration/' + school._id+'/sso/'+accountId); 
-			}
-		}); 
+        const accountId = (res.locals.currentPayload || {}).accountId;
+
+        ssoSchoolData(req, accountId).then(school => {
+            if (school == undefined) {
+                res.redirect('/dashboard/');
+            } else {
+                res.redirect('/registration/' + school._id + '/sso/' + accountId);
+            }
+        });
     }
 });
 
 router.get('/login/systems/:schoolId', function (req, res, next) {
     return api(req).get('/schools/' + req.params.schoolId, {
-        qs: {$populate: ['systems']}
+        qs: { $populate: ['systems'] }
     }).then(data => {
         return res.send(data.systems);
     });
