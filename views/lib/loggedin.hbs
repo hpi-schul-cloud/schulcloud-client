@@ -1,273 +1,285 @@
 {{#extend "lib/default"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/loggedin.css"/>
-        <link rel="stylesheet" href="/styles/lib/feedback-button.css"/>
-        <link rel="stylesheet" href="/vendor/introjs/introjs.min.css"/>
-        <noscript><style>
-            .section-title,
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/lib/loggedin.css" />
+<link rel="stylesheet" href="/styles/lib/feedback-button.css" />
+<link rel="stylesheet" href="/vendor/introjs/introjs.min.css" />
+<noscript>
+    <style>
+        .section-title,
             #main-content,
             footer
             {
                 opacity: 1;
             }
-        </style></noscript>
-    {{/content}}
+        </style>
+</noscript>
+<link rel="stylesheet" href="/vendor-optimized/izitoast/dist/css/iziToast.min.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="/vendor-optimized/firebasejs/3.9.0/firebase-app.js" defer></script>
-        <script type="text/javascript" src="/vendor-optimized/firebasejs/3.9.0/firebase-messaging.js" defer></script>
-        <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
-        <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
-        <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script type="text/javascript" src="/vendor-optimized/firebasejs/4.8.1/firebase-app.js" defer></script>
+<script type="text/javascript" src="/vendor-optimized/firebasejs/4.8.1/firebase-messaging.js" defer></script>
+<script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
+<script type="text/javascript" src="/vendor-optimized/izitoast/dist/js/iziToast.min.js" defer></script>
+<script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
+<script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
+<script src="/scripts/loggedin.js" type="text/javascript" defer></script>
+{{/content}}
 
-    {{#content "body"}}
-        <div class="navtooltips"></div>
-        <aside class="nav-sidebar hide-inline">
-            <nav>
-                <ul class="sidebar-list">
+{{#content "body"}}
+<div class="navtooltips"></div>
+<aside class="nav-sidebar hide-inline">
+    <nav>
+        <ul class="sidebar-list">
+            <li>
+                <a class="sc-branding" href="/">
+                    <div class="cloud-logo"></div>
+                    <div class="sc-title"><span>{{theme.short_title}}</span></div>
+                </a>
+            </li>
+            {{#each sidebarItems}}
+            <li data-step={{this.introNumber}} data-intro="{{this.introText}}">
+                <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}">
+                    <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+                    <span class="link-name">{{this.name}}</span>
+                </a>
+
+                {{#if this.childActive}}
+                {{#if this.children}}
+                <ul class="subitems">
+                    {{#each this.children}}
                     <li>
-                        <a class="sc-branding" href="/">
-                            <div class="cloud-logo"></div>
-                            <div class="sc-title"><span>{{theme.short_title}}</span></div>
+                        <a class="subitem {{this.class}}" href="{{this.link}}" title="{{this.name}}">
+                            <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
+                            <span class="link-name">{{this.name}}</span>
                         </a>
                     </li>
-                    {{#each sidebarItems}}
-                        <li data-step={{this.introNumber}} data-intro="{{this.introText}}">
-                            <a class="{{this.class}}" href="{{this.link}}" title="{{this.name}}">
-                                <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
-                                <span class="link-name">{{this.name}}</span>
-                            </a>
-
-                            {{#if this.childActive}}
-                                {{#if this.children}}
-                                    <ul class="subitems">
-                                        {{#each this.children}}
-                                            <li>
-                                                <a class="subitem {{this.class}}" href="{{this.link}}"
-                                                    title="{{this.name}}">
-                                                    <i class="fa fa-{{this.icon}}" aria-hidden="true"></i>
-                                                    <span class="link-name">{{this.name}}</span>
-                                                </a>
-                                            </li>
-                                        {{/each}}
-                                    </ul>
-                                {{/if}}
-                            {{/if}}
-
-                        </li>
                     {{/each}}
                 </ul>
-            </nav>
-        </aside>
+                {{/if}}
+                {{/if}}
 
-        <section class="content-wrapper">
-            <a class="mobile-nav-toggle">
-                <i class="fa fa-bars"></i>
-            </a>
-            <div class="content-min-height">
-                <section class="demo" id="offlineAlert" style="display:none;">
-                    <div class="alert alert-warning" role="alert">
-                        <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell veraltete Inhalte.</span></p>
-                    </div>
-                </section>
-                {{#ifeq currentRole "Demo"}}
-                    <section class="demo">
-                        <div class="alert alert-warning" role="alert">
-                            <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder ändern, sind deaktiviert und nicht sichtbar.</span></p>
-                        </div>
-                    </section>
-                {{/ifeq}}
+            </li>
+            {{/each}}
+        </ul>
+    </nav>
+</aside>
 
-                {{> "lib/components/notification"}}
-                <nav class="topbar navbar hide-inline">
-
-                    {{#if breadcrumb}}
-                        <ol class="breadcrumb">
-                            {{#each breadcrumb}}
-                                <li class="breadcrumb-item {{this.class}}">
-                                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
-                                </li>
-                            {{/each}}
-                        </ol>
-                    {{/if}}
-
-                    <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier findest du übergreifende Informationen.">
-                        <li class="nav-item fullscreen-action" data-step="2" data-intro="Hiermit blendest du die Menüs aus.">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen" data-toggle="dropdown">
-                                    <i class="fa fa-expand"></i>
-                                </a>
-                            </div>
-                        </li>
-                        <li class="nav-item qr-code-action" data-step="3" data-intro="Ganz einfach QR-Codes erstellen!">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
-                                    <i class="fa fa-qrcode"></i>
-                                </a>
-                                <div class="dropdown-menu print">
-                                    <div class="content qr-show"></div>
-                                    <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title="" data-original-title="QR-Code drucken">
-                                        <i class="fa fa-print"></i> Drucken
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        {{#if false}}
-                        <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
-                                        recentNotifications}}recent{{/if}}" title="Benachrichtigungen" data-toggle="dropdown">
-                                    <i class="fa fa-bell"></i> {{#if recentNotifications}}
-                                    <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
-                                </a>
-
-                                <div class="dropdown-menu">
-                                    <div class="content">
-                                        {{#if notifications}}
-                                            {{#each notifications}}
-                                                <div class="notification-item {{#unless this.read}}unread{{/unless}}"
-                                                    data-notification-id="{{this.notificationId}}">
-                                                    <a href="{{this.action}}"><b>{{this.title}}</b></a>
-                                                    <br>
-                                                    <span>{{this.body}}</span>
-                                                    <time class="notification-time">{{timeFromNow this.date}}</time>
-                                                </div>
-                                            {{/each}}
-                                        {{else}}
-                                            <div class="notification-item" data-notification-id="0">
-                                                <span>Derzeit keine Benachrichtigungen</span>
-                                            </div>
-                                        {{/if}}
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-    	                {{/if}}
-                        <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
-                                    <i class="fa fa-question"></i>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul class="content list-group">
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                                <a href="/help" class="link">Hilfebereich</a>
-                                            </span>
-                                        </li>
-
-                                        <li id="intro-loggedin" class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-map-signs"aria-hidden="true"></i>
-                                                <a href="#" class="link">Intro</a>
-                                            </span>
-                                        </li>
-
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-comment" aria-hidden="true"></i>
-                                                <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-
-                        {{#if currentSchoolData}}
-                            <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.logo_dataUrl}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
-                            {{/if}}
-                        {{/if}}
-
-                        <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
-                            <div class="btn-group" data-matomo-mask>
-                              <div class="dropdown btn-avatar">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle"
-                                   title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
-                                  <div class="avatar-circle" >
-                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
-                                  </div>
-                                </a>
-                                <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
-                                    <a class="dropdown-item" href="/account/">Einstellungen</a>
-                                    <a class="dropdown-item" href="/logout/">Abmelden</a>
-                                </div>
-                              </div>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-
-                <section class="section-title">
-                    <div class="container-fluid">
-                        <div class="row" id="titlebar">
-                            <div class="col-sm-9">
-                                {{#unless notitle}}
-                                  <div>
-                                      <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
-                                  </div>
-                                {{/unless}}
-                                <div>
-                                    {{subtitle}}
-                                </div>
-                            </div>
-                            {{#if showSearch}}
-                                <div id="searchBar" class="col-sm-3 hide-inline">
-                                    {{#unless liveSearch}}<form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}" method="get">{{/unless}}
-                                        <a class="mobile-search-toggle">
-                                            {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
-                                        </a>
-                                        <div class="input-group input-group-sm">
-                                            <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}" placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}" name="q" />
-                                            <span class="input-group-btn">
-                                                <button type="submit" class="btn btn-secondary">
-                                                    <i class="fa fa-search"></i>
-                                                </button>
-                                            </span>
-                                        </div>
-                                    {{#unless liveSearch}}</form>{{/unless}}
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-                </section>
-
-                <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
-                <p id="backendUrl" hidden>{{ backendUrl }}</p>
-
-                <main id="main-content" class="container-fluid">
-                    {{#block "page"}}{{/block}}
-                </main>
+<section class="content-wrapper">
+    <a class="mobile-nav-toggle">
+        <i class="fa fa-bars"></i>
+    </a>
+    <div class="content-min-height">
+        <section class="demo" id="offlineAlert" style="display:none;">
+            <div class="alert alert-warning" role="alert">
+                <p>Du bist offline. <span class="hidden-md-down">Um dir trotzdem etwas anzuzeigen siehst du eventuell
+                        veraltete Inhalte.</span></p>
             </div>
-            {{#unless inline}}
-                {{#embed "lib/footer"}}{{/embed}}
-            {{/unless}}
-
-            {{#embed "lib/components/modal-form" class="contactHPI-modal"}}
-                {{#content "fields"}}
-                    {{> "lib/forms/form-contactHPI"}}
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="contactAdmin-modal"}}
-                {{#content "fields"}}
-                    {{> "lib/forms/form-contactAdmin"}}
-                {{/content}}
-            {{/embed}}
-
         </section>
+        {{#ifeq currentRole "Demo"}}
+        <section class="demo">
+            <div class="alert alert-warning" role="alert">
+                <p>Dies ist ein Demoaccount. <span class="hidden-md-down">Sämtliche Aktionen, die Daten anlegen oder
+                        ändern, sind deaktiviert und nicht sichtbar.</span></p>
+            </div>
+        </section>
+        {{/ifeq}}
+
+        {{> "lib/components/notification"}}
+        <nav class="topbar navbar hide-inline">
+
+            {{#if breadcrumb}}
+            <ol class="breadcrumb">
+                {{#each breadcrumb}}
+                <li class="breadcrumb-item {{this.class}}">
+                    <a href="{{this.url}}">{{{stripOnlyScript this.title}}}</a>
+                </li>
+                {{/each}}
+            </ol>
+            {{/if}}
+
+            <ul class="nav navbar-nav float-xs-none dropdowns" data-step="1" data-intro="Hier findest du übergreifende Informationen.">
+                <li class="nav-item fullscreen-action" data-step="2" data-intro="Hiermit blendest du die Menüs aus.">
+                    <div class="dropdown minimal-button">
+                        <a class="btn btn-secondary btn-thin dropdown-toggle btn-fullscreen" title="Fullscreen"
+                            data-toggle="dropdown">
+                            <i class="fa fa-expand"></i>
+                        </a>
+                    </div>
+                </li>
+                <li class="nav-item qr-code-action" data-step="3" data-intro="Ganz einfach QR-Codes erstellen!">
+                    <div class="dropdown minimal-button">
+                        <a class="btn btn-secondary btn-thin dropdown-toggle btn-create-qr" title="QR-Code" data-toggle="dropdown">
+                            <i class="fa fa-qrcode"></i>
+                        </a>
+                        <div class="dropdown-menu print">
+                            <div class="content qr-show"></div>
+                            <div class="btn btn-secondary btn-print mb-1 ml-1 mt-0" data-toggle="tooltip" title=""
+                                data-original-title="QR-Code drucken">
+                                <i class="fa fa-print"></i> Drucken
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{#if false}}
+                <li class="nav-item notification-dropdown" data-step="4" data-intro="Hier erhälst du Benachrichtigungen.">
+                    <div class="dropdown minimal-button">
+                        <a class="btn btn-secondary btn-thin dropdown-toggle notification-dropdown-toggle {{#if
+                                        recentNotifications}}recent{{/if}}"
+                            title="Benachrichtigungen" data-toggle="dropdown">
+                            <i class="fa fa-bell"></i> {{#if recentNotifications}}
+                            <span class="tag tag-primary">{{recentNotifications}}</span>{{/if}}
+                        </a>
+
+                        <div class="dropdown-menu">
+                            <div class="content">
+                                {{#if notifications}}
+                                {{#each notifications}}
+                                <div class="notification-item {{#unless this.read}}unread{{/unless}}"
+                                    data-notification-id="{{this.notificationId}}">
+                                    <a href="{{this.action}}"><b>{{this.title}}</b></a>
+                                    <br>
+                                    <span>{{this.body}}</span>
+                                    <time class="notification-time">{{timeFromNow this.date}}</time>
+                                </div>
+                                {{/each}}
+                                {{else}}
+                                <div class="notification-item" data-notification-id="0">
+                                    <span>Derzeit keine Benachrichtigungen</span>
+                                </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {{/if}}
+                <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
+                    <div class="dropdown minimal-button">
+                        <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
+                            <i class="fa fa-question"></i>
+                        </a>
+                        <div class="dropdown-menu">
+                            <ul class="content list-group">
+                                <li class="list-group-item list-group-item-action">
+                                    <span>
+                                        <i class="fa fa-question-circle" aria-hidden="true"></i>
+                                        <a href="/help" class="link">Hilfebereich</a>
+                                    </span>
+                                </li>
+
+                                <li id="intro-loggedin" class="list-group-item list-group-item-action">
+                                    <span>
+                                        <i class="fa fa-map-signs" aria-hidden="true"></i>
+                                        <a href="#" class="link">Intro</a>
+                                    </span>
+                                </li>
+
+                                <li class="list-group-item list-group-item-action">
+                                    <span>
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                        <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a>
+                                    </span>
+                                </li>
+                                <li class="list-group-item list-group-item-action">
+                                    <span>
+                                        <i class="fa fa-comment" aria-hidden="true"></i>
+                                        <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+
+                {{#if currentSchoolData}}
+                <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
+                {{#if currentSchoolData.logo_dataUrl}}
+                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
+                {{/if}}
+                {{/if}}
+
+                <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
+                    <div class="btn-group" data-matomo-mask>
+                        <div class="dropdown btn-avatar">
+                            <a class="btn btn-secondary btn-thin dropdown-toggle" title='{{ currentUser.displayName }} ({{ currentRole }})'
+                                data-toggle="dropdown">
+                                <div class="avatar-circle">
+                                    <span class="initials">{{ currentUser.avatarInitials }}</span>
+                                </div>
+                            </a>
+                            <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <div class="dropdown-name">{{ currentUser.displayName }} ({{ currentRole }})</div>
+                                <a class="dropdown-item" href="/account/">Einstellungen</a>
+                                <a class="dropdown-item" href="/logout/">Abmelden</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+
+        <section class="section-title">
+            <div class="container-fluid">
+                <div class="row" id="titlebar">
+                    <div class="col-sm-9">
+                        {{#unless notitle}}
+                        <div>
+                            <h4 id="page-title">{{{stripOnlyScript title}}}</h4>
+                        </div>
+                        {{/unless}}
+                        <div>
+                            {{subtitle}}
+                        </div>
+                    </div>
+                    {{#if showSearch}}
+                    <div id="searchBar" class="col-sm-3 hide-inline">
+                        {{#unless liveSearch}}<form class="search-wrapper" action="{{#if searchLabel}}{{searchAction}}{{else}}/content/{{/if}}"
+                            method="get">{{/unless}}
+                            <a class="mobile-search-toggle">
+                                {{#unless liveSearch}}<i class="fa fa-search"></i>{{/unless}}
+                            </a>
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="{{#if liveSearch}}js-search{{/if}} form-control search-field {{searchClass}}"
+                                    placeholder="{{#if searchLabel}}{{truncatePure searchLabel 21}}{{else}}Suche nach...{{/if}}"
+                                    name="q" />
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-secondary">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            {{#unless liveSearch}}
+                        </form>{{/unless}}
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </section>
+
+        <p id="preferences" hidden>{{ json currentUser.preferences }}</p>
+        <p id="backendUrl" hidden>{{ backendUrl }}</p>
+
+        <main id="main-content" class="container-fluid">
+            {{#block "page"}}{{/block}}
+        </main>
+    </div>
+    {{#unless inline}}
+    {{#embed "lib/footer"}}{{/embed}}
+    {{/unless}}
+
+    {{#embed "lib/components/modal-form" class="contactHPI-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-contactHPI"}}
     {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-form" class="contactAdmin-modal"}}
+    {{#content "fields"}}
+    {{> "lib/forms/form-contactAdmin"}}
+    {{/content}}
+    {{/embed}}
+
+</section>
+{{/content}}
 {{/extend}}

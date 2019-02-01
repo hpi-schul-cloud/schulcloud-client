@@ -159,7 +159,7 @@ router.get('/:topicId', function(req, res, next) {
             isCourseGroupTopic: courseGroup._id !== undefined,
             breadcrumb: [{
                     title: 'Meine Kurse',
-                    url: '/courses'
+                    url: '/courses/'
                 },
                 {
                     title: course.name + ' ' + '> Themen',

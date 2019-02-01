@@ -43,6 +43,7 @@ bower_components
 
 # Builds
 build/
+static/sw.injected.js
 
 # Dependency directories
 node_modules/

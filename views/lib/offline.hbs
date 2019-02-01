@@ -1,0 +1,39 @@
+{{#extend "lib/loggedin" hideSearch="true"}}
+
+    {{#content "styles" mode="append"}}
+        <style>
+            #main-content{
+                text-align: center;
+            }
+            ul, ul li{
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+        </style>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                document.getElementById("reload-page").addEventListener("click", () => {
+                    location.reload();
+                });
+            });
+        </script>
+    {{/content}}
+
+    {{#content "page"}}
+    <section class="offline">
+        <p style="font-size: 8rem">😟</p>
+        <p>Folgende Seiten funktionieren auch offline:</p>
+        <ul>
+            <li><a href="#">Page 1</a></li>
+            <li><a href="#">Page 2</a></li>
+            <li><a href="#">...</a></li>
+        </ul>
+        <button class="btn-link text-muted my-2" id="reload-page">> Seite neu laden <</button>
+        </section>
+    {{/content}}
+
+{{/extend}}

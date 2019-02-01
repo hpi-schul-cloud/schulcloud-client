@@ -14,6 +14,7 @@ const optimizejs = require('gulp-optimize-js');
 const plumber = require('gulp-plumber');
 const postcss = require('gulp-postcss');
 const rimraf = require('gulp-rimraf');
+const rename = require('gulp-rename');
 const sass = require('gulp-sass');
 const sassGrapher = require('gulp-sass-grapher');
 const sourcemaps = require('gulp-sourcemaps');
@@ -213,7 +214,7 @@ gulp.task('vendor-optimized-assets', () => {
 });
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome'];
+const nodeModules = ['mathjax', 'font-awesome', 'localforage', 'izitoast'];
 gulp.task('node-modules', () =>
   Promise.all(nodeModules.map(module =>
     beginPipe([`./node_modules/${module}/**/*.*`])
@@ -238,6 +239,8 @@ let globPatterns = [
     'scripts/dashboard.js',
     'scripts/courses.js',
     'scripts/news.js',
+    'scripts/topic.js',
+    'scripts/tabbar.js',
     'styles/lib/*.css',
     'styles/lib/toggle/*.min.css',
     'styles/lib/datetimepicker/*.min.css',
@@ -245,7 +248,9 @@ let globPatterns = [
     'styles/news/*.css',
     'styles/courses/*.css',
     'styles/dashboard/*.css',
+    'styles/homework/*.css',
     'vendor/introjs/intro*.{js,css}',
+    'vendor/jquery/*.{js,css}',
     'vendor-optimized/firebasejs/3.9.0/firebase-app.js',
     'vendor-optimized/firebasejs/3.9.0/firebase-messaging.js',
     'vendor/feathersjs/feathers.js',
@@ -253,14 +258,23 @@ let globPatterns = [
     'images/manifest.json'
   ];
 
-gulp.task('generate-service-worker',
+gulp.task('generate-service-worker', ['sw-build'], () =>{
+  return beginPipeAll([`./static/sw.injected.js`])
+  .pipe(webpackStream(Object.assign({},webpackConfig,{output:{filename:'sw.js'}}), webpack))
+  // .pipe(rename(function(path){
+  //   path.basename = path.basename.replace('main.js', 'sw.js');
+  // }))
+  .pipe(gulp.dest(`./build/${themeName()}`));
+});
+
+gulp.task('sw-build',
   ['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
   'vendor-styles', 'vendor-scripts', 'vendor-assets'], () => {
     return workbox.injectManifest({
       globDirectory: `./build/${themeName()}/`,
       globPatterns: globPatterns,
       swSrc: './static/sw.js',
-      swDest: `./build/${themeName()}/sw.js`,
+      swDest: `./static/sw.injected.js`,
       templatedUrls: {
         '/calendar/': [
           '../../views/calendar/calendar.hbs',
@@ -280,7 +294,7 @@ gulp.task('generate-service-worker',
 
 //clear build folder + smart cache
 gulp.task('clear', () => {
-  return gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*'], {
+  return gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*', './static/sw.injected.js'], {
       read: false
     })
     .pipe(rimraf());

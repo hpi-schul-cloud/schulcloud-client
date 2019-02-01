@@ -1,4 +1,5 @@
 import { getCookiesMap, pushManager } from './notificationService/index';
+import toast from './toasts';
 
 $(document).ready(function() {
     var $deleteModal = $('.delete-modal');
@@ -25,7 +26,7 @@ $(document).ready(function() {
 
     var cookies = getCookiesMap(document.cookie);
     if (cookies["notificationPermission"])
-        $(".btn-device").prop("disabled", true);
+        //$(".btn-device").prop("disabled", true); // todo alert when registration fails instead
 
     $('a[data-method="delete"]').on('click', function(e) {
         e.stopPropagation();
@@ -55,21 +56,9 @@ $(document).ready(function() {
     }
 
     $(".send-test-notification").on('click', function () {
-        $.post('/notification/message', {
-            "title": "Neue Test-Benachrichtigung",
-            "body": "Du hast eine neue Benachrichtigung",
-            "action": document.location.origin + '/dashboard/',
-            "token": $("[name='userId']").val(),
-            "scopeIds": [
-                $("[name='userId']").val()
-            ]
+        $.post('/notification/push/test', {}, function(data, textStatus, jqXHR){
+            toast('successfullySendPushTestMessage');
         });
     });
 
-    function sendTestNotification () {
-
-    }
-
 });
-
-window.pushManager = pushManager;

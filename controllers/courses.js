@@ -8,6 +8,7 @@ const recurringEventsHelper = require('../helpers/recurringEvents');
 const permissionHelper = require('../helpers/permissions');
 const moment = require('moment');
 const shortId = require('shortid');
+const {FileGetter} = require('../helpers/files/fileGetter');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
@@ -264,6 +265,7 @@ router.get('/', function(req, res, next) {
         courses = courses.data.map(course => {
             course.url = '/courses/' + course._id;
             course.title = course.name;
+            course.notificationId = shortId.generate,
             course.content = (course.description||"").substr(0, 140);
             course.secondaryTitle = '';
             course.background = course.color;
@@ -289,6 +291,42 @@ router.get('/', function(req, res, next) {
                 liveSearch: true
             });
         }
+    });
+});
+
+router.get('/offline', function(req, res, next) {
+
+    api(req).get('/courses/', {
+        qs: {
+            $or: [
+                {userIds: res.locals.currentUser._id},
+                {teacherIds: res.locals.currentUser._id}
+            ],
+            $limit: 75
+        }
+    })
+    .then(courses => {
+
+        courses = courses.data.map(course => {
+            let c = {};
+            c._id = course._id;
+            c.nextEvent= recurringEventsHelper.getNextEventForCourseTimes(course.times);
+            c.nextEvent = moment(c.nextEvent, 'dd.mm.yyyy HH:ii').unix();
+            return c;
+        });
+        courses.sort((a, b) => {
+            if (a.nextEvent > b.nextEvent) {
+                return 1;
+            } else {
+                return -1;
+            }
+        });
+
+        // reduce to courses within of next week
+        const nextWeek = moment().add({days:7}).unix();
+        courses = courses.filter(course => course.nextEvent < nextWeek);
+
+        res.json({courses});
     });
 });
 
@@ -367,6 +405,117 @@ router.get('/:courseId/json', function(req, res, next) {
     ]).then(([course, lessons]) => res.json({ course, lessons }));
 });
 
+router.post('/:courseId/offline', function(req,res,next){
+    // prepare URL for FileGetter
+    req.originalUrl = req.originalUrl.replace(/\/offline$/,'');
+    next();
+}, FileGetter, function (req, res, next) {
+    Promise.all([
+        api(req).get('/courses/' + req.params.courseId, {
+            qs: {
+                $populate: ['ltiToolIds']
+            }
+        }),
+        api(req).get('/lessons/', {
+            qs: {
+                courseId: req.params.courseId
+            }
+        }),
+        Promise.resolve(res.locals.files.files)
+    ]).then(([course, lessons, files]) => {
+        files = files.map(file => {
+            return {
+                _id: file._id,
+                updatedAt: Date.parse(file.updatedAt),
+                url: '/files/file?path=' + file.file
+            };
+        });
+        lessons = lessons.data.map(lesson => {
+            return {
+                _id: lesson._id,
+                updatedAt: Date.parse(lesson.updatedAt),
+                url: '/courses/' + course._id + '/topics/' + lesson._id + '/'
+            };
+        });
+        const unfilteredResponse = {
+            course: {
+                _id: course._id,
+                updatedAt: Date.parse(course.updatedAt),
+                url: '/courses/' + course._id
+            }, lessons, files
+        };
+
+        function updateIfModified(unfiltered, filter){
+            if(!filter || filter.updatedAt < unfiltered.updatedAt)
+                return unfiltered;
+            return;
+        }
+
+        // only keep data not in filter
+        function filterGroup(result, group, unfiltered, filter){
+            result[group] = unfiltered[group].map(e =>{
+                if(filter && filter[group]){
+                    let f = filter[group].find(l => l._id === e._id);
+                    if(f){
+                        return updateIfModified(e, f);
+                    }
+                }
+                return e;
+            });
+            result[group] = result[group].filter(l => l != null);
+            if(result[group].length === 0){
+                delete result[group];
+            }
+        }
+
+        function filterResponse(unfiltered, filter){
+            let result = {};
+            result.course = updateIfModified(unfiltered.course,filter.course);
+            filterGroup(result, 'lessons', unfiltered, filter);
+            filterGroup(result, 'files', unfiltered, filter);
+            return result;
+        }
+
+        function checkForRemoval(current, last, type){
+            // remove lessons if they are no more available
+            if(!last[type]) return;
+            let currentIds = current[type].map(lesson => lesson._id);
+            return last[type]
+                .filter(e => !currentIds.includes(e._id))
+                .map(e => e._id);
+        }
+
+        // todo update course if lessons changed
+        
+        // remove data from response the client already has loaded
+        let filteredResponse = filterResponse (unfilteredResponse, req.body);
+
+        // create list of data the client should remove locally
+        filteredResponse.cleanup={};
+        let lessonsForRemoval = checkForRemoval(unfilteredResponse, req.body, 'lessons');
+        if(lessonsForRemoval){
+            filteredResponse.cleanup = Object.assign(filteredResponse.cleanup, {lessons: lessonsForRemoval});
+        }
+        let filesForRemoval = checkForRemoval(unfilteredResponse, req.body, 'files');
+        if(filesForRemoval){
+            filteredResponse.cleanup = Object.assign(filteredResponse.cleanup, {files: filesForRemoval});
+        }
+
+        res.json(filteredResponse);
+    }).catch(err =>{
+        res.json(err);
+    });
+},function(err,req,res,next){
+    if (err) {
+        if (err.statusCode === 403) {
+            // if course removed 
+            return res.json({ "cleanup": req.body });
+        } else {
+            return res.json({ "error": "message" });
+        }
+    }
+});
+
 router.get('/:courseId/usersJson', function(req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
@@ -437,7 +586,7 @@ router.get('/:courseId', function(req, res, next) {
             courseGroups,
             breadcrumb: [{
                     title: 'Meine Kurse',
-                    url: '/courses'
+                    url: '/courses/'
                 },
                 {
                     title: course.name,

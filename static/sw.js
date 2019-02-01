@@ -1,7 +1,52 @@
+// [START initialize_firebase_in_sw]
+// Give the service worker access to Firebase Messaging.
+// Note that you can only use Firebase Messaging here, other Firebase libraries
+// are not available in the service worker.
+importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-app.js');
+importScripts('https://www.gstatic.com/firebasejs/4.8.1/firebase-messaging.js');
+
+import {pushManager} from './scripts/notificationService/index';
+import messagingSW from './scripts/message/message-sw';
+
+messagingSW.setupMessaging();
+
+// import { sendShownCallback, sendReadCallback} from './scripts/notificationService/callback';
+// import {courseDownloader} from './scripts/notificationService/courseDownloader';
+
+// if(courseDownloader.isReady() !== true){
+//     courseDownloader.initialize({
+//         cacheName: 'courses'
+//     });
+// }
+
+// //importScripts('/scripts/notificationService/callback.js');
+
+// Initialize the Firebase app in the service worker by passing in the
+// messagingSenderId.
+firebase.initializeApp({
+  'messagingSenderId': '693501688706'
+});
+
+// Retrieve an instance of Firebase Messaging so that it can handle background
+// messages.
+const messaging = firebase.messaging();
+// [END initialize_firebase_in_sw]
+
+// If you would like to customize notifications that are received in the
+// background (Web app is closed or not in browser focus) then you should
+// implement this optional method.
+// [START background_handler]
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('Received background message in sw', payload);
+  return pushManager.handleNotification(self.registration, payload);
+});
+// [END background_handler]
+
 importScripts('/scripts/sw/workbox/workbox-sw.js');
 
 workbox.setConfig({
-    modulePathPrefix: '/scripts/sw/workbox/'
+    modulePathPrefix: '/scripts/sw/workbox/',
+    debug: false
 });
 workbox.skipWaiting();
 workbox.clientsClaim();
@@ -40,6 +85,24 @@ workbox.routing.registerRoute(
 // cache pages for one hour
 workbox.routing.registerRoute(
     /\/(dashboard|news|courses)\/$/,
+    workbox.strategies.networkFirst({
+        cacheName: 'pages',
+        maxAgeSeconds: 60 * 60,
+        networkTimeoutSeconds: 3,
+        plugins: [
+            new workbox.expiration.Plugin({
+                maxEntries: 50,
+                maxAgeSeconds: 60 * 60,
+            }),
+            new workbox.cacheableResponse.Plugin({
+                statuses: [0, 200],
+            }),
+        ],
+    })
+);
+
+workbox.routing.registerRoute(
+    /\/news\/[a-f0-9]{24}$/,
     workbox.strategies.networkFirst({
         cacheName: 'pages',
         maxAgeSeconds: 60 * 60,
@@ -120,7 +183,7 @@ workbox.routing.registerRoute(
 );
 
 workbox.routing.registerRoute(
-    /vendor-optimized\/mathjax\//,
+    /vendor-optimized\//,
     workbox.strategies.cacheFirst({
         cacheName: 'vendors',
         plugins: [
@@ -134,3 +197,46 @@ workbox.routing.registerRoute(
         ],
     })
 );
+
+
+
+self.addEventListener('message', function(event){
+    if(event.data.tag === 'course-data-updated'){
+        event.waitUntil(pushManager.handleNotification(self.registration, event));
+    }
+});
+
+// self.addEventListener('push', function(event){
+//     const data = event.data.json();
+//     console.log('push sw', data);
+//     event.waitUntil(pushManager.handleNotification(self.registration, data));
+// });
+
+
+let courseRoutes = [
+    /\/courses\/[a-f0-9]{24}\/topics\/[a-f0-9]{24}\/$/,
+    /\/courses\/[a-f0-9]{24}$/
+];
+courseRoutes.forEach(route=>{
+    workbox.routing.registerRoute(
+        route,
+        workbox.strategies.cacheFirst({
+            cacheName: 'courses'
+        })
+    );
+});
+
+// todo move to downloader
+function getNextCourses(){
+    return fetch('/courses/offline').then(response => {
+        return response.json();
+    }).then(data => {
+        if(data.courses && data.courses.length){
+            return Promise.all(data.courses.map(course =>{
+                courseDownloader.downloadCourse(course._id);
+            }));
+        }else{
+            return Promise.resolve();
+        }
+    }).catch(err => console.log(err));
+}

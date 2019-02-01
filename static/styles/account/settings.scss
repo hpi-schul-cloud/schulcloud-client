@@ -7,6 +7,10 @@
 
 .notification {
 
+  .row-push-loading {
+    margin-top: 20px;
+  }
+  
   .btn-default {
     margin-top: 20px;
     background-color: $primaryColor;
@@ -17,10 +21,6 @@
     padding: 16px;
     box-shadow: 0 1px 1px 0 #c7c7c7 inset;
     background: none repeat scroll 0 0;
-  }
-
-  .send-test-notification {
-    margin-left: 20px;
   }
 
   h4 {

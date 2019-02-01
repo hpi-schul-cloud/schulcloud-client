@@ -1,6 +1,6 @@
 /* global kjua jQuery introJs*/
 import { setupFirebasePush } from './notificationService/indexFirebase';
-import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+import { sendShownCallback, sendReadCallback } from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 
 iFrameListen();
@@ -135,7 +135,7 @@ $(document).ready(function () {
         $('.notification-dropdown .notification-item.unread').each(function () {
             if ($(this).data('read') == true) return;
 
-            sendShownCallback({notificationId: $(this).data('notification-id')});
+            sendShownCallback({ notificationId: $(this).data('notification-id') });
             sendReadCallback($(this).data('notification-id'));
             $(this).data('read', true);
         });
@@ -143,7 +143,7 @@ $(document).ready(function () {
 
     $('.btn-create-qr').on('click', function () {
         // create qr code for current page
-        let image = kjua({text: window.location.href, render: 'image'});
+        let image = kjua({ text: window.location.href, render: 'image' });
         let $qrbox = $('.qr-show');
         $qrbox.empty();
         $qrbox.append(image);
@@ -161,7 +161,7 @@ $(document).ready(function () {
             togglePresentationMode();
         }
     }
-    if(document.querySelector('.btn-fullscreen')){
+    if (document.querySelector('.btn-fullscreen')) {
         document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
     }
 
@@ -209,31 +209,28 @@ function showAJAXError(req, textStatus, errorThrown) {
     }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-    if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-        setupFirebasePush();
-    }
+window.addEventListener('DOMContentLoaded', function () {
 
     let feedbackSelector = document.querySelector('#feedbackType');
-    if(feedbackSelector){
-        feedbackSelector.onchange = function(){
-            if(feedbackSelector.value === "problem"){
+    if (feedbackSelector) {
+        feedbackSelector.onchange = function () {
+            if (feedbackSelector.value === "problem") {
                 document.getElementById("problemDiv").style.display = "block";
                 document.getElementById("userstoryDiv").style.display = "none";
-                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
-                    node.required=true;
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node) => {
+                    node.required = true;
                 });
-                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
-                    node.required=false;
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node) => {
+                    node.required = false;
                 });
             } else {
                 document.getElementById("problemDiv").style.display = "none";
                 document.getElementById("userstoryDiv").style.display = "block";
-                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
-                    node.required=false;
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node) => {
+                    node.required = false;
                 });
-                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
-                    node.required=true;
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node) => {
+                    node.required = true;
                 });
                 document.getElementById("acceptance_criteria").required = false;
             }
@@ -267,28 +264,51 @@ function changeNavBarPositionToFixed() {
 function startIntro() {
     changeNavBarPositionToAbsolute();
     introJs()
-    .setOptions({
-        nextLabel: "Weiter",
-        prevLabel: "Zurück",
-        doneLabel: "Fertig",
-        skipLabel: "Überspringen"
-    })
-    .start()
-    .oncomplete(changeNavBarPositionToFixed);
+        .setOptions({
+            nextLabel: "Weiter",
+            prevLabel: "Zurück",
+            doneLabel: "Fertig",
+            skipLabel: "Überspringen"
+        })
+        .start()
+        .oncomplete(changeNavBarPositionToFixed);
 }
 
 window.addEventListener("load", () => {
-    var continueTuorial=localStorage.getItem('Tutorial');
-    if(continueTuorial=='true') {
+    var continueTuorial = localStorage.getItem('Tutorial');
+    if (continueTuorial == 'true') {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
     if ('serviceWorker' in navigator) {
         // enable sw for half of users only
         let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-        if(testUserGroup == 1) {
-            navigator.serviceWorker.register('/sw.js');
+        if (testUserGroup == 1) {
+            navigator.serviceWorker.register('/sw.js').then(registration => {
+                if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+                    setupFirebasePush(registration);
+                    messageClient.setupMessagingClient(registration);
+                }
+
+            });
         }
     }
-    document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+});
+
+document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+
+function downloadCourse(event) {
+    if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+            tag: 'course-data-updated',
+            courseId: $(this).attr('data-id'),
+            _id: Date.now()
+        });
+    } else {
+        console.log('SW not active!');
+    }
+}
+
+Array.from(document.getElementsByClassName('downloadOffline')).forEach(element => {
+    element.addEventListener('click', downloadCourse, false);
 });
