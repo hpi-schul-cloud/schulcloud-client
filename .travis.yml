@@ -7,10 +7,13 @@ services:
 env:
   global:
     - GIT_SHA=$(git rev-parse HEAD)
-env:
-- SC_DEMO_USER_PASSWORD=schulcloud
-- BACKEND_URL=https://api.niedersachsen.cloud
-- PUBLIC_BACKEND_URL=https://api.niedersachsen.cloud
+    - SC_DEMO_USER_PASSWORD=schulcloud
+    - BACKEND_URL=https://api.niedersachsen.cloud
+    - PUBLIC_BACKEND_URL=https://api.niedersachsen.cloud
+#env:
+#- SC_DEMO_USER_PASSWORD=schulcloud
+#- BACKEND_URL=https://api.niedersachsen.cloud
+#- PUBLIC_BACKEND_URL=https://api.niedersachsen.cloud
 addons:
   chrome: stable
   firefox: latest
