@@ -12,6 +12,14 @@ export const steps = [
         { name: 'Abschließen'},
       ];
 
+export const moreProgressSteps = [
+        { name: 'One'},
+        { name: 'Two'},
+        { name: 'Three'},
+        { name: 'Four'},
+        { name: 'Five'},
+      ];
+
 
 storiesOf("Onboarding", module).add("Landing CTA", () => ({
   components: { LandingCTA },
@@ -55,6 +63,13 @@ storiesOf("Wizard", module).add("StepProgress Step 1", () => ({
   template: '<StepProgress :steps="progressSteps" :currentStep="2"/> ' ,
   data: () => ({
     progressSteps: steps
+  })
+}))
+.add("StepProgress 5 Steps", () => ({
+  components: { StepProgress },
+  template: '<StepProgress :steps="progressSteps" :currentStep="2"/> ' ,
+  data: () => ({
+    progressSteps: moreProgressSteps
   })
 }));
 
