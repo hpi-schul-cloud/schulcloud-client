@@ -687,20 +687,20 @@
 				"longDesc": false
 			},
 			{
-				"title": "",
-				"firstName": "Caroline",
-				"lastName": "Morfeld",
-				"position": "Praktikantin",
-				"description": "Caroline hat Kultur-, Politik- und Literaturwissenschaften studiert und unterstützt als wissenschaftliche Hilfskraft seit September 2018 die politische Kommunikation und den Kontakt zu Projektpartnern. Privat engagiert sie sich in der politischen Bildung, bereist und bewandert den Osten Europas und genießt das Berliner Kulturleben.",
-				"pictureUrl": "/images/team/Caroline_Morfeld.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
+        "title": "",
+        "firstName": "Michael",
+        "lastName": "Schmid",
+        "position": "Freier Mitarbeiter",
+        "description": "Michael hat Medieninformatik an der Hochschule Aalen studiert und ist im Team HPI Schul-Cloud seit Oktober 2018 vor allem für das UX Design zuständig. Privat spielt er gerne Gitarre und betreibt Yoga.",
+        "pictureUrl": "/images/team/Michael_Schmid.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
 			{
 				"title": "",
 				"firstName": "Jonas",
