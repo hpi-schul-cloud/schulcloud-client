@@ -6,7 +6,7 @@ services:
 - docker
 env:
   global:
-    - GIT_SHA=$(git rev-parse HEAD)
+    - GIT_SHA=$( git rev-parse HEAD )
     - SC_DEMO_USER_PASSWORD=schulcloud
     - BACKEND_URL=https://api.niedersachsen.cloud
     - PUBLIC_BACKEND_URL=https://api.niedersachsen.cloud
@@ -44,6 +44,10 @@ script:
 cache:
   directories:
   - node_modules
+
+after_success:
+  # because Skipping a deployment with the script provider because the current build is a pull request.
+  - bash ./deploy.sh
 
 deploy:
   provider: script
