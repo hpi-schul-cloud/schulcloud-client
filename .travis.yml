@@ -1,6 +1,6 @@
-anguage: node_js
-node_js:
-- '8'
+---
+language: node_js
+node_js: '8'
 sudo: required
 services:
 - docker
@@ -47,7 +47,7 @@ cache:
 
 deploy:
   provider: script
-  script: ./deploy.sh
+  script: bash ./deploy.sh
   on:
    all_branches: true
    condition: $TRAVIS_BRANCH =~ ^development|N21/merge$
