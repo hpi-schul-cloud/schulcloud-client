@@ -17,7 +17,7 @@ docker push schulcloud/schulcloud-client:$GIT_SHA
 eval "echo \"$( cat compose-client-test.dummy )\"" > docker-compose-client.yml
 
 # copy config-file to server and execute mit travis_rsa
-scp -i travis_rsa docker-compose-client.yml linux@test.schul-cloud.org:~
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa docker-compose-client.yml linux@test.schul-cloud.org:~
 
 
 exit 0
