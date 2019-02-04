@@ -295,3 +295,12 @@ window.addEventListener("load", () => {
     }
     document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
 });
+
+document.querySelectorAll('#main-content a').forEach((a) => {
+    let href = a.getAttribute('href');
+    if (href) {
+        if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
+            a.setAttribute('target', '_blank');
+        }
+    }
+})
