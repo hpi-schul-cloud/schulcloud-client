@@ -1,7 +1,7 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
-import { updateQueryStringParameter } from './helpers/queryStringParameter';
+import { updateQueryStringParameter, getQueryParameterByName } from './helpers/queryStringParameter';
 
 window.addEventListener("DOMContentLoaded", function () {
     /* FEATHERS FILTER MODULE */
