@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="col-sm-12 no-padding">
                     <form action="/administration/systems/ldap/add" method="POST">
-                        <button type="submit" class="btn btn-primary btn-add-modal btn-add-modal--systems">
+                        <button type="submit" class="btn btn-primary btn-add-modal ">
                             System hinzufügen
                         </button>
                         <!--<button type="submit" class="btn btn-primary">
@@ -107,15 +107,14 @@
         {{/content}}
         {{/embed}}
 
-        {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal
-        add-modal--systems" collapseId=2}}
+        {{#embed "lib/components/modal-form" action="/administration/systems/" method="post" class="add-modal"
+        collapseId=2}}
         {{#content "fields"}}
         {{> "administration/forms/form-systems"}}
         {{/content}}
         {{/embed}}
 
-        {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal
-        delete-modal--systems"}}
+        {{#embed "lib/components/modal-form" body=systemsBody method="delete" class="delete-modal"}}
         {{#content "fields"}}
         {{> "administration/forms/form-delete-alias"}}
         {{/content}}
@@ -136,22 +135,21 @@
             </div>
             <div class="row">
                 <div class="col-sm-12 no-padding">
-                    <button type="submit" class="btn btn-primary btn-add-modal btn-add-modal--rss">
+                    <button type="submit" class="btn btn-primary btn-add-modal--rss">
                         RSS-Feed hinzufügen
                     </button>
                 </div>
             </div>
         </div>
 
-        {{#embed "lib/components/modal-form" action="/administration/rss/" method="post" class="add-modal
-        add-modal--rss"
+        {{#embed "lib/components/modal-form" action="/administration/rss/" method="post" class="add-modal--rss"
         collapseId=3}}
         {{#content "fields"}}
         {{> "administration/forms/form-rss"}}
         {{/content}}
         {{/embed}}
 
-        {{#embed "lib/components/modal-form" body=rssBody method="delete" class="delete-modal delete-modal--rss"}}
+        {{#embed "lib/components/modal-form" body=rssBody method="delete" class="delete-modal--rss"}}
         {{#content "fields"}}
         {{> "administration/forms/form-delete-rss"}}
         {{/content}}

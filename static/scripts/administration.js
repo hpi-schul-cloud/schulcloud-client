@@ -53,15 +53,15 @@ let handlerRegistered = false;
 
 $(document).ready(function () {
     var $modals = $('.modal');
-    var $addSystemsModal = $('.add-modal.add-modal--systems');
-    var $addRSSModal = $('.add-modal.add-modal--rss');
+    var $addSystemsModal = $('.add-modal');
+    var $addRSSModal = $('.add-modal--rss');
     var $editModal = $('.edit-modal');
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
-    var $deleteSystemsModal = $('.delete-modal.delete-modal--systems');
-    var $deleteRSSModal = $('.delete-modal.delete-modal--rss');
+    var $deleteSystemsModal = $('.delete-modal');
+    var $deleteRSSModal = $('.delete-modal--rss');
 
-    $('.btn-add-modal.btn-add-modal--systems').on('click', function (e) {
+    $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
         populateModalForm($addSystemsModal, {
             title: 'Hinzufügen',
@@ -71,7 +71,7 @@ $(document).ready(function () {
         $addSystemsModal.appendTo('body').modal('show');
     });
 
-    $('.btn-add-modal.btn-add-modal--rss').on('click', function (e) {
+    $('.btn-add-modal--rss').on('click', function (e) {
         e.preventDefault();
         populateModalForm($addRSSModal, {
             title: 'Hinzufügen',
@@ -173,7 +173,7 @@ $(document).ready(function () {
         $modals.modal('hide');
     });
 
-    $('.btn-delete.btn-delete--systems').on('click', function (e) {
+    $('.btn-delete').on('click', function (e) {
         e.preventDefault();
         var entry = $(this).parent().attr('action');
         $.getJSON(entry, function (result) {
@@ -189,7 +189,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.btn-delete.btn-delete--rss').on('click', function (e) {
+    $('.btn-delete--rss').on('click', function (e) {
         e.preventDefault();
         const action = $(this).parent().attr('action');
         const url = $(this).parent().attr('data-url');
