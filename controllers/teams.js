@@ -385,8 +385,12 @@ router.get('/:teamId', async function(req, res, next) {
             }
         });
 
+        const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
+        const courseUsesRocketChat = course.features.includes('rocketChat');
+        const schoolUsesRocketChat = res.locals.currentSchoolData.features.includes("rocketChat");
+
         let rocketChatCompleteURL;
-        if (process.env.ROCKETCHAT_SERVICE_ENABLED || req.params.teamId == "ffffd213816abba584714c00") { //for demo
+        if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
             try{
                 const rocketChatChannel = await api(req).get('/rocketChat/channel/' + req.params.teamId);
                 const rocketChatURL = process.env.ROCKET_CHAT_URI
