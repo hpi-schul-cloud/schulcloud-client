@@ -2081,12 +2081,13 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
     }
 
     // RSS
-    const rssHead = ['URL', 'Kurzbeschreibung', ''];
+    const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
     let rssBody;
     if (school.rssFeeds) {
-        rssBody = school.rssFeeds.map(({ _id, url, description }) => [
+        rssBody = school.rssFeeds.map(({ _id, url, status, description }) => [
             url,
             description,
+            status === 'success' ? 'Aktiv' : status === 'error' ? 'Fehler beim Abrufen' : 'In der Warteschlange',
             [{
                 link: `/administration/rss/${_id}`,
                 class: 'btn-delete btn-delete--rss',
