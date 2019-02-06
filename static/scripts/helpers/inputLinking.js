@@ -46,5 +46,5 @@ if(!window.inputLinking){
             node.dispatchEvent(new Event('input'));
         });
     }
-    window.addEventListener('DOMContentLoaded', window.inputLinking);
+    window.addEventListener('turbolinks:load', window.inputLinking);
 }

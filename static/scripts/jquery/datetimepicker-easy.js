@@ -35,5 +35,5 @@ if(!window.datetimepicker){
             input.setAttribute("pattern", pattern);
         });
     }
-    document.addEventListener('DOMContentLoaded', window.datetimepicker);
+    document.addEventListener('turbolinks:load', window.datetimepicker);
 }

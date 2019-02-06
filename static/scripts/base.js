@@ -189,8 +189,8 @@ $(document).ready(function () {
             }, !1)
         }
     })(document, window.navigator, "standalone");
-    
-    
+
+
     // delete modals
     var $modals = $('.modal');
     var $deleteModal = $('.delete-modal');
@@ -225,7 +225,7 @@ $(document).ready(function () {
         e.stopPropagation();
         e.preventDefault();
         var $buttonContext = $(this);
-        
+
         $deleteModal.appendTo('body').modal('show');
         $deleteModal.find('.modal-title').text("Bist du dir sicher, dass du '" + decodingHelper($buttonContext.data('name')) + "' löschen möchtest?");
         $deleteModal.find('.btn-submit').unbind('click').on('click', function() {
@@ -254,12 +254,12 @@ $(document).ready(function () {
             trigger.classList.add("show");
         });
     };
-    
+
     // from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
     function isMobileDevice() {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     };
-    
+
     $(".embed-pdf .single-pdf").click(e => {
         e.preventDefault();
         var elem = e.target;
@@ -277,7 +277,7 @@ $(document).ready(function () {
                     '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
                     '</iframe>\n' +
                     '</object>';
-    
+
                 var thisrow = $(elem).parents(".embed-pdf-row");
                 var page = $(elem).parents(".container.embed-pdf").parent();
                 if(thisrow.find(".viewer:visible").length>0) {
@@ -314,7 +314,7 @@ $(document).ready(function () {
 /* Mail Validation
 official firefox regex https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/email
 */
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('turbolinks:load', ()=>{
     document.querySelectorAll('input[type="email"]:not([pattern])').forEach((input) => {
         input.setAttribute('pattern', "^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$");
     });

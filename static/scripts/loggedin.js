@@ -209,7 +209,7 @@ function showAJAXError(req, textStatus, errorThrown) {
     }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('turbolinks:load', function() {
     if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
         setupFirebasePush();
     }
@@ -242,7 +242,7 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 // loading animation
-document.addEventListener("DOMContentLoaded", function (e) {
+document.addEventListener("turbolinks:load", function (e) {
     document.querySelector("body").classList.add("loaded");
 });
 window.addEventListener("beforeunload", function (e) {

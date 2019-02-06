@@ -16,7 +16,7 @@ function toggleConsentEditing(){
                 if((input.name).match('parent') == null){
                     input.removeAttribute('disabled');
                 }
-            } else { 
+            } else {
                 input.removeAttribute('disabled');
             }
         } else {
@@ -24,7 +24,7 @@ function toggleConsentEditing(){
         }
     });
 }
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('turbolinks:load', () => {
     document.getElementById('edit-consent').addEventListener('click', (event) => {
         toggleConsentEditing();
         event.target.classList.add('hidden');
@@ -61,7 +61,7 @@ $(document).ready(function () {
         });
         $deleteModal.appendTo('body').modal('show');
     });
-    
+
     $('.btn-invitation-link-with-hash').on('click', function (e) {
         e.preventDefault();
         let $invitationModal = $('.invitation-modal'),
@@ -91,7 +91,7 @@ $(document).ready(function () {
                 $invitationModal.find("input[name='invitation']").click(function () {
                     $(this).select();
                 });
-    
+
                 $invitationModal.appendTo('body').modal('show');
             }
         });

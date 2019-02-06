@@ -3,7 +3,7 @@ import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
 import { updateQueryStringParam } from './helpers/updateQueryStringParameter';
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("turbolinks:load", function(){
     /* FEATHERS FILTER MODULE */
     const filterModule = document.getElementById("filter");
     if(filterModule){
@@ -41,33 +41,33 @@ $(document).ready(function () {
         $addModal.appendTo('body').modal('show');
     });
 
-    $('.btn-edit').on('click', function (e) {	
-        e.preventDefault();	
-        var entry = $(this).attr('href');	
-        $.getJSON(entry, function (result) {	
+    $('.btn-edit').on('click', function (e) {
+        e.preventDefault();
+        var entry = $(this).attr('href');
+        $.getJSON(entry, function (result) {
             result.createdAt = new Date(result.createdAt).toLocaleString();
-            populateModalForm($editModal, {	
-                action: entry,	
-                title: 'Bearbeiten',	
-                closeLabel: 'Abbrechen',	
-                submitLabel: 'Speichern',	
-                fields: result	
-            });	 
-             // post-fill gradiation selection	
-            if ($editModal.find("input[name=gradeSystem]").length) {	
-                var $gradeInputPoints = $editModal.find("#gradeSystem0");	
-                var $gradeInputMarks = $editModal.find("#gradeSystem1");	
-                if(result.gradeSystem) {	
-                    $gradeInputMarks.attr("checked", true);	
-                    $gradeInputPoints.removeAttr("checked");	
-                } else {	
-                    $gradeInputPoints.attr("checked", true);	
-                    $gradeInputMarks.removeAttr("checked");	
-                }	
-            }	
-            populateCourseTimes($editModal, result.times || []);	
-            $editModal.appendTo('body').modal('show');	
-        });	
+            populateModalForm($editModal, {
+                action: entry,
+                title: 'Bearbeiten',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Speichern',
+                fields: result
+            });
+             // post-fill gradiation selection
+            if ($editModal.find("input[name=gradeSystem]").length) {
+                var $gradeInputPoints = $editModal.find("#gradeSystem0");
+                var $gradeInputMarks = $editModal.find("#gradeSystem1");
+                if(result.gradeSystem) {
+                    $gradeInputMarks.attr("checked", true);
+                    $gradeInputPoints.removeAttr("checked");
+                } else {
+                    $gradeInputPoints.attr("checked", true);
+                    $gradeInputMarks.removeAttr("checked");
+                }
+            }
+            populateCourseTimes($editModal, result.times || []);
+            $editModal.appendTo('body').modal('show');
+        });
     });
 
     $('.btn-invitation-link').on('click', function (e) {

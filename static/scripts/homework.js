@@ -47,7 +47,7 @@ function importSubmission(e){
     }
 }
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("turbolinks:load", function(){
     /* FEATHERS FILTER MODULE */
     const filterModule = document.getElementById("filter");
     if(!filterModule){return;}
@@ -83,7 +83,7 @@ $(document).ready(function() {
         const method  = element.attr("method");
         // update value of ckeditor instances
         let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
-        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
+        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
         const content = element.serialize();
         if(contentTest){
             if(contentTest(content) == false){

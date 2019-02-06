@@ -30,7 +30,7 @@ function validateForm(event){
             NodeList.prototype.some = function(fct) {
                 return Array.from(this).some(fct);
             };
-        }        
+        }
         return !node.querySelectorAll(`input, select`).some((input)=>{
             return !input.checkValidity();
         });
@@ -38,7 +38,7 @@ function validateForm(event){
     const submitButton = document.querySelector('button[type="submit"]');
     submitButton.disabled = !isFormValid(document.querySelector(".create-form"));
 }
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('turbolinks:load', ()=>{
     if(document.querySelector('.section-classes-create')){
         document.querySelector(".createcustom").addEventListener("click", toggleCustomClassSection);
         document.querySelectorAll(".create-form input, .create-form select").addEventListener("change input keyup paste click", validateForm);

@@ -176,6 +176,6 @@ $(document).ready(function () {
 
 });
 
-window.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('turbolinks:load', function() {
     moment().format();
 });

@@ -1,12 +1,12 @@
 import { pushManager } from './index';
 
-window.onload = function() {
+document.addEventListener('turbolinks:load', function() {
   // Ensure that the user can receive Safari Push Notifications.
   if ('safari' in window && 'pushNotification' in window.safari) {
     var permissionData = window.safari.pushNotification.permission('web.org.schul-cloud');
     checkRemotePermission(permissionData);
   }
-};
+});
 
 var checkRemotePermission = function(permissionData) {
   if (permissionData.permission === 'default') {

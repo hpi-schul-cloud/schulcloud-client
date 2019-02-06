@@ -32,6 +32,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="/images/logo/favicon-32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/images/logo/favicon-16.png">
         <link rel="manifest" href="/images/manifest.json">
+
     {{/block}}
 
     {{#block "styles"}}
@@ -44,9 +45,9 @@
     {{/block}}
 
     {{#block "scripts"}}
+        <script src="/vendor-optimized/turbolinks/turbolinks.js"></script>
         {{#embed "lib/sw-metrix"}}{{/embed}}
         <script src="/scripts/all.js" type="text/javascript" defer></script>
-        <script src="/vendor-optimized/turbolinks/turbolinks.js"></script>
     {{/block}}
 
 </head>

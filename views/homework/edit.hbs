@@ -3,7 +3,7 @@
     <script src="/scripts/mousetrap/mousetrap.js" defer></script>
     <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('turbolinks:load', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
@@ -31,7 +31,7 @@
                     }
                 }
             });
-            
+
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('homework-form').submit();
                 return false;
@@ -61,7 +61,7 @@
                     $('#lessonPicker').empty().append('<option value="">Keine Themen in diesem Kurs</option>').prop('disabled', true).trigger("chosen:updated");
                 }
             });
-            
+
             $("#teamSubmissions").on("change",function(e,s){
                 if(document.getElementById("teamSubmissions").checked){
                     $("#teamsize").removeClass("hidden-xl-down");
@@ -82,7 +82,7 @@
                     {{/if}}
 
                     {{#if referrer}}<input name="referrer" type="hidden" data-force-value="true" value="{{referrer}}" />{{/if}}
-                    
+
                     <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
                     {{#unless isSubstitution}}

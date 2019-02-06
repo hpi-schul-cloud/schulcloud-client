@@ -8,7 +8,7 @@ function loadSearchResult(event){
 	softNavigate(newUrl, ".ajaxcontent", ".pagination");
 }
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("turbolinks:load", function(){
     /* FEATHERS FILTER MODULE */
     const filterModule = document.getElementById("filter");
     if(filterModule){

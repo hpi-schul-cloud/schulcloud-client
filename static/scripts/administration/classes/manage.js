@@ -53,7 +53,7 @@ function createInvitationLink(){
     });
 }
 
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('turbolinks:load', ()=>{
     initializeCopy();
     document.querySelector("#printInvitation").addEventListener("click", printInvitation);
     createInvitationLink();

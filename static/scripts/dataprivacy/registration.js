@@ -1,6 +1,6 @@
 import '../helpers/inputLinking';
 
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('turbolinks:load', ()=>{
     // show steppers depending on age of student
     let radiou18 = document.getElementById("reg-u18");
     let radio18 = document.getElementById("reg-18");
@@ -37,7 +37,7 @@ window.addEventListener('DOMContentLoaded', ()=>{
     $('form.registration-form.student input[name$="email"]:last').on("change", ()=> {
         pinSent = false;
     });
-    
+
     $('.form section[data-feature="pin"]').on("showSection", (event) => {
         if(pinSent) {
             // send pin of value is something else than no
@@ -45,17 +45,17 @@ window.addEventListener('DOMContentLoaded', ()=>{
             sendPin(true);
         }
     });
-    
+
     $('#resend-pin').on("click", e => {
         e.preventDefault();
         sendPin(true);
         $(".pin-input .digit").val("");
     });
-    
+
     function sendPin(sendConfirm) {
         let usermail = $("input[name$='email']:last").val();
         let byRole = window.location.pathname.split("/by")[1].split("/")[0].replace("/","");
-        
+
         $.ajax({
             url: "/registration/pincreation",
             method: "POST",

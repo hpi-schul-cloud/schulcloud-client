@@ -4,11 +4,11 @@
     <script src="/scripts/jquery/datetimepicker-easy.js" type="text/javascript" defer></script>
     <script src="/scripts/news.js" defer></script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('turbolinks:load', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });
-          
+
             Mousetrap.bind(['command+s', 'ctrl+s'], function(e) {
                 document.getElementById('news-form').submit();
                 return false;

@@ -8,5 +8,5 @@ if(!window.confetti){
             confettiWrapper.appendChild(confetti);
         }
     }
-    window.addEventListener('DOMContentLoaded', window.confetti);
+    window.addEventListener('turbolinks:load', window.confetti);
 }

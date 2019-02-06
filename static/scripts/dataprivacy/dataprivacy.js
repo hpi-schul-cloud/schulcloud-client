@@ -163,7 +163,7 @@ function nextSection(event){
     // ValidationEnabled is for testing only
     const isSubmitPage = ValidationDisabled? false : document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.contains('submit-page');
     if(ValidationDisabled){document.querySelector('.form').classList.add("form-submitted");};
-    
+
 
     if(!isSubmitPage){
         event.preventDefault();
@@ -171,7 +171,7 @@ function nextSection(event){
         setSelectionByIndex(selectedIndex, event);
     }
     // else: no reaction -> should submit
-   
+
 }
 function prevSection(event) {
     if(getSelectionIndex() > 1){
@@ -183,7 +183,7 @@ function goToSection(event){
     const selectedIndex = document.querySelectorAll('.form .stages label').indexOf(this) + 1;
     setSelectionByIndex(selectedIndex, event);
 }
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('turbolinks:load', ()=>{
     // Stepper
     //document.querySelectorAll('.form .stages label').addEventListener("click", goToSection);
 
@@ -210,7 +210,7 @@ var getQueryParams = function (url) {
 	}
 	return params;
 };
-window.addEventListener('DOMContentLoaded', ()=>{
+window.addEventListener('turbolinks:load', ()=>{
     const params = getQueryParams(window.location.href);
     for(let key in params){
         const value = params[key];

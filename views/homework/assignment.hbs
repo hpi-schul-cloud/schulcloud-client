@@ -41,7 +41,7 @@
         });
     </script>
     <script>
-        window.addEventListener('DOMContentLoaded', function() {
+        window.addEventListener('turbolinks:load', function() {
             CKEDITOR.replaceAll(function (textarea, config) {
                 if (!textarea.classList.contains("customckeditor")) return false; //for only assign a class
             });

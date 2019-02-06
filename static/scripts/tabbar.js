@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbolinks:load', function() {
   if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
     var activeTab = document.querySelector('.tabContainer').querySelector('.tabs .tab:first-child');
     var activeSection = document.querySelector('.sectionsContainer').querySelector('.sections .section:first-child');
