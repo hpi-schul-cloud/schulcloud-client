@@ -387,7 +387,7 @@ router.get('/:teamId', async function(req, res, next) {
 
         const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
         const courseUsesRocketChat = course.features.includes('rocketChat');
-        const schoolUsesRocketChat = res.locals.currentSchoolData.features.includes("rocketChat");
+        const schoolUsesRocketChat = (res.locals.currentSchoolData.features || []).includes("rocketChat");
 
         let rocketChatCompleteURL;
         if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
