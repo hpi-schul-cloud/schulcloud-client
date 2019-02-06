@@ -1,9 +1,11 @@
-FROM node:8.15 as builder
+FROM node:8.15-alpine as builder
 
-RUN git clone https://github.com/tobiasschulz/fdupes
-RUN cd fdupes && make fdupes && make install
-RUN cd ..
-RUN rm -r fdupes
+RUN apk update && apk upgrade && apk add --no-cache autoconf automake build-base fdupes git libtool make nasm pkgconfig zlib-dev
+
+#RUN git clone https://github.com/tobiasschulz/fdupes
+#RUN cd fdupes && make fdupes && make install
+#RUN cd ..
+#RUN rm -r fdupes
 
 WORKDIR /home/node/app
 
@@ -33,7 +35,7 @@ RUN gulp build-theme-files
 ENV SC_THEME default
 
 # Replace duplicate files with symlinks
-RUN fdupes -r -L ./build
+#RUN fdupes -rH ./build
 
 VOLUME /home/node/app/build
 CMD node bin/www
