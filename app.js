@@ -13,7 +13,7 @@ const session = require('express-session');
 const handlebars = require("handlebars");
 const layouts = require("handlebars-layouts");
 const handlebarsWax = require('handlebars-wax');
-
+const turbolinksConfig = require('./turbolinks.config')
 const app = express();
 app.use(compression());
 app.set('trust proxy', true);
@@ -53,11 +53,18 @@ app.use(session({
     secret: 'secret'
 }));
 
+// activate turbolinks for supported routes
+app.all(turbolinksConfig.routes, function (req, res, next) {
+    res.locals.turbolinks = true;
+    next();
+});
+
 // Custom flash middleware
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.notification = req.session.notification;
     res.locals.inline = req.query.inline || false;
+
     res.locals.theme = {
         title: process.env.SC_TITLE || "HPI Schul-Cloud",
         short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",

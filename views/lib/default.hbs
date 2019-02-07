@@ -15,6 +15,9 @@
 		Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs
 	-->
     {{#block "meta"}}
+        {{#unless turbolinks}}
+            <meta name="turbolinks-visit-control" content="reload">
+        {{/unless}}
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="#b10438">
@@ -45,9 +48,9 @@
     {{/block}}
 
     {{#block "scripts"}}
-        <script src="/vendor-optimized/turbolinks/turbolinks.js"></script>
         {{#embed "lib/sw-metrix"}}{{/embed}}
         <script src="/scripts/all.js" type="text/javascript" defer></script>
+        <script src="/vendor-optimized/turbolinks/turbolinks.js"></script>
     {{/block}}
 
 </head>
