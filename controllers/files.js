@@ -590,7 +590,8 @@ router.get('/', function (req, res, next) {
     */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            showSearch: true
+            showSearch: true,
+            teamsEnabled: process.env.FEATURE_TEAMS_ENABLED === 'true',
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
