@@ -524,7 +524,7 @@ $(document).ready(function() {
         .then(function ([file, data]) {
             const isAllowed = function(file, role) {
                 const permission = file.permissions.find(p => p.roleName === role);
-                return Object.keys(permission).every(p => permission[p]);
+                return permission && Object.keys(permission).every(p => permission[p]);
             };
 
             populateModalForm($shareModal, {

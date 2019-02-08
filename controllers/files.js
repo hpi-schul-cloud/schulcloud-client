@@ -520,7 +520,8 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
-        parentId: req.params.folderId
+		parentId: req.params.folderId,
+		canEditPermissions: true,
     }, res.locals.files));
 });
 
@@ -655,7 +656,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
         courseId: req.params.courseId,
         ownerId: req.params.courseId,
         toCourseText: 'Zum Kurs',
-        courseUrl: `/courses/${req.params.courseId}/`,
+		courseUrl: `/courses/${req.params.courseId}/`,
+		canEditPermissions: true,
         parentId: req.params.folderId
     }, res.locals.files));
 });
