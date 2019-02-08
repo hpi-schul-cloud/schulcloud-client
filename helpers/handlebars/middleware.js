@@ -47,12 +47,6 @@ module.exports = (req, res, next) => {
         introNumber: 13,
         introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
     }, {
-        name: 'Teams',
-        icon: 'users',
-        link: '/teams/',
-        introNumber: 13,
-        introText: "Hier gelangst du zu deinen Teams, die du einsehen, verwalten und neu anlegen kannst."
-    }, {
         name: 'Termine',
         icon: 'table',
         link: '/calendar/',
@@ -95,11 +89,6 @@ module.exports = (req, res, next) => {
                 name: 'Kurse',
                 icon: 'folder-open-o',
                 link: '/files/courses/'
-            },
-            {
-                name: 'Teams',
-                icon: 'folder-open-o',
-                link: '/files/teams/'
             },
             {
                 name: 'geteilte Dateien',
@@ -191,11 +180,6 @@ module.exports = (req, res, next) => {
                 link: '/administration/classes/'
             },
             {
-                name: 'Teams',
-                icon: 'users',
-                link: '/administration/teams/'
-            },
-            {
                 name: 'Schule',
                 icon: 'building',
                 link: '/administration/school/'
@@ -210,6 +194,28 @@ module.exports = (req, res, next) => {
         link: '/my-material/',
         permission: 'BETA_FEATURES'
     });
+
+    // team feature toggle
+    const teamsEnabled = process.env.FEATURE_TEAMS_ENABLED === 'true';
+    if (teamsEnabled) {
+        res.locals.sidebarItems.splice(2, 0, {
+            name: 'Teams',
+            icon: 'users',
+            link: '/teams/',
+            introNumber: 13,
+            introText: 'Hier gelangst du zu deinen Teams, die du einsehen, verwalten und neu anlegen kannst.',
+        });
+        res.locals.sidebarItems.find(i => i.name === 'Meine Dateien').children.splice(2, 0, {
+            name: 'Teams',
+            icon: 'folder-open-o',
+            link: '/files/teams/',
+        });
+        res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
+            name: 'Teams',
+            icon: 'users',
+            link: '/administration/teams/',
+        });
+    }
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 
