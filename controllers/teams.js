@@ -91,26 +91,28 @@ const markSelected = (options, values = []) => {
     });
 };
 
-const editCourseHandler = (req, res, next) => {
-    let coursePromise, action, method;
+const editTeamHandler = (req, res, next) => {
+    let teamPromise, action, method;
     if (req.params.teamId) {
         action = '/teams/' + req.params.teamId;
         method = 'patch';
-        coursePromise = api(req).get('/teams/' + req.params.teamId);
+        teamPromise = api(req).get('/teams/' + req.params.teamId);
     } else {
         action = '/teams/';
         method = 'post';
-        coursePromise = Promise.resolve({});
+        teamPromise = Promise.resolve({});
     }
 
-    coursePromise.then(course => {
+    teamPromise.then(team => {
+        console.log(team);
         res.render('teams/edit-team', {
             action,
             method,
             title: req.params.teamId ? 'Team bearbeiten' : 'Team anlegen',
             submitLabel: req.params.teamId ? 'Änderungen speichern' : 'Team anlegen',
             closeLabel: 'Abbrechen',
-            course
+            team,
+            schoolData: res.locals.currentSchoolData
         });
     });
 };
@@ -248,7 +250,7 @@ router.get('/', async function(req, res, next) {
     // });
 });
 
-router.post('/', function(req, res, next) {
+router.post('/', async function(req, res, next) {
     // map course times to fit model
     (req.body.times || []).forEach(time => {
         time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
@@ -262,6 +264,12 @@ router.post('/', function(req, res, next) {
         delete req.body.startDate;
     if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
         delete req.body.untilDate;
+
+    const currentTeamState = await api(req).get('/teams/' + req.params.id);
+    if(req.body.rocketchat === "true"){
+        req.body.features = ["rocketChat"];
+    }
+    delete req.body.rocketchat;
 
     api(req).post('/teams/', {
         json: req.body // TODO: sanitize
@@ -299,7 +307,7 @@ router.post('/copy/:teamId', function(req, res, next) {
     });
 });
 
-router.get('/add/', editCourseHandler);
+router.get('/add/', editTeamHandler);
 
 
 /*
@@ -524,7 +532,7 @@ router.get('/:teamId', async function(req, res, next) {
     }
 });
 
-router.get('/:teamId/edit', editCourseHandler);
+router.get('/:teamId/edit', editTeamHandler);
 
 router.get('/:teamId/copy', copyCourseHandler);
 
@@ -546,6 +554,29 @@ router.patch('/:teamId', async function(req, res, next) {
 
     // first delete all old events for the course
     // deleteEventsForCourse(req, res, req.params.teamId).then(async _ => {
+
+    const currentTeamState = await api(req).get('/teams/' + req.params.teamId);
+    const isChatAllowed = (currentTeamState.features || []).includes("rocketChat");
+    if(!isChatAllowed && req.body.rocketchat === "true"){
+        // add rocketChat feature
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: {
+                $push: {
+                    features: "rocketChat"
+                }
+            }
+        });
+    }else if(isChatAllowed && req.body.rocketchat !== "true"){
+        // remove rocketChat feature
+        await api(req).patch('/teams/' + req.params.teamId, {
+            json: {
+                $pull: {
+                    features: "rocketChat"
+                }
+            }
+        });
+    }
+    delete req.body.rocketchat;
 
     await api(req).patch('/teams/' + req.params.teamId, {
         json: req.body // TODO: sanitize

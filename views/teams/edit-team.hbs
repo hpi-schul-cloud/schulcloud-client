@@ -1,16 +1,10 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
         <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
-        <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
-        <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
-        <script src="/scripts/moment/moment.js" type="text/javascript" defer></script>
-        <script src="/scripts/courses.js" type="text/javascript" defer></script>
-        <script src="/scripts/coursesTimes.js" type="text/javascript" defer></script>
         <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
         <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
     {{/content}}
@@ -29,19 +23,28 @@
 
                 <div class="form-group">
                     <label>Name des Teams</label>
-                    <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{course.name}}"
+                    <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{team.name}}"
                            required/>
                 </div>
 
                 <div class="form-group">
                     <label>Beschreibung des Teams</label>
-                    <textarea class="form-control" name="description">{{course.description}}</textarea>
+                    <textarea class="form-control" name="description">{{team.description}}</textarea>
                 </div>
+
+                {{#inArray "rocketChat" schoolData.features}}
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" name="rocketchat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                            Messengers für Team aktivieren
+                        </label>
+                    </div>
+                {{/inArray}}
 
                 <div class="form-group">
                     <label>Farbe des Teams:</label>
                     <input name="color" type="color"
-                           value="{{#if course.color}}{{course.color}}{{else}}#d32f2f{{/if}}" required/>
+                           value="{{#if team.color}}{{team.color}}{{else}}#d32f2f{{/if}}" required/>
                 </div>
 
                 <div class="modal-footer">

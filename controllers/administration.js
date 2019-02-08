@@ -1859,7 +1859,7 @@ const schoolUpdateHandler = async function (req, res, next) {
                 }
             }
         });
-    }else if(isChatAllowed){
+    }else if(isChatAllowed && req.body.rocketchat !== "true"){
         // remove rocketChat feature
         await api(req).patch('/schools/' + req.params.id, {
             json: {
