@@ -24,7 +24,7 @@
                                         <label>Name der Schule</label>
                                         <input value="{{../school.name}}" type="text" class="form-control" name="name" required {{#if ../schoolUsesLdap}}readonly{{/if}} {{#if ../isExpertSchool}}readonly{{/if}} />
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label>Schullogo hochladen</label><br/>
                                         <input type="hidden" name="logo_dataUrl">
@@ -45,6 +45,13 @@
                                         </select>
                                     </div>
                                     {{/if}}
+
+                                    <div class="form-group">
+                                        <label>
+                                            <input type="checkbox" name="rocketchat" value="true" {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+                                            Aktivierung des Messengers erlauben.
+                                        </label>
+                                    </div>
 
                                     <button type="submit" class="btn btn-primary btn-submit">Speichern</button>
 

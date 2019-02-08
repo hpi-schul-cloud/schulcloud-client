@@ -1848,8 +1848,34 @@ const getCourseCreateHandler = () => {
     };
 };
 
+const schoolUpdateHandler = async function (req, res, next) {
+    const isChatAllowed = (res.locals.currentSchoolData.features || []).includes("rocketChat");
+    if(!isChatAllowed && req.body.rocketchat === "true"){
+        // add rocketChat feature
+        await api(req).patch('/schools/' + req.params.id, {
+            json: {
+                $push: {
+                    features: "rocketChat"
+                }
+            }
+        });
+    }else if(isChatAllowed){
+        // remove rocketChat feature
+        await api(req).patch('/schools/' + req.params.id, {
+            json: {
+                $pull: {
+                    features: "rocketChat"
+                }
+            }
+        });
+    }
+    delete req.body.rocketchat;
+    return getUpdateHandler('schools')(req, res, next);
+}
+
+
 router.use(permissionsHelper.permissionsChecker('ADMIN_VIEW'));
-router.patch('/schools/:id', getUpdateHandler('schools'));
+router.patch('/schools/:id', schoolUpdateHandler);
 router.post('/schools/:id/bucket', createBucket);
 router.post('/courses/', mapTimeProps, getCourseCreateHandler());
 router.patch('/courses/:id', mapTimeProps, mapEmptyCourseProps, deleteEventsForData('courses'), getUpdateHandler('courses'));
