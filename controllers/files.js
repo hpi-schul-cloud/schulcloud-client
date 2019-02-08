@@ -475,7 +475,7 @@ router.post('/directory', function (req, res, next) {
 // delete directory
 router.delete('/directory', function (req, res) {
     const data = {
-        path: req.body.key
+        _id: req.body.id
     };
 
     api(req).delete('/fileStorage/directories/', {
