@@ -71,48 +71,40 @@
 
 <input type="hidden" name="userId" value="{{userId}}" />
 
-<span class="hint">
-    <sup>*</sup>
-    Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
-</span>
 </div>
 
 {{#userHasPermission "NOTIFICATION_VIEW"}}
 <div class="notification-settings">
-    <div class="row">
-        <div class="col-sm-9">
-            <h4 class="panel-title">Benachrichtigungseinstellungen</h4>
-        </div>
+    <div class="col-sm-9">
+        <h4 class="panel-title">Benachrichtigungseinstellungen</h4>
     </div>
     <div class="notification">
         <div class="row-push-loading">
-            <div class="row">
-                <div class="col-sm"><i class="fa fa-spinner fa-spin"></i></div>
-            </div>
+            <div class="col-sm"><i class="fa fa-spinner fa-spin"></i></div>
         </div>
-        <div class="row">
-            <div class="col-sm btn-push-disabled hidden">
-                <button type="button" class="btn btn-default btn-block btn-device" onclick="requestPushPermission()">
-                    <i class="fa fa-bell" aria-hidden="true"></i>
-                    Benachrichtigungen
-                    aktivieren
-                </button>
-            </div>
-            <div class="col-sm btn-push-enabled hidden">
-                <button type="button" class="btn btn-default btn-block btn-device" onclick="requestDisablePush()">
-                    <i class="fa fa-bell-slash" aria-hidden="true"></i>
-                    Benachrichtigungen
-                    deaktivieren
-                </button>
-            </div>
-            <div class="col-sm btn-push-enabled hidden">
-                <button type="button" class="btn btn-default btn-block send-test-notification">
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                    Test-Benachrichtigung
-                    senden
-                </button>
-            </div>
+        <div class="col-sm btn-push-disabled hidden">
+            <button type="button" class="btn btn-default btn-block btn-device" onclick="requestPushPermission()">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+                Benachrichtigungen
+                aktivieren
+            </button>
         </div>
+        <div class="col-sm btn-push-enabled hidden">
+            <button type="button" class="btn btn-default btn-block btn-device" onclick="requestDisablePush()">
+                <i class="fa fa-bell-slash" aria-hidden="true"></i>
+                Benachrichtigungen
+                deaktivieren
+            </button>
+        </div>
+        {{#userHasPermission "NOTIFICATION_CREATE"}}
+        <div class="col-sm btn-push-enabled hidden">
+            <button type="button" class="btn btn-default btn-block send-test-notification">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                Test-Benachrichtigung
+                senden
+            </button>
+        </div>
+        {{/userHasPermission}}
     </div>
 </div>
 {{/userHasPermission}}
