@@ -77,41 +77,7 @@
     </span>
 </div>
 
-{{#userHasPermission "NOTIFICATION_VIEW"}}
-<div class="notification-settings">
-    <div class="col-sm-9">
-        <h4 class="panel-title">Benachrichtigungseinstellungen</h4>
-    </div>
-    <div class="notification">
-        <div class="row-push-loading">
-            <div class="col-sm"><i class="fa fa-spinner fa-spin"></i></div>
-        </div>
-        <div class="col-sm btn-push-disabled hidden">
-            <button type="button" class="btn btn-default btn-block btn-device" onclick="requestPushPermission()">
-                <i class="fa fa-bell" aria-hidden="true"></i>
-                Benachrichtigungen
-                aktivieren
-            </button>
-        </div>
-        <div class="col-sm btn-push-enabled hidden">
-            <button type="button" class="btn btn-default btn-block btn-device" onclick="requestDisablePush()">
-                <i class="fa fa-bell-slash" aria-hidden="true"></i>
-                Benachrichtigungen
-                deaktivieren
-            </button>
-        </div>
-        {{#userHasPermission "NOTIFICATION_CREATE"}}
-        <div class="col-sm btn-push-enabled hidden">
-            <button type="button" class="btn btn-default btn-block send-test-notification">
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                Test-Benachrichtigung
-                senden
-            </button>
-        </div>
-        {{/userHasPermission}}
-    </div>
-</div>
-{{/userHasPermission}}
+{{> "account/notification"}}
 
 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
 {{#content "body"}}
