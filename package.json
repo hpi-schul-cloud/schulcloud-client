@@ -29,6 +29,7 @@
     "express-session": "^1.15.2",
     "fast-csv": "^2.4.1",
     "feedr": "^2.13.5",
+    "firebase": "^5.8.2",
     "font-awesome": "^4.7.0",
     "fullcalendar": "^3.9.0",
     "gulp-nodemon": "^2.2.1",

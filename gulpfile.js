@@ -191,7 +191,7 @@ gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized
 	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome', 'localforage', 'izitoast'];
+const nodeModules = ['mathjax', 'font-awesome', 'localforage', 'izitoast', 'firebase'];
 gulp.task('node-modules', () => Promise.all(nodeModules.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
 	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));
 
@@ -222,8 +222,8 @@ const globPatterns = [
 	'styles/homework/*.css',
 	'vendor/introjs/intro*.{js,css}',
 	'vendor/jquery/*.{js,css}',
-	'vendor-optimized/firebasejs/3.9.0/firebase-app.js',
-	'vendor-optimized/firebasejs/3.9.0/firebase-messaging.js',
+	'vendor-optimized/firebase/firebase-app.js',
+	'vendor-optimized/firebase/firebase-messaging.js',
 	'vendor/feathersjs/feathers.js',
 	'vendor-optimized/mathjax/MathJax.js',
 	'images/manifest.json',
@@ -231,9 +231,6 @@ const globPatterns = [
 
 gulp.task('generate-service-worker', ['sw-build'], () => beginPipeAll(['./static/sw.injected.js'])
 	.pipe(webpackStream(Object.assign({}, webpackConfig, { output: { filename: 'sw.js' } }), webpack))
-// .pipe(rename(function(path){
-//   path.basename = path.basename.replace('main.js', 'sw.js');
-// }))
 	.pipe(gulp.dest(`./build/${themeName()}`)));
 
 gulp.task('sw-build',
@@ -249,21 +246,18 @@ gulp.task('sw-build',
 				'../../views/lib/loggedin.hbs',
 			],
 		},
-	})
-		.then(({ amount, size, warnings }) => {
-			// Optionally, log any warnings and details.
-			warnings.forEach(console.warn);
-			console.log(`${amount} files will be precached, totaling ${size} bytes.`);
-		})
-		.catch((error) => {
-			console.warn('Service worker generation failed:', error);
-		}));
+	}).then(({ amount, size, warnings }) => {
+		// Optionally, log any warnings and details.
+		warnings.forEach(console.warn);
+		console.log(`${amount} files will be precached, totaling ${size} bytes.`);
+	}).catch((error) => {
+		console.warn('Service worker generation failed:', error);
+	}));
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*', './static/sw.injected.js'], {
 	read: false,
-})
-	.pipe(rimraf()));
+}).pipe(rimraf()));
 
 // run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'styles-done', 'fonts', 'scripts', 'base-scripts',
