@@ -4,9 +4,6 @@
 <div class="form-group">
     <label>Typ</label>
     <select class="linked" name="ldaptype" data-linktext data-placeholder="LDAP-Typ auswählen">
-            <option value="iserv">
-                iServ
-            </option>
             <option value="general">
                 Allgemein
             </option>
@@ -40,7 +37,7 @@
 
 <div class="form-group">
     <label>Rollen-Typ <i class="fa fa-question-circle"></i></label>
-    <select class="linked" name="roletype" data-linktext data-placeholder="LDAP-Typ auswählen">
+    <select class="linked" id="select-roletype" name="roletype" data-linktext data-placeholder="LDAP-Typ auswählen">
             <option value="text">
                 Nutzer-Attribut
             </option>
@@ -89,7 +86,7 @@
         <input class="form-control linked user-attribute" disabled name="mail" type="text" value=""/>
     </div>
 </div>
-<div class="row">
+<div class="row" id="role-name">
     <div class="form-group col-sm-6 col-xs-12">
         <label>Rolle <i class="fa fa-question-circle"></i></label>
         <input class="form-control linked user-attribute" disabled name="role" type="text" value=""/>
@@ -99,7 +96,7 @@
 <hr>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
-        <h5>Rollen-Attribute <i class="fa fa-question-circle"></i></h5>
+        <h5 id="headline-role-type">Rollen-Attribute <i class="fa fa-question-circle"></i></h5>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <i id="role-section-toggle" class="fa fa-lock fa-3x"></i>
@@ -127,7 +124,7 @@
 </div>
 
 <hr>
-<label><input name="activate classes" type="checkbox"/> Klassen (optional)</label>
+<label><input name="activate classes" id="select-classes" type="checkbox" checked/> Klassen (optional)</label>
 <div class="class-settings">
     <div class="form-group">
         <label>Klassen-Pfad <i class="fa fa-question-circle"></i></label>
