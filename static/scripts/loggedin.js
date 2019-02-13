@@ -300,8 +300,10 @@ document.querySelectorAll('#main-content a').forEach((a) => {
     const href = a.getAttribute('href');
     if (a.querySelector('img, .fa') == null && href) {
         if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
-            a.setAttribute('target', '_blank');
+            if (!a.getAttribute('target')) {
+                a.setAttribute('target', '_blank');
+            }
             a.classList.add('externalLink');
         }
     }
-})
+});
