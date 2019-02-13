@@ -47,12 +47,6 @@ module.exports = (req, res, next) => {
         introNumber: 13,
         introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
     }, {
-        name: 'Termine',
-        icon: 'table',
-        link: '/calendar/',
-        introNumber: 14,
-        introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
-    }, {
         name: 'Aufgaben',
         icon: 'tasks',
         link: '/homework/',
