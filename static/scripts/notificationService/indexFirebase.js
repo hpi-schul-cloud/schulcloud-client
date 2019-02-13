@@ -29,7 +29,7 @@ async function setupFirebasePush(registration) {
 		return;
 	}
 
-	const config = await pushManager.getOptions('firebaseOptions');
+	const config = await pushManager.getOptions('firebaseOptions', true);
 
 	firebase.initializeApp(config);
 	const messaging = firebase.messaging();

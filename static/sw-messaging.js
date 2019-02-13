@@ -6,12 +6,12 @@ importScripts('/vendor-optimized/firebase/firebase-messaging.js');
 
 
 async function setupFirebaseMessaging() {
-	const firebaseOptions = await pushManager.getOptions('firebaseOptions');
-	messagingSW.setupMessaging();
-	firebase.initializeApp(firebaseOptions);
+	const firebaseOptions = await pushManager.getOptions('firebaseOptions', false);
 
-	// Retrieve an instance of Firebase Messaging so that it can handle background
-	// messages.
+	// FIXME
+	// messagingSW.setupMessaging();
+
+	firebase.initializeApp(firebaseOptions);
 	const messaging = firebase.messaging();
 
 	messaging.setBackgroundMessageHandler(
@@ -19,7 +19,13 @@ async function setupFirebaseMessaging() {
 	);
 }
 
-setupFirebaseMessaging();
+self.addEventListener('install', (event) => {
+	setupFirebaseMessaging();
+});
+
+self.addEventListener('activate', (event) => {
+	event.waitUntil(clients.claim());
+});
 
 // self.addEventListener('message', (event) => {
 // 	// FIXME update PM to handle message
