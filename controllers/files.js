@@ -625,7 +625,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
     let canCreateFile = true;
 
     let breadcrumbs = [{
-        label: 'Dateien aus meinen Teams',
+        label: 'Dateien aus meinen Kursen',
         url: basePath
         }, {
         label: record.name,
