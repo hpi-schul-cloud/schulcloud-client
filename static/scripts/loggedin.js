@@ -279,14 +279,16 @@ window.addEventListener('load', () => {
 	if ('serviceWorker' in navigator) {
 		// enable sw for half of users only
 		const testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-		if (testUserGroup == 1) {
-			navigator.serviceWorker.register('/sw.js').then((registration) => {
-				if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-					setupFirebasePush(registration);
-					messageClient.setupMessagingClient(registration);
-				}
-			});
-		}
+		// if (testUserGroup === 1) {
+		// 	navigator.serviceWorker.register('/sw.js').then((registration) => {
+		// 		//...
+		// 	});
+		// }
+		// enable messaging service worker
+		navigator.serviceWorker.register('/sw-messaging.js', { scope: '/sw-messaging/' }).then((registration) => {
+			setupFirebasePush(registration);
+			messageClient.setupMessagingClient(registration);
+		});
 	}
 });
 

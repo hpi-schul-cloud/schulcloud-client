@@ -1,25 +1,22 @@
-let CALLBACK_TYPES = {
+const CALLBACK_TYPES = {
 	RECEIVED: 'received',
 	CLICKED: 'clicked',
 	READ: 'read',
 };
 
-let DEFAULT_HEADERS = {
+const DEFAULT_HEADERS = {
 	'Content-Type': 'application/json',
 };
 
-export function sendRegistrationId(id, service, device, type, name, successcb, errorcb) {
+export function sendRegistrationId(id, service, successcb, errorcb) {
 	$.post('/notification/devices', {
 		id,
 		service,
-		device,
-		type,
-		name,
 	}, (data) => {
-        successcb(data);
-    }).fail(() => {
-        errorcb();
-    });
+		successcb(data);
+	}).fail(() => {
+		errorcb();
+	});
 }
 
 export function removeRegistrationId(id, successcb, errorcb) {
@@ -33,7 +30,7 @@ export function removeRegistrationId(id, successcb, errorcb) {
 }
 
 export function sendShownCallback(notificationData, background, url) {
-	let body = {
+	const body = {
 		notificationId: notificationData.notificationId,
 		type: CALLBACK_TYPES.RECEIVED,
 	};
@@ -43,7 +40,7 @@ export function sendShownCallback(notificationData, background, url) {
 	}
 
 	if (background) {
-		let data = JSON.stringify(body);
+		const data = JSON.stringify(body);
 
 		return postRequest(url, data, callback);
 	}
@@ -52,7 +49,7 @@ export function sendShownCallback(notificationData, background, url) {
 }
 
 export function sendReadCallback(notificationId) {
-	let body = {
+	const body = {
 		notificationId,
 		type: CALLBACK_TYPES.READ,
 	};
@@ -66,7 +63,7 @@ export function sendReadCallback(notificationId) {
 
 
 export function sendClickedCallback(notificationId, background, url) {
-	let body = {
+	const body = {
 		notificationId,
 		type: CALLBACK_TYPES.CLICKED,
 	};
@@ -76,7 +73,7 @@ export function sendClickedCallback(notificationId, background, url) {
 	}
 
 	if (background) {
-		let data = JSON.stringify(body);
+		const data = JSON.stringify(body);
 
 		return postRequest(url, data, callback);
 	}
@@ -86,33 +83,4 @@ export function sendClickedCallback(notificationId, background, url) {
 
 function sendCallback(body, callback) {
 	$.post('/notification/callback', body);
-}
-
-function postRequest(url, data, callback) {
-	if (self.fetch) {
-		fetch(url, {
-			method: 'POST',
-			body: data,
-			headers: DEFAULT_HEADERS,
-		})
-			.then((response) => {
-                response.json().then(function (json) {
-                    callback(json);
-                });
-            });
-	} else if (self.XMLHttpRequest) {
-		let xhttp;
-		xhttp = new XMLHttpRequest();
-		xhttp.onreadystatechange = function () {
-			if (this.readyState === 4 && this.status === 201) {
-				let response = JSON.parse(xhttp.responseText);
-				callback(response);
-			}
-		};
-		xhttp.open('POST', url, true);
-		xhttp.setRequestHeader('Content-type', DEFAULT_HEADERS['Content-Type']);
-		xhttp.send(data);
-	} else {
-		console.log('No way to send out', data);
-	}
 }

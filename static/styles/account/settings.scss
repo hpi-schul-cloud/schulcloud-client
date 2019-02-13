@@ -6,6 +6,13 @@
 }
 
 .notification {
+  
+  .row-push-loading, 
+  .row-push-enabled, 
+  .row-push-disabled {
+    margin-right: -15px;
+    margin-left: -15px;
+  }
 
   .row-push-loading {
     margin-top: 20px;

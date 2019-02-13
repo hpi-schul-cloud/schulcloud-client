@@ -1,9 +1,9 @@
 /* global firebase */
 import { pushManager } from './index';
-import { sendShownCallback, removeRegistrationId } from './callback';
+import { removeRegistrationId } from './callback';
 import toast from '../toasts';
 
-// check https://github.com/firebase/quickstart-js/blob/master/messaging/index.html#L123 for updating this file.
+// check https://github.com/firebase/quickstart-js/tree/master/messaging for updating this file.
 
 const htmlClass = {
 	hasClass(el, className) {
@@ -23,39 +23,6 @@ const htmlClass = {
 	},
 };
 
-const updateUI = function (task) {
-	if (task === 'enable-registration') {
-		updateUI('hide-loading');
-		var btn = document.getElementsByClassName('btn-push-disabled');
-		for (var i = 0; i < btn.length; i++) {
-			htmlClass.removeClass(btn[i], 'hidden');
-		}
-		btn = document.getElementsByClassName('btn-push-enabled');
-		for (var i = 0; i < btn.length; i++) {
-			htmlClass.addClass(btn[i], 'hidden');
-		}
-	}
-
-	if (task === 'disable-registration') {
-		updateUI('hide-loading');
-		var btn = document.getElementsByClassName('btn-push-enabled');
-		for (var i = 0; i < btn.length; i++) {
-			htmlClass.removeClass(btn[i], 'hidden');
-		}
-		btn = document.getElementsByClassName('btn-push-disabled');
-		for (var i = 0; i < btn.length; i++) {
-			htmlClass.addClass(btn[i], 'hidden');
-		}
-	}
-
-	if (task === 'hide-loading') {
-		const row = document.getElementsByClassName('row-push-loading');
-		for (var i = 0; i < row.length; i++) {
-			htmlClass.addClass(row[i], 'hidden');
-		}
-	}
-};
-
 
 function setupFirebasePush(registration) {
 	if (!window.firebase) {
@@ -64,114 +31,183 @@ function setupFirebasePush(registration) {
 	}
 
 	const config = {
+		// FIXME load from server or config
 		messagingSenderId: '693501688706',
 	};
 
-	// When app was already initialized just return.
-	if (firebase.apps.length) {
-		console.log('apps without permission?', firebase.apps);
-		return;
+	firebase.initializeApp(config);
+	const messaging = firebase.messaging();
+	messaging.useServiceWorker(registration);
+
+	const updateUI = function (task) {
+		if (task === 'pushPermissionRequired') {
+			updateUI('hide-loading');
+			let btn = document.getElementsByClassName('btn-push-disabled');
+			for (var i = 0; i < btn.length; i++) {
+				htmlClass.removeClass(btn[i], 'hidden');
+			}
+			btn = document.getElementsByClassName('btn-push-enabled');
+			for (var i = 0; i < btn.length; i++) {
+				htmlClass.addClass(btn[i], 'hidden');
+			}
+		}
+
+		if (task === 'pushPermissionGranted') {
+			updateUI('hide-loading');
+			let btn = document.getElementsByClassName('btn-push-enabled');
+			for (var i = 0; i < btn.length; i++) {
+				htmlClass.removeClass(btn[i], 'hidden');
+			}
+			btn = document.getElementsByClassName('btn-push-disabled');
+			for (var i = 0; i < btn.length; i++) {
+				htmlClass.addClass(btn[i], 'hidden');
+			}
+		}
+
+		if (task === 'hide-loading') {
+			const row = document.getElementsByClassName('row-push-loading');
+			for (var i = 0; i < row.length; i++) {
+				htmlClass.addClass(row[i], 'hidden');
+			}
+			const info = document.getElementsByClassName('row-push-loaded');
+			for (var i = 0; i < info.length; i++) {
+				htmlClass.removeClass(info[i], 'hidden');
+			}
+		}
+	};
+
+	function isTokenSentToServer() {
+		return window.localStorage.getItem('firebaseTokenSentToServer') === '1';
+	}
+	function setTokenSentToServer(sent) {
+		window.localStorage.setItem('firebaseTokenSentToServer', sent ? '1' : '0');
 	}
 
-	firebase.initializeApp(config);
 
-	// Retrieve Firebase Messaging object.
-	const messaging = firebase.messaging();
-
-	messaging.useServiceWorker(registration);
+	// requests push permission has been disabled using disable button
+	function hasRegistrationPermission() {
+		return window.localStorage.getItem('firebasePermissionGranted') === '1';
+	}
+	// used to not re-enable push when disabled without revoking permission
+	function setRegistrationPermission(granted) {
+		window.localStorage.setItem('firebasePermissionGranted', granted ? '1' : '0');
+	}
 
 	function onSuccess() {
 		// success cb
-		updateUI('disable-registration');
 		toast('notificationsEnabled');
+		updateUI('pushPermissionGranted');
 	}
+
 	function onError() {
 		// error cb
 		toast('notificationRegistrationError');
-		updateUI('enable-registration');
+		updateUI('pushPermissionRequired');
 	}
 
 
-	function getToken() {
-		messaging.getToken()
-			.then((token) => {
-				if (token) {
-					// check devices registerd
-					$.post('/notification/getDevices', {}, (data) => {
-						if (data && data.length && data.includes(token)) {
-							updateUI('disable-registration');
-						} else {
-							updateUI('enable-registration');
-						}
-					}).fail(() => {
-						updateUI('enable-registration');
+	// Send the Instance ID token your application server, so that it can:
+	// - send messages back to this app
+	// - subscribe/unsubscribe the token from topics
+	function sendTokenToServer(currentToken) {
+		pushManager.setRegistrationId(currentToken, 'firebase', () => {
+			// success
+			setTokenSentToServer(true);
+			onSuccess();
+		}, () => {
+			// error
+			setTokenSentToServer(false);
+			onError();
+		});
+	}
+
+	function refreshUI() {
+		// Get Instance ID token. Initially this makes a network call, once retrieved
+		// subsequent calls to getToken will return from cache.
+		if (hasRegistrationPermission()) {
+			messaging.getToken().then((currentToken) => {
+				if (currentToken) {
+					if (!isTokenSentToServer()) {
+						sendTokenToServer(currentToken);
+					} else {
+						updateUI('pushPermissionGranted');
+					}
+				} else {
+					// Show permission UI.
+					updateUI('pushPermissionRequired');
+					setTokenSentToServer(false);
+				}
+			}).catch(() => {
+				updateUI('pushPermissionRequired');
+				setTokenSentToServer(false);
+			});
+		} else {
+			updateUI('pushPermissionRequired');
+		}
+	}
+
+	// handle token updates if permission granted
+	if (hasRegistrationPermission()) {
+		messaging.onTokenRefresh(() => {
+			messaging.getToken().then((refreshedToken) => {
+				setTokenSentToServer(false);
+				sendTokenToServer(refreshedToken);
+				refreshUI();
+			}).catch((err) => {
+				toast('pushTokenUpdateError');
+			});
+		});
+	}
+
+	function requestPermission() {
+		setRegistrationPermission(true);
+		messaging.requestPermission().then(() => {
+			setTokenSentToServer(false);
+			refreshUI();
+		}).catch(() => {
+			toast('notificationsDisabled');
+		});
+	}
+
+	function deleteToken() {
+		messaging.getToken().then((currentToken) => {
+			messaging.deleteToken(currentToken).then(() => {
+				setTokenSentToServer(false);
+				removeRegistrationId(currentToken,
+					() => {
+						toast('pushDisabled');
+					}, () => {
+						toast('errorDisablePush');
 					});
-				} else {
-					updateUI('enable-registration');
-				}
-			})
-			.catch((err) => {
-				updateUI('enable-registration');
+				setRegistrationPermission(false);
+				updateUI('pushPermissionRequired');
+			}).catch((err) => {
+				// error on token removal
+				toast('errorDisablePush');
 			});
-	}
-
-	function updateToken() {
-		return messaging.getToken()
-			.then((token) => {
-				if (token) {
-					// push permission granted, update token
-					pushManager.setRegistrationId(token, 'firebase', onSuccess, onError);
-				} else {
-					// push permission not granted, request permission
-					pushManager.error('No Instance ID token available. Request permission to generate one.');
-					// enable registration button
-					updateUI('enable-registration');
-				}
-			});
+		}).catch((err) => {
+			// error retrieving registration token
+			toast('errorDisablePush');
+		});
 	}
 
 
-	getToken();
+	refreshUI();
 
-	window.requestPushPermission = function requestPermission() {
-		return messaging.requestPermission()
-			.then(() => updateToken())
-			.catch((err) => {
-				pushManager.error(err, 'Unable to get permission to notify.');
-				updateUI('enable-registration');
-				toast('notificationsDisabled');
-			});
+	window.requestPushPermission = function () {
+		requestPermission();
 	};
-
-	pushManager.registerSuccessfulSetup('firebase', window.requestPushPermission);
 
 	window.requestDisablePush = function () {
-		messaging.getToken().then((token) => {
-			if (!token) return toast('pushNotRegistered');
-			messaging.deleteToken(token);
-			removeRegistrationId(token,
-				() => {
-					toast('pushDisabled');
-					updateUI('enable-registration');
-					pushManager.removePermission();
-				}, () => {
-					toast('errorDisablePush');
-				});
-		});
+		deleteToken();
 	};
-
-	// Callback fired if Instance ID token is updated.
-	pushManager.permissionGranted(() => {
-		messaging.onTokenRefresh(updateToken);
-	});
 
 	// Handle incoming messages. Called when:
 	// - a message is received while the app has focus
-	// messaging.onMessage(function (payload) {
-	//   console.log('frontend message received');
-	//   pushManager.handleNotification(registration, payload);
-	//   return Promise.resolve();
-	// });
+	messaging.onMessage((payload) => {
+	  console.log('frontend message received');
+	  return pushManager.handleNotification(registration, payload);
+	});
 }
 
 module.exports = { setupFirebasePush };

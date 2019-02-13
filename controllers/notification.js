@@ -22,8 +22,6 @@ const postRequest = (req, res, next) => {
 			body: res.locals.body,
 		}).then((response) => {
 			res.json(response);
-		}).catch((err) => {
-			res.status(err.statusCode).send(err.message);
 		});
 	} else {
 		res.status(500).send('notification service not enabled');
@@ -33,7 +31,9 @@ const postRequest = (req, res, next) => {
 router.delete('/device', authChecker, (req, res, next) => {
 	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
 		api(req).delete(`notification/devices/${req.body.id}`)
-			.then(_ => res.json(_)).catch(err => res.status(500).json(err));
+			.then(_ => res.json(_));
+	} else {
+		res.status(500).send('notification service not enabled');
 	}
 });
 

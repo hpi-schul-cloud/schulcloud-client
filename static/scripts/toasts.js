@@ -11,10 +11,11 @@ function t(toast) {
 	});
 
 	if (toast === 'notificationsDisabled') {
-		return iziToast.warning({
+		return iziToast.error({
 			icon: 'fa fa-envelope',
-			title: 'Push-Benachrichtigungen wurden deaktiviert',
+			title: 'Push-Benachrichtigungen sind blockiert!',
 			message: 'Klicke zum Aktivieren auf das Icon links neben der Adresszeite und erlaube Benachrichtigungen.',
+			timeout: false,
 		});
 	}
 	if (toast === 'notificationsEnabled') {
@@ -31,10 +32,23 @@ function t(toast) {
 			message: 'Beim Aktivieren ist ein interner Fehler aufgetreten.',
 		});
 	}
+	if (toast === 'pushTokenUpdateError') {
+		return iziToast.error({
+			icon: 'fa fa-envelope',
+			title: 'Push-Benachrichtigungen müssen erneut aktiviert werden',
+			message: 'Beim Erneuern der Aktivierung ist ein Fehler aufgetreten.',
+		});
+	}
 	if (toast === 'pushDisabled') {
 		return iziToast.show({
 			icon: 'fa fa-envelope',
 			title: 'Push-Benachrichtigungen wurden deaktiviert.',
+		});
+	}
+	if (toast === 'errorDisablePush') {
+		return iziToast.error({
+			icon: 'fa fa-envelope',
+			title: 'Push-Benachrichtigungen konnten nicht deaktiviert werden.',
 		});
 	}
 	if (toast === 'successfullySendPushTestMessage') {

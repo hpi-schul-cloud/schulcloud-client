@@ -59,11 +59,11 @@ $(document).ready(() => {
     // 	document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT;`;
     // }
 
-    $('.send-test-notification').on('click', () => {
-        $.post('/notification/push/test', {}, () => {
-            toast('successfullySendPushTestMessage');
-        }).fail(() => {
-            toast('errorSendPushTestMessage');
-        });
-    });
+	$('.send-test-notification').on('click', () => {
+		$.post('/notification/push/test', {}, () => {
+			toast('successfullySendPushTestMessage');
+		}).fail(() => {
+			toast('errorSendPushTestMessage');
+		});
+	});
 });
