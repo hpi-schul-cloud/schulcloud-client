@@ -1,5 +1,7 @@
-import { sendRegistrationId } from './callback';
+import { sendRegistrationId, removeRegistrationId } from './callback';
 import { notificationHandler } from './notificationHandler';
+
+const DEFAULT_HEADERS = {};
 
 export const pushManager = {
 	requestPermissionCallback: null,
@@ -9,7 +11,37 @@ export const pushManager = {
 		sendRegistrationId(id, service, successcb, errorcb);
 	},
 
-	handleNotification(registration, data) {
+	deleteRegistrationId(id, successcb, errorcb) {
+		removeRegistrationId(id, successcb, errorcb);
+	},
+
+	async postRequest(url, data = {}) {
+		if (self.fetch) {
+			return fetch(url, {
+				method: 'POST',
+				body: data,
+				headers: DEFAULT_HEADERS,
+			}).then(response => response);
+		} if (self.XMLHttpRequest) {
+			let xhttp;
+			xhttp = new XMLHttpRequest();
+			xhttp.open('POST', url, false);
+			for (const key in DEFAULT_HEADERS) {
+				xhttp.setRequestHeader(key, DEFAULT_HEADERS[key]);
+			}
+			xhttp.send(data);
+			return xhttp.response;
+		}
+	},
+
+	async getOptions(param) {
+		// FIXME add caching
+		const response = await this.postRequest(`/notification/configuration/${param}`);
+		const json = await response.json();
+		return json;
+	},
+
+	handleNotification(registration, data, origin) {
 		if (this.handledMessages.includes(data.data._id) === false) {
 			// this.handledMessages.push(data.data._id);
 			while (this.handledMessages.length > 100) {

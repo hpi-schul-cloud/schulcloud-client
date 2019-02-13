@@ -1,6 +1,5 @@
 /* global firebase */
 import { pushManager } from './index';
-import { removeRegistrationId } from './callback';
 import toast from '../toasts';
 
 // check https://github.com/firebase/quickstart-js/tree/master/messaging for updating this file.
@@ -24,16 +23,13 @@ const htmlClass = {
 };
 
 
-function setupFirebasePush(registration) {
+async function setupFirebasePush(registration) {
 	if (!window.firebase) {
 		console.log('firebase missing!');
 		return;
 	}
 
-	const config = {
-		// FIXME load from server or config
-		messagingSenderId: '693501688706',
-	};
+	const config = await pushManager.getOptions('firebaseOptions');
 
 	firebase.initializeApp(config);
 	const messaging = firebase.messaging();
@@ -173,7 +169,7 @@ function setupFirebasePush(registration) {
 		messaging.getToken().then((currentToken) => {
 			messaging.deleteToken(currentToken).then(() => {
 				setTokenSentToServer(false);
-				removeRegistrationId(currentToken,
+				pushManager.deleteRegistrationId(currentToken,
 					() => {
 						toast('pushDisabled');
 					}, () => {
@@ -204,10 +200,7 @@ function setupFirebasePush(registration) {
 
 	// Handle incoming messages. Called when:
 	// - a message is received while the app has focus
-	messaging.onMessage((payload) => {
-	  console.log('frontend message received');
-	  return pushManager.handleNotification(registration, payload);
-	});
+	messaging.onMessage(payload => pushManager.handleNotification(registration, payload, 'frontend'));
 }
 
 module.exports = { setupFirebasePush };

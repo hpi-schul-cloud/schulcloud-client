@@ -4,10 +4,6 @@ const CALLBACK_TYPES = {
 	READ: 'read',
 };
 
-const DEFAULT_HEADERS = {
-	'Content-Type': 'application/json',
-};
-
 export function sendRegistrationId(id, service, successcb, errorcb) {
 	$.post('/notification/devices', {
 		id,
@@ -21,7 +17,7 @@ export function sendRegistrationId(id, service, successcb, errorcb) {
 
 export function removeRegistrationId(id, successcb, errorcb) {
 	$.ajax({
-		url: '/notification/device',
+		url: '/notification/device/',
 		type: 'DELETE',
 		success: successcb,
 		data: JSON.stringify({ id }),

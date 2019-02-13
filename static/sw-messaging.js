@@ -5,21 +5,21 @@ importScripts('/vendor-optimized/firebase/firebase-app.js');
 importScripts('/vendor-optimized/firebase/firebase-messaging.js');
 
 
-messagingSW.setupMessaging();
+async function setupFirebaseMessaging() {
+	const firebaseOptions = await pushManager.getOptions('firebaseOptions');
+	messagingSW.setupMessaging();
+	firebase.initializeApp(firebaseOptions);
 
-firebase.initializeApp({
-	// FIXME retrieve messagingSenderId from api
-	messagingSenderId: '693501688706',
-});
+	// Retrieve an instance of Firebase Messaging so that it can handle background
+	// messages.
+	const messaging = firebase.messaging();
 
-// Retrieve an instance of Firebase Messaging so that it can handle background
-// messages.
-const messaging = firebase.messaging();
+	messaging.setBackgroundMessageHandler(
+		payload => pushManager.handleNotification(self.registration, payload, 'background'),
+	);
+}
 
-messaging.setBackgroundMessageHandler(
-	// FIXME update PM to handle background message
-	payload => pushManager.handleNotification(self.registration, payload),
-);
+setupFirebaseMessaging();
 
 // self.addEventListener('message', (event) => {
 // 	// FIXME update PM to handle message
