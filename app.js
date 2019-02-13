@@ -94,9 +94,10 @@ app.use(function (req, res, next) {
 app.use((err, req, res, next) => {
 	// set locals, only providing error in development
 	const status = err.status || err.statusCode || 500;
-	if (err.statusCode) {
-		res.setHeader('error-message', err.error.message);
-		res.locals.message = err.error.message;
+	const message = err.message || err.error.message || 'unknown error';
+	if (message) {
+		res.setHeader('error-message', message);
+		res.locals.message = message;
 	} else {
 		res.locals.message = err.message;
 	}
