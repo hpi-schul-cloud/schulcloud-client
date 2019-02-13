@@ -22,6 +22,50 @@ const htmlClass = {
 	},
 };
 
+const updateUI = function (task, error) {
+	if (task === 'pushPermissionRequired') {
+		updateUI('hide-loading');
+		let btn = document.getElementsByClassName('btn-push-disabled');
+		for (var i = 0; i < btn.length; i++) {
+			htmlClass.removeClass(btn[i], 'hidden');
+		}
+		btn = document.getElementsByClassName('btn-push-enabled');
+		for (var i = 0; i < btn.length; i++) {
+			htmlClass.addClass(btn[i], 'hidden');
+		}
+	}
+
+	if (task === 'pushPermissionGranted') {
+		updateUI('hide-loading');
+		let btn = document.getElementsByClassName('btn-push-enabled');
+		for (var i = 0; i < btn.length; i++) {
+			htmlClass.removeClass(btn[i], 'hidden');
+		}
+		btn = document.getElementsByClassName('btn-push-disabled');
+		for (var i = 0; i < btn.length; i++) {
+			htmlClass.addClass(btn[i], 'hidden');
+		}
+	}
+
+	if (task === 'hide-loading') {
+		const row = document.getElementsByClassName('row-push-loading');
+		for (var i = 0; i < row.length; i++) {
+			htmlClass.addClass(row[i], 'hidden');
+		}
+		const info = document.getElementsByClassName('row-push-loaded');
+		for (var i = 0; i < info.length; i++) {
+			htmlClass.removeClass(info[i], 'hidden');
+		}
+	}
+
+	if (task === 'pushNotSupported') {
+		$('#notificationInit').hide();
+		$('#notificationError').show();
+		$('.notificationStatusInfo').text('Push-Benachrichtigungen werden von deinen Browser nicht unterstützt.');
+		console.log(error.message);
+	}
+};
+
 
 async function setupFirebasePush(registration) {
 	if (!window.firebase) {
@@ -32,45 +76,15 @@ async function setupFirebasePush(registration) {
 	const config = await pushManager.getOptions('firebaseOptions', true);
 
 	firebase.initializeApp(config);
-	const messaging = firebase.messaging();
+	let messaging;
+	try {
+		messaging = firebase.messaging();
+	} catch (error) {
+		updateUI('pushNotSupported', error);
+		return;
+	}
 	messaging.useServiceWorker(registration);
 
-	const updateUI = function (task) {
-		if (task === 'pushPermissionRequired') {
-			updateUI('hide-loading');
-			let btn = document.getElementsByClassName('btn-push-disabled');
-			for (var i = 0; i < btn.length; i++) {
-				htmlClass.removeClass(btn[i], 'hidden');
-			}
-			btn = document.getElementsByClassName('btn-push-enabled');
-			for (var i = 0; i < btn.length; i++) {
-				htmlClass.addClass(btn[i], 'hidden');
-			}
-		}
-
-		if (task === 'pushPermissionGranted') {
-			updateUI('hide-loading');
-			let btn = document.getElementsByClassName('btn-push-enabled');
-			for (var i = 0; i < btn.length; i++) {
-				htmlClass.removeClass(btn[i], 'hidden');
-			}
-			btn = document.getElementsByClassName('btn-push-disabled');
-			for (var i = 0; i < btn.length; i++) {
-				htmlClass.addClass(btn[i], 'hidden');
-			}
-		}
-
-		if (task === 'hide-loading') {
-			const row = document.getElementsByClassName('row-push-loading');
-			for (var i = 0; i < row.length; i++) {
-				htmlClass.addClass(row[i], 'hidden');
-			}
-			const info = document.getElementsByClassName('row-push-loaded');
-			for (var i = 0; i < info.length; i++) {
-				htmlClass.removeClass(info[i], 'hidden');
-			}
-		}
-	};
 
 	function isTokenSentToServer() {
 		return window.localStorage.getItem('firebaseTokenSentToServer') === '1';
