@@ -58,6 +58,20 @@ router.post('/getDevices', authChecker, (req, res, next) => {
 	});
 });
 
+router.post('/configuration/:config', authChecker, (req, res, next) => {
+	// filter accepted config options
+	if (!req.params.config === 'firebaseOptions') {
+		res.send(500);
+	}
+	// request config from server
+	api(req).get(`/notification/configuration/${req.params.config}`).then((config) => {
+		res.json(config);
+	}).catch((err) => {
+		winston.error(err);
+		res.send(500);
+	});
+});
+
 router.post('/callback', (req, res, next) => {
 	res.locals.url = 'notification/callback';
 	res.locals.body = req.body;
