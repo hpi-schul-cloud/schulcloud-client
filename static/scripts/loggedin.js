@@ -297,7 +297,7 @@ window.addEventListener("load", () => {
 });
 
 document.querySelectorAll('#main-content a').forEach((a) => {
-    let href = a.getAttribute('href');
+    const href = a.getAttribute('href');
     if (a.querySelector('img, .fa') == null && href) {
         if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
             a.setAttribute('target', '_blank');
