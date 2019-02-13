@@ -3,32 +3,41 @@
 	<h4>Benachrichtigungseinstellungen</h4>
 	<div class="notification">
 		<div class="row-push-loading">
-			<div class="col-md-12">
-				<div class="form-group"><i class="fa fa-spinner fa-spin"></i> <span class="notificationStatusInfo">Einstellungen werden geladen...</span></div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group">
+						<i class="fa fa-spinner fa-spin"></i>
+						<span class="notificationStatusInfo">Einstellungen werden geladen...</span></div>
+				</div>
 			</div>
 		</div>
-		<div class="form-group btn-push-disabled row-push-disabled hidden">
-			<div class="col-md-6">
-				<button type="button" class="btn btn-default btn-block btn-device" id="btn-enable-push" onclick="requestPushPermission()">
-					<span class="disabled"><i class="fa fa-bell"></i> Benachrichtigungen aktivieren</span>
-				</button>
+		<div class="btn-push-disabled row-push-disabled hidden">
+			<div class="row">
+				<div class="col-md-6">
+					<button type="button" class="btn btn-default btn-block btn-device" id="btn-enable-push"
+						onclick="requestPushPermission()">
+						<span class="disabled"><i class="fa fa-bell"></i> Benachrichtigungen aktivieren</span>
+					</button>
+				</div>
 			</div>
 		</div>
-		<div class="form-group btn-push-enabled row-push-enabled hidden">
-			<div class="col-md-6">
-				<button type="button" class="btn btn-default btn-block btn-device" onclick="requestDisablePush()">
-					<i class="fa fa-bell-slash"></i>
-					Benachrichtigungen deaktivieren
-				</button>
+		<div class="btn-push-enabled row-push-enabled hidden">
+			<div class="row">
+				<div class="col-md-6">
+					<button type="button" class="btn btn-default btn-block btn-device" onclick="requestDisablePush()">
+						<i class="fa fa-bell-slash"></i>
+						Benachrichtigungen deaktivieren
+					</button>
+				</div>
+				{{#userHasPermission "NOTIFICATION_CREATE"}}
+				<div class="col-md-6">
+					<button type="button" class="btn btn-default btn-block send-test-notification">
+						<i class="fa fa-paper-plane"></i>
+						Test-Benachrichtigung senden
+					</button>
+				</div>
+				{{/userHasPermission}}
 			</div>
-			{{#userHasPermission "NOTIFICATION_CREATE"}}
-			<div class="col-md-6">
-				<button type="button" class="btn btn-default btn-block send-test-notification">
-					<i class="fa fa-paper-plane"></i>
-					Test-Benachrichtigung senden
-				</button>
-			</div>
-			{{/userHasPermission}}
 		</div>
 	</div>
 </div>
