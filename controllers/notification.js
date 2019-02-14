@@ -31,7 +31,7 @@ const postRequest = (req, res, next) => {
 router.delete('/device', authChecker, (req, res, next) => {
 	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
 		api(req).delete(`notification/devices/${req.body.id}`)
-			.then(_ => res.json(_));
+			.then(() => res.sendStatus(200));
 	} else {
 		res.status(500).send('notification service not enabled');
 	}

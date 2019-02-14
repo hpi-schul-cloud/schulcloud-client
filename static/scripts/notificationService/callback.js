@@ -4,25 +4,59 @@ const CALLBACK_TYPES = {
 	READ: 'read',
 };
 
+const DEFAULT_HEADERS = { 'Content-Type': 'application/json' };
+
+
+function postRequest(url, data = {},
+	successcb = function () { },
+	errorcb = function () { },
+	method = 'POST') {
+	const jsonData = JSON.stringify(Object.assign({}, data, { _method: method }));
+	if (self.fetch) {
+		fetch(url, {
+			method,
+			body: jsonData,
+			headers: DEFAULT_HEADERS,
+		}).then((response) => {
+			if (response.status !== 200) {
+				throw new Error(response.status);
+			} return response.text();
+		})
+			.then(text => successcb(text))
+			.catch(() => errorcb());
+	} else if (self.XMLHttpRequest) {
+		let xhttp;
+		xhttp = new XMLHttpRequest();
+		xhttp.open(method, url, true);
+		for (const key in DEFAULT_HEADERS) {
+			xhttp.setRequestHeader(key, DEFAULT_HEADERS[key]);
+		}
+		xhttp.onreadystatechange = function () {
+			if (xhttp.readyState === 4) {
+				if (xhttp.status === 200) {
+					successcb(xhttp.responseText);
+				} else {
+					errorcb();
+				}
+			}
+		};
+		xhttp.send(jsonData);
+		return xhttp.response;
+	}
+}
+
 export function sendRegistrationId(id, service, successcb, errorcb) {
-	$.post('/notification/devices', {
+	postRequest('/notification/devices', {
 		id,
 		service,
-	}, (data) => {
-		successcb(data);
-	}).fail(() => {
-		errorcb();
-	});
+	}, successcb, errorcb);
 }
 
 export function removeRegistrationId(id, successcb, errorcb) {
-	$.ajax({
-		url: '/notification/device/',
-		type: 'DELETE',
-		success: successcb,
-		data: JSON.stringify({ id }),
-		contentType: 'application/json',
-	}).fail(() => { errorcb(); });
+	postRequest('/notification/device',
+		JSON.stringify({ id }),
+		successcb, errorcb,
+		'DELETE');
 }
 
 export function sendShownCallback(notificationData, background, url) {
@@ -78,5 +112,5 @@ export function sendClickedCallback(notificationId, background, url) {
 }
 
 function sendCallback(body, callback) {
-	$.post('/notification/callback', body);
+	postRequest('/notification/callback', body);
 }
