@@ -120,8 +120,7 @@
     .file-preview {
       width: 90%;
       height: 65px;
-      float: left;
-      margin-right: 5px;
+      margin-right: 0;
       background: no-repeat center center;
       background-size: cover;
     }
@@ -147,13 +146,13 @@
       text-overflow: ellipsis;
       display: inline-block;
     }
-    .file-preview {
-      @media screen and (max-width: 575px) {
-        display: none;
-      }
-    }
+    // .file-preview {
+    //   @media screen and (max-width: 575px) {
+    //     display: none;
+    //   }
+    // }
     .card-text {
-      line-height: 2;
+      line-height: 0;
     }
 
     .file-location {

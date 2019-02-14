@@ -17,7 +17,7 @@ router.get(['/register', '/register/*'], function (req, res, next) {
 router.post('/registration/pincreation', function (req, res, next) {
     if (req.body && req.body.email) {
         return api(req).post('/registrationPins/', {
-            json: { email: req.body.email, byRole: req.body.byRole }
+            json: { email: req.body.email, mailTextForRole: req.body.mailTextForRole }
         }).then(() => {
             res.sendStatus(200);
         }).catch(err => res.status(500).send(err));
@@ -44,8 +44,10 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
         }
         eMailAdresses.forEach(eMailAdress => {
             let passwordText = "";
+            let studentInfotext = "";
             if (req.body.roles.includes("student")) {
                 passwordText = `Startpasswort: ${req.body["password_1"]}`;
+                studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.`;
             }
             return api(req).post('/mails/', {
                 json: {
@@ -58,7 +60,7 @@ mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einlo
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${response.user.email}
 ${passwordText}
-Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.
+${studentInfotext}
 Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
                     }
@@ -83,8 +85,7 @@ ${res.locals.theme.short_title}-Team`
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'], async function (req, res, next) {
     if (!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
-
+            return res.sendStatus(400);
     let user = {};
     user.importHash = req.query.importHash;
     user.classOrSchoolId = req.params.classOrSchoolId;
@@ -105,7 +106,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'], async function (req, res, next) {
     if (!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
 
     let user = {};
     user.importHash = req.query.importHash;
@@ -125,24 +126,31 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
     });
 });
 
-router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOrSchoolId/byteacher/:sso/:accountId'], async function (req, res, next) {
-    if (!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
+router.get(['/registration/:classOrSchoolId/:byRole'], async function (req, res, next) {
+    if(!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
             return res.sendStatus(400);
 
     let user = {};
     user.importHash = req.query.importHash || req.query.id; // req.query.id is deprecated
     user.classOrSchoolId = req.params.classOrSchoolId;
-    user.sso = req.params.sso === "sso";
-    user.account = req.params.accountId || "";
 
     if (user.importHash) {
         let existingUser = await api(req).get('/users/linkImport/' + user.importHash);
         Object.assign(user, existingUser);
     }
+    
+    let roleText;
+    if (req.params.byRole === "byemployee") {
+        roleText = "Lehrer*/Admins*";
+    } else {
+        delete user.firstName;
+        delete user.lastName;
+        roleText = "Experte*";
+    }
 
     res.render('registration/registration-employee', {
-        title: 'Registrierung - Lehrer*/Admins*',
+        title: 'Registrierung - ' + roleText,
         hideMenu: true,
         user
     });
@@ -151,7 +159,7 @@ router.get(['/registration/:classOrSchoolId/byemployee', '/registration/:classOr
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], function (req, res, next) {
     if (!RegExp("^[0-9a-fA-F]{24}$").test(req.params.classOrSchoolId))
         if (req.params.sso && !RegExp("^[0-9a-fA-F]{24}$").test(req.params.accountId))
-            return res.sendStatus(500);
+            return res.sendStatus(400);
 
     res.render('registration/registration', {
         title: 'Herzlich Willkommen bei der Registrierung',

@@ -5,6 +5,35 @@ const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 moment.locale('de');
 
+function ifCondBool (v1, operator, v2) {
+    switch (operator) {
+        case '==':
+            return (v1 == v2);
+        case '===':
+            return (v1 === v2);
+        case '!=':
+            return (v1 != v2);
+        case '!==':
+            return (v1 !== v2);
+        case '<':
+            return (v1 < v2);
+        case '<=':
+            return (v1 <= v2);
+        case '>':
+            return (v1 > v2);
+        case '>=':
+            return (v1 >= v2);
+        case '&&':
+            return (v1 && v2);
+        case '||':
+            return (v1 || v2);
+        case '|| !':
+            return (v1 || !v2);
+        default:
+            return false;
+    }
+}
+
 module.exports = {
     pagination: require('./pagination'),
     ifArray: (item, options) => {
@@ -69,33 +98,12 @@ module.exports = {
         text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g,'$2');
         return text;
     },
+    
     ifCond: (v1, operator, v2, options) => {
-        switch (operator) {
-            case '==':
-                return (v1 == v2) ? options.fn(this) : options.inverse(this);
-            case '===':
-                return (v1 === v2) ? options.fn(this) : options.inverse(this);
-            case '!=':
-                return (v1 != v2) ? options.fn(this) : options.inverse(this);
-            case '!==':
-                return (v1 !== v2) ? options.fn(this) : options.inverse(this);
-            case '<':
-                return (v1 < v2) ? options.fn(this) : options.inverse(this);
-            case '<=':
-                return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-            case '>':
-                return (v1 > v2) ? options.fn(this) : options.inverse(this);
-            case '>=':
-                return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-            case '&&':
-                return (v1 && v2) ? options.fn(this) : options.inverse(this);
-            case '||':
-                return (v1 || v2) ? options.fn(this) : options.inverse(this);
-            case '|| !':
-                return (v1 || !v2) ? options.fn(this) : options.inverse(this);
-            default:
-                return options.inverse(this);
-        }
+        return ifCondBool(v1, operator, v2) ? options.fn(this) : options.inverse(this);
+    },
+    isCond: (v1, operator, v2, options) => {
+        return ifCondBool(v1, operator, v2);
     },
     ifeq: (a, b, opts) => {
         if (a == b) {
@@ -254,7 +262,17 @@ module.exports = {
     add: (a, b) => {
         return a + b;
     },
+    set: (varName, varValue, options) => {
+        options.data.root[varName] = varValue;
+    },
+    inc: (varName, incrementor, options) => {
+        if(!options){
+            options = incrementor;
+            incrementor = 1;
+        }
+        options.data.root[varName] += incrementor;
+    },
     indexOf: (item, searchValue, fromIndex) => {
         return item.indexOf(searchValue, fromIndex);
-    }
+    },
 };

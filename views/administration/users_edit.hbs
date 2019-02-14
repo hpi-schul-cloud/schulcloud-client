@@ -18,14 +18,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Vorname: <sup>*</sup></label>
-                                <input class="form-control" name="firstName" type="text" required value="{{user.firstName}}"/>
+                                <input class="form-control" name="firstName" type="text" required {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.firstName}}"/>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nachname: <sup>*</sup></label>
-                                <input class="form-control" name="lastName" type="text" required value="{{user.lastName}}"/>
+                                <input class="form-control" name="lastName" type="text" required {{#if schoolUsesLdap}}readonly{{/if}} value="{{user.lastName}}"/>
                             </div>
                         </div>
                     </div>
@@ -36,7 +36,7 @@
 
                     <div class="form-group">
                         <label>E-Mail-Adresse: <sup>*</sup></label>
-                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required>
+                        <input class="form-control linked" type="email" name="email" placeholder="user@schul-cloud.org" value="{{user.email}}" required {{#if schoolUsesLdap}}readonly{{/if}}>
                     </div>
                 {{#unless editTeacher}}
                     <div class="form-group">
@@ -112,14 +112,16 @@
                     <div class="row">
                         <div class="modal-footer w-100">
                             <div class="pull-left">
-                                {{#ifCond isAdmin '|| !' editTeacher}}
-                                    <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>Passwort ändern</button>
-                                    <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
-                                {{/ifCond}}
-                                <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
-                                {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
-                                    Persönlichen Einladungslink generieren
-                                </button>
+                                {{#unless schoolUsesLdap}}
+                                    {{#ifCond isAdmin '|| !' editTeacher}}
+                                        <button class="btn btn-secondary btn-pw" {{#if @root.hidePwChangeButton}} disabled title="Der Nutzer muss zuerst die Einverständniserklärung digital abschließen"{{/if}}>Passwort ändern</button>
+                                        <button class="btn btn-secondary btn-delete">Benutzer löschen</button>
+                                    {{/ifCond}}
+                                    <button class="btn btn-secondary btn-invitation-link-with-hash {{#if editTeacher}}teacher{{else}}student{{/if}}"
+                                    {{#ifeq consentStatusIcon '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>'}}disabled title="Der Nutzer ist bereits registriert"{{/ifeq}}>
+                                        Persönlichen Einladungslink generieren
+                                    </button>
+                                {{/unless}}
                             </div>
 
                             <button class="btn btn-secondary btn-cancel">
@@ -132,6 +134,9 @@
                         </div>
                     </div>
                 </form>
+                {{#if schoolUsesLdap}}
+                    {{> "lib/ldap-info"}}
+                {{/if}}
 
 
                 {{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}
