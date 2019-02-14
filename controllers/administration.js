@@ -2139,7 +2139,6 @@ router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIE
     const ldapTemplate = {
         type : "ldap",
         alias : res.locals.currentSchoolData.name,
-        __v : 0,
         ldapConfig : {
             url: "ldaps://",
             rootPath: "",
@@ -2150,7 +2149,7 @@ router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIE
                 schoolName: res.locals.currentSchoolData.name,
                 userPathAdditions: "",
                 classPathAdditions: "",
-                roleType: "group",
+                roleType: "text",
                 userAttributeNameMapping: {
                     givenName: "givenName",
                     sn: "sn",
@@ -2161,10 +2160,10 @@ router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIE
                     role: "description",
                 },
                 roleAttributeNameMapping: {
-                    roleStudent: "CN=schueler-bbshameln,CN=groups,OU=BBSHameln,DC=hlautrnetz,DC=local",
-                    roleTeacher: "CN=lehrer-bbshameln,CN=groups,OU=BBSHameln,DC=hlautrnetz,DC=local",
-                    roleAdmin: "CN=admins-bbshameln,CN=ouadmins,CN=Groups,DC=hlautrnetz,DC=local",
-                    roleNoSc: "cn=no-sc-bbshameln,cn=groups,ou=BBSHameln,dc=hlautrnetz,dc=local",
+                    roleStudent: "student",
+                    roleTeacher: "teacher",
+                    roleAdmin: "admin",
+                    roleNoSc: "no-sc",
                 },
                 classAttributeNameMapping: {
                     description: "name",
