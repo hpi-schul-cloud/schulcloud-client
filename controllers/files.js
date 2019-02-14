@@ -153,24 +153,35 @@ const getStorageContext = (req, res) => {
  * fetches all files and directories for a given storageContext
  */
 const FileGetter = (req, res, next) => {
-    const owner = getStorageContext(req, res);
-    const { params: { folderId: parent } } = req;
+	const owner = getStorageContext(req, res);
+	const { params: { folderId: parent } } = req;
+	const promises = [
+		api(req).get('/roles', { qs: { name: 'student' } }),
+		api(req).get('/fileStorage', {
+			qs: { owner, parent },
+		}),
+	];
 
-    return api(req).get('/fileStorage', {
-        qs: { owner, parent },
-    }).then(files => {
+	return Promise.all(promises)
+		.then(([role, files]) => {
+			const { data: [{ _id: studentRoleId },] } = role;
 
-        files = files.filter(f => f);
+			files = files.filter(f => f).map((file) => {
+				const studentPerm = file.permissions.find(perm => perm.refId.toString() === studentRoleId);
+				if (studentPerm) {
+					file.studentCanEdit = studentPerm.write;
+				}
+				return file;
+			});
 
-        res.locals.files = {
-            files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
-            directories: files.filter(f => f.isDirectory)
-        };
-
-        next();
-    }).catch(err => {
-        next(err);
-    });
+			res.locals.files = {
+				files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				directories: files.filter(f => f.isDirectory),
+			};
+			next();
+		}).catch((err) => {
+			next(err);
+		});
 };
 
 /**
@@ -971,14 +982,13 @@ router.post('/directoryModel/:id/rename', function(req, res, next) {
 });
 
 router.post('/studentCanEdit', function(req, res, next) {
-   api(req).patch(`/files/${req.body.id}`, {
-       json: {
-           studentCanEdit: req.body.bool
-       }
-   })
-       .then(_ => {
-           res.json({success: true});
-       });
+    api(req).patch(`/fileStorage/permission/${req.body.id}`, {
+        json: {
+			role: 'student',
+			write: req.body.bool
+        }
+    })
+    .then(() => res.json({success: true}));
 });
 
 

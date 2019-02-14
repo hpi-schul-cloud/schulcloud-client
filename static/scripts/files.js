@@ -398,11 +398,11 @@ $(document).ready(function() {
         $('.btn-student-allow').hide();
 
     $('.btn-student-allow').click(function (e) {
+		const $button = $(this);
         e.stopPropagation();
         e.preventDefault();
-        let fileId = $(this).attr('data-file-id');
-        let bool = $(this).attr('data-file-can-edit') || false;
-        bool = bool == 'true';
+		let fileId = $button.attr('data-file-id');
+        let bool = $button.data('file-can-edit');
 
         $.ajax({
             type: "POST",
@@ -413,6 +413,7 @@ $(document).ready(function() {
             },
             success: function (data) {
                 if (data.success) {
+					$button.data('file-can-edit', !bool);
                     let id = e.target.id;
                     if (!id.includes('ban'))
                         id = `ban-${id}`;
