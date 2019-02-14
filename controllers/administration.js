@@ -2135,16 +2135,103 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 */
 
 router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
-    //Create ID for LDAP
+    //Create System for LDAP
+    const ldapTemplate = {
+        type : "ldap",
+        alias : res.locals.currentSchoolData.name,
+        __v : 0,
+        ldapConfig : {
+            url: "ldaps://",
+            rootPath: "",
+            searchUser: "",
+            searchUserPassword: "",
+            provider: "general",
+            providerOptions: {
+                schoolName: res.locals.currentSchoolData.name,
+                userPathAdditions: "",
+                classPathAdditions: "",
+                roleType: "group",
+                userAttributeNameMapping: {
+                    givenName: "givenName",
+                    sn: "sn",
+                    dn: "dn",
+                    uuid: "objectGUID",
+                    uid: "cn",
+                    mail: "mail",
+                    role: "description",
+                },
+                roleAttributeNameMapping: {
+                    roleStudent: "CN=schueler-bbshameln,CN=groups,OU=BBSHameln,DC=hlautrnetz,DC=local",
+                    roleTeacher: "CN=lehrer-bbshameln,CN=groups,OU=BBSHameln,DC=hlautrnetz,DC=local",
+                    roleAdmin: "CN=admins-bbshameln,CN=ouadmins,CN=Groups,DC=hlautrnetz,DC=local",
+                    roleNoSc: "cn=no-sc-bbshameln,cn=groups,ou=BBSHameln,dc=hlautrnetz,dc=local",
+                },
+                classAttributeNameMapping: {
+                    description: "name",
+                    dn: "dn",
+                    uniqueMember: "member",
+                },
+            }
+        }
+    };
 
-    //TODO change ID
-    res.redirect('/administration/systems/ldap/5c3c9f03732a7cf5b2665cc9');
-});
-router.get('/systems/ldap/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
-
-    res.render('administration/ldap-edit', {
-        title: 'LDAP bearbeiten',
+    api(req).post('/systems/', { json: ldapTemplate }).then(system => {
+        api(req).patch('/schools/' + res.locals.currentSchool, {
+            json: {
+                $push: {
+                    systems: system._id
+                }
+            }
+        }).then(data => {
+            res.redirect(`/administration/systems/ldap/edit/${system._id}`);
+        }).catch(err => {
+            next(err);
+        });
     });
+});
+router.get('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
+
+    //Find LDAP-System
+    const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+        qs: {
+            $populate: ['systems']
+        }
+    }));
+    system = school.systems.filter(system => system._id === req.params.id);
+
+    if (system.length == 1) {
+        res.render('administration/ldap-edit', {
+            title: 'LDAP bearbeiten',
+            system: system[0],
+        });
+    } else {
+        const err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    }
+
+});
+//Verifizieren
+router.post('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
+
+    //Find LDAP-System
+    const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+        qs: {
+            $populate: ['systems']
+        }
+    }));
+    system = school.systems.filter(system => system._id === req.params.id);
+
+    if (system.length == 1) {
+        res.render('administration/ldap-edit', {
+            title: 'LDAP bearbeiten',
+            system: system[0],
+        });
+    } else {
+        const err = new Error('Not Found');
+        err.status = 404;
+        next(err);
+    }
 
 });
 

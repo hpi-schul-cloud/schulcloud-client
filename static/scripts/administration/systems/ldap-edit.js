@@ -46,4 +46,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			document.querySelector('.class-settings').style.display = 'none';
 		}
 	}
+
+	document.querySelector('#select-roletype').dispatchEvent(new Event('change'));
+	document.querySelector('#select-classes').dispatchEvent(new Event('change'));
 });
