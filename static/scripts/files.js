@@ -261,13 +261,14 @@ $(document).ready(function() {
     });
 
     $('.card.file').on('click', function () {
-        if (isCKEditor) returnFileUrl($(this).data('file-name'));
+        if (isCKEditor) returnFileUrl($(this).data('file-id'), $(this).data('file-name'));
     });
 
     $('.card.file .title').on('click', function (e) {
         if (isCKEditor) {
             e.preventDefault();
-            returnFileUrl($(this).closest('.card.file').data('file-name'));
+            const $card = $(this).closest('.card.file');
+            returnFileUrl($card.data('file-id'), $card.data('file-name'));
         }
     });
 
@@ -339,8 +340,8 @@ $(document).ready(function() {
 
     });
 
-    let returnFileUrl = (fileName) => {
-        let fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
+    let returnFileUrl = (fileId,fileName) => {
+        let fullUrl = '/files/file?file=' + fileId +'&name=' + fileName;
         let funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
         window.close();
