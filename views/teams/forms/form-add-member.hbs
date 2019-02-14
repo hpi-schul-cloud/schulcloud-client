@@ -1,0 +1,41 @@
+<div class="mb-2">
+    <button type="button" data-tab="person" class="btn btn-set-tab" >Person hinzufügen</button>
+    <button type="button" data-tab="class" class="btn btn-set-tab">Klasse hinzufügen</button>
+</div>
+
+<div style="margin-bottom: 12rem" class="form-group form-users" data-tab="person">
+    <label for="invitation">Füge Lehrer und Schüler deiner Schule zum Team hinzu</label>
+
+    <select name="userIds[]" multiple data-placeholder="Personen auswählen">
+        {{#each users}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{#if this.displayName}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.firstName}} {{this.lastName}}
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>
+
+<div style="margin-bottom: 12rem" class="form-group form-classes" data-tab="class">
+    <label>Füge eine oder mehrere Klassen deiner Schule zum Team hinzu <br/><small>Nach dem Speichern werden alle Schüler automatisch hinzugefügt</small></label>
+
+    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+        {{#each classes}}
+            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                {{log this.year}}
+                {{#if this.name}}
+                    {{this.displayName}}
+                {{else}}
+                    {{this.name}}
+                {{/if}}
+
+                {{#if this.year}}
+                    ({{this.year.name}})
+                {{/if}}
+            </option>
+        {{/each}}
+    </select>
+</div>

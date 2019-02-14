@@ -1,0 +1,124 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/jquery/jquery-ui.min.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery/jquery.ui.touch-punch.js" type="text/javascript" defer></script>
+        <script src="/scripts/teamMembers.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+        {{#if method}}
+            <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+        {{/if}}
+
+        <div id="roles" data-roles="{{roles}}"></div>
+
+        <section class="section-course">
+            <div class="container-fluid">
+                <div class="row">
+                    {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}
+                        <div class="col-sm-6">
+                            <p>Füge Lehrer und Schüler aus deiner Schule zum Team hinzu.</p>
+                            <button class="btn btn-primary btn-add-member padding-bottom">
+                                Interne Teilnehmer hinzufügen
+                            </button>
+                        </div>
+                    {{/inArray}}
+
+                    {{#inArray "INVITE_EXPERTS" permissions}}
+                        <div class="col-sm-6">
+                            <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
+                            <button class="btn btn-primary btn-invite-external-member">
+                                Externe Teilnehmer einladen
+                            </button>
+                        </div>
+                    {{/inArray}}
+                </div>
+            </div>
+
+            {{#ifCond (arrayLength bodyInvitations) '>' 0}}
+                <h4 style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h4>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=../headInvitations body=../bodyInvitations}}
+                        </div>
+                    </div>
+                </div>
+            {{/ifCond}}
+
+            <h4 class="padding-top">
+                {{arrayLength body}} Teilnehmer
+            </h4>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 no-padding">
+                        {{> "lib/components/table" head=head body=body}}
+                    </div>
+                </div>
+            </div>
+
+            {{#if bodyClasses}}
+                <h4 class="padding-top">{{arrayLength bodyClasses}}
+                    {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
+                    {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
+                </h4>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=headClasses body=bodyClasses}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+            {{#embed "lib/components/modal-form" action=addMemberAction class="add-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-add-member" teamId=../_id users=users}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=editMemberAction class="edit-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-edit-member" roles=roles}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=deleteInvitationAction class="delete-invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-invitation"}}
+                {{/content}}
+            {{/embed}}            
+
+            {{#embed "lib/components/modal-form" action=resendInvitationAction class="resend-invitation-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-resend-invitation"}}
+                {{/content}}
+            {{/embed}}            
+
+            {{#embed "lib/components/modal-form" action=inviteExternalMemberAction class="invite-external-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-invite-external-member" teamId=../_id roles=rolesExternal}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-member-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-member"}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=deleteMemberAction class="delete-class-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-delete-class"}}
+                {{/content}}
+            {{/embed}}
+        </section>
+    {{/content}}
+{{/extend}}

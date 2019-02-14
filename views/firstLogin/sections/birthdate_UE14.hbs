@@ -1,0 +1,10 @@
+<section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
+  <h4>Geburtsdatum</h4>
+  <p>Zur Vervollständigung deines Accounts benötigen wir noch dein Geburtsdatum:</p>
+  <div class="row">
+    <div class="form-group col-md-6 col-sm-12">
+      <label>Geburtsdatum: *</label>
+      <input class="form-control linked" data-date data-min-date="{{datePickerTodayMinus 18 0 0}}" data-max-date="{{datePickerTodayMinus 14 0 0}}" value="{{datePickerTodayMinus 16 0 0 "DD.MM.YYYY"}}" name="studentBirthdate" type="text" required autocomplete="off" />
+    </div>
+  </div>
+</section>
