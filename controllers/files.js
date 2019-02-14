@@ -475,7 +475,7 @@ router.post('/directory', function (req, res, next) {
 // delete directory
 router.delete('/directory', function (req, res) {
     const data = {
-        path: req.body.key
+        _id: req.body.id
     };
 
     api(req).delete('/fileStorage/directories/', {
@@ -520,7 +520,8 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
-        parentId: req.params.folderId
+		parentId: req.params.folderId,
+		canEditPermissions: true,
     }, res.locals.files));
 });
 
@@ -590,7 +591,7 @@ router.get('/', function (req, res, next) {
     */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            showSearch: true
+            showSearch: true,
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
@@ -624,7 +625,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
     let canCreateFile = true;
 
     let breadcrumbs = [{
-        label: 'Dateien aus meinen Teams',
+        label: 'Dateien aus meinen Kursen',
         url: basePath
         }, {
         label: record.name,
@@ -655,7 +656,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
         courseId: req.params.courseId,
         ownerId: req.params.courseId,
         toCourseText: 'Zum Kurs',
-        courseUrl: `/courses/${req.params.courseId}/`,
+		courseUrl: `/courses/${req.params.courseId}/`,
+		canEditPermissions: true,
         parentId: req.params.folderId
     }, res.locals.files));
 });

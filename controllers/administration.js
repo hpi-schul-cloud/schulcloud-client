@@ -19,7 +19,7 @@ moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
     return api(req).get('/' + service, {
-		qs: query
+        qs: query
     }).then(data => {
         return data.data;
     });
@@ -34,7 +34,7 @@ const cutEditOffUrl = (url) => {    //nicht optimal, aber req.header('Referer') 
     return workingURL;
 };
 
-const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStudentAction = false) => {
+const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStudentAction = false, category) => {
     return [
         {
             link: path + item._id,
@@ -44,7 +44,7 @@ const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStuden
         },
         {
             link: path + item._id,
-            class: `${isAdmin ? 'btn-delete' : 'disabled'}`,
+            class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems' && 'btn-delete--systems'}`,
             icon: 'trash-o',
             method: `${isAdmin ? 'delete' : ''}`,
             title: 'Eintrag löschen'
@@ -394,7 +394,7 @@ const getSendHelper = (service) => {
                         desire: "",
                         benefit: "",
                         acceptanceCriteria: "",
-                        currentState : data.currentState,
+                        currentState: data.currentState,
                         targetState: data.targetState,
                         notes: data.notes,
                         schoolName: res.locals.currentSchoolData.name,
@@ -404,16 +404,16 @@ const getSendHelper = (service) => {
                         cloud: res.locals.theme.title
                     }
                 })
-                .then(_ => {
-                    api(req).patch('/' + service + '/' + req.params.id, {
-                        json: {
-                            state: 'submitted',
-                            order: 1
-                        }
+                    .then(_ => {
+                        api(req).patch('/' + service + '/' + req.params.id, {
+                            json: {
+                                state: 'submitted',
+                                order: 1
+                            }
+                        });
+                    }).catch(err => {
+                        res.status((err.statusCode || 500)).send(err);
                     });
-                }).catch(err => {
-                    res.status((err.statusCode || 500)).send(err);
-                });
                 res.redirect(req.get('Referrer'));
             });
     };
@@ -569,7 +569,7 @@ const createSystemHandler = (req, res, next) => {
                 }
             }
         }).then(data => {
-            next();
+            res.redirect('/administration/school')
         }).catch(err => {
             next(err);
         });
@@ -749,32 +749,8 @@ const getConsentStatusIcon = (consent, bool) => {
 // teacher admin permissions
 router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
     let title = returnAdminPrefix(res.locals.currentUser.roles);
-
-    api(req).get('/schools/' + res.locals.currentSchool).then(data => {
-        let provider = getStorageProviders();
-        provider = (provider || []).map(prov => {
-            if (prov.value == data.fileStorageType) {
-                return Object.assign(prov, {
-                    selected: true
-                });
-            } else {
-                return prov;
-            }
-        });
-
-        let ssoTypes = getSSOTypes();
-
-        api(req).get('/fileStorage/total').then(totalStorage => {
-            res.render('administration/school', {
-                title: title + 'Allgemein',
-                school: data,
-                isExpertSchool: data.purpose === "expert",
-                provider,
-                ssoTypes,
-                totalStorage: totalStorage,
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
-            });
-        });
+    res.render('administration/dashboard', {
+        title: title + 'Allgemein',
     });
 });
 
@@ -826,7 +802,7 @@ const getTeacherUpdateHandler = () => {
 
         // do all db requests
         Promise.all(promises).then(([user, consent]) => {
-            res.redirect(req.body.referrer); 
+            res.redirect(req.body.referrer);
         }).catch(err => {
             next(err);
         });
@@ -872,7 +848,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
         let consentsPromise;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        if(users.length > 0) {
+        if (users.length > 0) {
             consentsPromise = getSelectOptions(req, 'consents', {
                 userId: {
                     $in: users.map((user) => {
@@ -1024,13 +1000,13 @@ const getStudentUpdateHandler = () => {
                 termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
             };
         }
-        if(studentConsent._id){
-            let orgUserConsent = await api(req).get('/consents/'+studentConsent._id);
-            if(orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]){
+        if (studentConsent._id) {
+            let orgUserConsent = await api(req).get('/consents/' + studentConsent._id);
+            if (orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]) {
                 Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
                 studentConsent.parentConsents = orgUserConsent.parentConsents;
             }
-        }else if((studentConsent.userConsent||{}).form){
+        } else if ((studentConsent.userConsent || {}).form) {
             studentConsent.parentConsents = [newParentConsent];
         }
 
@@ -1045,14 +1021,14 @@ const getStudentUpdateHandler = () => {
 
         if (studentConsent._id) { // update exisiting consent
             promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
-        } else if((studentConsent.userConsent||{}).form){//create new consent entry
+        } else if ((studentConsent.userConsent || {}).form) {//create new consent entry
             delete studentConsent._id;
             studentConsent.userId = req.params.id;
             promises.push(api(req).post('/consents/', { json: studentConsent }));
         }
 
         Promise.all(promises).then(([user, studentConsent]) => {
-            res.redirect(req.body.referrer); 
+            res.redirect(req.body.referrer);
         }).catch(err => {
             next(err);
         });
@@ -1099,14 +1075,14 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
         const allStudentsCount = userData.total;
 
         const classesPromise = getSelectOptions(req, 'classes', {});
-        if(users.length > 0) {
+        if (users.length > 0) {
             consentsPromise = getSelectOptions(req, 'consents', {
-            userId: {
-                $in: users.map((user) => {
-                    return user._id;
-                })
-            },
-            $limit: itemsPerPage
+                userId: {
+                    $in: users.map((user) => {
+                        return user._id;
+                    })
+                },
+                $limit: itemsPerPage
             });
         } else {
             consentsPromise = Promise.resolve();
@@ -1373,20 +1349,20 @@ const renderClassEdit = (req, res, next, edit) => {
                     }
                 }
 
-            res.render('administration/classes-edit', {
-                title: `${edit?`Klasse '${currentClass.displayName}' bearbeiten`:"Erstelle eine neue Klasse"}`,
-                edit,
-                schoolyears,
-                teachers,
-                class: currentClass,
-                gradeLevels,
-                isCustom,
-                referrer: req.header('Referer')
+                res.render('administration/classes-edit', {
+                    title: `${edit ? `Klasse '${currentClass.displayName}' bearbeiten` : "Erstelle eine neue Klasse"}`,
+                    edit,
+                    schoolyears,
+                    teachers,
+                    class: currentClass,
+                    gradeLevels,
+                    isCustom,
+                    referrer: req.header('Referer')
+                });
             });
+        }).catch(err => {
+            next(err);
         });
-    }).catch(err => {
-        next(err);
-    });
 };
 const getClassOverview = (req, res, next) => {
     let query = {
@@ -1779,7 +1755,7 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
         qs: {
             $limit: itemsPerPage,
             $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort? req.query.sort : {order: 1},
+            $sort: req.query.sort ? req.query.sort : { order: 1 },
             "schoolId": res.locals.currentSchool
         }
     }).then(data => {
@@ -1796,10 +1772,10 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 
         const body = data.data.map(item => {
             return [
-                truncate(item.subject||""),
-                truncate(item.currentState||""),
-                truncate(item.targetState||""),
-                (item.category === "")? "": dictionary[item.category],
+                truncate(item.subject || ""),
+                truncate(item.currentState || ""),
+                truncate(item.targetState || ""),
+                (item.category === "") ? "" : dictionary[item.category],
                 dictionary[item.state],
                 moment(item.createdAt).format('DD.MM.YYYY'),
                 truncate(item.notes || ""),
@@ -2051,7 +2027,7 @@ router.delete('/teams/:id', (req, res, next) => {
 
 
 /*
-    SYSTEMS
+    SCHOOL / SYSTEMS / RSS
 */
 
 router.post('/systems/', createSystemHandler);
@@ -2059,48 +2035,124 @@ router.patch('/systems/:id', getUpdateHandler('systems'));
 router.get('/systems/:id', getDetailHandler('systems'));
 router.delete('/systems/:id', removeSystemFromSchoolHandler, getDeleteHandler('systems'));
 
-router.all('/systems', function (req, res, next) {
+router.get('/rss/:id', async (req, res) => {
+    const school = await api(req).patch('/schools/' + res.locals.currentSchool);
 
-    api(req).get('/schools/' + res.locals.currentSchool, {
+    const matchingRSSFeed = school.rssFeeds.find(feed => feed._id === req.params.id);
+
+    res.send(matchingRSSFeed);
+})
+
+router.post('/rss/', async (req, res) => {
+    const school = await api(req).get('/schools/' + req.body.schoolId);
+
+    if (school.rssFeeds.find(el => el.url === req.body.rssURL)) {
+        return res.redirect('/administration/school');
+    }
+
+    await api(req).patch('/schools/' + req.body.schoolId, {
+        json: {
+            $push: {
+                rssFeeds: { url: req.body.rssURL, description: req.body.description }
+            }
+        }
+    });
+
+    res.redirect('/administration/school');
+});
+
+router.delete('/rss/:id', async (req, res) => {
+    await api(req).patch('/schools/' + res.locals.currentSchool, {
+        json: {
+            $pull: {
+                rssFeeds: { _id: req.params.id }
+            }
+        }
+    });
+
+    res.redirect('/administration/school');
+});
+
+router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), async function (req, res, next) {
+
+    const [school, totalStorage] = await Promise.all([api(req).get('/schools/' + res.locals.currentSchool, {
         qs: {
             $populate: ['systems'],
             $sort: req.query.sort
         }
-    }).then(data => {
-        const head = [
-            'Alias',
-            'Typ',
-            'Url',
-            ''
-        ];
+    }), api(req).get('/fileStorage/total')]);
 
-        let body;
-        let systems;
-        if (data.systems) {
-            data.systems = _.orderBy(data.systems, req.query.sort, 'desc');
-            systems = data.systems.filter(system => system.type != 'local');
+    // SYSTEMS
+    const systemsHead = [
+        'Alias',
+        'Typ',
+        'Url',
+        ''
+    ];
+    let systemsBody;
+    let systems;
+    if (school.systems) {
+        school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
+        systems = school.systems.filter(system => system.type != 'local');
 
-            body = systems.map(item => {
-                let name = getSSOTypes().filter(type => item.type === type.value);
-                return [
-                    item.alias,
-                    name,
-                    item.url,
-                    getTableActions(item, '/administration/systems/')
-                ];
-            });
-
-        }
-
-        const availableSSOTypes = getSSOTypes();
-
-        res.render('administration/systems', {
-            title: 'Administration: Authentifizierungsdienste',
-            head,
-            body,
-            systems,
-            availableSSOTypes
+        systemsBody = systems.map(item => {
+            let name = getSSOTypes().filter(type => item.type === type.value);
+            return [
+                item.alias,
+                name,
+                item.url,
+                getTableActions(item, '/administration/systems/', true, false, false, 'systems')
+            ];
         });
+    }
+
+    // RSS
+    const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
+    let rssBody;
+    if (school.rssFeeds) {
+        rssBody = school.rssFeeds.map(({ _id, url, status, description }) => [
+            url,
+            description,
+            status === 'success' ? 'Aktiv' : status === 'error' ? 'Fehler beim Abrufen' : 'In der Warteschlange',
+            [{
+                link: `/administration/rss/${_id}`,
+                class: 'btn-delete btn-delete--rss',
+                icon: 'trash-o',
+                method: 'delete',
+                title: 'Eintrag löschen',
+            }],
+        ]);
+    }
+
+    // SCHOOL
+    let title = returnAdminPrefix(res.locals.currentUser.roles);
+    let provider = getStorageProviders();
+    provider = (provider || []).map(prov => {
+        if (prov.value == school.fileStorageType) {
+            return Object.assign(prov, {
+                selected: true
+            });
+        } else {
+            return prov;
+        }
+    });
+
+    const ssoTypes = getSSOTypes();
+
+    res.render('administration/school', {
+        title: title + 'Schule',
+        school,
+        systems,
+        provider,
+        availableSSOTypes: ssoTypes,
+        ssoTypes,
+        totalStorage,
+        systemsHead,
+        systemsBody,
+        rssHead,
+        rssBody,
+        hasRSS: rssBody && !!rssBody.length,
+        schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
     });
 });
 
