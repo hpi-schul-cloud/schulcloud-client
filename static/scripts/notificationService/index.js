@@ -69,20 +69,6 @@ export const pushManager = {
 		return json;
 	},
 
-	handleNotification(registration, data, origin) {
-		if (this.handledMessages.includes(data.data._id) === false) {
-			// this.handledMessages.push(data.data._id);
-			while (this.handledMessages.length > 100) {
-				this.handledMessages.shift();
-			}
-			console.log('notification event arrived in pushManager', data);
-			return notificationHandler.handle(registration, data);
-			// sendShownCallback(data);
-		}
-		// console.log('ignore push duplicate', data);
-		return Promise.resolve('push duplicate');
-	},
-
 	requestPermission() {
 		document.cookie = 'notificationPermission=true; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
 		if (this.requestPermissionCallback) {

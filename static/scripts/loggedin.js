@@ -285,7 +285,7 @@ window.addEventListener('load', () => {
 		// 	});
 		// }
 		// enable messaging service worker
-		navigator.serviceWorker.register('/sw-messaging.js', { scope: '/sw-messaging/' }).then((registration) => {
+		navigator.serviceWorker.register('/sw.js', { scope: '/' }).then((registration) => {
 			setupFirebasePush(registration);
 			messageClient.setupMessagingClient(registration);
 		});

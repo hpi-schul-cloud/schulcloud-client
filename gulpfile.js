@@ -234,9 +234,9 @@ gulp.task('generate-service-worker', ['sw-build'], () => beginPipeAll(['./static
 	.pipe(webpackStream(Object.assign({}, webpackConfig, { output: { filename: 'sw.js' } }), webpack))
 	.pipe(gulp.dest(`./build/${themeName()}`)));
 
-gulp.task('generate-messaging-service-worker', () => beginPipeAll(['./static/sw-messaging.js'])
-	.pipe(webpackStream(Object.assign({}, webpackConfig, { output: { filename: 'sw-messaging.js' } }), webpack))
-	.pipe(gulp.dest(`./build/${themeName()}`)));
+// gulp.task('generate-messaging-service-worker', () => beginPipeAll(['./static/sw-messaging.js'])
+// 	.pipe(webpackStream(Object.assign({}, webpackConfig, { output: { filename: 'sw-messaging.js' } }), webpack))
+// 	.pipe(gulp.dest(`./build/${themeName()}`)));
 
 gulp.task('sw-build',
 	['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
@@ -267,7 +267,7 @@ gulp.task('clear', () => gulp.src(['./build/*', './.gulp-changed-smart.json', '.
 // run all tasks, processing changed files
 gulp.task('build-all', ['images', 'other', 'styles', 'styles-done', 'fonts', 'scripts', 'base-scripts',
 	'vendor-styles', 'vendor-scripts', 'vendor-assets', 'vendor-optimized-assets',
-	'generate-service-worker', 'generate-messaging-service-worker', 'sw-workbox', 'node-modules',
+	'generate-service-worker', /* 'generate-messaging-service-worker',*/ 'sw-workbox', 'node-modules',
 ]);
 
 gulp.task('build-theme-files', ['styles', 'styles-done', 'images']);
@@ -282,7 +282,7 @@ gulp.task('watch', ['build-all'], () => {
 
 	gulp.watch(withTheme('./static/vendor-optimized/**/*.*'), watchOptions, ['vendor-optimized-assets']);
 	gulp.watch(withTheme('./static/sw.js'), watchOptions, ['generate-service-worker']);
-	gulp.watch(withTheme('./static/sw-messaging.js'), watchOptions, ['generate-messaging-service-worker']);
+	// gulp.watch(withTheme('./static/sw-messaging.js'), watchOptions, ['generate-messaging-service-worker']);
 	gulp.watch(withTheme('./static/scripts/sw/workbox/*.*'), watchOptions, ['sw-workbox']);
 });
 

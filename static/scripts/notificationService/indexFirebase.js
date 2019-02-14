@@ -214,7 +214,7 @@ async function setupFirebasePush(registration) {
 
 	// Handle incoming messages. Called when:
 	// - a message is received while the app has focus
-	messaging.onMessage(payload => pushManager.handleNotification(registration, payload, 'frontend'));
+	// messaging.onMessage(payload => pushManager.handleNotification(registration, payload, 'frontend'));
 }
 
 module.exports = { setupFirebasePush };
