@@ -750,7 +750,7 @@ window.fileViewer = function fileViewer(type, name, id) {
         case 'application/vnd.oasis.opendocument.presentation':	                            //.odp
         case 'text/plain':                                                                  //.txt
             $('#file-view').hide();
-            win = window.open(`/files/file/${id}/lool`, '_blank');
+            win = window.open(`/files/file/${id}/lool`, '_self');
             win.focus();
 
             break;
