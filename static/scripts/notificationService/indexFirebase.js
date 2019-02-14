@@ -61,7 +61,7 @@ const updateUI = function (task, error) {
 	if (task === 'pushNotSupported') {
 		$('#notificationInit').hide();
 		$('#notificationError').show();
-		$('.notificationStatusInfo').text('Push-Benachrichtigungen werden von deinen Browser nicht unterstützt.');
+		$('.notificationStatusInfo').text('Push-Benachrichtigungen für deinen Browser werden derzeit noch nicht unterstützt.');
 		console.log(error.message);
 	}
 };
