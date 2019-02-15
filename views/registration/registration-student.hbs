@@ -24,20 +24,20 @@
         <div class="row">
           <div class="form-group col-md-6 col-sm-12">
             <label>Vorname: <sup>*</sup></label>
-            <input class="form-control linked" name="firstName" type="text" placeholder="Dein offizieller Vorname, kein Spitzname" 
+            <input class="form-control linked" name="firstName" type="text" placeholder="Dein offizieller Vorname, kein Spitzname"
                 value="{{user.firstName}}" required {{#if user.firstName}}readonly{{/if}}/>
           </div>
           <div class="form-group col-md-6 col-sm-12">
             <label>Nachname: <sup>*</sup></label>
-            <input class="form-control linked" name="lastName" type="text" placeholder="Dein offizieller Nachname" 
+            <input class="form-control linked" name="lastName" type="text" placeholder="Dein offizieller Nachname"
                 value="{{user.lastName}}" required {{#if user.lastName}}readonly{{/if}}/>
           </div>
         </div>
 
         <div class="form-group">
             <label>Geburtsdatum: <sup>*</sup></label>
-            <input class="form-control linked" name="birthDate" type="text" 
-                data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 18 0 0}}" 
+            <input class="form-control linked" name="birthDate" type="text"
+                data-date data-min-date="{{datePickerTodayMinus 100 0 0}}" data-max-date="{{datePickerTodayMinus 18 0 0}}"
                 value="{{#if user.birthday}}{{dateToPicker user.birthday}}{{else}}{{datePickerTodayMinus 19 0 0 "DD.MM.YYYY"}}{{/if}}"
                 required {{#if user.birthday}}readonly{{/if}} autocomplete="off" />
 
@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <label>E-Mail-Adresse: <sup>*</sup></label>
-            <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org" 
+            <input class="form-control linked" type="email" name="email" placeholder="schueler@schul-cloud.org"
                 value="{{user.email}}" required {{#if user.email}}readonly{{/if}}>
         </div>
         <p class="explanation nomargin">
@@ -91,7 +91,7 @@
       <section data-panel="section-4">
         <h4>Vielen Dank für die Registrierung in der {{theme.short_title}}!</h4>
 
-        {{#if sso}}
+        {{#if user.sso}}
             <p>Deine SSO-Accountdaten sind jetzt freigeschaltet.</p>
         {{else}}
             <div id="userdata-summary">

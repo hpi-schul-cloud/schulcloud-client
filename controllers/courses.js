@@ -96,8 +96,8 @@ const editCourseHandler = (req, res, next) => {
         $populate: ["year"],
         $limit: 1000
     }}).then(data => data.data );
-    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
-    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false });
+    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: false });
 
     Promise.all([
         coursePromise,

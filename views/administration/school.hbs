@@ -36,6 +36,13 @@
                             <img id="preview-logo" src="">
                             <canvas id="logo-canvas" width="35" height="35" class="hidden"></canvas>
                         </div>
+                        
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" name="rocketchat" value="true" {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
+                                Freischaltung des Messengers für einzelne Bereiche zulassen
+                            </label>
+                        </div>
 
                         {{#if ../school.fileStorageType}}
                         <div class="form-group">
