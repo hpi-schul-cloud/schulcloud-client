@@ -14,9 +14,19 @@ Probably delete it.--}}
 
 {{#content "page"}}
 <section class="section-classes-create">
-    <form class="create-form" method="post" action="">
+    <form class="create-form" id="ldap-form" method="post" action="">
         {{> "administration/forms/form-ldap-edit"}}
     </form>
+</section>
+<section id="verifyarea" style="display:none;">
+    <h5>Nutzer: <a href="#" id="usertoggle">Ausblenden</a></h5>
+    <table class="table table-hover table-bordered" id="userTable" border="1">
+        <tr><th>Vorname</th><th>Nachname</th><th>E-Mail</th><th>uid</th><th>Rolle(n)</th><th>Domainname</th><th>uuid</th></tr>
+    </table>
+    <h5>Klassen: <a href="#" id="classtoggle">Ausblenden</a></h5>
+    <table class="table table-hover table-bordered" id="classTable" border="1">
+        <tr><th>Name</th><th>Domain</th><th>Nutzer der Klasse</th></tr>
+    </table>
 </section>
 {{/content}}
 {{/extend}}

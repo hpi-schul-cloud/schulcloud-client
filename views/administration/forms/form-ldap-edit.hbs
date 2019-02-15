@@ -63,37 +63,37 @@
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
         <label>Vorname</label>
-        <input class="form-control linked user-attribute" disabled name="givenName" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.givenName}}"/>
+        <input class="form-control linked user-attribute" readonly name="givenName" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.givenName}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <label>Nachname</label>
-        <input class="form-control linked user-attribute" disabled name="sn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.sn}}"/>
+        <input class="form-control linked user-attribute" readonly name="sn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.sn}}"/>
     </div>
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
         <label>Domainname</label>
-        <input class="form-control linked user-attribute" disabled name="dn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.dn}}"/>
+        <input class="form-control linked user-attribute" readonly name="dn" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.dn}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <label>uid <i class="fa fa-question-circle"></i></label>
-        <input class="form-control linked user-attribute" disabled name="uid" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.uid}}"/>
+        <input class="form-control linked user-attribute" readonly name="uid" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.uid}}"/>
     </div>
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
         <label>uuid <i class="fa fa-question-circle"></i></label>
-        <input class="form-control linked user-attribute" disabled name="uuid" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.uuid}}"/>
+        <input class="form-control linked user-attribute" readonly name="uuid" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.uuid}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <label>E-Mail</label>
-        <input class="form-control linked user-attribute" disabled name="mail" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.mail}}"/>
+        <input class="form-control linked user-attribute" readonly name="mail" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.mail}}"/>
     </div>
 </div>
 <div class="row" id="role-name">
     <div class="form-group col-sm-6 col-xs-12">
         <label>Rolle <i class="fa fa-question-circle"></i></label>
-        <input class="form-control linked user-attribute" disabled name="role" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.role}}"/>
+        <input class="form-control linked user-attribute" readonly name="role" type="text" value="{{system.ldapConfig.providerOptions.userAttributeNameMapping.role}}"/>
     </div>
 </div>
 
@@ -109,21 +109,21 @@
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
         <label>Student</label>
-        <input class="form-control linked role-attribute" disabled name="studentrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleStudent}}"/>
+        <input class="form-control linked role-attribute" readonly name="studentrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleStudent}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <label>Lehrer</label>
-        <input class="form-control linked role-attribute" disabled name="lehrerrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleTeacher}}"/>
+        <input class="form-control linked role-attribute" readonly name="teacherrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleTeacher}}"/>
     </div>
 </div>
 <div class="row">
     <div class="form-group col-sm-6 col-xs-12">
         <label>Admin</label>
-        <input class="form-control linked role-attribute" disabled name="adminrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleAdmin}}"/>
+        <input class="form-control linked role-attribute" readonly name="adminrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleAdmin}}"/>
     </div>
     <div class="form-group col-sm-6 col-xs-12">
         <label>keine Schul-Cloud <i class="fa fa-question-circle"></i></label>
-        <input class="form-control linked role-attribute" disabled name="nosc" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleNoSc}}"/>
+        <input class="form-control linked role-attribute" readonly name="noscrole" type="text" value="{{system.ldapConfig.providerOptions.roleAttributeNameMapping.roleNoSc}}"/>
     </div>
 </div>
 
@@ -148,23 +148,23 @@
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
             <label>Anzeige-Name</label>
-            <input class="form-control linked class-attribute" disabled name="description" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.description}}"/>
+            <input class="form-control linked class-attribute" readonly name="classdescription" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.description}}"/>
         </div>
         <div class="form-group col-sm-6 col-xs-12">
             <label>Domain-Name</label>
-            <input class="form-control linked class-attribute" disabled name="dn" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.dn}}"/>
+            <input class="form-control linked class-attribute" readonly name="classdn" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.dn}}"/>
         </div>
     </div>
     <div class="row">
         <div class="form-group col-sm-6 col-xs-12">
             <label>Nutzer der Klasse mit vollem Pfad</label>
-            <input class="form-control linked class-attribute" disabled name="uniquemember" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.uniqueMember}}"/>
+            <input class="form-control linked class-attribute" readonly name="classuniquemember" type="text" value="{{system.ldapConfig.providerOptions.classAttributeNameMapping.uniqueMember}}"/>
         </div>
     </div>
 </div>
 
 <div class="modal-footer mt-1">
     <a href="/administration/systems" class="btn btn-secondary">Abbrechen</a>
-    <button class="btn btn-primary" type="submit">Verifizieren</button>
-    <button class="btn btn-secondary" type="submit" disabled>Änderungen speichern</button>
+    <button id="verify" class="btn btn-primary">Verifizieren</button>
+    <button id="savesubmit" class="btn btn-secondary" disabled>Änderungen speichern</button>
 </div>
