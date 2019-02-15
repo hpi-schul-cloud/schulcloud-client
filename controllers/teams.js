@@ -104,7 +104,6 @@ const editTeamHandler = (req, res, next) => {
     }
 
     teamPromise.then(team => {
-        console.log(team);
         res.render('teams/edit-team', {
             action,
             method,
