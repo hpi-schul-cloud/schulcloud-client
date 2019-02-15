@@ -2166,9 +2166,10 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
 	//Create System for LDAP
 	const ldapTemplate = {
-		type: 'ldap-inactive',
+		type: 'ldap',
 		alias: res.locals.currentSchoolData.name,
 		ldapConfig: {
+			active: false,
 			url: 'ldaps://',
 			rootPath: '',
 			searchUser: '',
@@ -2239,7 +2240,7 @@ router.get('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN
 	}
 
 });
-//Verifizieren
+// Verify
 router.post('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
 
 	//Find LDAP-System
@@ -2250,11 +2251,27 @@ router.post('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMI
 	}));
 	system = school.systems.filter(system => system._id === req.params.id);
 
-	api(req).patch('/systems/' + req.params.id, {
+	//Classes acitve
+	let classesPath = req.body.classpath;
+	if (req.body.activateclasses !== 'on') {
+		classesPath = '';
+	}
+
+	let ldapURL = req.body.ldapurl;
+	if (!ldapURL.startsWith('ldaps')) {
+		if (ldapURL.includes('ldap')) {
+			ldapURL = ldapURL.replace('ldap', 'ldaps');
+		} else {
+			ldapURL = `ldaps://${ldapURL}`;
+		}
+	}
+
+	api(req).patch('/systems/' + system[0]._id, {
 		json: {
 			alias: req.body.ldapalias,
 			ldapConfig: {
-				url: req.body.ldapurl,
+				active: false,
+				url: ldapURL,
 				rootPath: req.body.rootpath,
 				searchUser: req.body.searchuser,
 				searchUserPassword: req.body.searchuserpassword,
@@ -2262,7 +2279,7 @@ router.post('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMI
 				providerOptions: {
 					schoolName: res.locals.currentSchoolData.name,
 					userPathAdditions: req.body.userpath,
-					classPathAdditions: req.body.classpath,
+					classPathAdditions: classesPath,
 					roleType: req.body.roletype,
 					userAttributeNameMapping: {
 						givenName: req.body.givenName,
@@ -2289,26 +2306,37 @@ router.post('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMI
 		}
 	}).then(data => {
 
-		api(req).get('/ldap/' + req.params.id).then(data => {
+		api(req).get('/ldap/' + system[0]._id).then(data => {
 			res.json(data);
 		})
-
-		//res.json('{title: 0}');
 	}).catch(err => {
 		res.json('{}');
 	});
+});
 
-	/*if (system.length == 1) {
-		res.render('administration/ldap-edit', {
-			title: 'LDAP bearbeiten',
-			system: system[0],
-		});
-	} else {
-		const err = new Error('Not Found');
-		err.status = 404;
-		next(err);
-	}*/
+// Activate
+router.post('/systems/ldap/activate/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
 
+	//Find LDAP-System
+	const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+		qs: {
+			$populate: ['systems']
+		}
+	}));
+	system = school.systems.filter(system => system._id === req.params.id);
+
+	api(req).patch('/systems/' + system[0]._id, {
+		json: {
+			ldapConfig: {
+				active: true,
+			}
+		}
+	}).then(data => {
+			// TODO ... Just empty data?
+			res.json(data);
+	}).catch(err => {
+		res.json('{}');
+	});
 });
 
 

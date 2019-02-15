@@ -42,13 +42,47 @@ function deleteTableRows(table) {
 	}
 }
 
+function activateLDAP(event) {
+	event.preventDefault();
+
+	let activeURL = window.location.href;
+	activeURL = activeURL.replace('edit', 'activate');
+
+	$.ajax({
+		type: 'POST',
+		url: activeURL,
+		timeout: 10000, // sets timeout to 10 seconds
+		error: function(){
+			// will fire when timeout is reached
+			$.showNotification("Zeitüberschreitung der Anwendung", "danger");
+		},
+		success: function (response) {
+			window.location.replace(window.location.origin + '/administration/school');
+		},
+	});
+}
+
 function verifyLDAPData(event) {
 	event.preventDefault();
+
+	// Check for ldaps
+	if (!document.querySelector('[name="ldapurl"]').value.startsWith('ldaps')) {
+		return $.showNotification("LDAP ist nur über das sichere Protokoll ldaps möglich!", "danger");
+	}
+
 	$.ajax({
 		type: 'POST',
 		url: window.location.href,
 		data: $('#ldap-form').serialize(),
 		dataType: 'json',
+		timeout: 10000, // sets timeout to 10 seconds
+		error: function(){
+			// will fire when timeout is reached
+			$.showNotification("LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), flasche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.", "danger");
+		
+			// Make save button deactive
+			document.querySelector('#savesubmit').disabled = true;
+		},
 		success: function (response) {
 			// Find user table and empty all data
 			const userTable = document.querySelector('#userTable');
@@ -118,6 +152,9 @@ window.addEventListener('DOMContentLoaded', () => {
 	document.querySelector('#verify').addEventListener('click', (clicked) => {
 		verifyLDAPData(clicked);
 	});
+	document.querySelector('#savesubmit').addEventListener('click', (clicked) => {
+		activateLDAP(clicked);
+	});
 
 	// User overview tables
 	document.querySelector('#usertoggle').addEventListener('click', (clicked) => { toggleTableClass(clicked, '#userTable'); });
@@ -128,9 +165,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (e.target.options[e.target.selectedIndex].value === 'group') {
 			document.querySelector('#role-name').style.display = 'none';
 			document.querySelector('#headline-role-type').innerHTML = 'Rollen-LDAP-Pfade';
+			document.querySelector('#description-role-attribute').setAttribute('title', 'Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an');
 		} else {
 			document.querySelector('#role-name').style.display = 'block';
 			document.querySelector('#headline-role-type').innerHTML = 'Rollen-Attribute';
+			document.querySelector('#description-role-attribute').setAttribute('title', 'Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?');
 		}
 	};
 
