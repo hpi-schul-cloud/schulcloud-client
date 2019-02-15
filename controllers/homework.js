@@ -374,7 +374,7 @@ router.post('/submit/:id/files', function(req, res, next) {
 /* adds shared permission for teacher in the corresponding homework */
 router.post('/submit/:id/files/:fileId/permissions', (req, res) => {
 	const { fileId, id: submissionId } = req.params;
-	const { homeworkId, teamMembers } = req.body.homeworkId;
+	const { homeworkId, teamMembers } = req.body;
 
 	// if homework is already given, just fetch homework
 	const homeworkPromise = homeworkId
