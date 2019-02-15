@@ -265,7 +265,6 @@ router.post('/', async (req, res, next) => {
 	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
 		delete req.body.untilDate;
 
-	const currentTeamState = await api(req).get(`/teams/${req.params.id}`);
 	if (req.body.rocketchat === 'true') {
 		req.body.features = ['rocketChat'];
 	}
