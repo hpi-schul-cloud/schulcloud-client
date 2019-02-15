@@ -1,3 +1,4 @@
+/* eslint no-confusing-arrow: 0 */
 /*
  * One Controller per layout view
  */
@@ -370,23 +371,17 @@ router.post('/submit/:id/files', function(req, res, next) {
     .catch(err => res.send(err));
 });
 
-/** adds shared permission for teacher in the corresponding homework **/
-router.post('/submit/:id/files/:fileId/permissions', function(req, res, next) {
-    const submissionId = req.params.id;
-    const fileId = req.params.fileId;
-    const homeworkId = req.body.homeworkId;
-    const teamMembers = req.body.teamMembers;
+/* adds shared permission for teacher in the corresponding homework */
+router.post('/submit/:id/files/:fileId/permissions', (req, res) => {
+	const { fileId, id: submissionId } = req.params;
+	const { homeworkId, teamMembers } = req.body.homeworkId;
 
-    // if homework is already given, just fetch homework
-    const homeworkPromise = homeworkId ?
-        api(req).get('/homework/' + homeworkId) :
-        api(req).get('/submissions/' + submissionId, {
-            qs: {
-                $populate: ['homeworkId'],
-            }
-        });
+	// if homework is already given, just fetch homework
+	const homeworkPromise = homeworkId
+		? api(req).get(`/homework/${homeworkId}`)
+		: api(req).get(`/submissions/${submissionId}`, { qs: { $populate: ['homeworkId'] } });
 
-	const filePromise = api(req).get('/files/' + fileId);
+	const filePromise = api(req).get(`/files/${fileId}`);
 
 	Promise.all([homeworkPromise, filePromise])
 		.then(([homework, file]) => {
@@ -399,11 +394,14 @@ router.post('/submit/:id/files/:fileId/permissions', function(req, res, next) {
 				delete: false,
 			});
 
-	        return api(req).patch('/files/' + file._id, { json: file }).then(result => res.json(result)).then(_ => {
-				// if there is already an submission, it is more safe to add the permissions at this step (if the user
+			return api(req).patch(`/files/${file._id}`, { json: file })
+				.then(result => res.json(result))
+				// if there is already an submission, it is more
+				// safe to add the permissions at this step (if the user
 				// forgets to click on save)
-				return teamMembers ? addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId]) : Promise.resolve({});
-        	});
+				.then(() => teamMembers
+					? addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId])
+					: Promise.resolve({}));
 		})
 		.catch(err => res.send(err));
 });
