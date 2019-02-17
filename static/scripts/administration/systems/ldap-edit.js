@@ -177,11 +177,11 @@ window.addEventListener('DOMContentLoaded', () => {
 		if (e.target.options[e.target.selectedIndex].value === 'group') {
 			document.querySelector('#role-name').style.display = 'none';
 			document.querySelector('#headline-role-type').innerHTML = 'Rollen-LDAP-Pfade';
-			document.querySelector('#description-role-attribute').setAttribute('title', 'Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an');
+			document.querySelector('#description-role-attribute').setAttribute('data-original-title', 'Welche LDAP-Gruppe definiert die genannten Rolle? Geben Sie den vollen Pfad (inkl. root-Pfad) an');
 		} else {
 			document.querySelector('#role-name').style.display = 'block';
 			document.querySelector('#headline-role-type').innerHTML = 'Rollen-Attribute';
-			document.querySelector('#description-role-attribute').setAttribute('title', 'Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?');
+			document.querySelector('#description-role-attribute').setAttribute('data-original-title', 'Welcher Wert in Ihrem zuvor definierten Rollen-Feld entspricht der genannten Rolle?');
 		}
 	};
 
