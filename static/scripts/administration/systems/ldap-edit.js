@@ -75,6 +75,8 @@ function verifyLDAPData(event) {
 		return $.showNotification("LDAP ist nur über das sichere Protokoll ldaps möglich!", "danger");
 	}
 
+	$('#verify-icon').addClass('fa fa-spinner fa-spin fa-fw');
+
 	$.ajax({
 		type: 'POST',
 		url: window.location.href,
@@ -87,6 +89,9 @@ function verifyLDAPData(event) {
 		
 			// Make save button deactive
 			document.querySelector('#savesubmit').disabled = true;
+
+			//Remove Loading Icon
+			$('#verify-icon').removeClass('fa fa-spinner fa-spin fa-fw');
 		},
 		success: function (response) {
 			// Find user table and empty all data
@@ -137,12 +142,14 @@ function verifyLDAPData(event) {
 				currentCell.innerHTML = singleClass.uniqueMembers;
 			});
 
-
 			// Make tables visible
 			document.querySelector('#verifyarea').style.display = 'block';
 
 			// Make save button active
 			document.querySelector('#savesubmit').disabled = false;
+
+			//Remove Loading Icon
+			$('#verify-icon').removeClass('fa fa-spinner fa-spin fa-fw');
 		},
 	});
 }

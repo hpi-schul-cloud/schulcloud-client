@@ -36,25 +36,29 @@ const cutEditOffUrl = (url) => {    //nicht optimal, aber req.header('Referer') 
 };
 
 const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStudentAction = false, category) => {
+	let editButtonClass = 'btn-edit';
+	if (item.type === 'ldap') {
+		editButtonClass = 'btn-edit-ldap';
+	}
 	return [
 		{
-			link: path + item._id,
-			class: `btn-edit ${isTeacher ? 'disabled' : ''}`,
+			link: item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
+			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
 			icon: 'edit',
-			title: 'Eintrag bearbeiten'
+			title: 'Eintrag bearbeiten',
 		},
 		{
 			link: path + item._id,
 			class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems' && 'btn-delete--systems'}`,
 			icon: 'trash-o',
 			method: `${isAdmin ? 'delete' : ''}`,
-			title: 'Eintrag löschen'
+			title: 'Eintrag löschen',
 		},
 		{
 			link: isStudentAction ? path + 'pw/' + item._id : '',
 			class: isStudentAction ? 'btn-pw' : 'invisible',
 			icon: isStudentAction ? 'key' : '',
-			title: 'Passwort zurücksetzen'
+			title: 'Passwort zurücksetzen',
 		}
 	];
 };
@@ -589,7 +593,8 @@ const getSSOTypes = () => {
 	return [
 		{ label: 'Moodle', value: 'moodle' },
 		{ label: 'itslearning', value: 'itslearning' },
-		{ label: 'IServ', value: 'iserv' }
+		{ label: 'IServ', value: 'iserv' },
+		{ label: 'LDAP', value: 'ldap' },
 	];
 };
 
@@ -2089,8 +2094,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 	const systemsHead = [
 		'Alias',
 		'Typ',
-		'Url',
-		''
+		'',
 	];
 	let systemsBody;
 	let systems;
@@ -2103,8 +2107,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 			return [
 				item.alias,
 				name,
-				item.url,
-				getTableActions(item, '/administration/systems/', true, false, false, 'systems')
+				getTableActions(item, '/administration/systems/', true, false, false, 'systems'),
 			];
 		});
 	}
