@@ -134,7 +134,23 @@ router.all('/', async (req, res, next) => {
 	if (!query) delete queryObject.title;
 
 	try {
-		const news = await api(req).get('/news/', { qs: queryObject })
+		const teams = await api(req).get('/teams/', {
+			qs: {
+				userIds: {
+					$elemMatch: { userId: res.locals.currentUser._id }
+				},
+				$limit: 75
+			}
+		});
+		const teamIds = teams.data.map(t => t._id);
+		let news = await api(req).get('/news/', { qs: queryObject });
+		news.data = news.data.filter((n) => {
+			if (n.targetModel === 'teams') {
+				return n.target && n.target._id && teamIds.includes(n.target._id);
+			}
+
+			return n;
+		})
 		const totalNews = news.total;
 		const colors = ["#F44336", "#E91E63", "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4", "#009688", "4CAF50", "CDDC39", "FFC107", "FF9800", "FF5722"];
 		const mappedNews = news.data.map((newsItem) => {
@@ -173,6 +189,7 @@ router.all('/', async (req, res, next) => {
 			showSearch: true,
 		});
 	} catch (err) {
+		console.log(err)
 		next(err);
 	}
 });
