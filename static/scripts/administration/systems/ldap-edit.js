@@ -56,8 +56,13 @@ function activateLDAP(event) {
 			// will fire when timeout is reached
 			$.showNotification("Zeitüberschreitung der Anwendung", "danger");
 		},
-		success: function (response) {
-			window.location.replace(window.location.origin + '/administration/school');
+		success: function (data) {
+			if(data === 'success')
+			{
+				window.location.replace(window.location.origin + '/administration/school');
+			} else {
+				$.showNotification("Problem bei der Aktivierung", "danger");
+			}
 		},
 	});
 }

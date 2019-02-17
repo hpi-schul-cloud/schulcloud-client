@@ -2327,15 +2327,12 @@ router.post('/systems/ldap/activate/:id', permissionsHelper.permissionsChecker('
 
 	api(req).patch('/systems/' + system[0]._id, {
 		json: {
-			ldapConfig: {
-				active: true,
-			}
+			'ldapConfig.active': true,
 		}
 	}).then(data => {
-			// TODO ... Just empty data?
-			res.json(data);
+		res.json('success');
 	}).catch(err => {
-		res.json('{}');
+		res.json('error');
 	});
 });
 
