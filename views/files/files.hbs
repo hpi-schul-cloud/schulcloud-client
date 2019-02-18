@@ -52,8 +52,8 @@
 								   target="_blank"
 								   data-method="delete"
                                    title="Ordner löschen"
-								   data-file-name="{{{../this.name}}}"
-								   data-file-key="{{../this.path}}">
+								   data-file-id="{{../this._id}}"
+								   data-file-name="{{{../this.name}}}">
 									<i class="fa fa-trash-o pull-right"></i>
 								</a>
 
@@ -76,7 +76,7 @@
                                     data-file-name="{{../this.name}}"
                                     >
                                         <i class="fa fa-share-alt pull-right"></i>
-                                    </a>  
+                                    </a>
                                 {{/if}}
                                 {{/userHasPermission}}
 							</div>
