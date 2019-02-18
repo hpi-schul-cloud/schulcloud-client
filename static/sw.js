@@ -6,20 +6,6 @@ importScripts('/vendor-optimized/firebase/firebase-app.js');
 importScripts('/vendor-optimized/firebase/firebase-messaging.js');
 
 
-async function setupFirebaseMessaging() {
-	const firebaseOptions = await pushManager.getOptions('firebaseOptions', false);
-
-	// FIXME
-	// messagingSW.setupMessaging();
-
-	firebase.initializeApp(firebaseOptions);
-	const messaging = firebase.messaging();
-
-	// messaging.setBackgroundMessageHandler(
-	//     payload => pushManager.handleNotification(self.registration, payload, 'background'),
-	// );
-}
-
 // self.addEventListener('message', (event) => {
 // 	// FIXME update PM to handle message
 // 	event.waitUntil(pushManager.handleNotification(self.registration, event));
@@ -43,8 +29,6 @@ workbox.clientsClaim();
 workbox.precaching.precacheAndRoute([]);
 
 self.addEventListener('install', (event) => {
-	// FIXME ignore for safari, use apple push instead
-	setupFirebaseMessaging();
 	const urls = ['/calendar/events/'];
 	const cacheName = workbox.core.cacheNames.runtime;
 	event.waitUntil(caches.open(cacheName).then(cache => cache.addAll(urls)));

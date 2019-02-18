@@ -83,8 +83,6 @@ async function setupFirebasePush(registration) {
 		updateUI('pushNotSupported', error);
 		return;
 	}
-	messaging.useServiceWorker(registration);
-
 
 	function isTokenSentToServer() {
 		return window.localStorage.getItem('firebaseTokenSentToServer') === '1';
