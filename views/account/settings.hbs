@@ -1,6 +1,6 @@
 {{#extend "lib/loggedin"}}
 {{#content "styles" mode="append"}}
-<link rel="stylesheet" href="/styles/account/settings.css"/>
+<link rel="stylesheet" href="/styles/account/settings.css" />
 {{/content}}
 
 {{#content "scripts" mode="append"}}
@@ -26,25 +26,26 @@
         </div>
         {{/ifneq}}
 
-    <div class="form-group">
-        <span><Label>Geschlecht:</Label><p class="text-muted" style="display: inline"> (optional)</p></span>
-        <select class="form-control form-control-lg" type="text" name="gender">
-            <option value="">Geschlecht auswählen</option>
-            <option {{#ifeq currentUser.gender "male"}}selected{{/ifeq}} value="male">Männlich</option>
-            <option {{#ifeq currentUser.gender "female"}}selected{{/ifeq}} value="female">Weiblich</option>
-            <option {{#ifeq currentUser.gender "other"}}selected{{/ifeq}} value="other">Anderes</option>
-        </select>
-    </div>
-    
-    <div class="form-group">
-        <label>E-Mail-Adresse:</label>
-        <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
-    </div>
+        <div class="form-group">
+            <span><Label>Geschlecht:</Label>
+                <p class="text-muted" style="display: inline"> (optional)</p>
+            </span>
+            <select class="form-control form-control-lg" type="text" name="gender">
+                <option value="">Geschlecht auswählen</option>
+                <option {{#ifeq currentUser.gender "male"}}selected{{/ifeq}} value="male">Männlich</option>
+                <option {{#ifeq currentUser.gender "female"}}selected{{/ifeq}} value="female">Weiblich</option>
+                <option {{#ifeq currentUser.gender "other"}}selected{{/ifeq}} value="other">Anderes</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>E-Mail-Adresse:</label>
+            <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
+        </div>
 
         <div class="form-group">
             <label>Aktuelles Passwort: <sup>*</sup></label>
-            <input type="password" name="password" class="form-control"
-                   placeholder="***************" required>
+            <input type="password" name="password" class="form-control" placeholder="***************" required>
         </div>
 
         {{#userHasPermission "PASSWORD_EDIT"}}
@@ -58,18 +59,17 @@
 
         <div class="form-group">
             <label>Neues Passwort wiederholen:</label>
-            <input type="password" name="password_control" id="password_control"
-                           class="form-control" placeholder="***************"
-                           title="{{> "lib/forms/password-hint" plaintext=true}}">
+            <input type="password" name="password_control" id="password_control" class="form-control"
+                placeholder="***************" title="{{> "lib/forms/password-hint" plaintext=true}}">
         </div>
         {{/userHasPermission}}
 
         <div class="form-group">
-            <input type="submit" class="btn btn-primary"/>
+            <input type="submit" class="btn btn-primary" />
         </div>
     </form>
 
-    <input type="hidden" name="userId" value="{{userId}}"/>
+    <input type="hidden" name="userId" value="{{userId}}" />
 
     <span class="hint">
         <span class="star-reference">*</span>
@@ -77,7 +77,7 @@
     </span>
 </div>
 
-{{> "account/notification"}}
+{{> "account/notification" this }}
 
 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
 {{#content "body"}}

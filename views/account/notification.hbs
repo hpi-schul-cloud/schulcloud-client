@@ -55,11 +55,21 @@
 						<td>Push</td>
 					</thead>
 					<tbody>
+						{{#each this.notificationOptions}}
 						<tr>
-							<td></td>
-							<td><input type="checkbox"></td>
-							<td><input type="checkbox"></td>
+							<td colspan="3">{{title}}</td>
 						</tr>
+						{{#each notification}}
+						<tr id="notification_{{notification}}">
+							<td>{{description}}</td>
+							<td><input type="checkbox" {{#ifeq subscription.mail "true"}}checked{{/ifeq}}
+									name="notification[{{notification}}].mail"></td>
+							<td><input type="checkbox" {{#ifeq subscription.push "true"}}checked{{/ifeq}}
+									name="notification[{{notification}}].push"></td>
+						</tr>
+						{{/each}}
+						{{/each}}
+
 					</tbody>
 				</table>
 				<input type="submit" class="btn btn-primary" />
