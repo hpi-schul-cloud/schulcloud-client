@@ -68,8 +68,12 @@ const updateUI = function (task, error) {
 
 
 async function setupFirebasePush(registration) {
+	if (window.safari !== undefined) {
+		updateUI('pushNotSupported');
+		return;
+	}
 	if (!window.firebase) {
-		console.log('firebase missing!');
+		updateUI('pushNotSupported');
 		return;
 	}
 
@@ -79,6 +83,8 @@ async function setupFirebasePush(registration) {
 	let messaging;
 	try {
 		messaging = firebase.messaging();
+		messaging.useServiceWorker(registration);
+		pushManager.setPushService('firebase');
 	} catch (error) {
 		updateUI('pushNotSupported', error);
 		return;
@@ -118,7 +124,7 @@ async function setupFirebasePush(registration) {
 	// - send messages back to this app
 	// - subscribe/unsubscribe the token from topics
 	function sendTokenToServer(currentToken) {
-		pushManager.setRegistrationId(currentToken, 'firebase', () => {
+		pushManager.setRegistrationId(currentToken, () => {
 			// success
 			setTokenSentToServer(true);
 			onSuccess();
@@ -151,6 +157,7 @@ async function setupFirebasePush(registration) {
 			});
 		} else {
 			updateUI('pushPermissionRequired');
+			setTokenSentToServer(false);
 		}
 	}
 

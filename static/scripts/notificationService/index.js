@@ -5,8 +5,18 @@ const DEFAULT_HEADERS = {};
 
 export const pushManager = {
 
-	setRegistrationId(id, service, successcb, errorcb) {
-		sendRegistrationId(id, service, successcb, errorcb);
+	pushService: null,
+
+	setPushService(service) {
+		this.pushService = service;
+	},
+
+	getPushService() {
+		return this.pushService;
+	},
+
+	setRegistrationId(id, successcb, errorcb) {
+		sendRegistrationId(id, this.getPushService(), successcb, errorcb);
 	},
 
 	deleteRegistrationId(id, successcb, errorcb) {

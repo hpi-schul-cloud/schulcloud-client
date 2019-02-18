@@ -1,10 +1,9 @@
-import { pushManager } from './scripts/notificationService/index';
-import messagingSW from './scripts/message/message-sw';
+// import { pushManager } from './scripts/notificationService/index';
+// import messagingSW from './scripts/message/message-sw';
 import { notificationHandler } from './scripts/notificationService/notificationHandler';
 
 importScripts('/vendor-optimized/firebase/firebase-app.js');
 importScripts('/vendor-optimized/firebase/firebase-messaging.js');
-
 
 // self.addEventListener('message', (event) => {
 // 	// FIXME update PM to handle message
@@ -16,6 +15,11 @@ self.addEventListener('push', (event) => {
 	event.waitUntil(notificationHandler.handle(self.registration, data));
 });
 
+self.addEventListener('message', (event) => {
+	if (event.data.tag === 'course-data-updated') {
+		event.waitUntil(notificationHandler.handle(self.registration, event));
+	}
+});
 
 importScripts('/scripts/sw/workbox/workbox-sw.js');
 
@@ -170,13 +174,6 @@ workbox.routing.registerRoute(
 		],
 	}),
 );
-
-
-self.addEventListener('message', (event) => {
-	if (event.data.tag === 'course-data-updated') {
-		event.waitUntil(pushManager.handleNotification(self.registration, event));
-	}
-});
 
 // self.addEventListener('push', function(event){
 //     const data = event.data.json();

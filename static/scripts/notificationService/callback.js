@@ -54,7 +54,7 @@ export function sendRegistrationId(id, service, successcb, errorcb) {
 
 export function removeRegistrationId(id, successcb, errorcb) {
 	postRequest('/notification/device',
-		JSON.stringify({ id }),
+		{ id },
 		successcb, errorcb,
 		'DELETE');
 }

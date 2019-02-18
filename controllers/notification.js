@@ -22,7 +22,7 @@ const postRequest = (req, res, next) => {
 			body: res.locals.body,
 		}).then((response) => {
 			res.json(response);
-		});
+		}).catch(err => res.status(500).send('notification service error'));
 	} else {
 		res.status(500).send('notification service not enabled');
 	}
@@ -40,11 +40,9 @@ router.delete('/device', authChecker, (req, res, next) => {
 router.post('/devices', authChecker, (req, res, next) => {
 	res.locals.url = 'notification/devices';
 	res.locals.body = {
-		type: req.body.type ? req.body.type : 'mobile',
-		name: req.body.name ? req.body.name : 'Gerät',
 		userId: res.locals.currentUser._id,
 		token: req.body.id,
-		OS: req.body.device ? req.body.device : 'android7',
+		service: req.body.service,
 	};
 	next();
 }, postRequest);
