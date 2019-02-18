@@ -1,18 +1,21 @@
 @import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
-.notification-settings {
+.notification-settings , 
+  .notificationSubscription {
   padding-top: 40px;
+}
+
+.row-push-loading, 
+.notificationSubscriptionForm {
+  margin-top: 10px;
 }
 
 .notification {
 
-  .row-push-loading {
-    margin-top: 20px;
-  }
   
   .btn-default {
-    margin-top: 20px;
+    margin-top: 10px;
     background-color: $primaryColor;
     color: #ffffff;
   }

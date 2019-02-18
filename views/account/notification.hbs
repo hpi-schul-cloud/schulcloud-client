@@ -1,6 +1,7 @@
 {{#userHasPermission "NOTIFICATION_VIEW"}}
 <div class="notification-settings">
-	<h4>Benachrichtigungseinstellungen</h4>
+	<h4>Push-Benachrichtigungen</h4>
+	<div>Empfange Push-Benachrichtigungen auf deinem Handy oder in deinem Webbrowser.</div>
 	<div class="notification">
 		<div class="row-push-loading">
 			<div class="row">
@@ -39,6 +40,30 @@
 				</div>
 				{{/userHasPermission}}
 			</div>
+		</div>
+	</div>
+	<div class="notificationSubscription">
+		<h4>Benachrichtigungseinstellungen</h4>
+		<div>Aktiviere Benachrichtigungen um über bestimmte Ereignisse informiert zu werden. Push-Benachrichtigungen werden
+			nur auf aktivierten Geräten angezeigt.</div>
+		<div>
+			<form class="notificationSubscriptionForm">
+				<table class="table table-bordered">
+					<thead class="thead-light">
+						<td>Benachrichtigung</td>
+						<td>E-Mail</td>
+						<td>Push</td>
+					</thead>
+					<tbody>
+						<tr>
+							<td></td>
+							<td><input type="checkbox"></td>
+							<td><input type="checkbox"></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" class="btn btn-primary" />
+			</form>
 		</div>
 	</div>
 </div>
