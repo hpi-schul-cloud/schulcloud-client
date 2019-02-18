@@ -5,10 +5,10 @@ const api = require('../api');
 router.post('/', function (req, res, next) {
     // check first if target already exists (preventing db to be wasted)
     let target = `${(req.headers.origin || process.env.HOST)}/${req.body.target}`;
-    api(req).get("/link/", {qs: {target: target}}).then(result => {
+    api(req).get("/link/", { qs: { target: target } }).then(result => {
         let existingLink = result.data[0];
         if (!existingLink) {
-            api(req).post("/link/", {json: {target:  target}}).then(data => {
+            api(req).post("/link/", { json: { target: target } }).then(data => {
                 data.newUrl = `${(req.headers.origin || process.env.HOST)}/link/${data._id}`;
                 res.json(data);
             });
