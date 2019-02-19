@@ -22,7 +22,7 @@ router.post('/', function (req, res, next) {
 // handles redirecting from client
 router.get('/:id', function (req, res, next) {
     let baseUrl = process.env.PUBLIC_BACKEND_URL || 'http://localhost:3030';
-    res.redirect(`${baseUrl}/link/${req.params.id}`);
+    res.redirect(`${baseUrl}/link/${req.params.id}?includeShortId=true`);
 });
 
 module.exports = router;
