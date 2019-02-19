@@ -2,7 +2,7 @@
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
 .notification-settings , 
-  .notificationSubscription {
+.notificationSubscription {
   padding-top: 40px;
 }
 
@@ -11,21 +11,58 @@
   margin-top: 10px;
 }
 
-.notification {
+.notification-settings{
+ 
+  .toggle {
+      height: 2rem !important;
+      width: 4rem !important;
+      .toggle-handle {
+          width: 0.3rem !important;
+          background: whitesmoke !important;
+      }
+  }
 
+  @media (min-width: 767px){
+    .toggle{      
+      width: 7rem !important;
+  }
+  }
+
+  .off {
+      background: grey !important;
+      label {
+          color: whitesmoke !important;
+          padding-left: 48px !important;
+      }
+  }
+
+  .on {
+      label {
+          padding-right: 48px !important;
+      }
+  }
+
+  @media(max-width:766px){
+    .toggle-on, .toggle-off {
+      display: none;
+    }
+  }
   
+}
+
+.push-notification {
   .btn-default {
     margin-top: 10px;
     background-color: $primaryColor;
     color: #ffffff;
   }
-
+  
   table {
     padding: 16px;
     box-shadow: 0 1px 1px 0 #c7c7c7 inset;
     background: none repeat scroll 0 0;
   }
-
+  
   h4 {
     color: $primaryColor;
   }
@@ -34,7 +71,7 @@
 .route-account {
   .star-reference {
     font-size: 16px;
-    color: red;
+    color: $primaryColor;
   }
 
   .hint {

@@ -2,7 +2,7 @@
 <div class="notification-settings">
 	<h4>Push-Benachrichtigungen</h4>
 	<div>Empfange Push-Benachrichtigungen auf deinem Handy oder in deinem Webbrowser.</div>
-	<div class="notification">
+	<div class="push-notification">
 		<div class="row-push-loading">
 			<div class="row">
 				<div class="col-md-12">
@@ -28,6 +28,7 @@
 				<div class="col-md-6">
 					<button type="button" class="btn btn-default btn-block btn-device" onclick="requestDisablePush()">
 						<i class="fa fa-bell-slash"></i>
+						<!-- FIXME add modal request -->
 						Benachrichtigungen deaktivieren
 					</button>
 				</div>
@@ -44,36 +45,49 @@
 	</div>
 	<div class="notificationSubscription">
 		<h4>Benachrichtigungseinstellungen</h4>
-		<div>Aktiviere Benachrichtigungen um über bestimmte Ereignisse informiert zu werden. Push-Benachrichtigungen werden
-			nur auf aktivierten Geräten angezeigt.</div>
+		<div>Aktiviere Benachrichtigungen um über bestimmte Ereignisse informiert zu werden. Push-Benachrichtigungen
+			werden nur auf aktivierten Geräten angezeigt.</div>
 		<div>
-			<form class="notificationSubscriptionForm">
-				<table class="table table-bordered">
+			{{#ifeq ../notificationOptions false}}
+			<p><i class="fa fa-exclamation-triangle"></i> Die Benachrichtigungseinstellungen konnten nicht abgerufen
+				werden.</p>
+			{{else}}
+			<form class="notificationSubscriptionForm ajaxform" method="POST"
+				action="/notification/configuration/notificationOptions">
+				<table class="table table-hover table-bordered">
 					<thead class="thead-light">
-						<td>Benachrichtigung</td>
-						<td>E-Mail</td>
-						<td>Push</td>
+						<tr>
+							<td style="font-weight:bold;">Benachrichtigung</td>
+							<td align="center" style="font-weight:bold;">E-Mail</td>
+							<td align="center" style="font-weight:bold;">Push</td>
+						</tr>
 					</thead>
 					<tbody>
-						{{#each this.notificationOptions}}
+						{{#each ../notificationOptions}}
 						<tr>
 							<td colspan="3">{{title}}</td>
 						</tr>
-						{{#each notification}}
+						{{#each notifications}}
 						<tr id="notification_{{notification}}">
-							<td>{{description}}</td>
-							<td><input type="checkbox" {{#ifeq subscription.mail "true"}}checked{{/ifeq}}
-									name="notification[{{notification}}].mail"></td>
-							<td><input type="checkbox" {{#ifeq subscription.push "true"}}checked{{/ifeq}}
-									name="notification[{{notification}}].push"></td>
+							<td>{{description}}<input type="hidden" name="{{notification}}[defined]" value="true"></td>
+							<td align="center">
+								<label>
+									<input type="checkbox" {{#ifeq subscription.mail true}}checked{{/ifeq}} name="{{notification}}[mail]"
+										value="true" data-toggle="toggle" data-on="An" data-off="Aus" data-height="25"
+										data-onstyle="primary">
+								</label>
+							</td>
+							<td align="center"><label><input type="checkbox" {{#ifeq subscription.push true}}checked{{/ifeq}}
+										name="{{notification}}[push]" value="true" data-toggle="toggle" data-on="An" data-off="Aus"
+										data-height="25" data-onstyle="primary"></label>
+							</td>
 						</tr>
 						{{/each}}
 						{{/each}}
-
 					</tbody>
 				</table>
-				<input type="submit" class="btn btn-primary" />
 			</form>
+			{{/ifeq}}
 		</div>
 	</div>
 </div>

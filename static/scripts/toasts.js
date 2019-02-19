@@ -18,6 +18,20 @@ function t(toast) {
 			timeout: false,
 		});
 	}
+	if (toast === 'notificationsettingsUpdated') {
+		return iziToast.show({
+			icon: 'fa fa-check',
+			title: 'Deine Benachrichtigungseinstellungen wurden gespeichert',
+		});
+	}
+	if (toast === 'notificationsettingsUpdatedError') {
+		return iziToast.error({
+			icon: 'fa fa-exclamation-triangle',
+			title: 'Deine Benachrichtigungseinstellungen konnten nicht gespeichert werden',
+			message: 'Aktualisiere diese Seite und versuche es erneut.',
+		});
+	}
+
 	if (toast === 'notificationsEnabled') {
 		return iziToast.info({
 			icon: 'fa fa-envelope',

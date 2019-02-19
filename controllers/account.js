@@ -57,6 +57,7 @@ router.get('/', (req, res, next) => {
 			}).catch((err) => {
 				res.render('account/settings', {
 					title: 'Dein Account',
+					notificationOptions: false,
 					notification,
 					userId: res.locals.currentUser._id,
 				});
@@ -64,6 +65,7 @@ router.get('/', (req, res, next) => {
 	} else {
 		res.render('account/settings', {
 			title: 'Dein Account',
+			notificationOptions: false,
 			notification,
 			userId: res.locals.currentUser._id,
 		});

@@ -28,6 +28,20 @@ const postRequest = (req, res, next) => {
 	}
 };
 
+const cleanupConfig = (config) => {
+	const retValue = {};
+	const keys = Object.keys(config);
+	for (const key of keys) {
+		if (config.hasOwnProperty(key)) {
+			const r = { push: false, mail: false };
+			if (config[key].mail) r.mail = true;
+			if (config[key].push) r.push = true;
+			retValue[key] = r;
+		}
+	}
+	return retValue;
+};
+
 router.delete('/device', authChecker, (req, res, next) => {
 	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
 		api(req).delete(`notification/devices/${req.body.id}`)
@@ -66,12 +80,14 @@ router.get('/configuration/:config', authChecker, (req, res, next) => {
 });
 
 router.post('/configuration/:config', authChecker, (req, res, next) => {
+	const body = cleanupConfig(req.body);
 	api(req).patch(`/notification/configuration/${req.params.config}`, {
-		body: req.body,
-	}).then(options => res.json(options)).catch((err) => {
-		winston.error(err);
-		res.send(500);
-	});
+		body,
+	}).then(options => res.json(options))
+		.catch((err) => {
+			winston.error(err);
+			res.send(500);
+		});
 });
 
 router.post('/callback', (req, res, next) => {
