@@ -1169,7 +1169,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
         return !consents.some(consent => consent.userId._id.toString() === user._id.toString());
     }
     const consentIncomplete = (consent) => {
-        const parent = consent.parentConsents[0];
+        const parent = (consent.parentConsents || {})[0] || {}; 
         return !consent.access && !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
     }
 
