@@ -21,20 +21,20 @@
           </div>
         {{/each}}
       {{else}}
-      <div class="empty-state">
-        <img src="/images/empty-states/assignment.png" alt="Keine gestellten Aufgaben" class="image"/>
-        <h4>Füge dem Kurs Tools hinzu</h4>
-        <h6 class="sub-title">
-          Lorem Ipsum
-        </h6>
-      </div>
+        <div class="empty-state">
+          <img src="/images/empty-states/tool.png" alt="Keine hinzufügten Tools" class="image"/>
+          <h4>Füge dem Kurs Tools hinzu</h4>
+          <h6 class="sub-title">
+            Hier können interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzugefügt werden.
+          </h6>
+        </div>
       {{/if}}
     </div>
   </div>
-  <div class="col-sm-12">
+  <div class="col-sm-12 add-button">
     {{#userHasPermission "TOOL_CREATE" }}
-      <a href="/courses/{{../_id}}/tools/add" class="btn btn-primary w-100 pull-right" title="Neues Tool hinzufügen">
-        <i class="fa fa-plus" aria-hidden="true"></i><span> Neues Tool hinzufügen</span></a>
+      <a href="/courses/{{../_id}}/tools/add" class="btn btn-primary {{#if ../ltiToolIds}}w-100{{else}}btn-empty{{/if}}" title="Neues Tool hinzufügen">
+        <span>Füge ein neues Tool hinzu</span></a>
     {{/userHasPermission}}
   </div>
 </div>
