@@ -1164,31 +1164,35 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
     let users = [];
 
     if (classId) {
-        const _class = await api(req).get('/classes/' + classId, {
+        const klass = await api(req).get('/classes/' + classId, {
             qs: {
                 $populate: ['teacherIds', 'userIds'],
             }
         });
-        users = _class.userIds;
-        users = users.map(user => {
-            user.displayName = `${user.firstName} ${user.lastName}`;
-            return user;
-        });
+        users = klass.userIds.concat(klass.teacherIds);
     } else {
         users = (await api(req).get('/users', { qs, $limit: false })).data;
     }
 
-    const consents = (await api(req).get('/consents')).data;
+    const consents = (await api(req).get('/consents', {
+        qs: {
+            userId: { $in: users.map(u => u._id) },
+            $populate: 'userId',
+            $limit: false,
+        }
+    })).data;
 
-    const usersWithoutConsent = users.filter(user => {
-        let userWithConsent = consents.find(consent => {
-            return consent.userId === user._id;
-        });
+    const consentMissing = (user) => {
+        return !consents.some(consent => consent.userId._id.toString() === user._id.toString());
+    }
+    const consentIncomplete = (consent) => {
+        const parent = consent.parentConsents[0];
+        return !consent.access && !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
+    }
 
-        return userWithConsent ? false : true;
-    });
-
-    return usersWithoutConsent;
+    const usersWithoutConsent = users.filter(consentMissing);
+    const usersWithIncompleteConsent = consents.filter(consentIncomplete).map(c => c.userId);
+    return usersWithoutConsent.concat(usersWithIncompleteConsent);
 };
 
 
