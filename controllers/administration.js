@@ -685,20 +685,6 @@ const userFilterSettings = function (defaultOrder) {
         },
         {
             type: "select",
-            title: 'Geschlecht',
-            displayTemplate: 'Geschlecht: %1',
-            property: 'gender',
-            multiple: true,
-            expanded: true,
-            options: [
-                ["male", "Männlich"],
-                ["female", "Weiblich"],
-                ["other", "Anderes"],
-                [null, "nicht Angegeben"]
-            ]
-        },
-        {
-            type: "select",
             title: 'Einverständniserklärung Status',
             displayTemplate: 'Status: %1',
             property: 'consentStatus',
@@ -716,7 +702,7 @@ const userFilterSettings = function (defaultOrder) {
 
 const getConsentStatusIcon = (consent, bool) => {
     if (bool && consent) {
-        if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent) {
+        if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent) {
             return `<i class="fa fa-check consent-status"></i>`;
         } else {
             return `<i class="fa fa-times consent-status"></i>`;
@@ -725,17 +711,17 @@ const getConsentStatusIcon = (consent, bool) => {
     if (consent) {
         if (consent.requiresParentConsent) {
             if ((consent.parentConsents || []).length == 0
-                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent && consent.parentConsents[0].researchConsent)) {
+                || !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent)) {
                 return `<i class="fa fa-times consent-status"></i>`;
             } else {
-                if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent) {
+                if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent) {
                     return `<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>`;
                 } else {
                     return `<i class="fa fa-check consent-status"></i>`;
                 }
             }
         } else {
-            if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent && consent.userConsent.researchConsent) {
+            if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent) {
                 return `<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>`;
             } else {
                 return `<i class="fa fa-check consent-status"></i>`;
@@ -766,7 +752,6 @@ const getTeacherUpdateHandler = () => {
                 userConsent: {
                     form: req.body.form || "analog",
                     privacyConsent: req.body.privacyConsent || false,
-                    researchConsent: req.body.researchConsent || false,
                     thirdPartyConsent: req.body.thirdPartyConsent || false,
                     termsOfUseConsent: req.body.termsOfUseConsent || false
                 }
@@ -985,7 +970,6 @@ const getStudentUpdateHandler = () => {
                 userConsent: {
                     form: req.body.student_form || "analog",
                     privacyConsent: req.body.student_privacyConsent === "true",
-                    researchConsent: req.body.student_researchConsent === "true",
                     thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
                     termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
                 }
@@ -995,7 +979,6 @@ const getStudentUpdateHandler = () => {
             newParentConsent = {
                 form: req.body.parent_form || "analog",
                 privacyConsent: req.body.parent_privacyConsent === "true",
-                researchConsent: req.body.parent_researchConsent === "true",
                 thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
                 termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
             };
