@@ -319,6 +319,7 @@
   text-align: center;
   max-width: 60%;
   margin: 0 auto;
+  margin-top: 20px;
   h6.sub-title {
     color: $colorDarkerGrey;
   }
@@ -329,8 +330,12 @@
   }
 }
 
+.empty-state-courses{
+  margin-top: 0;
+}
+
 .add-button{
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
 }
 
@@ -339,7 +344,7 @@
     max-width: 60%;
   }
   img.image {
-    max-width: 110px;
+    max-width: 100px;
   }
 }
 

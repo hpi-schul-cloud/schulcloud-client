@@ -21,9 +21,13 @@
           </div>
         {{/each}}
       {{else}}
-        <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-          <span>Noch keine Tools</span>
-        </p>
+      <div class="empty-state">
+        <img src="/images/empty-states/assignment.png" alt="Keine gestellten Aufgaben" class="image"/>
+        <h4>Füge dem Kurs Tools hinzu</h4>
+        <h6 class="sub-title">
+          Lorem Ipsum
+        </h6>
+      </div>
       {{/if}}
     </div>
   </div>

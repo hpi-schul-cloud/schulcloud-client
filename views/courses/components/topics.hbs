@@ -77,7 +77,7 @@
           {{/each}}
         </div>
       {{else}}
-        <div class="empty-state">
+        <div class="empty-state empty-state-courses">
           <img src="/images/empty-states/topic.png" alt="Leeres Thema" class="image"/>
           <h4>Erstelle das erste Thema in deinem Kurs</h4>
           <h6 class="sub-title">
@@ -90,8 +90,7 @@
     {{#userHasPermission "COURSE_EDIT"}}
       <div class="add-button">
         <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center" title="Thema hinzufügen">
-          <span>Thema hinzufügen</span>
-          <i class="fa fa-plus" aria-hidden="true"></i>
+          <span>Erstelle ein Thema</span>
         </a>
       </div>
     {{/userHasPermission}}
