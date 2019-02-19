@@ -692,7 +692,7 @@ const userFilterSettings = function (defaultOrder) {
             expanded: true,
             options: [
                 ["missing", "Keine Einverständniserklärung vorhanden"],
-                ["parentsAgreed", "Eltern haben zugestimmt (oder Schüler ist über 18)"],
+                ["parentsAgreed", "Eltern haben zugestimmt (oder Schüler ist über 16)"],
                 ["ok", "Alle Zustimmungen vorhanden"],
                 [null, "nicht Angegeben"]
             ]
@@ -1442,11 +1442,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     schoolyears,
                     notes: [
                         {
-                            "title": "Deine Schüler sind unter 18 Jahre alt?",
+                            "title": "Deine Schüler sind unter 16 Jahre alt?",
                             "content": `Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der ${res.locals.theme.short_title} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die ${res.locals.theme.short_title} nutzen kann.`
                         },
                         {
-                            "title": "Deine Schüler sind mindestens 18 Jahre alt?",
+                            "title": "Deine Schüler sind mindestens 16 Jahre alt?",
                             "content": "Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
                         },
                         /*{ // TODO - Feature not implemented
