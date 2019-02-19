@@ -314,3 +314,40 @@
 .section-course-group {
   padding-top: 20px;
 }
+
+.empty-state{
+  text-align: center;
+  max-width: 60%;
+  margin: 0 auto;
+  h6.sub-title {
+    color: $colorDarkerGrey;
+  }
+  img.image {
+    width: auto;
+    height: auto;
+    margin-bottom: 30px;
+  }
+}
+
+.add-button{
+  margin-top: 30px;
+  text-align: center;
+}
+
+@media (min-width: 576px) {
+  .empty-state{
+    max-width: 60%;
+  }
+  img.image {
+    max-width: 110px;
+  }
+}
+
+@media (max-width: 575px) {
+  .empty-state{
+    max-width: 90%;
+  }
+  img.image {
+    max-width: 80px;
+  }
+}

@@ -77,16 +77,23 @@
           {{/each}}
         </div>
       {{else}}
-        <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-          <span>Noch keine Themen</span>
-        </p>
+        <div class="empty-state">
+          <img src="/images/empty-states/topic.png" alt="Leeres Thema" class="image"/>
+          <h4>Erstelle das erste Thema in deinem Kurs</h4>
+          <h6 class="sub-title">
+            Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu.
+            Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.
+          </h6>
+        </div>
       {{/if}}
     </div>
     {{#userHasPermission "COURSE_EDIT"}}
-      <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary{{else}}btn-primary{{/if}} pull-right ml-1 w-100" title="Thema hinzufügen">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <span>Thema hinzufügen</span>
-      </a>
+      <div class="add-button">
+        <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center" title="Thema hinzufügen">
+          <span>Thema hinzufügen</span>
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+      </div>
     {{/userHasPermission}}
   </div>
 </div>
