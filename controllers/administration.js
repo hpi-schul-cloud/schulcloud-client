@@ -1169,7 +1169,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
         return !consents.some(consent => consent.userId._id.toString() === user._id.toString());
     }
     const consentIncomplete = (consent) => {
-        const parent = (consent.parentConsents || {})[0] || {}; 
+        const parent = (consent.parentConsents || {})[0] || {};
         return !consent.access && !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
     }
 
@@ -1187,7 +1187,7 @@ router.get('/users-without-consent/send-email', permissionsHelper.permissionsChe
         user.registrationLink = await (generateRegistrationLink({
             role,
             save: true,
-            host: req.headers.host || process.env.HOST,
+            host: process.env.HOST,
             schoolId: res.locals.currentSchool,
             toHash: user.email,
             patchUser: true
@@ -1235,7 +1235,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
             user.registrationLink = await (generateRegistrationLink({
                 role,
                 save: true,
-                host: req.headers.host || process.env.HOST,
+                host: process.env.HOST,
                 schoolId: res.locals.currentSchool,
                 toHash: user.email,
                 patchUser: true
