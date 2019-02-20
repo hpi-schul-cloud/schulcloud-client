@@ -1,4 +1,5 @@
 // import { getCookiesMap } from './notificationService/index';
+import { setTimeout } from 'timers';
 import toast from './toasts';
 
 $(document).ready(() => {
@@ -67,19 +68,43 @@ $(document).ready(() => {
 		});
 	});
 
-	$('.notificationSubscriptionForm input[type=checkbox]').change((e) => {
-		const form = $('.notificationSubscriptionForm.ajaxform');
-		const url = form.attr('action');
-		const method = form.attr('method');
-		$.ajax({
-			type: method,
-			url,
-			data: form.serialize(), // serializes the form's elements.
-			success(data) {
-				toast('notificationsettingsUpdated'); // show response from the php script.
-			},
-		}).fail(() => { toast('notificationsettingsUpdatedError'); });
+	let autosave = true;
 
-		e.preventDefault(); // avoid to execute the actual submit of the form.
+	function saveNotificationSubscriptionForm(save) {
+		if (autosave || save) {
+			const form = $('.notificationSubscriptionForm.ajaxform');
+			const url = form.attr('action');
+			const method = form.attr('method');
+			$.ajax({
+				type: method,
+				url,
+				data: form.serialize(), // serializes the form's elements.
+				success(data) {
+					toast('notificationsettingsUpdated'); // show response from the php script.
+					autosave = true;
+				},
+			}).fail(() => {
+				toast('notificationsettingsUpdatedError');
+				autosave = true;
+			});
+		}
+	}
+
+	$('.notificationSubscriptionForm input[type=checkbox]').change((e) => {
+		saveNotificationSubscriptionForm();
+		e.preventDefault();
+	});
+
+	$('#toggleAllSubscriptionsOff').click((event) => {
+		event.preventDefault();
+		autosave = false;
+		$('.notificationSubscriptionForm input[type=checkbox]').bootstrapToggle('off');
+		setTimeout(() => { saveNotificationSubscriptionForm(true); }, 500);
+	});
+	$('#toggleAllSubscriptionsOn').click((event) => {
+		event.preventDefault();
+		autosave = false;
+		$('.notificationSubscriptionForm input[type=checkbox]').bootstrapToggle('on');
+		setTimeout(() => { saveNotificationSubscriptionForm(true); }, 500);
 	});
 });

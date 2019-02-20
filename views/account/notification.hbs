@@ -1,7 +1,7 @@
 {{#userHasPermission "NOTIFICATION_VIEW"}}
 <div class="notification-settings">
 	<h4>Push-Benachrichtigungen</h4>
-	<div>Empfange Push-Benachrichtigungen auf deinem Handy oder in deinem Webbrowser.</div>
+	<div>Empfange Push-Benachrichtigungen auf diesem Gerät.</div>
 	<div class="push-notification">
 		<div class="row-push-loading">
 			<div class="row">
@@ -88,6 +88,10 @@
 				</table>
 			</form>
 			{{/ifeq}}
+		</div>
+		<div class="notificationsDisabled">
+			Alle Benachrichtigungen <a href="#" id="toggleAllSubscriptionsOn">aktivieren</a> -
+			<a href="#" id="toggleAllSubscriptionsOff">deaktivieren</a>.
 		</div>
 	</div>
 </div>
