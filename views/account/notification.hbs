@@ -71,15 +71,22 @@
 						<tr id="notification_{{notification}}">
 							<td>{{description}}<input type="hidden" name="{{notification}}[defined]" value="true"></td>
 							<td align="center">
+								{{#inArray 'mail' subscriptionOptions }}
 								<label>
 									<input type="checkbox" {{#ifeq subscription.mail true}}checked{{/ifeq}} name="{{notification}}[mail]"
 										value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus" data-height="25"
 										data-onstyle="primary">
 								</label>
+								{{/inArray}}
 							</td>
-							<td align="center"><label><input type="checkbox" {{#ifeq subscription.push true}}checked{{/ifeq}}
-										name="{{notification}}[push]" value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus"
-										data-height="25" data-onstyle="primary"></label>
+							<td align="center">
+								{{#inArray 'push' subscriptionOptions }}
+								<label>
+									<input type="checkbox" {{#ifeq subscription.push true}}checked{{/ifeq}} name="{{notification}}[push]"
+										value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus" data-height="25"
+										data-onstyle="primary">
+								</label>
+								{{/inArray}}
 							</td>
 						</tr>
 						{{/each}}
@@ -90,8 +97,8 @@
 			{{/ifeq}}
 		</div>
 		<div class="notificationsDisabled">
-			Alle Benachrichtigungen <a href="#" id="toggleAllSubscriptionsOn">aktivieren</a> -
-			<a href="#" id="toggleAllSubscriptionsOff">deaktivieren</a>.
+			Alle: <a href="#" id="toggleAllSubscriptionsOn">aktivieren</a>
+			<a href="#" id="toggleAllSubscriptionsOff">deaktivieren</a>
 		</div>
 	</div>
 </div>
