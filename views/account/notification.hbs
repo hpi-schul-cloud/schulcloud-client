@@ -57,15 +57,15 @@
 				<table class="table table-hover table-bordered">
 					<thead class="thead-light">
 						<tr>
-							<td style="font-weight:bold;">Benachrichtigung</td>
-							<td align="center" style="font-weight:bold;">E-Mail</td>
-							<td align="center" style="font-weight:bold;">Push</td>
+							<th>Benachrichtigung</th>
+							<th align="center">E-Mail</th>
+							<th align="center">Push</th>
 						</tr>
 					</thead>
 					<tbody>
 						{{#each ../notificationOptions}}
 						<tr>
-							<td colspan="3">{{title}}</td>
+							<th colspan="3">{{title}}</th>
 						</tr>
 						{{#each notifications}}
 						<tr id="notification_{{notification}}">
@@ -73,12 +73,12 @@
 							<td align="center">
 								<label>
 									<input type="checkbox" {{#ifeq subscription.mail true}}checked{{/ifeq}} name="{{notification}}[mail]"
-										value="true" data-toggle="toggle" data-on="An" data-off="Aus" data-height="25"
+										value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus" data-height="25"
 										data-onstyle="primary">
 								</label>
 							</td>
 							<td align="center"><label><input type="checkbox" {{#ifeq subscription.push true}}checked{{/ifeq}}
-										name="{{notification}}[push]" value="true" data-toggle="toggle" data-on="An" data-off="Aus"
+										name="{{notification}}[push]" value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus"
 										data-height="25" data-onstyle="primary"></label>
 							</td>
 						</tr>

@@ -1,53 +1,60 @@
 @import '../lib/colors';
 @import '../lib/bootstrap/scss/bootstrap-flex';
 
-.notification-settings , 
+.notification-settings,
 .notificationSubscription {
   padding-top: 40px;
 }
 
-.row-push-loading, 
+.row-push-loading,
 .notificationSubscriptionForm {
   margin-top: 10px;
 }
 
-.notification-settings{
- 
+.notification-settings {
   .toggle {
-      height: 2rem !important;
-      width: 4rem !important;
-      .toggle-handle {
-          width: 0.3rem !important;
-          background: whitesmoke !important;
-      }
+    height: 2rem !important;
+    width: 4rem !important;
+    .toggle-handle {
+      width: 0.3rem !important;
+      background: whitesmoke !important;
+    }
   }
 
-  @media (min-width: 767px){
-    .toggle{      
+  @media (min-width: 767px) {
+    .toggle {
       width: 7rem !important;
-  }
-  }
-
-  .off {
-      background: grey !important;
-      label {
-          color: whitesmoke !important;
-          padding-left: 48px !important;
-      }
+    }
   }
 
-  .on {
-      label {
-          padding-right: 48px !important;
-      }
-  }
-
-  @media(max-width:766px){
-    .toggle-on, .toggle-off {
+  @media (max-width: 766px) {
+    .toggle-on,
+    .toggle-off {
       display: none;
     }
   }
-  
+
+  .toggle-on.btn {
+    padding: 0.5rem 3rem 0.5rem 1rem;
+  }
+
+  .toggle-off.btn {
+    padding: 0.5rem 1rem 0.5rem 3rem;
+  }
+
+  .off {
+    background: grey !important;
+    label {
+      color: whitesmoke !important;
+      padding-left: 48px !important;
+    }
+  }
+
+  .on {
+    label {
+      padding-right: 48px !important;
+    }
+  }
 }
 
 .push-notification {
@@ -56,13 +63,13 @@
     background-color: $primaryColor;
     color: #ffffff;
   }
-  
+
   table {
     padding: 16px;
     box-shadow: 0 1px 1px 0 #c7c7c7 inset;
     background: none repeat scroll 0 0;
   }
-  
+
   h4 {
     color: $primaryColor;
   }
