@@ -28,21 +28,6 @@ const postRequest = (req, res, next) => {
 	}
 };
 
-/** set all config values of form data to true or false */
-const cleanupConfig = (config) => {
-	const retValue = {};
-	const keys = Object.keys(config);
-	for (const key of keys) {
-		if (config.hasOwnProperty(key)) {
-			retValue[key] = {
-				push: !!config[key].push,
-				mail: !!config[key].mail,
-			};
-		}
-	}
-	return retValue;
-};
-
 router.delete('/device', authChecker, (req, res, next) => {
 	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
 		api(req).delete(`notification/devices/${req.body.id}`)
@@ -81,7 +66,14 @@ router.get('/configuration/:config', authChecker, (req, res, next) => {
 });
 
 router.post('/configuration/:config', authChecker, (req, res, next) => {
-	const body = cleanupConfig(req.body);
+	// set config values of form data to true if anything set otherwise false
+	const body = {};
+	Object.keys(req.body).forEach((key) => {
+		body[key] = {
+			push: !!req.body[key].push,
+			mail: !!req.body[key].mail,
+		};
+	});
 	api(req).patch(`/notification/configuration/${req.params.config}`, {
 		body,
 	}).then(options => res.json(options))

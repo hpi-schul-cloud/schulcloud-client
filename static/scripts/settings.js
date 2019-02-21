@@ -79,8 +79,12 @@ $(document).ready(() => {
 				type: method,
 				url,
 				data: form.serialize(), // serializes the form's elements.
-				success(data) {
-					toast('notificationsettingsUpdated'); // show response from the php script.
+				success(data, status, xhr) {
+					if (xhr.status === 200) {
+						toast('notificationsettingsUpdated');
+					} else {
+						toast('notificationsettingsUpdatedError');
+					}
 					autosave = true;
 				},
 			}).fail(() => {

@@ -69,12 +69,12 @@
 						</tr>
 						{{#each notifications}}
 						<tr id="notification_{{notification}}">
-							<td>{{description}}<input type="hidden" name="{{notification}}[defined]" value="true"></td>
+							<td>{{description}}<input type="hidden" name="{{notification}}[defined]" value="defined"></td>
 							<td align="center">
 								{{#inArray 'mail' subscriptionOptions }}
 								<label>
 									<input type="checkbox" {{#ifeq ../subscription.mail true}}checked
-										{{/ifeq}}name="{{../notification}}[mail]" value="true" data-toggle="toggle" data-on="Aktiv"
+										{{/ifeq}}name="{{../notification}}[mail]" value="checked" data-toggle="toggle" data-on="Aktiv"
 										data-off="Aus" data-height="25" data-onstyle="primary">
 								</label>
 								{{/inArray}}
@@ -83,7 +83,7 @@
 								{{#inArray 'push' subscriptionOptions }}
 								<label>
 									<input type="checkbox" {{#ifeq ../subscription.push true}}checked
-										{{/ifeq}}name="{{../notification}}[push]" value="true" data-toggle="toggle" data-on="Aktiv"
+										{{/ifeq}}name="{{../notification}}[push]" value="checked" data-toggle="toggle" data-on="Aktiv"
 										data-off="Aus" data-height="25" data-onstyle="primary">
 								</label>
 								{{/inArray}}
