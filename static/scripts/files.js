@@ -5,20 +5,20 @@ const getDataValue = function(attr) {
     };
 };
 
-window.openFolder = function(id) {
-    let href = location.href.split('#').shift();
-    const reg = new RegExp('^https?:\/\/.*?\/files\/(?:teams|courses)\/(?:.+?)\/(.+)$');
+window.openFolder = function (id) {
+	let pathname = location.pathname;
+	const reg = new RegExp('/files/(?:teams|courses)/(?:.+?)/(.+)');
+	let target;
 
-    if(reg.test(href)) {
-        href = href.replace(reg, function(m, g){
-            return m.replace(g, id);
-        });
-    }
-    else {
-        href = href + (href.split('').pop() !== '/' ? '/' : '') + id;
-    }
+	if (reg.test(pathname)) {
+		target = pathname.replace(reg, function(m, g){
+			return m.replace(g, id);
+		});
+	} else {
+		target = pathname + (pathname.split('').pop() !== '/' ? '/' : '') + id;
+	}
 
-    return href;
+	return target + location.search || '';
 };
 
 const getOwnerId = getDataValue('owner');
