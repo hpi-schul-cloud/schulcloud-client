@@ -73,18 +73,18 @@
 							<td align="center">
 								{{#inArray 'mail' subscriptionOptions }}
 								<label>
-									<input type="checkbox" {{#ifeq subscription.mail true}}checked{{/ifeq}} name="{{notification}}[mail]"
-										value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus" data-height="25"
-										data-onstyle="primary">
+									<input type="checkbox" {{#ifeq ../subscription.mail true}}checked
+										{{/ifeq}}name="{{../notification}}[mail]" value="true" data-toggle="toggle" data-on="Aktiv"
+										data-off="Aus" data-height="25" data-onstyle="primary">
 								</label>
 								{{/inArray}}
 							</td>
 							<td align="center">
 								{{#inArray 'push' subscriptionOptions }}
 								<label>
-									<input type="checkbox" {{#ifeq subscription.push true}}checked{{/ifeq}} name="{{notification}}[push]"
-										value="true" data-toggle="toggle" data-on="Aktiv" data-off="Aus" data-height="25"
-										data-onstyle="primary">
+									<input type="checkbox" {{#ifeq ../subscription.push true}}checked
+										{{/ifeq}}name="{{../notification}}[push]" value="true" data-toggle="toggle" data-on="Aktiv"
+										data-off="Aus" data-height="25" data-onstyle="primary">
 								</label>
 								{{/inArray}}
 							</td>
