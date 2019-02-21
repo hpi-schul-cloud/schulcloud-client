@@ -653,6 +653,7 @@ router.put('/events/:eventId', (req, res, next) => {
 router.get('/:teamId/members', async (req, res, next) => {
 	const action = `/teams/${req.params.teamId}`;
 	const { teamId } = req.params;
+	const uri = `/teams/${teamId}`;
 	const schoolId = res.locals.currentSchool;
 	const $limit = false;
 	const method = 'patch';
@@ -696,62 +697,62 @@ router.get('/:teamId/members', async (req, res, next) => {
 		icon: 'trash',
 	}];
 
-	try {
-		const getTeam = () => api(req).get(`/teams/${teamId}`, {
-			qs: {
-				$populate: [
-					{
-						path: 'userIds.userId',
-						populate: ['schoolId'],
-					},
-					{ path: 'userIds.role' },
-					{ path: 'userIds.schoolId' },
-					{
-						path: 'classIds',
-						populate: ['year'],
-					},
-				],
-				$limit,
-			},
-		}).then((team) => {
-			if (team.classIds === undefined) {
-				team.classIds = [];
-			}
-			team.classes = team.classIds; // only for fix
-			return team;
-		});
-
-		const getUsers = () => api(req).get('/users', {
-			qs: { schoolId, $limit },
-		}).then(users => users.data);
-
-		const getRoles = () => api(req).get('/roles', {
-			qs: {
-				name: {
-					$in: ['teammember', 'teamexpert', 'teamleader',
-						'teamadministrator', 'teamowner'],
+	const getTeam = () => api(req).get(uri, {
+		qs: {
+			$populate: [
+				{
+					path: 'userIds.userId',
+					populate: ['schoolId'],
 				},
+				{ path: 'userIds.role' },
+				{ path: 'userIds.schoolId' },
+				{
+					path: 'classIds',
+					populate: ['year'],
+				},
+			],
+			$limit,
+		},
+	}).then((team) => {
+		if (team.classIds === undefined) {
+			team.classIds = [];
+		}
+		team.classes = team.classIds; // only for fix
+		return team;
+	});
+
+	const getUsers = () => api(req).get('/users', {
+		qs: { schoolId, $limit },
+	}).then(users => users.data);
+
+	const getRoles = () => api(req).get('/roles', {
+		qs: {
+			name: {
+				$in: ['teammember', 'teamexpert', 'teamleader',
+					'teamadministrator', 'teamowner'],
 			},
-		}).then((roles) => {
-			roles = roles.data;
-			return roles.map((role) => {
-				role.label = roleTranslations[role.name];
-				return role;
-			});
+		},
+	}).then((roles) => {
+		roles = roles.data;
+		return roles.map((role) => {
+			role.label = roleTranslations[role.name];
+			return role;
 		});
+	});
 
-		const getClasses = () => api(req).get('/classes', {
-			qs: { schoolId, $populate: ['year'], $limit },
-		}).then((classes => classes.data));
+	const getClasses = () => api(req).get('/classes', {
+		qs: { schoolId, $populate: ['year'], $limit },
+	}).then((classes => classes.data));
 
-		const getFederalStates = () => api(req).get('/federalStates').then(federalStates => federalStates.data);
+	const getFederalStates = () => api(req).get('/federalStates').then(federalStates => federalStates.data);
 
-		const getCurrentFederalState = () => api(req).get(`/schools/${schoolId}`, {
-			qs: {
-				$populate: 'federalState',
-			},
-		}).then(school => school.federalState._id);
+	const getCurrentFederalState = () => api(req).get(`/schools/${schoolId}`, {
+		qs: {
+			$populate: 'federalState',
+		},
+	}).then(school => school.federalState._id);
 
+	try {
 		let [
 			team,
 			users,
@@ -761,7 +762,9 @@ router.get('/:teamId/members', async (req, res, next) => {
 			currentFederalStateId,
 		] = await Promise.all([
 			getTeam(), getUsers(), getRoles(), getClasses(), getFederalStates(), getCurrentFederalState(),
-		]);
+		]).catch((err) => {
+			throw new Error('Can not fetch the data', err);
+		});
 
 		const { permissions } = team.user || {};
 		const teamUserIds = team.userIds.map(user => user.userId._id);
@@ -840,8 +843,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const bodyInvitations = team.invitedUserIds.map(invitation => [
 			invitation.email,
 			moment(invitation.createdAt).format('DD.MM.YYYY'),
-			invitation.role === 'teamexpert' ? 'Team Experte' :
-				invitation.role === 'teamadministrator' ? 'Team Administrator' : '',
+			roleTranslations[invitation.role],
 			{
 				payload: {
 					email: invitation.email,
@@ -854,11 +856,11 @@ router.get('/:teamId/members', async (req, res, next) => {
 			title: 'Deine Team-Teilnehmer',
 			action,
 			classes,
-			addMemberAction: `/teams/${teamId}/members`,
-			inviteExternalMemberAction: `/teams/${teamId}/members/external`,
-			deleteMemberAction: `/teams/${teamId}/members`,
-			deleteInvitationAction: `/teams/${teamId}/invitation`,
-			resendInvitationAction: `/teams/${teamId}/invitation`,
+			addMemberAction: `${uri}/members`,
+			inviteExternalMemberAction: `${uri}/members/external`,
+			deleteMemberAction: `${uri}/members`,
+			deleteInvitationAction: `${uri}/invitation`,
+			resendInvitationAction: `${uri}/invitation`,
 			permissions: team.user.permissions,
 			method,
 			head,
@@ -878,7 +880,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 			},
 			{
 				title: team.name,
-				url: `/teams/${teamId}`,
+				url: uri,
 			},
 			{},
 			],
