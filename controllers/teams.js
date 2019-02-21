@@ -701,6 +701,9 @@ router.get('/:teamId/members', async (req, res, next) => {
 		qs: {
 			$populate: [
 				{
+					path: 'schoolIds',
+				},
+				{
 					path: 'userIds.userId',
 					populate: ['schoolId'],
 				},
@@ -746,12 +749,6 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	const getFederalStates = () => api(req).get('/federalStates').then(federalStates => federalStates.data);
 
-	const getCurrentFederalState = () => api(req).get(`/schools/${schoolId}`, {
-		qs: {
-			$populate: 'federalState',
-		},
-	}).then(school => school.federalState._id);
-
 	try {
 		let [
 			team,
@@ -759,9 +756,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 			roles,
 			classes,
 			federalStates,
-			currentFederalStateId,
 		] = await Promise.all([
-			getTeam(), getUsers(), getRoles(), getClasses(), getFederalStates(), getCurrentFederalState(),
+			getTeam(), getUsers(), getRoles(), getClasses(), getFederalStates(),
 		]).catch((err) => {
 			throw new Error('Can not fetch the data', err);
 		});
@@ -769,6 +765,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 		const { permissions } = team.user || {};
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
+		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
+		const currentFederalStateId = currentSchool.federalState;
 
 		const rolesExternal = [
 			{
