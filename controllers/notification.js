@@ -28,15 +28,16 @@ const postRequest = (req, res, next) => {
 	}
 };
 
+/** set all config values of form data to true or false */
 const cleanupConfig = (config) => {
 	const retValue = {};
 	const keys = Object.keys(config);
 	for (const key of keys) {
 		if (config.hasOwnProperty(key)) {
-			const r = { push: false, mail: false };
-			if (config[key].mail) r.mail = true;
-			if (config[key].push) r.push = true;
-			retValue[key] = r;
+			retValue[key] = {
+				push: !!config[key].push,
+				mail: !!config[key].mail,
+			};
 		}
 	}
 	return retValue;
