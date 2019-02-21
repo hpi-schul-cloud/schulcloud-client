@@ -206,14 +206,14 @@ router.get('/', async (req, res, next) => {
 	teams = teams.data.map((team) => {
 		team.url = `/teams/${team._id}`;
 		team.title = team.name;
-		team.content = (team.description||'').substr(0, 140);
+		team.content = (team.description || '').substr(0, 140);
 		team.secondaryTitle = '';
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
 		(team.times || []).forEach((time) => {
 			time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room)?(`| ${time.room}`):''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
 		});
 
 		return team;
@@ -224,7 +224,7 @@ router.get('/', async (req, res, next) => {
 	teamInvitations = teamInvitations.map((team) => {
 		team.url = `/teams/${team._id}`;
 		team.title = team.name;
-		team.content = (team.description||'').substr(0, 140);
+		team.content = (team.description || '').substr(0, 140);
 		team.secondaryTitle = '';
 		team.background = team.color;
 		team.memberAmount = team.userIds.length;
@@ -313,7 +313,7 @@ router.get('/add/', editTeamHandler);
  * Single Course
  */
 
-function mapPermissionRoles (permissions, roles) {
+function mapPermissionRoles(permissions, roles) {
 	return permissions.map((permission) => {
 		const role = roles.find(role => role._id === permission.refId);
 		permission.roleName = role ? role.name : '';
@@ -435,7 +435,7 @@ router.get('/:teamId', async (req, res, next) => {
 		files = files.filter(f => !f.isDirectory);
 
 		// Sort by most recent files and limit to 6 files
-		files.sort(function(a,b) {
+		files.sort(function (a, b) {
 			if (b && b.updatedAt && a && a.updatedAt) {
 				return new Date(b.updatedAt) - new Date(a.updatedAt);
 			} else {
@@ -446,7 +446,7 @@ router.get('/:teamId', async (req, res, next) => {
 
 		files.map(addThumbnails);
 
-		directories.sort(function(a,b) {
+		directories.sort(function (a, b) {
 			if (b && b.updatedAt && a && a.updatedAt) {
 				return new Date(b.updatedAt) - new Date(a.updatedAt);
 			} else {
@@ -462,11 +462,11 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		})).data;
 
-		const colors = ['F44336','E91E63','3F51B5','2196F3','03A9F4','00BCD4','009688','4CAF50','CDDC39','FFC107','FF9800','FF5722'];
+		const colors = ['F44336', 'E91E63', '3F51B5', '2196F3', '03A9F4', '00BCD4', '009688', '4CAF50', 'CDDC39', 'FFC107', 'FF9800', 'FF5722'];
 		news = news.map((news) => {
 			news.url = `/teams/${req.params.teamId}/news/${news._id}`;
 			news.secondaryTitle = moment(news.displayAt).fromNow();
-			news.background = `#${colors[(news.title||'').length % colors.length]}`;
+			news.background = `#${colors[(news.title || '').length % colors.length]}`;
 			return news;
 		});
 
@@ -486,7 +486,7 @@ router.get('/:teamId', async (req, res, next) => {
 				event.day = start.format('D');
 				event.month = start.format('MMM').toUpperCase().split('.').join('');
 				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo= `${start.format('hh:mm')} - ${end.format('hh:mm')}`;
+				event.fromTo = `${start.format('hh:mm')} - ${end.format('hh:mm')}`;
 				return event;
 			});
 		} catch (e) {
@@ -649,80 +649,123 @@ router.put('/events/:eventId', (req, res, next) => {
  * Single Course Members
  */
 
+
 router.get('/:teamId/members', async (req, res, next) => {
 	const action = `/teams/${req.params.teamId}`;
+	const { teamId } = req.params;
+	const schoolId = res.locals.currentSchool;
+	const $limit = false;
 	const method = 'patch';
 
+	const roleTranslations = {
+		teammember: 'Teilnehmer',
+		teamexpert: 'externer Experte',
+		teamleader: 'Leiter',
+		teamadministrator: 'Team-Admin',
+		teamowner: 'Team-Admin (Eigentümer)',
+	};
+
+	const head = [
+		'Vorname',
+		'Nachname',
+		'Rolle',
+		'Schule',
+		'Aktionen',
+	];
+
+	const headClasses = [
+		'Name',
+		'Schüler',
+		'Aktionen',
+	];
+
+	const headInvitations = [
+		'E-Mail',
+		'Eingeladen am',
+		'Rolle',
+		'Aktionen',
+	];
+
+	const invitationActions = [{
+		class: 'btn-resend-invitation',
+		title: 'Einladung erneut versenden',
+		icon: 'envelope',
+	}, {
+		class: 'btn-delete-invitation',
+		title: 'Einladung löschen',
+		icon: 'trash',
+	}];
+
 	try {
-		let course = await api(req).get(`/teams/${req.params.teamId}`, {
+		const getTeam = () => api(req).get(`/teams/${teamId}`, {
 			qs: {
 				$populate: [
 					{
 						path: 'userIds.userId',
 						populate: ['schoolId'],
 					},
+					{ path: 'userIds.role' },
+					{ path: 'userIds.schoolId' },
 					{
-						path: 'userIds.role',
+						path: 'classIds',
+						populate: ['year'],
 					},
 				],
-				$limit: false,
+				$limit,
 			},
+		}).then((team) => {
+			if (team.classIds === undefined) {
+				team.classIds = [];
+			}
+			team.classes = team.classIds; // only for fix
+			return team;
 		});
-		course.userIds = course.userIds.filter(user => user.userId);
-		let courseUserIds = course.userIds.map((user) => {
-			return user.userId._id;
-		},
-		); 
 
-		course.classes = course.classIds.length > 0 ? (await api(req).get('/classes', {
-			qs: {
-				_id: {
-					$in: course.classIds,
-				},
-				$populate: ['year'],
-				$limit: 2000,
-			},
-		})).data : [];
-		
-		let users = (await api(req).get('/users', {
-			qs: {
-				schoolId: res.locals.currentSchool,
-				$limit: false,
-			},
-		})).data;
-		
-		users = users.filter(user => !courseUserIds.includes(user._id));
+		const getUsers = () => api(req).get('/users', {
+			qs: { schoolId, $limit },
+		}).then(users => users.data);
 
-		let classes = (await api(req).get('/classes', { qs: {
-			$or: [{ 'schoolId': res.locals.currentSchool }],
-			$populate: ['year'],
-			$limit: 2000,
-		} })).data;
-
-		classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
-
-
-		let roles = (await api(req).get('/roles', {
+		const getRoles = () => api(req).get('/roles', {
 			qs: {
 				name: {
 					$in: ['teammember', 'teamexpert', 'teamleader',
 						'teamadministrator', 'teamowner'],
 				},
 			},
-		})).data;
-
-		const roleTranslations = {
-			teammember: 'Teilnehmer',
-			teamexpert: 'externer Experte',
-			teamleader: 'Leiter',
-			teamadministrator: 'Team-Admin',
-			teamowner: 'Team-Admin (Eigentümer)',
-		};
-
-		roles = roles.map((role) => {
-			role.label = roleTranslations[role.name];
-			return role;
+		}).then((roles) => {
+			roles = roles.data;
+			return roles.map((role) => {
+				role.label = roleTranslations[role.name];
+				return role;
+			});
 		});
+
+		const getClasses = () => api(req).get('/classes', {
+			qs: { schoolId, $populate: ['year'], $limit },
+		}).then((classes => classes.data));
+
+		const getFederalStates = () => api(req).get('/federalStates').then(federalStates => federalStates.data);
+
+		const getCurrentFederalState = () => api(req).get(`/schools/${schoolId}`, {
+			qs: {
+				$populate: 'federalState',
+			},
+		}).then(school => school.federalState._id);
+
+		let [
+			team,
+			users,
+			roles,
+			classes,
+			federalStates,
+			currentFederalStateId,
+		] = await Promise.all([
+			getTeam(), getUsers(), getRoles(), getClasses(), getFederalStates(), getCurrentFederalState(),
+		]);
+
+		const { permissions } = team.user || {};
+		const teamUserIds = team.userIds.map(user => user.userId._id);
+		users = users.filter(user => !teamUserIds.includes(user._id));
 
 		const rolesExternal = [
 			{
@@ -737,134 +780,86 @@ router.get('/:teamId/members', async (req, res, next) => {
 			},
 		];
 
-		const federalStates = (await api(req).get('/federalStates')).data;
-		const currentFederalState = (await api(req).get(`/schools/${res.locals.currentSchool}`, {
-			qs: {
-				$populate: 'federalState',
-			},
-		})).federalState._id;
-
-		let head = [
-			'Vorname',
-			'Nachname',
-			'Rolle',
-			'Schule',
-			'Aktionen',
-		];
-
-		const body = course.userIds.map((user) => {
-			let row = [
-				user.userId.firstName || '',
-				user.userId.lastName || '',
-				roleTranslations[user.role.name],
-				user.userId.schoolId.name || '',
-				{
-					payload: {
-						userId: user.userId._id,
-					},
-				},
-			];
-
-
-			let actions = [];
-
-			if (course.user.permissions.includes('CHANGE_TEAM_ROLES')) {
+		const addButtonEdit = (actions = []) => {
+			if (permissions.includes('CHANGE_TEAM_ROLES')) {
 				actions.push({
 					class: 'btn-edit-member',
 					title: 'Rolle bearbeiten',
 					icon: 'edit',
 				});
 			}
+			return actions;
+		};
 
-			if (course.user.permissions.includes('REMOVE_MEMBERS')) {
+		const addButtonTrash = (actions = []) => {
+			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-member',
 					title: 'Nutzer entfernen',
 					icon: 'trash',
 				});
 			}
+			return actions;
+		};
 
-			row.push(actions);
-
-			return row;
-		});
-
-		let headClasses = [
-			'Name',
-			'Schüler',
-			'Aktionen',
-		];
-
-		const bodyClasses = course.classes.map((_class) => {
-			let row = [
-				`${_class.displayName || _class.name} (${_class.year ? _class.year.name : ''})`,
-				_class.userIds.length,
-				// TODO: Populate funktioniert nicht.. Strange!
-				// _class.schoolId.name || '',
-				{
-					payload: {
-						classId: _class._id,
-					},
-				},
-			];
-
-			let actions = [];
-
-			if (course.user.permissions.includes('REMOVE_MEMBERS')) {
+		const addButtonTrashClass = (actions = []) => {
+			if (permissions.includes('REMOVE_MEMBERS')) {
 				actions.push({
 					class: 'btn-delete-class',
 					title: 'Klasse entfernen',
 					icon: 'trash',
 				});
 			}
+			return actions;
+		};
 
-			row.push(actions);
-
-			return row;
-		});
-
-		let headInvitations = [
-			'E-Mail',
-			'Eingeladen am',
-			'Rolle',
-			'Aktionen',
-		];
-
-		const invitationActions = [{
-			class: 'btn-resend-invitation',
-			title: 'Einladung erneut versenden',
-			icon: 'envelope',
-		}, {
-			class: 'btn-delete-invitation',
-			title: 'Einladung löschen',
-			icon: 'trash',
-		}];
-
-		const bodyInvitations = course.invitedUserIds.map((invitation) => {
-			return [
-				invitation.email,
-				moment(invitation.createdAt).format('DD.MM.YYYY'),
-				invitation.role === 'teamexpert' ? 'Team Experte' :
-					invitation.role === 'teamadministrator' ? 'Team Administrator' : '',
-				{
-					payload: {
-						email: invitation.email,
-					},
+		const body = team.userIds.map(user => [
+			user.userId.firstName || '',
+			user.userId.lastName || '',
+			roleTranslations[user.role.name],
+			user.userId.schoolId.name || '',
+			{
+				payload: {
+					userId: user.userId._id,
 				},
-				invitationActions,
-			];
-		});
+			},
+			addButtonTrash(addButtonEdit()),
+		]);
 
-		res.render('teams/members', Object.assign({}, course, {
+		const bodyClasses = team.classes.map(c => [
+			`${c.displayName || c.name} (${c.year ? c.year.name : ''})`,
+			c.userIds.length,
+			{
+				payload: {
+					classId: c._id,
+				},
+			},
+			addButtonTrashClass(),
+		]);
+
+		const bodyInvitations = team.invitedUserIds.map(invitation => [
+			invitation.email,
+			moment(invitation.createdAt).format('DD.MM.YYYY'),
+			invitation.role === 'teamexpert' ? 'Team Experte' :
+				invitation.role === 'teamadministrator' ? 'Team Administrator' : '',
+			{
+				payload: {
+					email: invitation.email,
+				},
+			},
+			invitationActions,
+		]);
+
+		res.render('teams/members', Object.assign({}, team, {
 			title: 'Deine Team-Teilnehmer',
 			action,
 			classes,
-			addMemberAction: `/teams/${req.params.teamId}/members`,
-			inviteExternalMemberAction: `/teams/${req.params.teamId}/members/external`,
-			deleteMemberAction: `/teams/${req.params.teamId}/members`,
-			deleteInvitationAction: `/teams/${req.params.teamId}/invitation`,
-			resendInvitationAction: `/teams/${req.params.teamId}/invitation`,
-			permissions: course.user.permissions,
+			addMemberAction: `/teams/${teamId}/members`,
+			inviteExternalMemberAction: `/teams/${teamId}/members/external`,
+			deleteMemberAction: `/teams/${teamId}/members`,
+			deleteInvitationAction: `/teams/${teamId}/invitation`,
+			resendInvitationAction: `/teams/${teamId}/invitation`,
+			permissions: team.user.permissions,
 			method,
 			head,
 			body,
@@ -876,14 +871,14 @@ router.get('/:teamId/members', async (req, res, next) => {
 			bodyInvitations,
 			users,
 			federalStates,
-			currentFederalState,
+			currentFederalState: currentFederalStateId,
 			breadcrumb: [{
 				title: 'Meine Teams',
 				url: '/teams',
 			},
 			{
-				title: course.name,
-				url: `/teams/${course._id}`,
+				title: team.name,
+				url: `/teams/${teamId}`,
 			},
 			{},
 			],
@@ -942,7 +937,7 @@ router.post('/external/invite', (req, res) => {
 		role: req.body.role,
 	};
 
-	return api(req).patch(`/teams/extern/add/${req.body.teamId}` , {
+	return api(req).patch(`/teams/extern/add/${req.body.teamId}`, {
 		json,
 	}).then((result) => {
 		res.sendStatus(200);
@@ -1060,8 +1055,8 @@ router.get('/:teamId/topics', async (req, res, next) => {
 		res.render('teams/topics', Object.assign({}, course, {
 			title: course.name,
 			lessons,
-			homeworks: homeworks.filter(function(task) { return !task.private; }),
-			myhomeworks: homeworks.filter(function(task) { return task.private; }),
+			homeworks: homeworks.filter(function (task) { return !task.private; }),
+			myhomeworks: homeworks.filter(function (task) { return task.private; }),
 			ltiToolIds,
 			courseGroups,
 			breadcrumb: [{
