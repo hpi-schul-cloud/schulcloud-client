@@ -672,7 +672,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		let courseUserIds = course.userIds.map((user) => {
 			return user.userId._id;
 		},
-		);
+		); 
 
 		course.classes = course.classIds.length > 0 ? (await api(req).get('/classes', {
 			qs: {
@@ -683,15 +683,15 @@ router.get('/:teamId/members', async (req, res, next) => {
 				$limit: 2000,
 			},
 		})).data : [];
-
-		const users = (await api(req).get('/users', {
+		
+		let users = (await api(req).get('/users', {
 			qs: {
-				_id: {
-					$nin: courseUserIds,
-				},
+				schoolId: res.locals.currentSchool,
 				$limit: false,
 			},
 		})).data;
+		
+		users = users.filter(user => !courseUserIds.includes(user._id));
 
 		let classes = (await api(req).get('/classes', { qs: {
 			$or: [{ 'schoolId': res.locals.currentSchool }],
@@ -888,9 +888,9 @@ router.get('/:teamId/members', async (req, res, next) => {
 			{},
 			],
 		}));
-	} catch (e) {
-		console.log(e);
-		next(e);
+	} catch (err) {
+		logger.warn('Can not fetch, or render get teams/members', err);
+		next(err);
 	}
 });
 
