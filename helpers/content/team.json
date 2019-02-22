@@ -533,21 +533,6 @@
 		"team": [
 			{
 				"title": "",
-				"firstName": "Christopher",
-				"lastName": "Eschenbecher",
-				"position": "Studentische Hilfskraft",
-				"description": "Christopher hat in Regensburg das Studium in Medieninformatik erfolgreich abgeschlossen und im Anschluss daran als Entwickler für Trivago in Düsseldorf gearbeitet. Im Moment absolviert er Design Thinking als 'Fortbildung' am HPI und arbeitet nebenbei als Werkstudent an der HPI Schul-Cloud. Seine Aufgabe ist es, diese sowohl für Lehrer als auch Schüler attraktiv zu gestalten. Somit ist seine Arbeit für die HPI Schul-Cloud eine perfekte Ergänzung zum Design Thinking Studium. Wenn Christopher ausnahmsweise nicht am HPI anzutreffen ist, fährt er Fahrrad, kocht, oder betreibt Yoga.",
-				"pictureUrl": "/images/team/Christopher_Eschenbecher.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Dominik",
 				"lastName": "Glandorf",
 				"position": "Studentische Hilfskraft",
@@ -628,6 +613,21 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Andrea studiert Bachelor IT-Systems Engineering am HPI. Seit Mai 2018 ist sie im Bereich der Android App-Entwicklung im HPI Schul-Cloud Projekt tätig. In ihrer Freizeit zeichnet sie und ist in den Sportarten historischer Schwertkampf und historische Tänze aktiv.",
 				"pictureUrl": "/images/team/Andrea_Nathansen.JPG",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Maxim",
+				"lastName": "Renz",
+				"position": "Studentische Hilfskraft",
+				"description": "Maxim studiert Angewandte Informatik im Bachelor an der Universität Duisburg-Essen. 2018 arbeitete er am HPI im Projekt der OpenWHO-Plattform. Im Team HPI Schul-Cloud arbeitet er seit Januar 2019 an der Entwicklung des automatisierten Cross-Browser-Testings. In seiner Freizeit kocht & isst er gerne, beschäftigt sich mit KFZ-Design & Technologie und fährt gelegentlich Rennrad.",
+				"pictureUrl": "/images/team/Maxim_Renz.JPG",
 				"priority": 0,
 				"social": {
 					"facebook": "",
