@@ -38,7 +38,7 @@ const quickHelpItems = [{
     }, {
         title: "MINT-EC Webinare",
         icon: "fa-desktop",
-        src: "https://www.mint-ec.de/aktuelles/blog-facebook/jetzt-mitmachen-webinare-zur-hpi-schul-cloud/"
+        src: "https://blog.schul-cloud.org/webinare/"
     }, {
         title: "Schnellstart-PDF",
         icon: "fa-file-pdf-o",
@@ -82,7 +82,7 @@ router.get('/', function (req, res, next) {
     let quickhelp = quickHelpItems.slice(0);
     if(!isDemo && !isStudent){
         quickhelp.push({
-            title: "Dokumente des Willkommensordners",
+            title: "Willkommens-Dokumente",
             icon: "fa-folder-open",
             src: "/help/faq/documents "
         });
@@ -160,7 +160,7 @@ router.get('/faq/documents', function (req, res, next) {
         documents[0].content = converter.makeHtml(documents[0].content);
 
         res.render('help/sso-faq', {
-            title: "Dokumente des Willkommensordners zum Download",
+            title: "Willkommens-Dokumente zum Download",
             breadcrumb: [
                 {
                     title: 'Hilfebereich',
