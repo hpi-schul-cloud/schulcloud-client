@@ -80,8 +80,7 @@ router.all('/', function (req, res, next) {
                 } catch(e) {
                     // just catching the blog-error
                 }
-
-                let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+                let schoolsPromise = getSelectOptions(req, 'schools', { purpose:{$ne:"expert"}, $limit: false, $sort: 'name'});
                 Promise.all([
                     schoolsPromise
                 ]).then(([schools, systems]) => {
@@ -102,7 +101,7 @@ router.all('/login/', function (req, res, next) {
         if (isAuthenticated) {
             return res.redirect('/login/success/');
         } else {
-            let schoolsPromise = getSelectOptions(req, 'schools', {$limit: false, $sort: 'name'});
+            let schoolsPromise = getSelectOptions(req, 'schools', { purpose:{$ne:"expert"}, $limit: false, $sort: 'name'});
 
             Promise.all([
                 schoolsPromise
@@ -135,8 +134,8 @@ const ssoSchoolData = (req,accountId) =>{
 		});
 	}).catch(err=>{
 		return undefined;
-	});	
-	
+	});
+
 };
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, function (req, res, next) {
@@ -156,11 +155,16 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
                 const consent = consents.data[0];
                 const redirectUrl = (req.session.login_challenge
                   ? '/oauth2/login/success'
-                  : consent.redirect);
-                res.redirect(redirectUrl);
+                  : '/dashboard');
+                if (consent.access) {
+                    res.redirect(redirectUrl);
+                } else {
+                    //make sure fistLogin flag is not set
+                    res.redirect('/firstLogin');
+                }
             });
     } else {
-        // if this happens: SSO 	
+        // if this happens: SSO
         const accountId = (res.locals.currentPayload||{}).accountId;
 
         ssoSchoolData( req, accountId ).then(school=>{

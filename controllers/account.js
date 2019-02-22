@@ -7,9 +7,7 @@ const authHelper = require('../helpers/authentication');
 router.use(authHelper.authChecker);
 
 router.post('/', function (req, res, next) {
-    const {firstName, lastName, email, password, password_new, gender} = req.body; // TODO: sanitize
-        let finalGender;
-        (gender === '' || !gender) ? finalGender = null : finalGender = gender;
+    const { firstName, lastName, email, password, password_new } = req.body; // TODO: sanitize
         return api(req).patch('/accounts/' + res.locals.currentPayload.accountId, {
             json: {
                 password_verification: password,
@@ -20,7 +18,6 @@ router.post('/', function (req, res, next) {
                 firstName,
                 lastName,
                 email,
-                gender: finalGender
             }}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(_ => {
                 res.redirect('/account/');
             });
@@ -33,33 +30,34 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-	Promise.all([
-		api(req).get('/oauth2/auth/sessions/consent/' + res.locals.currentUser._id),
-		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null)
-	]).then(([session, device]) => {
-		if (device) {
-			device.map(d => {
-				if (d.token === req.cookies.deviceToken) {
-					Object.assign(d, {selected: true});
-				}
-				return d;
-			});
-		}
+    const isSSO = Boolean(res.locals.currentPayload.systemId);
+	  Promise.all([
+      api(req).get('/oauth2/auth/sessions/consent/' + res.locals.currentUser._id),
+      (process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null)
+    ]).then(([session, device]) => {
+    	if (device) {
+    	  device.map(d => {
+            if (d.token === req.cookies.deviceToken) {
+                Object.assign(d, {selected: true});
+            }
+            return d;
+        });
+      }
 
-		res.render('account/settings', {
-			title: 'Dein Account',
-			device,
-			session,
-			userId: res.locals.currentUser._id
-		});
-	}).catch(err => {
-		res.render('account/settings', {
-			title: 'Dein Account',
-			device: null,
-			session: null,
-			userId: res.locals.currentUser._id
-		});
-	});
+      res.render('account/settings', {
+        title: 'Dein Account',
+        device,
+        session,
+        userId: res.locals.currentUser._id,
+        sso: isSSO
+      });
+    }).catch(err => {
+      res.render('account/settings', {
+        title: 'Dein Account',
+        userId: res.locals.currentUser._id,
+        sso: isSSO
+      });
+    });
 });
 
 // delete file

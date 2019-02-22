@@ -13,6 +13,7 @@
         {{error}}
 
         <div class="route-account">
+            {{#unless sso}}
             <form method="post">
                 {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
@@ -27,16 +28,6 @@
                 {{/ifneq}}
 
                 <div class="form-group">
-                    <span><Label>Geschlecht:</Label><p class="text-muted" style="display: inline"> (optional)</p></span>
-                    <select class="form-control form-control-lg" type="text" name="gender">
-                        <option value="">Geschlecht auswählen</option>
-                        <option {{#ifeq currentUser.gender "male"}}selected{{/ifeq}} value="male">Männlich</option>
-                        <option {{#ifeq currentUser.gender "female"}}selected{{/ifeq}} value="female">Weiblich</option>
-                        <option {{#ifeq currentUser.gender "other"}}selected{{/ifeq}} value="other">Anderes</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
                     <label>E-Mail-Adresse:</label>
                     <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
                 </div>
@@ -44,23 +35,23 @@
                 <div class="form-group">
                     <label>Aktuelles Passwort: <sup>*</sup></label>
                     <input type="password" name="password" class="form-control"
-                           placeholder="***************" required>
+                        placeholder="***************" required>
                 </div>
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
                     <label>Neues Passwort:</label>
                     <input type="password" name="password_new" id="password_new" class="form-control"
-                           placeholder="***************"
-                           pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                           title="{{> "lib/forms/password-hint" plaintext=true}}">
+                        placeholder="***************"
+                        pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
+                        title="{{> "lib/forms/password-hint" plaintext=true}}">
                 </div>
 
                 <div class="form-group">
                     <label>Neues Passwort wiederholen:</label>
                     <input type="password" name="password_control" id="password_control"
-                           class="form-control" placeholder="***************"
-                           title="{{> "lib/forms/password-hint" plaintext=true}}">
+                        class="form-control" placeholder="***************"
+                        title="{{> "lib/forms/password-hint" plaintext=true}}">
                 </div>
                 {{/userHasPermission}}
 
@@ -75,6 +66,28 @@
                 <span class="star-reference">*</span>
                 {{> "lib/forms/password-hint" plaintext=false style="display: inline;"}}
             </span>
+            {{else}}
+            <div>
+                <div class="form-group">
+                    <label>Vorname</label>
+                    <input type="text" class="form-control" value="{{ currentUser.firstName }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Nachname</label>
+                    <input type="text" class="form-control" value="{{ currentUser.lastName }}" readonly>
+                </div>
+                <div class="form-group">
+                    <label>E-Mail-Adresse</label>
+                    <input type="email" class="form-control" value="{{ currentUser.email }}" readonly>
+                </div>
+                <p class="warning">
+                    Deine Nutzerdaten werden von einem zentralen Identitätsmanagement (IDM)
+                    synchronisiert. Änderungen daran können nur in dem Ausgangssystem erfolgen (z.B. Schulserver),
+                    das den Daten im IDM zugrunde liegt. Bitte wende dich an den lokalen Administrator deiner Schule,
+                    um Änderungen an deinen Nutzerdaten vorzunehmen.
+                </p>
+            </div>
+            {{/unless}}
         </div>
 
         {{#if false}} <!-- the following is hidden until the feature is fixed -->

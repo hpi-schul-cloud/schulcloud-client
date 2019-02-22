@@ -8,29 +8,31 @@ const authHelper = require('../helpers/authentication');
 const ltiCustomer = require('../helpers/ltiCustomer');
 
 const createToolHandler = (req, res, next) => {
+    const context = req.originalUrl.split('/')[1];
     api(req).post('/ltiTools/', {
         json: req.body
     }).then(tool => {
         if (tool._id) {
-            api(req).patch('/courses/' + req.body.courseId, {
+            api(req).patch(`/${context}/` + req.body.courseId, {
                 json: {
                     $push: {
                         ltiToolIds: tool._id
                     }
                 }
             }).then(course => {
-               res.redirect('/courses/' + course._id);
+            res.redirect(`/${context}/` + course._id);
             });
         }
     });
 };
 
 const addToolHandler = (req, res, next) => {
-    let action = '/courses/' + req.params.courseId + '/tools/add';
+    const context = req.originalUrl.split('/')[1];
+    let action = `/${context}/` + req.params.courseId + '/tools/add';
 
     api(req).get('/ltiTools', { qs: {isTemplate: true}})
     .then(tools => {
-        api(req).get('/courses/' + req.params.courseId)
+        api(req).get(`/${context}/` + req.params.courseId)
             .then(course => {
                 res.render('courses/add-tool', {
                     action,
@@ -46,9 +48,9 @@ const addToolHandler = (req, res, next) => {
 const runToolHandler = (req, res, next) => {
     let currentUser = res.locals.currentUser;
     Promise.all([
-      api(req).get('/ltiTools/' + req.params.ltiToolId),
-      api(req).get('/roles/' + currentUser.roles[0]._id),
-      api(req).get('/pseudonym?userId=' + currentUser._id + '&toolId=' + req.params.ltiToolId)
+    api(req).get('/ltiTools/' + req.params.ltiToolId),
+    api(req).get('/roles/' + currentUser.roles[0]._id),
+    api(req).get('/pseudonym?userId=' + currentUser._id + '&toolId=' + req.params.ltiToolId)
     ]).then(([tool, role, pseudonym]) => {
        let customer = new ltiCustomer.LTICustomer();
        let consumer = customer.createConsumer(tool.key, tool.secret);
@@ -98,8 +100,9 @@ const runToolHandler = (req, res, next) => {
 };
 
 const getDetailHandler = (req, res, next) => {
+    const context = req.originalUrl.split('/')[1];
     Promise.all([
-        api(req).get('/courses/', {
+        api(req).get(`/${context}/`, {
         qs: {
             teacherIds: res.locals.currentUser._id}
         }),
@@ -114,10 +117,11 @@ const getDetailHandler = (req, res, next) => {
 };
 
 const showToolHandler = (req, res, next) => {
+    const context = req.originalUrl.split('/')[1];
 
     Promise.all([
         api(req).get('/ltiTools/' + req.params.ltiToolId),
-        api(req).get('/courses/' + req.params.courseId)
+        api(req).get(`/${context}/` + req.params.courseId)
     ])
     .then(([tool, course]) => {
         let renderPath = tool.isLocal ? 'courses/run-tool-local' : 'courses/run-lti';
@@ -134,7 +138,8 @@ const showToolHandler = (req, res, next) => {
 router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
-    res.redirect('/courses/' + req.params.courseId);
+    const context = req.originalUrl.split('/')[1];
+    res.redirect(`/${context}/` + req.params.courseId);
 });
 
 router.get('/add', addToolHandler);
@@ -146,7 +151,8 @@ router.get('/show/:ltiToolId', showToolHandler);
 router.get('/:id', getDetailHandler);
 
 router.delete('/delete/:ltiToolId', function (req, res, next) {
-    api(req).patch('/courses/' + req.params.courseId, {
+    const context = req.originalUrl.split('/')[1];
+    api(req).patch(`/${context}/` + req.params.courseId, {
         json: {
             $pull: {
                 ltiToolIds: req.params.ltiToolId
