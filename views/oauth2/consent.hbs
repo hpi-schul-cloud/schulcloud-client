@@ -19,11 +19,11 @@
                             <div class="form-wrapper">
                                 <form method="post" class="registration-form" action={{action}}>
                                     <div class="form-group">
-                                        <label>Um mit {{client}} zu arbeiten, müssen wir folgendes von dir weitergeben:</label>
+                                        <label>Um mit {{client}} zu arbeiten, müssen wir folgendes an diesen Anbieter weitergeben:</label>
                                         <ul>
                                             {{#each scopes}}
-                                                <li>{{this}}</li>
-                                                <input type="hidden" name="grantScopes" value="{{this}}" />
+                                                <li>{{this.display}}</li>
+                                                <input type="hidden" name="grantScopes" value="{{this.value}}" />
                                             {{/each}}
                                         </ul>
                                     </div>

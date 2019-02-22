@@ -54,7 +54,6 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
     if (consentRequest.skip) {
       return acceptConsent(r, w, r.query.consent_challenge, consentRequest.requested_scope);
     }
-
     return w.render('oauth2/consent', {
       inline: true,
       title: 'Login mit Schul-Cloud',
@@ -62,7 +61,9 @@ router.get('/consent', csrfProtection, auth.authChecker, (r, w) => {
       client: consentRequest.client.client_name,
       action: `/oauth2/consent?challenge=${r.query.consent_challenge}`,
       buttonLabel: 'Akzeptieren',
-      scopes: consentRequest.requested_scope
+      scopes: consentRequest.requested_scope.map(scope =>
+	    ({ display: (scope === 'openid' ? "eine eindeutige Zeichenfolge, die keinen Rückschluss auf deine wahre Identität zulässt" : scope),
+		value: scope}))
     })
   })
 });
