@@ -52,6 +52,13 @@ router.get('/', function (req, res, next) {
 			session,
 			userId: res.locals.currentUser._id
 		});
+	}).catch(err => {
+		res.render('account/settings', {
+			title: 'Dein Account',
+			device: null,
+			session: null,
+			userId: res.locals.currentUser._id
+		});
 	});
 });
 
