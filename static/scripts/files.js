@@ -14,6 +14,7 @@ $(document).ready(function() {
     let $deleteModal = $('.delete-modal');
     let $moveModal = $('.move-modal');
     let $renameModal = $('.rename-modal');
+    let $newFileModal = $('.new-file-modal');
 
     let isCKEditor = window.location.href.indexOf('CKEditor=') !== -1;
 
@@ -44,6 +45,8 @@ $(document).ready(function() {
         return fullPath.split("/").slice(0, -1).join('/');
     }
 
+    /** temp save for createdDirs, reset after reload **/
+    let createdDirs = [];
 
     /** loads dropzone, if it exists on current page **/
     let progressBarActive = false;
@@ -55,14 +58,36 @@ $(document).ready(function() {
 
             let currentDir = getCurrentDir();
 
+            // folder support
+			if (file.fullPath) {
+				let fullPath = file.fullPath.split('/');
+				fullPath.pop(); // removes fileName from array
+
+				if (fullPath.length >= 1) {
+					for (let i = 0; i < fullPath.length; i++) {
+						// check whether directory was already created if so skip
+						if (!createdDirs.includes(`${currentDir}${fullPath[i]}`)) {
+							$.post('/files/directory', {
+								dir: currentDir,
+								name: fullPath[i]
+							});
+
+							createdDirs.push(`${currentDir}${fullPath[i]}`);
+						}
+
+						currentDir += `${fullPath[i]}/`;
+					}
+				}
+			}
+
             $.post('/files/file', {
-                path: currentDir + file.name,
+                path: `${currentDir}${file.name}`,
                 type: file.type
             }, function (data) {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-                .fail(showAJAXError);
+                .fail((err) => { this.removeFile(file); showAJAXError(err.responseJSON.error.code, err.responseJSON.error.message, `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`); });
         },
         createImageThumbnails: false,
         method: 'put',
@@ -185,6 +210,12 @@ $(document).ready(function() {
         $renameModal.modal('hide');
     });
 
+    $('.new-file').on('click', function () {
+        if (!window.location.href.includes('/courses/'))
+            $('#student-can-edit-div').hide();
+        $newFileModal.appendTo('body').modal('show');
+    });
+
     $('.card.file').on('click', function () {
         if (isCKEditor) returnFileUrl($(this).data('file-name'));
     });
@@ -235,6 +266,22 @@ $(document).ready(function() {
         $.post('/files/directory', {
             name: $editModal.find('[name="new-dir-name"]').val(),
             dir: getCurrentDir()
+        }, function (data) {
+            reloadFiles();
+        }).fail(showAJAXError);
+    });
+
+    $newFileModal.find('.modal-form').on('submit', function (e) {
+        e.preventDefault();
+
+        let studentEdit = false;
+        if (document.getElementById('student-can-edit'))
+            studentEdit = document.getElementById('student-can-edit').checked;
+        $.post('/files/newFile', {
+            name: $newFileModal.find('[name="new-file-name"]').val(),
+            type: $("#file-ending").val(),
+            dir: getCurrentDir(),
+            studentEdit
         }, function (data) {
             reloadFiles();
         }).fail(showAJAXError);
@@ -298,10 +345,44 @@ $(document).ready(function() {
         let path = $(this).attr('data-file-path');
 
         populateRenameModal(
-            oldName, 
-            path, 
+            oldName,
+            path,
             '/files/fileModel/' + fileId +  '/rename',
             'Datei umbenennen');
+    });
+
+    if (!window.location.href.includes('/courses/'))
+        $('.btn-student-allow').hide();
+
+    $('.btn-student-allow').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let bool = $(this).attr('data-file-can-edit') || false;
+        bool = bool == 'true';
+
+        $.ajax({
+            type: "POST",
+            url: "/files/studentCanEdit/",
+            data: {
+                id: fileId,
+                bool: !bool
+            },
+            success: function (data) {
+                if (data.success) {
+                    let id = e.target.id;
+                    if (!id.includes('ban'))
+                        id = `ban-${id}`;
+
+                    if ($(`#${id}`).is(":visible"))
+                        $(`#${id}`).hide();
+                    else {
+                        $(`#${id}`).removeAttr('hidden');
+                        $(`#${id}`).show();
+                    }
+                }
+            }
+        });
     });
 
     $('a[data-method="dir-rename"]').on('click', function (e) {
@@ -312,32 +393,75 @@ $(document).ready(function() {
         let path = $(this).attr('data-directory-path');
 
         populateRenameModal(
-            oldName, 
-            path, 
+            oldName,
+            path,
             '/files/directoryModel/' + dirId +  '/rename',
             'Ordner umbenennen');
+    });
+
+    $('.btn-file-share-close').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let id = e.target.parentElement.id;
+        $(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
+    });
+
+    $('.btn-file-share-view').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let $shareModal = $('.share-modal');
+        let id = e.target.parentElement.id;
+        $(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
+
+        fileShare(fileId, $shareModal, true);
+    });
+
+    $('.btn-file-share-download').click(function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let fileId = $(this).attr('data-file-id');
+        let $shareModal = $('.share-modal');
+        let id = e.target.parentElement.id;
+        $(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
+
+        fileShare(fileId, $shareModal);
     });
 
     $('.btn-file-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
+        let fileName = $(this).attr('data-file-name');
         let $shareModal = $('.share-modal');
+        let id = e.target.parentElement.id;
+
+        let fType = fileName.split('.');
+        fType = fileTypes[fType[fType.length - 1]];
+
+        if (fType && fType !== 'application/pdf')
+            $(`.popup-overlay#${id}, .popup-content#${id}`).addClass("active");
+        else {
+            fileShare(fileId, $shareModal);
+        }
+    });
+
+    const fileShare = (fileId, $shareModal, view) => {
         $.ajax({
             type: "POST",
             url: "/files/permissions/",
             data: {
                 id: fileId
             },
-            success: function(data) {
-                let target = `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
+            success: function (data) {
+                let target = view ? `files/file/${fileId}/lool?share=${data.shareToken}` : `files/fileModel/${data._id}/proxy?share=${data.shareToken}`;
                 $.ajax({
                     type: "POST",
                     url: "/link/",
                     data: {
                         target: target
                     },
-                    success: function(data) {
+                    success: function (data) {
                         populateModalForm($shareModal, {
                             title: 'Einladungslink generiert!',
                             closeLabel: 'Abbrechen',
@@ -355,7 +479,7 @@ $(document).ready(function() {
                 });
             }
         });
-    });
+    };
 
     $moveModal.on('hidden.bs.modal', function () {
         // delete the directory-tree
@@ -470,60 +594,94 @@ window.videoClick = function videoClick(e) {
     e.preventDefault();
 };
 
-window.fileViewer = function fileViewer(filetype, file, key, name) {
-    $('#my-video').css("display","none");
-    switch (filetype) {
+const fileTypes = {
+    docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+    ppt: 'application/vnd.ms-powerpoint',
+    xls: 'application/vnd.ms-excel',
+    doc: 'application/vnd.ms-word',
+    odt: 'application/vnd.oasis.opendocument.text',
+    txt: 'text/plain',
+    pdf: 'application/pdf'
+};
+
+window.fileViewer = function fileViewer(type, key, name, id) {
+    $('#my-video').css("display" , "none");
+
+    // detect filetype according to line ending
+    if (type.length === 0) {
+        let fType = name.split('.');
+        type = fileTypes[fType[fType.length - 1]];
+    }
+
+    switch (type) {
         case 'application/pdf':
             $('#file-view').hide();
-            let win = window.open('/files/file?file='+file, '_blank');
+            let win = window.open('/files/file?file=' + key, '_blank');
             win.focus();
             break;
 
-        case 'image/'+filetype.substr(6) :
+        case 'image/' + type.substr(6) :
             $('#file-view').css('display','');
-            $('#picture').attr("src", '/files/file?file='+file);
+            $('#picture').attr("src", '/files/file?file=' + key);
             break;
 
-        case 'audio/'+filetype.substr(6):
-        case 'video/'+filetype.substr(6):
+        case 'audio/' + type.substr(6):
+        case 'video/' + type.substr(6):
             $('#file-view').css('display','');
             videojs('my-video').ready(function () {
-                this.src({type: filetype, src: '/files/file?file='+file});
+                this.src({type: type, src: '/files/file?file=' + key});
             });
             $('#my-video').css("display","");
             break;
 
         case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':     //.docx
+        case 'application/vnd.ms-word': case 'application/msword':                          //.doc
+        case 'application/vnd.oasis.opendocument.text':	                                    //.odt
         case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':           //.xlsx
+        case 'application/vnd.ms-excel': case 'application/msexcel':                        //.xls
+        case 'application/vnd.oasis.opendocument.spreadsheet':	                            //.ods
         case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':   //.pptx
-        case 'application/vnd.ms-powerpoint':                                               //.ppt
-        case 'application/vnd.ms-excel':                                                    //.xlx
-        case 'application/vnd.ms-word':                                                     //.doc
-        case 'text/plain': //only in Google Docs Viewer                                     //.txt
+        case 'application/vnd.ms-powerpoint':  case 'application/mspowerpoint':             //.ppt
+        case 'application/vnd.oasis.opendocument.presentation':	                            //.odp
+        case 'text/plain':                                                                  //.txt
+            $('#file-view').hide();
+            win = window.open(`/files/file/${id}/lool`, '_blank');
+            win.focus();
+
+            break;
+
+            /**
+             * GViewer still needed?
             $('#file-view').css('display','');
-            let gviewer ="https://docs.google.com/viewer?url=";
+            let gviewer = "https://docs.google.com/viewer?url=";
             let showAJAXError = showAJAXError; // for deeply use
             $openModal.find('.modal-title').text("Möchtest du diese Datei mit dem externen Dienst Google Docs Viewer ansehen?");
             $.post('/files/file?file=', {
                 path: (getCurrentDir()) ? getCurrentDir() + name : key,
-                type: filetype,
+                type: type,
                 action: "getObject"
             }, function (data) {
                 let url = data.signedUrl.url;
                 url = url.replace(/&/g, "%26");
-                openInIframe(gviewer+url+"&embedded=true");
+                openInIframe(gviewer + url + "&embedded=true");
             })
                 .fail(showAJAXError);
             break;
+             **/
 
         default:
             $('#file-view').css('display','');
-            $('#link').html('<a class="link" href="/files/file?file='+file+'" target="_blank">Datei extern öffnen</a>');
+            $('#link').html('<a class="link" href="/files/file?file=' + key + '" target="_blank">Datei extern öffnen</a>');
             $('#link').css("display","");
     }
-}
+};
 
-//show Google-Viewer/Office online in iframe, after user query (and set cookie)
+/**
+ * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
+ * @deprecated
+**/
 function openInIframe(source){
     $("input.box").each(function() {
         let mycookie = $.cookie($(this).attr('name'));

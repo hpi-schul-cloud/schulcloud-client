@@ -1,0 +1,32 @@
+{{#extend "lib/loggedin"}}
+
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/files/files.css"/>
+    {{/content}}
+
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/files.js" type="text/javascript" defer></script>
+        <script src="/scripts/jquery.cookie.js" type="text/javascript" defer></script>
+    {{/content}}
+
+    {{#content "page"}}
+        <div class="route-files-overview">
+            {{#if libreOfficeUrl}}
+            <iframe 
+              src="{{libreOfficeUrl}}"
+	            style="width: 100%; height: 800px; resize: vertical; overflow: auto;">
+            </iframe>
+            {{else}}
+              <div class="alert alert-warning" role="alert">
+                  <p>LibreOffice Online wurde nicht richtig konfiguriert! <span class="hidden-md-down">Bitte versuchen Sie es später noch einmal oder benachrichtigen Sie Ihren Administrator.</span></p>
+              </div>
+            {{/if}}
+        </div>
+        {{#if libreOfficeUrl}}
+            <div class="alert alert-warning">
+                <p class="card-text">💡 TIPP: Öffne das LibreOffice-Dokument in einem eigenen Fenster, um die Performance zu verbessern</p>
+                <a class="btn btn-secondary" href="{{libreOfficeUrl}}" target="_blank">Dokument in neuem Fenster öffnen</a>
+            </div>
+        {{/if}}
+    {{/content}}
+{{/extend}}

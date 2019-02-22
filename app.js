@@ -5,6 +5,7 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
+const querystring = require('querystring');
 
 const session = require('express-session');
 
@@ -51,6 +52,7 @@ app.use(session({
     resave: 'true',
     secret: 'secret'
 }));
+
 // Custom flash middleware
 app.use(function(req, res, next){
     // if there's a flash message in the session request, make it available in the response, then delete it
@@ -74,7 +76,6 @@ app.use(methodOverride((req, res, next) => { // for POST requests
     }
 }));
 
-
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
 
@@ -90,25 +91,24 @@ app.use(function (req, res, next) {
 });
 
 // error handler
-app.use(function (err, req, res, next) {
-    // set locals, only providing error in development
-    let status = err.status || err.statusCode;
-    if (err.statusCode) {
-        res.setHeader("error-message", err.error.message);
-        res.locals.message = err.error.message;
-    }else {
-        res.locals.message = err.message;
-    }
-    res.locals.error = req.app.get('env') === 'development' ? err : {status};
+app.use((err, req, res, next) => {
+	// set locals, only providing error in development
+	const status = err.status || err.statusCode || 500;
+	if (err.statusCode) {
+		res.setHeader('error-message', err.error.message);
+		res.locals.message = err.error.message;
+	} else {
+		res.locals.message = err.message;
+	}
+	res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
-    if (res.locals.currentUser)
-        res.locals.loggedin = true;
-    // render the error page
-    res.status(status);
-    res.render('lib/error', {
-            loggedin: res.locals.loggedin,
-            inline: !res.locals.loggedin
-        });
+	if (res.locals.currentUser) res.locals.loggedin = true;
+	// render the error page
+	res.status(status);
+	res.render('lib/error', {
+		loggedin: res.locals.loggedin,
+		inline: res.locals.inline ? true : !res.locals.loggedin,
+	});
 });
 
 module.exports = app;

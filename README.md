@@ -1,8 +1,8 @@
 # Schul-Cloud Client  
 _An implementation of the Schul-Cloud client with NodeJS and Express._  
   
-Dev: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=master)<br>  
-Production: ![Travis Status](https://travis-ci.org/schul-cloud/schulcloud-client.svg?branch=production)  
+Dev: ![Travis Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)<br>  
+Production: ![Travis Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=production)  
   
 ## Requirements  
   
@@ -12,8 +12,10 @@ You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcl
 
 ## Setup  
   
-There are blog posts on how to setup [client](https://github.com/schul-cloud/schulcloud-client) and [server](https://github.com/schul-cloud/schulcloud-server) under [Windows](https://schul-cloud.github.io/blog/2017-05-18/setup-schul-cloud-client-and-sever-under-windows) and [Linux](https://schul-cloud.github.io/blog/2017-04-21/setup-development-under-ubuntu).  
+German docs on installing: [Setup SC](https://docs.schul-cloud.org/display/SCDOK/Setup)
   
+Short version:
+
 1. Clone directory into local folder  
 2. Go into the cloned folder and enter `npm install`  
 3. Install nodemon and gulp globally by entering `npm install -g nodemon gulp`  
@@ -26,6 +28,11 @@ There are blog posts on how to setup [client](https://github.com/schul-cloud/sch
 4. Set the ENV-variable `TZ=Europe/Berlin` (for windows use `set TZ=Europe/Berlin`). You can also set the variables `SC_TITLE=HPI Schul-Cloud` and `SC_SHORT_TITLE=Schul-Cloud` if you want.
 5. run `npm run watch` to boot the application
 6. go to `http://localhost:3100`
+
+**Alternative with browser-sync**
+
+1. run `gulp watch reload` to run gulp with browser sync. It also starts the node-client-server.
+2. go to `http://localhost:7000`
   
 For connecting to the [SchulCloud Calendar-Service](https://github.com/schul-cloud/schulcloud-calendar) you have to set `export CALENDAR_SERVICE_ENABLED=true`.  
   

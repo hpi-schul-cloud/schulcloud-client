@@ -1,6 +1,7 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
+import { updateQueryStringParam } from './helpers/updateQueryStringParameter';
 
 window.addEventListener("DOMContentLoaded", function(){
     /* FEATHERS FILTER MODULE */
@@ -8,11 +9,17 @@ window.addEventListener("DOMContentLoaded", function(){
     if(filterModule){
         filterModule.addEventListener('newFilter', (e) => {
             const filter = e.detail;
-            const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0]));
+            const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0])) + '&p=' + getQueryParameterByName('p');
             softNavigate(newurl, ".ajaxcontent", ".pagination");
         });
         document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
     }
+});
+
+window.addEventListener("softNavigate", (event) => {
+    let target_url = event.detail.target_url;
+    var param = getQueryParameterByName('p', target_url);
+    updateQueryStringParam('p', param);
 });
 
 $(document).ready(function () {
@@ -38,13 +45,14 @@ $(document).ready(function () {
         e.preventDefault();	
         var entry = $(this).attr('href');	
         $.getJSON(entry, function (result) {	
+            result.createdAt = new Date(result.createdAt).toLocaleString();
             populateModalForm($editModal, {	
                 action: entry,	
                 title: 'Bearbeiten',	
                 closeLabel: 'Abbrechen',	
                 submitLabel: 'Speichern',	
                 fields: result	
-            });	
+            });	 
              // post-fill gradiation selection	
             if ($editModal.find("input[name=gradeSystem]").length) {	
                 var $gradeInputPoints = $editModal.find("#gradeSystem0");	

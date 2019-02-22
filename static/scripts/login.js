@@ -1,5 +1,21 @@
 /* global introJs */
 $(document).ready(function() {
+
+	try {
+		console.log(`
+	__  __  ____    ______      _____           __               ___            _____   ___                       __     
+   /\\ \\/\\ \\/\\  _\`\\ /\\__  _\\    /\\  __\`\\        /\\ \\             /\\_ \\          /\\  __\`\\/\\_ \\                     /\\ \\    
+   \\ \\ \\_\\ \\ \\ \\_\\ \\/_/\\ \\/    \\ \\,\\_\\_\\    ___\\ \\ \\___   __  __\\//\\ \\         \\ \\ \\/\\_\\//\\ \\     ___   __  __   \\_\\ \\   
+	\\ \\  _  \\ \\ ,__/  \\ \\ \\     \\/_\\___ \\  /'___\\ \\  _ \`\\/\\ \\/\\ \\ \\ \\ \\   ______\\ \\ \\/_/_\\ \\ \\   / __\`\\/\\ \\/\\ \\  /'_\` \\  
+	 \\ \\ \\ \\ \\ \\ \\/    \\_\\ \\__    /\\ \\_\\ \\/\\ \\__/\\ \\ \\ \\ \\ \\ \\_\\ \\ \\_\\ \\_/\\_____\\\\ \\ \\_\\ \\\\_\\ \\_/\\ \\_\\ \\ \\ \\_\\ \\/\\ \\_\\ \\ 
+	  \\ \\_\\ \\_\\ \\_\\    /\\_____\\   \\ \`\\____\\ \\____\\\\ \\_\\ \\_\\ \\____/ /\\____\\/_____/ \\ \\____//\\____\\ \\____/\\ \\____/\\ \\___,_\\
+	   \\/_/\\/_/\\/_/    \\/_____/    \\/_____/\\/____/ \\/_/\\/_/\\/___/  \\/____/         \\/___/ \\/____/\\/___/  \\/___/  \\/__,_ /
+	`);
+		console.log("   Mit Node, React und Feathers verknüpfst du eher die Sprache Javascript als Englisch? Du suchst ein junges Team, lockere Atmosphäre und flache Hierarchien? Dann schau dir unsere Stellen an: https://schul-cloud.org/community#jobs");
+	} catch(e) {
+		// no log
+	}
+	
     var $btnToggleProviers = $('.btn-toggle-providers');
     var $btnHideProviers = $('.btn-hide-providers');
     var $btnLogin = $('.btn-login');
@@ -92,4 +108,24 @@ window.startIntro = function startIntro() {
         localStorage.setItem('Tutorial', true);
         document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
     })
+}
+
+if ('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+            if(registration.active && registration.active.scriptURL.endsWith('/sw.js')){
+                registration.unregister();
+                caches.keys().then(function(cacheNames) {
+                    return Promise.all(
+                      cacheNames.filter(function(cacheName) {
+                        return cacheName.startsWith('workbox') | cacheName.startsWith('images') 
+                        | cacheName.startsWith('pages') | cacheName.startsWith('vendors');
+                      }).map(function(cacheName) {
+                        return caches.delete(cacheName);
+                      })
+                    );
+                });
+            }
+        } 
+    });
 }

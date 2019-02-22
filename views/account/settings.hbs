@@ -16,18 +16,18 @@
             <form method="post">
                 {{#ifneq currentRole "Schüler"}}
                 <div class="form-group">
-                    <label>Vorname</label>
+                    <label>Vorname:</label>
                     <input type="text" class="form-control" name="firstName" value="{{ ../currentUser.firstName }}">
                 </div>
 
                 <div class="form-group">
-                    <label>Nachname</label>
+                    <label>Nachname:</label>
                     <input type="text" class="form-control" name="lastName" value="{{ ../currentUser.lastName }}">
                 </div>
                 {{/ifneq}}
 
                 <div class="form-group">
-                    <span><Label>Geschlecht</Label><p class="text-muted" style="display: inline"> (optional)</p></span>
+                    <span><Label>Geschlecht:</Label><p class="text-muted" style="display: inline"> (optional)</p></span>
                     <select class="form-control form-control-lg" type="text" name="gender">
                         <option value="">Geschlecht auswählen</option>
                         <option {{#ifeq currentUser.gender "male"}}selected{{/ifeq}} value="male">Männlich</option>
@@ -37,29 +37,30 @@
                 </div>
 
                 <div class="form-group">
-                    <label>E-Mail-Adresse</label>
-                    <input type="email" class="form-control" name="email" value="{{ currentUser.email }}" readonly>
+                    <label>E-Mail-Adresse:</label>
+                    <input type="email" class="form-control" name="email" value="{{ currentUser.email }}">
                 </div>
 
                 <div class="form-group">
-                    <label>Aktuelles Passwort</label>
+                    <label>Aktuelles Passwort: <sup>*</sup></label>
                     <input type="password" name="password" class="form-control"
                            placeholder="***************" required>
                 </div>
 
                 {{#userHasPermission "PASSWORD_EDIT"}}
                 <div class="form-group">
-                    <label>Neues Passwort <sup>*</sup></label>
+                    <label>Neues Passwort:</label>
                     <input type="password" name="password_new" id="password_new" class="form-control"
                            placeholder="***************"
                            pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z])(?=.*[\-_!<>§$%&\/()=?\\;:,.#+*~']).{8,255}$"
-                           title="Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen">
+                           title="{{> "lib/forms/password-hint" plaintext=true}}">
                 </div>
 
                 <div class="form-group">
-                    <label>Neues Passwort <sup>*</sup></label>
+                    <label>Neues Passwort wiederholen:</label>
                     <input type="password" name="password_control" id="password_control"
-                           class="form-control" placeholder="***************">
+                           class="form-control" placeholder="***************"
+                           title="{{> "lib/forms/password-hint" plaintext=true}}">
                 </div>
                 {{/userHasPermission}}
 
@@ -71,69 +72,71 @@
             <input type="hidden" name="userId" value="{{userId}}"/>
 
             <span class="hint">
-                <sup>*</sup>
-                Mindestens 8 Zeichen mit Groß- und Kleinschreibung und mindestens einer Zahl und Sonderzeichen.
+                <span class="star-reference">*</span>
+                {{> "lib/forms/password-hint" plaintext=false style="display: inline;"}}
             </span>
         </div>
 
-        <div class="panel-group notification-div">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>Benachrichtigungseinstellungen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
-                </h4>
-                </div>
-                <div id="collapse1" class="panel-collapse collapse">
+        {{#if false}} <!-- the following is hidden until the feature is fixed -->
+            <div class="panel-group notification-div">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1" class="collapse-toggle"><label>Benachrichtigungseinstellungen</label><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></a>
+                    </h4>
+                    </div>
+                    <div id="collapse1" class="panel-collapse collapse">
 
-                    <div class="notification">
-                        {{#if device}}
-                            <table width="100%" cellpadding="5px">
-                                <thead>
-                                <th></th>
-                                <th><label>Name</label></th>
-                                <th><label>Typ</label></th>
-                                <th><label>Betriebssystem</label></th>
-                                </thead>
-                                <tbody>
-                                {{#each device}}
-                                    <tr id="{{this._id}}">
-                                        <td>{{#if this.selected}}<a href="/account/settings/device"
-                                                                    target="_blank"
-                                                                    data-method="delete"
-                                                                    data-device-name="{{this.name}}"
-                                                                    data-device-id="{{this.token}}">
-                                            <i class="fa fa-trash-o"></i></a>
-                                        {{/if}}</td>
-                                        <td class="form-group">{{this.name}}</td>
-                                        <td class="form-group">{{this.type}}</td>
-                                        <td class="form-group">{{this.OS}}</td>
-                                    </tr>
-                                {{/each}}
-                                </tbody>
-                            </table>
-                        {{else}}
-                            <h5 class="text-muted text-center">
-                                <span>Keine Geräte eingetragen</span>
-                            </h5>
-                        {{/if}}
-                        <div class="panel-footer">
-                            <button type="button" class="btn btn-default btn-device"
-                                    onclick="pushManager.requestPermission()">
-                                <i class="fa fa-bell" aria-hidden="true"></i>
-                                Benachrichtigungen
-                                aktivieren
-                            </button>
+                        <div class="notification">
+                            {{#if device}}
+                                <table width="100%" cellpadding="5px">
+                                    <thead>
+                                    <th></th>
+                                    <th><label>Name</label></th>
+                                    <th><label>Typ</label></th>
+                                    <th><label>Betriebssystem</label></th>
+                                    </thead>
+                                    <tbody>
+                                    {{#each device}}
+                                        <tr id="{{this._id}}">
+                                            <td>{{#if this.selected}}<a href="/account/settings/device"
+                                                                        target="_blank"
+                                                                        data-method="delete"
+                                                                        data-device-name="{{this.name}}"
+                                                                        data-device-id="{{this.token}}">
+                                                <i class="fa fa-trash-o"></i></a>
+                                            {{/if}}</td>
+                                            <td class="form-group">{{this.name}}</td>
+                                            <td class="form-group">{{this.type}}</td>
+                                            <td class="form-group">{{this.OS}}</td>
+                                        </tr>
+                                    {{/each}}
+                                    </tbody>
+                                </table>
+                            {{else}}
+                                <h5 class="text-muted text-center">
+                                    <span>Keine Geräte eingetragen</span>
+                                </h5>
+                            {{/if}}
+                            <div class="panel-footer">
+                                <button type="button" class="btn btn-default btn-device"
+                                        onclick="pushManager.requestPermission()">
+                                    <i class="fa fa-bell" aria-hidden="true"></i>
+                                    Benachrichtigungen
+                                    aktivieren
+                                </button>
 
-                            <button type="button" class="btn btn-default send-test-notification">
-                                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                                Test-Benachrichtigung
-                                senden
-                            </button>
+                                <button type="button" class="btn btn-default send-test-notification">
+                                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                                    Test-Benachrichtigung
+                                    senden
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {{/if}}
 
         {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
             {{#content "body"}}

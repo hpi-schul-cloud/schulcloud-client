@@ -1,4 +1,5 @@
 <input name="classid" type="hidden" value="{{class._id}}"/>
+<input type="hidden" name="referrer" value="{{referrer}}" />
 
 <a class="d-block mb-1"
     href="/administration/classes/{{@root.class/_id}}/edit"
@@ -41,7 +42,7 @@
 
 
 <div class="modal-footer mt-1">
-    <a href="/administration/classes" class="btn btn-secondary">Abbrechen</a>
+    <a class="btn btn-secondary btn-cancel">Abbrechen</a>
     <button type="submit" class="btn btn-primary">Änderungen speichern</button>
 </div>
 
@@ -114,3 +115,5 @@
         </div>
     {{/content}}
 {{/embed}}
+
+{{#embed "lib/components/modal-cancel" class="cancel-modal"}}{{/embed}}

@@ -41,23 +41,11 @@ module.exports = (req, res, next) => {
         introNumber: 11,
         introText: "Hiermit gelangst du stets zu deinem persönlichen Dashboard zurück, auf welchem du auch direkt nach dem Login landest."
     }, {
-        name: 'Neuigkeiten',
-        icon: 'newspaper-o',
-        link: '/news/',
-        introNumber: 12,
-        introText: "Hier kannst du noch einmal auf deine Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
-    }, {
         name: 'Kurse',
         icon: 'graduation-cap',
         link: '/courses/',
         introNumber: 13,
         introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
-    }, {
-        name: 'Termine',
-        icon: 'table',
-        link: '/calendar/',
-        introNumber: 14,
-        introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
         name: 'Aufgaben',
         icon: 'tasks',
@@ -105,6 +93,18 @@ module.exports = (req, res, next) => {
         introNumber: 16,
         introText: "Hier gelangst du zum Dateibereich, in dem du Dateien hochladen und verwalten kannst. Deine Dateien werden hierbei in folgende Kategorien unterteilt: deine persönlichen Dateien, Kursdateien und mit dir geteilte Dateien."
     }, {
+        name: 'Neuigkeiten',
+        icon: 'newspaper-o',
+        link: '/news/',
+        introNumber: 12,
+        introText: "Hier kannst du noch einmal auf deine Neuigkeiten zugreifen und auch ältere Neuigkeiten einsehen."
+    }, {
+        name: 'Termine',
+        icon: 'table',
+        link: '/calendar/',
+        introNumber: 14,
+        introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
+    }, {
         name: 'LernStore',
         icon: 'search',
         link: '/content/',
@@ -118,6 +118,7 @@ module.exports = (req, res, next) => {
         icon: 'cogs',
         link: '/administration/',
         permission: 'STUDENT_CREATE',
+        excludedPermission: 'ADMIN_VIEW',
         children: [
             {
                 name: 'Schüler',
@@ -140,7 +141,7 @@ module.exports = (req, res, next) => {
     // helpdesk views
     res.locals.sidebarItems.push({
        name: 'Helpdesk',
-       icon: 'cogs',
+       icon: 'ticket',
        link: '/administration/helpdesk/',
        permission: 'HELPDESK_VIEW'
     });
