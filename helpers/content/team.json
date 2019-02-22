@@ -533,21 +533,6 @@
 		"team": [
 			{
 				"title": "",
-				"firstName": "Christopher",
-				"lastName": "Eschenbecher",
-				"position": "Studentische Hilfskraft",
-				"description": "Christopher hat in Regensburg das Studium in Medieninformatik erfolgreich abgeschlossen und im Anschluss daran als Entwickler für Trivago in Düsseldorf gearbeitet. Im Moment absolviert er Design Thinking als 'Fortbildung' am HPI und arbeitet nebenbei als Werkstudent an der HPI Schul-Cloud. Seine Aufgabe ist es, diese sowohl für Lehrer als auch Schüler attraktiv zu gestalten. Somit ist seine Arbeit für die HPI Schul-Cloud eine perfekte Ergänzung zum Design Thinking Studium. Wenn Christopher ausnahmsweise nicht am HPI anzutreffen ist, fährt er Fahrrad, kocht, oder betreibt Yoga.",
-				"pictureUrl": "/images/team/Christopher_Eschenbecher.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Dominik",
 				"lastName": "Glandorf",
 				"position": "Studentische Hilfskraft",
@@ -638,6 +623,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Maxim",
+				"lastName": "Renz",
+				"position": "Studentische Hilfskraft",
+				"description": "Maxim studiert Angewandte Informatik im Bachelor an der Universität Duisburg-Essen. 2018 arbeitete er am HPI im Projekt der OpenWHO-Plattform. Im Team HPI Schul-Cloud arbeitet er seit Januar 2019 an der Entwicklung des automatisierten Cross-Browser-Testings. In seiner Freizeit kocht & isst er gerne, beschäftigt sich mit KFZ-Design & Technologie und fährt gelegentlich Rennrad.",
+				"pictureUrl": "/images/team/Maxim_Renz.JPG",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Sebastian",
 				"lastName": "Serth",
 				"position": "Student",
@@ -687,20 +687,20 @@
 				"longDesc": false
 			},
 			{
-				"title": "",
-				"firstName": "Caroline",
-				"lastName": "Morfeld",
-				"position": "Praktikantin",
-				"description": "Caroline hat Kultur-, Politik- und Literaturwissenschaften studiert und unterstützt als wissenschaftliche Hilfskraft seit September 2018 die politische Kommunikation und den Kontakt zu Projektpartnern. Privat engagiert sie sich in der politischen Bildung, bereist und bewandert den Osten Europas und genießt das Berliner Kulturleben.",
-				"pictureUrl": "/images/team/Caroline_Morfeld.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
+        "title": "",
+        "firstName": "Michael",
+        "lastName": "Schmid",
+        "position": "Freier Mitarbeiter",
+        "description": "Michael hat Medieninformatik an der Hochschule Aalen studiert und ist im Team HPI Schul-Cloud seit Oktober 2018 vor allem für das UX Design zuständig. Privat spielt er gerne Gitarre und betreibt Yoga.",
+        "pictureUrl": "/images/team/Michael_Schmid.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
 			{
 				"title": "",
 				"firstName": "Jonas",
