@@ -88,11 +88,11 @@
                                 <button class="btn btn-secondary btn-invitation-link student">
                                     Einladungslink generieren
                                 </button>
-                                {{#ifeq currentRole "Administrator"}}
+                                {{#inArray "Administrator" roleNames}}
                                     <button class="btn btn-secondary btn-import student">
                                         Schüler importieren
                                     </button>
-                                {{/ifeq}}
+                                {{/inArray}}
                             </div>
                         {{/if}}
                     </div>
