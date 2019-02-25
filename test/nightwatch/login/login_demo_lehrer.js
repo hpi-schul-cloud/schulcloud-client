@@ -68,7 +68,7 @@ module.exports = {
 
         //Content
         browser.url(base_url + 'content/');
-        browser.expect.element('#titlebar h4#page-title').text.to.contain('LernStore').before(10000);
+        browser.expect.element('#titlebar h4#page-title').text.to.contain('Lern-Store').before(10000);
 
         //Settings
         browser.url(base_url + 'account/');

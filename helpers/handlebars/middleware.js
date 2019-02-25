@@ -105,7 +105,7 @@ module.exports = (req, res, next) => {
         introNumber: 14,
         introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
-        name: 'LernStore',
+        name: 'Lern-Store',
         icon: 'search',
         link: '/content/',
         introNumber: 17,
