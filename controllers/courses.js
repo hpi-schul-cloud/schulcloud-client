@@ -93,7 +93,7 @@ const editCourseHandler = (req, res, next) => {
 
     const classesPromise = api(req).get('/classes', {
         qs: {
-            $or: [{ "schoolId": res.locals.currentSchool }],
+            schoolId: res.locals.currentSchool,
             $populate: ["year"],
             $limit: 1000
         }
