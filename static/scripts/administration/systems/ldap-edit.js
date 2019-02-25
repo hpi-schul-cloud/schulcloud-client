@@ -54,14 +54,14 @@ function activateLDAP(event) {
 		timeout: 10000, // sets timeout to 10 seconds
 		error: function(){
 			// will fire when timeout is reached
-			$.showNotification("Zeitüberschreitung der Anwendung", "danger");
+			$.showNotification('Zeitüberschreitung der Anwendung', 'danger');
 		},
 		success: function (data) {
 			if(data === 'success')
 			{
 				window.location.replace(window.location.origin + '/administration/school');
 			} else {
-				$.showNotification("Problem bei der Aktivierung", "danger");
+				$.showNotification('Problem bei der Aktivierung', 'danger');
 			}
 		},
 	});
@@ -72,7 +72,7 @@ function verifyLDAPData(event) {
 
 	// Check for ldaps
 	if (!document.querySelector('[name="ldapurl"]').value.startsWith('ldaps')) {
-		return $.showNotification("LDAP ist nur über das sichere Protokoll ldaps möglich!", "danger");
+		return $.showNotification('LDAP ist nur über das sichere Protokoll ldaps möglich!', 'danger');
 	}
 
 	$('#verify-icon').addClass('fa fa-spinner fa-spin fa-fw');
@@ -85,8 +85,8 @@ function verifyLDAPData(event) {
 		timeout: 10000, // sets timeout to 10 seconds
 		error: function(){
 			// will fire when timeout is reached
-			$.showNotification("LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), flasche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.", "danger");
-		
+			$.showNotification('LDAP Zeitüberschreitung - Mögliche Gründe sind: falsche Server-Daten, Nicht offiziell signierte SSL Zertifikate (ldaps), falsche Nutzerdaten für den search-Nutzer, inkorrekter root-Pfad, inkorrekter Nutzer-Pfad, inkorrekter Klassen-Pfad oder inkorrekte Rollen-LDAP-Pfade. Sollten Sie das Problem nicht lösen können, kontaktieren Sie den Support.', 'danger');
+
 			// Make save button deactive
 			document.querySelector('#savesubmit').disabled = true;
 
