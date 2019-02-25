@@ -41,7 +41,7 @@
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
-						<div class="col-sm-6 col-xs-12 col-md-4">
+						<div class="col-xs-12">
 							<div class="card card-block folder" onclick="location.href='{{this.url}}';">
 								<strong class="card-title-directory">
 									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
@@ -53,17 +53,17 @@
                                    title="Ordner löschen"
 								   data-file-name="{{{../this.name}}}"
 								   data-file-key="{{../this.path}}">
-									<i class="fa fa-trash-o pull-right"></i>
+									<i class="fa fa-trash-o directory-icon pull-right"></i>
 								</a>
 
-                                <a href="/directoryModel/{{../this._id}}/rename"
+                <a href="/directoryModel/{{../this._id}}/rename"
 								   target="_blank"
 								   data-method="dir-rename"
                                    title="Ordner umbenennen"
                                    data-directory-id="{{../this._id}}"
 								   data-directory-name="{{{../this.name}}}"
 								   data-directory-path="{{../this.originalPath}}">
-									<i class="fa fa-edit pull-right"></i>
+									<i class="fa fa-edit directory-icon pull-right"></i>
 								</a>
                                 {{/userHasPermission}}
 							</div>
