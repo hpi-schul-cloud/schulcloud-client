@@ -1,6 +1,7 @@
 @import "../colors";
 
 .sc-card {
+    cursor: pointer;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
@@ -11,6 +12,17 @@
     overflow: hidden;
     transition: 0.3s;
     box-shadow: 0 2px 6px 0 rgba(0,0,0,0.2);
+
+    .rss-icon {
+        color: rgba(255, 255, 255, 0.7);
+        pointer-events: none;
+        position: absolute;
+        bottom: 8px;
+        right: 8px;
+        z-index: 10;
+        font-weight: bold;
+    }
+
     .tag {
         background: white;
         color: black;
@@ -55,7 +67,6 @@
             z-index: 10;
             text-shadow: 2px 2px 5px rgba(0,0,0,.6);
             padding-right: 5px;
-            word-break: break-all;
             word-break: break-word;
         }
         .sc-card-menu {

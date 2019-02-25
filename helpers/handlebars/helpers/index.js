@@ -44,7 +44,7 @@ module.exports = {
         }
     },
     inArray: (item, array, opts) => {
-        if(array.includes(item)){
+        if((array || []).includes(item)){
             return opts.fn(this);
         } else {
             return opts.inverse(this);

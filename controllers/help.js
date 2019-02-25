@@ -38,7 +38,7 @@ const quickHelpItems = [{
     }, {
         title: "MINT-EC Webinare",
         icon: "fa-desktop",
-        src: "https://www.mint-ec.de/aktuelles/blog-facebook/jetzt-mitmachen-webinare-zur-hpi-schul-cloud/"
+        src: "https://blog.schul-cloud.org/webinare/"
     }, {
         title: "Schnellstart-PDF",
         icon: "fa-file-pdf-o",

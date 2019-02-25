@@ -28,7 +28,6 @@ router.post('/registration/pincreation', function (req, res, next) {
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], function (req, res, next) {
     // normalize form data
     req.body.privacyConsent = req.body.privacyConsent === "true";
-    req.body.researchConsent = req.body.researchConsent === "true";
     req.body.thirdPartyConsent = req.body.thirdPartyConsent === "true";
     req.body.termsOfUseConsent = req.body.termsOfUseConsent === "true";
     req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
@@ -46,7 +45,7 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], fu
             let studentInfotext = "";
             if (req.body.roles.includes("student")) {
                 passwordText = `Startpasswort: ${req.body["password_1"]}`;
-                studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 18 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.`;
+                studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen. Wenn du zwischen 14 und 16 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung, damit du die ${res.locals.theme.short_title} nutzen kannst.`;
             }
             return api(req).post('/mails/', {
                 json: { email: eMailAdress,

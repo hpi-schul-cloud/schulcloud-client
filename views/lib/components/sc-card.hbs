@@ -1,34 +1,40 @@
-<article class="sc-card">
-    <a href="{{this.url}}" rel="canonical" class="sc-card-header" {{#if this.background}}style="background:{{this.background}};"{{/if}}>
+<article class="sc-card" onclick="location.href='{{this.url}}'">
+    <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
+        {{/if}}>
+        {{#if this.isRSS}}
+        {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+        <span class="rss-icon">RSS</span>
+        {{/userHasPermission}}
+        {{/if}}
         <span class="sc-card-title">
             <div>
                 <span class="title">{{{ stripOnlyScript this.title }}}</span>
             </div>
             {{#if this.target.name}}
-                <div class="tag tag-default">{{this.target.name}}</div>
+            <div class="tag tag-default">{{this.target.name}}</div>
+            {{/if}}
+            {{#if this.sourceDescription}}
+            <div class="tag tag-default">{{this.sourceDescription}}</div>
             {{/if}}
             {{#if this.secondaryTitle}}
-                <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
+            <small class="d-block">{{{ stripOnlyScript this.secondaryTitle }}}</small>
             {{/if}}
         </span>
 
         <div class="sc-card-menu">
             {{#each this.actions}}
                 {{#if this.method}}
-                        <button class="sc-card-menu-action {{this.class}}"
-
-                           target="_blank"
-                           data-method="DELETE"
-                           data-name="{{../title}}"
-                           alt="'{{../title}}' löschen">
-                            <i class="fa fa-{{this.icon}}"></i>
-                        </button>
-                {{else}}
-                    <button class="sc-card-menu-action {{this.class}}"
-                      onClick="window.open({{this.link}})"
-                      alt="'{{../../title}}' {{this.alt}}.">
+                    <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}"
+                        data-method="{{this.method}}" data-name="{{../title}}"
+                        alt="'{{../../title}}' {{this.alt}}.">
                         <i class="fa fa-{{this.icon}}"></i>
-                    </button>
+                    </a>
+                {{else}}
+                    <a href="#" class="sc-card-menu-action {{this.class}}"
+                        onClick="window.open('{{this.link}}')"
+                        alt="'{{../../title}}' {{this.alt}}.">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
                 {{/if}}
             {{else}}
                 {{#if this.menuInfo}}
@@ -36,16 +42,16 @@
                 {{/if}}
             {{/each}}
         </div>
-    </a>
+    </div>
     <div class="sc-card-body ckcontent">
         {{truncateHTML (conflictFreeHtml this.content)}}
     </div>
     <div class="sc-card-footer">
         <a href="{{url}}" rel="canonical">{{{link-text}}}</a>
         {{#if additionalInfoName}}
-            <div class="additionalInfo" >
-                {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
-            </div>
+        <div class="additionalInfo">
+            {{> (concat 'lib/sc-card_additionalInfo/' additionalInfoName) }}
+        </div>
         {{/if}}
     </div>
 </article>

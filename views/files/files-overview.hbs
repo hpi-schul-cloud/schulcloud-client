@@ -32,6 +32,7 @@
                         background="#1989AC"
                     }}
                 </div>
+                {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
                         title='<i class="fa fa-users"></i> Meine Team-Dateien'
@@ -42,6 +43,7 @@
                         background="#1989AC"
                     }}
                 </div>
+                {{/ifEnv}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
                     {{> 'lib/components/sc-card'
                         title='<i class="fa fa-share-alt"></i> Mit mir geteilte Dateien'

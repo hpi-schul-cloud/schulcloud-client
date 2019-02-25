@@ -1,12 +1,12 @@
 import { softNavigate } from './helpers/navigation';
 import { populateCourseTimes } from './coursesTimes';
 import './jquery/datetimepicker-easy';
-import { updateQueryStringParameter } from './helpers/queryStringParameter';
+import { updateQueryStringParameter, getQueryParameterByName } from './helpers/queryStringParameter';
 
-window.addEventListener("DOMContentLoaded", function(){
+window.addEventListener("DOMContentLoaded", function () {
     /* FEATHERS FILTER MODULE */
     const filterModule = document.getElementById("filter");
-    if(filterModule){
+    if (filterModule) {
         filterModule.addEventListener('newFilter', (e) => {
             const filter = e.detail;
             const newurl = "?filterQuery=" + escape(JSON.stringify(filter[0])) + '&p=' + getQueryParameterByName('p');
@@ -16,7 +16,7 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 });
 
-function printInvitations (users) {
+function printInvitations(users) {
     event.preventDefault();
     let w = window.open();
     w.document.write(`<style>
@@ -26,7 +26,7 @@ function printInvitations (users) {
     p{font-size: 10px; color: #555; min-height: 26px; margin: 8px 0 0; text-align: center; word-break: break-all;}
     </style>`);
     for (let user of users) {
-        const image = kjua({text: user.registrationLink.shortLink, render: 'image'});
+        const image = kjua({ text: user.registrationLink.shortLink, render: 'image' });
         w.document.write(`<div class="part">
                             <div class="image-wrapper" id="user-${user._id}"></div>
                             <h4 style="margin-bottom: 10px">${user.displayName}</h4>
@@ -53,49 +53,61 @@ let handlerRegistered = false;
 
 $(document).ready(function () {
     var $modals = $('.modal');
-    var $addModal = $('.add-modal');
+    var $addSystemsModal = $('.add-modal');
+    var $addRSSModal = $('.add-modal--rss');
     var $editModal = $('.edit-modal');
     var $invitationModal = $('.invitation-modal');
     var $importModal = $('.import-modal');
-    var $deleteModal = $('.delete-modal');
+    var $deleteSystemsModal = $('.delete-modal');
+    var $deleteRSSModal = $('.delete-modal--rss');
 
     $('.btn-add-modal').on('click', function (e) {
         e.preventDefault();
-        populateModalForm($addModal, {
+        populateModalForm($addSystemsModal, {
             title: 'Hinzufügen',
             closeLabel: 'Abbrechen',
             submitLabel: 'Hinzufügen'
         });
-        $addModal.appendTo('body').modal('show');
+        $addSystemsModal.appendTo('body').modal('show');
     });
 
-    $('.btn-edit').on('click', function (e) {	
-        e.preventDefault();	
-        var entry = $(this).attr('href');	
-        $.getJSON(entry, function (result) {	
+    $('.btn-add-modal--rss').on('click', function (e) {
+        e.preventDefault();
+        populateModalForm($addRSSModal, {
+            title: 'Hinzufügen',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Hinzufügen'
+        });
+        $addRSSModal.appendTo('body').modal('show');
+    });
+
+    $('.btn-edit').on('click', function (e) {
+        e.preventDefault();
+        var entry = $(this).attr('href');
+        $.getJSON(entry, function (result) {
             result.createdAt = new Date(result.createdAt).toLocaleString();
-            populateModalForm($editModal, {	
-                action: entry,	
-                title: 'Bearbeiten',	
-                closeLabel: 'Abbrechen',	
-                submitLabel: 'Speichern',	
-                fields: result	
-            });	 
-             // post-fill gradiation selection	
-            if ($editModal.find("input[name=gradeSystem]").length) {	
-                var $gradeInputPoints = $editModal.find("#gradeSystem0");	
-                var $gradeInputMarks = $editModal.find("#gradeSystem1");	
-                if(result.gradeSystem) {	
-                    $gradeInputMarks.attr("checked", true);	
-                    $gradeInputPoints.removeAttr("checked");	
-                } else {	
-                    $gradeInputPoints.attr("checked", true);	
-                    $gradeInputMarks.removeAttr("checked");	
-                }	
-            }	
-            populateCourseTimes($editModal, result.times || []);	
-            $editModal.appendTo('body').modal('show');	
-        });	
+            populateModalForm($editModal, {
+                action: entry,
+                title: 'Bearbeiten',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Speichern',
+                fields: result
+            });
+            // post-fill gradiation selection	
+            if ($editModal.find("input[name=gradeSystem]").length) {
+                var $gradeInputPoints = $editModal.find("#gradeSystem0");
+                var $gradeInputMarks = $editModal.find("#gradeSystem1");
+                if (result.gradeSystem) {
+                    $gradeInputMarks.attr("checked", true);
+                    $gradeInputPoints.removeAttr("checked");
+                } else {
+                    $gradeInputPoints.attr("checked", true);
+                    $gradeInputMarks.removeAttr("checked");
+                }
+            }
+            populateCourseTimes($editModal, result.times || []);
+            $editModal.appendTo('body').modal('show');
+        });
     });
 
     $('.btn-invitation-link').on('click', function (e) {
@@ -105,19 +117,19 @@ $(document).ready(function () {
         if ($(this).hasClass("teacher")) role = "teacher";
         $.ajax({
             type: "POST",
-            url: window.location.origin+"/administration/registrationlink",
+            url: window.location.origin + "/administration/registrationlink",
             data: {
                 role,
                 save: true,
                 schoolId: schoolId,
                 host: window.location.origin
             },
-            success: function(linkData) {
+            success: function (linkData) {
                 populateModalForm($invitationModal, {
                     title: 'Einladungslink generiert!',
                     closeLabel: 'Abbrechen',
                     submitLabel: 'Speichern',
-                    fields: {invitation: linkData.shortLink}
+                    fields: { invitation: linkData.shortLink }
                 });
                 $invitationModal.find('.btn-submit').remove();
                 $invitationModal.find("input[name='invitation']").click(function () {
@@ -151,7 +163,7 @@ $(document).ready(function () {
             : $('.collapsePanel').css('display', 'none');
     });
 
-    $(".edit-modal").on('shown.bs.modal', function() {
+    $(".edit-modal").on('shown.bs.modal', function () {
         // when edit modal is opened, show oauth properties for iserv
         let selectedType = $(this).find('.sso-type-selection').find("option:selected").val();
         selectedType === 'iserv' ? $(this).find('.collapsePanel').css('display', 'block') : '';
@@ -165,7 +177,7 @@ $(document).ready(function () {
         e.preventDefault();
         var entry = $(this).parent().attr('action');
         $.getJSON(entry, function (result) {
-            populateModalForm($deleteModal, {
+            populateModalForm($deleteSystemsModal, {
                 action: entry,
                 title: 'Löschen',
                 closeLabel: 'Abbrechen',
@@ -173,7 +185,24 @@ $(document).ready(function () {
                 fields: result
             });
 
-            $deleteModal.appendTo('body').modal('show');
+            $deleteSystemsModal.appendTo('body').modal('show');
+        });
+    });
+
+    $('.btn-delete--rss').on('click', function (e) {
+        e.preventDefault();
+        const action = $(this).parent().attr('action');
+        const url = $(this).parent().attr('data-url');
+        $.getJSON(action, function (result) {
+            populateModalForm($deleteRSSModal, {
+                action,
+                fields: { url: result.url },
+                title: 'Löschen',
+                closeLabel: 'Abbrechen',
+                submitLabel: 'Löschen',
+            });
+
+            $deleteRSSModal.modal('show');
         });
     });
 
@@ -184,19 +213,19 @@ $(document).ready(function () {
         $('.btn-send-links-emails').on('click', function (e) {
             e.preventDefault();
             const $this = $(this);
-            const text  = $this.html();
-            const role  = $this.data('role');
-    
+            const text = $this.html();
+            const role = $this.data('role');
+
             $this.html('E-Mails werden gesendet...');
             $this.attr("disabled", "disabled");
-    
+
             $.ajax({
                 type: "GET",
-                url: window.location.origin+"/administration/users-without-consent/send-email",
+                url: window.location.origin + "/administration/users-without-consent/send-email",
                 data: {
                     role
                 }
-            }).done(function(data) {
+            }).done(function (data) {
                 $.showNotification('Erinnerungs-E-Mails erfolgreich versendet', "success", true);
                 $this.attr("disabled", false);
                 $this.html(text);
@@ -210,19 +239,19 @@ $(document).ready(function () {
         $('.btn-print-links').on('click', function (e) {
             e.preventDefault();
             const $this = $(this);
-            const text  = $this.html();
-            const role  = $this.data('role');
+            const text = $this.html();
+            const role = $this.data('role');
 
             $this.html('Druckbogen wird generiert...');
             $this.attr("disabled", "disabled");
-    
+
             $.ajax({
                 type: "GET",
-                url: window.location.origin+"/administration/users-without-consent/get-json",
+                url: window.location.origin + "/administration/users-without-consent/get-json",
                 data: {
                     role
                 }
-            }).done(function(users) {
+            }).done(function (users) {
                 printInvitations(users);
                 $.showNotification('Druckbogen erfolgreich generiert', "success", true);
                 $this.attr("disabled", false);
