@@ -2320,6 +2320,12 @@ router.post('/systems/ldap/activate/:id', permissionsHelper.permissionsChecker('
 			'ldapConfig.active': true,
 		}
 	}).then(data => {
+		return api(req).patch('/schools/' + school._id, {
+			json: {
+				ldapSchoolIdentifier: system[0].ldapConfig.rootPath
+			}
+		});
+	}).then(data => {
 		res.json('success');
 	}).catch(err => {
 		res.json('error');
