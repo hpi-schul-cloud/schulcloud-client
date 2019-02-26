@@ -21,13 +21,14 @@ const getActions = (item, path) => {
 			link: path + item._id + "/edit",
 			class: 'btn-edit',
 			icon: 'edit',
+			method: 'GET',
 			alt: 'bearbeiten'
 		},
 		{
 			link: path + item._id,
 			class: 'btn-delete',
 			icon: 'trash-o',
-			method: 'delete',
+			method: 'DELETE',
 			alt: 'löschen'
 		}
 	];
@@ -145,7 +146,7 @@ router.all('/', async (req, res, next) => {
 				url: `/news/${newsItem._id}`,
 				secondaryTitle: moment(newsItem.displayAt).fromNow(),
 				background: colors[_.random(0, colors.length - 1)],
-				actions: !isRSS && res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT') && getActions(news, '/news/'),
+				actions: !isRSS && res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT') && getActions(newsItem, '/news/'),
 			};
 		});
 

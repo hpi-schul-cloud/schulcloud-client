@@ -25,7 +25,7 @@ const logger = winston.createLogger({
     ]
 });
 
-handlebars.registerHelper('ifvalue', function(conditional, options) {
+handlebars.registerHelper('ifvalue', function (conditional, options) {
     if (options.hash.value === conditional) {
         return options.fn(this);
     } else {
@@ -45,24 +45,24 @@ const getSelectOptions = (req, service, query, values = []) => {
 
 const getActions = (item, path) => {
     return [{
-            link: path + item._id + "/edit",
-            class: 'btn-edit',
-            icon: 'edit',
-            title: 'bearbeiten'
-        },
-        {
-            link: path + item._id + "/copy",
-            class: 'btn-copy',
-            icon: 'copy',
-            title: 'kopieren'
-        },
-        {
-            link: path + item._id,
-            class: 'btn-delete',
-            icon: 'trash-o',
-            method: 'DELETE',
-            title: 'löschen'
-        }
+        link: path + item._id + "/edit",
+        class: 'btn-edit',
+        icon: 'edit',
+        title: 'bearbeiten'
+    },
+    {
+        link: path + item._id + "/copy",
+        class: 'btn-copy',
+        icon: 'copy',
+        title: 'kopieren'
+    },
+    {
+        link: path + item._id,
+        class: 'btn-delete',
+        icon: 'trash-o',
+        method: 'DELETE',
+        title: 'löschen'
+    }
     ];
 };
 
@@ -71,7 +71,7 @@ const handleTeamSubmissionsBody = (body, currentUser) => {
 };
 
 const getCreateHandler = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         if (service == "homework") {
             if ((!req.body.courseId) || (req.body.courseId && req.body.courseId.length <= 2)) {
                 req.body.courseId = null;
@@ -170,35 +170,35 @@ const sendNotification = (courseId, title, message, userId, req, link) => {
  * adds file permissions for co workers to a submission file
  */
 const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileIds) => {
-	// if submission has an courseGroup, use the corresponding users instead of teamMembers
-	const courseGroupPromise = courseGroupId
-		? api(req).get(`/courseGroups/${courseGroupId}`, { qs: { $populate: ['userIds'] } })
-		: Promise.resolve({ userIds: teamMembers });
-	const filePromises = fileIds.map(f => api(req).get(`/files/${f}`));
+    // if submission has an courseGroup, use the corresponding users instead of teamMembers
+    const courseGroupPromise = courseGroupId
+        ? api(req).get(`/courseGroups/${courseGroupId}`, { qs: { $populate: ['userIds'] } })
+        : Promise.resolve({ userIds: teamMembers });
+    const filePromises = fileIds.map(f => api(req).get(`/files/${f}`));
 
-	return Promise.all([courseGroupPromise, Promise.all(filePromises)])
-		.then(([{ userIds }, files]) => {
-			const filePatchPromises = files.map((file) => {
-				const userPermissions = userIds
-					.filter(id => file.permissions.findIndex(p => p.refId.toString() === id.toString()) === -1)
-					.map(id => ({
-						refId: id,
-						refPermModel: 'user',
-						write: false,
-						read: true,
-						create: false,
-						delete: false,
-					}));
+    return Promise.all([courseGroupPromise, Promise.all(filePromises)])
+        .then(([{ userIds }, files]) => {
+            const filePatchPromises = files.map((file) => {
+                const userPermissions = userIds
+                    .filter(id => file.permissions.findIndex(p => p.refId.toString() === id.toString()) === -1)
+                    .map(id => ({
+                        refId: id,
+                        refPermModel: 'user',
+                        write: false,
+                        read: true,
+                        create: false,
+                        delete: false,
+                    }));
 
-				file.permissions = [...file.permissions, ...userPermissions];
+                file.permissions = [...file.permissions, ...userPermissions];
 
-				return api(req).patch(`/files/${file._id}`, { json: file });
-			});
-			return Promise.all(filePatchPromises);
-		});
+                return api(req).patch(`/files/${file._id}`, { json: file });
+            });
+            return Promise.all(filePatchPromises);
+        });
 };
 
-const patchFunction = function(service, req, res, next) {
+const patchFunction = function (service, req, res, next) {
     if (req.body.referrer) {
         var referrer = req.body.referrer.replace("/edit", "");
         delete req.body.referrer;
@@ -237,11 +237,11 @@ const patchFunction = function(service, req, res, next) {
     });
 };
 const getUpdateHandler = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         if (service == "homework") {
             //check archived
             if (req.body.archive) {
-                api(req).get('/homework/' + req.params.id, {}).then(homework => {
+                return api(req).get('/homework/' + req.params.id, {}).then(homework => {
                     if (homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "open") {
                         homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
                     } else if (!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "done") {
@@ -304,32 +304,32 @@ const getUpdateHandler = (service) => {
 };
 
 const getDetailHandler = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
             data => {
                 data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
                 data.dueDate = moment(data.dueDate).format('DD.MM.YYYY HH:mm');
                 res.json(data);
             }).catch(err => {
-            next(err);
-        });
+                next(err);
+            });
     };
 };
 
 const getImportHandler = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
             data => {
                 res.json(data);
             }).catch(err => {
-            next(err);
-        });
+                next(err);
+            });
     };
 };
 
 
 const getDeleteHandlerR = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
             res.redirect(req.header('Referer'));
         }).catch(err => {
@@ -339,7 +339,7 @@ const getDeleteHandlerR = (service) => {
 };
 
 const getDeleteHandler = (service) => {
-    return function(req, res, next) {
+    return function (req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
             res.sendStatus(200);
             res.redirect('/' + service);
@@ -359,7 +359,7 @@ router.post('/submit', getCreateHandler('submissions'));
 router.delete('/submit/:id', getDeleteHandlerR('submissions'));
 router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
 
-router.post('/submit/:id/files', function(req, res, next) {
+router.post('/submit/:id/files', function (req, res, next) {
     let submissionId = req.params.id;
     api(req).get("/submissions/" + submissionId).then(submission => {
         submission.fileIds.push(req.body.fileId);
@@ -367,46 +367,46 @@ router.post('/submit/:id/files', function(req, res, next) {
             json: submission
         });
     })
-    .then(result => res.json(result))
-    .catch(err => res.send(err));
+        .then(result => res.json(result))
+        .catch(err => res.send(err));
 });
 
 /* adds shared permission for teacher in the corresponding homework */
 router.post('/submit/:id/files/:fileId/permissions', (req, res) => {
-	const { fileId, id: submissionId } = req.params;
-	const { homeworkId, teamMembers } = req.body;
+    const { fileId, id: submissionId } = req.params;
+    const { homeworkId, teamMembers } = req.body;
 
-	// if homework is already given, just fetch homework
-	const homeworkPromise = homeworkId
-		? api(req).get(`/homework/${homeworkId}`)
-		: api(req).get(`/submissions/${submissionId}`, { qs: { $populate: ['homeworkId'] } });
+    // if homework is already given, just fetch homework
+    const homeworkPromise = homeworkId
+        ? api(req).get(`/homework/${homeworkId}`)
+        : api(req).get(`/submissions/${submissionId}`, { qs: { $populate: ['homeworkId'] } });
 
-	const filePromise = api(req).get(`/files/${fileId}`);
+    const filePromise = api(req).get(`/files/${fileId}`);
 
-	Promise.all([homeworkPromise, filePromise])
-		.then(([homework, file]) => {
-			file.permissions.push({
-				refId: homeworkId ? homework.teacherId : homework.homeworkId.teacherId,
-				refPermModel: 'user',
-				write: false,
-				read: true,
-				create: false,
-				delete: false,
-			});
+    Promise.all([homeworkPromise, filePromise])
+        .then(([homework, file]) => {
+            file.permissions.push({
+                refId: homeworkId ? homework.teacherId : homework.homeworkId.teacherId,
+                refPermModel: 'user',
+                write: false,
+                read: true,
+                create: false,
+                delete: false,
+            });
 
-			return api(req).patch(`/files/${file._id}`, { json: file })
-				.then(result => res.json(result))
-				// if there is already an submission, it is more
-				// safe to add the permissions at this step (if the user
-				// forgets to click on save)
-				.then(() => teamMembers
-					? addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId])
-					: Promise.resolve({}));
-		})
-		.catch(err => res.send(err));
+            return api(req).patch(`/files/${file._id}`, { json: file })
+                .then(result => res.json(result))
+                // if there is already an submission, it is more
+                // safe to add the permissions at this step (if the user
+                // forgets to click on save)
+                .then(() => teamMembers
+                    ? addFilePermissionsForTeamMembers(req, teamMembers, homework.courseGroupId, [fileId])
+                    : Promise.resolve({}));
+        })
+        .catch(err => res.send(err));
 });
 
-router.delete('/submit/:id/files', function(req, res, next) {
+router.delete('/submit/:id/files', function (req, res, next) {
     let submissionId = req.params.id;
     api(req).get("/submissions/" + submissionId).then(submission => {
         submission.fileIds = _.filter(submission.fileIds, id => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
@@ -414,15 +414,15 @@ router.delete('/submit/:id/files', function(req, res, next) {
             json: submission
         });
     })
-    .then(result => res.json(result))
-    .catch(err => res.send(err));
+        .then(result => res.json(result))
+        .catch(err => res.send(err));
 });
 
 router.post('/comment', getCreateHandler('comments'));
 router.delete('/comment/:id', getDeleteHandlerR('comments'));
 
 
-const splitDate = function(date) {
+const splitDate = function (date) {
     return {
         "timestamp": moment(date).valueOf(),
         "date": moment(date).format('DD.MM.YYYY'),
@@ -435,25 +435,25 @@ const overview = (title = "") => {
 
         let query = {
             $populate: ['courseId'],
-            archived : {$ne: res.locals.currentUser._id }
+            archived: { $ne: res.locals.currentUser._id }
         };
 
-        const tempOrgQuery = (req.query||{}).filterQuery;
-        const filterQueryString = (tempOrgQuery)?('&filterQuery='+ escape(tempOrgQuery)):'';
+        const tempOrgQuery = (req.query || {}).filterQuery;
+        const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
 
         let itemsPerPage = 10;
-        if(tempOrgQuery){
+        if (tempOrgQuery) {
             const filterQuery = JSON.parse(unescape(req.query.filterQuery));
             if (filterQuery["$limit"]) {
                 itemsPerPage = filterQuery["$limit"];
             }
             query = Object.assign(query, filterQuery);
-        }else{
+        } else {
             if (req._parsedUrl.pathname.includes("private")) {
                 query.private = true;
             }
             if (req._parsedUrl.pathname.includes("asked")) {
-                query.private = {$ne: true};
+                query.private = { $ne: true };
             }
         }
         if (req._parsedUrl.pathname.includes("archive")) {
@@ -465,7 +465,7 @@ const overview = (title = "") => {
             // ist der aktuelle Benutzer ein Schueler? -> Für Sichtbarkeit von Daten benötigt
             api(req).get('/users/' + res.locals.currentUser._id, {
                 qs: {
-                    $populate: ['roles','courseId']
+                    $populate: ['roles', 'courseId']
                 }
             }).then(user => {
                 const isStudent = (user.roles.map(role => { return role.name; }).indexOf('student') != -1);
@@ -492,10 +492,10 @@ const overview = (title = "") => {
 
                     assignment.currentUser = res.locals.currentUser;
 
-                    assignment.isSubstitution = !assignment.private && ((assignment.courseId||{}).substitutionIds||[]).includes(assignment.currentUser._id.toString());
+                    assignment.isSubstitution = !assignment.private && ((assignment.courseId || {}).substitutionIds || []).includes(assignment.currentUser._id.toString());
                     assignment.isTeacher = assignment.isSubstitution
-                                         ||((assignment.courseId||{}).teacherIds||[]).includes(assignment.currentUser._id.toString())
-                                         ||assignment.teacherId == res.locals.currentUser._id;
+                        || ((assignment.courseId || {}).teacherIds || []).includes(assignment.currentUser._id.toString())
+                        || assignment.teacherId == res.locals.currentUser._id;
                     assignment.actions = getActions(assignment, '/homework/');
                     if (!assignment.isTeacher) {
                         assignment.stats = undefined;
@@ -554,7 +554,7 @@ const overview = (title = "") => {
                                 "teamSubmissions": "Teamabgaben"
                             },
                             defaultSelection: {
-                                "private": ((query.private !== undefined)?((query.private === true)?true:false):undefined)
+                                "private": ((query.private !== undefined) ? ((query.private === true) ? true : false) : undefined)
                             },
                             applyNegated: {
                                 "private": [true, false],
@@ -568,7 +568,7 @@ const overview = (title = "") => {
                         currentPage,
                         numPages: Math.ceil(homeworks.length / itemsPerPage),
                         baseUrl: req.baseUrl + req._parsedUrl.pathname + '?'
-                        + 'p={{page}}' + filterQueryString
+                            + 'p={{page}}' + filterQueryString
                     };
                     const end = currentPage * itemsPerPage;
                     homeworks = homeworks.slice(end - itemsPerPage, end);
@@ -581,11 +581,11 @@ const overview = (title = "") => {
                         isStudent,
                         filterSettings: JSON.stringify(filterSettings),
                         addButton: (req._parsedUrl.pathname == "/"
-                                || req._parsedUrl.pathname.includes("private")
-                                || (req._parsedUrl.pathname.includes( "asked" )
-                                    && !isStudent )
-                               ),
-                       createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
+                            || req._parsedUrl.pathname.includes("private")
+                            || (req._parsedUrl.pathname.includes("asked")
+                                && !isStudent)
+                        ),
+                        createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                     });
                 });
             });
@@ -599,7 +599,7 @@ router.get('/asked', overview("Gestellte Aufgaben"));
 router.get('/private', overview("Meine ToDos"));
 router.get('/archive', overview("Archivierte Aufgaben und ToDos"));
 
-router.get('/new', function(req, res, next) {
+router.get('/new', function (req, res, next) {
     const coursesPromise = getSelectOptions(req, 'courses', {
         $or: [
             { userIds: res.locals.currentUser._id },
@@ -608,19 +608,19 @@ router.get('/new', function(req, res, next) {
         ]
     });
     Promise.resolve(coursesPromise).then(async (courses) => {
-        courses = courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+        courses = courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
         let lessons = []
-        if(req.query.course){
+        if (req.query.course) {
             lessonsPromise = getSelectOptions(req, 'lessons', {
                 courseId: req.query.course
             });
-            try{
+            try {
                 lessons = await lessonsPromise;
-            }catch(error){
+            } catch (error) {
                 // TODO log error
                 logger.error('Error getting lessons', error);
             }
-            lessons = (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+            lessons = (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
         }
         // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
         const userPromise = getSelectOptions(req, 'users', {
@@ -662,17 +662,17 @@ router.get('/new', function(req, res, next) {
 
 router.get('/:assignmentId/copy', function (req, res, next) {
     api(req).get('/homework/copy/' + req.params.assignmentId)
-    .then(assignment => {
-        if(assignment._id){
-            return res.redirect("/homework/" + assignment._id + "/edit");
-        }else{
-            let error = new Error("Failed to copy task!");
-            error.status = 500;
-            return next(error);
-        }
-    }).catch(err => {
-        next(err);
-    });
+        .then(assignment => {
+            if (assignment._id) {
+                return res.redirect("/homework/" + assignment._id + "/edit");
+            } else {
+                let error = new Error("Failed to copy task!");
+                error.status = 500;
+                return next(error);
+            }
+        }).catch(err => {
+            next(err);
+        });
 });
 
 router.get('/:assignmentId/edit', function (req, res, next) {
@@ -682,9 +682,9 @@ router.get('/:assignmentId/edit', function (req, res, next) {
         }
     }).then(assignment => {
 
-        const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || ((assignment.courseId||{}).teacherIds||[]).includes(res.locals.currentUser._id);
-        const isSubstitution = ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id);
-        if(!isTeacher && !isSubstitution){
+        const isTeacher = (assignment.teacherId == res.locals.currentUser._id) || ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id);
+        const isSubstitution = ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id);
+        if (!isTeacher && !isSubstitution) {
             let error = new Error("You don't have permissions!");
             error.status = 403;
             return next(error);
@@ -695,13 +695,13 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 
         const coursesPromise = getSelectOptions(req, 'courses', {
             $or: [
-                {userIds: res.locals.currentUser._id},
-                {teacherIds: res.locals.currentUser._id},
-                {substitutionIds: res.locals.currentUser._id}
+                { userIds: res.locals.currentUser._id },
+                { teacherIds: res.locals.currentUser._id },
+                { substitutionIds: res.locals.currentUser._id }
             ]
         });
         Promise.resolve(coursesPromise).then(courses => {
-            courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+            courses.sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
             // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
             const userPromise = getSelectOptions(req, 'users', {
                 _id: res.locals.currentUser._id,
@@ -720,7 +720,7 @@ router.get('/:assignmentId/edit', function (req, res, next) {
                         courseId: assignment.courseId._id
                     });
                     Promise.resolve(lessonsPromise).then(lessons => {
-                        (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+                        (lessons || []).sort((a, b) => { return (a.name.toUpperCase() < b.name.toUpperCase()) ? -1 : 1; });
                         res.render('homework/edit', {
                             title: 'Aufgabe bearbeiten',
                             submitLabel: 'Speichern',
@@ -758,24 +758,24 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 });
 
 //submission>single=student=upload || submissionS>multi=teacher=overview
-const addClearNameForFileIds=(submission_s)=>{
-	if(submission_s==undefined) return;
-	//if array = submissions  else submission
-	if(submission_s.length>0){ 
-		submission_s.forEach(submission=>{
-			addClearNameForFileIds(submission);
-		});	
-	}else if(submission_s.fileIds && submission_s.fileIds.length>0){
-		return submission_s.fileIds.map(file=>{
-			if(file.name){
-				file.clearName=file.name.replace(/%20/g,' '); //replace to spaces
-			}
-			return file;
-		});
-	}
+const addClearNameForFileIds = (submission_s) => {
+    if (submission_s == undefined) return;
+    //if array = submissions  else submission
+    if (submission_s.length > 0) {
+        submission_s.forEach(submission => {
+            addClearNameForFileIds(submission);
+        });
+    } else if (submission_s.fileIds && submission_s.fileIds.length > 0) {
+        return submission_s.fileIds.map(file => {
+            if (file.name) {
+                file.clearName = file.name.replace(/%20/g, ' '); //replace to spaces
+            }
+            return file;
+        });
+    }
 };
 
-router.get('/:assignmentId', function(req, res, next) {
+router.get('/:assignmentId', function (req, res, next) {
     api(req).get('/homework/' + req.params.assignmentId, {
         qs: {
             $populate: ['courseId']
@@ -864,9 +864,9 @@ router.get('/:assignmentId', function(req, res, next) {
             // Abgabenübersicht anzeigen (Lehrer || publicSubmissions) -> weitere Daten berechnen
             if (!assignment.private
                 && ((assignment.teacherId == res.locals.currentUser._id
-                    || ((assignment.courseId||{}).teacherIds||[]).includes(res.locals.currentUser._id)
-                    || ((assignment.courseId||{}).substitutionIds||[]).includes(res.locals.currentUser._id))
-                && assignment.courseId != null || assignment.publicSubmissions)) {
+                    || ((assignment.courseId || {}).teacherIds || []).includes(res.locals.currentUser._id)
+                    || ((assignment.courseId || {}).substitutionIds || []).includes(res.locals.currentUser._id))
+                    && assignment.courseId != null || assignment.publicSubmissions)) {
                 // Daten für Abgabenübersicht
                 assignment.submissions = submissions.data.filter(submission => { return submission.studentId; })
                     .sort((a, b) => { return (a.studentId.lastName.toUpperCase() < b.studentId.lastName.toUpperCase()) ? -1 : 1; })
@@ -885,7 +885,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         })[0]
                     };
                 });
-          
+
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
                     if (e.courseGroupId) {
@@ -935,16 +935,16 @@ router.get('/:assignmentId', function(req, res, next) {
                         return role.name;
                     });
                     // Render assignment.hbs
-					//submission>single=student=upload || submissionS>multi=teacher=overview
-					addClearNameForFileIds(assignment.submission||assignment.submissions);	
+                    //submission>single=student=upload || submissionS>multi=teacher=overview
+                    addClearNameForFileIds(assignment.submission || assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: assignment.courseId.name + ' - ' + assignment.name,
                         breadcrumb: [{
-                                title: breadcrumbTitle + " Aufgaben",
-                                url: breadcrumbUrl
-                            },
-                            {}
+                            title: breadcrumbTitle + " Aufgaben",
+                            url: breadcrumbUrl
+                        },
+                        {}
                         ],
                         students: students,
                         studentSubmissions,
@@ -983,19 +983,19 @@ router.get('/:assignmentId', function(req, res, next) {
                     });
                 } else {
                 */
-                    res.render('homework/assignment', Object.assign({}, assignment, {
-                        title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
-                        breadcrumb: [{
-                                title: breadcrumbTitle + " Aufgaben",
-                                url: breadcrumbUrl
-                            },
-                            {}
-                        ],
-                        students,
-                        path: submissionUploadPath,
-                        courseGroups,
-                        courseGroupSelected
-                    }));
+                res.render('homework/assignment', Object.assign({}, assignment, {
+                    title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
+                    breadcrumb: [{
+                        title: breadcrumbTitle + " Aufgaben",
+                        url: breadcrumbUrl
+                    },
+                    {}
+                    ],
+                    students,
+                    path: submissionUploadPath,
+                    courseGroups,
+                    courseGroupSelected
+                }));
                 //}
             }
         });

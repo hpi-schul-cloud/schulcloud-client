@@ -2,7 +2,6 @@
     var _paq = _paq || [];
         {{#if currentUser}}
         _paq.push(['setCustomDimension', customDimensionId = 1, customDimensionValue = '{{currentSchoolData.name}}']);
-        _paq.push(['setCustomDimension', customDimensionId = 2, customDimensionValue = '{{currentUser.gender}}']);
         _paq.push(['setCustomDimension', customDimensionId = 4, customDimensionValue = '{{currentUser.roles.0.name}}']);
         {{/if}}
 

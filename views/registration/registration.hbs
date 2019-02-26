@@ -8,20 +8,20 @@
   {{#content "page"}}
     <div id="welcome-screen">
       <h4>Willkommen zur Anmeldung in der {{theme.title}}!</h4>
-      <p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter 18 muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei volljährigen Schülern er selbst.</p>
+      <p>Je nach Alter des Schülers* verändert sich der Anmeldeprozess. Bei Schülern unter 16 muss ein Erziehungsberechtigter die nächsten Schritte durchführen, bei Schülern über 16 er selbst.</p>
       <p>Bitte wähle das Alter des Schülers:</p>
       <div class="form-group">
           <fieldset>
-              <input type="radio" id="reg-u18" name="student-age" value="u18"> <label for="reg-u18">unter 18 Jahre alt</label><br>
-              <input type="radio" id="reg-18" name="student-age" value="18"> <label for="reg-18">mindestens 18 Jahre alt</label>
+              <input type="radio" id="reg-u16" name="student-age" value="u16"> <label for="reg-u16">unter 16 Jahre alt</label><br>
+              <input type="radio" id="reg-16" name="student-age" value="16"> <label for="reg-16">mindestens 16 Jahre alt</label>
           </fieldset>
       </div>
         <p></p>
-        <div id="infotext-u18" class="hidden">
+        <div id="infotext-u16" class="hidden">
             <p>Wir freuen uns, dass Sie Ihrem Kind die Nutzung der {{theme.short_title}} ermöglichen und so mithelfen, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
             <p>Wir bitten Sie, Ihr Kind zunächst in der {{theme.short_title}} zu registrieren und anschließend nach Angabe Ihrer Daten der Nutzung der {{theme.title}} zuzustimmen, damit Ihr Kind die Vorteile der Lernumgebung nutzen kann.</p>
         </div>
-        <div id="infotext-18" class="hidden">
+        <div id="infotext-16" class="hidden">
             <p>Wir freuen uns, dass du die {{theme.title}} nutzen möchtest und mithilfst, gemeinsam den nächsten Schritt zur digitalen Unterstützung des Unterrichts zu gehen – Open Source, gemeinnützig und datenschutzkonform.</p>
             <p>Bitte registriere dich zunächst in der {{theme.title}} und stimme den Nutzungsbedingungen zu, damit du die Vorteile der digitalen Lernumgebung nutzen kannst.</p>
             <p><strong>Achtung:</strong> Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.</p>
