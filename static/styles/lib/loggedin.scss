@@ -105,10 +105,10 @@ aside.nav-sidebar {
 
     .sc-branding {
         display: block;
-        padding: 15px;
+        padding: 14px;
         font-size: 24px;
-        background: $primaryColor;
-        color: whitesmoke;
+        background: $colorWhite;
+        color: $colorDarkerGrey;
         text-decoration: none;
         @include media-breakpoint-down(md) {
             padding: 10px;
@@ -119,8 +119,8 @@ aside.nav-sidebar {
         .cloud-logo {
             display: inline-block;
             vertical-align: top;
-            width: 45px;
-            height: 30px;
+            width: 35px;
+            height: 29px;
             margin-bottom: -5px;
             margin-right: 0.25rem;
             background: $logoBackground;
