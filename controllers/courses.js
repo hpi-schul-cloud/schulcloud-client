@@ -279,15 +279,21 @@ router.get('/', function(req, res, next) {
         if (req.query.json) {
             res.json(courses);
         } else {
-            res.render('courses/overview', {
-                title: 'Meine Kurse',
-                courses,
-                substitutionCourses,
-                searchLabel: 'Suche nach Kursen',
-                searchAction: '/courses',
-                showSearch: true,
-                liveSearch: true
-            });
+            if (courses.length > 0 || substitutionCourses.length > 0){
+              res.render('courses/overview', {
+                  title: 'Meine Kurse',
+                  courses,
+                  substitutionCourses,
+                  searchLabel: 'Suche nach Kursen',
+                  searchAction: '/courses',
+                  showSearch: true,
+                  liveSearch: true
+              });
+            } else{
+              res.render('courses/overview', {
+                  emptyState: true
+              });
+            }
         }
     });
 });

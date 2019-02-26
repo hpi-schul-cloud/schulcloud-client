@@ -9,15 +9,9 @@
 
     {{#content "page"}}
         <section class="section-courses">
+          {{#unless emptyState}}
                 {{#if courses}}
                     {{> 'dashboard/components/card_section' section-id="courses" title="" content=courses link-text="Öffnen" additionalInfoName="memberCount"}}
-                {{else}}
-                    <div class="col-xs-12">
-                        <p class="text-muted">
-                            <i class="fa fa-frown-o"></i>
-                            <span>Noch keine Kurse</span>
-                        </p>
-                    </div>
                 {{/if}}
 
                 {{#userHasPermission "COURSE_EDIT"}}
@@ -47,6 +41,20 @@
                     </div>
                 </div>
                 {{/userHasPermission}}
+          {{else}}
+            <div class="course-empty">
+              {{> 'courses/components/courseEmpty'}}
+
+              {{#userHasPermission "COURSE_EDIT"}}
+                <div class="row padding-top">
+                    <div class="center buttons">
+                        <a class="btn btn-secondary btn-lg btn-import-course">Importiere einen Kurs</a>
+                        <a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
+                    </div>
+                </div>
+              {{/userHasPermission}}
+            </div>
+          {{/unless}}
 
             {{#embed "lib/components/modal" class="member-modal"}}
                 {{#content "body"}}
