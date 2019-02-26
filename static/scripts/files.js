@@ -5,20 +5,20 @@ const getDataValue = function(attr) {
     };
 };
 
-window.openFolder = function(id) {
-    let href = location.href.split('#').shift();
-    const reg = new RegExp('^https?:\/\/.*?\/files\/(?:teams|courses)\/(?:.+?)\/(.+)$');
+window.openFolder = function (id) {
+	let pathname = location.pathname;
+	const reg = new RegExp('/files/(?:teams|courses)/(?:.+?)/(.+)');
+	let target;
 
-    if(reg.test(href)) {
-        href = href.replace(reg, function(m, g){
-            return m.replace(g, id);
-        });
-    }
-    else {
-        href = href + (href.split('').pop() !== '/' ? '/' : '') + id;
-    }
+	if (reg.test(pathname)) {
+		target = pathname.replace(reg, function(m, g){
+			return m.replace(g, id);
+		});
+	} else {
+		target = pathname + (pathname.split('').pop() !== '/' ? '/' : '') + id;
+	}
 
-    return href;
+	return target + location.search || '';
 };
 
 const getOwnerId = getDataValue('owner');
@@ -398,11 +398,11 @@ $(document).ready(function() {
         $('.btn-student-allow').hide();
 
     $('.btn-student-allow').click(function (e) {
+		const $button = $(this);
         e.stopPropagation();
         e.preventDefault();
-        let fileId = $(this).attr('data-file-id');
-        let bool = $(this).attr('data-file-can-edit') || false;
-        bool = bool == 'true';
+		let fileId = $button.attr('data-file-id');
+        let bool = $button.data('file-can-edit');
 
         $.ajax({
             type: "POST",
@@ -413,6 +413,7 @@ $(document).ready(function() {
             },
             success: function (data) {
                 if (data.success) {
+					$button.data('file-can-edit', !bool);
                     let id = e.target.id;
                     if (!id.includes('ban'))
                         id = `ban-${id}`;

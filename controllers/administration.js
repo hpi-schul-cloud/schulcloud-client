@@ -3,103 +3,110 @@
  */
 
 const express = require('express');
-const router = express.Router();
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 const moment = require('moment');
 const multer = require('multer');
-const upload = multer({ storage: multer.memoryStorage() });
 const StringDecoder = require('string_decoder').StringDecoder;
-const decoder = new StringDecoder('utf8');
 const _ = require('lodash');
+
+const router = express.Router();
+const upload = multer({ storage: multer.memoryStorage() });
+const decoder = new StringDecoder('utf8');
 
 moment.locale('de');
 
 const getSelectOptions = (req, service, query, values = []) => {
-    return api(req).get('/' + service, {
-        qs: query
-    }).then(data => {
-        return data.data;
-    });
+	return api(req).get('/' + service, {
+		qs: query
+	}).then(data => {
+		return data.data;
+	});
 };
 
 const cutEditOffUrl = (url) => {    //nicht optimal, aber req.header('Referer') gibt auf einer edit Seite die edit Seite, deshalb diese URL Manipulation
-    let workingURL = url;
-    if (url.endsWith("/edit")) {
-        workingURL = workingURL.replace("/edit", "");
-        workingURL = workingURL.substring(0, workingURL.lastIndexOf("/"));
-    }
-    return workingURL;
+	let workingURL = url;
+	if (url.endsWith('/edit')) {
+		workingURL = workingURL.replace('/edit', '');
+		workingURL = workingURL.substring(0, workingURL.lastIndexOf('/'));
+	}
+	return workingURL;
 };
 
 const getTableActions = (item, path, isAdmin = true, isTeacher = false, isStudentAction = false, category) => {
-    return [
-        {
-            link: path + item._id,
-            class: `btn-edit ${isTeacher ? 'disabled' : ''}`,
-            icon: 'edit',
-            title: 'Eintrag bearbeiten'
-        },
-        {
-            link: path + item._id,
-            class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems' && 'btn-delete--systems'}`,
-            icon: 'trash-o',
-            method: `${isAdmin ? 'delete' : ''}`,
-            title: 'Eintrag löschen'
-        },
-        {
-            link: isStudentAction ? path + 'pw/' + item._id : '',
-            class: isStudentAction ? 'btn-pw' : 'invisible',
-            icon: isStudentAction ? 'key' : '',
-            title: 'Passwort zurücksetzen'
-        }
-    ];
+	let editButtonClass = 'btn-edit';
+	if (item.type === 'ldap') {
+		editButtonClass = 'btn-edit-ldap';
+	}
+	return [
+		{
+			link: item.type === 'ldap' ? `${path}ldap/edit/${item._id}` : path + item._id,
+			class: `${editButtonClass} ${isTeacher ? 'disabled' : ''}`,
+			icon: 'edit',
+			title: 'Eintrag bearbeiten',
+		},
+		{
+			link: path + item._id,
+			class: `${isAdmin ? 'btn-delete' : 'disabled'} ${category === 'systems' && 'btn-delete--systems'}`,
+			icon: 'trash-o',
+			method: `${isAdmin ? 'delete' : ''}`,
+			title: 'Eintrag löschen',
+		},
+		{
+			link: isStudentAction ? path + 'pw/' + item._id : '',
+			class: isStudentAction ? 'btn-pw' : 'invisible',
+			icon: isStudentAction ? 'key' : '',
+			title: 'Passwort zurücksetzen',
+		}
+	];
 };
 
 const getTableActionsSend = (item, path, state) => {
-    let actions = [];
-    if (state === 'submitted' || state === 'closed') {
-        actions.push(
-            {
-                link: path + item._id,
-                class: 'btn-edit',
-                icon: 'edit',
-                title: 'Eintrag bearbeiten'
-            },
-            {
-                class: 'disabled',
-                icon: 'archive'
-            },
-            {
-                class: 'disabled',
-                icon: 'paper-plane'
-            });
-    } else {
-        actions.push(
-            {
-                link: path + item._id,
-                class: 'btn-edit',
-                icon: 'edit',
-                title: 'Eintrag bearbeiten'
-            },
-            {
-                link: path + item._id,
-                class: 'btn-disable',
-                icon: 'archive',
-                method: 'delete',
-                title: 'Eintrag abschließen'
-            },
-            {
-                link: path + item._id,
-                class: 'btn',
-                icon: 'paper-plane',
-                method: 'post',
-                title: 'Eintrag an Entwicklerteam senden'
-            });
-    }
-    return actions;
+	let actions = [];
+	if (state === 'submitted' || state === 'closed') {
+		actions.push(
+			{
+				link: path + item._id,
+				class: 'btn-edit',
+				icon: 'edit',
+				title: 'Eintrag bearbeiten',
+			},
+			{
+				class: 'disabled',
+				icon: 'archive',
+			},
+			{
+				class: 'disabled',
+				icon: 'paper-plane',
+			},
+		);
+	} else {
+		actions.push(
+			{
+				link: path + item._id,
+				class: 'btn-edit',
+				icon: 'edit',
+				title: 'Eintrag bearbeiten',
+			},
+			{
+				link: path + item._id,
+				class: 'btn-disable',
+				icon: 'archive',
+				method: 'delete',
+				title: 'Eintrag abschließen',
+			},
+			{
+				link: path + item._id,
+				class: 'btn',
+				icon: 'paper-plane',
+				method: 'post',
+				title: 'Eintrag an Entwicklerteam senden',
+			},
+		);
+	}
+	return actions;
 };
 
 /**
@@ -108,45 +115,45 @@ const getTableActionsSend = (item, path, state) => {
  * @param service {string} - the model or service type
  */
 const mapEventProps = (data, service) => {
-    if (service === 'courses') {
-        // map course times to fit into UI
-        (data.times || []).forEach((time, count) => {
-            time.duration = time.duration / 1000 / 60;
-            time.startTime = moment(time.startTime, "x").format("HH:mm");
-            time.count = count;
-        });
+	if (service === 'courses') {
+		// map course times to fit into UI
+		(data.times || []).forEach((time, count) => {
+			time.duration = time.duration / 1000 / 60;
+			time.startTime = moment(time.startTime, "x").format("HH:mm");
+			time.count = count;
+		});
 
-        // format course start end until date
-        if (data.startDate) {
-            data.startDate = moment(new Date(data.startDate).getTime()).format("YYYY-MM-DD");
-            data.untilDate = moment(new Date(data.untilDate).getTime()).format("YYYY-MM-DD");
-        }
-    }
+		// format course start end until date
+		if (data.startDate) {
+			data.startDate = moment(new Date(data.startDate).getTime()).format("YYYY-MM-DD");
+			data.untilDate = moment(new Date(data.untilDate).getTime()).format("YYYY-MM-DD");
+		}
+	}
 
-    return data;
+	return data;
 };
 
 /**
  * sets undefined array-course properties to an empty array
  */
 const mapEmptyCourseProps = (req, res, next) => {
-    let courseBody = req.body;
-    if (!courseBody.classIds) courseBody.classIds = [];
-    if (!courseBody.teacherIds) courseBody.teacherIds = [];
-    if (!courseBody.userIds) courseBody.userIds = [];
-    if (!courseBody.substitutionIds) courseBody.substitutionIds = [];
+	const courseBody = req.body;
+	if (!courseBody.classIds) courseBody.classIds = [];
+	if (!courseBody.teacherIds) courseBody.teacherIds = [];
+	if (!courseBody.userIds) courseBody.userIds = [];
+	if (!courseBody.substitutionIds) courseBody.substitutionIds = [];
 
-    next();
+	next();
 };
 
 /**
  * sets undefined array-class properties to an empty array
  */
 const mapEmptyClassProps = (req, res, next) => {
-    let classBody = req.body;
-    if (!classBody.teacherIds) classBody.teacherIds = [];
-    if (!classBody.userIds) classBody.userIds = [];
-    next();
+	const classBody = req.body;
+	if (!classBody.teacherIds) classBody.teacherIds = [];
+	if (!classBody.userIds) classBody.userIds = [];
+	next();
 };
 
 /**
@@ -155,14 +162,14 @@ const mapEmptyClassProps = (req, res, next) => {
  * @param service {string} - maps
  */
 const mapTimeProps = (req, res, next) => {
-    // map course times to fit model
-    req.body.times = req.body.times || [];
-    (req.body.times || []).forEach(time => {
-        time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
-        time.duration = time.duration * 60 * 1000;
-    });
+	// map course times to fit model
+	req.body.times = req.body.times || [];
+	(req.body.times || []).forEach(time => {
+		time.startTime = moment.duration(time.startTime, "HH:mm").asMilliseconds();
+		time.duration = time.duration * 60 * 1000;
+	});
 
-    next();
+	next();
 };
 
 /**
@@ -175,29 +182,29 @@ const mapTimeProps = (req, res, next) => {
  * @param service {string}
  */
 const createEventsForData = (data, service, req, res) => {
-    // can just run if a calendar service is running on the environment and the course have a teacher
-    if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0] && data.times.length > 0) {
-        return Promise.all(data.times.map(time => {
-            return api(req).post("/calendar", {
-                json: {
-                    summary: data.name,
-                    location: res.locals.currentSchoolData.name,
-                    description: data.description,
-                    startDate: new Date(new Date(data.startDate).getTime() + time.startTime).toISOString(),
-                    duration: time.duration,
-                    repeat_until: data.untilDate,
-                    frequency: "WEEKLY",
-                    weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
-                    scopeId: data._id,
-                    courseId: data._id,
-                    courseTimeId: time._id
-                },
-                qs: { userId: data.teacherIds[0] }
-            });
-        }));
-    }
+	// can just run if a calendar service is running on the environment and the course have a teacher
+	if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses' && data.teacherIds[0] && data.times.length > 0) {
+		return Promise.all(data.times.map(time => {
+			return api(req).post("/calendar", {
+				json: {
+					summary: data.name,
+					location: res.locals.currentSchoolData.name,
+					description: data.description,
+					startDate: new Date(new Date(data.startDate).getTime() + time.startTime).toISOString(),
+					duration: time.duration,
+					repeat_until: data.untilDate,
+					frequency: "WEEKLY",
+					weekday: recurringEventsHelper.getIsoWeekdayForNumber(time.weekday),
+					scopeId: data._id,
+					courseId: data._id,
+					courseTimeId: time._id
+				},
+				qs: { userId: data.teacherIds[0] }
+			});
+		}));
+	}
 
-    return Promise.resolve(true);
+	return Promise.resolve(true);
 };
 
 /**
@@ -205,23 +212,23 @@ const createEventsForData = (data, service, req, res) => {
  * @param service {string}
  */
 const deleteEventsForData = (service) => {
-    return function (req, res, next) {
-        if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
-            return api(req).get('courses/' + req.params.id).then(course => {
-                if (course.teacherIds.length < 1 || course.times.length < 1) { // if no teacher, no permission for deleting
-                    next();
-                    return;
-                }
-                return Promise.all((course.times || []).map(t => {
-                    if (t.eventId) {
-                        return api(req).delete('calendar/' + t.eventId, { qs: { userId: course.teacherIds[0] } });
-                    }
-                })).then(_ => next());
-            });
-        }
+	return function (req, res, next) {
+		if (process.env.CALENDAR_SERVICE_ENABLED && service === 'courses') {
+			return api(req).get('courses/' + req.params.id).then(course => {
+				if (course.teacherIds.length < 1 || course.times.length < 1) { // if no teacher, no permission for deleting
+					next();
+					return;
+				}
+				return Promise.all((course.times || []).map(t => {
+					if (t.eventId) {
+						return api(req).delete('calendar/' + t.eventId, { qs: { userId: course.teacherIds[0] } });
+					}
+				})).then(_ => next());
+			});
+		}
 
-        next();
-    };
+		next();
+	};
 };
 
 /**
@@ -236,35 +243,35 @@ const deleteEventsForData = (service) => {
  *      }
  */
 const generateRegistrationLink = (params, internalReturn) => {
-    return function (req, res, next) {
-        let options = JSON.parse(JSON.stringify(params));
-        if (!options.role) options.role = req.body.role || "";
-        if (!options.save) options.save = req.body.save || "";
-        if (!options.patchUser) options.patchUser = req.body.patchUser || "";
-        if (!options.host) options.host = req.headers.origin || req.body.host || "";
-        if (!options.schoolId) options.schoolId = req.body.schoolId || "";
-        if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
+	return function (req, res, next) {
+		let options = JSON.parse(JSON.stringify(params));
+		if (!options.role) options.role = req.body.role || "";
+		if (!options.save) options.save = req.body.save || "";
+		if (!options.patchUser) options.patchUser = req.body.patchUser || "";
+		if (!options.host) options.host = req.headers.origin || req.body.host || "";
+		if (!options.schoolId) options.schoolId = req.body.schoolId || "";
+		if (!options.toHash) options.toHash = req.body.email || req.body.toHash || "";
 
-        if (internalReturn) {
-            return api(req).post("/registrationlink/", {
-                json: options
-            });
-        } else {
-            return api(req).post("/registrationlink/", {
-                json: options
-            }).then(linkData => {
-                res.locals.linkData = linkData;
-                if (options.patchUser) req.body.importHash = linkData.hash;
-                next();
-            }).catch(err => {
-                req.session.notification = {
-                    'type': 'danger',
-                    'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error || {}).message || err.message || err || ""}`
-                };
-                res.redirect(req.header('Referer'));
-            });
-        }
-    };
+		if (internalReturn) {
+			return api(req).post("/registrationlink/", {
+				json: options
+			});
+		} else {
+			return api(req).post("/registrationlink/", {
+				json: options
+			}).then(linkData => {
+				res.locals.linkData = linkData;
+				if (options.patchUser) req.body.importHash = linkData.hash;
+				next();
+			}).catch(err => {
+				req.session.notification = {
+					'type': 'danger',
+					'message': `Fehler beim Erstellen des Registrierungslinks. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error || {}).message || err.message || err || ""}`
+				};
+				res.redirect(req.header('Referer'));
+			});
+		}
+	};
 };
 
 // secure routes
@@ -274,43 +281,43 @@ router.use(authHelper.authChecker);
 router.post('/registrationlink/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), generateRegistrationLink({}), (req, res) => { res.json(res.locals.linkData); });
 
 const sendMailHandler = (user, req, res, internalReturn) => {
-    if (user && user.email && user.schoolId && (user.shortLink || res.locals.linkData.shortLink)) {
-        return api(req).post('/mails/', {
-            json: {
-                email: user.email,
-                subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
-                headers: {},
-                content: {
-                    "text": `Einladung in die ${res.locals.theme.title}
+	if (user && user.email && user.schoolId && (user.shortLink || res.locals.linkData.shortLink)) {
+		return api(req).post('/mails/', {
+			json: {
+				email: user.email,
+				subject: `Einladung für die Nutzung der ${res.locals.theme.title}!`,
+				headers: {},
+				content: {
+					"text": `Einladung in die ${res.locals.theme.title}
 Hallo ${user.firstName} ${user.lastName}!
 \nDu wurdest eingeladen, der ${res.locals.theme.title} beizutreten, bitte vervollständige deine Registrierung unter folgendem Link: ${user.shortLink || res.locals.linkData.shortLink}
 \nViel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`
-                }
-            }
-        }).then(_ => {
-            if (internalReturn) return true;
-            req.session.notification = {
-                type: 'success',
-                message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
-            };
-            return res.redirect(req.header('Referer'));
-        }).catch(err => {
-            if (internalReturn) return false;
-            req.session.notification = {
-                'type': 'danger',
-                'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error || {}).message || err.message || err || ""}`
-            };
-            res.redirect(req.header('Referer'));
-        });
-    } else {
-        if (internalReturn) return true;
-        req.session.notification = {
-            type: 'success',
-            message: 'Nutzer erfolgreich erstellt.'
-        };
-        return res.redirect(req.header('Referer'));
-    }
+				}
+			}
+		}).then(_ => {
+			if (internalReturn) return true;
+			req.session.notification = {
+				type: 'success',
+				message: 'Nutzer erfolgreich erstellt und Registrierungslink per E-Mail verschickt.'
+			};
+			return res.redirect(req.header('Referer'));
+		}).catch(err => {
+			if (internalReturn) return false;
+			req.session.notification = {
+				'type': 'danger',
+				'message': `Nutzer erstellt. Fehler beim Versenden der E-Mail. Bitte selbstständig Registrierungslink im Nutzerprofil generieren und weitergeben. ${(err.error || {}).message || err.message || err || ""}`
+			};
+			res.redirect(req.header('Referer'));
+		});
+	} else {
+		if (internalReturn) return true;
+		req.session.notification = {
+			type: 'success',
+			message: 'Nutzer erfolgreich erstellt.'
+		};
+		return res.redirect(req.header('Referer'));
+	}
     /* deprecated code for template-based e-mails - we keep that for later copy&paste
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
@@ -331,46 +338,46 @@ ${res.locals.theme.short_title}-Team`
             };
             req.body.content = content;
         }
-    });*/
+    }); */
 };
 
 
 const getUserCreateHandler = (internalReturn) => {
-    return function (req, res, next) {
-        let shortLink = req.body.shortLink;
-        if (req.body.birthday) {
-            let birthday = req.body.birthday.split('.');
-            req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
-        }
-        return api(req).post('/users/', {
-            json: req.body
-        }).then(async newuser => {
-            res.locals.createdUser = newuser;
-            if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
-                newuser.shortLink = shortLink;
-                return await sendMailHandler(newuser, req, res, internalReturn);
-            } else {
-                if (internalReturn) return true;
-                req.session.notification = {
-                    'type': 'success',
-                    'message': 'Nutzer erfolgreich erstellt.'
-                };
-                res.redirect(req.header('Referer'));
-            }
+	return function (req, res, next) {
+		let shortLink = req.body.shortLink;
+		if (req.body.birthday) {
+			let birthday = req.body.birthday.split('.');
+			req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+		}
+		return api(req).post('/users/', {
+			json: req.body
+		}).then(async newuser => {
+			res.locals.createdUser = newuser;
+			if (req.body.sendRegistration && newuser.email && newuser.schoolId) {
+				newuser.shortLink = shortLink;
+				return await sendMailHandler(newuser, req, res, internalReturn);
+			} else {
+				if (internalReturn) return true;
+				req.session.notification = {
+					'type': 'success',
+					'message': 'Nutzer erfolgreich erstellt.'
+				};
+				res.redirect(req.header('Referer'));
+			}
             /*
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
             */
-        }).catch(err => {
-            if (internalReturn) return false;
-            req.session.notification = {
-                'type': 'danger',
-                'message': `Fehler beim Erstellen des Nutzers. ${err.error.message || ""}`
-            };
-            res.redirect(req.header('Referer'));
-        });
-    };
+		}).catch(err => {
+			if (internalReturn) return false;
+			req.session.notification = {
+				'type': 'danger',
+				'message': `Fehler beim Erstellen des Nutzers. ${err.error.message || ""}`
+			};
+			res.redirect(req.header('Referer'));
+		});
+	};
 };
 
 /**
@@ -379,286 +386,287 @@ const getUserCreateHandler = (internalReturn) => {
  * @returns {Function}
  */
 const getSendHelper = (service) => {
-    return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id)
-            .then(data => {
+	return function (req, res, next) {
+		api(req).get('/' + service + '/' + req.params.id)
+			.then(data => {
 
-                let user = res.locals.currentUser;
+				let user = res.locals.currentUser;
 
-                api(req).post('/helpdesk', {
-                    json: {
-                        type: "contactHPI",
-                        subject: data.subject,
-                        category: data.category,
-                        role: "",
-                        desire: "",
-                        benefit: "",
-                        acceptanceCriteria: "",
-                        currentState: data.currentState,
-                        targetState: data.targetState,
-                        notes: data.notes,
-                        schoolName: res.locals.currentSchoolData.name,
-                        userId: user._id,
-                        email: user.email ? user.email : "",
-                        schoolId: res.locals.currentSchoolData._id,
-                        cloud: res.locals.theme.title
-                    }
-                })
-                    .then(_ => {
-                        api(req).patch('/' + service + '/' + req.params.id, {
-                            json: {
-                                state: 'submitted',
-                                order: 1
-                            }
-                        });
-                    }).catch(err => {
-                        res.status((err.statusCode || 500)).send(err);
-                    });
-                res.redirect(req.get('Referrer'));
-            });
-    };
+				api(req).post('/helpdesk', {
+					json: {
+						type: "contactHPI",
+						subject: data.subject,
+						category: data.category,
+						role: "",
+						desire: "",
+						benefit: "",
+						acceptanceCriteria: "",
+						currentState: data.currentState,
+						targetState: data.targetState,
+						notes: data.notes,
+						schoolName: res.locals.currentSchoolData.name,
+						userId: user._id,
+						email: user.email ? user.email : "",
+						schoolId: res.locals.currentSchoolData._id,
+						cloud: res.locals.theme.title
+					}
+				})
+					.then(_ => {
+						api(req).patch('/' + service + '/' + req.params.id, {
+							json: {
+								state: 'submitted',
+								order: 1
+							}
+						});
+					}).catch(err => {
+						res.status((err.statusCode || 500)).send(err);
+					});
+				res.redirect(req.get('Referrer'));
+			});
+	};
 };
 
 const getCSVImportHandler = () => {
-    return async function (req, res, next) {
-        try {
-            const csvData = decoder.write(req.file.buffer);
-            const [stats] = await api(req).post('/sync/', {
-                qs: {
-                    target: 'csv',
-                    school: req.body.schoolId,
-                    role: req.body.roles[0],
-                    sendEmails: Boolean(req.body.sendRegistration),
-                },
-                json: {
-                    data: csvData,
-                },
-            });
-            const numberOfUsers = stats.users.successful + stats.users.failed;
-            if (stats.success) {
-                req.session.notification = {
-                    type: 'success',
-                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
-                };
-            } else {
-                const whitelist = ['file', 'user', 'invitation', 'class'];
-                let errorText = stats.errors
-                    .filter(err => whitelist.includes(err.type))
-                    .map(err => `${err.entity} (${err.message})`)
-                    .join(', ');
-                if (errorText === '') {
-                    errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
-                }
-                req.session.notification = {
-                    type: 'warning',
-                    message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
-                };
-            }
-            res.redirect(req.header('Referer'));
-            return;
-        } catch (err) {
-            req.session.notification = {
-                type: 'danger',
-                message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
-            };
-            res.redirect(req.header('Referer'));
-            return;
-        }
-    };
+	return async function (req, res, next) {
+		try {
+			const csvData = decoder.write(req.file.buffer);
+			const [stats] = await api(req).post('/sync/', {
+				qs: {
+					target: 'csv',
+					school: req.body.schoolId,
+					role: req.body.roles[0],
+					sendEmails: Boolean(req.body.sendRegistration),
+				},
+				json: {
+					data: csvData,
+				},
+			});
+			const numberOfUsers = stats.users.successful + stats.users.failed;
+			if (stats.success) {
+				req.session.notification = {
+					type: 'success',
+					message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
+				};
+			} else {
+				const whitelist = ['file', 'user', 'invitation', 'class'];
+				let errorText = stats.errors
+					.filter(err => whitelist.includes(err.type))
+					.map(err => `${err.entity} (${err.message})`)
+					.join(', ');
+				if (errorText === '') {
+					errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+				}
+				req.session.notification = {
+					type: 'warning',
+					message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
+				};
+			}
+			res.redirect(req.header('Referer'));
+			return;
+		} catch (err) {
+			req.session.notification = {
+				type: 'danger',
+				message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+			};
+			res.redirect(req.header('Referer'));
+			return;
+		}
+	};
 };
 
 const dictionary = {
-    open: 'Offen',
-    closed: "Geschlossen",
-    submitted: 'Gesendet',
-    dashboard: 'Übersicht',
-    courses: 'Kurse',
-    classes: 'Klassen',
-    homework: 'Aufgaben',
-    files: 'Dateien',
-    content: 'Materialien',
-    administration: 'Verwaltung',
-    login_registration: 'Anmeldung/Registrierung',
-    other: 'Sonstiges',
-    technical_problems: 'Techn. Probleme'
+	open: 'Offen',
+	closed: 'Geschlossen',
+	submitted: 'Gesendet',
+	dashboard: 'Übersicht',
+	courses: 'Kurse',
+	classes: 'Klassen',
+	homework: 'Aufgaben',
+	files: 'Dateien',
+	content: 'Materialien',
+	administration: 'Verwaltung',
+	login_registration: 'Anmeldung/Registrierung',
+	other: 'Sonstiges',
+	technical_problems: 'Techn. Probleme'
 };
 
 const getUpdateHandler = (service) => {
-    return function (req, res, next) {
-        api(req).patch('/' + service + '/' + req.params.id, {
-            // TODO: sanitize
-            json: req.body
-        }).then(data => {
-            createEventsForData(data, service, req, res).then(_ => {
-                res.redirect(cutEditOffUrl(req.header('Referer')));
-            });
-        }).catch(err => {
-            next(err);
-        });
-    };
+	return function (req, res, next) {
+		api(req).patch('/' + service + '/' + req.params.id, {
+			// TODO: sanitize
+			json: req.body
+		}).then(data => {
+			createEventsForData(data, service, req, res).then(_ => {
+				res.redirect(cutEditOffUrl(req.header('Referer')));
+			});
+		}).catch(err => {
+			next(err);
+		});
+	};
 };
 
 
 const getDetailHandler = (service) => {
-    return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id).then(data => {
-            res.json(mapEventProps(data, service));
-        }).catch(err => {
-            next(err);
-        });
-    };
+	return function (req, res, next) {
+		api(req).get('/' + service + '/' + req.params.id).then(data => {
+			res.json(mapEventProps(data, service));
+		}).catch(err => {
+			next(err);
+		});
+	};
 };
 
 
 const getDeleteHandler = (service, redirectUrl) => {
-    return function (req, res, next) {
-        api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            if (redirectUrl) {
-                res.redirect(redirectUrl);
-            } else {
-                res.redirect(req.header('Referer'));
-            }
-        }).catch(err => {
-            next(err);
-        });
-    };
+	return function (req, res, next) {
+		api(req).delete('/' + service + '/' + req.params.id).then(_ => {
+			if (redirectUrl) {
+				res.redirect(redirectUrl);
+			} else {
+				res.redirect(req.header('Referer'));
+			}
+		}).catch(err => {
+			next(err);
+		});
+	};
 };
 
 const getDeleteAccountForUserHandler = (req, res, next) => {
-    api(req).get("/accounts/", {
-        qs: {
-            userId: req.params.id
-        }
-    }).then(accounts => {
-        // if no account find, user isn't fully registered
-        if (!accounts || accounts.length <= 0) {
-            next();
-            return;
-        }
+	api(req).get("/accounts/", {
+		qs: {
+			userId: req.params.id
+		}
+	}).then(accounts => {
+		// if no account find, user isn't fully registered
+		if (!accounts || accounts.length <= 0) {
+			next();
+			return;
+		}
 
-        // for now there is only one account for a given user
-        let account = accounts[0];
-        api(req).delete("/accounts/" + account._id).then(_ => {
-            next();
-        });
-    }).catch(err => {
-        next(err);
-    });
+		// for now there is only one account for a given user
+		let account = accounts[0];
+		api(req).delete("/accounts/" + account._id).then(_ => {
+			next();
+		});
+	}).catch(err => {
+		next(err);
+	});
 };
 
 const removeSystemFromSchoolHandler = (req, res, next) => {
-    api(req).patch('/schools/' + res.locals.currentSchool, {
-        json: {
-            $pull: {
-                systems: req.params.id
-            }
-        }
-    }).then(_ => {
-        next();
-    }).catch(err => {
-        next(err);
-    });
+	api(req).patch('/schools/' + res.locals.currentSchool, {
+		json: {
+			$pull: {
+				systems: req.params.id
+			}
+		}
+	}).then(_ => {
+		next();
+	}).catch(err => {
+		next(err);
+	});
 };
 
 const createSystemHandler = (req, res, next) => {
-    api(req).post('/systems/', { json: req.body }).then(system => {
-        api(req).patch('/schools/' + req.body.schoolId, {
-            json: {
-                $push: {
-                    systems: system._id
-                }
-            }
-        }).then(data => {
-            res.redirect('/administration/school')
-        }).catch(err => {
-            next(err);
-        });
-    });
+	api(req).post('/systems/', { json: req.body }).then(system => {
+		api(req).patch('/schools/' + req.body.schoolId, {
+			json: {
+				$push: {
+					systems: system._id
+				}
+			}
+		}).then(data => {
+			res.redirect('/administration/school')
+		}).catch(err => {
+			next(err);
+		});
+	});
 };
 
 const getStorageProviders = () => {
-    return [
-        { label: 'AWS S3', value: 'awsS3' }
-    ];
+	return [
+		{ label: 'AWS S3', value: 'awsS3' }
+	];
 };
 
 const getSSOTypes = () => {
-    return [
-        { label: 'Moodle', value: 'moodle' },
-        { label: 'itslearning', value: 'itslearning' },
-        { label: 'IServ', value: 'iserv' }
-    ];
+	return [
+		{ label: 'Moodle', value: 'moodle' },
+		{ label: 'itslearning', value: 'itslearning' },
+		{ label: 'IServ', value: 'iserv' },
+		{ label: 'LDAP', value: 'ldap' },
+	];
 };
 
 const createBucket = (req, res, next) => {
-    if (req.body.fileStorageType) {
-        Promise.all([
-            api(req).post('/fileStorage/bucket', {
-                json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
-            }),
-            api(req).patch('/schools/' + req.params.id, {
-                json: req.body
-            })]).then(data => {
-                res.redirect(req.header('Referer'));
-            }).catch(err => {
-                next(err);
-            });
-    }
+	if (req.body.fileStorageType) {
+		Promise.all([
+			api(req).post('/fileStorage/bucket', {
+				json: { fileStorageType: req.body.fileStorageType, schoolId: req.params.id }
+			}),
+			api(req).patch('/schools/' + req.params.id, {
+				json: req.body
+			})]).then(data => {
+				res.redirect(req.header('Referer'));
+			}).catch(err => {
+				next(err);
+			});
+	}
 };
 
 const returnAdminPrefix = (roles) => {
-    let prefix;
-    roles.map(role => {
-        (role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
-    });
-    return prefix;
+	let prefix;
+	roles.map(role => {
+		(role.name === "teacher") ? prefix = 'Verwaltung: ' : prefix = "Administration: ";
+	});
+	return prefix;
 };
 
 const getClasses = (user, classes, teacher) => {
-    let userClasses = '';
+	let userClasses = '';
 
-    if (teacher) {
-        classes.data.map(uClass => {
-            if (uClass.teacherIds.includes(user._id)) {
-                if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.displayName || "";
-                } else {
-                    userClasses = uClass.displayName || "";
-                }
-            }
-        });
-    } else {
-        classes.data.map(uClass => {
-            if (uClass.userIds.includes(user._id)) {
-                if (userClasses !== '') {
-                    userClasses = userClasses + ' , ' + uClass.displayName || "";
-                } else {
-                    userClasses = uClass.displayName || "";
-                }
-            }
-        });
-    }
+	if (teacher) {
+		classes.data.map(uClass => {
+			if (uClass.teacherIds.includes(user._id)) {
+				if (userClasses !== '') {
+					userClasses = userClasses + ' , ' + uClass.displayName || "";
+				} else {
+					userClasses = uClass.displayName || "";
+				}
+			}
+		});
+	} else {
+		classes.data.map(uClass => {
+			if (uClass.userIds.includes(user._id)) {
+				if (userClasses !== '') {
+					userClasses = userClasses + ' , ' + uClass.displayName || "";
+				} else {
+					userClasses = uClass.displayName || "";
+				}
+			}
+		});
+	}
 
-    return userClasses;
+	return userClasses;
 };
 
 // with userId to accountId
 const userIdtoAccountIdUpdate = (service) => {
-    return function (req, res, next) {
-        api(req).get('/' + service + '/?userId=' + req.params.id)
-            .then(users => {
-                api(req).patch('/' + service + '/' + users[0]._id, {
-                    json: req.body
-                }).then(data => {
-                    res.redirect(req.header('Referer'));
-                }).catch(err => {
-                    next(err);
-                });
-            })
-            .catch(err => {
-                next(err);
-            });
-    };
+	return function (req, res, next) {
+		api(req).get('/' + service + '/?userId=' + req.params.id)
+			.then(users => {
+				api(req).patch('/' + service + '/' + users[0]._id, {
+					json: req.body
+				}).then(data => {
+					res.redirect(req.header('Referer'));
+				}).catch(err => {
+					next(err);
+				});
+			})
+			.catch(err => {
+				next(err);
+			});
+	};
 };
 
 const userFilterSettings = function (defaultOrder) {
@@ -692,7 +700,7 @@ const userFilterSettings = function (defaultOrder) {
             expanded: true,
             options: [
                 ["missing", "Keine Einverständniserklärung vorhanden"],
-                ["parentsAgreed", "Eltern haben zugestimmt (oder Schüler ist über 18)"],
+                ["parentsAgreed", "Eltern haben zugestimmt (oder Schüler ist über 16)"],
                 ["ok", "Alle Zustimmungen vorhanden"],
                 [null, "nicht Angegeben"]
             ]
@@ -734,10 +742,10 @@ const getConsentStatusIcon = (consent, bool) => {
 
 // teacher admin permissions
 router.all('/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
-    let title = returnAdminPrefix(res.locals.currentUser.roles);
-    res.render('administration/dashboard', {
-        title: title + 'Allgemein',
-    });
+	let title = returnAdminPrefix(res.locals.currentUser.roles);
+	res.render('administration/dashboard', {
+		title: title + 'Allgemein',
+	});
 });
 
 const getTeacherUpdateHandler = () => {
@@ -803,153 +811,153 @@ router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 
 router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 
-    const tempOrgQuery = (req.query || {}).filterQuery;
-    const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
+	const tempOrgQuery = (req.query || {}).filterQuery;
+	const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
 
-    let itemsPerPage = 25;
-    let filterQuery = {};
-    if (tempOrgQuery) {
-        filterQuery = JSON.parse(unescape(req.query.filterQuery));
-        if (filterQuery["$limit"]) {
-            itemsPerPage = filterQuery["$limit"];
-        }
-    }
+	let itemsPerPage = 25;
+	let filterQuery = {};
+	if (tempOrgQuery) {
+		filterQuery = JSON.parse(unescape(req.query.filterQuery));
+		if (filterQuery["$limit"]) {
+			itemsPerPage = filterQuery["$limit"];
+		}
+	}
 
-    const currentPage = parseInt(req.query.p) || 1;
-    let title = returnAdminPrefix(res.locals.currentUser.roles);
+	const currentPage = parseInt(req.query.p) || 1;
+	let title = returnAdminPrefix(res.locals.currentUser.roles);
 
-    let query = {
-        roles: ['teacher'],
-        $populate: ['roles'],
-        $limit: itemsPerPage,
-        $skip: itemsPerPage * (currentPage - 1),
-    };
-    query = Object.assign(query, filterQuery);
+	let query = {
+		roles: ['teacher'],
+		$populate: ['roles'],
+		$limit: itemsPerPage,
+		$skip: itemsPerPage * (currentPage - 1),
+	};
+	query = Object.assign(query, filterQuery);
 
-    api(req).get('/users', {
-        qs: query
-    }).then(userData => {
-        let users = userData.data;
-        let consentsPromise;
+	api(req).get('/users', {
+		qs: query
+	}).then(userData => {
+		let users = userData.data;
+		let consentsPromise;
 
-        const classesPromise = getSelectOptions(req, 'classes', {});
-        if (users.length > 0) {
-            consentsPromise = getSelectOptions(req, 'consents', {
-                userId: {
-                    $in: users.map((user) => {
-                        return user._id;
-                    })
-                }
-            });
-        } else {
-            consentsPromise = Promise.resolve();
-        }
-        Promise.all([
-            classesPromise,
-            consentsPromise
-        ]).then(([classes, consents]) => {
+		const classesPromise = getSelectOptions(req, 'classes', {});
+		if (users.length > 0) {
+			consentsPromise = getSelectOptions(req, 'consents', {
+				userId: {
+					$in: users.map((user) => {
+						return user._id;
+					})
+				}
+			});
+		} else {
+			consentsPromise = Promise.resolve();
+		}
+		Promise.all([
+			classesPromise,
+			consentsPromise
+		]).then(([classes, consents]) => {
 
-            users = users.map((user) => {
-                // add consentStatus to user
-                const consent = (consents || []).find((consent) => {
-                    return consent.userId == user._id;
-                });
+			users = users.map((user) => {
+				// add consentStatus to user
+				const consent = (consents || []).find((consent) => {
+					return consent.userId == user._id;
+				});
 
-                user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent, true)}</p>`;
-                // add classes to user
-                user.classesString = classes.filter((currentClass) => {
-                    return currentClass.teacherIds.includes(user._id);
-                }).map((currentClass) => { return currentClass.displayName; }).join(', ');
-                return user;
-            });
+				user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent, true)}</p>`;
+				// add classes to user
+				user.classesString = classes.filter((currentClass) => {
+					return currentClass.teacherIds.includes(user._id);
+				}).map((currentClass) => { return currentClass.displayName; }).join(', ');
+				return user;
+			});
 
-            let head = [
-                'Vorname',
-                'Nachname',
-                'E-Mail-Adresse',
-                'Klasse(n)'
-            ];
-            if (res.locals.currentUser.roles.map(role => { return role.name; }).includes("administrator")) {
-                head.push('Einwilligung');
-                head.push('Erstellt am');
-                head.push('');
-            }
-            let body = users.map(user => {
-                let row = [
-                    user.firstName || '',
-                    user.lastName || '',
-                    user.email || '',
-                    user.classesString || ''
-                ];
-                if (res.locals.currentUser.roles.map(role => { return role.name; }).includes("administrator")) {
-                    row.push({
-                        useHTML: true,
-                        content: user.consentStatus
-                    });
-                    row.push(moment(user.createdAt).format('DD.MM.YYYY'));
-                    row.push([{
-                        link: `/administration/teachers/${user._id}/edit`,
-                        title: 'Nutzer bearbeiten',
-                        icon: 'edit'
-                    }]);
-                }
-                return row;
-            });
+			let head = [
+				'Vorname',
+				'Nachname',
+				'E-Mail-Adresse',
+				'Klasse(n)'
+			];
+			if (res.locals.currentUser.roles.map(role => { return role.name; }).includes("administrator")) {
+				head.push('Einwilligung');
+				head.push('Erstellt am');
+				head.push('');
+			}
+			let body = users.map(user => {
+				let row = [
+					user.firstName || '',
+					user.lastName || '',
+					user.email || '',
+					user.classesString || ''
+				];
+				if (res.locals.currentUser.roles.map(role => { return role.name; }).includes("administrator")) {
+					row.push({
+						useHTML: true,
+						content: user.consentStatus
+					});
+					row.push(moment(user.createdAt).format('DD.MM.YYYY'));
+					row.push([{
+						link: `/administration/teachers/${user._id}/edit`,
+						title: 'Nutzer bearbeiten',
+						icon: 'edit'
+					}]);
+				}
+				return row;
+			});
 
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(userData.total / itemsPerPage),
-                baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
-            };
+			const pagination = {
+				currentPage,
+				numPages: Math.ceil(userData.total / itemsPerPage),
+				baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
+			};
 
-            res.render('administration/teachers', {
-                title: title + 'Lehrer',
-                head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings('lastName')),
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
-            });
-        });
-    });
+			res.render('administration/teachers', {
+				title: title + 'Lehrer',
+				head, body, pagination,
+				filterSettings: JSON.stringify(userFilterSettings('lastName')),
+				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+			});
+		});
+	});
 });
 
 router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
-    const userPromise = api(req).get('/users/' + req.params.id);
-    const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
-    const classesPromise = getSelectOptions(req, 'classes', { $populate: ['year'], $sort: 'displayName' });
-    const accountPromise = api(req).get('/accounts/', { qs: { userId: req.params.id } });
+	const userPromise = api(req).get('/users/' + req.params.id);
+	const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
+	const classesPromise = getSelectOptions(req, 'classes', { $populate: ['year'], $sort: 'displayName' });
+	const accountPromise = api(req).get('/accounts/', { qs: { userId: req.params.id } });
 
-    Promise.all([
-        userPromise,
-        consentPromise,
-        classesPromise,
-        accountPromise
-    ]).then(([user, consent, classes, account]) => {
-        consent = consent[0];
-        account = account[0];
-        let hidePwChangeButton = account ? false : true;
+	Promise.all([
+		userPromise,
+		consentPromise,
+		classesPromise,
+		accountPromise
+	]).then(([user, consent, classes, account]) => {
+		consent = consent[0];
+		account = account[0];
+		let hidePwChangeButton = account ? false : true;
 
-        classes = classes.map(c => {
-            c.selected = c.teacherIds.includes(user._id);
-            return c;
-        });
-        res.render('administration/users_edit',
-            {
-                title: `Lehrer bearbeiten`,
-                action: `/administration/teachers/${user._id}`,
-                submitLabel: 'Speichern',
-                closeLabel: 'Abbrechen',
-                user,
-                consentStatusIcon: getConsentStatusIcon(consent, true),
-                consent,
-                classes,
-                editTeacher: true,
-                hidePwChangeButton,
-                isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-                referrer: req.header('Referer'),
-            }
-        );
-    });
+		classes = classes.map(c => {
+			c.selected = c.teacherIds.includes(user._id);
+			return c;
+		});
+		res.render('administration/users_edit',
+			{
+				title: `Lehrer bearbeiten`,
+				action: `/administration/teachers/${user._id}`,
+				submitLabel: 'Speichern',
+				closeLabel: 'Abbrechen',
+				user,
+				consentStatusIcon: getConsentStatusIcon(consent, true),
+				consent,
+				classes,
+				editTeacher: true,
+				hidePwChangeButton,
+				isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
+				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+				referrer: req.header('Referer'),
+			}
+		);
+	});
 });
 
 
@@ -1027,118 +1035,118 @@ router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
 
-    const tempOrgQuery = (req.query || {}).filterQuery;
-    const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
+	const tempOrgQuery = (req.query || {}).filterQuery;
+	const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
 
-    let itemsPerPage = 25;
-    let filterQuery = {};
-    if (tempOrgQuery) {
-        filterQuery = JSON.parse(unescape(req.query.filterQuery));
-        if (filterQuery["$limit"]) {
-            itemsPerPage = filterQuery["$limit"];
-        }
-    }
+	let itemsPerPage = 25;
+	let filterQuery = {};
+	if (tempOrgQuery) {
+		filterQuery = JSON.parse(unescape(req.query.filterQuery));
+		if (filterQuery["$limit"]) {
+			itemsPerPage = filterQuery["$limit"];
+		}
+	}
 
-    const currentPage = parseInt(req.query.p) || 1;
-    let title = returnAdminPrefix(res.locals.currentUser.roles);
+	const currentPage = parseInt(req.query.p) || 1;
+	let title = returnAdminPrefix(res.locals.currentUser.roles);
 
-    let query = {
-        roles: ['student'],
-        $populate: ['roles'],
-        $limit: itemsPerPage,
-        $skip: itemsPerPage * (currentPage - 1),
-    };
-    query = Object.assign(query, filterQuery);
+	let query = {
+		roles: ['student'],
+		$populate: ['roles'],
+		$limit: itemsPerPage,
+		$skip: itemsPerPage * (currentPage - 1),
+	};
+	query = Object.assign(query, filterQuery);
 
-    api(req).get('/users', {
-        qs: query
-    }).then(userData => {
-        let users = userData.data;
-        let consentsPromise;
-        const allStudentsCount = userData.total;
+	api(req).get('/users', {
+		qs: query
+	}).then(userData => {
+		let users = userData.data;
+		let consentsPromise;
+		const allStudentsCount = userData.total;
 
-        const classesPromise = getSelectOptions(req, 'classes', {});
-        if (users.length > 0) {
-            consentsPromise = getSelectOptions(req, 'consents', {
-                userId: {
-                    $in: users.map((user) => {
-                        return user._id;
-                    })
-                },
-                $limit: itemsPerPage
-            });
-        } else {
-            consentsPromise = Promise.resolve();
-        }
-        Promise.all([
-            classesPromise,
-            consentsPromise
-        ]).then(async ([classes, consents]) => {
-            users = users.map((user) => {
-                // add consentStatus to user
-                const consent = (consents || []).find((consent) => {
-                    return consent.userId == user._id;
-                });
+		const classesPromise = getSelectOptions(req, 'classes', {});
+		if (users.length > 0) {
+			consentsPromise = getSelectOptions(req, 'consents', {
+				userId: {
+					$in: users.map((user) => {
+						return user._id;
+					})
+				},
+				$limit: itemsPerPage
+			});
+		} else {
+			consentsPromise = Promise.resolve();
+		}
+		Promise.all([
+			classesPromise,
+			consentsPromise
+		]).then(async ([classes, consents]) => {
+			users = users.map((user) => {
+				// add consentStatus to user
+				const consent = (consents || []).find((consent) => {
+					return consent.userId == user._id;
+				});
 
-                user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent)}</p>`;
-                // add classes to user
-                user.classesString = classes.filter((currentClass) => {
-                    return currentClass.userIds.includes(user._id);
-                }).map((currentClass) => { return currentClass.displayName; }).join(', ');
-                return user;
-            });
+				user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent)}</p>`;
+				// add classes to user
+				user.classesString = classes.filter((currentClass) => {
+					return currentClass.userIds.includes(user._id);
+				}).map((currentClass) => { return currentClass.displayName; }).join(', ');
+				return user;
+			});
 
-            const head = [
-                'Vorname',
-                'Nachname',
-                'E-Mail-Adresse',
-                'Klasse(n)',
-                'Einwilligung',
-                'Erstellt am',
-                ''
-            ];
+			const head = [
+				'Vorname',
+				'Nachname',
+				'E-Mail-Adresse',
+				'Klasse(n)',
+				'Einwilligung',
+				'Erstellt am',
+				''
+			];
 
-            const body = users.map(user => {
-                return [
-                    user.firstName || '',
-                    user.lastName || '',
-                    user.email || '',
-                    user.classesString || '',
-                    {
-                        useHTML: true,
-                        content: user.consentStatus
-                    },
-                    moment(user.createdAt).format('DD.MM.YYYY'),
-                    [{
-                        link: `/administration/students/${user._id}/edit`,
-                        title: 'Nutzer bearbeiten',
-                        icon: 'edit'
-                    }]
-                ];
-            });
+			const body = users.map(user => {
+				return [
+					user.firstName || '',
+					user.lastName || '',
+					user.email || '',
+					user.classesString || '',
+					{
+						useHTML: true,
+						content: user.consentStatus
+					},
+					moment(user.createdAt).format('DD.MM.YYYY'),
+					[{
+						link: `/administration/students/${user._id}/edit`,
+						title: 'Nutzer bearbeiten',
+						icon: 'edit'
+					}]
+				];
+			});
 
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(userData.total / itemsPerPage),
-                baseUrl: '/administration/students/?p={{page}}' + filterQueryString
-            };
+			const pagination = {
+				currentPage,
+				numPages: Math.ceil(userData.total / itemsPerPage),
+				baseUrl: '/administration/students/?p={{page}}' + filterQueryString
+			};
 
-            const studentsWithoutConsent = await getUsersWithoutConsent(req, 'student');
+			const studentsWithoutConsent = await getUsersWithoutConsent(req, 'student');
 
-            res.render('administration/students', {
-                title: title + 'Schüler',
-                head, body, pagination,
-                filterSettings: JSON.stringify(userFilterSettings()),
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-                studentsWithoutConsentCount: studentsWithoutConsent.length,
-                allStudentsCount
-            });
-        }).catch(err => {
-            next(err);
-        });
-    }).catch(err => {
-        next(err);
-    });
+			res.render('administration/students', {
+				title: title + 'Schüler',
+				head, body, pagination,
+				filterSettings: JSON.stringify(userFilterSettings()),
+				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+				studentsWithoutConsentCount: studentsWithoutConsent.length,
+				allStudentsCount
+			});
+		}).catch(err => {
+			next(err);
+		});
+	}).catch(err => {
+		next(err);
+	});
 });
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
@@ -1169,7 +1177,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
         return !consents.some(consent => consent.userId._id.toString() === user._id.toString());
     }
     const consentIncomplete = (consent) => {
-        const parent = consent.parentConsents[0];
+        const parent = (consent.parentConsents || {})[0] || {};
         return !consent.access && !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
     }
 
@@ -1187,7 +1195,7 @@ router.get('/users-without-consent/send-email', permissionsHelper.permissionsChe
         user.registrationLink = await (generateRegistrationLink({
             role,
             save: true,
-            host: req.headers.host || process.env.HOST,
+            host: process.env.HOST,
             schoolId: res.locals.currentSchool,
             toHash: user.email,
             patchUser: true
@@ -1206,23 +1214,23 @@ Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
 Melde dich bitte mit deinen Daten an, um die Einverständiserklärung zu akzeptieren um die Schul-Cloud im vollen Umfang nutzen zu können.
 
 Gehe jetzt auf <a href="${user.registrationLink.shortLink}">${user.registrationLink.shortLink}</a>, und melde dich an.`
-            };
+			};
 
-            const json = {
-                headers: {},
-                email: user.email,
-                subject: `Der letzte Schritt zur Aktivierung für die ${res.locals.theme.short_title}`,
-                content
-            };
+			const json = {
+				headers: {},
+				email: user.email,
+				subject: `Der letzte Schritt zur Aktivierung für die ${res.locals.theme.short_title}`,
+				content
+			};
 
-            await api(req).post('/mails', {
-                json
-            });
-        }
-        res.sendStatus(200);
-    } catch (err) {
-        res.status((err.statusCode || 500)).send(err);
-    }
+			await api(req).post('/mails', {
+				json
+			});
+		}
+		res.sendStatus(200);
+	} catch (err) {
+		res.status((err.statusCode || 500)).send(err);
+	}
 });
 
 router.get('/users-without-consent/get-json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
@@ -1235,7 +1243,7 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
             user.registrationLink = await (generateRegistrationLink({
                 role,
                 save: true,
-                host: req.headers.host || process.env.HOST,
+                host: process.env.HOST,
                 schoolId: res.locals.currentSchool,
                 toHash: user.email,
                 patchUser: true
@@ -1252,38 +1260,38 @@ router.get('/users-without-consent/get-json', permissionsHelper.permissionsCheck
 
 
 router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
-    const userPromise = api(req).get('/users/' + req.params.id);
-    const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
-    const accountPromise = api(req).get('/accounts/', { qs: { userId: req.params.id } });
+	const userPromise = api(req).get('/users/' + req.params.id);
+	const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
+	const accountPromise = api(req).get('/accounts/', { qs: { userId: req.params.id } });
 
-    Promise.all([
-        userPromise,
-        consentPromise,
-        accountPromise
-    ]).then(([user, consent, account]) => {
-        consent = consent[0];
-        if (consent) {
-            consent.parentConsent = ((consent.parentConsents || []).length) ? consent.parentConsents[0] : {};
-        }
-        account = account[0];
-        let hidePwChangeButton = account ? false : true;
-        res.render('administration/users_edit',
-            {
-                title: `Schüler bearbeiten`,
-                action: `/administration/students/${user._id}`,
-                submitLabel: 'Speichern',
-                closeLabel: 'Abbrechen',
-                user,
-                consentStatusIcon: getConsentStatusIcon(consent),
-                consent,
-                hidePwChangeButton,
-                schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-                referrer: req.header('Referer'),
-            }
-        );
-    }).catch(err => {
-        next(err);
-    });
+	Promise.all([
+		userPromise,
+		consentPromise,
+		accountPromise
+	]).then(([user, consent, account]) => {
+		consent = consent[0];
+		if (consent) {
+			consent.parentConsent = ((consent.parentConsents || []).length) ? consent.parentConsents[0] : {};
+		}
+		account = account[0];
+		let hidePwChangeButton = account ? false : true;
+		res.render('administration/users_edit',
+			{
+				title: `Schüler bearbeiten`,
+				action: `/administration/students/${user._id}`,
+				submitLabel: 'Speichern',
+				closeLabel: 'Abbrechen',
+				user,
+				consentStatusIcon: getConsentStatusIcon(consent),
+				consent,
+				hidePwChangeButton,
+				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+				referrer: req.header('Referer'),
+			}
+		);
+	}).catch(err => {
+		next(err);
+	});
 });
 
 
@@ -1292,104 +1300,104 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 */
 
 const renderClassEdit = (req, res, next, edit) => {
-    api(req).get('/classes/')
-        .then(classes => {
-            let promises = [
-                getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
-                getSelectOptions(req, 'years', { $sort: { name: -1 } }),
-                getSelectOptions(req, 'gradeLevels')
-            ];
-            if (edit) { promises.push(api(req).get(`/classes/${req.params.classId}`)); }
+	api(req).get('/classes/')
+		.then(classes => {
+			let promises = [
+				getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
+				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
+				getSelectOptions(req, 'gradeLevels')
+			];
+			if (edit) { promises.push(api(req).get(`/classes/${req.params.classId}`)); }
 
-            Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
-                const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-                if (!isAdmin) {
-                    // preselect current teacher when creating new class and the current user isn't a admin (teacher)
-                    teachers.forEach(t => {
-                        if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) {
-                            t.selected = true;
-                        }
-                    });
-                }
-                let isCustom = false;
-                if (currentClass) {
-                    // preselect already selected teachers
-                    teachers.forEach(t => {
-                        if ((currentClass.teacherIds || {}).includes(t._id)) { t.selected = true; }
-                    });
-                    gradeLevels.forEach(g => {
-                        if ((currentClass.gradeLevel || {})._id == g._id) {
-                            g.selected = true;
-                        }
-                    });
-                    schoolyears.forEach(schoolyear => {
-                        if ((currentClass.year || {})._id === schoolyear._id) { schoolyear.selected = true; }
-                    });
-                    if (currentClass.nameFormat === "static") {
-                        isCustom = true;
-                        currentClass.customName = currentClass.name;
-                        if (currentClass.year) {
-                            currentClass.keepYear = true;
-                        }
-                    } else if (currentClass.nameFormat === "gradeLevel+name") {
-                        currentClass.classsuffix = currentClass.name;
-                    }
-                }
+			Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
+				const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+				if (!isAdmin) {
+					// preselect current teacher when creating new class and the current user isn't a admin (teacher)
+					teachers.forEach(t => {
+						if (JSON.stringify(t._id) === JSON.stringify(res.locals.currentUser._id)) {
+							t.selected = true;
+						}
+					});
+				}
+				let isCustom = false;
+				if (currentClass) {
+					// preselect already selected teachers
+					teachers.forEach(t => {
+						if ((currentClass.teacherIds || {}).includes(t._id)) { t.selected = true; }
+					});
+					gradeLevels.forEach(g => {
+						if ((currentClass.gradeLevel || {})._id == g._id) {
+							g.selected = true;
+						}
+					});
+					schoolyears.forEach(schoolyear => {
+						if ((currentClass.year || {})._id === schoolyear._id) { schoolyear.selected = true; }
+					});
+					if (currentClass.nameFormat === "static") {
+						isCustom = true;
+						currentClass.customName = currentClass.name;
+						if (currentClass.year) {
+							currentClass.keepYear = true;
+						}
+					} else if (currentClass.nameFormat === "gradeLevel+name") {
+						currentClass.classsuffix = currentClass.name;
+					}
+				}
 
-                res.render('administration/classes-edit', {
-                    title: `${edit ? `Klasse '${currentClass.displayName}' bearbeiten` : "Erstelle eine neue Klasse"}`,
-                    edit,
-                    schoolyears,
-                    teachers,
-                    class: currentClass,
-                    gradeLevels,
-                    isCustom,
-                    referrer: req.header('Referer')
-                });
-            });
-        }).catch(err => {
-            next(err);
-        });
+				res.render('administration/classes-edit', {
+					title: `${edit ? `Klasse '${currentClass.displayName}' bearbeiten` : "Erstelle eine neue Klasse"}`,
+					edit,
+					schoolyears,
+					teachers,
+					class: currentClass,
+					gradeLevels,
+					isCustom,
+					referrer: req.header('Referer')
+				});
+			});
+		}).catch(err => {
+			next(err);
+		});
 };
 const getClassOverview = (req, res, next) => {
-    let query = {
-        $limit: 1000
-    };
-    if (req.query.yearId && req.query.yearId.length > 0) {
-        query.year = req.query.yearId;
-    }
-    api(req).get('/classes', {
-        qs: query
-    })
-        .then(data => {
-            res.json(data);
-        }).catch(err => {
-            next(err);
-        });
+	let query = {
+		$limit: 1000
+	};
+	if (req.query.yearId && req.query.yearId.length > 0) {
+		query.year = req.query.yearId;
+	}
+	api(req).get('/classes', {
+		qs: query
+	})
+		.then(data => {
+			res.json(data);
+		}).catch(err => {
+			next(err);
+		});
 };
 router.get('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
-    renderClassEdit(req, res, next, false);
+	renderClassEdit(req, res, next, false);
 });
 router.get('/classes/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    const classIds = JSON.parse(req.query.classes);
-    api(req).get('/classes/', {
-        qs: {
-            $populate: ['userIds'],
-            _id: {
-                $in: classIds
-            }
-        }
-    })
-        .then(classes => {
-            const students = classes.data.map((c) => {
-                return c.userIds;
-            }).reduce((flat, next) => { return flat.concat(next); }, []);
-            res.json(students);
-        });
+	const classIds = JSON.parse(req.query.classes);
+	api(req).get('/classes/', {
+		qs: {
+			$populate: ['userIds'],
+			_id: {
+				$in: classIds
+			}
+		}
+	})
+		.then(classes => {
+			const students = classes.data.map((c) => {
+				return c.userIds;
+			}).reduce((flat, next) => { return flat.concat(next); }, []);
+			res.json(students);
+		});
 });
 router.get('/classes/json', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), getClassOverview);
 router.get('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    renderClassEdit(req, res, next, true);
+	renderClassEdit(req, res, next, true);
 });
 router.get('/classes/:id', getDetailHandler('classes'));
 router.patch('/classes/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, getUpdateHandler('classes'));
@@ -1442,11 +1450,11 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                     schoolyears,
                     notes: [
                         {
-                            "title": "Deine Schüler sind unter 18 Jahre alt?",
+                            "title": "Deine Schüler sind unter 16 Jahre alt?",
                             "content": `Gib den Registrierungslink zunächst an die Eltern weiter. Diese legen die Schülerdaten an und erklären elektronisch ihr Einverständnis. Der Schüler ist dann in der ${res.locals.theme.short_title} registriert und du siehst ihn in deiner Klassenliste. Der Schüler kann sich mit seiner E-Mail-Adresse und dem individuellen Initial-Passwort einloggen. Nach dem ersten Login muss jeder Schüler sein Passwort ändern. Ist der Schüler über 14 Jahre alt, muss er zusätzlich selbst elektronisch sein Einverständnis erklären, damit er die ${res.locals.theme.short_title} nutzen kann.`
                         },
                         {
-                            "title": "Deine Schüler sind mindestens 18 Jahre alt?",
+                            "title": "Deine Schüler sind mindestens 16 Jahre alt?",
                             "content": "Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
                         },
                         /*{ // TODO - Feature not implemented
@@ -1457,240 +1465,240 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
                             "title":"Nutzernamen herausfinden",
                             "content":"Lorem Amet ad in officia fugiat nisi anim magna tempor laborum in sit esse nostrud consequat."
                         }, */
-                        {
-                            "title": "Passwort ändern",
-                            "content": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
-                        },
-                    ],
-                    referrer: req.header('Referer'),
-                });
-            });
-        });
+						{
+							"title": "Passwort ändern",
+							"content": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
+						},
+					],
+					referrer: req.header('Referer'),
+				});
+			});
+		});
 });
 
 router.post('/classes/:classId/manage', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    let changedClass = {
-        teacherIds: req.body.teacherIds || [],
-        userIds: req.body.userIds || []
-    };
-    api(req).patch('/classes/' + req.params.classId, {
-        // TODO: sanitize
-        json: changedClass
-    }).then(data => {
-        res.redirect(req.body.referrer);
-    }).catch(err => {
-        next(err);
-    });
+	let changedClass = {
+		teacherIds: req.body.teacherIds || [],
+		userIds: req.body.userIds || []
+	};
+	api(req).patch('/classes/' + req.params.classId, {
+		// TODO: sanitize
+		json: changedClass
+	}).then(data => {
+		res.redirect(req.body.referrer);
+	}).catch(err => {
+		next(err);
+	});
 });
 
 router.post('/classes/create', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_CREATE'], 'or'), function (req, res, next) {
-    let newClass = {
-        schoolId: req.body.schoolId
-    };
-    if (req.body.classcustom) {
-        newClass.name = req.body.classcustom;
-        newClass.nameFormat = "static";
-        if (req.body.keepyear) {
-            newClass.year = req.body.schoolyear;
-        }
-    } else if (req.body.classsuffix) {
-        newClass.name = req.body.classsuffix;
-        newClass.gradeLevel = req.body.grade;
-        newClass.nameFormat = "gradeLevel+name";
-        newClass.year = req.body.schoolyear;
-    }
-    if (req.body.teacherIds) {
-        newClass.teacherIds = req.body.teacherIds;
-    }
+	let newClass = {
+		schoolId: req.body.schoolId
+	};
+	if (req.body.classcustom) {
+		newClass.name = req.body.classcustom;
+		newClass.nameFormat = "static";
+		if (req.body.keepyear) {
+			newClass.year = req.body.schoolyear;
+		}
+	} else if (req.body.classsuffix) {
+		newClass.name = req.body.classsuffix;
+		newClass.gradeLevel = req.body.grade;
+		newClass.nameFormat = "gradeLevel+name";
+		newClass.year = req.body.schoolyear;
+	}
+	if (req.body.teacherIds) {
+		newClass.teacherIds = req.body.teacherIds;
+	}
 
-    api(req).post('/classes/', {
-        // TODO: sanitize
-        json: newClass
-    }).then(data => {
-        const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
-        if (isAdmin) {
-            res.redirect(`/administration/classes/`);
-        } else {
-            res.redirect(`/administration/classes/${data._id}/manage`);
-        }
-    }).catch(err => {
-        next(err);
-    });
+	api(req).post('/classes/', {
+		// TODO: sanitize
+		json: newClass
+	}).then(data => {
+		const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
+		if (isAdmin) {
+			res.redirect(`/administration/classes/`);
+		} else {
+			res.redirect(`/administration/classes/${data._id}/manage`);
+		}
+	}).catch(err => {
+		next(err);
+	});
 });
 
 router.post('/classes/:classId/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    let changedClass = {
-        schoolId: req.body.schoolId
-    };
-    if (req.body.classcustom) {
-        changedClass.name = req.body.classcustom;
-        changedClass.nameFormat = "static";
-        if (req.body.keepyear) {
-            changedClass.year = req.body.schoolyear;
-        }
-    } else {
-        req.body.classsuffix = req.body.classsuffix || "";
-        changedClass.name = req.body.classsuffix;
-        changedClass.gradeLevel = req.body.grade;
-        changedClass.nameFormat = "gradeLevel+name";
-        changedClass.year = req.body.schoolyear;
-    }
-    if (req.body.teacherIds) {
-        changedClass.teacherIds = req.body.teacherIds;
-    } else {
-        changedClass.teacherIds = [];
-    }
-    api(req).patch('/classes/' + req.params.classId, {
-        // TODO: sanitize
-        json: changedClass
-    }).then(data => {
-        res.redirect(req.body.referrer);
-    }).catch(err => {
-        next(err);
-    });
+	let changedClass = {
+		schoolId: req.body.schoolId
+	};
+	if (req.body.classcustom) {
+		changedClass.name = req.body.classcustom;
+		changedClass.nameFormat = "static";
+		if (req.body.keepyear) {
+			changedClass.year = req.body.schoolyear;
+		}
+	} else {
+		req.body.classsuffix = req.body.classsuffix || "";
+		changedClass.name = req.body.classsuffix;
+		changedClass.gradeLevel = req.body.grade;
+		changedClass.nameFormat = "gradeLevel+name";
+		changedClass.year = req.body.schoolyear;
+	}
+	if (req.body.teacherIds) {
+		changedClass.teacherIds = req.body.teacherIds;
+	} else {
+		changedClass.teacherIds = [];
+	}
+	api(req).patch('/classes/' + req.params.classId, {
+		// TODO: sanitize
+		json: changedClass
+	}).then(data => {
+		res.redirect(req.body.referrer);
+	}).catch(err => {
+		next(err);
+	});
 });
 
 router.patch('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), mapEmptyClassProps, function (req, res, next) {
-    api(req).patch('/classes/' + req.params.classId, {
-        // TODO: sanitize
-        json: req.body
-    }).then(data => {
-        res.redirect(req.header('Referer'));
-    }).catch(err => {
-        next(err);
-    });
+	api(req).patch('/classes/' + req.params.classId, {
+		// TODO: sanitize
+		json: req.body
+	}).then(data => {
+		res.redirect(req.header('Referer'));
+	}).catch(err => {
+		next(err);
+	});
 });
 
 router.delete('/:classId/', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
-    api(req).delete('/classes/' + req.params.classId).then(_ => {
-        res.sendStatus(200);
-    }).catch(_ => {
-        res.sendStatus(500);
-    });
+	api(req).delete('/classes/' + req.params.classId).then(_ => {
+		res.sendStatus(200);
+	}).catch(_ => {
+		res.sendStatus(500);
+	});
 });
 
 const classFilterSettings = function (years) {
-    return [
-        {
-            type: "sort",
-            title: 'Sortierung',
-            displayTemplate: 'Sortieren nach: %1',
-            options: [
-                ["displayName", "Klasse"]
-            ],
-            defaultSelection: "displayName",
-            defaultOrder: "DESC"
-        },
-        {
-            type: "limit",
-            title: 'Einträge pro Seite',
-            displayTemplate: 'Einträge pro Seite: %1',
-            options: [25, 50, 100],
-            defaultSelection: 25
-        },
-        {
-            type: "select",
-            title: 'Jahrgang',
-            displayTemplate: 'Jahrgang: %1',
-            property: 'year',
-            multiple: true,
-            expanded: true,
-            options: years
-        },
-    ];
+	return [
+		{
+			type: "sort",
+			title: 'Sortierung',
+			displayTemplate: 'Sortieren nach: %1',
+			options: [
+				["displayName", "Klasse"]
+			],
+			defaultSelection: "displayName",
+			defaultOrder: "DESC"
+		},
+		{
+			type: "limit",
+			title: 'Einträge pro Seite',
+			displayTemplate: 'Einträge pro Seite: %1',
+			options: [25, 50, 100],
+			defaultSelection: 25
+		},
+		{
+			type: "select",
+			title: 'Jahrgang',
+			displayTemplate: 'Jahrgang: %1',
+			property: 'year',
+			multiple: true,
+			expanded: true,
+			options: years
+		},
+	];
 };
 
 router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USERGROUP_EDIT'], 'or'), function (req, res, next) {
 
-    const tempOrgQuery = (req.query || {}).filterQuery;
-    const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
+	const tempOrgQuery = (req.query || {}).filterQuery;
+	const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
 
-    let itemsPerPage = 25;
-    let filterQuery = {};
-    if (tempOrgQuery) {
-        filterQuery = JSON.parse(unescape(req.query.filterQuery));
-        if (filterQuery["$limit"]) {
-            itemsPerPage = filterQuery["$limit"];
-        }
-    }
-    const currentPage = parseInt(req.query.p) || 1;
+	let itemsPerPage = 25;
+	let filterQuery = {};
+	if (tempOrgQuery) {
+		filterQuery = JSON.parse(unescape(req.query.filterQuery));
+		if (filterQuery["$limit"]) {
+			itemsPerPage = filterQuery["$limit"];
+		}
+	}
+	const currentPage = parseInt(req.query.p) || 1;
 
-    let query = {
-        $populate: ['teacherIds', 'year'],
-        $limit: itemsPerPage,
-        $skip: itemsPerPage * (currentPage - 1),
-    };
-    query = Object.assign(query, filterQuery);
+	let query = {
+		$populate: ['teacherIds', 'year'],
+		$limit: itemsPerPage,
+		$skip: itemsPerPage * (currentPage - 1),
+	};
+	query = Object.assign(query, filterQuery);
 
-    api(req).get('/classes', {
-        qs: query
-    }).then(async (data) => {
-        const head = [
-            'Klasse',
-            'Lehrer',
-            'Schuljahr',
-            'Schüler',
-            ''
-        ];
+	api(req).get('/classes', {
+		qs: query
+	}).then(async (data) => {
+		const head = [
+			'Klasse',
+			'Lehrer',
+			'Schuljahr',
+			'Schüler',
+			''
+		];
 
-        const body = data.data.map(item => {
-            return [
-                item.displayName || "",
-                (item.teacherIds || []).map(item => item.lastName).join(', '),
-                (item.year || {}).name || "",
-                (item.userIds.length) || '0',
-                ((item, path) => {
-                    return [
-                        {
-                            link: path + item._id + "/manage",
-                            icon: 'users',
-                            title: 'Klasse verwalten'
-                        },
-                        {
-                            link: path + item._id + "/edit",
-                            icon: 'edit',
-                            title: 'Klasse bearbeiten'
-                        },
-                        {
-                            link: path + item._id,
-                            class: `btn-delete`,
-                            icon: 'trash-o',
-                            method: `delete`,
-                            title: 'Eintrag löschen'
-                        }
-                    ];
-                })(item, '/administration/classes/')
-            ];
-        });
+		const body = data.data.map(item => {
+			return [
+				item.displayName || "",
+				(item.teacherIds || []).map(item => item.lastName).join(', '),
+				(item.year || {}).name || "",
+				(item.userIds.length) || '0',
+				((item, path) => {
+					return [
+						{
+							link: path + item._id + "/manage",
+							icon: 'users',
+							title: 'Klasse verwalten'
+						},
+						{
+							link: path + item._id + "/edit",
+							icon: 'edit',
+							title: 'Klasse bearbeiten'
+						},
+						{
+							link: path + item._id,
+							class: `btn-delete`,
+							icon: 'trash-o',
+							method: `delete`,
+							title: 'Eintrag löschen'
+						}
+					];
+				})(item, '/administration/classes/')
+			];
+		});
 
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
+		let sortQuery = '';
+		if (req.query.sort) {
+			sortQuery = '&sort=' + req.query.sort;
+		}
 
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
+		let limitQuery = '';
+		if (req.query.limit) {
+			limitQuery = '&limit=' + req.query.limit;
+		}
 
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/classes/?p={{page}}' + filterQueryString
-        };
+		const pagination = {
+			currentPage,
+			numPages: Math.ceil(data.total / itemsPerPage),
+			baseUrl: '/administration/classes/?p={{page}}' + filterQueryString
+		};
 
 
-        const years = (await api(req).get('/years')).data.map((year) => { return [year._id, year.name]; });
+		const years = (await api(req).get('/years')).data.map((year) => { return [year._id, year.name]; });
 
-        res.render('administration/classes', {
-            title: 'Administration: Klassen',
-            head,
-            body,
-            pagination,
-            limit: true,
-            filterSettings: JSON.stringify(classFilterSettings(years))
-        });
-    });
+		res.render('administration/classes', {
+			title: 'Administration: Klassen',
+			head,
+			body,
+			pagination,
+			limit: true,
+			filterSettings: JSON.stringify(classFilterSettings(years))
+		});
+	});
 });
 
 /**
@@ -1699,16 +1707,16 @@ router.all('/classes', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'USER
  * @returns {Function}
  */
 const getDisableHandler = (service) => {
-    return function (req, res, next) {
-        api(req).patch('/' + service + '/' + req.params.id, {
-            json: {
-                state: 'closed',
-                order: 2
-            }
-        }).then(_ => {
-            res.redirect(req.get('Referrer'));
-        });
-    };
+	return function (req, res, next) {
+		api(req).patch('/' + service + '/' + req.params.id, {
+			json: {
+				state: 'closed',
+				order: 2
+			}
+		}).then(_ => {
+			res.redirect(req.get('Referrer'));
+		});
+	};
 };
 
 /**
@@ -1717,11 +1725,11 @@ const getDisableHandler = (service) => {
  * @returns {string}
  */
 const truncate = (string) => {
-    if ((string || {}).length > 25) {
-        return string.substring(0, 25) + '...';
-    } else {
-        return string;
-    }
+	if ((string || {}).length > 25) {
+		return string.substring(0, 25) + '...';
+	} else {
+		return string;
+	}
 };
 
 /*
@@ -1734,60 +1742,60 @@ router.delete('/helpdesk/:id', permissionsHelper.permissionsChecker('HELPDESK_VI
 router.post('/helpdesk/:id', permissionsHelper.permissionsChecker("HELPDESK_VIEW"), getSendHelper('helpdesk'));
 router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
-    const currentPage = parseInt(req.query.p) || 1;
-    let title = returnAdminPrefix(res.locals.currentUser.roles);
+	const itemsPerPage = (req.query.limit || 10);
+	const currentPage = parseInt(req.query.p) || 1;
+	let title = returnAdminPrefix(res.locals.currentUser.roles);
 
-    api(req).get('/helpdesk', {
-        qs: {
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort ? req.query.sort : { order: 1 },
-            "schoolId": res.locals.currentSchool
-        }
-    }).then(data => {
-        const head = [
-            'Titel',
-            'Ist-Zustand',
-            'Soll-Zustand',
-            'Kategorie',
-            'Status',
-            'Erstellungsdatum',
-            'Anmerkungen',
-            ''
-        ];
+	api(req).get('/helpdesk', {
+		qs: {
+			$limit: itemsPerPage,
+			$skip: itemsPerPage * (currentPage - 1),
+			$sort: req.query.sort ? req.query.sort : { order: 1 },
+			"schoolId": res.locals.currentSchool
+		}
+	}).then(data => {
+		const head = [
+			'Titel',
+			'Ist-Zustand',
+			'Soll-Zustand',
+			'Kategorie',
+			'Status',
+			'Erstellungsdatum',
+			'Anmerkungen',
+			''
+		];
 
-        const body = data.data.map(item => {
-            return [
-                truncate(item.subject || ""),
-                truncate(item.currentState || ""),
-                truncate(item.targetState || ""),
-                (item.category === "") ? "" : dictionary[item.category],
-                dictionary[item.state],
-                moment(item.createdAt).format('DD.MM.YYYY'),
-                truncate(item.notes || ""),
-                getTableActionsSend(item, '/administration/helpdesk/', item.state)
-            ];
-        });
+		const body = data.data.map(item => {
+			return [
+				truncate(item.subject || ""),
+				truncate(item.currentState || ""),
+				truncate(item.targetState || ""),
+				(item.category === "") ? "" : dictionary[item.category],
+				dictionary[item.state],
+				moment(item.createdAt).format('DD.MM.YYYY'),
+				truncate(item.notes || ""),
+				getTableActionsSend(item, '/administration/helpdesk/', item.state)
+			];
+		});
 
-        let sortQuery = '';
-        if (req.query.sort) {
-            sortQuery = '&sort=' + req.query.sort;
-        }
+		let sortQuery = '';
+		if (req.query.sort) {
+			sortQuery = '&sort=' + req.query.sort;
+		}
 
-        let limitQuery = '';
-        if (req.query.limit) {
-            limitQuery = '&limit=' + req.query.limit;
-        }
+		let limitQuery = '';
+		if (req.query.limit) {
+			limitQuery = '&limit=' + req.query.limit;
+		}
 
-        const pagination = {
-            currentPage,
-            numPages: Math.ceil(data.total / itemsPerPage),
-            baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
-        };
+		const pagination = {
+			currentPage,
+			numPages: Math.ceil(data.total / itemsPerPage),
+			baseUrl: '/administration/helpdesk/?p={{page}}' + sortQuery + limitQuery
+		};
 
-        res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
-    });
+		res.render('administration/helpdesk', { title: title + 'Helpdesk', head, body, pagination, limit: true });
+	});
 });
 
 // general admin permissions
@@ -1798,17 +1806,17 @@ router.all('/helpdesk', permissionsHelper.permissionsChecker('HELPDESK_VIEW'), f
 */
 
 const getCourseCreateHandler = () => {
-    return function (req, res, next) {
-        api(req).post('/courses/', {
-            json: req.body
-        }).then(course => {
-            createEventsForData(course, "courses", req, res).then(_ => {
-                next();
-            });
-        }).catch(err => {
-            next(err);
-        });
-    };
+	return function (req, res, next) {
+		api(req).post('/courses/', {
+			json: req.body
+		}).then(course => {
+			createEventsForData(course, "courses", req, res).then(_ => {
+				next();
+			});
+		}).catch(err => {
+			next(err);
+		});
+	};
 };
 
 const schoolUpdateHandler = async function (req, res, next) {
@@ -1847,168 +1855,168 @@ router.delete('/courses/:id', getDeleteHandler('courses'), deleteEventsForData('
 
 router.all('/courses', function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
-    const currentPage = parseInt(req.query.p) || 1;
+	const itemsPerPage = (req.query.limit || 10);
+	const currentPage = parseInt(req.query.p) || 1;
 
-    api(req).get('/courses', {
-        qs: {
-            $populate: ['classIds', 'teacherIds'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
-    }).then(data => {
-        const head = [
-            'Name',
-            'Klasse(n)',
-            'Lehrer',
-            ''
-        ];
+	api(req).get('/courses', {
+		qs: {
+			$populate: ['classIds', 'teacherIds'],
+			$limit: itemsPerPage,
+			$skip: itemsPerPage * (currentPage - 1),
+			$sort: req.query.sort
+		}
+	}).then(data => {
+		const head = [
+			'Name',
+			'Klasse(n)',
+			'Lehrer',
+			''
+		];
 
-        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-        const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
-        const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
+		const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+		const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+		const substitutionPromise = getSelectOptions(req, 'users', { roles: ['teacher'], $limit: 1000 });
+		const studentsPromise = getSelectOptions(req, 'users', { roles: ['student'], $limit: 1000 });
 
-        Promise.all([
-            classesPromise,
-            teachersPromise,
-            substitutionPromise,
-            studentsPromise
-        ]).then(([classes, teachers, substitutions, students]) => {
-            const body = data.data.map(item => {
-                return [
-                    item.name,
-                    (item.classIds || []).map(item => item.displayName).join(', '),
-                    (item.teacherIds || []).map(item => item.lastName).join(', '),
-                    getTableActions(item, '/administration/courses/').map(action => {
+		Promise.all([
+			classesPromise,
+			teachersPromise,
+			substitutionPromise,
+			studentsPromise
+		]).then(([classes, teachers, substitutions, students]) => {
+			const body = data.data.map(item => {
+				return [
+					item.name,
+					(item.classIds || []).map(item => item.displayName).join(', '),
+					(item.teacherIds || []).map(item => item.lastName).join(', '),
+					getTableActions(item, '/administration/courses/').map(action => {
 
-                        return action;
-                    })
-                ];
-            });
+						return action;
+					})
+				];
+			});
 
-            let sortQuery = '';
-            if (req.query.sort) {
-                sortQuery = '&sort=' + req.query.sort;
-            }
+			let sortQuery = '';
+			if (req.query.sort) {
+				sortQuery = '&sort=' + req.query.sort;
+			}
 
-            let limitQuery = '';
-            if (req.query.limit) {
-                limitQuery = '&limit=' + req.query.limit;
-            }
+			let limitQuery = '';
+			if (req.query.limit) {
+				limitQuery = '&limit=' + req.query.limit;
+			}
 
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/courses/?p={{page}}' + sortQuery + limitQuery
-            };
+			const pagination = {
+				currentPage,
+				numPages: Math.ceil(data.total / itemsPerPage),
+				baseUrl: '/administration/courses/?p={{page}}' + sortQuery + limitQuery
+			};
 
-            res.render('administration/courses', {
-                title: 'Administration: Kurse',
-                head,
-                body,
-                classes,
-                teachers,
-                substitutions,
-                students,
-                pagination,
-                limit: true
-            });
-        });
-    });
+			res.render('administration/courses', {
+				title: 'Administration: Kurse',
+				head,
+				body,
+				classes,
+				teachers,
+				substitutions,
+				students,
+				pagination,
+				limit: true
+			});
+		});
+	});
 });
 
 router.all('/teams', function (req, res, next) {
 
-    const itemsPerPage = (req.query.limit || 10);
-    const currentPage = parseInt(req.query.p) || 1;
+	const itemsPerPage = (req.query.limit || 10);
+	const currentPage = parseInt(req.query.p) || 1;
 
-    api(req).get('/teams/manage/admin', {
-        qs: {
-            $populate: ['userIds'],
-            $limit: itemsPerPage,
-            $skip: itemsPerPage * (currentPage - 1),
-            $sort: req.query.sort
-        }
-    }).then(data => {
+	api(req).get('/teams/manage/admin', {
+		qs: {
+			$populate: ['userIds'],
+			$limit: itemsPerPage,
+			$skip: itemsPerPage * (currentPage - 1),
+			$sort: req.query.sort
+		}
+	}).then(data => {
 
-        const head = [
-            'Name',
-            'Klasse(n)',
-            ''
-        ];
+		const head = [
+			'Name',
+			'Klasse(n)',
+			''
+		];
 
-        const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
-        const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
+		const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
+		const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
 
-        Promise.all([
-            classesPromise,
-            usersPromise
-        ]).then(([classes, users]) => {
-            const body = data.map(item => {
-                return [
-                    item.name,
-                    (item.classIds || []).map(item => item.displayName).join(', '),
-                    getTableActions(item, '/administration/teams/').map(action => {
-                        return action;
-                    })
-                ];
-            });
+		Promise.all([
+			classesPromise,
+			usersPromise
+		]).then(([classes, users]) => {
+			const body = data.map(item => {
+				return [
+					item.name,
+					(item.classIds || []).map(item => item.displayName).join(', '),
+					getTableActions(item, '/administration/teams/').map(action => {
+						return action;
+					})
+				];
+			});
 
-            let sortQuery = '';
-            if (req.query.sort) {
-                sortQuery = '&sort=' + req.query.sort;
-            }
+			let sortQuery = '';
+			if (req.query.sort) {
+				sortQuery = '&sort=' + req.query.sort;
+			}
 
-            let limitQuery = '';
-            if (req.query.limit) {
-                limitQuery = '&limit=' + req.query.limit;
-            }
+			let limitQuery = '';
+			if (req.query.limit) {
+				limitQuery = '&limit=' + req.query.limit;
+			}
 
-            const pagination = {
-                currentPage,
-                numPages: Math.ceil(data.total / itemsPerPage),
-                baseUrl: '/administration/teams/?p={{page}}' + sortQuery + limitQuery
-            };
+			const pagination = {
+				currentPage,
+				numPages: Math.ceil(data.total / itemsPerPage),
+				baseUrl: '/administration/teams/?p={{page}}' + sortQuery + limitQuery
+			};
 
-            res.render('administration/teams', {
-                title: 'Administration: Teams',
-                head,
-                body,
-                classes,
-                users,
-                pagination,
-                limit: true
-            });
-        });
-    });
+			res.render('administration/teams', {
+				title: 'Administration: Teams',
+				head,
+				body,
+				classes,
+				users,
+				pagination,
+				limit: true
+			});
+		});
+	});
 });
 
 router.get('/teams/:id', (req, res, next) => {
-    api(req).get('/teams/manage/admin/' + req.params.id).then(data => {
-        res.json(mapEventProps(data));
-    }).catch(err => {
-        next(err);
-    });
+	api(req).get('/teams/manage/admin/' + req.params.id).then(data => {
+		res.json(mapEventProps(data));
+	}).catch(err => {
+		next(err);
+	});
 });
 
 router.patch('/teams/:id', (req, res, next) => {
-    api(req).patch('/teams/manage/admin/' + req.params.id, {
-        userId: req.body.userId
-    }).then(data => {
-        res.redirect('/administration/teams/');
-    }).catch(err => {
-        next(err);
-    });
+	api(req).patch('/teams/manage/admin/' + req.params.id, {
+		userId: req.body.userId
+	}).then(data => {
+		res.redirect('/administration/teams/');
+	}).catch(err => {
+		next(err);
+	});
 });
 
 router.delete('/teams/:id', (req, res, next) => {
-    api(req).delete('/teams/manage/admin/' + req.params.id).then(data => {
-        res.redirect('/administration/teams/');
-    }).catch(err => {
-        next(err);
-    });
+	api(req).delete('/teams/manage/admin/' + req.params.id).then(data => {
+		res.redirect('/administration/teams/');
+	}).catch(err => {
+		next(err);
+	});
 });
 
 
@@ -2023,124 +2031,122 @@ router.get('/systems/:id', getDetailHandler('systems'));
 router.delete('/systems/:id', removeSystemFromSchoolHandler, getDeleteHandler('systems'));
 
 router.get('/rss/:id', async (req, res) => {
-    const school = await api(req).patch('/schools/' + res.locals.currentSchool);
+	const school = await api(req).patch('/schools/' + res.locals.currentSchool);
 
-    const matchingRSSFeed = school.rssFeeds.find(feed => feed._id === req.params.id);
+	const matchingRSSFeed = school.rssFeeds.find(feed => feed._id === req.params.id);
 
-    res.send(matchingRSSFeed);
+	res.send(matchingRSSFeed);
 })
 
 router.post('/rss/', async (req, res) => {
-    const school = await api(req).get('/schools/' + req.body.schoolId);
+	const school = await api(req).get('/schools/' + req.body.schoolId);
 
-    if (school.rssFeeds.find(el => el.url === req.body.rssURL)) {
-        return res.redirect('/administration/school');
-    }
+	if (school.rssFeeds.find(el => el.url === req.body.rssURL)) {
+		return res.redirect('/administration/school');
+	}
 
-    await api(req).patch('/schools/' + req.body.schoolId, {
-        json: {
-            $push: {
-                rssFeeds: { url: req.body.rssURL, description: req.body.description }
-            }
-        }
-    });
+	await api(req).patch('/schools/' + req.body.schoolId, {
+		json: {
+			$push: {
+				rssFeeds: { url: req.body.rssURL, description: req.body.description }
+			}
+		}
+	});
 
-    res.redirect('/administration/school');
+	res.redirect('/administration/school');
 });
 
 router.delete('/rss/:id', async (req, res) => {
-    await api(req).patch('/schools/' + res.locals.currentSchool, {
-        json: {
-            $pull: {
-                rssFeeds: { _id: req.params.id }
-            }
-        }
-    });
+	await api(req).patch('/schools/' + res.locals.currentSchool, {
+		json: {
+			$pull: {
+				rssFeeds: { _id: req.params.id }
+			}
+		}
+	});
 
-    res.redirect('/administration/school');
+	res.redirect('/administration/school');
 });
 
 router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), async function (req, res, next) {
 
-    const [school, totalStorage] = await Promise.all([api(req).get('/schools/' + res.locals.currentSchool, {
-        qs: {
-            $populate: ['systems'],
-            $sort: req.query.sort
-        }
-    }), api(req).get('/fileStorage/total')]);
+	const [school, totalStorage] = await Promise.all([api(req).get('/schools/' + res.locals.currentSchool, {
+		qs: {
+			$populate: ['systems'],
+			$sort: req.query.sort
+		}
+	}), api(req).get('/fileStorage/total')]);
 
-    // SYSTEMS
-    const systemsHead = [
-        'Alias',
-        'Typ',
-        'Url',
-        ''
-    ];
-    let systemsBody;
-    let systems;
-    if (school.systems) {
-        school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
-        systems = school.systems.filter(system => system.type != 'local');
+	// SYSTEMS
+	const systemsHead = [
+		'Alias',
+		'Typ',
+		'',
+	];
+	let systemsBody;
+	let systems;
+	if (school.systems) {
+		school.systems = _.orderBy(school.systems, req.query.sort, 'desc');
+		systems = school.systems.filter(system => system.type != 'local');
 
-        systemsBody = systems.map(item => {
-            let name = getSSOTypes().filter(type => item.type === type.value);
-            return [
-                item.alias,
-                name,
-                item.url,
-                getTableActions(item, '/administration/systems/', true, false, false, 'systems')
-            ];
-        });
-    }
+		systemsBody = systems.map(item => {
+			let name = getSSOTypes().filter(type => item.type === type.value);
+			return [
+				item.alias,
+				name,
+				getTableActions(item, '/administration/systems/', true, false, false, 'systems'),
+			];
+		});
+	}
 
-    // RSS
-    const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
-    let rssBody;
-    if (school.rssFeeds) {
-        rssBody = school.rssFeeds.map(({ _id, url, status, description }) => [
-            url,
-            description,
-            status === 'success' ? 'Aktiv' : status === 'error' ? 'Fehler beim Abrufen' : 'In der Warteschlange',
-            [{
-                link: `/administration/rss/${_id}`,
-                class: 'btn-delete btn-delete--rss',
-                icon: 'trash-o',
-                method: 'delete',
-                title: 'Eintrag löschen',
-            }],
-        ]);
-    }
+	// RSS
+	const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
+	let rssBody;
+	if (school.rssFeeds) {
+		rssBody = school.rssFeeds.map(({ _id, url, status, description }) => [
+			url,
+			description,
+			status === 'success' ? 'Aktiv' : status === 'error' ? 'Fehler beim Abrufen' : 'In der Warteschlange',
+			[{
+				link: `/administration/rss/${_id}`,
+				class: 'btn-delete btn-delete--rss',
+				icon: 'trash-o',
+				method: 'delete',
+				title: 'Eintrag löschen',
+			}],
+		]);
+	}
 
-    // SCHOOL
-    let title = returnAdminPrefix(res.locals.currentUser.roles);
-    let provider = getStorageProviders();
-    provider = (provider || []).map(prov => {
-        if (prov.value == school.fileStorageType) {
-            return Object.assign(prov, {
-                selected: true
-            });
-        } else {
-            return prov;
-        }
-    });
+	// SCHOOL
+	let title = returnAdminPrefix(res.locals.currentUser.roles);
+	let provider = getStorageProviders();
+	provider = (provider || []).map(prov => {
+		if (prov.value == school.fileStorageType) {
+			return Object.assign(prov, {
+				selected: true
+			});
+		} else {
+			return prov;
+		}
+	});
 
-    const ssoTypes = getSSOTypes();
+	const ssoTypes = getSSOTypes();
 
-    res.render('administration/school', {
-        title: title + 'Schule',
-        school,
-        systems,
-        provider,
-        availableSSOTypes: ssoTypes,
-        ssoTypes,
-        totalStorage,
-        systemsHead,
-        systemsBody,
-        rssHead,
-        rssBody,
-        hasRSS: rssBody && !!rssBody.length,
-        schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-    });
+	res.render('administration/school', {
+		title: title + 'Schule',
+		school,
+		systems,
+		provider,
+		availableSSOTypes: ssoTypes,
+		ssoTypes,
+		totalStorage,
+		systemsHead,
+		systemsBody,
+		rssHead,
+		rssBody,
+		hasRSS: rssBody && !!rssBody.length,
+		schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+	});
 });
 
 /*
@@ -2148,17 +2154,182 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 */
 
 router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
-    //Create ID for LDAP
+	//Create System for LDAP
+	const ldapTemplate = {
+		type: 'ldap',
+		alias: res.locals.currentSchoolData.name,
+		ldapConfig: {
+			active: false,
+			url: 'ldaps://',
+			rootPath: '',
+			searchUser: '',
+			searchUserPassword: '',
+			provider: 'general',
+			providerOptions: {
+				schoolName: res.locals.currentSchoolData.name,
+				userPathAdditions: '',
+				classPathAdditions: '',
+				roleType: 'text',
+				userAttributeNameMapping: {
+					givenName: 'givenName',
+					sn: 'sn',
+					dn: 'dn',
+					uuid: 'objectGUID',
+					uid: 'cn',
+					mail: 'mail',
+					role: 'description',
+				},
+				roleAttributeNameMapping: {
+					roleStudent: 'student',
+					roleTeacher: 'teacher',
+					roleAdmin: 'admin',
+					roleNoSc: 'no-sc',
+				},
+				classAttributeNameMapping: {
+					description: 'name',
+					dn: 'dn',
+					uniqueMember: 'member',
+				},
+			}
+		}
+	};
 
-    //TODO change ID
-    res.redirect('/administration/systems/ldap/5c3c9f03732a7cf5b2665cc9');
+	api(req).post('/systems/', { json: ldapTemplate }).then(system => {
+		api(req).patch('/schools/' + res.locals.currentSchool, {
+			json: {
+				$push: {
+					systems: system._id
+				}
+			}
+		}).then(data => {
+			res.redirect(`/administration/systems/ldap/edit/${system._id}`);
+		}).catch(err => {
+			next(err);
+		});
+	});
 });
-router.get('/systems/ldap/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
+router.get('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
 
-    res.render('administration/ldap-edit', {
-        title: 'LDAP bearbeiten',
-    });
+	//Find LDAP-System
+	const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+		qs: {
+			$populate: ['systems']
+		}
+	}));
+	system = school.systems.filter(system => system._id === req.params.id);
 
+	if (system.length == 1) {
+		res.render('administration/ldap-edit', {
+			title: 'LDAP bearbeiten',
+			system: system[0],
+		});
+	} else {
+		const err = new Error('Not Found');
+		err.status = 404;
+		next(err);
+	}
+
+});
+// Verify
+router.post('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
+
+	//Find LDAP-System
+	const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+		qs: {
+			$populate: ['systems']
+		}
+	}));
+	system = school.systems.filter(system => system._id === req.params.id);
+
+	//Classes acitve
+	let classesPath = req.body.classpath;
+	if (req.body.activateclasses !== 'on') {
+		classesPath = '';
+	}
+
+	let ldapURL = req.body.ldapurl;
+	if (!ldapURL.startsWith('ldaps')) {
+		if (ldapURL.includes('ldap')) {
+			ldapURL = ldapURL.replace('ldap', 'ldaps');
+		} else {
+			ldapURL = `ldaps://${ldapURL}`;
+		}
+	}
+
+	api(req).patch('/systems/' + system[0]._id, {
+		json: {
+			alias: req.body.ldapalias,
+			ldapConfig: {
+				active: false,
+				url: ldapURL,
+				rootPath: req.body.rootpath,
+				searchUser: req.body.searchuser,
+				searchUserPassword: req.body.searchuserpassword,
+				provider: req.body.ldaptype,
+				providerOptions: {
+					schoolName: res.locals.currentSchoolData.name,
+					userPathAdditions: req.body.userpath,
+					classPathAdditions: classesPath,
+					roleType: req.body.roletype,
+					userAttributeNameMapping: {
+						givenName: req.body.givenName,
+						sn: req.body.sn,
+						dn: req.body.dn,
+						uuid: req.body.uuid,
+						uid: req.body.uid,
+						mail: req.body.mail,
+						role: req.body.role,
+					},
+					roleAttributeNameMapping: {
+						roleStudent: req.body.studentrole,
+						roleTeacher: req.body.teacherrole,
+						roleAdmin: req.body.adminrole,
+						roleNoSc: req.body.noscrole,
+					},
+					classAttributeNameMapping: {
+						description: req.body.classdescription,
+						dn: req.body.classdn,
+						uniqueMember: req.body.classuniquemember,
+					},
+				}
+			}
+		}
+	}).then(data => {
+
+		api(req).get('/ldap/' + system[0]._id).then(data => {
+			res.json(data);
+		})
+	}).catch(err => {
+		res.json('{}');
+	});
+});
+
+// Activate
+router.post('/systems/ldap/activate/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
+
+	//Find LDAP-System
+	const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+		qs: {
+			$populate: ['systems']
+		}
+	}));
+	system = school.systems.filter(system => system._id === req.params.id);
+
+	api(req).patch('/systems/' + system[0]._id, {
+		json: {
+			'ldapConfig.active': true,
+		}
+	}).then(data => {
+		return api(req).patch('/schools/' + school._id, {
+			json: {
+				ldapSchoolIdentifier: system[0].ldapConfig.rootPath
+			}
+		});
+	}).then(data => {
+		res.json('success');
+	}).catch(err => {
+		res.json('error');
+	});
 });
 
 

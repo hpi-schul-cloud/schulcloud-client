@@ -9,11 +9,7 @@
     <select name="userIds[]" multiple data-placeholder="Personen auswählen">
         {{#each users}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                {{#if this.displayName}}
-                    {{this.displayName}}
-                {{else}}
                     {{this.firstName}} {{this.lastName}}
-                {{/if}}
             </option>
         {{/each}}
     </select>
@@ -25,11 +21,8 @@
     <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
         {{#each classes}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                {{log this.year}}
-                {{#if this.name}}
+                {{#if this.displayName}}
                     {{this.displayName}}
-                {{else}}
-                    {{this.name}}
                 {{/if}}
 
                 {{#if this.year}}

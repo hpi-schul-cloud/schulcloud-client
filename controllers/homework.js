@@ -241,7 +241,7 @@ const getUpdateHandler = (service) => {
         if (service == "homework") {
             //check archived
             if (req.body.archive) {
-                api(req).get('/homework/' + req.params.id, {}).then(homework => {
+                return api(req).get('/homework/' + req.params.id, {}).then(homework => {
                     if (homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "open") {
                         homework.archived.splice(homework.archived.indexOf(res.locals.currentUser._id), 1);
                     } else if (!homework.archived.includes(res.locals.currentUser._id) && req.body.archive == "done") {
