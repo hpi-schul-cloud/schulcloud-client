@@ -26,14 +26,13 @@ describe('Link tests', function () {
             chai.request(app)
                 .get('/link/' + testId)
                 .end((err, res) => {
-                    let hasLink = false
+
                     // NOTE It is unclear why res.redirects is an array. However, to make the test agnostic, we loop through all 
                     let baseUrl = process.env.BACKEND_URL || 'http://localhost:3030';
-                    res.redirects.forEach(redirectString => {
-                        if (redirectString.includes(`${baseUrl}/link/${testId}`)) hasLink = true
-                    });
 
-                    expect(hasLink).to.be.true;
+                    expect(res.redirects.some(link => {
+                        return link.includes(`${baseUrl}/link/${testId}`)
+                    })).to.be.true;
                     resolve();
                 });
         });
