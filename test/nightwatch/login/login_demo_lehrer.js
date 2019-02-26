@@ -48,7 +48,7 @@ module.exports = {
         browser.expect.element('#titlebar h4#page-title').text.to.contain('Gestellte Aufgaben').before(10000);
 
         browser.url(base_url + 'homework/private/');
-        browser.expect.element('#titlebar h4#page-title').text.to.contain('Meine ToDos').before(10000);
+        browser.expect.element('#titlebar h4#page-title').text.to.contain('Private Aufgaben').before(10000);
 
         browser.url(base_url + 'homework/archive/');
         browser.expect.element('#titlebar h4#page-title').text.to.contain('Archivierte Aufgaben und ToDos').before(10000);

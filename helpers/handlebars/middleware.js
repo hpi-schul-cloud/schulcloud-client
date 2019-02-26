@@ -57,7 +57,7 @@ module.exports = (req, res, next) => {
                 link: '/homework/asked/'
             },
             {
-                name: 'Meine ToDos',
+                name: 'Private Aufgaben',
                 icon: 'lock',
                 link: '/homework/private/'
             },
