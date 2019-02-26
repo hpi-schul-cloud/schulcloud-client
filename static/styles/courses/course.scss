@@ -159,7 +159,7 @@
     h6.sub-title {
       color: $colorDarkerGrey;
     }
-    img.image {
+    .image {
       width: auto;
       height: auto;
       margin-bottom: 30px;
@@ -168,6 +168,14 @@
       }
       @include media-breakpoint-up(xs) {
         max-width: 100px;
+      }
+    }
+    .image.topic-image{
+      @include media-breakpoint-down(xs) {
+        max-width: 60px;
+      }
+      @include media-breakpoint-up(xs) {
+        max-width: 80px;
       }
     }
   }
