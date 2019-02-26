@@ -143,6 +143,30 @@
   .new-course-time-template {
     display: none;
   }
+
+  .empty-state{
+    text-align: center;
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    h6.sub-title {
+      color: $colorDarkerGrey;
+    }
+    img.image {
+      width: auto;
+      height: auto;
+      margin-bottom: 30px;
+    }
+  }
+
+  .empty-state-courses{
+    margin-top: 0;
+  }
+
+  .add-button{
+    margin-top: 20px;
+    text-align: center;
+  }
 }
 .course-tasks-header, .course-groups-header {
   padding: 0.5rem 0.75rem;
@@ -313,30 +337,6 @@
 
 .section-course-group {
   padding-top: 20px;
-}
-
-.empty-state{
-  text-align: center;
-  max-width: 60%;
-  margin: 0 auto;
-  margin-top: 20px;
-  h6.sub-title {
-    color: $colorDarkerGrey;
-  }
-  img.image {
-    width: auto;
-    height: auto;
-    margin-bottom: 30px;
-  }
-}
-
-.empty-state-courses{
-  margin-top: 0;
-}
-
-.add-button{
-  margin-top: 20px;
-  text-align: center;
 }
 
 @media (min-width: 576px) {
