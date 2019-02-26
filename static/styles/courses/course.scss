@@ -169,6 +169,11 @@
       @include media-breakpoint-up(xs) {
         max-width: 100px;
       }
+
+      transition: all .3s ease-in;
+      &:hover {
+        transform: rotate(-7deg);
+      }
     }
     .image.topic-image{
       @include media-breakpoint-down(xs) {
