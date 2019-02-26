@@ -5,6 +5,7 @@
     {{/content}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
     {{/content}}
 
     {{#content "page"}}
@@ -42,7 +43,7 @@
                 </div>
                 {{/userHasPermission}}
           {{else}}
-            <div class="course-empty">
+            <div class="empty-state">
               {{> 'courses/components/courseEmpty'}}
 
               {{#userHasPermission "COURSE_EDIT"}}

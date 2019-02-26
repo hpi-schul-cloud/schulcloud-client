@@ -1,0 +1,33 @@
+@import '../lib/bootstrap/scss/bootstrap-flex';
+
+.empty-state{
+  .center{
+    margin: 0 auto;
+    float: none;
+  }
+  .btn-import-course{
+    margin-right: 20px;
+  }
+  .image{
+    width: 35%;
+    margin-bottom: 50px;
+    opacity: .8;
+  }
+  .buttons{
+    margin-bottom: 30px;
+    .btn {
+      @include media-breakpoint-down(xs) {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  }
+  .text-wrapper{
+    @include media-breakpoint-up(xs) {
+      max-width: 70%;
+    }
+    @include media-breakpoint-down(xs) {
+      max-width: 90%;
+    }
+  }
+}
