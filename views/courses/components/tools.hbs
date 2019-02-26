@@ -23,10 +23,14 @@
       {{else}}
         <div class="empty-state">
           <img src="/images/empty-states/tool.png" alt="Keine hinzufügten Tools" class="image"/>
-          <h4>Füge dem Kurs Tools hinzu</h4>
-          <h6 class="sub-title">
-            Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.
-          </h6>
+          {{#userHasPermission "TOOL_CREATE" }}
+            <h4>Füge dem Kurs Tools hinzu</h4>
+            <h6 class="sub-title">
+              Füge hier interaktive Tools, wie GeoGebra oder CodeOcean, einem Kurs hinzu.
+            </h6>
+          {{else}}
+            <h4 class="text-muted">Es gibt noch keine Tools in diesem Kurs</h4>
+          {{/userHasPermission}}
         </div>
       {{/if}}
     </div>
