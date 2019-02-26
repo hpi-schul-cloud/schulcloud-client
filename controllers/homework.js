@@ -186,12 +186,12 @@ const addFilePermissionsForTeamMembers = (req, teamMembers, courseGroupId, fileI
                     let isAlreadyInside = _.filter(file.permissions, f => {
                         return JSON.stringify(f.userId) === JSON.stringify(cw);
                     }).length > 0;
-    
+
                     !isAlreadyInside ? file.permissions.push({
                         userId: cw,
                         permissions: ['can-read', 'can-write']
                     }) : '';
-    
+
                     return file;
                 })).then(_ => {
                     return api(req).patch('/files/' + file._id, { json: file });
@@ -366,8 +366,8 @@ router.post('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).get("/submissions/" + submissionId).then(submission => {
         submission.fileIds.push(req.body.fileId);
-        return api(req).patch("/submissions/" + submissionId, { 
-            json: submission 
+        return api(req).patch("/submissions/" + submissionId, {
+            json: submission
         });
     })
     .then(result => res.json(result))
@@ -411,8 +411,8 @@ router.delete('/submit/:id/files', function(req, res, next) {
     let submissionId = req.params.id;
     api(req).get("/submissions/" + submissionId).then(submission => {
         submission.fileIds = _.filter(submission.fileIds, id => JSON.stringify(id) !== JSON.stringify(req.body.fileId));
-        return api(req).patch("/submissions/" + submissionId, { 
-            json: submission 
+        return api(req).patch("/submissions/" + submissionId, {
+            json: submission
         });
     })
     .then(result => res.json(result))
@@ -574,7 +574,8 @@ const overview = (title = "") => {
                     const end = currentPage * itemsPerPage;
                     homeworks = homeworks.slice(end - itemsPerPage, end);
                     //Render overview
-                    res.render('homework/overview', {
+                    if (homeworks.length > 0){
+                      res.render('homework/overview', {
                         title,
                         pagination,
                         homeworks,
@@ -587,7 +588,23 @@ const overview = (title = "") => {
                                     && !isStudent )
                                ),
                        createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
-                    });
+                      });
+                    } else{
+                      res.render('homework/overview', {
+                          title: "",
+                          pagination,
+                          homeworks,
+                          courses,
+                          isStudent,
+                          filterSettings: JSON.stringify(filterSettings),
+                          addButton: (req._parsedUrl.pathname == "/"
+                                  || req._parsedUrl.pathname.includes("private")
+                                  || (req._parsedUrl.pathname.includes( "asked" )
+                                      && !isStudent )
+                                 ),
+                         createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
+                      });
+                    }
                 });
             });
         }).catch(err => {
@@ -762,10 +779,10 @@ router.get('/:assignmentId/edit', function (req, res, next) {
 const addClearNameForFileIds=(submission_s)=>{
 	if(submission_s==undefined) return;
 	//if array = submissions  else submission
-	if(submission_s.length>0){ 
+	if(submission_s.length>0){
 		submission_s.forEach(submission=>{
 			addClearNameForFileIds(submission);
-		});	
+		});
 	}else if(submission_s.fileIds && submission_s.fileIds.length>0){
 		return submission_s.fileIds.map(file=>{
 			if(file.name){
@@ -886,7 +903,7 @@ router.get('/:assignmentId', function(req, res, next) {
                         })[0]
                     };
                 });
-          
+
                 let studentsWithSubmission = [];
                 assignment.submissions.forEach(e => {
                     if (e.courseGroupId) {
@@ -937,7 +954,7 @@ router.get('/:assignmentId', function(req, res, next) {
                     });
                     // Render assignment.hbs
 					//submission>single=student=upload || submissionS>multi=teacher=overview
-					addClearNameForFileIds(assignment.submission||assignment.submissions);	
+					addClearNameForFileIds(assignment.submission||assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     res.render('homework/assignment', Object.assign({}, assignment, {
                         title: assignment.courseId.name + ' - ' + assignment.name,
