@@ -840,6 +840,7 @@ router.get('/:assignmentId', function (req, res, next) {
             );
         }
         Promise.all(promises).then(([submissions, course, courseGroups]) => {
+
             assignment.submission = (submissions || {}).data.map(submission => {
                 submission.teamMemberIds = submission.teamMembers.map(e => { return e._id; });
                 submission.courseGroupMemberIds = (submission.courseGroupId || {}).userIds;
@@ -946,6 +947,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         },
                         {}
                         ],
+                        isTeacher: true,
                         students: students,
                         studentSubmissions,
                         studentsWithoutSubmission,
