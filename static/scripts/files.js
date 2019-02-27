@@ -590,12 +590,6 @@ $(document).ready(function() {
           });
     });
 
-
-    $moveModal.on('hidden.bs.modal', function () {
-        // delete the directory-tree
-        $('.directories-tree').empty();
-    });
-
     const moveToDirectory = function (modal, targetId) {
         const fileId = modal.find('.modal-form').find("input[name='fileId']").val();
 
@@ -663,31 +657,39 @@ $(document).ready(function() {
         });
     };
 
-    $('.btn-file-move').click(function (e) {
+    $('.btn-file-move').one('click',function (e) {
         e.stopPropagation();
         e.preventDefault();
         let $context = $(this);
 
-        // fetch all directories the user is permitted to access
-        $.getJSON('/files/permittedDirectories/', function (result) {
-            populateModalForm($moveModal, {
-                title: 'Datei verschieben',
-                fields: {
-                    fileId: $context.attr('data-file-id'),
-                    fileName: $context.attr('data-file-name'),
-                    filePath: $context.attr('data-file-path')
-                }
-            });
+		populateModalForm($moveModal, {
+			title: 'Datei verschieben',
+			fields: {
+				fileId: $context.attr('data-file-id'),
+				fileName: $context.attr('data-file-name'),
+				filePath: $context.attr('data-file-path')
+			}
+		});
 
-            // add folder structure recursively
-            let $dirTree = $('.directories-tree');
-            let $dirTreeList = $('<div class="dir-main-menu"></div>');
-            addDirTree($dirTreeList, result);
-            $dirTree.append($dirTreeList);
-            // remove modal-footer
-            $moveModal.find('.modal-footer').empty();
-            $moveModal.appendTo('body').modal('show');
-        });
+		$moveModal.find('.modal-footer').empty();
+		$moveModal.appendTo('body').modal('show');
+
+		const $loader = $moveModal.find('.loader');
+		let $dirTreeList = $moveModal.find('.dir-main-menu');
+		let $dirTree = $moveModal.find('.directories-tree');
+
+		if(!$dirTreeList.length) {
+			$loader.show();
+			// fetch all directories the user is permitted to access
+			$.getJSON('/files/permittedDirectories/', function (result) {
+				// add folder structure recursively
+				$dirTreeList = $('<div class="dir-main-menu"></div>');
+				addDirTree($dirTreeList, result);
+				$loader.hide();
+				$dirTree.append($dirTreeList);
+				// remove modal-footer
+			});
+		}
     });
 
 });
