@@ -291,7 +291,6 @@ router.get('/', function(req, res, next) {
               });
             } else{
               res.render('courses/overview-empty', {
-                  emptyState: true
               });
             }
         }
