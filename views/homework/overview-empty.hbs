@@ -1,0 +1,49 @@
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+{{/content}}
+{{#extend "homework/homework"}}
+    {{#content "page"}}
+        <div class="route-homework">
+            <section class="section-homework">
+                <div class="empty-state">
+                  {{#unless isStudent}}
+                    <img src="/images/empty-states/add_people.png" alt="Noch keine Kurse" class="image mx-auto d-block"/>
+                    <div class="text-wrapper mx-auto d-block">
+                      <h2 class="text-center">Mit der Schul-Cloud Aufgaben digital bearbeiten</h2>
+                      <h5 class="text-muted text-center">
+                        Sobald Aufgaben angelegt wurden, siehst du in dieser Ansicht eine Übersicht.
+                        Falls du noch keinen Kurs angelegt hast, erstellst du am Besten zuerst einen Kurs, dem du eine Aufgabe zuordnen kannst.
+                      </h5>
+                    </div>
+                  {{else}}
+                    <img src="/images/empty-states/add_people.png" alt="Noch keine Kurse" class="image mx-auto d-block"/>
+                    <div class="text-wrapper mx-auto d-block">
+                      <h2 class="text-center">Mit der Schul-Cloud Aufgaben digital bearbeiten</h2>
+                      <h5 class="text-muted text-center">
+                        Sobald Aufgaben angelegt wurden, siehst du in dieser Ansicht eine Übersicht.
+                      </h5>
+                    </div>
+                  {{/unless}}
+
+                  <div class="row">
+                      <div class="center buttons">
+                        {{#if addButton}}
+                            {{#userHasPermission "HOMEWORK_CREATE"}}
+                                <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}"
+                                   class="btn {{#if ../courses}}btn-primary{{else}}btn-secondary{{/if}} btn-lg btn-add {{#if courses}}btn-first{{/if}}">
+                                    Erstelle eine Aufgabe
+                                </a>
+                            {{/userHasPermission}}
+                        {{/if}}
+                        {{#unless courses}}
+                          <a href="/courses/" class="btn btn-primary btn-lg">
+                              Zu den Kursen
+                          </a>
+                        {{/unless}}
+                      </div>
+                  </div>
+                </div>
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}

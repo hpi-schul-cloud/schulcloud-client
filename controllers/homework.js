@@ -590,19 +590,14 @@ const overview = (title = "") => {
                        createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
                       });
                     } else{
-                      res.render('homework/overview', {
-                          title: "",
-                          pagination,
-                          homeworks,
-                          courses,
-                          isStudent,
-                          filterSettings: JSON.stringify(filterSettings),
-                          addButton: (req._parsedUrl.pathname == "/"
-                                  || req._parsedUrl.pathname.includes("private")
-                                  || (req._parsedUrl.pathname.includes( "asked" )
-                                      && !isStudent )
-                                 ),
-                         createPrivate: req._parsedUrl.pathname.includes("private") || isStudent
+                      res.render('homework/overview-empty', {
+                        isStudent,
+                        courses,
+                        addButton: (req._parsedUrl.pathname == "/"
+                                || req._parsedUrl.pathname.includes("private")
+                                || (req._parsedUrl.pathname.includes( "asked" )
+                                    && !isStudent )
+                               )
                       });
                     }
                 });
