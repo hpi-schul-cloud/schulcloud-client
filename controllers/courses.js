@@ -290,7 +290,7 @@ router.get('/', function(req, res, next) {
                   liveSearch: true
               });
             } else{
-              res.render('courses/overview', {
+              res.render('courses/overview-empty', {
                   emptyState: true
               });
             }
