@@ -36,6 +36,7 @@ router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/welcome', require('./welcome'));
 
 router.use('/administration/', require('./administration'));
 
