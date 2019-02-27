@@ -30,7 +30,7 @@
                         {{#if addButton}}
                             {{#userHasPermission "HOMEWORK_CREATE"}}
                                 <a href="/homework/new{{#if @root.createPrivate}}?private=true{{/if}}"
-                                   class="btn {{#if ../courses}}btn-primary{{else}}btn-secondary{{/if}} btn-lg btn-add {{#if courses}}btn-first{{/if}}">
+                                   class="btn {{#if ../courses}}btn-primary{{else}}btn-secondary{{/if}} btn-lg btn-add">
                                     Erstelle eine Aufgabe
                                 </a>
                             {{/userHasPermission}}

@@ -276,6 +276,11 @@ router.get('/', function(req, res, next) {
 
             return course;
         });
+
+        const isStudent = res.locals.currentUser.roles.every((role) => {
+            return role.name === "student";
+        });
+
         if (req.query.json) {
             res.json(courses);
         } else {
@@ -291,6 +296,7 @@ router.get('/', function(req, res, next) {
               });
             } else{
               res.render('courses/overview-empty', {
+                isStudent
               });
             }
         }

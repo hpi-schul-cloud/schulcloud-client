@@ -12,10 +12,17 @@
             <div class="empty-state">
               <img src="/images/empty-states/lehrer_klasse.png" alt="Noch keine Kurse" class="image mx-auto d-block"/>
               <div class="text-wrapper mx-auto d-block">
-                <h2 class="text-center">Mit der Schul-Cloud Unterricht digital gestalten</h2>
-                <h5 class="text-muted text-center">
-                    Es gibt noch keine Kurse. Ein Kurs in der Schul-Cloud bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
-                </h5>
+                {{#if isStudent}}
+                  <h2 class="text-center">Mit der Schul-Cloud wird der Unterricht digital</h2>
+                  <h5 class="text-muted text-center">
+                    Es gibt noch keine Kurse. Hier findest du später deine Kurse mit Themen, Aufgaben, Tools und mehr für digitales Lernen.
+                  </h5>
+                {{else}}
+                  <h2 class="text-center">Mit der Schul-Cloud Unterricht digital gestalten</h2>
+                  <h5 class="text-muted text-center">
+                      Es gibt noch keine Kurse. Ein Kurs in der Schul-Cloud bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
+                  </h5>
+                {{/if}}
               </div>
 
               {{#userHasPermission "COURSE_EDIT"}}
