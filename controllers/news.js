@@ -134,14 +134,28 @@ router.all('/', function (req, res, next) {
             numPages: Math.ceil(totalNews / itemsPerPage),
             baseUrl: '/news/?p={{page}}'
         };
-        res.render('news/overview', {
-            title: 'Neuigkeiten aus meiner Schule',
-            news,
-            pagination,
-            searchLabel: 'Suche nach Neuigkeiten',
-            searchAction: '/news/',
-            showSearch: true
-        });
+
+        let preferences = res.locals.currentUser.preferences || {};
+        if(preferences.firstVisitNews){
+          res.render('news/overview', {
+              title: 'Neuigkeiten aus meiner Schule',
+              news,
+              pagination,
+              searchLabel: 'Suche nach Neuigkeiten',
+              searchAction: '/news/',
+              showSearch: true
+          });
+        } else {
+          let userUpdate = {};
+          userUpdate.preferences = preferences;
+          preferences.firstVisitNews = true;
+
+          userPromise = api(req).patch('/users/' + res.locals.currentPayload.userId, {
+              json: userUpdate
+          });
+
+          res.render('news/overview-empty');
+        }
     }).catch(err => {
         next(err);
     });
