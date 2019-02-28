@@ -7,7 +7,7 @@ const getDataValue = function(attr) {
 
 window.openFolder = function (id) {
 	let pathname = location.pathname;
-	const reg = new RegExp('/files/(?:teams|courses)/(?:.+?)/(.+)');
+	const reg = new RegExp('/files/(?:my|teams|courses)/(?:.+?)/(.+)');
 	let target;
 
 	if (reg.test(pathname)) {

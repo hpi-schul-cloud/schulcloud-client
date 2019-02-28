@@ -154,7 +154,8 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
 	const owner = getStorageContext(req, res);
-	const { params: { folderId: parent } } = req;
+	const { params: { folderId, subFolderId } } = req;
+	const parent = subFolderId || folderId;
 	const promises = [
 		api(req).get('/roles', { qs: { name: 'student' } }),
 		api(req).get('/fileStorage', {
@@ -498,7 +499,7 @@ router.delete('/directory', function (req, res) {
     });
 });
 
-router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
+router.get('/my/:folderId?/:subFolderId?', FileGetter, async function (req, res, next) {
     const userId = res.locals.currentUser._id;
     const basePath = '/files/my/';
 
