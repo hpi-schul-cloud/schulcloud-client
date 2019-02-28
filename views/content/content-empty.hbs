@@ -1,0 +1,23 @@
+{{#content "styles" mode="append"}}
+    <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+{{/content}}
+{{#extend "news/news"}}
+    {{#content "page"}}
+      <div class="empty-state">
+        <img src="/images/empty-states/lernstore.png" alt="Mit dem LernStore digitale Materialen finden" class="image mx-auto d-block"/>
+        <div class="text-wrapper mx-auto d-block">
+          <h2 class="text-center">Mit dem LernStore digitale Materialen finden</h2>
+          <h5 class="text-muted text-center">
+            Materialien sind z.B. Text- und Videoerklärungen, Lernprogramme, Arbeitsblätter und Aufgaben.
+          </h5>
+        </div>
+
+          <div class="row">
+              <div class="center buttons">
+                  <a href="/content/" class="btn btn-secondary btn-lg">Weiter zum LernStore</a>
+              </div>
+          </div>
+
+      </div>
+    {{/content}}
+{{/extend}}
