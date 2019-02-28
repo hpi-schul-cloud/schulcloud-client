@@ -215,7 +215,7 @@ const getScopeDirs = (req, res, scope) => {
  * @param rootPath
  */
 const getDirectoryTree = (set, directory) => {
-	const children = set.filter(dir => dir.parent && dir.parent.equals(directory._id));
+	const children = set.filter(dir => dir.parent && dir.parent === directory._id);
 
 	if (children.length) {
 		directory.children = children.map(child => getDirectoryTree(set, child));
