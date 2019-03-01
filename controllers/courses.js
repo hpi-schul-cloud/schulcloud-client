@@ -134,11 +134,26 @@ const editCourseHandler = (req, res, next) => {
         // populate course colors - to be replaced system scope
         const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
 
-        res.render('courses/edit-course', {
+        if (req.params.courseId){
+          res.render('courses/edit-course', {
+              action,
+              method,
+              title: 'Kurs bearbeiten',
+              submitLabel: 'Änderungen speichern',
+              closeLabel: 'Abbrechen',
+              course,
+              colors,
+              classes: markSelected(classes, _.map(course.classIds, '_id')),
+              teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+              substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
+              students: markSelected(students, _.map(course.userIds, '_id'))
+          });
+      } else{
+        res.render('courses/create-course', {
             action,
             method,
-            sectionTitle: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
-            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen und Weiter',
+            sectionTitle: 'Kurs anlegen',
+            submitLabel: 'Kurs anlegen und Weiter',
             closeLabel: 'Abbrechen',
             course,
             colors,
@@ -147,6 +162,7 @@ const editCourseHandler = (req, res, next) => {
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
             students: markSelected(students, _.map(course.userIds, '_id'))
         });
+      };
     });
 };
 
