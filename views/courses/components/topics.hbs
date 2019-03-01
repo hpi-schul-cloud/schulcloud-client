@@ -94,9 +94,30 @@
     {{#userHasPermission "COURSE_EDIT"}}
       <div class="add-button">
         <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center" title="Thema hinzufügen">
-          <span>Erstelle ein Thema</span>
+          {{#if lessons}}
+            <span>Weiteres Thema erstellen</span>
+            <i class="fa fa-plus-circle plus-icon pull-right"></i>
+          {{else}}
+            <span>Erstelle eine Thema</span>
+          {{/if}}
         </a>
       </div>
+      {{#ifeq ../lessons.length 1}}
+        <div class="row first-topic">
+          <div class="col-md-3">
+          </div>
+          <div class="col-sm-12 col-md-9">
+            <h5 class="text-muted">Geschafft - Das erste Thema in deinem Kurs!</h5>
+            <div class="text-muted">
+              Dein neues Thema bleibt unsichtbar, bis du es mit einem Klick auf das durchgestrichene Auge sichtbar für deine Kursteilnehmer machst.
+            </div>
+            <div class="text-muted">
+              Du kannst dein Thema jederzeit bearbeiten, verschieben, löschen oder mit anderen Schul-Cloud Nutzern teilen.
+              Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.
+            </div>
+          </div>
+        </div>
+      {{/ifeq}}
     {{/userHasPermission}}
   </div>
 </div>
