@@ -31,7 +31,7 @@
             </div>
         </a>
     {{/if}}
-    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{this.name}}}'"> 
+    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'"> 
         <h5 class="title">
             {{#if this.courseId}}
                 [<span>{{{stripOnlyScript this.courseId.name}}}</span>{{#if this.isSubstitution}} <sub>Vertretung</sub>{{/if}}] -
