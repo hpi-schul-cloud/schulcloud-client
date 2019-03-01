@@ -21,10 +21,18 @@
 
     {{#content "page"}}
         <section class="section-course">
-          <h3>{{sectionTitle}}</h3>
-          <p class="text-muted">
-            In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Hausaufgaben und Dateien gearbeitet.
-          </p>
+          <div class="wizard-header">
+            <div class="header-icon">
+              <img src="/images/empty-states/shuttle.svg" alt="Space Shuttle Start"/>
+            </div>
+            <div class="headlines">
+              <h3>{{sectionTitle}}</h3>
+              <p class="text-muted">
+                In einem Kurs wird gemeinsam mit den Teilnehmern an Themen, Hausaufgaben und Dateien gearbeitet.
+              </p>
+            </div>
+          </div>
+
           <div class="wizard-card">
             <div class="step-label-wrapper">
               <div class="text-muted step-label">
@@ -165,7 +173,7 @@
 
             </section>
 
-            <section data-panel="section-2" class="">
+            <section data-panel="section-2" class="submit-page">
               <h4>Du hast es fast geschafft...</h4>
 
               <div class="form-group">
@@ -208,28 +216,28 @@
               </div>
             </section>
 
-            <section data-panel="section-3" class="submit-page">
+            <section data-panel="section-3">
               <div class="final-step">
                 <div class="image">
-                  <img src="" />
+                  <img src="/images/empty-states/add_people.png"/>
                 </div>
                 <div>
-                  <h3>Geschafft!</h3>
-                  <h4 class="text-muted">Was kann ich in einem Kurs machen?</h4>
+                  <h4>Geschafft!</h4>
+                  <h5 class="text-muted">Was kann ich in einem Kurs machen?</h5>
                   <h6 class="text-muted">Themen anlegen</h6>
-                  <p class="text-muted">
+                  <h6 class="text-muted">
                     Themen sind in der Schul-Cloud der Container für dein Unterrichtsmaterial.
-                  </p>
+                  </h6>
                   <h6 class="text-muted">Aufgaben stellen</h6>
-                  <p class="text-muted">
+                  <h6 class="text-muted">
                     Innerhalb eines Kurses/Themas kannst du Aufgaben an deine Teilnehmer
                     stellen.
-                  </p>
+                  </h6>
                   <h6 class="text-muted">Tools hinzufügen</h6>
-                  <p class="text-muted">
+                  <h6 class="text-muted">
                     In einem Kurs kannst du außerdem Tools zum interaktiven Unterricht
                   hinzufügen.
-                  </p>
+                  </h6>
                 </div>
               </div>
 
