@@ -137,8 +137,8 @@ const editCourseHandler = (req, res, next) => {
         res.render('courses/edit-course', {
             action,
             method,
-            title: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
-            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
+            sectionTitle: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
+            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen und Weiter',
             closeLabel: 'Abbrechen',
             course,
             colors,

@@ -15,10 +15,8 @@
     {{#block "panels"}}{{/block}}
   </div>
 
+  {{#block "buttons"}}{{/block}}
   <button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">Zurück</button>
-  {{#unless manual-submit}}
-    <button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
-      data-next-label="Weiter" data-submit-label="Absenden">Weiter</button>
-  {{else}}
-  {{/unless}}
+  <button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
+    data-next-label="Weiter" data-submit-label="{{#unless submit-label}}Absenden{{else}}{{submit-label}}{{/unless}}">Weiter</button>
 </form>

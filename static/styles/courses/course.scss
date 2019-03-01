@@ -148,6 +148,36 @@
   .new-course-time-template {
     display: none;
   }
+
+  .step-label-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    .step-label{
+      font-size: .75rem;
+    }
+  }
+
+  .wizard-card{
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    padding-bottom: 50px;
+    .panels label{
+      font-size: .75rem;
+    }
+    .btn-delete-course{
+      margin-right: 10px;
+    }
+    .final-step {
+    	display: flex;
+    	flex-direction: row;
+    	align-items: center;
+    	margin-bottom: 30px;
+    	.image {
+    		padding: 30px;
+    	}
+    }
+  }
 }
 .course-tasks-header, .course-groups-header {
   padding: 0.5rem 0.75rem;

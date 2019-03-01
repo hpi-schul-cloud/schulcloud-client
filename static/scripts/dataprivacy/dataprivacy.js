@@ -127,7 +127,9 @@ function isSectionValid(sectionIndex){
 }
 
 function submitForm(event){
+    console.log('vor check val');
     if (this.checkValidity()) {
+        console.log('nach check val');
         event.preventDefault();
         const formSubmitButton = document.querySelector('#nextSection');
         formSubmitButton.disabled = true;
@@ -160,10 +162,11 @@ function submitForm(event){
 }
 
 function nextSection(event){
+  console.log('nextsec');
     // ValidationEnabled is for testing only
     const isSubmitPage = ValidationDisabled? false : document.querySelector(`section[data-panel="section-${getSelectionIndex()}"]`).classList.contains('submit-page');
     if(ValidationDisabled){document.querySelector('.form').classList.add("form-submitted");};
-    
+
 
     if(!isSubmitPage){
         event.preventDefault();
@@ -171,7 +174,7 @@ function nextSection(event){
         setSelectionByIndex(selectedIndex, event);
     }
     // else: no reaction -> should submit
-   
+
 }
 function prevSection(event) {
     if(getSelectionIndex() > 1){
