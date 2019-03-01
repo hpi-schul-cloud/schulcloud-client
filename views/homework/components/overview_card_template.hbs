@@ -1,12 +1,12 @@
 <li class="card assignment {{this.privateclass}} disableable{{#if this.stats}} has-stats{{/if}}{{#if this.grade}} has-stats{{/if}} {{this.privateclass}}" style="border-left:10px solid {{this.color}}">
-    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'"> 
+    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{this.name}}}'"> 
         <div class="dates">
             {{#if this.availableDate}}{{timeToString availableDate}}<br/>{{/if}}
                 bis {{timeToString dueDate}}
         </div>
     </a>
     {{#if this.stats}}
-        <a class="content" href="{{this.url}}#activetabid=submissions" title="Abgaben der Aufgabe: '{{this.name}}'">
+        <a class="content" href="{{this.url}}#activetabid=submissions" title="Abgaben der Aufgabe: '{{{this.name}}}'">
             <div class="state">
                 <circular-progress class="meinel-progress" primarycolor="#b10438" secondarycolor="#009688" accentcolor="lightgrey"
                     data="{{this.stats.submissionPercentage}}"
@@ -22,7 +22,7 @@
         </a>
     {{/if}}
     {{#if this.grade}}
-        <a class="content" href="{{this.url}}#activetabid=feedback" title="Bewertung der Aufgabe: '{{this.name}}'">
+        <a class="content" href="{{this.url}}#activetabid=feedback" title="Bewertung der Aufgabe: '{{{this.name}}}'">
             <div class="state">
                 <circular-progress class="meinel-progress" primarycolor="#009688" accentcolor="lightgrey"
                     data="{{this.grade}}" width="70" height="70"
@@ -31,7 +31,7 @@
             </div>
         </a>
     {{/if}}
-    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'"> 
+    <a class="content" href="{{this.url}}" title="Details der Aufgabe: '{{{this.name}}}'"> 
         <h5 class="title">
             {{#if this.courseId}}
                 [<span>{{{stripOnlyScript this.courseId.name}}}</span>{{#if this.isSubstitution}} <sub>Vertretung</sub>{{/if}}] -
@@ -79,7 +79,7 @@
                        href="{{this.link}}"
                        target="_blank"
                        data-method="{{this.method}}"
-                       data-name="{{../../name}}"
+                       data-name="{{{../../name}}}"
                        title="Die Aufgabe: '{{{ ../../name}}}' {{this.title}}.">
                         <i class="fa fa-{{this.icon}}"></i>
                     </a>
@@ -92,7 +92,7 @@
         {{/if}}
     {{/userHasPermission}}
     </div>
-    <a href="{{this.url}}" title="Details der Aufgabe: '{{this.name}}'">
+    <a href="{{this.url}}" title="Details der Aufgabe: '{{{this.name}}}'">
         <span class="more">Details ><i className="fa fa-chevron-right" aria-hidden="true"></i></span>
     </a>
 </li>
