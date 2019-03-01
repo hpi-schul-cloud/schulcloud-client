@@ -5,6 +5,7 @@
         <link rel="stylesheet" href="/styles/courses/course-edit.css"/>
         <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
         <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
+        <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
     {{/content}}
 
     {{#content "scripts" mode="append"}}
@@ -19,25 +20,25 @@
 
     {{#content "page"}}
         <section class="section-course">
-            <form action="{{action}}" method="post">
-                {{#if method}}
-                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
-                {{/if}}
 
-                <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+          {{#embed "lib/forms/paginatedForm" sections=3 action=action method=method manual-submit=true}}
+            {{#content "panels"}}
 
-                <div class="form-group">
+            <section data-panel="section-1">
+              {{#if method}}
+                  <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
+              {{/if}}
+
+              <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+
+              <div class="row">
+                <div class="form-group col-md-6">
                     <label>Name des Kurses</label>
                     <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
                            required autofocus/>
                 </div>
 
-                <div class="form-group">
-                    <label>Beschreibung des Kurses</label>
-                    <textarea class="form-control" name="description">{{{stripOnlyScript course.description}}}</textarea>
-                </div>
-
-                <div class="form-group">
+                <div class="form-group col-md-6">
                   <label>Farbe des Kurses:</label>
                   <div class="color-picker">
                     {{#if course.color}}
@@ -56,29 +57,10 @@
                     {{/each}}
                   </div>
                 </div>
+              </div>
 
-                <div class="form-group">
-                    <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
-
-                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
-                        {{#each classes}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{log this.year}}
-                                {{#if this.name}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.name}}
-                                {{/if}}
-
-                                {{#if this.year}}
-                                    ({{this.year.name}})
-                                {{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
-                </div>
-
-                <div class="form-group">
+              <div class="row">
+                <div class="form-group col-md-6">
                     <label>Unterrichtender Lehrer</label>
 
                     <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
@@ -94,7 +76,7 @@
                     </select>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group col-md-6">
                     <label>Vertretungslehrer</label>
                     <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
                         {{#each substitutions}}
@@ -104,123 +86,153 @@
                         {{/each}}
                     </select>
                 </div>
+              </div>
 
-                <div class="form-group">
-                    <label>Schüler / Teilnehmer</label>
+              <div class="form-group">
+              <div class="times" id="timesContainer">
+                  <div class="row">
+                      <div class="form-group col-md-6">
+                          <label>Zeitraum (z.B. Schuljahr) von</label>
+                          <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                      </div>
 
-                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
-                        {{#each students}}
-                            <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
-                                {{#if this.displayName}}
-                                    {{this.displayName}}
-                                {{else}}
-                                    {{this.firstName}} {{this.lastName}}
-                                {{/if}}
-                            </option>
-                        {{/each}}
-                    </select>
-                </div>
+                      <div class="form-group col-md-6">
+                          <label>Bis</label>
+                          <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                      </div>
+                  </div>
 
-
-                <label>Termine auswählen</label>
-                <div class="times" id="timesContainer">
-                    <label>Zeitraum (z.B. Schuljahr)</label>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label>Von</label>
-                            <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Bis</label>
-                            <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
-                        </div>
-                    </div>
-
-                    <table width="100%" cellpadding="5px">
-                        <thead>
+                  <table width="100%" cellpadding="5px" class="course-times-table">
+                      <thead>
                         <th></th>
                         <th><label>Wochentag</label></th>
                         <th><label>Start der Schulstunde</label></th>
                         <th><label>Dauer der Schulstunde</label></th>
                         <th><label>Raum</label></th>
-                        </thead>
-                        <tbody class="add-course-times">
-                            {{#each course.times}}
-                                <tr id="{{this._id}}" class="course-time">
-                                    <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
-                                    <td>
-                                        <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
-                                            <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
-                                            <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
-                                            <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
-                                            <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag</option>
-                                            <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag</option>
-                                            <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag</option>
-                                            <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" name="times[{{this.count}}][startTime]"  value="{{this.startTime}}" data-time type="text"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" name="times[{{this.count}}][duration]" type="number"
-                                               value="{{this.duration}}" placeholder="in Minuten"/>
-                                    </td>
-                                    <td>
-                                        <input class="form-control" type="text"
-                                               name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
-                                    </td>
-                                </tr>
-                            {{/each}}
-                            {{#embed "courses/components/template-new-course-time"}}{{/embed}}
-                        </tbody>
-                    </table>
-                    <span class="new-course-time-add" data-timesref="#timesContainer">
-                        <i class="fa fa-plus-circle fa-6"></i> Neuen Stundentermin hinzufügen
-                    </span>
-                </div>
+                      </thead>
+                      <tbody class="add-course-times">
+                          {{#each course.times}}
+                              <tr id="{{this._id}}" class="course-time">
+                                  <td><i class="fa fa-trash-o course-time-delete" href={{this._id}}></i></td>
+                                  <td>
+                                      <select class="form-control" name="times[{{this.count}}][weekday]" type="text">
+                                          <option value="0" {{#ifeq this.weekday "0"}}selected{{/ifeq}}>Montag</option>
+                                          <option value="1" {{#ifeq this.weekday "1"}}selected{{/ifeq}}>Dienstag</option>
+                                          <option value="2" {{#ifeq this.weekday "2"}}selected{{/ifeq}}>Mittwoch</option>
+                                          <option value="3" {{#ifeq this.weekday "3"}}selected{{/ifeq}}>Donnerstag</option>
+                                          <option value="4" {{#ifeq this.weekday "4"}}selected{{/ifeq}}>Freitag</option>
+                                          <option value="5" {{#ifeq this.weekday "5"}}selected{{/ifeq}}>Samstag</option>
+                                          <option value="6" {{#ifeq this.weekday "6"}}selected{{/ifeq}}>Sonntag</option>
+                                      </select>
+                                  </td>
+                                  <td>
+                                      <input class="form-control" name="times[{{this.count}}][startTime]"  value="{{this.startTime}}" data-time type="text"/>
+                                  </td>
+                                  <td>
+                                      <input class="form-control" name="times[{{this.count}}][duration]" type="number"
+                                             value="{{this.duration}}" placeholder="in Minuten"/>
+                                  </td>
+                                  <td>
+                                      <input class="form-control" type="text"
+                                             name="times[{{this.count}}][room]" value="{{this.room}}" placeholder="z.B. R-1.21"/>
+                                  </td>
+                              </tr>
+                          {{/each}}
+                          {{#embed "courses/components/template-new-course-time"}}{{/embed}}
+                      </tbody>
+                  </table>
+                  <span class="new-course-time-add" data-timesref="#timesContainer">
+                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen
+                  </span>
+              </div>
+            </div>
+            </section>
+
+            <section data-panel="section-2" class="submit-page">
+              <h4>Du hast es fast geschafft...</h4>
+
+              <div class="form-group">
+                  <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
+
+                  <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+                      {{#each classes}}
+                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                              {{log this.year}}
+                              {{#if this.name}}
+                                  {{this.displayName}}
+                              {{else}}
+                                  {{this.name}}
+                              {{/if}}
+
+                              {{#if this.year}}
+                                  ({{this.year.name}})
+                              {{/if}}
+                          </option>
+                      {{/each}}
+                  </select>
+              </div>
 
 
 
+              <div class="form-group">
+                  <label>Schüler / Teilnehmer</label>
+
+                  <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+                      {{#each students}}
+                          <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
+                              {{#if this.displayName}}
+                                  {{this.displayName}}
+                              {{else}}
+                                  {{this.firstName}} {{this.lastName}}
+                              {{/if}}
+                          </option>
+                      {{/each}}
+                  </select>
+              </div>
+            </section>
+
+            <section data-panel="section-3">
+              <h4>Geschafft!</h4>
+
+              <div class="modal-footer">
+                {{#if course._id}}
+                  <a href="/courses/{{course._id}}/"
+                     class="btn btn-delete-course btn-secondary pull-left"
+                     target="_blank"
+                     data-method="DELETE"
+                     data-name="{{course.name}}"
+                     redirect="/courses/">Kurs löschen</a>
+                {{/if}}
+                  <button type="button" class="btn btn-secondary btn-cancel">
+                      {{closeLabel}}
+                  </button>
+
+                  <button type="submit" class="btn btn-primary btn-submit">
+                      {{submitLabel}}
+                  </button>
+              </div>
+            </section>
+
+          {{/content}}
+        {{/embed}}
+
+        {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+            {{#content "body"}}
                 <div class="modal-footer">
-                  {{#if course._id}}
-                    <a href="/courses/{{course._id}}/"
-                       class="btn btn-delete-course btn-secondary pull-left"
-                       target="_blank"
-                       data-method="DELETE"
-                       data-name="{{course.name}}"
-                       redirect="/courses/">Kurs löschen</a>
-                  {{/if}}
-                    <button type="button" class="btn btn-secondary btn-cancel">
-                        {{closeLabel}}
+                    <button type="button" class="btn btn-secondary btn-close">
+                        Abbrechen
                     </button>
 
                     <button type="submit" class="btn btn-primary btn-submit">
-                        {{submitLabel}}
+                        Löschen
                     </button>
                 </div>
+            {{/content}}
+        {{/embed}}
 
-            </form>
+        {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
 
-
-            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-                {{#content "body"}}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
-                            Abbrechen
-                        </button>
-
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            Löschen
-                        </button>
-                    </div>
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
-
-            {{/embed}}
+        {{/embed}}
 
 
         </section>
