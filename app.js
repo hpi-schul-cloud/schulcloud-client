@@ -40,9 +40,9 @@ app.set('view cache', true);
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'build/'+themeName)));
+app.use(express.static(path.join(__dirname, 'build/' + themeName)));
 
 const sessionStore = new session.MemoryStore;
 app.use(session({
@@ -54,7 +54,7 @@ app.use(session({
 }));
 
 // Custom flash middleware
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
     // if there's a flash message in the session request, make it available in the response, then delete it
     res.locals.notification = req.session.notification;
     res.locals.inline = req.query.inline || false;
@@ -62,6 +62,7 @@ app.use(function(req, res, next){
         title: process.env.SC_TITLE || "HPI Schul-Cloud",
         short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
     };
+    res.locals.domain = process.env.SC_DOMAIN || false;
     delete req.session.notification;
     next();
 });
@@ -79,7 +80,7 @@ app.use(methodOverride((req, res, next) => { // for POST requests
 // Initialize the modules and their routes
 app.use(require('./controllers/'));
 
-app.get('/', (req,res,next) => {
+app.get('/', (req, res, next) => {
     res.redirect('/login/');
 });
 

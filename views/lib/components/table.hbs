@@ -45,7 +45,9 @@
                                     {{/each}}
                                 </td>
                             {{else}}
-                                {{#if this.useHTML}}
+                                {{#if this.payload}}
+                                    <td style="display: none" data-payload={{{json this.payload}}}></td>
+                                {{else if this.useHTML}}
                                     <td>{{{this.content}}}</td>
                                 {{else}}
                                     <td>{{this}}</td>

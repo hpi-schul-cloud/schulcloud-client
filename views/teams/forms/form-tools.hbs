@@ -1,0 +1,35 @@
+<div class="form-group">
+    <label for="name">Name (Pflichtfeld):</label>
+    <input  class="form-control" type="text" name="name" required="required" value="{{name}}" />
+</div>
+<div class="form-group">
+    <label for="logo_url">Logo (URL):</label>
+    <input class="form-control" type="text" name="logo_url" value="{{logo_url}}" />
+</div>
+<!-- <div class="form-group">
+    <label for="privacy_permission">Privatsphäre:</label>
+    <select class="form-control" required="required" name="privacy_permission" value="{{privacy_permission}}">
+        <option value="anonymous">Anonym</option>
+        <option value="e-mail">Nur E-Mail</option>
+        <option value="name">Nur Name</option>
+        <option value="public">Öffentlich</option>
+    </select>
+</div> -->
+<div class="form-group">
+    <label>Sonstige Einstellungen:</label>
+    <div class="custom-fields">
+    </div>
+    <div class="new-custom-field">
+        <input class="new-custom-field-key" type="text" placeholder="Key">
+        <input class="new-custom-field-value" type="text" placeholder="Value" >
+        <i class="fa fa-plus new-custom-field-add" ></i>
+    </div>
+</div>
+<!-- hidden fields -->
+<input type="hidden" name="key" value="{{key}}" />
+<input type="hidden" name="lti_message_type" value="{{lti_message_type}}" />
+<input type="hidden" name="lti_version" value="{{lti_version}}" />
+<input type="hidden" name="resource_link_id" value="{{resource_link_id}}" />
+<input type="hidden" name="url" value="{{url}}" />
+<input type="hidden" name="secret" value="{{secret}}" />
+<input type="hidden" name="courseId" value="{{courseId}}" data-force-value="true" />

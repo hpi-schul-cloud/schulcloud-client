@@ -1,0 +1,51 @@
+.section-teams {
+    .section-news .container-fluid {
+        padding: 0;
+    }    
+    > section {
+        margin-top: 3rem
+    }    
+    h4 {
+        margin-bottom: 1rem;
+    }
+    .lead:empty {
+        margin-bottom: 0
+    }
+    .section-upload {
+        margin-top: 1rem;
+    }
+    .files {
+        margin-bottom: 10px;
+    }
+    .btn {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.create-course-event, .create-team-event {
+    label {
+        margin-right: 0.5rem;
+    }
+    .toggle {
+        height: 2rem !important;
+        width: 7rem !important;
+        .toggle-handle {
+            width: 0.3rem !important;
+            background: whitesmoke !important;
+        }
+    }
+
+    .off {
+        background: grey !important;
+        label {
+            color: whitesmoke !important;
+            padding-left: 48px !important;
+        }
+    }
+
+    .on {
+        label {
+            padding-right: 48px !important;
+        }
+    }
+}
