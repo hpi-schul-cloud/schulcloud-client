@@ -23,30 +23,6 @@ EventTarget.prototype.addEventListener = function(events, callback, useCapture) 
     return this;
 };
 
-
-function getQueryParameterByName(name, url) {
-    if (!url) {
-        url = window.location.href;
-    }
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
-}
-
-function updateQueryStringParameter(uri, key, value) {
-    var re = new RegExp("([?&])" + key + "=[^&#]*", "i");
-    if (re.test(uri)) {
-        return uri.replace(re, '$1' + key + "=" + value);
-    } else {
-        var matchData = uri.match(/^([^#]*)(#.*)?$/);
-        var separator = /\?/.test(uri) ? "&" : "?";
-        return matchData[0] + separator + key + "=" + value + (matchData[1] || '');
-    }
-}
-
 function populateModal(modal, identifier, data) {
     const block = modal.find(identifier);
     block.html(data);
@@ -65,6 +41,10 @@ function populateModalForm(modal, data) {
 
     if (data.action) {
         $form.attr('action', data.action);
+    }
+
+    if (data.payload) {
+        $form.attr('data-payload', JSON.stringify(data.payload));
     }
 
     // fields
@@ -189,8 +169,8 @@ $(document).ready(function () {
             }, !1)
         }
     })(document, window.navigator, "standalone");
-    
-    
+
+
     // delete modals
     var $modals = $('.modal');
     var $deleteModal = $('.delete-modal');
@@ -254,12 +234,12 @@ $(document).ready(function () {
             trigger.classList.add("show");
         });
     };
-    
+
     // from: https://coderwall.com/p/i817wa/one-line-function-to-detect-mobile-devices-with-javascript
     function isMobileDevice() {
         return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
     };
-    
+
     $(".embed-pdf .single-pdf").click(e => {
         e.preventDefault();
         var elem = e.target;
@@ -277,7 +257,7 @@ $(document).ready(function () {
                     '<p>Ihr Browser kann das eingebettete PDF nicht anzeigen. Sie können es sich hier ansehen: <a href="'+pdf+'" target="_blank" rel="noopener">GEI-Broschuere-web.pdf</a>.</p>\n' +
                     '</iframe>\n' +
                     '</object>';
-    
+
                 var thisrow = $(elem).parents(".embed-pdf-row");
                 var page = $(elem).parents(".container.embed-pdf").parent();
                 if(thisrow.find(".viewer:visible").length>0) {
