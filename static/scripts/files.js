@@ -354,10 +354,16 @@ $(document).ready(function() {
     $('.file').mouseover(function (e) {
         let size = $(this).attr('data-file-size');
         let id = $(this).attr('data-file-id');
+
+        $('#' + id).html(writeFileSizePretty(size));
+        $(this).find('.file-name-edit').css('display', 'inline');
     });
 
     $('.file').mouseout(function (e) {
         let id = $(this).attr('data-file-id');
+
+        $('#' + id).html('');
+        $(this).find('.file-name-edit').css('display', 'none');
     });
 
     const populateRenameModal = function(oldName, action, title) {
@@ -821,3 +827,4 @@ function writeFileSizePretty(filesize) {
     }
     return (filesize + unit);
 }
+
