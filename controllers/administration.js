@@ -2120,7 +2120,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 			status === 'success' ? 'Aktiv' : status === 'error' ? 'Fehler beim Abrufen' : 'In der Warteschlange',
 			[{
 				link: `/administration/rss/${_id}`,
-				class: 'btn-delete btn-delete--rss',
+				class: 'btn-delete--rss',
 				icon: 'trash-o',
 				method: 'delete',
 				title: 'Eintrag löschen',
