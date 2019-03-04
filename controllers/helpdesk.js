@@ -29,7 +29,7 @@ router.post('/', function (req, res, next) {
             userId: res.locals.currentUser._id,
             email: req.body.email,
             schoolId: res.locals.currentSchoolData._id,
-            cloud: res.locals.theme.title
+            cloud: res.locals.theme.title,
         }
     })
     .then(_ => {

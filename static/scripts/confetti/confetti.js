@@ -1,6 +1,7 @@
 if(!window.confetti){
     window.confetti = (event)=>{
         const confettiWrapper = document.querySelector(".confetti-wrapper");
+        if(!confettiWrapper){return false;}
         const confettiBase = document.createElement('div');
         for(let i = 0; i<Math.min(Math.ceil(Math.sqrt(confettiWrapper.offsetWidth * confettiWrapper.offsetHeight) / 8), 120); i++){
             const confetti = confettiBase.cloneNode();

@@ -1,14 +1,5 @@
 @import '../lib/colors';
 
-.teacher-option {
-  h4 {
-    padding-top: 20px;
-    color: $primaryColor
-  }
-  text-align: center;
-  cursor: pointer;
-}
-
 #preview-logo {
   display: inline-block;
 }
@@ -23,6 +14,10 @@
 
 #logo-filename{
   margin-left: .5rem;
+}
+
+.collapsePanel {
+  display: none;
 }
 
 label {
