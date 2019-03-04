@@ -11,6 +11,7 @@ const moment = require('moment');
 const multer = require('multer');
 const StringDecoder = require('string_decoder').StringDecoder;
 const _ = require('lodash');
+const logger = require('winston')
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
