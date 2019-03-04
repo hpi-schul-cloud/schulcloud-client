@@ -1,4 +1,3 @@
----
 language: node_js
 node_js: '8'
 sudo: required
@@ -6,11 +5,11 @@ services:
 - docker
 env:
   global:
-    - GIT_SHA=$( git rev-parse HEAD )
-    - SC_DEMO_USER_PASSWORD=schulcloud
-    - BACKEND_URL=https://api.schul-cloud.org
-    - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
-    - FEATURE_TEAMS_ENABLED=true
+  - GIT_SHA=$( git rev-parse HEAD )
+  - SC_DEMO_USER_PASSWORD=schulcloud
+  - BACKEND_URL=https://api.schul-cloud.org
+  - PUBLIC_BACKEND_URL=https://api.schul-cloud.org
+  - FEATURE_TEAMS_ENABLED=true
 addons:
   chrome: stable
   firefox: latest
@@ -41,14 +40,11 @@ script:
 cache:
   directories:
   - node_modules
-
 after_success:
-  # because Skipping a deployment with the script provider because the current build is a pull request.
-  - bash ./deploy.sh
-
+- bash ./deploy.sh
 deploy:
   provider: script
   script: bash ./deploy.sh
   on:
-   all_branches: true
-   condition: $TRAVIS_BRANCH =~ ^development|N21/merge$
+    all_branches: true
+    condition: "$TRAVIS_BRANCH =~ ^development|N21/merge$"
