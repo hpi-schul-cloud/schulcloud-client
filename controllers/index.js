@@ -19,6 +19,10 @@ router.use('/courses/', require('./courses'));
 router.use('/courses/:courseId/topics/', require('./topics'));
 router.use('/courses/:courseId/tools/', require('./tools'));
 router.use('/courses/:courseId/groups/', require('./coursegroups'));
+router.use('/teams/', require('./teams'));
+router.use('/teams/:targetId/news', require('./news'));
+router.use('/teams/:teamId/topics/', require('./topics'));
+router.use('/teams/:teamId/tools/', require('./tools'));
 router.use('/dashboard/', require('./dashboard'));
 router.use('/files/', require('./files'));
 router.use('/homework/', require('./homework'));
@@ -37,6 +41,10 @@ router.use('/my-material', require('./my-material'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
 router.use('/welcome', require('./welcome'));
+router.use('/schools/', require('./schools'));
+router.use('/users/', require('./users'));
+router.use('/rocketChat/', require('./rocketChat'));
+
 
 router.use('/administration/', require('./administration'));
 
