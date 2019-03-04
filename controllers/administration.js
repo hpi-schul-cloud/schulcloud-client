@@ -2040,17 +2040,22 @@ router.get('/rss/:id', async (req, res) => {
 })
 
 router.post('/rss/', async (req, res) => {
-	winston.info('START RSS:');
+	logger.info('START RSS:');
+	console.log('START RSS:');
 	logger.info('req.body.schoolId :', req.body.schoolId);
+	console.log('req.body.schoolId :', req.body.schoolId);
 	const school = await api(req).get('/schools/' + req.body.schoolId);
 
 	logger.info('school.rssFeeds :', school.rssFeeds);
+	console.log('school.rssFeeds :', school.rssFeeds);
 	if (school.rssFeeds.find(el => el.url === req.body.rssURL)) {
 		return res.redirect('/administration/school');
 	}
 
 	logger.info('req.body.rssURL :', req.body.rssURL);
+	console.log('req.body.rssURL :', req.body.rssURL);
 	logger.info('req.body.description :', req.body.description);
+	console.log('req.body.description :', req.body.description);
 	await api(req).patch('/schools/' + req.body.schoolId, {
 		json: {
 			$push: {
