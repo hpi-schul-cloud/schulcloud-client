@@ -16,6 +16,32 @@
 
     <div class="section-partner">
         <h4>Pilotschulen</h4>
+        <p>Best Practice: Auf dem Digitalgipfel 2019 in Nürnberg konnten alle Beteiligten digitalgestützen Unterricht mit der HPI Schul-Cloud live miterleben.</p>
+        <video-player
+            configuration='{
+                "streams" : [
+                    {
+                    "hd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hd/video.mp4",
+                    "sd" : "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/sd/video.mp4",
+                    "poster": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/thumbnails/video-00-34-40.png",
+                    "hls": "https://www10-fms.hpi.uni-potsdam.de/vod/media/WS_2018/DG_2018/DG_2017_12_03/hls/video.m3u8"
+                    }
+                ],
+                "language": "de",
+                "theme" : "dark-red",
+                "loadFontAwesome" : false,
+                "videoAlignment" : "height",
+                "initialState": {
+                    "volume": 0.75,
+                    "quality" : "hls",
+                    "playbackRate" : 1.0
+                },
+                "videoPreload": false,
+                "userPreferences" : {
+                },
+                "slides": []
+            }'>
+        </video-player>
         <h5>Best Practice Schulen</h5>
         <div class="container">
             <div class="row">
@@ -29,6 +55,23 @@
                         </div>
                     </div>
                 {{/each}}
+                <div class="col-xs-12">
+                    <div id="hiddenBPSchools" class="collapse row">
+                        {{#each hiddenBPSchools}}
+                            <div class="partner-box-wrapper col-xs-6 col-md-3">
+                                <div class="partner-box">
+                                    <a href="{{{url}}}" target="_blank">
+                                        <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                    </a>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="buttonWrapper">
+                    <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenBPSchools">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                </div>
             </div>
         </div>
 
@@ -45,10 +88,26 @@
                     </div>
                 </div>
             {{/each}}
+            <div class="col-xs-12">
+                <div id="hiddenSchoolsMarch2017" class="collapse row">
+                    {{#each hiddenSchoolsMarch2017}}
+                        <div class="partner-box-wrapper col-xs-6 col-md-3">
+                            <div class="partner-box">
+                                <a href="{{{url}}}" target="_blank">
+                                    <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                        {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                </a>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="buttonWrapper">
+                <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsMarch2017">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+            </div>
         </div>
-    </div>
-        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start Mai 2018)</span></h5>
 
+        <h5>Pilotschulen <span class="text-muted" style="font-size: 12px;">(Start Mai 2018)</span></h5>
         <div class="container">
             <div class="row">
                 {{#each schools.mai2018}}
@@ -61,6 +120,23 @@
                         </div>
                     </div>
                 {{/each}}
+                <div class="col-xs-12">
+                    <div id="hiddenSchoolsMai2018" class="collapse row">
+                        {{#each hiddenSchoolsMai2018}}
+                            <div class="partner-box-wrapper col-xs-6 col-md-3">
+                                <div class="partner-box">
+                                    <a href="{{{url}}}" target="_blank">
+                                        <img src="{{{logo}}}" alt="Logo {{{name}}}" class="img-fluid"
+                                            {{#if padding}} style="padding: {{{padding}}};" {{/if}}>
+                                    </a>
+                                </div>
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="buttonWrapper">
+                    <div class="btn toggle-partner" class="btn btn-info collapsed" data-toggle="collapse" data-target="#hiddenSchoolsMai2018">mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i></div>
+                </div>
             </div>
         </div>
     </div>
@@ -153,10 +229,27 @@
     </ul>
     <br/>
     <h4>Unsere Auszeichnungen</h4>
-    <p>Ernennung zum <a
-            href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html"
-            target="_blank">„Ausgezeichneten Ort“</a> im bundesweiten Wettbewerb <a href="https://land-der-ideen.de"
-                                                                                    target="_blank">„Land der Ideen“</a>.
-    </p>
+    <div class="container embed-award">
+        <div class="row">
+            <div class="single-award col-xs-12 col-md-3">
+                <div class="single-award-wrapper">
+                    <a href="https://www.innovationspreis.de/preisträger-und-finalisten/preisträger/2018/" target="_blank">
+                        <b class="single-award-title">Preisträger im "Innovationspreis Berlin Brandenburg 2018"</b>
+                        <br/>
+                        <img class="single-award-thumbnail" src="/images/awards/Innovationspreisträger-180208.jpg" />
+                    </a>
+                </div>
+            </div>
+            <div class="single-award col-xs-12 col-md-3">
+                <div class="single-award-wrapper">
+                    <a href="https://hpi.de/pressemitteilungen/2017/schul-cloud-als-ausgezeichneter-ort-2017-praemiert.html" target="_blank">
+                        <b class="single-award-title">Ernennung zum „Ausgezeichneten Ort“ im bundesweiten Wettbewerb „Land der Ideen“</b>
+                        <br/>
+                        <img class="single-award-thumbnail" src="/images/awards/Land-der-Ideen-2017.jpg" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </section>

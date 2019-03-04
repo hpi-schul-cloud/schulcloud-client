@@ -11,6 +11,18 @@ const permissionHelper = require('../helpers/permissions');
 const handlebars = require("handlebars");
 const moment = require("moment");
 const _ = require("lodash");
+const winston = require('winston');
+
+const logger = winston.createLogger({
+    transports: [
+        new winston.transports.Console({
+            format: winston.format.combine(
+                winston.format.colorize(),
+                winston.format.simple()
+            )
+        })
+    ]
+});
 
 handlebars.registerHelper('ifvalue', function(conditional, options) {
     if (options.hash.value === conditional) {
@@ -577,47 +589,54 @@ router.get('/new', function(req, res, next) {
             { substitutionIds: res.locals.currentUser._id }
         ]
     });
-    Promise.resolve(coursesPromise).then(courses => {
-        courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
-        const lessonsPromise = getSelectOptions(req, 'lessons', {
-            courseId: req.query.course
-        });
-        Promise.resolve(lessonsPromise).then(lessons => {
-            (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
-            // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
-            const userPromise = getSelectOptions(req, 'users', {
-                _id: res.locals.currentUser._id,
-                $populate: ['roles']
+    Promise.resolve(coursesPromise).then(async (courses) => {
+        courses = courses.sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+        let lessons = []
+        if(req.query.course){
+            lessonsPromise = getSelectOptions(req, 'lessons', {
+                courseId: req.query.course
             });
-            Promise.resolve(userPromise).then(user => {
-                const roles = user[0].roles.map(role => {
-                    return role.name;
-                });
-                let isStudent = true;
-                if (roles.indexOf('student') == -1) {
-                    isStudent = false;
-                }
+            try{
+                lessons = await lessonsPromise;
+            }catch(error){
+                // TODO log error
+                logger.error('Error getting lessons', error);
+            }
+            lessons = (lessons || []).sort((a,b)=>{return (a.name.toUpperCase() < b.name.toUpperCase())?-1:1;});
+        }
+        // ist der aktuelle Benutzer ein Schueler? -> Für Modal benötigt
+        const userPromise = getSelectOptions(req, 'users', {
+            _id: res.locals.currentUser._id,
+            $populate: ['roles']
+        });
+        Promise.resolve(userPromise).then(user => {
+            const roles = user[0].roles.map(role => {
+                return role.name;
+            });
+            let isStudent = true;
+            if (roles.indexOf('student') == -1) {
+                isStudent = false;
+            }
 
-                let assignment = { "private": (req.query.private == 'true') };
-                if (req.query.course) {
-                    assignment["courseId"] = { "_id": req.query.course };
-                }
-                if (req.query.topic) {
-                    assignment["lessonId"] = req.query.topic;
-                }
-                //Render overview
-                res.render('homework/edit', {
-                    title: 'Aufgabe hinzufügen',
-                    submitLabel: 'Hinzufügen',
-                    closeLabel: 'Abbrechen',
-                    method: 'post',
-                    action: '/homework/',
-                    referrer: req.header('Referer'),
-                    assignment,
-                    courses,
-                    lessons: (req.query.course) ? lessons : false,
-                    isStudent
-                });
+            let assignment = { "private": (req.query.private == 'true') };
+            if (req.query.course) {
+                assignment["courseId"] = { "_id": req.query.course };
+            }
+            if (req.query.topic) {
+                assignment["lessonId"] = req.query.topic;
+            }
+            //Render overview
+            res.render('homework/edit', {
+                title: 'Aufgabe hinzufügen',
+                submitLabel: 'Hinzufügen',
+                closeLabel: 'Abbrechen',
+                method: 'post',
+                action: '/homework/',
+                referrer: req.header('Referer'),
+                assignment,
+                courses,
+                lessons: lessons.length ? lessons : false,
+                isStudent
             });
         });
     });

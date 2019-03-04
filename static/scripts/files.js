@@ -45,6 +45,8 @@ $(document).ready(function() {
         return fullPath.split("/").slice(0, -1).join('/');
     }
 
+    /** temp save for createdDirs, reset after reload **/
+    let createdDirs = [];
 
     /** loads dropzone, if it exists on current page **/
     let progressBarActive = false;
@@ -56,14 +58,36 @@ $(document).ready(function() {
 
             let currentDir = getCurrentDir();
 
+            // folder support
+			if (file.fullPath) {
+				let fullPath = file.fullPath.split('/');
+				fullPath.pop(); // removes fileName from array
+
+				if (fullPath.length >= 1) {
+					for (let i = 0; i < fullPath.length; i++) {
+						// check whether directory was already created if so skip
+						if (!createdDirs.includes(`${currentDir}${fullPath[i]}`)) {
+							$.post('/files/directory', {
+								dir: currentDir,
+								name: fullPath[i]
+							});
+
+							createdDirs.push(`${currentDir}${fullPath[i]}`);
+						}
+
+						currentDir += `${fullPath[i]}/`;
+					}
+				}
+			}
+
             $.post('/files/file', {
-                path: currentDir + file.name,
+                path: `${currentDir}${file.name}`,
                 type: file.type
             }, function (data) {
                 file.signedUrl = data.signedUrl;
                 done();
             })
-                .fail(showAJAXError);
+                .fail((err) => { this.removeFile(file); showAJAXError(err.responseJSON.error.code, err.responseJSON.error.message, `${err.responseJSON.error.name} - ${err.responseJSON.error.message}`); });
         },
         createImageThumbnails: false,
         method: 'put',
@@ -321,8 +345,8 @@ $(document).ready(function() {
         let path = $(this).attr('data-file-path');
 
         populateRenameModal(
-            oldName, 
-            path, 
+            oldName,
+            path,
             '/files/fileModel/' + fileId +  '/rename',
             'Datei umbenennen');
     });
@@ -369,8 +393,8 @@ $(document).ready(function() {
         let path = $(this).attr('data-directory-path');
 
         populateRenameModal(
-            oldName, 
-            path, 
+            oldName,
+            path,
             '/files/directoryModel/' + dirId +  '/rename',
             'Ordner umbenennen');
     });
@@ -656,7 +680,7 @@ window.fileViewer = function fileViewer(type, key, name, id) {
 
 /**
  * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
- * @deprecated 
+ * @deprecated
 **/
 function openInIframe(source){
     $("input.box").each(function() {
