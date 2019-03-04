@@ -1,6 +1,8 @@
-$(document).ready(function() {
+
+
+function connectConfirmPassword(){
     var password = document.getElementById("password")
-        , confirm_password = document.getElementById("password_control");
+    , confirm_password = document.getElementById("password_control");
 
     function validatePassword(){
         if(password.value != confirm_password.value) {
@@ -10,6 +12,12 @@ $(document).ready(function() {
         }
     }
 
-    password.onchange = validatePassword;
-    confirm_password.onkeyup = validatePassword;
-});
+    if(password && confirm_password){
+        ["change", "keyup"].forEach(event => {
+            password.addEventListener(event, validatePassword);
+            confirm_password.addEventListener(event, validatePassword);
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", connectConfirmPassword);

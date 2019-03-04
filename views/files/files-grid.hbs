@@ -1,12 +1,12 @@
 <section class="files">
     <div class="row">
         {{#each files}}
-            <div class="col-sm-12 col-xs-12 col-md-12">
+            <div class="col-sm-12">
                 <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.key}}', '{{this.name}}', '{{this._id}}');">
+                                     fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
                                 <div class="file-preview-wrapper col-sm-1 no-padding">
                                     <div class="file-preview"
@@ -17,9 +17,8 @@
                                 </a>
                             </div>
                             <div class="card-text">
-                                <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
-
-                                <a href="/files/file?download=1&file={{this.file}}"
+                              <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
+                              <a href="/files/file?download&file={{this._id}}&name={{this.storageFileName}}"
                                    target="_blank"
                                    data-method="download"
                                    title="Datei herunterladen">
@@ -38,20 +37,20 @@
                                    target="_blank"
                                    data-method="delete"
                                    title="Datei löschen"
-                                   data-file-key="{{../this.key}}"
-                                   data-file-name="{{../this.name}}"
+                                   data-file-id="{{../this._id}}"
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                                 {{/userHasPermission}}
 
-                                <a href="#"
-                                   class="btn-file-share"
-                                   title="Datei teilen"
-                                   data-file-id="{{../this._id}}"
-                                   data-file-name="{{../this.name}}"
-                                   id="{{@index}}">
-                                    <i class="fa fa-share-alt"></i>
-                                </a>
+                                {{#if ../../canEditPermissions}}
+                                    <a href="#"
+                                    class="btn-file-share"
+                                    title="Datei teilen"
+                                    data-file-id="{{../this._id}}"
+                                    data-file-name="{{../this.name}}"
+                                    id="{{@index}}">
+                                        <i class="fa fa-share-alt"></i>
+                                    </a>
 
                                     <div class="popup-overlay" id="{{@index}}">
 
@@ -61,6 +60,7 @@
                                             <a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
                                         </div>
                                     </div>
+                                {{/if}}
 
                                 {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"
@@ -83,7 +83,7 @@
                                        data-file-can-edit="{{this.studentCanEdit}}">
                                         <span class="fa-stack fa-1x">
                                           <i class="fa fa-user fa-stack-1x" id="{{@index}}"></i>
-                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#unless this.studentCanEdit}}hidden{{/unless}}></i>
+                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#if this.studentCanEdit}}hidden{{/if}}></i>
                                         </span>
                                     </a>
                                 {{/if}}
@@ -128,7 +128,7 @@
 
 {{#embed "lib/components/modal-form" class="share-modal"}}
     {{#content "fields"}}
-        {{> "files/forms/form-share-file"}}
+        {{> "files/forms/form-share-file" teamFiles=teamFiles}}
     {{/content}}
 {{/embed}}
 
