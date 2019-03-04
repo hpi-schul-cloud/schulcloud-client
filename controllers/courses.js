@@ -93,13 +93,13 @@ const editCourseHandler = (req, res, next) => {
 
     const classesPromise = api(req).get('/classes', {
         qs: {
-            $or: [{ "schoolId": res.locals.currentSchool }],
+            schoolId: res.locals.currentSchool,
             $populate: ["year"],
             $limit: 1000
         }
     }).then(data => data.data);
-    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: 1000 });
-    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: 1000 });
+    const teachersPromise = getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false });
+    const studentsPromise = getSelectOptions(req, 'users', { roles: ['student', 'demoStudent'], $limit: false });
 
     Promise.all([
         coursePromise,
@@ -379,14 +379,6 @@ router.get('/:courseId/usersJson', function (req, res, next) {
     ]).then(([course]) => res.json({ course }));
 });
 
-// EDITOR
-router.get('/:courseId', function (req, res, next) {
-    if (req.query.edtr) {
-        return res.render('courses/course-edtr')
-    }
-    next()
-})
-
 router.get('/:courseId', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
@@ -536,7 +528,7 @@ router.get('/:courseId/addStudent', function (req, res, next) {
     }
 
     // check if student is already in course
-    api(req).get('/courses/' + req.params.courseId).then(course => {
+    api(req).get(`/courses/${req.params.courseId}?link=${req.query.shortId}`).then(course => {
         if (_.includes(course.userIds, currentUser._id)) {
             req.session.notification = {
                 type: 'danger',
@@ -548,8 +540,8 @@ router.get('/:courseId/addStudent', function (req, res, next) {
 
         // add Student to course
         course.userIds.push(currentUser._id);
-        api(req).patch("/courses/" + course._id, {
-            json: course
+        api(req).patch(`/courses/${course._id}?link=${req.query.shortId}`, {
+            json: course,
         }).then(_ => {
             req.session.notification = {
                 type: 'success',

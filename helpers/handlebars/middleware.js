@@ -47,18 +47,6 @@ module.exports = (req, res, next) => {
         introNumber: 13,
         introText: "Hier gelangst du zu deinen Kursen, die du einsehen, verwalten und neu anlegen kannst."
     }, {
-        name: 'Teams',
-        icon: 'users',
-        link: '/teams/',
-        introNumber: 13,
-        introText: "Hier gelangst du zu deinen Teams, die du einsehen, verwalten und neu anlegen kannst."
-    }, {
-        name: 'Termine',
-        icon: 'table',
-        link: '/calendar/',
-        introNumber: 14,
-        introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
-    }, {
         name: 'Aufgaben',
         icon: 'tasks',
         link: '/homework/',
@@ -97,11 +85,6 @@ module.exports = (req, res, next) => {
                 link: '/files/courses/'
             },
             {
-                name: 'Teams',
-                icon: 'folder-open-o',
-                link: '/files/teams/'
-            },
-            {
                 name: 'geteilte Dateien',
                 icon: 'folder-open-o',
                 link: '/files/shared/'
@@ -122,7 +105,7 @@ module.exports = (req, res, next) => {
         introNumber: 14,
         introText: "Hier hast du Einsicht in deinen persönlichen Kalender. In diesem sind bisher deine Unterrichtsstunden verfügbar, sowie Termine, die zusätzlich anfallen, wie z.B. AGs oder Fachkonferenzen."
     }, {
-        name: 'LernStore',
+        name: 'Lern-Store',
         icon: 'search',
         link: '/content/',
         introNumber: 17,
@@ -191,11 +174,6 @@ module.exports = (req, res, next) => {
                 link: '/administration/classes/'
             },
             {
-                name: 'Teams',
-                icon: 'users',
-                link: '/administration/teams/'
-            },
-            {
                 name: 'Schule',
                 icon: 'building',
                 link: '/administration/school/'
@@ -210,6 +188,30 @@ module.exports = (req, res, next) => {
         link: '/my-material/',
         permission: 'BETA_FEATURES'
     });
+
+    // team feature toggle
+    const teamsEnabled = process.env.FEATURE_TEAMS_ENABLED === 'true';
+    if (teamsEnabled) {
+        res.locals.sidebarItems.splice(2, 0, {
+            name: 'Teams',
+            icon: 'users',
+            link: '/teams/',
+            introNumber: 13,
+            introText: 'Hier gelangst du zu deinen Teams, die du einsehen, verwalten und neu anlegen kannst.',
+        });
+        res.locals.sidebarItems.find(i => i.name === 'Meine Dateien').children.splice(2, 0, {
+            name: 'Teams',
+            icon: 'folder-open-o',
+            link: '/files/teams/',
+        });
+        /*
+        res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
+            name: 'Teams',
+            icon: 'users',
+            link: '/administration/teams/',
+        });
+        */
+    }
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
 

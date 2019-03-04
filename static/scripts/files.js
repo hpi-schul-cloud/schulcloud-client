@@ -5,20 +5,20 @@ const getDataValue = function(attr) {
     };
 };
 
-window.openFolder = function(id) {
-    let href = location.href.split('#').shift();
-    const reg = new RegExp('^https?:\/\/.*?\/files\/(?:teams|courses)\/(?:.+?)\/(.+)$');
+window.openFolder = function (id) {
+	let pathname = location.pathname;
+	const reg = new RegExp('/files/(?:teams|courses)/(?:.+?)/(.+)');
+	let target;
 
-    if(reg.test(href)) {
-        href = href.replace(reg, function(m, g){
-            return m.replace(g, id);
-        });
-    }
-    else {
-        href = href + (href.split('').pop() !== '/' ? '/' : '') + id;
-    }
+	if (reg.test(pathname)) {
+		target = pathname.replace(reg, function(m, g){
+			return m.replace(g, id);
+		});
+	} else {
+		target = pathname + (pathname.split('').pop() !== '/' ? '/' : '') + id;
+	}
 
-    return href;
+	return target + location.search || '';
 };
 
 const getOwnerId = getDataValue('owner');
@@ -261,13 +261,14 @@ $(document).ready(function() {
     });
 
     $('.card.file').on('click', function () {
-        if (isCKEditor) returnFileUrl($(this).data('file-name'));
+        if (isCKEditor) returnFileUrl($(this).data('file-id'), $(this).data('file-name'));
     });
 
     $('.card.file .title').on('click', function (e) {
         if (isCKEditor) {
             e.preventDefault();
-            returnFileUrl($(this).closest('.card.file').data('file-name'));
+            const $card = $(this).closest('.card.file');
+            returnFileUrl($card.data('file-id'), $card.data('file-name'));
         }
     });
 
@@ -339,8 +340,8 @@ $(document).ready(function() {
 
     });
 
-    let returnFileUrl = (fileName) => {
-        let fullUrl = '/files/file?path=' + getCurrentDir() + fileName;
+    let returnFileUrl = (fileId,fileName) => {
+        let fullUrl = '/files/file?file=' + fileId +'&name=' + fileName;
         let funcNum = getQueryParameterByName('CKEditorFuncNum');
         window.opener.CKEDITOR.tools.callFunction(funcNum, fullUrl);
         window.close();
@@ -397,11 +398,11 @@ $(document).ready(function() {
         $('.btn-student-allow').hide();
 
     $('.btn-student-allow').click(function (e) {
+		const $button = $(this);
         e.stopPropagation();
         e.preventDefault();
-        let fileId = $(this).attr('data-file-id');
-        let bool = $(this).attr('data-file-can-edit') || false;
-        bool = bool == 'true';
+		let fileId = $button.attr('data-file-id');
+        let bool = $button.data('file-can-edit');
 
         $.ajax({
             type: "POST",
@@ -412,6 +413,7 @@ $(document).ready(function() {
             },
             success: function (data) {
                 if (data.success) {
+					$button.data('file-can-edit', !bool);
                     let id = e.target.id;
                     if (!id.includes('ban'))
                         id = `ban-${id}`;
@@ -524,7 +526,7 @@ $(document).ready(function() {
         .then(function ([file, data]) {
             const isAllowed = function(file, role) {
                 const permission = file.permissions.find(p => p.roleName === role);
-                return Object.keys(permission).every(p => permission[p]);
+                return permission && Object.keys(permission).every(p => permission[p]);
             };
 
             populateModalForm($shareModal, {
@@ -749,7 +751,7 @@ window.fileViewer = function fileViewer(type, name, id) {
         case 'application/vnd.oasis.opendocument.presentation':	                            //.odp
         case 'text/plain':                                                                  //.txt
             $('#file-view').hide();
-            win = window.open(`/files/file/${id}/lool`, '_blank');
+            win = window.open(`/files/file/${id}/lool`, '_self');
             win.focus();
 
             break;

@@ -153,24 +153,35 @@ const getStorageContext = (req, res) => {
  * fetches all files and directories for a given storageContext
  */
 const FileGetter = (req, res, next) => {
-    const owner = getStorageContext(req, res);
-    const { params: { folderId: parent } } = req;
+	const owner = getStorageContext(req, res);
+	const { params: { folderId: parent } } = req;
+	const promises = [
+		api(req).get('/roles', { qs: { name: 'student' } }),
+		api(req).get('/fileStorage', {
+			qs: { owner, parent },
+		}),
+	];
 
-    return api(req).get('/fileStorage', {
-        qs: { owner, parent },
-    }).then(files => {
+	return Promise.all(promises)
+		.then(([role, files]) => {
+			const { data: [{ _id: studentRoleId },] } = role;
 
-        files = files.filter(f => f);
+			files = files.filter(f => f).map((file) => {
+				const studentPerm = file.permissions.find(perm => perm.refId.toString() === studentRoleId);
+				if (studentPerm) {
+					file.studentCanEdit = studentPerm.write;
+				}
+				return file;
+			});
 
-        res.locals.files = {
-            files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
-            directories: files.filter(f => f.isDirectory)
-        };
-
-        next();
-    }).catch(err => {
-        next(err);
-    });
+			res.locals.files = {
+				files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				directories: files.filter(f => f.isDirectory),
+			};
+			next();
+		}).catch((err) => {
+			next(err);
+		});
 };
 
 /**
@@ -475,7 +486,7 @@ router.post('/directory', function (req, res, next) {
 // delete directory
 router.delete('/directory', function (req, res) {
     const data = {
-        path: req.body.key
+        _id: req.body.id
     };
 
     api(req).delete('/fileStorage/directories/', {
@@ -520,7 +531,8 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
-        parentId: req.params.folderId
+		parentId: req.params.folderId,
+		canEditPermissions: true,
     }, res.locals.files));
 });
 
@@ -590,7 +602,7 @@ router.get('/', function (req, res, next) {
     */
         res.render('files/files-overview', Object.assign({
             title: 'Meine Dateien',
-            showSearch: true
+            showSearch: true,
             //counter: {myFiles: myFiles.length, courseFiles: courseFiles.length, sharedFiles: sharedFiles.length}
         }));
 
@@ -624,7 +636,7 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
     let canCreateFile = true;
 
     let breadcrumbs = [{
-        label: 'Dateien aus meinen Teams',
+        label: 'Dateien aus meinen Kursen',
         url: basePath
         }, {
         label: record.name,
@@ -655,7 +667,8 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
         courseId: req.params.courseId,
         ownerId: req.params.courseId,
         toCourseText: 'Zum Kurs',
-        courseUrl: `/courses/${req.params.courseId}/`,
+		courseUrl: `/courses/${req.params.courseId}/`,
+		canEditPermissions: true,
         parentId: req.params.folderId
     }, res.locals.files));
 });
@@ -969,14 +982,13 @@ router.post('/directoryModel/:id/rename', function(req, res, next) {
 });
 
 router.post('/studentCanEdit', function(req, res, next) {
-   api(req).patch(`/files/${req.body.id}`, {
-       json: {
-           studentCanEdit: req.body.bool
-       }
-   })
-       .then(_ => {
-           res.json({success: true});
-       });
+    api(req).patch(`/fileStorage/permission/${req.body.id}`, {
+        json: {
+			role: 'student',
+			write: req.body.bool
+        }
+    })
+    .then(() => res.json({success: true}));
 });
 
 

@@ -20,14 +20,16 @@ const isJWT = (req) => {
 };
 
 const isAuthenticated = (req) => {
-    if(!isJWT(req)) {
+    if (!isJWT(req)) {
         return Promise.resolve(false);
     }
 
-    return api(req).post('/authentication', {json: {
-        strategy: 'jwt',
-        accessToken: req.cookies.jwt
-    }}).then(_ => {
+    return api(req).post('/authentication', {
+        json: {
+            strategy: 'jwt',
+            accessToken: req.cookies.jwt
+        }
+    }).then(_ => {
         return true;
     }).catch(_ => {
         return false;
@@ -37,7 +39,7 @@ const isAuthenticated = (req) => {
 const authChecker = (req, res, next) => {
     isAuthenticated(req)
         .then(isAuthenticated => {
-            if(isAuthenticated) {
+            if (isAuthenticated) {
 
                 // fetch user profile
                 populateCurrentUser(req, res)
@@ -67,8 +69,8 @@ const authChecker = (req, res, next) => {
 
 const populateCurrentUser = (req, res) => {
     let payload = {};
-    if(isJWT(req)) {
-        payload = (jwt.decode(req.cookies.jwt, {complete: true}) || {}).payload;
+    if (isJWT(req)) {
+        payload = (jwt.decode(req.cookies.jwt, { complete: true }) || {}).payload;
         res.locals.currentPayload = payload;
     }
 
@@ -83,16 +85,21 @@ const populateCurrentUser = (req, res) => {
         }
     }
 
-    if(payload.userId) {
-        return api(req).get('/users/' + payload.userId,{ qs: {
-            $populate: ['roles']
-        }}).then(data => {
+    if (payload.userId) {
+        return api(req).get('/users/' + payload.userId, {
+            qs: {
+                $populate: ['roles']
+            }
+        }).then(data => {
             res.locals.currentUser = data;
             setTestGroup(res.locals.currentUser);
             res.locals.currentRole = rolesDisplayName[data.roles[0].name];
-            return api(req).get('/schools/' + res.locals.currentUser.schoolId, { qs: {
-                $populate: ['federalState']
-            }}).then(data => {
+            res.locals.roleNames = data.roles.map(r => rolesDisplayName[r.name]);
+            return api(req).get('/schools/' + res.locals.currentUser.schoolId, {
+                qs: {
+                    $populate: ['federalState']
+                }
+            }).then(data => {
                 res.locals.currentSchool = res.locals.currentUser.schoolId;
                 res.locals.currentSchoolData = data;
                 res.locals.currentSchoolData.isExpertSchool = data.purpose === 'expert';
@@ -118,8 +125,8 @@ const checkConsent = (req, res) => {
 
 const restrictSidebar = (req, res) => {
     res.locals.sidebarItems = res.locals.sidebarItems.filter(item => {
-        if(!item.permission) return true;
-        
+        if (!item.permission) return true;
+
         let hasRequiredPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.permission);
         let hasExcludedPermission = permissionsHelper.userHasPermission(res.locals.currentUser, item.excludedPermission)
         return hasRequiredPermission && !hasExcludedPermission;
@@ -127,11 +134,19 @@ const restrictSidebar = (req, res) => {
     });
 };
 
+const cookieDomain = (res) => {
+    if (res.locals.domain) {
+        return { domain: res.locals.domain };
+    } else {
+        return {};
+    }
+}
 
 module.exports = {
     isJWT,
     authChecker,
     isAuthenticated,
     restrictSidebar,
-    populateCurrentUser
+    populateCurrentUser,
+    cookieDomain
 };

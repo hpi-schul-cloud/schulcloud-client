@@ -18,6 +18,8 @@ services:
       - NODE_ENV=production
       - CALENDAR_SERVICE_ENABLED=true
       - TZ=Europe/Berlin
+      # FEATURE TOGGLES
+      - FEATURE_TEAMS_ENABLED=true
       # Theme and Titles
       - SC_THEME=default
       - SC_TITLE=HPI Schul-Cloud
