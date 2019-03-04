@@ -1,29 +1,33 @@
 <section class="files">
     <div class="row">
         {{#each files}}
-            <div class="col-sm-6 col-xs-12 col-md-4">
+            <div class="col-lg-6 col-xl-4">
                 <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
                     <div class="openFile">
                         <div class="card-block"
                              onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.key}}', '{{this.name}}', '{{this._id}}');">
+                                     fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
-                                <div class="col-sm-3 no-padding">
-                                    <div class="file-preview"
-                                         style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <div class="file-preview"
+                                            style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
+                                    </div>
+                                    <div class="col-xs-9">
+                                        <a class="title">
+                                            {{this.name}}
+                                        </a>
+                                        <i data-file-id="{{this._id}}"
+                                            data-file-name="{{this.name}}"
+                                            data-file-path="{{this.path}}"
+                                            class="fa fa-edit file-name-edit">
+                                        </i>
+                                    </div>
                                 </div>
-                                <a class="title">
-                                    {{this.name}}
-                                </a>
-                                <i data-file-id="{{this._id}}"
-                                    data-file-name="{{this.name}}" 
-                                    data-file-path="{{this.path}}"
-                                    class="fa fa-edit file-name-edit">
-                                </i>
                             </div>
                             <div class="card-text">
                                 <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
-                                <a href="/files/file?download=1&file={{this.file}}"
+                                <a href="/files/file?download&file={{this._id}}&name={{this.storageFileName}}"
                                    target="_blank"
                                    data-method="download"
                                    title="Datei herunterladen">
@@ -36,20 +40,20 @@
                                    target="_blank"
                                    data-method="delete"
                                    title="Datei löschen"
-                                   data-file-key="{{../this.key}}"
-                                   data-file-name="{{../this.name}}"
+                                   data-file-id="{{../this._id}}"
                                     <i class="fa fa-trash-o"></i>
                                 </a>
                                 {{/userHasPermission}}
 
-                                <a href="#"
-                                   class="btn-file-share"
-                                   title="Datei teilen"
-                                   data-file-id="{{../this._id}}"
-                                   data-file-name="{{../this.name}}"
-                                   id="{{@index}}">
-                                    <i class="fa fa-share-alt"></i>
-                                </a>
+                                {{#if ../../canEditPermissions}}
+                                    <a href="#"
+                                    class="btn-file-share"
+                                    title="Datei teilen"
+                                    data-file-id="{{../this._id}}"
+                                    data-file-name="{{../this.name}}"
+                                    id="{{@index}}">
+                                        <i class="fa fa-share-alt"></i>
+                                    </a>
 
                                     <div class="popup-overlay" id="{{@index}}">
 
@@ -59,6 +63,7 @@
                                             <a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
                                         </div>
                                     </div>
+                                {{/if}}
 
                                 {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"
@@ -81,14 +86,14 @@
                                        data-file-can-edit="{{this.studentCanEdit}}">
                                         <span class="fa-stack fa-1x">
                                           <i class="fa fa-user fa-stack-1x" id="{{@index}}"></i>
-                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#unless this.studentCanEdit}}hidden{{/unless}}></i>
+                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#if this.studentCanEdit}}hidden{{/if}}></i>
                                         </span>
                                     </a>
                                 {{/if}}
                                 {{/if}}
 
                                 <!--{{#if this.isOfficeFile}} todo: discuss just onClick or own button?
-                                <a href="/files/file/{{this._id}}/lool" 
+                                <a href="/files/file/{{this._id}}/lool"
                                     target="_blank"
                                     data-method="lool">In LibreOffice öffnen</a>
                                 {{/if}}-->
@@ -126,7 +131,7 @@
 
 {{#embed "lib/components/modal-form" class="share-modal"}}
     {{#content "fields"}}
-        {{> "files/forms/form-share-file"}}
+        {{> "files/forms/form-share-file" teamFiles=teamFiles}}
     {{/content}}
 {{/embed}}
 

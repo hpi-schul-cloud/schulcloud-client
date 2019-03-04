@@ -7,9 +7,7 @@ const authHelper = require('../helpers/authentication');
 router.use(authHelper.authChecker);
 
 router.post('/', function (req, res, next) {
-    const {firstName, lastName, email, password, password_new, gender} = req.body; // TODO: sanitize
-        let finalGender;
-        (gender === '' || !gender) ? finalGender = null : finalGender = gender;
+    const { firstName, lastName, email, password, password_new } = req.body; // TODO: sanitize
         return api(req).patch('/accounts/' + res.locals.currentPayload.accountId, {
             json: {
                 password_verification: password,
@@ -20,7 +18,6 @@ router.post('/', function (req, res, next) {
                 firstName,
                 lastName,
                 email,
-                gender: finalGender
             }}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(_ => {
                 res.redirect('/account/');
             });
@@ -33,6 +30,7 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
+    const isSSO = Boolean(res.locals.currentPayload.systemId);
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         api(req).get('/notification/devices')
             .then(device => {
@@ -45,18 +43,21 @@ router.get('/', function (req, res, next) {
                 res.render('account/settings', {
                     title: 'Dein Account',
                     device,
-                    userId: res.locals.currentUser._id
+                    userId: res.locals.currentUser._id,
+                    sso: isSSO
                 });
             }).catch(err => {
             res.render('account/settings', {
                 title: 'Dein Account',
-                userId: res.locals.currentUser._id
+                userId: res.locals.currentUser._id,
+                sso: isSSO
             });
         });
     } else {
         res.render('account/settings', {
             title: 'Dein Account',
-            userId: res.locals.currentUser._id
+            userId: res.locals.currentUser._id,
+            sso: isSSO
         });
     }
 });

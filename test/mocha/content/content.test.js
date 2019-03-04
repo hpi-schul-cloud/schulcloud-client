@@ -43,7 +43,7 @@ describe('Content tests', function () {
                 .end((err, res) => {
                     expect(res.statusCode).to.equal(200);
                     expect(res.text).to.contain('Materialien');
-                    expect(res.text).to.contain('Suchergebnisse für \"Mathe\"');
+                    expect(res.text).to.contain('Suchergebnisse für "Mathe"');
                     expect(res.text).not.to.contain('keine Ergebnisse');
                     resolve();
                 });
