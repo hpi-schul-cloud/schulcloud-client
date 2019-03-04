@@ -154,7 +154,8 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
 	const owner = getStorageContext(req, res);
-	const { params: { folderId: parent } } = req;
+	const { params: { folderId, subFolderId } } = req;
+	const parent = subFolderId || folderId;
 	const promises = [
 		api(req).get('/roles', { qs: { name: 'student' } }),
 		api(req).get('/fileStorage', {
@@ -486,9 +487,10 @@ router.delete('/directory', function (req, res) {
     });
 });
 
-router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
+router.get('/my/:folderId?/:subFolderId?', FileGetter, async function (req, res, next) {
     const userId = res.locals.currentUser._id;
-    const basePath = '/files/my/';
+	const basePath = '/files/my/';
+	const parentId = req.params.subFolderId || req.params.folderId;
 
     res.locals.files.files = res.locals.files.files
         .filter(_ => Boolean(_))
@@ -501,7 +503,7 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
     }];
 
     if( req.params.folderId ) {
-        const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+        const folderBreadcrumbs = (await getBreadcrumbs(req, parentId)).map((crumb) => {
             crumb.url = `${basePath}${crumb.id}`;
             return crumb;
         });
@@ -519,7 +521,7 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
-		parentId: req.params.folderId,
+		parentId,
 		canEditPermissions: true,
     }, res.locals.files));
 });
