@@ -1,35 +1,51 @@
 {{#extend "news/news"}}
-    {{#content "page"}}
-        <p>
-            <small class="text-muted">{{timeFromNow news.displayAt}}</small>
-            <small class="text-muted">
-                von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
-            </small>
-        </p>
-        <div class="ckcontent">
-            {{{news.content}}}
-        </div>
-        {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
-            <div class="mt-1">
-                <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="Artikel '{{../news.title}}' bearbeiten.">
-                    Bearbeiten
-                </a>
-                <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE" data-name="{{../news.title}}" alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
-                    Löschen
-                </a>
-            </div>
-            {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-                {{#content "body"}}
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
-                            Abbrechen
-                        </button>
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            Löschen
-                        </button>
-                    </div>
-                {{/content}}
-            {{/embed}}
-        {{/userHasPermission}}
-    {{/content}}
+{{#content "page"}}
+<p>
+    <small class="text-muted">{{timeFromNow news.displayAt}}</small>
+    {{#unless isRSS}}
+    <small class="text-muted">
+        von {{news.creatorId.firstName}} {{news.creatorId.lastName}} erstellt
+    </small>
+    {{/unless}}
+    {{#if isRSS}}
+    {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+    <small class="text-muted">
+        &nbsp;-
+    </small>
+    <small style="color: #b10438;">
+        &nbsp;RSS
+    </small>
+    {{/userHasPermission}}
+    {{/if}}
+
+</p>
+<div class="ckcontent">
+    {{{news.content}}}
+</div>
+{{#unless isRSS}}
+{{#userHasPermission "SCHOOL_NEWS_EDIT"}}
+<div class="mt-1">
+    <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="Artikel '{{../news.title}}' bearbeiten.">
+        Bearbeiten
+    </a>
+    <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE" data-name="{{../news.title}}"
+        alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
+        Löschen
+    </a>
+</div>
+{{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
+{{#content "body"}}
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary btn-close">
+        Abbrechen
+    </button>
+    <button type="submit" class="btn btn-primary btn-submit">
+        Löschen
+    </button>
+</div>
+{{/content}}
+{{/embed}}
+{{/userHasPermission}}
+{{/unless}}
+{{/content}}
 {{/extend}}
