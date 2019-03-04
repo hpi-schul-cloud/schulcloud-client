@@ -3,49 +3,48 @@ const moment = require('moment');
 const truncatehtml = require('truncate-html');
 const stripHtml = require('string-strip-html');
 const permissionsHelper = require('../../permissions');
+
 moment.locale('de');
 
 module.exports = {
 	pagination: require('./pagination'),
 	ifArray: (item, options) => {
-        if(Array.isArray(item)) {
-            return options.fn(item);
-        } 
-            return options.inverse(item);
-        
-    },
+		if (Array.isArray(item)) {
+			return options.fn(item);
+		}
+		return options.inverse(item);
+	},
 	inArray: (item, array, opts) => {
-        if(array.includes(item)){
-            return opts.fn(this);
-        } 
-            return opts.inverse(this);
-        
-    },
-	arrayLength: (array) => array.length,
+		if (array.includes(item)) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
+	arrayLength: array => array.length,
 	truncate: (text = '', { length = 140 } = {}) => {
 		if (text.length <= length) {
 			return text;
 		}
 		const subString = text.substr(0, length - 1);
-		return `${subString.substr(0, subString.lastIndexOf(' '))  }...`;
+		return `${subString.substr(0, subString.lastIndexOf(' '))}...`;
 	},
 	truncatePure: (text = '', length = 140) => {
 		if (text.length <= length) {
 			return text;
 		}
 		const subString = text.substr(0, length - 1);
-		return `${subString  }...`;
+		return `${subString}...`;
 	},
 	truncateHTML: (text = '', { length = 140 } = {}) => truncatehtml(text, length, {
-          stripTags: true,
-          decodeEntities: true,
-        }),
+		stripTags: true,
+		decodeEntities: true,
+	}),
 	truncateLength: (text = '', length = 140) => {
 		if (text.length <= length) {
 			return text;
 		}
 		const subString = text.substr(0, length);
-		return `${(subString.indexOf(" ")>-1)? subString.substr(0, subString.lastIndexOf(' ')) : subString  }...`;
+		return `${(subString.indexOf(' ') > -1) ? subString.substr(0, subString.lastIndexOf(' ')) : subString}...`;
 	},
 	truncateArray: (rawArray = [], length = 0) => {
 		const truncatedArray = rawArray;
@@ -55,7 +54,7 @@ module.exports = {
 		return truncatedArray;
 	},
 	stripHTMLTags: (htmlText = '') => stripHtml(htmlText),
-	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, {onlyStripTags: ['script', 'style']}),
+	stripOnlyScript: (htmlText = '') => stripHtml(htmlText, { onlyStripTags: ['script', 'style'] }),
 	conflictFreeHtml: (text = '') => {
 		text = text.replace(/style=["'][^"]*["']/g, '');
 		text = text.replace(/<(a).*?>(.*?)<\/(?:\1)>/g, '$2');
@@ -90,55 +89,48 @@ module.exports = {
 		}
 	},
 	ifeq: (a, b, opts) => {
-        if (a == b) {
-            return opts.fn(this);
-        } 
-            return opts.inverse(this);
-        
-    },
+		if (a == b) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
 	ifneq: (a, b, opts) => {
-        if (a !== b) {
-            return opts.fn(this);
-        } 
-            return opts.inverse(this);
-        
-    },
+		if (a !== b) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
 	ifvalue: (conditional, options) => {
-        if (options.hash.value === conditional) {
-            return options.fn(this);
-        } 
-            return options.inverse(this);
-        
-    },
+		if (options.hash.value === conditional) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
 	ifEnv: (env_variable, value, options) => {
-        if (process.env[env_variable] == value) {
-            return options.fn(this);
-        } 
-            return options.inverse(this);
-        
-    },
+		if (process.env[env_variable] == value) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
 	unlessEnv: (env_variable, value, options) => {
-        if (process.env[env_variable] == value) {
-            return options.inverse(this);
-        } 
-            return options.fn(this);
-        
-    },
+		if (process.env[env_variable] == value) {
+			return options.inverse(this);
+		}
+		return options.fn(this);
+	},
 	userHasPermission: (permission, opts) => {
-        if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
-            return opts.fn(this);
-        } 
-            return opts.inverse(this);
-        
-    },
+		if (permissionsHelper.userHasPermission(opts.data.local.currentUser, permission)) {
+			return opts.fn(this);
+		}
+		return opts.inverse(this);
+	},
 	userIsAllowedToViewContent: (isNonOerContent = false, options) => {
-        // Always allow nonOer content, otherwise check user is allowed to view nonOer content
-        if(permissionsHelper.userHasPermission(options.data.local.currentUser, "CONTENT_NON_OER_VIEW") || !isNonOerContent) {
-            return options.fn(this);
-        } 
-            return options.inverse(this);
-        
-    },
+		// Always allow nonOer content, otherwise check user is allowed to view nonOer content
+		if (permissionsHelper.userHasPermission(options.data.local.currentUser, 'CONTENT_NON_OER_VIEW') || !isNonOerContent) {
+			return options.fn(this);
+		}
+		return options.inverse(this);
+	},
 	timeFromNow: (date, opts) => moment(date).fromNow(),
 	datePickerTodayMinus: (years, months, days, format) => {
 		if (typeof (format) !== 'string') {
@@ -153,19 +145,18 @@ module.exports = {
 	dateToPicker: (date, opts) => moment(date).format('DD.MM.YYYY'),
 	dateTimeToPicker: (date, opts) => moment(date).format('DD.MM.YYYY HH:mm'),
 	timeToString: (date, opts) => {
-        let now = moment();
-        let d = moment(date);
-        if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-            return moment(date).format('DD.MM.YYYY') + "("+moment(date).format('HH:mm')+")";
-        } 
-            return moment(date).fromNow();
-        
-    },
-	concat(){
-        var arg = Array.prototype.slice.call(arguments,0);
-        arg.pop();
-        return arg.join('');
-    },
+		const now = moment();
+		const d = moment(date);
+		if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
+			return `${moment(date).format('DD.MM.YYYY')}(${moment(date).format('HH:mm')})`;
+		}
+		return moment(date).fromNow();
+	},
+	concat() {
+		const arg = Array.prototype.slice.call(arguments, 0);
+		arg.pop();
+		return arg.join('');
+	},
 	log: (data) => {
 		console.log(data);
 	},
@@ -218,9 +209,9 @@ module.exports = {
 				unit = 'TB';
 				break;
 		}
-		return (`${fileSize  } ${  unit}`);
+		return (`${fileSize} ${unit}`);
 	},
-	json: (data) => JSON.stringify(data),
+	json: data => JSON.stringify(data),
 	times: (n, block) => {
 		let accum = '';
 		for (let i = 0; i < n; ++i) {
@@ -237,5 +228,9 @@ module.exports = {
 	},
 	add: (a, b) => a + b,
 	indexOf: (item, searchValue, fromIndex) => item.indexOf(searchValue, fromIndex),
-	escapeQuotes: text => text.replace(/"/g, '&#34;').replace(/'/g, '&#39;'),
+	escapeHtml: text => text
+		.replace(/</g, '&lt;')
+		.replace(/>/g, '&gt;')
+		.replace(/"/g, '&quot;')
+		.replace(/'/g, '&#039;'),
 };
