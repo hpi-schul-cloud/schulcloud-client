@@ -14,7 +14,6 @@ addons:
   chrome: stable
   firefox: latest
 before_install:
-- echo "IV: $encrypted_839866e404c6_iv"
 - openssl aes-256-cbc -K $encrypted_839866e404c6_key -iv $encrypted_839866e404c6_iv -in travis_rsa.enc -out travis_rsa -d
 - npm install pm2 -g
 - export DISPLAY=:99.0
