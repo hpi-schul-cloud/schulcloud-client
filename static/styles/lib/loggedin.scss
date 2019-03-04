@@ -119,8 +119,8 @@ aside.nav-sidebar {
         .cloud-logo {
             display: inline-block;
             vertical-align: top;
-            width: 54px;
-            height: 36px;
+            width: 45px;
+            height: 30px;
             margin-bottom: -5px;
             margin-right: 0.25rem;
             background: $logoBackground;
@@ -672,6 +672,9 @@ footer {
     .qr-show {
         padding: 15px;
         padding-bottom: 9px;
+        img {
+            max-width: none;
+        }
     }
 }
 

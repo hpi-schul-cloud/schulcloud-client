@@ -166,7 +166,6 @@ const middleware = (req, res, next) => {
         hit.cd1 = res.locals.currentSchoolData.name;
       }
       if(res.locals.currentUser) {
-        hit.cd2 = res.locals.currentUser.gender;
         hit.cd4 = res.locals.currentUser.roles[0].name;
         hit.cd5 = res.locals.currentRole === 'Demo' ? 1 : 0;
       }

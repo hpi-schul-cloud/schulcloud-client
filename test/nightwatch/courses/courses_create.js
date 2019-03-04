@@ -1,6 +1,6 @@
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
-const password = process.env.PASSWORD || "schulcloud";
+const password = process.env.PASSWORD || "Schulcloud1!";
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
@@ -36,13 +36,9 @@ module.exports = {
             .pause(1000)
             .setValue('input[name=name]', 'Test Kurs')
             .setValue('textarea[name=description]', 'Test Beschreibung')
-            .moveToElement('.btn-submit', 10, 10)
-            .click('.btn-submit')
-            .pause(1000)
             .setValue('input[name=startDate]', '01.01.2019')
-            .click('.btn-submit')
-            .pause(1000)
             .setValue('input[name=untilDate]', '01.03.2019')
+            .moveToElement('.btn-submit', 10, 10)
             .click('.btn-submit')
             .pause(1000);
         browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
