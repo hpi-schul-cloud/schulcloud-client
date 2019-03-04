@@ -1,6 +1,12 @@
 /* global kjua jQuery introJs*/
 import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback} from './notificationService/callback';
+import { iFrameListen } from './helpers/iFrameResize';
+
+iFrameListen();
+
+var $contactHPIModal;
+var $contactAdminModal;
 
 var $contactHPIModal;
 var $contactAdminModal;
@@ -41,7 +47,6 @@ function sendFeedback(modal, e) {
     e.preventDefault();
 
     let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
-
     let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
 
     $.ajax({
@@ -116,9 +121,10 @@ $(document).ready(function () {
             closeLabel: 'Abbrechen',
             submitLabel: 'Senden'
         });
-
         $($contactAdminModal).appendTo('body').modal('show');
     });
+    
+    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
@@ -234,7 +240,7 @@ window.addEventListener('DOMContentLoaded', function() {
                 });
                 document.getElementById("acceptance_criteria").required = false;
             }
-        }
+        };
     }
 });
 
@@ -288,4 +294,16 @@ window.addEventListener("load", () => {
         }
     }
     document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+});
+
+document.querySelectorAll('#main-content a').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (a.querySelector('img, .fa') == null && href) {
+        if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
+            if (!a.getAttribute('target')) {
+                a.setAttribute('target', '_blank');
+            }
+            a.classList.add('externalLink');
+        }
+    }
 });

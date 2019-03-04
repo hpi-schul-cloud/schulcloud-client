@@ -1,4 +1,5 @@
 import livesearch from "./helpers/livesearch.js";
+import { resizeIframes } from "./helpers/iFrameResize.js";
 import "./help/contactForm.js";
 
 
@@ -11,32 +12,12 @@ $(document).ready(function () {
 });
 
 // iFrame full height
-document.querySelectorAll("iframe").forEach((iframe, index)=>{
-    const identifier = "iframe-"+index;
-    iframe.dataset.identifier = identifier;
-    iframe.addEventListener("load", (event) => {
-        iframe.contentWindow.postMessage(JSON.stringify({
-            function: "getSize",
-            identifier: identifier
-        }), '*');
+resizeIframes(undefined, () => {
+    document.querySelectorAll(".mobile-warning").forEach((warning) => {
+        warning.remove();
     });
 });
 
-window.addEventListener("message", (event) => {
-    try{
-        const message = JSON.parse(event.data);
-        if(message.size && message.identifier){
-            document.querySelectorAll(`iframe[data-identifier="${message.identifier}"]`).forEach((iframe) => {
-                iframe.style.height = message.size.y + 'px';
-            });
-            document.querySelectorAll(".mobile-warning").forEach((warning) => {
-                warning.remove();
-            });
-        }
-    } catch (error) {
-        //console.warn("Couldn't evaluate message:", event, error);
-    }
-}, false);
 
 /* script for iFrame
 // this needs to be embedded on every page that should be displayed via iFrame and the message to the parent should be send, whenever the page resizes.

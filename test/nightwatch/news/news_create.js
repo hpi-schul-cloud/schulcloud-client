@@ -1,6 +1,6 @@
 const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
 const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
-const password = process.env.PASSWORD || "schulcloud";
+const password = process.env.PASSWORD || "Schulcloud1!";
 
 module.exports = {
     'Schul-Cloud Reachable': function (browser) {
@@ -45,7 +45,6 @@ module.exports = {
         browser.useXpath().expect.element("//*[contains(text(), 'Lorem Ipsum')]").text.to.contain('Lorem Ipsum').before(10000);
     },
     'Delete News': function (browser) {
-        browser.useXpath().click("//*[contains(text(), 'Test News')]");
         browser.useCss()
             .click('.btn-delete')
             .waitForElementVisible('.delete-modal')

@@ -27,12 +27,13 @@ body {
             font-size: 1.5rem;
             line-height: 1.5rem;
             font-weight: 400;
-            &:hover{
-                text-decoration: none;
-            }
+            display: inline-block;
             padding-left: 0 !important;
             padding-top: .75rem !important;
             padding-bottom: .75rem !important;
+            &:hover{
+                text-decoration: none;
+            }
             .cloud-logo {
                 display: inline-block;
                 width: 2.5rem;
@@ -107,6 +108,9 @@ body {
         }
     }
     aside{
+        .card-block {
+            padding: 1rem 1.25rem;
+        }
         .card-title{
             break-word: break-all;
         }

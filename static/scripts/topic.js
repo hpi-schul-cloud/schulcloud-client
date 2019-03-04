@@ -1,3 +1,7 @@
+import { resizeIframes } from './helpers/iFrameResize';
+
+resizeIframes();
+
 $(document).ready(function () {
     $('.btn-create-share').click(function (e) {
         e.stopPropagation();
@@ -25,7 +29,3 @@ $(document).ready(function () {
         });
     });
 });
-
-document.querySelectorAll('.content-block a').forEach((target) => { 
-    target.setAttribute("target","_blank"); 
-}); 

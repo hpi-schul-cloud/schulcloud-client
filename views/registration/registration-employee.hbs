@@ -1,13 +1,10 @@
 {{#extend "lib/simple"}}
   {{#content "scripts" mode="append"}}
-      <script src="/scripts/dataprivacy/dataprivacy.js" type="text/javascript" defer></script>
       <script src="/scripts/pwrecovery.js" type="text/javascript" defer></script>
       <script src="/scripts/dataprivacy/registration.js" type="text/javascript" defer></script>
-      <script src="/scripts/jquery/jquery.datetimepicker.full.min.js" type="text/javascript" defer></script>
   {{/content}}
   {{#content "styles" mode="append"}}
       <link rel="stylesheet" href="/styles/administration/dataprivacy.css"/>
-      <link rel="stylesheet" href="/styles/lib/datetimepicker/jquery.datetimepicker.min.css"/>
   {{/content}}
   {{#content "page"}}
     {{#embed "lib/forms/paginatedForm" sections=5 action="/registration/submit" method="post" class="registration-form parent"}}
@@ -32,7 +29,7 @@
 
 
       <section data-panel="section-2">
-        <h4>Ihre Daten</h4>
+        <h4>Deine Daten</h4>
         <p>Die {{theme.short_title}} bewahrt Nutzerdaten sicher auf und gibt sie nicht an Dritte weiter. Die Verarbeitung der Daten erfolgt entsprechend der hohen gesetzlichen Datenschutz-Anforderungen.</p>
 
         <p>Für die Nutzung der {{theme.short_title}} benötigen wir folgende Angaben:</p>
@@ -50,7 +47,7 @@
         </div>
 
         <div class="form-group">
-          <label>Ihre E-Mail-Adresse: <sup>*</sup></label>
+          <label>Deine E-Mail-Adresse: <sup>*</sup></label>
           <input class="form-control linked" type="email" name="email" placeholder="lehrer@schul-cloud.org" 
             value="{{user.email}}" required {{#if user.email}}readonly{{else}}autocomplete{{/if}} />
         </div>
@@ -99,7 +96,7 @@
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
         <h4>Fast geschafft!</h4>
-        <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
+        <p>Wir haben soeben eine E-Mail an deine angegebene Adresse gesendet. Bitte gib den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Du hast keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
         </div>
