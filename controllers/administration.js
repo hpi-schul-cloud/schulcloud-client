@@ -11,6 +11,7 @@ const moment = require('moment');
 const multer = require('multer');
 const StringDecoder = require('string_decoder').StringDecoder;
 const _ = require('lodash');
+const logger = require('winston')
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -2039,17 +2040,17 @@ router.get('/rss/:id', async (req, res) => {
 })
 
 router.post('/rss/', async (req, res) => {
-	console.log('START RSS:');
-	console.log('req.body.schoolId :', req.body.schoolId);
+	winston.info('START RSS:');
+	logger.info('req.body.schoolId :', req.body.schoolId);
 	const school = await api(req).get('/schools/' + req.body.schoolId);
 
-	console.log('school.rssFeeds :', school.rssFeeds);
+	logger.info('school.rssFeeds :', school.rssFeeds);
 	if (school.rssFeeds.find(el => el.url === req.body.rssURL)) {
 		return res.redirect('/administration/school');
 	}
 
-	console.log('req.body.rssURL :', req.body.rssURL);
-	console.log('req.body.description :', req.body.description);
+	logger.info('req.body.rssURL :', req.body.rssURL);
+	logger.info('req.body.description :', req.body.description);
 	await api(req).patch('/schools/' + req.body.schoolId, {
 		json: {
 			$push: {
@@ -2057,7 +2058,7 @@ router.post('/rss/', async (req, res) => {
 			}
 		}
 	});
-	console.log('END :');
+	logger.info('END :');
 	res.redirect('/administration/school');
 });
 
