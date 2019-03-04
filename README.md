@@ -80,7 +80,7 @@ Add your test to `diff.sh`:
   
 1. Take the Ticket Number from JIRA (ticketsystem.schul-cloud.org), e.g. SC-999  
 2. Name the branch beginning with Ticket Number , e.g. `SC-999-fantasy-problem`
-3. Add (WIP), if it is still in progress
+3. Create a PR containing the Ticket Number (Add the `WIP` label if it is still in progress)
   
 ## Commiting  
   
