@@ -38,6 +38,7 @@ $(document).ready(function() {
                 $systems.append('<option ' + (selected ? 'selected': '') + ' value="' + system._id + '">' + system.type + systemAlias + '</option>');
             });
             $systems.trigger('chosen:updated');
+            systems.length == 1 ? $systems.parent().hide() : $systems.parent().show();
         });
     };
 
@@ -104,11 +105,11 @@ window.startIntro = function startIntro() {
         skipLabel: "Überspringen"
     })
     .start()
-    .oncomplete(function() { 
+    .oncomplete(function() {
         localStorage.setItem('Tutorial', true);
         document.querySelector("#loginarea > div > div > form:nth-child(3) > div > input").click();
-    })
-}
+    });
+};
 
 if ('serviceWorker' in navigator){
     navigator.serviceWorker.getRegistrations().then(function(registrations) {

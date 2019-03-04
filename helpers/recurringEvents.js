@@ -116,6 +116,14 @@ const mapEventProps = (event, req) => {
         });
     }
 
+    if (event["x-sc-teamId"]) {
+        return api(req).get('/teams/' + event["x-sc-teamId"]).then(team => {
+            event.url = '';
+            event.color = team.color;
+            return event;
+        });
+    }
+
     return event;
 };
 
