@@ -33,6 +33,7 @@ describe('Files tests', function () {
                     expect(res.text).to.contain('Meine Dateien');
                     expect(res.text).to.contain('Meine persönlichen Dateien');
                     expect(res.text).to.contain('Meine Kurs-Dateien');
+                    expect(res.text).to.contain('Meine Team-Dateien');
                     resolve();
                 });
         });
