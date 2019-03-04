@@ -1,0 +1,6 @@
+<section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
+  <h4>Einwilligungserklärung</h4>
+  <p>Bitte bestätigen Sie folgende Einwilligungserklärungen, damit Ihr Kind die Vorteile der Schul-Cloud nutzen kann:</p>
+  <p>Ich, <b data-from="parent_firstName"></b> <b data-from="parent_lastName"></b>, bin erziehungsberechtigt für {{@root.currentUser.firstName}} {{@root.currentUser.lastName}} und erkläre Folgendes:</p>
+  {{#embed "registration/forms/einwilligungserklaerung" prefix="parent_"}}{{/embed}}
+</section>
