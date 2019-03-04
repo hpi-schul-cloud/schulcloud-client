@@ -214,26 +214,14 @@ const getScopeDirs = (req, res, scope) => {
  * generates a directory tree from a path recursively
  * @param rootPath
  */
-const getDirectoryTree = (req, directory) => {
+const getDirectoryTree = (set, directory) => {
+	const children = set.filter(dir => dir.parent && dir.parent === directory._id);
 
-    return api(req).get('/fileStorage/directories', {
-        qs: { parent: directory._id },
-    })
-    .then((children) => {
+	if (children.length) {
+		directory.children = children.map(child => getDirectoryTree(set, child));
+	}
 
-        if( children.length ) {
-
-            directory.children = children;
-
-            const childPromises = children.map(child => {
-                return getDirectoryTree(req, child);
-            });
-
-            return Promise.all(childPromises).then(() => Promise.resolve(directory));
-        }
-
-        return Promise.resolve(directory);
-    });
+	return directory;
 };
 
 /**
@@ -888,29 +876,24 @@ router.get('/permittedDirectories/', async (req, res) => {
         children: (await getScopeDirs(req, res, 'teams')).map(extractor)
     }];
 
-    api(req).get('/fileStorage/directories').then(directories => {
-        const promises = directories
-                .filter(dir => dir)
-                .map(dir => getDirectoryTree(req, dir));
+	api(req).get('/fileStorage/directories')
+		.then(directories => directories.map(dir => getDirectoryTree(directories, dir)))
+		.then(directories => {
 
-        return Promise.all(promises);
-    })
-    .then(directories => {
+			directoryTree.forEach(tree => {
+				tree.children.forEach(child => {
+					child.children = directories.filter(dir => {
+						return dir.owner === child._id && dir.refOwnerModel === tree.model;
+					});
+				});
+			});
 
-        directoryTree.forEach(tree => {
-            tree.children.forEach(child => {
-                child.children = directories.filter(dir => {
-                    return dir.owner === child._id && dir.refOwnerModel === tree.model;
-                });
-            });
-        });
-
-        res.json(directoryTree);
-    })
-    .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-    });
+			res.json(directoryTree);
+		})
+		.catch(err => {
+			console.log(err);
+			res.sendStatus(500);
+		});
 });
 
 /**** File and Directory proxy models ****/
