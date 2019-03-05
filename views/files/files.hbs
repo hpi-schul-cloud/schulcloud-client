@@ -11,12 +11,10 @@
     {{/content}}
 
     {{#content "page"}}
-
         <div class="route-files">
             {{#if canUploadFile}}
                 {{#embed "files/file-upload"}}{{/embed}}
             {{/if}}
-
             <section class="section-title">
                 <div class="container-fluid">
                     <div class="row">
@@ -42,45 +40,45 @@
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
-						<div class="col-xs-12">
-              <div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
-								<strong class="card-title-directory">
-									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
-								</strong>
-                                {{#userHasPermission "FOLDER_DELETE"}}
-								<a href="/files/directory/"
-								   target="_blank"
-								   data-method="delete"
-                                   title="Ordner löschen"
-								   data-file-id="{{../this._id}}"
-								   data-file-name="{{{../this.name}}}">
-									<i class="fa fa-trash-o directory-icon pull-right"></i>
-								</a>
+            						<div class="col-xs-12">
+                          <div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
+            								<strong class="card-title-directory">
+            									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
+            								</strong>
+                                            {{#userHasPermission "FOLDER_DELETE"}}
+            								<a href="/files/directory/"
+            								   target="_blank"
+            								   data-method="delete"
+                                               title="Ordner löschen"
+            								   data-file-id="{{../this._id}}"
+            								   data-file-name="{{{../this.name}}}">
+            									<i class="fa fa-trash-o directory-icon pull-right"></i>
+            								</a>
 
-                <a href="/directoryModel/{{../this._id}}/rename"
-								   target="_blank"
-								   data-method="dir-rename"
-                                   title="Ordner umbenennen"
-                                   data-directory-id="{{../this._id}}"
-								   data-directory-name="{{../this.name}}"
-								   >
-									<i class="fa fa-edit directory-icon pull-right"></i>
-								</a>
-                                {{#if ../../canEditPermissions}}
-                                    <a href="/directoryModel/{{../this._id}}/share"
-                                    target="_blank"
-                                    class="btn-file-share"
-                                    data-method="dir-share"
-                                    title="Ordner-Freigabe"
-                                    data-file-id="{{../this._id}}"
-                                    data-file-name="{{../this.name}}"
-                                    >
-                                        <i class="fa fa-share-alt pull-right"></i>
-                                    </a>
-                                {{/if}}
-                                {{/userHasPermission}}
-							</div>
-						</div>
+                            <a href="/directoryModel/{{../this._id}}/rename"
+            								   target="_blank"
+            								   data-method="dir-rename"
+                                               title="Ordner umbenennen"
+                                               data-directory-id="{{../this._id}}"
+            								   data-directory-name="{{../this.name}}"
+            								   >
+            									<i class="fa fa-edit directory-icon pull-right"></i>
+            								</a>
+                            {{#if ../../canEditPermissions}}
+                                <a href="/directoryModel/{{../this._id}}/share"
+                                target="_blank"
+                                class="btn-file-share"
+                                data-method="dir-share"
+                                title="Ordner-Freigabe"
+                                data-file-id="{{../this._id}}"
+                                data-file-name="{{../this.name}}"
+                                >
+                                    <i class="fa fa-share-alt pull-right"></i>
+                                </a>
+                            {{/if}}
+                            {{/userHasPermission}}
+            							</div>
+            						</div>
                     {{/each}}
                 </div>
             </section>
