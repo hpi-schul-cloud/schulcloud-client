@@ -730,6 +730,21 @@
 					"linkedin": ""
 				},
 				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Mona",
+				"lastName": "Weitzenberg",
+				"position": "Freie Mitarbeiterin",
+				"description": "Mona gestaltet. Mit Menschen. Für Menschen. Durch Ihre 15 jährige Praxis als freiberufliche Designerin, konnte sich Mona neben einem immensen Erfahrungsschatz und kreativer Routine ein multidisziplinäres Gestaltungsportfolio erarbeiten, dass sowohl die klassischen als auch die neuen Medien umfasst. Eine Gestaltung einer Broschüre erfährt die gleiche Hingabe wie die Entwicklung einer komplexen Applikation. Seit November 2018 unterstützt sie das Team der HPI Schul-Cloud in allen Gestaltungsfragen als Art Direktorin. Dabei liegt der Kern ihrer Arbeit im Interfacedesign (UI/UX) und in der Erarbeitung einer durchgehenden Corporate Identity. Familie, Hund und Haus sind für Mona nötiger Ruhepol, Erdung, Inspiration und kreative Neuerfindung zugleich.",
+				"pictureUrl": "/images/team/Mona.png",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
 			}
 		]
 	},
