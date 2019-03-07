@@ -1,5 +1,5 @@
-@import '../lib/colors';
-@import url('https://vjs.zencdn.net/5.19.2/video-js.css');
+@import "../lib/colors";
+@import url("https://vjs.zencdn.net/5.19.2/video-js.css");
 @import "./upload";
 
 .section-title {
@@ -41,7 +41,7 @@
       margin-right: 5px;
     }
 
-    .directory-icon{
+    .directory-icon {
       &:hover {
         color: $primaryColor;
       }
@@ -147,7 +147,7 @@
         text-decoration: none;
       }
 
-      .card-title{
+      .card-title {
         display: flex;
         align-items: center;
         margin-bottom: 0;
@@ -155,7 +155,7 @@
     }
     .title {
       white-space: nowrap;
-      width: calc(90%);
+      width: 90%;
       overflow: hidden;
       text-overflow: ellipsis;
       display: inline-block;
@@ -188,8 +188,8 @@
   z-index: 5;
   word-wrap: break-word;
   .filter-option {
-    border: 1px solid rgba(0, 0, 0, .15);
-    border-radius: .1rem;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.1rem;
     padding: 10px 15px 10px 15px;
     cursor: pointer;
   }
@@ -220,7 +220,7 @@
   }
 
   .dir-main-menu {
-    background-color: #C3C1C1;
+    background-color: #c3c1c1;
   }
 
   .dir-element {
@@ -249,7 +249,7 @@
   }
 
   .dir-main-element {
-    border-bottom: 1px solid #9E9E9E;
+    border-bottom: 1px solid #9e9e9e;
   }
   .dir-main-header {
     font-weight: bold;
@@ -260,29 +260,30 @@
   }
 }
 
-.popup-overlay{
-  visibility:hidden;
-  position:absolute;
-  background-color: rgba(0,0,0,.2);
+.popup-overlay {
+  visibility: hidden;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
   outline: 1px solid transparent;
-  right:25%;
-  top:10%;
-  left:25%;
+  right: 25%;
+  top: 10%;
+  left: 25%;
   bottom: 10%;
   border-radius: 5px;
-  box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14),
+    0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
 }
-.popup-overlay.active{
-  visibility:visible;
-  text-align:center;
+.popup-overlay.active {
+  visibility: visible;
+  text-align: center;
 }
 
 .popup-content {
-  visibility:hidden;
+  visibility: hidden;
 }
 
 .popup-content.active {
-  visibility:visible;
+  visibility: visible;
 }
 
 .fa-stack {
