@@ -32,6 +32,9 @@
                     {{> "courses/forms/form-tools"}}
                 {{/content}}
             {{/embed}}
+			{{#embed "lib/components/modal-form" method="post" class="deep-linking-modal" courseId=../courseId}}
+
+			{{/embed}}
             {{/userHasPermission}}
         </section>
     {{/content}}

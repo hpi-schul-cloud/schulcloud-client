@@ -2,6 +2,7 @@
 
     var $modals = $('.modal');
     var $editModal = $('.edit-modal');
+    var $deepLinkingModal = $('.deep-linking-modal');
     var customFieldCount = 0;
 
     function guidGenerator() {
@@ -29,7 +30,7 @@
 
     var populateCustomField = function ($customFields, field) {
         if (!field.key || field.key == '') return;
-        
+
         var _id = guidGenerator();
         var $field = $("<div id='" + _id + "'>Key: " + field.key + ", Value: " + field.value + "</div>")
             .append($("<input name='customs[" + customFieldCount + "][key]' value='" + field.key + "' type='hidden'></input>"))
@@ -95,13 +96,26 @@
             if (result.tool.isLocal) {
                 createLocalTool($editModal, result.tool);
             } else {
-                populateModalForm($editModal, {
-                    closeLabel: 'Abbrechen',
-                    submitLabel: 'Speichern',
-                    fields: result.tool
-                });
-                populateCustomFields($editModal, result.tool.customs);
-                $editModal.appendTo('body').modal('show');
+            	if (result.tool.lti_message_type === 'LtiDeepLinkingRequest') {
+            		// todo: show iframe for deep link selection
+					// console.log($deepLinkingModal);
+					populateModalForm($deepLinkingModal, {
+						title: 'Bitte im Tool den einzufügenden Inhalt auswählen:',
+						closeLabel: 'Abbrechen',
+						submitLabel: 'Speichern'
+					});
+					const courseId = $editModal.find('.modal-form').find("input[name='courseId']").val();
+					$deepLinkingModal.find('.modal-body').append(`<iframe src="/courses/${courseId}/tools/run/${result.tool._id}" />`);
+					$deepLinkingModal.appendTo('body').modal('show');
+				} else {
+					populateModalForm($editModal, {
+						closeLabel: 'Abbrechen',
+						submitLabel: 'Speichern',
+						fields: result.tool
+					});
+					populateCustomFields($editModal, result.tool.customs);
+					$editModal.appendTo('body').modal('show');
+				}
             }
         });
     });

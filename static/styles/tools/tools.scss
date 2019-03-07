@@ -25,3 +25,12 @@
   padding-right: 0px;
   padding-left: 0px;
 }
+
+.deep-linking-modal .modal-dialog {
+	max-width: 98%;
+}
+
+.deep-linking-modal iframe {
+	width: 92vw;
+	height: 65vh;
+}
