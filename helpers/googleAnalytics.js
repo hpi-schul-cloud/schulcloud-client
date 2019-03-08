@@ -169,7 +169,7 @@ const middleware = (req, res, next) => {
 				if (res.locals.currentUser.roles && res.locals.currentUser.roles.length > 0) {
 					hit.cd4 = res.locals.currentUser.roles[0].name;
 				}
-        hit.cd4 = res.locals.currentUser.roles[0].name;
+        //hit.cd4 = res.locals.currentUser.roles[0].name;
         hit.cd5 = res.locals.currentRole === 'Demo' ? 1 : 0;
       }
 
