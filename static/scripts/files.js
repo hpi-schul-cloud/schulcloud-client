@@ -470,29 +470,10 @@ $(document).ready(function() {
         fileShare(fileId, $shareModal);
     });
 
-    let handler = {
-        get: function (target, name) {
-          return name in target ?
-            target[name] :
-            '';
-        },
-        set: function (obj, prop, value) {
-          obj[prop] = value;
-          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set#Return_value
-          return obj[prop] === value;
-        }
-      };
-
-      let state = new Proxy({
-        currentFileId: '',
-        permissions: []
-      }, handler);
-
     $('.btn-file-share').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
         let fileId = $(this).attr('data-file-id');
-        state.currentFileId = fileId;
         let fileName = $(this).attr('data-file-name');
         let $shareModal = $('.share-modal');
         let id = e.target.parentElement.id;
@@ -507,87 +488,132 @@ $(document).ready(function() {
         }
     });
 
-    const fileShare = (fileId, $shareModal, view) => {
-        $.ajax({
-            type: "POST",
-            url: "/files/permissions/",
-            data: {
-                id: fileId
-            },
-        })
-        .then(function (file) {
-            let target = view ? `files/file/${fileId}/lool?share=${file.shareToken}` : `files/fileModel/${file._id}/proxy?share=${file.shareToken}`;
-            return Promise.all([file, $.ajax({
-                type: "POST",
-                url: "/link/",
-                data: { target },
-            })]);
-        })
-        .then(function ([file, data]) {
-            const isAllowed = function(file, role) {
-                const permission = file.permissions.find(p => p.roleName === role);
-                return permission && Object.keys(permission).every(p => permission[p]);
-            };
+	const fileShare = (fileId, $shareModal, view) => {
+		const $loader = $shareModal.find('.loader');
+		const $input = $shareModal.find('input[name="invitation"]');
+		const $container = $shareModal.find('.file-permissions');
+		const $table = $container.find('table');
 
-            populateModalForm($shareModal, {
-                title: 'Freigabe-Einstellungen',
-                closeLabel: 'Abbrechen',
-                submitLabel: 'Speichern',
-                fields: {invitation: data.newUrl}
-            });
+		$table.find('tbody').empty();
+		$container.hide();
 
-            $shareModal.find("input[name='invitation']").click(function () {
-                $(this).select();
-            });
+		$input.click(() => {
+			$(this).select();
+		});
+		$input.hide();
 
-            state.permissions = file.permissions;
+		$shareModal.appendTo('body').modal('show');
 
-            $('input[name="externalExperts"]').prop('checked', isAllowed(file, 'teamexpert'));
-            $('input[name="teamMembers"]').prop('checked', isAllowed(file, 'teammember'));
+		Promise.all([
+			$.ajax({ url: `/files/permissions/?file=${fileId}`}),
+			$.ajax({ url: `/files/share/?file=${fileId}`}),
+		])
+		.then((results) => {
+			const [,result] = results;
+			const target = view ? `files/file/${fileId}/lool?share=${result.shareToken}` : `files/fileModel/${fileId}/proxy?share=${result.shareToken}`;
 
-            $shareModal.appendTo('body').modal('show');
-        })
-        .fail(function (err) {
-            console.log('error', err);
-        });
-    };
+			return Promise.all(results.concat($.ajax({
+				type: "POST",
+				url: "/link/",
+				data: { target },
+			})));
+		})
+		.then(([permissions, result, link]) => {
+
+			const nameMap = {
+				teacher: 'Lehrer',
+				student: 'Schüler',
+				teammember: 'Mitglied',
+				teamexpert: 'Experte',
+				teamleader: 'Leiter',
+				teamadministrator: 'Administrator',
+				teamowner: 'Eigentümer',
+			};
+
+			populateModalForm($shareModal, {
+				title: 'Freigabe-Einstellungen',
+				closeLabel: 'Abbrechen',
+				submitLabel: 'Speichern',
+				fields: {
+					invitation: link.newUrl,
+					fileId,
+				}
+			});
+
+			$loader.hide();
+
+			if( permissions && permissions.length ) {
+				$table.find('tbody').html(
+					permissions
+						.reverse()
+						.map(({name, write, read, refId}) => {
+							return `<tr>
+								<td>${nameMap[name] || name}</td>
+								<td><input type="checkbox" name="read-${refId}" ${ typeof read === 'boolean' && read ? 'checked' : ''} ${ typeof read === 'undefined' ? 'disabled checked' : '' }/></td>
+								<td><input type="checkbox" name="write-${refId}" ${ write ? 'checked' : ''}/></td>
+							</tr>`;
+						})
+				);
+
+				$container.show();
+
+				$table.on('click', 'input[type="checkbox"]', (e) => {
+					const $input = $(e.target);
+					const $colInputs = $table.find(`td:nth-child(${$input.parent().index() + 1}) input[type="checkbox"]`);
+					const $inputIndex = $colInputs.index($input);
+
+					if (!$input.prop('checked')) {
+						$colInputs.each(function(idx){
+							$(this).prop('checked', idx < $inputIndex);
+						});
+					}
+				});
+			}
+
+			$input.val(link.newUrl);
+			$input.show();
+		})
+		.catch((err) => {
+			console.log('error', err);
+		});
+	};
 
     $('.share-modal').on('submit', function (e) {
-        e.stopPropagation();
-        e.preventDefault();
+		e.preventDefault();
+		const inputs = $(this).find('form input[type="checkbox"]').toArray()
+			.filter(({defaultChecked, checked}) => defaultChecked !== checked);
+		const fileId = $(this).find('input[name="fileId"]').val();
+		const permissions = inputs.reduce((arr, input) => {
+			const [action, refId] = input.name.split('-');
+			const perm = arr.find(input => input.refId === refId);
+			if ( perm ) {
+				perm[action] = input.checked;
+				return arr;
+			}
 
-        const allowed = {
-            'teamexpert': $('.share-modal input[name="externalExperts"]').prop('checked'),
-            'teammember': $('.share-modal input[name="teamMembers"]').prop('checked'),
-        };
+			arr.push({
+				refId,
+				[action]: input.checked,
+			})
 
-        const filePermissions = state.permissions
-            .filter(permission => ['teamexpert', 'teammember'].indexOf(permission.roleName) > -1)
-            .map(permission => {
-
-                const setPermission = ['create', 'read', 'delete', 'write'].reduce((obj, right) => {
-                    obj[right] = allowed[permission.roleName];
-                    return obj;
-                }, {});
-
-                return Object.assign(permission, setPermission);
-            });
+			return arr;
+		}, []);
 
         $.ajax({
-            url: '/files/permissions',
-            method: 'PATCH',
+			url: '/files/permissions',
+			method: 'PATCH',
             data: {
-                fileId: state.currentFileId,
-                permissions: filePermissions
+				fileId,
+                permissions
             }
-          })
-          .done(function() {
-            $.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
-            $('.share-modal').modal('hide');
-          })
-          .fail(function() {
-            $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
-          });
+		})
+		.done(function() {
+			$.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
+			$('.share-modal').modal('hide');
+		})
+		.fail(function() {
+			$.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+		});
     });
 
     const moveToDirectory = function (modal, targetId) {
