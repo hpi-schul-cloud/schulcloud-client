@@ -105,8 +105,9 @@ const runToolHandler = (req, res, next) => {
 		   formData = consumer.authorize(request_data);
 	   } else if (tool.lti_version='1.3.0') {
 			const current = new Date();
+			const iss = process.env.FRONTEND_URL || 'http://localhost:3100/';
 			const id_token = {
-				iss: process.env.FRONTEND_URL || 'http://localhost:3100/',
+				iss,
 				aud: tool.oAuthClientId,
 				sub: user_id,
 				exp: current.getTime() + 3 * 60,
@@ -114,16 +115,26 @@ const runToolHandler = (req, res, next) => {
 				nonce: generateNonce(16),
 				"https://purl.imsglobal.org/spec/lti/claim/message_type": tool.lti_message_type,
 				"https://purl.imsglobal.org/spec/lti/claim/roles": [
-			   		"http://purl.imsglobal.org/vocab/lis/v2/membership#" + customer.mapSchulcloudRoleToLTIRole(role.name),
-		   		],
-			   	"https://purl.imsglobal.org/spec/lti/claim/resource_link": {
-			   		"id": tool._id
-		   		},
-			   	"https://purl.imsglobal.org/spec/lti/claim/version": tool.lti_version,
-			   	"https://purl.imsglobal.org/spec/lti/claim/deployment_id": tool._id
+					"http://purl.imsglobal.org/vocab/lis/v2/membership#" + customer.mapSchulcloudRoleToLTIRole(role.name),
+				],
+				"https://purl.imsglobal.org/spec/lti/claim/resource_link": {
+					"id": tool._id
+				},
+				"https://purl.imsglobal.org/spec/lti/claim/version": tool.lti_version,
+				"https://purl.imsglobal.org/spec/lti/claim/deployment_id": tool._id,
+				"https://purl.imsglobal.org/spec/lti-dl/claim/deep_linking_settings":
+					(tool.lti_message_type === 'LtiDeepLinkingRequest'
+						? {
+							"accept_types": ["ltiLink"],
+							"accept_media_types": "image/*,text/html",
+							"accept_presentation_document_targets": ["iframe", "window"],
+							"deep_link_return_url": `${iss}courses/x/tools/link/${tool._id}`,
+						}
+						: undefined),
 			}
 			formData = {
-				id_token: jwt.sign(id_token, fs.readFileSync('private_key.pem'), {algorithm: 'RS256'})}
+				id_token: jwt.sign(id_token, fs.readFileSync('private_key.pem'), {algorithm: 'RS256'})
+			}
 	   }
 
         res.render('courses/components/run-lti-frame', {
@@ -170,6 +181,10 @@ const showToolHandler = (req, res, next) => {
     });
 };
 
+const addLinkHandler = (req, res, next) => {
+	res.send(req.body.id_token);
+}
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -184,6 +199,7 @@ router.post('/add', createToolHandler);
 
 router.get('/run/:ltiToolId', runToolHandler);
 router.get('/show/:ltiToolId', showToolHandler);
+router.post('/link/:ltiToolId', addLinkHandler);
 
 router.get('/:id', getDetailHandler);
 
