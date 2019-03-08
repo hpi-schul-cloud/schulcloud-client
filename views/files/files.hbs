@@ -11,12 +11,10 @@
     {{/content}}
 
     {{#content "page"}}
-
         <div class="route-files">
             {{#if canUploadFile}}
                 {{#embed "files/file-upload"}}{{/embed}}
             {{/if}}
-
             <section class="section-title">
                 <div class="container-fluid">
                     <div class="row">
@@ -42,33 +40,32 @@
             <section class="directories">
                 <div class="row">
                     {{#each directories}}
-						<div class="col-sm-6 col-xs-12 col-md-4">
-							<div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
-								<strong class="card-title-directory">
-									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
-								</strong>
-                                {{#userHasPermission "FOLDER_DELETE"}}
-								<a href="/files/directory/"
-								   target="_blank"
-								   data-method="delete"
-                                   title="Ordner löschen"
-								   data-file-id="{{../this._id}}"
-								   data-file-name="{{{../this.name}}}">
-									<i class="fa fa-trash-o pull-right"></i>
-								</a>
+            						<div class="col-xs-12">
+                          <div class="card card-block folder" onclick="location.href = openFolder('{{this._id}}');">
+            								<strong class="card-title-directory">
+            									<i class="fa fa-folder" aria-hidden="true"></i> {{{stripOnlyScript this.name}}}
+            								</strong>
+                                            {{#userHasPermission "FOLDER_DELETE"}}
+            								<a href="/files/directory/"
+            								   target="_blank"
+            								   data-method="delete"
+                               title="Ordner löschen"
+            								   data-file-id="{{../this._id}}"
+            								   data-file-name="{{{../this.name}}}">
+            									<i class="fa fa-trash-o directory-icon pull-right"></i>
+            								</a>
 
-                                <a href="/directoryModel/{{../this._id}}/rename"
-								   target="_blank"
-								   data-method="dir-rename"
-                                   title="Ordner umbenennen"
-                                   data-directory-id="{{../this._id}}"
-								   data-directory-name="{{../this.name}}"
-								   >
-									<i class="fa fa-edit pull-right"></i>
-								</a>
-                                {{/userHasPermission}}
-							</div>
-						</div>
+                            <a href="/directoryModel/{{../this._id}}/rename"
+            								   target="_blank"
+            								   data-method="dir-rename"
+                               title="Ordner umbenennen"
+                               data-directory-id="{{../this._id}}"
+            								   data-directory-name="{{../this.name}}">
+            									<i class="fa fa-edit directory-icon pull-right"></i>
+            								</a>
+                            {{/userHasPermission}}
+            							</div>
+            						</div>
                     {{/each}}
                 </div>
             </section>
@@ -85,9 +82,9 @@
                         <div class="col-sm-10 col-xs-16 col-md-8">
                             <div data-toggle="modal">
                                 <div>
-                                        <span class="btn btn-secondary create-directory">
-                                            <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
-                                        </span>
+                                    <span class="btn btn-secondary create-directory">
+                                        <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                    </span>
                                     {{#if ../canCreateFile}}
                                         <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
                                             <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
@@ -100,7 +97,6 @@
                 </div>
             </section>
             {{/userHasPermission}}
-
         </div>
     {{/content}}
 {{/extend}}
