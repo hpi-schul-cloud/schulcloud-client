@@ -45,25 +45,23 @@
                                 </a>
                                 {{/userHasPermission}}
 
-                                {{#if ../../canEditPermissions}}
-                                    <a href="#"
-                                    class="btn-file-share"
-                                    title="Datei teilen"
-                                    data-file-id="{{../this._id}}"
-                                    data-file-name="{{../this.name}}"
-                                    id="{{@index}}">
-                                        <i class="fa fa-share-alt"></i>
-                                    </a>
+								<a href="#"
+								class="btn-file-share"
+								title="Datei teilen"
+								data-file-id="{{../this._id}}"
+								data-file-name="{{../this.name}}"
+								id="{{@index}}">
+									<i class="fa fa-share-alt"></i>
+								</a>
 
-                                    <div class="popup-overlay" id="{{@index}}">
+								<div class="popup-overlay" id="{{@index}}">
 
-                                        <div class="popup-content" id="{{@index}}">
-                                            <a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">Bearbeiten</a>
-                                            <a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">Runterladen</a>
-                                            <a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
-                                        </div>
-                                    </div>
-                                {{/if}}
+									<div class="popup-content" id="{{@index}}">
+										<a class="btn btn-secondary btn-file-share-view" data-file-id="{{../this._id}}" data-file-attribute="view" style="width: 100%">Bearbeiten</a>
+										<a class="btn btn-secondary btn-file-share-download" data-file-id="{{../this._id}}" data-file-attribute="download" style="width: 100%">Runterladen</a>
+										<a class="btn btn-secondary btn-file-share-close" style="width: 100%">Schließen</a>
+									</div>
+								</div>
 
                                 {{#userHasPermission "FILE_MOVE"}}
                                 <a href="#"
