@@ -160,15 +160,9 @@
       text-overflow: ellipsis;
       display: inline-block;
     }
-    .file-preview-wrapper {
-      @media screen and (max-width: 575px) {
-        display: none;
-      }
-    }
     .card-text {
       line-height: 1;
     }
-
     .file-location {
       color: darkgrey;
       padding-top: 5px;
