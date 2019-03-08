@@ -522,7 +522,6 @@ router.get('/my/:folderId?/:subFolderId?', FileGetter, async function (req, res,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
 		parentId,
-		canEditPermissions: true,
     }, res.locals.files));
 });
 
@@ -658,7 +657,6 @@ router.get('/courses/:courseId/:folderId?', FileGetter, async function (req, res
         ownerId: req.params.courseId,
         toCourseText: 'Zum Kurs',
 		courseUrl: `/courses/${req.params.courseId}/`,
-		canEditPermissions: true,
         parentId: req.params.folderId
     }, res.locals.files));
 });
@@ -720,7 +718,6 @@ router.get('/teams/:teamId/:folderId?', FileGetter, async function (req, res, ne
         showSearch: true,
         courseId: req.params.teamId,
         ownerId: req.params.teamId,
-        canEditPermissions: team.user.permissions.includes('EDIT_ALL_FILES'),
         toCourseText: 'Zum Team',
         courseUrl: `/teams/${req.params.teamId}/`,
         parentId: req.params.folderId
@@ -817,20 +814,38 @@ router.post('/permissions/', function (req, res) {
     });
 });
 
-router.patch('/permissions/', function (req, res) {
-    const apiPromises = req.body.permissions
-        .map(p => ({
-            role: p.roleName,
-            read: p.read,
-            write: p.write,
-            create: p.create,
-            delete: p.delete
-        }))
-        .map(json => {
-            return api(req).patch(`/fileStorage/permission/${req.body.fileId}`, { json });
-        });
+router.get('/share/', (req, res) => {
+	const { file } = req.query;
+	return api(req).get(`/files/${file}`)
+		.then((file) => {
+			let { shareToken } = file;
 
-    Promise.all(apiPromises)
+			if (!shareToken) {
+				shareToken = shortid.generate();
+				return api(req).patch("/files/" + file._id, { json: file })
+					.then(() => Promise.resolve(shareToken));
+			}
+
+			return Promise.resolve(shareToken);
+		})
+		.then((shareToken) => res.json({ shareToken }))
+		.catch(() => res.sendStatus(500));
+})
+
+router.get('/permissions/', (req, res) => {
+	const { file } = req.query;
+
+	return api(req).get('/fileStorage/permission/', {
+		qs: { file },
+	})
+	.then((json) => res.json(json))
+	.catch(() => res.sendStatus(500));
+});
+
+router.patch('/permissions/', function (req, res) {
+    const { permissions, fileId } = req.body;
+
+	return api(req).patch(`/fileStorage/permission/${fileId}`, { json: { permissions } })
         .then(() => res.sendStatus(200))
         .catch(() => res.sendStatus(500));
 });

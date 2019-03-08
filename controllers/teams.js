@@ -513,7 +513,6 @@ router.get('/:teamId', async (req, res, next) => {
 			canUploadFile: true,
 			canCreateDir: true,
 			canCreateFile: true,
-			canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
 			createEventAction: `/teams/${req.params.teamId}/events/`,
 			allowExternalExperts: allowExternalExperts ? 'checked' : '',
 			allowTeamMembers: allowTeamMembers ? 'checked' : '',
