@@ -182,7 +182,24 @@ const showToolHandler = (req, res, next) => {
 };
 
 const addLinkHandler = (req, res, next) => {
-	res.send(req.body.id_token);
+	// TODO: validate LTI response
+	api(req).get('/ltiTools/' + req.params.ltiToolId)
+		.then((tool) => {
+			const idToken = jwt.verify(req.body.id_token, tool.key, { algorithm: 'RS256' });
+			if (idToken.iss !== tool.oAuthClientId) {
+				res.send('Issuer stimmt nicht überein.')
+			}
+			if (idToken.aud !== (process.env.FRONTEND_URL || 'http://localhost:3100/')) {
+				res.send('Audience stimmt nicht überein.')
+			}
+
+			const content = idToken['https://purl.imsglobal.org/spec/lti-dl/claim/content_items'];
+			res.render('courses/deep-link', {
+				url: content.url,
+				title: content.title,
+			});
+
+		});
 }
 
 

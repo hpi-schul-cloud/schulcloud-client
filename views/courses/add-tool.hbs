@@ -33,7 +33,18 @@
                 {{/content}}
             {{/embed}}
 			{{#embed "lib/components/modal-form" method="post" class="deep-linking-modal" courseId=../courseId}}
-
+				{{#content "fields"}}
+					<input type="hidden" name="name" value="{{name}}" id="ltiTitle" />
+					<input type="hidden" name="logo_url" value="{{logo_url}}" />
+					<input type="hidden" name="oAuthClientId" value="{{oAuthClientId}}" />
+					<input type="hidden" name="key" value="{{key}}" />
+					<input type="hidden" name="lti_message_type" value="{{lti_message_type}}" />
+					<input type="hidden" name="lti_version" value="{{lti_version}}" />
+					<input type="hidden" name="resource_link_id" value="{{resource_link_id}}" />
+					<input type="hidden" name="url" value="{{url}}" id="ltiUrl" />
+					<input type="hidden" name="secret" value="{{secret}}" />
+					<input type="hidden" name="courseId" value="{{courseId}}" data-force-value="true" />
+				{{/content}}
 			{{/embed}}
             {{/userHasPermission}}
         </section>

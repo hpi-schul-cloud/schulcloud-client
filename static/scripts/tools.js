@@ -1,7 +1,3 @@
-function createDeepLink(event) {
-
-}
-
 $(document).ready(function () {
 
     var $modals = $('.modal');
@@ -101,13 +97,14 @@ $(document).ready(function () {
                 createLocalTool($editModal, result.tool);
             } else {
             	if (result.tool.lti_message_type === 'LtiDeepLinkingRequest') {
+            		result.tool.lti_message_type = 'LtiResourceLinkRequest';
 					populateModalForm($deepLinkingModal, {
 						title: 'Bitte im Tool den einzufügenden Inhalt auswählen:',
 						closeLabel: 'Abbrechen',
-						submitLabel: 'Speichern'
+						submitLabel: 'Speichern',
+						fields: result.tool
 					});
 					const courseId = $editModal.find('.modal-form').find("input[name='courseId']").val();
-					window.addEventListener("message", createDeepLink, false);
 					$deepLinkingModal.find('.modal-body').append(`<iframe src="/courses/${courseId}/tools/run/${result.tool._id}" />`);
 					$deepLinkingModal.appendTo('body').modal('show');
 				} else {
