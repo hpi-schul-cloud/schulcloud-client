@@ -1,0 +1,52 @@
+{{#extend "administration/administration"}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/administration/course.css"/>
+        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
+    {{/content}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
+        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+    {{/content}}
+    {{#content "page"}}
+        <div class="route-administration">
+            <section class="section-school section-default">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            {{> "lib/components/table" head=head body=body}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div>
+                    {{!-- <div class="row">
+                        <div class="col-sm-12 no-padding">
+                            <button type="submit" class="btn btn-primary btn-add-modal">
+                                Team hinzufügen
+                            </button>
+                        </div>
+                    </div> --}}
+                </div>
+
+                {{#embed "lib/components/modal-form" method="patch" class="edit-modal" collapseId=1}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-teams"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" action="/administration/teams/" method="post" class="add-modal" collapseId=2}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-teams"}}
+                    {{/content}}
+                {{/embed}}
+
+                {{#embed "lib/components/modal-form" body=body method="delete" class="delete-modal"}}
+                    {{#content "fields"}}
+                        {{> "administration/forms/form-delete-name"}}
+                    {{/content}}
+                {{/embed}}
+
+            </section>
+        </div>
+    {{/content}}
+{{/extend}}

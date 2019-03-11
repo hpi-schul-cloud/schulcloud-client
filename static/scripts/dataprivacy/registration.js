@@ -1,9 +1,9 @@
-import '../helpers/inputLinking';
+import './dataprivacy';
 
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
-    let radiou18 = document.getElementById("reg-u18");
-    let radio18 = document.getElementById("reg-18");
+    let radiou16 = document.getElementById("reg-u16");
+    let radio16 = document.getElementById("reg-16");
 
     if(document.querySelector('#showRegistrationForm')) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
@@ -14,61 +14,25 @@ window.addEventListener('DOMContentLoaded', ()=>{
             additional += $("input[name=sso]").val() === "true" ? 'sso/'+$("input[name=account]").val() : '';
             additional += $("input[name=importHash]").val() !== undefined ? '?importHash='+encodeURIComponent($("input[name=importHash]").val()) : '';
 
-            if(radiou18.checked){
+            if(radiou16.checked){
                 window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${additional}`;
             }else{
                 window.location.href = `${baseUrl}/${classOrSchoolId}/bystudent/${additional}`;
             }
         });
         $("input[type='radio']").on("change", () => {
-            if(radio18.checked) {
-                document.getElementById("infotext-18").style.display = "block";
-                document.getElementById("infotext-u18").style.display = "none";
+            if(radio16.checked) {
+                document.getElementById("infotext-16").style.display = "block";
+                document.getElementById("infotext-u16").style.display = "none";
                 document.getElementById("showRegistrationForm").disabled = false;
             } else {
-                document.getElementById("infotext-18").style.display = "none";
-                document.getElementById("infotext-u18").style.display = "block";
+                document.getElementById("infotext-16").style.display = "none";
+                document.getElementById("infotext-u16").style.display = "block";
                 document.getElementById("showRegistrationForm").disabled = false;
             }
         });
     }
-    let pinSent;
-    // if email for pin registration is changed, reset pin-sent status
-    $('form.registration-form.student input[name$="email"]:last').on("change", ()=> {
-        pinSent = false;
-    });
-    
-    $('.form section[data-feature="pin"]').on("showSection", (event) => {
-        if(pinSent) {
-            // send pin of value is something else than no
-        } else {
-            sendPin(true);
-        }
-    });
-    
-    $('#resend-pin').on("click", e => {
-        e.preventDefault();
-        sendPin(true);
-        $(".pin-input .digit").val("");
-    });
-    
-    function sendPin(sendConfirm) {
-        let usermail = $("input[name$='email']:last").val();
-        let byRole = window.location.pathname.split("/by")[1].split("/")[0].replace("/","");
-        
-        $.ajax({
-            url: "/registration/pincreation",
-            method: "POST",
-            data: {"email": usermail, "byRole": byRole}
-        }).done(success => {
-            if(sendConfirm) {
-                $.showNotification(`Eine PIN wurde erfolgreich an ${usermail} versendet.`, "success", 15000);
-            }
-            pinSent = true;
-        }).fail(function(err){
-            $.showNotification(`Fehler bei der PIN-Erstellung! Bitte versuche es mit 'Code erneut zusenden' und prüfe deine E-Mail-Adresse (${usermail}).`, "danger", 7000);
-        });
-    }
+
 
     let parentMailInput = document.querySelector('input[name="parent-email"]');
     let studentMailInput = document.querySelector('input[name="student-email"]');
@@ -108,6 +72,8 @@ function goBack(event){
     window.history.back();
 }
 
+
+// GENERATE START PASSWORD
 window.addEventListener('load', ()=>{
     if(document.querySelector('.form .student-password')) {
         // generate password if password field present
