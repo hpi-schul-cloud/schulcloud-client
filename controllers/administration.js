@@ -1310,12 +1310,14 @@ const renderClassEdit = (req, res, next, edit) => {
 		.then(classes => {
 			let promises = [
 				getSelectOptions(req, 'users', { roles: ['teacher', 'demoTeacher'], $limit: false }), //teachers
-				getSelectOptions(req, 'years', { $sort: { name: -1 } }),
+				getSelectOptions(req, 'years', { $sort: { name: -1 } }), // NOTE this sort seems to be ineffective, probably since name is a string.
 				getSelectOptions(req, 'gradeLevels')
 			];
 			if (edit) { promises.push(api(req).get(`/classes/${req.params.classId}`)); }
 
 			Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
+				gradeLevels.sort((a, b) => parseInt(a.name) - parseInt(b.name)) // NOTE this correctly sorts the grades in ascending order.
+
 				const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
 				if (!isAdmin) {
 					// preselect current teacher when creating new class and the current user isn't a admin (teacher)
