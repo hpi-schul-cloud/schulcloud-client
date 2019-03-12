@@ -7,6 +7,22 @@
       </a>
     </div>
   {{/userHasPermission}}
+  {{#userHasPermission "COURSE_EDIT"}}
+    {{#ifeq ../lessons.length 1}}
+      <div class="col-sm-12">
+        <div class="first-topic-success">
+          <h5>Geschafft - Das erste Thema in deinem Kurs!</h5>
+          <div>
+            Ein Klick auf das Auge <i class="fa fa-eye"></i> macht das Thema sichtbar oder unsichtbar.
+          </div>
+          <div>
+            Du kannst dein Thema jederzeit bearbeiten <i class="fa fa-pencil"></i>, verschieben <i class="fa fa-ellipsis-v"></i><i class="fa fa-ellipsis-v"></i>, löschen <i class="fa fa-trash-o"></i> oder mit anderen {{theme.short_title}} Nutzern teilen <i class="fa fa-share-alt"></i>.
+            Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.
+          </div>
+        </div>
+      </div>
+    {{/ifeq}}
+  {{/userHasPermission}}
   <div class="col-sm-12">
     <div class="list-group">
       {{#if lessons}}
@@ -102,23 +118,6 @@
           {{/if}}
         </a>
       </div>
-      {{#ifeq ../lessons.length 1}}
-        <div class="row first-topic">
-          <div class="col-sm-2 offset-sm-1">
-            <img src="/images/empty-states/news.svg" alt="Geschafft!" class="image mx-auto d-block hidden-xs-down"/>
-          </div>
-          <div class="col-xs-12 col-sm-8">
-            <h5 class="text-muted">Geschafft - Das erste Thema in deinem Kurs!</h5>
-            <div class="text-muted">
-              Ein Klick auf das Auge <i class="fa fa-eye"></i> macht das Thema sichtbar oder unsichtbar.
-            </div>
-            <div class="text-muted">
-              Du kannst dein Thema jederzeit bearbeiten <i class="fa fa-pencil"></i>, verschieben <i class="fa fa-ellipsis-v"></i><i class="fa fa-ellipsis-v"></i>, löschen <i class="fa fa-trash-o"></i> oder mit anderen {{theme.short_title}} Nutzern teilen <i class="fa fa-share-alt"></i>.
-              Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.
-            </div>
-          </div>
-        </div>
-      {{/ifeq}}
     {{/userHasPermission}}
   </div>
 </div>
