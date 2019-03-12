@@ -936,8 +936,6 @@ router.get('/:assignmentId', function (req, res, next) {
                         return role.name;
                     });
 
-
-
                     // Render assignment.hbs
                     //submission>single=student=upload || submissionS>multi=teacher=overview
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
