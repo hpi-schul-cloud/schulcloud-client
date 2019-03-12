@@ -935,6 +935,9 @@ router.get('/:assignmentId', function (req, res, next) {
                     const roles = user[0].roles.map(role => {
                         return role.name;
                     });
+
+
+
                     // Render assignment.hbs
                     //submission>single=student=upload || submissionS>multi=teacher=overview
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
@@ -947,7 +950,7 @@ router.get('/:assignmentId', function (req, res, next) {
                         },
                         {}
                         ],
-                        isTeacher: true,
+                        isTeacher: roles.includes('teacher'),
                         students: students,
                         studentSubmissions,
                         studentsWithoutSubmission,
