@@ -1165,13 +1165,19 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	const consents = (await api(req).get('/consents', {
-		qs: {
-			userId: { $in: users.map(u => u._id) },
-			$populate: 'userId',
-			$limit: false,
-		}
-	})).data;
+	let consents = [];
+	const batchSize = 50;
+	let slice = 0;
+	while (slice * batchSize <= users.length) {
+		consents = consents.concat((await api(req).get('/consents', {
+			qs: {
+				userId: { $in: users.slice(slice * batchSize, (slice + 1) * batchSize).map(u => u._id) },
+				$populate: 'userId',
+				$limit: false,
+			}
+		})).data);
+		slice += 1;
+	}
 
 	const consentMissing = (user) => {
 		return !consents.some(consent => consent.userId._id.toString() === user._id.toString());
