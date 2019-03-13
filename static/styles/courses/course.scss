@@ -1,4 +1,5 @@
 @import '../lib/colors';
+@import '../lib/bootstrap/scss/bootstrap-flex';
 
 .move-handle {
   cursor: move;
@@ -60,6 +61,10 @@
      line-height:25px;
      border-radius:50%;
      box-shadow:0 0 2px #333;
+  }
+
+  .files {
+    margin-bottom: 20px;
   }
 
   .btn-import-topic {
@@ -142,6 +147,62 @@
 
   .new-course-time-template {
     display: none;
+  }
+
+  .empty-state{
+    text-align: center;
+    max-width: 60%;
+    margin: 0 auto;
+    margin-top: 20px;
+    @include media-breakpoint-down(xs) {
+      max-width: 90%;
+    }
+    @include media-breakpoint-up(xs) {
+      max-width: 60%;
+    }
+    h6.sub-title {
+      color: $colorDarkerGrey;
+    }
+    .image {
+      width: auto;
+      height: auto;
+      margin-bottom: 30px;
+      @include media-breakpoint-down(xs) {
+        max-width: 80px;
+      }
+      @include media-breakpoint-up(xs) {
+        max-width: 100px;
+      }
+
+      transition: all .3s ease-in;
+      &:hover {
+        transform: rotate(-7deg);
+      }
+    }
+    .image.topic-image{
+      max-width: 80px;
+      @include media-breakpoint-down(xs) {
+        max-width: 60px;
+      }
+    }
+  }
+
+  .empty-state-courses{
+    margin-top: 0;
+  }
+
+  .add-button{
+    margin-top: 20px;
+    text-align: center;
+    .plus-icon{
+      font-size: 20px;
+      color: $primaryColor;
+    }
+  }
+
+  .first-topic-success{
+    background-color: #F2F2F2;
+    padding: 20px;
   }
 }
 .course-tasks-header, .course-groups-header {

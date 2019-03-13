@@ -533,21 +533,6 @@
 		"team": [
 			{
 				"title": "",
-				"firstName": "Christopher",
-				"lastName": "Eschenbecher",
-				"position": "Studentische Hilfskraft",
-				"description": "Christopher hat in Regensburg das Studium in Medieninformatik erfolgreich abgeschlossen und im Anschluss daran als Entwickler für Trivago in Düsseldorf gearbeitet. Im Moment absolviert er Design Thinking als 'Fortbildung' am HPI und arbeitet nebenbei als Werkstudent an der HPI Schul-Cloud. Seine Aufgabe ist es, diese sowohl für Lehrer als auch Schüler attraktiv zu gestalten. Somit ist seine Arbeit für die HPI Schul-Cloud eine perfekte Ergänzung zum Design Thinking Studium. Wenn Christopher ausnahmsweise nicht am HPI anzutreffen ist, fährt er Fahrrad, kocht, oder betreibt Yoga.",
-				"pictureUrl": "/images/team/Christopher_Eschenbecher.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Dominik",
 				"lastName": "Glandorf",
 				"position": "Studentische Hilfskraft",
@@ -568,21 +553,6 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Dominik war Teil des Bachelorprojektes 2017/2018, dort schrieb er Blogbeiträge und arbeitete am Content-Editor. Seit August 2018 ist er Studentische Hilfskraft und unterstützt bei der HPI Schul-Cloud-Entwicklung. Vor dem Informatikstudium war er ein Jahr für ein Studium Generale in Freiburg im Breisgau. In seiner Freizeit schreibt er gerne Geschichten und spielt Gitarre.",
 				"pictureUrl": "/images/team/Dominik_Jaekel.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
-				"firstName": "Sophie",
-				"lastName": "Krüger",
-				"position": "Studentische Hilfskraft",
-				"description": "Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud unterstützt sie unter anderem bei der Planung und Koordination von Veranstaltungen, sowie bei der Evaluation der Lehrkräfte an den Pilotschulen. In ihrer Freizeit engagiert sie sich ehrenamtlich im Fachschaftsrat Lehramt und in einem studentischen Verein. Außerdem liest, reist und kocht sie sehr gerne.",
-				"pictureUrl": "/images/team/Sophie_Krueger.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -628,6 +598,21 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Andrea studiert Bachelor IT-Systems Engineering am HPI. Seit Mai 2018 ist sie im Bereich der Android App-Entwicklung im HPI Schul-Cloud Projekt tätig. In ihrer Freizeit zeichnet sie und ist in den Sportarten historischer Schwertkampf und historische Tänze aktiv.",
 				"pictureUrl": "/images/team/Andrea_Nathansen.JPG",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Maxim",
+				"lastName": "Renz",
+				"position": "Studentische Hilfskraft",
+				"description": "Maxim studiert Angewandte Informatik im Bachelor an der Universität Duisburg-Essen. 2018 arbeitete er am HPI im Projekt der OpenWHO-Plattform. Im Team HPI Schul-Cloud arbeitet er seit Januar 2019 an der Entwicklung des automatisierten Cross-Browser-Testings. In seiner Freizeit kocht & isst er gerne, beschäftigt sich mit KFZ-Design & Technologie und fährt gelegentlich Rennrad.",
+				"pictureUrl": "/images/team/Maxim_Renz.JPG",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -687,6 +672,21 @@
 				"longDesc": false
 			},
 			{
+				"title": "",
+				"firstName": "Sophie",
+				"lastName": "Krüger",
+				"position": "Praktikantin",
+				"description": "Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud hilft sie dabei, die HPI Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In ihrer Freizeit engagiert sie sich ehrenamtlich in diversen Vereinen. Außerdem liest, reist und kocht sie sehr gerne.",
+				"pictureUrl": "/images/team/Sophie_Krueger.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
         "title": "",
         "firstName": "Michael",
         "lastName": "Schmid",
@@ -723,6 +723,21 @@
 				"position": "Freier Mitarbeiter",
 				"description": "Robert ist ein freier Frontend-Entwickler bei der HPI Schul-Cloud. Obwohl er kein Studienabschluss hat ist er seit 2002 damit beschäftigt die Webtechnologien HTML, CSS und Javascript für unterschiedliche Kunden und Projekte in die Welt zu tragen. Wenn er nicht gerade damit zu tun hat Marder von seinem Grundstück zu vertreiben, achtet er noch auf Performance und Barrierefreiheit. Die spärlich vorhandene Freizeit nutzt er für Kinder, Haus und Garten.",
 				"pictureUrl": "/images/team/Robert_Weber.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Mona",
+				"lastName": "Weitzenberg",
+				"position": "Freie Mitarbeiterin",
+				"description": "Mona gestaltet. Mit Menschen. Für Menschen. Durch Ihre 15 jährige Praxis als freiberufliche Designerin, konnte sich Mona neben einem immensen Erfahrungsschatz und kreativer Routine ein multidisziplinäres Gestaltungsportfolio erarbeiten, dass sowohl die klassischen als auch die neuen Medien umfasst. Eine Gestaltung einer Broschüre erfährt die gleiche Hingabe wie die Entwicklung einer komplexen Applikation. Seit November 2018 unterstützt sie das Team der HPI Schul-Cloud in allen Gestaltungsfragen als Art Direktorin. Dabei liegt der Kern ihrer Arbeit im Interfacedesign (UI/UX) und in der Erarbeitung einer durchgehenden Corporate Identity. Familie, Hund und Haus sind für Mona nötiger Ruhepol, Erdung, Inspiration und kreative Neuerfindung zugleich.",
+				"pictureUrl": "/images/team/Mona.png",
 				"priority": 0,
 				"social": {
 					"facebook": "",

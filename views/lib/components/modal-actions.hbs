@@ -1,0 +1,22 @@
+{{#extend "lib/components/modal"}}
+    {{#content "body"}}
+        {{#if method}}
+            <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+        {{/if}}
+
+        <div class="modal-body">
+            {{#block "fields"}}{{/block}}
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary btn-close">
+                {{closeLabel}}
+            </button>
+
+            {{#block "additional-actions"}}{{/block}}
+
+            <button type="submit" class="btn btn-primary btn-submit">
+                {{submitLabel}}
+            </button>
+        </div>
+    {{/content}}
+{{/extend}}

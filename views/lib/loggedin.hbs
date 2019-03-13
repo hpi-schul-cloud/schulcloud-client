@@ -145,49 +145,16 @@
                             </div>
                         </li>
     	                {{/if}}
-                        <li class="nav-item help-drodown" data-step="5" data-intro="Dies ist der Hilfebereich für deine Fragen und Probleme.">
-                            <div class="dropdown minimal-button">
-                                <a class="btn btn-secondary btn-thin dropdown-toggle" title="Hilfe" data-toggle="dropdown">
-                                    <i class="fa fa-question"></i>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <ul class="content list-group">
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-question-circle" aria-hidden="true"></i>
-                                                <a href="/help" class="link">Hilfebereich</a>
-                                            </span>
-                                        </li>
-
-                                        <li id="intro-loggedin" class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-map-signs"aria-hidden="true"></i>
-                                                <a href="#" class="link">Intro</a>
-                                            </span>
-                                        </li>
-
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                                <a href="#" class="link submit-contactHPI">Wunsch oder Problem senden</a>
-                                            </span>
-                                        </li>
-                                        <li class="list-group-item list-group-item-action">
-                                            <span>
-                                                <i class="fa fa-comment" aria-hidden="true"></i>
-                                                <a href="#" class="link submit-contactAdmin">Admin deiner Schule kontaktieren</a>
-                                            </span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
+                        
+                        {{#embed "lib/help_menu"}}{{/embed}}
 
                         {{#if currentSchoolData}}
-                            <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
-                            {{#if currentSchoolData.logo_dataUrl}}
-                                <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
-                            {{/if}}
+                            {{#unless currentSchoolData.isExpertSchool}}
+                                <li class="nav-item school-data hidden-sm-down">{{ currentSchoolData.name }}</li>
+                                {{#if currentSchoolData.logo_dataUrl}}
+                                    <img class="nav-item federal-state" src="{{ currentSchoolData.logo_dataUrl }}" alt="Logo von {{currentSchoolData.name}}">
+                                {{/if}}
+                            {{/unless}}
                         {{/if}}
 
                         <li class="nav-item" data-step="6" data-intro="Hier findest du Einstellungen und Log-Out.">
