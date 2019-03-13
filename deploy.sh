@@ -1,6 +1,8 @@
 #! /bin/bash
 
-if [[ $TRAVIS_BRANCH == master ]]
+export TESTDEPLOY=$( cat testdeploy )
+
+if [ "$TRAVIS_BRANCH" = "master" ]
 then
   export DOCKERTAG=latest
 else
@@ -30,6 +32,13 @@ function buildandpush {
 }
 
 function deploytotest {
+  # build container default theme
+  docker build -t schulcloud/schulcloud-client:$DOCKERTAG -t schulcloud/schulcloud-client:$GIT_SHA .
+
+  # take those images and push them up to docker hub
+  docker push schulcloud/schulcloud-client:$DOCKERTAG
+  docker push schulcloud/schulcloud-client:$GIT_SHA
+
   # screw together config file for docker swarm 
   eval "echo \"$( cat compose-client-test.dummy )\"" > docker-compose-client.yml
 
@@ -40,10 +49,9 @@ function deploytotest {
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@test.schul-cloud.org /usr/bin/docker service update --force test-schul-cloud_client
 }
 
-if [[ $TRAVIS_BRANCH == master ]] #&& $TRAVIS_PULL_REQUEST ]]
+if [ "$TRAVIS_BRANCH" = "master" ]
   buildandpush
-elif [[ $TRAVIS_TAG == testdeploy ]]
-  buildandpush
+elif [ $TESTDEPLOY = "true" ]
   deploytotest
 fi
 
