@@ -1360,7 +1360,7 @@ const renderClassEdit = (req, res, next, edit) => {
 					class: currentClass,
 					gradeLevels,
 					isCustom,
-					referrer: req.header('Referer')
+					referrer: '/administration/classes/',
 				});
 			});
 		}).catch(err => {
@@ -1478,7 +1478,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
 							"content": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
 						},
 					],
-					referrer: req.header('Referer'),
+					referrer: '/administration/classes/',
 				});
 			});
 		});
