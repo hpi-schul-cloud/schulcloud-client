@@ -222,7 +222,6 @@ router.get('/', async (req, res, next) => {
 	let teamInvitations = (await api(req).get('/teams/extern/get/')).data;
 
 	teamInvitations = teamInvitations.map((team) => {
-		team.url = `/teams/${team._id}`;
 		team.title = team.name;
 		team.content = (team.description || '').substr(0, 140);
 		team.secondaryTitle = '';
