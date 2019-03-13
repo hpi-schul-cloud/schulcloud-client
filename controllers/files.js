@@ -154,7 +154,8 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
 	const owner = getStorageContext(req, res);
-	const { params: { folderId: parent } } = req;
+	const { params: { folderId, subFolderId } } = req;
+	const parent = subFolderId || folderId;
 	const promises = [
 		api(req).get('/roles', { qs: { name: 'student' } }),
 		api(req).get('/fileStorage', {
@@ -214,26 +215,14 @@ const getScopeDirs = (req, res, scope) => {
  * generates a directory tree from a path recursively
  * @param rootPath
  */
-const getDirectoryTree = (req, directory) => {
+const getDirectoryTree = (set, directory) => {
+	const children = set.filter(dir => dir.parent && dir.parent === directory._id);
 
-    return api(req).get('/fileStorage/directories', {
-        qs: { parent: directory._id },
-    })
-    .then((children) => {
+	if (children.length) {
+		directory.children = children.map(child => getDirectoryTree(set, child));
+	}
 
-        if( children.length ) {
-
-            directory.children = children;
-
-            const childPromises = children.map(child => {
-                return getDirectoryTree(req, child);
-            });
-
-            return Promise.all(childPromises).then(() => Promise.resolve(directory));
-        }
-
-        return Promise.resolve(directory);
-    });
+	return directory;
 };
 
 /**
@@ -498,9 +487,10 @@ router.delete('/directory', function (req, res) {
     });
 });
 
-router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
+router.get('/my/:folderId?/:subFolderId?', FileGetter, async function (req, res, next) {
     const userId = res.locals.currentUser._id;
-    const basePath = '/files/my/';
+	const basePath = '/files/my/';
+	const parentId = req.params.subFolderId || req.params.folderId;
 
     res.locals.files.files = res.locals.files.files
         .filter(_ => Boolean(_))
@@ -513,7 +503,7 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
     }];
 
     if( req.params.folderId ) {
-        const folderBreadcrumbs = (await getBreadcrumbs(req, req.params.folderId)).map((crumb) => {
+        const folderBreadcrumbs = (await getBreadcrumbs(req, parentId)).map((crumb) => {
             crumb.url = `${basePath}${crumb.id}`;
             return crumb;
         });
@@ -531,7 +521,7 @@ router.get('/my/:folderId?', FileGetter, async function (req, res, next) {
         showSearch: true,
         inline: req.query.inline || req.query.CKEditor,
         CKEditor: req.query.CKEditor,
-		parentId: req.params.folderId,
+		parentId,
 		canEditPermissions: true,
     }, res.locals.files));
 });
@@ -888,29 +878,24 @@ router.get('/permittedDirectories/', async (req, res) => {
         children: (await getScopeDirs(req, res, 'teams')).map(extractor)
     }];
 
-    api(req).get('/fileStorage/directories').then(directories => {
-        const promises = directories
-                .filter(dir => dir)
-                .map(dir => getDirectoryTree(req, dir));
+	api(req).get('/fileStorage/directories')
+		.then(directories => directories.map(dir => getDirectoryTree(directories, dir)))
+		.then(directories => {
 
-        return Promise.all(promises);
-    })
-    .then(directories => {
+			directoryTree.forEach(tree => {
+				tree.children.forEach(child => {
+					child.children = directories.filter(dir => {
+						return dir.owner === child._id && dir.refOwnerModel === tree.model;
+					});
+				});
+			});
 
-        directoryTree.forEach(tree => {
-            tree.children.forEach(child => {
-                child.children = directories.filter(dir => {
-                    return dir.owner === child._id && dir.refOwnerModel === tree.model;
-                });
-            });
-        });
-
-        res.json(directoryTree);
-    })
-    .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-    });
+			res.json(directoryTree);
+		})
+		.catch(err => {
+			console.log(err);
+			res.sendStatus(500);
+		});
 });
 
 /**** File and Directory proxy models ****/
