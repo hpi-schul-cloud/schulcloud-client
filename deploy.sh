@@ -50,9 +50,13 @@ function deploytotest {
 }
 
 if [ "$TRAVIS_BRANCH" = "master" ]
+then
   buildandpush
-elif [ $TESTDEPLOY = "true" ]
+elif [ "$TESTDEPLOY" = "true" ]
+then
   deploytotest
+else
+  echo "Nix wird deployt"
 fi
 
 exit 0
