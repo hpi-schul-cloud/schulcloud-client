@@ -1,4 +1,8 @@
+{{#if this.url}}
 <article class="sc-card" onclick="location.href='{{this.url}}'">
+{{else}}
+<article class="sc-card">
+{{/if}}
     <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
         {{/if}}>
         {{#if this.isRSS}}
