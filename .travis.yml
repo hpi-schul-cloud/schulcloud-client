@@ -1,7 +1,7 @@
 language: node_js
 node_js: '8'
 sudo: required
-if: branch = master OR type = pull_request
+if: branch = bugfix-SC-1037 OR type = pull_request
 services:
 - docker
 env:
