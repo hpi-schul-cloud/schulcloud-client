@@ -30,6 +30,8 @@ before_script:
 - chmod +x diff.sh
 - chmod +x frontend_test.sh
 script:
+- echo $TRAVIS_BRANCH
+- echo $TRAVIS_TAG
 - npm test
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
@@ -40,9 +42,12 @@ script:
 cache:
   directories:
   - node_modules
-deploy:
-  provider: script
-  script: bash ./deploy.sh
-  on:
-    all_branches: true
-    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
+after_success:
+- bash ./deploy.sh
+
+#deploy:
+#  provider: script
+#  script: bash ./deploy.sh
+#  on:
+#    all_branches: true
+#    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
