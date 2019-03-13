@@ -10,6 +10,7 @@ COPY ./package.json .
 RUN npm install -g nodemon gulp-cli && npm install
 
 COPY . .
+COPY ./localtime /etc/localtime
 
 ENV SC_THEME=n21
 RUN gulp && rm .gulp-changed-smart.json
