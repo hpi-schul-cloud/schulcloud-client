@@ -1,9 +1,5 @@
 #! /bin/bash
 
-# print variables
-echo "TRAVIS_BRANCH: $TRAVIS_BRANCH"
-echo "TRAVIS_TAG: $TRAVIS_TAG"
-
 if [[ $TRAVIS_BRANCH == master ]]
 then
   export DOCKERTAG=latest
