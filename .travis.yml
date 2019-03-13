@@ -40,9 +40,12 @@ script:
 cache:
   directories:
   - node_modules
-deploy:
-  provider: script
-  script: bash ./deploy.sh
-  on:
-    all_branches: true
-    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
+after_success:
+- bash ./deploy.sh
+
+#deploy:
+#  provider: script
+#  script: bash ./deploy.sh
+#  on:
+#    all_branches: true
+#    condition: "$TRAVIS_BRANCH =~ ^master|N21/merge$"
