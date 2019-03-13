@@ -49,7 +49,7 @@ function deploytotest {
   ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i travis_rsa linux@test.schul-cloud.org /usr/bin/docker service update --force test-schul-cloud_client
 }
 
-if [ "$TRAVIS_BRANCH" = "master" ]
+if [[ "$TRAVIS_BRANCH" = "master" && "$TRAVIS_PULL_REQUEST" = "false" ]]
 then
   buildandpush
 elif [ "$TESTDEPLOY" = "true" ]
