@@ -380,12 +380,6 @@ router.get('/:courseId/usersJson', function (req, res, next) {
 });
 
 // EDITOR
-router.get('/:courseId', function (req, res, next) {
-    if (req.query.edtr) {
-        return res.render('courses/course-edtr')
-    }
-    next()
-})
 
 router.get('/:courseId', function (req, res, next) {
     Promise.all([
