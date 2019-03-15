@@ -101,7 +101,7 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label>Vertretungslehrer</label>
+                    <label>Vertretungslehrer - Optional</label>
                     <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
@@ -116,12 +116,12 @@
               <div class="times" id="timesContainer">
                   <div class="row">
                       <div class="form-group col-md-6">
-                          <label>Zeitraum (z.B. Schuljahr) von</label>
+                          <label>Zeitraum (z.B. Schuljahr) von - Optional</label>
                           <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
 
                       <div class="form-group col-md-6">
-                          <label>Bis</label>
+                          <label>Bis - Optional</label>
                           <input name="untilDate" id="untilDate" data-date type="text" class="form-control" value="{{course.untilDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
                   </div>
@@ -166,7 +166,7 @@
                       </tbody>
                   </table>
                   <span class="new-course-time-add" data-timesref="#timesContainer">
-                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen
+                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen (optional)
                   </span>
               </div>
             </div>
@@ -177,7 +177,7 @@
               <h4>Du hast es fast geschafft...</h4>
 
               <div class="form-group">
-                  <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
+                  <label>Klasse(n) (Alle Schüler der Klasse automatisch hinzugefügt!)</label>
 
                   <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
                       {{#each classes}}
