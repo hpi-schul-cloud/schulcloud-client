@@ -70,6 +70,7 @@ const runToolHandler = (req, res, next) => {
        if (tool.privacy_permission === 'pseudonymous') {
          user_id = pseudonym.data[0].pseudonym;
        } else if (tool.privacy_permission === 'name' || tool.privacy_permission === 'e-mail') {
+       	console.log(currentUser._id);
          user_id = currentUser._id;
        }
 
