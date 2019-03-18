@@ -318,7 +318,7 @@ ${res.locals.theme.short_title}-Team`
 		};
 		return res.redirect(req.header('Referer'));
 	}
-    /* deprecated code for template-based e-mails - we keep that for later copy&paste
+	/* deprecated code for template-based e-mails - we keep that for later copy&paste
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
             let source = data.toString();
@@ -364,7 +364,7 @@ const getUserCreateHandler = (internalReturn) => {
 				};
 				res.redirect(req.header('Referer'));
 			}
-            /*
+			/*
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -607,10 +607,10 @@ const createBucket = (req, res, next) => {
 			api(req).patch('/schools/' + req.params.id, {
 				json: req.body
 			})]).then(data => {
-				res.redirect(req.header('Referer'));
-			}).catch(err => {
-				next(err);
-			});
+			res.redirect(req.header('Referer'));
+		}).catch(err => {
+			next(err);
+		});
 	}
 };
 
@@ -658,6 +658,10 @@ const userIdtoAccountIdUpdate = (service) => {
 				api(req).patch('/' + service + '/' + users[0]._id, {
 					json: req.body
 				}).then(data => {
+					req.session.notification = {
+						'type': 'success',
+						'message': `Änderungen erfolgreich gespeichert.`
+					};
 					res.redirect(req.header('Referer'));
 				}).catch(err => {
 					next(err);
@@ -1465,7 +1469,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
 							"title": "Deine Schüler sind mindestens 16 Jahre alt?",
 							"content": "Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
 						},
-                        /*{ // TODO - Feature not implemented
+						/*{ // TODO - Feature not implemented
                             "title":"Deine Schüler sind in der Schülerliste rot?",
                             "content": `Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der ${res.locals.theme.short_title} elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt.`
                         },
