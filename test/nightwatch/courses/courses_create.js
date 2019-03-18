@@ -42,7 +42,7 @@ module.exports = {
             .pause(500)
             .moveToElement('#nextSection', 10, 10)
             .click('#nextSection')
-            .pause(500)
+            .pause(1000)
             .moveToElement('.btn-primary', 10, 10)
             .click('.btn-primary')
             .pause(1000);
