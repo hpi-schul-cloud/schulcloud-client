@@ -318,7 +318,7 @@ ${res.locals.theme.short_title}-Team`
 		};
 		return res.redirect(req.header('Referer'));
 	}
-    /* deprecated code for template-based e-mails - we keep that for later copy&paste
+	/* deprecated code for template-based e-mails - we keep that for later copy&paste
     fs.readFile(path.join(__dirname, '../views/template/registration.hbs'), (err, data) => {
         if (!err) {
             let source = data.toString();
@@ -364,7 +364,7 @@ const getUserCreateHandler = (internalReturn) => {
 				};
 				res.redirect(req.header('Referer'));
 			}
-            /*
+			/*
             createEventsForData(data, service, req, res).then(_ => {
                 next();
             });
@@ -607,10 +607,10 @@ const createBucket = (req, res, next) => {
 			api(req).patch('/schools/' + req.params.id, {
 				json: req.body
 			})]).then(data => {
-				res.redirect(req.header('Referer'));
-			}).catch(err => {
-				next(err);
-			});
+			res.redirect(req.header('Referer'));
+		}).catch(err => {
+			next(err);
+		});
 	}
 };
 
@@ -658,6 +658,10 @@ const userIdtoAccountIdUpdate = (service) => {
 				api(req).patch('/' + service + '/' + users[0]._id, {
 					json: req.body
 				}).then(data => {
+					req.session.notification = {
+						'type': 'success',
+						'message': `Änderungen erfolgreich gespeichert.`
+					};
 					res.redirect(req.header('Referer'));
 				}).catch(err => {
 					next(err);
@@ -968,37 +972,36 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 const getStudentUpdateHandler = () => {
 	return async function (req, res, next) {
 		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
-		let studentConsent = {}, newParentConsent = {};
+		req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;	
 
-		// extractConsent
-		if (req.body.student_form) {
-			studentConsent = {
-				_id: req.body.student_consentId,
-				userConsent: {
+		let promises = [];
+		
+		// Consents
+		if (req.body.student_form || req.body.parent_form) {
+			let newConsent = {};
+			if (req.body.student_form) {
+				newConsent.userConsent = {
 					form: req.body.student_form || "analog",
 					privacyConsent: req.body.student_privacyConsent === "true",
 					thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
 					termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
-				}
-			};
-		}
-		if (req.body.parent_form) {
-			newParentConsent = {
-				form: req.body.parent_form || "analog",
-				privacyConsent: req.body.parent_privacyConsent === "true",
-				thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
-				termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
-			};
-		}
-		if (studentConsent._id) {
-			let orgUserConsent = await api(req).get('/consents/' + studentConsent._id);
-			if (orgUserConsent.parentConsents && orgUserConsent.parentConsents[0]) {
-				Object.assign(orgUserConsent.parentConsents[0], newParentConsent);
-				studentConsent.parentConsents = orgUserConsent.parentConsents;
+				};
 			}
-		} else if ((studentConsent.userConsent || {}).form) {
-			studentConsent.parentConsents = [newParentConsent];
+			if (req.body.parent_form) {
+				newConsent.parentConsents = []
+				newConsent.parentConsents[0] = {
+					form: req.body.parent_form || "analog",
+					privacyConsent: req.body.parent_privacyConsent === "true",
+					thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
+					termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
+				};
+			}
+			if (req.body.student_consentId) { // update exisiting consent
+				promises.push(api(req).patch('/consents/' + req.body.student_consentId, { json: newConsent }));
+			} else {//create new consent entry
+				newConsent.userId = req.params.id;
+				promises.push(api(req).post('/consents/', { json: newConsent }));
+			}
 		}
 
 		// remove all consent infos from user post
@@ -1008,17 +1011,9 @@ const getStudentUpdateHandler = () => {
 			}
 		});
 
-		let promises = [api(req).patch('/users/' + req.params.id, { json: req.body })]; // TODO: sanitize
+		promises.push(api(req).patch('/users/' + req.params.id, { json: req.body })); // TODO: sanitize
 
-		if (studentConsent._id) { // update exisiting consent
-			promises.push(api(req).patch('/consents/' + studentConsent._id, { json: studentConsent }));
-		} else if ((studentConsent.userConsent || {}).form) {//create new consent entry
-			delete studentConsent._id;
-			studentConsent.userId = req.params.id;
-			promises.push(api(req).post('/consents/', { json: studentConsent }));
-		}
-
-		Promise.all(promises).then(([user, studentConsent]) => {
+		Promise.all(promises).then(() => {
 			res.redirect(req.body.referrer);
 		}).catch(err => {
 			next(err);
@@ -1465,7 +1460,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
 							"title": "Deine Schüler sind mindestens 16 Jahre alt?",
 							"content": "Gib den Registrierungslink direkt an den Schüler weiter. Die Schritte für die Eltern entfallen automatisch."
 						},
-                        /*{ // TODO - Feature not implemented
+						/*{ // TODO - Feature not implemented
                             "title":"Deine Schüler sind in der Schülerliste rot?",
                             "content": `Sie sind vom Administrator bereits angelegt (z.B. durch Import aus Schüler-Verwaltungs-Software), aber es fehlen noch ihre Einverständniserklärungen. Lade die Schüler deiner Klasse und deren Eltern ein, ihr Einverständnis zur Nutzung der ${res.locals.theme.short_title} elektronisch abzugeben. Bereits erfasste Schülerdaten werden beim Registrierungsprozess automatisch gefunden und ergänzt.`
                         },
