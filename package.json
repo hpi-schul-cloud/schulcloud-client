@@ -14,8 +14,7 @@
     "test": "npm run mocha",
     "mocha": "mocha test/mocha/ --recursive",
     "coverage": "NODE_ENV=test istanbul cover node_modules/.bin/_mocha -- -- test/**/*.test.js",
-    "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox",
-    "singleTest": "./node_modules/.bin/nightwatch --test courses/courses_create.js --testcase 'Create Course' --env chrome"
+    "frontendTests": "./node_modules/.bin/nightwatch --config nightwatch.conf.js --env chrome,firefox"
   },
   "sasslintConfig": "./.sass-lint.yml",
   "dependencies": {
