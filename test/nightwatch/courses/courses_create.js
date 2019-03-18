@@ -39,11 +39,13 @@ module.exports = {
             .setValue('input[name=untilDate]', '01.03.2019')
             .moveToElement('#nextSection', 10, 10)
             .click('#nextSection')
-            .pause(500)
-            .moveToElement('#nextSection', 10, 10)
-            .click('#nextSection')
             .pause(1000)
-            .moveToElement('.btn-primary', 10, 10)
+            .moveToElement('#nextSection', 10, 10)
+            .click('#nextSection');
+
+        browser
+            .useCss()
+            .waitForElementVisible(".btn-primary", 10000)
             .click('.btn-primary')
             .pause(1000);
         browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
