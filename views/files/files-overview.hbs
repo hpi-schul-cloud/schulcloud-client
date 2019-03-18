@@ -13,7 +13,7 @@
         <div class="route-files-overview">
             <div class="row card-deck-row">
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
-                    {{> 'lib/components/sc-card' 
+                    {{> 'lib/components/sc-card'
                         title='<i class="fa fa-user"></i> Meine persönlichen Dateien'
                         secondaryTitle="<br />"
                         url='/files/my/'
@@ -23,7 +23,7 @@
                     }}
                 </div>
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
-                    {{> 'lib/components/sc-card' 
+                    {{> 'lib/components/sc-card'
                         title='<i class="fa fa-graduation-cap"></i> Meine Kurs-Dateien'
                         secondaryTitle="<br />"
                         url='/files/courses/'
@@ -32,8 +32,20 @@
                         background="#1989AC"
                     }}
                 </div>
+                {{#ifEnv "FEATURE_TEAMS_ENABLED" "true"}}
                 <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
-                    {{> 'lib/components/sc-card' 
+                    {{> 'lib/components/sc-card'
+                        title='<i class="fa fa-users"></i> Meine Team-Dateien'
+                        secondaryTitle="<br />"
+                        url='/files/teams/'
+                        link-text='Dateien öffnen'
+                        content='Hier findest du alle Dateien, die in den jeweiligen Teams verwendet werden. Alle Teilnehmer des Teams haben auf diese Dateien Zugriff.'
+                        background="#1989AC"
+                    }}
+                </div>
+                {{/ifEnv}}
+                <div class="sc-card-wrapper col-md-6 col-sm-6 col-xs-12">
+                    {{> 'lib/components/sc-card'
                         title='<i class="fa fa-share-alt"></i> Mit mir geteilte Dateien'
                         secondaryTitle="<br />"
                         url='/files/shared/'
