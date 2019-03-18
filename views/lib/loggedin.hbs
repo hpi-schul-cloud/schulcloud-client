@@ -163,7 +163,7 @@
                                 <a class="btn btn-secondary btn-thin dropdown-toggle"
                                    title='{{ currentUser.displayName }} ({{ currentRole }})' data-toggle="dropdown">
                                   <div class="avatar-circle" >
-                                      <span class="initials">{{ currentUser.avatarInitials }}</span>
+                                      <span class="initials" data-testid="initials">{{ currentUser.avatarInitials }}</span>
                                   </div>
                                 </a>
                                 <input type="hidden" name="testUserGroup" id="testUserGroup" value="{{ currentUser.testGroup }}" />
