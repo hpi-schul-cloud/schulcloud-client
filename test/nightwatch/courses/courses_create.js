@@ -46,7 +46,7 @@ module.exports = {
             .moveToElement('.btn-primary', 10, 10)
             .click('.btn-primary')
             .pause(1000);
-        browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
+        browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
     },
     'Delete Course': function (browser) {
         browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
