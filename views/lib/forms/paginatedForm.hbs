@@ -1,4 +1,4 @@
-<form class="form sections-{{sections}} {{class}}" action="{{action}}{{#if sso}}/sso/{{account}}{{/if}}" method="{{method}}" >
+<form class="form sections-{{sections}} {{class}}" action="{{action}}{{#if sso}}/sso/{{account}}{{/if}}" method="{{method}}" autocomplete="off" >
   {{#for 1 (add sections 1) 1}}
     <input id="section-{{this}}" type="radio" name="stage" {{#ifvalue this value=1}}checked="checked"{{/ifvalue}}/>
   {{/for}}

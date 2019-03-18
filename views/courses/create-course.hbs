@@ -39,7 +39,7 @@
                 Kursdaten
               </div>
               <div class="text-muted step-label">
-                Kursmitglieder
+                Mitglieder
               </div>
               <div class="text-muted step-label">
                 Abschließen
@@ -58,7 +58,7 @@
               <div class="row">
                 <div class="form-group col-md-6">
                     <label>Name des Kurses</label>
-                    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
+                    <input class="form-control" name="name" type="text" placeholder="z.B. Mathe 10a" value="{{course.name}}" autocomplete="off"
                            required autofocus/>
                 </div>
 
@@ -87,7 +87,7 @@
                 <div class="form-group col-md-6">
                     <label>Unterrichtender Lehrer</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
+                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" autocomplete="off">
                         {{#each teachers}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -102,7 +102,7 @@
 
                 <div class="form-group col-md-6">
                     <label>Vertretungslehrer - Optional</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
+                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -117,7 +117,14 @@
                   <div class="row">
                       <div class="form-group col-md-6">
                           <label>Zeitraum (z.B. Schuljahr) von - Optional</label>
-                          <input name="startDate" id="startDate" data-date type="text" class="form-control" value="{{course.startDate}}" title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
+                          <input
+                            name="startDate"
+                            id="startDate"
+                            data-date
+                            type="text"
+                            class="form-control"
+                            value="{{datePickerTodayMinus 0 0 0 'DD.MM.YYYY'}}"
+                            title="Bitte Datum im Format TT.MM.JJJJ eingeben"/>
                       </div>
 
                       <div class="form-group col-md-6">
@@ -126,6 +133,9 @@
                       </div>
                   </div>
 
+                  <span class="new-course-time-add" data-timesref="#timesContainer">
+                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen (optional)
+                  </span>
                   <table width="100%" cellpadding="5px" class="course-times-table">
                       <thead>
                         <th></th>
@@ -150,7 +160,7 @@
                                       </select>
                                   </td>
                                   <td>
-                                      <input class="form-control" name="times[{{this.count}}][startTime]"  value="{{this.startTime}}" data-time type="text"/>
+                                      <input class="form-control" name="times[{{this.count}}][startTime]" data-time type="text"/>
                                   </td>
                                   <td>
                                       <input class="form-control" name="times[{{this.count}}][duration]" type="number"
@@ -165,19 +175,16 @@
                           {{#embed "courses/components/template-new-course-time"}}{{/embed}}
                       </tbody>
                   </table>
-                  <span class="new-course-time-add" data-timesref="#timesContainer">
-                      <i class="fa fa-plus-circle fa-6"></i> Schulstundentermin im Stundenplan anlegen (optional)
-                  </span>
               </div>
             </div>
 
             </section>
 
-            <section data-panel="section-2" class="submit-page">
+            <section data-panel="section-2" class="submit-page course-submit-page">
               <h4>Du hast es fast geschafft...</h4>
-
+              <p class="text-muted">Hier kannst du Klassen oder einzelne Schüler deinem Kurs hinzufügen.<br>Dies kannst du jetzt oder später in den Kurseinstellungen machen.</p>
               <div class="form-group">
-                  <label>Klasse(n) (Alle Schüler der Klasse automatisch hinzugefügt!)</label>
+                  <label>Klasse(n) (Alle Schüler der Klasse werden automatisch hinzugefügt!) - Optional</label>
 
                   <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
                       {{#each classes}}
@@ -200,7 +207,7 @@
 
 
               <div class="form-group">
-                  <label>Schüler / Teilnehmer</label>
+                  <label>Schüler / Teilnehmer - Optional</label>
 
                   <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
                       {{#each students}}
@@ -226,7 +233,7 @@
                   <h5 class="text-muted">Was kann ich in einem Kurs machen?</h5>
                   <h6>Themen anlegen</h6>
                   <h6 class="text-muted">
-                    Themen sind in der {{theme.short_title}} der Container für dein Unterrichtsmaterial.
+                    Themen sind in der {{theme.short_title}} die Abschnitte für deinen Unterricht.
                   </h6>
                   <h6>Aufgaben stellen</h6>
                   <h6 class="text-muted">
@@ -235,7 +242,7 @@
                   </h6>
                   <h6>Tools hinzufügen</h6>
                   <h6 class="text-muted">
-                    In einem Kurs kannst du außerdem Tools zum interaktiven Unterricht
+                    In einem Kurs kannst du außerdem Tools (z.B. GeoGebra) zum interaktiven Unterricht
                   hinzufügen.
                   </h6>
                 </div>

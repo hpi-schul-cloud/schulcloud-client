@@ -36,7 +36,6 @@
     .course-card {
       box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
       transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-      //padding: 10px;
       padding-bottom: 20px;
     }
 
@@ -127,10 +126,8 @@
   }
 
   .times {
-    //padding: 16px;
-    //box-shadow: 0 1px 1px 0 #C7C7C7 inset;
     background: none repeat scroll 0 0;
-    margin-bottom: 30px;
+    margin: 30px 0;
 
     i {
       cursor: pointer;
@@ -138,14 +135,13 @@
 
     .new-course-time-add {
       display: inline-block;
-      margin-top: 10px;
+      margin-top: 25px;
       padding-left: 5px;
       cursor: pointer;
       color: $primaryColor;
     }
 
     .course-times-table{
-      margin-top: 10px;
       box-shadow: 0 1px 1px 0 #C7C7C7 inset;
     }
   }
@@ -158,9 +154,6 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
-    .step-label{
-      font-size: .75rem;
-    }
   }
 
   .wizard-header {
@@ -172,7 +165,7 @@
   	.header-icon {
   		margin-right: 20px;
     }
-    
+
     .subtitle {
       margin-bottom: 0;
     }
@@ -185,8 +178,9 @@
     .progressbar{
       margin-top: 20px;
     }
-    .panels label{
-      font-size: .75rem;
+    .stages{
+      padding-left: 12px;
+      padding-right: 12px;
     }
     .btn-delete-course{
       margin-right: 10px;
@@ -194,12 +188,27 @@
     .final-step {
     	display: flex;
     	flex-direction: row;
-    	align-items: center;
+      align-items: center;
+      justify-content: center;
     	margin-bottom: 30px;
     	.image {
     		padding: 30px;
         opacity: 0.8;
     	}
+    }
+    .course-submit-page{
+      max-width: 75%;
+      margin: 0 auto;
+      margin-bottom: 3em;
+      @include media-breakpoint-down(md) {
+        max-width: 100%;
+        margin: 0;
+      }
+    }
+
+    .panels>section{
+      border-top: 0;
+      padding: 0;
     }
   }
 
