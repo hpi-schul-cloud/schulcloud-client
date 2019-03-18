@@ -1165,20 +1165,26 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 		users = (await api(req).get('/users', { qs, $limit: false })).data;
 	}
 
-	const consents = (await api(req).get('/consents', {
-		qs: {
-			userId: { $in: users.map(u => u._id) },
-			$populate: 'userId',
-			$limit: false,
-		}
-	})).data;
+	let consents = [];
+	const batchSize = 50;
+	let slice = 0;
+	while (slice * batchSize <= users.length) {
+		consents = consents.concat((await api(req).get('/consents', {
+			qs: {
+				userId: { $in: users.slice(slice * batchSize, (slice + 1) * batchSize).map(u => u._id) },
+				$populate: 'userId',
+				$limit: false,
+			}
+		})).data);
+		slice += 1;
+	}
 
 	const consentMissing = (user) => {
 		return !consents.some(consent => consent.userId._id.toString() === user._id.toString());
 	}
 	const consentIncomplete = (consent) => {
 		const parent = (consent.parentConsents || {})[0] || {};
-		return !consent.access && !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
+		return !consent.access || !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
 	}
 
 	const usersWithoutConsent = users.filter(consentMissing);
@@ -1310,6 +1316,8 @@ const renderClassEdit = (req, res, next, edit) => {
 			if (edit) { promises.push(api(req).get(`/classes/${req.params.classId}`)); }
 
 			Promise.all(promises).then(([teachers, schoolyears, gradeLevels, currentClass]) => {
+				gradeLevels.sort((a, b) => parseInt(a.name) - parseInt(b.name));
+
 				const isAdmin = res.locals.currentUser.permissions.includes("ADMIN_VIEW");
 				if (!isAdmin) {
 					// preselect current teacher when creating new class and the current user isn't a admin (teacher)
@@ -1352,7 +1360,7 @@ const renderClassEdit = (req, res, next, edit) => {
 					class: currentClass,
 					gradeLevels,
 					isCustom,
-					referrer: req.header('Referer')
+					referrer: '/administration/classes/',
 				});
 			});
 		}).catch(err => {
@@ -1470,7 +1478,7 @@ router.get('/classes/:classId/manage', permissionsHelper.permissionsChecker(['AD
 							"content": "Beim ersten Login muss der Schüler sein Passwort ändern. Hat er eine E-Mail-Adresse angegeben, kann er sich das geänderte Passwort zusenden lassen oder sich bei Verlust ein neues Passwort generieren. Alternativ kannst du im Bereich Verwaltung > Schüler hinter dem Schülernamen auf Bearbeiten klicken. Dann kann der Schüler an deinem Gerät sein Passwort neu eingeben."
 						},
 					],
-					referrer: req.header('Referer'),
+					referrer: '/administration/classes/',
 				});
 			});
 		});
