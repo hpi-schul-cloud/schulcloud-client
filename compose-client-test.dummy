@@ -17,7 +17,7 @@ services:
       # ENV
       - NODE_ENV=production
       - CALENDAR_SERVICE_ENABLED=true
-      - TZ=Europe/Berlin
+      #- TZ=Europe/Berlin
       # FEATURE TOGGLES
       - FEATURE_TEAMS_ENABLED=true
       # Theme and Titles
