@@ -193,9 +193,12 @@
       align-items: center;
       justify-content: center;
     	margin-bottom: 30px;
-    	.image {
+    	.image-wrapper {
     		padding: 30px;
         opacity: 0.8;
+      }
+      .image{
+        width: 250px;
       }
       .course-features{
         margin-top: 15px;
