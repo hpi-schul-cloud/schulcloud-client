@@ -259,15 +259,11 @@ const getUpdateHandler = (service) => {
                 if ((!req.body.lessonId) || (req.body.lessonId && req.body.lessonId.length <= 2)) {
                     req.body.lessonId = null;
                 }
-                if (!req.body.private) {
-                    req.body.private = false;
-                }
-                if (!req.body.publicSubmissions) {
-                    req.body.publicSubmissions = false;
-                }
-                if (!req.body.teamSubmissions) {
-                    req.body.teamSubmissions = false;
-                }
+
+                req.body.private = !!req.body.private;
+                req.body.publicSubmissions = !!req.body.publicSubmissions;
+                req.body.teamSubmissions = !!req.body.teamSubmissions;
+
                 // rewrite german format to ISO
                 if (req.body.availableDate) {
                     req.body.availableDate = moment(req.body.availableDate, 'DD.MM.YYYY HH:mm').toISOString();
@@ -856,7 +852,8 @@ router.get('/:assignmentId', function (req, res, next) {
                 ((courseGroups || {}).data || []) :
                 ((courseGroups || {}).data || [])
                     .filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id))
-                    .filter(cg => cg.userIds.length <= assignment.maxTeamMembers); // filter to big courseGroups
+                    .filter(cg => assignment.maxTeamMembers ? cg.userIds.length <= assignment.maxTeamMembers : true); // filter to big courseGroups
+
             const courseGroupSelected = ((assignment.submission || {}).courseGroupId || {})._id;
 
             const students = ((course || {}).userIds || []).filter(user => { return (user.firstName && user.lastName); })
