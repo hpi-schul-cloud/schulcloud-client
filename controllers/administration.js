@@ -3,6 +3,7 @@
  */
 
 const express = require('express');
+const logger = require('winston');
 const api = require('../api');
 const authHelper = require('../helpers/authentication');
 const permissionsHelper = require('../helpers/permissions');
@@ -1041,8 +1042,12 @@ router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async (req, res, next) => {
-	const users = await api(req).get('/users/admin/students');
-	const allStudentsCount = users.length;
+	const users = await api(req).get('/users/admin/studentsX')
+		.catch((err) => {
+			logger.error(`Can not fetch data from /users/admin/students in router.all("/students") | message: ${err.message} | code: ${err.code}.`);
+			return [];
+		});
+
 	const title = `${returnAdminPrefix(res.locals.currentUser.roles)}Schüler`;
 	let studentsWithoutConsentCount = 0;
 	const head = [
@@ -1100,17 +1105,21 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 	};
 	*/
 	// const studentsWithoutConsent = 0; // await getUsersWithoutConsent(req, 'student');
-
-	res.render('administration/students', {
-		title,
-		head,
-		body,
-		// pagination,
-		filterSettings: JSON.stringify(userFilterSettings()),
-		schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-		studentsWithoutConsentCount,
-		allStudentsCount,
-	});
+	try {
+		res.render('administration/students', {
+			title,
+			head,
+			body,
+			// pagination,
+			filterSettings: JSON.stringify(userFilterSettings()),
+			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+			studentsWithoutConsentCount,
+			allStudentsCount: users.length,
+		});
+	} catch (err) {
+		logger.warn('Can not render /administration/students in router.all("/students")');
+		next(err);
+	}
 });
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
