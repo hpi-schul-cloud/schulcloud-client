@@ -712,36 +712,48 @@ const userFilterSettings = function (defaultOrder) {
 	];
 };
 
-const getConsentStatusIcon = (consent, bool) => {
-	if (bool && consent) {
-		if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent) {
-			return `<i class="fa fa-check consent-status"></i>`;
-		} else {
-			return `<i class="fa fa-times consent-status"></i>`;
-		}
+const getConsentStatusIcon = (consent, bool = false) => {
+	const check = '<i class="fa fa-check consent-status"></i>';
+	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
+	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>';
+
+	const isUserConsent = (c = {}) => {
+		const uC = c.userConsent;
+		return uC && uC.privacyConsent && uC.thirdPartyConsent && uC.termsOfUseConsent;
+	};
+
+	const isNOTparentConsent = (c = {}) => {
+		const pCs = c.parentConsents || [];
+		return pCs.length === 0 || !(pCs.privacyConsent && pCs.thirdPartyConsent && pCs.termsOfUseConsent);
+	};
+
+	if (!consent) {
+		return times;
 	}
-	if (consent) {
-		if (consent.requiresParentConsent) {
-			if ((consent.parentConsents || []).length == 0
-				|| !(consent.parentConsents[0].privacyConsent && consent.parentConsents[0].thirdPartyConsent && consent.parentConsents[0].termsOfUseConsent)) {
-				return `<i class="fa fa-times consent-status"></i>`;
-			} else {
-				if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent) {
-					return `<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>`;
-				} else {
-					return `<i class="fa fa-check consent-status"></i>`;
-				}
-			}
-		} else {
-			if (consent.userConsent && consent.userConsent.privacyConsent && consent.userConsent.thirdPartyConsent && consent.userConsent.termsOfUseConsent) {
-				return `<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>`;
-			} else {
-				return `<i class="fa fa-check consent-status"></i>`;
-			}
+
+	if (bool) {
+		if (isUserConsent(consent)) {
+			return check;
 		}
-	} else {
-		return `<i class="fa fa-times consent-status"></i>`;
+		return times;
 	}
+
+	if (consent.requiresParentConsent) {
+		if (isNOTparentConsent(consent)) {
+			return times;
+		}
+
+		if (isUserConsent(consent)) {
+			return doubleCheck;
+		}
+		return check;
+	}
+
+	if (isUserConsent(consent)) {
+		return doubleCheck;
+	}
+
+	return check;
 };
 
 // teacher admin permissions
@@ -1028,119 +1040,76 @@ router.post('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW',
 router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
-router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), function (req, res, next) {
+router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async (req, res, next) => {
+	const users = await api(req).get('/users/admin/students');
+	const allStudentsCount = users.length;
+	const title = `${returnAdminPrefix(res.locals.currentUser.roles)}Schüler`;
+	let studentsWithoutConsentCount = 0;
+	const head = [
+		'Vorname',
+		'Nachname',
+		'E-Mail-Adresse',
+		'Klasse(n)',
+		'Einwilligung',
+		'Erstellt am',
+		'',
+	];
+
+	const body = users.map((user) => {
+		const icon = getConsentStatusIcon(user.consent);
+		if (icon === '<i class="fa fa-times consent-status"></i>') { // bad but helper functions only return icons
+			studentsWithoutConsentCount += 1;
+		}
+		return [
+			user.firstName || '',
+			user.lastName || '',
+			user.email || '',
+			user.classes.join(', ') || '',
+			{
+				useHTML: true,
+				content: `<p class="text-center m-0">${icon}</p>`,
+			},
+			moment(user.createdAt).format('DD.MM.YYYY'),
+			[{
+				link: `/administration/students/${user._id}/edit`,
+				title: 'Nutzer bearbeiten',
+				icon: 'edit',
+			}],
+		];
+	});
+/*  for pagination....
 
 	const tempOrgQuery = (req.query || {}).filterQuery;
-	const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
+	const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${escape(tempOrgQuery)}`) : '';
 
-	let itemsPerPage = 25;
+	let itemsPerPage = allStudentsCount;
 	let filterQuery = {};
 	if (tempOrgQuery) {
 		filterQuery = JSON.parse(unescape(req.query.filterQuery));
-		if (filterQuery["$limit"]) {
-			itemsPerPage = filterQuery["$limit"];
+		if (filterQuery.$limit) {
+			itemsPerPage = filterQuery.$limit;
 		}
 	}
 
-	const currentPage = parseInt(req.query.p) || 1;
-	let title = returnAdminPrefix(res.locals.currentUser.roles);
+	const currentPage = parseInt(req.query.p, 10) || 1;
 
-	let query = {
-		roles: ['student'],
-		$populate: ['roles'],
-		$limit: itemsPerPage,
-		$skip: itemsPerPage * (currentPage - 1),
+	const pagination = {
+		currentPage,
+		numPages: Math.ceil(allStudentsCount / itemsPerPage),
+		baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
 	};
-	query = Object.assign(query, filterQuery);
+	*/
+	// const studentsWithoutConsent = 0; // await getUsersWithoutConsent(req, 'student');
 
-	api(req).get('/users', {
-		qs: query
-	}).then(userData => {
-		let users = userData.data;
-		let consentsPromise;
-		const allStudentsCount = userData.total;
-
-		const classesPromise = getSelectOptions(req, 'classes', {});
-		if (users.length > 0) {
-			consentsPromise = getSelectOptions(req, 'consents', {
-				userId: {
-					$in: users.map((user) => {
-						return user._id;
-					})
-				},
-				$limit: itemsPerPage
-			});
-		} else {
-			consentsPromise = Promise.resolve();
-		}
-		Promise.all([
-			classesPromise,
-			consentsPromise
-		]).then(async ([classes, consents]) => {
-			users = users.map((user) => {
-				// add consentStatus to user
-				const consent = (consents || []).find((consent) => {
-					return consent.userId == user._id;
-				});
-
-				user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent)}</p>`;
-				// add classes to user
-				user.classesString = classes.filter((currentClass) => {
-					return currentClass.userIds.includes(user._id);
-				}).map((currentClass) => { return currentClass.displayName; }).join(', ');
-				return user;
-			});
-
-			const head = [
-				'Vorname',
-				'Nachname',
-				'E-Mail-Adresse',
-				'Klasse(n)',
-				'Einwilligung',
-				'Erstellt am',
-				''
-			];
-
-			const body = users.map(user => {
-				return [
-					user.firstName || '',
-					user.lastName || '',
-					user.email || '',
-					user.classesString || '',
-					{
-						useHTML: true,
-						content: user.consentStatus
-					},
-					moment(user.createdAt).format('DD.MM.YYYY'),
-					[{
-						link: `/administration/students/${user._id}/edit`,
-						title: 'Nutzer bearbeiten',
-						icon: 'edit'
-					}]
-				];
-			});
-
-			const pagination = {
-				currentPage,
-				numPages: Math.ceil(userData.total / itemsPerPage),
-				baseUrl: '/administration/students/?p={{page}}' + filterQueryString
-			};
-
-			const studentsWithoutConsent = await getUsersWithoutConsent(req, 'student');
-
-			res.render('administration/students', {
-				title: title + 'Schüler',
-				head, body, pagination,
-				filterSettings: JSON.stringify(userFilterSettings()),
-				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-				studentsWithoutConsentCount: studentsWithoutConsent.length,
-				allStudentsCount
-			});
-		}).catch(err => {
-			next(err);
-		});
-	}).catch(err => {
-		next(err);
+	res.render('administration/students', {
+		title,
+		head,
+		body,
+		// pagination,
+		filterSettings: JSON.stringify(userFilterSettings()),
+		schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+		studentsWithoutConsentCount,
+		allStudentsCount,
 	});
 });
 
