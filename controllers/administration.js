@@ -985,10 +985,10 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 const getStudentUpdateHandler = () => {
 	return async function (req, res, next) {
 		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;	
+		req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
 
 		let promises = [];
-		
+
 		// Consents
 		if (req.body.student_form || req.body.parent_form) {
 			let newConsent = {};
@@ -1042,7 +1042,7 @@ router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async (req, res, next) => {
-	const users = await api(req).get('/users/admin/studentsX')
+	const users = await api(req).get('/users/admin/students')
 		.catch((err) => {
 			logger.error(`Can not fetch data from /users/admin/students in router.all("/students") | message: ${err.message} | code: ${err.code}.`);
 			return [];
@@ -1157,7 +1157,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 	}
 	const consentIncomplete = (consent) => {
 		const parent = (consent.parentConsents || {})[0] || {};
-		return !consent.access || !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
+		return !consent.access && !(parent.privacyConsent && parent.termsOfUseConsent && parent.thirdPartyConsent);
 	}
 
 	const usersWithoutConsent = users.filter(consentMissing);
@@ -1167,7 +1167,7 @@ const getUsersWithoutConsent = async (req, roleName, classId) => {
 
 
 router.get('/users-without-consent/send-email', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async function (req, res, next) {
-	let usersWithoutConsent = await getUsersWithoutConsent(req, 'student', req.query.classId);
+	let usersWithoutConsent = await getUsersWithoutConsent(req, req.query.role, req.query.classId);
 	const role = req.query.role;
 
 	usersWithoutConsent = await Promise.all(usersWithoutConsent.map(async user => {
