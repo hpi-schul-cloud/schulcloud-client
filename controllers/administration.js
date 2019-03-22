@@ -1184,8 +1184,9 @@ router.get('/users-without-consent/send-email', permissionsHelper.permissionsChe
 
 	try {
 		for (const user of usersWithoutConsent) {
+			const name = !!user.displayName ? user.displayName : `${user.firstName} ${user.lastName}`;
 			const content = {
-				text: `Hallo ${user.displayName},
+				text: `Hallo ${name},
 Leider fehlt uns von dir noch die Einverständniserklärung.
 Ohne diese kannst du die Schul-Cloud leider nicht nutzen.
 
