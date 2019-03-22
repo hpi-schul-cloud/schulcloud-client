@@ -35,13 +35,20 @@ module.exports = {
             .click('.btn-add')
             .pause(1000)
             .setValue('input[name=name]', 'Test Kurs')
-            .setValue('textarea[name=description]', 'Test Beschreibung')
             .setValue('input[name=startDate]', '01.01.2019')
             .setValue('input[name=untilDate]', '01.03.2019')
-            .moveToElement('.btn-submit', 10, 10)
-            .click('.btn-submit')
+            .moveToElement('#nextSection', 10, 10)
+            .click('#nextSection')
+            .pause(1000)
+            .moveToElement('#nextSection', 10, 10)
+            .click('#nextSection');
+
+        browser
+            .useCss()
+            .waitForElementVisible(".btn-primary", 10000)
+            .click('.btn-primary')
             .pause(1000);
-        browser.useXpath().expect.element("//*[contains(text(), 'Test Beschreibung')]").text.to.contain('Test Beschreibung').before(10000);
+        browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
     },
     'Delete Course': function (browser) {
         browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
