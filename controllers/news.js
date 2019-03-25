@@ -178,7 +178,7 @@ router.all('/', async (req, res, next) => {
 	}
 });
 
-router.get('/new', function (req, res, next) {
+router.get('/new', (req, res, next) => {
 	let context = req.originalUrl.split('/')[1];
 	context = ['teams', 'courses', 'class'].includes(context) ? context : '';
 	res.render('news/edit', {
@@ -188,7 +188,7 @@ router.get('/new', function (req, res, next) {
 		method: 'post',
 		action: '/news/',
 		context,
-		targetId: req.params.targetId
+		targetId: req.query.targetId,
 	});
 });
 
