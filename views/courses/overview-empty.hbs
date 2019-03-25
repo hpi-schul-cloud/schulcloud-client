@@ -1,0 +1,45 @@
+{{#extend "lib/loggedin"}}
+    {{#content "scripts" mode="append"}}
+        <script src="/scripts/coursesOverview.js" type="text/javascript" defer></script>
+    {{/content}}
+    {{#content "styles" mode="append"}}
+        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
+    {{/content}}
+
+    {{#content "page"}}
+        <section class="section-courses">
+            <div class="empty-state">
+              <img src="/images/empty-states/lehrer_klasse.png" alt="Noch keine Kurse" class="image mx-auto d-block"/>
+              <div class="text-wrapper mx-auto d-block">
+                {{#if isStudent}}
+                  <h2 class="text-center">Mit der {{theme.title}} wird der Unterricht digital</h2>
+                  <h5 class="text-muted text-center">
+                    Du wurdest noch zu keinem Kurs eingeladen. Lass dich von deinen Lehrkräften zu einem Kurs hinzufügen.
+                  </h5>
+                {{else}}
+                  <h2 class="text-center">Mit der {{theme.title}} Unterricht digital gestalten</h2>
+                  <h5 class="text-muted text-center">
+                      Es gibt noch keine Kurse. Ein Kurs in der {{theme.short_title}} bildet die Grundlage zur Verwaltung von Themen, Aufgaben, Tools und mehr für digitales Lernen.
+                  </h5>
+                {{/if}}
+              </div>
+
+              {{#userHasPermission "COURSE_EDIT"}}
+                <div class="row">
+                    <div class="center buttons">
+                        <a class="btn btn-secondary btn-lg btn-import-course btn-first">Importiere einen Kurs</a>
+                        <a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
+                    </div>
+                </div>
+              {{/userHasPermission}}
+            </div>
+
+            {{#embed "lib/components/modal-form" class="import-modal"}}
+                {{#content "fields"}}
+                    {{> "courses/forms/form-import-course"}}
+                {{/content}}
+            {{/embed}}
+        </section>
+    {{/content}}
+{{/extend}}

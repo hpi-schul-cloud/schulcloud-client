@@ -40,9 +40,11 @@ router.use('/team', require('./team'));
 router.use('/my-material', require('./my-material'));
 router.use('/logs', require('./logs'));
 router.use('/firstLogin', require('./firstLogin'));
+router.use('/welcome', require('./welcome'));
 router.use('/schools/', require('./schools'));
 router.use('/users/', require('./users'));
 router.use('/rocketChat/', require('./rocketChat'));
+
 
 router.use('/administration/', require('./administration'));
 
