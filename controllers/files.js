@@ -16,7 +16,6 @@ const shortid = require('shortid');
 const upload = multer({storage: multer.memoryStorage()});
 const _ = require('lodash');
 const winston = require('winston');
-const {changeQueryParams, getStorageContext, checkIfOfficeFiles, FileGetter} = require('../helpers/files/fileGetter');
 
 const filterOptions = [
     {key: 'pics', label: 'Bilder'},
@@ -94,6 +93,24 @@ const retrieveSignedUrl = (req, data) => {
 };
 
 /**
+ * handles query params for file requests
+ */
+const changeQueryParams = (originalUrl, params = {}, pathname = '') => {
+    const urlParts = url.parse(originalUrl, true);
+
+    Object.keys(params).forEach(param => {
+        urlParts.query[param] = params[param];
+    });
+
+    if (pathname) {
+        urlParts.pathname = pathname;
+    }
+
+    delete urlParts.search;
+    return url.format(urlParts);
+};
+
+/**
  * generates the displayed breadcrumbs on the actual file page
  */
 const getBreadcrumbs = (req, dirId, breadcrumbs = [],) => {
@@ -120,6 +137,52 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = [],) => {
 
             return Promise.resolve(breadcrumbs);
         });
+};
+
+/**
+ * generates the correct file's or directory's storage context for further requests
+ */
+const getStorageContext = (req, res) => {
+
+    const key = Object.keys(req.params).find(k => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
+
+    return req.params[key] || res.locals.currentUser._id;
+};
+
+/**
+ * fetches all files and directories for a given storageContext
+ */
+const FileGetter = (req, res, next) => {
+	const owner = getStorageContext(req, res);
+	const { params: { folderId, subFolderId } } = req;
+	const parent = subFolderId || folderId;
+	const promises = [
+		api(req).get('/roles', { qs: { name: 'student' } }),
+		api(req).get('/fileStorage', {
+			qs: { owner, parent },
+		}),
+	];
+
+	return Promise.all(promises)
+		.then(([role, files]) => {
+			const { data: [{ _id: studentRoleId },] } = role;
+
+			files = files.filter(f => f).map((file) => {
+				const studentPerm = file.permissions.find(perm => perm.refId.toString() === studentRoleId);
+				if (studentPerm) {
+					file.studentCanEdit = studentPerm.write;
+				}
+				return file;
+			});
+
+			res.locals.files = {
+				files: checkIfOfficeFiles(files.filter(f => !f.isDirectory)),
+				directories: files.filter(f => f.isDirectory),
+			};
+			next();
+		}).catch((err) => {
+			next(err);
+		});
 };
 
 /**
@@ -194,6 +257,33 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => {
             }
         }
     });
+};
+
+/**
+ * check whether given files can be opened in LibreOffice
+ */
+const checkIfOfficeFiles = files => {
+    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+        logger.error('LibreOffice env is currently not defined.');
+        return files;
+    }
+
+    const officeFileTypes = [
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
+        'application/vnd.ms-powerpoint',                                               //.ppt
+        'application/vnd.ms-excel',                                                    //.xlx
+        'application/vnd.ms-word',                                                     //.doc
+        'application/vnd.oasis.opendocument.text',                                     //.odt
+        'text/plain',                                                                  //.txt
+        'application/msword'                                                           //.doc
+    ];
+
+    return files.map(f => ({
+        isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
+        ...f
+    }));
 };
 
 /**

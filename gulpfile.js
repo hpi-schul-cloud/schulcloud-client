@@ -254,40 +254,69 @@ gulp.task('generate-service-worker', ['sw-build'], () => beginPipeAll(['./static
 	.pipe(webpackStream(Object.assign({}, webpackConfig, { output: { filename: 'sw.js' } }), webpack))
 	.pipe(gulp.dest(`./build/${themeName()}`)));
 
-// gulp.task('generate-messaging-service-worker', () => beginPipeAll(['./static/sw-messaging.js'])
-// 	.pipe(webpackStream(Object.assign({}, webpackConfig, { output: { filename: 'sw-messaging.js' } }), webpack))
-// 	.pipe(gulp.dest(`./build/${themeName()}`)));
-
 gulp.task('sw-build',
-	['images', 'other', 'styles', 'fonts', 'scripts', 'base-scripts',
-		'vendor-styles', 'vendor-scripts', 'vendor-assets'], () => workbox.injectManifest({
-		globDirectory: `./build/${themeName()}/`,
-		globPatterns,
-		swSrc: './static/sw.js',
-		swDest: './static/sw.injected.js',
-		templatedUrls: {
-			'/calendar/': [
-				'../../views/calendar/calendar.hbs',
-				'../../views/lib/loggedin.hbs',
-			],
-		},
-	}).then(({ amount, size, warnings }) => {
-		// Optionally, log any warnings and details.
-		warnings.forEach(console.warn);
-		console.log(`${amount} files will be precached, totaling ${size} bytes.`);
-	}).catch((error) => {
-		console.warn('Service worker generation failed:', error);
-	}));
+	['images',
+		'other',
+		'styles',
+		'fonts',
+		'scripts',
+		'base-scripts',
+		'vendor-styles',
+		'vendor-scripts',
+		'vendor-assets'
+	],
+	() => workbox
+		.injectManifest({
+			globDirectory: `./build/${themeName()}/`,
+			globPatterns,
+			swSrc: './static/sw.js',
+			swDest: './static/sw.injected.js',
+			templatedUrls: {
+				'/calendar/': [
+					'../../views/calendar/calendar.hbs',
+					'../../views/lib/loggedin.hbs',
+				],
+			},
+		}).then(({ amount, size, warnings }) => {
+			// Optionally, log any warnings and details.
+			warnings.forEach(console.warn);
+			console.log(`${amount} files will be precached, totaling ${size} bytes.`);
+		}).catch((error) => {
+			console.warn('Service worker generation failed:', error);
+		}));
 
 // clear build folder + smart cache
-gulp.task('clear', () => gulp.src(['./build/*', './.gulp-changed-smart.json', './.webpack-changed-plugin-cache/*', './static/sw.injected.js'], {
-	read: false,
-}).pipe(rimraf()));
+gulp.task('clear', () => gulp
+.src(
+	[
+		'./build/*',
+		'./.gulp-changed-smart.json',
+		'./.webpack-changed-plugin-cache/*',
+		'./static/sw.injected.js'
+	],
+	{
+		read: false,
+	},
+)
+	.pipe(rimraf()));
 
 // run all tasks, processing changed files
-gulp.task('build-all', ['images', 'other', 'styles', 'styles-done', 'fonts', 'scripts', 'base-scripts',
-	'vendor-styles', 'vendor-scripts', 'vendor-assets', 'vendor-optimized-assets',
-	'generate-service-worker', /* 'generate-messaging-service-worker',*/ 'sw-workbox', 'node-modules',
+gulp.task('build-all', [
+	'images',
+	'other',
+	'styles',
+	'styles-done',
+	'fonts',
+	'scripts',
+	'base-scripts',
+	'vendor-styles',
+	'vendor-scripts',
+	'vendor-assets',
+	'vendor-optimized-assets',
+	'generate-service-worker',
+	'sw-workbox',
+	'node-modules',
+	'static',
 ]);
 
 gulp.task('build-theme-files', ['styles', 'styles-done', 'images', 'static']);
