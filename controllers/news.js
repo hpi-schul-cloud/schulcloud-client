@@ -55,7 +55,7 @@ router.post('/', function (req, res, next) {
 	body.createdAt = moment().toISOString();
 
 	if (body.context) {
-		body.target = body.targetId;
+		body.target = body.contextId;
 		body.targetModel = body.context;
 	}
 
@@ -64,9 +64,10 @@ router.post('/', function (req, res, next) {
 		json: body
 	}).then(data => {
 		if (body.context) {
-			res.redirect(`/${body.context}/` + body.targetId);
+			res.redirect(`/${body.context}/` + body.contextId);
+		} else {
+			res.redirect('/news');
 		}
-		res.redirect('/news');
 	}).catch(err => {
 		next(err);
 	});
@@ -128,10 +129,6 @@ router.all('/', async (req, res, next) => {
 		$populate: ['target']
 	};
 
-	if (req.params.targetId) { // FIXME this will actually never execute, since there is no params in the route handler.
-		queryObject.target = req.params.targetId;
-	}
-
 	if (!query) delete queryObject.title;
 
 	try {
@@ -179,8 +176,8 @@ router.all('/', async (req, res, next) => {
 });
 
 router.get('/new', (req, res, next) => {
-	let context = req.originalUrl.split('/')[1];
-	context = ['teams', 'courses', 'class'].includes(context) ? context : '';
+	const context = req.query.context || '';
+	const contextId = req.query.contextId || '';
 	res.render('news/edit', {
 		title: "News erstellen",
 		submitLabel: 'Hinzufügen',
@@ -188,7 +185,7 @@ router.get('/new', (req, res, next) => {
 		method: 'post',
 		action: '/news/',
 		context,
-		targetId: req.query.targetId,
+		contextId,
 	});
 });
 
