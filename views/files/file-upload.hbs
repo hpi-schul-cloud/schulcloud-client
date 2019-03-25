@@ -1,4 +1,4 @@
-<section class="section-upload" data-path="{{path}}">
+<section class="section-upload" data-owner="{{ownerId}}" data-parent="{{parentId}}" >
     <div class="container-fluid">
         <div class="row">
             <form class="form-upload dz-clickable" {{#userHasPermission "FILE_CREATE"}}action="/files/upload/"{{/userHasPermission}}>

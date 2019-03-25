@@ -9,6 +9,9 @@ iFrameListen();
 let $contactHPIModal;
 let $contactAdminModal;
 
+var $contactHPIModal;
+var $contactAdminModal;
+
 if (window.opener && window.opener !== window) {
 	window.isInline = true;
 }
@@ -41,36 +44,35 @@ function fullscreenBtnClicked() {
 }
 
 function sendFeedback(modal, e) {
-	const fmodal = $(modal);
-	e.preventDefault();
+    let fmodal = $(modal);
+    e.preventDefault();
 
-	const type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
+    let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
+    let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
 
-	const subject = (type === 'contactHPI') ? 'Feedback' : `Problem ${fmodal.find('#title').val()}`;
-
-	$.ajax({
-		url: '/helpdesk',
-		type: 'POST',
-		data: {
-			type,
-			subject,
-			category: fmodal.find('#category').val(),
-			role: fmodal.find('#role').val(),
-			desire: fmodal.find('#desire').val(),
-			benefit: fmodal.find('#benefit').val(),
-			acceptanceCriteria: fmodal.find('#acceptance_criteria').val(),
-			currentState: fmodal.find('#hasHappened').val(),
-			targetState: fmodal.find('#supposedToHappen').val(),
-		},
-		success(result) {
-			showAJAXSuccess('Feedback erfolgreich versendet!', fmodal);
-		},
-		error(result) {
-			showAJAXError({}, 'Fehler beim senden des Feedbacks', result);
-		},
-	});
-	$('.contactHPI-modal').find('.btn-submit').prop('disabled', true);
-}
+    $.ajax({
+        url: '/helpdesk',
+        type: 'POST',
+        data: {
+            type: type,
+            subject: subject,
+            category: fmodal.find('#category').val(),
+            role: fmodal.find('#role').val(),
+            desire: fmodal.find('#desire').val(),
+            benefit: fmodal.find("#benefit").val(),
+            acceptanceCriteria: fmodal.find("#acceptance_criteria").val(),
+            currentState: fmodal.find('#hasHappened').val(),
+            targetState: fmodal.find('#supposedToHappen').val()
+        },
+        success: function (result) {
+            showAJAXSuccess("Feedback erfolgreich versendet!", fmodal);
+        },
+        error: function (result) {
+            showAJAXError({}, "Fehler beim senden des Feedbacks", result);
+        }
+    });
+    $('.contactHPI-modal').find('.btn-submit').prop("disabled", true);
+};
 
 function showAJAXSuccess(message, modal) {
 	modal.modal('hide');
@@ -78,124 +80,127 @@ function showAJAXSuccess(message, modal) {
 }
 
 $(document).ready(function () {
-	// Init mobile nav
-	const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-	const mobileSearchToggle = document.querySelector('.mobile-search-toggle');
-	if (mobileNavToggle) {
-		mobileNavToggle.addEventListener('click', toggleMobileNav);
-	}
-	if (mobileSearchToggle) {
-		mobileSearchToggle.addEventListener('click', toggleMobileSearch);
-	}
+    // Init mobile nav
+    var mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    var mobileSearchToggle = document.querySelector('.mobile-search-toggle');
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', toggleMobileNav);
+    }
+    if (mobileSearchToggle) {
+        mobileSearchToggle.addEventListener('click', toggleMobileSearch);
+    }
 
-	// Init modals
-	const $modals = $('.modal');
-	$contactHPIModal = document.querySelector('.contactHPI-modal');
-	const $featureModal = $('.feature-modal');
-	$contactAdminModal = document.querySelector('.contactAdmin-modal');
+    // Init modals
+    var $modals = $('.modal');
+    $contactHPIModal = document.querySelector('.contactHPI-modal');
+    var $featureModal = $('.feature-modal');
+    $contactAdminModal = document.querySelector('.contactAdmin-modal');
 
-	$('.submit-contactHPI').on('click', (e) => {
-		e.preventDefault();
+    $('.submit-contactHPI').on('click', function (e) {
+        e.preventDefault();
 
-		$('.contactHPI-modal').find('.btn-submit').prop('disabled', false);
-		populateModalForm($($contactHPIModal), {
-			title: 'Wunsch oder Problem senden',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Senden',
-			fields: {
-				feedbackType: 'userstory',
-			},
-		});
+        $('.contactHPI-modal').find('.btn-submit').prop("disabled", false);
+        populateModalForm($($contactHPIModal), {
+            title: 'Wunsch oder Problem senden',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Senden',
+            fields: {
+                feedbackType: "userstory"
+            }
+        });
 
-		$($contactHPIModal).appendTo('body').modal('show');
-	});
-	$contactHPIModal.querySelector('.modal-form').addEventListener('submit', sendFeedback.bind(this, $contactHPIModal));
+        $($contactHPIModal).appendTo('body').modal('show');
+    });
+    $contactHPIModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactHPIModal));
 
-	$('.submit-contactAdmin').on('click', (e) => {
-		e.preventDefault();
+    $('.submit-contactAdmin').on('click', function (e) {
+        e.preventDefault();
 
-		$('.contactAdmin-modal').find('.btn-submit').prop('disabled', false);
-		populateModalForm($($contactAdminModal), {
-			title: 'Admin deiner Schule kontaktieren',
-			closeLabel: 'Abbrechen',
-			submitLabel: 'Senden',
-		});
+        $('.contactAdmin-modal').find('.btn-submit').prop("disabled", false);
+        populateModalForm($($contactAdminModal), {
+            title: 'Admin deiner Schule kontaktieren',
+            closeLabel: 'Abbrechen',
+            submitLabel: 'Senden'
+        });
+        $($contactAdminModal).appendTo('body').modal('show');
+    });
+    
+    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
-		$($contactAdminModal).appendTo('body').modal('show');
-	});
+    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
-	$contactAdminModal.querySelector('.modal-form').addEventListener('submit', sendFeedback.bind(this, $contactAdminModal));
+    $modals.find('.close, .btn-close').on('click', function () {
+        $modals.modal('hide');
+    });
 
-	$modals.find('.close, .btn-close').on('click', () => {
-		$modals.modal('hide');
-	});
+    $('.notification-dropdown-toggle').on('click', function () {
+        $(this).removeClass('recent');
 
-	$('.notification-dropdown-toggle').on('click', function () {
-		$(this).removeClass('recent');
+        $('.notification-dropdown .notification-item.unread').each(function () {
+            if ($(this).data('read') == true) return;
 
-		$('.notification-dropdown .notification-item.unread').each(function () {
-			if ($(this).data('read') == true) return;
+            sendShownCallback({notificationId: $(this).data('notification-id')});
+            sendReadCallback($(this).data('notification-id'));
+            $(this).data('read', true);
+        });
+    });
 
-			sendShownCallback({ notificationId: $(this).data('notification-id') });
-			sendReadCallback($(this).data('notification-id'));
-			$(this).data('read', true);
-		});
-	});
+    $('.btn-create-qr').on('click', function () {
+        // create qr code for current page
+        let image = kjua({text: window.location.href, render: 'image'});
+        let $qrbox = $('.qr-show');
+        $qrbox.empty();
+        $qrbox.append(image);
+    });
 
-	$('.btn-create-qr').on('click', () => {
-		// create qr code for current page
-		const image = kjua({ text: window.location.href, render: 'image' });
-		const $qrbox = $('.qr-show');
-		$qrbox.empty();
-		$qrbox.append(image);
-	});
+    // Init mobile nav
+    if (document.getElementById('searchBar') instanceof Object) {
+        document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
+        document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
+    }
 
-	// Init mobile nav
-	if (document.getElementById('searchBar') instanceof Object) {
-		document.querySelector('.mobile-nav-toggle').addEventListener('click', toggleMobileNav);
-		document.querySelector('.mobile-search-toggle').addEventListener('click', toggleMobileSearch);
-	}
+    if (!fullscreen) {
+        fullscreen = JSON.parse(sessionStorage.getItem("fullscreen")) || false;
+        if (fullscreen) {
+            togglePresentationMode();
+        }
+    }
+    if(document.querySelector('.btn-fullscreen')){
+        document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
+    }
 
-	if (!fullscreen) {
-		fullscreen = JSON.parse(sessionStorage.getItem('fullscreen')) || false;
-		if (fullscreen) {
-			togglePresentationMode();
-		}
-	}
-	if (document.querySelector('.btn-fullscreen')) {
-		document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
-	}
+    $('.btn-cancel').on('click', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+        let $cancelModal = $('.cancel-modal');
+        populateModalForm($cancelModal, {
+            title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
+        });
+        $cancelModal.appendTo('body').modal('show');
+    });
 
-	$('.btn-cancel').on('click', (e) => {
-		e.stopPropagation();
-		e.preventDefault();
-		const $cancelModal = $('.cancel-modal');
-		populateModalForm($cancelModal, {
-			title: 'Bist du dir sicher, dass du die Änderungen verwerfen möchtest?',
-		});
-		$cancelModal.appendTo('body').modal('show');
-	});
+    populateModalForm($featureModal, {
+        title: 'Neue Features sind verfügbar',
+        closeLabel: 'Abbrechen'
+    });
 
-	populateModalForm($featureModal, {
-		title: 'Neue Features sind verfügbar',
-		closeLabel: 'Abbrechen',
-	});
+    // from: https://stackoverflow.com/a/187557
+    jQuery.expr[":"].Contains = jQuery.expr.createPseudo(function (arg) {
+        return function (elem) {
+            return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
+        };
+    });
+    // js course search/filter
+    $("input.js-search").on("keyup", e => {
+        if (e.key === "Escape") $(e.target).val("");
+        if (e.key === "Unidentified") {
+            return false;
+        }
+        $(".sc-card-title").find('.title:not(:Contains("' + $(e.target).val() + '"))').parents(".sc-card-wrapper").fadeOut(400);
+        $(".sc-card-title").find('.title:Contains("' + $(e.target).val() + '")').parents(".sc-card-wrapper").fadeIn(400);
 
-	// from: https://stackoverflow.com/a/187557
-	jQuery.expr[':'].Contains = jQuery.expr.createPseudo(arg => function (elem) {
-		return jQuery(elem).text().toUpperCase().indexOf(arg.toUpperCase()) >= 0;
-	});
-	// js course search/filter
-	$('input.js-search').on('keyup', (e) => {
-		if (e.key === 'Escape') $(e.target).val('');
-		if (e.key === 'Unidentified') {
-			return false;
-		}
-		$('.sc-card-title').find(`.title:not(:Contains("${$(e.target).val()}"))`).parents('.sc-card-wrapper').fadeOut(400);
-		$('.sc-card-title').find(`.title:Contains("${$(e.target).val()}")`).parents('.sc-card-wrapper').fadeIn(400);
-
-		return !(e.key === 'Unidentified');
-	});
+        return !(e.key === "Unidentified");
+    });
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
@@ -208,32 +213,36 @@ function showAJAXError(req, textStatus, errorThrown) {
 	}
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-	const feedbackSelector = document.querySelector('#feedbackType');
-	if (feedbackSelector) {
-		feedbackSelector.onchange = function () {
-			if (feedbackSelector.value === 'problem') {
-				document.getElementById('problemDiv').style.display = 'block';
-				document.getElementById('userstoryDiv').style.display = 'none';
-				document.querySelectorAll('#problemDiv input, #problemDiv textarea, #problemDiv select').forEach((node) => {
-					node.required = true;
-				});
-				document.querySelectorAll('#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select').forEach((node) => {
-					node.required = false;
-				});
-			} else {
-				document.getElementById('problemDiv').style.display = 'none';
-				document.getElementById('userstoryDiv').style.display = 'block';
-				document.querySelectorAll('#problemDiv input, #problemDiv textarea, #problemDiv select').forEach((node) => {
-					node.required = false;
-				});
-				document.querySelectorAll('#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select').forEach((node) => {
-					node.required = true;
-				});
-				document.getElementById('acceptance_criteria').required = false;
-			}
-		};
-	}
+window.addEventListener('DOMContentLoaded', function() {
+    if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+        setupFirebasePush();
+    }
+
+    let feedbackSelector = document.querySelector('#feedbackType');
+    if(feedbackSelector){
+        feedbackSelector.onchange = function(){
+            if(feedbackSelector.value === "problem"){
+                document.getElementById("problemDiv").style.display = "block";
+                document.getElementById("userstoryDiv").style.display = "none";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+            } else {
+                document.getElementById("problemDiv").style.display = "none";
+                document.getElementById("userstoryDiv").style.display = "block";
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
+                    node.required=false;
+                });
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
+                    node.required=true;
+                });
+                document.getElementById("acceptance_criteria").required = false;
+            }
+        };
+    }
 });
 
 // loading animation
@@ -308,4 +317,32 @@ function downloadCourse(event) {
 
 Array.from(document.getElementsByClassName('downloadOffline')).forEach((element) => {
 	element.addEventListener('click', downloadCourse, false);
+});
+	
+window.addEventListener("load", () => {
+    var continueTuorial=localStorage.getItem('Tutorial');
+    if(continueTuorial=='true') {
+        startIntro();
+        localStorage.setItem('Tutorial', false);
+    }
+    if ('serviceWorker' in navigator) {
+        // enable sw for half of users only
+        let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+        if(testUserGroup == 1) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+    }
+    document.getElementById("intro-loggedin").addEventListener("click", startIntro, false);
+});
+
+document.querySelectorAll('#main-content a').forEach((a) => {
+    const href = a.getAttribute('href');
+    if (a.querySelector('img, .fa') == null && href) {
+        if (!(href.startsWith('https://schul-cloud.org') || href.startsWith('#') || href.startsWith('/') || href === '')) {
+            if (!a.getAttribute('target')) {
+                a.setAttribute('target', '_blank');
+            }
+            a.classList.add('externalLink');
+        }
+    }
 });

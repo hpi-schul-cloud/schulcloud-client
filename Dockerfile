@@ -1,38 +1,20 @@
-FROM node:8.7.0
+FROM node:8.15-alpine
 
-RUN git clone https://github.com/tobiasschulz/fdupes
-RUN cd fdupes && make fdupes && make install
-RUN cd ..
-RUN rm -r fdupes
-
-# Install Gulp
-RUN npm install -g nodemon gulp-cli	
-
-# Copy current directory to container
-COPY . /home/node/app
-
-# Run npm install 
-RUN cd /home/node/app && npm install 
-
-
-WORKDIR /home/node/app
+RUN apk update && apk upgrade && apk add --no-cache autoconf automake build-base git libtool make nasm pkgconfig zlib-dev
 
 EXPOSE 3100
 
-# Build default theme
-RUN gulp
-RUN rm .gulp-changed-smart.json
+WORKDIR /home/node/app
 
-# Build n21 theme
-RUN cp -R build/default build/n21
-ENV SC_THEME n21
-RUN gulp build-theme-files
+COPY ./package.json .
+RUN npm install -g nodemon gulp-cli && npm install
 
-# Reset ENV
-ENV SC_THEME default
+COPY . .
+COPY ./localtime /etc/localtime
 
-# Replace duplicate files with symlinks
-RUN fdupes build -r -L
+ENV SC_THEME=default
+RUN gulp && rm .gulp-changed-smart.json
 
 VOLUME /home/node/app/build
-CMD node bin/www
+CMD npm start
+
