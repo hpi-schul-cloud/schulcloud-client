@@ -644,6 +644,10 @@ router.put('/events/:eventId', (req, res, next) => {
 	});
 });
 
+router.get('/:teamId/news/new', async (req, res, next) => {
+	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`)
+});
+
 /*
  * Single Course Members
  */
