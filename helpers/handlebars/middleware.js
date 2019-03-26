@@ -204,11 +204,13 @@ module.exports = (req, res, next) => {
             icon: 'folder-open-o',
             link: '/files/teams/',
         });
+        /*
         res.locals.sidebarItems.find(i => i.name === 'Administration').children.splice(4, 0, {
             name: 'Teams',
             icon: 'users',
             link: '/administration/teams/',
         });
+        */
     }
 
     makeActive(res.locals.sidebarItems, url.parse(req.url).pathname);
