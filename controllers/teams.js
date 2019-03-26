@@ -413,11 +413,19 @@ router.get('/:teamId', async (req, res, next) => {
 
 
 		let files; let directories;
+
 		files = await api(req).get('/fileStorage', {
 			qs: {
 				owner: course._id,
 			},
 		});
+		/* note: fileStorage can return arrays and error objects */
+		if (!Array.isArray(files)) {
+			if ((files || {}).code) {
+				logger.warn(files);
+			}
+			files = [];
+		}
 
 		files = files.filter(file => file);
 
