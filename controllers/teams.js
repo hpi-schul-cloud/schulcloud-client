@@ -389,18 +389,17 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		});
 
-		const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
+		// const instanceUsesRocketChat = process.env.ROCKETCHAT_SERVICE_ENABLED;
 		const courseUsesRocketChat = course.features.includes('rocketChat');
 		const schoolUsesRocketChat = (res.locals.currentSchoolData.features || []).includes('rocketChat');
 
 		let rocketChatCompleteURL;
-		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
+		if (courseUsesRocketChat && schoolUsesRocketChat) { // && instanceUsesRocketChat
 			try {
 				const rocketChatChannel = await api(req).get(`/rocketChat/channel/${req.params.teamId}`);
 				const rocketChatURL = process.env.ROCKET_CHAT_URI
 				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName}`;
-			}
-			catch (e) {
+			} catch (e) {
 				logger.warn(e);
 				rocketChatCompleteURL = undefined;
 			}
