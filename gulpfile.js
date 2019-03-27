@@ -211,7 +211,7 @@ gulp.task('vendor-optimized-assets', () => beginPipe(['./static/vendor-optimized
 	.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized`)));
 
 // copy node modules
-const nodeModules = ['mathjax', 'font-awesome', 'localforage', 'izitoast', 'firebase'];
+const nodeModules = ['mathjax', 'font-awesome', 'localforage', 'izitoast', 'firebase', 'vue-infinite-loading', 'vue'];
 gulp.task('node-modules', () => Promise.all(nodeModules
 	.map(module => beginPipe([`./node_modules/${module}/**/*.*`])
 		.pipe(gulp.dest(`./build/${themeName()}/vendor-optimized/${module}`)))));

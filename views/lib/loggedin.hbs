@@ -20,6 +20,12 @@
 <script type="text/javascript" src="/vendor-optimized/firebase/firebase-messaging.js" defer></script>
 <script type="text/javascript" src="/vendor-optimized/mathjax/MathJax.js?config=TeX-AMS_HTML" defer></script>
 <script type="text/javascript" src="/vendor-optimized/izitoast/dist/js/iziToast.min.js" defer></script>
+{{#ifEnv 'NODE_ENV' 'debug'}}
+<script type="text/javascript" src="/vendor-optimized/vue/dist/vue.js" defer></script>
+{{else}}
+<script type="text/javascript" src="/vendor-optimized/vue/dist/vue.min.js" defer></script>
+{{/ifEnv}}
+<script type="text/javascript" src="/vendor-optimized/vue-infinite-loading/dist/vue-infinite-loading.js" defer></script>
 <script type="text/javascript" src="/vendor/introjs/intro.min.js" defer></script>
 <script type="text/javascript" src="/vendor/feathersjs/feathers.js" defer></script>
 <script src="/scripts/loggedin.js" type="text/javascript" defer></script>
