@@ -93,24 +93,19 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use((err, req, res, next) => {
-	// set locals, only providing error in development
-	const status = err.status || err.statusCode || 500;
-	const message = err.message || err.error.message || 'unknown error';
-	if (message) {
-		res.setHeader('error-message', message);
-		res.locals.message = message;
-	} else {
-		res.locals.message = err.message;
-	}
-	res.locals.error = req.app.get('env') === 'development' ? err : { status };
+    // set locals, only providing error in development
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || err.error.message || 'unknown error';
+    res.locals.message = message;
+    res.locals.error = req.app.get('env') === 'development' ? err : { status };
 
-	if (res.locals.currentUser) res.locals.loggedin = true;
-	// render the error page
-	res.status(status);
-	res.render('lib/error', {
-		loggedin: res.locals.loggedin,
-		inline: res.locals.inline ? true : !res.locals.loggedin,
-	});
+    if (res.locals.currentUser) res.locals.loggedin = true;
+    // render the error page
+    res.status(status);
+    res.render('lib/error', {
+        loggedin: res.locals.loggedin,
+        inline: res.locals.inline ? true : !res.locals.loggedin,
+    });
 });
 
 module.exports = app;
