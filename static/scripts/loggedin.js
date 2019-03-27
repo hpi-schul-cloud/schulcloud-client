@@ -9,9 +9,6 @@ iFrameListen();
 let $contactHPIModal;
 let $contactAdminModal;
 
-var $contactHPIModal;
-var $contactAdminModal;
-
 if (window.opener && window.opener !== window) {
 	window.isInline = true;
 }
