@@ -37,6 +37,15 @@ router.delete('/device', authChecker, (req, res, next) => {
 	}
 });
 
+router.delete('/:id', authChecker, (req, res, next) => {
+	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+		api(req).delete(`notification/messages/${req.params.id}`)
+			.then(() => res.sendStatus(200));
+	} else {
+		res.status(500).send('notification service not enabled');
+	}
+});
+
 router.post('/devices', authChecker, (req, res, next) => {
 	res.locals.url = 'notification/devices';
 	res.locals.body = {
