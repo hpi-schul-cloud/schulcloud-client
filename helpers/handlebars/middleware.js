@@ -1,6 +1,7 @@
 const url = require('url');
 const moment = require('moment');
 const api = require('../../api');
+const defaults = require('../../defaults');
 
 const makeActive = (items, currentUrl) => {
     currentUrl += "/";
@@ -217,40 +218,36 @@ module.exports = (req, res, next) => {
 
     let notificationsPromise = [];
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
-        notificationsPromise = api(req).get('/notification', {
-            qs: {
-                $limit: 10,
-                $sort: "-createdAt"
-            }
-        }).catch(_ => []);
+        notificationsPromise = api(req).get('/notification/messages').catch(_ => []);
     }
-    let notificationCount = 0;
 
     Promise.all([
         notificationsPromise
     ]).then(([notifications]) => {
+
         res.locals.notifications = (notifications.data || []).map(notification => {
-            const notificationId = notification._id;
-            const callbacks = notification.callbacks || [];
-
-            notification = notification.message;
-            notification.notificationId = notificationId;
-
-            notification.date = new Date(notification.createdAt);  // make new date out of iso string
-
-            notification.read = false;
-            callbacks.forEach(callback => {
-                if (callback.type === "read")
-                    notification.read = true;
-            });
-
-            if (!notification.read) {
-                notificationCount++;
+            notification.seen = false;
+            if (notification.seenCallback.length === 1) {
+                notification.seen = true;
+                notification.seenDate = notification.seenCallback[0].createdAt
+            } else {
+                notification.seenUrl = new URL('/notification/callback/'
+                    + notification._id.toString() + '?'
+                    + 'receiverId=' + notification.receivers[0].userId.toString(),
+                    defaults.BACKEND_URL
+                ).toString();
             }
-
+            notification.hasAuthor = false;
+            if (notification.sender && notification.sender.name) {
+                notification.author = notification.sender.name;
+                notification.hasAuthor = true;
+            }
             return notification;
         });
-        res.locals.recentNotifications = notificationCount;
+        res.locals.recentNotifications = 0;
+        if (notifications.meta && notifications.meta.unread) {
+            res.locals.recentNotifications = notifications.meta.unread;
+        }
         next();
     });
 };

@@ -3,6 +3,7 @@ import { setupFirebasePush } from './notificationService/indexFirebase';
 import { sendShownCallback, sendReadCallback } from './notificationService/callback';
 import { iFrameListen } from './helpers/iFrameResize';
 import messageClient from './message/message-client';
+import toast from './toasts';
 
 iFrameListen();
 
@@ -343,3 +344,36 @@ document.querySelectorAll('#main-content a').forEach((a) => {
         }
     }
 });
+
+window.notificationSeen = function(url, id) {
+	function updateUi(id) {
+		$(`div[data-notification-id=${id}]`).removeClass("unread");
+	}
+	$.get(url, function(response) {
+        if(response.status === 'success'){
+            updateUi(id);
+        }else{
+            toast('errorMarkNotificationAsSeen');
+        }
+	});
+};
+
+window.showNotificationDetails = function(id){
+    let $notificationModal = $('.notification-modal');
+    populateModalForm($notificationModal, {
+        title: 'Benachrichtigung lesen',
+        closeLabel: 'Schließen',
+        submitLabel: 'Löschen',
+        fields: {id}
+    });
+    $notificationModal.find('.btn-delete').click(e => {
+        $.ajax({
+            url: '/notification/' + id,
+            type: 'DELETE',
+            success: function(result) {
+                window.location.reload();
+            },
+        });
+    });
+    $notificationModal.appendTo('body').modal('show');
+}

@@ -78,6 +78,12 @@ function t(toast) {
 			message: 'Dies ist ein Serverfehler.',
 		});
 	}
+	if (toast === 'errorMarkNotificationAsSeen') {
+		return iziToast.error({
+			icon: 'fa fa-envelope',
+			title: 'Die Benachrichtigung konnte nicht als gelesen markiert werden.',
+		});
+	}
 
 	// default
 	return iziToast.show({

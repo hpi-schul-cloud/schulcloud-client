@@ -680,7 +680,6 @@ footer {
 
 .notification-dropdown {
     .btn.recent i {
-        color: $primaryColor;
         margin-right: 5px;
     }
 
@@ -691,6 +690,7 @@ footer {
     .dropdown-menu{
         width: 300px;
         max-height: 300px;
+        overflow-y: scroll;
         .content{
             overflow: auto;
         }
@@ -708,10 +708,9 @@ footer {
             border-top: 1px solid #e5e5e5;
         }
 
-        .notification-time {
+        .notification-time, .notification-unseen, .notification-seen-time, .notification-author {
             color: #999;
             font-size: 12px;
-            display: block;
         }
     }
 }
