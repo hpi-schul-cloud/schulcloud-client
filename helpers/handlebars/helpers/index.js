@@ -178,7 +178,7 @@ module.exports = {
         let now = moment();
         let d = moment(date);
         if (d.diff(now) < 0 || d.diff(now, 'days') > 5) {
-            return moment(date).format('DD.MM.YYYY') + "("+moment(date).format('HH:mm')+")";
+            return moment(date).format('DD.MM.YYYY') + " ("+moment(date).format('HH:mm')+")";
         } else {
             return moment(date).fromNow();
         }
