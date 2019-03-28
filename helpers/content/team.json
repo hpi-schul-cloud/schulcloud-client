@@ -117,21 +117,6 @@
 			},
 			{
 				"title": "",
-				"firstName": "Max",
-				"lastName": "Bothe",
-				"position": "Wissenschaftlicher Mitarbeiter, HPI",
-				"description": "Max hat am Hasso-Plattner-Institut seinen Bachelor und Master absolviert und arbeitet nun für sein Doktor-Studium im HPI Schul-Cloud-Projekt. Hier überschaut er unter anderem die Entwicklung der mobilen Apps. In der Freizeit versucht er immer etwas Sport unterzubringen - egal ob draußen oder drinnen - oder probiert neue Rezepte aus.",
-				"pictureUrl": "/images/team/Max_Bothe.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Cedric",
 				"lastName": "Evers",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
