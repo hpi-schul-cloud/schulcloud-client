@@ -117,6 +117,7 @@ module.exports = {
 				return options.inverse(this);
 		}
 	},
+	isCond: (v1, operator, v2, options) => ifCondBool(v1, operator, v2),
 	ifeq: (a, b, opts) => {
 		if (a == b) {
 			return opts.fn(this);
