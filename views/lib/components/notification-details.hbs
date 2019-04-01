@@ -1,0 +1,30 @@
+<h5>{{payload.title}}</h5>
+<div class='body'>{{payload.message}}</div>
+{{#if url}}
+<div class="actions"><a href="{{url}}" class="btn btn-primary">Verknüpfte Seite aufrufen</a></div>
+{{/if}}
+
+<div class="info">
+	<small>
+		{{#if seen}}
+		<time class="notification-seen-time" title="Gesehen am {{timeToString seenDate}}">
+			<i class="fa fa-eye" aria-hidden="true"></i>
+			{{timeFromNow seenDate}}</time>
+		{{else}}
+		<time class="notification-seen-time" title="Gesehen vor wenigen Sekunden">
+			<i class="fa fa-eye" aria-hidden="true"></i>
+			vor wenigen Sekunden</time>
+		{{/if}}
+		<br>
+		<time class="notification-time" title="Erstellt am {{timeToString createdAt}}">
+			<i class="fa fa-envelope" aria-hidden="true"></i>
+			{{timeFromNow createdAt}}</time>
+
+		{{#if hasAuthor}}
+		<br>
+		<span class="notification-author" title="Gesendet von {{author}}">
+			<i class="fa fa-person" aria-hidden="true"></i>
+			{{author}}</span>
+		{{/if}}
+	</small>
+</div>

@@ -142,45 +142,14 @@
                             <span class="tag tag-primary">{{../recentNotifications}}</span>{{/if}}
                         </a>
 
-                        <div class="dropdown-menu">
-                            <div class="content">
-                                {{#if ../notifications}}
-                                {{#each ../notifications}}
-                                <div class="notification-item {{#unless this.seenCallback.length}}unread{{/unless}}"
-                                    data-notification-id="{{this._id}}">
-                                    <a href="javascript:showNotificationDetails('{{this._id}}')">
-                                        <b>{{this.payload.title}}</b>
-                                    </a>
-                                    <div>{{truncate this.payload.message}}</div>
-
-                                    {{#if this.seen}}
-                                        <time class="notification-seen-time" title="Gesehen am {{timeToString this.seenDate}}"><i class="fa fa-eye" aria-hidden="true"></i></time>
-                                    {{else}}
-                                        <time class="notification-unseen">
-                                            <a href="javascript:notificationSeen('{{this.seenUrl}}');" title="Als gesehen markieren"><i class="fa fa-eye-slash" aria-hidden="true"></i></a>
-                                        </time>
-                                    {{/if}}
-
-                                    {{#if this.url}}
-                                            <a href="{{this.url}} title="Verknüpfte Seite aufrufen"><i class="fa fa-anchor" aria-hidden="true"></i></a>
-                                    {{/if}}
-
-                                    <time class="notification-time" title="Erstellt am {{timeToString this.createdAt}}"><i class="fa fa-envelope" aria-hidden="true"></i></time>
-
-                                    {{#if this.hasAuthor}}
-                                        <span class="notification-author" title="Gesendet von {{this.author}}"><i class="fa fa-person" aria-hidden="true"></i>
-                                        {{this.author}}
-                                        </span>
-                                    {{/if}} 
-                                    
-
+                        <div class="dropdown-menu" id="recent-notification-container">
+                            <div class="content" id="recent-notification-list">
+                                {{> "lib/components/notification-list" notifications=../notifications}}
+                            </div>
+                            <div class="page-load-status">
+                                <div class="infinite-scroll-request">
+                                    <i class="fa fa-spinner fa-spin"></i>
                                 </div>
-                                {{/each}}
-                                {{else}}
-                                <div class="notification-item" data-notification-id="0">
-                                    <span>Derzeit keine Benachrichtigungen</span>
-                                </div>
-                                {{/if}}
                             </div>
                         </div>
                     </div>
@@ -286,9 +255,9 @@
     {{/embed}}
 
     {{#embed "lib/components/modal" title="Benachrichtigung" class="notification-modal"}}
-        {{#content "body"}}
-            {{> "lib/components/modal-notification"}}
-        {{/content}}
+    {{#content "body"}}
+    {{> "lib/components/modal-notification"}}
+    {{/content}}
     {{/embed}}
 
 </section>

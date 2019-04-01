@@ -32,6 +32,7 @@ const webpackConfig = require('./webpack.config');
 const baseScripts = [
 	'./static/scripts/jquery/jquery.min.js',
 	'./static/scripts/jquery/jquery.serialize-object.js',
+	'.static/scripts/jquery/infinite-scroll.pkgd.min.js',
 	'./static/scripts/tether/tether.min.js',
 	'./static/scripts/bootstrap/bootstrap.min.js',
 	'./static/scripts/chosen/chosen.jquery.min.js',
@@ -287,17 +288,17 @@ gulp.task('sw-build',
 
 // clear build folder + smart cache
 gulp.task('clear', () => gulp
-.src(
-	[
-		'./build/*',
-		'./.gulp-changed-smart.json',
-		'./.webpack-changed-plugin-cache/*',
-		'./static/sw.injected.js'
-	],
-	{
-		read: false,
-	},
-)
+	.src(
+		[
+			'./build/*',
+			'./.gulp-changed-smart.json',
+			'./.webpack-changed-plugin-cache/*',
+			'./static/sw.injected.js'
+		],
+		{
+			read: false,
+		},
+	)
 	.pipe(rimraf()));
 
 // run all tasks, processing changed files

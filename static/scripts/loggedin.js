@@ -4,6 +4,8 @@ import { sendShownCallback, sendReadCallback } from './notificationService/callb
 import { iFrameListen } from './helpers/iFrameResize';
 import messageClient from './message/message-client';
 import toast from './toasts';
+import './jquery/infinite-scroll.pkgd.min.js';
+
 
 iFrameListen();
 
@@ -11,34 +13,34 @@ let $contactHPIModal;
 let $contactAdminModal;
 
 if (window.opener && window.opener !== window) {
-	window.isInline = true;
+    window.isInline = true;
 }
 
 function toggleMobileNav() {
-	document.querySelector('aside.nav-sidebar').classList.toggle('active');
-	this.classList.toggle('active');
+    document.querySelector('aside.nav-sidebar').classList.toggle('active');
+    this.classList.toggle('active');
 }
 
 function toggleMobileSearch() {
-	document.querySelector('.search-wrapper .input-group').classList.toggle('active');
-	document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
-	document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
+    document.querySelector('.search-wrapper .input-group').classList.toggle('active');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-search');
+    document.querySelector('.search-wrapper .mobile-search-toggle .fa').classList.toggle('fa-times');
 }
 
 function togglePresentationMode() {
-	const contentArea = $('#main-content');
-	const toggleButton = $('.btn-fullscreen');
-	$('body').toggleClass('fullscreen');
-	toggleButton.children('i').toggleClass('fa-compress');
-	toggleButton.children('i').toggleClass('fa-expand');
+    const contentArea = $('#main-content');
+    const toggleButton = $('.btn-fullscreen');
+    $('body').toggleClass('fullscreen');
+    toggleButton.children('i').toggleClass('fa-compress');
+    toggleButton.children('i').toggleClass('fa-expand');
 }
 
 let fullscreen = false;
 
 function fullscreenBtnClicked() {
-	togglePresentationMode();
-	fullscreen = !fullscreen;
-	sessionStorage.setItem('fullscreen', JSON.stringify(fullscreen));
+    togglePresentationMode();
+    fullscreen = !fullscreen;
+    sessionStorage.setItem('fullscreen', JSON.stringify(fullscreen));
 }
 
 function sendFeedback(modal, e) {
@@ -73,8 +75,8 @@ function sendFeedback(modal, e) {
 };
 
 function showAJAXSuccess(message, modal) {
-	modal.modal('hide');
-	$.showNotification(message, 'success', true);
+    modal.modal('hide');
+    $.showNotification(message, 'success', true);
 }
 
 $(document).ready(function () {
@@ -122,7 +124,7 @@ $(document).ready(function () {
         });
         $($contactAdminModal).appendTo('body').modal('show');
     });
-    
+
     $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
@@ -133,19 +135,11 @@ $(document).ready(function () {
 
     $('.notification-dropdown-toggle').on('click', function () {
         $(this).removeClass('recent');
-
-        $('.notification-dropdown .notification-item.unread').each(function () {
-            if ($(this).data('read') == true) return;
-
-            sendShownCallback({notificationId: $(this).data('notification-id')});
-            sendReadCallback($(this).data('notification-id'));
-            $(this).data('read', true);
-        });
     });
 
     $('.btn-create-qr').on('click', function () {
         // create qr code for current page
-        let image = kjua({text: window.location.href, render: 'image'});
+        let image = kjua({ text: window.location.href, render: 'image' });
         let $qrbox = $('.qr-show');
         $qrbox.empty();
         $qrbox.append(image);
@@ -163,7 +157,7 @@ $(document).ready(function () {
             togglePresentationMode();
         }
     }
-    if(document.querySelector('.btn-fullscreen')){
+    if (document.querySelector('.btn-fullscreen')) {
         document.querySelector('.btn-fullscreen').addEventListener('click', fullscreenBtnClicked);
     }
 
@@ -202,40 +196,37 @@ $(document).ready(function () {
 });
 
 function showAJAXError(req, textStatus, errorThrown) {
-	$($contactHPIModal).modal('hide');
-	$($contactAdminModal).modal('hide');
-	if (textStatus === 'timeout') {
-		$.showNotification('Zeitüberschreitung der Anfrage', 'warn', true);
-	} else {
-		$.showNotification(errorThrown, 'danger', true);
-	}
+    $($contactHPIModal).modal('hide');
+    $($contactAdminModal).modal('hide');
+    if (textStatus === 'timeout') {
+        $.showNotification('Zeitüberschreitung der Anfrage', 'warn', true);
+    } else {
+        $.showNotification(errorThrown, 'danger', true);
+    }
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-    if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
-        setupFirebasePush();
-    }
+window.addEventListener('DOMContentLoaded', function () {
 
     let feedbackSelector = document.querySelector('#feedbackType');
-    if(feedbackSelector){
-        feedbackSelector.onchange = function(){
-            if(feedbackSelector.value === "problem"){
+    if (feedbackSelector) {
+        feedbackSelector.onchange = function () {
+            if (feedbackSelector.value === "problem") {
                 document.getElementById("problemDiv").style.display = "block";
                 document.getElementById("userstoryDiv").style.display = "none";
-                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
-                    node.required=true;
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node) => {
+                    node.required = true;
                 });
-                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
-                    node.required=false;
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node) => {
+                    node.required = false;
                 });
             } else {
                 document.getElementById("problemDiv").style.display = "none";
                 document.getElementById("userstoryDiv").style.display = "block";
-                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node)=>{
-                    node.required=false;
+                document.querySelectorAll("#problemDiv input, #problemDiv textarea, #problemDiv select").forEach((node) => {
+                    node.required = false;
                 });
-                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node)=>{
-                    node.required=true;
+                document.querySelectorAll("#userstoryDiv input, #userstoryDiv textarea, #userstoryDiv select").forEach((node) => {
+                    node.required = true;
                 });
                 document.getElementById("acceptance_criteria").required = false;
             }
@@ -245,88 +236,90 @@ window.addEventListener('DOMContentLoaded', function() {
 
 // loading animation
 document.addEventListener('DOMContentLoaded', (e) => {
-	document.querySelector('body').classList.add('loaded');
+    document.querySelector('body').classList.add('loaded');
 });
 window.addEventListener('beforeunload', (e) => {
-	document.querySelector('body').classList.remove('loaded');
+    document.querySelector('body').classList.remove('loaded');
 });
 window.addEventListener('pageshow', (e) => {
-	document.querySelector('body').classList.add('loaded');
+    document.querySelector('body').classList.add('loaded');
 });
 
 function changeNavBarPositionToAbsolute() {
-	const navBar = document.querySelector('.nav-sidebar');
-	navBar.classList.add('position-absolute');
+    const navBar = document.querySelector('.nav-sidebar');
+    navBar.classList.add('position-absolute');
 }
 
 function changeNavBarPositionToFixed() {
-	const navBar = document.querySelector('.nav-sidebar');
-	navBar.classList.remove('position-absolute');
+    const navBar = document.querySelector('.nav-sidebar');
+    navBar.classList.remove('position-absolute');
 }
 
 function startIntro() {
-	changeNavBarPositionToAbsolute();
-	introJs()
-		.setOptions({
-			nextLabel: 'Weiter',
-			prevLabel: 'Zurück',
-			doneLabel: 'Fertig',
-			skipLabel: 'Überspringen',
-		})
-		.start()
-		.oncomplete(changeNavBarPositionToFixed);
+    changeNavBarPositionToAbsolute();
+    introJs()
+        .setOptions({
+            nextLabel: 'Weiter',
+            prevLabel: 'Zurück',
+            doneLabel: 'Fertig',
+            skipLabel: 'Überspringen',
+        })
+        .start()
+        .oncomplete(changeNavBarPositionToFixed);
 }
 
 window.addEventListener('load', () => {
-	const continueTuorial = localStorage.getItem('Tutorial');
-	if (continueTuorial == 'true') {
-		startIntro();
-		localStorage.setItem('Tutorial', false);
-	}
-	if ('serviceWorker' in navigator) {
-		// enable sw for half of users only
-		const testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-		// if (testUserGroup === 1) {
-		// 	navigator.serviceWorker.register('/sw.js').then((registration) => {
-		// 		//...
-		// 	});
-		// }
-		// enable messaging service worker
-		navigator.serviceWorker.register('/sw.js', { scope: '/' }).then((registration) => {
-			setupFirebasePush(registration);
-			messageClient.setupMessagingClient(registration);
-		});
-	}
+    const continueTuorial = localStorage.getItem('Tutorial');
+    if (continueTuorial == 'true') {
+        startIntro();
+        localStorage.setItem('Tutorial', false);
+    }
+    if ('serviceWorker' in navigator) {
+        // enable sw for half of users only
+        const testUserGroup = parseInt(document.getElementById('testUserGroup').value);
+        // if (testUserGroup === 1) {
+        // 	navigator.serviceWorker.register('/sw.js').then((registration) => {
+        // 		//...
+        // 	});
+        // }
+        // enable messaging service worker
+        navigator.serviceWorker.register('/sw.js', { scope: '/' }).then((registration) => {
+            if (!/^((?!chrome).)*safari/i.test(navigator.userAgent)) {
+                setupFirebasePush(registration);
+            }
+            messageClient.setupMessagingClient(registration);
+        });
+    }
 });
 
 document.getElementById('intro-loggedin').addEventListener('click', startIntro, false);
 
 function downloadCourse(event) {
-	if (navigator.serviceWorker.controller) {
-		navigator.serviceWorker.controller.postMessage({
-			tag: 'course-data-updated',
-			courseId: $(this).attr('data-id'),
-			_id: Date.now(),
-		});
-	} else {
-		console.log('SW not active!');
-	}
+    if (navigator.serviceWorker.controller) {
+        navigator.serviceWorker.controller.postMessage({
+            tag: 'course-data-updated',
+            courseId: $(this).attr('data-id'),
+            _id: Date.now(),
+        });
+    } else {
+        console.log('SW not active!');
+    }
 }
 
 Array.from(document.getElementsByClassName('downloadOffline')).forEach((element) => {
-	element.addEventListener('click', downloadCourse, false);
+    element.addEventListener('click', downloadCourse, false);
 });
-	
+
 window.addEventListener("load", () => {
-    var continueTuorial=localStorage.getItem('Tutorial');
-    if(continueTuorial=='true') {
+    var continueTuorial = localStorage.getItem('Tutorial');
+    if (continueTuorial == 'true') {
         startIntro();
         localStorage.setItem('Tutorial', false);
     }
     if ('serviceWorker' in navigator) {
         // enable sw for half of users only
         let testUserGroup = parseInt(document.getElementById('testUserGroup').value);
-        if(testUserGroup == 1) {
+        if (testUserGroup == 1) {
             navigator.serviceWorker.register('/sw.js');
         }
     }
@@ -345,35 +338,67 @@ document.querySelectorAll('#main-content a').forEach((a) => {
     }
 });
 
-window.notificationSeen = function(url, id) {
-	function updateUi(id) {
-		$(`div[data-notification-id=${id}]`).removeClass("unread");
-	}
-	$.get(url, function(response) {
-        if(response.status === 'success'){
+function reloadNotificationList() {
+    const loadedItems = $('#recent-notification-list .notification-item').length;
+    $('#recent-notification-list').load(`/notification/messages?limit=${loadedItems}`);
+}
+
+window.notificationSeen = function (url, id, callback) {
+    function updateUi(id) {
+        reloadNotificationList();
+    }
+    $.get(url, function (response) {
+        if (response.status === 'success') {
             updateUi(id);
-        }else{
+        } else {
             toast('errorMarkNotificationAsSeen');
         }
-	});
+        if (callback) { callback(); }
+    });
 };
 
-window.showNotificationDetails = function(id){
-    let $notificationModal = $('.notification-modal');
-    populateModalForm($notificationModal, {
-        title: 'Benachrichtigung lesen',
-        closeLabel: 'Schließen',
-        submitLabel: 'Löschen',
-        fields: {id}
+window.notificationDelete = function (id) {
+    $.ajax({
+        url: '/notification/' + id,
+        type: 'DELETE',
+        success: function (result) {
+            reloadNotificationList();
+        },
     });
-    $notificationModal.find('.btn-delete').click(e => {
-        $.ajax({
-            url: '/notification/' + id,
-            type: 'DELETE',
-            success: function(result) {
-                window.location.reload();
-            },
-        });
-    });
-    $notificationModal.appendTo('body').modal('show');
 }
+
+window.showNotificationDetails = function (id, url) {
+    let $notificationModal = $('.notification-modal');
+    function openModal() {
+        populateModalForm($notificationModal, {
+            title: 'Benachrichtigung lesen',
+            closeLabel: 'Schließen',
+            submitLabel: 'Löschen',
+            fields: { id }
+        });
+        $notificationModal.find('.btn-delete').click(e => {
+            $notificationModal.modal('hide');
+            notificationDelete(id);
+        });
+        $notificationModal.find('.modal-body').load('/notification/message/' + id);
+        $notificationModal.appendTo('body').modal('show');
+    }
+    if (url) {
+        notificationSeen(url, id, openModal);
+    } else { openModal(); }
+}
+
+window.addEventListener('load', (event) => {
+    $('#recent-notification-list').infiniteScroll({
+        "path": function () {
+            var loadedItems = $('#recent-notification-list .notification-item').length;
+            return '/notification/messages/?limit=10&skip=' + loadedItems;
+        },
+        "append": ".notification-item",
+        "history": false,
+        status: ".page-load-status",
+        scrollThreshold: 400,
+        elementScroll: '#recent-notification-container',
+        checkLastPage: '.notification-item',
+    });
+});

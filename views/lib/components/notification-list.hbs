@@ -1,0 +1,44 @@
+{{#if notifications}}
+{{#each notifications}}
+<div class="notification-item {{#unless this.seenCallback.length}}unread{{/unless}}"
+	data-notification-id="{{this._id}}">
+	<a href="javascript:showNotificationDetails('{{this._id}}'{{#ifeq this.seen false}}, '{{../this.seenUrl}}'{{/ifeq}})">
+		<b>{{this.payload.title}}</b>
+	</a>
+	<div>{{truncate this.payload.message}}</div>
+
+	{{#if this.seen}}
+	<time class="notification-seen-time" title="Gesehen am {{timeToString this.seenDate}}"><i class="fa fa-eye"
+			aria-hidden="true"></i></time>
+	{{else}}
+	<time class="notification-unseen">
+		<a href="javascript:notificationSeen('{{this.seenUrl}}', '{{this._id}}');" title="Als gesehen markieren"><i
+				class="fa fa-eye-slash" aria-hidden="true"></i></a>
+	</time>
+	{{/if}}
+
+	{{#if this.url}}
+	<a href="{{this.url}} title=" Verknüpfte Seite aufrufen"><i class="fa fa-anchor" aria-hidden="true"></i></a>
+	{{/if}}
+
+	<time class="notification-time" title="Erstellt am {{timeToString this.createdAt}}"><i class="fa fa-envelope"
+			aria-hidden="true"></i></time>
+
+	{{#if this.hasAuthor}}
+	<span class="notification-author" title="Gesendet von {{this.author}}"><i class="fa fa-person" aria-hidden="true"></i>
+		{{this.author}}
+	</span>
+	{{/if}}
+
+	<a class="notification-delete" title="Benachrichtigung löschen"
+		href="javascript:notificationDelete('{{this._id}}')"><i class="fa fa-trash" aria-hidden="true"></i>
+		{{this.author}}
+	</a>
+
+</div>
+{{/each}}
+{{else}}
+<div class="no-notification-item">
+	<span>Derzeit keine Benachrichtigungen</span>
+</div>
+{{/if}}
