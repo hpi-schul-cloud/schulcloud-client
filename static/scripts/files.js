@@ -813,7 +813,7 @@ window.fileViewer = function fileViewer(type, name, id) {
   switch (type) {
     case 'application/pdf':
       $('#file-view').hide();
-      win = window.open(`/files/file?file=${id}_blank`);
+      win = window.open(`/files/file?file=${id}`, '_blank');
       win.focus();
       break;
 
