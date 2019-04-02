@@ -1,5 +1,9 @@
+{{#if this.url}}
+<article class="sc-card" onclick="location.href='{{this.url}}'">
+{{else}}
 <article class="sc-card">
-    <a href="{{this.url}}" rel="canonical" class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
+{{/if}}
+    <div class="sc-card-header" {{#if this.background}} style="background:{{this.background}};"
         {{/if}}>
         {{#if this.isRSS}}
         {{#userHasPermission "SCHOOL_NEWS_EDIT"}}
@@ -22,25 +26,27 @@
         </span>
 
         <div class="sc-card-menu">
-
             {{#each this.actions}}
-            {{#if this.method}}
-            <button class="sc-card-menu-action {{this.class}}" target="_blank" data-method="DELETE" data-name="{{../title}}"
-                alt="'{{../title}}' löschen">
-                <i class="fa fa-{{this.icon}}"></i>
-            </button>
+                {{#if this.method}}
+                    <a href="{{this.link}}" class="sc-card-menu-action {{this.class}}"
+                        data-method="{{this.method}}" data-name="{{../title}}"
+                        alt="'{{../../title}}' {{this.alt}}.">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
+                {{else}}
+                    <a href="#" class="sc-card-menu-action {{this.class}}"
+                        onClick="window.open('{{this.link}}')"
+                        alt="'{{../../title}}' {{this.alt}}.">
+                        <i class="fa fa-{{this.icon}}"></i>
+                    </a>
+                {{/if}}
             {{else}}
-            <button class="sc-card-menu-action {{this.class}}" onClick="window.open({{this.link}})" alt="'{{../../title}}' {{this.alt}}.">
-                <i class="fa fa-{{this.icon}}"></i>
-            </button>
-            {{/if}}
-            {{else}}
-            {{#if this.menuInfo}}
-            <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
-            {{/if}}
+                {{#if this.menuInfo}}
+                    <small class="sc-card-menu-info">{{{this.menuInfo}}}</small>
+                {{/if}}
             {{/each}}
         </div>
-    </a>
+    </div>
     <div class="sc-card-body ckcontent">
         {{truncateHTML (conflictFreeHtml this.content)}}
     </div>

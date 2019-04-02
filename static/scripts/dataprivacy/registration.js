@@ -2,8 +2,8 @@ import './dataprivacy';
 
 window.addEventListener('DOMContentLoaded', ()=>{
     // show steppers depending on age of student
-    let radiou18 = document.getElementById("reg-u18");
-    let radio18 = document.getElementById("reg-18");
+    let radiou16 = document.getElementById("reg-u16");
+    let radio16 = document.getElementById("reg-16");
 
     if(document.querySelector('#showRegistrationForm')) {
         document.querySelector('#showRegistrationForm').addEventListener("click", ()=>{
@@ -14,20 +14,20 @@ window.addEventListener('DOMContentLoaded', ()=>{
             additional += $("input[name=sso]").val() === "true" ? 'sso/'+$("input[name=account]").val() : '';
             additional += $("input[name=importHash]").val() !== undefined ? '?importHash='+encodeURIComponent($("input[name=importHash]").val()) : '';
 
-            if(radiou18.checked){
+            if(radiou16.checked){
                 window.location.href = `${baseUrl}/${classOrSchoolId}/byparent/${additional}`;
             }else{
                 window.location.href = `${baseUrl}/${classOrSchoolId}/bystudent/${additional}`;
             }
         });
         $("input[type='radio']").on("change", () => {
-            if(radio18.checked) {
-                document.getElementById("infotext-18").style.display = "block";
-                document.getElementById("infotext-u18").style.display = "none";
+            if(radio16.checked) {
+                document.getElementById("infotext-16").style.display = "block";
+                document.getElementById("infotext-u16").style.display = "none";
                 document.getElementById("showRegistrationForm").disabled = false;
             } else {
-                document.getElementById("infotext-18").style.display = "none";
-                document.getElementById("infotext-u18").style.display = "block";
+                document.getElementById("infotext-16").style.display = "none";
+                document.getElementById("infotext-u16").style.display = "block";
                 document.getElementById("showRegistrationForm").disabled = false;
             }
         });

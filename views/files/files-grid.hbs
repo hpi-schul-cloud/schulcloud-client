@@ -1,38 +1,34 @@
 <section class="files">
     <div class="row">
         {{#each files}}
-            <div class="col-lg-6 col-xl-4">
+            <div class="col-sm-12">
                 <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
                     <div class="openFile">
                         <div class="card-block"
-                             onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
+                             onclick="fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="file-preview"
-                                            style="background-image: url({{this.thumbnail}}); -webkit-background-size: 50px ;background-size: 50px;"></div>
-                                    </div>
-                                    <div class="col-xs-9">
-                                        <a class="title">
-                                            {{this.name}}
-                                        </a>
-                                        <i data-file-id="{{this._id}}"
-                                            data-file-name="{{this.name}}"
-                                            data-file-path="{{this.path}}"
-                                            class="fa fa-edit file-name-edit">
-                                        </i>
-                                    </div>
+                                <div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
+                                    <div class="file-preview"
+                                         style="background-image: url({{this.thumbnail}}); -webkit-background-size: 25px ;background-size: 25px;"></div>
                                 </div>
+                                <a class="col-sm-10 title">
+                                    {{this.name}}
+                                </a>
                             </div>
                             <div class="card-text">
-                                <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
+                              <small class="file-location">{{#if this.context}}gefunden in: {{this.context}}{{/if}}</small><br>
                                 <a href="/files/file?download&file={{this._id}}&name={{this.storageFileName}}"
-                                   target="_blank"
-                                   data-method="download"
-                                   title="Datei herunterladen">
-                                    <i class="fa fa-cloud-download"></i>
+                                     target="_blank"
+                                     data-method="download"
+                                     title="Datei herunterladen">
+                                      <i class="fa fa-cloud-download"></i>
                                 </a>
+
+                                <i  data-file-id="{{this._id}}"
+                                    data-file-name="{{this.name}}"
+                                    data-file-path="{{this.path}}"
+                                    class="fa fa-edit file-name-edit">
+                                </i>
 
                                 {{#ifneq this.context 'geteilte Datei'}}
                                 {{#userHasPermission "FILE_DELETE"}}
@@ -86,7 +82,7 @@
                                        data-file-can-edit="{{this.studentCanEdit}}">
                                         <span class="fa-stack fa-1x">
                                           <i class="fa fa-user fa-stack-1x" id="{{@index}}"></i>
-                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#unless this.studentCanEdit}}hidden{{/unless}}></i>
+                                          <i class="fa fa-ban fa-stack-2x" id="ban-{{@index}}" style="color:Tomato" {{#if this.studentCanEdit}}hidden{{/if}}></i>
                                         </span>
                                     </a>
                                 {{/if}}

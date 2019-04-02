@@ -53,14 +53,14 @@ const authChecker = (req, res, next) => {
                         next();
                         return null;
                     })
-					.catch(err=>{
-						if(err=="firstLogin was not completed, redirecting..."){
-							//print message?
-							res.redirect('/firstLogin');
-						}else{
-							res.redirect('/login/');
-						}
-					});
+                    .catch(err => {
+                        if (err == "firstLogin was not completed, redirecting...") {
+                            //print message?
+                            res.redirect('/firstLogin');
+                        } else {
+                            res.redirect('/login/');
+                        }
+                    });
             } else {
                 res.redirect('/login/');
             }
@@ -94,6 +94,7 @@ const populateCurrentUser = (req, res) => {
             res.locals.currentUser = data;
             setTestGroup(res.locals.currentUser);
             res.locals.currentRole = rolesDisplayName[data.roles[0].name];
+            res.locals.roleNames = data.roles.map(r => rolesDisplayName[r.name]);
             return api(req).get('/schools/' + res.locals.currentUser.schoolId, {
                 qs: {
                     $populate: ['federalState']
@@ -112,13 +113,13 @@ const populateCurrentUser = (req, res) => {
 
 const checkConsent = (req, res) => {
     if (
-    ((res.locals.currentUser||{}).preferences||{}).firstLogin ||	//do not exist if 3. system login
-    req.path.startsWith("/login/success") ||
-    req.baseUrl.startsWith("/firstLogin")) {
+        ((res.locals.currentUser || {}).preferences || {}).firstLogin ||	//do not exist if 3. system login
+        req.path.startsWith("/login/success") ||
+        req.baseUrl.startsWith("/firstLogin")) {
         return Promise.resolve();
-    }else{
-		return Promise.reject("firstLogin was not completed, redirecting...");
-	}
+    } else {
+        return Promise.reject("firstLogin was not completed, redirecting...");
+    }
 };
 
 

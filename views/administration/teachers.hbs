@@ -76,11 +76,11 @@
                                 <button type="submit" class="btn btn-primary btn-add-modal">
                                     Lehrer hinzufügen
                                 </button>
-                                {{#ifeq currentRole "Administrator"}}
+                                {{#inArray "Administrator" roleNames}}
                                     <button class="btn btn-secondary btn-import teacher">
                                         Lehrer importieren
                                     </button>
-                                {{/ifeq}}
+                                {{/inArray}}
                             {{/if}}
                         </div>
                     </div>

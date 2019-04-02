@@ -7,6 +7,24 @@
       </a>
     </div>
   {{/userHasPermission}}
+  {{#userHasPermission "COURSE_EDIT"}}
+    {{#ifeq ../lessons.length 1}}
+      <div class="col-sm-12">
+        <div class="first-topic-success">
+          <h5>Geschafft - Das erste Thema in deinem Kurs!</h5>
+          <div>
+            Ein Klick auf das Auge <i class="fa fa-eye"></i> macht das Thema für Schüler*innen sichtbar oder unsichtbar.
+          </div>
+          <div>
+            Du kannst dein Thema jederzeit bearbeiten <i class="fa fa-pencil"></i>, umsortieren <i class="fa fa-ellipsis-v"></i>&nbsp;<i class="fa fa-ellipsis-v"></i>, löschen <i class="fa fa-trash-o"></i> oder teilen <i class="fa fa-share-alt"></i>.
+          </div>
+          <div>
+            Ein Klick auf das Thema bringt dich in die Vorschau-Ansicht.
+          </div>
+        </div>
+      </div>
+    {{/ifeq}}
+  {{/userHasPermission}}
   <div class="col-sm-12">
     <div class="list-group">
       {{#if lessons}}
@@ -77,16 +95,31 @@
           {{/each}}
         </div>
       {{else}}
-        <p class="text-muted list-group-item list-group-item-action flex-column align-items-start">
-          <span>Noch keine Themen</span>
-        </p>
+        <div class="empty-state empty-state-courses">
+          <img src="/images/empty-states/topics.svg" alt="Leeres Thema" class="image topic-image"/>
+          {{#userHasPermission "COURSE_EDIT"}}
+            <h4>Erstelle das erste Thema in deinem Kurs</h4>
+            <h6 class="sub-title">
+              Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu.
+              Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.
+            </h6>
+          {{else}}
+            <h4 class="text-muted">Es gibt noch keine Themen in diesem Kurs.</h4>
+          {{/userHasPermission}}
+        </div>
       {{/if}}
     </div>
     {{#userHasPermission "COURSE_EDIT"}}
-      <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary{{else}}btn-primary{{/if}} pull-right ml-1 w-100" title="Thema hinzufügen">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <span>Thema hinzufügen</span>
-      </a>
+      <div class="add-button">
+        <a href="/courses/{{../_id}}/topics/add" class="btn btn-add {{#if ../lessons}}btn-secondary w-100{{else}}btn-primary btn-empty{{/if}} center" title="Thema hinzufügen">
+          {{#if ../lessons}}
+            <span>Weiteres Thema erstellen</span>
+            <i class="fa fa-plus-circle plus-icon pull-right"></i>
+          {{else}}
+            <span>Erstelle ein Thema</span>
+          {{/if}}
+        </a>
+      </div>
     {{/userHasPermission}}
   </div>
 </div>

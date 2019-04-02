@@ -47,7 +47,7 @@
         </div>
 
         <div class="form-group">
-          <label>Ihre E-Mail-Adresse: <sup>*</sup></label>
+          <label>Deine E-Mail-Adresse: <sup>*</sup></label>
           <input class="form-control linked" type="email" name="email" placeholder="lehrer@schul-cloud.org" 
             value="{{user.email}}" required {{#if user.email}}readonly{{else}}autocomplete{{/if}} />
         </div>
@@ -96,7 +96,7 @@
 
       <section data-panel="section-4" class="submit-page" data-feature="pin">
         <h4>Fast geschafft!</h4>
-        <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
+        <p>Wir haben soeben eine E-Mail an deine angegebene Adresse gesendet. Bitte gib den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Du hast keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
         <div id="pinverification">
             {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
         </div>
