@@ -222,7 +222,6 @@ router.get('/', async (req, res, next) => {
 	let teamInvitations = (await api(req).get('/teams/extern/get/')).data;
 
 	teamInvitations = teamInvitations.map((team) => {
-		team.url = `/teams/${team._id}`;
 		team.title = team.name;
 		team.content = (team.description || '').substr(0, 140);
 		team.secondaryTitle = '';
@@ -414,11 +413,19 @@ router.get('/:teamId', async (req, res, next) => {
 
 
 		let files; let directories;
+
 		files = await api(req).get('/fileStorage', {
 			qs: {
 				owner: course._id,
 			},
 		});
+		/* note: fileStorage can return arrays and error objects */
+		if (!Array.isArray(files)) {
+			if ((files || {}).code) {
+				logger.warn(files);
+			}
+			files = [];
+		}
 
 		files = files.filter(file => file);
 
@@ -643,6 +650,10 @@ router.put('/events/:eventId', (req, res, next) => {
 	}).catch((err) => {
 		next(err);
 	});
+});
+
+router.get('/:teamId/news/new', async (req, res, next) => {
+	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`)
 });
 
 /*

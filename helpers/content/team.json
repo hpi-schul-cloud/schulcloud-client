@@ -117,21 +117,6 @@
 			},
 			{
 				"title": "",
-				"firstName": "Max",
-				"lastName": "Bothe",
-				"position": "Wissenschaftlicher Mitarbeiter, HPI",
-				"description": "Max hat am Hasso-Plattner-Institut seinen Bachelor und Master absolviert und arbeitet nun für sein Doktor-Studium im HPI Schul-Cloud-Projekt. Hier überschaut er unter anderem die Entwicklung der mobilen Apps. In der Freizeit versucht er immer etwas Sport unterzubringen - egal ob draußen oder drinnen - oder probiert neue Rezepte aus.",
-				"pictureUrl": "/images/team/Max_Bothe.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Cedric",
 				"lastName": "Evers",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -182,6 +167,21 @@
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
 				"description": "Christiane hat Medieninformatik an der Beuth Hochschule für Technik Berlin studiert. Jetzt promoviert sie am Hasso-Plattner-Institut und erforscht dabei die Möglichkeiten von spielbasiertem Lernen. Das HPI Schul-Cloud-Projekt unterstützt sie als wissenschaftliche Mitarbeiterin in den Bereichen Testing und technischer Support. In ihrer Freizeit bereist Christiane die Welt und entspannt gerne bei analogen und digitalen Spielen.",
 				"pictureUrl": "/images/team/Christiane_Hagedorn.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Sebastian",
+				"lastName": "Hirsch",
+				"position": "Community Manager, HPI",
+				"description": "Sebastian ist seit März 2019 im Team der HPI Schul-Cloud tätig. Als Community Manager pflegt er den Austausch mit allen Nutzer*innen und Interessierten im Netz. Zuvor hat er als Bildungsaktivist, Veranstaltungsmanager und Schulbauberater gearbeitet. An der Jacobs University hat er Integrated Social Sciences studiert. Seine Freizeit verbringt er auf dem Rad, beim Bouldern oder in Hamburg.",
+				"pictureUrl": "/images/team/Hirsch_Sebastian.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -315,7 +315,7 @@
 				"firstName": "Jacqueline",
 				"lastName": "Thorns",
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
-				"description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem HPI Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
+				"description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, die Organisation von Veranstaltungen und der Betreuung der Pilotschulen zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
 				"pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
 				"priority": 0,
 				"social": {
@@ -563,21 +563,6 @@
 			},
 			{
 				"title": "",
-				"firstName": "Sophie",
-				"lastName": "Krüger",
-				"position": "Studentische Hilfskraft",
-				"description": "Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud unterstützt sie unter anderem bei der Planung und Koordination von Veranstaltungen, sowie bei der Evaluation der Lehrkräfte an den Pilotschulen. In ihrer Freizeit engagiert sie sich ehrenamtlich im Fachschaftsrat Lehramt und in einem studentischen Verein. Außerdem liest, reist und kocht sie sehr gerne.",
-				"pictureUrl": "/images/team/Sophie_Krueger.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Florian Michael",
 				"lastName": "Kunz",
 				"position": "Studentische Hilfskraft",
@@ -679,6 +664,21 @@
 				"position": "Praktikant",
 				"description": "Dominik arbeitete vor seinem BSc in Medieninformatik an der Technischen Hochschule Nürnberg mit seiner Ausbildung zum Fachinformatiker in der Softwareentwicklung bei der Datev eG in Nürnberg. Nach seinem Bachelorstudium führte ihn seine Leidenschaft für Bildung und E-Learning an das Berliner MOOC Startup Iversity.org. Seine Leidenschaft für nutzerzentrierte Produkte führte ihn während seines Masterstudiums Computer Science & HCI an der TU Berlin an die School of Design Thinking des HPI, bei der er auch erstmals konzeptionell an der Schul-Cloud mitwirken konnte. Bei Schul-Cloud erforscht er im Rahmen seiner Abschlussarbeit Konzepte zur Erhöhung der Nutzerakzeptanz und dem Onboarding von Nutzern. In seiner Freizeit trifft man ihn auf Reisen, beim Klettern, Wassersport oder Parkour im urbanen Dschungel.",
 				"pictureUrl": "/images/team/Dominik_Brüchner.jpeg",
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Sophie",
+				"lastName": "Krüger",
+				"position": "Praktikantin",
+				"description": "Sophie studiert Englisch und LER auf Lehramt im Master an der Universität Potsdam. Im Team HPI Schul-Cloud hilft sie dabei, die HPI Schul-Cloud bestmöglich in den modernen Unterricht zu integrieren. In ihrer Freizeit engagiert sie sich ehrenamtlich in diversen Vereinen. Außerdem liest, reist und kocht sie sehr gerne.",
+				"pictureUrl": "/images/team/Sophie_Krueger.jpg",
+				"priority": 0,
 				"social": {
 					"facebook": "",
 					"twitter": "",
