@@ -887,7 +887,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 	}];
 
 	api(req).get('/fileStorage/directories')
-		.then(directories => directories.map(dir => getDirectoryTree(directories, dir)))
+		.then(directories => directories.filter(dir => !dir.parent).map(dir => getDirectoryTree(directories, dir)))
 		.then(directories => {
 
 			directoryTree.forEach(tree => {
