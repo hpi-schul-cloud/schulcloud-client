@@ -1,0 +1,17 @@
+[{
+  "relation": ["delegate_permission/common.get_login_creds"],
+  "target": {
+    "namespace": "web",
+    "site": "https://schul-cloud.org"
+  }
+ },
+ {
+  "relation": ["delegate_permission/common.get_login_creds"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "org.schulcloud.mobile",
+    "sha256_cert_fingerprints": [
+      "FA:8E:A7:EC:91:BD:18:D8:CA:11:33:50:1F:5B:A5:AC:86:A8:EC:6D:F8:26:14:52:0D:FF:76:7C:93:9C:52:6B"
+    ]
+  }
+}]

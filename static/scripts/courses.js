@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    $('.js-course-name-input').change(function () {
+        $(this).val($(this).val().trim());
+    });
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
