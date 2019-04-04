@@ -651,7 +651,7 @@ $(document).ready(function() {
             }
 		})
 		.done(function() {
-			$.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
+			$.showNotification('Datei-Berechtigungen erfolgreich geändert', "success", true);
 			$('.permissions-modal').modal('hide');
 		})
 		.fail(function() {
