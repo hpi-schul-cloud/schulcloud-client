@@ -638,6 +638,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Yulia",
+				"lastName": "Shikhareva",
+				"position": "Studentische Hilfskraft",
+				"description": "Yulia studiert zurzeit im Bachelorprogramm Informatik/Computational Science am Institut für Informatik der Universität Potsdam. Zuvor erlangte sie in Moskau Bachelorgrad in Ökonomie. Seit April 2019 engagiert sie sich im Projekt HPI Schul-Cloud als Software-Testerin. In ihrer Freizeit genießt Yulia die Schönheiten der Natur und Städte Europas.",
+				"pictureUrl": "/images/team/Yulia.jpeg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Christian",
 				"lastName": "Weissmann",
 				"position": "Studentische Hilfskraft",
