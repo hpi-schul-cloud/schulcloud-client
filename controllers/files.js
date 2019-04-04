@@ -143,27 +143,27 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = [], ) => {
 /**
  * check whether given files can be opened in LibreOffice
  */
-const checkIfOfficeFiles = files => {
-    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
-        logger.error('LibreOffice env is currently not defined.');
-        return files;
-    }
-    const officeFileTypes = [
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
-        'application/vnd.ms-powerpoint',                                               //.ppt
-        'application/vnd.ms-excel',                                                    //.xlx
-        'application/vnd.ms-word',                                                     //.doc
-        'application/vnd.oasis.opendocument.text',                                     //.odt
-        'text/plain',                                                                  //.txt
-        'application/msword'                                                           //.doc
-    ];
+const checkIfOfficeFiles = (files) => {
+	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+		logger.error('LibreOffice env is currently not defined.');
+		return files;
+	}
+	const officeFileTypes = [
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
+		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
+		'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
+		'application/vnd.ms-powerpoint',                                               //.ppt
+		'application/vnd.ms-excel',                                                    //.xlx
+		'application/vnd.ms-word',                                                     //.doc
+		'application/vnd.oasis.opendocument.text',                                     //.odt
+		'text/plain',                                                                  //.txt
+		'application/msword',                                                          //.doc
+	];
 
-    return files.map(f => ({
-        isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
-        ...f
-    }));
+	return files.map(f => ({
+		isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
+		...f,
+	}));
 };
 
 /**
@@ -190,16 +190,14 @@ const FileGetter = (req, res, next) => {
 	];
 
 	return Promise.all(promises)
-
-		.then(([role, files]) => {
+		.then(([role, result]) => {
 			const { data: [{ _id: studentRoleId }] } = role;
 
-			/* note: fileStorage can return arrays and error objects */
-			if (!Array.isArray(files)) {
-				if ((files || {}).code) {
-					logger.warn(files);
-				}
-				files = [];
+			if (!Array.isArray(result) && result.code === 403) {
+				res.locals.files = { files: [], directories: [] };
+				logger.warn(result);
+				next();
+				return;
 			}
 
 			const files = result.filter(f => f).map((file) => {
