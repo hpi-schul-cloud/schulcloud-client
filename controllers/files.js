@@ -139,14 +139,40 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = [],) => {
         });
 };
 
+
+/**
+ * check whether given files can be opened in LibreOffice
+ */
+const checkIfOfficeFiles = files => {
+    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+        logger.error('LibreOffice env is currently not defined.');
+        return files;
+    }
+
+    const officeFileTypes = [
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
+        'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
+        'application/vnd.ms-powerpoint',                                               //.ppt
+        'application/vnd.ms-excel',                                                    //.xlx
+        'application/vnd.ms-word',                                                     //.doc
+        'application/vnd.oasis.opendocument.text',                                     //.odt
+        'text/plain',                                                                  //.txt
+        'application/msword'                                                           //.doc
+    ];
+
+    return files.map(f => ({
+        isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
+        ...f
+    }));
+};
+
 /**
  * generates the correct file's or directory's storage context for further requests
  */
 const getStorageContext = (req, res) => {
-
-    const key = Object.keys(req.params).find(k => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
-
-    return req.params[key] || res.locals.currentUser._id;
+	const key = Object.keys(req.params).find(k => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
+	return req.params[key] || res.locals.currentUser._id;
 };
 
 /**
@@ -154,6 +180,7 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
 	const owner = getStorageContext(req, res);
+	const userId = res.locals.currentUser._id;
 	const { params: { folderId, subFolderId } } = req;
 	const parent = subFolderId || folderId;
 	const promises = [
@@ -164,13 +191,21 @@ const FileGetter = (req, res, next) => {
 	];
 
 	return Promise.all(promises)
-		.then(([role, files]) => {
+		.then(([role, result]) => {
 			const { data: [{ _id: studentRoleId },] } = role;
 
-			files = files.filter(f => f).map((file) => {
+			const files = result.filter(f => f).map((file) => {
 				const studentPerm = file.permissions.find(perm => perm.refId.toString() === studentRoleId);
 				if (studentPerm) {
-					file.studentCanEdit = studentPerm.write;
+					Object.assign(file, {
+						studentCanEdit: studentPerm.write,
+					});
+				}
+				
+				if (file.permissions[0].refId === userId) {
+					Object.assign(file, {
+						userIsOwner: true,
+					});
 				}
 				return file;
 			});
@@ -257,33 +292,6 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => {
             }
         }
     });
-};
-
-/**
- * check whether given files can be opened in LibreOffice
- */
-const checkIfOfficeFiles = files => {
-    if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
-        logger.error('LibreOffice env is currently not defined.');
-        return files;
-    }
-
-    const officeFileTypes = [
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
-        'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
-        'application/vnd.ms-powerpoint',                                               //.ppt
-        'application/vnd.ms-excel',                                                    //.xlx
-        'application/vnd.ms-word',                                                     //.doc
-        'application/vnd.oasis.opendocument.text',                                     //.odt
-        'text/plain',                                                                  //.txt
-        'application/msword'                                                           //.doc
-    ];
-
-    return files.map(f => ({
-        isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
-        ...f
-    }));
 };
 
 /**

@@ -14,6 +14,9 @@
                                 </div>
                                 <a class="col-sm-10 title">
                                     {{this.name}}
+									{{#if this.size}}
+										<small style="float: right;" class="file-info" id="{{this._id}}"></small>
+									{{/if}}
                                 </a>
                             </div>
                             <div class="card-text">
@@ -60,17 +63,26 @@
 									</div>
 								</div>
 
-                                {{#userHasPermission "FILE_MOVE"}}
-                                <a href="#"
-                                   class="btn-file-move"
-                                   title="Datei verschieben"
-                                   data-file-path="{{../path}}"
-                                   data-file-id="{{../_id}}"
-                                   data-file-name="{{../name}}">
-                                    <i class="fa fa-share"></i>
-                                </a>
-                                {{/userHasPermission}}
+									{{#if ../this.userIsOwner}}
+										<a href="#"
+										class="btn-file-move"
+										title="Datei verschieben"
+										data-file-path="{{../path}}"
+										data-file-id="{{../_id}}"
+										data-file-name="{{../name}}">
+											<i class="fa fa-folder-open"></i>
+										</a>
+									{{/if}}
                                 {{/ifneq}}
+
+								<a
+									href="#"
+									class="btn-file-settings"
+									title="Dateiberechtigungen bearbeiten"
+									data-file-id="{{this._id}}"
+								>
+									<i class="fa fa-cogs"></i>
+								</a>
 
                                 {{#if ../canCreateFile}}
                                 {{#if this.isOfficeFile}}
@@ -86,14 +98,6 @@
                                     </a>
                                 {{/if}}
                                 {{/if}}
-
-                                <!--{{#if this.isOfficeFile}} todo: discuss just onClick or own button?
-                                <a href="/files/file/{{this._id}}/lool"
-                                    target="_blank"
-                                    data-method="lool">In LibreOffice öffnen</a>
-                                {{/if}}-->
-
-                                <small class="file-info" id="{{this._id}}"></small>
                             </div>
                         </div>
                     </div>
@@ -126,7 +130,13 @@
 
 {{#embed "lib/components/modal-form" class="share-modal"}}
     {{#content "fields"}}
-        {{> "files/forms/form-share-file" teamFiles=teamFiles}}
+        {{> "files/forms/form-share-file"}}
+    {{/content}}
+{{/embed}}
+
+{{#embed "lib/components/modal-form" class="permissions-modal"}}
+    {{#content "fields"}}
+        {{> "files/forms/form-file-permissions"}}
     {{/content}}
 {{/embed}}
 

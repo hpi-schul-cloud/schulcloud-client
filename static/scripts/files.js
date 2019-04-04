@@ -485,61 +485,106 @@ $(document).ready(function() {
 		);
 	});
 
-	$(".btn-file-share-close").click(function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		let id = e.target.parentElement.id;
-		$(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
-	});
-
-	$(".btn-file-share-view").click(function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		let fileId = $(this).attr("data-file-id");
-		let $shareModal = $(".share-modal");
-		let id = e.target.parentElement.id;
-		$(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
-
-		fileShare(fileId, $shareModal, true);
-	});
-
-	$(".btn-file-share-download").click(function(e) {
-		e.stopPropagation();
-		e.preventDefault();
-		let fileId = $(this).attr("data-file-id");
-		let $shareModal = $(".share-modal");
-		let id = e.target.parentElement.id;
-		$(`.popup-overlay#${id}, .popup-content#${id}`).removeClass("active");
-
-		fileShare(fileId, $shareModal);
-	});
 
 	$(".btn-file-share").click(function(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		let fileId = $(this).attr("data-file-id");
-		let fileName = $(this).attr("data-file-name");
-		let $shareModal = $(".share-modal");
-		let id = e.target.parentElement.id;
-
-		let fType = fileName.split(".");
-		fType = fileTypes[fType[fType.length - 1]];
-
-		if (fType && fType !== "application/pdf")
-			$(`.popup-overlay#${id}, .popup-content#${id}`).addClass("active");
-		else {
-			fileShare(fileId, $shareModal);
-		}
+		const fileId = $(this).attr("data-file-id");
+		const $shareModal = $(".share-modal");
+		fileShare(fileId, $shareModal);
 	});
 
-	const fileShare = (fileId, $shareModal, view) => {
-		const $loader = $shareModal.find('.loader');
-		const $input = $shareModal.find('input[name="invitation"]');
-		const $container = $shareModal.find('.file-permissions');
-		const $table = $container.find('table');
+	$(".btn-file-settings").click(function(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const fileId = $(this).attr("data-file-id");
+		const $permissionModal = $(".permissions-modal");
+		filePermissions(fileId, $permissionModal);
+	});	
+
+	const filePermissions = function(fileId, $permissionModal) {
+		const $loader = $permissionModal.find('.loader');
+		const $table = $('.permissions-modal table');
+		const $message = $('.permissions-modal p.message');
 
 		$table.find('tbody').empty();
-		$container.hide();
+		$table.hide();
+		$message.hide();
+		$permissionModal.appendTo('body').modal('show');
+
+		$.ajax({ url: `/files/permissions/?file=${fileId}`})
+			.then((permissions) => {
+
+				const nameMap = {
+					teacher: 'Lehrer',
+					student: 'Schüler',
+					teammember: 'Mitglied',
+					teamexpert: 'Experte',
+					teamleader: 'Leiter',
+					teamadministrator: 'Administrator',
+					teamowner: 'Eigentümer',
+				};
+
+				populateModalForm($permissionModal, {
+					title: 'Berechtigungen bearbeiten',
+					closeLabel: 'Abbrechen',
+					submitLabel: 'Speichern',
+					fields: {
+						fileId,
+					}
+				});
+
+				$loader.hide();
+
+				if( permissions && permissions.length ) {
+					$table.find('tbody').html(
+						permissions
+							.reverse()
+							.map(({name, write, read, refId}) => {
+								return `<tr>
+									<td>${nameMap[name] || name}</td>
+									<td><input type="checkbox" name="read-${refId}" ${ typeof read === 'boolean' && read ? 'checked' : ''} ${ typeof read === 'undefined' ? 'disabled checked' : '' }/></td>
+									<td><input type="checkbox" name="write-${refId}" ${ write ? 'checked' : ''}/></td>
+								</tr>`;
+							})
+					);
+
+					$table.on('click', 'input[type="checkbox"]', (e) => {
+						const $input = $(e.target);
+						const $colInputs = $table.find(`td:nth-child(${$input.parent().index() + 1}) input[type="checkbox"]`);
+						const $inputIndex = $colInputs.index($input);
+
+						if (!$input.prop('checked')) {
+							$colInputs.each(function(idx){
+								$(this).prop('checked', idx < $inputIndex);
+							});
+						}
+					});
+
+					$table.show();
+				}
+				else {
+					$message.text('Keine Berechtigungen zum Bearbeiten vorhanden.');
+					$message.show();
+				}
+			})
+			.catch((err) => {
+
+				populateModalForm($permissionModal, {
+					title: 'Berechtigungen bearbeiten',
+					closeLabel: 'Abbrechen',
+				});
+
+				$loader.hide();
+
+				console.log('error', err);
+				$message.text('Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.');
+				$message.show();
+			});
+	};
+
+	const fileShare = (fileId, $shareModal, view) => {
+		const $input = $shareModal.find('input[name="invitation"]');
 
 		$input.click(() => {
 			$(this).select();
@@ -548,81 +593,34 @@ $(document).ready(function() {
 
 		$shareModal.appendTo('body').modal('show');
 
-		Promise.all([
-			$.ajax({ url: `/files/permissions/?file=${fileId}`}),
-			$.ajax({ url: `/files/share/?file=${fileId}`}),
-		])
-		.then((results) => {
-			const [,result] = results;
-			const target = view ? `files/file/${fileId}/lool?share=${result.shareToken}` : `files/fileModel/${fileId}/proxy?share=${result.shareToken}`;
+		$.ajax({ url: `/files/share/?file=${fileId}`})
+			.then((result) => {
+				const target = view ? `files/file/${fileId}/lool?share=${result.shareToken}` : `files/fileModel/${fileId}/proxy?share=${result.shareToken}`;
+				return $.ajax({
+					type: "POST",
+					url: "/link/",
+					data: { target },
+				});
+			})
+			.then((link) => {
 
-			return Promise.all(results.concat($.ajax({
-				type: "POST",
-				url: "/link/",
-				data: { target },
-			})));
-		})
-		.then(([permissions, result, link]) => {
-
-			const nameMap = {
-				teacher: 'Lehrer',
-				student: 'Schüler',
-				teammember: 'Mitglied',
-				teamexpert: 'Experte',
-				teamleader: 'Leiter',
-				teamadministrator: 'Administrator',
-				teamowner: 'Eigentümer',
-			};
-
-			populateModalForm($shareModal, {
-				title: 'Freigabe-Einstellungen',
-				closeLabel: 'Abbrechen',
-				submitLabel: 'Speichern',
-				fields: {
-					invitation: link.newUrl,
-					fileId,
-				}
-			});
-
-			$loader.hide();
-
-			if( permissions && permissions.length ) {
-				$table.find('tbody').html(
-					permissions
-						.reverse()
-						.map(({name, write, read, refId}) => {
-							return `<tr>
-								<td>${nameMap[name] || name}</td>
-								<td><input type="checkbox" name="read-${refId}" ${ typeof read === 'boolean' && read ? 'checked' : ''} ${ typeof read === 'undefined' ? 'disabled checked' : '' }/></td>
-								<td><input type="checkbox" name="write-${refId}" ${ write ? 'checked' : ''}/></td>
-							</tr>`;
-						})
-				);
-
-				$container.show();
-
-				$table.on('click', 'input[type="checkbox"]', (e) => {
-					const $input = $(e.target);
-					const $colInputs = $table.find(`td:nth-child(${$input.parent().index() + 1}) input[type="checkbox"]`);
-					const $inputIndex = $colInputs.index($input);
-
-					if (!$input.prop('checked')) {
-						$colInputs.each(function(idx){
-							$(this).prop('checked', idx < $inputIndex);
-						});
+				populateModalForm($shareModal, {
+					title: 'Freigabe-Link',
+					closeLabel: 'Abbrechen',
+					fields: {
+						invitation: link.newUrl,
 					}
 				});
-			}
 
-			$input.val(link.newUrl);
-			$input.show();
-		})
-		.catch((err) => {
-			console.log('error', err);
-		});
+				$input.val(link.newUrl);
+				$input.show();
+			})
+			.catch((err) => {
+				console.log('error', err);
+			});
 	};
 
-    $('.share-modal').on('submit', function (e) {
+    $('.permission-modal').on('submit', function (e) {
 		e.preventDefault();
 		const inputs = $(this).find('form input[type="checkbox"]').toArray()
 			.filter(({defaultChecked, checked}) => defaultChecked !== checked);
