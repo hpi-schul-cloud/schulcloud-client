@@ -117,21 +117,6 @@
 			},
 			{
 				"title": "",
-				"firstName": "Max",
-				"lastName": "Bothe",
-				"position": "Wissenschaftlicher Mitarbeiter, HPI",
-				"description": "Max hat am Hasso-Plattner-Institut seinen Bachelor und Master absolviert und arbeitet nun für sein Doktor-Studium im HPI Schul-Cloud-Projekt. Hier überschaut er unter anderem die Entwicklung der mobilen Apps. In der Freizeit versucht er immer etwas Sport unterzubringen - egal ob draußen oder drinnen - oder probiert neue Rezepte aus.",
-				"pictureUrl": "/images/team/Max_Bothe.jpg",
-				"priority": 0,
-				"social": {
-					"facebook": "",
-					"twitter": "",
-					"linkedin": ""
-				},
-				"longDesc": false
-			},
-			{
-				"title": "",
 				"firstName": "Cedric",
 				"lastName": "Evers",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -182,6 +167,21 @@
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
 				"description": "Christiane hat Medieninformatik an der Beuth Hochschule für Technik Berlin studiert. Jetzt promoviert sie am Hasso-Plattner-Institut und erforscht dabei die Möglichkeiten von spielbasiertem Lernen. Das HPI Schul-Cloud-Projekt unterstützt sie als wissenschaftliche Mitarbeiterin in den Bereichen Testing und technischer Support. In ihrer Freizeit bereist Christiane die Welt und entspannt gerne bei analogen und digitalen Spielen.",
 				"pictureUrl": "/images/team/Christiane_Hagedorn.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Sebastian",
+				"lastName": "Hirsch",
+				"position": "Community Manager, HPI",
+				"description": "Sebastian ist seit März 2019 im Team der HPI Schul-Cloud tätig. Als Community Manager pflegt er den Austausch mit allen Nutzer*innen und Interessierten im Netz. Zuvor hat er als Bildungsaktivist, Veranstaltungsmanager und Schulbauberater gearbeitet. An der Jacobs University hat er Integrated Social Sciences studiert. Seine Freizeit verbringt er auf dem Rad, beim Bouldern oder in Hamburg.",
+				"pictureUrl": "/images/team/Hirsch_Sebastian.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -315,7 +315,7 @@
 				"firstName": "Jacqueline",
 				"lastName": "Thorns",
 				"position": "Wissenschaftliche Mitarbeiterin, HPI",
-				"description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, wie dem Newsletter und die Organisation von Veranstaltungen, wie dem HPI Schul-Cloud Forum, zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
+				"description": "Jacqueline hat European Studies an der Europa- Universität Viadrina im Master studiert und ist im Projekt HPI Schul-Cloud als wissenschaftliche Mitarbeiterin unter anderem für das Erstellen von öffentlichkeitswirksamen Dokumenten, die Organisation von Veranstaltungen und der Betreuung der Pilotschulen zuständig. Privat entspannt sie gerne in der Natur oder bei einem guten Buch.",
 				"pictureUrl": "/images/team/Jacqueline_Thorns.jpg",
 				"priority": 0,
 				"social": {

@@ -5,8 +5,7 @@
                 <div class="card file" data-href="/files/file?file={{this.name}}" data-file-name="{{this.name}}" data-file-size="{{this.size}}" data-file-id="{{this._id}}">
                     <div class="openFile">
                         <div class="card-block"
-                             onclick="location.href='#file-view';
-                                     fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
+                             onclick="fileViewer('{{this.type}}', '{{this.name}}', '{{this._id}}');">
                             <div class="card-title">
                                 <div class="file-preview-wrapper col-sm-1 no-padding hidden-xs-down">
                                     <div class="file-preview"

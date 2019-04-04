@@ -798,63 +798,62 @@ const fileTypes = {
 };
 
 window.fileViewer = function fileViewer(type, name, id) {
-	$("#my-video").css("display", "none");
 
-	// detect filetype according to line ending
-	if (type.length === 0) {
-		let fType = name.split(".");
-		type = fileTypes[fType[fType.length - 1]];
-	}
+  $('#my-video').css('display', 'none');
 
-	switch (type) {
-		case "application/pdf":
-			$("#file-view").hide();
-			let win = window.open("/files/file?file=" + id, "_blank");
-			win.focus();
-			break;
+  // detect filetype according to line ending
+  if (type.length === 0) {
+    let fType = name.split('.');
+    type = fileTypes[fType[fType.length - 1]] || '';
+  }
 
-		case "image/" + type.substr(6):
-			$("#file-view").css("display", "");
-			$("#picture").attr("src", "/files/file?file=" + id + "&name=" + name);
-			break;
+  switch (type) {
+    case 'application/pdf':
+      $('#file-view').hide();
+      win = window.open(`/files/file?file=${id}`, '_blank');
+      win.focus();
+      break;
 
-		case "audio/" + type.substr(6):
-		case "video/" + type.substr(6):
-			$("#file-view").css("display", "");
-			videojs("my-video").ready(function() {
-				this.src({ type: type, src: "/files/file?file=" + id });
-			});
-			$("#my-video").css("display", "");
-			break;
+	case `image/${type.substr(6)}`:
+	  location.href='#file-view';
+      $('#file-view').css('display', '');
+      $('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
+      break;
 
-		case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": //.docx
-		case "application/vnd.ms-word":
-		case "application/msword": //.doc
-		case "application/vnd.oasis.opendocument.text": //.odt
-		case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": //.xlsx
-		case "application/vnd.ms-excel":
-		case "application/msexcel": //.xls
-		case "application/vnd.oasis.opendocument.spreadsheet": //.ods
-		case "application/vnd.openxmlformats-officedocument.presentationml.presentation": //.pptx
-		case "application/vnd.ms-powerpoint":
-		case "application/mspowerpoint": //.ppt
-		case "application/vnd.oasis.opendocument.presentation": //.odp
-		case "text/plain": //.txt
-			$("#file-view").hide();
-			win = window.open(`/files/file/${id}/lool`, "_self");
-			win.focus();
+    case `audio/${type.substr(6)}`:
+	case `video/${type.substr(6)}`:
+	location.href='#file-view';
+      $('#file-view').css('display', '');
+      videojs('my-video').ready(function() {
+        this.src({ type: type, src: `/files/file?file=${id}`});
+      });
+      $('#my-video').css('display', '');
+      break;
 
-			break;
+    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': //.docx
+    case 'application/vnd.ms-word':
+    case 'application/msword': //.doc
+    case 'application/vnd.oasis.opendocument.text': //.odt
+    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': //.xlsx
+    case 'application/vnd.ms-excel':
+    case 'application/msexcel': //.xls
+    case 'application/vnd.oasis.opendocument.spreadsheet': //.ods
+    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': //.pptx
+    case 'application/vnd.ms-powerpoint':
+    case 'application/mspowerpoint': //.ppt
+    case 'application/vnd.oasis.opendocument.presentation': //.odp
+    case 'text/plain': //.txt
+      $('#file-view').hide();
+      win = window.open(`/files/file/${id}/lool`, '_self');
+      win.focus();
 
-		default:
-			$("#file-view").css("display", "");
-			$("#link").html(
-				'<a class="link" href="/files/file?file=' +
-					id +
-					'" target="_blank">Datei extern öffnen</a>'
-			);
-			$("#link").css("display", "");
-	}
+      break;
+
+    default:
+	  $('#file-view').hide();
+      win = window.open(`/files/file?file=${id}&download`, '_blank');
+      win.focus();
+  }
 };
 
 /**

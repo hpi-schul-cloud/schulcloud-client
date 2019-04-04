@@ -294,19 +294,32 @@ router.get('/', function (req, res, next) {
 
             return course;
         });
+
+        const isStudent = res.locals.currentUser.roles.every((role) => {
+            return role.name === "student";
+        });
+
         if (req.query.json) {
             res.json(courses);
         } else {
-            res.render('courses/overview', {
-                title: 'Meine Kurse',
-                courses,
-                substitutionCourses,
-                searchLabel: 'Suche nach Kursen',
-                searchAction: '/courses',
-                showSearch: true,
-                liveSearch: true
-            });
+            if (courses.length > 0 || substitutionCourses.length > 0){
+              res.render('courses/overview', {
+                  title: 'Meine Kurse',
+                  courses,
+                  substitutionCourses,
+                  searchLabel: 'Suche nach Kursen',
+                  searchAction: '/courses',
+                  showSearch: true,
+                  liveSearch: true
+              });
+            } else{
+              res.render('courses/overview-empty', {
+                isStudent
+              });
+            }
         }
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -382,7 +395,10 @@ router.get('/:courseId/json', function (req, res, next) {
                 courseId: req.params.courseId
             }
         })
-    ]).then(([course, lessons]) => res.json({ course, lessons }));
+    ]).then(([course, lessons]) => res.json({ course, lessons }))
+    .catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:courseId/usersJson', function (req, res, next) {
@@ -392,7 +408,10 @@ router.get('/:courseId/usersJson', function (req, res, next) {
                 $populate: ['userIds']
             }
         })
-    ]).then(([course]) => res.json({ course }));
+    ]).then(([course]) => res.json({ course }))
+    .catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:courseId', function (req, res, next) {

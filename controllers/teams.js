@@ -413,11 +413,19 @@ router.get('/:teamId', async (req, res, next) => {
 
 
 		let files; let directories;
+
 		files = await api(req).get('/fileStorage', {
 			qs: {
 				owner: course._id,
 			},
 		});
+		/* note: fileStorage can return arrays and error objects */
+		if (!Array.isArray(files)) {
+			if ((files || {}).code) {
+				logger.warn(files);
+			}
+			files = [];
+		}
 
 		files = files.filter(file => file);
 
@@ -765,6 +773,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		const { permissions } = team.user || {};
+		team.userIds = team.userIds.filter(user => user.userId !== null); // fix if user do not exist
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
