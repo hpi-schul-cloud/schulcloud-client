@@ -500,7 +500,7 @@ $(document).ready(function() {
 		const fileId = $(this).attr("data-file-id");
 		const $permissionModal = $(".permissions-modal");
 		filePermissions(fileId, $permissionModal);
-	});	
+	});
 
 	const filePermissions = function(fileId, $permissionModal) {
 		const $loader = $permissionModal.find('.loader');
@@ -544,7 +544,7 @@ $(document).ready(function() {
 								return `<tr>
 									<td>${nameMap[name] || name}</td>
 									<td><input type="checkbox" name="read-${refId}" ${ typeof read === 'boolean' && read ? 'checked' : ''} ${ typeof read === 'undefined' ? 'disabled checked' : '' }/></td>
-									<td><input type="checkbox" name="write-${refId}" ${ write ? 'checked' : ''}/></td>
+									<td><input type="checkbox" name="write-${refId}" ${ typeof write === 'boolean' && write ? 'checked' : ''} ${ typeof write === 'undefined' ? 'disabled checked' : '' }/></td>
 								</tr>`;
 							})
 					);
@@ -620,9 +620,10 @@ $(document).ready(function() {
 			});
 	};
 
-    $('.permission-modal').on('submit', function (e) {
+
+    $('.permissions-modal .modal-form').on('submit', function (e) {
 		e.preventDefault();
-		const inputs = $(this).find('form input[type="checkbox"]').toArray()
+		const inputs = $(this).find('input[type="checkbox"]').toArray()
 			.filter(({defaultChecked, checked}) => defaultChecked !== checked);
 		const fileId = $(this).find('input[name="fileId"]').val();
 		const permissions = inputs.reduce((arr, input) => {
@@ -651,7 +652,7 @@ $(document).ready(function() {
 		})
 		.done(function() {
 			$.showNotification('Standard-Berechtigungen erfolgreich geändert', "success", true);
-			$('.share-modal').modal('hide');
+			$('.permissions-modal').modal('hide');
 		})
 		.fail(function() {
 			$.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
