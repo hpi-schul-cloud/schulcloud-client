@@ -907,11 +907,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 				});
 			});
 
-			res.json(directoryTree);
-		})
-		.catch(err => {
-			console.log(err);
-			res.sendStatus(500);
+			return res.json(directoryTree);
 		});
 });
 
