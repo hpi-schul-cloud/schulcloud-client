@@ -892,7 +892,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 
 	api(req).get('/fileStorage/directories')
 		.then(directories => {
-			if (!directories) {
+			if (directories.code === 404) {
 				return Promise.resolve([]);
 			}
 			return directories.filter(dir => !dir.parent).map(dir => getDirectoryTree(directories, dir))
