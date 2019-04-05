@@ -12,7 +12,7 @@
         {{/if}}
         <span class="sc-card-title">
             <div>
-                <span class="title">{{{ stripOnlyScript this.title }}}</span>
+                <span class="title" data-testid="ScCardTitle">{{{ stripOnlyScript this.title }}}</span>
             </div>
             {{#if this.target.name}}
             <div class="tag tag-default">{{this.target.name}}</div>

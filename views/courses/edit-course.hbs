@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label>Name des Kurses</label>
-                    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}"
+                    <input class="form-control" name="name" type="text" placeholder="Mathe 10a" value="{{course.name}}" data-testid="CourseName"
                            required autofocus/>
                 </div>
 
@@ -196,7 +196,7 @@
                         {{closeLabel}}
                     </button>
 
-                    <button type="submit" class="btn btn-primary btn-submit">
+                    <button type="submit" class="btn btn-primary btn-submit" data-testid="CreateCourseButton">
                         {{submitLabel}}
                     </button>
                 </div>
