@@ -191,7 +191,8 @@ router.get("/messages", authChecker, (req, res, next) => {
 			.get(`notification/messages${params}`)
 			.then(response => {
 				res.render("lib/components/notification-list", {
-					notifications: response.data.map(notification => notificationParser(notification))
+					notifications: response.data.map(notification => notificationParser(notification)),
+					meta: response.meta
 				});
 			});
 	} else {

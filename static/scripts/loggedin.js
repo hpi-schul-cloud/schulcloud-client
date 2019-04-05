@@ -338,9 +338,24 @@ document.querySelectorAll('#main-content a').forEach((a) => {
     }
 });
 
-function reloadNotificationList() {
-    const loadedItems = $('#recent-notification-list .notification-item').length;
-    $('#recent-notification-list').load(`/notification/messages?limit=${loadedItems}`);
+window.reloadNotificationList = function (add, showBadge) {
+    let loadedItems = $('#recent-notification-list .notification-item').length;
+    if (add) {
+        loadedItems += add;
+    }
+    $('#recent-notification-list').load(`/notification/messages?limit=${loadedItems}`, () => {
+        if (showBadge) {
+            let unread = $('#recent-notification-list .meta').attr('data-unread');
+            if (unread) {
+                const metaUnread = $('.notification-dropdown .meta-unread');
+                metaUnread.text(unread);
+                metaUnread.show();
+                $('.notification-dropdown-toggle').click(function (event) {
+                    metaUnread.hide();
+                });
+            }
+        }
+    });
 }
 
 window.notificationSeen = function (url, id, callback) {
@@ -401,4 +416,5 @@ window.addEventListener('load', (event) => {
         elementScroll: '#recent-notification-container',
         checkLastPage: '.notification-item',
     });
+    $('.page-load-status').hide();
 });

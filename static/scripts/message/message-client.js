@@ -23,6 +23,9 @@ const messageClient = {
 
 		navigator.serviceWorker.addEventListener('message', (event) => {
 			// console.log('client received:', event.data);
+			if (event.data.tag === 'notification') {
+				reloadNotificationList(1, true);
+			}
 			if (event.data.notification && event.data.notification.shown) {
 				iziToast.show({
 					title: event.data.notification.title,
