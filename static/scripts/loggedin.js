@@ -338,12 +338,22 @@ document.querySelectorAll('#main-content a').forEach((a) => {
     }
 });
 
+function showHideControls() {
+    const loadedItems = $('#recent-notification-list .notification-item').length;
+    if (loadedItems) {
+        $('#recent-notification-container .controls').show();
+    } else {
+        $('#recent-notification-container .controls').hide();
+    }
+}
+
 window.reloadNotificationList = function (add, showBadge) {
     let loadedItems = $('#recent-notification-list .notification-item').length;
     if (add) {
         loadedItems += add;
     }
     $('#recent-notification-list').load(`/notification/messages?limit=${loadedItems}`, () => {
+        showHideControls();
         if (showBadge) {
             let unread = $('#recent-notification-list .meta').attr('data-unread');
             if (unread) {
@@ -417,4 +427,5 @@ window.addEventListener('load', (event) => {
         checkLastPage: '.notification-item',
     });
     $('.page-load-status').hide();
+    showHideControls();
 });

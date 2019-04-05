@@ -692,6 +692,15 @@ footer {
     display: none;
   }
 
+  .controls {
+    text-align: left;
+    padding: 10px 15px 10px 15px;
+    cursor: default;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 14px;
+  }
+
   .dropdown-menu {
     width: 300px;
     max-height: 300px;

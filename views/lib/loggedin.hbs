@@ -142,7 +142,14 @@
                             <span class="tag tag-primary meta-unread">{{../recentNotifications}}</span>{{/if}}
                         </a>
 
-                        <div class="dropdown-menu" id="recent-notification-container">
+                        <div class="dropdown-menu dropdown-menu-right" id="recent-notification-container">
+                            <div class="controls">
+                                Alle:
+                                <a href="javascript:seenAllNotifications()"
+                                    title="Alle Benachrichtigungen als gelesen markieren">gelesen</a>
+                                <a href="javascript:deleteAllNotifications()"
+                                    title="Alle Benachrichtigungen löschen">löschen</a>
+                            </div>
                             <div class="content" id="recent-notification-list">
                                 {{> "lib/components/notification-list" notifications=../notifications}}
                             </div>
