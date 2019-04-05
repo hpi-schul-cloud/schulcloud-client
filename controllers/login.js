@@ -177,12 +177,18 @@ router.get('/login/success', authHelper.authChecker, function (req, res, next) {
     }
 });
 
-router.get('/login/systems/:schoolId', function (req, res, next) {
-    return api(req).get('/schools/' + req.params.schoolId, {
-        qs: { $populate: ['systems'] }
-    }).then(data => {
-        return res.send(data.systems);
-    });
+router.get('/login/systems/:schoolId', (req, res, next) => {
+	api(req).get(
+		`/schools/${req.params.schoolId}`,
+		{
+			qs: { $populate: ['systems'] },
+		},
+	).then((data) => {
+		const systems = data.systems.filter(function (value) {
+			return value.type !== 'ldap' || value.ldapConfig.active === true;
+        });
+		return res.send(systems);
+	});
 });
 
 router.get('/logout/', function (req, res, next) {
