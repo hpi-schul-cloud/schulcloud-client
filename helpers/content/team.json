@@ -286,7 +286,7 @@
 				"lastName": "Rathgeb",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
 				"description": "Wolfgang hat seinen Master in technischer Informatik Ende März 2019 abgeschlossen und ist seit dem als Full-Stake-Entwickler Teil des HPI Schul-Cloud Teams. Dabei ist sein Ziel Vorgänge so einfach wie möglich zu halten und möglichst viele Schritte zu Automatisieren. Das spiegelt sich auch in seiner Freizeit wieder, in der er gerne viele alltägliche Aufgaben automatisiert, um das Komfortlevel zu steigern und mehr Zeit für neue Projekte zu haben – aktuell seinen Garten.",
-				"pictureUrl": "/images/team/Hannes_Schurig.jpg",
+				"pictureUrl": "/images/team/Wolfgang_Rathgeb.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -553,6 +553,21 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der HPI Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
 				"pictureUrl": "/images/team/Dominik_Glandorf.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Tatiana",
+				"lastName": "Gurova",
+				"position": "Studentische Hilfskraft",
+				"description": "Tatiana studiert aktuell Jura in Potsdam und unterstützt seit März 2019 das Projekt HPI Schul-Cloud bei der Büroorganisation und bei Themen bezüglich der Politik und des Datenschutzes. Ihre Freizeit verbringt sie gerne mit der Teilnahme an verschiedenen Workshops, Kongressen und Seminaren und dem Standard/Lateintanz.",
+				"pictureUrl": "/images/team/tatiana.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
