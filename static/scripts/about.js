@@ -1,14 +1,15 @@
 async function initTimeline(selector, url) {
 	const res = await fetch(url, {
-		credentials: "same-origin"
+		credentials: 'same-origin',
 	});
 	const googleTimelineData = await res.json();
-	const timeline = new TL.Timeline(selector, TL.ConfigFactory.googleFeedJSONtoTimelineJSON(googleTimelineData));
+	// eslint-disable-next-line no-undef
+	TL.Timeline(selector, TL.ConfigFactory.googleFeedJSONtoTimelineJSON(googleTimelineData));
 }
 
-function changeButtonText(event) {
-	let button = this;
-	let hiddenSchools = document.querySelector(button.dataset.target);
+function changeButtonText() {
+	const button = this;
+	const hiddenSchools = document.querySelector(button.dataset.target);
 	if (hiddenSchools.classList.contains('in')) {
 		button.innerHTML = 'mehr anzeigen<i class="fa fa-angle-down" aria-hidden="true"></i>';
 	} else {
@@ -16,9 +17,9 @@ function changeButtonText(event) {
 	}
 }
 
-window.addEventListener("load", function () {
-	initTimeline('timeline-embed', '/about/timeline.json')
-	document.querySelectorAll('.toggle-partner').forEach(function (button) {
-		button.addEventListener('click', changeButtonText)
+window.addEventListener('load', () => {
+	initTimeline('timeline-embed', '/about/timeline.json');
+	document.querySelectorAll('.toggle-partner').forEach((button) => {
+		button.addEventListener('click', changeButtonText);
 	});
 });

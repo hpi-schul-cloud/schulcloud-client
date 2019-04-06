@@ -2,76 +2,76 @@
 @import '../lib/bootstrap/scss/bootstrap';
 
 body {
-    background: $colorBeige;
-    position: absolute;
-    width: 100%;
-    min-height: 100vh;
-    p{
-        margin: 0 0 10px 0;
-    }
-    ul {
-        list-style-type: none;
-        padding:0;
-        margin:0;
-    }
-    header {
-        background: $primaryColor;
-        a {
-            color:#fff !important;
-            font-size: 1rem;
-            line-height: 1rem;
-            padding: 1rem !important;
-            text-decoration: none; 
-        }
-        #title {
-            font-size: 1.5rem;
-            line-height: 1.5rem;
-            font-weight: 400;
-            display: inline-block;
-            padding-left: 0 !important;
-            padding-top: .75rem !important;
-            padding-bottom: .75rem !important;
-            &:hover{
-                text-decoration: none;
-            }
-            .cloud-logo {
-                display: inline-block;
-                width: 2.5rem;
-                height: 2rem;
-                margin-top: -.25rem;
-                margin-bottom: -.5rem;
-                margin-right: .5rem;
-                background: $logoBackground;
-                background-size: contain;
-            }
-        }
-        .nav-item{
-            margin: 0 !important;
-            min-width: 4rem;
-            text-align: center;
-            .nav-link {
-                transition: background-color .3s ease-in-out;
-                &:hover{
-                    background-color: $accentColor;
-                }
-            }
-        }
-        .nav-item:last-of-type{
-            padding-right: 0;
-        }
-        @include media-breakpoint-down(md) {
-            text-align: center;
-            #title, ul.nav{
-                float: none;
-                display: block;
-            }
-            ul.nav .nav-item{
-                float: none;
-                display: inline-block;
-            }
-        }
-    }
-    main{
+	background: $colorBeige;
+	position: absolute;
+	width: 100%;
+	min-height: 100vh;
+	p{
+		margin: 0 0 10px 0;
+	}
+	ul {
+		list-style-type: none;
+		padding:0;
+		margin:0;
+	}
+	header {
+		background: $primaryColor;
+		a {
+			color:#fff !important;
+			font-size: 1rem;
+			line-height: 1rem;
+			padding: 1rem !important;
+			text-decoration: none;
+		}
+		#title {
+			font-size: 1.5rem;
+			line-height: 1.5rem;
+			font-weight: 400;
+			display: inline-block;
+			padding-left: 0 !important;
+			padding-top: .75rem !important;
+			padding-bottom: .75rem !important;
+			&:hover{
+				text-decoration: none;
+			}
+			.cloud-logo {
+				display: inline-block;
+				width: 2.5rem;
+				height: 2rem;
+				margin-top: -.25rem;
+				margin-bottom: -.5rem;
+				margin-right: .5rem;
+				background: $logoBackground;
+				background-size: contain;
+			}
+		}
+		.nav-item{
+			margin: 0 !important;
+			min-width: 4rem;
+			text-align: center;
+			.nav-link {
+				transition: background-color .3s ease-in-out;
+				&:hover{
+					background-color: $accentColor;
+				}
+			}
+		}
+		.nav-item:last-of-type{
+			padding-right: 0;
+		}
+		@include media-breakpoint-down(md) {
+			text-align: center;
+			#title, ul.nav{
+				float: none;
+				display: block;
+			}
+			ul.nav .nav-item{
+				float: none;
+				display: inline-block;
+			}
+		}
+	}
+	main{
 		min-height: calc(100vh - 228px);
 		#frontpage-notification-top {
 			.vcenter {
@@ -102,81 +102,81 @@ body {
 				}
 			}
 		}
-        .illustration{
-            min-width: 150px;
-            width: 25vw;
-            max-width: 300px;
-            shape-outside: circle(50%);
-        }
-        li{
-            margin-top: 5px;
-            &:before{
-                display: inline-block;
-                font: normal normal normal 14px/1 FontAwesome;
-                font-size: inherit;
-                text-rendering: auto;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                content: "\f105";
-                margin-right: 5px;
-            }
-        }
-    }
-    #loginarea{
-        .btn{
-            word-wrap: break-word;
-            white-space: normal;
-        }
-        input {
-            margin-bottom: 10px;
-            font-size: 1rem;
-            padding: .5rem;
-        }
-        .login-providers {
-            display:none;
-        }
-    }
-    aside{
-        .card-block {
-            padding: 1rem 1.25rem;
-        }
-        .card-title{
-            break-word: break-all;
-        }
-        #blogfeed{
-            .list-group-item{
-                padding: .75rem .25rem !important;
-            }
-        }
-    }
-    footer:not(.small-footer){
-        background-color: #555;
-        color: #fff;
-        padding:2rem 2rem 0;
-        a{
-            color: #fff;
-            &:hover{
-                color:#fff!important;
-            }
-        }
-        .col-md-4{
-            margin-bottom: 2rem;
-        }
-    }
-    footer.small-footer{
-        position: relative;
-    }
+		.illustration{
+			min-width: 150px;
+			width: 25vw;
+			max-width: 300px;
+			shape-outside: circle(50%);
+		}
+		li{
+			margin-top: 5px;
+			&:before{
+				display: inline-block;
+				font: normal normal normal 14px/1 FontAwesome;
+				font-size: inherit;
+				text-rendering: auto;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+				content: "\f105";
+				margin-right: 5px;
+			}
+		}
+	}
+	#loginarea{
+		.btn{
+			word-wrap: break-word;
+			white-space: normal;
+		}
+		input {
+			margin-bottom: 10px;
+			font-size: 1rem;
+			padding: .5rem;
+		}
+		.login-providers {
+			display:none;
+		}
+	}
+	aside{
+		.card-block {
+			padding: 1rem 1.25rem;
+		}
+		.card-title{
+			word-break: break-all;
+		}
+		#blogfeed{
+			.list-group-item{
+				padding: .75rem .25rem !important;
+			}
+		}
+	}
+	footer:not(.small-footer){
+		background-color: #555;
+		color: #fff;
+		padding:2rem 2rem 0;
+		a{
+			color: #fff;
+			&:hover{
+				color:#fff!important;
+			}
+		}
+		.col-md-4{
+			margin-bottom: 2rem;
+		}
+	}
+	footer.small-footer{
+		position: relative;
+	}
 }
 
 @media (max-width: 1024px) {
-    .intro-trigger {
-        display: none;
-  }
-      
-    .partner-img {
-        position: relative;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 70%
-    }
+	.intro-trigger {
+		display: none;
+	}
+
+	.partner-img {
+		position: relative;
+		left: 50%;
+		transform: translate(-50%, 0);
+		width: 70%
+	}
 }
