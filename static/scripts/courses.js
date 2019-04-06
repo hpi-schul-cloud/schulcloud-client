@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+    $('.js-course-name-input').change(function () {
+        $(this).val($(this).val().trim());
+    });
+
     $('.btn-hidden-toggle').click(function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -77,22 +81,25 @@ $(document).ready(function () {
         e.stopPropagation();
     });
 
-    $("#topic-list").sortable({
-        placeholder: "ui-state-highlight",
-        handle: '.move-handle',
-        update: function(event, ui) {
-            let positions = {};
-            $( "#topic-list .card-topic" ).each(function(i) {
-                positions[($( this ).attr("data-topicId"))] = i;
-            });
-            $.ajax({
-                type: "PATCH",
-                url: window.location.href + "/positions",
-                data: positions
-            });
-        },
-    });
-    $( "#topic-list" ).disableSelection();
+    if ($('#topic-list').length) {
+        $("#topic-list").sortable({
+            placeholder: "ui-state-highlight",
+            handle: '.move-handle',
+            update: function(event, ui) {
+                let positions = {};
+                $( "#topic-list .card-topic" ).each(function(i) {
+                    positions[($( this ).attr("data-topicId"))] = i;
+                });
+                $.ajax({
+                    type: "PATCH",
+                    url: window.location.href + "/positions",
+                    data: positions
+                });
+            },
+        });
+
+        $( "#topic-list" ).disableSelection();
+    }
 
     $('.btn-create-share-course').click(function (e) {
         e.stopPropagation();

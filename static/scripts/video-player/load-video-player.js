@@ -16,25 +16,21 @@ function checkBrowserEsSupport() {
 
 if (checkBrowserEsSupport()) {
     // ES6 Browser, use better ES6 version of the player
-    var s1 = document.createElement('script');
-    s1.src = "/vendor/webcomponents-lite-player.js";
-    document.head.appendChild(s1);
-    var page_es6 = document.createElement('link');
-    page_es6.href = "/vendor/video-player/video-player-es6.html";
-    page_es6.rel = "import";
-    document.head.appendChild(page_es6);
-} else {
-    // ES5 Browser, user slower ES5 compatible version of the player
-    const arr = ["/vendor/webcomponents-lite-player.js", "/scripts/video-player/custom-elements-es5-adapter.js","/scripts/video-player/polyfills-ie.js"];
+    const arr = ["/vendor/webcomponents-bundle.js", "/vendor-optimized/video-player/es6/video-player.js"];
     for (let scriptsrc in arr) {
         var a = document.createElement('script');
         a.src = arr[scriptsrc];
         document.head.appendChild(a);
     }
-    var page_es5 = document.createElement('link');
-    page_es5.href = "/vendor/video-player/video-player-es5.html";
-    page_es5.rel = "import";
-    document.head.appendChild(page_es5);
+
+} else {
+    // ES5 Browser, user slower ES5 compatible version of the player
+    const arr = ["/vendor/webcomponents-bundle.js", "/vendor-optimized/video-player/es5/video-player.js", "/vendor-optimized/video-player/es5/custom-elements-es5-adapter.js","/vendor-optimized/video-player/es5/polyfills-ie.js"];
+    for (let scriptsrc in arr) {
+        var a = document.createElement('script');
+        a.src = arr[scriptsrc];
+        document.head.appendChild(a);
+    }
 }
 //TODO: Test in Windows 7 Internet Explorer, might fail because it's not supported by the player
 //TODO: Internet Explorer video is loading very slow

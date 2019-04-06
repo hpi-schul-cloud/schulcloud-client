@@ -24,6 +24,14 @@
                 <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
             {{/if}}
 
+            {{#if context}}
+                <input type="hidden" name="context" value="{{context}}" />
+            {{/if}}
+
+            {{#if contextId}}
+                <input type="hidden" name="contextId" value="{{contextId}}" />
+            {{/if}}
+
             <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
             <div class="form-group">
@@ -37,7 +45,7 @@
             </div>
 
             <div class="form-group">
-                <label>Datum</label>
+                <label>automatische Veröffentlichung vorplanen (optional)</label>
                 <input class="form-control" data-datetime data-min-date="0" name="displayAt" type="text" value="{{news.displayAt}}"/>
             </div>
 

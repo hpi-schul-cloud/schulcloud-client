@@ -1,4 +1,52 @@
-<div class="form-group">
+<style>
+.file-permissions th, .file-permissions td {
+    text-align: left;
+    padding: 11px;
+    text-align: center;
+    border: 1px solid grey
+}
+</style>
+
+<div id="share-files" class="form-group">
+    {{!-- <div class="alert alert-info" role="alert">
+        <h5>Standard-Freigabeinstellungen</h5>
+        <ul class="mb-0">
+            <li>Experten dürfen {{#if allowExternalExperts}}alle{{else}}keine{{/if}} Dateien und Ordner sehen</li>
+            <li>Team Mitglieder dürfen {{#if allowMembers}}alle{{else}}keine{{/if}} Dateien und Ordner sehen</li>
+        </ul>
+    </div> --}}
+
+    {{#if teamFiles}}
+        <h5>Freigeben für:</h5>
+        <div>
+            <table class="file-permissions">
+                <tr>
+                    <th>Rolle</th>
+                    <th>Zugriffsrechte</th>
+                </tr>
+                <tr>
+                    <td>Externe Experten</td>
+                    <td>
+                        <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Teilnehmer</td>
+                    <td>
+                        <input class="box" type="checkbox" name="teamMembers" value="allowTeamMembers" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>Leiter und Team-Admins</td>
+                    <td>
+                        <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked" disabled />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {{/if}}
+
+    <h5 class="mt-2">Freigabe-Link</h5>
     <label for="invitation">Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten. </label>
     <input class="form-control" name="invitation" type="text" />
 </div>
