@@ -1,17 +1,30 @@
-<div class="form-group">
 <div style="text-align: center">
-    <img src="/images/surprise.gif" style="width: 50%; height: auto"/>
+    <img src="/images/surprise.gif" style="width: 50%; height: auto" />
     <div>
+        {{release.publishedAt}}<br>
         Es gibt neue Features in der {{theme.short_title}}.
-        <br>
-        Für weitere Informationen klicken Sie doch bitte diesen Button
     </div>
 </div>
-<div style="text-align: center; padding-top: 8px;">
-    <a href="/help/releases">
-    <button class="btn btn-primary btn-add" style="width: 95%;">
-        Hier klicken
-    </button>
-    </a>
+<div class="release modal-body" style="">
+    <h5>
+        {{release.name}}
+    </h5>
+    <div class="body">{{{release.body}}}</div>
 </div>
+<div class="modal-footer">
+    {{!-- {{#if release.needsUserAcceptance}} --}}
+    <div>
+        <button type="submit" class="btn btn-close btn-secondary">Abbrechen</button>
+        <button type="submit" class="btn btn-primary">Akzeptieren</button>
+    </div>
+    {{!-- {{else}} --}}
+    <div>
+        <button type="submit" class="btn btn-close btn-secondary">Schließen</button>
+        <a href="/help/releases">
+            <button class="btn btn-primary btn-add">
+                Weitere Informationen
+            </button>
+        </a>
+    </div>
+    {{!-- {{/if}} --}}
 </div>

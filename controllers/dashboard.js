@@ -11,6 +11,9 @@ const moment = require('moment');
 moment.locale('de');
 const recurringEventsHelper = require('../helpers/recurringEvents');
 
+const showdown = require('showdown');
+const converter = new showdown.Converter();
+
 
 // secure routes
 router.use(authHelper.authChecker);
@@ -23,18 +26,18 @@ router.get('/', function (req, res, next) {
     const numMinutes = numHours * 60;
     const hours = [];
 
-    for(let j = 0; j <= numHours; j++) {
+    for (let j = 0; j <= numHours; j++) {
         hours.push(j + timeStart);
     }
     const start = new Date();
-    start.setHours(timeStart,0,0,0);
+    start.setHours(timeStart, 0, 0, 0);
     const end = new Date();
-    end.setHours(timeEnd,0,0,0);
+    end.setHours(timeEnd, 0, 0, 0);
 
     const currentTime = new Date();
     let currentTimePercentage = 100 * (((currentTime.getHours() - timeStart) * 60) + currentTime.getMinutes()) / numMinutes;
-    if(currentTimePercentage < 0) currentTimePercentage = 0;
-    else if(currentTimePercentage > 100) currentTimePercentage = 100;
+    if (currentTimePercentage < 0) currentTimePercentage = 0;
+    else if (currentTimePercentage > 100) currentTimePercentage = 100;
 
     const eventsPromise = api(req).get('/calendar/', {
         qs: {
@@ -65,7 +68,7 @@ router.get('/', function (req, res, next) {
                 let eventEnd = new Date(event.end);
 
                 // cur events that are too long
-                if(eventEnd > end) {
+                if (eventEnd > end) {
                     eventEnd = end;
                     event.end = eventEnd.toLocalISOString();
                 }
@@ -90,7 +93,7 @@ router.get('/', function (req, res, next) {
         qs: {
             $populate: ['courseId'],
             $sort: 'dueDate',
-            archived : {$ne: res.locals.currentUser._id },
+            archived: { $ne: res.locals.currentUser._id },
             'dueDate': {
                 $gte: new Date().getTime(),
                 $lte: new Date(new Date().setFullYear(new Date().getFullYear() + 1))
@@ -99,7 +102,7 @@ router.get('/', function (req, res, next) {
     }).then(data => data.data.map(homeworks => {
         homeworks.secondaryTitle = moment(homeworks.dueDate).fromNow();
         if (homeworks.courseId != null) {
-            homeworks.title = '['+homeworks.courseId.name+'] ' + homeworks.name;
+            homeworks.title = '[' + homeworks.courseId.name + '] ' + homeworks.name;
             homeworks.background = homeworks.courseId.color;
         } else {
             homeworks.title = homeworks.name;
@@ -119,30 +122,30 @@ router.get('/', function (req, res, next) {
         }
     }
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    const colors = ["CDDC39","3F51B5","FF9800","00BCD4","FF5722","03A9F4","2196F3","F44336","FFC107","009688","E91E63","4CAF50"];
-    const newsPromise = api(req).get('/news/',{
+    const colors = ["CDDC39", "3F51B5", "FF9800", "00BCD4", "FF5722", "03A9F4", "2196F3", "F44336", "FFC107", "009688", "E91E63", "4CAF50"];
+    const newsPromise = api(req).get('/news/', {
         qs: {
-            schoolId : res.locals.currentSchool,
+            schoolId: res.locals.currentSchool,
             'displayAt': {
                 $lte: new Date().getTime()
             }
         }
     }).then(news => news.data.map(news => {
-            news.url = '/news/' + news._id;
-            news.secondaryTitle = moment(news.displayAt).fromNow();
-            // ToDo: insert real Header Image from News
-            news.background = '#'+colors[(news.title||"").length % colors.length];
-            return news;
-    }).sort(sortFunction).slice(0,3));
+        news.url = '/news/' + news._id;
+        news.secondaryTitle = moment(news.displayAt).fromNow();
+        // ToDo: insert real Header Image from News
+        news.background = '#' + colors[(news.title || "").length % colors.length];
+        return news;
+    }).sort(sortFunction).slice(0, 3));
 
     let newestReleasePromise = api(req).get('/releases', {
-        qs:{
+        qs: {
             $limit: 1,
             $sort: {
                 createdAt: -1
             }
         }
-    }).then(({data}) => data);
+    }).then(({ data }) => data);
 
     Promise.all([
         eventsPromise,
@@ -151,8 +154,8 @@ router.get('/', function (req, res, next) {
         newestReleasePromise
     ]).then(([events, homeworks, news, newestReleases]) => {
 
-        homeworks.sort((a,b) => {
-            if(a.dueDate > b.dueDate) {
+        homeworks.sort((a, b) => {
+            if (a.dueDate > b.dueDate) {
                 return 1;
             } else {
                 return -1;
@@ -162,24 +165,31 @@ router.get('/', function (req, res, next) {
         let user = res.locals.currentUser || {};
         let userPreferences = user.preferences || {};
         let newestRelease = newestReleases[0] || {};
+        if (newestRelease && newestRelease.body) {
+            newestRelease.body = converter.makeHtml(newestRelease.body);
+            newestRelease.publishedAt = moment(newestRelease.publishedAt).format('ddd, ll');
+        }
         let newRelease = !!(Date.parse(userPreferences.releaseDate) < Date.parse(newestRelease.createdAt));
-
-        if(newRelease || !userPreferences.releaseDate) {
+        newRelease = true;
+        if (newRelease || !userPreferences.releaseDate) {
             api(req).patch('/users/' + user._id, {
-                json: {"preferences.releaseDate" : newestRelease.createdAt}
-            }).catch((error) => {});
+                json: { "preferences.releaseDate": newestRelease.createdAt }
+            }).catch((error) => {
+                console.log(error);
+            });
         }
 
         res.render('dashboard/dashboard', {
             title: 'Übersicht',
             events,
             eventsDate: moment().format('dddd, DD. MMMM YYYY'),
-            homeworks: homeworks.filter(function(task){return !task.private;}).slice(0, 4),
-            myhomeworks: homeworks.filter(function(task){return task.private;}).slice(0, 4),
+            homeworks: homeworks.filter(function (task) { return !task.private; }).slice(0, 4),
+            myhomeworks: homeworks.filter(function (task) { return task.private; }).slice(0, 4),
             news,
             hours,
             currentTimePercentage,
             showNewReleaseModal: newRelease,
+            release: newestRelease,
             currentTime: moment(currentTime).format('HH:mm'),
         });
     });
