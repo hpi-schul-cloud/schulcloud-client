@@ -31,10 +31,11 @@ $(document).ready(() => {
             if(res.course.userIds.length != 0) {
                 teamMembers = '<ol>';
                 res.course.userIds.forEach(member => {
-                    if (member.displayName) {
-                        teamMembers = teamMembers + '<li>' + member.displayName + '</li>';
+                    const user = member.userId; // userId was populated
+                    if (user.displayName) {
+                        teamMembers = teamMembers + '<li>' + user.displayName + '</li>';
                     } else {
-                        teamMembers = teamMembers + '<li>' + member.firstName + ' ' + member.lastName + '</li>';
+                        teamMembers = teamMembers + '<li>' + user.firstName + ' ' + user.lastName + '</li>';
                     }
                 });
                 teamMembers = teamMembers + '</ol>';
