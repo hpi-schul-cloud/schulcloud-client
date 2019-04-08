@@ -429,3 +429,19 @@ window.addEventListener('load', (event) => {
     $('.page-load-status').hide();
     showHideControls();
 });
+
+window.seenAllNotifications = function () {
+    $.ajax({
+        url: '/notification/messages/readAll',
+        method: 'POST',
+        success: function () { reloadNotificationList(); }
+    });
+}
+
+window.deleteAllNotifications = function () {
+    $.ajax({
+        url: '/notification/messages/removeAll',
+        type: 'POST',
+        success: function () { reloadNotificationList(); }
+    });
+}

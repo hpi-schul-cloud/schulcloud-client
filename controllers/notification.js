@@ -200,6 +200,14 @@ router.get("/messages", authChecker, (req, res, next) => {
 	}
 });
 
+router.post('/messages/removeAll', authChecker, (req, res, next) => {
+	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
+		api(req).delete('/notification/messages/removeAll').then(response => res.send(response)).catch(error => res.error(error));
+	} else {
+		res.status(500).send("notification service not enabled");
+	}
+});
+
 router.post(
 	"/push/test",
 	authChecker,
