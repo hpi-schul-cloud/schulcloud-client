@@ -4,7 +4,7 @@
 .gulp-changed-smart.json
 .idea
 .travis.yml*
-Dockerfile
+Dockerfile*
 README.md
 build
 compose-client-test.dummy

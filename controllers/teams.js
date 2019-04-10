@@ -222,7 +222,6 @@ router.get('/', async (req, res, next) => {
 	let teamInvitations = (await api(req).get('/teams/extern/get/')).data;
 
 	teamInvitations = teamInvitations.map((team) => {
-		team.url = `/teams/${team._id}`;
 		team.title = team.name;
 		team.content = (team.description || '').substr(0, 140);
 		team.secondaryTitle = '';
@@ -414,11 +413,19 @@ router.get('/:teamId', async (req, res, next) => {
 
 
 		let files; let directories;
+
 		files = await api(req).get('/fileStorage', {
 			qs: {
 				owner: course._id,
 			},
 		});
+		/* note: fileStorage can return arrays and error objects */
+		if (!Array.isArray(files)) {
+			if ((files || {}).code) {
+				logger.warn(files);
+			}
+			files = [];
+		}
 
 		files = files.filter(file => file);
 
@@ -645,6 +652,10 @@ router.put('/events/:eventId', (req, res, next) => {
 	});
 });
 
+router.get('/:teamId/news/new', async (req, res, next) => {
+	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`)
+});
+
 /*
  * Single Course Members
  */
@@ -763,6 +774,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		const { permissions } = team.user || {};
+		team.userIds = team.userIds.filter(user => user.userId !== null); // fix if user do not exist
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];

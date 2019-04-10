@@ -136,11 +136,26 @@ const editCourseHandler = (req, res, next) => {
         // populate course colors - to be replaced system scope
         const colors = ["#ACACAC", "#D4AF37", "#00E5FF", "#1DE9B6", "#546E7A", "#FFC400", "#BCAAA4", "#FF4081", "#FFEE58"];
 
-        res.render('courses/edit-course', {
+        if (req.params.courseId){
+          res.render('courses/edit-course', {
+              action,
+              method,
+              title: 'Kurs bearbeiten',
+              submitLabel: 'Änderungen speichern',
+              closeLabel: 'Abbrechen',
+              course,
+              colors,
+              classes: markSelected(classes, _.map(course.classIds, '_id')),
+              teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+              substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
+              students: markSelected(students, _.map(course.userIds, '_id'))
+          });
+      } else{
+        res.render('courses/create-course', {
             action,
             method,
-            title: req.params.courseId ? 'Kurs bearbeiten' : 'Kurs anlegen',
-            submitLabel: req.params.courseId ? 'Änderungen speichern' : 'Kurs anlegen',
+            sectionTitle: 'Kurs anlegen',
+            submitLabel: 'Kurs anlegen und Weiter',
             closeLabel: 'Abbrechen',
             course,
             colors,
@@ -149,6 +164,7 @@ const editCourseHandler = (req, res, next) => {
             substitutions: markSelected(substitutions, _.map(course.substitutionIds, '_id')),
             students: markSelected(students, _.map(course.userIds, '_id'))
         });
+      };
     });
 };
 
@@ -278,19 +294,32 @@ router.get('/', function (req, res, next) {
 
             return course;
         });
+
+        const isStudent = res.locals.currentUser.roles.every((role) => {
+            return role.name === "student";
+        });
+
         if (req.query.json) {
             res.json(courses);
         } else {
-            res.render('courses/overview', {
-                title: 'Meine Kurse',
-                courses,
-                substitutionCourses,
-                searchLabel: 'Suche nach Kursen',
-                searchAction: '/courses',
-                showSearch: true,
-                liveSearch: true
-            });
+            if (courses.length > 0 || substitutionCourses.length > 0){
+              res.render('courses/overview', {
+                  title: 'Meine Kurse',
+                  courses,
+                  substitutionCourses,
+                  searchLabel: 'Suche nach Kursen',
+                  searchAction: '/courses',
+                  showSearch: true,
+                  liveSearch: true
+              });
+            } else{
+              res.render('courses/overview-empty', {
+                isStudent
+              });
+            }
         }
+    }).catch(err => {
+        next(err);
     });
 });
 
@@ -366,7 +395,10 @@ router.get('/:courseId/json', function (req, res, next) {
                 courseId: req.params.courseId
             }
         })
-    ]).then(([course, lessons]) => res.json({ course, lessons }));
+    ]).then(([course, lessons]) => res.json({ course, lessons }))
+    .catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:courseId/usersJson', function (req, res, next) {
@@ -376,7 +408,10 @@ router.get('/:courseId/usersJson', function (req, res, next) {
                 $populate: ['userIds']
             }
         })
-    ]).then(([course]) => res.json({ course }));
+    ]).then(([course]) => res.json({ course }))
+    .catch(err => {
+        next(err);
+    });
 });
 
 router.get('/:courseId', function (req, res, next) {
