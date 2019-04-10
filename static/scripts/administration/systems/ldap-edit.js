@@ -99,8 +99,16 @@ function verifyLDAPData(event) {
 			deleteTableRows(userTable);
 
 			// Add user data to Verify table
-			response.users.forEach(user => {
+			response.users.forEach((user) => {
 				const row = userTable.insertRow(userTable.rows.length);
+
+				if (
+					typeof user.firstName === 'undefined' || 
+					typeof user.lastName === 'undefined' ||
+					typeof user.email === 'undefined'
+				) {
+					row.className = 'ldap-strike-incomplete-user';
+				}
 
 				let currentCell = row.insertCell(0);
 				currentCell.innerHTML = user.firstName;
