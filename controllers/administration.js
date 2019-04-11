@@ -2075,12 +2075,13 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 		systemsBody = systems.map(item => {
 			let name = getSSOTypes().filter(type => item.type === type.value);
 			return [
-				item.alias,
+				(item.type === 'ldap' && item.ldapConfig.active === false) ? `${item.alias} (inaktiv)` : item.alias,
 				name,
 				getTableActions(item, '/administration/systems/', true, false, false, 'systems'),
 			];
 		});
 	}
+	const ldapAddable = systems.some(e => e.type === 'ldap') ? false : true;
 
 	// RSS
 	const rssHead = ['URL', 'Kurzbeschreibung', 'Status', ''];
@@ -2119,6 +2120,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 		title: title + 'Schule',
 		school,
 		systems,
+		ldapAddable,
 		provider,
 		availableSSOTypes: ssoTypes,
 		ssoTypes,
@@ -2136,60 +2138,73 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
     LDAP SYSTEMS
 */
 
-router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), function (req, res, next) {
-	//Create System for LDAP
-	const ldapTemplate = {
-		type: 'ldap',
-		alias: res.locals.currentSchoolData.name,
-		ldapConfig: {
-			active: false,
-			url: 'ldaps://',
-			rootPath: '',
-			searchUser: '',
-			searchUserPassword: '',
-			provider: 'general',
-			providerOptions: {
-				schoolName: res.locals.currentSchoolData.name,
-				userPathAdditions: '',
-				classPathAdditions: '',
-				roleType: 'text',
-				userAttributeNameMapping: {
-					givenName: 'givenName',
-					sn: 'sn',
-					dn: 'dn',
-					uuid: 'objectGUID',
-					uid: 'cn',
-					mail: 'mail',
-					role: 'description',
-				},
-				roleAttributeNameMapping: {
-					roleStudent: 'student',
-					roleTeacher: 'teacher',
-					roleAdmin: 'admin',
-					roleNoSc: 'no-sc',
-				},
-				classAttributeNameMapping: {
-					description: 'name',
-					dn: 'dn',
-					uniqueMember: 'member',
-				},
-			}
+router.post('/systems/ldap/add', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
+	//Check if LDAP-System already exists
+	const school = await Promise.resolve(api(req).get('/schools/' + res.locals.currentSchool, {
+		qs: {
+			$populate: ['systems']
 		}
-	};
+	}));
+	system = school.systems.filter(system => system.type === 'ldap');
 
-	api(req).post('/systems/', { json: ldapTemplate }).then(system => {
-		api(req).patch('/schools/' + res.locals.currentSchool, {
-			json: {
-				$push: {
-					systems: system._id
+	if (system.length == 1) {
+		//LDAP System already available, do not create another one
+		res.redirect('/administration/school');
+	} else {
+		//Create System for LDAP
+		const ldapTemplate = {
+			type: 'ldap',
+			alias: res.locals.currentSchoolData.name,
+			ldapConfig: {
+				active: false,
+				url: 'ldaps://',
+				rootPath: '',
+				searchUser: '',
+				searchUserPassword: '',
+				provider: 'general',
+				providerOptions: {
+					schoolName: res.locals.currentSchoolData.name,
+					userPathAdditions: '',
+					classPathAdditions: '',
+					roleType: 'text',
+					userAttributeNameMapping: {
+						givenName: 'givenName',
+						sn: 'sn',
+						dn: 'dn',
+						uuid: 'objectGUID',
+						uid: 'cn',
+						mail: 'mail',
+						role: 'description',
+					},
+					roleAttributeNameMapping: {
+						roleStudent: 'student',
+						roleTeacher: 'teacher',
+						roleAdmin: 'admin',
+						roleNoSc: 'no-sc',
+					},
+					classAttributeNameMapping: {
+						description: 'name',
+						dn: 'dn',
+						uniqueMember: 'member',
+					},
 				}
 			}
-		}).then(data => {
-			res.redirect(`/administration/systems/ldap/edit/${system._id}`);
-		}).catch(err => {
-			next(err);
+		};
+
+		api(req).post('/systems/', { json: ldapTemplate }).then(system => {
+			api(req).patch('/schools/' + res.locals.currentSchool, {
+				json: {
+					$push: {
+						systems: system._id
+					}
+				}
+			}).then(data => {
+				res.redirect(`/administration/systems/ldap/edit/${system._id}`);
+			}).catch(err => {
+				next(err);
+			});
 		});
-	});
+	}
 });
 router.get('/systems/ldap/edit/:id', permissionsHelper.permissionsChecker('ADMIN_VIEW'), async function (req, res, next) {
 
