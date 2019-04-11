@@ -282,6 +282,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Wolfgang",
+				"lastName": "Rathgeb",
+				"position": "Wissenschaftlicher Mitarbeiter, HPI",
+				"description": "Wolfgang hat seinen Master in technischer Informatik Ende März 2019 abgeschlossen und ist seit dem als Full-Stake-Entwickler Teil des HPI Schul-Cloud Teams. Dabei ist sein Ziel Vorgänge so einfach wie möglich zu halten und möglichst viele Schritte zu Automatisieren. Das spiegelt sich auch in seiner Freizeit wieder, in der er gerne viele alltägliche Aufgaben automatisiert, um das Komfortlevel zu steigern und mehr Zeit für neue Projekte zu haben – aktuell seinen Garten.",
+				"pictureUrl": "/images/team/Wolfgang_Rathgeb.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Hannes",
 				"lastName": "Schurig",
 				"position": "Wissenschaftlicher Mitarbeiter, HPI",
@@ -515,8 +530,8 @@
 				"firstName": "Johannes",
 				"lastName": "Unruh",
 				"position": "Bachelorstudent",
-				"description": "Johannes studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Zuvor hat er einen Master in Wirtschaftsingenieurwesen an der TU Berlin erworben. Neben der Uni beschäftigt er sich mit Themen der Künstlichen Intelligenz und des Web Development",
-				"pictureUrl": "",
+				"description": "Johannes studiert aktuell am Hasso-Plattner-Insitut in Potsdam IT-Systems Engineering und ist Teil des diesjährigen Bachelorprojektes bei der Schul-Cloud. Zuvor hat er einen Master in Wirtschaftsingenieurwesen an der TU Berlin erworben. Neben der Uni beschäftigt er sich mit Themen der Künstlichen Intelligenz und des Web Development.",
+				"pictureUrl": "/images/team/Johannes_Unruh.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -538,6 +553,21 @@
 				"position": "Studentische Hilfskraft",
 				"description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der HPI Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
 				"pictureUrl": "/images/team/Dominik_Glandorf.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Tatiana",
+				"lastName": "Gurova",
+				"position": "Studentische Hilfskraft",
+				"description": "Tatiana studiert aktuell Jura in Potsdam und unterstützt seit März 2019 das Projekt HPI Schul-Cloud bei der Büroorganisation und bei Themen bezüglich der Politik und des Datenschutzes. Ihre Freizeit verbringt sie gerne mit der Teilnahme an verschiedenen Workshops, Kongressen und Seminaren und dem Standard/Lateintanz.",
+				"pictureUrl": "/images/team/tatiana.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -628,6 +658,21 @@
 				"position": "Student",
 				"description": "Sebastian schreibt derzeit seine Masterarbeit im Kontext der HPI Schul-Cloud. Als Grundlage dazu dienen ihm Erkenntnisse von openHPI, der Online-Lernplattform des HPI, in dessen Rahmen er bereits seine Bachelorarbeit angefertigt hat. In seiner aktuellen Arbeit untersucht er, wie Lehrer individuelle Arbeitsblätter mit interaktiven Programmieraufgaben erstellen und im Unterricht einsetzen können: die Schüler arbeiten dazu wie bei Online-Kursen in der webbasierten Programmierumgebung CodeOcean, in der sie ihre Programme entwickeln, ausführen und mit Hilfe automatisierter Tests ihrer Lehrer sogar eigenständig überprüfen können. Die Lehrer erhalten einen besseren Überblick über den Lernfortschritt der Klasse und können so bei auftretenen Problemen zeitnah und zielorientiert Unterstützung leisten. In seiner Freizeit springt Sebastian leidenschaftlich gern auf dem Großtrampolin, reist mit Vergnügen durch fremde Länder und hält dabei seine Eindrücke fotografisch fest.",
 				"pictureUrl": "/images/team/Sebastian_Serth.jpg",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
+				"firstName": "Yulia",
+				"lastName": "Shikhareva",
+				"position": "Studentische Hilfskraft",
+				"description": "Yulia studiert zurzeit im Bachelorprogramm Informatik/Computational Science am Institut für Informatik der Universität Potsdam. Zuvor erlangte sie in Moskau Bachelorgrad in Ökonomie. Seit April 2019 engagiert sie sich im Projekt HPI Schul-Cloud als Software-Testerin. In ihrer Freizeit genießt Yulia die Schönheiten der Natur und Städte Europas.",
+				"pictureUrl": "/images/team/Yulia.jpeg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
