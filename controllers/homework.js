@@ -299,19 +299,6 @@ const getUpdateHandler = (service) => {
     };
 };
 
-const getDetailHandler = (service) => {
-    return function (req, res, next) {
-        api(req).get('/' + service + '/' + req.params.id).then(
-            data => {
-                data.availableDate = moment(data.availableDate).format('DD.MM.YYYY HH:mm');
-                data.dueDate = moment(data.dueDate).format('DD.MM.YYYY HH:mm');
-                res.json(data);
-            }).catch(err => {
-                next(err);
-            });
-    };
-};
-
 const getImportHandler = (service) => {
     return function (req, res, next) {
         api(req).get('/' + service + '/' + req.params.id).then(
@@ -324,21 +311,15 @@ const getImportHandler = (service) => {
 };
 
 
-const getDeleteHandlerR = (service) => {
-    return function (req, res, next) {
+const getDeleteHandler = (service, redirectToReferer) => {
+    return function(req, res, next) {
         api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.redirect(req.header('Referer'));
-        }).catch(err => {
-            next(err);
-        });
-    };
-};
-
-const getDeleteHandler = (service) => {
-    return function (req, res, next) {
-        api(req).delete('/' + service + '/' + req.params.id).then(_ => {
-            res.sendStatus(200);
-            res.redirect('/' + service);
+            if(redirectToReferer){
+                res.redirect(req.header('Referer'));
+            }else{
+                res.sendStatus(200);
+                res.redirect('/' + service);
+            }
         }).catch(err => {
             next(err);
         });
@@ -352,8 +333,8 @@ router.delete('/:id', getDeleteHandler('homework'));
 router.get('/submit/:id/import', getImportHandler('submissions'));
 router.patch('/submit/:id', getUpdateHandler('submissions'));
 router.post('/submit', getCreateHandler('submissions'));
-router.delete('/submit/:id', getDeleteHandlerR('submissions'));
-router.get('/submit/:id/delete', getDeleteHandlerR('submissions'));
+router.delete('/submit/:id', getDeleteHandler('submissions', true));
+router.get('/submit/:id/delete', getDeleteHandler('submissions', true));
 
 router.post('/submit/:id/files', function (req, res, next) {
     let submissionId = req.params.id;
@@ -415,7 +396,7 @@ router.delete('/submit/:id/files', function (req, res, next) {
 });
 
 router.post('/comment', getCreateHandler('comments'));
-router.delete('/comment/:id', getDeleteHandlerR('comments'));
+router.delete('/comment/:id', getDeleteHandler('comments', true));
 
 
 const splitDate = function (date) {
@@ -899,7 +880,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     }
                 });
                 let studentsWithoutSubmission = [];
-                assignment.courseId.userIds.forEach(e => {
+                ((assignment.courseId || {}).userIds || []).forEach(e => {
                     if (!studentsWithSubmission.includes(e.toString())) {
                         studentsWithoutSubmission.push(
                             studentSubmissions.filter(s => {
@@ -938,7 +919,7 @@ router.get('/:assignmentId', function (req, res, next) {
                     addClearNameForFileIds(assignment.submission || assignment.submissions);
                     assignment.submissions = assignment.submissions.map(s => { return { submission: s }; });
                     res.render('homework/assignment', Object.assign({}, assignment, {
-                        title: assignment.courseId.name + ' - ' + assignment.name,
+                        title: (assignment.courseId == null) ? assignment.name : (assignment.courseId.name + ' - ' + assignment.name),
                         breadcrumb: [{
                             title: breadcrumbTitle + " Aufgaben",
                             url: breadcrumbUrl
