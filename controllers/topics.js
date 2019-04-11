@@ -57,6 +57,8 @@ const editTopicHandler = (req, res, next) => {
             courseGroupId: req.query.courseGroup,
             etherpadBaseUrl: etherpadBaseUrl
         });
+    }).catch(err => {
+        next(err);
     });
 };
 
@@ -196,6 +198,8 @@ router.get('/:topicId', function (req, res, next) {
             }
             res.send(html);
         });
+    }).catch(err => {
+        next(err);
     });
 });
 

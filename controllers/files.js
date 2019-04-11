@@ -880,14 +880,23 @@ router.get('/permittedDirectories/', async (req, res) => {
 		name: 'Meine Kurs-Dateien',
 		model: 'course',
 		children: (await getScopeDirs(req, res, 'courses')).map(extractor)
-	}, {
-		name: 'Meine Team-Dateien',
-		model: 'teams',
-		children: (await getScopeDirs(req, res, 'teams')).map(extractor)
 	}];
 
+	if(process.env.FEATURE_TEAMS_ENABLED === 'true') {
+		directoryTree.push({
+			name: 'Meine Team-Dateien',
+			model: 'teams',
+			children: (await getScopeDirs(req, res, 'teams')).map(extractor)
+		});
+	}
+
 	api(req).get('/fileStorage/directories')
-		.then(directories => directories.map(dir => getDirectoryTree(directories, dir)))
+		.then(directories => {
+			if (directories.code === 404) {
+				return Promise.resolve([]);
+			}
+			return directories.filter(dir => !dir.parent).map(dir => getDirectoryTree(directories, dir))
+		})
 		.then(directories => {
 
 			directoryTree.forEach(tree => {
@@ -898,11 +907,7 @@ router.get('/permittedDirectories/', async (req, res) => {
 				});
 			});
 
-			res.json(directoryTree);
-		})
-		.catch(err => {
-			console.log(err);
-			res.sendStatus(500);
+			return res.json(directoryTree);
 		});
 });
 

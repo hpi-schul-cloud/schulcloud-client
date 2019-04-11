@@ -162,6 +162,9 @@
     color: #000;
     font-size: 2em;
   }
+  .person-title[data-lastname="Schaarschmidt"] {
+	letter-spacing: -1px;
+  }
   .person-desc {
     color: rgba(0, 0, 0, 0.4);
     margin-top: 10px;
