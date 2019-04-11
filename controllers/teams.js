@@ -360,7 +360,7 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['userIds'],
+				$populate: ['userIds.userId'],
 			},
 		}),
 	]).then(([course]) => res.json({ course }));
