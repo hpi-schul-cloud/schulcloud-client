@@ -360,7 +360,7 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 	Promise.all([
 		api(req).get(`/teams/${req.params.teamId}`, {
 			qs: {
-				$populate: ['userIds'],
+				$populate: ['userIds.userId'],
 			},
 		}),
 	]).then(([course]) => res.json({ course }));
@@ -773,6 +773,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		});
 
 		const { permissions } = team.user || {};
+		team.userIds = team.userIds.filter(user => user.userId !== null); // fix if user do not exist
 		const teamUserIds = team.userIds.map(user => user.userId._id);
 		users = users.filter(user => !teamUserIds.includes(user._id));
 		const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];

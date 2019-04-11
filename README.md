@@ -1,12 +1,12 @@
 # Schul-Cloud Client  
 _An implementation of the Schul-Cloud client with NodeJS and Express._  
   
-Dev: ![Travis Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)<br>  
-Production: ![Travis Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=production)  
+Dev: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=develop)](https://travis-ci.com/schul-cloud/schulcloud-client)
+Master: [![Build Status](https://travis-ci.com/schul-cloud/schulcloud-client.svg?branch=master)](https://travis-ci.com/schul-cloud/schulcloud-client)
   
 ## Requirements  
   
-* node.js 8.7 or later (You can install it from https://nodejs.org/en/download/)
+* node.js 8.7 or later
 
 You might take a look at the [Dockerfile](https://github.com/schul-cloud/schulcloud-client/blob/master/Dockerfile) to see some more dependencies and latest version informations.
 
@@ -46,8 +46,15 @@ Add Themes to /theme directory. Call gulp and node with SC_THEME set to name of 
 then clear build files and gulp cache with `gulp clear`  
   
 ### Windows  
-  run `set SC_THEME={themeName}` without spaces around the equal sign!  
+  run `set SC_THEME={themeName}` without spaces around the equal sign!
+
+## How to name your branch and create a pull request (PR)
   
+1. Take the Ticket Number from JIRA (ticketsystem.schul-cloud.org), e.g. SC-999  
+2. Name the feature branch beginning with Ticket Number, all words separated by dash "-", e.g. `feature/SC-999-fantasy-problem`
+3. Create a PR on branch develop containing the Ticket Number in PR title
+4. Keep the `WIP` label as long as this PR is in development, complete PR checklist (is automatically added), keep or increase code test coverage, and pass all tests before you remove the `WIP` label. Reviewers will be added automatically. For more information check our Definition of Done [here](https://docs.schul-cloud.org/pages/viewpage.action?pageId=92831762).
+
 ## Testing  
   
 **Information**: Please make sure that all your changes works on [Chrome](https://www.google.de/chrome/browser/desktop/index.html) , [Firefox](https://www.mozilla.org/de/firefox/new/) and [Safari](https://www.apple.com/de/safari/)!  
@@ -75,21 +82,15 @@ Adding new tests:
 
 Add your test to `diff.sh`:
 `diff.sh` compares the PR Branch with the Master Branch and then adds the tests in case any files where changed for which a test exists.
-  
-## How to name your branch  
-  
-1. Take the last part of the url of your Trello ticket (e.g. "8-setup-feathers-js")  
-2. Name the branch after the Trello id (e.g. "8-setup-feathers-js")  
-  
-## Commiting  
-  
-Default branch: master  
-  
-1. Go into project folder  
-2. Run the tests (see above)  
-3. Commit with a meanigful commit message(!) even at 4 a.m. and not stuff like "dfsdfsf"  
-4. Checkout to master branch  
-5. Run `git pull`  
-6. Checkout to the branch you want to upload  
-7. run `git rebase -p develop` (not `git merge`!) and solve merge conflicts if needed  
-8. run `git push`
+
+## Commiting
+
+Default branch: develop
+
+1. Go into project folder
+2. Checkout to develop branch (or clone for the first time)
+3. Run `git pull`
+4. Create a branch for your new feature named feature/SC-*Ticket-ID*-*Description*
+5. Run the tests (see above)
+6. Commit with a meanigful commit message(!) even at 4 a.m. and not stuff like "dfsdfsf"
+7. Start a pull request (see above) to branch develop to merge your changes

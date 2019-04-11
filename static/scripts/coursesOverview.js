@@ -26,7 +26,7 @@ $(document).ready(function () {
                 courseMembers = courseMembers + '</ol>';
             }
 
-            populateModal($memberModal, '.modal-title', 'Teilnehmer vom Kurs: '.concat(courseName));
+            populateModal($memberModal, '.modal-title', 'Teilnehmer des Kurses: '.concat(courseName));
             populateModal($memberModal, '#member-modal-body', courseMembers);
             populateModal($memberModal, '#course-edit', '<a href="/courses/'.concat(courseId).concat('/edit" class="btn btn-add btn-primary">Kurs bearbeiten</a>'));
 
