@@ -1,6 +1,9 @@
 @import '../lib/colors';
 
 .section-team {
+  h4 {
+     margin-bottom: 1rem;
+  }
   .team-container {
     box-sizing: border-box;
     max-width: 1400px;
@@ -158,6 +161,9 @@
   .person-title {
     color: #000;
     font-size: 2em;
+  }
+  .person-title[data-lastname="Schaarschmidt"] {
+	letter-spacing: -1px;
   }
   .person-desc {
     color: rgba(0, 0, 0, 0.4);

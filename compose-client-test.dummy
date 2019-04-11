@@ -1,0 +1,45 @@
+---
+version: \"3.7\"
+
+services:
+
+  ### Schul-Cloud Client
+  ###
+  client:
+    image: schulcloud/schulcloud-client:$DOCKERTAG
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: any
+    depends_on:
+      - server
+    environment:
+      # ENV
+      - NODE_ENV=production
+      - CALENDAR_SERVICE_ENABLED=true
+      #- TZ=Europe/Berlin
+      # FEATURE TOGGLES
+      - FEATURE_TEAMS_ENABLED=true
+      # Theme and Titles
+      - SC_THEME=default
+      - SC_TITLE=HPI Schul-Cloud
+      - SC_SHORT_TITLE=Schul-Cloud
+      - SC_PRODUCTNAME=Schul-Cloud
+      # Google
+      - GOOGLE_ANALYTICS_TRACKING_ID=$GOOGLE_ANALYTICS_TRACKING_ID
+      - SW_ENABLED=true
+      - SW_GOOGLE_ANALYTICS_TRACKING_ID=$SW_GOOGLE_ANALYTICS_TRACKING_ID
+      # Nexboard
+      - NEXBOARD_API_KEY=$NEXBOARD_API_KEY
+      - NEXBOARD_USER_ID=$NEXBOARD_USER_ID
+      # URIs
+      - HOST=$HOSTSTAGE
+      - BACKEND_URL=$BACKEND_URLSTAGE
+      - PUBLIC_BACKEND_URL=$PUBLIC_BACKEND_URLSTAGE
+      - LIBRE_OFFICE_CLIENT_URL=$LIBRE_OFFICE_CLIENT_URLSTAGE
+      # Rocketchat
+      - ROCKET_CHAT_URI=ROCKET_CHAT_URISTAGE
+      - ROCKETCHAT_SERVICE_ENABLED=true
+    ports:
+      - \"3100:3100\"
+    restart: always
