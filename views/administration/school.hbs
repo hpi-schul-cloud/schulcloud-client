@@ -100,9 +100,11 @@
                         <button type="submit" class="btn btn-primary btn-add-modal ">
                             System hinzufügen
                         </button>
+                        {{#if ldapAddable}}
                         <button type="submit" class="btn btn-primary">
-                                LDAP System hinzufügen
+                            LDAP System hinzufügen
                         </button>
+                        {{/if}}
                     </form>
                 </div>
             </div>
