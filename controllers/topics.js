@@ -126,7 +126,8 @@ router.post('/:id/share', function (req, res, next) {
 router.get('/:topicId', function (req, res, next) {
     if (req.query.edtr) {
         return res.render('topic/topic-edtr', {
-            edtrSource: process.env.EDTR_SOURCE || "https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@6ee39a46ca60f09082f4e50ffa3046be242c4ccb/dist/index.js"
+            edtrSource: process.env.EDTR_SOURCE || "https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@b12fe5b3db03dc98b6bac2ef44229c660156167a/dist/index.js",
+            backendUrl: process.env.BACKEND_URL || "http://localhost:3030",
         })
     }
 
