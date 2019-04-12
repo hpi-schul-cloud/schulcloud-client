@@ -129,7 +129,7 @@ router.get('/:topicId', function (req, res, next) {
     if (req.query.edtr) {
         return res.render('topic/topic-edtr', {
             edtrSource: process.env.EDTR_SOURCE || "https://cdn.jsdelivr.net/gh/schul-cloud/edtrio@b12fe5b3db03dc98b6bac2ef44229c660156167a/dist/index.js",
-            backendUrl: process.env.BACKEND_URL || "http://localhost:3030",
+            backendUrl: process.env.PUBLIC_BACKEND_URL || "http://localhost:3030",
         })
     }
 
