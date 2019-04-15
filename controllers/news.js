@@ -197,7 +197,7 @@ router.get('/:newsId', (req, res, next) => {
 		},
 	}).then((news) => {
 		news.url = '/news/' + news._id;
-		res.render('news/article', { title: news.title, news, isRSS: news.source === 'rss', });
+		res.render('news/article', { title: news.title, news, isRSS: news.source === 'rss' });
 	}).catch(err => {
 		next(err);
 	});
