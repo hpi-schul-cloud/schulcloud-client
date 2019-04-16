@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
@@ -56,7 +57,7 @@ const addThumbnails = (file) => {
 	return file;
 };
 
-const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
+const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 	qs: query,
 }).then(data => data.data);
 
@@ -137,10 +138,10 @@ const copyCourseHandler = (req, res, next) => {
 		classesPromise,
 		teachersPromise,
 		studentsPromise,
-	]).then(([course, classes, teachers, students]) => {
-		classes = classes.filter(c => c.schoolId === res.locals.currentSchool);
-		teachers = teachers.filter(t => t.schoolId === res.locals.currentSchool);
-		students = students.filter(s => s.schoolId === res.locals.currentSchool);
+	]).then(([course, Classes, Teachers, Students]) => {
+		const classes = Classes.filter(c => c.schoolId === res.locals.currentSchool);
+		const teachers = Teachers.filter(t => t.schoolId === res.locals.currentSchool);
+		const students = Students.filter(s => s.schoolId === res.locals.currentSchool);
 		const substitutions = _.cloneDeep(teachers);
 
 		// map course times to fit into UI
@@ -295,7 +296,7 @@ router.post('/copy/:teamId', (req, res, next) => {
 		json: req.body, // TODO: sanitize
 	}).then((course) => {
 		res.redirect(`/teams/${course._id}`);
-	}).catch((err) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -505,7 +506,7 @@ router.get('/:teamId', async (req, res, next) => {
 			events = [];
 		}
 
-		const test = course.user.permissions.includes('EDIT_ALL_FILES');
+		// const test = course.user.permissions.includes('EDIT_ALL_FILES');
 
 		res.render('teams/team', Object.assign({}, course, {
 			title: course.name,
@@ -641,7 +642,7 @@ router.post('/:teamId/events/', (req, res, next) => {
 	req.body.scopeId = req.params.teamId;
 	req.body.teamId = req.params.teamId;
 
-	api(req).post('/calendar/', { json: req.body }).then((event) => {
+	api(req).post('/calendar/', { json: req.body }).then(() => {
 		res.redirect(`/teams/${req.params.teamId}`);
 	});
 });
@@ -755,8 +756,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 					'teamadministrator', 'teamowner'],
 			},
 		},
-	}).then((roles) => {
-		roles = roles.data;
+	}).then((Roles) => {
+		const roles = Roles.data;
 		return roles.map((role) => {
 			role.label = roleTranslations[role.name];
 			return role;
@@ -918,7 +919,7 @@ router.post('/:teamId/members', async (req, res, next) => {
 	try {
 		const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
 		const userIds = courseOld.userIds.concat(req.body.userIds);
-		const classIds = req.body.classIds;
+		const { classIds } = req.body;
 
 		await api(req).patch(`/teams/${req.params.teamId}`, {
 			json: {
@@ -966,7 +967,7 @@ router.post('/external/invite', (req, res) => {
 		json,
 	}).then((result) => {
 		res.sendStatus(200);
-	}).catch((error) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -1053,13 +1054,13 @@ router.get('/:teamId/topics', async (req, res, next) => {
 				$populate: ['teamId', 'userIds'],
 			},
 		}),
-	]).then(([course, lessons, homeworks, courseGroups]) => {
+	]).then(([course, Lessons, Homeworks, CourseGroups]) => {
 		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
+		const lessons = (Lessons.data || []).map(lesson => Object.assign(lesson, {
 			url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
 		}));
 
-		homeworks = (homeworks.data || []).map((assignment) => {
+		const homeworks = (Homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
 			return assignment;
 		});
@@ -1071,9 +1072,9 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			return -1;
 		});
 
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
-			? courseGroups.data || []
-			: (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+		const courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+			? CourseGroups.data || []
+			: (CourseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 		res.render('teams/topics', Object.assign({}, course, {
 			title: course.name,
@@ -1116,7 +1117,7 @@ router.patch('/:teamId/positions', (req, res, next) => {
 });
 
 router.post('/:teamId/importTopic', (req, res, next) => {
-	const shareToken = req.body.shareToken;
+	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req).get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } }).then((lessons) => {
 		if ((lessons.data || []).length <= 0) {
