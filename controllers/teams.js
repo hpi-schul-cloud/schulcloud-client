@@ -722,7 +722,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{ path: 'userIds.schoolId' },
 				{
 					path: 'classIds',
-					populate: ['year'],
+					populate: ['year', 'gradeLevel'],
 				},
 			],
 			$limit,
