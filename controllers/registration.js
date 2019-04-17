@@ -11,7 +11,7 @@ const detectIE = (req) => {
 	const device = deviceDetector.parse(req.headers['user-agent']);
 	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
 	return isIE;
-}
+};
 
 /*
  * Warnings for users who wan't to use the old register version if not teacher
