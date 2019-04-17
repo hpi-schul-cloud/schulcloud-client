@@ -7,6 +7,12 @@ const { cookieDomain } = require('../helpers/authentication');
 
 const deviceDetector = new DeviceDetector();
 
+const detectIE = (req) => {
+	const device = deviceDetector.parse(req.headers['user-agent']);
+	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
+	return isIE;
+}
+
 /*
  * Warnings for users who wan't to use the old register version if not teacher
  */
@@ -30,8 +36,7 @@ router.post('/registration/pincreation', (req, res, next) => {
 });
 
 router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (req, res, next) => {
-	const device = deviceDetector.parse(req.headers['user-agent']);
-	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
+	const isIE = detectIE(req);
 
 	if (isIE) {
 		return res.status(500).send('Absenden der Registrierung mit Internet Explorer nicht erlaubt.');
@@ -101,8 +106,7 @@ ${res.locals.theme.short_title}-Team`,
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
 	async (req, res, next) => {
-		const device = deviceDetector.parse(req.headers['user-agent']);
-		const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
+		const isIE = detectIE(req);
 
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
@@ -130,8 +134,7 @@ router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSc
 
 router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrSchoolId/bystudent/:sso/:accountId'],
 	async (req, res, next) => {
-		const device = deviceDetector.parse(req.headers['user-agent']);
-		const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
+		const isIE = detectIE(req);
 
 		if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 			if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
@@ -159,8 +162,7 @@ router.get(['/registration/:classOrSchoolId/bystudent', '/registration/:classOrS
 	});
 
 router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) => {
-	const device = deviceDetector.parse(req.headers['user-agent']);
-	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
+	const isIE = detectIE(req);
 
 	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 		if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
@@ -195,8 +197,7 @@ router.get(['/registration/:classOrSchoolId/:byRole'], async (req, res, next) =>
 });
 
 router.get(['/registration/:classOrSchoolId', '/registration/:classOrSchoolId/:sso/:accountId'], (req, res, next) => {
-	const device = deviceDetector.parse(req.headers['user-agent']);
-	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
+	const isIE = detectIE(req);
 
 	if (!RegExp('^[0-9a-fA-F]{24}$').test(req.params.classOrSchoolId)) {
 		if (req.params.sso && !RegExp('^[0-9a-fA-F]{24}$').test(req.params.accountId)) {
