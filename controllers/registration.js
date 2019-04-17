@@ -43,29 +43,31 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 	req.body.termsOfUseConsent = req.body.termsOfUseConsent === 'true';
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
-	return api(req).post('/registration/', {
-		json: req.body,
-	}).then((response) => {
-		const eMailAdresses = [response.user.email];
-		if (response.parent) {
-			eMailAdresses.push(response.parent.email);
-		}
-		eMailAdresses.forEach((eMailAdress) => {
-			let passwordText = '';
-			let studentInfotext = '';
-			if (req.body.roles.includes('student')) {
-				passwordText = `Startpasswort: ${req.body.password_1}`;
-				studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
+	return api(req)
+		.post('/registration/', {
+			json: req.body,
+		})
+		.then((response) => {
+			const eMailAdresses = [response.user.email];
+			if (response.parent) {
+				eMailAdresses.push(response.parent.email);
+			}
+			eMailAdresses.forEach((eMailAdress) => {
+				let passwordText = '';
+				let studentInfotext = '';
+				if (req.body.roles.includes('student')) {
+					passwordText = `Startpasswort: ${req.body.password_1}`;
+					studentInfotext = `Für Schüler: Nach dem ersten Login musst du ein persönliches Passwort festlegen.
 Wenn du zwischen 14 und 16 Jahre alt bist, bestätige bitte zusätzlich die Einverständniserklärung,
 damit du die ${res.locals.theme.short_title} nutzen kannst.`;
-			}
-			return api(req).post('/mails/', {
-				json: {
-					email: eMailAdress,
-					subject: `Willkommen in der ${res.locals.theme.title}!`,
-					headers: {},
-					content: {
-						text: `Hallo ${response.user.firstName}
+				}
+				return api(req).post('/mails/', {
+					json: {
+						email: eMailAdress,
+						subject: `Willkommen in der ${res.locals.theme.title}!`,
+						headers: {},
+						content: {
+							text: `Hallo ${response.user.firstName}
 mit folgenden Anmeldedaten kannst du dich in der ${res.locals.theme.title} einloggen:
 Adresse: ${req.headers.origin || process.env.HOST}
 E-Mail: ${response.user.email}
@@ -73,25 +75,28 @@ ${passwordText}
 ${studentInfotext}
 Viel Spaß und einen guten Start wünscht dir dein
 ${res.locals.theme.short_title}-Team`,
+						},
 					},
-				},
+				});
 			});
+		})
+		.then(() => {
+			if (req.params.sso) {
+				res.cookie(
+					'jwt',
+					req.cookies.jwt,
+					Object.assign({},
+						{ expires: new Date(Date.now() - 100000) },
+						cookieDomain(res)),
+				);
+			}
+		})
+		.then(() => {
+			res.sendStatus(200);
+		})
+		.catch((err) => {
+			res.status(500).send((err.error || {}).message || err.message || 'Fehler bei der Registrierung.');
 		});
-	}).then(() => {
-		if (req.params.sso) {
-			res.cookie(
-				'jwt',
-				req.cookies.jwt,
-				Object.assign({},
-					{ expires: new Date(Date.now() - 100000) },
-					cookieDomain(res)),
-			);
-		}
-	}).then(() => {
-		res.sendStatus(200);
-	}).catch((err) => {
-		res.status(500).send((err.error || {}).message || err.message || 'Fehler bei der Registrierung.');
-	});
 });
 
 router.get(['/registration/:classOrSchoolId/byparent', '/registration/:classOrSchoolId/byparent/:sso/:accountId'],
