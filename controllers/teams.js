@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
@@ -11,7 +10,6 @@ const api = require('../api');
 
 const router = express.Router();
 moment.locale('de');
-
 
 const logger = winston.createLogger({
 	transports: [
@@ -408,7 +406,6 @@ router.get('/:teamId', async (req, res, next) => {
 
 
 		let files;
-		let directories;
 
 		files = await api(req).get('/fileStorage', {
 			qs: {
@@ -433,8 +430,7 @@ router.get('/:teamId', async (req, res, next) => {
 			return undefined;
 		});
 
-		// eslint-disable-next-line prefer-const
-		directories = files.filter(f => f.isDirectory);
+		const directories = files.filter(f => f.isDirectory);
 		files = files.filter(f => !f.isDirectory);
 
 		// Sort by most recent files and limit to 6 files
@@ -930,7 +926,7 @@ router.post('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 	}
 });
 
@@ -952,7 +948,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 	}
 });
 
