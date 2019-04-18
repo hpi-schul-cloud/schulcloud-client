@@ -457,8 +457,8 @@ router.post('/newFile', function (req, res, next) {
 			owner,
 			parent
 		}
-	}).then(() => {
-		res.sendStatus(200);
+	}).then((result) => {
+		res.send(result._id);
 	}).catch(err => {
 		res.status((err.statusCode || 500)).send(err);
 	});

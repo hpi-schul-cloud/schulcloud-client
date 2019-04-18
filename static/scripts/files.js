@@ -376,8 +376,8 @@ $(document).ready(function() {
         parent: getCurrentParent(),
         studentEdit
       },
-      function(data) {
-        reloadFiles();
+      function(id) {
+        window.location.href = `/files/file/${id}/lool`
       }
     ).fail(showAJAXError);
   });
