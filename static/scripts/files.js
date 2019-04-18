@@ -780,107 +780,107 @@ $(document).ready(function() {
     }
   });
 });
-let $openModal = $(".open-modal");
+const $openModal = $('.open-modal');
 
 window.videoClick = function videoClick(e) {
-  e.stopPropagation();
-  e.preventDefault();
+	e.stopPropagation();
+	e.preventDefault();
 };
 
 const fileTypes = {
-  docx:
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-  pptx:
-    "application/vnd.openxmlformats-officedocument.presentationml.presentation",
-  ppt: "application/vnd.ms-powerpoint",
-  xls: "application/vnd.ms-excel",
-  doc: "application/vnd.ms-word",
-  odt: "application/vnd.oasis.opendocument.text",
-  txt: "text/plain",
-  pdf: "application/pdf"
+	docx:
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+	xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+	pptx:
+    'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+	ppt: 'application/vnd.ms-powerpoint',
+	xls: 'application/vnd.ms-excel',
+	doc: 'application/vnd.ms-word',
+	odt: 'application/vnd.oasis.opendocument.text',
+	txt: 'text/plain',
+	pdf: 'application/pdf',
 };
 
 window.fileViewer = function fileViewer(type, name, id) {
-  $('#my-video').css('display', 'none');
+	$('#my-video').css('display', 'none');
 
-  // detect filetype according to line ending
-  if (type.length === 0) {
-    let fType = name.split('.');
-    type = fileTypes[fType[fType.length - 1]] || '';
-  }
+	// detect filetype according to line ending
+	if (type.length === 0) {
+		const fType = name.split('.');
+		type = fileTypes[fType[fType.length - 1]] || '';
+	}
 
-  switch (type) {
-    case 'application/pdf':
-      $('#file-view').hide();
-      win = window.open(`/files/file?file=${id}`, '_blank');
-      win.focus();
-      break;
+	switch (type) {
+		case 'application/pdf':
+			$('#file-view').hide();
+			win = window.open(`/files/file?file=${id}`, '_blank');
+			win.focus();
+			break;
 
-	case `image/${type.substr(6)}`:
-	  location.href='#file-view';
-      $('#file-view').css('display', '');
-      $('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
-      break;
+		case `image/${type.substr(6)}`:
+	  location.href = '#file-view';
+			$('#file-view').css('display', '');
+			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
+			break;
 
-    case `audio/${type.substr(6)}`:
-	case `video/${type.substr(6)}`:
-	location.href='#file-view';
-      $('#file-view').css('display', '');
-      videojs('my-video').ready(function() {
-        this.src({ type: type, src: `/files/file?file=${id}`});
-      });
-      $('#my-video').css('display', '');
-      break;
+		case `audio/${type.substr(6)}`:
+		case `video/${type.substr(6)}`:
+			location.href = '#file-view';
+			$('#file-view').css('display', '');
+			videojs('my-video').ready(function () {
+				this.src({ type, src: `/files/file?file=${id}` });
+			});
+			$('#my-video').css('display', '');
+			break;
 
-    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': //.docx
-    case 'application/vnd.ms-word':
-    case 'application/msword': //.doc
-    case 'application/vnd.oasis.opendocument.text': //.odt
-    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': //.xlsx
-    case 'application/vnd.ms-excel':
-    case 'application/msexcel': //.xls
-    case 'application/vnd.oasis.opendocument.spreadsheet': //.ods
-    case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': //.pptx
-    case 'application/vnd.ms-powerpoint':
-    case 'application/mspowerpoint': //.ppt
-    case 'application/vnd.oasis.opendocument.presentation': //.odp
-    case 'text/plain': //.txt
-      $('#file-view').hide();
-      win = window.open(`/files/file/${id}/lool`, '_self');
-      win.focus();
+		case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document': // .docx
+		case 'application/vnd.ms-word':
+		case 'application/msword': // .doc
+		case 'application/vnd.oasis.opendocument.text': // .odt
+		case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': // .xlsx
+		case 'application/vnd.ms-excel':
+		case 'application/msexcel': // .xls
+		case 'application/vnd.oasis.opendocument.spreadsheet': // .ods
+		case 'application/vnd.openxmlformats-officedocument.presentationml.presentation': // .pptx
+		case 'application/vnd.ms-powerpoint':
+		case 'application/mspowerpoint': // .ppt
+		case 'application/vnd.oasis.opendocument.presentation': // .odp
+		case 'text/plain': // .txt
+			$('#file-view').hide();
+			win = window.open(`/files/file/${id}/lool`, '_self');
+			win.focus();
 
-      break;
+			break;
 
-    default:
+		default:
 	  $('#file-view').hide();
-      win = window.open(`/files/file?file=${id}&download`, '_blank');
-      win.focus();
-  }
+			win = window.open(`/files/file?file=${id}&download`, '_blank');
+			win.focus();
+	}
 };
 
 /**
  * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
  * @deprecated
- **/
+ * */
 function openInIframe(source) {
-  $("input.box").each(function() {
-    let mycookie = $.cookie($(this).attr("name"));
-    if (mycookie && mycookie == "true") {
-      $(this).prop("checked", mycookie);
-      $("#link").html(
-        '<iframe class="vieweriframe" src=' +
-          source +
-          ">" +
-          "<p>Dein Browser unterstützt dies nicht.</p></iframe>"
-      );
-      $("#link").css("display", "");
-    } else {
-      $openModal.appendTo("body").modal("show");
-      $openModal
-        .find(".btn-submit")
-        .unbind("click")
-        .on("click", function() {
+	$('input.box').each(function () {
+		const mycookie = $.cookie($(this).attr('name'));
+		if (mycookie && mycookie == 'true') {
+			$(this).prop('checked', mycookie);
+			$('#link').html(
+				`<iframe class="vieweriframe" src=${ 
+          source 
+          }>` +
+          `<p>Dein Browser unterstützt dies nicht.</p></iframe>`,
+			);
+			$('#link').css('display', '');
+		} else {
+			$openModal.appendTo('body').modal('show');
+			$openModal
+				.find('.btn-submit')
+				.unbind('click')
+				.on('click', () => {
           $.cookie(
             $("input.box").attr("name"),
             $("input.box").prop("checked"),
@@ -900,41 +900,41 @@ function openInIframe(source) {
           $openModal.modal("hide");
         });
 
-      $openModal
-        .find(".close, .btn-close")
-        .unbind("click")
-        .on("click", function() {
+			$openModal
+				.find('.close, .btn-close')
+				.unbind('click')
+				.on('click', () => {
           $openModal.modal("hide");
           window.location.href = "#_";
         });
-    }
-  });
+		}
+	});
 }
 
 function writeFileSizePretty(filesize) {
-  let unit;
-  let iterator = 0;
+	let unit;
+	let iterator = 0;
 
-  while (filesize > 1024) {
-    filesize = Math.round((filesize / 1024) * 100) / 100;
-    iterator++;
-  }
-  switch (iterator) {
-    case 0:
-      unit = "B";
-      break;
-    case 1:
-      unit = "KB";
-      break;
-    case 2:
-      unit = "MB";
-      break;
-    case 3:
-      unit = "GB";
-      break;
-    case 4:
-      unit = "TB";
-      break;
-  }
-  return filesize + unit;
+	while (filesize > 1024) {
+		filesize = Math.round((filesize / 1024) * 100) / 100;
+		iterator++;
+	}
+	switch (iterator) {
+		case 0:
+			unit = 'B';
+			break;
+		case 1:
+			unit = 'KB';
+			break;
+		case 2:
+			unit = 'MB';
+			break;
+		case 3:
+			unit = 'GB';
+			break;
+		case 4:
+			unit = 'TB';
+			break;
+	}
+	return filesize + unit;
 }
