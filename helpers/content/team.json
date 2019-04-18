@@ -592,6 +592,21 @@
 			},
 			{
 				"title": "",
+				"firstName": "Nayera",
+				"lastName": "Kassem",
+				"position": "Studentin",
+				"description": "Nayera studiert Networks Engineering an der Deutschen Universität in Kairo, Ägypten. Aktuell schreibt sie ihre Bachelorarbeit im Projekt HPI Schul-Cloud. In diesem Kontext analysiert sie Security-Aspekte und das Dateisystem. Ihre Freizeit verbringt sie mit Lesen, Reisen und ihren Freunden. Dabei freut sie sich stets interessante Leute zu treffen und neue Erfahrungen zu sammeln. ",
+				"pictureUrl": "/images/team/nayera_kassem.JPG",
+				"priority": 0,
+				"social": {
+					"facebook": "",
+					"twitter": "",
+					"linkedin": ""
+				},
+				"longDesc": false
+			},
+			{
+				"title": "",
 				"firstName": "Sophie",
 				"lastName": "Krüger",
 				"position": "Studentische Hilfskraft",
