@@ -1,4 +1,6 @@
-import { getQueryParameterByName } from "./helpers/queryStringParameter";
+/* eslint-env jquery */
+
+import { getQueryParameterByName } from './helpers/queryStringParameter';
 
 const getDataValue = function(attr) {
   return function() {
@@ -376,8 +378,8 @@ $(document).ready(() => {
         parent: getCurrentParent(),
         studentEdit
       },
-      function(id) {
-        window.location.href = `/files/file/${id}/lool`
+      (id) => {
+        window.location.href = `/files/file/${id}/lool`;
       }
     ).fail(showAJAXError);
   });
