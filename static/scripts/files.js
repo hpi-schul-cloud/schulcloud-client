@@ -805,9 +805,11 @@ const fileTypes = {
 	pdf: 'application/pdf',
 };
 
-window.fileViewer = function fileViewer(type, name, id) {
+window.fileViewer = function fileViewer(_type, name, id) {
   $('#my-video').css('display', 'none');
   
+  let type = Object.assign({}, _item);
+
 	// detect filetype according to line ending
 	if (type.length === 0) {
 		const fType = name.split('.');
@@ -829,9 +831,9 @@ window.fileViewer = function fileViewer(type, name, id) {
 
 		case `audio/${type.substr(6)}`:
 		case `video/${type.substr(6)}`:
-			location.href = '#file-view';
+			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
-			videojs('my-video').ready(function () {
+			videojs('my-video').ready(() => {
 				this.src({ type, src: `/files/file?file=${id}` });
 			});
 			$('#my-video').css('display', '');
@@ -868,13 +870,13 @@ window.fileViewer = function fileViewer(type, name, id) {
  * @deprecated
  * */
 function openInIframe(source) {
-	$('input.box').each(function () {
+	$('input.box').each(() => {
 		const mycookie = $.cookie($(this).attr('name'));
 		if (mycookie && mycookie === 'true') {
 			$(this).prop('checked', mycookie);
 			$('#link').html(
 				`<iframe class="vieweriframe" src=${
-        source 
+		source 
         }>`
         + `<p>Dein Browser unterstützt dies nicht.</p></iframe>`,
 			);
@@ -915,7 +917,8 @@ function openInIframe(source) {
 	});
 }
 
-function writeFileSizePretty(filesize) {
+function writeFileSizePretty(_filesize) {
+  let filesize = Object.assign({}, _filesize);
 	let unit;
 	let iterator = 0;
 
@@ -940,7 +943,7 @@ function writeFileSizePretty(filesize) {
 			unit = 'TB';
       break;
     default:
-      break;
+		break;
 	}
 	return filesize + unit;
 }
