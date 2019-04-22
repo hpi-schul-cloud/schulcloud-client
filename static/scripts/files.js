@@ -1,4 +1,6 @@
 /* eslint-env jquery */
+/* global win */
+/* global videojs */
 
 import { getQueryParameterByName } from './helpers/queryStringParameter';
 
@@ -804,8 +806,8 @@ const fileTypes = {
 };
 
 window.fileViewer = function fileViewer(type, name, id) {
-	$('#my-video').css('display', 'none');
-
+  $('#my-video').css('display', 'none');
+  
 	// detect filetype according to line ending
 	if (type.length === 0) {
 		const fType = name.split('.');
@@ -820,7 +822,7 @@ window.fileViewer = function fileViewer(type, name, id) {
 			break;
 
 		case `image/${type.substr(6)}`:
-	  location.href = '#file-view';
+    window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
 			break;
@@ -868,13 +870,13 @@ window.fileViewer = function fileViewer(type, name, id) {
 function openInIframe(source) {
 	$('input.box').each(function () {
 		const mycookie = $.cookie($(this).attr('name'));
-		if (mycookie && mycookie == 'true') {
+		if (mycookie && mycookie === 'true') {
 			$(this).prop('checked', mycookie);
 			$('#link').html(
-				`<iframe class="vieweriframe" src=${ 
-          source 
-          }>` +
-          `<p>Dein Browser unterstützt dies nicht.</p></iframe>`,
+				`<iframe class="vieweriframe" src=${
+        source 
+        }>`
+        + `<p>Dein Browser unterstützt dies nicht.</p></iframe>`,
 			);
 			$('#link').css('display', '');
 		} else {
@@ -919,7 +921,7 @@ function writeFileSizePretty(filesize) {
 
 	while (filesize > 1024) {
 		filesize = Math.round((filesize / 1024) * 100) / 100;
-		iterator++;
+		iterator += 1;
 	}
 	switch (iterator) {
 		case 0:
@@ -936,7 +938,9 @@ function writeFileSizePretty(filesize) {
 			break;
 		case 4:
 			unit = 'TB';
-			break;
+      break;
+    default:
+      break;
 	}
 	return filesize + unit;
 }
