@@ -1,3 +1,5 @@
+import { getQueryParameterByName } from "./helpers/queryStringParameter";
+
 const getDataValue = function(attr) {
   return function() {
     const value = $(".section-upload").data(attr);
@@ -24,9 +26,7 @@ window.openFolder = function(id) {
 const getOwnerId = getDataValue("owner");
 const getCurrentParent = getDataValue("parent");
 
-import { getQueryParameterByName } from "./helpers/queryStringParameter";
-
-$(document).ready(function() {
+$(document).ready(() => {
   let $form = $(".form-upload");
   let $progressBar = $(".progress-bar");
   let $progress = $progressBar.find(".bar");
@@ -555,7 +555,7 @@ $(document).ready(function() {
   const fileShare = (fileId, $shareModal, view) => {
     $.ajax({
       type: "POST",
-      url: "/files/permissions/",
+      url: '/files/permissions/',
       data: {
         id: fileId
       }
