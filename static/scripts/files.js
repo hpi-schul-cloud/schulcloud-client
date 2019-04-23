@@ -381,7 +381,7 @@ $(document).ready(() => {
       },
 			(id) => {
 				window.location.href = `/files/file/${id}/lool`;
-		},
+			},
     ).fail(showAJAXError);
   });
 
