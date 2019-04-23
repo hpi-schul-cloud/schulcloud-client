@@ -745,7 +745,7 @@ $(document).ready(function() {
     });
   };
 
-  $(".btn-file-move").one("click", function(e) {
+  $(".btn-file-move").on("click", function(e) {
     e.stopPropagation();
     e.preventDefault();
     let $context = $(this);
