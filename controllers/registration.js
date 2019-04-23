@@ -5,10 +5,10 @@ const router = express.Router();
 const api = require('../api');
 const { cookieDomain } = require('../helpers/authentication');
 
-const deviceDetector = new DeviceDetector();
+const deviceDetectorObj = new DeviceDetector();
 
 const detectIE = (req) => {
-	const device = deviceDetector.parse(req.headers['user-agent']);
+	const device = deviceDetectorObj.parse(req.headers['user-agent']);
 	const isIE = (((device || {}).client || {}).name || '').includes('Internet Explorer');
 	return isIE;
 };
