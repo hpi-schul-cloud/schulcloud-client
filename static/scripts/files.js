@@ -379,9 +379,9 @@ $(document).ready(() => {
         parent: getCurrentParent(),
         studentEdit
       },
-		(id) => {
-			window.location.href = `/files/file/${id}/lool`;
-      }
+			(id) => {
+				window.location.href = `/files/file/${id}/lool`;
+      	}
     ).fail(showAJAXError);
   });
 
@@ -557,11 +557,11 @@ $(document).ready(() => {
 
   const fileShare = (fileId, $shareModal, view) => {
     $.ajax({
-		type: "POST",
-		url: '/files/permissions/',
-		data: {
-		id: fileId
-      }
+			type: 'POST',
+			url: '/files/permissions/',
+			data: {
+				id: fileId,
+      		}
     })
       .then(function(file) {
         let target = view
@@ -815,6 +815,7 @@ window.fileViewer = function fileViewer(_type, name, id) {
 		type = fileTypes[fType[fType.length - 1]] || '';
 	}
 
+	let win;
 	switch (type) {
 		case 'application/pdf':
 			$('#file-view').hide();
@@ -875,8 +876,8 @@ function openInIframe(source) {
 			$(this).prop('checked', mycookie);
 			$('#link').html(
 				`<iframe class="vieweriframe" src=${
-		source
-		}>`
+					source
+				}>`
         + '<p>Dein Browser unterstützt dies nicht.</p></iframe>',
 			);
 			$('#link').css('display', '');
