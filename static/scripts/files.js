@@ -381,7 +381,7 @@ $(document).ready(() => {
       },
 			(id) => {
 				window.location.href = `/files/file/${id}/lool`;
-      	}
+		},
     ).fail(showAJAXError);
   });
 
@@ -561,7 +561,7 @@ $(document).ready(() => {
 			url: '/files/permissions/',
 			data: {
 				id: fileId,
-      		}
+			},
     })
       .then(function(file) {
         let target = view
