@@ -1,5 +1,4 @@
 /* eslint-env jquery */
-/* global win */
 /* global videojs */
 
 import { getQueryParameterByName } from './helpers/queryStringParameter';
@@ -380,8 +379,8 @@ $(document).ready(() => {
         parent: getCurrentParent(),
         studentEdit
       },
-      (id) => {
-        window.location.href = `/files/file/${id}/lool`;
+		(id) => {
+			window.location.href = `/files/file/${id}/lool`;
       }
     ).fail(showAJAXError);
   });
@@ -558,10 +557,10 @@ $(document).ready(() => {
 
   const fileShare = (fileId, $shareModal, view) => {
     $.ajax({
-      type: "POST",
-      url: '/files/permissions/',
-      data: {
-        id: fileId
+		type: "POST",
+		url: '/files/permissions/',
+		data: {
+		id: fileId
       }
     })
       .then(function(file) {
@@ -807,8 +806,8 @@ const fileTypes = {
 
 window.fileViewer = function fileViewer(_type, name, id) {
   $('#my-video').css('display', 'none');
-  
-  let type = Object.assign({}, _item);
+
+	let type = Object.assign({}, _type);
 
 	// detect filetype according to line ending
 	if (type.length === 0) {
@@ -824,7 +823,7 @@ window.fileViewer = function fileViewer(_type, name, id) {
 			break;
 
 		case `image/${type.substr(6)}`:
-    window.location.href = '#file-view';
+			window.location.href = '#file-view';
 			$('#file-view').css('display', '');
 			$('#picture').attr('src', `/files/file?file=${id}&name=${name}`);
 			break;
@@ -876,9 +875,9 @@ function openInIframe(source) {
 			$(this).prop('checked', mycookie);
 			$('#link').html(
 				`<iframe class="vieweriframe" src=${
-		source 
-        }>`
-        + `<p>Dein Browser unterstützt dies nicht.</p></iframe>`,
+		source
+		}>`
+        + '<p>Dein Browser unterstützt dies nicht.</p></iframe>',
 			);
 			$('#link').css('display', '');
 		} else {
@@ -918,7 +917,7 @@ function openInIframe(source) {
 }
 
 function writeFileSizePretty(_filesize) {
-  let filesize = Object.assign({}, _filesize);
+	let filesize = Object.assign({}, _filesize);
 	let unit;
 	let iterator = 0;
 
@@ -941,9 +940,9 @@ function writeFileSizePretty(_filesize) {
 			break;
 		case 4:
 			unit = 'TB';
-      break;
-    default:
-		break;
+			break;
+		default:
+			break;
 	}
 	return filesize + unit;
 }
