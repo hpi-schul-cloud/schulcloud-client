@@ -1,3 +1,5 @@
+/* eslint-env jquery */
+
 const getDataValue = function(attr) {
   return function() {
     const value = $(".section-upload").data(attr);
@@ -745,7 +747,7 @@ $(document).ready(function() {
     });
   };
 
-  $(".btn-file-move").on("click", function(e) {
+	$('.btn-file-move').on('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
     let $context = $(this);
