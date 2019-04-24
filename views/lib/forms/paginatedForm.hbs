@@ -18,7 +18,7 @@
 	{{#block "buttons"}}{{/block}}
 	<button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">Zurück</button>
 	{{#if isIE}}
-		<p style="margin-top:6px;"><i style="color: rgb(177, 4, 56);" class="fa fa-exclamation-triangle"></i> Die Registrierung kann nicht im Internet Explorer (unabhängig von der Version) durchgeführt werden. Bitte verwende einen modernen Browser wie Firefox oder Chrome. Diese können in den meisten Netzwerken auch ohne Administratorrechte installiert und benutzt werden.</p>
+		{{#embed "registration/noIeInfo"}}{{/embed}}
 	{{else}}
 		<button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
 	data-next-label="Weiter" data-submit-label="{{#unless submit-label}}Absenden{{else}}{{submit-label}}{{/unless}}">Weiter</button>

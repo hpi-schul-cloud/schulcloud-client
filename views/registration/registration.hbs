@@ -27,7 +27,7 @@
 			<p><strong>Achtung:</strong> Die folgende Anmeldung muss von dir als Schüler selbst vorgenommen werden, nicht von deinen Eltern.</p>
 		</div>
 		{{#if isIE}}
-			<p style="margin-top:6px;"><i style="color: rgb(177, 4, 56);" class="fa fa-exclamation-triangle"></i> Die Registrierung kann nicht im Internet Explorer (unabhängig von der Version) durchgeführt werden. Bitte verwende einen anderen Browser, alle anderen Browser werden unterstützt. Firefox/Chrome können in den meisten Netzwerken auch ohne Administratorrechte installiert und benutzt werden.</p>
+			{{#embed "registration/noIeInfo"}}{{/embed}}
 		{{else}}
 			<button id="showRegistrationForm" class="btn btn-primary" style="margin-top:6px;" disabled>Weiter</button>
 		{{/if}}
