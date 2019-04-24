@@ -1,6 +1,6 @@
 {{#if prefix}}
 	<label>
-		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
+		<input name="{{prefix}}parentalAuthConsent" type="checkbox" value="true" required/>
 		<span>Ich, <b data-from="parent_firstName"></b> <b data-from="parent_lastName"></b>, bin erziehungsberechtigt für <b data-from="firstName"></b> <b data-from="lastName"></b> und berechtigt, den anderen Elternteil bei den nachfolgenden Erklärungen zu vertreten.</span>
 	</label>
 	<p style="font-size: 8px;margin: 0;">&nbsp;</p>
@@ -14,7 +14,7 @@
 {{else}}
 	<label>
 		<input name="{{prefix}}privacyConsent" type="checkbox" value="true" required/>
-		<span>Ich erkläre mich damit einverstanden, dass mein personenbezogenes Daten entsprechend der <a href="https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/Datenschutz/Datenschutzerklaerung-Muster-Schulen.pdf" target="_blank">Datenschutzerklärung</a> der Schule in der {{@root.theme.title}} verarbeitet werden.</span>
+		<span>Ich erkläre mich damit einverstanden, dass meine personenbezogenen Daten entsprechend der <a href="https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/Datenschutz/Datenschutzerklaerung-Muster-Schulen.pdf" target="_blank">Datenschutzerklärung</a> der Schule in der {{@root.theme.title}} verarbeitet werden.</span>
 	</label>
 	<p class="explanation">Die Einwilligung ist freiwillig, das heißt, wenn Sie Du Deine Einwilligung nicht erteilst, führt diese nicht zu Nachteilen für Dich im Unterricht.
 	Die Einwilligung kann jederzeit von Dir widerrufen werden. Eine kurze E-Mail mit der Erklärung des Widerrufes, der Angabe des Vor- und Nachnamens, der Klasse und der Schule an folgende Adresse genügt: <a href="mailto:widerruf@schul-cloud.org?subject=Widerruf der Einwilligung">widerruf@schul-cloud.org</a>. Im Fall des Widerrufs löschen wir die auf Basis der Einwilligung gespeicherten personenbezogenen Daten unverzüglich, es sei denn, es besteht ein gesetzlicher Grund zur Aufbewahrung oder Du willst vorher noch auf die gespeicherten Daten zugreifen.</p>
