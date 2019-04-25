@@ -807,7 +807,7 @@ const fileTypes = {
 window.fileViewer = function fileViewer(_type, name, id) {
   $('#my-video').css('display', 'none');
 
-	let type = Object.assign({}, _type);
+	let type = _type;
 
 	// detect filetype according to line ending
 	if (type.length === 0) {
@@ -918,7 +918,7 @@ function openInIframe(source) {
 }
 
 function writeFileSizePretty(_filesize) {
-	let filesize = Object.assign({}, _filesize);
+	let filesize = _filesize;
 	let unit;
 	let iterator = 0;
 
