@@ -11,7 +11,6 @@ const api = require('../api');
 const router = express.Router();
 moment.locale('de');
 
-
 const logger = winston.createLogger({
 	transports: [
 		new winston.transports.Console({
@@ -56,13 +55,9 @@ const addThumbnails = (file) => {
 	return file;
 };
 
-const getSelectOptions = (req, service, query, values = []) => {
-	return api(req).get(`/${service}`, {
-		qs: query,
-	}).then((data) => {
-		return data.data;
-	});
-};
+const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
+	qs: query,
+}).then(data => data.data);
 
 /**
  * Deletes all events from the given course, clear function
@@ -70,13 +65,13 @@ const getSelectOptions = (req, service, query, values = []) => {
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
 	if (process.env.CALENDAR_SERVICE_ENABLED) {
-		let events = await api(req).get('/calendar/', {
+		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
 			},
 		});
 
-		for (let event of events) {
+		for (const event of events) {
 			try {
 				await api(req).delete(`/calendar/${event._id}`);
 			} catch (e) {
@@ -86,12 +81,10 @@ const deleteEventsForTeam = async (req, res, teamId) => {
 	}
 };
 
-const markSelected = (options, values = []) => {
-	return options.map((option) => {
-		option.selected = values.includes(option._id);
-		return option;
-	});
-};
+const markSelected = (options, values = []) => options.map((option) => {
+	option.selected = values.includes(option._id);
+	return option;
+});
 
 const editTeamHandler = (req, res, next) => {
 	let teamPromise; let action; let method;
@@ -144,16 +137,16 @@ const copyCourseHandler = (req, res, next) => {
 		teachersPromise,
 		studentsPromise,
 	]).then(([course, classes, teachers, students]) => {
-		classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
-		teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
-		students = students.filter(s => s.schoolId == res.locals.currentSchool);
-		let substitutions = _.cloneDeep(teachers);
+		const classesOfCurrentSchool = classes.filter(c => c.schoolId === res.locals.currentSchool);
+		const teachersOfCurrentSchool = teachers.filter(t => t.schoolId === res.locals.currentSchool);
+		const studentsOfCurrentSchool = students.filter(s => s.schoolId === res.locals.currentSchool);
+		const substitutions = _.cloneDeep(teachersOfCurrentSchool);
 
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${('00' + duration.hours()).slice(-2)}:${('00' + duration.minutes()).slice(-2)}`;
+			time.startTime = `${(`00${duration.hours()}`).slice(-2)}:${(`00${duration.minutes()}`).slice(-2)}`;
 			time.count = count;
 		});
 
@@ -178,10 +171,10 @@ const copyCourseHandler = (req, res, next) => {
 			submitLabel: 'Kurs klonen',
 			closeLabel: 'Abbrechen',
 			course,
-			classes,
-			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+			classes: classesOfCurrentSchool,
+			teachers: markSelected(teachersOfCurrentSchool, _.map(course.teacherIds, '_id')),
 			substitutions,
-			students,
+			students: studentsOfCurrentSchool,
 		});
 	});
 };
@@ -213,7 +206,8 @@ router.get('/', async (req, res, next) => {
 		(team.times || []).forEach((time) => {
 			time.startTime = moment(time.startTime, 'x').utc().format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${(time.room) ? (`| ${time.room}`) : ''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} `
+				+ `${(time.room) ? (`| ${time.room}`) : ''}</div>`;
 		});
 
 		return team;
@@ -256,13 +250,13 @@ router.post('/', async (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.untilDate;
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) { delete req.body.startDate; }
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
 
 	if (req.body.rocketchat === 'true') {
 		req.body.features = ['rocketChat'];
@@ -286,13 +280,13 @@ router.post('/copy/:teamId', (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.untilDate;
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) { delete req.body.startDate; }
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
 
 	req.body._id = req.params.teamId;
 
@@ -300,7 +294,7 @@ router.post('/copy/:teamId', (req, res, next) => {
 		json: req.body, // TODO: sanitize
 	}).then((course) => {
 		res.redirect(`/teams/${course._id}`);
-	}).catch((err) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
@@ -314,7 +308,7 @@ router.get('/add/', editTeamHandler);
 
 function mapPermissionRoles(permissions, roles) {
 	return permissions.map((permission) => {
-		const role = roles.find(role => role._id === permission.refId);
+		const role = roles.find(r => r._id === permission.refId);
 		permission.roleName = role ? role.name : '';
 		return permission;
 	});
@@ -343,7 +337,7 @@ router.get('/:teamId/json', (req, res, next) => {
 		const { data: roles } = result;
 
 		team.filePermission = team.filePermission.map((permission) => {
-			const role = roles.find(role => role._id === permission.refId);
+			const role = roles.find(r => r._id === permission.refId);
 			permission.roleName = role ? role.name : '';
 			return permission;
 		});
@@ -397,10 +391,9 @@ router.get('/:teamId', async (req, res, next) => {
 		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
 			try {
 				const rocketChatChannel = await api(req).get(`/rocketChat/channel/${req.params.teamId}`);
-				const rocketChatURL = process.env.ROCKET_CHAT_URI
+				const rocketChatURL = process.env.ROCKET_CHAT_URI;
 				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName}`;
-			}
-			catch (e) {
+			} catch (e) {
 				logger.warn(e);
 				rocketChatCompleteURL = undefined;
 			}
@@ -412,7 +405,7 @@ router.get('/:teamId', async (req, res, next) => {
 		const allowTeamMembers = isAllowed(course.filePermission, 'teammember');
 
 
-		let files; let directories;
+		let files;
 
 		files = await api(req).get('/fileStorage', {
 			qs: {
@@ -433,32 +426,29 @@ router.get('/:teamId', async (req, res, next) => {
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
-			} else {
-				return undefined;
 			}
+			return undefined;
 		});
 
-		directories = files.filter(f => f.isDirectory);
+		const directories = files.filter(f => f.isDirectory);
 		files = files.filter(f => !f.isDirectory);
 
 		// Sort by most recent files and limit to 6 files
-		files.sort(function (a, b) {
+		files.sort((a, b) => {
 			if (b && b.updatedAt && a && a.updatedAt) {
 				return new Date(b.updatedAt) - new Date(a.updatedAt);
-			} else {
-				return 0;
 			}
+			return 0;
 		})
 			.slice(0, 6);
 
 		files.map(addThumbnails);
 
-		directories.sort(function (a, b) {
+		directories.sort((a, b) => {
 			if (b && b.updatedAt && a && a.updatedAt) {
 				return new Date(b.updatedAt) - new Date(a.updatedAt);
-			} else {
-				return 0;
 			}
+			return 0;
 		})
 			.slice(0, 6);
 
@@ -469,12 +459,24 @@ router.get('/:teamId', async (req, res, next) => {
 			},
 		})).data;
 
-		const colors = ['F44336', 'E91E63', '3F51B5', '2196F3', '03A9F4', '00BCD4', '009688', '4CAF50', 'CDDC39', 'FFC107', 'FF9800', 'FF5722'];
-		news = news.map((news) => {
-			news.url = `/teams/${req.params.teamId}/news/${news._id}`;
-			news.secondaryTitle = moment(news.displayAt).fromNow();
-			news.background = `#${colors[(news.title || '').length % colors.length]}`;
-			return news;
+		const colors = [
+			'F44336',
+			'E91E63',
+			'3F51B5',
+			'2196F3',
+			'03A9F4',
+			'00BCD4',
+			'009688',
+			'4CAF50',
+			'CDDC39',
+			'FFC107',
+			'FF9800',
+			'FF5722'];
+		news = news.map((n) => {
+			n.url = `/teams/${req.params.teamId}/news/${n._id}`;
+			n.secondaryTitle = moment(n.displayAt).fromNow();
+			n.background = `#${colors[(n.title || '').length % colors.length]}`;
+			return n;
 		});
 
 		let events = [];
@@ -488,8 +490,8 @@ router.get('/:teamId', async (req, res, next) => {
 			});
 
 			events = events.map((event) => {
-				let start = moment(event.start);
-				let end = moment(event.end);
+				const start = moment(event.start);
+				const end = moment(event.end);
 				event.day = start.format('D');
 				event.month = start.format('MMM').toUpperCase().split('.').join('');
 				event.dayOfTheWeek = start.format('dddd');
@@ -499,8 +501,6 @@ router.get('/:teamId', async (req, res, next) => {
 		} catch (e) {
 			events = [];
 		}
-
-		let test = course.user.permissions.includes('EDIT_ALL_FILES')
 
 		res.render('teams/team', Object.assign({}, course, {
 			title: course.name,
@@ -548,13 +548,13 @@ router.patch('/:teamId', async (req, res, next) => {
 		time.duration = time.duration * 60 * 1000;
 	});
 
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.untilDate;
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) { delete req.body.startDate; }
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) { delete req.body.untilDate; }
 
 	// first delete all old events for the course
 	// deleteEventsForCourse(req, res, req.params.teamId).then(async _ => {
@@ -627,25 +627,29 @@ router.delete('/:teamId', async (req, res, next) => {
 });
 
 router.post('/:teamId/events/', (req, res, next) => {
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
 	// filter params
 	req.body.scopeId = req.params.teamId;
 	req.body.teamId = req.params.teamId;
 
-	api(req).post('/calendar/', { json: req.body }).then((event) => {
+	api(req).post('/calendar/', { json: req.body }).then(() => {
 		res.redirect(`/teams/${req.params.teamId}`);
 	});
 });
 
 router.put('/events/:eventId', (req, res, next) => {
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.startDate = moment(req.body.startDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
+	// eslint-disable-next-line no-underscore-dangle
 	req.body.endDate = moment(req.body.endDate, 'DD.MM.YYYY HH:mm')._d.toLocalISOString();
 
 	api(req).put(`/calendar/${req.params.eventId}`, {
 		json: req.body,
-	}).then((_) => {
+	}).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		next(err);
@@ -653,7 +657,7 @@ router.put('/events/:eventId', (req, res, next) => {
 });
 
 router.get('/:teamId/news/new', async (req, res, next) => {
-	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`)
+	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`);
 });
 
 /*
@@ -722,7 +726,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				{ path: 'userIds.schoolId' },
 				{
 					path: 'classIds',
-					populate: ['year'],
+					populate: ['year', 'gradeLevel'],
 				},
 			],
 			$limit,
@@ -746,13 +750,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 					'teamadministrator', 'teamowner'],
 			},
 		},
-	}).then((roles) => {
-		roles = roles.data;
-		return roles.map((role) => {
-			role.label = roleTranslations[role.name];
-			return role;
-		});
-	});
+	}).then(roles => roles.data.map((role) => {
+		role.label = roleTranslations[role.name];
+		return role;
+	}));
 
 	const getClasses = () => api(req).get('/classes', {
 		qs: { schoolId, $populate: ['year'], $limit },
@@ -762,10 +763,14 @@ router.get('/:teamId/members', async (req, res, next) => {
 
 	try {
 		let [
+			// eslint-disable-next-line prefer-const
 			team,
 			users,
+			// eslint-disable-next-line prefer-const
 			roles,
+			// eslint-disable-next-line prefer-const
 			classes,
+			// eslint-disable-next-line prefer-const
 			federalStates,
 		] = await Promise.all([
 			getTeam(), getUsers(), getRoles(), getClasses(), getFederalStates(),
@@ -904,8 +909,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 router.post('/:teamId/members', async (req, res, next) => {
 	try {
 		const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-		let userIds = courseOld.userIds.concat(req.body.userIds);
-		let classIds = req.body.classIds;
+		const userIds = courseOld.userIds.concat(req.body.userIds);
+		const { classIds } = req.body;
 
 		await api(req).patch(`/teams/${req.params.teamId}`, {
 			json: {
@@ -916,7 +921,7 @@ router.post('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 	}
 });
 
@@ -938,7 +943,7 @@ router.patch('/:teamId/members', async (req, res, next) => {
 
 		res.sendStatus(200);
 	} catch (e) {
-		console.log(e);
+		logger.error(e);
 	}
 });
 
@@ -953,15 +958,15 @@ router.post('/external/invite', (req, res) => {
 		json,
 	}).then((result) => {
 		res.sendStatus(200);
-	}).catch((error) => {
+	}).catch(() => {
 		res.sendStatus(500);
 	});
 });
 
 router.delete('/:teamId/members', async (req, res, next) => {
 	const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-	let userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
-	let classIds = courseOld.classIds.filter(_class => _class !== req.body.classIdToRemove);
+	const userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
+	const classIds = courseOld.classIds.filter(_class => _class !== req.body.classIdToRemove);
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
 		json: {
@@ -1004,7 +1009,8 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		req.session.notification = { type: 'success', message: 'Teameinladung erfolgreich angenommen.' };
 		res.redirect(`/teams/${req.params.teamId}`);
 	}).catch((err) => {
-		logger.warn('Fehler beim Annehmen einer Einladung, der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. ', err);
+		logger.warn('Fehler beim Annehmen einer Einladung, '
+			+ 'der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. ', err);
 		res.redirect('/teams/');
 	});
 });
@@ -1039,15 +1045,13 @@ router.get('/:teamId/topics', async (req, res, next) => {
 				$populate: ['teamId', 'userIds'],
 			},
 		}),
-	]).then(([course, lessons, homeworks, courseGroups]) => {
-		let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map((lesson) => {
-			return Object.assign(lesson, {
-				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
-			});
-		});
+	]).then(([course, Lessons, Homeworks, CourseGroups]) => {
+		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
+		const lessons = (Lessons.data || []).map(lesson => Object.assign(lesson, {
+			url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
+		}));
 
-		homeworks = (homeworks.data || []).map((assignment) => {
+		const homeworks = (Homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
 			return assignment;
 		});
@@ -1055,20 +1059,19 @@ router.get('/:teamId/topics', async (req, res, next) => {
 		homeworks.sort((a, b) => {
 			if (a.dueDate > b.dueDate) {
 				return 1;
-			} else {
-				return -1;
 			}
+			return -1;
 		});
 
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-			courseGroups.data || [] :
-			(courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+		const courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+			? CourseGroups.data || []
+			: (CourseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 		res.render('teams/topics', Object.assign({}, course, {
 			title: course.name,
 			lessons,
-			homeworks: homeworks.filter(function (task) { return !task.private; }),
-			myhomeworks: homeworks.filter(function (task) { return task.private; }),
+			homeworks: homeworks.filter(task => !task.private),
+			myhomeworks: homeworks.filter(task => task.private),
 			ltiToolIds,
 			courseGroups,
 			breadcrumb: [{
@@ -1090,9 +1093,11 @@ router.get('/:teamId/topics', async (req, res, next) => {
 });
 
 router.patch('/:teamId/positions', (req, res, next) => {
-	for (var elem in req.body) {
+	// eslint-disable-next-line guard-for-in
+	for (const elem in req.body) {
 		api(req).patch(`/lessons/${elem}`, {
 			json: {
+				// eslint-disable-next-line radix
 				position: parseInt(req.body[elem]),
 				teamId: req.params.teamId,
 			},
@@ -1103,7 +1108,7 @@ router.patch('/:teamId/positions', (req, res, next) => {
 });
 
 router.post('/:teamId/importTopic', (req, res, next) => {
-	let shareToken = req.body.shareToken;
+	const { shareToken } = req.body;
 	// try to find topic for given shareToken
 	api(req).get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } }).then((lessons) => {
 		if ((lessons.data || []).length <= 0) {
@@ -1115,35 +1120,31 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 			res.redirect(req.header('Referer'));
 		}
 
-		api(req).post('/lessons/copy', { json: { lessonId: lessons.data[0]._id, newTeamId: req.params.teamId, shareToken } })
-			.then((_) => {
+		api(req).post('/lessons/copy', {
+			json: {
+				lessonId: lessons.data[0]._id,
+				newTeamId: req.params.teamId,
+				shareToken,
+			},
+		})
+			.then(() => {
 				res.redirect(req.header('Referer'));
 			});
 	}).catch(err => res.status((err.statusCode || 500)).send(err));
 });
 
 // return shareToken
-router.get('/:id/share', (req, res, next) => {
-	return api(req).get(`/teams/share/${req.params.id}`)
-		.then((course) => {
-			return res.json(course);
-		});
-});
+router.get('/:id/share', (req, res, next) => api(req).get(`/teams/share/${req.params.id}`)
+	.then(course => res.json(course)));
 
 // return course Name for given shareToken
-router.get('/share/:id', (req, res, next) => {
-	return api(req).get('/teams/share', { qs: { shareToken: req.params.id } })
-		.then((name) => {
-			return res.json({ msg: name, status: 'success' });
-		})
-		.catch((err) => {
-			return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
-		});
-});
+router.get('/share/:id', (req, res, next) => api(req).get('/teams/share', { qs: { shareToken: req.params.id } })
+	.then(name => res.json({ msg: name, status: 'success' }))
+	.catch(() => res.json({ msg: 'ShareToken is not in use.', status: 'error' })));
 
 router.post('/import', (req, res, next) => {
-	let shareToken = req.body.shareToken;
-	let courseName = req.body.name;
+	const { shareToken } = req.body;
+	const courseName = req.body.name;
 
 	api(req).post('/teams/share', { json: { shareToken, courseName } })
 		.then((course) => {
