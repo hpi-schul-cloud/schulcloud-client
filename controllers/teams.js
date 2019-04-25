@@ -465,7 +465,7 @@ router.get('/:teamId', async (req, res, next) => {
 		let news = (await api(req).get('/news/', {
 			qs: {
 				target: req.params.teamId,
-				$limit: 6,
+				$limit: 2,
 			},
 		})).data;
 

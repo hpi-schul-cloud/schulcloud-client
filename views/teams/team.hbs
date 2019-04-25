@@ -1,5 +1,5 @@
 
-{{#extend "lib/loggedin"}}
+{{#extend "lib/loggedin" notitle="true"}}
     {{#content "styles" mode="append"}}
         <link rel="stylesheet" href="/styles/teams/teams.css"/>
         <link rel="stylesheet" href="/styles/files/files.css"/>
@@ -19,50 +19,84 @@
      <div id="team-wrapper">
 
         <section class="section-teams" data-id="{{../_id}}">
-
-            <div class="row description">
-                <div class="col-sm-12">
-                    <p class="lead">{{description}}</p>
+            <a href="/teams/{{_id}}/members" class="btn-member" title="Teammitglieder">
+                {{arrayLength course.userIds}}
+                <i class="fa fa-users"></i>
+            </a>
+            <div class="dropdown dropdown-title minimal-button">
+                <a class="dropdown-toggle btn-title-dropdown" title="Weiteres" data-toggle="dropdown">
+                    <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
+                    <i class="fa fa-cog i-cog"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu dropdown-menu-team">
+                    <a href="/teams/{{_id}}/members" class="dropdown-item">
+                        <i class="fa fa-users" aria-hidden="true"></i> Teammitglieder verwalten
+                    </a>
+                    {{#userHasPermission "TEAM_EDIT"}}
+                        {{#inArray "RENAME_TEAM"../ permissions}}
+                            <a href="/teams/{{../_id}}/edit" class="dropdown-item">
+                                <i class="fa fa-edit" aria-hidden="true"></i> Team bearbeiten
+                            </a>
+                        {{/inArray}}
+                        {{#inArray "DELETE_TEAM" ../permissions}}
+                            <a href="/teams/{{../_id}}/"
+                            class="dropdown-item"
+                            target="_blank"
+                            data-method="DELETE"
+                            data-name="{{../name}}"
+                            redirect="/teams/">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Team löschen
+                            </a>
+                        {{/inArray}}
+                    {{/userHasPermission}}
                 </div>
             </div>
 
+            <section class="row section-description">
+                <div class="col-sm-12">
+                    <p class="lead">{{description}}</p>
+                </div>
+            </section>
+
             {{#if rocketChatURL}}
             <section class="section-chat" style="margin-top: 2rem">
-                <h4>Chat</h4>
+                <h3 class="h4">Chat</h3>
                 <div class="rocketchat">
                     <iframe src="{{rocketChatURL}}?layout=embedded" frameborder="0"></iframe>
                 </div>
             </section>
             {{/if}}
 
-            <section class="section-members row">
+            <section class="row">
                 <div class="col-sm-12">
-                    <h4>Teilnehmer</h4>
-                    <p>
-                      Im Team
-                      {{#ifCond (arrayLength course.userIds) '==' 1}} befindet {{/ifCond}}
-                      {{#ifCond (arrayLength course.userIds) '>' 1}} befinden {{/ifCond}}
-                      sich <strong>{{arrayLength course.userIds}}</strong>
-                      {{#ifCond (arrayLength course.userIds) '>=' 1}} Teilnehmer {{/ifCond}}
-                    </p>
-                    <a href="/teams/{{_id}}/members" class="btn btn-add btn-secondary">
-                        Zur Teilnehmer-Übersicht
+                    <h3 class="h4">Aktuelle Neuigkeiten</h3>
+                    {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                    <a href="/teams/{{../_id}}/news" class="pull-right">
+                        Alle Neuigkeiten...
                     </a>
+                    {{#inArray "CREATE_NEWS" permissions}}
+                        <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
+                        </a>
+                    {{/inArray}}
                 </div>
             </section>
 
             <section class="row">
                 <div class="col-sm-12">
-                    <h4>News</h4>
-                    {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
-                    <a href="/teams/{{../_id}}/news" class="btn btn-add btn-secondary">
-                        Zur News-Übersicht
-                    </a>
-                    {{#inArray "CREATE_NEWS" permissions}}
-                        <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
-                            News anlegen
-                        </a>
-                    {{/inArray}}
+                    <h4>Termine</h4>
+                    <div class="row">
+                        {{#each ../events}}
+                            {{> 'calendar/card' event=this}}
+                        {{/each}}
+                    </div>
+                    <div style="margin-top: .5rem">
+                        {{#inArray "CREATE_NEWS" permissions}}
+                            <button class="btn btn-add btn-primary btn-create-event">
+                                Termin anlegen
+                            </button>
+                        {{/inArray}}
+                    </div>
                 </div>
             </section>
 
@@ -151,57 +185,11 @@
 
             <section class="row">
                 <div class="col-sm-12">
-                    <h4>Termine</h4>
-                    <div class="row">
-                        {{#each ../events}}
-                            {{> 'calendar/card' event=this}}
-                        {{/each}}
-                    </div>
-                    <div style="margin-top: .5rem">
-                        <a href="/calendar" class="btn btn-add btn-secondary">
-                            Zur Termin-Übersicht
-                        </a>
-                        {{#inArray "CREATE_NEWS" permissions}}
-                            <button class="btn btn-add btn-primary btn-create-event">
-                                Termin anlegen
-                            </button>
-                        {{/inArray}}
-                    </div>
-                </div>
-            </section>
-
-            <section class="row">
-                <div class="col-sm-12">
                     <h4>Themen & Aufgaben</h4>
                     <p>Finde alle Themen, Tools und Aufgaben zu diesem Team.</p>
                     <a href="/teams/{{_id}}/topics" class="btn btn-add btn-secondary">
                         Zur Themen-Übersicht
                     </a>
-                </div>
-            </section>
-
-            <section class="row">
-                <div class="col-sm-12">
-                    {{#userHasPermission "TEAM_EDIT"}}
-                        <div>
-                            {{#inArray "RENAME_TEAM" ../permissions}}
-                                <h4>Aktionen</h4>
-                            {{/inArray}}
-
-                            {{#inArray "RENAME_TEAM"../ permissions}}
-                                <a href="/teams/{{../_id}}/edit" class="btn btn-add btn-primary">Team bearbeiten</a>
-                            {{/inArray}}
-
-                            {{#inArray "DELETE_TEAM" ../permissions}}
-                                <a href="/teams/{{../_id}}/"
-                                class="btn btn-delete-course btn-secondary"
-                                target="_blank"
-                                data-method="DELETE"
-                                data-name="{{../name}}"
-                                redirect="/teams/">Team löschen</a>
-                            {{/inArray}}
-                        </div>
-                    {{/userHasPermission}}
                 </div>
             </section>
 
@@ -237,7 +225,7 @@
                     {{> "calendar/forms/form-create-event" addCourse="true" addTeam="true" collapseIdCourse="4" collapseIdTeam="5"}}
                 {{/content}}
                 {{#content "additional-actions"}}
-                        <button type="button" class="btn btn-primary btn-danger btn-delete">
+                        <button type="button" class="btn btn-primary btn-danger btn-delete pull-left">
                             <i class="fa fa-trash-o"></i> Löschen
                         </button>
                 {{/content}}

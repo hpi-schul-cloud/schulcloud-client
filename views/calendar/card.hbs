@@ -25,29 +25,37 @@
     vertical-align: baseline;
     border-radius: .25rem;
 }
+.list-inline-item {
+  font-size: small;
+}
+.m-0 {
+  margin: 0;
+}
+.card-description {
+  margin-top: .5rem;
+}
 </style>
 
-<div data-event="{{json event}}" class="events-card col-lg-6 col-xl-4">
+<div data-event="{{json event}}" class="events-card col-lg-12">
   <div class="card">
     <div class="row row-striped">
       <div class="col-xs-3 text-right date-info">
-        <h1><span class="badge badge-secondary">{{event.day}}</span></h1>
-        <h3>{{event.month}}</h3>
+        <div class="h3"><span class="badge badge-secondary">{{event.day}}</span></div>
+        <div class="h5 m-0">{{event.month}}</div>
       </div>
       <div class="col-xs-9">
-        <h4>
+        <h4 class="h5">
           <strong>{{event.title}}</strong>
-          <i style="cursor: pointer; font-size: 18px" class="ml-1 btn-edit-event fa fa-edit"></i>
+          <i style="cursor: pointer; font-size: 18px" class="ml-1 btn-edit-event fa fa-edit pull-right"></i>
         </h4>
-      
-        <ul class="list-inline">
-            <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{event.dayOfTheWeek}}</li>
-          <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.fromTo}} Uhr</li>
+        <ul class="list-inline m-0">
+          <li class="list-inline-item"><i class="fa fa-calendar-o" aria-hidden="true"></i> {{event.dayOfTheWeek}}</li>
+          <li class="list-inline-item"><i class="fa fa-clock-o" aria-hidden="true"></i> {{event.fromTo}}</li>
           {{#if event.location}}
             <li class="list-inline-item"><i class="fa fa-location-arrow" aria-hidden="true"></i> {{event.location}}</li>
           {{/if}}
         </ul>
-        <p>{{event.description}}</p>
+        <p class="card-description">{{event.description}}</p>
       </div>
     </div>
   </div>
