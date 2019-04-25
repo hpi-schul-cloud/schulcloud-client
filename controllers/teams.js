@@ -136,11 +136,11 @@ const copyCourseHandler = (req, res, next) => {
 		classesPromise,
 		teachersPromise,
 		studentsPromise,
-	]).then(([course, Classes, Teachers, Students]) => {
-		const classes = Classes.filter(c => c.schoolId === res.locals.currentSchool);
-		const teachers = Teachers.filter(t => t.schoolId === res.locals.currentSchool);
-		const students = Students.filter(s => s.schoolId === res.locals.currentSchool);
-		const substitutions = _.cloneDeep(teachers);
+	]).then(([course, classes, teachers, students]) => {
+		const classesOfCurrentSchool = classes.filter(c => c.schoolId === res.locals.currentSchool);
+		const teachersOfCurrentSchool = teachers.filter(t => t.schoolId === res.locals.currentSchool);
+		const studentsOfCurrentSchool = students.filter(s => s.schoolId === res.locals.currentSchool);
+		const substitutions = _.cloneDeep(teachersOfCurrentSchool);
 
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
@@ -171,10 +171,10 @@ const copyCourseHandler = (req, res, next) => {
 			submitLabel: 'Kurs klonen',
 			closeLabel: 'Abbrechen',
 			course,
-			classes,
-			teachers: markSelected(teachers, _.map(course.teacherIds, '_id')),
+			classes: classesOfCurrentSchool,
+			teachers: markSelected(teachersOfCurrentSchool, _.map(course.teacherIds, '_id')),
 			substitutions,
-			students,
+			students: studentsOfCurrentSchool,
 		});
 	});
 };
@@ -502,8 +502,6 @@ router.get('/:teamId', async (req, res, next) => {
 			events = [];
 		}
 
-		// const test = course.user.permissions.includes('EDIT_ALL_FILES');
-
 		res.render('teams/team', Object.assign({}, course, {
 			title: course.name,
 			breadcrumb: [{
@@ -752,13 +750,10 @@ router.get('/:teamId/members', async (req, res, next) => {
 					'teamadministrator', 'teamowner'],
 			},
 		},
-	}).then((Roles) => {
-		const roles = Roles.data;
-		return roles.map((role) => {
-			role.label = roleTranslations[role.name];
-			return role;
-		});
-	});
+	}).then(roles => roles.data.map((role) => {
+		role.label = roleTranslations[role.name];
+		return role;
+	}));
 
 	const getClasses = () => api(req).get('/classes', {
 		qs: { schoolId, $populate: ['year'], $limit },
