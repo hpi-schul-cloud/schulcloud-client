@@ -24,6 +24,7 @@
     "cookie-parser": "~1.4.3",
     "csv-parse": "^1.2.0",
     "debug": "~2.6.0",
+    "device-detector-js": "^1.1.0",
     "diff-dom": "^2.4.0",
     "express": "~4.14.1",
     "express-session": "^1.15.2",
