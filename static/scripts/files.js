@@ -811,7 +811,7 @@ window.fileViewer = function fileViewer(_type, name, id) {
 
 	// detect filetype according to line ending
 	if (type.length === 0) {
-		let fType = name.split('.');
+		const fType = name.split('.');
 		type = fileTypes[fType[fType.length - 1]] || '';
 	}
 
