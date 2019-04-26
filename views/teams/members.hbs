@@ -31,14 +31,15 @@
                             </button>
                         </div>
                     {{/inArray}}
-
                     {{#inArray "INVITE_EXPERTS" permissions}}
-                        <div class="col-sm-6">
-                            <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
-                            <button class="btn btn-primary btn-invite-external-member">
-                                Externe Teilnehmer einladen
-                            </button>
-                        </div>
+                        {{#inArray "teacher" ../userRoles}}
+                                <div class="col-sm-6">
+                                    <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
+                                    <button class="btn btn-primary btn-invite-external-member">
+                                        Externe Teilnehmer einladen
+                                    </button>
+                                </div>
+                        {{/inArray}}
                     {{/inArray}}
                 </div>
             </div>
