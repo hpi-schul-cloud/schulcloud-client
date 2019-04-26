@@ -233,8 +233,8 @@ $(document).ready(() => {
 			data: {
 				userIdToRemove,
 			},
-		}).done(() => {
-			location.reload();
+		}).done(() => { 
+			window.location.replace('/teams');
 		}).fail(() => {
 			$.showNotification('Problem beim Löschen des Teilnehmers', 'danger', true);
 		});
