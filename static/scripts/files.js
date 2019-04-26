@@ -606,7 +606,7 @@ $(document).ready(function() {
 
 				populateModalForm($shareModal, {
 					title: 'Freigabe-Link',
-					closeLabel: 'Abbrechen',
+					closeLabel: 'Schließen',
 					fields: {
 						invitation: link.newUrl,
 					}
