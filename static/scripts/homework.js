@@ -1,12 +1,11 @@
-﻿/* global CKEDITOR */
-/* eslint unicode-bom: "always" */
+/* global CKEDITOR */
 
 import { softNavigate } from './helpers/navigation';
 
 const getDataValue = function(attr) {
     return function() {
         const value = $('.section-upload').data(attr);
-        return value ? value : undefined;    
+        return value ? value : undefined;
     };
 };
 
@@ -102,7 +101,7 @@ $(document).ready(function() {
         const method  = element.attr("method");
         // update value of ckeditor instances
         let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
-        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
+        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
 		const content = element.serialize();
         if(contentTest){
             if(contentTest(content) == false){
@@ -328,7 +327,7 @@ $(document).ready(function() {
 
                 if( parentId ) {
                     params.parent = parentId;
-                }              
+                }
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', params , (data) => {
