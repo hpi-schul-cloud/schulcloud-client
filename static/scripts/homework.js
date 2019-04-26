@@ -1,5 +1,5 @@
 ﻿/* global CKEDITOR */
-/* eslint unicode-bom: "error" */
+/* eslint unicode-bom: "always" */
 
 import { softNavigate } from './helpers/navigation';
 
