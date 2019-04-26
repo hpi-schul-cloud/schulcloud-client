@@ -367,6 +367,7 @@ router.get('/:teamId/usersJson', (req, res, next) => {
 });
 
 router.get('/:teamId', async (req, res, next) => {
+	const { teamId } = req.params;
 	const isAllowed = (permissions, role) => {
 		const permission = permissions.find(p => p.roleName === role);
 		return Object.keys(permission).every(p => permission[p]);
@@ -501,7 +502,6 @@ router.get('/:teamId', async (req, res, next) => {
 		}
 
 		let test = course.user.permissions.includes('EDIT_ALL_FILES')
-
 		res.render('teams/team', Object.assign({}, course, {
 			title: course.name,
 			breadcrumb: [{
@@ -522,6 +522,7 @@ router.get('/:teamId', async (req, res, next) => {
 			canCreateFile: true,
 			canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
 			createEventAction: `/teams/${req.params.teamId}/events/`,
+			leaveTeamAction: `/teams/${teamId}/members`,
 			allowExternalExperts: allowExternalExperts ? 'checked' : '',
 			allowTeamMembers: allowTeamMembers ? 'checked' : '',
 			defaultFilePermissions: [],

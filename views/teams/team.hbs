@@ -38,6 +38,14 @@
                                 <i class="fa fa-edit" aria-hidden="true"></i> Team bearbeiten
                             </a>
                         {{/inArray}}
+                        {{#inArray "LEAVE_TEAM" ../permissions}}
+                            <a href="/teams/{{../_id}}/member"
+                            class="dropdown-item dropdown-leave-team"
+                            data-user-id="{{../userId}}"
+                            redirect="/teams/">
+                                <i class="fa fa-trash" aria-hidden="true"></i> Team verlassen
+                            </a>
+                        {{/inArray}}
                         {{#inArray "DELETE_TEAM" ../permissions}}
                             <a href="/teams/{{../_id}}/"
                             class="dropdown-item"
@@ -211,6 +219,12 @@
             {{#embed "lib/components/modal-form" class="file-permissions-modal" title="Freigabe-Einstellungen ändern"}}
                 {{#content "fields"}}
                     {{> "teams/forms/form-file-permissions" teamFiles=true}}
+                {{/content}}
+            {{/embed}}
+
+            {{#embed "lib/components/modal-form" action=leaveTeamAction class="leave-team-modal"}}
+                {{#content "fields"}}
+                    {{> "teams/forms/form-leave-team"}}
                 {{/content}}
             {{/embed}}
 

@@ -7,66 +7,66 @@ import 'jquery-datetimepicker';
  * @param event {object} - a event, maybe a course-event
  */
 function transformCourseOrTeamEvent(modal, event) {
-  if (event["x-sc-courseId"]) {
-      var courseId = event["x-sc-courseId"];
-      $.getJSON("/courses/" + courseId + "/json", function (course) {
-          var $title = modal.find(".modal-title");
-          $title.html($title.html() + " , Kurs: " + course.course.name);
+	if (event['x-sc-courseId']) {
+		const courseId = event['x-sc-courseId'];
+		$.getJSON(`/courses/${  courseId  }/json`, (course) => {
+			let $title = modal.find('.modal-title');
+			$title.html(`${$title.html()  } , Kurs: ${  course.course.name}`);
 
-          // if not teacher, not allow editing course events
-          if($('.create-course-event').length <= 0) {
-              modal.find(".modal-form :input").attr("disabled", true);
-          }
+			// if not teacher, not allow editing course events
+			if ($('.create-course-event').length <= 0) {
+				modal.find('.modal-form :input').attr('disabled', true);
+			}
 
-          // set fix course on editing
-          modal.find("input[name='scopeId']").attr("value", event["x-sc-courseId"]);
-          modal.find(".modal-form").append("<input name='courseId' value='" + courseId +"' type='hidden'>");
-          modal.find(".create-course-event").remove();
-          modal.find(".create-team-event").remove();
-      });
-  } else if (event["x-sc-teamId"]) {
-      var teamId = event["x-sc-teamId"];
-      $.getJSON("/teams/" + teamId + "/json", function (team) {
-          var $title = modal.find(".modal-title");
-          $title.html($title.html() + " , Team: " + team.team.name);
+			// set fix course on editing
+			modal.find("input[name='scopeId']").attr('value', event['x-sc-courseId']);
+			modal.find('.modal-form').append(`<input name='courseId' value='${  courseId }' type='hidden'>`);
+			modal.find('.create-course-event').remove();
+			modal.find('.create-team-event').remove();
+		});
+	} else if (event['x-sc-teamId']) {
+		const teamId = event['x-sc-teamId'];
+		$.getJSON(`/teams/${  teamId  }/json`, (team) => {
+			let $title = modal.find('.modal-title');
+			$title.html(`${$title.html()  } , Team: ${  team.team.name}`);
 
-          // if not teacher, not allow editing team events
-          if($('.create-team-event').length <= 0) {
-              modal.find(".modal-form :input").attr("disabled", true);
-          }
+			// if not teacher, not allow editing team events
+			if ($('.create-team-event').length <= 0) {
+				modal.find('.modal-form :input').attr('disabled', true);
+			}
 
-          // set fix team on editing
-          modal.find("input[name='scopeId']").attr("value", event["x-sc-teamId"]);
-          modal.find(".modal-form").append("<input name='teamId' value='" + teamId +"' type='hidden'>");
-          modal.find(".create-team-event").remove();
-          modal.find(".create-course-event").remove();
-      });
-  }
+			// set fix team on editing
+			modal.find("input[name='scopeId']").attr('value', event['x-sc-teamId']);
+			modal.find('.modal-form').append(`<input name='teamId' value='${  teamId }' type='hidden'>`);
+			modal.find('.create-team-event').remove();
+			modal.find('.create-course-event').remove();
+		});
+	}
 }
 
-$(document).ready(function () {
-  var $createEventModal = $('.create-event-modal');
-  var $editEventModal = $('.edit-event-modal');
-  var $filePermissionsModal = $('.file-permissions-modal');
+$(document).ready(() => {
+	let $createEventModal = $('.create-event-modal');
+	let $editEventModal = $('.edit-event-modal');
+	let $filePermissionsModal = $('.file-permissions-modal');
 
-  let handler = {
-    get: function (target, name) {
+	const handler = {
+		get (target, name) {
       return name in target ?
         target[name] :
         '';
     },
-    set: function (obj, prop, value) {
+		set (obj, prop, value) {
       obj[prop] = value;
       // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler/set#Return_value
       return obj[prop] === value;
-    }
-  };
+    },
+	};
 
-  let state = new Proxy({
-    currentEvent: {},
-  }, handler);
+	const state = new Proxy({
+		currentEvent: {},
+	}, handler);
 
-  $('.btn-create-event').click(function (e) {
+	$('.btn-create-event').click((e) => {
     // open create event modal
     var _startDate = moment().format("DD.MM.YYYY HH:mm");
     var _endDate = moment().add(1, 'hour').format("DD.MM.YYYY HH:mm");
@@ -90,7 +90,7 @@ $(document).ready(function () {
     $createEventModal.appendTo('body').modal('show');
   });
 
-  $('.btn-edit-event').click(function (e) {
+	$('.btn-edit-event').click(function (e) {
     e.preventDefault();	
     const event = $(this).parents('.events-card').data('event');
     event.start = moment(event.start);
@@ -106,7 +106,7 @@ $(document).ready(function () {
     if (event.url) {
         window.location.href = event.url;
         return false;
-    } else {
+    } 
         // personal event
         event.startDate = event.start.format("DD.MM.YYYY HH:mm");
         event.endDate = (event.end || event.start).format("DD.MM.YYYY HH:mm");
@@ -130,10 +130,10 @@ $(document).ready(function () {
             });
         });
         $editEventModal.appendTo('body').modal('show');
-    }
+    
   });
-  
-  $editEventModal.on('submit', function (e) {
+
+	$editEventModal.on('submit', (e) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -147,7 +147,7 @@ $(document).ready(function () {
     });
   });
 
-  $('.btn-file-permissions').click(function (e) {
+	$('.btn-file-permissions').click((e) => {
     populateModalForm($filePermissionsModal, {
         title: 'Freigabe-Einstellungen ändern',
         closeLabel: 'Abbrechen',
@@ -156,7 +156,7 @@ $(document).ready(function () {
     $filePermissionsModal.appendTo('body').modal('show');
   });
 
-  $('.file-permissions-modal form').on('submit', function (e) {
+	$('.file-permissions-modal form').on('submit', (e) => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -201,4 +201,44 @@ $(document).ready(function () {
       $.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
     });
   });
+
+	/**
+   	* Leave Team
+   	*
+   	*/
+	$('.dropdown-leave-team').click(function leaveTeam(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const $leaveTeamModal = $('.leave-team-modal');
+		const userId = $(this).data('user-id');
+		populateModalForm($leaveTeamModal, {
+			title: 'Team verlassen',
+			closeLabel: 'Abbrechen',
+			submitLabel: 'Team verlassen',
+			payload: { userId },
+		});
+
+		const $modalForm = $leaveTeamModal.find('.modal-form');
+		$leaveTeamModal.appendTo('body').modal('show');
+	});
+
+	$('.leave-team-modal form').on('submit', function leaveTeamModal(e) {
+		e.stopPropagation();
+		e.preventDefault();
+		const userIdToRemove = $(this).data('payload').userId;
+
+		$.ajax({
+			url: $(this).attr('action'),
+			method: 'DELETE',
+			data: {
+				userIdToRemove,
+			},
+		}).done(() => {
+			location.reload();
+		}).fail(() => {
+			$.showNotification('Problem beim Löschen des Teilnehmers', 'danger', true);
+		});
+
+		return false;
+	});
 });
