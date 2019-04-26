@@ -1,4 +1,6 @@
-﻿import { softNavigate } from './helpers/navigation';
+﻿/* eslint-env CKEDITOR */
+
+import { softNavigate } from './helpers/navigation';
 
 const getDataValue = function(attr) {
     return function() {
@@ -66,13 +68,12 @@ window.addEventListener("DOMContentLoaded", function(){
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(function() {
-	CKEDITOR.instances.evaluation.on('change', () => { 
+	CKEDITOR.instances.evaluation.on('change', () => {
 		const submitButton = document.getElementById('button-save-submission');
-		let content = CKEDITOR.instances.evaluation.document.getBody().getText();
-		if(!content.trim()) {
+		const content = CKEDITOR.instances.evaluation.document.getBody().getText();
+		if (!content.trim()) {
 			submitButton.disabled = true;
-		}
-		else{
+		} else {
 			submitButton.disabled = false;
 		}
 	});
