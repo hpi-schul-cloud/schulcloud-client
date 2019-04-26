@@ -1,4 +1,4 @@
-﻿/* eslint-env CKEDITOR */
+﻿/* global CKEDITOR */
 
 import { softNavigate } from './helpers/navigation';
 
