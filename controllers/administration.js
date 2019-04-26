@@ -986,7 +986,7 @@ const getStudentUpdateHandler = () => {
 	return async function (req, res, next) {
 
 		if (req.body.birthday) {
-			let birthday = req.body.birthday.split('.');
+			const birthday = req.body.birthday.split('.');
 			req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
 		}
 
