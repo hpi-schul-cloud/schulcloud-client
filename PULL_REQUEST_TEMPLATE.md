@@ -13,6 +13,9 @@
 - [ ] Linter darf keine Probleme bei veränderten Dateien aufweisen
 - [ ] Kern-Logik ist hinter der API implementiert?
 
+## UX
+- [ ] UI-Änderungen wurden von der UX-Gruppe akzeptiert
+
 ## Tests
 - [ ] Test-Coverage darf durch PR nicht sinken
 - [ ] Unit-Tests und Integrations-Tests schreiben / ändern

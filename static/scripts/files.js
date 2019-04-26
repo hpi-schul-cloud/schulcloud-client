@@ -748,7 +748,7 @@ $(document).ready(() => {
     });
   };
 
-  $(".btn-file-move").one("click", function(e) {
+	$('.btn-file-move').on('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
     let $context = $(this);
@@ -811,7 +811,7 @@ window.fileViewer = function fileViewer(_type, name, id) {
 
 	// detect filetype according to line ending
 	if (type.length === 0) {
-		const fType = name.split('.');
+		let fType = name.split('.');
 		type = fileTypes[fType[fType.length - 1]] || '';
 	}
 
@@ -868,7 +868,7 @@ window.fileViewer = function fileViewer(_type, name, id) {
 /**
  * Show Google-Viewer/Office online in iframe, after user query (and set cookie)
  * @deprecated
- * */
+ **/
 function openInIframe(source) {
 	$('input.box').each(() => {
 		const mycookie = $.cookie($(this).attr('name'));

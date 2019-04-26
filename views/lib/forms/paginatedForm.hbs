@@ -1,22 +1,26 @@
 <form class="form sections-{{sections}} {{class}}" action="{{action}}{{#if sso}}/sso/{{account}}{{/if}}" method="{{method}}" autocomplete="off" >
-  {{#for 1 (add sections 1) 1}}
-    <input id="section-{{this}}" type="radio" name="stage" {{#ifvalue this value=1}}checked="checked"{{/ifvalue}}/>
-  {{/for}}
+	{{#for 1 (add sections 1) 1}}
+		<input id="section-{{this}}" type="radio" name="stage" {{#ifvalue this value=1}}checked="checked"{{/ifvalue}}/>
+	{{/for}}
 
-  <div class="stages">
-    {{#for 1 (add sections 1) 1}}
-      <label for="section-{{this}}">{{this}}</label>
-    {{/for}}
-  </div>
+	<div class="stages">
+		{{#for 1 (add sections 1) 1}}
+			<label for="section-{{this}}">{{this}}</label>
+		{{/for}}
+	</div>
 
-  <span class="progressbar"></span>
+	<span class="progressbar"></span>
 
-  <div class="panels mb-2">
-    {{#block "panels"}}{{/block}}
-  </div>
+	<div class="panels mb-2">
+		{{#block "panels"}}{{/block}}
+	</div>
 
-  {{#block "buttons"}}{{/block}}
-  <button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">Zurück</button>
-  <button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
-    data-next-label="Weiter" data-submit-label="{{#unless submit-label}}Absenden{{else}}{{submit-label}}{{/unless}}">Weiter</button>
+	{{#block "buttons"}}{{/block}}
+	<button id="prevSection" class="btn btn-secondary" type="button" disabled="disabled">Zurück</button>
+	{{#if isIE}}
+		{{#embed "registration/noIeInfo"}}{{/embed}}
+	{{else}}
+		<button id="nextSection" class="btn btn-primary pull-right" type="submit" value="Submit"
+	data-next-label="Weiter" data-submit-label="{{#unless submit-label}}Absenden{{else}}{{submit-label}}{{/unless}}">Weiter</button>
+	{{/if}}
 </form>
