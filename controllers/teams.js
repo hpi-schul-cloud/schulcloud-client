@@ -84,6 +84,29 @@ const deleteEventsForTeam = async (req, res, teamId) => {
   }
 };
 
+/**
+ * Check if current user is teamowner and if also
+ * other user is teamowner. Return false if only the
+ * current user is teamowner
+ *
+ * @param {name: String, userId, role} current
+ * @param {[{userId, role}]} others
+ */
+const checkIfUserCouldLeaveTeam = (current, others) => {
+	if (current.name !== 'teamowner') {
+		return true;
+	}
+
+	for (const user of others) {
+		if (user.userId !== current.userId
+			&& user.role === current.role) {
+			return true;
+		}
+	}
+
+	return false;
+};
+
 const markSelected = (options, values = []) =>
   options.map(option => {
     option.selected = values.includes(option._id);
@@ -572,19 +595,7 @@ router.get("/:teamId", async (req, res, next) => {
     // leave team
     const leaveTeamAction = `/teams/${teamId}/members`;
     // teamowner could not leave if there is no other teamowner
-    let couldLeave = true;
-    if (course.user.name === "teamowner") {
-      couldLeave = false;
-      for (const user of course.userIds) {
-        if (
-          user.userId !== course.user.userId &&
-          user.role === course.user.role
-        ) {
-          couldLeave = true;
-          break;
-        }
-      }
-    }
+    let couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
 
     const test = course.user.permissions.includes("EDIT_ALL_FILES");
     res.render(
@@ -913,7 +924,8 @@ router.get("/:teamId/members", async (req, res, next) => {
     const teamUserIds = team.userIds.map(user => user.userId._id);
     users = users.filter(user => !teamUserIds.includes(user._id));
     const currentSchool = team.schoolIds.filter(s => s._id === schoolId)[0];
-    const currentFederalStateId = currentSchool.federalState;
+	const currentFederalStateId = currentSchool.federalState;
+	let couldLeave = true; // will be set to false if current user is the only teamowner
 
     const rolesExternal = [
       {
@@ -950,6 +962,17 @@ router.get("/:teamId/members", async (req, res, next) => {
       return actions;
     };
 
+    const addDisabledButtonTrash = (actions = []) => {
+      if (permissions.includes("REMOVE_MEMBERS")) {
+        actions.push({
+          class: "btn-delete-member disabled",
+          title: "Das Verlassen des Teams erforder einen anderen Eigentümer",
+          icon: "trash"
+        });
+      }
+      return actions;
+    };
+
     const addButtonTrashClass = (actions = []) => {
       if (permissions.includes("REMOVE_MEMBERS")) {
         actions.push({
@@ -961,18 +984,40 @@ router.get("/:teamId/members", async (req, res, next) => {
       return actions;
     };
 
-    const body = team.userIds.map(user => [
-      user.userId.firstName || "",
-      user.userId.lastName || "",
-      roleTranslations[user.role.name],
-      user.userId.schoolId.name || "",
-      {
-        payload: {
-          userId: user.userId._id
-        }
-      },
-      addButtonTrash(addButtonEdit())
-    ]);
+
+	if (team.user.role.name === 'teamowner') {
+		couldLeave  = false;
+		for (const user of team.userIds) {
+			if (user.userId._id !== team.user.userId._id
+				&& user.role._id === team.user.role._id) {
+				couldLeave = true;
+				break;
+			}
+		}
+	}
+	
+
+    const body = team.userIds.map(user => {
+		let actions = [];
+		actions = addButtonEdit(actions);
+		if(!couldLeave && user.role.name === 'teamowner'){
+			actions = addDisabledButtonTrash(actions);
+		}else{
+			actions = addButtonTrash(actions);
+		}
+        return [
+			user.userId.firstName || "",
+			user.userId.lastName || "",
+			roleTranslations[user.role.name],
+			user.userId.schoolId.name || "",
+			{
+			payload: {
+				userId: user.userId._id
+			}
+			},
+			actions
+		]
+    });
 
     const bodyClasses = team.classes.map(c => [
       `${c.displayName || c.name} (${c.year ? c.year.name : ""})`,

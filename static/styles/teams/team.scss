@@ -86,6 +86,12 @@
   }
 }
 
+.section-team-members {
+  a.btn.disabled{
+    pointer-events: auto;
+  }
+}
+
 .create-course-event, .create-team-event {
   label {
       margin-right: 0.5rem;
