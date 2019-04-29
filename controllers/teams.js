@@ -56,13 +56,11 @@ const addThumbnails = (file) => {
 	return file;
 };
 
-const getSelectOptions = (req, service, query, values = []) => {
-	return api(req).get(`/${service}`, {
+const getSelectOptions = (req, service, query, values = []) => api(req).get(`/${service}`, {
 		qs: query,
 	}).then((data) => {
 		return data.data;
 	});
-};
 
 /**
  * Deletes all events from the given course, clear function
@@ -70,13 +68,13 @@ const getSelectOptions = (req, service, query, values = []) => {
  */
 const deleteEventsForTeam = async (req, res, teamId) => {
 	if (process.env.CALENDAR_SERVICE_ENABLED) {
-		let events = await api(req).get('/calendar/', {
+		const events = await api(req).get('/calendar/', {
 			qs: {
 				'scope-id': teamId,
 			},
 		});
 
-		for (let event of events) {
+		for (const event of events) {
 			try {
 				await api(req).delete(`/calendar/${event._id}`);
 			} catch (e) {
@@ -86,12 +84,10 @@ const deleteEventsForTeam = async (req, res, teamId) => {
 	}
 };
 
-const markSelected = (options, values = []) => {
-	return options.map((option) => {
+const markSelected = (options, values = []) => options.map((option) => {
 		option.selected = values.includes(option._id);
 		return option;
 	});
-};
 
 const editTeamHandler = (req, res, next) => {
 	let teamPromise; let action; let method;
@@ -147,13 +143,13 @@ const copyCourseHandler = (req, res, next) => {
 		classes = classes.filter(c => c.schoolId == res.locals.currentSchool);
 		teachers = teachers.filter(t => t.schoolId == res.locals.currentSchool);
 		students = students.filter(s => s.schoolId == res.locals.currentSchool);
-		let substitutions = _.cloneDeep(teachers);
+		const substitutions = _.cloneDeep(teachers);
 
 		// map course times to fit into UI
 		(course.times || []).forEach((time, count) => {
 			time.duration = time.duration / 1000 / 60;
 			const duration = moment.duration(time.startTime);
-			time.startTime = `${('00' + duration.hours()).slice(-2)}:${('00' + duration.minutes()).slice(-2)}`;
+			time.startTime = `${(`00${  duration.hours()}`).slice(-2)}:${(`00${  duration.minutes()}`).slice(-2)}`;
 			time.count = count;
 		});
 
@@ -259,10 +255,8 @@ router.post('/', async (req, res, next) => {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.untilDate;
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {delete req.body.startDate;}
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) {delete req.body.untilDate;}
 
 	if (req.body.rocketchat === 'true') {
 		req.body.features = ['rocketChat'];
@@ -289,10 +283,8 @@ router.post('/copy/:teamId', (req, res, next) => {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.untilDate;
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {delete req.body.startDate;}
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) {delete req.body.untilDate;}
 
 	req.body._id = req.params.teamId;
 
@@ -398,10 +390,9 @@ router.get('/:teamId', async (req, res, next) => {
 		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
 			try {
 				const rocketChatChannel = await api(req).get(`/rocketChat/channel/${req.params.teamId}`);
-				const rocketChatURL = process.env.ROCKET_CHAT_URI
+				const rocketChatURL = process.env.ROCKET_CHAT_URI;
 				rocketChatCompleteURL = `${rocketChatURL}/group/${rocketChatChannel.channelName}`;
-			}
-			catch (e) {
+			} catch (e) {
 				logger.warn(e);
 				rocketChatCompleteURL = undefined;
 			}
@@ -434,9 +425,9 @@ router.get('/:teamId', async (req, res, next) => {
 			if (file && file.permissions) {
 				file.permissions = mapPermissionRoles(file.permissions, roles);
 				return file;
-			} else {
+			} 
 				return undefined;
-			}
+			
 		});
 
 		directories = files.filter(f => f.isDirectory);
@@ -446,9 +437,9 @@ router.get('/:teamId', async (req, res, next) => {
 		files.sort(function (a, b) {
 			if (b && b.updatedAt && a && a.updatedAt) {
 				return new Date(b.updatedAt) - new Date(a.updatedAt);
-			} else {
+			} 
 				return 0;
-			}
+			
 		})
 			.slice(0, 6);
 
@@ -457,9 +448,9 @@ router.get('/:teamId', async (req, res, next) => {
 		directories.sort(function (a, b) {
 			if (b && b.updatedAt && a && a.updatedAt) {
 				return new Date(b.updatedAt) - new Date(a.updatedAt);
-			} else {
+			} 
 				return 0;
-			}
+			
 		})
 			.slice(0, 6);
 
@@ -489,8 +480,8 @@ router.get('/:teamId', async (req, res, next) => {
 			});
 
 			events = events.map((event) => {
-				let start = moment(event.start);
-				let end = moment(event.end);
+				const start = moment(event.start);
+				const end = moment(event.end);
 				event.day = start.format('D');
 				event.month = start.format('MMM').toUpperCase().split('.').join('');
 				event.dayOfTheWeek = start.format('dddd');
@@ -501,7 +492,23 @@ router.get('/:teamId', async (req, res, next) => {
 			events = [];
 		}
 
-		let test = course.user.permissions.includes('EDIT_ALL_FILES')
+		// leave team
+		const leaveTeamAction = `/teams/${teamId}/members`;
+		// teamowner could not leave if there is no other teamowner 
+		let couldLeave = true;
+		if (course.user.name === 'teamowner') {
+			couldLeave = false;
+			for (const user of course.userIds) {
+				if (user.userId !== course.user.userId
+					&& user.role === course.user.role) {
+					couldLeave = true;
+					break;
+				}
+			}
+		}
+
+
+		const test = course.user.permissions.includes('EDIT_ALL_FILES');
 		res.render('teams/team', Object.assign({}, course, {
 			title: course.name,
 			breadcrumb: [{
@@ -522,7 +529,8 @@ router.get('/:teamId', async (req, res, next) => {
 			canCreateFile: true,
 			canEditPermissions: course.user.permissions.includes('EDIT_ALL_FILES'),
 			createEventAction: `/teams/${req.params.teamId}/events/`,
-			leaveTeamAction: `/teams/${teamId}/members`,
+			leaveTeamAction,
+			couldLeave,
 			allowExternalExperts: allowExternalExperts ? 'checked' : '',
 			allowTeamMembers: allowTeamMembers ? 'checked' : '',
 			defaultFilePermissions: [],
@@ -552,10 +560,8 @@ router.patch('/:teamId', async (req, res, next) => {
 	req.body.startDate = moment(req.body.startDate, 'DD:MM:YYYY')._d;
 	req.body.untilDate = moment(req.body.untilDate, 'DD:MM:YYYY')._d;
 
-	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.startDate;
-	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid()))
-		delete req.body.untilDate;
+	if (!(moment(req.body.startDate, 'YYYY-MM-DD').isValid())) {delete req.body.startDate;}
+	if (!(moment(req.body.untilDate, 'YYYY-MM-DD').isValid())) {delete req.body.untilDate;}
 
 	// first delete all old events for the course
 	// deleteEventsForCourse(req, res, req.params.teamId).then(async _ => {
@@ -654,7 +660,7 @@ router.put('/events/:eventId', (req, res, next) => {
 });
 
 router.get('/:teamId/news/new', async (req, res, next) => {
-	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`)
+	res.redirect(`/news/new?context=teams&contextId=${req.params.teamId}`);
 });
 
 /*
@@ -905,8 +911,8 @@ router.get('/:teamId/members', async (req, res, next) => {
 router.post('/:teamId/members', async (req, res, next) => {
 	try {
 		const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-		let userIds = courseOld.userIds.concat(req.body.userIds);
-		let classIds = req.body.classIds;
+		const userIds = courseOld.userIds.concat(req.body.userIds);
+		const classIds = req.body.classIds;
 
 		await api(req).patch(`/teams/${req.params.teamId}`, {
 			json: {
@@ -961,8 +967,8 @@ router.post('/external/invite', (req, res) => {
 
 router.delete('/:teamId/members', async (req, res, next) => {
 	const courseOld = await api(req).get(`/teams/${req.params.teamId}`);
-	let userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
-	let classIds = courseOld.classIds.filter(_class => _class !== req.body.classIdToRemove);
+	const userIds = courseOld.userIds.filter(user => user.userId !== req.body.userIdToRemove);
+	const classIds = courseOld.classIds.filter(_class => _class !== req.body.classIdToRemove);
 
 	await api(req).patch(`/teams/${req.params.teamId}`, {
 		json: {
@@ -1041,12 +1047,10 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			},
 		}),
 	]).then(([course, lessons, homeworks, courseGroups]) => {
-		let ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
-		lessons = (lessons.data || []).map((lesson) => {
-			return Object.assign(lesson, {
+		const ltiToolIds = (course.ltiToolIds || []).filter(ltiTool => ltiTool.isTemplate !== 'true');
+		lessons = (lessons.data || []).map((lesson) => Object.assign(lesson, {
 				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
-			});
-		});
+			}));
 
 		homeworks = (homeworks.data || []).map((assignment) => {
 			assignment.url = `/homework/${assignment._id}`;
@@ -1056,20 +1060,20 @@ router.get('/:teamId/topics', async (req, res, next) => {
 		homeworks.sort((a, b) => {
 			if (a.dueDate > b.dueDate) {
 				return 1;
-			} else {
+			} 
 				return -1;
-			}
+			
 		});
 
-		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
-			courseGroups.data || [] :
-			(courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+		courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT')
+			? courseGroups.data || []
+			: (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 		res.render('teams/topics', Object.assign({}, course, {
 			title: course.name,
 			lessons,
-			homeworks: homeworks.filter(function (task) { return !task.private; }),
-			myhomeworks: homeworks.filter(function (task) { return task.private; }),
+			homeworks: homeworks.filter((task) => { return !task.private; }),
+			myhomeworks: homeworks.filter((task) => { return task.private; }),
 			ltiToolIds,
 			courseGroups,
 			breadcrumb: [{
@@ -1091,7 +1095,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 });
 
 router.patch('/:teamId/positions', (req, res, next) => {
-	for (var elem in req.body) {
+	for (let elem in req.body) {
 		api(req).patch(`/lessons/${elem}`, {
 			json: {
 				position: parseInt(req.body[elem]),
@@ -1104,7 +1108,7 @@ router.patch('/:teamId/positions', (req, res, next) => {
 });
 
 router.post('/:teamId/importTopic', (req, res, next) => {
-	let shareToken = req.body.shareToken;
+	const shareToken = req.body.shareToken;
 	// try to find topic for given shareToken
 	api(req).get('/lessons/', { qs: { shareToken, $populate: ['teamId'] } }).then((lessons) => {
 		if ((lessons.data || []).length <= 0) {
@@ -1124,27 +1128,23 @@ router.post('/:teamId/importTopic', (req, res, next) => {
 });
 
 // return shareToken
-router.get('/:id/share', (req, res, next) => {
-	return api(req).get(`/teams/share/${req.params.id}`)
+router.get('/:id/share', (req, res, next) => api(req).get(`/teams/share/${req.params.id}`)
 		.then((course) => {
 			return res.json(course);
-		});
-});
+		}));
 
 // return course Name for given shareToken
-router.get('/share/:id', (req, res, next) => {
-	return api(req).get('/teams/share', { qs: { shareToken: req.params.id } })
+router.get('/share/:id', (req, res, next) => api(req).get('/teams/share', { qs: { shareToken: req.params.id } })
 		.then((name) => {
 			return res.json({ msg: name, status: 'success' });
 		})
 		.catch((err) => {
 			return res.json({ msg: 'ShareToken is not in use.', status: 'error' });
-		});
-});
+		}));
 
 router.post('/import', (req, res, next) => {
-	let shareToken = req.body.shareToken;
-	let courseName = req.body.name;
+	const shareToken = req.body.shareToken;
+	const courseName = req.body.name;
 
 	api(req).post('/teams/share', { json: { shareToken, courseName } })
 		.then((course) => {
