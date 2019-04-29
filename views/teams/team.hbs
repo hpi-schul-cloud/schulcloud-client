@@ -107,7 +107,7 @@
                                         <div class="row">
                                             {{#each ../directories}}
                                                 <div class="col-sm-6 col-xs-12 col-md-4">
-                                                    <div class="card card-block folder" onclick="location.href = '/files/teams/{{../_id}}/{{this._id}}';">
+                                                    <div class="card card-block folder" onclick="location.href = '/files/teams/{{../../_id}}/{{this._id}}';">
                                                         <strong class="card-title-directory">
                                                             <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
                                                         </strong>
@@ -131,7 +131,7 @@
                                                             >
                                                                 <i class="fa fa-edit pull-right"></i>
                                                             </a>
-                                                            {{#inArray "EDIT_ALL_FILES" ../../permissions}}
+                                                            {{#inArray "EDIT_ALL_FILES" ../../../permissions}}
                                                                 <a href="/directoryModel/{{../this._id}}/share"
                                                                 target="_blank"
                                                                 class="btn-file-share"
@@ -162,15 +162,17 @@
                                 </section>
 
                                 <section style="margin-top: 1rem">
-                                    <h5 style="padding: 10px 0 20px">Aktionen</h5>
+                                    <h5 style="padding: 10px 0 20px">Datei-Aktionen</h5>
 
-                                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
+                                        <i class="fa fa-folder-open"></i> Zu den Team-Dateien
+                                    </a>
                                     <button class="btn btn-add btn-secondary btn-file-permissions">
-                                        Freigabe-Einstellungen ändern
+                                        <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
                                     </button>
                                     {{#if ../canCreateDir}}
                                         <span class="btn btn-secondary create-directory">
-                                            <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                            <i class="fa fa-folder" aria-hidden="true"></i> Ordner erstellen
                                         </span>
                                     {{/if}}
                                     {{!-- {{#if ../canCreateFile}}
