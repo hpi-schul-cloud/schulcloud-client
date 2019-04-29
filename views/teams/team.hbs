@@ -13,6 +13,7 @@
         <script src="/scripts/dropzone/dropzone.js" type="text/javascript" defer></script>
         <script src="/scripts/files.js" type="text/javascript" defer></script>
         <script src="/scripts/teams.js" type="text/javascript" defer></script>
+        <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
     {{/content}}
 
     {{#content "page"}}
@@ -20,8 +21,8 @@
 
         <section class="section-teams" data-id="{{../_id}}">
             <a href="/teams/{{_id}}/members" class="btn-member" title="Teammitglieder">
-                {{arrayLength course.userIds}}
                 <i class="fa fa-users"></i>
+                {{arrayLength course.userIds}}
             </a>
             <div class="dropdown dropdown-title minimal-button">
                 <a class="dropdown-toggle btn-title-dropdown" title="Weiteres" data-toggle="dropdown">
@@ -43,7 +44,7 @@
                             class="dropdown-item dropdown-leave-team"
                             data-user-id="{{../userId}}"
                             redirect="/teams/">
-                                <i class="fa fa-trash" aria-hidden="true"></i> Team verlassen
+                                <i class="fa fa-sign-out" aria-hidden="true"></i> Team verlassen
                             </a>
                         {{/inArray}}
                         {{#inArray "DELETE_TEAM" ../permissions}}
@@ -75,9 +76,144 @@
             </section>
             {{/if}}
 
-            <section class="row">
+
+            <div class="course-card">
+                <div class="tabContainer">
+                    <div class="tabs" data-max-width="1024">
+                        <button class="tab" data-tab="a">
+                            <span class="text">Dateien</span>
+                        </button>
+                        <button class="tab" data-tab="b">
+                            <span class="text">Neuigkeiten</span>
+                        </button>
+                        <button class="tab" data-tab="c">
+                            <span class="text">Termine</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="sectionsContainer">
+                    <div class="sections">
+                        <!-- Dateien -->
+                        <div class="section" data-section="a">
+                            {{#if canUploadFile}}
+                                    {{#embed "files/file-upload"}}{{/embed}}
+                                {{/if}}
+
+                                {{#ifneq 0 (arrayLength directories)}}
+                                    <section style="margin-top: 1rem" class="directories">
+                                        <h5 style="color: #373a3c">Ordner</h5>
+                                        <div class="row">
+                                            {{#each ../directories}}
+                                                <div class="col-sm-6 col-xs-12 col-md-4">
+                                                    <div class="card card-block folder" onclick="location.href = '/files/teams/{{../_id}}/{{this._id}}';">
+                                                        <strong class="card-title-directory">
+                                                            <i class="fa fa-folder" aria-hidden="true"></i> {{this.name}}
+                                                        </strong>
+                                                        {{#userHasPermission "FOLDER_DELETE"}}
+                                                            <a href="/files/directory/"
+                                                            target="_blank"
+                                                            data-method="delete"
+                                                            title="Ordner löschen"
+                                                            data-file-name="{{../this.name}}"
+                                                            data-file-id="{{../this._id}}"
+                                                            >
+                                                                <i class="fa fa-trash-o pull-right"></i>
+                                                            </a>
+
+                                                            <a href="/directoryModel/{{../this._id}}/rename"
+                                                            target="_blank"
+                                                            data-method="dir-rename"
+                                                            title="Ordner umbenennen"
+                                                            data-directory-id="{{../this._id}}"
+                                                            data-directory-name="{{../this.name}}"
+                                                            >
+                                                                <i class="fa fa-edit pull-right"></i>
+                                                            </a>
+                                                            {{#inArray "EDIT_ALL_FILES" ../../permissions}}
+                                                                <a href="/directoryModel/{{../this._id}}/share"
+                                                                target="_blank"
+                                                                class="btn-file-share"
+                                                                data-method="dir-share"
+                                                                title="Ordner-Freigabe"
+                                                                data-file-id="{{../this._id}}"
+                                                                data-file-name="{{../this.name}}"
+                                                                >
+                                                                    <i class="fa fa-share-alt pull-right"></i>
+                                                                </a>
+                                                            {{/inArray}}
+                                                        {{/userHasPermission}}
+                                                    </div>
+                                                </div>
+                                            {{/each}}
+                                        </div>
+                                    </section>
+                                {{/ifneq}}
+
+                                <section style="padding-top: 2rem; clear: both" class="row">
+                                    <div class="col-sm-12">
+                                        {{#ifneq 0 (arrayLength files)}}
+                                            <h5 style="padding: 10px 0 20px">Dateien</h5>
+                                        {{/ifneq}}
+                                        {{#embed "files/file-viewer"}}{{/embed}}
+                                        {{#embed "files/files-grid" files=files teamFiles=true canEditPermissions=canEditPermissions teamId=../_id}}{{/embed}}
+                                    </div>
+                                </section>
+
+                                <section style="margin-top: 1rem">
+                                    <h5 style="padding: 10px 0 20px">Aktionen</h5>
+
+                                    <a href="{{filesUrl}}" class="btn btn-add btn-secondary">Zu den Team-Dateien</a>
+                                    <button class="btn btn-add btn-secondary btn-file-permissions">
+                                        Freigabe-Einstellungen ändern
+                                    </button>
+                                    {{#if ../canCreateDir}}
+                                        <span class="btn btn-secondary create-directory">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                        </span>
+                                    {{/if}}
+                                    {{!-- {{#if ../canCreateFile}}
+                                        <span class="btn btn-secondary new-file" data-file-path="{{this.path}}">
+                                            <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
+                                        </span>
+                                    {{/if}}                 --}}
+                                </section>
+
+                        </div>
+                        <!--- Neuigkeiten -->
+                        <div class="section" data-section="b">
+                            {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
+                            <a href="/teams/{{../_id}}/news" class="pull-right">
+                                Alle Neuigkeiten...
+                            </a>
+                            {{#inArray "CREATE_NEWS" permissions}}
+                                <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
+                                    <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
+                                </a>
+                            {{/inArray}}
+                        </div>
+                        <!-- Termine -->
+                        <div class="section" data-section="c">
+                            <div class="row">
+                                {{#each ../events}}
+                                    {{> 'calendar/card' event=this}}
+                                {{/each}}
+                            </div>
+                            <div style="margin-top: .5rem">
+                                {{#inArray "CREATE_NEWS" permissions}}
+                                    <button class="btn btn-add btn-primary btn-create-event pull-right">
+                                        Termin anlegen
+                                    </button>
+                                {{/inArray}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+{{!--             <section class="row">
                 <div class="col-sm-12">
-                    <h3 class="h4">Aktuelle Neuigkeiten</h3>
+                    <h3 class="h4">Neues vom Team</h3>
                     {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                     <a href="/teams/{{../_id}}/news" class="pull-right">
                         Alle Neuigkeiten...
@@ -88,9 +224,9 @@
                         </a>
                     {{/inArray}}
                 </div>
-            </section>
+            </section> --}}
 
-            <section class="row">
+{{!--             <section class="row">
                 <div class="col-sm-12">
                     <h4>Termine</h4>
                     <div class="row">
@@ -100,15 +236,15 @@
                     </div>
                     <div style="margin-top: .5rem">
                         {{#inArray "CREATE_NEWS" permissions}}
-                            <button class="btn btn-add btn-primary btn-create-event">
+                            <button class="btn btn-add btn-primary btn-create-event pull-right">
                                 Termin anlegen
                             </button>
                         {{/inArray}}
                     </div>
                 </div>
             </section>
-
-            <section>
+ --}}
+{{!--             <section>
                 <h4>Dateien & Ordner</h4>
             </section>
 
@@ -189,7 +325,7 @@
                         <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
                     </span>
                 {{/if}}                 --}}
-            </section>
+{{!--             </section> --}}
 
             <section class="row">
                 <div class="col-sm-12">

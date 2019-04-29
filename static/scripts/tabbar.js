@@ -25,6 +25,9 @@ var app = {
             tabs[ii].addEventListener('click', function() {
               app.tabs.setActiveTab.call(this);
             }, false);
+            tabs[ii].addEventListener('mousedown', function(event) {
+              event.preventDefault();
+            }, false);
           }
         }
 
