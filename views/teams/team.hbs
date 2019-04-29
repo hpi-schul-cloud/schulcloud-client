@@ -38,14 +38,16 @@
                                 <i class="fa fa-edit" aria-hidden="true"></i> Team bearbeiten
                             </a>
                         {{/inArray}}
-                        {{#inArray "LEAVE_TEAM" ../permissions}}
-                            <a href="/teams/{{../_id}}/member"
-                            class="dropdown-item dropdown-leave-team"
-                            data-user-id="{{../userId}}"
-                            redirect="/teams/">
-                                <i class="fa fa-trash" aria-hidden="true"></i> Team verlassen
-                            </a>
-                        {{/inArray}}
+                        {{#if ../couldLeave}}
+                            {{#inArray "LEAVE_TEAM" ../permissions}}
+                                <a href="/teams/{{../_id}}/member"
+                                class="dropdown-item dropdown-leave-team"
+                                data-user-id="{{../userId}}"
+                                redirect="/teams/">
+                                    <i class="fa fa-trash" aria-hidden="true"></i> Team verlassen
+                                </a>
+                            {{/inArray}}
+                        {{/if}}
                         {{#inArray "DELETE_TEAM" ../permissions}}
                             <a href="/teams/{{../_id}}/"
                             class="dropdown-item"
