@@ -186,11 +186,11 @@
                         <!--- Neuigkeiten -->
                         <div class="section" data-section="b">
                             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
-                            <a href="/teams/{{../_id}}/news" class="pull-right">
-                                Alle Neuigkeiten...
+                            <a href="/teams/{{../_id}}/news" class="">
+                                Alle Neuigkeiten anzeigen...
                             </a>
                             {{#inArray "CREATE_NEWS" permissions}}
-                                <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary">
+                                <a href="/teams/{{../_id}}/news/new" class="btn btn-add btn-primary pull-right">
                                     <i class="fa fa-plus" aria-hidden="true"></i> Neuigkeit anlegen
                                 </a>
                             {{/inArray}}
