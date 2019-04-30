@@ -30,6 +30,8 @@
         text-shadow: none;
         padding: 4px 8px;
     }
+
+    //background-image: linear-gradient(225deg, #E4032E 0%, #A90007 100%);
     .sc-card-header {
         display: flex;
         flex-direction: row;
@@ -39,7 +41,7 @@
         padding: 1rem 1rem .5rem;
         color: #fff;
         text-decoration: none !important;
-        background-color: #70b5ce;
+        background-color: $primaryColor;
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
         &::before {
