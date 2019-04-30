@@ -42,6 +42,7 @@
         color: #fff;
         text-decoration: none !important;
         background-color: $primaryColor;
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.25) ,rgba(255, 255, 255, 0));
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
         &::before {
