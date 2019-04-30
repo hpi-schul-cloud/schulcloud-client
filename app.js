@@ -60,7 +60,8 @@ app.use(function (req, res, next) {
     res.locals.inline = req.query.inline || false;
     res.locals.theme = {
         title: process.env.SC_TITLE || "HPI Schul-Cloud",
-        short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
+		short_title: process.env.SC_SHORT_TITLE || "Schul-Cloud",
+		federalstate: process.env.SC_FEDERALSTATE || "Brandenburg",
     };
     res.locals.domain = process.env.SC_DOMAIN || false;
     delete req.session.notification;
