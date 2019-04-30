@@ -92,19 +92,20 @@ $(document).ready(() => {
         $selection.chosen().trigger("chosen:updated");
     };* */
 
-	$('.template_tool').on('click', (e) => {
+	$('.template_tool').on('click', function addTool(e) {
 		e.preventDefault();
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
-			if (result.tool.isLocal) {
-				createLocalTool($editModal, result.tool);
+			const tool = result.tool[0];
+			if (tool.isLocal) {
+				createLocalTool($editModal, tool);
 			} else {
 				populateModalForm($editModal, {
 					closeLabel: 'Abbrechen',
 					submitLabel: 'Speichern',
-					fields: result.tool,
+					fields: tool,
 				});
-				populateCustomFields($editModal, result.tool.customs);
+				populateCustomFields($editModal, tool.customs);
 				$editModal.appendTo('body').modal('show');
 			}
 		});
