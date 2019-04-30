@@ -122,11 +122,13 @@ aside.nav-sidebar {
             vertical-align: top;
             width: 174px;
             height: 41px;
-            background: url("../../images/logo/main-logo-loggedin.png") no-repeat center;
+            background: url("../../images/logo/logo-with-text.png") no-repeat center;
             background-size: contain;
             @include media-breakpoint-down(md) {
-                width: 100%;
-                margin-right: 0;
+				background: url("../../images/logo/logo-only.png") no-repeat center;
+				width: 45px;
+				margin-left: -3px;
+				background-size: contain;
             }
             @include media-breakpoint-down(xs) {
                 width: 45px;
