@@ -1,20 +1,37 @@
+/* eslint-disable no-undef */
+
 $(document).ready(() => {
 	const $modals = $('.modal');
 	const $editModal = $('.edit-modal');
 	let customFieldCount = 0;
 
 	function guidGenerator() {
-		const S4 = function () {
-			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+		const S4 = function guid() {
+			return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1); // eslint-disable-line no-bitwise
 		};
 		return (`${S4() + S4()}-${S4()}-${S4()}-${S4()}-${S4()}${S4()}${S4()}`);
 	}
 
-	const deleteCustomField = function (customFieldId) {
+	const deleteCustomField = function deleteCustomField(customFieldId) {
 		$(`#${customFieldId}`).remove();
 	};
 
-	const addNewCustomField = function (modal) {
+	const populateCustomField = function populateCustomField($customFields, field) {
+		if (!field.key || field.key === '') return;
+
+		const _id = guidGenerator();
+		const $field = $(`<div id='${_id}'>Key: ${field.key}, Value: ${field.value}</div>`)
+			.append($(`<input name='customs[${customFieldCount}][key]' value='${field.key}' type='hidden'></input>`))
+			.append(
+				$(`<input name='customs[${customFieldCount}][value]' value='${field.value}' type='hidden'></input>`),
+			)
+			.append($("<i class='fa fa-trash-o custom-field-delete' />")
+				.click(deleteCustomField.bind(this, _id)));
+		$customFields.append($field);
+		customFieldCount += 1;
+	};
+
+	const addNewCustomField = function addNewCustomField(modal) {
 		const $customFields = modal.find('.custom-fields');
 		const $newCustomFieldKey = modal.find('.new-custom-field-key');
 		const $newCustomFieldValue = modal.find('.new-custom-field-value');
@@ -26,20 +43,7 @@ $(document).ready(() => {
 		$newCustomFieldValue.val('');
 	};
 
-	var populateCustomField = function ($customFields, field) {
-		if (!field.key || field.key == '') return;
-
-		const _id = guidGenerator();
-		const $field = $(`<div id='${_id}'>Key: ${field.key}, Value: ${field.value}</div>`)
-			.append($(`<input name='customs[${customFieldCount}][key]' value='${field.key}' type='hidden'></input>`))
-			.append($(`<input name='customs[${customFieldCount}][value]' value='${field.value}' type='hidden'></input>`))
-			.append($("<i class='fa fa-trash-o custom-field-delete' />")
-				.click(deleteCustomField.bind(this, _id)));
-		$customFields.append($field);
-		customFieldCount++;
-	};
-
-	const populateCustomFields = function (modal, customFields) {
+	const populateCustomFields = function populateCustomFields(modal, customFields) {
 		const $customFields = modal.find('.custom-fields');
 
 		// cleanup
@@ -56,7 +60,7 @@ $(document).ready(() => {
      * @param modal {Modal} - the modal which has the post-action and the courseId
      * @param tool {object} - the tool which will be created
      */
-	const createLocalTool = function (modal, tool) {
+	const createLocalTool = function createLocalTool(modal, tool) {
 		const $modalForm = modal.find('.modal-form');
 		const href = $modalForm.attr('action');
 		const courseId = $modalForm.find("input[name='courseId']").val();
@@ -88,7 +92,7 @@ $(document).ready(() => {
         $selection.chosen().trigger("chosen:updated");
     };* */
 
-	$('.template_tool').on('click', function (e) {
+	$('.template_tool').on('click', (e) => {
 		e.preventDefault();
 		const entry = $(this).attr('href');
 		$.getJSON(entry, (result) => {
