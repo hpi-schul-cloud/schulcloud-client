@@ -580,7 +580,7 @@ router.get("/:teamId", async (req, res, next) => {
     // leave team
     const leaveTeamAction = `/teams/${teamId}/members`;
     // teamowner could not leave if there is no other teamowner
-    let couldLeave = true;//checkIfUserCouldLeaveTeam(course.user, course.userIds);
+    let couldLeave = checkIfUserCouldLeaveTeam(course.user, course.userIds);
     
     res.render(
       "teams/team",
