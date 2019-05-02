@@ -18,8 +18,7 @@
 
     {{#content "page"}}
      <div id="team-wrapper">
-
-        <section class="section-teams" data-id="{{../_id}}">
+        <section class="section-teams {{#if rocketChatURL}}section-teams-rocket{{/if}}" data-id="{{../_id}}">
             <div class="dropdown dropdown-title minimal-button">
                 <a class="dropdown-toggle btn-title-dropdown" title="Weiteres" data-toggle="dropdown">
                     <h2 id="page-title" class="h4 title-headline">{{{stripOnlyScript ../name}}}</h2>
