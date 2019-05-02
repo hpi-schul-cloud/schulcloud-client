@@ -371,7 +371,7 @@ $(document).ready(function () {
 	/////////////
 	// Delete Member
 	/////////////
-	$('.btn-delete-member').click(function (e) {
+	$('.btn-delete-member:not(.disabled)').click(function (e) {
 		e.stopPropagation();
 		e.preventDefault();
 		let $deleteMemberModal = $('.delete-member-modal');
