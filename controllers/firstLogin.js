@@ -1,6 +1,9 @@
 const express = require('express');
+// const showdown = require('showdown');
 const authHelper = require('../helpers/authentication');
 const api = require('../api');
+
+// const converter = new showdown.Converter();
 
 const router = express.Router();
 
@@ -17,6 +20,72 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 		userId: res.locals.currentUser._id,
 	},
 });
+
+
+// /**
+//  * check api for new privacy statements after registration or last accepted date
+//  */
+// const userHasNewPrivacyRules = async (user, consent, req) => {
+// 	const dateOfPrivacyConsent = (consent.userConsent || {}).dateOfPrivacyConsent || user.createdAt;
+
+// 	const response = await api(req).get('/privacy', {
+// 		qs: {
+// 			publishedAt: {
+// 				$gt: dateOfPrivacyConsent,
+// 			},
+// 			$limit: 0,
+// 		},
+// 	});
+// 	if (response.total !== 0) {
+// 		return true;
+// 	}
+// 	return false;
+// };
+
+const userConsentsChanged = async (user, consent, req) => {
+	const dateOfPrivacyConsent = (consent.userConsent || {}).dateOfPrivacyConsent || user.createdAt;
+	const dateOfTermsOfUseConsent = (consent.userConsent || {}).dateOfTermsOfUseConsent || user.createdAt;
+	const newPrivacyVersions = await api(req).get('/consentVersions', {
+		qs: {
+			publishedAt: {
+				$gt: dateOfPrivacyConsent,
+			},
+			consentType: {
+				$in: 'privacy',
+			},
+			$limit: 1000,
+		},
+	});
+	const newTermsOfUseVersions = await api(req).get('/consentVersions', {
+		qs: {
+			publishedAt: {
+				$gt: dateOfTermsOfUseConsent,
+			},
+			consentType: {
+				$in: 'termsOfUse',
+			},
+			$limit: 1000,
+		},
+	});
+	return {
+		privacy: newPrivacyVersions,
+		termsOfUse: newTermsOfUseVersions,
+	};
+};
+
+// const newPrivacyRules = async (user, consent, req) => {
+// 	const dateOfPrivacyConsent = (consent.privacyConsent || {}).dateOfPrivacyConsent || user.createdAt;
+
+// 	const response = await api(req).get('/privacy', {
+// 		qs: {
+// 			publishedAt: {
+// 				$gt: dateOfPrivacyConsent,
+// 			},
+// 			$limit: 1000,
+// 		},
+// 	});
+// 	return response;
+// };
 
 // firstLogin
 router.get('/', async (req, res, next) => {
@@ -85,13 +154,30 @@ router.get('/', async (req, res, next) => {
 	}
 
 	// USER CONSENT
+	const changedUserConsents = await userConsentsChanged(res.locals.currentUser, consent, req);
+	const changesIn = consentVersions => consentVersions.total !== 0;
 	if (
-		!userConsent
+		(!userConsent || changesIn(changedUserConsents.privacy) || changesIn(changedUserConsents.termsOfUse))
 		&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
 	) {
 		submitPageIndex += 1;
 		sections.push('consent');
 	}
+	// todo userConsentsChanged for age <14
+
+
+	// const privacyStatements = {};
+	// else if (await userHasNewPrivacyRules(res.locals.currentUser, consent, req)) {
+	// 	// UPDATED PRIVACY RULES
+	// 	privacyStatements = await newPrivacyRules(res.locals.currentUser, consent, req);
+	// 	privacyStatements.data.map((statement) => {
+	// 		statement.text = converter.makeHtml(statement.body);
+	// 		return statement;
+	// 	});
+	// 	submitPageIndex += 1;
+	// 	sections.push('privacy_consent');
+	// }
+
 
 	// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
 	const userHasAccount = await hasAccount(req, res, next);
@@ -117,9 +203,11 @@ router.get('/', async (req, res, next) => {
 		title: 'Willkommen - Erster Login',
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
-
+		now: Date.now(),
 		sections: sections.map(name => `firstLogin/sections/${name}`),
 		submitPageIndex,
+		userConsent,
+		userConsentsChanged,
 	});
 });
 
