@@ -540,28 +540,13 @@ router.get("/:teamId", async (req, res, next) => {
     let news = (await api(req).get("/news/", {
       qs: {
         target: req.params.teamId,
-        $limit: 2
+        $limit: 4
       }
     })).data;
 
-    const colors = [
-      "F44336",
-      "E91E63",
-      "3F51B5",
-      "2196F3",
-      "03A9F4",
-      "00BCD4",
-      "009688",
-      "4CAF50",
-      "CDDC39",
-      "FFC107",
-      "FF9800",
-      "FF5722"
-    ];
     news = news.map(n => {
       n.url = `/teams/${req.params.teamId}/news/${n._id}`;
       n.secondaryTitle = moment(n.displayAt).fromNow();
-      n.background = `#${colors[(n.title || "").length % colors.length]}`;
       return n;
     });
 
