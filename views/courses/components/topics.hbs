@@ -11,7 +11,7 @@
     {{#ifeq ../lessons.length 1}}
       <div class="col-sm-12">
         <div class="first-topic-success">
-          <h5>Geschafft - Das erste Thema in deinem Kurs!</h5>
+          <h2 class="h5">Geschafft - Das erste Thema in deinem Kurs!</h2>
           <div>
             Ein Klick auf das Auge <i class="fa fa-eye"></i> macht das Thema für Schüler*innen sichtbar oder unsichtbar.
           </div>
@@ -98,13 +98,13 @@
         <div class="empty-state empty-state-courses">
           <img src="/images/empty-states/topics.svg" alt="Leeres Thema" class="image topic-image"/>
           {{#userHasPermission "COURSE_EDIT"}}
-            <h4>Erstelle das erste Thema in deinem Kurs</h4>
-            <h6 class="sub-title">
+            <h2 class="h4">Erstelle das erste Thema in deinem Kurs</h2>
+            <h3 class="h6 sub-title">
               Füge Texte, Bilder, Videos und andere Materialien zu einem Thema hinzu.
               Ein Thema umfasst eine Unterrichtseinheit oder -stunde innerhalb deines Kurses.
-            </h6>
+            </h3>
           {{else}}
-            <h4 class="text-muted">Es gibt noch keine Themen in diesem Kurs.</h4>
+            <h2 class="h4 text-muted">Es gibt noch keine Themen in diesem Kurs.</h2>
           {{/userHasPermission}}
         </div>
       {{/if}}

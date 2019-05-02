@@ -10,7 +10,7 @@
             {{/if}}
             &nbsp;<i class="fa fa-info" title="{{timeToString availableDate}} bis {{timeToString dueDate}}"></i>
         </div>
-        <h5 class="title">{{{stripOnlyScript this.name}}}</h5>
+        <h2 class="h5 title">{{{stripOnlyScript this.name}}}</h2>
         <div class="description">
             {{#if this.description}}
                 {{truncateHTML (conflictFreeHtml this.description)}}

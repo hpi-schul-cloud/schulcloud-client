@@ -10,13 +10,13 @@
       <div class="empty-state">
         <img src="/images/empty-states/assignments.svg" alt="Keine gestellten Aufgaben" class="image"/>
         {{#userHasPermission "COURSE_EDIT" }}
-          <h4>Erstelle die erste Aufgabe in deinem Kurs</h4>
-          <h6 class="sub-title">
+          <h2 class="h4">Erstelle die erste Aufgabe in deinem Kurs</h2>
+          <h3 class="h6 sub-title">
             Kursteilnehmer*innen können spielend leicht Aufgaben bis zu einem gesetzten Termin bearbeiten und Ergebnisse digital einreichen.
             Aufgaben können für einen ganzen Kurs oder ein einzelnes Thema gestellt werden.
-          </h6>
+          </h3>
         {{else}}
-          <h4 class="text-muted">Es gibt noch keine gestellten Aufgaben in diesem Kurs.</h4>
+          <h2 class="h4 text-muted">Es gibt noch keine gestellten Aufgaben in diesem Kurs.</h2>
         {{/userHasPermission}}
       </div>
     {{/ifneq}}
