@@ -59,6 +59,6 @@
 		"node": true,
 		"mocha": true,
     "browser": true,
-    "jquery": true,
+    "jquery": true
 	}
 }
