@@ -1224,7 +1224,7 @@ router.get('/:teamId/topics', async (req, res, next) => {
 				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
 			}));
 
-			homeworks = (Homeworks.data || []).map((assignment) => {
+			homeworks = (homeworks.data || []).map((assignment) => {
 				assignment.url = `/homework/${assignment._id}`;
 				return assignment;
 			});
