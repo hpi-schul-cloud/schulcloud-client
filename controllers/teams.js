@@ -1,3 +1,5 @@
+// jshint esversion: 8
+
 const _ = require('lodash');
 const express = require('express');
 const moment = require('moment');
@@ -97,8 +99,7 @@ const checkIfUserCouldLeaveTeam = (current, others) => {
 	}
 
 	for (const user of others) {
-		if (user.userId !== current.userId
-			&& user.role === current.role) {
+		if (user.userId !== current.userId && user.role === current.role) {
 			return true;
 		}
 	}
@@ -264,9 +265,7 @@ router.get('/', async (req, res, next) => {
 				.utc()
 				.format('HH:mm');
 			time.weekday = recurringEventsHelper.getWeekdayForNumber(time.weekday);
-			team.secondaryTitle
-        += `<div>${time.weekday} ${time.startTime} `
-        + `${time.room ? `| ${time.room}` : ''}</div>`;
+			team.secondaryTitle += `<div>${time.weekday} ${time.startTime} ${time.room ? `| ${time.room}` : ''}</div>`;
 		});
 
 		return team;
@@ -462,11 +461,7 @@ router.get('/:teamId', async (req, res, next) => {
 		).includes('rocketChat');
 
 		let rocketChatCompleteURL;
-		if (
-			instanceUsesRocketChat
-      && courseUsesRocketChat
-      && schoolUsesRocketChat
-		) {
+		if (instanceUsesRocketChat && courseUsesRocketChat && schoolUsesRocketChat) {
 			try {
 				const rocketChatChannel = await api(req).get(
 					`/rocketChat/channel/${req.params.teamId}`,
@@ -963,8 +958,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 		if (team.user.role.name === 'teamowner') {
 			couldLeave = false;
 			for (const user of team.userIds) {
-				if (user.userId._id !== team.user.userId._id
-				&& user.role._id === team.user.role._id) {
+				if (user.userId._id !== team.user.userId._id && user.role._id === team.user.role._id) {
 					couldLeave = true;
 					break;
 				}
@@ -1177,8 +1171,8 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		})
 		.catch((err) => {
 			logger.warn(
-				'Fehler beim Annehmen einer Einladung, '
-          + 'der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. ',
+				`Fehler beim Annehmen einer Einladung, 
+        der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);
 			res.redirect('/teams/');
@@ -1220,11 +1214,11 @@ router.get('/:teamId/topics', async (req, res, next) => {
 			const ltiToolIds = (course.ltiToolIds || []).filter(
 				ltiTool => ltiTool.isTemplate !== 'true',
 			);
-			lessons = (lessons.data || []).map(lesson => Object.assign(lesson, {
+			const lessonsData = (lessons.data || []).map(lesson => Object.assign(lesson, {
 				url: `/teams/${req.params.teamId}/topics/${lesson._id}/`,
 			}));
 
-			homeworks = (homeworks.data || []).map((assignment) => {
+			const homeworksData = (homeworks.data || []).map((assignment) => {
 				assignment.url = `/homework/${assignment._id}`;
 				return assignment;
 			});
@@ -1236,22 +1230,21 @@ router.get('/:teamId/topics', async (req, res, next) => {
 				return -1;
 			});
 
-			courseGroups = permissionHelper.userHasPermission(
+			const courseGroupsData = permissionHelper.userHasPermission(
 				res.locals.currentUser,
 				'COURSE_EDIT',
-			)
-				? courseGroups.data || [] : (courseGroups.data || [])
+			) ? courseGroups.data || [] : (courseGroups.data || [])
 					.filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
 
 			res.render(
 				'teams/topics',
 				Object.assign({}, course, {
 					title: course.name,
-					lessons,
-					homeworks: homeworks.filter(task => !task.private),
-					myhomeworks: homeworks.filter(task => task.private),
+					lessons: lessonsData,
+					homeworks: homeworksData.filter(task => !task.private),
+					myhomeworks: homeworksData.filter(task => task.private),
 					ltiToolIds,
-					courseGroups,
+					courseGroups: courseGroupsData,
 					breadcrumb: [
 						{
 							title: 'Meine Teams',
