@@ -64,7 +64,7 @@ module.exports = {
 		const subString = text.substr(0, length - 1);
 		return `${subString}...`;
 	},
-	truncateHTML: (text = '', { length = 140 } = {}) => truncatehtml(text, length, {
+	truncateHTML: (text = '', length = 140) => truncatehtml(text, length, {
 		stripTags: true,
 		decodeEntities: true,
 	}),
