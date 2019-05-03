@@ -66,7 +66,7 @@ $(document).ready(() => {
 		currentEvent: {},
 	}, handler);
 
-	$('.btn-create-event').click((e) => {
+	$('.btn-create-event').click(() => {
 		// open create event modal
 		const startDate = moment().format('DD.MM.YYYY HH:mm');
 		const endDate = moment().add(1, 'hour').format('DD.MM.YYYY HH:mm');
@@ -121,7 +121,7 @@ $(document).ready(() => {
 
 		transformCourseOrTeamEvent($editEventModal, event);
 
-		$editEventModal.find('.btn-delete').click((e) => {
+		$editEventModal.find('.btn-delete').click(() => {
 			$.ajax({
 				url: `/calendar/events/${event.attributes.uid}`,
 				type: 'DELETE',
@@ -147,7 +147,7 @@ $(document).ready(() => {
 		});
 	});
 
-	$('.btn-file-permissions').click((e) => {
+	$('.btn-file-permissions').click(() => {
 		populateModalForm($filePermissionsModal, {
 			title: 'Freigabe-Einstellungen ändern',
 			closeLabel: 'Abbrechen',
@@ -184,7 +184,7 @@ $(document).ready(() => {
 					});
 
 				$.ajax({
-					url: `/teams/${$('.section-teams').data('id') }/permissions`,
+					url: `/teams/${$('.section-teams').data('id')}/permissions`,
 					method: 'PATCH',
 					data: { filePermission: Object.assign(filePermission, newPermission) },
 				})
