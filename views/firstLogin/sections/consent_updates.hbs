@@ -1,0 +1,48 @@
+<section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
+  <h4>Aktualisierung deiner Einwilligungserklärung{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h4>
+  <p style="margin-bottom: 20px;">Bitte lese folgende aktualisierte Einwilligungserklärung{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}},
+    damit du die {{@root.theme.title}} weiterhin nutzen
+    kannst.
+  </p>
+
+  {{#if @root.updatedConsents.privacy}}
+  <div class="privacyUpdates">
+    {{#each @root.updatedConsents.privacy.data}}
+    <div class='privacyStatement card'>
+      <div class="card-header">
+        <h5>Aktualisierung der Datenschutzerklärung zum {{dateToPicker this.publishedAt}}</h5>
+      </div>
+      <div class="content card-block">
+        {{{this.consentHTML}}}
+      </div>
+    </div>
+    {{/each}}
+    <label style="margin-bottom: 30px;">
+      <input name="updatePrivacyConsent" type="checkbox" value="true" required="required" />
+      Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, bestätige, das ich die oben
+      beschriebenen Änderungen der Datenschutzerklärung gelesen habe.
+    </label>
+  </div>
+  {{/if}}
+
+  {{#if @root.updatedConsents.termsOfUse}}
+  <div class="termsOfUseUpdates">
+    {{#each @root.updatedConsents.termsOfUse.data}}
+    <div class='termsOfUseStatement card'>
+      <div class="card-header">
+        <h5>Aktualisierung der Nutzungsbedingungen zum {{dateToPicker this.publishedAt}}</h5>
+      </div>
+      <div class="content card-block">
+        {{{this.consentHTML}}}
+      </div>
+    </div>
+    {{/each}}
+    <label style="margin-bottom: 30px;">
+      <input name="updateTermsOfUseConsent" type="checkbox" value="true" required="required" />
+      Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, bestätige, das ich die oben
+      beschriebenen Änderungen der Nutzungsbedingungen gelesen habe.
+    </label>
+  </div>
+  {{/if}}
+
+</section>
