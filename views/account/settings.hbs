@@ -55,6 +55,13 @@
                 </div>
                 {{/userHasPermission}}
 
+				<div class="form-group">
+					<label>
+						<input type="checkbox" name="discoverable" value="true" {{#inArray "discoverable" ../user.discoverable}}checked{{/inArray}}>
+						Sichtbar für Teameinladungen
+					</label>
+				</div>
+
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary"/>
                 </div>
