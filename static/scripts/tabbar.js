@@ -6,7 +6,7 @@ const app = {
 			if (document.querySelectorAll('.tabContainer').length) {
 				const container = document.querySelectorAll('.tabContainer');
 
-				for (let i = 0, l = container.length; i < l; i++) {
+				for (let i = 0, l = container.length; i < l; i += 1) {
 					app.tabs.contain.call(null, container[i]);
 					app.tabs.setIndicatorWidth.call(null, container[i]);
 
