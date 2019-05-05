@@ -47,8 +47,8 @@ function sendFeedback(modal, e) {
     e.preventDefault();
 
     let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
-    let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
-
+	let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
+	
     $.ajax({
         url: '/helpdesk',
         type: 'POST',
@@ -124,8 +124,6 @@ $(document).ready(function () {
         $($contactAdminModal).appendTo('body').modal('show');
     });
     
-    $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
-
     $contactAdminModal.querySelector('.modal-form').addEventListener("submit", sendFeedback.bind(this, $contactAdminModal));
 
     $modals.find('.close, .btn-close').on('click', function () {
