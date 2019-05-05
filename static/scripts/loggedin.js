@@ -47,8 +47,8 @@ function sendFeedback(modal, e) {
     e.preventDefault();
 
     let type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
-	let subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
-	
+	const subject = (type === 'contactHPI') ? 'Feedback' : 'Problem ' + fmodal.find('#title').val();
+
     $.ajax({
         url: '/helpdesk',
         type: 'POST',
