@@ -7,7 +7,8 @@ const authHelper = require('../helpers/authentication');
 router.use(authHelper.authChecker);
 
 router.post('/', function (req, res, next) {
-    const { firstName, lastName, email, password, password_new } = req.body; // TODO: sanitize
+	const { firstName, lastName, email, password, password_new } = req.body;
+	const discoverable = !!req.body.discoverable;
         return api(req).patch('/accounts/' + res.locals.currentPayload.accountId, {
             json: {
                 password_verification: password,
@@ -17,7 +18,8 @@ router.post('/', function (req, res, next) {
             return api(req).patch('/users/' + res.locals.currentUser._id, {json: {
                 firstName,
                 lastName,
-                email,
+				email,
+				discoverable,
             }}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(_ => {
                 res.redirect('/account/');
             });
@@ -30,7 +32,8 @@ router.post('/', function (req, res, next) {
 });
 
 router.get('/', function (req, res, next) {
-    const isSSO = Boolean(res.locals.currentPayload.systemId);
+	const isSSO = Boolean(res.locals.currentPayload.systemId);
+	const isDiscoverable = res.locals.currentUser.discoverable;
     if (process.env.NOTIFICATION_SERVICE_ENABLED) {
         api(req).get('/notification/devices')
             .then(device => {
@@ -44,20 +47,23 @@ router.get('/', function (req, res, next) {
                     title: 'Dein Account',
                     device,
                     userId: res.locals.currentUser._id,
-                    sso: isSSO
+					sso: isSSO,
+					isDiscoverable,
                 });
             }).catch(err => {
             res.render('account/settings', {
                 title: 'Dein Account',
                 userId: res.locals.currentUser._id,
-                sso: isSSO
+				sso: isSSO,
+				isDiscoverable,
             });
         });
     } else {
         res.render('account/settings', {
             title: 'Dein Account',
             userId: res.locals.currentUser._id,
-            sso: isSSO
+			sso: isSSO,
+			isDiscoverable,
         });
     }
 });

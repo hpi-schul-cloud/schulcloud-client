@@ -57,7 +57,7 @@
 
 				<div class="form-group">
 					<label>
-						<input type="checkbox" name="discoverable" value="true" {{#inArray "discoverable" ../user.discoverable}}checked{{/inArray}}>
+						<input type="checkbox" name="discoverable" value="true" {{#if isDiscoverable}}checked{{/if}}>
 						Sichtbar für Teameinladungen
 					</label>
 				</div>
