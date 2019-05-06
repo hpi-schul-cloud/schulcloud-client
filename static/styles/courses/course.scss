@@ -11,6 +11,9 @@
 
   .btn-course-dropdown{
     padding:0;
+    .i-cog{
+      font-size: medium;
+    }
   }
 
   .course-headline {
@@ -20,6 +23,10 @@
 
   .dropdown-toggle:hover {
     color: $primaryColor !important;
+  }
+
+  .dropdown-toggle:after {
+    display: none;
   }
 
   .dropdown-menu-course {
