@@ -54,7 +54,6 @@ module.exports = {
         browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]").text.to.contain('Test Kurs').before(10000);
         browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");
         browser.useCss().expect.element('#main-content > div.dropdown-course > a > h4').text.to.contain('Test Kurs').before(10000);
-        browser.useCss().expect.element('#main-content > div.row.description > div > p').text.to.contain('Test Beschreibung').before(10000);
         browser.useCss()
             .waitForElementVisible('.btn-course-dropdown', 1000)
             .click('.btn-course-dropdown')
