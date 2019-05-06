@@ -10,7 +10,7 @@ module.exports = {
 	'Schul-Cloud Reachable': function reachableTest(browser) {
 		browser
 			// eslint-disable-next-line camelcase
-			.url(`${base_url }login/`)
+			.url(`${base_url}login/`)
 			.waitForElementVisible('body', 1000);
 	},
 	'Schul-Cloud Visibility': function visibilityTest(browser) {
@@ -36,7 +36,7 @@ module.exports = {
 	},
 	'Create Course': function createCourseTest(browser) {
 		// eslint-disable-next-line camelcase
-		browser.url(`${base_url }courses/`);
+		browser.url(`${base_url}courses/`);
 		browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
 		browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/div', 10, 10)
 			.useCss()
