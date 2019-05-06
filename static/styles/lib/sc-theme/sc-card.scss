@@ -39,7 +39,8 @@
         padding: 1rem 1rem .5rem;
         color: #fff;
         text-decoration: none !important;
-        background-color: #70b5ce;
+        background-color: $primaryColor;
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0.25) ,rgba(255, 255, 255, 0));
         border-top-left-radius: 2px;
         border-top-right-radius: 2px;
         &::before {
