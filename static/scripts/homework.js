@@ -69,7 +69,7 @@ window.addEventListener("DOMContentLoaded", function(){
 });
 $(document).ready(function() {
 	CKEDITOR.instances.evaluation.on('change', () => {
-		const submitButton = document.getElementById('button-save-submission');
+		const submitButton = document.getElementsByClassName('js-submit-btn')[0];
 		const content = CKEDITOR.instances.evaluation.document.getBody().getText();
 		if (!content.trim()) {
 			submitButton.disabled = true;
