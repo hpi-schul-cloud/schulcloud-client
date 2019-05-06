@@ -32,14 +32,14 @@
                         </div>
                     {{/inArray}}
                     {{#inArray "INVITE_EXPERTS" permissions}}
-                        {{#inArray "teacher" ../userRoles}}
-                                <div class="col-sm-6">
-                                    <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
-                                    <button class="btn btn-primary btn-invite-external-member">
-                                        Externe Teilnehmer einladen
-                                    </button>
-                                </div>
-                        {{/inArray}}
+                        {{#if ../hasRoleToShow}}
+                            <div class="col-sm-6">
+                                <p>Lade Lehrer anderer Schulen und Experten per E-Mail ein.</p>
+                                <button class="btn btn-primary btn-invite-external-member">
+                                    Externe Teilnehmer einladen
+                                </button>
+                            </div>
+                        {{/if}}
                     {{/inArray}}
                 </div>
             </div>

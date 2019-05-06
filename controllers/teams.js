@@ -1010,6 +1010,11 @@ router.get('/:teamId/members', async (req, res, next) => {
 			},
 			invitationActions,
 		]);
+		// checks weather the role is allowed to invite ExternExperts
+		const hasRoleToShow = res.locals.currentUser.roles.some((element) => {
+			if (element.name === 'teacher' || element.name === 'administrator') return true;
+			return false;
+		});
 
 		res.render(
 			'teams/members',
@@ -1023,6 +1028,7 @@ router.get('/:teamId/members', async (req, res, next) => {
 				deleteInvitationAction: `${uri}/invitation`,
 				resendInvitationAction: `${uri}/invitation`,
 				permissions: team.user.permissions,
+				hasRoleToShow,
 				method,
 				head,
 				body,
