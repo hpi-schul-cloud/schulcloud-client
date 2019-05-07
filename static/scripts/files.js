@@ -705,8 +705,8 @@ $(document).ready(function() {
 
 	$('.btn-file-move').on('click', (e) => {
     e.stopPropagation();
-    e.preventDefault();
-    const $context = $(e.currentTarget);
+	e.preventDefault();
+	const $context = $(e.currentTarget);
 
     populateModalForm($moveModal, {
       title: "Datei verschieben",
