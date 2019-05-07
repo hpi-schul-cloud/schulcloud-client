@@ -704,18 +704,19 @@ $(document).ready(function() {
   };
 
 	$('.btn-file-move').on('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    let $context = $(this);
+		e.stopPropagation();
+		e.preventDefault();
+		const $context = $(e.currentTarget);
 
-    populateModalForm($moveModal, {
-      title: "Datei verschieben",
-      fields: {
-        fileId: $context.attr("data-file-id"),
-        fileName: $context.attr("data-file-name"),
-        filePath: $context.attr("data-file-path")
-      }
-    });
+		// eslint-disable no-undef
+		populateModalForm($moveModal, { // eslint-disable-line
+			title: 'Datei verschieben',
+			fields: {
+				fileId: $context.attr('data-file-id'),
+				fileName: $context.attr('data-file-name'),
+				filePath: $context.attr('data-file-path'),
+			},
+		});
 
     $moveModal.find(".modal-footer").empty();
     $moveModal.appendTo("body").modal("show");
