@@ -24,7 +24,7 @@
 <div class="form-group">
     <label>Lehrer auswählen (auch später möglich)</label>
 
-    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen">
+    <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off">
         {{#each teachers}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
                 {{#if this.displayName}}

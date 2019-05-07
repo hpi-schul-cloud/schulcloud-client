@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <label>Schüler / Teilnehmer</label>
 
-                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
+                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen" autocomplete="off">
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}

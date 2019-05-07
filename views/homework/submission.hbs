@@ -30,7 +30,7 @@
         <div class="form-group">
             <input name="teamSubmissionOptions" value="teamMembers" type="radio" id="teamMembers1" {{#unless @root.courseGroupSelected}}checked{{/unless}}/>
             <label for="teamMembers1">Teammitglieder auswählen</label>
-            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Mitstreiter auswählen">
+            <select name="teamMembers" id="teamMembers" multiple data-placeholder="Mitstreiter auswählen" autocomplete="off">
                 {{#each @root.students}}
                     <option value="{{this._id}}" 
                         {{#if @root.submission}}

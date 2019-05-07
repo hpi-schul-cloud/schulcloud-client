@@ -6,7 +6,7 @@
 <div style="margin-bottom: 12rem" class="form-group form-users" data-tab="person">
     <label for="invitation">Füge Lehrer und Schüler deiner Schule zum Team hinzu</label>
 
-    <select name="userIds[]" multiple data-placeholder="Personen auswählen">
+    <select name="userIds[]" multiple data-placeholder="Personen auswählen" autocomplete="off">
         {{#each users}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                     {{this.firstName}} {{this.lastName}}
@@ -18,7 +18,7 @@
 <div style="margin-bottom: 12rem" class="form-group form-classes" data-tab="class">
     <label>Füge eine oder mehrere Klassen deiner Schule zum Team hinzu <br/><small>Nach dem Speichern werden alle Schüler automatisch hinzugefügt</small></label>
 
-    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
+    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" autocomplete="off">
         {{#each classes}}
             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                 {{#if this.displayName}}
