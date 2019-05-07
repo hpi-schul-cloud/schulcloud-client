@@ -708,14 +708,15 @@ $(document).ready(function() {
 		e.preventDefault();
 		const $context = $(e.currentTarget);
 		
+		// eslint-disable-line no-undef
 		populateModalForm($moveModal, {
-		title: "Datei verschieben",
-		fields: {
-			fileId: $context.attr("data-file-id"),
-			fileName: $context.attr("data-file-name"),
-			filePath: $context.attr("data-file-path")
-		}
-    });
+			title: "Datei verschieben",
+			fields: {
+				fileId: $context.attr('data-file-id'),
+				fileName: $context.attr('data-file-name'),
+				filePath: $context.attr('data-file-path')
+			}
+    	});
 
     $moveModal.find(".modal-footer").empty();
     $moveModal.appendTo("body").modal("show");
