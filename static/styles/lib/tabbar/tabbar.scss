@@ -12,7 +12,8 @@
       text-align: center;
       white-space: nowrap;
       cursor: pointer;
-
+      border : 0;
+      background-color: $colorWhite;
       .text {
         display: inline-block;
         vertical-align: middle;
@@ -45,19 +46,17 @@
 .sectionsContainer {
   padding: 10px 0 0;
 
-  .sections {
-    .section {
-      display: none;
+  .sections > .section {
+    display: none;
 
-      p {
-        font-size: 18px;
-        line-height: 1.2;
-        margin-bottom: 25px;
-      }
+    p {
+      font-size: 18px;
+      line-height: 1.2;
+      margin-bottom: 25px;
+    }
 
-      &.active {
-        display: block;
-      }
+    &.active {
+      display: block;
     }
   }
 }
