@@ -709,7 +709,7 @@ $(document).ready(function() {
 		const $context = $(e.currentTarget);
 
 		// eslint-disable no-undef
-		populateModalForm($moveModal, {
+		populateModalForm($moveModal, { // eslint-disable-line
 			title: 'Datei verschieben',
 			fields: {
 				fileId: $context.attr('data-file-id'),
