@@ -286,19 +286,19 @@ router.get('/', async (req, res, next) => {
 
 	if (req.query.json) {
 		res.json(teams);
-	} else {
+	} else if (teams.length > 0 || teamInvitations.length > 0) {
 		res.render('teams/overview', {
 			title: 'Meine Teams',
 			teams,
 			teamInvitations,
-			// substitutionCourses,
 			searchLabel: 'Suche nach Teams',
 			searchAction: '/teams',
 			showSearch: true,
 			liveSearch: true,
 		});
+	} else {
+		res.render('teams/overview-empty');
 	}
-	// });
 });
 
 router.post('/', async (req, res, next) => {
