@@ -707,7 +707,7 @@ $(document).ready(function() {
 		e.stopPropagation();
 		e.preventDefault();
 		const $context = $(e.currentTarget);
-		
+
 		// eslint-disable-line no-undef
 		populateModalForm($moveModal, {
 			title: "Datei verschieben",
