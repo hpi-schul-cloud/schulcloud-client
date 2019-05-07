@@ -487,7 +487,7 @@ $(document).ready(function() {
     );
   });
 
- 	$(".btn-file-share").click(function(e) {
+	$(".btn-file-share").click(function(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileId = $(this).attr("data-file-id");
@@ -719,8 +719,8 @@ $(document).ready(function() {
 		});
 
     $moveModal.find(".modal-footer").empty();
-    $moveModal.appendTo("body").modal("show");
-
+	$moveModal.appendTo("body").modal("show");
+	
     const $loader = $moveModal.find(".loader");
     let $dirTreeList = $moveModal.find(".dir-main-menu");
     let $dirTree = $moveModal.find(".directories-tree");
