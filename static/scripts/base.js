@@ -138,6 +138,10 @@ $(document).ready(function () {
 
     $notification.find('.close').click(window.$.hideNotification);
 
+	// disable autocomplete for all multi-selects to avoid overlaps
+	document.querySelectorAll('select[multiple]').forEach((select) => {
+		select.setAttribute('autocomplete', 'off');
+	});
 
     // Initialize bootstrap-select
     $('select:not(.no-bootstrap):not(.search-enabled)').chosen({
