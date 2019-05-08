@@ -106,7 +106,7 @@ const editCourseHandler = (req, res, next) => {
         classesPromise,
         teachersPromise,
         studentsPromise
-    ]).then(([course, _classes, _teachers, _students]) => {
+	]).then(([course, _classes, _teachers, _students]) => {
         // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
 		const classes = _classes.filter(c => c.schoolId === res.locals.currentSchool);
 		const teachers = _teachers.filter(t => t.schoolId === res.locals.currentSchool);
