@@ -68,8 +68,8 @@ window.addEventListener("DOMContentLoaded", function(){
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(function() {
-    const evaluationEditors = Object.keys((window.CKEDITOR || {}).instances || {});
-    evaluationEditors
+    const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
+    editorInstanceNames
         .filter(function (e) { return e.startsWith('evaluation'); })
         .forEach(function (name) {
             const editor = window.CKEDITOR.instances[name];
