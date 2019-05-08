@@ -487,7 +487,7 @@ $(document).ready(function() {
     );
   });
 
- 	(".btn-file-share").click(function(e) {
+	$(".btn-file-share").click(function(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileId = $(this).attr("data-file-id");
@@ -704,22 +704,23 @@ $(document).ready(function() {
   };
 
 	$('.btn-file-move').on('click', (e) => {
-    e.stopPropagation();
-    e.preventDefault();
-    let $context = $(this);
+		e.stopPropagation();
+		e.preventDefault();
+		const $context = $(e.currentTarget);
 
-    populateModalForm($moveModal, {
-      title: "Datei verschieben",
-      fields: {
-        fileId: $context.attr("data-file-id"),
-        fileName: $context.attr("data-file-name"),
-        filePath: $context.attr("data-file-path")
-      }
-    });
+		// eslint-disable no-undef
+		populateModalForm($moveModal, { // eslint-disable-line
+			title: 'Datei verschieben',
+			fields: {
+				fileId: $context.attr('data-file-id'),
+				fileName: $context.attr('data-file-name'),
+				filePath: $context.attr('data-file-path'),
+			},
+		});
 
     $moveModal.find(".modal-footer").empty();
-    $moveModal.appendTo("body").modal("show");
-
+	$moveModal.appendTo("body").modal("show");
+	
     const $loader = $moveModal.find(".loader");
     let $dirTreeList = $moveModal.find(".dir-main-menu");
     let $dirTree = $moveModal.find(".directories-tree");
