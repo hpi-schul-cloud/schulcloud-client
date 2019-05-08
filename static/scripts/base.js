@@ -138,9 +138,13 @@ $(document).ready(function () {
 
     $notification.find('.close').click(window.$.hideNotification);
 
-	// disable autocomplete for all multi-selects to avoid overlaps
+	// disable autocomplete to "off" for all multi-selects without the attribute
+	// to avoid visual overlapping
 	document.querySelectorAll('select[multiple]').forEach((select) => {
-		select.setAttribute('autocomplete', 'off');
+		const value = select.getAttribute('autocomplete');
+		if (value === null) {
+			select.setAttribute('autocomplete', 'off');
+		}
 	});
 
     // Initialize bootstrap-select
