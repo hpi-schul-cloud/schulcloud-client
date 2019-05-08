@@ -70,8 +70,8 @@ window.addEventListener("DOMContentLoaded", function(){
 $(document).ready(function() {
 	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
 	editorInstanceNames
-		.filter(function (e) { return e.startsWith('evaluation'); })
-		.forEach(function (name) {
+		.filter((e) => e.startsWith('evaluation'))
+		.forEach((name) => {
 			const editor = window.CKEDITOR.instances[name];
 			editor.on('change', () => {
 				// find the closest submit button and disable it if no content is given
