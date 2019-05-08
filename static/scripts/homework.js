@@ -70,7 +70,7 @@ window.addEventListener("DOMContentLoaded", function(){
 $(document).ready(function() {
 	const editorInstanceNames = Object.keys((window.CKEDITOR || {}).instances || {});
 	editorInstanceNames
-		.filter((e) => e.startsWith('evaluation'))
+		.filter(e => e.startsWith('evaluation'))
 		.forEach((name) => {
 			const editor = window.CKEDITOR.instances[name];
 			editor.on('change', () => {
