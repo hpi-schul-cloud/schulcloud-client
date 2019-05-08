@@ -68,15 +68,21 @@ window.addEventListener("DOMContentLoaded", function(){
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(function() {
-	CKEDITOR.instances.evaluation.on('change', () => {
-		const submitButton = document.getElementsByClassName('js-submit-btn')[0];
-		const content = CKEDITOR.instances.evaluation.document.getBody().getText();
-		if (!content.trim()) {
-			submitButton.disabled = true;
-		} else {
-			submitButton.disabled = false;
-		}
-	});
+    const evaluationEditors = Object.keys((window.CKEDITOR || {}).instances || {});
+    evaluationEditors
+        .filter(function (e) { return e.startsWith('evaluation'); })
+        .forEach(function (name) {
+            const editor = window.CKEDITOR.instances[name];
+            editor.on('change', () => {
+                const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
+                const content = editor.document.getBody().getText();
+                if (!content.trim()) {
+                    submitButton.disabled = true;
+                } else {
+                    submitButton.disabled = false;
+                }
+            });
+        });
 
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
