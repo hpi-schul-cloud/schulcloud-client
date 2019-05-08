@@ -36,7 +36,14 @@ function populateModalForm(modal, data) {
     var $form = modal.find('.modal-form');
 
     $title.html(data.title);
-    $btnSubmit.html(data.submitLabel);
+    
+    if(data.submitLabel) {
+        $btnSubmit.html(data.submitLabel);
+    }
+    else {
+        $btnSubmit.hide();
+    }
+    
     $btnClose.html(data.closeLabel);
 
     if (data.action) {
