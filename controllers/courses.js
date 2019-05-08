@@ -106,11 +106,11 @@ const editCourseHandler = (req, res, next) => {
         classesPromise,
         teachersPromise,
         studentsPromise
-    ]).then(([course, classes, teachers, students]) => {
+    ]).then(([course, _classes, _teachers, _students]) => {
         // these 3 might not change anything because hooks allow just ownSchool results by now, but to be sure:
-		classes = classes.filter(c => c.schoolId === res.locals.currentSchool);
-		teachers = teachers.filter(t => t.schoolId === res.locals.currentSchool);
-		students = students.filter(s => s.schoolId === res.locals.currentSchool);
+		const classes = _classes.filter(c => c.schoolId === res.locals.currentSchool);
+		const teachers = _teachers.filter(t => t.schoolId === res.locals.currentSchool);
+		const students = _students.filter(s => s.schoolId === res.locals.currentSchool);
 		const substitutions = _.cloneDeep(teachers.filter(t => t._id !== res.locals.currentUser._id));
 
         // map course times to fit into UI
