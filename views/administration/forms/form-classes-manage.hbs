@@ -15,7 +15,7 @@
         <div style="width: 100%" class="form-group">
             <label>Lehrer {{#userHasPermission 'ADMIN_VIEW'}}{{else}}*{{/userHasPermission}}</label>
 
-            <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}} autocomplete="off">
+            <select name="teacherIds[]" multiple data-placeholder="Lehrer auswählen" {{#userHasPermission 'ADMIN_VIEW'}}{{else}}required{{/userHasPermission}}>
                 {{#each teachers}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} {{#if this.disabled}}disabled{{/if}}>
                         {{#if this.displayName}}
@@ -33,7 +33,7 @@
         <div style="width: 100%" class="form-group">
             <label>Schüler</label>
             <button type="button" class="btn-link pull-right btn-import-class">Schüler aus Vorjahresklasse hinzufügen</button>
-            <select name="userIds" multiple data-placeholder="Schüler auswählen" autocomplete="off">
+            <select name="userIds" multiple data-placeholder="Schüler auswählen">
                 {{#each students}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}} class="red" data-first-name="{{this.firstName}}" data-last-name="{{this.lastName}}">
                         {{#if this.displayName}}
@@ -148,7 +148,7 @@
         </div>
         <div class="form-group">
             <label for="student_from_class_import">Schüler aus Vorjahres-Klasse hinzufügen</label>
-            <select id="student_from_class_import" name="classes" multiple data-placeholder="Alte Klasse(n) auswählen" autocomplete="off">
+            <select id="student_from_class_import" name="classes" multiple data-placeholder="Alte Klasse(n) auswählen">
                 {{#each classes}}
                     <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                         {{this.displayName}}

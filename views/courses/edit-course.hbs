@@ -19,7 +19,7 @@
 
     {{#content "page"}}
         <section class="section-course">
-            <form action="{{action}}" method="post" autocomplete="off">
+            <form action="{{action}}" method="post">
                 {{#if method}}
                     <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
                 {{/if}}
@@ -60,7 +60,7 @@
                 <div class="form-group">
                     <label>Unterrichtender Lehrer</label>
 
-                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen" autocomplete="off">
+                    <select name="teacherIds[]" required multiple data-placeholder="Lehrer auswählen">
                         {{#each teachers}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}
@@ -75,7 +75,7 @@
 
                 <div class="form-group">
                     <label>Vertretungslehrer</label>
-                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen" autocomplete="off">
+                    <select name="substitutionIds[]" multiple data-placeholder="Lehrer auswählen">
                         {{#each substitutions}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{this.firstName}} {{this.lastName}}
@@ -88,7 +88,7 @@
                 <div class="form-group">
                     <label>Klasse(n) <small>(Nach dem Speichern werden alle Schüler automatisch hinzugefügt!)</small></label>
 
-                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen" autocomplete="off">
+                    <select name="classIds[]" multiple data-placeholder="Klasse(n) auswählen">
                         {{#each classes}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{log this.year}}
@@ -109,7 +109,7 @@
                 <div class="form-group">
                     <label>Schüler / Teilnehmer</label>
 
-                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen" autocomplete="off">
+                    <select name="userIds[]" multiple data-placeholder="Schüler auswählen">
                         {{#each students}}
                             <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>
                                 {{#if this.displayName}}

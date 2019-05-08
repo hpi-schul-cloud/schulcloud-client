@@ -46,7 +46,7 @@
                 {{else}}
                     <div class="form-group mb-2">
                         <Label>Klassen:</Label>
-                        <select class="form-control form-control-lg" type="text" name="classes" multiple="true" placeholder="Klassen des Nutzers" autocomplete="off">
+                        <select class="form-control form-control-lg" type="text" name="classes" multiple="true" placeholder="Klassen des Nutzers">
                             {{#each classes}}
                                 <option value="{{this._id}}" {{#if this.selected}}selected{{/if}}>{{this.displayName}} ({{this.year.name}})</option>
                             {{/each}}
