@@ -74,13 +74,10 @@ $(document).ready(function() {
         .forEach(function (name) {
             const editor = window.CKEDITOR.instances[name];
             editor.on('change', () => {
+                // find the closest submit button and disable it if no content is given
                 const submitButton = $(editor.element.$.closest('form')).find('button[type="submit"]')[0];
                 const content = editor.document.getBody().getText();
-                if (!content.trim()) {
-                    submitButton.disabled = true;
-                } else {
-                    submitButton.disabled = false;
-                }
+                submitButton.disabled = !content.trim();
             });
         });
 
