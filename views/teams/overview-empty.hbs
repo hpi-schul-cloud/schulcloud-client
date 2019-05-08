@@ -9,17 +9,17 @@
 
     {{#content "page"}}
         <section class="empty-state">
-            <img src="/images/empty-states/lehrer_klasse.svg" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
+            <img src="/images/empty-states/teams.svg" alt="Team von Lehrern" class="image mx-auto d-block"/>
             <div class="text-wrapper mx-auto d-block">
-                <h2 class="text-center">Mit Teams Schule gemeinsam gestalten</h2>
+                <h2 class="text-center">Mit Teams Schule vernetzen</h2>
                 <h3 class="h5 text-muted text-center">
-                    Es gibt noch keine Teams. Ein Team in der {{theme.short_title}} ermöglicht den Austausch von Dateien und Neuigkeiten zwischen den Mitgliedern.
+                    Lege ein Team in der {{theme.title}} an, um Material und Neuigkeiten zwischen Mitgliedern auszutauschen.
                 </h3>
             </div>
             {{#userHasPermission "TEAM_EDIT"}}
             <div class="row">
                 <div class="center buttons">
-                    <a href="/teams/add" class="btn btn-lg btn-add btn-primary">Erstelle ein Team</a>
+                    <a href="/teams/add" class="btn btn-lg btn-add btn-primary">Gründe ein Team</a>
                 </div>
             </div>
             {{/userHasPermission}}
