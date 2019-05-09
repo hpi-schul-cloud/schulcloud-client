@@ -3,38 +3,48 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
-        <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="stylesheet" href="/styles/courses/course.css" />
+        <link rel="stylesheet" href="/styles/homework/homework.css" />
+        <link rel="stylesheet" href="/styles/topics/topics.css" />
     {{/content}}
     {{#content "scripts" mode="append"}}
         <script src="/scripts/topic.js" defer></script>
     {{/content}}
 
     {{#content "page"}}
+        {{#userHasPermission "COURSE_EDIT"}}
+            <div class="edtr-link-wrapper">
+                <a href="?edtr=true" class="edtr-link">
+                    <button class="btn btn-primary edtr-btn">
+                        Neuen Editor ausprobieren
+                    </button>
+                </a>
+            </div>
+        {{/userHasPermission}}
         {{#if isCourseGroupTopic}}
             <div class="row padding-top">
                 <div class="col-sm-12">
-                  <div class="pull-right">
-                    <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}" class="btn btn-sm btn-add btn-primary">Thema
-                        bearbeiten</a>
-                  </div>
+                    <div class="pull-right">
+                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}"
+                            class="btn btn-sm btn-add btn-primary">Thema
+                            bearbeiten</a>
+                    </div>
                 </div>
             </div>
         {{else}}
             {{#userHasPermission "COURSE_EDIT"}}
                 <div class="row padding-top">
                     <div class="col-sm-12">
-                      <div class="pull-right">
-                        <a href="#"
-                        data-href="{{../_id}}"
-                        data-courseId="{{../courseId}}"
-                        class="btn btn-sm btn-add btn-secondary btn-create-share">
-                            <i class="fa fa-share-alt"></i>
-                        </a>
-                        <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-secondary btn-sm btn-add">
-                          <i class="fa fa-pencil"></i>
-                        </a>
-                      </div>
+                        <div class="pull-right">
+                            <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
+                                class="btn btn-sm btn-add btn-secondary btn-create-share">
+                                <i class="fa fa-share-alt"></i>
+                            </a>
+                            <a href="/courses/{{../courseId}}/topics/{{../_id}}/edit"
+                                class="btn btn-secondary btn-sm btn-add">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             {{/userHasPermission}}
@@ -59,7 +69,7 @@
                         {{#each materialIds}}
                             <div class="card">
                                 {{#if this.image}}
-                                    <img class="card-img-top" src="{{this.image}}"/>
+                                    <img class="card-img-top" src="{{this.image}}" />
                                 {{/if}}
                                 <div class="card-block">
                                     <h4 class="card-title">
@@ -77,11 +87,8 @@
                                 <div class="card-footer">
                                     <small class="text-muted"> via {{this.client}}</small>
                                     {{#userHasPermission "COURSE_EDIT"}}
-                                        <a class="delete-material"
-                                           href="materials/{{../_id}}"
-                                           target="_blank"
-                                           data-method="DELETE"
-                                           data-name="{{../title}}">
+                                        <a class="delete-material" href="materials/{{../_id}}" target="_blank"
+                                            data-method="DELETE" data-name="{{../title}}">
                                             <i class="fa fa-trash-o"></i>
                                         </a>
                                     {{/userHasPermission}}
@@ -96,7 +103,7 @@
                 <div class="row padding-top">
                     <div class="col-sm-12">
                         <div class="pull-right">
-                            <a href="/{{context}}/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}" 
+                            <a href="/{{context}}/{{../courseId}}/topics/{{../_id}}/edit?courseGroup={{../courseGroupId}}"
                                 class="btn btn-add btn-primary">Thema bearbeiten</a>
                         </div>
                     </div>
@@ -106,14 +113,13 @@
                     <div class="row padding-top">
                         <div class="col-sm-12">
                             <div class="pull-right">
-                                <a href="#"
-                                data-href="{{../_id}}"
-                                data-courseId="{{../courseId}}"
-                                class="btn btn-add btn-secondary btn-create-share">
+                                <a href="#" data-href="{{../_id}}" data-courseId="{{../courseId}}"
+                                    class="btn btn-add btn-secondary btn-create-share">
                                     <i class="fa fa-share-alt"></i>
                                     mit anderen Lehrern teilen
                                 </a>
-                                <a href="/{{../context}}/{{../courseId}}/topics/{{../_id}}/edit" class="btn btn-add btn-primary">Bearbeiten</a>
+                                <a href="/{{../context}}/{{../courseId}}/topics/{{../_id}}/edit"
+                                    class="btn btn-add btn-primary">Bearbeiten</a>
                             </div>
                         </div>
                     </div>
@@ -121,19 +127,24 @@
             {{/if}}
 
             {{#unless isCourseGroupTopic}}
-                <hr/>
-                 <div class="row">
+                <hr />
+                <div class="row">
                     <div class="col-sm-6 container">
                         {{#userHasPermission "HOMEWORK_CREATE"}}
-                        <a href="/homework/new?course={{../courseId}}&topic={{../_id}}" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="Aufgabe hinzufügen">
-                            <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe hinzufügen</span>
-                        </a>
+                            <a href="/homework/new?course={{../courseId}}&topic={{../_id}}"
+                                class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
+                                title="Aufgabe hinzufügen">
+                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> Aufgabe
+                                    hinzufügen</span>
+                            </a>
                         {{/userHasPermission}}
                         <a data-toggle="collapse" class="collapse-toggle" href="#homeworks">
                             <h4>
-                                <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                                <small data-toggle="tooltip" title="gestellte Aufgaben ein/ausklappen"><i
+                                        class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                                 Gestellte Aufgaben
-                                <small>({{arrayLength homeworks}} Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
+                                <small>({{arrayLength homeworks}}
+                                    Aufgabe{{#ifneq 1 (arrayLength homeworks)}}n{{/ifneq}})</small>
                             </h4>
                         </a>
                         <div id="homeworks" class="container-fluid collapse">
@@ -148,15 +159,20 @@
                     </div>
                     <div class="col-sm-6">
                         {{#userHasPermission "HOMEWORK_CREATE"}}
-                        <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true" class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip" title="private Aufgabe hinzufügen">
-                            <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private Aufgabe hinzufügen</span>
-                        </a>
+                            <a href="/homework/new?course={{../courseId}}&topic={{../_id}}&private=true"
+                                class="btn btn-secondary btn-sm pull-right ml-1" data-toggle="tooltip"
+                                title="private Aufgabe hinzufügen">
+                                <i class="fa fa-plus" aria-hidden="true"></i><span class="hidden-md-down"> private
+                                    Aufgabe hinzufügen</span>
+                            </a>
                         {{/userHasPermission}}
                         <a data-toggle="collapse" class="collapse-toggle" href="#myhomeworks">
                             <h4>
-                                <small data-toggle="tooltip" title="Private Aufgaben ein/ausklappen"><i class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
+                                <small data-toggle="tooltip" title="Private Aufgaben ein/ausklappen"><i
+                                        class="fa fa-chevron-right collapse-icon" aria-hidden="true"></i></small>
                                 Private Aufgaben
-                                <small>({{arrayLength myhomeworks}} Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
+                                <small>({{arrayLength myhomeworks}}
+                                    Aufgabe{{#ifneq 1 (arrayLength myhomeworks)}}n{{/ifneq}})</small>
                             </h4>
                         </a>
                         <div id="myhomeworks" class="container-fluid collapse">
@@ -173,24 +189,24 @@
             {{/unless}}
 
             {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
-                {{#content "body"}}
+            {{#content "body"}}
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary btn-close">
-                            Abbrechen
-                        </button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close">
+                        Abbrechen
+                    </button>
 
-                        <button type="submit" class="btn btn-primary btn-submit">
-                            Löschen
-                        </button>
-                    </div>
-                {{/content}}
+                    <button type="submit" class="btn btn-primary btn-submit">
+                        Löschen
+                    </button>
+                </div>
+            {{/content}}
             {{/embed}}
 
             {{#embed "lib/components/modal-form" class="share-modal"}}
-                {{#content "fields"}}
-                    {{> "topic/forms/form-share"}}
-                {{/content}}
+            {{#content "fields"}}
+                {{> "topic/forms/form-share"}}
+            {{/content}}
             {{/embed}}
 
         </section>
