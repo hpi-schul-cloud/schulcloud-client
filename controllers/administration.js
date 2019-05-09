@@ -586,7 +586,10 @@ const createSystemHandler = (req, res, next) => {
 
 const getStorageProviders = () => {
 	return [
-		{ label: process.env.SC_SHORT_TITLE, value: 'awsS3' }
+		{ 
+			label: process.env.SC_SHORT_TITLE,
+			value: 'awsS3',
+		}
 	];
 };
 
