@@ -584,9 +584,9 @@ const createSystemHandler = (req, res, next) => {
 	});
 };
 
-const getStorageProviders = (res) => {
+const getStorageProviders = () => {
 	return [
-		{ label: res.locals.theme.short_title, value: 'awsS3' }
+		{ label: process.env.SC_SHORT_TITLE, value: 'awsS3' }
 	];
 };
 
@@ -2097,7 +2097,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 
 	// SCHOOL
 	let title = returnAdminPrefix(res.locals.currentUser.roles);
-	let provider = getStorageProviders(res);
+	let provider = getStorageProviders();
 	provider = (provider || []).map(prov => {
 		if (prov.value == school.fileStorageType) {
 			return Object.assign(prov, {
