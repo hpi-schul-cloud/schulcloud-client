@@ -66,10 +66,8 @@ module.exports = {
 	},
 	truncateHTML: (text = '', _length, _stripTags) => {
 		// set default values
-		let length = _length;
-		let stripTags = _stripTags;
-		if (typeof length !== 'number') length = 140;
-		if (typeof stripTags !== 'boolean') stripTags = true;
+		const length = typeof _length !== 'number' ? 140 : _length;
+		const stripTags = typeof _stripTags !== 'boolean' ? true : _stripTags;
 		return truncatehtml(text, length, { stripTags, decodeEntities: true });
 	},
 	truncateLength: (text = '', length = 140) => {
