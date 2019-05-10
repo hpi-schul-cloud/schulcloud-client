@@ -64,8 +64,10 @@ module.exports = {
 		const subString = text.substr(0, length - 1);
 		return `${subString}...`;
 	},
-	truncateHTML: (text = '', length, stripTags) => {
+	truncateHTML: (text = '', _length, _stripTags) => {
 		// set default values
+		let length = _length;
+		let stripTags = _stripTags;
 		if (typeof length !== 'number') length = 140;
 		if (typeof stripTags !== 'boolean') stripTags = true;
 		return truncatehtml(text, length, { stripTags, decodeEntities: true });
