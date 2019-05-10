@@ -582,9 +582,9 @@ $(document).ready(function() {
 				$message.text('Leider ist ein Fehler beim Abfragen der Berechtigungen aufgetreten.');
 				$message.show();
 			});
-  };
+	};
 
-	$('.permissions-modal .modal-form').on('submit', function (e) {
+	$('.permissions-modal .modal-form').on('submit',(e) => {
 		e.preventDefault();
 		const inputs = $(this).find('input[type="checkbox"]').toArray()
 			.filter(({ defaultChecked, checked }) => defaultChecked !== checked);
@@ -605,18 +605,18 @@ $(document).ready(function() {
 			return arr;
 		}, []);
 
-    $.ajax({
-		url: '/files/permissions',
-		method: 'PATCH',
-		data: { fileId, permissions }
-	})
-		.done(() => {
-			$.showNotification('Datei-Berechtigungen erfolgreich geändert', "success", true);
-			$('.permissions-modal').modal('hide');
+		$.ajax({
+			url: '/files/permissions',
+			method: 'PATCH',
+			data: { fileId, permissions }
 		})
-		.fail(() => {
-			$.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
-		});
+			.done(() => {
+				$.showNotification('Datei-Berechtigungen erfolgreich geändert', "success", true);
+				$('.permissions-modal').modal('hide');
+			})
+			.fail(() => {
+				$.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+			});
 	});
 
 	const fileShare = (fileId, $shareModal, view) => {
