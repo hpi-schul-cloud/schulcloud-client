@@ -591,7 +591,7 @@ $(document).ready(function() {
 		const fileId = $(this).find('input[name="fileId"]').val();
 		const permissions = inputs.reduce((arr, input) => {
 			const [action, refId] = input.name.split('-');
-			const perm = arr.find(in => in.refId === refId);
+			const perm = arr.find(i => i.refId === refId);
 			if (perm) {
 				perm[action] = input.checked;
 				return arr;
