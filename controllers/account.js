@@ -66,7 +66,7 @@ router.get('/', function (req, res, next) {
 router.delete('/settings/device', (req, res, next) => {
 	const { _id = '' } = req.body;
 
-	api(req).delete(`/notification/devices/${_id}`).then((_) => {
+	api(req).delete(`/notification/devices/${_id}`).then(() => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
