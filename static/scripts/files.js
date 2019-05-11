@@ -584,7 +584,7 @@ $(document).ready(function() {
 			});
 	};
 
-	$('.permissions-modal .modal-form').on('submit',(e) => {
+	$('.permissions-modal .modal-form').on('submit', (e) => {
 		e.preventDefault();
 		const inputs = $(this).find('input[type="checkbox"]').toArray()
 			.filter(({ defaultChecked, checked }) => defaultChecked !== checked);
@@ -608,14 +608,14 @@ $(document).ready(function() {
 		$.ajax({
 			url: '/files/permissions',
 			method: 'PATCH',
-			data: { fileId, permissions }
+			data: { fileId, permissions },
 		})
 			.done(() => {
-				$.showNotification('Datei-Berechtigungen erfolgreich geändert', "success", true);
+				$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
 				$('.permissions-modal').modal('hide');
 			})
 			.fail(() => {
-				$.showNotification('Problem beim Ändern der Berechtigungen', "danger", true);
+				$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
 			});
 	});
 
