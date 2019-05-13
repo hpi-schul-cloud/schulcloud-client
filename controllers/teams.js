@@ -286,7 +286,7 @@ router.get('/', async (req, res, next) => {
 
 	if (req.query.json) {
 		res.json(teams);
-	} else if (teams.length > 0 || teamInvitations.length > 0) {
+	} else if (teams.length !== 0 || teamInvitations.length !== 0) {
 		res.render('teams/overview', {
 			title: 'Meine Teams',
 			teams,
