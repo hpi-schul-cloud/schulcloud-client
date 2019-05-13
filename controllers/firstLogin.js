@@ -10,7 +10,7 @@ const router = express.Router();
 // secure routes
 router.use(authHelper.authChecker);
 
-const consentFullfilled = consent => (consent.privacyConsent && consent.termsOfUseConsent && consent.thirdPartyConsent);
+const consentFullfilled = consent => consent.privacyConsent && consent.termsOfUseConsent;
 const isStudent = (res) => {
 	const roles = res.locals.currentUser.roles.map(role => role.name);
 	return roles.includes('student');
