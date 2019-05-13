@@ -487,11 +487,11 @@ $(document).ready(function() {
     );
   });
 
-	$(".btn-file-share").click(function(e) {
+	$('.btn-file-share').click(function ev(e) {
 		e.stopPropagation();
 		e.preventDefault();
-		const fileId = $(this).attr("data-file-id");
-		const $shareModal = $(".share-modal");
+		const fileId = $(this).attr('data-file-id');
+		const $shareModal = $('.share-modal');
 		fileShare(fileId, $shareModal);
 	});
 
@@ -583,6 +583,41 @@ $(document).ready(function() {
 				$message.show();
 			});
 	};
+
+	$('.permissions-modal .modal-form').on('submit', (e) => {
+		e.preventDefault();
+		const inputs = $(this).find('input[type="checkbox"]').toArray()
+			.filter(({ defaultChecked, checked }) => defaultChecked !== checked);
+		const fileId = $(this).find('input[name="fileId"]').val();
+		const permissions = inputs.reduce((arr, input) => {
+			const [action, refId] = input.name.split('-');
+			const perm = arr.find(i => i.refId === refId);
+			if (perm) {
+				perm[action] = input.checked;
+				return arr;
+			}
+
+			arr.push({
+				refId,
+				[action]: input.checked,
+			});
+
+			return arr;
+		}, []);
+
+		$.ajax({
+			url: '/files/permissions',
+			method: 'PATCH',
+			data: { fileId, permissions },
+		})
+			.done(() => {
+				$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
+				$('.permissions-modal').modal('hide');
+			})
+			.fail(() => {
+				$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
+			});
+	});
 
 	const fileShare = (fileId, $shareModal, view) => {
 		const $input = $shareModal.find('input[name="invitation"]');
@@ -719,8 +754,8 @@ $(document).ready(function() {
 		});
 
     $moveModal.find(".modal-footer").empty();
-    $moveModal.appendTo("body").modal("show");
-
+	$moveModal.appendTo("body").modal("show");
+	
     const $loader = $moveModal.find(".loader");
     let $dirTreeList = $moveModal.find(".dir-main-menu");
     let $dirTree = $moveModal.find(".directories-tree");
