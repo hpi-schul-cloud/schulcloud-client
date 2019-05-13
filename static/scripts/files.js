@@ -487,7 +487,6 @@ $(document).ready(function() {
     );
   });
 
-
 	$('.btn-file-share').click(function ev(e) => {
 		e.stopPropagation();
 		e.preventDefault();
@@ -755,8 +754,8 @@ $(document).ready(function() {
 		});
 
     $moveModal.find(".modal-footer").empty();
-    $moveModal.appendTo("body").modal("show");
-
+	$moveModal.appendTo("body").modal("show");
+	
     const $loader = $moveModal.find(".loader");
     let $dirTreeList = $moveModal.find(".dir-main-menu");
     let $dirTree = $moveModal.find(".directories-tree");
