@@ -488,11 +488,11 @@ $(document).ready(function() {
   });
 
 
- 	$(".btn-file-share").click(function(e) {
+	$('.btn-file-share').click(function ev(e) => {
 		e.stopPropagation();
 		e.preventDefault();
-		const fileId = $(this).attr("data-file-id");
-		const $shareModal = $(".share-modal");
+		const fileId = $(this).attr('data-file-id');
+		const $shareModal = $('.share-modal');
 		fileShare(fileId, $shareModal);
 	});
 
