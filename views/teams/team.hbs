@@ -162,9 +162,11 @@
                                     <a href="{{filesUrl}}" class="btn btn-add btn-secondary">
                                         <i class="fa fa-folder-open"></i> Zu den Team-Dateien
                                     </a>
+                                    {{#inArray "DEFAULT_FILE_PERMISSIONS"../ permissions}}
                                     <button class="btn btn-add btn-secondary btn-file-permissions">
                                         <i class="fa fa-share-alt"></i> Freigabe-Einstellungen ändern
                                     </button>
+                                    {{/inArray}}
                                     {{#if ../canCreateDir}}
                                         <span class="btn btn-primary create-directory">
                                             <i class="fa fa-folder" aria-hidden="true"></i> Ordner erstellen
