@@ -1,47 +1,52 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
   <h4>Aktualisierung deiner Einwilligungserklärung{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h4>
-  <p style="margin-bottom: 20px;">Bitte lese folgende aktualisierte Einwilligungserklärung{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}},
-    damit du die {{@root.theme.title}} weiterhin nutzen
-    kannst.
+  <p style="margin-bottom: 20px;">Für ein noch besseres Lernerlebnis wird die {{@root.theme.title}} stetig
+    weiterentwickelt. Im Zuge dessen hat sich
+    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die Nutzungsordnung{{/ifCond}}
+    {{#ifCond @root.updatedConsents.privacy.total '>' 0}}
+    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}
+    und
+    {{/ifCond}}
+    die Datenschutzerklärung
+    {{/ifCond}}
+    erweitert. Nachfolgend kannst du dich über die Änderungen
+    informieren.
   </p>
 
-  {{#if @root.updatedConsents.privacy}}
-  <div class="privacyUpdates">
-    {{#each @root.updatedConsents.privacy.data}}
+  {{#if @root.updatedConsents.haveBeenUpdated}}
+  <div class="consentVersions">
+    {{#each @root.updatedConsents.all.data}}
     <div class='privacyStatement card'>
       <div class="card-header">
-        <h5>Aktualisierung der Datenschutzerklärung zum {{dateToPicker this.publishedAt}}</h5>
+        <h5>Änderung der {{this.visualType}} zum {{dateToPicker this.publishedAt}}</h5>
       </div>
       <div class="content card-block">
         {{{this.consentHTML}}}
       </div>
     </div>
     {{/each}}
-    <label style="margin-bottom: 30px;">
-      <input name="updatePrivacyConsent" type="checkbox" value="true" required="required" />
-      Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, bestätige, das ich die oben
-      beschriebenen Änderungen der Datenschutzerklärung gelesen habe.
-    </label>
-  </div>
-  {{/if}}
 
-  {{#if @root.updatedConsents.termsOfUse}}
-  <div class="termsOfUseUpdates">
-    {{#each @root.updatedConsents.termsOfUse.data}}
-    <div class='termsOfUseStatement card'>
-      <div class="card-header">
-        <h5>Aktualisierung der Nutzungsbedingungen zum {{dateToPicker this.publishedAt}}</h5>
-      </div>
-      <div class="content card-block">
-        {{{this.consentHTML}}}
-      </div>
+    <div id="consentUpdateFields">&nbsp;<br>
+      {{#if @root.updatedConsents.privacy.total}}
+      <label>
+        <input name="privacyConsentVersion" type="hidden" value="true" />
+        Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, nehme die Änderungen
+        der
+        <a href="#todo">Datenschutzerklärung</a> zur Kenntnis, um mit der Nutzung der {{@root.theme.title}}
+        fortzufahren.
+      </label>
+      {{/if}}
+
+      {{#if @root.updatedConsents.termsOfUse.total}}
+      <label>
+        <input name="termsOfUseConsentVersion" type="hidden" value="true" />
+        Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, nehme die Änderungen
+        der
+        <a href="#todo">Nutzungsordnung</a> zur Kenntnis, um mit der Nutzung der {{@root.theme.title}}
+        fortzufahren.
+      </label>
+      {{/if}}
     </div>
-    {{/each}}
-    <label style="margin-bottom: 30px;">
-      <input name="updateTermsOfUseConsent" type="checkbox" value="true" required="required" />
-      Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, bestätige, das ich die oben
-      beschriebenen Änderungen der Nutzungsbedingungen gelesen habe.
-    </label>
   </div>
   {{/if}}
 

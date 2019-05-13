@@ -1,7 +1,8 @@
 const express = require('express');
 const showdown = require('showdown');
-const authHelper = require('../helpers/authentication');
 const api = require('../api');
+const authHelper = require('../helpers/authentication');
+const userConsentVersions = require('../helpers/consentVersions');
 
 const converter = new showdown.Converter();
 
@@ -20,36 +21,6 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 		userId: res.locals.currentUser._id,
 	},
 });
-
-// /**
-//  * check api for new consent versions after registration or last accepted date
-//  */
-const userConsentVersions = async (user, consent, req, limit = 0) => {
-	const dateOfPrivacyConsent = (consent.userConsent || {}).dateOfPrivacyConsent || user.createdAt;
-	const dateOfTermsOfUseConsent = (consent.userConsent || {}).dateOfTermsOfUseConsent || user.createdAt;
-	const newPrivacyVersions = await api(req).get('/consentVersions', {
-		qs: {
-			publishedAt: {
-				$gt: new Date(dateOfPrivacyConsent),
-			},
-			consentType: 'privacy',
-			$limit: limit,
-		},
-	});
-	const newTermsOfUseVersions = await api(req).get('/consentVersions', {
-		qs: {
-			publishedAt: {
-				$gt: new Date(dateOfTermsOfUseConsent),
-			},
-			consentType: 'termsOfUse',
-			$limit: limit,
-		},
-	});
-	return {
-		privacy: newPrivacyVersions,
-		termsOfUse: newTermsOfUseVersions,
-	};
-};
 
 // firstLogin
 router.get('/', async (req, res, next) => {
@@ -99,7 +70,7 @@ router.get('/', async (req, res, next) => {
 		sections.push('welcome_existing');
 	}
 
-	// EMAIL
+	// EMAIL no more requested
 	submitPageIndex += 1;
 	sections.push('email');
 
@@ -119,7 +90,6 @@ router.get('/', async (req, res, next) => {
 
 	// USER CONSENT
 	let updatedConsents = {};
-	const changesInConsent = consentVersions => consentVersions.total !== 0;
 	if (
 		(!userConsent)
 		&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
@@ -127,24 +97,27 @@ router.get('/', async (req, res, next) => {
 		submitPageIndex += 1;
 		sections.push('consent');
 	} else {
+		// UPDATED CONSENTS SINCE LAST TIME
+		// todo userConsentsChanged for age <14
+		// load total number of changes
 		const changedUserConsents = await userConsentVersions(res.locals.currentUser, consent, req);
-		if (changesInConsent(changedUserConsents.privacy) || changesInConsent(changedUserConsents.termsOfUse)) {
-			// todo userConsentsChanged for age <14
-			// UPDATED CONSENTS SINCE LAST TIME
+		if (changedUserConsents.haveBeenUpdated) {
+			// load changes with data
 			updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
-			updatedConsents.total = 0;
-			if (changesInConsent(changedUserConsents.privacy)) {
-				updatedConsents.privacy.data.map((statement) => {
-					updatedConsents.total += 1;
-					statement.consentHTML = converter.makeHtml(statement.consentText);
-					return statement;
-				});
-			}
-			if (changesInConsent(changedUserConsents.termsOfUse)) {
-				updatedConsents.termsOfUse.data.map((statement) => {
-					updatedConsents.total += 1;
-					statement.consentHTML = converter.makeHtml(statement.consentText);
-					return statement;
+			if (changedUserConsents.haveBeenUpdated) {
+				updatedConsents.all.data.map((version) => {
+					if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
+						version.visualType = 'Datenschutzerklärung und Nutzungsordnung';
+					} else {
+						if (version.consentTypes.includes('privacy')) {
+							version.visualType = 'Datenschutzerklärung';
+						}
+						if (version.consentTypes.includes('termsOfUse')) {
+							version.visualType = 'Nutzungsordnung';
+						}
+					}
+					version.consentHTML = converter.makeHtml(version.consentText);
+					return version;
 				});
 			}
 			submitPageIndex += 1;
