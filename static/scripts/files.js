@@ -487,7 +487,7 @@ $(document).ready(function() {
     );
   });
 
-	$('.btn-file-share').click(function ev(e) => {
+	$('.btn-file-share').click(function ev(e) {
 		e.stopPropagation();
 		e.preventDefault();
 		const fileId = $(this).attr('data-file-id');
