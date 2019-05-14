@@ -43,8 +43,6 @@ router.post(['/registration/submit', '/registration/submit/:sso/:accountId'], (r
 	}
 
 	// normalize form data
-	req.body.privacyConsent = (req.body.privacyConsent || req.body.parent_privacyConsent) === 'true';
-	req.body.termsOfUseConsent = (req.body.termsOfUseConsent || req.body.parent_termsOfUseConsent) === 'true';
 	req.body.roles = Array.isArray(req.body.roles) ? req.body.roles : [req.body.roles];
 
 	return api(req)
