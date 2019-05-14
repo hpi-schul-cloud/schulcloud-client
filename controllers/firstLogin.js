@@ -45,108 +45,105 @@ router.get('/', async (req, res, next) => {
 
 	const userConsent = consentFullfilled((consent || {}).userConsent || {});
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
-
-	// WELCOME
-	submitPageIndex += 1;
-	if (res.locals.currentUser.birthday) {
-		if (res.locals.currentUser.age < 14) {
-			// U14
-			sections.push('welcome');
-		} else if (res.locals.currentUser.age < 16 && !(res.locals.currentUser.preferences || {}).firstLogin) {
-			// 14-15
-			sections.push('welcome_14-15');
-		} else if (userConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
-			// UE16 (schonmal eingeloggt)
-			sections.push('welcome_existing');
-		} else if (!userConsent && parentConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
-			// GEB 14
-			sections.push('welcome_existing_geb14');
-		} else {
-			// default fallback
-			sections.push('welcome');
-		}
-	} else {
-		// old existing users or teachers/admins
-		sections.push('welcome_existing');
-	}
-
-	// EMAIL no more requested
-	submitPageIndex += 1;
-	sections.push('email');
-
-	// BIRTHDATE
-	if (!res.locals.currentUser.birthday && isStudent(res)) {
-		submitPageIndex += 1;
-		if (req.query.u14 == 'true') {
-			sections.push('birthdate_U14');
-		} else if (req.query.ue14 == 'true') {
-			sections.push('birthdate_UE14');
-		} else if (req.query.ue16 == 'true') {
-			sections.push('birthdate_UE16');
-		} else {
-			sections.push('birthdate');
-		}
-	}
-
-	// USER CONSENT
+	const changedUserConsents = await userConsentVersions(res.locals.currentUser, consent, req);
 	let updatedConsents = {};
-	if (
-		(!userConsent)
-		&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
-	) {
-		submitPageIndex += 1;
-		sections.push('consent');
-	} else {
+
+	if (changedUserConsents.haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST TIME
 		// todo userConsentsChanged for age <14
-		// load total number of changes
-		const changedUserConsents = await userConsentVersions(res.locals.currentUser, consent, req);
-		if (changedUserConsents.haveBeenUpdated) {
-			// load changes with data
-			updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
-			if (changedUserConsents.haveBeenUpdated) {
-				updatedConsents.all.data.map((version) => {
-					if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
-						version.visualType = 'Datenschutzerklärung und Nutzungsordnung';
-					} else {
-						if (version.consentTypes.includes('privacy')) {
-							version.visualType = 'Datenschutzerklärung';
-						}
-						if (version.consentTypes.includes('termsOfUse')) {
-							version.visualType = 'Nutzungsordnung';
-						}
-					}
-					version.consentHTML = converter.makeHtml(version.consentText);
-					return version;
-				});
+		// load changes with data instead of counts only again
+		updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
+		updatedConsents.all.data.map((version) => {
+			if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
+				version.visualType = 'Datenschutzerklärung und Nutzungsordnung';
+			} else {
+				if (version.consentTypes.includes('privacy')) {
+					version.visualType = 'Datenschutzerklärung';
+				}
+				if (version.consentTypes.includes('termsOfUse')) {
+					version.visualType = 'Nutzungsordnung';
+				}
 			}
-			submitPageIndex += 1;
-			sections.push('consent_updates');
-		}
-	}
-
-
-	// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
-	const userHasAccount = await hasAccount(req, res, next);
-	if (!userHasAccount
-		|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
+			version.consentHTML = converter.makeHtml(version.consentText);
+			return version;
+		});
 		submitPageIndex += 1;
-		sections.push('password');
-	}
+		sections.push('consent_updates');
+	} else {
+		// WELCOME
+		submitPageIndex += 1;
+		if (res.locals.currentUser.birthday) {
+			if (res.locals.currentUser.age < 14) {
+				// U14
+				sections.push('welcome');
+			} else if (res.locals.currentUser.age < 16 && !(res.locals.currentUser.preferences || {}).firstLogin) {
+				// 14-15
+				sections.push('welcome_14-15');
+			} else if (userConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
+				// UE16 (schonmal eingeloggt)
+				sections.push('welcome_existing');
+			} else if (!userConsent && parentConsent && (res.locals.currentUser.preferences || {}).firstLogin) {
+				// GEB 14
+				sections.push('welcome_existing_geb14');
+			} else {
+				// default fallback
+				sections.push('welcome');
+			}
+		} else {
+			// old existing users or teachers/admins
+			sections.push('welcome_existing');
+		}
 
-	// PARENT CONSENT (must be the submit page because of the pin validation!)
-	if ((req.query.u14 || req.query.ue14 || consent.requiresParentConsent) && !parentConsent) {
-		submitPageIndex += 4;
-		sections.push('parent_intro');
-		sections.push('parent_data');
-		sections.push('parent_consent');
-		sections.push('pin');
+		// EMAIL
+		submitPageIndex += 1;
+		sections.push('email');
+
+		// BIRTHDATE
+		if (!res.locals.currentUser.birthday && isStudent(res)) {
+			submitPageIndex += 1;
+			if (req.query.u14 == 'true') {
+				sections.push('birthdate_U14');
+			} else if (req.query.ue14 == 'true') {
+				sections.push('birthdate_UE14');
+			} else if (req.query.ue16 == 'true') {
+				sections.push('birthdate_UE16');
+			} else {
+				sections.push('birthdate');
+			}
+		}
+
+		// USER CONSENT
+		if (
+			(!userConsent)
+			&& ((!res.locals.currentUser.age && !req.query.u14) || res.locals.currentUser.age >= 14)
+		) {
+			submitPageIndex += 1;
+			sections.push('consent');
+		}
+
+
+		// PASSWORD (wenn kein account oder (wenn kein perferences.firstLogin & schüler))
+		const userHasAccount = await hasAccount(req, res, next);
+		if (!userHasAccount
+			|| (!(res.locals.currentUser.preferences || {}).firstLogin && isStudent(res))) {
+			submitPageIndex += 1;
+			sections.push('password');
+		}
+
+		// PARENT CONSENT (must be the submit page because of the pin validation!)
+		if ((req.query.u14 || req.query.ue14 || consent.requiresParentConsent) && !parentConsent) {
+			submitPageIndex += 4;
+			sections.push('parent_intro');
+			sections.push('parent_data');
+			sections.push('parent_consent');
+			sections.push('pin');
+		}
 	}
 
 	// THANKS
 	sections.push('thanks');
 
-	res.render('firstLogin/firstLogin', {
+	const renderObject = {
 		title: 'Willkommen - Erster Login',
 		hideMenu: true,
 		sso: !!(res.locals.currentPayload || {}).systemId,
@@ -155,7 +152,14 @@ router.get('/', async (req, res, next) => {
 		submitPageIndex,
 		userConsent,
 		updatedConsents,
-	});
+	};
+
+	if (changedUserConsents.haveBeenUpdated) {
+		// default is 'Absenden'
+		renderObject.submitLabel = 'Gelesen';
+	}
+
+	res.render('firstLogin/firstLogin', renderObject);
 });
 
 // submit & error handling
