@@ -10,68 +10,80 @@
         }
     }
 </style>
-<body style="font-family: 'Malgun Gothic', Arial, sans-serif; margin: 0; padding: 0; width: 100%; -webkit-text-size-adjust: none; -webkit-font-smoothing: antialiased;">
-<table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="0" cellpadding="0" id="background" style="height: 100% !important; margin: 0; padding: 0; width: 100% !important;">
-    <tr>
-        <td align="center" valign="top">
-            <table width="600" border="0" bgcolor="#FFFFFF" cellspacing="0" cellpadding="0" id="header_container">
-                <tr>
-                    <td align="center" valign="top">
-                        <table width="100%" border="0" bgcolor="#b10438" cellspacing="0" cellpadding="0" id="header">
-                            <tr>
-                                <td valign="top" class="header_content">
-                                    <h1 style="color: #F4F4F4; font-size: 24px; text-align: center;">Einladung in die {{theme.short_title}}</h1>
-                                </td>
-                            </tr>
-                        </table>
-                        <!-- // END #header -->
-                    </td>
-                </tr>
-            </table>
-            <!-- // END #header_container -->
 
-            <table width="600" border="0" bgcolor="#e6e2e2" cellspacing="0" cellpadding="20" id="body_container">
-                <tr>
-                    <td align="center" valign="top" class="body_content">
-                        <table width="100%" border="0" cellspacing="0" cellpadding="20">
-                            <tr>
-                                <td valign="top">
-                                    <p style="color: #000000; font-size: 14px; line-height: 22px; text-align: center;">Sehr geehrte/r {{firstName}} {{lastName}} <br>Sie wurden eingeladen, der {{theme.short_title}} beizutreten, bitte vervollständigen Sie Ihre Einladung unter folgendem Link</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center">
-                                    <div>
-                                        <a href="{{url}}" style="background-color:#b10438;border-radius:3px;color:#FFFFFF;display:inline-block;font-family:'Helvetica',Arial,sans-serif;font-size:13px;height:45px;line-height:45px;text-align:center;text-decoration:none;text-transform:uppercase;width:150px;-webkit-text-size-adjust:none;mso-hide:all;" onmouseover="this.style.backgroundColor='#514F4E'" onmouseout="this.style.backgroundColor='#474544'">Registrieren</a>
-                                    </div>
-                                    <br>
-                                    <a href="{{url}}" target="_blank">{{url}}</a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-            <!-- // END #body_container -->
+<body
+    style="font-family: 'Malgun Gothic', Arial, sans-serif; margin: 0; padding: 0; width: 100%; -webkit-text-size-adjust: none; -webkit-font-smoothing: antialiased;">
+    <table width="100%" bgcolor="#FFFFFF" border="0" cellspacing="0" cellpadding="0" id="background"
+        style="height: 100% !important; margin: 0; padding: 0; width: 100% !important;">
+        <tr>
+            <td align="center" valign="top">
+                <table width="600" border="0" bgcolor="#FFFFFF" cellspacing="0" cellpadding="0" id="header_container">
+                    <tr>
+                        <td align="center" valign="top">
+                            <table width="100%" border="0" bgcolor="#b10438" cellspacing="0" cellpadding="0"
+                                id="header">
+                                <tr>
+                                    <td valign="top" class="header_content">
+                                        <h2 class="h1" style="color: #F4F4F4; font-size: 24px; text-align: center;">
+                                            Einladung in die {{theme.short_title}}</h2>
+                                    </td>
+                                </tr>
+                            </table>
+                            <!-- // END #header -->
+                        </td>
+                    </tr>
+                </table>
+                <!-- // END #header_container -->
 
-            <table width="600" border="0" bgcolor="#F6F6F6" cellspacing="0" cellpadding="20" id="footer_container">
-                <div class="imprint">
-                    <div class="center">
-                        <a>© 2019 {{theme.short_title}} </a>
+                <table width="600" border="0" bgcolor="#e6e2e2" cellspacing="0" cellpadding="20" id="body_container">
+                    <tr>
+                        <td align="center" valign="top" class="body_content">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="20">
+                                <tr>
+                                    <td valign="top">
+                                        <p
+                                            style="color: #000000; font-size: 14px; line-height: 22px; text-align: center;">
+                                            Sehr geehrte/r {{firstName}} {{lastName}} <br>Sie wurden eingeladen, der
+                                            {{theme.short_title}} beizutreten, bitte vervollständigen Sie Ihre Einladung
+                                            unter folgendem Link</p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <div>
+                                            <a href="{{url}}"
+                                                style="background-color:#b10438;border-radius:3px;color:#FFFFFF;display:inline-block;font-family:'Helvetica',Arial,sans-serif;font-size:13px;height:45px;line-height:45px;text-align:center;text-decoration:none;text-transform:uppercase;width:150px;-webkit-text-size-adjust:none;mso-hide:all;"
+                                                onmouseover="this.style.backgroundColor='#514F4E'"
+                                                onmouseout="this.style.backgroundColor='#474544'">Registrieren</a>
+                                        </div>
+                                        <br>
+                                        <a href="{{url}}" target="_blank">{{url}}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+                <!-- // END #body_container -->
 
-                        <nobr>
-                            <span> - </span>
-                            <a href="https://hpi.de/impressum.html" target="blank">Impressum</a>
-                            <span> - </span>
-                            <a href="mailto:hpi-info@hpi.de?subject=Schul_Cloud%20Anfrage">Kontakt</a>
-                            <span> - </span>
-                            <a href="https://schul-cloud.org/partner">Partner</a>
-                        </nobr>
+                <table width="600" border="0" bgcolor="#F6F6F6" cellspacing="0" cellpadding="20" id="footer_container">
+                    <div class="imprint">
+                        <div class="center">
+                            <a>© 2019 {{theme.short_title}} </a>
+
+                            <nobr>
+                                <span> - </span>
+                                <a href="https://hpi.de/impressum.html" target="blank">Impressum</a>
+                                <span> - </span>
+                                <a href="mailto:hpi-info@hpi.de?subject=Schul_Cloud%20Anfrage">Kontakt</a>
+                                <span> - </span>
+                                <a href="https://schul-cloud.org/partner">Partner</a>
+                            </nobr>
+                        </div>
                     </div>
-                </div>
-            </table>
-        </td>
-    </tr>
-</table>
-<!-- // END #background -->
+                </table>
+            </td>
+        </tr>
+    </table>
+    <!-- // END #background -->
 </body>

@@ -1,63 +1,63 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "scripts" mode="append"}}
-    <script type="text/javascript" defer src="/scripts/teamOverview.js"></script>
-    {{/content}}
-    {{#content "styles" mode="append"}}
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script type="text/javascript" defer src="/scripts/teamOverview.js"></script>
+{{/content}}
+{{#content "styles" mode="append"}}
+{{/content}}
 
-    {{#content "page"}}
-        <section class="section-courses">
-            {{#if teams}}
-                {{> 'dashboard/components/card_section' section-id="teams" title="" content=teams link-text="Öffnen" additionalInfoName="memberCount"}}
-            {{else}}
-                <div class="col-xs-12">
-                    <p class="text-muted text-center">
-                        <span>Keine Teams.</span>
-                    </p>
-                </div>
-            {{/if}}
+{{#content "page"}}
+<section class="section-courses">
+    {{#if teams}}
+    {{> 'dashboard/components/card_section' section-id="teams" title="" content=teams link-text="Öffnen" additionalInfoName="memberCount"}}
+    {{else}}
+    <div class="col-xs-12">
+        <p class="text-muted text-center">
+            <span>Keine Teams.</span>
+        </p>
+    </div>
+    {{/if}}
 
-            
-            {{#if teamInvitations}}
-                <h2>Einladungen</h2>
-                {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text="Akzeptieren"}}
-            {{/if}}
 
-            {{#userHasPermission "TEAM_EDIT"}}
-            <div class="col-xs-12">
-                <div class="row padding-top">
-                    <div class="col-sm-12">
-                        <a href="/teams/add" class="btn btn-add btn-primary">Team anlegen</a>
-                    </div>
-                </div>
+    {{#if teamInvitations}}
+    <h2 class="h2">Einladungen</h2>
+    {{> 'dashboard/components/card_section' section-id="teamInvitations" title="" content=teamInvitations link-text="Akzeptieren"}}
+    {{/if}}
+
+    {{#userHasPermission "TEAM_EDIT"}}
+    <div class="col-xs-12">
+        <div class="row padding-top">
+            <div class="col-sm-12">
+                <a href="/teams/add" class="btn btn-add btn-primary">Team anlegen</a>
             </div>
-            {{/userHasPermission}}
+        </div>
+    </div>
+    {{/userHasPermission}}
 
-            {{#embed "lib/components/modal" class="member-modal"}}
-                {{#content "body"}}
-                    <div class="modal-body">
-                        <div id="member-modal-body">
-                        </div>
-                        {{#userHasPermission "COURSE_EDIT"}}
-                            <div id='course-edit'></div>
-                        {{/userHasPermission}}
-                    </div>
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="add-member-modal"}}
-                {{#content "fields"}}
-                    {{> "teams/forms/form-add-member"}}
-                {{/content}}
-            {{/embed}}
-
-            {{#embed "lib/components/modal-form" class="import-modal"}}
-                {{#content "fields"}}
-                    {{> "courses/forms/form-import-course"}}
-                {{/content}}
-            {{/embed}}
-
-        </section>
+    {{#embed "lib/components/modal" class="member-modal"}}
+    {{#content "body"}}
+    <div class="modal-body">
+        <div id="member-modal-body">
+        </div>
+        {{#userHasPermission "COURSE_EDIT"}}
+        <div id='course-edit'></div>
+        {{/userHasPermission}}
+    </div>
     {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-form" class="add-member-modal"}}
+    {{#content "fields"}}
+    {{> "teams/forms/form-add-member"}}
+    {{/content}}
+    {{/embed}}
+
+    {{#embed "lib/components/modal-form" class="import-modal"}}
+    {{#content "fields"}}
+    {{> "courses/forms/form-import-course"}}
+    {{/content}}
+    {{/embed}}
+
+</section>
+{{/content}}
 {{/extend}}
