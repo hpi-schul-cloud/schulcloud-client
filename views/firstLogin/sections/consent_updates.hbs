@@ -1,14 +1,14 @@
 <section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
 
   <h4>Aktualisierung deiner Einwilligungserklärung{{#ifCond @root.updatedConsents.total '>' 1}}en{{/ifCond}}</h4>
-  <p style="margin-bottom: 20px;">Für ein noch besseres Lernerlebnis wird die {{@root.theme.title}} stetig
+  <a style="margin-bottom: 20px;">Für ein noch besseres Lernerlebnis wird die {{@root.theme.title}} stetig
     weiterentwickelt. Im Zuge dessen hat sich
-    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die Nutzungsordnung{{/ifCond}}
+    {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}die <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.termsOfUse}}" target="_blank">Nutzungsordnung</a>{{/ifCond}}
     {{#ifCond @root.updatedConsents.privacy.total '>' 0}}
     {{#ifCond @root.updatedConsents.termsOfUse.total '>' 0}}
     und
     {{/ifCond}}
-    die Datenschutzerklärung
+    die <a href="{{@root.theme.documents.baseDir}}{{@root.theme.documents.privacy}}" target="_blank">Datenschutzerklärung</a>
     {{/ifCond}}
     erweitert.
   </p>
@@ -16,7 +16,7 @@
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
     {{#each @root.updatedConsents.all.data}}
-    <h5>Zusammenfassung der Änderungen in der <a href="{{this.url}}" target="_blank">{{this.visualType}}</a> zum
+    <h5>Zusammenfassung der Änderungen in der {{this.visualType}}</a> zum
       {{dateToPicker this.publishedAt}}</h5>
     <div class='privacyStatement card'>
       <div class="card-header">
