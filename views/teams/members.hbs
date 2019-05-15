@@ -1,8 +1,9 @@
 {{#extend "lib/loggedin"}}
 
     {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/course.css"/>
+        <link rel="stylesheet" href="/styles/teams/teams.css"/>
         <link rel="stylesheet" href="/styles/homework/homework.css"/>
+        <link rel="stylesheet" href="/styles/teams/team.css"/>
         <link rel="stylesheet" href="/vendor/jquery/jquery-ui.css"/>
     {{/content}}
 
@@ -19,7 +20,7 @@
 
         <div id="roles" data-roles="{{roles}}"></div>
 
-        <section class="section-course">
+        <section class="section-course section-team-members">
             <div class="container-fluid">
                 <div class="row">
                     {{#inArray "ADD_SCHOOL_MEMBERS" permissions}}

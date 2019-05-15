@@ -45,6 +45,17 @@
     }
 }
 
+.dashboard-title{
+	color: black;
+}
+.dashboard-title:hover{
+	color: $primaryColor;
+}
+.dashboard-title:hover, .dashboard-title:visited, .dashboard-title:link, .dashboard-title:active
+{
+    text-decoration: none;
+}
+
 .section{
     clear: both;
 }
