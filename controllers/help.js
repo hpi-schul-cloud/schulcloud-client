@@ -54,9 +54,9 @@ const knowledgeItems = [{
         icon: "fa-comments",
         src: "/help/confluence/23232533"
     }, {
-        title: "SSO",
-        icon: "fa-sign-in",
-        src: "/help/faq/sso"
+        title: "Ansprechpartner",
+        icon: "fa-user",
+        src: "/help/faq/people"
     }, {
         title: "Release Notes",
         icon: "fa-clipboard",
@@ -134,20 +134,20 @@ router.get('/confluence/:id', function (req, res, next) {
     });
 });
 
-router.get('/faq/sso', function (req, res, next) {
-    faq.ssoFAQ.map(faq => {
+router.get('/faq/people', function (req, res, next) {
+    faq.people.map(faq => {
         faq.content = converter.makeHtml(faq.content);
     });
 
-    res.render('help/sso-faq', {
-        title: "Häufig gestellte Fragen zu SSO",
+    res.render('help/accordion-faq', {
+        title: "Ansprechpartner und Kontaktdaten",
         breadcrumb: [
             {
                 title: 'Hilfebereich',
                 url: '/help'
             },
         ],
-        faq: faq.ssoFAQ
+        faq: faq.people
     });
 });
 
@@ -159,7 +159,7 @@ router.get('/faq/documents', function (req, res, next) {
         let documents = faq.documents;
         documents[0].content = converter.makeHtml(documents[0].content);
 
-        res.render('help/sso-faq', {
+        res.render('help/accordion-faq', {
             title: "Willkommens-Dokumente zum Download",
             breadcrumb: [
                 {
