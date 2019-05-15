@@ -714,6 +714,24 @@ const userFilterSettings = function (defaultOrder) {
 	];
 };
 
+const getConsentStatusIconFromStatusString = (consentStatus) => {
+	const check = '<i class="fa fa-check consent-status"></i>';
+	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
+	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i>'+
+						'<i class="fa fa-check consent-status double-check"></i>';
+
+	switch (consentStatus) {
+		case 'missing':
+			return times;
+		case 'parentsAgreed':
+			return check;
+		case 'ok':
+			return doubleCheck;
+		default:
+			return '';
+	}
+};
+
 const getConsentStatusIcon = (consent, bool = false) => {
 	const check = '<i class="fa fa-check consent-status"></i>';
 	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
@@ -1067,7 +1085,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 		];
 
 		const body = users.map((user) => {
-			const icon = getConsentStatusIcon(user.consent);
+			const icon = getConsentStatusIconFromStatusString(user.consentStatus);
 			if (icon === '<i class="fa fa-times consent-status"></i>') { // bad but helper functions only return icons
 				studentsWithoutConsentCount += 1;
 			}
