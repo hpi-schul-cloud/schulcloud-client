@@ -16,10 +16,13 @@
     {{#if @root.updatedConsents.haveBeenUpdated}}
 
     {{#each @root.updatedConsents.all.data}}
-    <h5>Zusammenfassung der Änderungen</h5>
+    <h5>Zusammenfassung der Änderungen in der <a href="{{this.url}}" target="_blank">{{this.visualType}}</a> zum
+      {{dateToPicker this.publishedAt}}</h5>
     <div class='privacyStatement card'>
       <div class="card-header">
-        <h5>Änderung der {{this.visualType}} zum {{dateToPicker this.publishedAt}}</h5>
+        <h5 style="margin:0;">
+          {{this.title}}
+        </h5>
       </div>
       <div class="content card-block">
         {{{this.consentHTML}}}
@@ -27,25 +30,15 @@
     </div>
     {{/each}}
 
-    <div class="consentVersions">
-      <h5>Kenntnisnahme </h5>
+    <div>
       {{#if @root.updatedConsents.privacy.total}}
       <label>
         <input name="privacyConsentVersion" type="hidden" value="true" />
-        Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, nehme die Änderungen
-        der
-        <a href="#todo">Datenschutzerklärung</a> zur Kenntnis, um mit der Nutzung der {{@root.theme.title}}
-        fortzufahren.
       </label>
       {{/if}}
-
       {{#if @root.updatedConsents.termsOfUse.total}}
       <label>
         <input name="termsOfUseConsentVersion" type="hidden" value="true" />
-        Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, nehme die Änderungen
-        der
-        <a href="#todo">Nutzungsordnung</a> zur Kenntnis, um mit der Nutzung der {{@root.theme.title}}
-        fortzufahren.
       </label>
       {{/if}}
     </div>
