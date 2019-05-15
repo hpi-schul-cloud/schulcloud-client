@@ -1043,47 +1043,52 @@ router.get('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 
 router.delete('/students/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/students'));
 
 router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STUDENT_CREATE'], 'or'), async (req, res, next) => {
-	const users = await api(req).get('/users/admin/students')
-		.catch((err) => {
-			logger.error(`Can not fetch data from /users/admin/students in router.all("/students") | message: ${err.message} | code: ${err.code}.`);
-			return [];
-		});
 
-	const title = `${returnAdminPrefix(res.locals.currentUser.roles)}Schüler`;
-	let studentsWithoutConsentCount = 0;
-	const head = [
-		'Vorname',
-		'Nachname',
-		'E-Mail-Adresse',
-		'Klasse(n)',
-		'Einwilligung',
-		'Erstellt am',
-		'',
-	];
+	const tempOrgQuery = (req.query || {}).filterQuery;
 
-	const body = users.map((user) => {
-		const icon = getConsentStatusIcon(user.consent);
-		if (icon === '<i class="fa fa-times consent-status"></i>') { // bad but helper functions only return icons
-			studentsWithoutConsentCount += 1;
-		}
-		return [
-			user.firstName || '',
-			user.lastName || '',
-			user.email || '',
-			user.classes.join(', ') || '',
-			{
-				useHTML: true,
-				content: `<p class="text-center m-0">${icon}</p>`,
-			},
-			moment(user.createdAt).format('DD.MM.YYYY'),
-			[{
-				link: `/administration/students/${user._id}/edit`,
-				title: 'Nutzer bearbeiten',
-				icon: 'edit',
-			}],
+	let filterQuery = {};
+	if (tempOrgQuery) {
+		filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
+	}
+
+	api(req).get('/users/admin/students', {
+		qs: filterQuery,
+	}).then(async (users) => {
+		const title = `${returnAdminPrefix(res.locals.currentUser.roles)}Schüler`;
+		let studentsWithoutConsentCount = 0;
+		const head = [
+			'Vorname',
+			'Nachname',
+			'E-Mail-Adresse',
+			'Klasse(n)',
+			'Einwilligung',
+			'Erstellt am',
+			'',
 		];
-	});
-/*  for pagination....
+
+		const body = users.map((user) => {
+			const icon = getConsentStatusIcon(user.consent);
+			if (icon === '<i class="fa fa-times consent-status"></i>') { // bad but helper functions only return icons
+				studentsWithoutConsentCount += 1;
+			}
+			return [
+				user.firstName || '',
+				user.lastName || '',
+				user.email || '',
+				user.classes.join(', ') || '',
+				{
+					useHTML: true,
+					content: `<p class="text-center m-0">${icon}</p>`,
+				},
+				moment(user.createdAt).format('DD.MM.YYYY'),
+				[{
+					link: `/administration/students/${user._id}/edit`,
+					title: 'Nutzer bearbeiten',
+					icon: 'edit',
+				}],
+			];
+		});
+		/*  for pagination....
 
 	const tempOrgQuery = (req.query || {}).filterQuery;
 	const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${escape(tempOrgQuery)}`) : '';
@@ -1105,22 +1110,27 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 		baseUrl: `/administration/students/?p={{page}}${filterQueryString}`,
 	};
 	*/
-	// const studentsWithoutConsent = 0; // await getUsersWithoutConsent(req, 'student');
-	try {
-		res.render('administration/students', {
-			title,
-			head,
-			body,
-			// pagination,
-			filterSettings: JSON.stringify(userFilterSettings()),
-			schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-			studentsWithoutConsentCount,
-			allStudentsCount: users.length,
-		});
-	} catch (err) {
-		logger.warn('Can not render /administration/students in router.all("/students")');
-		next(err);
-	}
+		// const studentsWithoutConsent = 0; // await getUsersWithoutConsent(req, 'student');
+		try {
+			res.render('administration/students', {
+				title,
+				head,
+				body,
+				// pagination,
+				filterSettings: JSON.stringify(userFilterSettings()),
+				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+				studentsWithoutConsentCount,
+				allStudentsCount: users.length,
+			});
+		} catch (err) {
+			logger.warn('Can not render /administration/students in router.all("/students")');
+			next(err);
+		}
+	}).catch((err) => {
+		logger.error(`Can not fetch data from /users/admin/students in router.all("/students") 
+			| message: ${err.message} | code: ${err.code}.`);
+		return [];
+	});
 });
 
 const getUsersWithoutConsent = async (req, roleName, classId) => {
