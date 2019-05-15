@@ -15,7 +15,7 @@ body {
         margin:0;
     }
     header {
-        background: $secondaryColor;
+        background: $primaryColor;
         a {
             color:#fff !important;
             font-size: 1rem;
@@ -40,8 +40,8 @@ body {
                 height: 2rem;
                 margin-top: -.25rem;
                 margin-bottom: -.5rem;
-                margin-right: .6rem;
-                background: url("../../images/logo/logo-only.png") no-repeat center;
+                margin-right: .5rem;
+                background: $logoBackground;
                 background-size: contain;
             }
         }
@@ -52,8 +52,7 @@ body {
             .nav-link {
                 transition: background-color .3s ease-in-out;
                 &:hover{
-					background-color: #a90007;
-					height: 49px;
+                    background-color: $accentColor;
                 }
             }
         }

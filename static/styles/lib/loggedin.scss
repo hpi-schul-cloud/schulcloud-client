@@ -105,10 +105,9 @@ aside.nav-sidebar {
 
     .sc-branding {
         display: block;
-        padding: 12px 15px;
-		font-size: 24px;
-		margin-bottom: 2px;
-        background: $secondaryColor;
+        padding: 15px;
+        font-size: 24px;
+        background: $primaryColor;
         color: whitesmoke;
         text-decoration: none;
         @include media-breakpoint-down(md) {
@@ -120,15 +119,15 @@ aside.nav-sidebar {
         .cloud-logo {
             display: inline-block;
             vertical-align: top;
-            width: 174px;
-            height: 41px;
-            background: url("../../images/logo/logo-with-text.png") no-repeat center;
+            width: 45px;
+            height: 30px;
+            margin-bottom: -5px;
+            margin-right: 0.25rem;
+            background: $logoBackground;
             background-size: contain;
             @include media-breakpoint-down(md) {
-				background: url("../../images/logo/logo-only.png") no-repeat center;
-				width: 45px;
-				margin-left: -3px;
-				background-size: contain;
+                width: 100%;
+                margin-right: 0;
             }
             @include media-breakpoint-down(xs) {
                 width: 45px;
@@ -225,15 +224,10 @@ aside.nav-sidebar {
                 }
 
                 &.active {
-                    background: $primaryColor;
-                    color: white;
-					border-bottom: 1px solid transparent;
-					
-					&[href]:hover {
-						background: $primaryColor;
-						cursor: pointer;
-					}
-				}
+                    background: $colorLightGrey;
+                    color: $primaryColor;
+                    border-bottom: 1px solid transparent;
+                }
 
                 &[href]:hover {
                     background: $colorLightGrey;

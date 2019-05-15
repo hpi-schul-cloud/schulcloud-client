@@ -173,7 +173,7 @@
                 height: 245px;
                 content: '';
                 width: 2px;
-                background: $secondaryColor;
+                background: $primaryColor;
                 right: 1px;
                 position: absolute;
                 bottom: 0px;
@@ -186,7 +186,7 @@
                 position:absolute;
                 top: -28px;
                 background: #FFFFFF;
-                color: $secondaryColor;
+                color: $primaryColor;
                 display: block;
                 z-index: 2;
             }

@@ -13,8 +13,13 @@
             "type": "image/png"
         },
         {
-            "src": "/images/logo/favicon-36.png",
-            "sizes": "36x36",
+            "src": "/images/logo/favicon-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/favicon-64.png",
+            "sizes": "64x64",
             "type": "image/png"
         },
         {
