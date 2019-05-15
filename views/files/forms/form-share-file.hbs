@@ -1,10 +1,11 @@
 <style>
-.file-permissions th, .file-permissions td {
-    text-align: left;
-    padding: 11px;
-    text-align: center;
-    border: 1px solid grey
-}
+    .file-permissions th,
+    .file-permissions td {
+        text-align: left;
+        padding: 11px;
+        text-align: center;
+        border: 1px solid grey
+    }
 </style>
 
 <div id="share-files" class="form-group">
@@ -17,36 +18,37 @@
     </div> --}}
 
     {{#if teamFiles}}
-        <h5>Freigeben für:</h5>
-        <div>
-            <table class="file-permissions">
-                <tr>
-                    <th>Rolle</th>
-                    <th>Zugriffsrechte</th>
-                </tr>
-                <tr>
-                    <td>Externe Experten</td>
-                    <td>
-                        <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Teilnehmer</td>
-                    <td>
-                        <input class="box" type="checkbox" name="teamMembers" value="allowTeamMembers" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Leiter und Team-Admins</td>
-                    <td>
-                        <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked" disabled />
-                    </td>
-                </tr>
-            </table>
-        </div>
+    <h2 class="h5">Freigeben für:</h2>
+    <div>
+        <table class="file-permissions">
+            <tr>
+                <th>Rolle</th>
+                <th>Zugriffsrechte</th>
+            </tr>
+            <tr>
+                <td>Externe Experten</td>
+                <td>
+                    <input class="box" type="checkbox" name="externalExperts" value="allowExternalExperts" />
+                </td>
+            </tr>
+            <tr>
+                <td>Teilnehmer</td>
+                <td>
+                    <input class="box" type="checkbox" name="teamMembers" value="allowTeamMembers" />
+                </td>
+            </tr>
+            <tr>
+                <td>Leiter und Team-Admins</td>
+                <td>
+                    <input class="box" type="checkbox" data-force-value name="other" value="allowOthers"
+                        checked="checked" disabled />
+                </td>
+            </tr>
+        </table>
+    </div>
     {{/if}}
 
-    <h5 class="mt-2">Freigabe-Link</h5>
+    <h2 class="mt-2 h5">Freigabe-Link</h2>
     <label for="invitation">Verteile folgenden Link, um Zugriff auf die Datei zu gewährleisten. </label>
     <input class="form-control" name="invitation" type="text" />
 </div>
