@@ -1,13 +1,16 @@
 <section id="loginarea" class="card">
-    <div class="card-block" data-step="3" data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
-        <h4 class="card-title">Login</h4>
+    <div class="card-block" data-step="3"
+        data-intro="Wenn Ihre Schule bereits über {{theme.title}}-Accounts verfügt, dann können Sie sich hier mit Ihren persönlichen Anmeldedaten einloggen. (Fokus “normaler” Login)">
+        <h2 class="card-title h4">Login</h2>
         <div class="card-text form-wrapper">
             {{> "lib/components/notification"}}
 
             <form method="post" action="/login/" class="login-form">
                 <div class="form-group">
-                    <input type="text" name="username" class="form-control form-control-lg" placeholder="E-Mail / Nutzername" data-testid="username" required>
-                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort" data-testid="password" required>
+                    <input type="text" name="username" class="form-control form-control-lg"
+                        placeholder="E-Mail / Nutzername" data-testid="username" required>
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Passwort"
+                        data-testid="password" required>
                 </div>
 
                 <div class="form-group toggle-providers">
@@ -19,28 +22,34 @@
                 <div class="login-providers">
                     <div class="form-group ">
                         <select name="schoolId" class="school" data-placeholder="Schule">
-                            <option><!-- Empty option goes here. --><option>
-                            {{#each schools}}
-                                <option value="{{this._id}}">{{this.name}}</option>
+                            <option>
+                                <!-- Empty option goes here. -->
+                            <option>
+                                {{#each schools}}
+                            <option value="{{this._id}}">{{this.name}}</option>
                             {{/each}}
                         </select>
                     </div>
                     <div class="form-group ">
                         <select name="systemId" class="system" data-placeholder="System">
-                            <option><!-- Empty option goes here. --><option>
-                            {{#each systems}}
-                                <option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
+                            <option>
+                                <!-- Empty option goes here. -->
+                            <option>
+                                {{#each systems}}
+                            <option value="{{this._id}}">{{this.type}}{{#if this.alias}}({{this.alias}}){{/if}}</option>
                             {{/each}}
                         </select>
                     </div>
 
                     <div class="form-group ">
-                        <a class="btn btn-block btn-secondary btn-hide-providers">Mit {{theme.title}} Account anmelden</a>
+                        <a class="btn btn-block btn-secondary btn-hide-providers">Mit {{theme.title}} Account
+                            anmelden</a>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="submit" name="submit-login" class="btn btn-block btn-primary btn-login" value="Anmelden" data-testid="submit-login" />
+                    <input type="submit" name="submit-login" class="btn btn-block btn-primary btn-login"
+                        value="Anmelden" data-testid="submit-login" />
                 </div>
             </form>
         </div>
