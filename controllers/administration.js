@@ -720,12 +720,12 @@ const getConsentStatusIcon = (consent, bool = false) => {
 
 	const isUserConsent = (c = {}) => {
 		const uC = c.userConsent;
-		return uC && uC.privacyConsent && uC.thirdPartyConsent && uC.termsOfUseConsent;
+		return uC && uC.privacyConsent && uC.termsOfUseConsent;
 	};
 
 	const isNOTparentConsent = (c = {}) => {
 		const pCs = c.parentConsents || [];
-		return pCs.length === 0 || !(pCs.privacyConsent && pCs.thirdPartyConsent && pCs.termsOfUseConsent);
+		return pCs.length === 0 || !(pCs.privacyConsent && pCs.termsOfUseConsent);
 	};
 
 	if (!consent) {
@@ -777,7 +777,6 @@ const getTeacherUpdateHandler = () => {
 				userConsent: {
 					form: req.body.form || "analog",
 					privacyConsent: req.body.privacyConsent || false,
-					thirdPartyConsent: req.body.thirdPartyConsent || false,
 					termsOfUseConsent: req.body.termsOfUseConsent || false
 				}
 			};
@@ -996,7 +995,6 @@ const getStudentUpdateHandler = () => {
 				newConsent.userConsent = {
 					form: req.body.student_form || "analog",
 					privacyConsent: req.body.student_privacyConsent === "true",
-					thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
 					termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
 				};
 			}
@@ -1005,7 +1003,6 @@ const getStudentUpdateHandler = () => {
 				newConsent.parentConsents[0] = {
 					form: req.body.parent_form || "analog",
 					privacyConsent: req.body.parent_privacyConsent === "true",
-					thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
 					termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
 				};
 			}
