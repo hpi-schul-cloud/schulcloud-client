@@ -8,7 +8,7 @@ const router = express.Router();
 router.use(authHelper.authChecker);
 
 const consentFullfilled = (consent) => {
-	return (consent.privacyConsent && consent.termsOfUseConsent && consent.thirdPartyConsent);
+	return (consent.privacyConsent && consent.termsOfUseConsent);
 };
 const isStudent = (res) => {
 	const roles = res.locals.currentUser.roles.map((role) => { return role.name; });
