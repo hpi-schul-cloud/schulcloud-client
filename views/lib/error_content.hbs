@@ -1,11 +1,11 @@
 <div class="error-header-wrapper pb-3">
-    <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrocheneer Stift"/>
-    <h2 class="error-header-code">{{error.statusCode}}</h2>
+    <img class="error-header-image" src="/images/broken-pen.svg" alt="zerbrocheneer Stift" />
+    <h2 class="error-header-code h2">{{error.statusCode}}</h2>
     <p class="error-header-text">
         {{#if error.statusCode}}
-            {{castStatusCodeToString error.statusCode}}
+        {{castStatusCodeToString error.statusCode}}
         {{else}}
-            Da ist wohl etwas schief gelaufen!
+        Da ist wohl etwas schief gelaufen!
         {{/if}}
     </p>
 
@@ -13,21 +13,22 @@
 </div>
 
 <div class="error-details-wrapper">
-    <button id="error-toggle-details" class="btn btn-secondary mb-1" data-toggle="collapse" data-target="#error-details" aria-expanded="false" aria-controls="error-details">
+    <button id="error-toggle-details" class="btn btn-secondary mb-1" data-toggle="collapse" data-target="#error-details"
+        aria-expanded="false" aria-controls="error-details">
         <span class="show">Details anzeigen</span>
         <span class="hide">Details verstecken</span>
     </button>
     <div id="error-details" class="collapse card error-card">
         <div class="card-header">
-            Fehler-Details: <br/>
+            Fehler-Details: <br />
             <code>{{message}}</code>
         </div>
         {{#unlessEnv "NODE_ENV" "production"}}
-            {{#if ../error.stack}}
-                <div class="card-block error-description">
-                    <pre>{{../error.stack}}</pre>
-                </div>
-            {{/if}}
+        {{#if ../error.stack}}
+        <div class="card-block error-description">
+            <pre>{{../error.stack}}</pre>
+        </div>
+        {{/if}}
         {{/unlessEnv}}
     </div>
 </div>
