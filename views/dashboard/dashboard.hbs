@@ -1,108 +1,113 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/dashboard/dashboard.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/dashboard/dashboard.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script type="text/javascript" src="/scripts/dashboard.js" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script type="text/javascript" src="/scripts/dashboard.js" defer></script>
+{{/content}}
 
-    {{#content "page"}}
-        <section class="container-fluid section-timetable" data-step="7" data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
-            <div class="row">
-                <div class="col-sm-12">
-                    <h2 class="h5">Stundenplan</h2>
-                    <time class="selected-date">{{eventsDate}}</time>
-                </div>
-            </div>
+{{#content "page"}}
+<section class="container-fluid section-timetable" data-step="7"
+    data-intro="Hier findest du eine Übersicht über deinen Stundenplan und anstehende Termine.">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 class="h5">Stundenplan</h2>
+            <time class="selected-date">{{eventsDate}}</time>
+        </div>
+    </div>
 
-            <div class="timetable">
-                <div class="row lesson-cards">
-                    <div>
-                        {{#each events}}
-                            <a class="lesson-card" {{#if url}}href="{{url}}"{{/if}}
-                               style="width: {{style.width}}%; left: {{style.left}}%;">
-                                <div class="card card-block" style="{{#if color}}background-color: {{color}};
+    <div class="timetable">
+        <div class="row lesson-cards">
+            <div>
+                {{#each events}}
+                <a class="lesson-card" {{#if url}}href="{{url}}" {{/if}}
+                    style="width: {{style.width}}%; left: {{style.left}}%;">
+                    <div class="card card-block" style="{{#if color}}background-color: {{color}};
                                         border-color: {{color}};{{/if}}">
-                                    <time class="lesson-time">{{comment}}</time>
-                                    <h3 class="card-title">{{title}}</h3>
-                                    <p class="card-text">{{location}}</p>
-                                </div>
-                            </a>
-                        {{/each}}
+                        <time class="lesson-time">{{comment}}</time>
+                        <h2 class="card-title h3">{{title}}</h2>
+                        <p class="card-text">{{location}}</p>
                     </div>
-                </div>
+                </a>
+                {{/each}}
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="timeline">
-                        <table style="width:100%">
-                            <tr>
-                                {{#each hours}}
-                                    <td style="width:10%">
-                                        <div class="tick">{{this}}.00</div>
-                                    </td>
-                                {{/each}}
-                            </tr>
-                        </table>
-                        <div class="current-time" style="width:{{currentTimePercentage}}%;">
-                            <span>{{currentTime}}</span>
-                        </div>
-                        {{#times 11}}
-                            <div class="timelines" style="width:{{this}}0%"></div>
-                        {{/times}}
-                    </div>
+        <div class="row">
+            <div class="timeline">
+                <table style="width:100%">
+                    <tr>
+                        {{#each hours}}
+                        <td style="width:10%">
+                            <div class="tick">{{this}}.00</div>
+                        </td>
+                        {{/each}}
+                    </tr>
+                </table>
+                <div class="current-time" style="width:{{currentTimePercentage}}%;">
+                    <span>{{currentTime}}</span>
+                </div>
+                {{#times 11}}
+                <div class="timelines" style="width:{{this}}0%"></div>
+                {{/times}}
+            </div>
+        </div>
+    </div>
+</section>
+
+{{#ifeq this.currentRole "Beta"}}
+<section class="section section-my-material">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <h2 class="h5">Meine Materialien</h2>
+            </div>
+        </div>
+        <div class="row tasks card-deck-row">
+            {{#each myMaterials}}
+            <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                {{> 'lib/components/sc-card' link-text=../link-text}}
+            </div>
+            {{else}}
+            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
+                <div class="alert">
+                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in
+                    Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine
+                        Materialien"-Abschnitt</a> vorbei.
                 </div>
             </div>
-        </section>
+        </div>
+        {{/each}}
+    </div>
+</section>
+{{/ifeq}}
 
-        {{#ifeq this.currentRole "Beta"}}
-            <section class="section section-my-material">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-sm-12"><h2 class="h5">Meine Materialien</h2></div>
-                    </div>
-                    <div class="row tasks card-deck-row">
-                        {{#each myMaterials}}
-                            <div class="sc-card-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-12">
-                                {{> 'lib/components/sc-card' link-text=../link-text}}
-                            </div>
-                        {{else}}
-                            <div class="col-md-8 offset-md-2 col-lg-12 offset-lg-0">
-                                <div class="alert">
-                                    Sie haben noch keine eigenen Materialien erstellt. Sie können sich aber auch Inspiration in Materialien Ihrer Kolleg*Innen holen. Schauen Sie doch im <a href="/my-material">"Meine Materialien"-Abschnitt</a> vorbei.
-                                </div>
-                            </div>
-                        </div>
-                    {{/each}}
-                </div>
-            </section>
-        {{/ifeq}}
+{{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="8" intro="Hier findest du eine Übersicht über deine gestellten Aufgaben. Diese Aufgaben sind mit deinen Schülern geteilt und für diese sichtbar. Du kannst unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
+{{> 'dashboard/components/card_section' section-id="mytasks" title="Meine ToDos" content=myhomeworks link-text="Zur Aufgabe" step="9" intro="An dieser Stelle findest du eine Übersicht über deine private “To Do” Liste. Die Aufgaben, die du hier siehst, kannst du selbst unter “Aufgaben” auswählen und bearbeiten. Deine “To Do” Liste ist privat und daher nur für dich einsehbar."}}
 
-        {{> 'dashboard/components/card_section' section-id="tasks" title="Gestellte Aufgaben" content=homeworks link-text="Zur Aufgabe" step="8" intro="Hier findest du eine Übersicht über deine gestellten Aufgaben. Diese Aufgaben sind mit deinen Schülern geteilt und für diese sichtbar. Du kannst unter dem Punkt “Aufgaben” weitere Aufgaben erstellen und bearbeiten."}}
-        {{> 'dashboard/components/card_section' section-id="mytasks" title="Meine ToDos" content=myhomeworks link-text="Zur Aufgabe" step="9" intro="An dieser Stelle findest du eine Übersicht über deine private “To Do” Liste. Die Aufgaben, die du hier siehst, kannst du selbst unter “Aufgaben” auswählen und bearbeiten. Deine “To Do” Liste ist privat und daher nur für dich einsehbar."}}
+{{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten aus meiner Schule" content=news link-text="Weiterlesen" step="10" intro="Hier erhälst du einen Überblick über Neuigkeiten, die zum Beispiel von deiner Schulleitung oder dem Entwicklerteam erstellt werden können."}}
 
-        {{>  'dashboard/components/card_section' section-id="news" title="Neuigkeiten aus meiner Schule" content=news link-text="Weiterlesen" step="10" intro="Hier erhälst du einen Überblick über Neuigkeiten, die zum Beispiel von deiner Schulleitung oder dem Entwicklerteam erstellt werden können."}}
+{{#if this.currentSchoolData.pilot}}
+{{#ifneq this.currentRole "Schüler"}}
+{{#ifneq ../this.currentRole "Demo"}}
+{{#embed "lib/components/modal" class="poll-modal"}}
+{{#content "body"}}
+{{> "lib/forms/form-poll"}}
+{{/content}}
+{{/embed}}
+{{/ifneq}}
+{{/ifneq}}
+{{/if}}
 
-        {{#if this.currentSchoolData.pilot}}
-        {{#ifneq this.currentRole "Schüler"}}
-        {{#ifneq ../this.currentRole "Demo"}}
-            {{#embed "lib/components/modal" class="poll-modal"}}
-            {{#content "body"}}
-                {{> "lib/forms/form-poll"}}
-            {{/content}}
-        {{/embed}}
-        {{/ifneq}}
-        {{/ifneq}}
-        {{/if}}
+{{#if showNewReleaseModal}}
+{{#embed "lib/components/modal" class="feature-modal"}}
+{{#content "body"}}
+{{> "lib/forms/form-features"}}
+{{/content}}
+{{/embed}}
+{{/if}}
 
-        {{#if showNewReleaseModal}}
-            {{#embed "lib/components/modal" class="feature-modal"}}
-                {{#content "body"}}
-                    {{> "lib/forms/form-features"}}
-                {{/content}}
-            {{/embed}}
-        {{/if}}
-
-    {{/content}}
+{{/content}}
 {{/extend}}
