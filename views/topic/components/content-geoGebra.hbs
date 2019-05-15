@@ -1,8 +1,7 @@
-<h4>{{title}}</h4>
+<h2 class="h2">{{title}}</h2>
 
 <div id="applet_container_{{this._id}}"></div>
 <script>
-    var applet1 = new GGBApplet({material_id: "{{content.materialId}}", borderColor:"#990000"}, true);
+    var applet1 = new GGBApplet({ material_id: "{{content.materialId}}", borderColor: "#990000" }, true);
     applet1.inject('applet_container_{{this._id}}');
 </script>
-
