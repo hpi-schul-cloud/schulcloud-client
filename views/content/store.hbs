@@ -1,90 +1,87 @@
 {{#extend "lib/loggedin" hideSearch="true"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/content/content.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/content/content.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/content.js" type="text/javascript" defer></script>
-        <script src="/scripts/filter/custom-element-polyfill.js" defer></script>
-        <script src="/scripts/filter/feathers-filter.js" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script src="/scripts/content.js" type="text/javascript" defer></script>
+<script src="/scripts/filter/custom-element-polyfill.js" defer></script>
+<script src="/scripts/filter/feathers-filter.js" defer></script>
+{{/content}}
 
-    {{#content "page"}}
-        <section class="store container">
+{{#content "page"}}
+<section class="store container">
 
-            <div class="row">
-                <div class="col-sm-12">
-                    {{> "content/forms/form-search" }}
+    <div class="row">
+        <div class="col-sm-12">
+            {{> "content/forms/form-search" }}
 
-                    {{#if query}}
-                        <div><feathers-filter id="filter"
-                                filter='{{@root.filterSettings}}'
-                                add-label='Filter hinzufügen'
-                                apply-label='Übernehmen'
-                                cancle-label='Abbrechen'
-                                handle-url='false'
-                        /></div>
-                    {{/if}}
-                </div>
+            {{#if query}}
+            <div>
+                <feathers-filter id="filter" filter='{{@root.filterSettings}}' add-label='Filter hinzufügen'
+                    apply-label='Übernehmen' cancle-label='Abbrechen' handle-url='false' />
             </div>
-            <div class="ajaxcontent">
-                {{#if query}}
-                    {{#if searchResults}}
-                        <h5 class="mb-1">{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h5>
-                    {{else}}
-                        <h5 class="mb-1">Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h5>
-                    {{/if}}
-                    <hr class="mt-0">
-                {{/if}}
-                {{#unless query }}
-                    {{#with featuredContent}}
-                    <h3>Aktuelle Inhalte</h3>
-                    <div class="row equal-height">
-                        {{#each this}}
-                            <div class="col-md-6 col-lg-4">
-                                {{> "content/item" }}
-                            </div>
-                        {{/each}}
-                    </div>
-                    {{/with}}
-
-                    {{#with trendingContent}}
-                    <h3>Beliebte Inhalte</h3>
-                    <div class="row equal-height">
-                        {{#each this}}
-                            <div class="col-md-6 col-lg-4">
-                                {{> "content/item" }}
-                            </div>
-                        {{/each}}
-                    </div>
-                    {{/with}}
-                {{else}}
-                    <div class="row equal-height">
-                        {{#each searchResults.data}}
-                            <div class="col-md-6 col-lg-4">
-                                {{> "content/item" }}
-                            </div>
-                        {{/each}}
-                    </div>
-                    <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
-                    </div>
-                {{/unless}}
+            {{/if}}
+        </div>
+    </div>
+    <div class="ajaxcontent">
+        {{#if query}}
+        {{#if searchResults}}
+        <h2 class="mb-1 h5">{{ searchResults.total }} Suchergebnisse für "{{ query }}"</h2>
+        {{else}}
+        <h2 class="mb-1 h5">Es wurden keine Suchergebnisse für "{{ query }}" gefunden</h2>
+        {{/if}}
+        <hr class="mt-0">
+        {{/if}}
+        {{#unless query }}
+        {{#with featuredContent}}
+        <h3 class="h3">Aktuelle Inhalte</h3>
+        <div class="row equal-height">
+            {{#each this}}
+            <div class="col-md-6 col-lg-4">
+                {{> "content/item" }}
             </div>
-        </section>
+            {{/each}}
+        </div>
+        {{/with}}
 
-        {{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
-            {{#content "fields"}}
-                {{> "content/forms/form-add-lesson" }}
-            {{/content}}
-        {{/embed}}
+        {{#with trendingContent}}
+        <h3 class="h3">Beliebte Inhalte</h3>
+        <div class="row equal-height">
+            {{#each this}}
+            <div class="col-md-6 col-lg-4">
+                {{> "content/item" }}
+            </div>
+            {{/each}}
+        </div>
+        {{/with}}
+        {{else}}
+        <div class="row equal-height">
+            {{#each searchResults.data}}
+            <div class="col-md-6 col-lg-4">
+                {{> "content/item" }}
+            </div>
+            {{/each}}
+        </div>
+        <div class="row">
+            {{> "lib/components/pagination" settings=pagination }}
+        </div>
+        {{/unless}}
+    </div>
+</section>
 
-        {{#embed "lib/components/modal" class="external-link-modal"}}
-            {{#content "body"}}
-                {{> "content/forms/form-external-link"}}
-            {{/content}}
-        {{/embed}}
+{{#embed "lib/components/modal-form" method="post" class="edit-modal"}}
+{{#content "fields"}}
+{{> "content/forms/form-add-lesson" }}
+{{/content}}
+{{/embed}}
 
-    {{/content}}
+{{#embed "lib/components/modal" class="external-link-modal"}}
+{{#content "body"}}
+{{> "content/forms/form-external-link"}}
+{{/content}}
+{{/embed}}
+
+{{/content}}
 {{/extend}}
