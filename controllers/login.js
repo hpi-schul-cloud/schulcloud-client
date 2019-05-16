@@ -174,6 +174,7 @@ router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
 		.then((_) => {
 			res.clearCookie('jwt', authHelper.cookieDomain(res));
+			req.session.destroy();
 			return res.redirect('/');
 		}).catch(_ => res.redirect('/'));
 });
