@@ -48,8 +48,8 @@ router.get('/', async (req, res, next) => {
 	const changedUserConsents = await userConsentVersions(res.locals.currentUser, consent, req);
 	let updatedConsents = {};
 
-	if (changedUserConsents.haveBeenUpdated) {
-		// UPDATED CONSENTS SINCE LAST TIME
+	if (userConsent && changedUserConsents.haveBeenUpdated) {
+		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
 		// todo userConsentsChanged for age <14
 		// load changes with data instead of counts only again
 		updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
