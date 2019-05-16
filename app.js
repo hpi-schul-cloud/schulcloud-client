@@ -60,7 +60,7 @@ app.use(session({
 const defaultBaseDir = (req, res) => {
 	let dir = process.env.DOCUMENT_BASE_DIR || 'https://schul-cloud-hpi.s3.hidrive.strato.com/Willkommenordner/';
 	dir += `${themeName}/`;
-	if (themeName === 'open') {
+	if (themeName === 'open' && res.locals && res.locals.currentUser && res.locals.currentUser.schoolId) {
 		// fixme currentUser missing here (after login)
 		dir += `${res.locals.currentUser.schoolId}/`;
 	}
@@ -71,6 +71,13 @@ const defaultDocuments = require('./helpers/content/documents.json');
 
 // Custom flash middleware
 app.use(async (req, res, next) => {
+	if (!req.session.currentUser) {
+		await authHelper.populateCurrentUser(req, res).then(() => {
+			req.session.currentUser = res.locals.currentUser;
+		});
+	} else {
+		res.locals.currentUser = req.session.currentUser;
+	}
 	// if there's a flash message in the session request, make it available in the response, then delete it
 	res.locals.notification = req.session.notification;
 	res.locals.inline = req.query.inline || false;
@@ -80,9 +87,9 @@ app.use(async (req, res, next) => {
 		documents: Object.assign({}, {
 			baseDir: defaultBaseDir(req, res),
 			privacy: process.env.PRIVACY_DOCUMENT
-                || 'Datenschutz/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
+				|| 'Datenschutz/Datenschutzerklaerung-Muster-Schulen-Onlineeinwilligung.pdf',
 			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
-                || 'Datenschutz/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
+				|| 'Datenschutz/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 		}, defaultDocuments),
 	};
 	res.locals.domain = process.env.SC_DOMAIN || false;
