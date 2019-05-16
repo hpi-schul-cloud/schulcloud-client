@@ -586,25 +586,30 @@ $(document).ready(function() {
 	};
 
 	$('.permissions-modal .modal-form').on('submit', (e) => {
-		e.preventDefault();
-		const inputs = $(this).find('input[type="checkbox"]').toArray()
+    e.preventDefault();
+
+		const inputs = $(e.target).find('input[type="checkbox"]').toArray()
 			.filter(({ defaultChecked, checked }) => defaultChecked !== checked);
-		const fileId = $(this).find('input[name="fileId"]').val();
+		const fileId = $(e.target).find('input[name="fileId"]').val();
 		const permissions = inputs.reduce((arr, input) => {
 			const [action, refId] = input.name.split('-');
 			const perm = arr.find(i => i.refId === refId);
 			if (perm) {
 				perm[action] = input.checked;
 				return arr;
-			}
-
+      }
+      
 			arr.push({
 				refId,
 				[action]: input.checked,
 			});
 
 			return arr;
-		}, []);
+    }, []);
+
+    if(!inputs.length) {
+      return;
+    }
 
 		$.ajax({
 			url: '/files/permissions',
