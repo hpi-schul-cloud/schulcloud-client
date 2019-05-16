@@ -599,7 +599,7 @@ $(document).ready(function() {
 				perm[action] = input.checked;
 				return arr;
 			}
-			
+
 			arr.push({
 				refId,
 				[action]: input.checked,
@@ -608,7 +608,7 @@ $(document).ready(function() {
 			return arr;
 		}, []);
 
-		if(!inputs.length) {
+		if (!inputs.length) {
 			return;
 		}
 
@@ -617,13 +617,13 @@ $(document).ready(function() {
 			method: 'PATCH',
 			data: { fileId, permissions },
 		})
-		.done(() => {
-			$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
-			$('.permissions-modal').modal('hide');
-		})
-		.fail(() => {
-			$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
-		});
+			.done(() => {
+				$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
+				$('.permissions-modal').modal('hide');
+			})
+			.fail(() => {
+				$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
+			});
 	});
 
 	const fileShare = (fileId, $shareModal, view) => {
