@@ -73,7 +73,10 @@ const defaultDocuments = require('./helpers/content/documents.json');
 app.use(async (req, res, next) => {
 	if (!req.session.currentUser) {
 		await authHelper.populateCurrentUser(req, res).then(() => {
-			req.session.currentUser = res.locals.currentUser;
+			if (res.locals.currentUser) { // user is authenticated
+				req.session.currentUser = res.locals.currentUser;
+				req.session.save();
+			}
 		});
 	} else {
 		res.locals.currentUser = req.session.currentUser;
