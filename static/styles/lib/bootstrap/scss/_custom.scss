@@ -102,9 +102,9 @@ $font-family-base: $font-family-sans-serif !default;
 $font-size-base: 1rem !default;
 $font-size-lg: 1.25rem !default;
 $font-size-sm: 0.875rem !default;
-$font-size-xs: 0.75rem !default;
+$font-size-xs: 0.7778rem !default;
 $line-height-base: 1.4 !default;
-// @media (max-width: 392px) {
+
 $font-size-root: 18px !default;
 $font-size-h1: 2.667rem !default;
 $font-size-h2: 1.778rem !default;
@@ -112,25 +112,7 @@ $font-size-h3: 1.556rem !default;
 $font-size-h4: 1.333rem !default;
 $font-size-h5: 1.111rem !default;
 $font-size-h6: 0.8889rem !default;
-// }
-// @media (max-width: 720px) {
-// $font-size-root: 21px !default;
-// $font-size-h1: 2.857rem !default;
-// $font-size-h2: 2.286rem !default;
-// $font-size-h3: 1.524rem !default;
-// $font-size-h4: 1.143rem !default;
-// $font-size-h5: 0.9524rem !default;
-// $font-size-h6: 0.7619rem !default;
-// }
-// @media (min-width: 992px) {
-// 	$font-size-root: 21px !default;
-// 	$font-size-h1: 4.571rem !default;
-// 	$font-size-h2: 2.857rem !default;
-// 	$font-size-h3: 2.286rem !default;
-// 	$font-size-h4: 1.524rem !default;
-// 	$font-size-h5: 1.143rem !default;
-// 	$font-size-h6: 0.9524rem !default;
-// }
+
 $display1-size: 6rem !default;
 $display2-size: 5.5rem !default;
 $display3-size: 4.5rem !default;
