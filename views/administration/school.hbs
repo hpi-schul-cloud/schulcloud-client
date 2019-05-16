@@ -41,7 +41,11 @@
                             <label>
                                 <input type="checkbox" name="rocketchat" value="true"
                                     {{#inArray "rocketChat" ../school.features}}checked{{/inArray}}>
-                                Freischaltung des Messengers für einzelne Bereiche zulassen
+                                Chatfunktion aktivieren
+                                <p class="text-muted">Durch Ihren Klick auf „Chatfunktion aktivieren“ bestätigen Sie,
+                                    dass Sie weisungsberechtigter Schul-Administrator und befugt sind,
+                                    die Chat-Funktion für Ihre Schule freizuschalten. Ihr Klick gilt insofern als
+                                    Weisung der Schule gegenüber dem HPI.</p>
                             </label>
                         </div>
 
@@ -54,7 +58,6 @@
                                 </option>
                                 {{/each}} </select> </div> {{/if}} <button type="submit"
                             class="btn btn-primary btn-submit">Speichern</button>
-
                     </form>
 
                     {{#if ../school.fileStorageType}}

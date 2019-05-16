@@ -13,7 +13,7 @@
         <h2 class="h5 title">{{{stripOnlyScript this.name}}}</h2>
         <div class="description">
             {{#if this.description}}
-                {{truncateHTML (conflictFreeHtml this.description)}}
+                {{truncateHTML (stripHTMLTags this.description)}}
             {{else}}
                 keine Beschreibung vorhanden
             {{/if}}

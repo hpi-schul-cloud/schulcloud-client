@@ -55,19 +55,19 @@
     <div class="course-card">
         <div class="tabContainer">
             <div class="tabs" data-max-width="1024">
-                <span class="tab" data-tab="a">
+                <button class="tab" data-tab="a">
                     <span class="text count-badge" data-badge="{{lessons.length}}">Themen</span>
-                </span>
-                <span class="tab" data-tab="b">
+                </button>
+                <button class="tab" data-tab="b">
                     <span class="text count-badge"
                         data-badge="{{ add (arrayLength ../myhomeworks)  (arrayLength ../homeworks) }}">Aufgaben</span>
-                </span>
-                <span class="tab" data-tab="c">
+                </button>
+                <button class="tab" data-tab="c">
                     <span class="text count-badge" data-badge="{{ltiToolIds.length}}">Tools</span>
-                </span>
-                <span class="tab" data-tab="d">
+                </button>
+                <button class="tab" data-tab="d">
                     <span class="text count-badge" data-badge="{{courseGroups.length}}">Gruppen</span>
-                </span>
+                </button>
             </div>
         </div>
         <div class="sectionsContainer">

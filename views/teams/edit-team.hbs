@@ -19,15 +19,13 @@
         <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
         {{/if}}
 
-        <h2 class="h4">Allgemeine Informationen</h2>
-
         <div class="form-group">
             <label>Name des Teams</label>
             <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{team.name}}" required />
         </div>
 
         <div class="form-group">
-            <label>Beschreibung des Teams</label>
+            <label>Beschreibung des Teams (optional)</label>
             <textarea class="form-control" name="description">{{team.description}}</textarea>
         </div>
 

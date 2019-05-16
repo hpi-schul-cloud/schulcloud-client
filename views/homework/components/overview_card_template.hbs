@@ -43,7 +43,7 @@
         </h2>
         <div class="ckcontent">
             {{#if this.description}}
-            {{truncateHTML (conflictFreeHtml this.description)}}
+            {{truncateHTML (stripHTMLTags this.description)}}
             {{else}}
             keine Beschreibung vorhanden
             {{/if}}
