@@ -45,13 +45,12 @@ router.get('/', async (req, res, next) => {
 
 	const userConsent = consentFullfilled((consent || {}).userConsent || {});
 	const parentConsent = consentFullfilled(((consent || {}).parentConsents || [undefined])[0] || {});
-	const changedUserConsents = await userConsentVersions(res.locals.currentUser, consent, req);
+	const consentVersions = await userConsentVersions(res.locals.currentUser, consent, req);
 	let updatedConsents = {};
 
-	if (userConsent && changedUserConsents.haveBeenUpdated) {
+	// if there is already a user or parent consent it may have been updated
+	if (consentVersions.haveBeenUpdated) {
 		// UPDATED CONSENTS SINCE LAST FULLFILMENT DATE
-		// todo userConsentsChanged for age <14
-		// load changes with data instead of counts only again
 		updatedConsents = await userConsentVersions(res.locals.currentUser, consent, req, 100);
 		updatedConsents.all.data.map((version) => {
 			if (version.consentTypes.includes('privacy') && version.consentTypes.includes('termsOfUse')) {
@@ -154,7 +153,7 @@ router.get('/', async (req, res, next) => {
 		updatedConsents,
 	};
 
-	if (changedUserConsents.haveBeenUpdated) {
+	if (consentVersions.haveBeenUpdated) {
 		// default is 'Absenden'
 		renderObject.submitLabel = 'Gelesen';
 	}
