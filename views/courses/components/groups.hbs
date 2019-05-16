@@ -24,9 +24,9 @@
         <img src="/images/empty-states/groups.svg" alt="Keine erstellte Gruppe" class="image"/>
         {{#userHasPermission "COURSEGROUP_CREATE"}}
           <h2 class="h4">Erstelle eine Gruppe</h2>
-          <h3 class="h6 sub-title">
+          <p class="sub-title">
             In Gruppen können sich Teilnehmer*innen innerhalb eines Kurses in Teams aufteilen, z.B. für Gruppenarbeiten.
-          </h3>
+          </p>
         {{else}}
           <h2 class="h4 text-muted">Es gibt noch keine Gruppen in diesem Kurs.</h2>
         {{/userHasPermission}}
