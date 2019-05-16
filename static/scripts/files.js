@@ -586,7 +586,7 @@ $(document).ready(function() {
 	};
 
 	$('.permissions-modal .modal-form').on('submit', (e) => {
-    e.preventDefault();
+		e.preventDefault();
 
 		const inputs = $(e.target).find('input[type="checkbox"]').toArray()
 			.filter(({ defaultChecked, checked }) => defaultChecked !== checked);
@@ -594,35 +594,36 @@ $(document).ready(function() {
 		const permissions = inputs.reduce((arr, input) => {
 			const [action, refId] = input.name.split('-');
 			const perm = arr.find(i => i.refId === refId);
+
 			if (perm) {
 				perm[action] = input.checked;
 				return arr;
-      }
-      
+			}
+			
 			arr.push({
 				refId,
 				[action]: input.checked,
 			});
 
 			return arr;
-    }, []);
+		}, []);
 
-    if(!inputs.length) {
-      return;
-    }
+		if(!inputs.length) {
+			return;
+		}
 
 		$.ajax({
 			url: '/files/permissions',
 			method: 'PATCH',
 			data: { fileId, permissions },
 		})
-			.done(() => {
-				$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
-				$('.permissions-modal').modal('hide');
-			})
-			.fail(() => {
-				$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
-			});
+		.done(() => {
+			$.showNotification('Datei-Berechtigungen erfolgreich geändert', 'success', true);
+			$('.permissions-modal').modal('hide');
+		})
+		.fail(() => {
+			$.showNotification('Problem beim Ändern der Berechtigungen', 'danger', true);
+		});
 	});
 
 	const fileShare = (fileId, $shareModal, view) => {
