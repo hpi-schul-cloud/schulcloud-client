@@ -12,15 +12,6 @@
     {{/content}}
 
     {{#content "page"}}
-        {{#userHasPermission "COURSE_EDIT"}}
-            <div class="edtr-link-wrapper">
-                <a href="?edtr=true" class="edtr-link">
-                    <button class="btn btn-primary edtr-btn">
-                        Neuen Editor ausprobieren
-                    </button>
-                </a>
-            </div>
-        {{/userHasPermission}}
         {{#if isCourseGroupTopic}}
             <div class="row padding-top">
                 <div class="col-sm-12">
