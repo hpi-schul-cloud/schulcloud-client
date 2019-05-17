@@ -63,14 +63,14 @@ router.get('/', function (req, res, next) {
 });
 
 // delete file
-router.delete('/settings/device', function (req, res, next) {
-    const {name, _id = ''} = req.body;
+router.delete('/settings/device', (req, res, next) => {
+	const { _id = '' } = req.body;
 
-    api(req).delete('/notification/devices/' + _id).then(_ => {
-        res.sendStatus(200);
-    }).catch(err => {
-        res.status((err.statusCode || 500)).send(err);
-    });
+	api(req).delete(`/notification/devices/${_id}`).then(() => {
+		res.sendStatus(200);
+	}).catch((err) => {
+		res.status((err.statusCode || 500)).send(err);
+	});
 });
 
 router.get('/user', function (req, res, next) {
