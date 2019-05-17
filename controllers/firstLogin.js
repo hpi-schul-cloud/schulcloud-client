@@ -25,7 +25,7 @@ const hasAccount = (req, res) => api(req).get('/consents', {
 // firstLogin
 router.get('/', async (req, res, next) => {
 	if (
-		!res.locals.currentUser.birthday && res.locals.currentRole == 'Schüler'
+		!res.locals.currentUser.birthday && res.locals.currentRole === 'Schüler' // fixme identical to isStudent() here
 		&& !req.query.u14 && !req.query.ue14 && !req.query.ue16
 	) {
 		return res.redirect('firstLogin/existing');
@@ -100,11 +100,11 @@ router.get('/', async (req, res, next) => {
 		// BIRTHDATE
 		if (!res.locals.currentUser.birthday && isStudent(res)) {
 			submitPageIndex += 1;
-			if (req.query.u14 == 'true') {
+			if (req.query.u14 === 'true') {
 				sections.push('birthdate_U14');
-			} else if (req.query.ue14 == 'true') {
+			} else if (req.query.ue14 === 'true') {
 				sections.push('birthdate_UE14');
-			} else if (req.query.ue16 == 'true') {
+			} else if (req.query.ue16 === 'true') {
 				sections.push('birthdate_UE16');
 			} else {
 				sections.push('birthdate');
@@ -182,7 +182,10 @@ router.post(['/submit', '/submit/sso'], async (req, res, next) => api(req).post(
 		res.sendStatus(200);
 	})
 	.catch((err) => {
-		res.status(500).send((err.error || err).message || 'Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.');
+		res.status(500).send(
+			(err.error || err).message
+				|| 'Ein Fehler ist bei der Verarbeitung der FirstLogin Daten aufgetreten.',
+		);
 	}));
 
 module.exports = router;

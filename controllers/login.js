@@ -3,10 +3,10 @@
  */
 
 const express = require('express');
+const feedr = require('feedr').create();
 
 const router = express.Router();
 const api = require('../api');
-const feedr = require('feedr').create();
 const authHelper = require('../helpers/authentication');
 const userConsentVersions = require('../helpers/consentVersions');
 
@@ -19,46 +19,49 @@ const getSelectOptions = (req, service, query) => api(req).get(`/${service}`, {
 // Login
 
 router.post('/login/', (req, res, next) => {
-	const username = req.body.username; // TODO: sanitize
-	const password = req.body.password; // TODO: sanitize
-	const systemId = req.body.systemId;
-	const schoolId = req.body.schoolId;
+	const {
+		username,
+		password,
+		systemId,
+		schoolId,
+	} = req.body;
 
 	return api(req).get('/accounts/', { qs: { username } })
 		.then((account) => {
-			if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) { // undefined for currently existing users
+			if (!(account[0] || {}).activated && (account[0] || {}).activated !== undefined) {
+				// undefined for currently existing users
 				res.locals.notification = {
 					type: 'danger',
 					message: 'Account noch nicht aktiviert.',
 				};
-				next();
-			} else {
-				const login = data => api(req).post('/authentication', { json: data }).then((data) => {
-					res.cookie('jwt', data.accessToken,
-						Object.assign({},
-							{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
-							authHelper.cookieDomain(res)));
-					res.redirect('/login/success/');
-				}).catch((_) => {
-					res.locals.notification = {
-						type: 'danger',
-						message: 'Login fehlgeschlagen.',
-					};
-					next();
-				});
-
-				if (systemId) {
-					return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
-						strategy: system.type, username, password, systemId, schoolId,
-					}));
-				}
-				return login({ strategy: 'local', username, password });
+				return next();
 			}
+			const login = d => api(req).post('/authentication', { json: d }).then((data) => {
+				res.cookie('jwt', data.accessToken,
+					Object.assign({},
+						{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
+						authHelper.cookieDomain(res)));
+				res.redirect('/login/success/');
+			}).catch((_) => {
+				res.locals.notification = {
+					type: 'danger',
+					message: 'Login fehlgeschlagen.',
+				};
+				next();
+			});
+
+			if (systemId) {
+				return api(req).get(`/systems/${req.body.systemId}`).then(system => login({
+					strategy: system.type, username, password, systemId, schoolId,
+				}));
+			}
+			return login({ strategy: 'local', username, password });
 		});
 });
 
 
 router.all('/', (req, res, next) => {
+	// eslint-disable-next-line consistent-return
 	authHelper.isAuthenticated(req).then((isAuthenticated) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
@@ -82,10 +85,17 @@ router.all('/', (req, res, next) => {
 			} catch (e) {
 				// just catching the blog-error
 			}
-			const schoolsPromise = getSelectOptions(req, 'schools', { purpose: { $ne: 'expert' }, $limit: false, $sort: 'name' });
+			const schoolsPromise = getSelectOptions(
+				req, 'schools',
+				{
+					purpose: { $ne: 'expert' },
+					$limit: false,
+					$sort: 'name',
+				},
+			);
 			Promise.all([
 				schoolsPromise,
-			]).then(([schools, systems]) => res.render('authentication/home', {
+			]).then(([schools]) => res.render('authentication/home', {
 				schools,
 				blogFeed,
 				inline: true,
@@ -100,10 +110,15 @@ router.all('/login/', (req, res, next) => {
 		if (isAuthenticated) {
 			return res.redirect('/login/success/');
 		}
-		const schoolsPromise = getSelectOptions(req, 'schools', { purpose: { $ne: 'expert' }, $limit: false, $sort: 'name' });
-		Promise.all([
+		const schoolsPromise = getSelectOptions(req,
+			'schools', {
+				purpose: { $ne: 'expert' },
+				$limit: false,
+				$sort: 'name',
+			});
+		return Promise.all([
 			schoolsPromise,
-		]).then(([schools, systems]) => res.render('authentication/login', {
+		]).then(([schools]) => res.render('authentication/login', {
 			schools,
 			inline: true,
 			systems: [],
@@ -111,16 +126,17 @@ router.all('/login/', (req, res, next) => {
 	});
 });
 
-const ssoSchoolData = (req, accountId) => api(req).get(`/accounts/${accountId}`).then(account => api(req).get('/schools/', {
-	qs: {
-		systems: account.systemId,
-	},
-}).then((schools) => {
-	if (schools.data.length > 0) {
-		return schools.data[0];
-	}
-	return undefined;
-}).catch(err => undefined)).catch(err => undefined);
+const ssoSchoolData = (req, accountId) => api(req).get(`/accounts/${accountId}`)
+	.then(account => api(req).get('/schools/', {
+		qs: {
+			systems: account.systemId,
+		},
+	}).then((schools) => {
+		if (schools.data.length > 0) {
+			return schools.data[0];
+		}
+		return undefined;
+	}).catch(err => undefined)).catch(err => undefined);
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
@@ -136,7 +152,7 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 				}
 				const consent = consents.data[0];
 				// check consent versions
-				userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
+				return userConsentVersions(res.locals.currentUser, consent, req).then((consentUpdates) => {
 					if (consent.access && !consentUpdates.haveBeenUpdated) {
 						return res.redirect('/dashboard');
 					}
@@ -146,10 +162,10 @@ router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 			});
 	} else {
 		// if this happens: SSO
-		const accountId = (res.locals.currentPayload || {}).accountId;
+		const { accountId } = (res.locals.currentPayload || {});
 
 		ssoSchoolData(req, accountId).then((school) => {
-			if (school == undefined) {
+			if (school === undefined) {
 				res.redirect('/dashboard/');
 			} else {
 				res.redirect(`/registration/${school._id}/sso/${accountId}`);

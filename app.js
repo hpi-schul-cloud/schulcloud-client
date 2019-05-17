@@ -104,7 +104,9 @@ app.use(async (req, res, next) => {
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests
 	if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+		// eslint-disable-next-line no-underscore-dangle
 		const method = req.body._method;
+		// eslint-disable-next-line no-underscore-dangle
 		delete req.body._method;
 		return method;
 	}
