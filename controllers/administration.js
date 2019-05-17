@@ -987,8 +987,11 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 
 const getStudentUpdateHandler = () => {
 	return async function (req, res, next) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+
+		if (req.body.birthday) {
+			const birthday = req.body.birthday.split('.');
+			req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+		}
 
 		let promises = [];
 
