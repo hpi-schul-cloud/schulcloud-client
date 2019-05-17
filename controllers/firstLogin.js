@@ -158,7 +158,11 @@ router.get('/', async (req, res, next) => {
 		renderObject.submitLabel = 'Gelesen';
 	}
 
-	res.render('firstLogin/firstLogin', renderObject);
+	// redirect to dashboard if we have only email to request
+	if (sections.length === 3 && sections[1] === 'email') {
+		return res.redirect('/dashboard');
+	}
+	return res.render('firstLogin/firstLogin', renderObject);
 });
 
 // submit & error handling
