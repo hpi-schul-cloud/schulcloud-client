@@ -42,7 +42,7 @@ router.post('/login/', (req, res, next) => {
 						{ expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) },
 						authHelper.cookieDomain(res)));
 				res.redirect('/login/success/');
-			}).catch((_) => {
+			}).catch(() => {
 				res.locals.notification = {
 					type: 'danger',
 					message: 'Login fehlgeschlagen.',
@@ -68,7 +68,7 @@ router.all('/', (req, res, next) => {
 		}
 		feedr.readFeed('https://blog.schul-cloud.org/rss', {
 			requestOptions: { timeout: 2000 },
-		}, (err, data, headers) => {
+		}, (err, data) => {
 			let blogFeed = [];
 			try {
 				blogFeed = data.rss.channel[0].item.slice(0, 5).map((e) => {
@@ -136,7 +136,7 @@ const ssoSchoolData = (req, accountId) => api(req).get(`/accounts/${accountId}`)
 			return schools.data[0];
 		}
 		return undefined;
-	}).catch(err => undefined)).catch(err => undefined);
+	}).catch(() => undefined)).catch(() => undefined); // fixme this is a very bad error catch
 // so we can do proper redirecting and stuff :)
 router.get('/login/success', authHelper.authChecker, (req, res, next) => {
 	if (res.locals.currentUser) {
@@ -188,11 +188,11 @@ router.get('/login/systems/:schoolId', (req, res, next) => {
 
 router.get('/logout/', (req, res, next) => {
 	api(req).del('/authentication')
-		.then((_) => {
+		.then(() => {
 			res.clearCookie('jwt', authHelper.cookieDomain(res));
 			req.session.destroy();
 			return res.redirect('/');
-		}).catch(_ => res.redirect('/'));
+		}).catch(() => res.redirect('/'));
 });
 
 module.exports = router;
