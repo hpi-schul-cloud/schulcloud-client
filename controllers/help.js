@@ -14,57 +14,57 @@ const faq = require('../helpers/content/faq.json');
 const tutorials = require('../helpers/content/tutorials.json');
 
 const firstStepsItems = [{
-        title: "Schüler",
-        "img-src": "/images/help/schueler-icon.png",
-        src: "/help/confluence/40304731",
+        title: 'Schüler',
+        'img-src': '/images/help/schueler-icon.png',
+        src: '/help/confluence/40304731',
     }, {
-        title: "Lehrer",
-        "img-src": "/images/help/lehrer-icon.png",
-        src: "/help/confluence/40304726",
+        title: 'Lehrer',
+        'img-src': '/images/help/lehrer-icon.png',
+        src: '/help/confluence/40304726',
     }, {
-        title: "Admin",
-        "img-src": "/images/help/admin-icon.png",
-        src: "/help/confluence/40304667",
+        title: 'Admin',
+        'img-src': '/images/help/admin-icon.png',
+        src: '/help/confluence/40304667',
     }, {
-        title: "Schulleitung",
-        "img-src": "/images/help/schulleitung-icon.png",
-        src: "/help/confluence/40304728",
+        title: 'Schulleitung',
+        'img-src': '/images/help/schulleitung-icon.png',
+        src: '/help/confluence/40304728',
     }
 ];
 const quickHelpItems = [{
-        title: "Online-Videokurse",
-        icon: "fa-video-camera",
-        src: "https://mooc.house/courses/schulcloud2018"
+        title: 'Online-Videokurse',
+        icon: 'fa-video-camera',
+        src: 'https://mooc.house/courses/schulcloud2018'
     }, {
-        title: "MINT-EC Webinare",
-        icon: "fa-desktop",
-        src: "https://blog.schul-cloud.org/webinare/"
+        title: 'MINT-EC Webinare',
+        icon: 'fa-desktop',
+        src: 'https://blog.schul-cloud.org/webinare/'
     }, {
-        title: "Schnellstart-PDF",
-        icon: "fa-file-pdf-o",
-        src: "https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf"
+        title: 'Schnellstart-PDF',
+        icon: 'fa-file-pdf-o',
+        src: 'https://docs.schul-cloud.org/download/attachments/13828239/HPI%20Schul-Cloud%20-%20Schnellstart%20f%C3%BCr%20Lehrkr%C3%A4fte.pdf'
     }
 ];
 const knowledgeItems = [{
-        title: "Überblick",
-        icon: "fa-info",
-        src: "/about"
+        title: 'Überblick',
+        icon: 'fa-info',
+        src: '/about'
     }, {
-        title: "FAQ",
-        icon: "fa-comments",
-        src: "/help/confluence/23232533"
+        title: 'FAQ',
+        icon: 'fa-comments',
+        src: '/help/confluence/23232533'
     }, {
-        title: "Ansprechpartner",
-        icon: "fa-user",
-        src: "/help/faq/people"
+        title: 'Ansprechpartner',
+        icon: 'fa-user',
+        src: '/help/faq/people'
     }, {
-        title: "Release Notes",
-        icon: "fa-clipboard",
-        src: "/help/releases"
+        title: 'Release Notes',
+        icon: 'fa-clipboard',
+        src: '/help/releases'
     }, {
-        title: "Website (Logout)",
-        icon: "fa-globe",
-        src: "/logout"
+        title: 'Website (Logout)',
+        icon: 'fa-globe',
+        src: '/logout'
     }
 ];
 
@@ -73,18 +73,18 @@ router.use(authHelper.authChecker);
 
 router.get('/', function (req, res, next) {
     const isDemo = res.locals.currentUser.roles.every((role) => {
-        return role.name.includes("demo");
+        return role.name.includes('demo');
     });
     const isStudent = res.locals.currentUser.roles.every((role) => {
-        return role.name === "student";
+        return role.name === 'student';
     });
 
     let quickhelp = quickHelpItems.slice(0);
     if(!isDemo && !isStudent){
         quickhelp.push({
-            title: "Willkommens-Dokumente",
-            icon: "fa-folder-open",
-            src: "/help/faq/documents "
+            title: 'Willkommens-Dokumente',
+            icon: 'fa-folder-open',
+            src: '/help/faq/documents '
         });
     }
     res.render('help/help', {
@@ -140,7 +140,7 @@ router.get('/faq/people', function (req, res, next) {
     });
 
     res.render('help/accordion-faq', {
-        title: "Ansprechpartner und Kontaktdaten",
+        title: 'Ansprechpartner und Kontaktdaten',
         breadcrumb: [
             {
                 title: 'Hilfebereich',
@@ -160,7 +160,7 @@ router.get('/faq/documents', function (req, res, next) {
         documents[0].content = converter.makeHtml(documents[0].content);
 
         res.render('help/accordion-faq', {
-            title: "Willkommens-Dokumente zum Download",
+            title: 'Willkommens-Dokumente zum Download',
             breadcrumb: [
                 {
                     title: 'Hilfebereich',
@@ -172,7 +172,7 @@ router.get('/faq/documents', function (req, res, next) {
     } else {
         req.session.notification = {
             type: 'danger',
-            message: "Sie haben im Demo-Account keinen Zugriff auf diese Dokumente."
+            message: 'Sie haben im Demo-Account keinen Zugriff auf diese Dokumente.'
         };
         res.redirect('/help');
         return;
