@@ -675,7 +675,7 @@ const userIdtoAccountIdUpdate = (service) => {
 	};
 };
 
-const userFilterSettings = function (defaultOrder) {
+const userFilterSettings = (defaultOrder, isTeacherPage=false) => {
 	return [
 		{
 			type: "sort",
@@ -704,21 +704,24 @@ const userFilterSettings = function (defaultOrder) {
 			property: 'consentStatus',
 			multiple: true,
 			expanded: true,
-			options: [
-				["missing", "Keine Einverständniserklärung vorhanden"],
-				["parentsAgreed", "Eltern haben zugestimmt (oder Schüler ist über 16)"],
-				["ok", "Alle Zustimmungen vorhanden"],
-				[null, "nicht Angegeben"]
+			options: isTeacherPage ? [
+				['missing', 'Keine Einverständniserklärung vorhanden'],
+				['ok', 'Alle Zustimmungen vorhanden'],
 			]
-		}
+				: [
+					['missing', 'Keine Einverständniserklärung vorhanden'],
+					['parentsAgreed', 'Eltern haben zugestimmt (oder Schüler ist über 16)'],
+					['ok', 'Alle Zustimmungen vorhanden'],
+				],
+		},
 	];
 };
 
-const getConsentStatusIconFromStatusString = (consentStatus) => {
+const getConsentStatusIconFromStatusString = (consentStatus, isTeacher = false) => {
 	const check = '<i class="fa fa-check consent-status"></i>';
 	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
-	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i>'+
-						'<i class="fa fa-check consent-status double-check"></i>';
+	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i>'
+						+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
 		case 'missing':
@@ -726,7 +729,7 @@ const getConsentStatusIconFromStatusString = (consentStatus) => {
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
-			return doubleCheck;
+			return isTeacher ? check : doubleCheck;
 		default:
 			return '';
 	}
@@ -844,96 +847,62 @@ router.patch('/teachers/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VI
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
 
-router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), 
+	(req, res, next) => {
+		const tempOrgQuery = (req.query || {}).filterQuery;
+		const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${decodeURI(tempOrgQuery)}`) : '';
 
-	const tempOrgQuery = (req.query || {}).filterQuery;
-	const filterQueryString = (tempOrgQuery) ? ('&filterQuery=' + escape(tempOrgQuery)) : '';
-
-	let itemsPerPage = 25;
-	let filterQuery = {};
-	if (tempOrgQuery) {
-		filterQuery = JSON.parse(unescape(req.query.filterQuery));
-		if (filterQuery["$limit"]) {
-			itemsPerPage = filterQuery["$limit"];
+		let itemsPerPage = 25;
+		let filterQuery = {};
+		if (tempOrgQuery) {
+			filterQuery = JSON.parse(decodeURI(req.query.filterQuery));
+			if (filterQuery.$limit) {
+				itemsPerPage = filterQuery.$limit;
+			}
 		}
-	}
 
-	const currentPage = parseInt(req.query.p) || 1;
-	let title = returnAdminPrefix(res.locals.currentUser.roles);
+		const currentPage = parseInt(req.query.p, 10) || 1;
+		const title = returnAdminPrefix(res.locals.currentUser.roles);
 
-	let query = {
-		roles: ['teacher'],
-		$populate: ['roles'],
-		$limit: itemsPerPage,
-		$skip: itemsPerPage * (currentPage - 1),
-	};
-	query = Object.assign(query, filterQuery);
+		let query = {
+			$limit: itemsPerPage,
+			$skip: itemsPerPage * (currentPage - 1),
+		};
+		query = Object.assign(query, filterQuery);
 
-	api(req).get('/users', {
-		qs: query
-	}).then(userData => {
-		let users = userData.data;
-		let consentsPromise;
-
-		const classesPromise = getSelectOptions(req, 'classes', {});
-		if (users.length > 0) {
-			consentsPromise = getSelectOptions(req, 'consents', {
-				userId: {
-					$in: users.map((user) => {
-						return user._id;
-					})
-				}
-			});
-		} else {
-			consentsPromise = Promise.resolve();
-		}
-		Promise.all([
-			classesPromise,
-			consentsPromise
-		]).then(([classes, consents]) => {
-
-			users = users.map((user) => {
-				// add consentStatus to user
-				const consent = (consents || []).find((consent) => {
-					return consent.userId == user._id;
-				});
-
-				user.consentStatus = `<p class="text-center m-0">${getConsentStatusIcon(consent, true)}</p>`;
-				// add classes to user
-				user.classesString = classes.filter((currentClass) => {
-					return currentClass.teacherIds.includes(user._id);
-				}).map((currentClass) => { return currentClass.displayName; }).join(', ');
-				return user;
-			});
-
-			let head = [
+		api(req).get('users/admin/teachers', {
+			qs: query,
+		}).then((users) => {
+			const head = [
 				'Vorname',
 				'Nachname',
 				'E-Mail-Adresse',
-				'Klasse(n)'
+				'Klasse(n)',
 			];
-			if (res.locals.currentUser.roles.map(role => { return role.name; }).includes("administrator")) {
+			if (res.locals.currentUser.roles.map((role) => { return role.name; }).includes("administrator")) {
 				head.push('Einwilligung');
 				head.push('Erstellt am');
 				head.push('');
 			}
-			let body = users.map(user => {
-				let row = [
+			const body = users.map((user) => {
+				const statusIcon = getConsentStatusIconFromStatusString(user.consentStatus, true);
+				const icon = `<p class="text-center m-0">${statusIcon}</p>`;
+				const row = [
 					user.firstName || '',
 					user.lastName || '',
 					user.email || '',
-					user.classesString || ''
+					user.classesString || '',
 				];
-				if (res.locals.currentUser.roles.map(role => { return role.name; }).includes("administrator")) {
+				if (res.locals.currentUser.roles.map(role => role.name).includes('administrator')) {
 					row.push({
 						useHTML: true,
-						content: user.consentStatus
+						content: icon,
 					});
 					row.push(moment(user.createdAt).format('DD.MM.YYYY'));
 					row.push([{
 						link: `/administration/teachers/${user._id}/edit`,
 						title: 'Nutzer bearbeiten',
-						icon: 'edit'
+						icon: 'edit',
 					}]);
 				}
 				return row;
@@ -941,19 +910,20 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 
 			const pagination = {
 				currentPage,
-				numPages: Math.ceil(userData.total / itemsPerPage),
-				baseUrl: '/administration/teachers/?p={{page}}' + filterQueryString
+				numPages: Math.ceil(users.total / itemsPerPage),
+				baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`
 			};
 
 			res.render('administration/teachers', {
-				title: title + 'Lehrer',
-				head, body, pagination,
-				filterSettings: JSON.stringify(userFilterSettings('lastName')),
-				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier
+				title: `${title}Lehrer`,
+				head,
+				body,
+				pagination,
+				filterSettings: JSON.stringify(userFilterSettings('lastName', true)),
+				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
 			});
 		});
 	});
-});
 
 router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
 	const userPromise = api(req).get('/users/' + req.params.id);
