@@ -1200,7 +1200,7 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 		consentPromise,
 		accountPromise
 	]).then(([user, _consent, account]) => {
-		consent = _consent[0] || {};
+		const consent = _consent[0] || {};
 		if (consent) {
 			consent.parentConsent = ((consent.parentConsents || []).length) ? consent.parentConsents[0] : {};
 		}
