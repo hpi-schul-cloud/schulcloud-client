@@ -879,45 +879,45 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 		});
 	});
 
-router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), (req, res, next) {
-	const userPromise = api(req).get('/users/' + req.params.id);
-	const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
-	const classesPromise = getSelectOptions(req, 'classes', { $populate: ['year'], $sort: 'displayName' });
-	const accountPromise = api(req).get('/accounts/', { qs: { userId: req.params.id } });
+router.get('/teachers/:id/edit',
+	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), (req, res, next) => {
+		const userPromise = api(req).get(`/users/${req.params.id}`);
+		const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
+		const classesPromise = getSelectOptions(req, 'classes', { $populate: ['year'], $sort: 'displayName' });
+		const accountPromise = api(req).get('/accounts/', { qs: { userId: req.params.id } });
 
-	Promise.all([
-		userPromise,
-		consentPromise,
-		classesPromise,
-		accountPromise
-	]).then(([user, _consent, classes, _account]) => {
-		consent = _consent[0] || {};
-		account = _account[0];
-		let hidePwChangeButton = account ? false : true;
+		Promise.all([
+			userPromise,
+			consentPromise,
+			classesPromise,
+			accountPromise,
+		]).then(([user, _consent, _classes, _account]) => {
+			const consent = _consent[0] || {};
+			const account = _account[0];
+			const hidePwChangeButton = !account;
 
-		classes = classes.map(c => {
-			c.selected = c.teacherIds.includes(user._id);
-			return c;
+			const classes = _classes.map((c) => {
+				c.selected = c.teacherIds.includes(user._id);
+				return c;
+			});
+			res.render('administration/users_edit',
+				{
+					title: 'Lehrer bearbeiten',
+					action: `/administration/teachers/${user._id}`,
+					submitLabel: 'Speichern',
+					closeLabel: 'Abbrechen',
+					user,
+					consentStatusIcon: getConsentStatusIcon(consent.consentStatus, true),
+					consent,
+					classes,
+					editTeacher: true,
+					hidePwChangeButton,
+					isAdmin: res.locals.currentUser.permissions.includes('ADMIN_VIEW'),
+					schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
+					referrer: req.header('Referer'),
+				});
 		});
-		res.render('administration/users_edit',
-			{
-				title: `Lehrer bearbeiten`,
-				action: `/administration/teachers/${user._id}`,
-				submitLabel: 'Speichern',
-				closeLabel: 'Abbrechen',
-				user,
-				consentStatusIcon: getConsentStatusIcon(consent.consentStatus, true),
-				consent,
-				classes,
-				editTeacher: true,
-				hidePwChangeButton,
-				isAdmin: res.locals.currentUser.permissions.includes("ADMIN_VIEW"),
-				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
-				referrer: req.header('Referer'),
-			}
-		);
 	});
-});
 
 
 /*
