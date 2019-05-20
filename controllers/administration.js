@@ -674,108 +674,62 @@ const userIdtoAccountIdUpdate = (service) => {
 	};
 };
 
-const userFilterSettings = (defaultOrder, isTeacherPage=false) => {
-	return [
-		{
-			type: "sort",
-			title: 'Sortierung',
-			displayTemplate: 'Sortieren nach: %1',
-			options: [
-				["firstName", "Vorname"],
-				["lastName", "Nachname"],
-				["email", "E-Mail-Adresse"],
-				["createdAt", "Erstelldatum"]
-			],
-			defaultSelection: (defaultOrder ? defaultOrder : "firstName"),
-			defaultOrder: "DESC"
-		},
-		{
-			type: "limit",
-			title: 'Einträge pro Seite',
-			displayTemplate: 'Einträge pro Seite: %1',
-			options: [25, 50, 100],
-			defaultSelection: 25
-		},
-		{
-			type: "select",
-			title: 'Einverständniserklärung Status',
-			displayTemplate: 'Status: %1',
-			property: 'consentStatus',
-			multiple: true,
-			expanded: true,
-			options: isTeacherPage ? [
+const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
+	{
+		type: 'sort',
+		title: 'Sortierung',
+		displayTemplate: 'Sortieren nach: %1',
+		options: [
+			['firstName', 'Vorname'],
+			['lastName', 'Nachname'],
+			['email', 'E-Mail-Adresse'],
+			['createdAt', 'Erstelldatum']
+		],
+		defaultSelection: (defaultOrder ? defaultOrder : 'firstName'),
+		defaultOrder: 'DESC'
+	},
+	{
+		type: 'limit',
+		title: 'Einträge pro Seite',
+		displayTemplate: 'Einträge pro Seite: %1',
+		options: [25, 50, 100],
+		defaultSelection: 25,
+	},
+	{
+		type: 'select',
+		title: 'Einverständniserklärung Status',
+		displayTemplate: 'Status: %1',
+		property: 'consentStatus',
+		multiple: true,
+		expanded: true,
+		options: isTeacherPage ? [
+			['missing', 'Keine Einverständniserklärung vorhanden'],
+			['ok', 'Alle Zustimmungen vorhanden'],
+		]
+			: [
 				['missing', 'Keine Einverständniserklärung vorhanden'],
+				['parentsAgreed', 'Eltern haben zugestimmt (oder Schüler ist über 16)'],
 				['ok', 'Alle Zustimmungen vorhanden'],
-			]
-				: [
-					['missing', 'Keine Einverständniserklärung vorhanden'],
-					['parentsAgreed', 'Eltern haben zugestimmt (oder Schüler ist über 16)'],
-					['ok', 'Alle Zustimmungen vorhanden'],
-				],
-		},
-	];
-};
+			],
+	},
+];
 
-const getConsentStatusIconFromStatusString = (consentStatus, isTeacher = false) => {
+const getConsentStatusIcon = (consentStatus, isTeacher = false) => {
 	const check = '<i class="fa fa-check consent-status"></i>';
 	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
 	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i>'
 						+ '<i class="fa fa-check consent-status double-check"></i>';
 
 	switch (consentStatus) {
-		case 'missing':
+		case ('missing'):
 			return times;
 		case 'parentsAgreed':
 			return check;
 		case 'ok':
 			return isTeacher ? check : doubleCheck;
 		default:
-			return '';
-	}
-};
-
-const getConsentStatusIcon = (consent, bool = false) => {
-	const check = '<i class="fa fa-check consent-status"></i>';
-	const times = '<i class="fa fa-times consent-status"></i>'; // is red x
-	const doubleCheck = '<i class="fa fa-check consent-status double-check"></i><i class="fa fa-check consent-status double-check"></i>';
-
-	const isUserConsent = (c = {}) => {
-		const uC = c.userConsent;
-		return uC && uC.privacyConsent && uC.termsOfUseConsent;
-	};
-
-	const isNOTparentConsent = (c = {}) => {
-		const pCs = c.parentConsents || [];
-		return pCs.length === 0 || !(pCs.privacyConsent && pCs.termsOfUseConsent);
-	};
-
-	if (!consent) {
-		return times;
-	}
-
-	if (bool) {
-		if (isUserConsent(consent)) {
-			return check;
-		}
-		return times;
-	}
-
-	if (consent.requiresParentConsent) {
-		if (isNOTparentConsent(consent)) {
 			return times;
-		}
-
-		if (isUserConsent(consent)) {
-			return doubleCheck;
-		}
-		return check;
 	}
-
-	if (isUserConsent(consent)) {
-		return doubleCheck;
-	}
-
-	return check;
 };
 
 // teacher admin permissions
@@ -846,7 +800,7 @@ router.patch('/teachers/:id/pw', permissionsHelper.permissionsChecker(['ADMIN_VI
 router.get('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDetailHandler('users'));
 router.delete('/teachers/:id', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), getDeleteAccountForUserHandler, getDeleteHandler('users', '/administration/teachers'));
 
-router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), 
+router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'),
 	(req, res, next) => {
 		const tempOrgQuery = (req.query || {}).filterQuery;
 		const filterQueryString = (tempOrgQuery) ? (`&filterQuery=${decodeURI(tempOrgQuery)}`) : '';
@@ -878,13 +832,13 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 				'E-Mail-Adresse',
 				'Klasse(n)',
 			];
-			if (res.locals.currentUser.roles.map((role) => { return role.name; }).includes("administrator")) {
+			if (res.locals.currentUser.roles.map(role => role.name).includes('administrator')) {
 				head.push('Einwilligung');
 				head.push('Erstellt am');
 				head.push('');
 			}
 			const body = users.map((user) => {
-				const statusIcon = getConsentStatusIconFromStatusString(user.consentStatus, true);
+				const statusIcon = getConsentStatusIcon(user.consentStatus, true);
 				const icon = `<p class="text-center m-0">${statusIcon}</p>`;
 				const row = [
 					user.firstName || '',
@@ -910,7 +864,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 			const pagination = {
 				currentPage,
 				numPages: Math.ceil(users.total / itemsPerPage),
-				baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`
+				baseUrl: `/administration/teachers/?p={{page}}${filterQueryString}`,
 			};
 
 			res.render('administration/teachers', {
@@ -936,7 +890,7 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 		classesPromise,
 		accountPromise
 	]).then(([user, consent, classes, account]) => {
-		consent = consent[0];
+		consent = consent[0] || {};
 		account = account[0];
 		let hidePwChangeButton = account ? false : true;
 
@@ -951,7 +905,7 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 				submitLabel: 'Speichern',
 				closeLabel: 'Abbrechen',
 				user,
-				consentStatusIcon: getConsentStatusIcon(consent, true),
+				consentStatusIcon: getConsentStatusIcon(consent.consentStatus, true),
 				consent,
 				classes,
 				editTeacher: true,
@@ -1054,7 +1008,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 		];
 
 		const body = users.map((user) => {
-			const icon = getConsentStatusIconFromStatusString(user.consentStatus);
+			const icon = getConsentStatusIcon(user.consentStatus);
 			if (icon === '<i class="fa fa-times consent-status"></i>') { // bad but helper functions only return icons
 				studentsWithoutConsentCount += 1;
 			}
@@ -1246,7 +1200,7 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 		consentPromise,
 		accountPromise
 	]).then(([user, consent, account]) => {
-		consent = consent[0];
+		consent = consent[0] || {};
 		if (consent) {
 			consent.parentConsent = ((consent.parentConsents || []).length) ? consent.parentConsents[0] : {};
 		}
@@ -1259,7 +1213,7 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 				submitLabel: 'Speichern',
 				closeLabel: 'Abbrechen',
 				user,
-				consentStatusIcon: getConsentStatusIcon(consent),
+				consentStatusIcon: getConsentStatusIcon(consent.consentStatus),
 				consent,
 				hidePwChangeButton,
 				schoolUsesLdap: res.locals.currentSchoolData.ldapSchoolIdentifier,
