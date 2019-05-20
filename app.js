@@ -1,13 +1,9 @@
 const express = require('express');
 const path = require('path');
-const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const compression = require('compression');
-const querystring = require('querystring');
-const methodOverride = require('method-override');
-
 
 const session = require('express-session');
 
@@ -94,12 +90,14 @@ app.use(async (req, res, next) => {
 			termsOfUse: process.env.TERMS_OF_USE_DOCUMENT
 				|| 'Datenschutz/Nutzungsordnung-HPI-Schule-Schueler-Onlineeinwilligung.pdf',
 		}, defaultDocuments),
+		federalstate: process.env.SC_FEDERALSTATE || 'Brandenburg',
 	};
 	res.locals.domain = process.env.SC_DOMAIN || false;
 	delete req.session.notification;
 	next();
 });
 
+const methodOverride = require('method-override');
 
 app.use(methodOverride('_method')); // for GET requests
 app.use(methodOverride((req, res, next) => { // for POST requests
