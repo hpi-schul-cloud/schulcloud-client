@@ -584,11 +584,12 @@ const createSystemHandler = (req, res, next) => {
 	});
 };
 
-const getStorageProviders = () => {
-	return [
-		{ label: 'AWS S3', value: 'awsS3' }
-	];
-};
+const getStorageProviders = res => [
+	{
+		label: res.locals.theme.short_title,
+		value: 'awsS3',
+	},
+];
 
 const getSSOTypes = () => {
 	return [
@@ -2052,7 +2053,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 
 	// SCHOOL
 	let title = returnAdminPrefix(res.locals.currentUser.roles);
-	let provider = getStorageProviders();
+	let provider = getStorageProviders(res);
 	provider = (provider || []).map(prov => {
 		if (prov.value == school.fileStorageType) {
 			return Object.assign(prov, {

@@ -110,6 +110,7 @@ aside.nav-sidebar {
         background: $primaryColor;
         color: whitesmoke;
         text-decoration: none;
+        margin-bottom: 1px;
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
