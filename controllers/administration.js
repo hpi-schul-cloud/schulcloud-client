@@ -683,10 +683,10 @@ const userFilterSettings = (defaultOrder, isTeacherPage = false) => [
 			['firstName', 'Vorname'],
 			['lastName', 'Nachname'],
 			['email', 'E-Mail-Adresse'],
-			['createdAt', 'Erstelldatum']
+			['createdAt', 'Erstelldatum'],
 		],
-		defaultSelection: (defaultOrder ? defaultOrder : 'firstName'),
-		defaultOrder: 'DESC'
+		defaultSelection: (defaultOrder || 'firstName'),
+		defaultOrder: 'DESC',
 	},
 	{
 		type: 'limit',
@@ -878,7 +878,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 		});
 	});
 
-router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), function (req, res, next) {
+router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), (req, res, next) {
 	const userPromise = api(req).get('/users/' + req.params.id);
 	const consentPromise = getSelectOptions(req, 'consents', { userId: req.params.id });
 	const classesPromise = getSelectOptions(req, 'classes', { $populate: ['year'], $sort: 'displayName' });
@@ -889,9 +889,9 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 		consentPromise,
 		classesPromise,
 		accountPromise
-	]).then(([user, consent, classes, account]) => {
-		consent = consent[0] || {};
-		account = account[0];
+	]).then(([user, _consent, classes, _account]) => {
+		consent = _consent[0] || {};
+		account = _account[0];
 		let hidePwChangeButton = account ? false : true;
 
 		classes = classes.map(c => {
@@ -1199,8 +1199,8 @@ router.get('/students/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 		userPromise,
 		consentPromise,
 		accountPromise
-	]).then(([user, consent, account]) => {
-		consent = consent[0] || {};
+	]).then(([user, _consent, account]) => {
+		consent = _consent[0] || {};
 		if (consent) {
 			consent.parentConsent = ((consent.parentConsents || []).length) ? consent.parentConsents[0] : {};
 		}
