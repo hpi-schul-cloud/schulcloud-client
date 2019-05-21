@@ -54,7 +54,8 @@ function sendFeedback(modal, e) {
         type: 'POST',
         data: {
             type: type,
-            subject: subject,
+			subject: subject,
+			title: fmodal.find('#problemTitle').val(),
             category: fmodal.find('#category').val(),
             role: fmodal.find('#role').val(),
             desire: fmodal.find('#desire').val(),
