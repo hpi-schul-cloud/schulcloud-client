@@ -1,0 +1,71 @@
+{
+    "name": "Schul-Cloud Brandenburg",
+    "short_name": "Schul-Cloud Brandenburg",
+    "icons": [
+        {
+            "src": "/images/logo/favicon-16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/favicon-32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/favicon-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/favicon-64.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-48.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-72.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-128.png",
+            "sizes": "128x128",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-144.png",
+            "sizes": "144x144",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-152.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/logo/app-icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/?homescreen=1&theme=brb",
+    "scope": "/",
+    "theme_color": "#C73C35",
+    "background_color": "#ffffff",
+    "display": "standalone"
+}

@@ -1,9 +1,11 @@
-﻿import { softNavigate } from './helpers/navigation';
+/* global CKEDITOR */
+
+import { softNavigate } from './helpers/navigation';
 
 const getDataValue = function(attr) {
     return function() {
         const value = $('.section-upload').data(attr);
-        return value ? value : undefined;    
+		return (value || undefined);
     };
 };
 
@@ -66,6 +68,16 @@ window.addEventListener("DOMContentLoaded", function(){
     document.querySelector(".filter").dispatchEvent(new CustomEvent("getFilter"));
 });
 $(document).ready(function() {
+	CKEDITOR.instances.evaluation.on('change', () => {
+		const submitButton = document.getElementsByClassName('js-submit-btn')[0];
+		const content = CKEDITOR.instances.evaluation.document.getBody().getText();
+		if (!content.trim()) {
+			submitButton.disabled = true;
+		} else {
+			submitButton.disabled = false;
+		}
+	});
+
     function showAJAXError(req, textStatus, errorThrown) {
         if (textStatus === "timeout") {
             $.showNotification("Zeitüberschreitung der Anfrage", "danger");
@@ -89,14 +101,14 @@ $(document).ready(function() {
         const method  = element.attr("method");
         // update value of ckeditor instances
         let ckeditorInstance = element.find('textarea.customckeditor').attr("id");
-        if(ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement(); 
-        const content = element.serialize();
+		if (ckeditorInstance) CKEDITOR.instances[ckeditorInstance].updateElement();
+		const content = element.serialize();
         if(contentTest){
             if(contentTest(content) == false){
                 $.showNotification("Form validation failed", "danger", 15000);
                 return;
             }
-        }
+		}
         let request = $.ajax({
             type: method,
             url: url,
@@ -134,7 +146,7 @@ $(document).ready(function() {
             if(teamMembers != [] && $(".me").val() && !teamMembers.includes($(".me").val())){
                 location.reload();
             }
-        });
+		});
         return false;
     });
 
@@ -315,7 +327,7 @@ $(document).ready(function() {
 
                 if( parentId ) {
                     params.parent = parentId;
-                }              
+				}
 
                 // post file meta to proxy file service for persisting data
                 $.post('/files/fileModel', params , (data) => {
