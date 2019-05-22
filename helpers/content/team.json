@@ -547,11 +547,11 @@
 		"team": [
 			{
 				"title": "",
-				"firstName": "Dominik",
-				"lastName": "Glandorf",
+				"firstName": "Josafat-Mattias",
+				"lastName": "Burmeister",
 				"position": "Studentische Hilfskraft",
-				"description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der HPI Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
-				"pictureUrl": "/images/team/Dominik_Glandorf.jpg",
+				"description": "Josafat-Mattias studiert derzeit im Bachelorstudiengang IT-Systems Engineering am Hasso-Plattner-Institut. Zuvor hat er bereits einen Bachelorabschluss in Biologie erworben. Seit April 2019 unterstützt er das Team der HPI Schul-Cloud Projekt als Fullstack-Entwickler. In seiner Freizeit beschäftigt er sich mit Fotografie und spielt gern Fussball.",
+				"pictureUrl": "/images/team/josafat-mattias_burmeister.jpeg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -562,11 +562,11 @@
 			},
 			{
 				"title": "",
-				"firstName": "Tatiana",
-				"lastName": "Gurova",
+				"firstName": "Dominik",
+				"lastName": "Glandorf",
 				"position": "Studentische Hilfskraft",
-				"description": "Tatiana studiert aktuell Jura in Potsdam und unterstützt seit März 2019 das Projekt HPI Schul-Cloud bei der Büroorganisation und bei Themen bezüglich der Politik und des Datenschutzes. Ihre Freizeit verbringt sie gerne mit der Teilnahme an verschiedenen Workshops, Kongressen und Seminaren und dem Standard/Lateintanz.",
-				"pictureUrl": "/images/team/tatiana.jpg",
+				"description": "Dominik ist Studentische Hilfskraft und war Teil des Bachelorprojekts 2017/18. Er studiert IT-Systems Engineering am HPI und kümmert sich in der HPI Schul-Cloud um Tools zur Content-Erstellung & -Integration. Privat tanzt er gerne Hip Hop und beschäftigt sich mit Philosophie und Politik.",
+				"pictureUrl": "/images/team/Dominik_Glandorf.jpg",
 				"priority": 0,
 				"social": {
 					"facebook": "",
@@ -717,6 +717,21 @@
 		"style": "small",
 		"team": [
 			{
+        "title": "",
+        "firstName": "Patricia",
+        "lastName": "Rau",
+        "position": "Praktikantin",
+        "description": "Patricia hat BWL-Digitale Wirtschaft an der Beuth Hochschule für Technik in Berlin studiert. Seit Mai 2019 unterstützt sie das HPI Schul-Cloud Projekt bei kommunikativen und organisatorischen Aufgaben. Ihre Freizeit verbringt sie gerne mit Freunden in Cafes oder draußen im Grünen. Außerdem reist und fotografiert sie gerne.",
+        "pictureUrl": "/images/team/patricia_rau.jpg",
+        "priority": 0,
+        "social": {
+          "facebook": "",
+          "twitter": "",
+          "linkedin": ""
+        },
+        "longDesc": false
+      },
+	  {
         "title": "",
         "firstName": "Michael",
         "lastName": "Schmid",
