@@ -14,15 +14,15 @@
 <script src="/scripts/tabbar.js" type="text/javascript" defer></script>
 {{/content}}
 
-{{#content "page"}}
-{{#userHasPermission "COURSE_EDIT"}}
-<div class="dropdown dropdown-course minimal-button">
-    <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
-        <h2 id="page-title" class="course-headline h4">{{{stripOnlyScript ../name}}}</h2>
-        <i class="fa fa-cog"></i>
-    </a>
-    <div class="dropdown-menu dropdown-menu dropdown-menu-course">
-        <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
+  {{#content "page"}}
+    {{#userHasPermission "COURSE_EDIT"}}
+      <div class="dropdown dropdown-course minimal-button">
+        <a class="btn btn-sm dropdown-toggle btn-course-dropdown" title="Weiteres" data-toggle="dropdown">
+          <h1 id="page-title" class="course-headline h4">{{{stripOnlyScript ../name}}}</h4>
+          <i class="fa fa-cog i-cog"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu dropdown-menu-course">
+          <a href="/courses/{{../_id}}/edit" class="dropdown-item btn-course-edit">
             <i class="fa fa-edit" aria-hidden="true"></i> Kurs bearbeiten/löschen
         </a>
         <a data-href="courses/{{../_id}}/" href="#" class="dropdown-item btn-create-invitation">
