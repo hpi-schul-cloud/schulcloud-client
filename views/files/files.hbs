@@ -12,6 +12,12 @@
 
     {{#content "page"}}
         <div class="route-files">
+            <h2 class="h5">
+                {{#each breadcrumbs}}
+                    <a class="{{#if @last}}active{{/if}}"
+                       href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
+                {{/each}}
+            </h2>
             {{#if canUploadFile}}
                 {{#embed "files/file-upload"}}{{/embed}}
             {{/if}}
@@ -19,12 +25,6 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            <h2 class="h5">
-                                {{#each breadcrumbs}}
-                                    <a class="{{#if @last}}active{{/if}}"
-                                       href="{{this.url}}">{{{stripOnlyScript this.label}}}</a><span> / </span>
-                                {{/each}}
-                            </h2>
                             {{#if courseUrl}}
                                 <a href="{{courseUrl}}" class="btn btn-secondary pull-right">
                                     <i class="fa fa-graduation-cap"></i>
@@ -82,11 +82,11 @@
                         <div class="col-sm-10 col-xs-16 col-md-8">
                             <div data-toggle="modal">
                                 <span class="btn btn-primary create-directory">
-                                    <i class="fa fa-plus" aria-hidden="true"></i> Neuen Ordner erstellen
+                                    <i class="fa fa-folder" aria-hidden="true"></i> Ordner erstellen
                                 </span>
                                 {{#if ../canCreateFile}}
                                     <span class="btn btn-primary new-file" data-file-path="{{this.path}}">
-                                        <i class="fa fa-plus" aria-hidden="true"></i> Neue Datei erstellen
+                                        <i class="fa fa-file" aria-hidden="true"></i> Datei erstellen
                                     </span>
                                 {{/if}}
                             </div>
