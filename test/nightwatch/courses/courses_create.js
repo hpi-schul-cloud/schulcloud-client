@@ -37,7 +37,7 @@ module.exports = {
 	'Create Course': function createCourseTest(browser) {
 		// eslint-disable-next-line camelcase
 		browser.url(`${base_url}courses/`);
-		browser.expect.element('h4').text.to.contain('Meine Kurse').before(10000);
+		browser.expect.element('h1').text.to.contain('Meine Kurse').before(10000);
 		browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/div', 10, 10)
 			.useCss()
 			.click('.btn-add')
@@ -63,7 +63,7 @@ module.exports = {
 		browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]")
 			.text.to.contain('Test Kurs').before(10000);
 		browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");
-		browser.useCss().expect.element('#main-content > div.dropdown-course > a > h4')
+		browser.useCss().expect.element('#main-content > div.dropdown-course > a > h2')
 			.text.to.contain('Test Kurs').before(10000);
 		browser.useCss()
 			.waitForElementVisible('.btn-course-dropdown', 1000)
