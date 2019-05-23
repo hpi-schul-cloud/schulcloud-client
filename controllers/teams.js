@@ -563,7 +563,7 @@ router.get('/:teamId', async (req, res, next) => {
 					.split('.')
 					.join('');
 				event.dayOfTheWeek = start.format('dddd');
-				event.fromTo = `${start.format('hh:mm')} - ${end.format('hh:mm')}`;
+				event.fromTo = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
 				return event;
 			});
 		} catch (e) {

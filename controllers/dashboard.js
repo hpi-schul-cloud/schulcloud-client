@@ -119,7 +119,6 @@ router.get('/', function (req, res, next) {
         }
     }
     //Somehow $lte doesn't work in normal query so I manually put it into a request
-    const colors = ["CDDC39","3F51B5","FF9800","00BCD4","FF5722","03A9F4","2196F3","F44336","FFC107","009688","E91E63","4CAF50"];
     const newsPromise = api(req).get('/news/',{
         qs: {
             schoolId : res.locals.currentSchool,
@@ -130,8 +129,6 @@ router.get('/', function (req, res, next) {
     }).then(news => news.data.map(news => {
             news.url = '/news/' + news._id;
             news.secondaryTitle = moment(news.displayAt).fromNow();
-            // ToDo: insert real Header Image from News
-            news.background = '#'+colors[(news.title||"").length % colors.length];
             return news;
     }).sort(sortFunction).slice(0,3));
 

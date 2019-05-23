@@ -565,7 +565,7 @@ router.get('/:courseId/addStudent', function (req, res, next) {
     }
 
     // check if student is already in course
-    api(req).get(`/courses/${req.params.courseId}?link=${req.query.shortId}`).then(course => {
+    api(req).get(`/courses/${req.params.courseId}?link=${req.query.link}`).then(course => {
         if (_.includes(course.userIds, currentUser._id)) {
             req.session.notification = {
                 type: 'danger',
@@ -577,7 +577,7 @@ router.get('/:courseId/addStudent', function (req, res, next) {
 
         // add Student to course
         course.userIds.push(currentUser._id);
-        api(req).patch(`/courses/${course._id}?link=${req.query.shortId}`, {
+        return api(req).patch(`/courses/${course._id}?link=${req.query.link}`, {
             json: course,
         }).then(_ => {
             req.session.notification = {

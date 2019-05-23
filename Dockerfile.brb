@@ -19,4 +19,3 @@ RUN gulp && rm .gulp-changed-smart.json
 
 VOLUME /home/node/app/build
 CMD npm start
-
