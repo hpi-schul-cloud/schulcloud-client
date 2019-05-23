@@ -839,7 +839,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 				head.push('');
 			}
 			const body = users.map((user) => {
-				const statusIcon = getConsentStatusIcon(user.consentStatus, true);
+				const statusIcon = getConsentStatusIcon(user.consent.consentStatus, true);
 				const icon = `<p class="text-center m-0">${statusIcon}</p>`;
 				const row = [
 					user.firstName || '',
@@ -1009,7 +1009,7 @@ router.all('/students', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'STU
 		];
 
 		const body = users.map((user) => {
-			const icon = getConsentStatusIcon(user.consentStatus);
+			const icon = getConsentStatusIcon(user.consent.consentStatus);
 			if (icon === '<i class="fa fa-times consent-status"></i>') { // bad but helper functions only return icons
 				studentsWithoutConsentCount += 1;
 			}
