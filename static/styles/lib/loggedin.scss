@@ -69,6 +69,7 @@ body > * {
         display:none;
     }
 }
+
 aside.nav-sidebar {
     position: fixed;
     top: 0;
@@ -110,6 +111,7 @@ aside.nav-sidebar {
         background: $primaryColor;
         color: whitesmoke;
         text-decoration: none;
+        margin-bottom: 1px;
         @include media-breakpoint-down(md) {
             padding: 10px;
         }
@@ -379,7 +381,6 @@ header {
     }
 }
 
-
 body.fullscreen{
     .nav-sidebar, footer, .search-wrapper, .mobile-nav-toggle{
         display: none;
@@ -408,6 +409,36 @@ body.fullscreen{
         transition: all .3s ease-in-out;
         &:hover{
             opacity: 1;
+        }
+    }
+}
+
+
+body.edtr {
+    padding-top: 75px;
+
+    .btn-fullscreen {
+        top: 83px;
+    }
+    
+    @media(max-width: 1250px) {
+        .content-wrapper {
+            padding-left: 60px;
+        }
+
+        aside.nav-sidebar {
+            width: 60px;
+            overflow-x: hidden;
+
+            .sc-title {
+    
+                display: none;
+            }
+
+            .cloud-logo {
+                width: 100%;
+                margin-right: 0;
+            }
         }
     }
 }

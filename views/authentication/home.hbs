@@ -140,12 +140,70 @@
                             <li>Vernetzung unterschiedlicher Lernorte</li>
                         </ul>
                         <div>
-            </section>
-        </main>
-        <aside class="col-md-4">
-            <div class="hidden-sm-down">
-                {{> "authentication/forms/demo-login"}}
-                {{> "authentication/forms/login"}}
+                    </section>
+                </main>
+                <aside class="col-md-4">
+                    <div class="hidden-sm-down">
+                        {{> "authentication/forms/demo-login"}}
+                        {{> "authentication/forms/login"}}
+                    </div>
+
+                     <section id="jobs" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Stellenausschreibungen</h4>
+                            <div class="form-group">
+                                Du möchtest gerne Mitglied in unserem HPI Schul-Cloud Team werden? Wir suchen:
+                            </div>
+                            <a href="https://hpi.de/das-hpi/organisation/jobs/aktuelle-jobs/internettechnologien/web-developer-im-projekt-schul-cloud.html" rel="noopener" target="_blank">Web Developer</a>
+                        </div>
+                    </section>
+
+                    <section id="newsletter" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">Newsletter</h4>
+                            <div class="form-group">
+                                Alle Neuigkeiten rund um die HPI Schul-Cloud bequem in Ihrem Postfach:
+                            </div>
+                            <a href="https://hpi.de/open-campus/registrierung/hpi-schul-cloud-newsletter/" target="_blank" class="btn btn-block btn-primary">Newsletter abonnieren</a>
+                        </div>
+                    </section>
+
+                    <section id="blogfeed" class="card">
+                        <div class="card-block">
+                            <h4 class="card-title">HPI Schul-Cloud Blog</h4>
+                            <ul class="list-group list-group-flush">
+                                {{#each blogFeed}}
+                                    <li class="list-group-item">
+                                        <a href="{{this.link}}" target="scblog">
+                                            {{this.title}}
+                                        </a></br>
+                                        <small>von {{this.dc:creator}} am {{this.pubDate}}</small>
+                                    </li>
+                                {{else}}
+                                    <p>Der Blog ist derzeit deaktiviert! Das HPI Schul-Cloud Team kümmert sich darum.</p>
+                                {{/each}}
+                            </ul>
+                            <a href="https://blog.schul-cloud.org" target="scblog" class="card-link pull-right pt-1">weitere Artikel <i class="fa  fa-angle-double-right" aria-hidden="true"></i></a>
+                        </div>
+                    </section>
+
+                    <section id="partner" class="card">
+						<div class="card-block">
+							<h4 class="card-title">Projektdurchführung</h4>
+							<div class="card-text partner-img">
+								<a href="https://hpi.de/open-campus/hpi-initiativen/schul-cloud.html" target="_blank" rel="noopener">
+									<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/hpi-logo.jpg" alt="Logo HPI" class="img-fluid">
+								</a>
+								<a href="https://www.mint-ec.de/" target="_blank" rel="noopener">
+									<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/mintec-logo.jpg" alt="Logo MINT-EC" class="img-fluid">
+								</a>
+								<a href="https://www.bmbf.de/" target="_blank" rel="noopener">
+									<img src="https://schul-cloud-hpi.s3.hidrive.strato.com/images/partner/bmbf-logo.jpg" alt="Logo BMBF" class="img-fluid">
+								</a>
+							</div>
+						</div>
+					</section>
+                </aside>
             </div>
 
             <section id="jobs" class="card">
