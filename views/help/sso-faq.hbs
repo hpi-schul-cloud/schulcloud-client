@@ -1,42 +1,40 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/help/help.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/help/help.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-    {{/content}}
+{{#content "scripts" mode="append"}}
+{{/content}}
 
-    {{#content "page"}}
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-sm-12">
-                    <div id="accordion" role="tablist" aria-multiselectable="true">
-                        {{#each faq}}
-                            <div class="card">
-                                <div class="card-header" role="tab" id="heading-{{@index}}">
-                                    <h5 class="mb-0">
-                                        <a data-toggle="collapse" data-parent="#accordion"
-                                           href="#collapse-{{@index}}"
-                                           {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}
-                                           aria-controls="collapse-{{@index}}">
-                                            <div>
-                                                {{this.title}}
-                                            </div>
-                                        </a>
-                                    </h5>
+{{#content "page"}}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                {{#each faq}}
+                <div class="card">
+                    <div class="card-header" role="tab" id="heading-{{@index}}">
+                        <h2 class="mb-0 h5">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-{{@index}}"
+                                {{#ifeq @index 0}}aria-expanded="true" {{/ifeq}} aria-controls="collapse-{{@index}}">
+                                <div>
+                                    {{this.title}}
                                 </div>
-                                <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show in{{/ifeq}}"
-                                     role="tabpanel" aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true"{{/ifeq}}>
-                                    <div class="card-block">
-                                        {{{this.content}}}
-                                    </div>
-                                </div>
-                            </div>
-                        {{/each}}
+                            </a>
+                        </h2>
+                    </div>
+                    <div id="collapse-{{@index}}" class="collapse {{#ifeq @index 0}}show in{{/ifeq}}" role="tabpanel"
+                        aria-labelledby="heading-{{@index}}" {{#ifeq @index 0}}aria-expanded="true" {{/ifeq}}>
+                        <div class="card-block">
+                            {{{this.content}}}
+                        </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
         </div>
-    {{/content}}
+    </div>
+</div>
+{{/content}}
 {{/extend}}

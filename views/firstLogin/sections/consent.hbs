@@ -1,6 +1,6 @@
-<section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page"{{/if}}>
-  <h4>Einwilligungserklärung</h4>
-  <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{@root.theme.title}} nutzen kannst.</p>
-  <p>Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, erkläre folgendes:</p>
-  {{> "registration/forms/einwilligungserklaerung"}}
+<section data-panel="section-{{section-nr}}" {{#if submit-page}}class="submit-page" {{/if}}>
+    <h2 class="h4">Einwilligungserklärung</h2>
+    <p>Bitte bestätige folgende Einwilligungserklärungen, damit du die {{@root.theme.title}} nutzen kannst.</p>
+    <p>Ich, <b>{{@root.currentUser.firstName}} {{@root.currentUser.lastName}}</b>, erkläre folgendes:</p>
+    {{> "registration/forms/einwilligungserklaerung"}}
 </section>

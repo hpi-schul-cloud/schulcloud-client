@@ -1,63 +1,62 @@
 {{#extend "lib/loggedin"}}
 
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css"/>
-    {{/content}}
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/lib/spectrum/spectrum.css" />
+{{/content}}
 
-    {{#content "scripts" mode="append"}}
-        <script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
-        <script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
-    {{/content}}
+{{#content "scripts" mode="append"}}
+<script src="/scripts/spectrum/spectrum.js" type="text/javascript" defer></script>
+<script src="/scripts/spectrum/init.js" type="text/javascript" defer></script>
+{{/content}}
 
 
-    {{#content "page"}}
-        <section class="section-course">
-            <form action="{{action}}" method="post">
-                <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}"/>
+{{#content "page"}}
+<section class="section-course">
+    <form action="{{action}}" method="post">
+        <input name="schoolId" type="hidden" data-force-value="true" value="{{currentSchool}}" />
 
-                {{#if method}}
-                    <input type="hidden" name="_method" data-force-value="true" value="{{method}}"/>
-                {{/if}}
+        {{#if method}}
+        <input type="hidden" name="_method" data-force-value="true" value="{{method}}" />
+        {{/if}}
 
-                <div class="form-group">
-                    <label>Name des Teams</label>
-                    <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{team.name}}"
-                           required/>
-                </div>
+        <div class="form-group">
+            <label>Name des Teams</label>
+            <input class="form-control" name="name" type="text" placeholder="A-Team" value="{{team.name}}" required />
+        </div>
 
-                <div class="form-group">
-                    <label>Beschreibung des Teams (optional)</label>
-                    <textarea class="form-control" name="description">{{team.description}}</textarea>
-                </div>
+        <div class="form-group">
+            <label>Beschreibung des Teams (optional)</label>
+            <textarea class="form-control" name="description">{{team.description}}</textarea>
+        </div>
 
-                {{#inArray "rocketChat" schoolData.features}}
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" name="rocketchat" value="true" {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
-                            Messenger für Team aktivieren
-                        </label>
-                    </div>
-                {{/inArray}}
+        {{#inArray "rocketChat" schoolData.features}}
+        <div class="form-group">
+            <label>
+                <input type="checkbox" name="rocketchat" value="true"
+                    {{#inArray "rocketChat" ../team.features}}checked{{/inArray}}>
+                Messenger für Team aktivieren
+            </label>
+        </div>
+        {{/inArray}}
 
-                <div class="form-group">
-                    <label>Farbe des Teams:</label>
-                    <input name="color" type="color"
-                           value="{{#if team.color}}{{team.color}}{{else}}#d32f2f{{/if}}" required/>
-                </div>
+        <div class="form-group">
+            <label>Farbe des Teams:</label>
+            <input name="color" type="color" value="{{#if team.color}}{{team.color}}{{else}}#d32f2f{{/if}}" required />
+        </div>
 
-                <div class="modal-footer">
-                    <button class="btn btn-add btn-secondary btn-cancel">
-                        {{closeLabel}}
-                    </button>
+        <div class="modal-footer">
+            <button class="btn btn-add btn-secondary btn-cancel">
+                {{closeLabel}}
+            </button>
 
-                    <button type="submit" class="btn btn-primary btn-submit">
-                        {{submitLabel}}
-                    </button>
-                </div>
-            </form>
+            <button type="submit" class="btn btn-primary btn-submit">
+                {{submitLabel}}
+            </button>
+        </div>
+    </form>
 
-            {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
-            {{/embed}}
-        </section>
-    {{/content}}
+    {{#embed "lib/components/modal-cancel" class="cancel-modal"}}
+    {{/embed}}
+</section>
+{{/content}}
 {{/extend}}

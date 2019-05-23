@@ -1,7 +1,9 @@
 <section data-panel="section-{{section-nr}}" class="submit-page" data-feature="pin">
-  <h4>Fast geschafft!</h4>
-  <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link" id="resend-pin">Code erneut senden</button></p>
-  <div id="pinverification">
-      {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
-  </div>
+    <h2 class="h4">Fast geschafft!</h2>
+    <p>Wir haben soeben eine E-Mail an Ihre angegebene Adresse gesendet. Bitte geben Sie den darin enthaltenen Code hier
+        ein, um die Registrierung abzuschließen. Sie haben keine E-Mail erhalten? <button type="button" class="btn-link"
+            id="resend-pin">Code erneut senden</button></p>
+    <div id="pinverification">
+        {{#embed "registration/pin" digits=4 pattern="[0-9]" required="true" name="pin" class="mail-validation my-1"}}{{/embed}}
+    </div>
 </section>

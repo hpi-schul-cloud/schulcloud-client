@@ -1,32 +1,32 @@
 {{#extend "lib/loggedin"}}
-    {{#content "styles" mode="append"}}
-        <link rel="stylesheet" href="/styles/courses/empty-state.css"/>
-    {{/content}}
-    {{#content "page"}}
-        <section class="empty-state">
-          <img src="/images/empty-states/lehrer_klasse.svg" alt="Lehrer mit Klasse" class="image mx-auto d-block"/>
-          <div class="text-wrapper mx-auto d-block">
-            <h2 class="text-center">Willkommen in der {{theme.title}}, {{currentUser.displayName}}</h2>
+{{#content "styles" mode="append"}}
+<link rel="stylesheet" href="/styles/courses/empty-state.css" />
+{{/content}}
+{{#content "page"}}
+<section class="empty-state">
+    <img src="/images/empty-states/lehrer_klasse.svg" alt="Lehrer mit Klasse" class="image mx-auto d-block" />
+    <div class="text-wrapper mx-auto d-block">
+        <h2 class="text-center h2">Willkommen in der {{theme.title}}, {{currentUser.displayName}}</h2>
+        {{#if isStudent}}
+
+        {{else}}
+        <h3 class="text-muted text-center h5">
+            Mit der {{theme.short_title}} Unterricht digital gestalten
+        </h3>
+        {{/if}}
+
+    </div>
+
+    <div class="row">
+        <div class="center buttons">
             {{#if isStudent}}
-
+            <a href="/courses/" class="btn btn-primary btn-lg btn-add">Zu deinen Kursen</a>
             {{else}}
-              <h5 class="text-muted text-center">
-                  Mit der {{theme.short_title}} Unterricht digital gestalten
-              </h5>
+            <a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
             {{/if}}
+        </div>
+    </div>
 
-          </div>
-
-            <div class="row">
-                <div class="center buttons">
-                  {{#if isStudent}}
-                    <a href="/courses/" class="btn btn-primary btn-lg btn-add">Zu deinen Kursen</a>
-                  {{else}}
-                    <a href="/courses/add" class="btn btn-primary btn-lg btn-add">Erstelle deinen ersten Kurs</a>
-                  {{/if}}
-                </div>
-            </div>
-
-        </section>
-    {{/content}}
+</section>
+{{/content}}
 {{/extend}}

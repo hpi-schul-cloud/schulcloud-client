@@ -1,9 +1,9 @@
 <li class="card group-card">
     <a href="/courses/{{ courseId._id }}/groups/{{ _id }}">
-        <h5 class="card-title">{{{ name }}}</h5>
+        <h2 class="card-title h2">{{{ name }}}</h2>
         <div class="card-tags">
             {{#each userIds }}
-                <span class="tag tag-default">{{ this.firstName }} {{ this.lastName }}</span>
+            <span class="tag tag-default">{{ this.firstName }} {{ this.lastName }}</span>
             {{/each}}
         </div>
     </a>

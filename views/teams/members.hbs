@@ -44,7 +44,7 @@
             </div>
 
             {{#ifCond (arrayLength bodyInvitations) '>' 0}}
-                <h4 style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h4>
+                <h2 class="h4" style="margin-top: 2rem" class="padding-top">Ausstehende Einladungen</h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
@@ -54,9 +54,9 @@
                 </div>
             {{/ifCond}}
 
-            <h4 class="padding-top">
+            <h2 class="padding-top h4">
                 {{arrayLength body}} Teilnehmer
-            </h4>
+            </h2>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 no-padding">
@@ -66,10 +66,10 @@
             </div>
 
             {{#if bodyClasses}}
-                <h4 class="padding-top">{{arrayLength bodyClasses}}
+                <h2 class="padding-top h4">{{arrayLength bodyClasses}}
                     {{#ifCond (arrayLength bodyClasses) '==' 1}} Klasse {{/ifCond}}
                     {{#ifCond (arrayLength bodyClasses) '>' 1}} Klassen {{/ifCond}}
-                </h4>
+                </h2>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">

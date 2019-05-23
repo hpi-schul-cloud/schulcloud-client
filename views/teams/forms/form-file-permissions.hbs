@@ -1,5 +1,6 @@
 <style>
-    .team-file-permissions th, .team-file-permissions td {
+    .team-file-permissions th,
+    .team-file-permissions td {
         text-align: left;
         padding: 11px;
         text-align: center;
@@ -8,7 +9,7 @@
 </style>
 
 <div class="form-group">
-    <h4>Dateifreigabe-Einstellungen</h4>
+    <h2 class="h4">Dateifreigabe-Einstellungen</h2>
     <strong>Voreingestellte Zugriffsberechtigungen für neue Ordner und Dateien innerhalb des Teams:</strong>
     <br><br>
     <table class="team-file-permissions">
@@ -19,19 +20,22 @@
         <tr>
             <td>Externe Experten</td>
             <td>
-                <input class="box" type="checkbox" name="externalExperts" data-force-value value="allowExternalExperts" {{allowExternalExperts}} />
+                <input class="box" type="checkbox" name="externalExperts" data-force-value value="allowExternalExperts"
+                    {{allowExternalExperts}} />
             </td>
         </tr>
         <tr>
             <td>Teilnehmer</td>
             <td>
-                <input class="box" type="checkbox" name="teamMembers" data-force-value value="allowTeamMembers" {{allowTeamMembers}} />
+                <input class="box" type="checkbox" name="teamMembers" data-force-value value="allowTeamMembers"
+                    {{allowTeamMembers}} />
             </td>
         </tr>
         <tr>
             <td>Leiter und Team-Admins</td>
             <td>
-                <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked" disabled />
+                <input class="box" type="checkbox" data-force-value name="other" value="allowOthers" checked="checked"
+                    disabled />
             </td>
         </tr>
     </table>

@@ -21,13 +21,13 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 }
 
 .section-team, .section-partner, .section-about, .section-community {
-	h4 {
+	.h4 {
 		font-weight: 500;
 		margin: 30px 0px 20px 0px !important;
 		width: 100%;
 		display: block;
 	}
-	h5 {
+	.h5 {
 		font-style: italic;
 		margin: 30px 0px 20px 0px;
 		width: 100%;
@@ -35,13 +35,13 @@ $fa-font-path: "/vendor-optimized/font-awesome/fonts";
 	}
 }
 
-.section-title h3 {
+.section-title .h3 {
 	color: $primaryColor;
 	font-weight: 700;
 	margin-top: 10px;
 }
 
-body h4:not(:first-of-type){
+body .h4:not(:first-of-type){
 	margin-top: 1rem;
 }
 
@@ -153,6 +153,8 @@ label,
 }
 
 footer {
+
+    font-size: $font-size-xs;
 	.android-app {
 		margin-left:-11px;
 	}
