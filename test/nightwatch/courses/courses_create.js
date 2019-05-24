@@ -1,16 +1,13 @@
 // jshint esversion: 6
 
-// eslint-disable-next-line camelcase
-const base_url = process.env.FRONTEND_URL || 'http://localhost:3100/';
-// eslint-disable-next-line camelcase
-const teacher_name = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
+const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3100/';
+const teacherName = process.env.TEACHER_NAME || 'lehrer@schul-cloud.org';
 const password = process.env.PASSWORD || 'Schulcloud1!';
 
 module.exports = {
 	'Schul-Cloud Reachable': function reachableTest(browser) {
 		browser
-			// eslint-disable-next-line camelcase
-			.url(`${base_url}login/`)
+			.url(`${baseUrl}login/`)
 			.waitForElementVisible('body', 1000);
 	},
 	'Schul-Cloud Visibility': function visibilityTest(browser) {
@@ -21,7 +18,7 @@ module.exports = {
 	},
 	'Schul-Cloud Login': function loginTest(browser) {
 		browser
-			.setValue('input[name=username]', teacher_name)
+			.setValue('input[name=username]', teacherName)
 			.setValue('input[name=password]', password)
 			.waitForElementVisible('input[type=submit]', 1000)
 			.click('input[type=submit]')
@@ -35,10 +32,14 @@ module.exports = {
 		});
 	},
 	'Create Course': function createCourseTest(browser) {
-		// eslint-disable-next-line camelcase
-		browser.url(`${base_url}courses/`);
-		browser.expect.element('h1').text.to.contain('Meine Kurse').before(10000);
-		browser.useXpath().moveToElement('//*[@id="main-content"]/section/div/div/div/div', 10, 10)
+		browser.url(`${baseUrl}courses/`);
+		browser.expect
+			.element('h1')
+			.text.to.contain('Meine Kurse')
+			.before(10000);
+		browser
+			.useXpath()
+			.moveToElement('//*[@id="main-content"]/section/div/div/div/div', 10, 10)
 			.useCss()
 			.click('.btn-add')
 			.pause(1000)
@@ -56,16 +57,26 @@ module.exports = {
 			.waitForElementVisible('.btn-primary', 10000)
 			.click('.btn-primary')
 			.pause(1000);
-		browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]")
-			.text.to.contain('Test Kurs').before(10000);
+		browser
+			.useXpath()
+			.expect.element("//*[contains(text(), 'Test Kurs')]")
+			.text.to.contain('Test Kurs')
+			.before(10000);
 	},
 	'Delete Course': function deleteCourseTest(browser) {
-		browser.useXpath().expect.element("//*[contains(text(), 'Test Kurs')]")
-			.text.to.contain('Test Kurs').before(10000);
+		browser
+			.useXpath()
+			.expect.element("//*[contains(text(), 'Test Kurs')]")
+			.text.to.contain('Test Kurs')
+			.before(10000);
 		browser.useXpath().click("//*[contains(text(), 'Test Kurs')]");
-		browser.useCss().expect.element('#main-content > div.dropdown-course > a > h2')
-			.text.to.contain('Test Kurs').before(10000);
-		browser.useCss()
+		browser
+			.useCss()
+			.expect.element('#main-content > div.dropdown-course > a > h1')
+			.text.to.contain('Test Kurs')
+			.before(10000);
+		browser
+			.useCss()
 			.waitForElementVisible('.btn-course-dropdown', 1000)
 			.click('.btn-course-dropdown')
 			.waitForElementVisible('.btn-course-edit', 1000)
