@@ -584,11 +584,12 @@ const createSystemHandler = (req, res, next) => {
 	});
 };
 
-const getStorageProviders = () => {
-	return [
-		{ label: 'AWS S3', value: 'awsS3' }
-	];
-};
+const getStorageProviders = res => [
+	{
+		label: res.locals.theme.short_title,
+		value: 'awsS3',
+	},
+];
 
 const getSSOTypes = () => {
 	return [
@@ -720,12 +721,12 @@ const getConsentStatusIcon = (consent, bool = false) => {
 
 	const isUserConsent = (c = {}) => {
 		const uC = c.userConsent;
-		return uC && uC.privacyConsent && uC.thirdPartyConsent && uC.termsOfUseConsent;
+		return uC && uC.privacyConsent && uC.termsOfUseConsent;
 	};
 
 	const isNOTparentConsent = (c = {}) => {
 		const pCs = c.parentConsents || [];
-		return pCs.length === 0 || !(pCs.privacyConsent && pCs.thirdPartyConsent && pCs.termsOfUseConsent);
+		return pCs.length === 0 || !(pCs.privacyConsent && pCs.termsOfUseConsent);
 	};
 
 	if (!consent) {
@@ -777,7 +778,6 @@ const getTeacherUpdateHandler = () => {
 				userConsent: {
 					form: req.body.form || "analog",
 					privacyConsent: req.body.privacyConsent || false,
-					thirdPartyConsent: req.body.thirdPartyConsent || false,
 					termsOfUseConsent: req.body.termsOfUseConsent || false
 				}
 			};
@@ -984,8 +984,11 @@ router.get('/teachers/:id/edit', permissionsHelper.permissionsChecker(['ADMIN_VI
 
 const getStudentUpdateHandler = () => {
 	return async function (req, res, next) {
-		const birthday = req.body.birthday.split('.');
-		req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+
+		if (req.body.birthday) {
+			const birthday = req.body.birthday.split('.');
+			req.body.birthday = `${birthday[2]}-${birthday[1]}-${birthday[0]}T00:00:00Z`;
+		}
 
 		let promises = [];
 
@@ -996,7 +999,6 @@ const getStudentUpdateHandler = () => {
 				newConsent.userConsent = {
 					form: req.body.student_form || "analog",
 					privacyConsent: req.body.student_privacyConsent === "true",
-					thirdPartyConsent: req.body.student_thirdPartyConsent === "true",
 					termsOfUseConsent: req.body.student_termsOfUseConsent === "true"
 				};
 			}
@@ -1005,7 +1007,6 @@ const getStudentUpdateHandler = () => {
 				newConsent.parentConsents[0] = {
 					form: req.body.parent_form || "analog",
 					privacyConsent: req.body.parent_privacyConsent === "true",
-					thirdPartyConsent: req.body.parent_thirdPartyConsent === "true",
 					termsOfUseConsent: req.body.parent_termsOfUseConsent === "true"
 				};
 			}
@@ -2100,7 +2101,7 @@ router.use('/school', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACH
 
 	// SCHOOL
 	let title = returnAdminPrefix(res.locals.currentUser.roles);
-	let provider = getStorageProviders();
+	let provider = getStorageProviders(res);
 	provider = (provider || []).map(prov => {
 		if (prov.value == school.fileStorageType) {
 			return Object.assign(prov, {
