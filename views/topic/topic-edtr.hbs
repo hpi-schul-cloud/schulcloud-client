@@ -1,0 +1,12 @@
+{{#extend "lib/loggedin"}}
+    {{#content "scripts" mode="append"}}
+    {{/content}}
+
+    {{#content "page"}}
+        <div id="editor"></div>
+        <script>
+            var BACKEND_URL = "{{ backendUrl }}";
+        </script>
+        <script type="text/javascript" src="{{edtrSource}}"></script>
+    {{/content}}
+{{/extend}}
