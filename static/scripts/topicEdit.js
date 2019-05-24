@@ -744,14 +744,10 @@ class TopicGeoGebra extends TopicBlock {
 class TopicInternal extends TopicBlock {
 
     /**
-     * generates the url-pattern with following criteria
-     * a) has to be in the current system
-     * b) /edit, /new and /add pages
-     * c) no personal links (personal files, settings, admin-area)
-     * d) it's not the topic itself
+     * generates the url-pattern that accepts homework links
+     * Other types of content currently not supported or not useful.
      */
     generatePattern() {
-        //                  a)                           b)        c)                                d)
         return `${window.location.origin}\/homework.*`;
     }
 
@@ -812,7 +808,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen!`}><i className="fa fa-info-circle" /></a>
+                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen! Die Schüler müssen Zugriff auf die Hausaufgabe haben, um diese hier eingebunden zu sehen. Andere Inhalte werden momentan nicht unterstützt.`}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input 
                         className="form-control" 
