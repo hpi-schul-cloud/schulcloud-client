@@ -317,7 +317,7 @@ class TopicBlockList extends React.Component {
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicResources)}>+ Material</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicNexboard)}>+ neXboard</button>
                         <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicEtherpad)}>+ Etherpad</button>
-                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Interne Komponente</button>
+                        <button type="button" className="btn btn-secondary" onClick={this.addBlock.bind(this, TopicInternal)}>+ Aufgabe</button>
                     </div>
                 </div>
             </div>
@@ -752,7 +752,7 @@ class TopicInternal extends TopicBlock {
      */
     generatePattern() {
         //                  a)                           b)        c)                                d)
-        return `(${window.location.origin})(?!.*\/(edit|new|add|files\/my|files\/file|account|administration|topics)).*`;
+        return `${window.location.origin}\/homework.*`;
     }
 
     /**
@@ -812,7 +812,7 @@ class TopicInternal extends TopicBlock {
                             href="#"
                             data-toggle="tooltip"
                             data-placement="top"
-                            title={`Der Link muss mit '${this.state.baseUrl}' beginnen! Aus Sicherheitsgründen sind ebenfalls alle persönlichen Seiten, sowie Themenseiten und direkte Verlinkungen von Dateien nicht gestattet.`}><i className="fa fa-info-circle" /></a>
+                            title={`Der Link muss mit '${this.state.baseUrl}/homework' beginnen!`}><i className="fa fa-info-circle" /></a>
                     </span>
                     <input 
                         className="form-control" 
