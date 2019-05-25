@@ -88,9 +88,19 @@ const app = {
 
 document.addEventListener('DOMContentLoaded', () => {
 	if (document.querySelectorAll('.tabContainer').length && document.querySelectorAll('.sectionsContainer').length) {
-		const activeTab = document.querySelector('.tabContainer').querySelector('.tabs .tab:first-child');
-		const activeSection = document
-			.querySelector('.sectionsContainer').querySelector('.sections .section:first-child');
+		let activeTabName = document.querySelector('.tabContainer').getAttribute('active-tab');
+		let activeTab;
+		let activeSection;
+		if (activeTabName) {
+			activeTabName = `js-${activeTabName}`;
+			activeTab = document.querySelector(`.tabContainer .tabs .tab[data-tab=${activeTabName}]`);
+			activeSection = document
+				.querySelector(`.sectionsContainer .sections .section[data-section=${activeTabName}]`);
+		} else {
+			activeTab = document.querySelector('.tabContainer').querySelector('.tabs .tab:first-child');
+			activeSection = document.querySelector('.sectionsContainer')
+				.querySelector('.sections .section:first-child');
+		}
 		activeTab.classList.add('active');
 		activeSection.classList.add('active');
 	}
