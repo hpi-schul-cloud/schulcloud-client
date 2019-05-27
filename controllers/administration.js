@@ -1861,6 +1861,34 @@ router.all('/courses', function (req, res, next) {
 	});
 });
 
+/**
+ *  Teams
+ */
+
+//TODO: find better name
+getTeamDescriptionIcons = (team) => {
+	const createdAtOwnSchool = '<i class="fa fa-school consent-status"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus-school consent-status"></i>';
+	const hasOwner = '<i class="fa fa-crown consent-status"></i>';
+
+	let combined = '';
+
+	if ( team.createdAtMySchool ) {
+		combined += createdAtOwnSchool;
+	}
+
+	if ( team.hasMembersOfOtherSchools ) {
+		combined += hasMembersOfOtherSchools;
+	}
+
+	if ( team.ownerExist ) {
+		combined += hasOwner;
+	}
+
+	return combined;
+}
+
+
 router.all('/teams', function (req, res, next) {
 
 	const itemsPerPage = (req.query.limit || 10);
@@ -1877,7 +1905,10 @@ router.all('/teams', function (req, res, next) {
 
 		const head = [
 			'Name',
-			'Klasse(n)',
+			'Mittglieder',
+			'Schule(n)',
+			'Erstellt am',
+			'',
 			''
 		];
 
@@ -1886,12 +1917,18 @@ router.all('/teams', function (req, res, next) {
 
 		Promise.all([
 			classesPromise,
-			usersPromise
+			usersPromise,
 		]).then(([classes, users]) => {
 			const body = data.map(item => {
 				return [
 					item.name,
-					(item.classIds || []).map(item => item.displayName).join(', '),
+					item.membersTotal,
+					item.schools.length,
+					moment(item.createdAt).format('DD.MM.YYYY'),
+					{
+						useHTML: true,
+						content: getTeamDescriptionIcons(item),
+					},
 					getTableActions(item, '/administration/teams/').map(action => {
 						return action;
 					})
