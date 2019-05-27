@@ -1867,8 +1867,8 @@ router.all('/courses', function (req, res, next) {
 
 //TODO: find better name
 getTeamDescriptionIcons = (team) => {
-	const createdAtOwnSchool = '<i class="fa fa-school consent-status"></i>';
-	const hasMembersOfOtherSchools = '<i class="fa fa-bus-school consent-status"></i>';
+	const createdAtOwnSchool = '<i class="fa fa-building-o consent-status"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus consent-status"></i>';
 	const hasOwner = '<i class="fa fa-crown consent-status"></i>';
 
 	let combined = '';
