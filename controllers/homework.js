@@ -589,7 +589,7 @@ router.get('/new', function (req, res, next) {
         let lessons = []
         if (req.query.course) {
             lessonsPromise = getSelectOptions(req, 'lessons', {
-                courseId: req.query.course
+				courseId: req.query.course
             });
             try {
                 lessons = await lessonsPromise;
@@ -627,7 +627,7 @@ router.get('/new', function (req, res, next) {
                 closeLabel: 'Abbrechen',
                 method: 'post',
                 action: '/homework/',
-                referrer: req.header('Referer'),
+                referrer: req.query.course ? `/courses/${req.query.course}/homeworks` : req.header('Referer'),
                 assignment,
                 courses,
                 lessons: lessons.length ? lessons : false,

@@ -12,7 +12,7 @@ const createToolHandler = (req, res, next) => {
     const context = req.originalUrl.split('/')[1];
     api(req).post('/ltiTools/', {
         json: req.body
-    }).then(tool => {
+    }).then((tool) => {
         if (tool._id) {
             api(req).patch(`/${context}/` + req.body.courseId, {
                 json: {
@@ -20,9 +20,9 @@ const createToolHandler = (req, res, next) => {
                         ltiToolIds: tool._id
                     }
                 }
-            }).then(course => {
-            res.redirect(`/${context}/` + course._id);
-            });
+			}).then((course) => {
+				res.redirect(`/${context}/${course._id}/tools/`);
+			});
         }
     });
 };
@@ -138,7 +138,7 @@ router.use(authHelper.authChecker);
 
 router.get('/', (req, res, next) => {
     const context = req.originalUrl.split('/')[1];
-    res.redirect(`/${context}/` + req.params.courseId);
+    res.redirect(`/${context}/` + req.params.courseId + '/tools/');
 });
 
 router.get('/add', addToolHandler);
@@ -150,7 +150,7 @@ router.get('/show/:ltiToolId', showToolHandler);
 router.get('/:id', getDetailHandler);
 
 router.delete('/delete/:ltiToolId', function (req, res, next) {
-    const context = req.originalUrl.split('/')[1];
+	const context = req.originalUrl.split('/')[1];
     api(req).patch(`/${context}/` + req.params.courseId, {
         json: {
             $pull: {

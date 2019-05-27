@@ -416,7 +416,7 @@ router.get('/:courseId/usersJson', function (req, res, next) {
 
 // EDITOR
 
-router.get('/:courseId/:tabId?', function (req, res, next) {
+router.get('/:courseId/:tabName?', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
             qs: {
@@ -465,11 +465,11 @@ router.get('/:courseId/:tabId?', function (req, res, next) {
 
         courseGroups = permissionHelper.userHasPermission(res.locals.currentUser, 'COURSE_EDIT') ?
             courseGroups.data || [] :
-            (courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
-
+			(courseGroups.data || []).filter(cg => cg.userIds.some(user => user._id === res.locals.currentUser._id));
+			
         res.render('courses/course', Object.assign({}, course, {
 			title: course.name,
-			activeTab: req.params.tabId,
+			activeTab: req.params.tabName,
             lessons,
             homeworks: homeworks.filter(function (task) { return !task.private; }),
             myhomeworks: homeworks.filter(function (task) { return task.private; }),

@@ -64,7 +64,7 @@ router.post('/', function (req, res, next) {
 		json: body
 	}).then(data => {
 		if (body.context) {
-			res.redirect(`/${body.context}/` + body.contextId);
+			res.redirect(`/${body.context}/` + body.contextId + '/news');
 		} else {
 			res.redirect('/news');
 		}

@@ -108,7 +108,7 @@ router.post('/', async function (req, res, next) {
         res.redirect(
             context === 'courses'
                 ? `/courses/` + req.params.courseId +
-                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '')
+                (req.query.courseGroup ? '/groups/' + req.query.courseGroup : '/topics/')
                 : `/teams/` + req.params.teamId + '/topics'
         );
     }).catch(_ => {

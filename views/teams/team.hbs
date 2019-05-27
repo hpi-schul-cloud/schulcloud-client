@@ -75,15 +75,15 @@
 
 
             <div class="course-card">
-                <div class="tabContainer">
+                <div class="tabContainer" active-tab={{activeTab}}>
                     <div class="tabs" data-max-width="1024">
-                        <button class="tab" data-tab="a">
+                        <button class="tab" data-tab="js-files">
                             <span class="text">Dateien</span>
                         </button>
-                        <button class="tab" data-tab="b">
+                        <button class="tab" data-tab="js-news">
                             <span class="text">Neuigkeiten</span>
                         </button>
-                        <button class="tab" data-tab="c">
+                        <button class="tab" data-tab="js-events">
                             <span class="text">Termine</span>
                         </button>
                     </div>
@@ -91,7 +91,7 @@
                 <div class="sectionsContainer">
                     <div class="sections">
                         <!-- Dateien -->
-                        <div class="section" data-section="a">
+                        <div class="section" data-section="js-files">
                             {{#if canUploadFile}}
                                     {{#embed "files/file-upload"}}{{/embed}}
                                 {{/if}}
@@ -179,7 +179,7 @@
 
                         </div>
                         <!--- Neuigkeiten -->
-                        <div class="section" data-section="b">
+                        <div class="section" data-section="js-news">
                             {{> 'dashboard/components/card_section' section-id="news" title="" content=news link-text="Weiterlesen"}}
                             <a href="/teams/{{../_id}}/news" class="">
                                 Alle Neuigkeiten anzeigen...
@@ -191,7 +191,7 @@
                             {{/inArray}}
                         </div>
                         <!-- Termine -->
-                        <div class="section" data-section="c">
+                        <div class="section" data-section="js-events">
                             <div class="row">
                                 {{#each ../events}}
                                     {{> 'calendar/card' event=this}}
