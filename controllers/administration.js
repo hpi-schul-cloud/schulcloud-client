@@ -1873,11 +1873,11 @@ getTeamFlags = (team) => {
 
 	let combined = '';
 
-	if ( team.createdAtMySchool ) {
+	if ( team.mySchool ) {
 		combined += createdAtOwnSchool;
 	}
 
-	if ( team.hasMembersOfOtherSchools ) {
+	if ( team.otherSchools ) {
 		combined += hasMembersOfOtherSchools;
 	}
 
