@@ -1866,11 +1866,10 @@ router.all('/courses', function (req, res, next) {
  *  Teams
  */
 
-//TODO: find better name
-getTeamDescriptionIcons = (team) => {
-	const createdAtOwnSchool = '<i class="fa fa-building-o consent-status"></i>';
-	const hasMembersOfOtherSchools = '<i class="fa fa-bus consent-status"></i>';
-	const hasOwner = '<i class="fa fa-crown consent-status"></i>';
+getTeamFlags = (team) => {
+	const createdAtOwnSchool = '<i class="fa fa-building-o consent-status" data-toggle="tooltip" data-placement="top" title="An eigener Schule erstelltes Team"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus consent-status" data-toggle="tooltip" data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
+	const hasOwner = '<i class="fa fa-briefcase consent-status" data-toggle="tooltip" data-placement="top" title="Team hat Besitzer"></i>';
 
 	let combined = '';
 
@@ -1928,7 +1927,7 @@ router.all('/teams', function (req, res, next) {
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					{
 						useHTML: true,
-						content: getTeamDescriptionIcons(item),
+						content: getTeamFlags(item),
 					},
 					''/*getTableActions(item, '/administration/teams/').map(action => {
 						return action;
