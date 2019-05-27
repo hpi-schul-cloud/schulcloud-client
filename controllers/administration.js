@@ -1930,9 +1930,9 @@ router.all('/teams', function (req, res, next) {
 						useHTML: true,
 						content: getTeamDescriptionIcons(item),
 					},
-					getTableActions(item, '/administration/teams/').map(action => {
+					''/*getTableActions(item, '/administration/teams/').map(action => {
 						return action;
-					})
+					})*/
 				];
 			});
 
