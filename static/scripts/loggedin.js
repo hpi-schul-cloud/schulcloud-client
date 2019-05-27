@@ -54,9 +54,9 @@ function sendFeedback(modal, e) {
         url: '/helpdesk',
         type: 'POST',
         data: {
-            type: type,
-			subject: subject,
-			title: title,
+            type,
+			subject,
+			title,
             category: fmodal.find('#category').val(),
             role: fmodal.find('#role').val(),
             desire: fmodal.find('#desire').val(),
