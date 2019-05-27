@@ -75,12 +75,12 @@ $(document).ready(() => {
 		$('#startDate').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
-			onShow:function(){
+			onShow() {
 				this.setOptions({
-				 minDate:0
-				})
+					minDate: 0,
+				});
 			},
-			onChangeDateTime:function(dp,$input){
+			onChangeDateTime(dp, $input) {
 				$input.closest('.modal').find('#endDate').val($input.val());
 			},
 		});
@@ -88,10 +88,10 @@ $(document).ready(() => {
 		$('#endDate').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
-			onShow:function(){
+			onShow() {
 				this.setOptions({
-				 minDate:0
-				})
+					minDate: 0,
+				});
 			},
 		});
 
