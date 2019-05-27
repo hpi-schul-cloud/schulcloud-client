@@ -1869,7 +1869,7 @@ router.all('/courses', function (req, res, next) {
 getTeamFlags = (team) => {
 	const createdAtOwnSchool = '<i class="fa fa-building-o consent-status" data-toggle="tooltip" data-placement="top" title="An eigener Schule gegründetes Team"></i>';
 	const hasMembersOfOtherSchools = '<i class="fa fa-bus consent-status" data-toggle="tooltip" data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
-	const hasOwner = '<i class="fa fa-briefcase consent-status" data-toggle="tooltip" data-placement="top" title="Team hat Besitzer"></i>';
+	const hasOwner = '<i class="fa fa-briefcase consent-status" data-toggle="tooltip" data-placement="top" title="Team hat Eigentümer"></i>';
 
 	let combined = '';
 
