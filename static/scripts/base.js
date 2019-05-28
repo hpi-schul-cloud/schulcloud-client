@@ -36,7 +36,14 @@ function populateModalForm(modal, data) {
     var $form = modal.find('.modal-form');
 
     $title.html(data.title);
-    $btnSubmit.html(data.submitLabel);
+    
+    if(data.submitLabel) {
+        $btnSubmit.html(data.submitLabel);
+    }
+    else {
+        $btnSubmit.hide();
+    }
+    
     $btnClose.html(data.closeLabel);
 
     if (data.action) {
@@ -131,6 +138,14 @@ $(document).ready(function () {
 
     $notification.find('.close').click(window.$.hideNotification);
 
+	// disable autocomplete to "off" for all multi-selects without the attribute
+	// to avoid visual overlapping
+	document.querySelectorAll('select[multiple]').forEach((select) => {
+		const value = select.getAttribute('autocomplete');
+		if (value === null) {
+			select.setAttribute('autocomplete', 'off');
+		}
+	});
 
     // Initialize bootstrap-select
     $('select:not(.no-bootstrap):not(.search-enabled)').chosen({
