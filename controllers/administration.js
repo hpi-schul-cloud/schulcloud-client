@@ -879,6 +879,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 		});
 	});
 
+
 router.get('/teachers/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), (req, res, next) => {
 		const userPromise = api(req).get(`/users/${req.params.id}`);
@@ -1861,6 +1862,33 @@ router.all('/courses', function (req, res, next) {
 	});
 });
 
+/**
+ *  Teams
+ */
+
+getTeamFlags = (team) => {
+	const createdAtOwnSchool = '<i class="fa fa-building-o team-flags" data-toggle="tooltip" data-placement="top" title="An eigener Schule gegründetes Team"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
+	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" data-placement="top" title="Team hat Eigentümer"></i>';
+
+	let combined = '';
+
+	if ( team.mySchool ) {
+		combined += createdAtOwnSchool;
+	}
+
+	if ( team.otherSchools ) {
+		combined += hasMembersOfOtherSchools;
+	}
+
+	if ( team.ownerExist ) {
+		combined += hasOwner;
+	}
+
+	return combined;
+}
+
+
 router.all('/teams', function (req, res, next) {
 
 	const itemsPerPage = (req.query.limit || 10);
@@ -1877,7 +1905,10 @@ router.all('/teams', function (req, res, next) {
 
 		const head = [
 			'Name',
-			'Klasse(n)',
+			'Mitglieder',
+			'Schule(n)',
+			'Erstellt am',
+			'',
 			''
 		];
 
@@ -1886,15 +1917,21 @@ router.all('/teams', function (req, res, next) {
 
 		Promise.all([
 			classesPromise,
-			usersPromise
+			usersPromise,
 		]).then(([classes, users]) => {
 			const body = data.map(item => {
 				return [
 					item.name,
-					(item.classIds || []).map(item => item.displayName).join(', '),
-					getTableActions(item, '/administration/teams/').map(action => {
+					item.membersTotal,
+					item.schools.length,
+					moment(item.createdAt).format('DD.MM.YYYY'),
+					{
+						useHTML: true,
+						content: getTeamFlags(item),
+					},
+					''/*getTableActions(item, '/administration/teams/').map(action => {
 						return action;
-					})
+					})*/
 				];
 			});
 
