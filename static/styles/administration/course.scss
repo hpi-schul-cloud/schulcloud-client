@@ -1,33 +1,36 @@
 @import '../lib/colors';
 
 .times {
-    padding: 16px;
-    box-shadow: 0 1px 1px 0 #C7C7C7 inset;
-    background: none repeat scroll 0 0;
-    margin-bottom: 30px;
-    i {
-        cursor: pointer;
+  padding: 16px;
+  box-shadow: 0 1px 1px 0 #c7c7c7 inset;
+  background: none repeat scroll 0 0;
+  margin-bottom: 30px;
+  i {
+    cursor: pointer;
+  }
+  .disabled {
+    cursor: not-allowed;
+    input {
+      background-color: $colorGrey;
     }
-    .disabled {
-        cursor: not-allowed;
-        input {
-            background-color: $colorGrey;
-        }
-    }
+  }
 
-    .disabled > * {
-        pointer-events: none;
-    }
-    .new-course-time-add {
-        display: inline-block;
-        margin-top: 10px;
-        padding-left: 5px;
-        cursor: pointer;
-        color: $primaryColor;
-    }
+  .disabled > * {
+    pointer-events: none;
+  }
+  .new-course-time-add {
+    display: inline-block;
+    margin-top: 10px;
+    padding-left: 5px;
+    cursor: pointer;
+    color: $primaryColor;
+  }
 }
 
 .new-course-time-template {
-    display: none;
+  display: none;
 }
 
+.team-flags {
+  padding: 5px;
+}
