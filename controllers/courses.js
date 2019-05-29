@@ -414,6 +414,8 @@ router.get('/:courseId/usersJson', function (req, res, next) {
     });
 });
 
+// EDITOR
+
 router.get('/:courseId', function (req, res, next) {
     Promise.all([
         api(req).get('/courses/' + req.params.courseId, {
