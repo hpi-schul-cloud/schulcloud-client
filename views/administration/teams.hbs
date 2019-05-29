@@ -13,12 +13,25 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-sm-12 no-padding">
-                            {{> "lib/components/table" head=head body=body}}
+                            {{> "lib/components/table" head=head body=body limit=false}}
                         </div>
                     </div>
                     <div class="row">
-                        {{> "lib/components/pagination" settings=pagination }}
+                        <div class="col-sm-12 no-padding">
+                            <center>
+                                <i class="fa fa-building-o team-flags"></i>
+                                An eigener Schule gegründetes Team &emsp;
+                                <i class="fa fa-bus team-flags"></i>
+                                Beinhaltet Schul-externe Mitglieder &emsp;
+                                <i class="fa fa-briefcase team-flags"></i>
+                                Team hat Eigentümer
+                            </center>
+                        </div>
                     </div>
+                    {{!-- TODO --}}
+                    {{!-- <div class="row">
+                        {{> "lib/components/pagination" settings=pagination }}
+                    </div> --}}
                     {{!-- <div class="row">
                         <div class="col-sm-12 no-padding">
                             <button type="submit" class="btn btn-primary btn-add-modal">
