@@ -10,8 +10,8 @@ const userConsentVersions = async (user, consent, req, limit = 0) => {
 	}
 	// users should have either a userConsent or a parentConsent. We prefere using the userConsent.
 	const selectedConsent = consent.userConsent || consent.parentConsents[0];
-	const dateOfPrivacyConsent = (selectedConsent || {}).dateOfPrivacyConsent;
-	const dateOfTermsOfUseConsent = (selectedConsent || {}).dateOfTermsOfUseConsent;
+	const { dateOfPrivacyConsent } = (selectedConsent || {});
+	const { dateOfTermsOfUseConsent } = (selectedConsent || {});
 	const newPrivacyVersions = await api(req).get('/consentVersions', {
 		qs: {
 			publishedAt: {
