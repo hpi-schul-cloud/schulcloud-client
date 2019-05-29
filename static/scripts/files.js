@@ -26,7 +26,7 @@ window.openFolder = function (id) {
 const getOwnerId = getDataValue('owner');
 const getCurrentParent = getDataValue('parent');
 
-$(document).ready(function () {
+$(document).ready(() => {
 	const $form = $('.form-upload');
 	const $progressBar = $('.progress-bar');
 	const $progress = $progressBar.find('.bar');
@@ -368,8 +368,8 @@ $(document).ready(function () {
 				parent: getCurrentParent(),
 				studentEdit,
 			},
-			(data) => {
-				reloadFiles();
+			(id) => {
+				window.location.href = `/files/file/${id}/lool`;
 			},
 		).fail(showAJAXError);
 	});
