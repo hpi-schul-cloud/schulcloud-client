@@ -36,7 +36,7 @@ body {
             }
             .cloud-logo {
                 display: inline-block;
-                width: 2.5rem;
+                width: 173px;
                 height: 2rem;
                 margin-top: -.25rem;
                 margin-bottom: -.5rem;
@@ -168,15 +168,14 @@ body {
     }
 }
 
+.partner-img {
+	img {
+		padding: 5px 20px;
+	}
+}
+
 @media (max-width: 1024px) {
     .intro-trigger {
         display: none;
   }
-      
-    .partner-img {
-        position: relative;
-        left: 50%;
-        transform: translate(-50%, 0);
-        width: 70%
-    }
 }

@@ -48,13 +48,15 @@ function sendFeedback(modal, e) {
 
 	const type = (fmodal[0].className.includes('contactHPI-modal')) ? 'contactHPI' : 'contactAdmin';
 	const subject = (type === 'contactHPI') ? 'Feedback' : `Problem ${fmodal.find('#title').val()}`;
+	const title = fmodal.find('#wishTitle').val() || fmodal.find('#problemTitle').val();
 
     $.ajax({
         url: '/helpdesk',
         type: 'POST',
         data: {
-            type: type,
-            subject: subject,
+			type,
+			subject,
+			title,
             category: fmodal.find('#category').val(),
             role: fmodal.find('#role').val(),
             desire: fmodal.find('#desire').val(),

@@ -139,13 +139,38 @@ const getBreadcrumbs = (req, dirId, breadcrumbs = [], ) => {
 		});
 };
 
+
+/**
+ * check whether given files can be opened in LibreOffice
+ */
+const checkIfOfficeFiles = (files) => {
+	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
+		logger.error('LibreOffice env is currently not defined.');
+		return files;
+	}
+	const officeFileTypes = [
+		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
+		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
+		'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
+		'application/vnd.ms-powerpoint',                                               //.ppt
+		'application/vnd.ms-excel',                                                    //.xlx
+		'application/vnd.ms-word',                                                     //.doc
+		'application/vnd.oasis.opendocument.text',                                     //.odt
+		'text/plain',                                                                  //.txt
+		'application/msword',                                                          //.doc
+	];
+
+	return files.map(f => ({
+		isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
+		...f,
+	}));
+};
+
 /**
  * generates the correct file's or directory's storage context for further requests
  */
 const getStorageContext = (req, res) => {
-
 	const key = Object.keys(req.params).find(k => ['courseId', 'teamId', 'classId'].indexOf(k) > -1);
-
 	return req.params[key] || res.locals.currentUser._id;
 };
 
@@ -154,6 +179,7 @@ const getStorageContext = (req, res) => {
  */
 const FileGetter = (req, res, next) => {
 	const owner = getStorageContext(req, res);
+	const userId = res.locals.currentUser._id;
 	const { params: { folderId, subFolderId } } = req;
 	const parent = subFolderId || folderId;
 	const promises = [
@@ -164,21 +190,28 @@ const FileGetter = (req, res, next) => {
 	];
 
 	return Promise.all(promises)
-		.then(([role, files]) => {
+		.then(([role, result]) => {
 			const { data: [{ _id: studentRoleId }] } = role;
 
-			/* note: fileStorage can return arrays and error objects */
-			if (!Array.isArray(files)) {
-				if ((files || {}).code) {
-					logger.warn(files);
-				}
-				files = [];
+			if (!Array.isArray(result) && result.code === 403) {
+				res.locals.files = { files: [], directories: [] };
+				logger.warn(result);
+				next();
+				return;
 			}
 
-			files = files.filter(f => f).map((file) => {
+			const files = result.filter(f => f).map((file) => {
 				const studentPerm = file.permissions.find(perm => perm.refId.toString() === studentRoleId);
 				if (studentPerm) {
-					file.studentCanEdit = studentPerm.write;
+					Object.assign(file, {
+						studentCanEdit: studentPerm.write,
+					});
+				}
+
+				if (file.permissions[0].refId === userId) {
+					Object.assign(file, {
+						userIsOwner: true,
+					});
 				}
 				return file;
 			});
@@ -265,33 +298,6 @@ const registerSharedPermission = (userId, fileId, shareToken, req) => {
 			}
 		}
 	});
-};
-
-/**
- * check whether given files can be opened in LibreOffice
- */
-const checkIfOfficeFiles = files => {
-	if (!process.env.LIBRE_OFFICE_CLIENT_URL) {
-		logger.error('LibreOffice env is currently not defined.');
-		return files;
-	}
-
-	const officeFileTypes = [
-		'application/vnd.openxmlformats-officedocument.wordprocessingml.document',     //.docx
-		'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',           //.xlsx
-		'application/vnd.openxmlformats-officedocument.presentationml.presentation',   //.pptx
-		'application/vnd.ms-powerpoint',                                               //.ppt
-		'application/vnd.ms-excel',                                                    //.xlx
-		'application/vnd.ms-word',                                                     //.doc
-		'application/vnd.oasis.opendocument.text',                                     //.odt
-		'text/plain',                                                                  //.txt
-		'application/msword'                                                           //.doc
-	];
-
-	return files.map(f => ({
-		isOfficeFile: officeFileTypes.indexOf(f.type) > -1,
-		...f
-	}));
 };
 
 /**
@@ -445,7 +451,7 @@ router.post('/file/:id/move', function (req, res) {
 });
 
 // create newFile
-router.post('/newFile', function (req, res, next) {
+router.post('/newFile', (req, res, next) => {
 	const { name, type, owner, parent, studentEdit } = req.body;
 
 	const fileName = name || 'Neue Datei';
@@ -457,8 +463,8 @@ router.post('/newFile', function (req, res, next) {
 			owner,
 			parent
 		}
-	}).then(() => {
-		res.sendStatus(200);
+	}).then((result) => {
+		res.send(result._id);
 	}).catch(err => {
 		res.status((err.statusCode || 500)).send(err);
 	});
@@ -825,22 +831,40 @@ router.post('/permissions/', function (req, res) {
 	});
 });
 
-router.patch('/permissions/', function (req, res) {
-	const apiPromises = req.body.permissions
-		.map(p => ({
-			role: p.roleName,
-			read: p.read,
-			write: p.write,
-			create: p.create,
-			delete: p.delete
-		}))
-		.map(json => {
-			return api(req).patch(`/fileStorage/permission/${req.body.fileId}`, { json });
-		});
+router.get('/share/', (req, res) => {
+	const { file } = req.query;
+	return api(req).get(`/files/${file}`)
+		.then((file) => {
+			let { shareToken } = file;
 
-	Promise.all(apiPromises)
-		.then(() => res.sendStatus(200))
+			if (!shareToken) {
+				shareToken = shortid.generate();
+				return api(req).patch("/files/" + file._id, { json: file })
+					.then(() => Promise.resolve(shareToken));
+			}
+
+			return Promise.resolve(shareToken);
+		})
+		.then((shareToken) => res.json({ shareToken }))
 		.catch(() => res.sendStatus(500));
+})
+
+router.get('/permissions/', (req, res) => {
+	const { file } = req.query;
+
+	return api(req).get('/fileStorage/permission/', {
+		qs: { file },
+	})
+	.then((json) => res.json(json))
+	.catch(() => res.sendStatus(500));
+});
+
+router.patch('/permissions/', function (req, res) {
+    const { permissions, fileId } = req.body;
+
+	return api(req).patch(`/fileStorage/permission/${fileId}`, { json: { permissions } })
+        .then(() => res.sendStatus(200))
+        .catch(() => res.sendStatus(500));
 });
 
 router.get('/search/', function (req, res, next) {

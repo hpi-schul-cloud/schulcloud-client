@@ -172,6 +172,11 @@ module.exports = (req, res, next) => {
                 name: 'Klassen',
                 icon: 'users',
                 link: '/administration/classes/'
+			},
+			{
+                name: 'Teams',
+                icon: 'users',
+                link: '/administration/teams/'
             },
             {
                 name: 'Schule',
