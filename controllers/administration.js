@@ -1867,17 +1867,17 @@ router.all('/courses', function (req, res, next) {
  */
 
 getTeamFlags = (team) => {
-	const createdAtOwnSchool = '<i class="fa fa-building-o team-flags" data-toggle="tooltip" data-placement="top" title="An eigener Schule gegründetes Team"></i>';
-	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
-	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" data-placement="top" title="Team hat Eigentümer"></i>';
+	const createdAtOwnSchool = '<i class="fa fa-building-o consent-status" data-toggle="tooltip" data-placement="top" title="An eigener Schule gegründetes Team"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus consent-status" data-toggle="tooltip" data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
+	const hasOwner = '<i class="fa fa-briefcase consent-status" data-toggle="tooltip" data-placement="top" title="Team hat Eigentümer"></i>';
 
 	let combined = '';
 
-	if ( team.mySchool ) {
+	if ( team.createdAtMySchool ) {
 		combined += createdAtOwnSchool;
 	}
 
-	if ( team.otherSchools ) {
+	if ( team.hasMembersOfOtherSchools ) {
 		combined += hasMembersOfOtherSchools;
 	}
 
@@ -1888,11 +1888,29 @@ getTeamFlags = (team) => {
 	return combined;
 }
 
+getTeamMembersButton = (counter) => {
+	return `<div class="btn-show-members" role="button">${counter}<i class="fa fa-user"></i></div>`
+}
+
+getTeamSchoolsButton = (counter) => {
+	return `<div class="btn-show-schools" role="button">${counter}<i class="fa fa-building"></i></div>`
+}
+
 
 router.all('/teams', function (req, res, next) {
 
+	const path = '/administration/teams/';
+
 	const itemsPerPage = (req.query.limit || 10);
 	const currentPage = parseInt(req.query.p) || 1;
+
+
+	// TODO: mapping sort 
+	/*
+	    'Mitglieder': 'members',
+		'Schule(n)': 'schoolIds',
+		'Erstellt am': 'createdAt',
+	*/
 
 	api(req).get('/teams/manage/admin', {
 		qs: {
@@ -1912,6 +1930,8 @@ router.all('/teams', function (req, res, next) {
 			''
 		];
 
+		
+
 		const classesPromise = getSelectOptions(req, 'classes', { $limit: 1000 });
 		const usersPromise = getSelectOptions(req, 'users', { $limit: 1000 });
 
@@ -1920,18 +1940,63 @@ router.all('/teams', function (req, res, next) {
 			usersPromise,
 		]).then(([classes, users]) => {
 			const body = data.map(item => {
+
+				const actions = [
+					{
+						link: path + item._id,
+						class: 'btn-write-owner',
+						icon: 'envelope-o',
+						title: 'Nachricht an Eigentümer',
+					},
+					{
+						link: path + item._id,
+						class: `${item.ownerExist ? 'disabled' : 'btn-set-teamowner'}`,
+						icon: 'user-plus',
+						title: 'Eigentümer festelegen',
+					},
+					{
+						link: path + item._id,
+						class: `${item.hasMembersOfOtherSchools ? 'btn-remove-members' : 'disabled'}`,
+						icon: 'user-times',
+						data: {
+							name: item.name
+						},
+						title: 'Mitglieder eigener Schule aus Team entfernen',
+					},
+					{
+						link: path + item._id,
+						class: `${item.hasMembersOfOtherSchools ? 'disabled' : 'btn-delete-team'}`,
+						icon: 'trash-o',
+						data: {
+							name: item.name,
+						},
+						//lmethod: `${item.hasMembersOfOtherSchools ? '' : 'delete'}`,
+						title: 'Team löschen',
+					}
+				]
+
 				return [
 					item.name,
-					item.membersTotal,
-					item.schools.length,
+					{
+						useHTML: true,
+						content: getTeamMembersButton(item.membersTotal),
+					},
+					{
+						useHTML: true,
+						content: getTeamSchoolsButton(item.schools.length),
+					},
 					moment(item.createdAt).format('DD.MM.YYYY'),
 					{
 						useHTML: true,
 						content: getTeamFlags(item),
 					},
-					''/*getTableActions(item, '/administration/teams/').map(action => {
-						return action;
-					})*/
+					{
+						payload: {
+							members: item.schoolMembers,
+							schools: item.schools,
+						} 
+					},
+					actions
 				];
 			});
 
@@ -1972,9 +2037,25 @@ router.get('/teams/:id', (req, res, next) => {
 	});
 });
 
+router.post('/teams/:id', (req, res, next) => {
+	api(req).post('/teams/manage/admin', {
+		json: {
+			teamIds: req.params.id,
+			message: req.body.message,
+		}
+	}).then(data => {
+		res.redirect('/administration/teams/');
+	}).catch(err => {
+		next(err);
+	});
+});
+
+
 router.patch('/teams/:id', (req, res, next) => {
 	api(req).patch('/teams/manage/admin/' + req.params.id, {
-		userId: req.body.userId
+		json: {
+			userId: req.body.userId
+		}
 	}).then(data => {
 		res.redirect('/administration/teams/');
 	}).catch(err => {
