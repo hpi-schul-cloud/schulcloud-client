@@ -42,15 +42,15 @@ router.post('/', (req, res, next) => {
 	});
 });
 
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
 	const isDiscoverable = res.locals.currentUser.discoverable;
 	if (process.env.NOTIFICATION_SERVICE_ENABLED) {
 		api(req).get('/notification/devices')
-			.then(device => {
-				device.map(d => {
+			.then((device) => {
+				device.map((d) => {
 					if (d.token === req.cookies.deviceToken) {
-						Object.assign(d, {selected: true});
+						Object.assign(d, { selected: true });
 					}
 					return d;
 				});
@@ -61,14 +61,14 @@ router.get('/', function (req, res, next) {
 					sso: isSSO,
 					isDiscoverable,
 				});
-			}).catch(err => {
-			res.render('account/settings', {
-				title: 'Dein Account',
-				userId: res.locals.currentUser._id,
-				sso: isSSO,
-				isDiscoverable,
+			}).catch((err) => {
+				res.render('account/settings', {
+					title: 'Dein Account',
+					userId: res.locals.currentUser._id,
+					sso: isSSO,
+					isDiscoverable,
+				});
 			});
-		});
 	} else {
 		res.render('account/settings', {
 			title: 'Dein Account',
