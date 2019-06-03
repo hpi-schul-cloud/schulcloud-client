@@ -2,17 +2,64 @@
 $(window).ready(() => {
 
 	function getPayload (tableRow) {
-		return JSON.parse(tableRow.find('td[payload]').data('payload'));
+		var json = tableRow.find('td[data-payload]').data('payload');
+		return json;
 	}
 
-	$('.btn-show-members').on('click', function showMemebers(e) {
-		
-		var $memberModal = $('.member-modal');
-		var payload = getPayload($(this).parents('tr'));
 
-		populateModal($memberModal, '#member-modal-body', payload);
+	function displayModalTeamMembers (headline, content) {
+		var $memberModal = $('.member-modal');
 		
+
+		populateModal($memberModal, '.modal-title', headline);
+		populateModal($memberModal, '#member-modal-body', content);
+
 		$memberModal.appendTo('body').modal('show');
+
+	}
+
+
+	$('.btn-show-members').on('click', function showMemebers(e) {
+		e.preventDefault();
+		var test = $(this)[0];
+		var parent = $(this).closest('tr');
+		var members = getPayload(parent).members;
+
+		var teamMembers = 'Keine Teilnehmer';
+		if((members || []).length != 0) {
+			teamMembers = '<ol>';
+			members.forEach(member => {
+				const user = member.user; // userId was populated
+				if (user.displayName) {
+					teamMembers = teamMembers + '<li>' + user.displayName + ' ('+ member.role +')</li>';
+				} else {
+					teamMembers = teamMembers + '<li>' + user.firstName + ' ' + user.lastName + ' ('+ member.role +')</li>';
+				}
+			});
+			teamMembers = teamMembers + '</ol>';
+		}
+
+		displayModalTeamMembers('Mitglieder an eigener Schule', teamMembers);
+
+	});
+
+	$('.btn-show-schools').on('click', function showMemebers(e) {
+		e.preventDefault();
+		var test = $(this)[0];
+		var parent = $(this).closest('tr');
+		var schools = getPayload(parent).schools;
+
+		var teamSchools = 'Keine Schulen';
+		if((schools || []).length != 0) {
+			teamSchools = '<ol>';
+			schools.forEach(member => {
+				teamSchools += '<li>'+ member.name +'</li>';
+			});
+			teamSchools = teamSchools + '</ol>';
+		}
+
+		displayModalTeamMembers('Schulen', teamSchools);
+
 	});
 
 	$('.btn-write-owner').on('click', function writeOwner(e) {
