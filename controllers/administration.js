@@ -427,52 +427,56 @@ const getSendHelper = (service) => {
 	};
 };
 
-const getCSVImportHandler = () => {
-	return async function (req, res, next) {
-		try {
-			const csvData = decoder.write(req.file.buffer);
-			const [stats] = await api(req).post('/sync/', {
-				qs: {
-					target: 'csv',
-					school: req.body.schoolId,
-					role: req.body.roles[0],
-					sendEmails: Boolean(req.body.sendRegistration),
-				},
-				json: {
-					data: csvData,
-				},
-			});
-			const numberOfUsers = stats.users.successful + stats.users.failed;
-			if (stats.success) {
-				req.session.notification = {
-					type: 'success',
-					message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert.`,
-				};
-			} else {
-				const whitelist = ['file', 'user', 'invitation', 'class'];
-				let errorText = stats.errors
-					.filter(err => whitelist.includes(err.type))
-					.map(err => `${err.entity} (${err.message})`)
-					.join(', ');
-				if (errorText === '') {
-					errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
-				}
-				req.session.notification = {
-					type: 'warning',
-					message: `${stats.users.successful} von ${numberOfUsers} Nutzer${numberOfUsers > 1 ? 'n' : ''} importiert. Fehler:\n\n${errorText}`,
-				};
-			}
-			res.redirect(req.header('Referer'));
-			return;
-		} catch (err) {
-			req.session.notification = {
-				type: 'danger',
-				message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
-			};
-			res.redirect(req.header('Referer'));
-			return;
-		}
+const getCSVImportHandler = () => async function handler(req, res, next) {
+	const buildMessage = (stats) => {
+		const numberOfUsers = stats.users.successful + stats.users.failed;
+		return `${stats.users.successful} von ${numberOfUsers} `
+			+ `Nutzer${numberOfUsers > 1 ? 'n' : ''} erfolgreich importiert `
+			+ `(${stats.users.created} erstellt, ${stats.users.updated} aktualisiert).`;
 	};
+	const buildErrorMessage = (stats) => {
+		const whitelist = ['file', 'user', 'invitation', 'class'];
+		let errorText = stats.errors
+			.filter(err => whitelist.includes(err.type))
+			.map(err => `${err.entity} (${err.message})`)
+			.join(', ');
+		if (errorText === '') {
+			errorText = 'Es ist ein unbekannter Fehler beim Importieren aufgetreten.';
+		}
+		return errorText;
+	};
+	try {
+		const csvData = decoder.write(req.file.buffer);
+		const [stats] = await api(req).post('/sync/', {
+			qs: {
+				target: 'csv',
+				school: req.body.schoolId,
+				role: req.body.roles[0],
+				sendEmails: Boolean(req.body.sendRegistration),
+			},
+			json: {
+				data: csvData,
+			},
+		});
+		let messageType = 'success';
+		let message = buildMessage(stats);
+		if (!stats.success) {
+			messageType = 'warning';
+			message += ` Fehler:\n\n${buildErrorMessage(stats)}`;
+		}
+		req.session.notification = {
+			type: messageType,
+			message,
+		};
+		res.redirect(req.header('Referer'));
+		return;
+	} catch (err) {
+		req.session.notification = {
+			type: 'danger',
+			message: 'Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut.',
+		};
+		res.redirect(req.header('Referer'));
+	}
 };
 
 const dictionary = {
@@ -878,6 +882,7 @@ router.all('/teachers', permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEA
 			});
 		});
 	});
+
 
 router.get('/teachers/:id/edit',
 	permissionsHelper.permissionsChecker(['ADMIN_VIEW', 'TEACHER_CREATE'], 'or'), (req, res, next) => {
@@ -1861,6 +1866,33 @@ router.all('/courses', function (req, res, next) {
 	});
 });
 
+/**
+ *  Teams
+ */
+
+getTeamFlags = (team) => {
+	const createdAtOwnSchool = '<i class="fa fa-building-o team-flags" data-toggle="tooltip" data-placement="top" title="An eigener Schule gegründetes Team"></i>';
+	const hasMembersOfOtherSchools = '<i class="fa fa-bus team-flags" data-toggle="tooltip" data-placement="top" title="Beinhaltet Schul-externe Mitglieder"></i>';
+	const hasOwner = '<i class="fa fa-briefcase team-flags" data-toggle="tooltip" data-placement="top" title="Team hat Eigentümer"></i>';
+
+	let combined = '';
+
+	if ( team.mySchool ) {
+		combined += createdAtOwnSchool;
+	}
+
+	if ( team.otherSchools ) {
+		combined += hasMembersOfOtherSchools;
+	}
+
+	if ( team.ownerExist ) {
+		combined += hasOwner;
+	}
+
+	return combined;
+}
+
+
 router.all('/teams', function (req, res, next) {
 
 	const itemsPerPage = (req.query.limit || 10);
@@ -1877,7 +1909,10 @@ router.all('/teams', function (req, res, next) {
 
 		const head = [
 			'Name',
-			'Klasse(n)',
+			'Mitglieder',
+			'Schule(n)',
+			'Erstellt am',
+			'',
 			''
 		];
 
@@ -1886,15 +1921,21 @@ router.all('/teams', function (req, res, next) {
 
 		Promise.all([
 			classesPromise,
-			usersPromise
+			usersPromise,
 		]).then(([classes, users]) => {
 			const body = data.map(item => {
 				return [
 					item.name,
-					(item.classIds || []).map(item => item.displayName).join(', '),
-					getTableActions(item, '/administration/teams/').map(action => {
+					item.membersTotal,
+					item.schools.length,
+					moment(item.createdAt).format('DD.MM.YYYY'),
+					{
+						useHTML: true,
+						content: getTeamFlags(item),
+					},
+					''/*getTableActions(item, '/administration/teams/').map(action => {
 						return action;
-					})
+					})*/
 				];
 			});
 

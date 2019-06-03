@@ -534,6 +534,7 @@ router.get('/:teamId/:tabName?', async (req, res, next) => {
 			qs: {
 				target: req.params.teamId,
 				$limit: 4,
+				$sort: { createdAt: -1 },
 			},
 		})).data;
 
@@ -1172,7 +1173,7 @@ router.get('/invitation/accept/:teamId', async (req, res, next) => {
 		})
 		.catch((err) => {
 			logger.warn(
-				`Fehler beim Annehmen einer Einladung, 
+				`Fehler beim Annehmen einer Einladung,
         der Nutzer hat nicht die Rechte oder ist schon Mitglied des Teams. `,
 				err,
 			);

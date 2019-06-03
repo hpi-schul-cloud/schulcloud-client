@@ -451,7 +451,7 @@ router.post('/file/:id/move', function (req, res) {
 });
 
 // create newFile
-router.post('/newFile', function (req, res, next) {
+router.post('/newFile', (req, res, next) => {
 	const { name, type, owner, parent, studentEdit } = req.body;
 
 	const fileName = name || 'Neue Datei';
@@ -463,8 +463,8 @@ router.post('/newFile', function (req, res, next) {
 			owner,
 			parent
 		}
-	}).then(() => {
-		res.sendStatus(200);
+	}).then((result) => {
+		res.send(result._id);
 	}).catch(err => {
 		res.status((err.statusCode || 500)).send(err);
 	});
