@@ -72,9 +72,27 @@ $(document).ready(() => {
 		const endDate = moment().add(1, 'hour').format('DD.MM.YYYY HH:mm');
 
 		$.datetimepicker.setLocale('de');
-		$('input[data-datetime]').datetimepicker({
+		$('#startDate').datetimepicker({
 			format: 'd.m.Y H:i',
 			mask: '39.19.9999 29:59',
+			onShow() {
+				this.setOptions({
+					minDate: 0,
+				});
+			},
+			onChangeDateTime(dp, $input) {
+				$input.closest('.modal').find('#endDate').val($input.val());
+			},
+		});
+
+		$('#endDate').datetimepicker({
+			format: 'd.m.Y H:i',
+			mask: '39.19.9999 29:59',
+			onShow() {
+				this.setOptions({
+					minDate: 0,
+				});
+			},
 		});
 
 		populateModalForm($createEventModal, {

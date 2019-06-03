@@ -9,23 +9,30 @@ router.use(authHelper.authChecker);
 
 router.post('/', (req, res, next) => {
 	const {
-		firstName, lastName, email, password,
-	} = req.body; // TODO: sanitize
-	const passwordNew = req.body.password_new;
+		firstName,
+		lastName,
+		email,
+		password,
+		passwordNew,
+	} = req.body;
+	const discoverable = !!req.body.discoverable;
 	return api(req).patch(`/accounts/${res.locals.currentPayload.accountId}`, {
 		json: {
 			password_verification: password,
 			password: passwordNew !== '' ? passwordNew : undefined,
-		},
-	}).then(() => api(req).patch(`/users/${res.locals.currentUser._id}`, {
-		json: {
-			firstName,
-			lastName,
-			email,
-		},
-	}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
-		res.redirect('/account/');
-	})).catch((err) => {
+		}
+	}).then(() => {
+		return api(req).patch(`/users/${res.locals.currentUser._id}`, {
+			json: {
+				firstName,
+				lastName,
+				email,
+				discoverable,
+			},
+		}).then(authHelper.populateCurrentUser.bind(this, req, res)).then(() => {
+			res.redirect('/account/');
+		});
+	}).catch((err) => {
 		res.render('account/settings', {
 			title: 'Dein Account',
 			notification: {
@@ -38,6 +45,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/', (req, res, next) => {
 	const isSSO = Boolean(res.locals.currentPayload.systemId);
+	const isDiscoverable = res.locals.currentUser.discoverable;
 	Promise.all([
 		api(req).get(`/oauth2/auth/sessions/consent/${res.locals.currentUser._id}`),
 		(process.env.NOTIFICATION_SERVICE_ENABLED ? api(req).get('/notification/devices') : null),
@@ -57,12 +65,14 @@ router.get('/', (req, res, next) => {
 			session,
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
+			isDiscoverable,
 		});
 	}).catch(() => {
 		res.render('account/settings', {
 			title: 'Dein Account',
 			userId: res.locals.currentUser._id,
 			sso: isSSO,
+			isDiscoverable,
 		});
 	});
 });
@@ -97,7 +107,8 @@ router.post('/preferences', (req, res, next) => {
 
 	return api(req).patch(`/users/${res.locals.currentUser._id}`, {
 		json: { [`preferences.${attribute.key}`]: attribute.value },
-	}).then(() => 'Präferenzen wurden aktualisiert!').catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
+	}).then(() => 'Präferenzen wurden aktualisiert!')
+		.catch(() => 'Es ist ein Fehler bei den Präferenzen aufgetreten!');
 });
 
 module.exports = router;
