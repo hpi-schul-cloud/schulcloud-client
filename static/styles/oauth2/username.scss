@@ -6,28 +6,28 @@ body {
 }
 
 .depseudo {
-  width: 170px;
-  height: 20px;
-  color: #fff;
   background-color: $primaryColor;
-  line-height: 1.25;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  user-select: none;
   border: 1px solid transparent;
-  padding: .125rem 0.25rem;
+  border-radius: .25rem;
+  color: $colorWhite;
+  font-family: 'PT Sans','Helvetica Neue',Helvetica,Arial,'sans-serif';
   font-size: 1rem;
-   border-radius: .25rem;
-  font-family: "PT Sans","Helvetica Neue",Helvetica,Arial,"sans-serif";
+  height: 20px;
+  line-height: 1.25;
+  padding: .125rem .25rem;
+  text-align: center;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 170px;
 }
 
 .cloud-logo {
+  background: $logoBackgroundTablet;
+  background-size: 28px 28px;
   display: inline-block;
-  width: 24px;
   height: 20px;
   margin-bottom: -6px;
   margin-right: .25rem;
-  background: $logoBackgroundTablet;
-  background-size: 28px 28px;
+  width: 24px;
 }
