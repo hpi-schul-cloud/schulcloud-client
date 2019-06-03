@@ -85,6 +85,7 @@ router.delete('/settings/device', (req, res, next) => {
 		res.sendStatus(200);
 	}).catch((err) => {
 		res.status((err.statusCode || 500)).send(err);
+	});
 });
 
 // revoke oauth2 session
