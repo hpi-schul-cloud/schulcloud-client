@@ -1,15 +1,19 @@
 @import '../../../theme/default/style';
 
+$primary_color: $primaryColor;
+$color_white: $colorWhite;
+$logo_background_tablet = $logoBackgroundTablet;
+
 body {
   margin: 0;
   padding: 0;
 }
 
 .depseudo {
-  background-color: $primaryColor;
+  background-color: $primary_color;
   border: 1px solid transparent;
   border-radius: .25rem;
-  color: $colorWhite;
+  color: $color_white;
   font-family: 'PT Sans','Helvetica Neue',Helvetica,Arial,'sans-serif';
   font-size: 1rem;
   height: 20px;
@@ -23,7 +27,7 @@ body {
 }
 
 .cloud-logo {
-  background: $logoBackgroundTablet;
+  background: $logo_background_tablet;
   background-size: 28px 28px;
   display: inline-block;
   height: 20px;
