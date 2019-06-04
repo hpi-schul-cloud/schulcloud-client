@@ -12,22 +12,27 @@ moment.locale('de');
 
 router.use(authHelper.authChecker);
 
-const createActions = (item, path) => [
-	{
-		link: `${path + item._id}/edit`,
-		class: 'btn-edit',
-		icon: 'edit',
-		method: 'GET',
-		alt: 'bearbeiten',
-	},
-	{
-		link: path + item._id,
-		class: 'btn-delete',
-		icon: 'trash-o',
-		method: 'DELETE',
-		alt: 'löschen',
-	},
-];
+const createActions = (item, path) => {
+	if (!item.permissions || (item.permissions && item.permissions.includes('edit'))) {
+		return [
+			{
+				link: `${path + item._id}/edit`,
+				class: 'btn-edit',
+				icon: 'edit',
+				method: 'GET',
+				alt: 'bearbeiten',
+			},
+			{
+				link: path + item._id,
+				class: 'btn-delete',
+				icon: 'trash-o',
+				method: 'DELETE',
+				alt: 'löschen',
+			},
+		];
+	}
+	return [];
+};
 
 const getActions = (isRSS, res, newsItem) => !isRSS
 	&& res.locals.currentUser.permissions.includes('SCHOOL_NEWS_EDIT')
