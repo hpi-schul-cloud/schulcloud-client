@@ -499,8 +499,30 @@ const getSendHelper = service => {
   };
 };
 
-const getCSVImportHandler = () => {
-  return async function(req, res, next) {
+const getCSVImportHandler = () =>
+  async function handler(req, res, next) {
+    const buildMessage = stats => {
+      const numberOfUsers = stats.users.successful + stats.users.failed;
+      return (
+        `${stats.users.successful} von ${numberOfUsers} ` +
+        `Nutzer${numberOfUsers > 1 ? "n" : ""} erfolgreich importiert ` +
+        `(${stats.users.created} erstellt, ${
+          stats.users.updated
+        } aktualisiert).`
+      );
+    };
+    const buildErrorMessage = stats => {
+      const whitelist = ["file", "user", "invitation", "class"];
+      let errorText = stats.errors
+        .filter(err => whitelist.includes(err.type))
+        .map(err => `${err.entity} (${err.message})`)
+        .join(", ");
+      if (errorText === "") {
+        errorText =
+          "Es ist ein unbekannter Fehler beim Importieren aufgetreten.";
+      }
+      return errorText;
+    };
     try {
       const csvData = decoder.write(req.file.buffer);
       const [stats] = await api(req).post("/sync/", {
@@ -514,31 +536,16 @@ const getCSVImportHandler = () => {
           data: csvData
         }
       });
-      const numberOfUsers = stats.users.successful + stats.users.failed;
-      if (stats.success) {
-        req.session.notification = {
-          type: "success",
-          message: `${stats.users.successful} von ${numberOfUsers} Nutzer${
-            numberOfUsers > 1 ? "n" : ""
-          } importiert.`
-        };
-      } else {
-        const whitelist = ["file", "user", "invitation", "class"];
-        let errorText = stats.errors
-          .filter(err => whitelist.includes(err.type))
-          .map(err => `${err.entity} (${err.message})`)
-          .join(", ");
-        if (errorText === "") {
-          errorText =
-            "Es ist ein unbekannter Fehler beim Importieren aufgetreten.";
-        }
-        req.session.notification = {
-          type: "warning",
-          message: `${stats.users.successful} von ${numberOfUsers} Nutzer${
-            numberOfUsers > 1 ? "n" : ""
-          } importiert. Fehler:\n\n${errorText}`
-        };
+      let messageType = "success";
+      let message = buildMessage(stats);
+      if (!stats.success) {
+        messageType = "warning";
+        message += ` Fehler:\n\n${buildErrorMessage(stats)}`;
       }
+      req.session.notification = {
+        type: messageType,
+        message
+      };
       res.redirect(req.header("Referer"));
       return;
     } catch (err) {
@@ -548,10 +555,8 @@ const getCSVImportHandler = () => {
           "Import fehlgeschlagen. Bitte überprüfe deine Eingabedaten und versuche es erneut."
       };
       res.redirect(req.header("Referer"));
-      return;
     }
   };
-};
 
 const dictionary = {
   open: "Offen",

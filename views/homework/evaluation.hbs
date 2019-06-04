@@ -47,9 +47,10 @@
                         <label>Bewertung <small>in Prozent</small></label>
                         <input type="number" min="0" max="100" class="form-control" name="grade" placeholder="95" value="{{this.submission.grade}}">
                     </div>
-                    {{#if this.submission.comment}}
+                    <!-- #Hidden because of feature discussion, until repair/remove
+					{#{if this.submission.comment}}
                         <button class="importsubmission btn btn-secondary btn-sm float-xs-right" data="{{this.submission._id}}">Abgabe des Schülers importieren</button>
-                    {{/if}}
+                    {{/if}} -->
                     <h6>Kommentar</h6>
                     <textarea id="evaluation {{this.submission._id}}" name="gradeComment" type="text" class="form-control customckeditor" placeholder="Bewertungskommentar">{{this.submission.gradeComment}}</textarea>
                 </div>
