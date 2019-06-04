@@ -23,15 +23,18 @@
     {{{news.content}}}
 </div>
 {{#unless isRSS}}
-{{#userHasPermission "SCHOOL_NEWS_EDIT"}}
 <div class="mt-1">
+    {{#inArray 'edit' ../permissions}}
     <a class="btn btn-primary btn-edit" href="/news/{{../news._id}}/edit" alt="Artikel '{{../news.title}}' bearbeiten.">
         Bearbeiten
     </a>
-    <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE" data-name="{{../news.title}}"
-        alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
+    {{/inArray}}
+    {{#inArray 'delete' ../permissions}}
+    <a class="btn btn-secondary btn-delete" href="/news/{{../news._id}}" target="_blank" data-method="DELETE"
+        data-name="{{../news.title}}" alt="Artikel '{{../news.title}}' löschen" redirect="/news/">
         Löschen
     </a>
+    {{/inArray}}
 </div>
 {{#embed "lib/components/modal" class="delete-modal" title="Bist du dir sicher?"}}
 {{#content "body"}}
@@ -45,7 +48,6 @@
 </div>
 {{/content}}
 {{/embed}}
-{{/userHasPermission}}
 {{/unless}}
 {{/content}}
 {{/extend}}
